@@ -28,12 +28,12 @@ export default props => (
 
 
         <menu className='menu-container' >
-            <span className='menu-item'>Products</span>
+            <span className='menu-item active-menu-item'>Products</span>
             <span className='menu-item'>Activity</span>
             <span className='menu-item'>Coupon</span>
-            <span className='menu-item'>Upsells</span>
-            <span className='menu-item'>Reports</span>
-            <span className='menu-item'>Affiliates</span>
+            <span className='menu-item locked-feature'>Upsells</span>
+            <span className='menu-item locked-feature'>Reports</span>
+            <span className='menu-item locked-feature'>Affiliates</span>
             <span className='menu-item'>Agency</span>
             <span className='menu-item'>Help</span>
         </menu>

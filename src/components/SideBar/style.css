@@ -1,5 +1,6 @@
 .side-bar{
-    width: 243px;
+    /* min-width: 243px; */
+    min-width: 194.4px;
     background:white;
     display: flex;
     flex-direction: column;
@@ -48,8 +49,10 @@
 
 /* new product button  */
 .btn{
+    font-size: smaller;
     border-radius: 3px;
-    padding: 20px;
+    /* padding: 20px; */
+    padding: 16px;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -66,7 +69,7 @@
 
 /* menu section */
 .menu-container{
-    margin: 40px;
+    margin: 32px;
     padding: 0px;
     display: flex;
     flex-direction: column;
@@ -75,9 +78,11 @@
 }
 .menu-item{
     font-weight: bold; 
-    line-height: 20px;
+    /* line-height: 20px; */
+    line-height: 16px;
+    font-size: small;
     color: #C9D3DC;
-    margin: 10px 0px;
+    margin: 8px 0px;
     cursor: pointer;
     transition: all 350ms ease-in-out;
 }
@@ -86,4 +91,27 @@
 }
 .active-menu-item{
     color: #2B3748;
+    position: relative;
 }
+.active-menu-item:before{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f111";
+    left: -30px;
+    color: #4DA1FF;
+}
+
+/* */
+.locked-feature{
+    position: relative;
+}
+.locked-feature:before{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f09c";
+    left: -30px;
+    color: #ff6347b5;
+}
+
