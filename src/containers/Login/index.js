@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 // eslint-disable-next-line
-import logo from 'assets/logo.svg';
+import logo from 'assets/images/logo.svg';
 import './styles.css';
 
-class LoginPage extends Component {
+class Login extends Component {
   render () {
     return (
       <div className='wrapper'>
@@ -35,4 +35,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default Login;
