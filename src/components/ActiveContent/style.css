@@ -1,3 +1,5 @@
 .active-content{
-    padding: 30px 20px 5px 30px;
+    /* padding: 30px 20px 5px 30px; */
+    padding: 15px 10px 5px 20px;
+    flex: 1;
 }
