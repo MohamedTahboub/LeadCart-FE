@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from 'assets/logo.svg';
+import logo from 'assets/images/logo.svg';
 import './styles.css';
 
-class SignUpPage extends Component {
+class SignUp extends Component {
   render () {
     return (
       <div className='wrapper'>
@@ -11,7 +11,7 @@ class SignUpPage extends Component {
             <img alt='' src={logo} />
           </div>
           <div className='logo-header'>
-            <h1>sign up</h1>
+            <h1>SIGN UP</h1>
           </div>
           <div className='logo-description'>
           Contact Information
@@ -32,4 +32,4 @@ class SignUpPage extends Component {
   }
 }
 
-export default SignUpPage;
+export default SignUp;
