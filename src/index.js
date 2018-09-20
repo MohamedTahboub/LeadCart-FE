@@ -15,7 +15,7 @@ import rootReducer from './reducers'
 
 // Container
 import Login from 'containers/Login'
-import App from 'containers/App'
+import Home from 'containers/Home'
 import registerServiceWorker from 'services/RegisterServiceWorker'
 
 // Styles
@@ -29,7 +29,7 @@ ReactDOM.render(
         {/* <ErrorBoundary> */}
             <BrowserRouter>
                 <Switch>
-                    <Route exact path='/' component={App} />
+                    <Route exact path='/' component={Home} />
                     <Route path='/login' component={Login} />
                 </Switch>
             </BrowserRouter>
