@@ -1,0 +1,89 @@
+.side-bar{
+    width: 243px;
+    background:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* avatar preview component*/
+.avatar-preview{
+    display:flex;
+    flex-direction: column;
+}
+.avatar-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 25px;
+} 
+.user-avatar{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+.user-name{
+    font-weight: bold;
+    line-height: 35px;
+    font-size: 15px;
+}
+.setting-short {
+    padding: 10px;
+    background: white;
+    border-radius: 50%;
+    margin-top: -25px;
+    margin-left: 41px;
+    color: #0080fa;
+    cursor: pointer;
+    transition: all 350ms ease-in-out;
+}
+.setting-short:hover{
+    box-shadow: 0px 0px 5px 0px #00000040;
+}
+
+/* avatar preview component ends*/
+
+
+/* new product button  */
+.btn{
+    border-radius: 3px;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn:hover{
+    box-shadow: 0px 0px 5px 0px #00000040;
+}
+.new-product-btn{
+    background: #FF7B7F;
+    
+}
+
+
+
+/* menu section */
+.menu-container{
+    margin: 40px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+.menu-item{
+    font-weight: bold; 
+    line-height: 20px;
+    color: #C9D3DC;
+    margin: 10px 0px;
+    cursor: pointer;
+    transition: all 350ms ease-in-out;
+}
+.menu-item:hover{
+    color: #2B3748;
+}
+.active-menu-item{
+    color: #2B3748;
+}

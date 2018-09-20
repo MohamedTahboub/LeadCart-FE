@@ -1,0 +1,81 @@
+.header{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* header Logo style */
+.header-logo{
+    background: #007AFF;
+    height: 100%;;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    min-width: 243px;
+}
+.logo-container{
+    position: relative;
+    margin: auto;
+
+}
+.logo-image{
+    height: 32px;
+}
+.logo-shadow{
+    position: absolute;
+    left: 0px;
+    top:7px;
+}
+.logo-position {
+    display: flex;
+}
+.business-name{
+    text-transform: uppercase;
+    margin: auto;
+    margin-left: 6px;
+    margin-top: 29px;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    line-height: 20px;
+}
+
+
+/* search bar*/
+
+.search-bar {
+    display: flex;
+}
+
+.search-lable {
+    color: #2B3748;
+    padding-left: 40px;
+    margin: auto;
+}
+.search-field{
+    position: relative;
+    justify-content: center;
+    margin: auto;
+    margin-left: 30px;
+}
+.search-field input::placeholder {
+    color: #C9D3DC;
+  }
+  .search-input-filed {
+    font-size: 15px;
+    border: none;
+    border-left: 1px solid #C9D3DC;
+    padding-left: 31px;
+    line-height: 20px;
+    outline-style: none;
+    color: #737d86;
+}
+.search-icon {
+    color: #C9D3DC;
+    position: absolute;
+    top: 25%;
+    left: 8px;
+}
