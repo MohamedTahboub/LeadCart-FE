@@ -1,8 +1,9 @@
 *{
     font-family: 'Poppins',sans-serif;
 }
+
 body{
-    padding-top: 20%;
+    padding-top: 18%;
 
 }
 
@@ -25,22 +26,22 @@ body{
     top: -450px;
     position: fixed;
     z-index: -1;
-    left: -66%;
+    left: -64%;
 }
-
 
 .logo-header h1{
 font-size: 34px;
 color:#2B3748;
 text-transform: uppercase;
 text-align: center;
+margin: 0 auto;
 }
 
 .logo-description{
     font-size: 15px;
     color:#2B3748;
     text-align: center;
-    width: 80%;
+    width: 307px;
     margin: 0 auto;
 }
 
@@ -54,28 +55,42 @@ text-align: center;
 .form-input{
     width: 100%;
     position: relative;
+    box-sizing: border-box;
 
 }
 .form-input input{
     border:none;
-    box-sizing: border-box;
     border-bottom:1px solid #BCC9D6;
     padding:14px 14px;
-    margin: 28px 0px;
+    margin: 18px 0px;
     outline: none;
     background: transparent;
     width: 100%;
 
 }
-.form-input.email:before{
-    content:'email';
+.form-input.name:before{
+    content:'name';
     position: absolute;
     font-size: 8px;
     color: #717C8A;
     top:22px;
 }
-.form-input.password:before{
-    content:'password' ;
+.form-input.email:before{
+    content:'email' ;
+    position: absolute;
+    font-size: 8px;
+    color: #717C8A;
+    top:22px;
+}
+.form-input.company:before{
+    content:'company';
+    position: absolute;
+    font-size: 8px;
+    color: #717C8A;
+    top:22px;
+}
+.form-input.subdomain:before{
+    content:'subdomain' ;
     position: absolute;
     font-size: 8px;
     color: #717C8A;
@@ -83,7 +98,7 @@ text-align: center;
 }
 
 .form-submit{
-    background: #FFF;
+    background: #4DA1FF;
     box-shadow: 0 2px 9px rgba(0, 0, 0, 0.05);
     border: none;
     border-radius: 3px;
@@ -92,13 +107,14 @@ text-align: center;
     font-weight: bold;
     outline: none;
     width: 222px;
+    color:#FFF;
 }
 
 .form-submit:after{
     content: '\2192';
-    color:#4DA1FF;
+    color:#FFF;
     font-size:20px;
-    padding-left: 10px;
+    margin-left: 30%;
 }
 
 .form-forget-password{
@@ -122,7 +138,6 @@ footer {
     padding: 18px 0;
     align-items: center;
     justify-content: center;
-  
 }
 
 .logo{

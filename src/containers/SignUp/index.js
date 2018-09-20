@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-// eslint-disable-next-line
 import logo from 'assets/logo.svg';
 import './styles.css';
 
-class LoginPage extends Component {
+class SignUpPage extends Component {
   render () {
     return (
       <div className='wrapper'>
@@ -12,27 +11,25 @@ class LoginPage extends Component {
             <img alt='' src={logo} />
           </div>
           <div className='logo-header'>
-            <h1>sign in</h1>
+            <h1>sign up</h1>
           </div>
           <div className='logo-description'>
-            Hello there! Sign in and start managing your products
+          Contact Information
           </div>
         </div>
         <div className='form-container'>
+          <div className='form-input name'><input /></div>
           <div className='form-input email'><input /></div>
-          <div className='form-input password'><input /></div>
-          <button type='submit' className='form-submit'>sign in now</button>
-          <div className='form-forget-password'>
-            <span>forget password?</span>
-            <span> Reset</span>
-          </div>
+          <div className='form-input company'><input /></div>
+          <div className='form-input subdomain'><input /></div>
+          <button type='submit' className='form-submit'>next</button>
         </div>
         <footer>
-          © LeadCart. All rights reserved 2018
+        © LeadCart. All rights reserved 2018
         </footer>
       </div>
     );
   }
 }
 
-export default LoginPage;
+export default SignUpPage;

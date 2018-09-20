@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import logo from 'assets/logo.svg';
 import './styles.css';
 
-class LoginPage extends Component {
+class ForgetPassword extends Component {
   render () {
     return (
       <div className='wrapper'>
@@ -12,20 +12,16 @@ class LoginPage extends Component {
             <img alt='' src={logo} />
           </div>
           <div className='logo-header'>
-            <h1>sign in</h1>
+            <h1>recovery password</h1>
           </div>
           <div className='logo-description'>
-            Hello there! Sign in and start managing your products
+            If you forget or lost your password,receive recovery link on email
           </div>
         </div>
         <div className='form-container'>
           <div className='form-input email'><input /></div>
-          <div className='form-input password'><input /></div>
-          <button type='submit' className='form-submit'>sign in now</button>
-          <div className='form-forget-password'>
-            <span>forget password?</span>
-            <span> Reset</span>
-          </div>
+          <button type='submit' className='form-submit'>send</button>
+
         </div>
         <footer>
           © LeadCart. All rights reserved 2018
@@ -35,4 +31,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default ForgetPassword;

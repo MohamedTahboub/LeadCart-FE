@@ -12,10 +12,13 @@ body{
     /* grid-template-rows: 50px 50px 50px; */
     justify-content: center;
     align-items: center;
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 5% auto;
 }
 
+.wrapper >div{
+    margin :2%;
+}
 .wrapper:before {
     content: '';
     width: 1500px;
@@ -55,6 +58,7 @@ text-align: center;
     width: 100%;
     position: relative;
 
+
 }
 .form-input input{
     border:none;
@@ -64,18 +68,11 @@ text-align: center;
     margin: 28px 0px;
     outline: none;
     background: transparent;
-    width: 100%;
+    width: 80%;
 
 }
 .form-input.email:before{
     content:'email';
-    position: absolute;
-    font-size: 8px;
-    color: #717C8A;
-    top:22px;
-}
-.form-input.password:before{
-    content:'password' ;
     position: absolute;
     font-size: 8px;
     color: #717C8A;
@@ -92,6 +89,7 @@ text-align: center;
     font-weight: bold;
     outline: none;
     width: 222px;
+    color: black;
 }
 
 .form-submit:after{
