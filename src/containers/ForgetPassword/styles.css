@@ -17,7 +17,7 @@ body{
 }
 
 .wrapper >div{
-    margin :2%;
+    margin :5%;
 }
 .wrapper:before {
     content: '';
@@ -57,6 +57,7 @@ text-align: center;
 .form-input{
     width: 100%;
     position: relative;
+
 
 
 }
@@ -101,7 +102,6 @@ text-align: center;
 
 .form-forget-password{
     color: #c9D0Dc;
-    margin-top: 28px;
 }
 
 .form-forget-password span:last-child{
@@ -134,5 +134,4 @@ footer {
     max-height: 100%;
     width: 40%;
     box-sizing: border-box;
-    margin: auto;
 }
