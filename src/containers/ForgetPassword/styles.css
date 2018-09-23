@@ -1,44 +1,46 @@
-*{
-    font-family: 'Poppins',sans-serif;
-}
-body{
-    padding-top: 20%;
-
-}
 
 .wrapper{
-    display: grid;
-    /* grid-template-columns: 505px; */
-    /* grid-template-rows: 50px 50px 50px; */
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin: 5% auto;
-}
-
-.wrapper >div{
-    margin :5%;
-}
-.wrapper:before {
-    content: '';
-    width: 1500px;
-    height: 1500px;
-    background: #F9FAFB;
-    border-radius: 50%;
-    top: -450px;
-    position: fixed;
-    z-index: -1;
-    left: -66%;
+    height:100vh;
+    justify-content: center;
+    max-width: 505px;
+    margin: 0 auto;
+    padding-top: 20px;
 }
 
 
-.logo-header h1{
-font-size: 34px;
-color:#2B3748;
-text-transform: uppercase;
-text-align: center;
+.logo-container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+
+}
+.form-logo-image{
+    height: 70.4px;
+    width:  70.4px;
 }
 
+.form-logo-shadow{
+    top: -52px;
+    position: relative;
+}
+.logo-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-header-title{
+    font-size: 34px;
+    text-transform: uppercase;
+    color: #2B3748;
+    align-content: center;
+    justify-content: center;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
 .logo-description{
     font-size: 15px;
     color:#2B3748;
@@ -46,6 +48,7 @@ text-align: center;
     width: 80%;
     margin: 0 auto;
 }
+
 
 .form-container{
     display:flex;
@@ -90,12 +93,15 @@ text-align: center;
     font-weight: bold;
     outline: none;
     width: 222px;
-    color: black;
+    color: #FFF;
+    background: #4DA1FF;
+box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.05);
+border-radius: 3px;
 }
 
 .form-submit:after{
     content: '\2192';
-    color:#4DA1FF;
+    color:#FFF;
     font-size:20px;
     padding-left: 10px;
 }
