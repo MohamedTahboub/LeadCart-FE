@@ -13,9 +13,10 @@ import 'config';
 // import ErrorBoundary from 'components/ErrorBoundary'
 
 // Container
-import Login from 'containers/Login';
+// import Login from 'containers/Login';
 // import SignUp from 'containers/SignUp';
-// import ForgetPassword from 'containers/ForgetPassword';
+// import CreditCardForm from 'containers/CreditCardForm';
+import ForgetPassword from 'containers/ForgetPassword';
 // import Home from 'containers/Home';
 import registerServiceWorker from 'services/RegisterServiceWorker';
 import rootReducer from './reducers';
@@ -32,9 +33,10 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         {/* <Route exact path='/' component={Home} /> */}
-        <Route path='/login' component={Login} />
-        {/* <Route path='/register' component={SignUp} />
-        <Route path='/forget' component={ForgetPassword} /> */}
+        {/* <Route path='/login' component={Login} /> */}
+        {/* <Route path='/register' component={SignUp} /> */}
+        {/* <Route path='/credit' component={CreditCardForm} /> */}
+        <Route path='/forget' component={ForgetPassword} />
       </Switch>
     </BrowserRouter>
     {/* </ErrorBoundary> */}
