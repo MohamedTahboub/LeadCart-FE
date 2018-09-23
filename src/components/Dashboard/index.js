@@ -1,7 +1,10 @@
 import React from 'react';
-import {LineChart} from 'components/LeadCartCharts'
-
+import { LineChart } from 'components/LeadCartCharts'
+import Menu from 'components/common/MainMenu'
+import InsightBadge from 'components/common/InsightBadge'
 import './style.css'
+
+
 
 export default props => (
     <div className='dashboard-page'>
@@ -9,21 +12,20 @@ export default props => (
             <span className='head-title'>Sales Overview</span>
             <span className='sub-title'>Dashboard</span>
         </div>
-
         <div className='dashboar-content-holder'>
             <div className='dashboard-sidebar'>
                 <span className='btn btn-primary'>Gross Sales</span>
-                <menu className='menu-container' >
-                    <span className='menu-item'>Profit</span>
-                    <span className='menu-item'>LTV</span>
-                    <span className='menu-item'>Refunds</span>
-                    <span className='menu-item'>Orders</span>
-                    <span className='menu-item'>Page Views</span>
-                    <span className='menu-item'>Conversion Rate</span>
-                    <span className='menu-item'>Monthly Recurring Revenue</span>
-                    <span className='menu-item'>Active Subsicriptions</span>
-                    <span className='menu-item'>Churn Rate</span>
-                </menu>
+                <Menu>
+                    <Menu.Link>Profit</Menu.Link>
+                    <Menu.Link>LTV</Menu.Link>
+                    <Menu.Link>Refunds</Menu.Link>
+                    <Menu.Link>Orders</Menu.Link>
+                    <Menu.Link>Page Views</Menu.Link>
+                    <Menu.Link>Conversion Rate</Menu.Link>
+                    <Menu.Link>Monthly Recurring Revenue</Menu.Link>
+                    <Menu.Link>Active Subsicriptions</Menu.Link>
+                    <Menu.Link>Churn Rate</Menu.Link>
+                </Menu>
             </div>
             {/* Chart previews section*/}
             <div className='dashboard-content'>
@@ -59,46 +61,10 @@ export default props => (
 
                 {/* overview insights section*/}
                 <div className='overview-insights-container'>
-                    <div className='insight-box section-box'>
-                        <div className='insight-details'>
-                            <span className='insight-title'>page views</span>
-                            <span className='insight-value'>1579</span>
-                        </div>
-                        <span className='insight-icon'>
-                            <i className="fas fa-eye"></i>
-                        </span>
-                    </div>
-
-                    <div className='insight-box section-box'>
-                        <div className='insight-details'>
-                            <span className='insight-title'>active subscriptions</span>
-                            <span className='insight-value'>37</span>
-                        </div>
-                        <span className='insight-icon'>
-                            <i className="fas fa-user"></i>
-                        </span>
-                    </div>
-
-                    <div className='insight-box section-box'>
-                        <div className='insight-details'>
-                            <span className='insight-title'>open payments</span>
-                            <span className='insight-value'>$4500.00</span>
-                        </div>
-                        <span className='insight-icon'>
-                            <i className="fas fa-wallet"></i>
-                        </span>
-                    </div>
-
-                    <div className='insight-box section-box'>
-                        <div className='insight-details'>
-                            <span className='insight-title'>open invoices</span>
-                            <span className='insight-value'>5</span>
-                        </div>
-                        <span className='insight-icon'>
-                            <i className="fas fa-file-invoice-dollar"></i>
-                        </span>
-                    </div>
-
+                    <InsightBadge title={'page views'} value={1579} icon={<i className="fas fa-eye"></i>} />
+                    <InsightBadge title={'active subscriptions'} value={37} icon={<i className="fas fa-user"></i>} />
+                    <InsightBadge title={'open payments'} value={'$4500.00'} icon={<i className="fas fa-wallet"></i>} />
+                    <InsightBadge title={'open invoices<'} value={5} icon={<i className="fas fa-file-invoice-dollar"></i>} />
                 </div>
             </div>
         </div>
