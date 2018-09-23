@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from 'assets/logo.svg';
+import logo from 'assets/images/logo.svg';
 import amex from 'assets/companyPaymentLogos/amex.svg';
 import discover from 'assets/companyPaymentLogos/discover.svg';
 import mc from 'assets/companyPaymentLogos/mc.svg';

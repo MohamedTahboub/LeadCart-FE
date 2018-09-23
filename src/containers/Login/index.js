@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 // eslint-disable-next-line
-import logo from 'assets/logo.svg';
+import { FormLogo } from 'components/common/logos';
 import './styles.css';
 
-class LoginPage extends Component {
+class Login extends Component {
   render () {
     return (
       <div className='wrapper'>
-        <div className='logo-container'>
-          <div className='logo'>
-            <img alt='' src={logo} />
-          </div>
-          <div className='logo-header'>
-            <h1>sign in</h1>
-          </div>
+        <FormLogo />
+        <div className='logo-header'>
+          <span className='login-header-title'>sign in</span>
           <div className='logo-description'>
             Hello there! Sign in and start managing your products
           </div>
@@ -35,4 +31,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default Login;

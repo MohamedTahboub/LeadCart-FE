@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // eslint-disable-next-line
-import logo from 'assets/logo.svg';
+import logo from 'assets/images/logo.svg'
 import './styles.css';
 
 class ForgetPassword extends Component {
