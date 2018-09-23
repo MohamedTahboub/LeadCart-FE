@@ -1,8 +1,4 @@
 
-*{
-    box-sizing: border-box;
-
-}
 .wrapper{
     display: flex;
     flex-direction: column;
@@ -25,7 +21,6 @@
 .form-logo-image{
     height: 70.4px;
     width:  70.4px;
-    z-index: 2;
 }
 
 .form-logo-shadow{
@@ -62,7 +57,6 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: 20px;
 }
 .form-input{
     min-width: 250px;
@@ -138,40 +132,3 @@ footer {
     position: absolute;
     bottom: 58px;
 }
-/* 
-body{
-    padding-top: 20%;
-
-}
-
-
-.logo-header h1{
-font-size: 34px;
-color:#2B3748;
-text-transform: uppercase;
-text-align: center;
-}
-
-.logo-description{
-    font-size: 15px;
-    color:#2B3748;
-    text-align: center;
-    width: 80%;
-    margin: 0 auto;
-}
-
-
-
-.logo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-.logo img{
-    max-width: 100%;
-    max-height: 100%;
-    width: 40%;
-    box-sizing: border-box;
-    margin: auto;
-} */
