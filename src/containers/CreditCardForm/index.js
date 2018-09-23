@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from 'assets/images/logo.svg';
 import amex from 'assets/companyPaymentLogos/amex.svg';
 import discover from 'assets/companyPaymentLogos/discover.svg';
 import mc from 'assets/companyPaymentLogos/mc.svg';
@@ -10,33 +9,24 @@ class CreditCardForm extends Component {
   render () {
     return (
       <div className='wrapper'>
-        <div className='logo-container'>
-          <div className='logo'>
-            <img alt='' src={logo} />
-          </div>
-          <div className='logo-header'>
-            <h1>sign up</h1>
-          </div>
+        <div className='promo-container'>
+          <span className='promo-title'>
+          Promo Code
+          </span>
+          <p className='promo-description'>The code will be aplied to the account </p>
+          <input className='promo-input' type='password' />
+        </div>
+        <div className='logo-header'>
+          <span className='login-header-title'>sign up</span>
           <div className='logo-description'>
-          Payment Information
+                Payment Information
           </div>
           <div className='payment-logs'>
-            <div>
-              <img alt='' src={visa} />
+            <img alt='' src={visa} />
+            <img alt='' src={mc} />
+            <img alt='' src={discover} />
+            <img alt='' src={amex} />
 
-            </div>
-            <div>
-              <img alt='' src={mc} />
-
-            </div>
-            <div>
-              <img alt='' src={discover} />
-
-            </div>
-            <div>
-              <img alt='' src={amex} />
-
-            </div>
           </div>
         </div>
         <div className='form-container'>
