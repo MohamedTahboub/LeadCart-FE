@@ -64,7 +64,7 @@ export default props => (
                     <InsightBadge title={'page views'} value={1579} icon={<i className="fas fa-eye"></i>} />
                     <InsightBadge title={'active subscriptions'} value={37} icon={<i className="fas fa-user"></i>} />
                     <InsightBadge title={'open payments'} value={'$4500.00'} icon={<i className="fas fa-wallet"></i>} />
-                    <InsightBadge title={'open invoices<'} value={5} icon={<i className="fas fa-file-invoice-dollar"></i>} />
+                    <InsightBadge title={'open invoices'} value={5} icon={<i className="fas fa-file-invoice-dollar"></i>} />
                 </div>
             </div>
         </div>
