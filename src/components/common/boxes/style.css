@@ -1,0 +1,12 @@
+.box-container{
+    background: white;
+    padding: 15px 20px 46px 20px;
+}
+.main-title {
+    text-transform: capitalize;
+    font-size: 25px;
+    color: #2B3748;
+    font-weight: normal;
+    margin: 15px 0px;
+    display: block;
+}
