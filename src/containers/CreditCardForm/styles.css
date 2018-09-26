@@ -1,159 +1,90 @@
-*{
-    font-family: 'Poppins',sans-serif;
-}
 
-body{
-    padding-top: 18%;
-
-}
-
-.wrapper{
-    display: grid;
-    /* grid-template-columns: 505px; */
-    /* grid-template-rows: 50px 50px 50px; */
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
-}
-
-.wrapper:before {
-    content: '';
-    width: 1500px;
-    height: 1500px;
-    background: #F9FAFB;
-    border-radius: 50%;
-    top: -450px;
-    position: fixed;
-    z-index: -1;
-    left: -64%;
-}
-
-.logo-header h1{
-font-size: 34px;
-color:#2B3748;
-text-transform: uppercase;
-text-align: center;
-margin: 0 auto;
-}
-
-.logo-description{
-    font-size: 15px;
-    color:#2B3748;
-    text-align: center;
-    width: 307px;
-    margin: 0 auto;
-}
-
-.form-container{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    /* padding: 1]; */
-}
-.form-input{
+.promo-container{
     display: flex;
-    width: 100%;
-    box-sizing: border-box;
-
+    flex-direction: column;
+    margin: -30px 0px 50px 0px;
+}
+.promo-input{
+background: rgba(188, 201, 214, 0.1);
+border: 0.5px solid rgba(201, 211, 220, 0.589);
+left: 41.04%;
+right: 41.04%;
+top: 26.02%;
+bottom: 69.81%;
+outline-style: none;
+height: 28px;
+width: 277px;
+/* margin: 40px; */
+padding: 0;
 }
 
-.form-input input{
-    border:none;
-    border-bottom:1px solid #BCC9D6;
-    /* padding:14px 14px;
-    margin: 18px 0px; */
-    outline: none;
-    background: transparent;
-    width: 70%;
+.promo-title{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 41px;
+    font-size: 27.2px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #2B3748;
+}
+.promo-description{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 20px;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: -0.016em;
+    color: #2B3748;
+}
 
+
+.payment-logs img {
+    margin: 18px 40px;
+    height: 50px;
+    width: auto;
 }
 
 .form-input.credit-card:before{
     content:'Credit card number';
     position: absolute;
-    font-size: 8px;
+    font-size: 9px;
+    left: 20px;
+    top: 0px;
     color: #717C8A;
-    top:22px;
 }
 .form-input.date:before{
     content:'Month / Year' ;
     position: absolute;
-    font-size: 8px;
+    font-size: 9px;
+    left: 20px;
+    top: 0px;
     color: #717C8A;
-    top:22px;
 }
 .form-input.cvv:before{
     content:'CVV';
     position: absolute;
-    font-size: 8px;
+    font-size: 9px;
+    left: 20px;
+    top: 0px;
     color: #717C8A;
-    top:22px;
 }
 
-
-.form-submit{
-    background: #4DA1FF;
-    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.05);
-    border: none;
-    border-radius: 3px;
-    padding: 14px 21px;
-    cursor: pointer;
-    font-weight: bold;
-    outline: none;
-    width: 222px;
-    color:#FFF;
+.payment-logs img:nth-last-child(4) {
+    margin-left: 53px;
+    height: 67px;
+    margin: 20px 30px;
+    width: 84px;
 }
 
-.form-submit:after{
-    content: '\2192';
-    color:#FFF;
-    font-size:20px;
-    margin-left: 30%;
-}
-
-.form-forget-password{
-    color: #c9D0Dc;
-    margin-top: 28px;
-}
-
-.form-forget-password span:last-child{
-    color: #32354B;
-    cursor: pointer;
-}
-
-footer {
-    user-select: none;
-    width: 100%;
-    text-align: center;
-    justify-self: center;
-    font-size: 15px;
-    color: #C9D3DC;
-    display: flex;
-    padding: 18px 0;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-.logo img{
-    max-width: 100%;
-    max-height: 100%;
-    width: 40%;
-    box-sizing: border-box;
-    margin: auto;
-}
-.payment-logs{
+.payment-logs {
+    display: -ms-flexbox;
     display: flex;
     flex-direction: row;
     padding: 0 -15px;
+    align-items: center;
+    padding-bottom: 30px;
 }
 .payment-logs div{
     display: flex;
@@ -163,5 +94,10 @@ footer {
 }
 .form-row{
     display: flex;
+    width: 80%;z
     flex-direction: row;
+}
+.signup-btn {
+    margin-top: 30px !important;
+    background: #17C671 !important;
 }

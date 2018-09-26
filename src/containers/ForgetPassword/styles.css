@@ -1,51 +1,59 @@
-*{
-    font-family: 'Poppins',sans-serif;
+/* div#root {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
 }
-body{
-    padding-top: 20%;
-
-}
-
 .wrapper{
-    display: grid;
-    /* grid-template-columns: 505px; */
-    /* grid-template-rows: 50px 50px 50px; */
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin: 5% auto;
-}
-
-.wrapper >div{
-    margin :2%;
-}
-.wrapper:before {
-    content: '';
-    width: 1500px;
-    height: 1500px;
-    background: #F9FAFB;
-    border-radius: 50%;
-    top: -450px;
-    position: fixed;
-    z-index: -1;
-    left: -66%;
+    justify-content: center;
+    max-width: 505px;
+    margin: 0 auto;
+    height: 100%;
+    padding-top: 20px;
+    box-sizing: border-box;
 }
 
 
-.logo-header h1{
-font-size: 34px;
-color:#2B3748;
-text-transform: uppercase;
-text-align: center;
-}
+.logo-container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
 
+}
+*/
+
+/*
+.form-logo-shadow{
+    bottom: 39px;
+    position: relative;
+}
+.logo-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-header-title{
+    font-size: 27.2px;
+    text-transform: uppercase;
+    color: #2B3748;
+    align-content: center;
+    justify-content: center;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
 .logo-description{
-    font-size: 15px;
+    font-size: 12px;
     color:#2B3748;
     text-align: center;
-    width: 80%;
+    width: 277px;
     margin: 0 auto;
 }
+
 
 .form-container{
     display:flex;
@@ -55,72 +63,34 @@ text-align: center;
     width: 100%;
 }
 .form-input{
-    width: 100%;
+    width: 80%;
     position: relative;
 
 
-}
-.form-input input{
-    border:none;
-    box-sizing: border-box;
-    border-bottom:1px solid #BCC9D6;
-    padding:14px 14px;
-    margin: 28px 0px;
-    outline: none;
-    background: transparent;
-    width: 80%;
 
 }
-.form-input.email:before{
-    content:'email';
-    position: absolute;
-    font-size: 8px;
-    color: #717C8A;
-    top:22px;
-}
 
-.form-submit{
-    background: #FFF;
-    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.05);
-    border: none;
-    border-radius: 3px;
-    padding: 14px 21px;
-    cursor: pointer;
-    font-weight: bold;
-    outline: none;
-    width: 222px;
-    color: black;
-}
-
-.form-submit:after{
-    content: '\2192';
-    color:#4DA1FF;
-    font-size:20px;
-    padding-left: 10px;
-}
 
 .form-forget-password{
     color: #c9D0Dc;
-    margin-top: 28px;
 }
 
 .form-forget-password span:last-child{
     color: #32354B;
     cursor: pointer;
 }
-
 footer {
+    position: absolute;
+    bottom: 0px;
     user-select: none;
     width: 100%;
     text-align: center;
     justify-self: center;
-    font-size: 15px;
+    font-size: 13px;
     color: #C9D3DC;
-    display: flex;
-    padding: 18px 0;
+    display: -ms-flexbox;
     align-items: center;
     justify-content: center;
-  
 }
 
 .logo{
@@ -134,5 +104,4 @@ footer {
     max-height: 100%;
     width: 40%;
     box-sizing: border-box;
-    margin: auto;
-}
+} */

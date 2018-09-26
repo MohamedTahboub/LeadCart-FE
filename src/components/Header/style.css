@@ -16,10 +16,9 @@
     /* min-width: 243px; */
     min-width: 194.4px;
 }
-.logo-container{
+.logo-position .logo-container{
     position: relative;
     margin: auto;
-
 }
 .logo-image{
     height: 32px;
