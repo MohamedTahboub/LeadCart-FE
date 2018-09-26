@@ -1,0 +1,38 @@
+.products-controls-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.share-btn {
+    background: #4DA1FF;
+}
+.btn.share-btn i {
+    margin: 0px 5px;
+}
+.save-changes-btn{
+    background:#17C671;
+}
+
+
+
+/* Products nav bar*/
+.product-details-nav {
+    margin-top: 20px;
+    padding: 16px 0px;
+    border-bottom: 1.2px solid #C9D3DC;
+}
+span.nav-link {
+    font-size: 15px;
+    margin-right: 25px;
+    color: #2B3748;
+    cursor: pointer;
+    padding-bottom: 15px;
+    transition:all 150ms ease-in-out;
+}
+.nav-link:hover{
+    border-bottom: 2px solid rgba(114, 174, 235, 0.623);
+}
+.active-nav-link{
+    border-bottom: 2px solid #4DA1FF;
+}
+/* Products nav bar ends*/
