@@ -1,160 +1,55 @@
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 505px;
-    margin: 0 auto;
-    padding-top: 18px;
+
+.form-submit {
+    margin-top: 40px;
 }
 
-
-
-
-.logo-container{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    max-height: 108px;
-    
-}
-
-.form-logo-image{
-    height: 70.4px;
-    width:  70.4px;
-    z-index: 2;
-}
-
-.form-logo-shadow{
-    top: -52px;
-    position: relative;
-}
-
-.logo-header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.login-header-title{
-    font-size: 34px;
-    text-transform: uppercase;
-    color: #2B3748;
-    align-content: center;
-    justify-content: center;
-    font-weight: bold;
-    padding-bottom: 4px;
-}
-.logo-description{
-    font-size: 15px;
-    color:#2B3748;
-    text-align: center;
-    margin: 0 auto;
-}
-
-
-
-.form-container{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-.form-input{
-    min-width: 250px;
-    width: 80%;
-    position: relative;
-
-}   
-.form-input input{
-    border:none;
-    border-bottom:1px solid #BCC9D6;
-    padding: 14px 14px;
-    margin: 18px 0px;
-    outline: none;
-    background: transparent;
-    width:100%;
-}
 .form-input.name:before{
     content:'name';
     position: absolute;
-    font-size: 8px;
+    font-size: 9px;
+    text-transform: capitalize;
     color: #717C8A;
+    margin-left: 15px;
     top:22px;
 }
-.form-input.email:before{
-    content:'email' ;
-    position: absolute;
-    font-size: 8px;
-    color: #717C8A;
-    top:22px;
-}
+
 .form-input.company:before{
     content:'company';
     position: absolute;
-    font-size: 8px;
+    font-size: 9px;
+    text-transform: capitalize;
     color: #717C8A;
+    margin-left: 15px;
     top:22px;
 }
 .form-input.subdomain:before{
     content:'subdomain' ;
     position: absolute;
-    font-size: 8px;
+    margin-left: 15px;
+    font-size: 9px;
+    text-transform: capitalize;
     color: #717C8A;
     top:22px;
 }
 
-.form-submit{
-    background: #4DA1FF;
-    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.05);
-    border: none;
-    border-radius: 3px;
-    padding: 14px 21px;
-    cursor: pointer;
-    font-weight: bold;
-    outline: none;
-    width: 222px;
-    color:#FFF;
-}
 
-.form-submit:after{
-    content: '\2192';
-    color:#FFF;
-    font-size:20px;
-    margin-left: 30%;
-}
-
-.form-forget-password{
-    color: #c9D0Dc;
-    margin-top: 28px;
-}
-
-.form-forget-password span:last-child{
-    color: #32354B;
-    cursor: pointer;
-}
-
-footer {
-    user-select: none;
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    color: #C9D3DC;
-    padding: 18px 0;
-    position: absolute;
-    bottom: 13px;
-}
 
 .subdomain {
     display:flex;
+    width: 80%;
     align-items: center;
 
 }
 .subdomain span {
     background: #4DA1FF;
     color: white;
-    padding: 10px 10px;
-    /* border: .5px; */
+    padding: 0px 37px;
+    display: flex;
+    font-size: 13px;
+    height: 100%;
+    height: 38px;
+    justify-content: center;
+    align-items: center;
 }
 
 .leadcart-user{
@@ -163,11 +58,11 @@ footer {
     margin: 18px 0px;
     outline: none;
     background: transparent;
-    width:100%;
+    height: 38px;
     min-width: 250px;
     width: 80%;
     position: relative;
     background: rgba(188, 201, 214, 0.1);
-border: 0.5px solid #C9D3DC;
-box-sizing: border-box;
-}
+    border: 0.5px solid #C9D3DC;
+    box-sizing: border-box;
+} 

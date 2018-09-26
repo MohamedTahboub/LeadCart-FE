@@ -31,7 +31,7 @@ class CreditCardForm extends Component {
         </div>
         <div className='form-container'>
           <div
-            className='form-input credit-card' style={{ width: '100%' }}
+            className='form-input credit-card'
           >
             <input />
 
@@ -40,7 +40,7 @@ class CreditCardForm extends Component {
             <div className='form-input date'><input /></div>
             <div className='form-input cvv'><input /></div>
           </div>
-          <button type='submit' className='form-submit'>sign up</button>
+          <button type='submit' className='form-submit signup-btn'>sign up</button>
         </div>
         <footer>
         © LeadCart. All rights reserved 2018

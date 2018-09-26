@@ -15,10 +15,9 @@
     align-content: center;
     min-width: 243px;
 }
-.logo-container{
+.logo-position .logo-container{
     position: relative;
     margin: auto;
-
 }
 .logo-image{
     height: 32px;
