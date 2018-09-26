@@ -13,7 +13,8 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    min-width: 243px;
+    /* min-width: 243px; */
+    min-width: 194.4px;
 }
 .logo-container{
     position: relative;
