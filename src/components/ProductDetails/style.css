@@ -24,15 +24,17 @@
 span.nav-link {
     font-size: 15px;
     margin-right: 25px;
-    color: #2B3748;
+    color: rgb(157, 168, 179);
     cursor: pointer;
     padding-bottom: 15px;
-    transition:all 150ms ease-in-out;
+    transition:all 100ms ease-in-out;
 }
 .nav-link:hover{
+    color: rgba(43, 55, 72, 0.698);
     border-bottom: 2px solid rgba(114, 174, 235, 0.623);
 }
 .active-nav-link{
+    color: #2B3748 !important;
     border-bottom: 2px solid #4DA1FF;
 }
 /* Products nav bar ends*/
