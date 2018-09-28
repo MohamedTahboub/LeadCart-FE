@@ -6,8 +6,8 @@ import logo1 from 'assets/images/logo-1.png'
 
 export const Logo = props => (
     <span className='logo-container'>
-        <img src={logo} className='logo-image'  alt='logo'/>
-        <img src={logo1} className='logo-image logo-shadow' alt='logo shadow'/>
+        <img src={logo} className='logo-image' alt='logo' />
+        <img src={logo1} className='logo-image logo-shadow' alt='logo shadow' />
     </span>
 )
 
