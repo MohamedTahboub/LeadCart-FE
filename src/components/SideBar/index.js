@@ -1,41 +1,26 @@
 import React from 'react';
 
-
-import avatarLink from 'assets/images/avatar.jpeg'
+import Menu from 'components/common/MainMenu'
+import AvatarPreviewBox from 'components/common/AvatarPreviewBox'
 import './style.css'
-
-
-const AvatarPreview = props => (
-    <div className='profile-preview'>
-        <div className='avatar-holder'>
-            <img class='user-avatar' src={avatarLink} alt='user avatar'/>
-            <span className='setting-short'>
-                <i class="fas fa-cog"></i>
-            </span>
-            <span className='user-name'>Jordan M.</span>
-        </div>
-    </div>
-)
 
 
 
 export default props => (
     <div class='side-bar' >
-        <AvatarPreview />
+        <AvatarPreviewBox />
         <span className='btn new-product-btn'>
             <i class="fas fa-plus"></i> New Product
         </span>
-
-
-        <menu className='menu-container' >
-            <span className='menu-item'>Products</span>
-            <span className='menu-item'>Activity</span>
-            <span className='menu-item'>Coupon</span>
-            <span className='menu-item'>Upsells</span>
-            <span className='menu-item'>Reports</span>
-            <span className='menu-item'>Affiliates</span>
-            <span className='menu-item'>Agency</span>
-            <span className='menu-item'>Help</span>
-        </menu>
+        <Menu>
+            <Menu.Link classes={['active-menu-item']}>Products</Menu.Link>
+            <Menu.Link>Activity</Menu.Link>
+            <Menu.Link>Coupon</Menu.Link>
+            <Menu.Link classes={['locked-feature']}>Upsells</Menu.Link>
+            <Menu.Link classes={['locked-feature']}>Reports</Menu.Link>
+            <Menu.Link classes={['locked-feature']}>Affiliates</Menu.Link>
+            <Menu.Link>Agency</Menu.Link>
+            <Menu.Link>Help</Menu.Link>
+        </Menu>
     </div>
 );
