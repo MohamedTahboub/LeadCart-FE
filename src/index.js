@@ -11,6 +11,12 @@ import 'config'
 import rootReducer from './reducers'
 
 // Components
+import Header from 'components/Header'
+import Content from 'components/Content'
+import ActiveContent from 'components/ActiveContent'
+import SideBar from 'components/SideBar'
+import Dashboard from 'components/Dashboard'
+
 // import ErrorBoundary from 'components/ErrorBoundary'
 
 // Container
@@ -27,12 +33,20 @@ store.subscribe(() => console.log('store', store.getState()))
 ReactDOM.render(
     <Provider store={store}>
         {/* <ErrorBoundary> */}
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/login' component={Login} />
-                </Switch>
-            </BrowserRouter>
+        <BrowserRouter>
+            <Switch>
+                <div className='page-container'>
+                    <Header />
+                    <Content>
+                        <Route path='*' render={({ history }) => <SideBar history={history} />} />
+                        <ActiveContent >
+                            <Route exact path='/' component={Dashboard} />
+                            <Route exact path='/login' component={Login} />
+                        </ActiveContent>
+                    </Content>
+                </div>
+            </Switch>
+        </BrowserRouter>
         {/* </ErrorBoundary> */}
     </Provider>,
     document.getElementById('root')
