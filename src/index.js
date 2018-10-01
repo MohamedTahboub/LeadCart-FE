@@ -1,14 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Routing
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 // Config
-import 'config'
-import rootReducer from './reducers'
+import 'config';
 
 // Components
 import Header from 'components/Header'
@@ -20,15 +19,19 @@ import Dashboard from 'components/Dashboard'
 // import ErrorBoundary from 'components/ErrorBoundary'
 
 // Container
-import Login from 'containers/Login'
-import Home from 'containers/Home'
-import registerServiceWorker from 'services/RegisterServiceWorker'
+import Login from 'containers/Login';
+import SignUp from 'containers/SignUp';
+import CreditCardForm from 'containers/CreditCardForm';
+import ForgetPassword from 'containers/ForgetPassword';
+import Home from 'containers/Home';
+import registerServiceWorker from 'services/RegisterServiceWorker';
+import rootReducer from './reducers';
 
 // Styles
-import './index.css'
+import './index.css';
 
-const store = createStore(rootReducer)
-store.subscribe(() => console.log('store', store.getState()))
+const store = createStore(rootReducer);
+store.subscribe(() => console.log('store', store.getState()));
 
 ReactDOM.render(
     <Provider store={store}>
