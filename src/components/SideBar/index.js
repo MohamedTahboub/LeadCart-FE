@@ -1,26 +1,31 @@
 import React from 'react';
 
-import Menu from 'components/common/MainMenu'
+import  { Menu , Link } from 'components/common/MainMenu'
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox'
 import './style.css'
 
 
+const goToPage = ({ history , page }) =>{
+    if(!history || history.location.pathname === '/'+page)
+    return ;
+    history && history.push(page)
+}
 
-export default props => (
+export default ({history , props}) => (
     <div class='side-bar' >
         <AvatarPreviewBox />
-        <span className='btn new-product-btn'>
+        <span onClick={()=>goToPage({history , page :'/product/new'})} className='btn new-product-btn'>
             <i class="fas fa-plus"></i> New Product
         </span>
-        <Menu>
-            <Menu.Link classes={['active-menu-item']}>Products</Menu.Link>
-            <Menu.Link>Activity</Menu.Link>
-            <Menu.Link>Coupon</Menu.Link>
-            <Menu.Link classes={['locked-feature']}>Upsells</Menu.Link>
-            <Menu.Link classes={['locked-feature']}>Reports</Menu.Link>
-            <Menu.Link classes={['locked-feature']}>Affiliates</Menu.Link>
-            <Menu.Link>Agency</Menu.Link>
-            <Menu.Link>Help</Menu.Link>
+        <Menu >
+            <Link to={{history , page :'/products'}} classes={['active-menu-item']}>Products</Link>
+            <Link to={{history , page :'/activities'}} >Activity</Link>
+            <Link to={{history , page :'/coupon'}} >Coupon</Link>
+            <Link  to={{history , page :'/upsells'}} classes={['locked-feature']}>Upsells</Link>
+            <Link  to={{history , page :'/reports'}} classes={['locked-feature']}>Reports</Link>
+            <Link  to={{history , page :'/affiliates'}} classes={['locked-feature']}>Affiliates</Link>
+            <Link to={{history , page :'/agency'}} >Agency</Link>
+            <Link to={{history , page :'/help'}} >Help</Link>
         </Menu>
     </div>
 );
