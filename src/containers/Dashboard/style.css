@@ -1,0 +1,196 @@
+.dashboard-page{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-head{
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 20px; */
+    margin-bottom: 15px;
+}
+
+.head-title {
+    font-weight: 500;
+    line-height: 41px;
+    font-size: 34px;
+    color: #2B3748;
+}
+.sub-title {
+    line-height: 20px;
+    font-size: 15px;
+    font-weight: 100;
+    color: #2B3748;
+}
+
+.dashboard-sidebar {
+    /* width: 243px; */
+    width: 194.4px;
+    /* min-height: 776px; */
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0px;
+    align-items: center;
+}
+
+.dashboard-content {
+    display: flex;
+    flex:1;
+    flex-direction: column;
+}
+
+.btn-primary {
+    background: #4DA1FF;
+}
+
+.dashboar-content-holder{
+    display: flex;
+}
+.ashboard-content{
+    display: flex;
+}
+
+
+
+/* Chart Section styles starts*/
+.section-box {
+    background: #FFFFFF;
+    /* margin: 0px 10px 15px 15px; */
+    margin: 0px 10px 0px 15px;
+    border-radius: 3px;
+}
+
+.chart-preview{
+    padding: 15px 15px 15px 25px; 
+    /* height: 650px; */
+    flex: 1;
+    /* width: 100%; */
+    min-width: 550px;
+    display: flex;
+    flex-direction: column;
+}
+.chart-head{
+    display: flex;
+
+}
+
+.chart-head-child{
+    flex:1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chart-title{
+    color:#2B3748;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.chart-preview-options{
+    border: 1px solid #C9D3DC;
+    border-radius: 3px;
+    display: flex;    
+
+    /* padding: 10px;  */
+}
+.chart-option{
+    text-transform: capitalize;
+    font-size: small;
+    color:rgba(43, 55, 72, 0.753);
+    padding: 10px 20px;
+    display: inline-block;
+    transition:all 350ms ease-in-out;
+    cursor: pointer;
+}
+.chart-option:hover{
+    box-shadow: 0px 0px 10px 0px #0000002b;
+}
+.chart-option:hover{
+    font-weight: bold;
+    color: #4DA1FF;
+    
+}
+.chart-total-profite{
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+}
+.chart-profit-value{
+    margin-left: 40px;
+    min-width: 100px;
+    font-size: large;
+    font-weight: bold;
+    color: #2B3748;
+}
+
+.stock-up{
+    position: relative;
+    color:#30bb1eed;
+    font-size: x-small;
+    margin-left: 20px;
+}
+.stock-up:before{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f0d8";
+    left: -7px;
+    top: -5px;
+    color: #30bb1eed;
+}
+/* Chart Section styles ends*/
+
+
+
+/* insights section */
+.overview-insights-container {
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.insight-box{
+    height: 100%;
+    /* width: 290px; */
+    height: 56px;
+    width: 200px;
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+.insight-details{
+    /* margin-left: 35px; */
+    margin-left: 15px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.insight-icon{
+    margin-right:10px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.insight-icon i {
+    font-size: x-large;
+    color:#C9D3DC;
+}
+.insight-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    /* font-weight: bold; */
+    color: #2B3748;
+}
+.insight-value {
+    /* font-size: 28px; */
+    font-size: 16px;
+    color: #4DA1FF;
+}
