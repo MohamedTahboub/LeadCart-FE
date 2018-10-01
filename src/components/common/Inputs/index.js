@@ -8,6 +8,9 @@ export class InputRow extends Component {
     static NormalInput = props => (
         <input className='input-field' placeholder={props.children} />
     )
+    static SmallInput = props => (
+        <input className='input-field small-input' placeholder={props.children} />
+    )
     static UrlSuffixInput = props => (
         <div className='url-suffix-input'>
             <span className='suffix-value'>http://tonyhack.leadcart.com/products/</span>
@@ -20,10 +23,10 @@ export class InputRow extends Component {
             <span className='text-area-small-note'>27/260</span>
         </div>
     )
-    static AddComponentField = ({ children, notes , description, ...props }) => (
+    static AddComponentField = ({ style = 'primary-color', children, notes, description, ...props }) => (
         <div onClick={alert}
-         className='add-elements-container'>
-            <span className='add-element-circle primary-color'>
+            className='add-elements-container'>
+            <span className={'add-element-circle ' + style}>
                 <i class="fas fa-plus"></i>
             </span>
             <span className='add-input-field' >{children}</span>
@@ -57,7 +60,22 @@ export class InputRow extends Component {
         </label>
     )
 
+    static ColorInlinePicker = props => (
+        <div className='inline-color-picker'>
+            <span className='color-label color-default'>default</span>
+            <span className='color-label color-monochrome'>MONOCHROME</span>
+            <span className='color-label color-blues-earthy'>BLUES EARTHY</span>
+            <span className='color-label color-crison'>CRIMSON</span>
+            <span className='color-label color-forest'>FOREST</span>
+        </div>
+    )
 
+    static SwitchInput = props => (
+        <label class="switch-slider-input">
+            <input type="checkbox" />
+            <span class="slider-input slider-round"></span>
+        </label>
+    )
     render() {
         return (
             <div className='input-row'>

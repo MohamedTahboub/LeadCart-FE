@@ -1,5 +1,5 @@
 .header{
-    height: 70px;
+    height: 55px;
     width: 100%;
     display: flex;
     font-family: 'Poppins', sans-serif;
@@ -35,7 +35,7 @@
     text-transform: uppercase;
     margin: auto;
     margin-left: 6px;
-    margin-top: 29px;
+    margin-top: 22px;
     letter-spacing: 2px;
     font-size: 12px;
     font-weight: bold;
