@@ -14,7 +14,6 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
-import Dashboard from 'components/Dashboard'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
 
@@ -23,7 +22,14 @@ import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import CreditCardForm from 'containers/CreditCardForm';
 import ForgetPassword from 'containers/ForgetPassword';
-import Home from 'containers/Home';
+
+
+import Dashboard from 'containers/Dashboard'
+import Products from 'containers/Products'
+import NewProduct from 'containers/NewProduct'
+
+
+//services
 import registerServiceWorker from 'services/RegisterServiceWorker';
 import rootReducer from './reducers';
 
@@ -45,6 +51,11 @@ ReactDOM.render(
                         <ActiveContent >
                             <Route exact path='/' component={Dashboard} />
                             <Route exact path='/login' component={Login} />
+                            <Route exact path='/sighup' component={SignUp} />
+                            <Route exact path='/recoverpwd' component={ForgetPassword} />
+                            <Route exact path='/credit' component={CreditCardForm} />
+                            <Route exact path='/products' component={Products} />
+                            <Route exact path='/product/new' component={NewProduct} />
                         </ActiveContent>
                     </Content>
                 </div>
