@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 
 import './style.css'
 
-export const MainBlock = props => (
+export const MainBlock = ({ title, notes, children, ...props }) => (
     <div className='main-block'>
-        <span className='main-title'>{props.title}</span>
+        <div className='main-title-container'>
+            <span className='main-title'>{title}</span>
+            {notes && <span className='main-title-note'>{notes}</span>}
+        </div>
         <div className='box-container'>
-            {props.children}
+            {children}
         </div>
     </div>
 )
