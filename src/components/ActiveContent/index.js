@@ -3,7 +3,7 @@ import React from 'react';
 import ProductDetails from '../ProductDetails'
 
 import './style.css'
-export default props => (
+export default ({ children, ...props }) => (
     <div className='active-content' >
        <ProductDetails/>
     </div>
