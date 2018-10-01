@@ -28,13 +28,20 @@ import Dashboard from 'containers/Dashboard'
 import Products from 'containers/Products'
 import NewProduct from 'containers/NewProduct'
 
-
 //services
 import registerServiceWorker from 'services/RegisterServiceWorker';
 import rootReducer from './reducers';
 
 // Styles
 import './index.css';
+
+
+/* Temp page to represent the empty pages */
+
+const EmptyPage = ({history})=>(
+    <span> This page ({history.location.pathname.slice(1)}) still under development</span>
+)
+
 
 const store = createStore(rootReducer);
 store.subscribe(() => console.log('store', store.getState()));
@@ -45,7 +52,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <div className='page-container'>
-                    <Header />
+                    <Route path='*' render={({ history }) => <Header history={history} />} />
                     <Content>
                         <Route path='*' render={({ history }) => <SideBar history={history} />} />
                         <ActiveContent >
@@ -56,6 +63,13 @@ ReactDOM.render(
                             <Route exact path='/credit' component={CreditCardForm} />
                             <Route exact path='/products' component={Products} />
                             <Route exact path='/product/new' component={NewProduct} />
+                            <Route exact path='/activities' component={EmptyPage} />
+                            <Route exact path='/coupon' component={EmptyPage} />
+                            <Route exact path='/upsells' component={EmptyPage} />
+                            <Route exact path='/reports' component={EmptyPage} />
+                            <Route exact path='/affiliates' component={EmptyPage} />
+                            <Route exact path='/agency' component={EmptyPage} />
+                            <Route exact path='/help' component={EmptyPage} />
                         </ActiveContent>
                     </Content>
                 </div>

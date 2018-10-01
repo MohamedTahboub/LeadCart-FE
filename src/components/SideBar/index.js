@@ -14,7 +14,7 @@ const goToPage = ({ history , page }) =>{
 export default ({history , props}) => (
     <div class='side-bar' >
         <AvatarPreviewBox />
-        <span onClick={()=>goToPage({history , page :'/product/new'})} className='btn new-product-btn'>
+        <span onClick={()=>goToPage({history , page :'/product/new#details'})} className='btn new-product-btn'>
             <i class="fas fa-plus"></i> New Product
         </span>
         <Menu >
