@@ -1,6 +1,6 @@
 import React from 'react';
 import { LineChart } from 'components/LeadCartCharts'
-import Menu from 'components/common/MainMenu'
+import {Menu , Link } from 'components/common/MainMenu'
 import InsightBadge from 'components/common/InsightBadge'
 import './style.css'
 
@@ -16,15 +16,15 @@ export default props => (
             <div className='dashboard-sidebar'>
                 <span className='btn btn-primary'>Gross Sales</span>
                 <Menu>
-                    <Menu.Link>Profit</Menu.Link>
-                    <Menu.Link>LTV</Menu.Link>
-                    <Menu.Link>Refunds</Menu.Link>
-                    <Menu.Link>Orders</Menu.Link>
-                    <Menu.Link>Page Views</Menu.Link>
-                    <Menu.Link>Conversion Rate</Menu.Link>
-                    <Menu.Link>Monthly Recurring Revenue</Menu.Link>
-                    <Menu.Link>Active Subsicriptions</Menu.Link>
-                    <Menu.Link>Churn Rate</Menu.Link>
+                    <Link>Profit</Link>
+                    <Link>LTV</Link>
+                    <Link>Refunds</Link>
+                    <Link>Orders</Link>
+                    <Link>Page Views</Link>
+                    <Link>Conversion Rate</Link>
+                    <Link>Monthly Recurring Revenue</Link>
+                    <Link>Active Subsicriptions</Link>
+                    <Link>Churn Rate</Link>
                 </Menu>
             </div>
             {/* Chart previews section*/}

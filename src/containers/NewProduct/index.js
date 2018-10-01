@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 
 import './style.css'
-// import ProductDetailes from './ChildsComponents/ProductDetailes'
-import CheckoutDesign from './ChildsComponents/CheckoutDesign'
+import ProductDetailes from './sub/ProductDetails'
+import CheckoutDesign from './sub/CheckoutDesign'
 
 
 
-const TabsNavigation = ptops => {
-
+const TabsNavigation = ({ history, ...props }) => {
+    const goToTabe = tabName => {
+        history.push(`#${tabName}`)
+    }
     return (
         <div className='product-details-nav'>
-            <span className='nav-link active-nav-link'>Product Details</span>
-            <span className='nav-link'>Checkout Design</span>
+            <span onClick={() => goToTabe('details')} className='nav-link active-nav-link'>Product Details</span>
+            <span onClick={() => goToTabe('checkout')} className='nav-link'>Checkout Design</span>
             <span className='nav-link'>Payments</span>
             <span className='nav-link'>Order Bump</span>
             <span className='nav-link'>Integration</span>
@@ -21,8 +23,18 @@ const TabsNavigation = ptops => {
 }
 
 
+const ActiveTabe = ({ tabName, ...props }) => {
+    switch (tabName) {
+        case 'details': return <ProductDetailes />
+        case 'checkout': return <CheckoutDesign />
+        default: return <ProductDetailes />
+    }
+}
+
+
 class NewProductDetailes extends Component {
     render() {
+        const tabName = this.props.history.location.hash.slice(1)
         return (
             <div className='products-details-page'>
 
@@ -34,9 +46,9 @@ class NewProductDetailes extends Component {
                         Save Changes
                     </span>
                 </div>
+                <TabsNavigation history={this.props.history} />
+                <ActiveTabe tabName={tabName} />
 
-                <TabsNavigation />
-                <CheckoutDesign />
             </div>
         );
     }

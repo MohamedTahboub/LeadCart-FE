@@ -83,5 +83,5 @@ export default props => (
 
 
         </MainBlock>
-    </React.Fragment >
+    </React.Fragment>
 )
