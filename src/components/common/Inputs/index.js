@@ -19,7 +19,7 @@ export class InputRow extends Component {
     )
     static TextAreaInput = props => (
         <div className='text-area-container'>
-            <textarea className='textarea-input-field' placeholder='NormalInput' />
+            <textarea className='textarea-input-field'  />
             <span className='text-area-small-note'>27/260</span>
         </div>
     )
@@ -45,17 +45,17 @@ export class InputRow extends Component {
     static PriceField = props => (
         <div className='price-input-holder'>
             <span className='currancy-type'>$</span>
-            <input className='price-input-field' placeholder='NormalInput' />
+            <input className='price-input-field'  />
         </div>
     )
     static UrlInput = props => (
         <input className='input-field' placeholder='http://' />
     )
-    static CheckBox = ({ children, description, ...props }) => (
+    static CheckBox = ({ children, description, checked, ...props }) => (
         <label class="check-box-container">
             {description &&
                 <span className='check-box-description'>{description}</span>}
-            <input class='check-box' type="radio" name='product-type' />
+            <input class='check-box' type="radio" name='product-type' checked={checked} />
             <div class="check-box-indicator">{children}</div>
         </label>
     )
