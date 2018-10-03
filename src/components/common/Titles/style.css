@@ -1,0 +1,13 @@
+.main-title-handle {
+    position: absolute;
+    left: 260px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.main-title-handle .fas{
+    color: #03A9F4;
+    margin-right: 8px;
+}

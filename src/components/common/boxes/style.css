@@ -1,6 +1,7 @@
 .box-container{
     background: white;
-    padding: 15px 20px 46px 20px;
+    /* padding: 15px 20px 46px 20px; */
+    padding: 15px 20px 40px 20px;
 }
 .main-title-container{
     position: relative;
