@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import './style.css'
 import ProductDetailes from './sub/ProductDetails'
 import CheckoutDesign from './sub/CheckoutDesign'
+import Payments from './sub/Payments'
+import OrderBump from './sub/OrderBump'
 
 
 /* temp component tp represent the empty tap */
@@ -38,8 +40,8 @@ const ActiveTabe = ({ tabName, ...props }) => {
     switch (tabName) {
         case 'details': return <ProductDetailes />
         case 'checkout': return <CheckoutDesign />
-        case 'payments': return <EmptyTab />
-        case 'order': return <EmptyTab />
+        case 'payments': return <Payments />
+        case 'order': return <OrderBump />
         case 'integration': return <EmptyTab />
         case 'advanced': return <EmptyTab />
         default: return <ProductDetailes />

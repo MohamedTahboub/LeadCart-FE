@@ -26,7 +26,7 @@ span.nav-link {
     margin-right: 25px;
     color: rgb(157, 168, 179);
     cursor: pointer;
-    padding-bottom: 15px;
+    padding-bottom: 16px;
     transition:all 100ms ease-in-out;
 }
 .nav-link:hover{
