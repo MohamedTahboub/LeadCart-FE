@@ -5,6 +5,7 @@ import ProductDetailes from './sub/ProductDetails'
 import CheckoutDesign from './sub/CheckoutDesign'
 import Payments from './sub/Payments'
 import OrderBump from './sub/OrderBump'
+import AdvanecdSetting from './sub/AdvanecdSetting'
 
 
 /* temp component tp represent the empty tap */
@@ -29,7 +30,6 @@ const TabsNavigation = ({ history, ...props }) => {
             <span onClick={() => goToTabe('checkout')} {...classes('checkout')}>Checkout Design</span>
             <span onClick={() => goToTabe('payments')} {...classes('payments')}>Payments</span>
             <span onClick={() => goToTabe('order')} {...classes('order')} >Order Bump</span>
-            <span onClick={() => goToTabe('integration')} {...classes('integration')} >Integration</span>
             <span onClick={() => goToTabe('advanced')} {...classes('advanced')} >Advanced Setting</span>
         </div>
     )
@@ -42,8 +42,7 @@ const ActiveTabe = ({ tabName, ...props }) => {
         case 'checkout': return <CheckoutDesign />
         case 'payments': return <Payments />
         case 'order': return <OrderBump />
-        case 'integration': return <EmptyTab />
-        case 'advanced': return <EmptyTab />
+        case 'advanced': return <AdvanecdSetting />
         default: return <ProductDetailes />
     }
 }

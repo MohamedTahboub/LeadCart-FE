@@ -67,15 +67,15 @@ export default props => (
                         description='Custom content appears at the top of sales letter and in the sidebar depending on your selected template.'
                     >This is nimesil forte!</InputRow.TextAreaInput>
                 </InputRow>
-                <InputRow>
+                <InputRow margin='45'>
                     <InputRow.Label
-                        description='This requires customers to check that they agree to the terms and conditions.'
+                        notes='This requires customers to check that they agree to the terms and conditions.'
                     >Terms & Conditions Checkbox</InputRow.Label>
                     <InputRow.SwitchInput></InputRow.SwitchInput>
                 </InputRow>
-                <InputRow>
+                <InputRow margin='45'>
                     <InputRow.Label
-                        description='This creates a link to your custom Terms & Conditions page below the Checkout Button on your SamCart checkout page.'
+                        notes='This creates a link to your custom Terms & Conditions page below the Checkout Button on your SamCart checkout page.'
                     >Terms & Conditions URL</InputRow.Label>
                     <InputRow.UrlInput prefix={'http://'}></InputRow.UrlInput>
                 </InputRow>
