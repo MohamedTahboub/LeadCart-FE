@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import './style.css'
 
 export class InputRow extends Component {
-    static Label = props => (
-        <span className='input-label'>{props.children}</span>
+    static Label = ({ notes, ...props }) => (
+        <div className='input-label-container'>
+            <span className='input-label '>{props.children}</span>
+            <span className='input-label-note'>{notes}</span>
+        </div>
     )
     static NormalInput = props => (
         <input className='input-field' placeholder={props.children} />
@@ -19,7 +22,7 @@ export class InputRow extends Component {
     )
     static TextAreaInput = props => (
         <div className='text-area-container'>
-            <textarea className='textarea-input-field'  />
+            <textarea className='textarea-input-field' />
             <span className='text-area-small-note'>27/260</span>
         </div>
     )
@@ -45,7 +48,7 @@ export class InputRow extends Component {
     static PriceField = props => (
         <div className='price-input-holder'>
             <span className='currancy-type'>$</span>
-            <input className='price-input-field'  />
+            <input className='price-input-field' />
         </div>
     )
     static UrlInput = props => (
@@ -76,9 +79,17 @@ export class InputRow extends Component {
             <span class="slider-input slider-round"></span>
         </label>
     )
+
+    static CodeInputArea = props => (
+        <div className='code-area-container'>
+            <textarea className='codearea-input-field' />
+        </div>
+    )
     render() {
+        const margin = this.props.margin || 12 
+        console.log(margin)
         return (
-            <div className='input-row'>
+            <div style={{ margin: `${margin}px 0px` }} className='input-row'>
                 {this.props.children}
             </div>
         )
