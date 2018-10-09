@@ -19,9 +19,9 @@ export default ({history , props}) => (
         </span>
         <Menu >
             <Link to={{history , page :'/products'}} classes={['active-menu-item']}>Products</Link>
-            <Link to={{history , page :'/activities'}} >Activity</Link>
+            <Link to={{history , page :'/activities#customers'}} >Activity</Link>
             <Link to={{history , page :'/coupon'}} >Coupon</Link>
-            <Link  to={{history , page :'/upsells'}} classes={['locked-feature']}>Upsells</Link>
+            <Link  to={{history , page :'/upsells#upsells'}} classes={['locked-feature']}>Upsells</Link>
             <Link  to={{history , page :'/reports'}} classes={['locked-feature']}>Reports</Link>
             <Link  to={{history , page :'/affiliates'}} classes={['locked-feature']}>Affiliates</Link>
             <Link to={{history , page :'/agency'}} >Agency</Link>

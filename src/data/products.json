@@ -1,22 +1,22 @@
 [
     {
         "id": 1,
-        "name": "Nimesil Forte",
-        "monthlyProfite": 2400,
+        "name": "Iphone Cases",
+        "monthlyProfite": 3270,
         "price": 1.99,
         "currancy": "$"
     },
     {
-        "id": 1,
-        "name": "Nimesil Forte",
-        "monthlyProfite": 400,
+        "id": 2,
+        "name": "Speaking Robot",
+        "monthlyProfite": 1700,
         "price": 100.99,
         "currancy": "$"
     },
     {
-        "id": 1,
-        "name": "Nimesil Forte",
-        "monthlyProfite": 2400,
+        "id": 3,
+        "name": "Jungle Game",
+        "monthlyProfite": 5192,
         "price": 1000.99,
         "currancy": "$"
     }

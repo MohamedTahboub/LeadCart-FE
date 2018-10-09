@@ -127,20 +127,30 @@
     color: #2B3748;
 }
 
-.stock-up{
+.stock-up,.stock-down{
     position: relative;
-    color:#30bb1eed;
     font-size: x-small;
     margin-left: 20px;
 }
-.stock-up:before{
+.stock-up{
+    color:#30bb1eed !important;
+}
+.stock-down{
+    color:tomato !important;
+}
+.stock-up:before,.stock-down:before{
     position: absolute;
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
-    content: "\f0d8";
     left: -7px;
     top: -5px;
-    color: #30bb1eed;
+    color:inherit;
+}
+.stock-up:before{
+    content: "\f0d8";
+}
+.stock-down:before{
+    content: "\f0d7";
 }
 /* Chart Section styles ends*/
 

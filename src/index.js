@@ -27,6 +27,8 @@ import ForgetPassword from 'containers/ForgetPassword';
 import Dashboard from 'containers/Dashboard'
 import Products from 'containers/Products'
 import NewProduct from 'containers/NewProduct'
+import Activities from './containers/Activities';
+import Upsells from './containers/Upsells';
 
 //services
 import registerServiceWorker from 'services/RegisterServiceWorker';
@@ -63,9 +65,9 @@ ReactDOM.render(
                             <Route exact path='/credit' component={CreditCardForm} />
                             <Route exact path='/products' component={Products} />
                             <Route exact path='/product/new' component={NewProduct} />
-                            <Route exact path='/activities' component={EmptyPage} />
+                            <Route exact path='/activities' component={Activities} />
                             <Route exact path='/coupon' component={EmptyPage} />
-                            <Route exact path='/upsells' component={EmptyPage} />
+                            <Route exact path='/upsells' component={Upsells} />
                             <Route exact path='/reports' component={EmptyPage} />
                             <Route exact path='/affiliates' component={EmptyPage} />
                             <Route exact path='/agency' component={EmptyPage} />

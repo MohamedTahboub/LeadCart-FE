@@ -6,34 +6,22 @@ import CheckoutDesign from './sub/CheckoutDesign'
 import Payments from './sub/Payments'
 import OrderBump from './sub/OrderBump'
 import AdvanecdSetting from './sub/AdvanecdSetting'
+import common from 'components/common'
+// import { Button } from '../../components/common/Buttons';
 
-
+const { TabsNavigator ,Button} = common
 /* temp component tp represent the empty tap */
 
 const EmptyTab = () => (
     <span> in progress ...</span>
 )
-
-const TabsNavigation = ({ history, ...props }) => {
-    const goToTabe = tabName => {
-        history.push(`#${tabName}`)
-    }
-    const classes = thisTabe => ({
-        className: history.location.hash === '#' + thisTabe
-            ?
-            'nav-link active-nav-link'
-            : 'nav-link'
-    })
-    return (
-        <div className='product-details-nav'>
-            <span onClick={() => goToTabe('details')} {...classes('details')}>Product Details</span>
-            <span onClick={() => goToTabe('checkout')} {...classes('checkout')}>Checkout Design</span>
-            <span onClick={() => goToTabe('payments')} {...classes('payments')}>Payments</span>
-            <span onClick={() => goToTabe('order')} {...classes('order')} >Order Bump</span>
-            <span onClick={() => goToTabe('advanced')} {...classes('advanced')} >Advanced Setting</span>
-        </div>
-    )
-}
+const newProductTabs = [
+    { title: 'Product Details', hash: 'details' },
+    { title: 'Checkout Design', hash: 'checkout' },
+    { title: 'Payments', hash: 'payments' },
+    { title: 'Order Bump', hash: 'order' },
+    { title: 'Advanced Setting', hash: 'advanced' }
+]
 
 
 const ActiveTabe = ({ tabName, ...props }) => {
@@ -55,14 +43,16 @@ class NewProductDetailes extends Component {
             <div className='products-details-page'>
 
                 <div className='products-controls-btns'>
-                    <span className='btn share-btn'>
+                    <Button classes='share-btn'>
                         <i class="fas fa-share-square"></i>Share Product
-                    </span>
-                    <span className='btn save-changes-btn'>
+                    </Button>
+                    <Button classes='save-changes-btn'>
                         Save Changes
-                    </span>
+                    </Button>
                 </div>
-                <TabsNavigation history={this.props.history} />
+                <TabsNavigator
+                    tabs={newProductTabs}
+                    history={this.props.history} />
                 <ActiveTabe tabName={tabName} />
 
             </div>
