@@ -86,7 +86,7 @@ export class InputRow extends Component {
         </div>
     )
     render() {
-        const margin = this.props.margin || 12 
+        const margin = this.props.margin || 12
         console.log(margin)
         return (
             <div style={{ margin: `${margin}px 0px` }} className='input-row'>
