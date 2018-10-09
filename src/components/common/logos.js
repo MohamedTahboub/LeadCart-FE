@@ -22,8 +22,8 @@ export const Logo = (props) => (
 );
 
 
-export const HeaderLogo = (props) => (
-  <div className='header-logo'>
+export const HeaderLogo = ({onClick , ...props}) => (
+  <div onClick={onClick} className='header-logo'>
     <div className='logo-position'>
       <Logo />
       <span className='business-name'>leadcart</span>

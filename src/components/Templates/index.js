@@ -9,7 +9,7 @@ export default ({active , ...props}) => (
         </div>
         <div className='template-preview-footer'>
             <span className='template-preview-name'>Classic</span>
-            <span className={!active ? 'preview-select-btn btn' : 'preview-select-btn active-template-preview'}>{!active ? 'Select' : 'active'}</span>
+            <span className={!active ? 'btn preview-select-btn ' : 'preview-select-btn active-template-preview'}>{!active ? 'Select' : 'active'}</span>
         </div>
     </div>
 )

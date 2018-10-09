@@ -15,6 +15,7 @@
     align-content: center;
     /* min-width: 243px; */
     min-width: 194.4px;
+    cursor: pointer;
 }
 .logo-position .logo-container{
     position: relative;

@@ -1,22 +1,25 @@
 import React from 'react'
 
 
-export default class Menu extends React.Component {
-    static Link = props =>{
-        const classes = props.classes ? props.classes : []
-        return (
-            <span className={'menu-item '+classes.join(' ') }>
-            {props.children}
-            </span>
-        )
-    } 
-
-    render() {
-        console.log(this.props)
-        return (
-            <menu className='menu-container' >
-                    {this.props.children}
-            </menu>
-        )
+export const Menu = props => (
+    <menu className='menu-container' >
+        {props.children}
+    </menu>
+)
+export const Link = ({ to, ...props }) => {
+    const classes = props.classes ? props.classes : []
+    const { history, page } = to || {}
+    
+    const goToPage = page =>{
+        if(!history || history.location.pathname === '/'+page)
+        return ;
+        history && history.push(page)
     }
+    return (
+        <span onClick={() =>goToPage(page) } className={'menu-item ' + classes.join(' ')}>
+            {props.children}
+        </span>
+    )
 }
+
+

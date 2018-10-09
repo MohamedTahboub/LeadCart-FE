@@ -11,15 +11,26 @@
 .input-row{
     display: flex;
     margin: 12px 0px ;
-    align-items: center;
+    align-items: flex-start;
 }
-
+.input-label-container{
+    position: relative;
+    width: 260px;
+}
 .input-label{
     color:#C9D3DC;
     font-size: 13px;
-    min-width: 230px;
-    font-weight: bold;
     user-select: none;
+    font-weight: bold;
+}
+.input-label-note{
+    position: absolute;
+    left: 5px;
+    top:110%;
+    width:85%;
+    color:gray;
+    font-size: 9px;
+
 }
 .input-field{
     width: 404px;
@@ -36,24 +47,29 @@
 }
 .small-input{
     width: 220px;
+    margin-right: 40px;
 }
 .url-suffix-input{
     width: 727px;
-    height: 37.6px;
-    display: inline-table;
+    height: 32px;
+    display: flex;
+    align-items: center;
 }
 .suffix-value{
-    width: 291.2px;
     height: 100%;
+    width: 291.2px;
     background: #4DA1FF;
-    color:#FFFFFF;
+    color: #FFFFFF;
     font-size: 15px;
-    padding: 10px 20px;
+    padding: 1px 10px;
     user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .url-suffix-input-field{
     width: 404px;
-    height: 32px;
+    height: 100%;
     color:#2B3748;
     font-size:15px;
     line-height:20px;
@@ -115,6 +131,9 @@
 }
 .green-color{
     background: #17C671;
+}
+.purple-color{
+    background: #B892E9;
 }
 .add-element-notes{
     position: absolute;
@@ -285,28 +304,27 @@ input[type="radio"]{
 
 /* Switch slider input*/
 
-.switch-slider-input{
+  .switch-slider-input {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
-    margin:10px 40px;
-  }
-  
+    width: 25px;
+    height: 10px;
+    margin: 10px 60px;
+}
 .switch-slider-input:before {
     content:'on';
-    right:-30px;
+    right:-36px;
        position:absolute;
-    top:16%;
+    top:-70%;
     font-size:15px;
     color:gray;
      text-transform: capitalize;
 }
 .switch-slider-input:after{
 	content:'off';
-    left:-30px;
+    left:-36px;
        position:absolute;
-       top:16%;
+       top:-70%;
     font-size:15px;
     color:gray;
      text-transform: capitalize;
@@ -326,18 +344,20 @@ input[type="radio"]{
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
   .slider-input:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+    height: 14px;
+    width: 14px;
+    left: 0px;
+    bottom: -3px;
+    border:.8px solid rgb(170, 164, 164);
+    background-color: rgb(255, 255, 255);
     -webkit-transition: .4s;
+    -o-transition: .4s;
     transition: .4s;
-  }
+}
+
   input:checked ~ .slider-input {
     background-color: #2196F3;
   }
@@ -347,9 +367,11 @@ input[type="radio"]{
   }
   
   input:checked ~ .slider-input:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    transform: translateX(10px);
+    /* background-color: #2196F3; */
+    border:.8px solid rgb(115, 181, 235);
   }
   .slider-input.slider-round {
     border-radius: 34px;
@@ -359,3 +381,30 @@ input[type="radio"]{
     border-radius: 50%;
   }
 /* Switch slider input ends*/
+
+/* COde area input styles*/
+.codearea-input-field{
+    height: 100px;
+    width: 90%;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    resize: none;
+    display: block;
+    word-wrap: break-word;
+    outline-color: lightgray;
+}
+.code-area-container {
+    width: 70%;
+}
+.extra-bottom-margin{
+    margin-bottom: 20px;
+}

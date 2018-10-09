@@ -127,20 +127,30 @@
     color: #2B3748;
 }
 
-.stock-up{
+.stock-up,.stock-down{
     position: relative;
-    color:#30bb1eed;
     font-size: x-small;
     margin-left: 20px;
 }
-.stock-up:before{
+.stock-up{
+    color:#30bb1eed !important;
+}
+.stock-down{
+    color:tomato !important;
+}
+.stock-up:before,.stock-down:before{
     position: absolute;
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
-    content: "\f0d8";
     left: -7px;
     top: -5px;
-    color: #30bb1eed;
+    color:inherit;
+}
+.stock-up:before{
+    content: "\f0d8";
+}
+.stock-down:before{
+    content: "\f0d7";
 }
 /* Chart Section styles ends*/
 
@@ -159,7 +169,7 @@
     height: 100%;
     /* width: 290px; */
     height: 56px;
-    width: 220px;
+    width: 200px;
     display: flex;
     justify-content:space-between;
     margin-bottom: 0px;
@@ -167,14 +177,14 @@
 }
 .insight-details{
     /* margin-left: 35px; */
-    margin-left: 30px;
+    margin-left: 15px;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 .insight-icon{
-    margin-right:35px; 
+    margin-right:10px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -184,13 +194,13 @@
     color:#C9D3DC;
 }
 .insight-title {
-    font-size: smaller;
+    font-size: 13px;
     text-transform: uppercase;
-    font-weight: bold;
+    /* font-weight: bold; */
     color: #2B3748;
 }
 .insight-value {
     /* font-size: 28px; */
-    font-size: 21px;
+    font-size: 16px;
     color: #4DA1FF;
 }

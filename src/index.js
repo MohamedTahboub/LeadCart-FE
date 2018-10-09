@@ -14,7 +14,6 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
-import Dashboard from 'components/Dashboard'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
 
@@ -23,12 +22,28 @@ import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import CreditCardForm from 'containers/CreditCardForm';
 import ForgetPassword from 'containers/ForgetPassword';
-import Home from 'containers/Home';
+
+
+import Dashboard from 'containers/Dashboard'
+import Products from 'containers/Products'
+import NewProduct from 'containers/NewProduct'
+import Activities from './containers/Activities';
+import Upsells from './containers/Upsells';
+
+//services
 import registerServiceWorker from 'services/RegisterServiceWorker';
 import rootReducer from './reducers';
 
 // Styles
 import './index.css';
+
+
+/* Temp page to represent the empty pages */
+
+const EmptyPage = ({history})=>(
+    <span> This page ({history.location.pathname.slice(1)}) still under development</span>
+)
+
 
 const store = createStore(rootReducer);
 store.subscribe(() => console.log('store', store.getState()));
@@ -39,12 +54,24 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <div className='page-container'>
-                    <Header />
+                    <Route path='*' render={({ history }) => <Header history={history} />} />
                     <Content>
                         <Route path='*' render={({ history }) => <SideBar history={history} />} />
                         <ActiveContent >
                             <Route exact path='/' component={Dashboard} />
                             <Route exact path='/login' component={Login} />
+                            <Route exact path='/sighup' component={SignUp} />
+                            <Route exact path='/recoverpwd' component={ForgetPassword} />
+                            <Route exact path='/credit' component={CreditCardForm} />
+                            <Route exact path='/products' component={Products} />
+                            <Route exact path='/product/new' component={NewProduct} />
+                            <Route exact path='/activities' component={Activities} />
+                            <Route exact path='/coupon' component={EmptyPage} />
+                            <Route exact path='/upsells' component={Upsells} />
+                            <Route exact path='/reports' component={EmptyPage} />
+                            <Route exact path='/affiliates' component={EmptyPage} />
+                            <Route exact path='/agency' component={EmptyPage} />
+                            <Route exact path='/help' component={EmptyPage} />
                         </ActiveContent>
                     </Content>
                 </div>

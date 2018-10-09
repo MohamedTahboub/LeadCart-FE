@@ -54,7 +54,7 @@ export default props => (
         <MainBlock title='type'>
             <InputRow>
                 <InputRow.Label>Type</InputRow.Label>
-                <InputRow.CheckBox description="A digital file that buyers will download or a service." >Digital / Service</InputRow.CheckBox>
+                <InputRow.CheckBox checked={true} description="A digital file that buyers will download or a service." >Digital / Service</InputRow.CheckBox>
                 <InputRow.CheckBox description="A tangible item that you will ship to buyers." >Phisical</InputRow.CheckBox>
             </InputRow>
             <InputRow>
