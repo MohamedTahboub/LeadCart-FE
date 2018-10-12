@@ -49,6 +49,9 @@
     width: 220px;
     margin-right: 40px;
 }
+.custom-input-field{
+    width: 150px;
+}
 .url-suffix-input{
     width: 727px;
     height: 32px;
@@ -408,3 +411,44 @@ input[type="radio"]{
 .extra-bottom-margin{
     margin-bottom: 20px;
 }
+
+/* FlatSelect input field styles */
+.charging-method-picker{
+    position:relative;
+    height:34px;
+    display:flex;
+}
+.hiden-element{
+  display:none;
+}
+.charging-method-item{
+  width:45px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border: .7px solid #C9D3DC;
+  color:#2B3748;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.active-charging-method-item{
+  border:none;
+  background:#4DA1FF;
+  /* border: 1px solid #fff; */
+  color:white;
+}
+.charge-method-radio-input:checked + .charging-method-item{
+   border:none;
+  background:#4DA1FF;
+  color:white;
+}
+.charging-method-picker-notes{
+  position:absolute;
+  bottom:-20px;
+  left:0px;
+  color: #717C8A;
+  font-size: 8px;
+  pointer-events: none;
+}
+/* FlatSelect input field styles ends */

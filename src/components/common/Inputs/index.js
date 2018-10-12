@@ -14,6 +14,9 @@ export class InputRow extends Component {
     static SmallInput = props => (
         <input className='input-field small-input' placeholder={props.children} />
     )
+    static CustomInput = ({ width, ...props }) => (
+        <input className='input-field custom-input-field' placeholder={props.children} />
+    )
     static UrlSuffixInput = props => (
         <div className='url-suffix-input'>
             <span className='suffix-value'>http://tonyhack.leadcart.com/products/</span>
@@ -26,10 +29,10 @@ export class InputRow extends Component {
             <span className='text-area-small-note'>27/260</span>
         </div>
     )
-    static AddComponentField = ({ style = 'primary-color', children, notes, description, ...props }) => (
-        <div onClick={alert}
+    static AddComponentField = ({ color = 'primary-color', onClick, children, notes, description, ...props }) => (
+        <div onClick={onClick}
             className='add-elements-container'>
-            <span className={'add-element-circle ' + style}>
+            <span className={'add-element-circle ' + color}>
                 <i class="fas fa-plus"></i>
             </span>
             <span className='add-input-field' >{children}</span>
@@ -37,18 +40,15 @@ export class InputRow extends Component {
             <span className='add-element-description'>{description}</span>
         </div>
     )
-    static SelectOption = props => (
+    static SelectOption = ({ options = [], ...props }) => (
         <select className='select-input-field'>
-            {/*<span className='select-arrow-down'>1</span>*/}
-            <option className='select-option' value='1'>One Time Price</option>
-            <option className='select-option' value='2'>Monthly subscription</option>
-            <option className='select-option' value='3'>Yearly subscription</option>
+            {options.map(({ label, value }) => <option className='select-option' value={value}>{label}</option>)}
         </select>
     )
-    static PriceField = props => (
+    static PriceField = ({ children, ...props }) => (
         <div className='price-input-holder'>
             <span className='currancy-type'>$</span>
-            <input className='price-input-field' />
+            <input className='price-input-field' placeholder={children} />
         </div>
     )
     static UrlInput = props => (
@@ -84,6 +84,19 @@ export class InputRow extends Component {
         <div className='code-area-container'>
             <textarea className='codearea-input-field' />
         </div>
+    )
+
+    static FlatSelect = ({ note, ...props }) => (
+        <div class='charging-method-picker'>
+            <input id='charge-method-el-1' type='radio' name='chargeMethod' class='charge-method-radio-input hiden-element' />
+            <label for='charge-method-el-1' class='charging-method-item'>%</label>
+            <input checked id='charge-method-el-2' type='radio' name='chargeMethod' class='charge-method-radio-input hiden-element' />
+            <label for='charge-method-el-2' class='charging-method-item'>$</label>
+            {note && <span class='charging-method-picker-notes'>{note}</span>}
+        </div>
+    )
+    static DrowpDown = props => (
+        <div />
     )
     render() {
         const margin = this.props.margin || 12
