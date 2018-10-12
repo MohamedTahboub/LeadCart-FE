@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Upsells from './sub/Upsells'
 import Funnels from './sub/Funnels'
@@ -8,7 +8,7 @@ import './style.css'
 
 import common from 'components/common'
 
-const { MainTitle, TabsNavigator, Button } = common
+const { TabsNavigator, Button } = common
 /* temp component tp represent the empty tap */
 const EmptyTab = props => (
     <div className="nothing">...in progress</div>

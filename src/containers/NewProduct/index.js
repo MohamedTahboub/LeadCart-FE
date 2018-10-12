@@ -9,12 +9,9 @@ import AdvanecdSetting from './sub/AdvanecdSetting'
 import common from 'components/common'
 // import { Button } from '../../components/common/Buttons';
 
-const { TabsNavigator ,Button} = common
+const { TabsNavigator, Button } = common
 /* temp component tp represent the empty tap */
 
-const EmptyTab = () => (
-    <span> in progress ...</span>
-)
 const newProductTabs = [
     { title: 'Product Details', hash: 'details' },
     { title: 'Checkout Design', hash: 'checkout' },

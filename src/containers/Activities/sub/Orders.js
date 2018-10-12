@@ -4,7 +4,6 @@ import common from 'components/common'
 import Tabel from 'components/common/Tabels'
 import './style.css'
 
-import customersList from 'data/customers'
 
 const { Avatar, SmallButton, MainTitle } = common
 

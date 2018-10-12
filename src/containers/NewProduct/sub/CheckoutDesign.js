@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import common from 'components/common'
 import TemplatePreview from 'components/Templates'
 const { InputRow, MainBlock } = common
@@ -59,7 +59,7 @@ export default props => (
                     <InputRow.Label>Testimonial Iamge</InputRow.Label>
                     <InputRow.AddComponentField>Add image</InputRow.AddComponentField>
                 </InputRow>
-                <InputRow.AddComponentField style={'green-color'} >New testimonial</InputRow.AddComponentField>
+                <InputRow.AddComponentField color={'green-color'} >New testimonial</InputRow.AddComponentField>
 
                 <InputRow>
                     <InputRow.Label>Custom Content</InputRow.Label>
