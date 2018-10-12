@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Avatar } from '../Cards'
-
 
 import './style.css'
 
