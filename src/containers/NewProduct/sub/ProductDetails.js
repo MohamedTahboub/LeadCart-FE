@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import common from 'components/common'
 
 const { InputRow, MainBlock } = common
@@ -34,7 +34,14 @@ export default props => (
                 </InputRow>
                 <InputRow>
                     <InputRow.Label>Product Type</InputRow.Label>
-                    <InputRow.SelectOption>{[{ value: 1, label: 'One Time Price' }]}</InputRow.SelectOption>
+                    <InputRow.SelectOption
+                    options={[
+                        { label: 'One Time Price', value: 0 },
+                        { label: 'Subscription', value: 1},
+                        { label: 'Split Payments', value: 2 },
+                    ]}
+                    
+                    />
                 </InputRow>
                 <InputRow>
                     <InputRow.Label>Price</InputRow.Label>

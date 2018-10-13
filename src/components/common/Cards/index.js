@@ -1,7 +1,6 @@
 import React from 'react'
 
 import './style.css'
-import newProductImageLink from 'assets/images/new-product-icon.png'
 import { genrateColor } from './helpers'
 export const MiniCard = ({ imgSrc, ...props }) => {
 
