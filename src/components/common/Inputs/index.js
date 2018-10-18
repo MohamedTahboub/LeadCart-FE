@@ -11,8 +11,8 @@ export class InputRow extends Component {
     static NormalInput = props => (
         <input className='input-field' placeholder={props.children} />
     )
-    static SmallInput = props => (
-        <input className='input-field small-input' placeholder={props.children} />
+    static SmallInput = ({type='text' , ...props}) => (
+        <input type={type} className='input-field small-input' placeholder={props.children} />
     )
     static CustomInput = ({ width, ...props }) => (
         <input className='input-field custom-input-field' placeholder={props.children} />
@@ -29,7 +29,7 @@ export class InputRow extends Component {
             <span className='text-area-small-note'>27/260</span>
         </div>
     )
-    static AddComponentField = ({ color = 'primary-color', onClick, children, notes, description, ...props }) => (
+    static AddComponentField = ({ color = 'primary-color', onClick, suffixIcon, children, notes, description, ...props }) => (
         <div onClick={onClick}
             className='add-elements-container'>
             <span className={'add-element-circle ' + color}>
@@ -38,6 +38,8 @@ export class InputRow extends Component {
             <span className='add-input-field' >{children}</span>
             <span className='add-element-notes'>{notes}</span>
             <span className='add-element-description'>{description}</span>
+            {suffixIcon && <span className='add-element-suffix-element'>{suffixIcon}</span>}
+
         </div>
     )
     static SelectOption = ({ options = [], ...props }) => (
@@ -74,7 +76,7 @@ export class InputRow extends Component {
     )
 
     static SwitchInput = props => (
-        <label class="switch-slider-input">
+        <label class="switch-slider-input ">
             <input type="checkbox" />
             <span class="slider-input slider-round"></span>
         </label>
@@ -82,7 +84,7 @@ export class InputRow extends Component {
 
     static CodeInputArea = props => (
         <div className='code-area-container'>
-            <textarea className='codearea-input-field' />
+            <textarea className='codearea-input-field' placeholder={props.children} />
         </div>
     )
 
@@ -95,8 +97,11 @@ export class InputRow extends Component {
             {note && <span class='charging-method-picker-notes'>{note}</span>}
         </div>
     )
-    static DrowpDown = props => (
-        <div />
+    static Note = ({ content, children, ...props }) => (
+        <div className='note-element'>
+            <span className="note-content">{content}</span>
+            {children}
+        </div>
     )
     render() {
         const margin = this.props.margin || 12

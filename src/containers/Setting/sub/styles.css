@@ -1,0 +1,77 @@
+.medium-add-btn{
+    padding: 10px 20px;
+}
+.smooth-box-padding{
+    padding: 20px 20px 20px 20px;
+}
+
+.box-text-small{
+    color:#2B3748;
+    font-size: 15px;
+}
+.box-text-small .fas{
+    font-size: 12px;
+    margin: 0px 5px;
+}
+
+.zapier-brand-image{
+    height: 100px;
+    width: auto;
+}
+
+
+/* Small box container */
+.small-form-container{
+    flex:1;
+}
+.small-form-container:nth-child(1) {
+    margin: 20px 20px 20px 0px;
+}
+
+
+.small-form-controlls {
+    padding: 20px 0px;
+    display: flex;
+    justify-content: flex-end;
+}
+.small-form-container .input-label-container{
+    width:200px;
+}
+
+.small-form-content {
+    background: white;
+    padding: 15px;
+}
+
+
+/* Billing page styles */
+.plan-card-action{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.blue-text{
+    color:#4DA1FF;
+    cursor: pointer;
+}
+.stick-note-icon{
+    position: relative;
+    margin-top: 45%;
+}
+.stick-note-icon:before{
+    content: '';
+    background: url(../../../assets/images/sticky-note-icon.png);
+    position: absolute;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 50px;
+    width: 50px;
+    top: -54px;
+    left: 40%;
+}
+.light-red-color{
+    background: rgb(206, 45, 45);
+}

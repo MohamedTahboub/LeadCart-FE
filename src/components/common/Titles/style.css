@@ -11,3 +11,22 @@
     color: #03A9F4;
     margin-right: 8px;
 }
+.heade-line-container{
+    color:#2B3748;
+    font-size: 24px;
+    font-weight: 300;
+}
+.spcial-announcement{
+    font-size: 13px;
+    letter-spacing: 2px;
+    color:#2B3748;
+    font-weight: bold;
+    text-align: center;
+}
+.big-text-container{
+    color: #2B3748;
+    font-size: 39px;
+    line-height: 35px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}

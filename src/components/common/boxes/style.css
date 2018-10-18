@@ -7,8 +7,9 @@
     position: relative;
     color: #2B3748;
     margin: 15px 0px;
-    display: block;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .main-title {
     text-transform: capitalize;
@@ -18,4 +19,41 @@
 .main-title-note {
     font-size: 14px;
     margin-left: 50px;
+}
+.small-box{
+    margin: 15px 20px 5px 0px;
+    height: 150px;
+    width:150px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.small-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-boxes-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.space-between-elements{
+    justify-content: space-between;
+}
+.normal-box{
+    height: 260px;
+    width: 330px;
+    margin: 10px 20px 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+}
+.box-content{
+    flex:1;
+    display: flex;
+    align-items: center;
 }

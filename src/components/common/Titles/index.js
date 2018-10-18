@@ -9,3 +9,19 @@ export const MainTitle = ({ handle, children, props }) => (
         <span className='main-title'>{children}</span>
     </div>
 )
+export const HeadeLine = ({ children, ...props }) => (
+    <div className="heade-line-container">
+        {children}
+    </div>
+)
+
+export const SpcialAnnouncement = ({ children,classes=[], ...props }) => (
+    <span className={"spcial-announcement "+classes.join(' ')}>
+        {children}
+    </span>
+)
+export const BigText = ({ children,classes=[], ...props }) => (
+    <div className={"big-text-container "+classes.join(' ')}>
+        {children}
+    </div>
+)

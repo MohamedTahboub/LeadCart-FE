@@ -52,7 +52,8 @@
     font-size: smaller;
     border-radius: 3px;
     /* padding: 20px; */
-    padding: 16px;
+    /* padding: 16px; */
+    padding: 8px 15px;
     color: white;
     font-weight: bold;
     cursor: pointer;

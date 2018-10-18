@@ -30,6 +30,7 @@ import NewProduct from 'containers/NewProduct'
 import Activities from './containers/Activities';
 import Coupons from './containers/Coupons';
 import Upsells from './containers/Upsells';
+import Setting from './containers/Setting';
 
 //services
 import registerServiceWorker from 'services/RegisterServiceWorker';
@@ -41,7 +42,7 @@ import './index.css';
 
 /* Temp page to represent the empty pages */
 
-const EmptyPage = ({history})=>(
+const EmptyPage = ({ history }) => (
     <span> This page ({history.location.pathname.slice(1)}) still under development</span>
 )
 
@@ -54,16 +55,17 @@ ReactDOM.render(
         {/* <ErrorBoundary> */}
         <BrowserRouter>
             <Switch>
+                <Route exact path='/login' component={Login} />
+                <Route exact path='/signup' component={SignUp} />
+                <Route exact path='/recoverpwd' component={ForgetPassword} />
+                <Route exact path='/credit' component={CreditCardForm} />
                 <div className='page-container'>
-                    <Route path='*' render={({ history }) => <Header history={history} />} />
+                    <Route render={({ history }) => <Header history={history} />} />
                     <Content>
-                        <Route path='*' render={({ history }) => <SideBar history={history} />} />
+                        <Route render={({ history }) => <SideBar history={history} />} />
                         <ActiveContent >
+
                             <Route exact path='/' component={Dashboard} />
-                            <Route exact path='/login' component={Login} />
-                            <Route exact path='/sighup' component={SignUp} />
-                            <Route exact path='/recoverpwd' component={ForgetPassword} />
-                            <Route exact path='/credit' component={CreditCardForm} />
                             <Route exact path='/products' component={Products} />
                             <Route exact path='/product/new' component={NewProduct} />
                             <Route exact path='/activities' component={Activities} />
@@ -72,6 +74,7 @@ ReactDOM.render(
                             <Route exact path='/reports' component={EmptyPage} />
                             <Route exact path='/affiliates' component={EmptyPage} />
                             <Route exact path='/agency' component={EmptyPage} />
+                            <Route exact path='/setting' component={Setting} />
                             <Route exact path='/help' component={EmptyPage} />
                         </ActiveContent>
                     </Content>
