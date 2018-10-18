@@ -2,7 +2,7 @@ import React from 'react'
 import common from 'components/common'
 import Tabel from 'components/common/Tabels'
 
-const { SmallBox , SmallButton,Button } = common
+const { SmallButton,Button } = common
 
 const AddNewButton = props => (
     <Button classes='primary-color medium-add-btn explort-csv-btn'>
