@@ -31,6 +31,7 @@ import Activities from './containers/Activities';
 import Coupons from './containers/Coupons';
 import Upsells from './containers/Upsells';
 import Setting from './containers/Setting';
+import Agency from './containers/Agency';
 
 //services
 import registerServiceWorker from 'services/RegisterServiceWorker';
@@ -73,7 +74,7 @@ ReactDOM.render(
                             <Route exact path='/upsells' component={Upsells} />
                             <Route exact path='/reports' component={EmptyPage} />
                             <Route exact path='/affiliates' component={EmptyPage} />
-                            <Route exact path='/agency' component={EmptyPage} />
+                            <Route exact path='/agency' component={Agency} />
                             <Route exact path='/setting' component={Setting} />
                             <Route exact path='/help' component={EmptyPage} />
                         </ActiveContent>
