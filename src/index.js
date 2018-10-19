@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 
 // Routing
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { createStore } from 'redux';
+// import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import store from 'store'
 // Config
 import 'config';
 
@@ -35,7 +36,7 @@ import Agency from './containers/Agency';
 
 //services
 import registerServiceWorker from 'services/RegisterServiceWorker';
-import rootReducer from './reducers';
+// import rootReducer from './reducers';
 
 // Styles
 import './index.css';
@@ -48,8 +49,8 @@ const EmptyPage = ({ history }) => (
 )
 
 
-const store = createStore(rootReducer);
-store.subscribe(() => console.log('store', store.getState()));
+// const store = createStore(rootReducer);
+// store.subscribe(() => console.log('store', store.getState()));
 
 ReactDOM.render(
     <Provider store={store}>

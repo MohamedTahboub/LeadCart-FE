@@ -1,7 +1,5 @@
 import React from 'react';
 import common from 'components/common'
-import { ActivationSwitchInput } from '../../../components/common/Buttons';
-// import { MainTitle } from '../../../components/common/Titles';
 import Tabel from 'components/common/Tabels'
 const {
     InputRow,
