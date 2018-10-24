@@ -41,7 +41,7 @@ class NewProductDetailes extends Component {
 
                 <div className='products-controls-btns'>
                     <Button classes='share-btn'>
-                        <i class="fas fa-share-square"></i>Share Product
+                        <i className="fas fa-share-square"></i>Share Product
                     </Button>
                     <Button classes='save-changes-btn'>
                         Save Changes

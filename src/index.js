@@ -15,6 +15,7 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
+import LoadingBar from 'components/LoadingBar'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
 
@@ -54,35 +55,38 @@ const EmptyPage = ({ history }) => (
 
 ReactDOM.render(
     <Provider store={store}>
-        {/* <ErrorBoundary> */}
-        <BrowserRouter>
-            <Switch>
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/signup' component={SignUp} />
-                <Route exact path='/recoverpwd' component={ForgetPassword} />
-                <Route exact path='/credit' component={CreditCardForm} />
-                <div className='page-container'>
-                    <Route render={({ history }) => <Header history={history} />} />
-                    <Content>
-                        <Route render={({ history }) => <SideBar history={history} />} />
-                        <ActiveContent >
+        <React.Fragment>
+            <LoadingBar />
+            {/* <ErrorBoundary> */}
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path='/login' component={Login} />
+                    <Route exact path='/signup' component={SignUp} />
+                    <Route exact path='/recoverpwd' component={ForgetPassword} />
+                    <Route exact path='/credit' component={CreditCardForm} />
+                    <div className='page-container'>
+                        <Route render={({ history }) => <Header history={history} />} />
+                        <Content>
+                            <Route render={({ history }) => <SideBar history={history} />} />
+                            <ActiveContent >
 
-                            <Route exact path='/' component={Dashboard} />
-                            <Route exact path='/products' component={Products} />
-                            <Route exact path='/product/new' component={NewProduct} />
-                            <Route exact path='/activities' component={Activities} />
-                            <Route exact path='/coupons' component={Coupons} />
-                            <Route exact path='/upsells' component={Upsells} />
-                            <Route exact path='/reports' component={EmptyPage} />
-                            <Route exact path='/affiliates' component={EmptyPage} />
-                            <Route exact path='/agency' component={Agency} />
-                            <Route exact path='/setting' component={Setting} />
-                            <Route exact path='/help' component={EmptyPage} />
-                        </ActiveContent>
-                    </Content>
-                </div>
-            </Switch>
-        </BrowserRouter>
+                                <Route exact path='/' component={Dashboard} />
+                                <Route exact path='/products' component={Products} />
+                                <Route exact path='/product/new' component={NewProduct} />
+                                <Route exact path='/activities' component={Activities} />
+                                <Route exact path='/coupons' component={Coupons} />
+                                <Route exact path='/upsells' component={Upsells} />
+                                <Route exact path='/reports' component={EmptyPage} />
+                                <Route exact path='/affiliates' component={EmptyPage} />
+                                <Route exact path='/agency' component={Agency} />
+                                <Route exact path='/setting' component={Setting} />
+                                <Route exact path='/help' component={EmptyPage} />
+                            </ActiveContent>
+                        </Content>
+                    </div>
+                </Switch>
+            </BrowserRouter>
+        </React.Fragment>
         {/* </ErrorBoundary> */}
     </Provider>,
     document.getElementById('root')

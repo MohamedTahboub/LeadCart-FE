@@ -45,7 +45,7 @@ export default class Coupons extends Component {
                     />
                 </InputRow>
                 <Button classes='primary-color margin-with-float-left' >
-                    <i class="fas fa-plus"></i> Create Coupon
+                    <i className="fas fa-plus"></i> Create Coupon
                     </Button>
             </Modal>
         </div>

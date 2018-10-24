@@ -26,7 +26,7 @@ class Upsells extends Component {
                         <InputRow.TextAreaInput></InputRow.TextAreaInput>
                     </InputRow>
                     <Button classes='primary-color margin-with-float-left' >
-                        <i class="fas fa-plus"></i> Create Upsells
+                        <i className="fas fa-plus"></i> Create Upsells
                     </Button>
             </Modal>
             </div>

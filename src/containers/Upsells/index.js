@@ -34,7 +34,7 @@ export default props => {
     return (
         <React.Fragment>
             <Button classes='primary-color' >
-                <i class="fas fa-plus"></i> New Upsells
+                <i className="fas fa-plus"></i> New Upsells
             </Button>
             <TabsNavigator
                 tabs={UpsellsTabs}

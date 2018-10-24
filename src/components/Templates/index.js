@@ -4,7 +4,7 @@ import './style.css'
 export default ({active , ...props}) => (
     <div className='template-preview-container'>
         <div className='preview-image'>
-            <i class="fas fa-eye"></i>
+            <i className="fas fa-eye"></i>
             <div>Preview</div>
         </div>
         <div className='template-preview-footer'>

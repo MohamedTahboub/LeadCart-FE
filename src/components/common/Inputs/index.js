@@ -33,7 +33,7 @@ export class InputRow extends Component {
         <div onClick={onClick}
             className='add-elements-container'>
             <span className={'add-element-circle ' + color}>
-                <i class="fas fa-plus"></i>
+                <i className="fas fa-plus"></i>
             </span>
             <span className='add-input-field' >{children}</span>
             <span className='add-element-notes'>{notes}</span>
@@ -57,11 +57,11 @@ export class InputRow extends Component {
         <input className='input-field' placeholder='http://' />
     )
     static CheckBox = ({ children, description, checked, ...props }) => (
-        <label class="check-box-container">
+        <label className="check-box-container">
             {description &&
                 <span className='check-box-description'>{description}</span>}
-            <input class='check-box' type="radio" name='product-type' checked={checked} />
-            <div class="check-box-indicator">{children}</div>
+            <input className='check-box' type="radio" name='product-type' checked={checked} />
+            <div className="check-box-indicator">{children}</div>
         </label>
     )
 
@@ -76,9 +76,9 @@ export class InputRow extends Component {
     )
 
     static SwitchInput = props => (
-        <label class="switch-slider-input ">
+        <label className="switch-slider-input ">
             <input type="checkbox" />
-            <span class="slider-input slider-round"></span>
+            <span className="slider-input slider-round"></span>
         </label>
     )
 
@@ -89,12 +89,12 @@ export class InputRow extends Component {
     )
 
     static FlatSelect = ({ note, ...props }) => (
-        <div class='charging-method-picker'>
-            <input id='charge-method-el-1' type='radio' name='chargeMethod' class='charge-method-radio-input hiden-element' />
-            <label for='charge-method-el-1' class='charging-method-item'>%</label>
-            <input checked id='charge-method-el-2' type='radio' name='chargeMethod' class='charge-method-radio-input hiden-element' />
-            <label for='charge-method-el-2' class='charging-method-item'>$</label>
-            {note && <span class='charging-method-picker-notes'>{note}</span>}
+        <div className='charging-method-picker'>
+            <input id='charge-method-el-1' type='radio' name='chargeMethod' className='charge-method-radio-input hiden-element' />
+            <label for='charge-method-el-1' className='charging-method-item'>%</label>
+            <input checked id='charge-method-el-2' type='radio' name='chargeMethod' className='charge-method-radio-input hiden-element' />
+            <label for='charge-method-el-2' className='charging-method-item'>$</label>
+            {note && <span className='charging-method-picker-notes'>{note}</span>}
         </div>
     )
     static Note = ({ content, children, ...props }) => (

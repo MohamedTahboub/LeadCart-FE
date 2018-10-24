@@ -7,7 +7,7 @@ const { Button, MainBlock, MainTitle, SmallBox, FlexBoxesContainer, ActivationSw
 
 const AddNewButton = props => (
     <Button classes='primary-color medium-add-btn'>
-        <i class="fas fa-plus"></i> Add new
+        <i className="fas fa-plus"></i> Add new
     </Button>
 )
 //ColorInlinePicker
@@ -44,7 +44,7 @@ export default props => (
             </SmallBox>
             <SmallBox clickable={true}>
                 <span className='box-text-small'>
-                    <i class="fas fa-plus"></i> Add new
+                    <i className="fas fa-plus"></i> Add new
                  </span>
             </SmallBox>
         </FlexBoxesContainer>

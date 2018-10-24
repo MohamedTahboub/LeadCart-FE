@@ -12,10 +12,10 @@ const goToPage = ({ history, page }) => {
 }
 
 export default ({ history, props }) => (
-    <div class='side-bar' >
+    <div className='side-bar' >
         <AvatarPreviewBox />
         <span onClick={() => goToPage({ history, page: '/product/new#details' })} className='btn new-product-btn'>
-            <i class="fas fa-plus"></i> New Product
+            <i className="fas fa-plus"></i> New Product
         </span>
         <Menu >
             <Link to={{ history, page: '/products' }} classes={['active-menu-item']}>Products</Link>

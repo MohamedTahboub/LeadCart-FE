@@ -35,12 +35,13 @@
 
 
 .subdomain {
+    position: relative;
     display:flex;
     width: 80%;
     align-items: center;
 
 }
-.subdomain span {
+.main-domain-suffix {
     background: #4DA1FF;
     color: white;
     padding: 0px 37px;
@@ -66,3 +67,10 @@
     border: 0.5px solid #C9D3DC;
     box-sizing: border-box;
 } 
+
+.input-feild-error {
+    position: absolute;
+    bottom: -15px;
+    font-size: 11px;
+    color: #d66854;
+}
