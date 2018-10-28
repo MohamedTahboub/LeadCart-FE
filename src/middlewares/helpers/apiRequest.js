@@ -9,7 +9,7 @@ export default async ({ method = 'GET', body = {}, uri }) => {
             credentials: 'same-origin',
             body: JSON.stringify(body)
         }
-        const response = await fetch(uri, options);
+        const response = (await fetch(uri, options)).json();
 
         return response
     } catch (err) {

@@ -1,4 +1,3 @@
-
 import apiRequest from './helpers/apiRequest'
 import { SIGN_UP } from 'constantsTypes';
 
@@ -9,21 +8,20 @@ import {
 
 export default ({ dispatch }) => next => action => {
 
-    console.log(action)
     if (action.type !== SIGN_UP) return next(action)
 
 
     apiRequest({
         method: 'POST',
         body: action.payload,
-        uri: '/api/users/signup'
+        uri: '/api/users/login'
     })
-        .then(({ status,message, ...response }) => {
+        .then(({ status, ...response }) => {
             console.log(status, response)
             return status ?
                 dispatch(signUpSuccess(response))
                 :
-                dispatch(signUpFaild(message || response))
+                dispatch(signUpFaild(response))
         })
         .catch(err => dispatch(signUpFaild(err.message)))
 

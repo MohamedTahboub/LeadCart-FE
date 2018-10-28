@@ -3,9 +3,13 @@ import amex from 'assets/companyPaymentLogos/amex.svg';
 import discover from 'assets/companyPaymentLogos/discover.svg';
 import mc from 'assets/companyPaymentLogos/mc.svg';
 import visa from 'assets/companyPaymentLogos/visa.svg';
+
+import { connect } from 'react-redux'
+import * as signupActions from 'actions/signup'
+
 import './styles.css';
 
-class CreditCardForm extends Component {
+class PromoCodeActivation extends Component {
   render () {
     return (
       <div className='wrapper'>
@@ -22,10 +26,10 @@ class CreditCardForm extends Component {
                 Payment Information
           </div>
           <div className='payment-logs'>
-            <img alt='' src={visa} />
-            <img alt='' src={mc} />
-            <img alt='' src={discover} />
-            <img alt='' src={amex} />
+            <img alt='visa' src={visa} />
+            <img alt='mc' src={mc} />
+            <img alt='discover' src={discover} />
+            <img alt='amex' src={amex} />
 
           </div>
         </div>
@@ -40,7 +44,7 @@ class CreditCardForm extends Component {
             <div className='form-input date'><input /></div>
             <div className='form-input cvv'><input /></div>
           </div>
-          <button type='submit' className='form-submit signup-btn'>sign up</button>
+          <button onClick={()=>this.props.activatePromoCode()} type='submit' className='form-submit signup-btn'>sign up</button>
         </div>
         <footer>
         © LeadCart. All rights reserved 2018
@@ -50,4 +54,8 @@ class CreditCardForm extends Component {
   }
 }
 
-export default CreditCardForm;
+const mapStateToProps = state => ({
+  validationError: state.validation.credit
+})
+
+export default connect(mapStateToProps, signupActions)(PromoCodeActivation);

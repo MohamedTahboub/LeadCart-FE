@@ -16,20 +16,8 @@ class SignUp extends Component {
       password: e.target.password.value,
       subdomain: e.target.subdomain.value
     }
-    this.props.signUpFirstStageSubmite(newUser)
+    this.props.signUp(newUser)
   }
-  componentDidUpdate = () => {
-    this.props.isLoggedIn
-      ?
-      this.props.history.push('/')
-      :
-      this.props.signup_stage === 2
-        ?
-        this.props.history.push('/credit')
-        :
-        null
-  }
-
 
   render() {
     const { validationError: errors } = this.props
@@ -75,7 +63,7 @@ class SignUp extends Component {
 }
 const mapStateToProps = state => ({
   isLoggedIn: state.user.isLoggedIn,
-  signup_stage: state.user.signup_stage,
+  user: state.user,
   validationError: state.validation.signup
 })
 

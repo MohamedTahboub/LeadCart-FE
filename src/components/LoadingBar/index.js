@@ -8,7 +8,7 @@ import './style.css'
 class LoadingBar extends Component {
     componentDidUpdate = () => console.log('LOADIGN', this.props.isLoading)
     render() {
-        return !this.props.isLoading ?
+        return this.props.isLoading ?
             (
                 <div className="application-loading-bar">
                     <div className="lodaing-progress"></div>

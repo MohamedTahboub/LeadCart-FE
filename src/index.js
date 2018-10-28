@@ -15,6 +15,7 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
+import AuthChecker from 'components/AuthChecker'
 import LoadingBar from 'components/LoadingBar'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
@@ -22,7 +23,7 @@ import LoadingBar from 'components/LoadingBar'
 // Container
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
-import CreditCardForm from 'containers/CreditCardForm';
+import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 
 
@@ -60,11 +61,18 @@ ReactDOM.render(
             {/* <ErrorBoundary> */}
             <BrowserRouter>
                 <Switch>
+                    <Route render={({ history }) => <AuthChecker history={history} />} />
+                </Switch>
+            </BrowserRouter>
+            <BrowserRouter>
+                <Switch>
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/signup' component={SignUp} />
                     <Route exact path='/recoverpwd' component={ForgetPassword} />
-                    <Route exact path='/credit' component={CreditCardForm} />
+                    <Route exact path='/promocode' component={PromoCodeActivation} />
+
                     <div className='page-container'>
+
                         <Route render={({ history }) => <Header history={history} />} />
                         <Content>
                             <Route render={({ history }) => <SideBar history={history} />} />
@@ -84,6 +92,7 @@ ReactDOM.render(
                             </ActiveContent>
                         </Content>
                     </div>
+
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
