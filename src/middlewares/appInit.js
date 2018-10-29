@@ -1,9 +1,15 @@
-import { APP_INITIATION } from 'constantsTypes';
+import { APP_INIT } from 'constantsTypes';
+import { loginSuccess } from 'actions/login';
 
-export default ({ dispatch, getState }) => next => action => {
-    const { user: { user: { token } } } = getState()
+export default ({ dispatch, getState }) => (next) => (action) => {
+  const { user: { user: { token } } } = getState();
 
-    if (action.type !== APP_INITIATION) return next(action)
+  if (action.type !== APP_INIT) return next(action);
 
-    // restore the application stored data in the loaclStorage 
-}
+  console.log('initializing the application');
+  const user = localStorage.user && JSON.parse(localStorage.user);
+
+  if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
+
+  // restore the application stored data in the loaclStorage
+};

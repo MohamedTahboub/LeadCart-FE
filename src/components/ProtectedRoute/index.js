@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { appInit } from 'actions/appInit';
 
 const ProtectedRoute = ({
-  component: Component, isLoggedIn, appInit, user, ...props
+  component: Component, isLoggedIn, user, ...props
 }) => (
   <Route
     {...props} render={(props) => (

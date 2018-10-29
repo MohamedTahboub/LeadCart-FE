@@ -4,7 +4,6 @@ import {
   APP_INIT,
   LOGOUT
 } from 'constantsTypes';
-import { login } from 'actions/login';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { type, payload = {} } = action;
@@ -19,11 +18,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
   if (type === SIGN_UP_SUCCESS || type === LOGIN_SUCCESS) localStorage.user = JSON.stringify({ ...payload, isLoggedIn: true });
 
-
-  if (type === APP_INIT) {
-    const user = localStorage.user && JSON.parse(localStorage.user);
-    if (user.isLoggedIn === true) dispatch(login(user));
-  }
 
   if (type === LOGOUT) localStorage.user = '';
 

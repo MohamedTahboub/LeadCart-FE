@@ -15,7 +15,7 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
-import  ProtectedRoute from 'components/ProtectedRoute'
+import ProtectedRoute from 'components/ProtectedRoute'
 import LoadingBar from 'components/LoadingBar'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
@@ -42,7 +42,7 @@ import registerServiceWorker from 'services/RegisterServiceWorker';
 
 // Styles
 import './index.css';
-
+import { APP_INIT } from 'constantsTypes';
 
 /* Temp page to represent the empty pages */
 
@@ -50,7 +50,9 @@ const EmptyPage = ({ history }) => (
     <span> This page ({history.location.pathname.slice(1)}) still under development</span>
 )
 
-
+window.onload = () => {
+    store.dispatch({type:APP_INIT})
+}
 // const store = createStore(rootReducer);
 // store.subscribe(() => console.log('store', store.getState()));
 
