@@ -505,3 +505,12 @@ input[type="radio"]{
 .wide-element{
     padding: 0px 15px !important;
 }
+
+
+
+.child-added-element {
+    font-size: 12px;
+    color: #656d75;
+    margin-top: 30px;
+    margin-left: -80px;
+}

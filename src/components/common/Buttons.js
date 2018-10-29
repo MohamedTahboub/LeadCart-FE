@@ -5,14 +5,14 @@ export const Button = ({
   classes, children, onClick, ...props
 }) => (
   <span onClick={onClick} className={`btn  ${classes || ''}`}>
-          {children}
+    {children}
   </span>
 );
 export const MiniButton = ({
   iconClass, children, classes, ...props
 }) => (
   <span className={`mini-btn  ${classes || ''}`}>
-          {iconClass && <i className={`fas ${iconClass}`} />}
+    {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
   </span>
 );
@@ -25,8 +25,8 @@ export const SmallButton = ({
   </span>
 );
 
-export const DeleteButton = ({ iconType, ...props }) => (
-  <span className='btn delete-btn x-small-btn'>
+export const DeleteButton = ({ iconType = 'trash', onClick, ...props }) => (
+  <span onClick={onClick} className='btn delete-btn x-small-btn'>
     <i className={`fas fa-${iconType}-alt `} />
   </span>
 );
