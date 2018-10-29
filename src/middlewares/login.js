@@ -1,30 +1,25 @@
 import apiRequest from './helpers/apiRequest'
-import { SIGN_UP } from 'constantsTypes';
+import { LOGIN } from 'constantsTypes';
 
 import {
-    signUpSuccess,
-    signUpFaild
-} from 'actions/signup'
+    loginSuccess,
+    loginFaild
+} from 'actions/login'
 
 export default ({ dispatch }) => next => action => {
 
-    if (action.type !== SIGN_UP) return next(action)
-
+    if (action.type !== LOGIN) return next(action)
 
     apiRequest({
         method: 'POST',
         body: action.payload,
         uri: '/api/users/login'
     })
-        .then(({ status, ...response }) => {
-            console.log(status, response)
-            return status ?
-                dispatch(signUpSuccess(response))
+        .then(({ success, message , data }) => {
+            return success ?
+                dispatch(loginSuccess(data))
                 :
-                dispatch(signUpFaild(response))
+                dispatch(loginFaild(message))
         })
-        .catch(err => dispatch(signUpFaild(err.message)))
-
-
-
+        .catch(err => dispatch(loginFaild('Something gone wrong,please try again later ')))
 }

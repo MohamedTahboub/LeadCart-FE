@@ -5,14 +5,17 @@ import { FormLogo } from 'components/common/logos';
 import * as loginActions from 'actions/login'
 import './styles.css';
 
-const Login = ({ login, errors }) => {
+const Login = ({ isLoggedIn , history , login, errors }) => {
 
+  isLoggedIn && history.push('/')
   const onLogin = e => {
+    e.preventDefault()
     const {
-      target: { email, password }
+      target: { email: { value: email }, password: { value: password } }
     } = e
-
+    console.log(email, password)
     login({ email, password })
+
   }
 
 
@@ -34,6 +37,8 @@ const Login = ({ login, errors }) => {
           <input type='password' name='password' />
           {errors.password && <span className="input-feild-error">{errors.password}</span>}
         </div>
+      
+        {errors.loginError &&  <span className="login-error-field">{errors.loginError}</span>}
         <button type='submit' className='form-submit'>sign in now</button>
         <div className='form-forget-password'>
           <span>forget password?</span>
@@ -48,5 +53,12 @@ const Login = ({ login, errors }) => {
 }
 
 
-const mapStateToProps = ({ user: { isLoggedIn }, validation: { login: errors } }) => ({ isLoggedIn, errors })
+const mapStateToProps = ({ user: {
+  isLoggedIn,
+  error: loginError },
+  validation: { login: errors }
+}) => ({
+  isLoggedIn,
+  errors: { loginError, ...errors }
+})
 export default connect(mapStateToProps, loginActions)(Login);

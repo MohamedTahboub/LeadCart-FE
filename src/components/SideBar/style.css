@@ -29,6 +29,7 @@
     font-weight: bold;
     line-height: 35px;
     font-size: 15px;
+    text-transform: capitalize;
 }
 .setting-short {
     padding: 6px 10px;
@@ -117,3 +118,8 @@
     color: #ff6347b5;
 }
 
+.logout-btn {
+    background: #c9d3dc;
+    font-size: 12px;
+    margin-top: 50px;
+}

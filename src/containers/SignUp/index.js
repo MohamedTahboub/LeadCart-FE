@@ -6,21 +6,24 @@ import * as signupActions from 'actions/signup'
 import './styles.css';
 
 class SignUp extends Component {
-
+  
+  componentDidUpdate= () => this.props.isLoggedIn && this.props.history.push('/')
+  
   onSubmit = (e) => {
     e.preventDefault()
     const newUser = {
-      username: e.target.username.value,
+      firstName: e.target.username.value.split(' ')[0],
+      lastName: e.target.username.value.split(' ')[1],
       email: e.target.email.value,
-      company: e.target.company.value,
+      companyName: e.target.company.value,
       password: e.target.password.value,
-      subdomain: e.target.subdomain.value
+      subDomain: e.target.subdomain.value
     }
     this.props.signUp(newUser)
   }
 
   render() {
-    const { validationError: errors } = this.props
+    const { validationError: errors,signupError } = this.props
     return (
       <div className='wrapper'>
         <FormLogo />
@@ -52,6 +55,7 @@ class SignUp extends Component {
             <span className='main-domain-suffix'>.leadcart.io</span>
             {errors.subdomain && <span className="input-feild-error">{errors.subdomain}</span>}
           </div>
+          {signupError &&  <span className="signup-error-field">{signupError}</span>}
           <button type='submit' className='form-submit'>next</button>
         </form>
         <footer>
@@ -64,6 +68,7 @@ class SignUp extends Component {
 const mapStateToProps = state => ({
   isLoggedIn: state.user.isLoggedIn,
   user: state.user,
+  signupError:state.user.error,
   validationError: state.validation.signup
 })
 

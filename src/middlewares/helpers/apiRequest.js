@@ -10,9 +10,8 @@ export default async ({ method = 'GET', body = {}, uri }) => {
             body: JSON.stringify(body)
         }
         const response = (await fetch(uri, options)).json();
-
         return response
     } catch (err) {
-        return { status: false, message: err.message }
+        return { success: false, message: 'Connection Error' }
     }
 }
