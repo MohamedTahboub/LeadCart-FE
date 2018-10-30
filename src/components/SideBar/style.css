@@ -31,7 +31,8 @@
     font-size: 15px;
 }
 .setting-short {
-    padding: 10px;
+    /* padding: 10px; */
+    padding: 5px 9px;
     background: white;
     border-radius: 50%;
     margin-top: -25px;
