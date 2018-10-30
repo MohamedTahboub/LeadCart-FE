@@ -45,6 +45,10 @@ export const UPLOAD_FILE_SUCCESS = Symbol('UPLOAD_FILE_SUCCESS');
 export const UPLOAD_FILE_FAILD = Symbol('UPLOAD_FILE_FAILD');
 /* files uploading actions ends */
 
+
+/* global action types */
 export const APP_INITIATION = Symbol('APP_INITIATION');
-export const LOADING = Symbol('LOADING')
-;
+export const TOGGLE_LOADING = Symbol('TOGGLE_LOADING');
+
+export const API_REQUEST = Symbol('API_REQUEST');
+

@@ -1,11 +1,11 @@
-import { LOADING } from 'constantsTypes'
+import { TOGGLE_LOADING } from 'constantsTypes';
 
 
-const initialState = false
+const initialState = false;
 
 export default (state = initialState, { type, payload }) => {
-    switch (type) {
-        case LOADING: return payload;
-        default: return state;
-    };
+  switch (type) {
+  case TOGGLE_LOADING: return !state;
+  default: return state;
+  }
 };
