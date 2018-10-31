@@ -2,11 +2,19 @@
     background: white;
     padding: 15px 20px 46px 20px;
 }
+.main-title-container{
+    position: relative;
+    color: #2B3748;
+    margin: 15px 0px;
+    display: block;
+
+}
 .main-title {
     text-transform: capitalize;
     font-size: 25px;
-    color: #2B3748;
     font-weight: normal;
-    margin: 15px 0px;
-    display: block;
+}
+.main-title-note {
+    font-size: 14px;
+    margin-left: 50px;
 }

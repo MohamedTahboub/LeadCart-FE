@@ -1,10 +1,10 @@
 import React from 'react';
 // import Dashboard from '../Dashboard'
-import ProductDetails from '../ProductDetails'
+import NewProductDetailes from '../ProductDetails'
 
 import './style.css'
 export default props => (
     <div className='active-content' >
-       <ProductDetails/>
+       <NewProductDetailes/>
     </div>
 );
