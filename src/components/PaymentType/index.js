@@ -4,21 +4,22 @@ import common from 'components/common';
 const { InputRow } = common;
 
 
-const PaymentTypePicker = ({ type, ...props }) => {
+const PaymentTypePicker = ({ type, onChange, ...props }) => {
   switch (type) {
   case 'oneTime':
     return (
       <InputRow>
         <InputRow.Label>Price</InputRow.Label>
-        <InputRow.PriceField currancy='$' name='price' onChange={this.onFieldChange}>1.99</InputRow.PriceField>
+        <InputRow.PriceField onChange={onChange} currancy='$' name='price'></InputRow.PriceField>
       </InputRow>
     );
   case 'subscription':
     return (
       <InputRow>
         <InputRow.Label classes='hide-element' />
-        <InputRow.PriceField currancy='$' name='price'></InputRow.PriceField>
+        <InputRow.PriceField onChange={onChange} currancy='$' name='price'></InputRow.PriceField>
         <InputRow.SelectOption
+          onChange={onChange}
           name='recurring'
           leftLabel='Recurring time'
           options={[
@@ -33,8 +34,9 @@ const PaymentTypePicker = ({ type, ...props }) => {
     return (
       <InputRow>
         <InputRow.Label classes='hide-element' />
-        <InputRow.PriceField currancy='$' name='price'></InputRow.PriceField>
-        <InputRow.SelectOption
+                <InputRow.PriceField onChange={onChange} currancy='$' name='price'></InputRow.PriceField>
+                <InputRow.SelectOption
+          onChange={onChange}
           name='Split'
           leftLabel='Split payments'
           options={[
@@ -46,7 +48,7 @@ const PaymentTypePicker = ({ type, ...props }) => {
             { label: '20', value: '20' },
           ]}
         />
-      </InputRow>
+              </InputRow>
     );
   default: return null;
   }
@@ -54,10 +56,25 @@ const PaymentTypePicker = ({ type, ...props }) => {
 
 export default class PaymentType extends Component {
     state = {
-      type: 'oneTime'
+      type: 'oneTime',
+      currentValue: {}
     }
 
     onPaymentTypeChange = ({ target: { value } }) => this.setState({ type: value })
+
+    onChange = ({ target: { value, name } }) => {
+      this.setState({
+        currentValue: {
+          [this.state.type]: {
+            ...this.state.currentValue[this.state.type],
+            [name]: value
+          }
+        }
+      });
+      setTimeout(() => {
+        this.props.onChange(this.state.currentValue);
+      }, 200);
+    }
 
     render () {
       return (
@@ -73,7 +90,7 @@ export default class PaymentType extends Component {
               ]}
             />
           </InputRow>
-          <PaymentTypePicker type={this.state.type} />
+          <PaymentTypePicker type={this.state.type} onChange={this.onChange} />
 
         </React.Fragment>
       );

@@ -16,7 +16,6 @@ export const TagsElements = ({
     {showTageInput && (
       <div className='tag-input-container'>
         <input
-          onEnter={onAddTag}
           onChange={onCurrentTagChange}
           type='text'
           className='tage-input-field'
