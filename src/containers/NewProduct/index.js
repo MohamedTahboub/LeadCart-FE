@@ -21,9 +21,9 @@ const newProductTabs = [
 ]
 
 
-const ActiveTabe = ({ tabName, ...props }) => {
+const ActiveTabe = ({ tabName, onChange, ...props }) => {
     switch (tabName) {
-        case 'details': return <ProductDetailes />
+        case 'details': return <ProductDetailes onChange={onChange} />
         case 'checkout': return <CheckoutDesign />
         case 'payments': return <Payments />
         case 'order': return <OrderBump />
@@ -34,13 +34,24 @@ const ActiveTabe = ({ tabName, ...props }) => {
 
 
 class NewProductDetailes extends Component {
+    state = {
+
+    }
+    onTabsDataChange = (data) => {
+        console.log(data)
+        this.setState({ data })
+    }
+    onChangesSave(data) {
+        console.log(this.state)
+    }
+
     render() {
         const tabName = this.props.history.location.hash.slice(1)
         return (
             <div className='products-details-page'>
 
                 <div className='products-controls-btns'>
-                    <Button classes='share-btn'>
+                    <Button onClick={this.onChangesSave} classes='share-btn'>
                         <i className="fas fa-share-square"></i>Share Product
                     </Button>
                     <Button classes='save-changes-btn'>
@@ -50,7 +61,7 @@ class NewProductDetailes extends Component {
                 <TabsNavigator
                     tabs={newProductTabs}
                     history={this.props.history} />
-                <ActiveTabe tabName={tabName} />
+                <ActiveTabe tabName={tabName} onChange={this.onTabsDataChange} />
 
             </div>
         );

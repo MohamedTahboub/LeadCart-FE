@@ -1,17 +1,39 @@
 import React, { Component } from 'react';
 import common from 'components/common';
-import PaymentType from 'components/PaymentType'
+import PaymentType from 'components/PaymentType';
 const { InputRow, MainBlock } = common;
 
 class ProductDetailes extends Component {
-  onFieldChange = (e) => {
-    console.log('Input Changes');
-    console.log(e.target.name, e.target.value);
+  state = {
+    details: {}
+  }
+
+  onFieldChange = ({ target: { name, value } }) => {
+    this.setState({
+      details: {
+        ...this.state.details,
+        [name]: value
+      }
+    });
+    setTimeout(() => {
+      // console.log(this.state.details);
+    }, 200);
+  }
+
+  onPaymentChange = (payment) => {
+    this.setState({
+      details: {
+        ...this.state.details,
+        payment
+      }
+    });
   }
 
   onProductImageUploaded = (imageLink) => {
-    console.log(imageLink);
+    // console.log(imageLink);
   }
+
+  componentDidUpdate = () => this.props.onChange(this.state)
 
   render () {
     return (
@@ -47,7 +69,7 @@ Add files
               </InputRow.AddComponentField>
             </InputRow>
 
-            <PaymentType type='' />
+            <PaymentType type='' onChange={this.onPaymentChange} />
             <InputRow>
               <InputRow.Label>Thank you Page URL</InputRow.Label>
               <InputRow.UrlInput prefix='http://'></InputRow.UrlInput>

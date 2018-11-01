@@ -29,6 +29,7 @@ export const GET_PRODUCT_DETAILS = Symbol('GET_PRODUCT_DETAILS');
 export const GET_PRODUCT_SUCCESS = Symbol('GET_PRODUCT_SUCCESS');
 export const GET_PRODUCT_FAILD = Symbol('GET_PRODUCT_FAILD');
 
+export const GET_USER_PRODUCTS = Symbol('GET_USER_PRODUCTS');
 /* Product action types end */
 
 
