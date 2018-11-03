@@ -1,39 +1,31 @@
 import React, { Component } from 'react';
 import common from 'components/common';
 import PaymentType from 'components/PaymentType';
+import { connect } from 'react-redux';
+import * as producActions from 'actions/product';
+
 const { InputRow, MainBlock } = common;
 
 class ProductDetailes extends Component {
-  state = {
-    details: {}
-  }
-
   onFieldChange = ({ target: { name, value } }) => {
-    this.setState({
-      details: {
-        ...this.state.details,
-        [name]: value
-      }
-    });
-    setTimeout(() => {
-      // console.log(this.state.details);
-    }, 200);
+    this.props.onProductDetailsFieldChange({ name, value });
   }
 
   onPaymentChange = (payment) => {
-    this.setState({
-      details: {
-        ...this.state.details,
-        payment
-      }
-    });
+    this.props.onProductDetailsFieldChange({ name: 'payment', value: payment });
   }
 
-  onProductImageUploaded = (imageLink) => {
-    // console.log(imageLink);
+  onProductImageUploaded = (image) => {
+    this.props.onProductDetailsFieldChange({ name: 'image', value: image });
   }
 
-  componentDidUpdate = () => this.props.onChange(this.state)
+  onProductFilesAdd = (filesUrls) => {
+    this.props.onProductDetailsFieldChange({ name: 'productFiles', value: filesUrls });
+  }
+
+  onTagsChange = (tags) => {
+    this.props.onProductDetailsFieldChange({ name: 'tags', value: tags });
+  }
 
   render () {
     return (
@@ -72,11 +64,11 @@ Add files
             <PaymentType type='' onChange={this.onPaymentChange} />
             <InputRow>
               <InputRow.Label>Thank you Page URL</InputRow.Label>
-              <InputRow.UrlInput prefix='http://'></InputRow.UrlInput>
+              <InputRow.UrlInput name='thanksUrl' onTagsChange={this.onFieldChange} prefix='http://' />
             </InputRow>
             <InputRow>
               <InputRow.Label>Product Tags</InputRow.Label>
-              <InputRow.AddComponentField tags={[]} type='tags'>Create tags</InputRow.AddComponentField>
+              <InputRow.AddComponentField type='tags' onTagsChange={this.onTagsChange}>Create tags</InputRow.AddComponentField>
             </InputRow>
           </form>
         </MainBlock>
@@ -90,6 +82,7 @@ Add files
           <InputRow>
             <InputRow.Label>Digital File (Optional)</InputRow.Label>
             <InputRow.AddComponentField
+              type='files' onProductFilesAdd={this.onProductFilesAdd}
               description='Files should be smaller than 100MB.
                 We support: PDF, RAR, ZIP, and any image/audio/video format.'
             >
@@ -104,5 +97,9 @@ Add files
   }
 }
 
+const mapStateToProps = (state) => ({
+  productDetails: state.product.details,
+  errors: state.product.details.error,
+});
 
-export default ProductDetailes;
+export default connect(mapStateToProps, producActions)(ProductDetailes);

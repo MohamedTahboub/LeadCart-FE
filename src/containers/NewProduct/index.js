@@ -7,8 +7,8 @@ import Payments from './sub/Payments'
 import OrderBump from './sub/OrderBump'
 import AdvanecdSetting from './sub/AdvanecdSetting'
 import common from 'components/common'
-// import { Button } from '../../components/common/Buttons';
-
+import { connect } from 'react-redux'
+import * as productAction from 'actions/product'
 const { TabsNavigator, Button } = common
 /* temp component tp represent the empty tap */
 
@@ -23,7 +23,7 @@ const newProductTabs = [
 
 const ActiveTabe = ({ tabName, onChange, ...props }) => {
     switch (tabName) {
-        case 'details': return <ProductDetailes onChange={onChange} />
+        case 'details': return <ProductDetailes />
         case 'checkout': return <CheckoutDesign />
         case 'payments': return <Payments />
         case 'order': return <OrderBump />
@@ -32,7 +32,9 @@ const ActiveTabe = ({ tabName, onChange, ...props }) => {
     }
 }
 
-
+const Link = ({ children, link, classes = [], ...props }) => (
+    <a href={link || "/products/ursadsaddsssastertasadl1"} target="_blank" className={"btn link-btn " + classes.join(' ')}>{children}</a>
+)
 class NewProductDetailes extends Component {
     state = {
 
@@ -41,8 +43,20 @@ class NewProductDetailes extends Component {
         console.log(data)
         this.setState({ data })
     }
-    onChangesSave(data) {
-        console.log(this.state)
+    onChangesSave = (tabName) => {
+
+        switch (tabName) {
+            case 'details':
+                return this.props.createNewProduct({})
+            case 'checkout':
+                return this.props.productCheckoutDesignUpdate()
+            case 'payments':
+                return this.props.productPaymentUpdate()
+            case 'order':
+                return this.props.productOrderBumpUpdate()
+            case 'advanced':
+                return this.props.productAdvanceSettingUpdate()
+        }
     }
 
     render() {
@@ -51,10 +65,10 @@ class NewProductDetailes extends Component {
             <div className='products-details-page'>
 
                 <div className='products-controls-btns'>
-                    <Button onClick={this.onChangesSave} classes='share-btn'>
+                    <Link link={this.props.productLink} classes={['share-btn']}>
                         <i className="fas fa-share-square"></i>Share Product
-                    </Button>
-                    <Button classes='save-changes-btn'>
+                    </Link>
+                    <Button onClick={() => this.onChangesSave(tabName)} classes='save-changes-btn'>
                         Save Changes
                     </Button>
                 </div>
@@ -67,5 +81,8 @@ class NewProductDetailes extends Component {
         );
     }
 }
-
-export default NewProductDetailes;
+const mapStateToProps = state => ({
+    state,
+    productLink: state.product.url
+})
+export default connect(mapStateToProps, productAction)(NewProductDetailes);

@@ -509,6 +509,7 @@ input[type="radio"]{
 
 
 .child-added-element {
+    line-height: 25px;
     font-size: 12px;
     color: #656d75;
     margin: 8px;

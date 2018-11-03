@@ -1,9 +1,17 @@
-import { CREATE_NEW_PRODUCT } from 'constantsTypes';
+import {
+  PRODUCT_CREATED_SUCCESSFULY,
+  PRODUCT_DETAILS_FIELD_UPDATE,
+  PRODUCT_CHECKOUT_FIELD_UPDATE,
+  PRODUCT_PAYMENT_FIELD_UPDATE,
+  PRODUCT_BUMP_FIELD_UPDATE,
+  PRODUCT_SETTING_FIELD_UPDATE
+} from 'constantsTypes';
 
 
 const initState = {
   id: '',
   details: {
+    type: 'digital',
     name: '',
     internalName: '',
     errors: {}
@@ -25,6 +33,9 @@ const initState = {
     termsAndConditionsUrl: '',
     errors: {},
   },
+  payment: {
+    type: 'stripe'
+  },
   bumbOffer: {
     enable: false,
     options: {
@@ -39,7 +50,7 @@ const initState = {
     },
     errors: {}
   },
-  advance: {
+  setting: {
     scripts: {
       footerEmbeded: '',
       firePixels: ''
@@ -53,7 +64,12 @@ const initState = {
 };
 export default (state = initState, { type, payload }) => {
   switch (type) {
-  case CREATE_NEW_PRODUCT: return { ...state, details: payload };
+  case PRODUCT_CREATED_SUCCESSFULY: return { ...state, details: { ...state.details, ...payload } };
+  case PRODUCT_DETAILS_FIELD_UPDATE: return { details: { ...state.details, [payload.name]: payload.value } };
+  case PRODUCT_CHECKOUT_FIELD_UPDATE: return { checkout: { ...state.checkout, [payload.name]: payload.value } };
+  case PRODUCT_PAYMENT_FIELD_UPDATE: return { payment: { ...state.payment, [payload.name]: payload.value } };
+  case PRODUCT_BUMP_FIELD_UPDATE: return { bumbOffer: { ...state.bumbOffer, [payload.name]: payload.value } };
+  case PRODUCT_SETTING_FIELD_UPDATE: return { setting: { ...state.setting, [payload.name]: payload.value } };
   default: return state;
   }
 };
