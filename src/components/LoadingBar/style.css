@@ -1,0 +1,35 @@
+.application-loading-bar{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    right: 0px;
+    height: 2px;
+    background: lightblue;
+}
+.application-loading-bar .lodaing-progress{
+    position: absolute;
+    height: 100%;
+    width: 20%;
+    background: rgb(23, 100, 126);
+    animation:  progress 2.5s infinite; 
+}
+
+
+
+@keyframes progress{
+    0% {
+        transform: scaleX(1);
+    }
+    25% {
+        transform:  scaleX(2);
+    }
+    50% {
+        transform: scaleX(4);
+    }
+    75% {
+        transform: scaleX(6);
+    }
+    100% {
+        transform: scaleX(9);
+    }
+}

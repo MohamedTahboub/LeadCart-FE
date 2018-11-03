@@ -6,7 +6,7 @@ const { SmallButton,Button } = common
 
 const AddNewButton = props => (
     <Button classes='primary-color medium-add-btn explort-csv-btn'>
-        <i class="fas fa-plus"></i> Add new
+        <i className="fas fa-plus"></i> Add new
     </Button>
 )
 

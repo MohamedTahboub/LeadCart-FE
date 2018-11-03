@@ -6,21 +6,24 @@ import * as signupActions from 'actions/signup'
 import './styles.css';
 
 class SignUp extends Component {
-
+  
+  componentDidUpdate= () => this.props.isLoggedIn && this.props.history.push('/')
+  
   onSubmit = (e) => {
     e.preventDefault()
     const newUser = {
-      username: e.target.username.value,
+      firstName: e.target.username.value.split(' ')[0],
+      lastName: e.target.username.value.split(' ')[1],
       email: e.target.email.value,
-      company: e.target.company.value,
-      subdomain: e.target.subdomain.value
+      companyName: e.target.company.value,
+      password: e.target.password.value,
+      subDomain: e.target.subdomain.value
     }
     this.props.signUp(newUser)
   }
-  componentWillMount = () => this.props.isLoggedIn && this.props.history.push('/')
 
   render() {
-     
+    const { validationError: errors,signupError } = this.props
     return (
       <div className='wrapper'>
         <FormLogo />
@@ -31,14 +34,29 @@ class SignUp extends Component {
           </div>
         </div>
         <form className='form-container' onSubmit={this.onSubmit}>
-          <div className='form-input name'><input name='username' /></div>
-          <div className='form-input email'><input name='email' /></div>
-          <div className='form-input company'><input name='company' /></div>
+          <div className='form-input name'>
+            <input name='username' />
+            {errors.username && <span className="input-feild-error">{errors.username}</span>}
+          </div>
+          <div className='form-input email'>
+            <input name='email' />
+            {errors.email && <span className="input-feild-error">{errors.email}</span>}
+          </div>
+          <div className='form-input password'>
+            <input name='password' />
+            {errors.password && <span className="input-feild-error">{errors.password}</span>}
+          </div>
+          <div className='form-input company'>
+            <input name='company' />
+            {errors.company && <span className="input-feild-error">{errors.company}</span>}
+          </div>
           <div className='w subdomain'>
             <input className='leadcart-user' name='subdomain' />
-            <span>.leadcart.io</span>
+            <span className='main-domain-suffix'>.leadcart.io</span>
+            {errors.subdomain && <span className="input-feild-error">{errors.subdomain}</span>}
           </div>
-          <button  type='submit' className='form-submit'>next</button>
+          {signupError &&  <span className="signup-error-field">{signupError}</span>}
+          <button type='submit' className='form-submit'>next</button>
         </form>
         <footer>
           © LeadCart. All rights reserved 2018
@@ -49,8 +67,10 @@ class SignUp extends Component {
 }
 const mapStateToProps = state => ({
   isLoggedIn: state.user.isLoggedIn,
-  validationError: true || state.validation.signup
+  user: state.user,
+  signupError:state.user.error,
+  validationError: state.validation.signup
 })
 
 
-export default connect(mapStateToProps , signupActions )(SignUp);
+export default connect(mapStateToProps, signupActions)(SignUp);

@@ -32,9 +32,9 @@ export const ProductCard = ({ name, currancy, monthlyProfite, price, onEdit, onE
             <span className='product-price-holder'>{`${currancy + price}`}</span>
         </div>
         <div className='card-controlls-container'>
-            <i class="fas fa-edit"></i>
-            <i class="fas fa-book-open"></i>
-            <i class="fas fa-trash-alt"></i>
+            <i className="fas fa-edit"></i>
+            <i className="fas fa-book-open"></i>
+            <i className="fas fa-trash-alt"></i>
         </div>
     </div>
 )

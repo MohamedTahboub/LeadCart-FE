@@ -1,21 +1,25 @@
-import { SIGN_UP, SIGN_UP_SUCCESS } from 'constantsTypes'
-import user from '../reducers/user';
 
-export default ({ dispatch, setState }) => next => ({ type, payload }) => {
+import { SIGN_UP } from 'constantsTypes';
 
-    if (type === SIGN_UP) {
-        // validate the new user inputs 
-        // isSignUpFormValid(user) && make arequest to sign a user Up
+import {
+  signUpSuccess,
+  signUpFaild
+} from 'actions/signup';
+import apiRequest from './helpers/apiRequest';
 
-        // api request to signup user and when success it will dispatch assccess signup or failur 
-        // dispatch(requestAPI({
-        //     method : 'post',
-        //     body: user,
-        //     uri : '/api/signup'
-        // } ,{ onSignUpSuccess , onSignUpFaild} ))
-    } else {
+export default ({ dispatch }) => (next) => (action) => {
+  if (action.type !== SIGN_UP) return next(action);
 
 
-    }
-    next({ type, payload })
-}
+  apiRequest({
+    method: 'POST',
+    body: action.payload,
+    uri: '/api/users/signup',
+    contentType: 'json'
+  })
+    .then(({ success, message, data }) => (success
+        ? dispatch(signUpSuccess(data))
+        : dispatch(signUpFaild(message))))
+    .catch((err) => dispatch(signUpFaild(err.message)));
+};
+

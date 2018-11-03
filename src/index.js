@@ -15,13 +15,15 @@ import Header from 'components/Header'
 import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
+import ProtectedRoute from 'components/ProtectedRoute'
+import LoadingBar from 'components/LoadingBar'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
 
 // Container
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
-import CreditCardForm from 'containers/CreditCardForm';
+import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 
 
@@ -40,7 +42,7 @@ import registerServiceWorker from 'services/RegisterServiceWorker';
 
 // Styles
 import './index.css';
-
+import { APP_INIT } from 'constantsTypes';
 
 /* Temp page to represent the empty pages */
 
@@ -48,41 +50,51 @@ const EmptyPage = ({ history }) => (
     <span> This page ({history.location.pathname.slice(1)}) still under development</span>
 )
 
-
+window.onload = () => {
+    store.dispatch({type:APP_INIT})
+}
 // const store = createStore(rootReducer);
 // store.subscribe(() => console.log('store', store.getState()));
 
 ReactDOM.render(
     <Provider store={store}>
-        {/* <ErrorBoundary> */}
-        <BrowserRouter>
-            <Switch>
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/signup' component={SignUp} />
-                <Route exact path='/recoverpwd' component={ForgetPassword} />
-                <Route exact path='/credit' component={CreditCardForm} />
-                <div className='page-container'>
-                    <Route render={({ history }) => <Header history={history} />} />
-                    <Content>
-                        <Route render={({ history }) => <SideBar history={history} />} />
-                        <ActiveContent >
+        <React.Fragment>
+            <LoadingBar />
+            {/* <ErrorBoundary> */}
 
-                            <Route exact path='/' component={Dashboard} />
-                            <Route exact path='/products' component={Products} />
-                            <Route exact path='/product/new' component={NewProduct} />
-                            <Route exact path='/activities' component={Activities} />
-                            <Route exact path='/coupons' component={Coupons} />
-                            <Route exact path='/upsells' component={Upsells} />
-                            <Route exact path='/reports' component={EmptyPage} />
-                            <Route exact path='/affiliates' component={EmptyPage} />
-                            <Route exact path='/agency' component={Agency} />
-                            <Route exact path='/setting' component={Setting} />
-                            <Route exact path='/help' component={EmptyPage} />
-                        </ActiveContent>
-                    </Content>
-                </div>
-            </Switch>
-        </BrowserRouter>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path='/login' component={Login} />
+                    <Route exact path='/signup' component={SignUp} />
+                    <Route exact path='/recoverpwd' component={ForgetPassword} />
+                    <Route exact path='/promocode' component={PromoCodeActivation} />
+                    <ProtectedRoute component={() => (
+                        <div className='page-container'>
+
+                            <Route render={({ history }) => <Header history={history} />} />
+                            <Content>
+                                <Route render={({ history }) => <SideBar history={history} />} />
+                                <ActiveContent >
+
+                                    <Route exact path='/' component={Dashboard} />
+                                    <Route exact path='/products' component={Products} />
+                                    <Route exact path='/product/new' component={NewProduct} />
+                                    <Route exact path='/activities' component={Activities} />
+                                    <Route exact path='/coupons' component={Coupons} />
+                                    <Route exact path='/upsells' component={Upsells} />
+                                    <Route exact path='/reports' component={EmptyPage} />
+                                    <Route exact path='/affiliates' component={EmptyPage} />
+                                    <Route exact path='/agency' component={Agency} />
+                                    <Route exact path='/setting' component={Setting} />
+                                    <Route exact path='/help' component={EmptyPage} />
+                                </ActiveContent>
+                            </Content>
+                        </div>)
+                    } />
+
+                </Switch>
+            </BrowserRouter>
+        </React.Fragment>
         {/* </ErrorBoundary> */}
     </Provider>,
     document.getElementById('root')

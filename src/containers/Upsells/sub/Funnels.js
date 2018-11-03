@@ -30,7 +30,7 @@ class Funnels extends Component {
                         <InputRow.SmallInput></InputRow.SmallInput>
                     </InputRow>
                     <Button classes='primary-color margin-with-float-left' >
-                        <i class="fas fa-plus"></i> New Upsells
+                        <i className="fas fa-plus"></i> New Upsells
                     </Button>
                 </Modal>
             </div>
