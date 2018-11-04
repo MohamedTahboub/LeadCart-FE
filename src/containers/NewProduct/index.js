@@ -33,7 +33,7 @@ const ActiveTabe = ({ tabName, onChange, ...props }) => {
 }
 
 const Link = ({ children, link, classes = [], ...props }) => (
-    <a href={link || "/products/ursadsaddsssastertasadl1"} target="_blank" className={"btn link-btn " + classes.join(' ')}>{children}</a>
+    <a href={link || "http://checkout.leadcart.io/products/ursadsaddsssastertasadl1"} target="_blank" className={"btn link-btn " + classes.join(' ')}>{children}</a>
 )
 class NewProductDetailes extends Component {
     state = {
