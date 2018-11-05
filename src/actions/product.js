@@ -1,4 +1,6 @@
 import {
+  NEW_PRODUCT_FIELD_UPDATE,
+  NEW_PRODUCT_INVALID_FORM,
   PRODUCT_DETAILS_FIELD_UPDATE,
   CREATE_NEW_PRODUCT,
   PRODUCT_CREATED_SUCCESSFULY,
@@ -16,10 +18,17 @@ import {
   PRODUCT_CHECKOUT_FIELD_UPDATE,
   PRODUCT_PAYMENT_FIELD_UPDATE,
   PRODUCT_BUMP_FIELD_UPDATE,
-  PRODUCT_SETTING_FIELD_UPDATE
+  PRODUCT_SETTING_FIELD_UPDATE,
+  DELETE_USER_PRODUCT,
+  DELETE_USER_PRODUCT_SUCCESS,
+  DELETE_USER_PRODUCT_FAILD
 } from 'constantsTypes';
 
 
+export const onNewProductFieldChange = (field) => ({
+  type: NEW_PRODUCT_FIELD_UPDATE,
+  payload: field
+});
 export const onProductDetailsFieldChange = (field) => ({
   type: PRODUCT_DETAILS_FIELD_UPDATE,
   payload: field
@@ -43,11 +52,14 @@ export const onProductSettingFieldChange = (field) => ({
 });
 
 
-export const createNewProduct = (product) => ({
-  type: CREATE_NEW_PRODUCT,
-  payload: product
+export const createNewProduct = () => ({
+  type: CREATE_NEW_PRODUCT
 });
 
+export const newProductInvalidFields = (errors) => ({
+  type: NEW_PRODUCT_INVALID_FORM,
+  payload: errors
+});
 export const productCreated = (product) => ({
   type: PRODUCT_CREATED_SUCCESSFULY,
   payload: product
@@ -84,6 +96,21 @@ export const getProductSuccess = (product) => ({
 
 export const getProductFaild = (product) => ({
   type: GET_PRODUCT_FAILD,
+  payload: product
+});
+
+export const deleteProduct = (id) => ({
+  type: DELETE_USER_PRODUCT,
+  payload: id
+});
+
+export const deleteProductSuccess = (product) => ({
+  type: DELETE_USER_PRODUCT_SUCCESS,
+  payload: product
+});
+
+export const deleteProductFaild = (product) => ({
+  type: DELETE_USER_PRODUCT_FAILD,
   payload: product
 });
 

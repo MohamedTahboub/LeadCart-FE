@@ -1,4 +1,5 @@
 import {
+  NEW_PRODUCT_FIELD_UPDATE,
   PRODUCT_CREATED_SUCCESSFULY,
   PRODUCT_DETAILS_FIELD_UPDATE,
   PRODUCT_CHECKOUT_FIELD_UPDATE,
@@ -10,10 +11,9 @@ import {
 
 const initState = {
   id: '',
+  isAproductCreated: false,
+  newProductHolder: {},
   details: {
-    type: 'digital',
-    name: '',
-    internalName: '',
     errors: {}
   },
   checkout: {
@@ -64,7 +64,10 @@ const initState = {
 };
 export default (state = initState, { type, payload }) => {
   switch (type) {
-  case PRODUCT_CREATED_SUCCESSFULY: return { ...state, details: { ...state.details, ...payload } };
+  case PRODUCT_CREATED_SUCCESSFULY: return {
+ ...state, details: { ...state.details, ...payload }, isAproductCreated: true, newProductHolder: {} 
+};
+  case NEW_PRODUCT_FIELD_UPDATE: return { ...state, newProductHolder: { ...state.newProductHolder, [payload.name]: payload.value } };
   case PRODUCT_DETAILS_FIELD_UPDATE: return { details: { ...state.details, [payload.name]: payload.value } };
   case PRODUCT_CHECKOUT_FIELD_UPDATE: return { checkout: { ...state.checkout, [payload.name]: payload.value } };
   case PRODUCT_PAYMENT_FIELD_UPDATE: return { payment: { ...state.payment, [payload.name]: payload.value } };
