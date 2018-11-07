@@ -5,6 +5,8 @@ import {
   PRODUCT_CHECKOUT_FIELD_UPDATE,
   PRODUCT_PAYMENT_FIELD_UPDATE,
   PRODUCT_BUMP_FIELD_UPDATE,
+  GET_PRODUCT_SUCCESS,
+  GET_PRODUCT_FAILD,
   PRODUCT_SETTING_FIELD_UPDATE
 } from 'constantsTypes';
 
@@ -60,19 +62,50 @@ const initState = {
     closeCheckoutAfterPurchases: false,
     closeCheckoutAfterDate: false,
     errors: {}
-  }
+  },
+  errors: {}
 };
 export default (state = initState, { type, payload }) => {
   switch (type) {
   case PRODUCT_CREATED_SUCCESSFULY: return {
- ...state, details: { ...state.details, ...payload }, isAproductCreated: true, newProductHolder: {} 
-};
+    ...state, details: { ...state.details, ...payload }, isAproductCreated: !state.isAproductCreated, newProductHolder: {}
+  };
   case NEW_PRODUCT_FIELD_UPDATE: return { ...state, newProductHolder: { ...state.newProductHolder, [payload.name]: payload.value } };
-  case PRODUCT_DETAILS_FIELD_UPDATE: return { details: { ...state.details, [payload.name]: payload.value } };
-  case PRODUCT_CHECKOUT_FIELD_UPDATE: return { checkout: { ...state.checkout, [payload.name]: payload.value } };
-  case PRODUCT_PAYMENT_FIELD_UPDATE: return { payment: { ...state.payment, [payload.name]: payload.value } };
-  case PRODUCT_BUMP_FIELD_UPDATE: return { bumbOffer: { ...state.bumbOffer, [payload.name]: payload.value } };
-  case PRODUCT_SETTING_FIELD_UPDATE: return { setting: { ...state.setting, [payload.name]: payload.value } };
+  case PRODUCT_DETAILS_FIELD_UPDATE: return { ...state, details: { ...state.details, [payload.name]: payload.value } };
+  case PRODUCT_CHECKOUT_FIELD_UPDATE: return { ...state, checkout: { ...state.checkout, [payload.name]: payload.value } };
+  case PRODUCT_PAYMENT_FIELD_UPDATE: return { ...state, payment: { ...state.payment, [payload.name]: payload.value } };
+  case PRODUCT_BUMP_FIELD_UPDATE: return { ...state, bumbOffer: { ...state.bumbOffer, [payload.name]: payload.value } };
+  case PRODUCT_SETTING_FIELD_UPDATE: return { ...state, setting: { ...state.setting, [payload.name]: payload.value } };
+
+  case GET_PRODUCT_SUCCESS:
+    const {
+      name,
+      internalName,
+      description,
+      tags,
+      url,
+      price,
+      payment,
+      image,
+      ...product
+    } = payload;
+
+    delete payment.methods;
+    return {
+      ...state,
+      details: {
+        name,
+        internalName,
+        description,
+        tags,
+        url,
+        price,
+        payment,
+        image
+      },
+      ...product
+    };
+  case GET_PRODUCT_FAILD: return { ...state, errors: payload };
   default: return state;
   }
 };
