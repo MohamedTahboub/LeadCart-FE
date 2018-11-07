@@ -116,3 +116,35 @@
     bottom: 35%;
     left: 30%;
 }
+
+
+
+
+.inactive-product {
+    position: relative;
+}
+
+.inactive-product:before {
+    content: 'inactive';
+    position: absolute;
+    font-size: 12px;
+    background: #9e9e9ebd;
+    text-transform: uppercase;
+    padding: 2px 15px;
+    border-bottom-right-radius: 5px;
+    color: white;
+}
+
+.active-product {
+    position: relative;
+}
+.active-product:before {
+    content: 'active';
+    position: absolute;
+    font-size: 12px;
+    background: #03A9F4;
+    text-transform: uppercase;
+    padding: 2px 15px;
+    border-bottom-right-radius: 5px;
+    color: white;
+}

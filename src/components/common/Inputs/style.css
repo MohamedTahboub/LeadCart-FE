@@ -132,6 +132,9 @@
 .primary-color{
     background: #4DA1FF;
 }
+.warning-color{
+    background: rgb(219, 40, 70);
+}
 .green-color{
     background: #17C671;
 }
@@ -575,4 +578,16 @@ input[type="radio"]{
     font-size: 13px;
     user-select: none;
     margin: auto 20px;
+}
+
+
+
+.invalid-field {
+    border: 1px solid #ff572275;
+}
+
+.label-validation-error {
+    color: tomato;
+    font-size: 10px;
+    margin-left: 20px;
 }

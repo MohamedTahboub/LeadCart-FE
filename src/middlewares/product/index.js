@@ -1,5 +1,6 @@
 import createProduct from './createProduct';
+import deleteProduct from './deleteProduct';
 
 
-export default [createProduct]
-;
+export default [createProduct, deleteProduct]
+    

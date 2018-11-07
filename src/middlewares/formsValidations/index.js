@@ -1,4 +1,5 @@
 import signupFormValidator from './signup_form'
+import newProduct from './newProduct'
 
 
-export default [signupFormValidator]
+export default [ newProduct]

@@ -3,7 +3,7 @@ export default async ({
 }) => {
   try {
     let options = {};
-    if (contentType === 'json') {
+    if (contentType === 'json' && method !== 'get') {
       options = {
         method,
         headers: {
@@ -13,6 +13,16 @@ export default async ({
         },
         credentials: 'same-origin',
         body: JSON.stringify(body)
+      };
+    } else if (contentType === 'json' && method === 'get') {
+      options = {
+        method,
+        headers: {
+          Authorization,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin'
       };
     } else {
       options = {

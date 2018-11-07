@@ -7,7 +7,8 @@ import common from 'components/common';
 
 import * as logout from 'actions/logout';
 import { appInit } from 'actions/appInit';
-
+import CreateProductModal from '../CreateProductModal';
+import * as modalsActions from 'actions/modals';
 import './style.css';
 
 const { Button } = common;
@@ -18,17 +19,17 @@ const goToPage = ({ history, page }) => {
 };
 
 const SideBar = ({
-  history, user, appInit, logout, ...props
+  history, user, appInit, logout,toggleCreateProductModal, ...props
 }) => {
   appInit();
   return (
     <div className='side-bar'>
       <AvatarPreviewBox user={user} />
-      <span onClick={() => goToPage({ history, page: '/product/new#details' })} className='btn new-product-btn'>
-              <i className='fas fa-plus' />
-              {' '}
-                New Product
-            </span>
+      <span onClick={toggleCreateProductModal} className='btn new-product-btn'>
+        <i className='fas fa-plus' />
+        {' '}
+        New Product
+      </span>
       <Menu>
         <Link to={{ history, page: '/products' }} classes={['active-menu-item']}>Products</Link>
         <Link to={{ history, page: '/activities#customers' }}>Activity</Link>
@@ -41,14 +42,15 @@ const SideBar = ({
         <Link to={{ history, page: '/help' }}>Help</Link>
       </Menu>
 
-          <Button onClick={logout} classes='logout-btn'>
+      <Button onClick={logout} classes='logout-btn'>
         <i className='fas fa-sign-out-alt' />
         {' '}
-                logout
-            </Button>
+        logout
+      </Button>
+      <CreateProductModal history={history}/>
     </div>
   );
 };
 const mapStateToProps = ({ user: { user } }) => ({ user });
 
-export default connect(mapStateToProps, { ...logout, appInit })(SideBar);
+export default connect(mapStateToProps, { ...logout, ...modalsActions, appInit })(SideBar);

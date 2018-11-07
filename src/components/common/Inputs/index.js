@@ -4,15 +4,16 @@ import AddFieldComponent from './AddFieldComponent';
 
 
 export class InputRow extends Component {
-  static Label = ({ notes, ...props }) => (
+  static Label = ({ notes, error, ...props }) => (
     <div className='input-label-container'>
       <span className='input-label '>{props.children}</span>
+      {error && <span className="label-validation-error">*{error}</span>}
       <span className='input-label-note'>{notes}</span>
     </div>
   )
 
-  static NormalInput = ({ onChange, name, ...props }) => (
-    <input onChange={onChange} name={name} className='input-field' placeholder={props.children} />
+  static NormalInput = ({ onChange, name, error, ...props }) => (
+    <input onChange={onChange} name={name} className={'input-field ' + (error && 'invalid-field')} placeholder={props.children} />
   )
 
   static SmallInput = ({
@@ -30,16 +31,16 @@ export class InputRow extends Component {
       <input onChange={onChange} name={name} className='input-field custom-input-field' placeholder={props.children} />
     )
 
-  static UrlSuffixInput = ({ onChange, name, ...props }) => (
+  static UrlSuffixInput = ({ onChange, name, subdomain,error, ...props }) => (
     <div className='url-suffix-input'>
-      <span className='suffix-value'>http://tonyhack.leadcart.com/products/</span>
-      <input onChange={onChange} name={name} className='url-suffix-input-field' placeholder={props.children} />
+      <span className='suffix-value'>https://{subdomain}.leadcart.com/products/</span>
+      <input onChange={onChange} name={name} className={'url-suffix-input-field '+ (error && 'invalid-field')}  placeholder={props.children} />
     </div>
   )
 
-  static TextAreaInput = ({ onChange, name, ...props }) => (
+  static TextAreaInput = ({ onChange, name,error, ...props }) => (
     <div className='text-area-container'>
-      <textarea onChange={onChange} name={name} className='textarea-input-field' />
+      <textarea onChange={onChange} name={name} className={'textarea-input-field '+ (error && 'invalid-field')} />
       <span className='text-area-small-note'>27/260</span>
     </div>
   )
@@ -47,13 +48,13 @@ export class InputRow extends Component {
   static AddComponentField = AddFieldComponent
 
   static SelectOption = ({
-    options = [], onChange, name,leftLabel, ...props
+    options = [], onChange, name, leftLabel, ...props
   }) => (
       <React.Fragment>
-      {leftLabel && <span className="input-left-label">{leftLabel}</span> }
-      <select onClick={onChange} name={name} className='select-input-field'>
-      {options.map(({ label, value }) => <option className='select-option' value={value}>{label}</option>)}
-      </select>
+        {leftLabel && <span className="input-left-label">{leftLabel}</span>}
+        <select onClick={onChange} name={name} className='select-input-field'>
+          {options.map(({ label, value }) => <option className='select-option' value={value}>{label}</option>)}
+        </select>
       </React.Fragment>
     )
 
