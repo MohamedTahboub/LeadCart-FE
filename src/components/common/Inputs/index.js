@@ -12,35 +12,35 @@ export class InputRow extends Component {
     </div>
   )
 
-  static NormalInput = ({ onChange, name, error, ...props }) => (
-    <input onChange={onChange} name={name} className={'input-field ' + (error && 'invalid-field')} placeholder={props.children} />
+  static NormalInput = ({ onChange, value, name, error, ...props }) => (
+    <input onChange={onChange} name={name} defaultValue={value} className={'input-field ' + (error && 'invalid-field')} placeholder={props.children} />
   )
 
   static SmallInput = ({
-    type = 'text', name, onChange, ...props
+    type = 'text', name, onChange, value,classes=[], ...props
   }) => (
       <input
-        onChange={onChange} name={name} type={type} className='input-field small-input'
+        onChange={onChange} name={name} type={type} defaultValue={value} className={'input-field small-input '+classes.join(' ')}
         placeholder={props.children}
       />
     )
 
   static CustomInput = ({
-    width, onChange, name, ...props
+    width, onChange, name, value,placeholder,classes=[], ...props
   }) => (
-      <input onChange={onChange} name={name} className='input-field custom-input-field' placeholder={props.children} />
+      <input onChange={onChange} name={name} defaultValue={value} className={'input-field custom-input-field '+classes.join(' ')} placeholder={props.children || placeholder} />
     )
 
-  static UrlSuffixInput = ({ onChange, name, subdomain,error, ...props }) => (
+  static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
     <div className='url-suffix-input'>
       <span className='suffix-value'>https://{subdomain}.leadcart.com/products/</span>
-      <input onChange={onChange} name={name} className={'url-suffix-input-field '+ (error && 'invalid-field')}  placeholder={props.children} />
+      <input onChange={onChange} name={name} className={'url-suffix-input-field ' + (error && 'invalid-field')} defaultValue={value} placeholder={props.children} />
     </div>
   )
 
-  static TextAreaInput = ({ onChange, name,error, ...props }) => (
+  static TextAreaInput = ({ onChange, name, value, error, ...props }) => (
     <div className='text-area-container'>
-      <textarea onChange={onChange} name={name} className={'textarea-input-field '+ (error && 'invalid-field')} />
+      <textarea onChange={onChange} name={name} defaultValue={value} className={'textarea-input-field ' + (error && 'invalid-field')} />
       <span className='text-area-small-note'>27/260</span>
     </div>
   )
@@ -48,33 +48,33 @@ export class InputRow extends Component {
   static AddComponentField = AddFieldComponent
 
   static SelectOption = ({
-    options = [], onChange, name, leftLabel, ...props
+    options = [], onChange, name, value, leftLabel, ...props
   }) => (
       <React.Fragment>
         {leftLabel && <span className="input-left-label">{leftLabel}</span>}
-        <select onClick={onChange} name={name} className='select-input-field'>
+        <select onClick={onChange} defaultValue={value} name={name} className='select-input-field'>
           {options.map(({ label, value }) => <option className='select-option' value={value}>{label}</option>)}
         </select>
       </React.Fragment>
     )
 
   static PriceField = ({
-    children, onChange, name, ...props
+    children, onChange, name,classes=[], value, ...props
   }) => (
-      <div className='price-input-holder'>
+      <div className={'price-input-holder '+classes.join(' ')}>
         <span className='currancy-type'>$</span>
-        <input onChange={onChange} name={name} className='price-input-field' placeholder={children} />
+        <input onChange={onChange} defaultValue={value} name={name} className='price-input-field' placeholder={children} />
       </div>
     )
 
-  static UrlInput = ({ onChange, name, ...props }) => (
-    <input onChange={onChange} name={name} className='input-field' placeholder='http://' />
+  static UrlInput = ({ onChange, name, value, ...props }) => (
+    <input onChange={onChange} defaultValue={value} name={name} className='input-field' placeholder='http://' />
   )
 
   static CheckBox = ({
-    children, description, checked, disabled, onChange, name, ...props
+    children, description, checked, disabled, onChange, name, classes = [], ...props
   }) => (
-      <label className='check-box-container'>
+      <label className={'check-box-container ' + classes.join(' ')}>
         {description
           && <span className='check-box-description'>{description}</span>}
         <input
@@ -95,16 +95,16 @@ export class InputRow extends Component {
     </div>
   )
 
-  static SwitchInput = ({ onChange, name, ...props }) => (
+  static SwitchInput = ({ onChange, name, value, onToggle, ...props }) => (
     <label className='switch-slider-input '>
-      <input onChange={onChange} name={name} type='checkbox' />
+      <input onChange={onToggle} name={name} type='checkbox' checked={value} />
       <span className='slider-input slider-round' />
     </label>
   )
 
-  static CodeInputArea = (props) => (
+  static CodeInputArea = ({ value, ...props }) => (
     <div className='code-area-container'>
-      <textarea className='codearea-input-field' placeholder={props.children} />
+      <textarea defaultValue={value} className='codearea-input-field' placeholder={props.children} />
     </div>
   )
 

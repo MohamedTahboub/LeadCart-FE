@@ -9,6 +9,13 @@ export const MiniCard = ({ imgSrc, ...props }) => (
     className='small-solid-card white-color'
   />
 );
+export const MediumCard = ({ imgSrc, ...props }) => (
+  <img
+    src={imgSrc}
+    alt='payment service'
+    className='medium-solid-card white-color'
+  />
+);
 
 export const Avatar = ({ imageSrc, name }) => {
   const firstLetters = name.trim().split(' ').map((w) => w[0].toUpperCase()).join('');

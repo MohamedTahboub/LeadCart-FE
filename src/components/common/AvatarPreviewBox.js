@@ -1,11 +1,11 @@
 import React from 'react';
 import avatarLink from 'assets/images/avatar.jpeg';
 
-export default ({ user, ...props }) => (
+export default ({ user, onSettingClick, ...props }) => (
   <div className='profile-preview'>
     <div className='avatar-holder'>
       <img className='user-avatar' src={avatarLink} alt='user avatar' />
-      <span className='setting-short'>
+      <span onClick={onSettingClick} className='setting-short'>
         <i className='fas fa-cog' />
       </span>
       <span className='user-name'>{`${user.firstName} ${user.lastName && user.lastName[0]}.`}</span>
