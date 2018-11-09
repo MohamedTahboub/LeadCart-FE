@@ -15,6 +15,8 @@ const {
 } = common;
 
 
+const ProductShadowLodaing = () => <div className='empty-product-shadowbox animated-background' />;
+
 class Products extends Component {
   state = {
     showDeleteModal: false,
@@ -26,7 +28,7 @@ class Products extends Component {
   }
 
   onProductEdit = (url) => {
-    console.log(`Edit product id =>${url} `);
+    this.props.history.push(`/product/${url}#details`);
   }
 
   onShowDeleteDialogue = (id) => this.setState({ showDeleteModal: true, currentProduct: { id } });
@@ -43,11 +45,12 @@ class Products extends Component {
   }
 
   render () {
+    const { products, toggleCreateProductModal, isFetching } = this.props;
     return (
       <div>
         <MainTitle>Products</MainTitle>
         <div className='product-cards-container'>
-          {this.props.products.map((product, id) => (
+          {products.length ? products.map((product, id) => (
             <ProductCard
               key={id}
               {...product}
@@ -55,8 +58,10 @@ class Products extends Component {
               onEdit={() => this.onProductEdit(product.url)}
               onPreview={() => this.onProductPreview(product.url)}
             />
-          ))}
-          <NewThingCard thing='Product' onClick={this.props.toggleCreateProductModal} />
+          ))
+            : isFetching ? ([1, 2]).map(() => <ProductShadowLodaing />) : null
+          }
+          <NewThingCard thing='Product' onClick={toggleCreateProductModal} />
         </div>
         <Modal onClose={() => this.setState({ showDeleteModal: false })} isVisable={this.state.showDeleteModal}>
           <MainTitle>Are you sure,you want delete this product ?</MainTitle>
@@ -75,6 +80,7 @@ class Products extends Component {
   }
 }
 const mapStateToProps = (state) => ({
+  isFetching: state.loading,
   subdomain: state.user.user.subDomain,
   products: state.products.products
 });

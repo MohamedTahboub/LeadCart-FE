@@ -15,7 +15,7 @@
 }
 
 .zapier-brand-image{
-    height: 100px;
+    height: 160px;
     width: auto;
 }
 
@@ -74,4 +74,21 @@
 }
 .light-red-color{
     background: rgb(206, 45, 45);
+}
+
+.zapier-spcial-box {
+    height: 220px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+.zapier-spcial-box .small-box-container{
+    flex-direction: column;
+}
+.zapier-client-oauth {
+    width: 100%;
+    padding: 3px 10px;
+    border: none;
+    border-bottom: 1px solid orange;
+    outline-style: none;
 }

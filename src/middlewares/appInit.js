@@ -6,9 +6,9 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
   if (action.type !== APP_INIT) return next(action);
 
-  const user = localStorage.user && JSON.parse(localStorage.user);
+  // const user = localStorage.user && JSON.parse(localStorage.user);
 
-  if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
+  // if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
 
   // restore the application stored data in the loaclStorage
 };

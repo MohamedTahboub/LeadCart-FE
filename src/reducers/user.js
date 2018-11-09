@@ -6,8 +6,15 @@ import {
   LOGOUT
 } from 'constantsTypes';
 
+let user = {};
+try {
+  user = localStorage.user && JSON.parse(localStorage.user);
+} catch (e) {
+  console.error('ERROR WHILE READING FROM THE STORAGE');
+}
+
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: !!user.token,
   user: {
     firstName: '',
     lastName: '',
@@ -15,7 +22,8 @@ const initialState = {
     token: 'dsfadsaWD',
     status: false,
     role: '',
-    level: 1
+    level: 1,
+    ...user
   },
   error: ''
 };

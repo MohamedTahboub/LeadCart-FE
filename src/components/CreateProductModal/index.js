@@ -34,7 +34,7 @@ class CreateProductModal extends Component {
     const { price: amount, ...paymentMethod } = payment;
     const casted = { type: paymentMethod.type };
 
-    if (paymentMethod.type === 'Spilt') casted.splits = +(paymentMethod.splits) || 2;
+    if (paymentMethod.type === 'Split') casted.splits = +(paymentMethod.splits) || 2;
     if (paymentMethod.type === 'Subscription') casted.recurringPeriod = paymentMethod.recurringPeriod || 'Monthly';
 
     this.props.onNewProductFieldChange({ name: 'price', value: { amount: +(amount) } });
@@ -48,7 +48,7 @@ class CreateProductModal extends Component {
     if (isAproductCreated && this.state.currentProduct) {
       setTimeout(() => {
         toggleCreateProductModal();
-        history.push(`/product/${createdProduct.url}`);
+        history.push(`/product/${createdProduct.url}#details`);
       }, 320);
       this.setState({ currentProduct: false });
     }
@@ -77,7 +77,7 @@ class CreateProductModal extends Component {
         <PaymentType type='' onChange={this.onPaymentChange} error={errors.payment} />
         {errors.message && <span className='error-message'>{errors.message}</span>}
         {(isAproductCreated && this.state.currentProduct) && <span className='success-message'>Created successfully</span>}
-        <Button onClick={this.onCreateNewProduct} classes='primary-color margin-with-float-left'>
+        <Button onClick={this.onCreateNewProduct} classes='primary-color margin-with-float-right'>
           <i className='fas fa-plus' />
           {' '}
           Create Product

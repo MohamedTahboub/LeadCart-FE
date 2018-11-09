@@ -18,27 +18,31 @@ const goToPage = ({ history, page }) => {
   history && history.push(page);
 };
 
+const currentTab = 'products5' // history.location.pathname
+
+const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[0]) ? ['active-menu-item'] : []
+
 const SideBar = ({
-  history, user, appInit, logout,toggleCreateProductModal, ...props
+  history, user, appInit, logout, toggleCreateProductModal, ...props
 }) => {
-  appInit();
+  // appInit();
   return (
     <div className='side-bar'>
-      <AvatarPreviewBox user={user} />
+      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/setting#genral')} />
       <span onClick={toggleCreateProductModal} className='btn new-product-btn'>
         <i className='fas fa-plus' />
         {' '}
         New Product
       </span>
       <Menu>
-        <Link to={{ history, page: '/products' }} classes={['active-menu-item']}>Products</Link>
+        <Link to={{ history, page: '/products' }} classes={isActiveTab('products')}>Products</Link>
         <Link to={{ history, page: '/activities#customers' }}>Activity</Link>
         <Link to={{ history, page: '/coupons' }}>Coupon</Link>
         <Link to={{ history, page: '/upsells#upsells' }} classes={['locked-feature']}>Upsells</Link>
         <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
         <Link to={{ history, page: '/agency' }}>Agency</Link>
-        <Link to={{ history, page: '/setting' }}>Setting</Link>
+        <Link to={{ history, page: '/setting#genral' }}>Setting</Link>
         <Link to={{ history, page: '/help' }}>Help</Link>
       </Menu>
 
@@ -47,7 +51,7 @@ const SideBar = ({
         {' '}
         logout
       </Button>
-      <CreateProductModal history={history}/>
+      <CreateProductModal history={history} />
     </div>
   );
 };

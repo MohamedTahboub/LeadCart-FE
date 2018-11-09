@@ -5,6 +5,7 @@ import validation from './validation'
 import files from './files'
 import product from './product'
 import products from './products'
+import flashMessage from './flashMessage'
 import modals from './modals'
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     product,
     products,
     modals,
+    flashMessage,
     validation
 })
 

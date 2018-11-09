@@ -1,52 +1,44 @@
 import React from 'react';
-import common from 'components/common'
-import zapierBrand from 'assets/images/zapier_brand.png'
+import common from 'components/common';
+import zapierBrand from 'assets/images/zapier_brand.png';
 
-import './styles.css'
-const { Button, MainBlock, MainTitle, SmallBox, FlexBoxesContainer, ActivationSwitchInput } = common
+import paypalImage from 'assets/images/paypal.png';
+import stripeImage from 'assets/images/stripe.png';
 
-const AddNewButton = props => (
+import './styles.css';
+const {
+    Button, MainBlock, MainTitle, SmallBox, FlexBoxesContainer, MediumCard, ActivationSwitchInput
+} = common;
+
+const AddNewButton = (props) => (
     <Button classes='primary-color medium-add-btn'>
-        <i className="fas fa-plus"></i> Add new
-    </Button>
-)
-//ColorInlinePicker
-export default props => (
+        <i className='fas fa-plus' />
+        {' '}
+        Add new
+  </Button>
+);
+// ColorInlinePicker
+
+export default (props) => (
     <React.Fragment>
-        <MainBlock
-            title='Payment'
-            containerClasses={['smooth-box-padding']}
-            blockHandel={<ActivationSwitchInput />}>
-            <AddNewButton />
-        </MainBlock>
-
-        <MainBlock
-            title='Membership'
-            containerClasses={['smooth-box-padding']}
-            blockHandel={<ActivationSwitchInput />}>
-
-            <AddNewButton />
-        </MainBlock>
-
-        <MainBlock
-            title='Email'
-            containerClasses={['smooth-box-padding']}
-            blockHandel={<ActivationSwitchInput />}
-        >
-            <AddNewButton />
-        </MainBlock>
+        <MainTitle>Payment </MainTitle>
+        <MediumCard imgSrc={stripeImage} />
+        <MediumCard imgSrc={paypalImage} />
         <MainTitle>
-            Other
-        </MainTitle>
+            Zapier
+    </MainTitle>
         <FlexBoxesContainer>
-            <SmallBox clickable={true}>
+            <SmallBox classes={['zapier-spcial-box']} clic>
                 <img className='zapier-brand-image' src={zapierBrand} alt='zapier brand' />
+                <input type="text" className="zapier-client-oauth" placeholder='Enter Zapier client Id'/>
             </SmallBox>
-            <SmallBox clickable={true}>
+            {/*<SmallBox clickable>
                 <span className='box-text-small'>
-                    <i className="fas fa-plus"></i> Add new
-                 </span>
-            </SmallBox>
+                    <i className='fas fa-plus' />
+                    {' '}
+                    Add new
+        </span>
+            </SmallBox>*/}
         </FlexBoxesContainer>
-    </React.Fragment>
-)
+    </React.Fragment >
+);

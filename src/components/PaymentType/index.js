@@ -4,20 +4,22 @@ import common from 'components/common';
 const { InputRow } = common;
 
 
-const PaymentTypePicker = ({ type, onChange, ...props }) => {
+const PaymentTypePicker = ({
+  type, onChange, price, ...props
+}) => {
   switch (type) {
   case 'Onetime':
     return (
       <InputRow>
         <InputRow.Label>Price</InputRow.Label>
-        <InputRow.PriceField onChange={onChange} currancy='$' name='price'></InputRow.PriceField>
+        <InputRow.PriceField onChange={onChange} currancy='$' name='price' value={price}></InputRow.PriceField>
       </InputRow>
     );
   case 'Subscription':
     return (
       <InputRow>
         <InputRow.Label classes='hide-element' />
-        <InputRow.PriceField onChange={onChange} currancy='$' name='price'></InputRow.PriceField>
+        <InputRow.PriceField onChange={onChange} currancy='$' name='price' value={price}></InputRow.PriceField>
         <InputRow.SelectOption
           onChange={onChange}
           name='recurringPeriod'
@@ -31,11 +33,11 @@ const PaymentTypePicker = ({ type, onChange, ...props }) => {
         />
       </InputRow>
     );
-  case 'Spilt':
+  case 'Split':
     return (
       <InputRow>
         <InputRow.Label classes='hide-element' />
-        <InputRow.PriceField onChange={onChange} currancy='$' name='price'></InputRow.PriceField>
+        <InputRow.PriceField onChange={onChange} currancy='$' name='price' value={price}></InputRow.PriceField>
         <InputRow.SelectOption
           onChange={onChange}
           name='splits'
@@ -57,7 +59,7 @@ const PaymentTypePicker = ({ type, onChange, ...props }) => {
 
 export default class PaymentType extends Component {
   state = {
-    type: 'Onetime',
+    type: (this.props.value && this.props.value.type) || 'Onetime',
     currentValue: {
 
     }
@@ -87,15 +89,16 @@ export default class PaymentType extends Component {
         <InputRow>
           <InputRow.Label>Product Type</InputRow.Label>
           <InputRow.SelectOption
+            value={this.props.value && this.props.value.type}
             name='paymentType' onChange={this.onPaymentTypeChange}
             options={[
               { label: 'One Time Price', value: 'Onetime' },
               { label: 'Subscription', value: 'Subscription' },
-              { label: 'Split Payments', value: 'Spilt' },
+              { label: 'Split Payments', value: 'Split' },
             ]}
           />
         </InputRow>
-        <PaymentTypePicker type={this.state.type} onChange={this.onChange} />
+        <PaymentTypePicker type={this.state.type} onChange={this.onChange} price={this.props.price} />
 
       </React.Fragment>
     );

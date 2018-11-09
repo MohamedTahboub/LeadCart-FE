@@ -16,6 +16,8 @@ import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
 import ProtectedRoute from 'components/ProtectedRoute'
+import FlashMessage from 'components/FlashMessage'
+import UnderDevelopment from 'components/UnderDevelopment'
 import LoadingBar from 'components/LoadingBar'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
@@ -29,7 +31,7 @@ import ForgetPassword from 'containers/ForgetPassword';
 
 import Dashboard from 'containers/Dashboard'
 import Products from 'containers/Products'
-import NewProduct from 'containers/NewProduct'
+import Product from 'containers/Product'
 import Activities from './containers/Activities';
 import Coupons from './containers/Coupons';
 import Upsells from './containers/Upsells';
@@ -46,10 +48,6 @@ import { APP_INIT } from 'constantsTypes';
 
 /* Temp page to represent the empty pages */
 
-const EmptyPage = ({ history }) => (
-    <span> This page ({history.location.pathname.slice(1)}) still under development</span>
-)
-
 window.onload = () => {
     store.dispatch({type:APP_INIT})
 }
@@ -60,6 +58,7 @@ ReactDOM.render(
     <Provider store={store}>
         <React.Fragment>
             <LoadingBar />
+            <FlashMessage />
             {/* <ErrorBoundary> */}
 
             <BrowserRouter>
@@ -78,15 +77,15 @@ ReactDOM.render(
 
                                     <Route exact path='/' component={Dashboard} />
                                     <Route exact path='/products' component={Products} />
-                                    <Route exact path='/product/new' component={NewProduct} />
+                                    <Route exact path='/product/:id' component={Product} />
                                     <Route exact path='/activities' component={Activities} />
                                     <Route exact path='/coupons' component={Coupons} />
-                                    <Route exact path='/upsells' component={Upsells} />
-                                    <Route exact path='/reports' component={EmptyPage} />
-                                    <Route exact path='/affiliates' component={EmptyPage} />
+                                    <Route exact path='/upsells' component={UnderDevelopment} />
+                                    <Route exact path='/reports' component={UnderDevelopment} />
+                                    <Route exact path='/affiliates' component={UnderDevelopment} />
                                     <Route exact path='/agency' component={Agency} />
                                     <Route exact path='/setting' component={Setting} />
-                                    <Route exact path='/help' component={EmptyPage} />
+                                    <Route exact path='/help' component={UnderDevelopment} />
                                 </ActiveContent>
                             </Content>
                         </div>)
