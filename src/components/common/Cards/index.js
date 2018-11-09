@@ -9,8 +9,9 @@ export const MiniCard = ({ imgSrc, ...props }) => (
     className='small-solid-card white-color'
   />
 );
-export const MediumCard = ({ imgSrc, ...props }) => (
+export const MediumCard = ({ imgSrc, onClick, ...props }) => (
   <img
+    onClick={onClick}
     src={imgSrc}
     alt='payment service'
     className='medium-solid-card white-color'
