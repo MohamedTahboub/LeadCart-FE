@@ -8,32 +8,8 @@ import * as producActions from 'actions/product';
 
 const { InputRow, MainBlock } = common;
 
-// ColorInlinePicker
-
-/*
-{
-	"productId":"5bd58adc7a4287eb643a9baa",
-	"checkoutDetails":{
-		"template":"x",
-		"presetColors":"presetColors",
-		"logo":"logo",
-		"guaranteeTitle":"guaranteeTitle",
-		"guaranteeText":"guaranteeText",
-		"checkoutButtonText":"checkoutButtonText",
-		"bulletPointsTitle":"bulletPointsTitle",
-		"bulletPoints":["bulletPoints"],
-		"bulletPointImage":"bulletPointImage",
-		"termsAndConditions":{
-			"enabled":false
-		},
-		"testimonials":[{"text":"text","image":"image"},{"text":"text","image":"image"}],
-		"customContent":"customContent"
-	}
-
-}
-*/
 class CheckoutDesign extends Component {
-  state = { isTermsEnabled: false }
+  state = { isTermsEnabled: false, defaultTemplate: true }
 
   onFieldChange = ({ target: { name, value } }) => {
     this.props.onProductCheckoutFieldChange({ name, value });
@@ -49,13 +25,15 @@ class CheckoutDesign extends Component {
     this.setState({ isTermsEnabled: !this.state.isTermsEnabled });
   }
 
+  toggleTemplates = () => this.setState({ defaultTemplate: !this.state.defaultTemplate });
+
   render () {
     return (
       <React.Fragment key={Date.now()}>
         <MainBlock title='Template library' notes='Choose from a library of premade templates'>
           <form className='products-details-form inputs-grounp section-block flex-row-wrap'>
-            <TemplatePreview active image={temp_1_image} />
-            <TemplatePreview image={temp_2_image} />
+            <TemplatePreview active={this.state.defaultTemplate} image={temp_1_image} onSelect={this.toggleTemplates} />
+            <TemplatePreview active={!this.state.defaultTemplate} image={temp_2_image} onSelect={this.toggleTemplates} />
           </form>
         </MainBlock>
         <MainBlock title='Customize your template'>

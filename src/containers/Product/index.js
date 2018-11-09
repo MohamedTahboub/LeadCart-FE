@@ -9,7 +9,7 @@ import AdvanecdSetting from './sub/AdvanecdSetting'
 import common from 'components/common'
 import { connect } from 'react-redux'
 import * as productAction from 'actions/product'
-const { TabsNavigator, Button } = common
+const { TabsNavigator, Button, MiniButton, ActivationSwitchInput } = common
 /* temp component tp represent the empty tap */
 
 const newProductTabs = [
@@ -35,6 +35,7 @@ const ActiveTabe = ({ tabName, onChange, ...props }) => {
 const Link = ({ children, link, classes = [], ...props }) => (
     <a href={link || "http://checkout.leadcart.io/products/ursadsaddsssastertasadl1"} target="_blank" className={"btn link-btn " + classes.join(' ')}>{children}</a>
 )
+
 class NewProductDetailes extends Component {
     state = {
 
@@ -65,19 +66,27 @@ class NewProductDetailes extends Component {
                 return this.props.updateProductAdvanceSetting()
         }
     }
-
+    onPreview = () => {
+        const {subdomain,productUrl}=this.props
+        if(subdomain && productUrl)
+        window.open(`http://${subdomain}.leadcart.io/products/${productUrl}`)
+    }
     render() {
         const tabName = this.props.history.location.hash.slice(1)
         return (
             <div className='products-details-page'>
 
                 <div className='products-controls-btns'>
-                    <Link link={this.props.productUrl} classes={['share-btn']}>
+                    <Button  onClick={this.onPreview} classes={['share-btn']}>
                         <i className="fas fa-share-square"></i>Share Product
-                    </Link>
-                    <Button onClick={() => this.onChangesSave(tabName)} classes='save-changes-btn'>
-                        Save Changes
                     </Button>
+                    <div className='product-toolbar-container'>
+                        <ActivationSwitchInput />
+                        <MiniButton  onClick={this.onPreview} classes='row-explor-btn' iconClass='fa-eye' />
+                        <Button onClick={() => this.onChangesSave(tabName)} classes='save-changes-btn'>
+                            Save Changes
+                    </Button>
+                    </div>
                 </div>
                 <TabsNavigator
                     tabs={newProductTabs}
@@ -89,7 +98,7 @@ class NewProductDetailes extends Component {
     }
 }
 const mapStateToProps = state => ({
-    state,
+    subdomain: state.user.user.subDomain,
     productUrl: state.product.details.url
 })
 export default connect(mapStateToProps, productAction)(NewProductDetailes);

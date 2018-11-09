@@ -9,9 +9,9 @@ export const Button = ({
   </span>
 );
 export const MiniButton = ({
-  iconClass, children, classes, ...props
+  iconClass, children, classes, onClick, ...props
 }) => (
-  <span className={`mini-btn  ${classes || ''}`}>
+  <span onClick={onClick} className={`mini-btn  ${classes || ''}`}>
     {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
   </span>
