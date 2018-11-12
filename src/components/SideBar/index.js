@@ -42,7 +42,7 @@ const SideBar = ({
         <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
         <Link to={{ history, page: '/agency' }}>Agency</Link>
-        <Link to={{ history, page: '/setting#genral' }}>Setting</Link>
+        <Link to={{ history, page: '/settings/genral' }}>Setting</Link>
         <Link to={{ history, page: '/help' }}>Help</Link>
       </Menu>
 
