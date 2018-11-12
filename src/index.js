@@ -84,7 +84,7 @@ ReactDOM.render(
                                     <Route exact path='/reports' component={UnderDevelopment} />
                                     <Route exact path='/affiliates' component={UnderDevelopment} />
                                     <Route exact path='/agency' component={Agency} />
-                                    <Route exact path='/setting' component={Setting} />
+                                    <Route path='/settings' component={Setting} />
                                     <Route exact path='/help' component={UnderDevelopment} />
                                 </ActiveContent>
                             </Content>

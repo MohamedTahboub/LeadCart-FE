@@ -9,14 +9,28 @@ export const MiniCard = ({ imgSrc, ...props }) => (
     className='small-solid-card white-color'
   />
 );
-export const MediumCard = ({ imgSrc, onClick, ...props }) => (
-  <img
-    onClick={onClick}
-    src={imgSrc}
-    alt='payment service'
-    className='medium-solid-card white-color'
-  />
-);
+export const MediumCard = ({
+  imgSrc, onClick, isLoading, isActive = false, error, ...props
+}) => {
+  const wraperStatus = isActive
+    ? 'success-badge'
+    : isLoading ? 'loading-badge'
+      : error
+        ? 'failure-badge'
+        : 'inactive-badge';
+
+  return (
+    <span className={wraperStatus}>
+      <img
+        onClick={onClick}
+        src={imgSrc}
+        alt='payment service'
+        className='medium-solid-card white-color'
+      />
+      {error && <span className='payment-error-message'>{error}</span>}
+    </span>
+  );
+};
 
 export const Avatar = ({ imageSrc, name }) => {
   const firstLetters = name.trim().split(' ').map((w) => w[0].toUpperCase()).join('');
@@ -37,7 +51,7 @@ export const ProductCard = ({
       <span className='product-name-holder'>{name}</span>
       <span className='product-salles-holder'>
         {monthlyProfite}
-                    /monthly
+          /monthly
       </span>
       <span className='product-price-holder'>{`$ ${price.amount}`}</span>
     </div>
@@ -53,7 +67,7 @@ export const NewThingCard = ({ thing, onClick, ...props }) => (
   <div onClick={onClick} className='product-card-container '>
     <span className='new-product-card'>
       {' '}
-            + New
+      + New
       {' '}
       {thing}
     </span>

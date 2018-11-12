@@ -7,7 +7,7 @@ export default (props) => (
             we are working so hard to get this feature done for you
     </span>
     <span className='underdevelopment-notes underdevelopment-thanks'>
-            Thank you for your patient
+            Thank you for your patience
     </span>
   </div>
 );

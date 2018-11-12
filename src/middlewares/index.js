@@ -9,7 +9,21 @@ import product from './product'
 import products from './products'
 import notificationCenter from './notificationCenter'
 import flashMessage from './flashMessage'
+import payments from './payments'
 import formsValidations from './formsValidations'
 
 // exporting the middlewares as an array 
-export default [signup, appInit,notificationCenter, ...formsValidations, login, ...product, products,  flashMessage, apiRequest, uploadingFiles, storage]
+export default [
+    signup,
+    appInit,
+    notificationCenter,
+    ...formsValidations,
+    login,
+    ...product,
+    products,
+    payments,
+    flashMessage,
+    apiRequest,
+    uploadingFiles,
+    storage
+]
