@@ -28,7 +28,7 @@ const SideBar = ({
   // appInit();
   return (
     <div className='side-bar'>
-      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/setting#genral')} />
+      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/genral')} />
       <span onClick={toggleCreateProductModal} className='btn new-product-btn'>
         <i className='fas fa-plus' />
         {' '}
@@ -36,9 +36,9 @@ const SideBar = ({
       </span>
       <Menu>
         <Link to={{ history, page: '/products' }} classes={isActiveTab('products')}>Products</Link>
-        <Link to={{ history, page: '/activities#customers' }}>Activity</Link>
+        <Link to={{ history, page: '/activities/customers' }}>Activity</Link>
         <Link to={{ history, page: '/coupons' }}>Coupon</Link>
-        <Link to={{ history, page: '/upsells#upsells' }} classes={['locked-feature']}>Upsells</Link>
+        <Link to={{ history, page: '/upsells/upsells' }} classes={['locked-feature']}>Upsells</Link>
         <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
         <Link to={{ history, page: '/agency' }}>Agency</Link>
