@@ -28,7 +28,7 @@ class Products extends Component {
   }
 
   onProductEdit = (url) => {
-    this.props.history.push(`/product/${url}#details`);
+    this.props.history.push(`/product/${url}/details`);
   }
 
   onShowDeleteDialogue = (id) => this.setState({ showDeleteModal: true, currentProduct: { id } });

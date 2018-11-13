@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Switch, Route } from 'react-router-dom';
 import './style.css'
 import ProductDetailes from './sub/ProductDetails'
 import CheckoutDesign from './sub/CheckoutDesign'
@@ -12,13 +12,13 @@ import * as productAction from 'actions/product'
 const { TabsNavigator, Button, MiniButton, ActivationSwitchInput } = common
 /* temp component tp represent the empty tap */
 
-const newProductTabs = [
-    { title: 'Product Details', hash: 'details' },
-    { title: 'Checkout Design', hash: 'checkout' },
-    { title: 'Payments', hash: 'payments' },
-    { title: 'Order Bump', hash: 'order' },
-    { title: 'Advanced Setting', hash: 'advanced' }
-]
+const newProductTabs = productUrl => ([
+    { title: 'Product Details', sub: `/product/${productUrl}/details` },
+    { title: 'Checkout Design', sub: `/product/${productUrl}/checkout` },
+    { title: 'Payments', sub: `/product/${productUrl}/payments` },
+    { title: 'Order Bump', sub: `/product/${productUrl}/order` },
+    { title: 'Advanced Setting', sub: `/product/${productUrl}/advanced` }
+])
 
 
 const ActiveTabe = ({ tabName, onChange, ...props }) => {
@@ -51,9 +51,9 @@ class NewProductDetailes extends Component {
         console.log(data)
         this.setState({ data })
     }
-    onChangesSave = (tabName) => {
+    onChangesSave = (pageName) => {
 
-        switch (tabName) {
+        switch (pageName) {
             case 'details':
                 return this.props.updateProductDetails({})
             case 'checkout':
@@ -67,32 +67,39 @@ class NewProductDetailes extends Component {
         }
     }
     onPreview = () => {
-        const {subdomain,productUrl}=this.props
-        if(subdomain && productUrl)
-        window.open(`http://${subdomain}.leadcart.io/products/${productUrl}`)
+        const { subdomain, productUrl } = this.props
+        if (subdomain && productUrl)
+            window.open(`http://${subdomain}.leadcart.io/products/${productUrl}`)
     }
     render() {
-        const tabName = this.props.history.location.hash.slice(1)
+        const pageName = this.props.history.location.pathname.split('/')[3]
         return (
             <div className='products-details-page'>
 
                 <div className='products-controls-btns'>
-                    <Button  onClick={this.onPreview} classes={['share-btn']}>
+                    <Button onClick={this.onPreview} classes={['share-btn']}>
                         <i className="fas fa-share-square"></i>Share Product
                     </Button>
                     <div className='product-toolbar-container'>
                         <ActivationSwitchInput />
-                        <MiniButton  onClick={this.onPreview} classes='row-explor-btn' iconClass='fa-eye' />
-                        <Button onClick={() => this.onChangesSave(tabName)} classes='save-changes-btn'>
+                        <MiniButton onClick={this.onPreview} classes='row-explor-btn' iconClass='fa-eye' />
+                        <Button onClick={() => this.onChangesSave(pageName)} classes='save-changes-btn'>
                             Save Changes
                     </Button>
                     </div>
                 </div>
                 <TabsNavigator
-                    tabs={newProductTabs}
+                    productUrl={this.props.productUrl}
+                    tabs={newProductTabs(this.props.productUrl)}
                     history={this.props.history} />
-                <ActiveTabe tabName={tabName} onChange={this.onTabsDataChange} />
-
+                <Switch>
+                    <Route path='/product/:url/details' component={ProductDetailes} />
+                    <Route exact path='/product/:url/checkout' component={CheckoutDesign} />
+                    <Route exact path='/product/:url/payments' component={Payments} />
+                    <Route exact path='/product/:url/order' component={OrderBump} />
+                    <Route exact path='/product/:url/advanced' component={AdvanecdSetting} />
+                    <Route path='/product/:url' component={ProductDetailes} />
+                </Switch>
             </div>
         );
     }

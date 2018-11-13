@@ -49,7 +49,7 @@ import { APP_INIT } from 'constantsTypes';
 /* Temp page to represent the empty pages */
 
 window.onload = () => {
-    store.dispatch({type:APP_INIT})
+    store.dispatch({ type: APP_INIT })
 }
 // const store = createStore(rootReducer);
 // store.subscribe(() => console.log('store', store.getState()));
@@ -77,8 +77,8 @@ ReactDOM.render(
 
                                     <Route exact path='/' component={Dashboard} />
                                     <Route exact path='/products' component={Products} />
-                                    <Route exact path='/product/:id' component={Product} />
-                                    <Route exact path='/activities' component={Activities} />
+                                    <Route path='/product' component={Product} />
+                                    <Route path='/activities' component={Activities} />
                                     <Route exact path='/coupons' component={Coupons} />
                                     <Route exact path='/upsells' component={UnderDevelopment} />
                                     <Route exact path='/reports' component={UnderDevelopment} />

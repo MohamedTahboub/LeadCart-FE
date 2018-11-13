@@ -83,7 +83,7 @@ class MarketPlace extends Component {
           Zapier
         </MainTitle>
         <FlexBoxesContainer>
-          <SmallBox classes={['zapier-spcial-box']} clic>
+          <SmallBox classes={['zapier-spcial-box']} >
             <img className='zapier-brand-image' src={zapierBrand} alt='zapier brand' />
             <input type='text' className='zapier-client-oauth' placeholder='Enter Zapier client Id' />
           </SmallBox>
