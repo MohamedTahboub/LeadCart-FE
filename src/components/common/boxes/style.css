@@ -57,3 +57,6 @@
     display: flex;
     align-items: center;
 }
+.normal-box .input-label-container{
+    width: auto;
+}

@@ -43,9 +43,9 @@ export const Avatar = ({ imageSrc, name }) => {
 };
 
 export const ProductCard = ({
-  name, currancy, monthlyProfite = 0, price, isActive, onEdit, onPreview, onDelete, ...props
+  name, currancy, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
 }) => (
-  <div className={`product-card-container ${isActive ? 'active-product' : 'inactive-product'}`}>
+  <div className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
     <div className='card-main-content product-avatar-holder'>
       <Avatar name={name} />
       <span className='product-name-holder'>{name}</span>

@@ -10,7 +10,7 @@ const Tage = ({ children, onDelete, ...props }) => (
 const TagLengthValidate = ({ target: { value } }) => value.length > 3;
 
 export const TagsElements = ({
-  onAddTag, onDelete, showTageInput, tags, onCurrentTagChange, isCurrentTagValid, ...props
+  onAddTag, onDelete, showTageInput, placeholder, tags, onCurrentTagChange, isCurrentTagValid, ...props
 }) => (
   <div className='tages-element-handle'>
     {showTageInput && (
@@ -19,7 +19,7 @@ export const TagsElements = ({
           onChange={onCurrentTagChange}
           type='text'
           className='tage-input-field'
-          placeholder='Enter Tag Keyword'
+          placeholder={placeholder || 'Enter Tag Keyword'}
         />
         {isCurrentTagValid && (
           <span onClick={onAddTag} className='tag-save-btn'>

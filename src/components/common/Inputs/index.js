@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './style.css';
+import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
-
+import SearchInput from './SearchInput'
 
 export class InputRow extends Component {
   static Label = ({ notes, error, ...props }) => (
@@ -17,18 +18,18 @@ export class InputRow extends Component {
   )
 
   static SmallInput = ({
-    type = 'text', name, onChange, value,classes=[], ...props
+    type = 'text', name, onChange, value, classes = [], error, ...props
   }) => (
       <input
-        onChange={onChange} name={name} type={type} defaultValue={value} className={'input-field small-input '+classes.join(' ')}
+      defaultValue={value}  onChange={onChange} name={name} type={type} className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
         placeholder={props.children}
       />
     )
 
   static CustomInput = ({
-    width, onChange, name, value,placeholder,classes=[], ...props
+    width, onChange, name, value, placeholder, classes = [], ...props
   }) => (
-      <input onChange={onChange} name={name} defaultValue={value} className={'input-field custom-input-field '+classes.join(' ')} placeholder={props.children || placeholder} />
+      <input onChange={onChange} name={name} defaultValue={value} className={'input-field custom-input-field ' + classes.join(' ')} placeholder={props.children || placeholder} />
     )
 
   static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
@@ -40,12 +41,16 @@ export class InputRow extends Component {
 
   static TextAreaInput = ({ onChange, name, value, error, ...props }) => (
     <div className='text-area-container'>
-      <textarea onChange={onChange} name={name} defaultValue={value} className={'textarea-input-field ' + (error && 'invalid-field')} />
+      <textarea onChange={onChange} name={name} value={value} className={'textarea-input-field ' + (error && 'invalid-field')} />
       <span className='text-area-small-note'>27/260</span>
     </div>
   )
 
+  static AddImage = AddImage
+
   static AddComponentField = AddFieldComponent
+
+  static SearchInput = SearchInput
 
   static SelectOption = ({
     options = [], onChange, name, value, leftLabel, ...props
@@ -53,15 +58,15 @@ export class InputRow extends Component {
       <React.Fragment>
         {leftLabel && <span className="input-left-label">{leftLabel}</span>}
         <select onClick={onChange} defaultValue={value} name={name} className='select-input-field'>
-          {options.map(({ label, value }) => <option className='select-option' value={value}>{label}</option>)}
+          {options.map(({ label, value }, id) => <option key={id} className='select-option' value={value}>{label}</option>)}
         </select>
       </React.Fragment>
     )
 
   static PriceField = ({
-    children, onChange, name,classes=[], value, ...props
+    children, onChange, name, classes = [], value, ...props
   }) => (
-      <div className={'price-input-holder '+classes.join(' ')}>
+      <div className={'price-input-holder ' + classes.join(' ')}>
         <span className='currancy-type'>$</span>
         <input onChange={onChange} defaultValue={value} name={name} className='price-input-field' placeholder={children} />
       </div>
@@ -97,14 +102,14 @@ export class InputRow extends Component {
 
   static SwitchInput = ({ onChange, name, value, onToggle, ...props }) => (
     <label className='switch-slider-input '>
-      <input onChange={onToggle} name={name} type='checkbox' checked={value} />
+      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} />
       <span className='slider-input slider-round' />
     </label>
   )
 
-  static CodeInputArea = ({ value, ...props }) => (
+  static CodeInputArea = ({ value,onChange,name, ...props }) => (
     <div className='code-area-container'>
-      <textarea defaultValue={value} className='codearea-input-field' placeholder={props.children} />
+      <textarea onChange={onChange} name={name} defaultValue={value} className='codearea-input-field' placeholder={props.children} />
     </div>
   )
 

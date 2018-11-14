@@ -1,5 +1,5 @@
 import React from 'react';
-import avatarLink from 'assets/images/avatar.jpeg';
+import avatarLink from 'assets/images/avatar.jpg';
 
 export default ({ user, onSettingClick, ...props }) => (
   <div className='profile-preview'>

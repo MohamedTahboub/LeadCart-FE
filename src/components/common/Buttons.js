@@ -17,9 +17,9 @@ export const MiniButton = ({
   </span>
 );
 export const SmallButton = ({
-  iconClass, children, classes, ...props
+  iconClass, children, classes, onClick, ...props
 }) => (
-  <span className={`small-btn  ${classes || ''}`}>
+  <span onClick={onClick} className={`small-btn  ${classes || ''}`}>
     {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
   </span>
@@ -31,9 +31,9 @@ export const DeleteButton = ({ iconType = 'trash', onClick, ...props }) => (
   </span>
 );
 
-export const ActivationSwitchInput = (props) => (
+export const ActivationSwitchInput = ({ active, onToggle, ...props }) => (
   <label className='switch-slider-input activability-switch'>
-    <input type='checkbox' />
+    <input type='checkbox' onClick={onToggle} checked={active ? 'checked' : ''} />
     <span className='slider-input slider-round' />
   </label>
 );

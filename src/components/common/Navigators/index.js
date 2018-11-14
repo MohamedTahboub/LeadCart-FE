@@ -9,11 +9,10 @@ export const TabsNavigator = ({ tabs, history, props }) => {
       ? 'nav-link active-nav-link'
       : 'nav-link'
   });
-  console.log('88888888888888888', history.location.pathname);
   return (
     <div className='product-details-nav'>
-      {tabs.map(({ title, hash, sub }) => (
-        <span onClick={() => goToTabe(hash || sub)} {...classes(hash || sub)}>{title}</span>
+      {tabs.map(({ title, hash, sub }, id) => (
+        <span key={id} onClick={() => goToTabe(hash || sub)} {...classes(hash || sub)}>{title}</span>
       ))}
     </div>
   );

@@ -12,9 +12,6 @@ class AddFieldComponent extends Component {
     image: '',
     files: [],
     tags: [
-      { value: 'spcial', id: 0 },
-      { value: 'So spcial', id: 1 },
-      { value: 'kind of spcial', id: 2 },
     ],
     currentTag: {}
   }
@@ -125,6 +122,7 @@ class AddFieldComponent extends Component {
         {this.props.type === 'tags'
           && (
             <TagsElements
+              placeholder={this.props.placeholder}
               onCurrentTagChange={this.onCurrentTagChange}
               isCurrentTagValid={this.state.currentTag.valid}
               onAddTag={this.onAddNewTag}
