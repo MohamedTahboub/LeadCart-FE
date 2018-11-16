@@ -1,0 +1,36 @@
+.full-page-image-container {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wall-sheet-container {
+    height: 50%;
+    width: 50%;
+}
+.underdevelopment-box {
+    height: 200px;
+    min-height: 150px;
+    background: white;
+    min-width: 500px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.12);
+}
+
+span.underdevelopment-title {
+    font-size: 20px;
+    color: #2B3748;
+}
+
+span.under-development-message {
+    color: #2B3748;
+    line-height: 50px;
+}
