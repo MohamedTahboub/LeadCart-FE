@@ -9,7 +9,7 @@ export default (props) => (
     <MainBlock title='Scripts / Pixels'>
       <InputRow>
         <InputRow.Label
-          notes="Embed any custom scripts or HTML code in the footer of this product\'s checkout page."
+          notes="Embed any custom scripts or HTML code in the footer of this product's checkout page."
         >
 Embed HTML/Scripts in Footer
 
@@ -18,7 +18,7 @@ Embed HTML/Scripts in Footer
       </InputRow>
       <InputRow>
         <InputRow.Label
-          notes="Embed any custom scripts or HTML code in the footer of this product\'s order summary page or just prior to a custom thank you page."
+          notes="Embed any custom scripts or HTML code in the footer of this product's order summary page or just prior to a custom thank you page."
         >
 Fire pixels/scripts after an order is completed
 

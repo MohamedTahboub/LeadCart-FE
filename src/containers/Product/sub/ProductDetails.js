@@ -61,16 +61,16 @@ const ProductDetailes = (props) => {
           </InputRow>
           <InputRow>
             <InputRow.Label>Product Image</InputRow.Label>
-            <InputRow.AddComponentField
+            <InputRow.AddImage
               value={image}
-              type='file'
+              source='product_image'
               onUploaded={onProductImageUploaded}
               notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
               name='image'
             >
 Add files
 
-            </InputRow.AddComponentField>
+            </InputRow.AddImage>
           </InputRow>
 
           <PaymentType type='' onChange={onPaymentChange} value={payment || {}} price={price ? price.amount : 0} />

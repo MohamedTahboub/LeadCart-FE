@@ -9,8 +9,8 @@ state = { isEnabled: false }
 
  toggleBumbeOfferStatus = () => {
    this.setState({ isEnabled: !this.state.isEnabled });
+   //  this.refs.bumpOptions.animat([{ opacity: 0 }, { opacity: 1 }], 1000);
  }
-
 
  render () {
    return (
@@ -23,7 +23,7 @@ state = { isEnabled: false }
        </MainBlock>
 
        {this.state.isEnabled && (
-         <React.Fragment>
+         <React.Fragment ref='bumpOptions'>
 
            <MainBlock title='Options'>
 
