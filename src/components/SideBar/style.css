@@ -1,5 +1,5 @@
 .side-bar{
-    /* min-width: 243px; */
+    min-height: 550px;
     min-width: 194.4px;
     background:white;
     display: flex;

@@ -1,0 +1,15 @@
+.testimonial-item-container {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+    margin: 10px 250px;
+}
+
+img.testamonial-img {
+    height: 30px;
+    width: 30px;
+}
+
+span.testamonial-content {
+    font-size: 14px;
+}

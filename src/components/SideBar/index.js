@@ -38,10 +38,10 @@ const SideBar = ({
         <Link to={{ history, page: '/products' }} classes={isActiveTab('products')}>Products</Link>
         <Link to={{ history, page: '/activities/customers' }}>Activity</Link>
         <Link to={{ history, page: '/coupons' }}>Coupon</Link>
-        <Link to={{ history, page: '/upsells/upsells' }} classes={['locked-feature']}>Upsells</Link>
+        <Link to={{ history, page: '/upsells' }} classes={['locked-feature']}>Upsells</Link>
         <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
-        <Link to={{ history, page: '/agency' }}>Agency</Link>
+        {user.level === 3 && <Link to={{ history, page: '/agency' }}>Agency</Link>}
         <Link to={{ history, page: '/settings/genral' }}>Setting</Link>
         <Link to={{ history, page: '/help' }}>Help</Link>
       </Menu>

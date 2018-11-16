@@ -2,7 +2,7 @@
     position: absolute;
     top: 130px;
     right:60px;
-    background: #37b86b;
+    
     color: white;
     border-radius: 5px;
     padding: 20px 35px;
@@ -26,4 +26,10 @@
     border-bottom-left-radius: 4px;
     cursor: pointer;
     background: #8080808c;
+}
+.flash-message-success{
+    background: #37b86b;
+}
+.flash-message-faild{
+    background: #c82a37;
 }
