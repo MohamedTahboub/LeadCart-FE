@@ -10,6 +10,16 @@ import store from 'store'
 // Config
 import 'config';
 
+
+//temp pages 
+import upsellsImage from 'assets/images/upsells_bg.svg'
+import affiliatesImage from 'assets/images/affiliates_bg.svg'
+import reportsImage from 'assets/images/reports_bg.svg'
+
+import ImagePageContainer from 'components/ImagePageContainer'
+
+
+
 // Components
 import Header from 'components/Header'
 import Content from 'components/Content'
@@ -29,7 +39,8 @@ import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 
 
-import Dashboard from 'containers/Dashboard'
+// import Dashboard from 'containers/Dashboard'
+import Guidlines from 'containers/Guidlines'
 import Products from 'containers/Products'
 import Product from 'containers/Product'
 import Activities from './containers/Activities';
@@ -74,15 +85,14 @@ ReactDOM.render(
                             <Content>
                                 <Route render={({ history }) => <SideBar history={history} />} />
                                 <ActiveContent >
-
-                                    <Route exact path='/' component={Dashboard} />
+                                    <Route exact path='/' component={Guidlines} />
                                     <Route exact path='/products' component={Products} />
                                     <Route path='/product' component={Product} />
                                     <Route path='/activities' component={Activities} />
                                     <Route exact path='/coupons' component={Coupons} />
-                                    <Route exact path='/upsells' component={UnderDevelopment} />
-                                    <Route exact path='/reports' component={UnderDevelopment} />
-                                    <Route exact path='/affiliates' component={UnderDevelopment} />
+                                    <Route exact path='/upsells' render={()=><ImagePageContainer title='UPSELLS' image={upsellsImage}/>} />
+                                    <Route exact path='/reports' render={()=><ImagePageContainer title='REPORTS' image={reportsImage}/>} />
+                                    <Route exact path='/affiliates' render={()=><ImagePageContainer title='AFFILIATES' image={affiliatesImage}/>} />
                                     <Route exact path='/agency' component={Agency} />
                                     <Route path='/settings' component={Setting} />
                                     <Route exact path='/help' component={UnderDevelopment} />
