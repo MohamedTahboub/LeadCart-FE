@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
+import queryString from 'querystring';
 import common from 'components/common';
 import zapierBrand from 'assets/images/zapier_brand.png';
 
@@ -28,7 +28,7 @@ const connectStripe = () => {
 };
 
 
-class MarketPlace extends Component {
+class Integratons extends Component {
   state = {
     stripe: {
 
@@ -45,8 +45,9 @@ class MarketPlace extends Component {
   componentDidMount = () => {
     const {
       activat_method, code, scope, error, error_description
-    } = queryString.parse(this.props.history.location.search);
+    } = queryString.parse(this.props.history.location.search.replace('?', ''));
 
+    console.log(queryString.parse(this.props.history.location.search.replace('?', '')));
 
     if (activat_method === 'stripe' || activat_method === 'paypal') {
       if (!error) {
@@ -62,13 +63,11 @@ class MarketPlace extends Component {
   }
 
   componentDidUpdate = () => {
-    const { activat_method } = queryString.parse(this.props.history.location.search);
-    if (this.state[activat_method].inprogress)
-      if (this.props[activat_method].isActive || this.props[activat_method].error)
-        this.setState({ [activat_method]: { inprogress: false } });
+    const { activat_method } = queryString.parse(this.props.history.location.search.replace('?', ''));
+    if (this.state[activat_method].inprogress) if (this.props[activat_method].isActive || this.props[activat_method].error) this.setState({ [activat_method]: { inprogress: false } });
   }
 
-  render() {
+  render () {
     const { stripe, paypal } = this.state;
     const { stripe: $stripe, paypal: $paypal } = this.props;
     return (
@@ -83,7 +82,7 @@ class MarketPlace extends Component {
           Zapier
         </MainTitle>
         <FlexBoxesContainer>
-          <SmallBox classes={['zapier-spcial-box']} >
+          <SmallBox classes={['zapier-spcial-box']}>
             <img className='zapier-brand-image' src={zapierBrand} alt='zapier brand' />
             <input type='text' className='zapier-client-oauth' placeholder='Enter Zapier client Id' />
           </SmallBox>
@@ -96,4 +95,4 @@ const mapStateToProps = (state) => ({
   stripe: state.payments.stripe,
   paypal: state.payments.paypal
 });
-export default connect(mapStateToProps, paymentsActions)(MarketPlace);
+export default connect(mapStateToProps, paymentsActions)(Integratons);
