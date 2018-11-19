@@ -12,6 +12,8 @@ import {
   GET_PRODUCT_SUCCESS,
   GET_PRODUCT_FAILD,
   UPDATE_PRODUCT_CHECKOUT_TEMPLATE,
+  UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS,
+  UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILD,
   UPDATE_PRODUCT_PAYMENT_METHOD,
   UPDATE_PRODUCT_BUMP_SETTING,
   UPDATE_PRODUCT_ADVANCE_SETTING,
@@ -21,7 +23,11 @@ import {
   PRODUCT_SETTING_FIELD_UPDATE,
   DELETE_USER_PRODUCT,
   DELETE_USER_PRODUCT_SUCCESS,
-  DELETE_USER_PRODUCT_FAILD
+  DELETE_USER_PRODUCT_FAILD,
+  TOGGLE_PRODUCT_PAYMENT,
+  TOGGLE_PRODUCT_AVAILABILITY,
+  TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
+  TOGGLE_PRODUCT_AVAILABILITY_FAILD
 } from 'constantsTypes';
 
 
@@ -119,6 +125,14 @@ export const updateProductCheckoutDesign = (checkout) => ({
   type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE,
   payload: checkout
 });
+export const updateProductCheckoutDesignSuccess = (checkout) => ({
+  type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS,
+  payload: checkout
+});
+export const updateProductCheckoutDesignFaild = (checkout) => ({
+  type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILD,
+  payload: checkout
+});
 export const updateProductPayment = (payment) => ({
   type: UPDATE_PRODUCT_PAYMENT_METHOD,
   payload: payment
@@ -130,4 +144,23 @@ export const updateProductOrderBump = (bump) => ({
 export const updateProductAdvanceSetting = (advanceSetting) => ({
   type: UPDATE_PRODUCT_ADVANCE_SETTING,
   payload: advanceSetting
+});
+
+
+export const toggleProductPayment = (method) => ({
+  type: TOGGLE_PRODUCT_PAYMENT,
+  payload: method
+});
+
+
+export const toggleProductAvailability = (availability) => ({
+  type: TOGGLE_PRODUCT_AVAILABILITY,
+  payload: availability
+});
+export const toggleProductAvailabilitySuccess = () => ({
+  type: TOGGLE_PRODUCT_AVAILABILITY_SUCCESS
+});
+export const toggleProductAvailabilityFaild = (message) => ({
+  type: TOGGLE_PRODUCT_AVAILABILITY_FAILD,
+  payload: message
 });
