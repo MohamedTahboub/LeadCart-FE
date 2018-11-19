@@ -1,5 +1,5 @@
 .side-bar{
-    /* min-width: 243px; */
+    min-height: 550px;
     min-width: 194.4px;
     background:white;
     display: flex;
@@ -52,8 +52,7 @@
 .btn{
     font-size: smaller;
     border-radius: 3px;
-    /* padding: 20px; */
-    /* padding: 16px; */
+    text-decoration: none;
     padding: 8px 15px;
     color: white;
     font-weight: bold;

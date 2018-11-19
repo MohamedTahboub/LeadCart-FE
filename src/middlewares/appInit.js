@@ -1,14 +1,38 @@
 import { APP_INIT } from 'constantsTypes';
-import { loginSuccess } from 'actions/login';
+import { getMembersSuccess } from 'actions/teamMembers';
+import { getSubAccountsSuccess } from 'actions/agency';
+import { appLaunchFaild, appLaunchSuccess } from 'actions/appInit';
+import { apiRequest } from 'actions/apiRequest';
+
 
 export default ({ dispatch, getState }) => (next) => (action) => {
-  const { user: { user: { token } } } = getState();
+  const { user: { user: { token }, isLoggedIn } } = getState();
 
   if (action.type !== APP_INIT) return next(action);
 
-  const user = localStorage.user && JSON.parse(localStorage.user);
 
-  if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
+  if (!isLoggedIn) return next(action);
+  // /users/launch
+  const onLunchSuccess = (data) => {
+    console.log(data);
+    dispatch(getMembersSuccess(data.members));
+    dispatch(getSubAccountsSuccess(data.agents));
+    return appLaunchSuccess('THE APPLICATION LUNCHED');
+  };
+
+
+  dispatch(apiRequest({
+    options: {
+      method: 'get',
+      uri: '/api/users/launch',
+      contentType: 'json'
+    },
+    onSuccess: onLunchSuccess,
+    onFaild: appLaunchFaild
+  }));
+  // const user = localStorage.user && JSON.parse(localStorage.user);
+
+  // if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
 
   // restore the application stored data in the loaclStorage
 };

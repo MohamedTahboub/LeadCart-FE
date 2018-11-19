@@ -1,19 +1,19 @@
 import {
-   APPLAY_ACCOUNT_PROMOCODE,
-   APPLAY_ACCOUNT_PROMOCODE_SUCCESS,
-   APPLAY_ACCOUNT_PROMOCODE_FAILD
+  PROMO_CODE_ACTIVATE,
+  PROMO_CODE_ACTIVATE_SUCCESS,
+  PROMO_CODE_ACTIVATE_FAILD
 } from 'constantsTypes';
 
 
-export const applayPromocode = code => ({
-    type: APPLAY_ACCOUNT_PROMOCODE,
-    payload: code
-})
-export const applayPromocodeSuccess = code => ({
-    type: APPLAY_ACCOUNT_PROMOCODE_SUCCESS,
-    payload: code
-})
-export const applayPromocodeFaild = message => ({
-    type: APPLAY_ACCOUNT_PROMOCODE_FAILD,
-    payload: message
-})
+export const activatePromocode = (code) => ({
+  type: PROMO_CODE_ACTIVATE,
+  payload: code
+});
+export const activatePromocodeSuccess = (code) => ({
+  type: PROMO_CODE_ACTIVATE_SUCCESS,
+  payload: code
+});
+export const activatePromocodeFaild = (message) => ({
+  type: PROMO_CODE_ACTIVATE_FAILD,
+  payload: message
+});

@@ -11,6 +11,85 @@
 .small-solid-card:hover{
     box-shadow: 0px 0px 7px 2px #00000021;
 }
+.medium-solid-card {
+    position: relative;
+    height: 150px;
+    width: 266px;
+    margin: 0px 15px 0px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0px 20px;
+    transition:all ease-in-out 350ms;
+    box-shadow: 1px 1px 12px 3px #00000008;
+} 
+
+.medium-solid-card:hover{
+    box-shadow: 0px 0px 7px 2px #00000021;
+}
+.success-badge{
+    position: relative;
+}
+.success-badge:after {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 20px;
+    content: "\F058";
+    top: -56px;
+    right: 24px;
+    color: #30e030b5;
+}
+.failure-badge{
+    position: relative;
+}
+.failure-badge:after {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 20px;
+    content: "\f057";
+    top: -56px;
+    right: 24px;
+    color: #d30f5ab5;
+}
+.loading-badge{
+    position: relative;
+}
+.loading-badge:after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: -56px;
+    right: 24px;
+    border: none;
+    border-left: 2px solid #9E9E9E;
+    border-right: 2px solid #9E9E9E;
+    border-radius: 50%;
+    animation:spinning .6s ease-in infinite;
+}
+   
+   @keyframes spinning {
+       from{
+           transform: rotate(0deg)
+       }
+       to{
+           transform: rotate(360deg)
+       }
+   }
+/* .inactive-badge{
+    position: relative;
+}
+.inactive-badge:after {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 20px;
+    content: "\f057";
+    top: -56px;
+    right: 24px;
+    color: #6e6e6eda;
+} */
 
 .white-color{
     background: white;
@@ -115,4 +194,48 @@
     width: 50px;
     bottom: 35%;
     left: 30%;
+}
+
+
+
+
+.inactive-product {
+    position: relative;
+}
+
+.inactive-product:before {
+    content: 'inactive';
+    position: absolute;
+    font-size: 12px;
+    background: #9e9e9ebd;
+    text-transform: uppercase;
+    padding: 2px 15px;
+    border-bottom-right-radius: 5px;
+    color: white;
+}
+
+.active-product {
+    position: relative;
+}
+.active-product:before {
+    content: 'active';
+    position: absolute;
+    font-size: 12px;
+    background: #03A9F4;
+    text-transform: uppercase;
+    padding: 2px 15px;
+    border-bottom-right-radius: 5px;
+    color: white;
+}
+
+
+.payment-error-message {
+    float: left;
+    position: absolute;
+    font-size: 13px;
+    top: -81px;
+    left: 13px;
+    z-index: 10;
+    margin-top: 30px;
+    color: tomato;
 }

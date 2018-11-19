@@ -50,7 +50,8 @@
     margin-right: 40px;
 }
 .custom-input-field{
-    width: 150px;
+    width: 160px;
+    font-size: 13px;
 }
 .url-suffix-input{
     width: 727px;
@@ -92,7 +93,7 @@
     font-size:15px;
     line-height:20px;
     letter-spacing: -.012rem;
-    padding: 0px 16px;
+    padding: 5px 16px;
     background: rgba(188, 201, 214, 0.1);
     border:1px solid #C9D3DC;
     outline-color: lightgray;
@@ -131,6 +132,9 @@
 }
 .primary-color{
     background: #4DA1FF;
+}
+.warning-color{
+    background: rgb(219, 40, 70);
 }
 .green-color{
     background: #17C671;
@@ -315,7 +319,7 @@ input[type="radio"]{
   .switch-slider-input {
     position: relative;
     display: inline-block;
-    width: 25px;
+    width: 30px;
     height: 10px;
     margin: 10px 80px;
 }
@@ -367,7 +371,7 @@ input[type="radio"]{
     height: 14px;
     width: 13px;
     left: 0px;
-    bottom: -3px;
+    bottom: -2px;
     border:.8px solid rgb(170, 164, 164);
     background-color: rgb(255, 255, 255);
     -webkit-transition: .4s;
@@ -393,6 +397,7 @@ input[type="radio"]{
   .slider-input.slider-round {
     margin:0px;
     border-radius: 34px;
+    width: 23px;
   }
   
   .slider-input.slider-round:before {
@@ -460,7 +465,7 @@ input[type="radio"]{
 }
 .charging-method-picker-notes{
   position:absolute;
-  bottom:-20px;
+  bottom:-30px;
   left:0px;
   color: #717C8A;
   font-size: 8px;
@@ -575,4 +580,40 @@ input[type="radio"]{
     font-size: 13px;
     user-select: none;
     margin: auto 20px;
+}
+
+
+
+.invalid-field {
+    border: 1px solid #ff572275;
+}
+
+.label-validation-error {
+    color: tomato;
+    font-size: 10px;
+    margin-left: 20px;
+}
+
+.uploaded-thumbnil {
+    height: 28px;
+    margin-bottom: -9px;
+    margin-right: 10px;
+}
+.margin-left-30 {
+    margin-left: 32px;
+    font-size: 12px;
+}
+.margin-left-120 {
+    margin-left: 120px;
+    font-size: 12px;
+}
+
+.disabled-element {
+    color: gray ;
+    display: flow-root;
+    pointer-events: none;
+    user-select: none;
+}
+.disabled-element i.fas{
+    color: gray ;
 }

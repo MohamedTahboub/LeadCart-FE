@@ -9,13 +9,15 @@ export default ({ dispatch }) => (next) => (action) => {
   file.append('file', action.payload.file);
   file.append('type', action.payload.type);
 
+  const castSuccess = (data) => uploadFileSuccess({ source: action.payload.source, ...data });
+
   dispatch(apiRequest({
     options: {
       method: 'post',
       uri: '/api/file/upload',
       body: file
     },
-    onSuccess: uploadFileSuccess,
+    onSuccess: castSuccess, // .bind(this, action.payload.type),
     onFaild: uploadFileFaild
   }));
 };

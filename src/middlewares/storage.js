@@ -7,7 +7,6 @@ import {
 
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { type, payload = {} } = action;
-
   const loggingEvent = type === SIGN_UP_SUCCESS
         || type === LOGIN_SUCCESS
         || type === LOGOUT;

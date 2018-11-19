@@ -8,6 +8,7 @@ background: #00000061;
 display: flex;
 justify-content: center;
 align-items: center;
+z-index: 1000;
 }
 
 .modal-content{
@@ -19,8 +20,8 @@ align-items: center;
     color:gray;
     font-size: 12px;
     position: absolute;
-    right: 30px;
-    top:40px;
+    right: 20px;
+    top:20px;
     height: 25px;
     width: 25px;
     border:1.5px solid gray;
@@ -39,6 +40,10 @@ align-items: center;
     margin-right: 0px;
 }
 .margin-with-float-left{
+    margin-top: 15px; 
+    float: left;
+}
+.margin-with-float-right{
     margin-top: 15px; 
     float: right;
 }

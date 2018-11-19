@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-
+import { Switch, Route } from 'react-router-dom';
 import './style.css'
 import GenralSetting from './sub/GenralSetting'
-import MarketPlace from './sub/MarketPlace'
+import Integrations from './sub/Integrations'
 import Email from './sub/Email'
 import TeamMembers from './sub/TeamMembers'
 import Account from './sub/Account'
 import Billing from './sub/Billing'
+import * as settingsActions from 'actions/settings';
+import { connect } from 'react-redux'
 
 import common from 'components/common'
 // import { Button } from '../../components/common/Buttons';
@@ -15,47 +17,58 @@ const { TabsNavigator, Button, MainTitle, FlexBoxesContainer } = common
 /* temp component tp represent the empty tap */
 
 const newProductTabs = [
-    { title: 'Genral Setting', hash: 'genral' },
-    { title: 'Marketplace', hash: 'marketplace' },
-    { title: 'Email', hash: 'email' },
-    { title: 'Team Members', hash: 'team' },
-    { title: 'Account', hash: 'account' },
-    { title: 'Billing', hash: 'billing' }
+    { title: 'Genral Setting', sub: '/settings/genral' },
+    { title: 'Integrations', sub: '/settings/integrations' },
+    { title: 'Email', sub: '/settings/email' },
+    { title: 'Team Members', sub: '/settings/team' },
+    { title: 'Account', sub: '/settings/account' },
+    { title: 'Billing', sub: '/settings/billing' }
 ]
 
+class Setting extends Component {
+    onChangesSave = () => {
+        const pageName = this.props.history.location.pathname.split('/')[2]
 
-const ActiveTabe = ({ tabName, ...props }) => {
-    switch (tabName) {
-        case 'genral': return <GenralSetting />
-        case 'marketplace': return <MarketPlace />
-        case 'email': return <Email />
-        case 'team': return <TeamMembers />
-        case 'account': return <Account />
-        case 'billing': return <Billing />
-        default: return <GenralSetting />
+        switch (pageName) {
+            case 'genral':
+                return this.props.saveUserGenralSettings({})
+            // case 'checkout':
+            //     return this.props.updateProductCheckoutDesign()
+            // case 'payments':
+            //     return this.props.updateProductPayment()
+            // case 'order':
+            //     return this.props.updateProductOrderBump()
+            // case 'advanced':
+            //     return this.props.updateProductAdvanceSetting()
+        }
     }
-}
 
-
-class NewProductDetailes extends Component {
     render() {
-        const tabName = this.props.history.location.hash.slice(1)
+        
         return (
-            <div className='setting-details-page'>
+            <div key={Date.now()} className='setting-details-page'>
                 <FlexBoxesContainer classes={['space-between-elements']}>
                     <MainTitle >Settings</MainTitle>
-                    <Button classes=' primary-color'>
+                    <Button onClick={this.onChangesSave} classes=' primary-color'>
                         Save Changes
                     </Button>
                 </FlexBoxesContainer>
                 <TabsNavigator
                     tabs={newProductTabs}
                     history={this.props.history} />
-                <ActiveTabe tabName={tabName} />
+                <Switch>
+                    <Route path='/settings/integrations' component={Integrations} />
+                    <Route exact path='/settings/email' component={Email} />
+                    <Route exact path='/settings/team' component={TeamMembers} />
+                    <Route exact path='/settings/account' component={Account} />
+                    <Route exact path='/settings/billing' component={Billing} />
+                    <Route path='/settings' component={GenralSetting} />
+                </Switch>
 
             </div>
         );
     }
 }
 
-export default NewProductDetailes;
+
+export default connect(null, settingsActions)(Setting);

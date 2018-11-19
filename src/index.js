@@ -10,12 +10,24 @@ import store from 'store'
 // Config
 import 'config';
 
+
+//temp pages 
+import upsellsImage from 'assets/images/upsells_bg.svg'
+import affiliatesImage from 'assets/images/affiliates_bg.svg'
+import reportsImage from 'assets/images/reports_bg.svg'
+
+import ImagePageContainer from 'components/ImagePageContainer'
+
+
+
 // Components
 import Header from 'components/Header'
 import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
 import ProtectedRoute from 'components/ProtectedRoute'
+import FlashMessage from 'components/FlashMessage'
+import UnderDevelopment from 'components/UnderDevelopment'
 import LoadingBar from 'components/LoadingBar'
 
 // import ErrorBoundary from 'components/ErrorBoundary'
@@ -27,9 +39,10 @@ import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 
 
-import Dashboard from 'containers/Dashboard'
+// import Dashboard from 'containers/Dashboard'
+import Guidlines from 'containers/Guidlines'
 import Products from 'containers/Products'
-import NewProduct from 'containers/NewProduct'
+import Product from 'containers/Product'
 import Activities from './containers/Activities';
 import Coupons from './containers/Coupons';
 import Upsells from './containers/Upsells';
@@ -46,12 +59,8 @@ import { APP_INIT } from 'constantsTypes';
 
 /* Temp page to represent the empty pages */
 
-const EmptyPage = ({ history }) => (
-    <span> This page ({history.location.pathname.slice(1)}) still under development</span>
-)
-
 window.onload = () => {
-    store.dispatch({type:APP_INIT})
+    store.dispatch({ type: APP_INIT })
 }
 // const store = createStore(rootReducer);
 // store.subscribe(() => console.log('store', store.getState()));
@@ -60,6 +69,7 @@ ReactDOM.render(
     <Provider store={store}>
         <React.Fragment>
             <LoadingBar />
+            <FlashMessage />
             {/* <ErrorBoundary> */}
 
             <BrowserRouter>
@@ -75,18 +85,17 @@ ReactDOM.render(
                             <Content>
                                 <Route render={({ history }) => <SideBar history={history} />} />
                                 <ActiveContent >
-
-                                    <Route exact path='/' component={Dashboard} />
+                                    <Route exact path='/' component={Guidlines} />
                                     <Route exact path='/products' component={Products} />
-                                    <Route exact path='/product/new' component={NewProduct} />
-                                    <Route exact path='/activities' component={Activities} />
+                                    <Route path='/product' component={Product} />
+                                    <Route path='/activities' component={Activities} />
                                     <Route exact path='/coupons' component={Coupons} />
-                                    <Route exact path='/upsells' component={Upsells} />
-                                    <Route exact path='/reports' component={EmptyPage} />
-                                    <Route exact path='/affiliates' component={EmptyPage} />
+                                    <Route exact path='/upsells' render={()=><ImagePageContainer title='UPSELLS' image={upsellsImage}/>} />
+                                    <Route exact path='/reports' render={()=><ImagePageContainer title='REPORTS' image={reportsImage}/>} />
+                                    <Route exact path='/affiliates' render={()=><ImagePageContainer title='AFFILIATES' image={affiliatesImage}/>} />
                                     <Route exact path='/agency' component={Agency} />
-                                    <Route exact path='/setting' component={Setting} />
-                                    <Route exact path='/help' component={EmptyPage} />
+                                    <Route path='/settings' component={Setting} />
+                                    <Route exact path='/help' component={UnderDevelopment} />
                                 </ActiveContent>
                             </Content>
                         </div>)

@@ -6,7 +6,9 @@ const templateBackground = (image) => ({
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover'
 });
-export default ({ active, image, ...props }) => (
+export default ({
+  active, image, onSelect, ...props
+}) => (
   <div className='template-preview-container'>
     <div style={templateBackground(image)} className='preview-image'>
       <i className='fas fa-eye' />
@@ -14,7 +16,7 @@ export default ({ active, image, ...props }) => (
     </div>
     <div className='template-preview-footer'>
       <span className='template-preview-name'>Classic</span>
-      <span className={!active ? 'btn preview-select-btn ' : 'preview-select-btn active-template-preview'}>{!active ? 'Select' : 'active'}</span>
+      <span onClick={() => !active && onSelect()} className={!active ? 'btn preview-select-btn ' : 'preview-select-btn active-template-preview'}>{!active ? 'Select' : 'active'}</span>
     </div>
   </div>
 );

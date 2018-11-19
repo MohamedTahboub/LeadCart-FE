@@ -1,0 +1,35 @@
+.flash-message-container{
+    position: absolute;
+    top: 130px;
+    right:60px;
+    
+    color: white;
+    border-radius: 5px;
+    padding: 20px 35px;
+    user-select: none;
+    z-index: 1200;
+    opacity: 0;
+    transition: all 500ms ease-in-out
+}
+.show-flash-message{
+    opacity: 1;
+}
+.flash-message-close-btn {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    padding: 0px 5px;
+    border-top-left-radius: 4px;
+    display: flex;
+    align-items: center;
+    border-bottom-left-radius: 4px;
+    cursor: pointer;
+    background: #8080808c;
+}
+.flash-message-success{
+    background: #37b86b;
+}
+.flash-message-faild{
+    background: #c82a37;
+}

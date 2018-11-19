@@ -8,12 +8,10 @@ import { TagsElements } from './Tags';
 class AddFieldComponent extends Component {
   state = {
     showTageInput: false,
+    imageChangesSaved: false,
     image: '',
     files: [],
     tags: [
-      { value: 'spcial', id: 0 },
-      { value: 'So spcial', id: 1 },
-      { value: 'kind of spcial', id: 2 },
     ],
     currentTag: {}
   }
@@ -22,6 +20,7 @@ class AddFieldComponent extends Component {
     if (this.props.type === 'file' && !this.state.image) this.refs.imageField.click();
     if (this.props.type === 'tags') this.showTageInput();
     if (this.props.type === 'files') this.refs.fileInput.click();
+    if (this.props.type === 'click') this.props.onClick();
   }
 
   onImageDelete = (e) => {
@@ -32,8 +31,17 @@ class AddFieldComponent extends Component {
     this.props.uploadFile({ file: e.target.files[0], type: 'profile' });
 
     this.setState({
+      imageChangesSaved: false,
       image: e.target.files[0].name
     });
+  }
+
+  componentDidUpdate = () => {
+    const { image, imageChangesSaved } = this.state;
+    if (!imageChangesSaved && image && this.props.uploadedFile) {
+      this.setState({ imageChangesSaved: true });
+      this.props.onUploaded(this.props.uploadedFile);
+    }
   }
 
   onFileUpload = (e) => {
@@ -78,6 +86,7 @@ class AddFieldComponent extends Component {
     return (
       <div>
         <div
+          ref='addElementContainer'
           onClick={this.onAddNewElement}
           className='add-elements-container'
         >
@@ -103,6 +112,7 @@ class AddFieldComponent extends Component {
           && (
             <div className='child-added-element'>
               <BlankLink to={this.props.uploadedFile}>
+                <img src={this.props.uploadedFile} alt={this.state.image} className='uploaded-thumbnil' />
                 <span className='child-added-element-name'>{this.state.image}</span>
               </BlankLink>
               <DeleteButton onClick={this.onImageDelete} />
@@ -112,6 +122,7 @@ class AddFieldComponent extends Component {
         {this.props.type === 'tags'
           && (
             <TagsElements
+              placeholder={this.props.placeholder}
               onCurrentTagChange={this.onCurrentTagChange}
               isCurrentTagValid={this.state.currentTag.valid}
               onAddTag={this.onAddNewTag}

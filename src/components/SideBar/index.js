@@ -7,7 +7,8 @@ import common from 'components/common';
 
 import * as logout from 'actions/logout';
 import { appInit } from 'actions/appInit';
-
+import CreateProductModal from '../CreateProductModal';
+import * as modalsActions from 'actions/modals';
 import './style.css';
 
 const { Button } = common;
@@ -17,38 +18,43 @@ const goToPage = ({ history, page }) => {
   history && history.push(page);
 };
 
+const currentTab = 'products5' // history.location.pathname
+
+const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[0]) ? ['active-menu-item'] : []
+
 const SideBar = ({
-  history, user, appInit, logout, ...props
+  history, user, appInit, logout, toggleCreateProductModal, ...props
 }) => {
-  appInit();
+  // appInit();
   return (
     <div className='side-bar'>
-      <AvatarPreviewBox user={user} />
-      <span onClick={() => goToPage({ history, page: '/product/new#details' })} className='btn new-product-btn'>
-              <i className='fas fa-plus' />
-              {' '}
-                New Product
-            </span>
+      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/genral')} />
+      <span onClick={toggleCreateProductModal} className='btn new-product-btn'>
+        <i className='fas fa-plus' />
+        {' '}
+        New Product
+      </span>
       <Menu>
-        <Link to={{ history, page: '/products' }} classes={['active-menu-item']}>Products</Link>
-        <Link to={{ history, page: '/activities#customers' }}>Activity</Link>
+        <Link to={{ history, page: '/products' }} classes={isActiveTab('products')}>Products</Link>
+        <Link to={{ history, page: '/activities/customers' }}>Activity</Link>
         <Link to={{ history, page: '/coupons' }}>Coupon</Link>
-        <Link to={{ history, page: '/upsells#upsells' }} classes={['locked-feature']}>Upsells</Link>
+        <Link to={{ history, page: '/upsells' }} classes={['locked-feature']}>Upsells</Link>
         <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
-        <Link to={{ history, page: '/agency' }}>Agency</Link>
-        <Link to={{ history, page: '/setting' }}>Setting</Link>
+        {user.level === 3 && <Link to={{ history, page: '/agency' }}>Agency</Link>}
+        <Link to={{ history, page: '/settings/genral' }}>Setting</Link>
         <Link to={{ history, page: '/help' }}>Help</Link>
       </Menu>
 
-          <Button onClick={logout} classes='logout-btn'>
+      <Button onClick={logout} classes='logout-btn'>
         <i className='fas fa-sign-out-alt' />
         {' '}
-                logout
-            </Button>
+        logout
+      </Button>
+      <CreateProductModal history={history} />
     </div>
   );
 };
 const mapStateToProps = ({ user: { user } }) => ({ user });
 
-export default connect(mapStateToProps, { ...logout, appInit })(SideBar);
+export default connect(mapStateToProps, { ...logout, ...modalsActions, appInit })(SideBar);

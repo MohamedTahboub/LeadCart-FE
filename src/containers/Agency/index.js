@@ -1,42 +1,121 @@
-import React from 'react'
-import common from 'components/common'
-import Tabel from 'components/common/Tabels'
+import React, { Component } from 'react';
+import common from 'components/common';
+import Tabel from 'components/common/Tabels';
+import Modal from 'components/Modal';
+import * as agencyActions from 'actions/agency';
+import { connect } from 'react-redux';
+const {
+  MainTitle, SmallButton, Button, InputRow
+} = common;
 
-const { MainTitle , SmallButton,Button } = common
+const AddNewButton = ({ onClick, ...props }) => (
+  <Button onClick={onClick} classes='primary-color medium-add-btn explort-csv-btn'>
+    <i className='fas fa-plus' />
+    {' '}
+    Add new
+  </Button>
+);
 
-const AddNewButton = props => (
-    <Button classes='primary-color medium-add-btn explort-csv-btn'>
-        <i className="fas fa-plus"></i> Add new
-    </Button>
-)
+class Agency extends Component {
+  state = { isModalVisable: false, subAccountModel: {}, created: false }
 
-export default props => (
-    <React.Fragment>
+  toggleModal = () => this.setState({ isModalVisable: !this.state.isModalVisable })
+
+  onFieldChange = ({ target: { name, value } }) => {
+    this.setState({
+      subAccountModel: {
+        ...this.state.subAccountModel,
+        [name]: value
+      }
+    });
+  }
+
+  createSubAccount = () => {
+    this.props.onCreateSubAccount(this.state.subAccountModel);
+  }
+
+  componentDidUpdate = () => {
+    const { subAccountModel: { email } } = this.state;
+    if (this.props.subAccounts.find((sub) => sub.email === email)) {
+      setTimeout(() => {
+        this.setState({
+          subAccountModel: {}, isModalVisable: false
+        });
+      }, 350);
+    }
+  }
+  componentDidMount() {
+    const { level, history } = this.props
+    if (level !== 3) {
+      console.log(level)
+      history.push('/')
+    }
+  }
+
+  render() {
+    const { errors } = this.props;
+    return (
+      <React.Fragment>
         <MainTitle>Sub-Accounts</MainTitle>
-        <Tabel>
-            <Tabel.Head>
+        {this.props.subAccounts.length !== 0
+          && (
+            <Tabel>
+              <Tabel.Head>
                 <Tabel.HeadCell>First Name</Tabel.HeadCell>
                 <Tabel.HeadCell>Last Name</Tabel.HeadCell>
                 <Tabel.HeadCell>Email Address</Tabel.HeadCell>
                 <Tabel.HeadCell>status</Tabel.HeadCell>
-            </Tabel.Head>
-            <Tabel.Body>
-                <Tabel.Row>
-                    <Tabel.Cell
-                        mainContent='Mohamed'
-                    />
-                    <Tabel.Cell
-                        mainContent="Tahboub"
-                    />
-                    <Tabel.Cell
-                        mainContent="mohamedtahboub@outlook.com"
-                    />
-                    <Tabel.Cell>
-                        <SmallButton classes='green-color' >Active</SmallButton>
-                    </Tabel.Cell>
-                </Tabel.Row>
-            </Tabel.Body>
-        </Tabel>
-        <AddNewButton/>
-    </React.Fragment>
-)
+              </Tabel.Head>
+              <Tabel.Body>
+                {this.props.subAccounts.map(({
+                  firstName, lastName, email, active, _id: id
+                }) => (
+                    <Tabel.Row key={id}>
+                      <Tabel.Cell
+                        mainContent={firstName || 'not set'}
+                      />
+                      <Tabel.Cell
+                        mainContent={lastName || 'not set'}
+                      />
+                      <Tabel.Cell
+                        mainContent={email}
+                      />
+                      <Tabel.Cell>
+                        {active
+                          ? <SmallButton classes='green-color'>Active</SmallButton>
+                          : <SmallButton classes='gray-color'>Inactive</SmallButton>
+                        }
+                      </Tabel.Cell>
+                    </Tabel.Row>
+                  ))}
+              </Tabel.Body>
+            </Tabel>
+          )}
+        <AddNewButton key='subAccountModal' onClick={this.toggleModal} />
+        <Modal onClose={this.toggleModal} isVisable={this.state.isModalVisable}>
+          <MainTitle>Create Sub-Accounts</MainTitle>
+          <InputRow>
+            <InputRow.SmallInput name='firstName' onChange={this.onFieldChange} error={errors.firstName}>First Name</InputRow.SmallInput>
+            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} classes={['margin-left-30']}>Last Name</InputRow.SmallInput>
+          </InputRow>
+          <InputRow>
+            <InputRow.NormalInput name='email' onChange={this.onFieldChange} error={errors.email}>Email address</InputRow.NormalInput>
+          </InputRow>
+          {errors.message && <span className='error-message'>{errors.message}</span>}
+          <Button onClick={this.createSubAccount} classes='primary-color margin-with-float-right'>
+            <i className='fas fa-plus' />
+            {' '}
+            Invite
+          </Button>
+        </Modal>
+      </React.Fragment>
+    );
+  }
+}
+
+const mapStateToProps = ({ user: { user: { level } }, agency: { subAccounts, errors } }) => ({
+  level,
+  subAccounts,
+  errors
+});
+export default connect(mapStateToProps, agencyActions)(Agency);

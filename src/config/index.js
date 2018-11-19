@@ -1,10 +1,19 @@
-import config from 'react-global-configuration'
+import config from 'react-global-configuration';
 
-const env = process.env.ENVIRONMENT
+const env = process.env.ENVIRONMENT;
 config.set({
-    env: process.env.ENVIRONMENT,
-    API_LINK: env === 'dev' ? 'http://localhost:5001' : '',
-    DEBUG_API_LINK: env === 'dev' ? 'http://localhost:5002' : '',
-    SITE_DOMAIN: env === 'dev' ? 'http://localhost:5000' : '',
-    S3_DIR: ''
-})
+  env: process.env.ENVIRONMENT,
+  API_LINK: env === 'dev' ? 'http://localhost:5001' : '',
+  DEBUG_API_LINK: env === 'dev' ? 'http://localhost:5002' : '',
+  SITE_DOMAIN: env === 'dev' ? 'http://localhost:5000' : '',
+  S3_DIR: ''
+});
+
+export const paymentMethodsLinks = {
+  dev: {
+    stripe: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write'
+  },
+  production: {
+    stripe: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write',
+  }
+}[env || 'dev'];

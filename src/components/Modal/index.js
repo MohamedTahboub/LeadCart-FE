@@ -1,13 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import './style.css'
-export default ({ children, onClose, isVisable, ...props }) => (
-    <div style={{ display: isVisable ? 'flex' : 'none' }} className="modal-container">
-        <div className="modal-content">
-            <span onClick={onClose} className="modal-close-btn">
-                <i className="fas fa-times"></i>
-            </span>
-            {children}
-        </div>
+import './style.css';
+export default ({
+  children, onClose, isVisable, ...props
+}) => (
+  isVisable ? (
+    <div style={{ display: 'flex' }} className='modal-container'>
+      <div className='modal-content'>
+        <span onClick={onClose} className='modal-close-btn'>
+          <i className='fas fa-times' />
+        </span>
+        {children}
+      </div>
     </div>
-)
+  )
+    : null
+);
