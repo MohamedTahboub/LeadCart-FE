@@ -1,0 +1,45 @@
+.guidline-box{
+    height:250px;
+    width:290px;
+    background:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    align-items:center;
+    padding:15px 35px;
+    text-align:center;
+    margin: 30px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.12);
+  }
+  .guidlines-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.guidline-number {
+    color: #C9D3DC;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+.guidline-title {
+    color: #2B3748;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.guildline-description {
+    color: #2B3748;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+    min-width: 270px;
+}
+.guidline-referance {
+    color: #4DA1FF;
+    font-size: 14px;
+    cursor: pointer;
+}
