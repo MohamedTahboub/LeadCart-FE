@@ -8,6 +8,10 @@ import products from './products'
 import payments from './payments'
 import flashMessage from './flashMessage'
 import modals from './modals'
+import account from './account'
+import teamMembers from './teamMembers'
+import settings from './settings'
+import agency from './agency'
 
 const rootReducer = combineReducers({
     user,
@@ -16,6 +20,10 @@ const rootReducer = combineReducers({
     product,
     products,
     modals,
+    settings,
+    account,
+    teamMembers,
+    agency,
     payments,
     flashMessage,
     validation

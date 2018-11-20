@@ -9,7 +9,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case SHOW_FLASH_MESSAGE: return { ...state, showFlashMessage: true, message: payload };
+  case SHOW_FLASH_MESSAGE: return { showFlashMessage: true, message: payload.message, type: payload.type };
   case HIDE_FLASH_MESSAGE: return { showFlashMessage: false };
   default: return state;
   }
