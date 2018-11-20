@@ -71,7 +71,12 @@ class NewProductDetailes extends Component {
         if (subdomain && productUrl)
             window.open(`http://${subdomain}.leadcart.io/products/${productUrl}`)
     }
+    onToggleProductAvailability = () => {
+
+        console.log("onToggleProductAvailability", this.props.id)
+    }
     render() {
+        const { available, id, toggleProductAvailability, productUrl, history } = this.props
         const pageName = this.props.history.location.pathname.split('/')[3]
         return (
             <div className='products-details-page'>
@@ -81,7 +86,7 @@ class NewProductDetailes extends Component {
                         <i className="fas fa-share-square"></i>Share Product
                     </Button>
                     <div className='product-toolbar-container'>
-                        <ActivationSwitchInput />
+                        <ActivationSwitchInput active={available} onToggle={toggleProductAvailability.bind(this, { id, available })} />
                         <MiniButton onClick={this.onPreview} classes='row-explor-btn' iconClass='fa-eye' />
                         <Button onClick={() => this.onChangesSave(pageName)} classes='save-changes-btn'>
                             Save Changes
@@ -89,9 +94,9 @@ class NewProductDetailes extends Component {
                     </div>
                 </div>
                 <TabsNavigator
-                    productUrl={this.props.productUrl}
-                    tabs={newProductTabs(this.props.productUrl)}
-                    history={this.props.history} />
+                    productUrl={productUrl}
+                    tabs={newProductTabs(productUrl)}
+                    history={history} />
                 <Switch>
                     <Route path='/product/:url/details' component={ProductDetailes} />
                     <Route exact path='/product/:url/checkout' component={CheckoutDesign} />
@@ -106,6 +111,8 @@ class NewProductDetailes extends Component {
 }
 const mapStateToProps = state => ({
     subdomain: state.user.user.subDomain,
-    productUrl: state.product.details.url
+    productUrl: state.product.details.url,
+    id: state.product._id,
+    available: state.product.details.available
 })
 export default connect(mapStateToProps, productAction)(NewProductDetailes);
