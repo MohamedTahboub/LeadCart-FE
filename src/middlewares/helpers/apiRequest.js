@@ -39,7 +39,7 @@ export default async ({
 
     return response;
   } catch (err) {
-    return { success: false, message: 'Connection Error' };
+    return { success: false, message: `Connection Error ${err.message}` };
   }
 };
 
