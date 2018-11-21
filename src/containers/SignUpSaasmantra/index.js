@@ -15,7 +15,7 @@ class SignUp extends Component {
       lastName: e.target.lastName.value,
       email: e.target.email.value,
       companyName: e.target.company.value,
-      promoCode: e.target.promoCode.value,
+      code: e.target.code.value,
       password: e.target.password.value,
       subDomain: e.target.subdomain.value
     };
@@ -44,7 +44,7 @@ class SignUp extends Component {
             {errors.email && <span className='input-feild-error'>{errors.email}</span>}
           </div>
           <div className='form-input '>
-            <input name='password' placeholder='Password' />
+            <input name='password' type='password' placeholder='Password' />
             {errors.password && <span className='input-feild-error'>{errors.password}</span>}
           </div>
           <div className='form-input '>
@@ -62,7 +62,8 @@ class SignUp extends Component {
             </span>
             <p className='promo-description'>The code will be aplied to the account </p>
             <p className='promo-description'>Please make sure You enter your PRO code, You will be able to enter your AGENCY codes inside the application dashboard</p>
-            <input className='promo-input' type='password' name='promoCode' placeholder='PROMO CODE' />
+            <input className='promo-input' name='code' placeholder='PROMO CODE' />
+            {errors.code && <span className='input-feild-error'>{errors.code}</span>}
           </div>
           {signupError && <span className='signup-error-field'>{signupError}</span>}
           <button type='submit' className='form-submit'>Sign Up</button>

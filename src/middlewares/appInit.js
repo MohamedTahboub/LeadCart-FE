@@ -8,9 +8,10 @@ import { apiRequest } from 'actions/apiRequest';
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { user: { user: { token }, isLoggedIn } } = getState();
 
+
   setTimeout(() => {
     consoleMessage();
-  }, 500);
+  }, 2000);
   if (action.type !== APP_INIT) return next(action);
 
 
@@ -54,6 +55,10 @@ function consoleMessage () {
 ║╔╗║╠╣║╔╣╔╝║╔╗║╠╣║╚╣╚╬══║
 ╚╝╚╩╝╚╩╝╚╝░╚╝╚╩╝╚╩═╩╩╩══╝
 `;
-  // console.clear();
-  console.log(LeadCarttext, 'font-size:30px;color:lightblue', 'font-size:20px;color:gray');
+
+
+  if (process.env.NODE_ENV !== 'development') {
+    console.clear();
+    console.log(LeadCarttext, 'font-size:30px;color:lightblue', 'font-size:20px;color:gray');
+  }
 }
