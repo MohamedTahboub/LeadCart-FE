@@ -69,9 +69,9 @@ export default (state = initState, { type, payload }) => {
   case GET_PRODUCT_SUCCESS: return {
     ...state,
     _id: payload._id,
-    checkout: payload.checkoutPage,
-    details: payload,
-    payment: payload.payment
+    checkout: { ...state.checkout, ...payload.checkoutPage },
+    details: { ...state.details, ...payload },
+    payment: payload.payment || {}
   };
   case GET_PRODUCT_FAILD: return { ...state, errors: payload };
   case TOGGLE_PRODUCT_AVAILABILITY_SUCCESS:
