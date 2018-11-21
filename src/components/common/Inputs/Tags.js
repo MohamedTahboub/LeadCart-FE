@@ -7,7 +7,7 @@ const Tage = ({ children, onDelete, ...props }) => (
   </div>
 );
 
-const TagLengthValidate = ({ target: { value } }) => value.length > 3;
+// const TagLengthValidate = ({ target: { value } }) => value.length > 3;
 
 export const TagsElements = ({
   onAddTag, onDelete, showTageInput, placeholder, tags, onCurrentTagChange, isCurrentTagValid, ...props

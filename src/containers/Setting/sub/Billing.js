@@ -8,7 +8,6 @@ const {
   FlexBoxesContainer,
   MainBlock,
   MainTitle,
-  Button,
   Box,
   SmallButton,
   SpcialAnnouncement

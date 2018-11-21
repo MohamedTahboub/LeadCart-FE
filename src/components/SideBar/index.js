@@ -13,10 +13,10 @@ import './style.css';
 
 const { Button } = common;
 
-const goToPage = ({ history, page }) => {
-  if (!history || history.location.pathname === `/${page}`) return;
-  history && history.push(page);
-};
+// const goToPage = ({ history, page }) => {
+//   if (!history || history.location.pathname === `/${page}`) return;
+//   history && history.push(page);
+// };
 
 const currentTab = 'products5' // history.location.pathname
 
@@ -43,7 +43,7 @@ const SideBar = ({
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
         {user.level === 3 && <Link to={{ history, page: '/agency' }}>Agency</Link>}
         <Link to={{ history, page: '/settings/genral' }}>Setting</Link>
-        <Link to={{ history, page: '/help' }}>Help</Link>
+        <Link to={{ history, page: 'https://help.leadcart.io' }} external >Help</Link>
       </Menu>
 
       <Button onClick={logout} classes='logout-btn'>
@@ -52,7 +52,7 @@ const SideBar = ({
         logout
       </Button>
       <CreateProductModal history={history} />
-    </div>
+    </div >
   );
 };
 const mapStateToProps = ({ user: { user } }) => ({ user });

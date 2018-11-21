@@ -8,3 +8,11 @@
     color: #2e3948;
     margin: 5px;
 }
+.account-refrance-links {
+    display: flex;
+    flex-direction: column;
+    line-height: 25px;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+}

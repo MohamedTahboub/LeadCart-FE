@@ -35,6 +35,7 @@ import LoadingBar from 'components/LoadingBar'
 // Container
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
+import SignUpSaasmantra from 'containers/SignUpSaasmantra';
 import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 
@@ -75,8 +76,8 @@ ReactDOM.render(
             <BrowserRouter>
                 <Switch>
                     <Route exact path='/login' component={Login} />
-                    <Route exact path='/signup' component={SignUp} />
-                    <Route exact path='/recoverpwd' component={ForgetPassword} />
+                    <Route exact path='/saasmantra' component={SignUpSaasmantra} />
+                    <Route exact path='/forgetpwd' component={ForgetPassword} />
                     <Route exact path='/promocode' component={PromoCodeActivation} />
                     <ProtectedRoute component={() => (
                         <div className='page-container'>

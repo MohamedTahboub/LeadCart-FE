@@ -34,7 +34,6 @@ export default async ({
       };
     }
 
-    console.log('the request options =====', options);
     const response = (await fetch(uri, options)).json();
 
     return response;

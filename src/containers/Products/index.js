@@ -52,14 +52,14 @@ class Products extends Component {
         <div className='product-cards-container'>
           {products.length ? products.map((product, id) => (
             <ProductCard
-              key={id}
+              key={product._id}
               {...product}
               onDelete={() => this.onShowDeleteDialogue(product._id)}
               onEdit={() => this.onProductEdit(product.url)}
               onPreview={() => this.onProductPreview(product.url)}
             />
           ))
-            : isFetching ? ([1, 2]).map(() => <ProductShadowLodaing />) : null
+            : isFetching ? ([1, 2]).map((i) => <ProductShadowLodaing key={i} />) : null
           }
           <NewThingCard thing='Product' onClick={toggleCreateProductModal} />
         </div>
