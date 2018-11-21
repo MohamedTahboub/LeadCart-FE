@@ -61,7 +61,7 @@
 }
 .suffix-value{
     height: 100%;
-    width: 291.2px;
+    width: 300px;
     background: #4DA1FF;
     color: #FFFFFF;
     font-size: 15px;
@@ -616,4 +616,7 @@ input[type="radio"]{
 }
 .disabled-element i.fas{
     color: gray ;
+}
+.text-area-container{
+    position: relative;
 }
