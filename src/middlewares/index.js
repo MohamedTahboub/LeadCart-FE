@@ -2,7 +2,7 @@
 import appInit from './appInit'
 import apiRequest from './apiRequest'
 import login from './login'
-import signup from './signup'
+import proSignup from './proSignup'
 import storage from './storage'
 import uploadingFiles from './uploadingFiles'
 import settings from './settings'
@@ -20,12 +20,12 @@ import formsValidations from './formsValidations'
 
 // exporting the middlewares as an array 
 export default [
-    signup,
     appInit,
     ...formsValidations,
     ...modelsShapers,
     notificationCenter,
     login,
+    proSignup,
     ...settings,
     ...product,
     products,

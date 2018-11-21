@@ -1,8 +1,13 @@
 
 .promo-container{
+    position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
     /* margin: -30px 0px 50px 0px; */
+}
+.promo-container .input-feild-error{
+    margin: 0px auto;
 }
 .promo-input{
 background: rgba(188, 201, 214, 0.1);
