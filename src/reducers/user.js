@@ -20,7 +20,7 @@ const initialState = {
     firstName: '',
     lastName: '',
     avatar_img: '',
-    token: 'dsfadsaWD',
+    token: '',
     status: false,
     role: '',
     level: 1,

@@ -13,7 +13,7 @@ export default ({ dispatch }) => (next) => (action) => {
       uri: '/api/users/image',
       contentType: 'json'
     },
-    onSuccess: updateUserProfileImageSuccess,
+    onSuccess: updateUserProfileImageSuccess.bind(this, action.payload),
     onFaild: updateUserProfileImageFaild
   }));
 };
