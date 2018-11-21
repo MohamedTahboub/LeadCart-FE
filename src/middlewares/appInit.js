@@ -14,7 +14,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   if (!isLoggedIn) return next(action);
   // /users/launch
   const onLunchSuccess = (data) => {
-    console.log(data);
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
     return appLaunchSuccess('THE APPLICATION LUNCHED');

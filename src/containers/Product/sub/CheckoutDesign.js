@@ -86,7 +86,7 @@ class CheckoutDesign extends Component {
       guaranteeTitle, guaranteeText, checkoutButtonText, bulletPointsTitle, customContent, termsAndConditions = {}
     } = this.props.checkout;
     return (
-      <React.Fragment>
+      <React.Fragment key='checkout_design'>
         <MainBlock title='Template library' notes='Choose from a library of premade templates'>
           <form className='products-details-form inputs-grounp section-block flex-row-wrap'>
             <TemplatePreview active={this.state.defaultTemplate} image={temp_1_image} onSelect={this.toggleTemplates} />

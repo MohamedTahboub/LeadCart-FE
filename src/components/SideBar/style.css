@@ -20,11 +20,37 @@
     align-items: center;
     margin: 25px;
 } 
-.user-avatar{
+
+.change-avatar-layer{
+    position: relative;
     height: 70px;
     width: 70px;
     border-radius: 50%;
+    cursor: pointer;
 }
+.user-avatar{
+    height:100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.change-avatar-image {
+    height: 100%;
+    display: block;
+    position: absolute;
+    width: 100%;
+    color: white;
+    border-radius: 50%;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 350ms ease-in-out;
+}
+ .change-avatar-image:hover{
+     opacity: 1;
+    background: rgba(0,0,0,0.3)
+}
+
 .user-name{
     font-weight: bold;
     line-height: 35px;
@@ -39,6 +65,7 @@
     margin-left: 41px;
     color: #0080fa;
     cursor: pointer;
+    z-index: 100;
     transition: all 350ms ease-in-out;
 }
 .setting-short:hover{

@@ -15,6 +15,7 @@ import account from './account'
 import agency from './agency'
 import teamMembers from './teamMembers'
 import modelsShapers from './modelsShapers'
+import upadteUserImage from './upadteUserImage'
 import formsValidations from './formsValidations'
 
 // exporting the middlewares as an array 
@@ -30,6 +31,7 @@ export default [
     products,
     payments,
     account,
+    upadteUserImage,
     teamMembers,
     agency,
     flashMessage,
