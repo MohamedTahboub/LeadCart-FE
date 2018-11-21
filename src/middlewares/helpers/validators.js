@@ -3,7 +3,7 @@ const regexFilters = {
   email: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
   subdomain: /(?=^.{3,20}$)(?![_-].+)(?!.+[_-]$)(?!.*[_-]{2,})[^<>[\]{}|\\\/^~%.# :;,$%?\0-\cZ]+$/,
   url: /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/,
-  code: /^[a-zA-Z]+$/
+  code: /^\S+$/
 };
 export const Rules = {
   isRequired: 'required',
@@ -32,7 +32,7 @@ function validateField ({ fieldName, value }, rules) {
     case 'isObject': return validFormatter(typeof value === 'object', 'invalid value');
     case 'isArray': return validFormatter(Array.isArray(value), 'invalid array value');
     case 'bool': return validFormatter(!!value === value, 'invalid Boolean value');
-    case 'code': return validFormatter(regexFilters.code.test(value), 'invalid code format');
+    case 'code': return validFormatter(regexFilters.code.test(value.trim()), 'code format does not include spaces');
     default: return false;
     }
   })
