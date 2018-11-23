@@ -8,8 +8,8 @@ class OrderBump extends Component {
 state = { isEnabled: false }
 
  toggleBumbeOfferStatus = () => {
-   //  this.setState({ isEnabled: !this.state.isEnabled });
-   //  this.refs.bumpOptions.animat([{ opacity: 0 }, { opacity: 1 }], 1000);
+    this.setState({ isEnabled: !this.state.isEnabled });
+    // this.refs.bumpOptions.animat([{ opacity: 0 }, { opacity: 1 }], 1000);
  }
 
  render () {
