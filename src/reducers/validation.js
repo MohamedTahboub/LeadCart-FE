@@ -22,6 +22,8 @@ export default (state = initialState, { type, payload }) => {
         newProduct: typeof payload === 'object' ? payload : { message: payload }
       };
     case PRODUCT_CREATION_FAILD:
+      if (typeof payload !== 'object' && payload.includes('$url_1'))
+        payload = 'The product URL already exist, it should be unique'
       return {
         ...state,
         newProduct: typeof payload === 'object' ? payload : { message: payload }

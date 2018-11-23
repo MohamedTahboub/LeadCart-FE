@@ -127,11 +127,13 @@ const GeneralSettings = (props) => {
           name='productExpirationDays'
           onChange={onFieldChange}
           options={[
-            { label: '7 days', value: 7 },
-            { label: '10 days', value: 10 },
-            { label: '15 days', value: 15 },
-            { label: '20 days', value: 20 },
-            { label: '30 days', value: 30 }
+            { label: '24 hour', value: 24 },
+            { label: '2 days', value: 2*24 },
+            { label: '3 days', value: 3*24 },
+            { label: '4 days', value: 4*24 },
+            { label: '5 days', value: 5*24 },
+            { label: '6 days', value: 6*24 },
+            { label: '7 days', value: 7*24 }
           ]}
         />
       </InputRow>
