@@ -11,7 +11,7 @@ config.set({
 
 export const paymentMethodsLinks = {
   dev: {
-    stripe: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write',
+    stripe: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_C82X3QxgSvqB2WGT6tMgfEV7PCSehFW4&scope=read_write',
     paypal: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write'
   },
   production: {
