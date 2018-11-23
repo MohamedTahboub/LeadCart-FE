@@ -15,7 +15,7 @@ const GuidlineBoxes = ({ history }) => (
             STEP 1
           </span>
           <span className='guidline-title'>
-            Stetup your settings
+            Setup your settings
           </span>
           <span className='guildline-description'>
             Take a minute to customize your receipts, upload your logo, and more.

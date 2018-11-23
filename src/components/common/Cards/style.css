@@ -114,11 +114,11 @@
     justify-content: space-around;
 }
 .card-controlls-container .fas{
-    color:#C9D3DC;
+    color:rgb(115, 123, 129);
     cursor: pointer;
 } 
 .card-controlls-container .fas:hover{
-    color:rgb(158, 164, 168);
+    color:rgb(47, 49, 51);
     cursor: pointer;
 } 
 

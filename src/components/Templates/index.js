@@ -11,7 +11,7 @@ export default ({
 }) => (
   <div className='template-preview-container'>
     <div style={templateBackground(image)} className='preview-image'>
-      {!active && <div className='coming-soon-sign'>well be availabe Soon </div>}
+      {!active && <div className='coming-soon-sign'>will be availabe Soon </div>}
     </div>
     <div className='template-preview-footer'>
       <span className='template-preview-name'>{name}</span>

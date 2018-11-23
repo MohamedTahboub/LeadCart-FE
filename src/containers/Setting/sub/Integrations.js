@@ -77,7 +77,7 @@ class Integratons extends Component {
           onClick={connectStripe} isActive={$stripe.isActive} imgSrc={stripeImage} error={stripe.error || $stripe.error}
           isLoading={stripe.inprogress}
         />
-        <MediumCard imgSrc={paypalImage} isActive={$paypal.isActive} error={paypal.error || $paypal.error} isLoading={paypal.inprogress} />
+        <MediumCard imgSrc={paypalImage} isActive={$paypal.isActive} className='disabled-card' />
         <MainTitle>
           Zapier
         </MainTitle>

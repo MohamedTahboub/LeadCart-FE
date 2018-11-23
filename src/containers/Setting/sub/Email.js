@@ -14,7 +14,6 @@ export default (props) => (
         <InputRow.Note
           content='Create the email footer that will be placed at the bottom of every email sent to your customers. Include contact information so your customers can reach out if they need help.'
         >
-          <EditButton classes={['transparent-element','disabled-element']}>Edit</EditButton>
         </InputRow.Note>
       </InputRow>
       <InputRow margin='30'>
@@ -41,7 +40,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the system email sent to customer when any new order is placed.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -49,7 +48,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the system email sent to customer when any order item is refunded.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -57,7 +56,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the system email sent to customer when any recurring subscription is canceled.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -65,7 +64,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the system email sent to customer when any subscription charge is refunded.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -73,7 +72,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the email sent to customers when their subscription charges.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
     </MainBlock>
@@ -83,7 +82,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the default dunning email sent to customer when any subscription payment fails. This can be overridden by customizing the individual dunning steps below.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -91,7 +90,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the dunning email sent to customer when any subscription payment fails for the first time.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -99,7 +98,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the dunning email sent to customer when any subscription payment fails for the 2nd time.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -107,7 +106,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the dunning email sent to customer when any subscription payment fails for the 3rd time.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
       <InputRow>
@@ -115,7 +114,7 @@ export default (props) => (
         <InputRow.Note
           content='Customize the dunning email sent to customer when any subscription payment fails for the 4th time.'
         >
-          <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+          <SmallButton classes={['primary-color wide-element disabled-element']}>Test</SmallButton>
         </InputRow.Note>
       </InputRow>
 
