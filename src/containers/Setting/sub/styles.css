@@ -81,8 +81,6 @@
     width: 350px;
     display: flex;
     flex-direction: column;
-    pointer-events: none;
-    opacity: .5;
 }
 .zapier-spcial-box .small-box-container{
     flex-direction: column;

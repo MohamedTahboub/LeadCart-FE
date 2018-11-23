@@ -74,15 +74,7 @@ class Account extends Component {
 
       <React.Fragment>
         <MainBlock
-          title='System Emails'
-          blockHandel={(
-            <Button classes='save-changes-btn'>
-              Save Changes
-
-            </Button>
-          )
-          }
-        >
+          title='System Emails'>
           <InputRow>
             <InputRow.Label>New Order</InputRow.Label>
             <InputRow.Note
