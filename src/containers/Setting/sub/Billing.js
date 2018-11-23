@@ -25,7 +25,7 @@ const CodeInputField = () => (
 
 const PackageState = ({ level }) => {
   console.log(level)
-  let packageType = level < 3 ? 'Premuim' : 'Agency'
+  let packageType = level < 3 ? 'Premium' : 'Agency'
   return <div className="package-level">{packageType}</div>
 };
 
