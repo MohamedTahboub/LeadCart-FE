@@ -65,7 +65,7 @@ const Billing = ({ level, ...props }) => (
             <InputRow.Label
             notes='Redeem codes and to get more sub accounts access'
             >
-              You Have Redeemed 0 out of 5       
+              You Have Redeemed 0 out of 5 codes      
           </InputRow.Label>
           </React.Fragment>
         )}
