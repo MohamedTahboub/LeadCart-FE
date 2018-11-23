@@ -119,15 +119,15 @@ class CheckoutDesign extends Component {
               <InputRow.SmallInput name='checkoutButtonText' value={checkoutButtonText} onChange={this.onFieldChange}></InputRow.SmallInput>
             </InputRow>
             <InputRow>
-              <InputRow.Label>Bullet Points Title</InputRow.Label>
+              <InputRow.Label>Features Title</InputRow.Label>
               <InputRow.SmallInput name='bulletPointsTitle' value={bulletPointsTitle} onChange={this.onFieldChange}></InputRow.SmallInput>
             </InputRow>
             <InputRow>
-              <InputRow.Label>Bullet Points</InputRow.Label>
-              <InputRow.AddComponentField type='tags' onTagsChange={this.onBulletPointsChange} placeholder='Create a Bullet Points' value={bulletPoints}>Add Bullet Points</InputRow.AddComponentField>
+              <InputRow.Label>Features</InputRow.Label>
+              <InputRow.AddComponentField type='tags' onTagsChange={this.onBulletPointsChange} placeholder='Create a Feature' value={bulletPoints}>Add Feature</InputRow.AddComponentField>
             </InputRow>
             <InputRow>
-              <InputRow.Label>Bullet Point Image</InputRow.Label>
+              <InputRow.Label>Feature Image</InputRow.Label>
               <InputRow.AddImage source='bulletPointImage' onUploaded={(img) => this.onImageUploading('bulletPointImage', img)}>Add image</InputRow.AddImage>
             </InputRow>
             <Testimonials onChange={this.onTestimonialsChange} />
