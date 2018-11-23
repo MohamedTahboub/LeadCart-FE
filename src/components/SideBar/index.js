@@ -28,7 +28,7 @@ const SideBar = ({
   // appInit();
   return (
     <div className='side-bar'>
-      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/genral')} />
+      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/general')} />
       <span onClick={toggleCreateProductModal} className='btn new-product-btn'>
         <i className='fas fa-plus' />
         {' '}
@@ -42,7 +42,7 @@ const SideBar = ({
         <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
         {user.level === 3 && <Link to={{ history, page: '/agency' }}>Agency</Link>}
-        <Link to={{ history, page: '/settings/genral' }}>Setting</Link>
+        <Link to={{ history, page: '/settings/general' }}>Setting</Link>
         <Link to={{ history, page: 'https://help.leadcart.io' }} external >Help</Link>
       </Menu>
 

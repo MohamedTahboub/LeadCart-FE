@@ -81,6 +81,8 @@
     width: 350px;
     display: flex;
     flex-direction: column;
+    pointer-events: none;
+    opacity: .5;
 }
 .zapier-spcial-box .small-box-container{
     flex-direction: column;
@@ -105,4 +107,9 @@
 .code-activation-form .small-input {
     width: 190px;
     margin-right: 0px;
+}
+
+.disabled-card{
+    background: #f2f2f2;
+    pointer-events: none;
 }

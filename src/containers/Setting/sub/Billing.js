@@ -23,9 +23,11 @@ const CodeInputField = () => (
   </div>
 );
 
-const PackageState = ({ level }) => (
-  level === 2 ? <div>Pro</div> : level >= 2 ? <div>Agency</div> : <div>~Pro!</div>
-);
+const PackageState = ({ level }) => {
+  console.log(level)
+  let packageType = level < 3 ? 'Premuim' : 'Agency'
+  return <div className="package-level">{packageType}</div>
+};
 
 const Billing = ({ level, ...props }) => (
   <React.Fragment>
@@ -38,7 +40,17 @@ const Billing = ({ level, ...props }) => (
             <PackageState level={level} />
           </BigText>
         )}
-
+        footer={(
+          <FlexBoxesContainer classes={['space-between-elements']}>
+            <div>
+              <InputRow.Label>Nex billing date</InputRow.Label>
+              <div>Dec 1, 2029</div>
+            </div>
+            <div>
+              <SmallButton classes='green-color'>Active</SmallButton>
+            </div>
+          </FlexBoxesContainer>
+        )}
       />
       <Box
         header={<HeadeLine>Redeem Codes:</HeadeLine>}
@@ -48,11 +60,19 @@ const Billing = ({ level, ...props }) => (
             <CodeInputField onSubmit={console.log} />
           </span>
         )}
-        footer={(<InputRow.Label>Redeem codes to Upgrade your current package and to get more access</InputRow.Label>)}
+        footer={(
+          <React.Fragment>
+            <InputRow.Label
+            notes='Redeem codes and to get more sub accounts access'
+            >
+              You Have Redeemed 0 out of 5       
+          </InputRow.Label>
+          </React.Fragment>
+        )}
       />
     </FlexBoxesContainer>
 
-    <MainTitle>One-Time Charges</MainTitle>
+    {/*<MainTitle>One-Time Charges</MainTitle>
     <Tabel>
       <Tabel.Head>
         <Tabel.HeadCell>Product Name</Tabel.HeadCell>
@@ -80,12 +100,12 @@ const Billing = ({ level, ...props }) => (
           />
         </Tabel.Row>
       </Tabel.Body>
-    </Tabel>
+    </Tabel>*/}
   </React.Fragment>
 );
 
 const mapStateToProps = (state) => ({
-  level: state.user.user.leve
+  level: state.user.user.level
 });
 export default connect(mapStateToProps, codeActions)(Billing);
 

@@ -13,7 +13,7 @@ const Payment = ({ payment = {}, props }) => (
     <MainTitle>Payment Method</MainTitle>
     <MediumCard
       imgSrc={stripeImage}
-      isActive={payment.methods && payment.methods.includes('Stripe')}
+      isActive={true || payment.methods && payment.methods.includes('Stripe')}
       onClick={() => props.toggleProductPayment('Stripe')}
     />
     <MediumCard
