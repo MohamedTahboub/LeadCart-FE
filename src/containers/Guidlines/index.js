@@ -20,7 +20,7 @@ const GuidlineBoxes = ({ history }) => (
           <span className='guildline-description'>
             Take a minute to customize your receipts, upload your logo, and more.
           </span>
-          <span onClick={() => goToPage('/settings', history)} className='guidline-action-btn btn primary-color'>
+          <span onClick={() => goToPage('/settings/general', history)} className='guidline-action-btn btn primary-color'>
             Edit settings
           </span>
         </div>
