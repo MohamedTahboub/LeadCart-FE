@@ -1,5 +1,5 @@
 import product from './product'
-import genral from './genralSettings'
+import general from './generalSettings'
 
 
-export default [genral, ...product]
+export default [general, ...product]

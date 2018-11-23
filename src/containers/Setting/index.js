@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './style.css'
-import GenralSetting from './sub/GenralSetting'
+import GeneralSetting from './sub/GeneralSetting'
 import Integrations from './sub/Integrations'
 import Email from './sub/Email'
 import TeamMembers from './sub/TeamMembers'
@@ -17,7 +17,7 @@ const { TabsNavigator, Button, MainTitle, FlexBoxesContainer } = common
 /* temp component tp represent the empty tap */
 
 const newProductTabs = [
-    { title: 'Genral Setting', sub: '/settings/genral' },
+    { title: 'General Setting', sub: '/settings/general' },
     { title: 'Integrations', sub: '/settings/integrations' },
     { title: 'Email', sub: '/settings/email' },
     { title: 'Team Members', sub: '/settings/team' },
@@ -30,8 +30,8 @@ class Setting extends Component {
         const pageName = this.props.history.location.pathname.split('/')[2]
 
         switch (pageName) {
-            case 'genral':
-                return this.props.saveUserGenralSettings({})
+            case 'general':
+                return this.props.saveUserGeneralSettings({})
             // case 'checkout':
             //     return this.props.updateProductCheckoutDesign()
             // case 'payments':
@@ -62,7 +62,7 @@ class Setting extends Component {
                     <Route exact path='/settings/team' component={TeamMembers} />
                     <Route exact path='/settings/account' component={Account} />
                     <Route exact path='/settings/billing' component={Billing} />
-                    <Route path='/settings' component={GenralSetting} />
+                    <Route path='/settings' component={GeneralSetting} />
                 </Switch>
 
             </div>
