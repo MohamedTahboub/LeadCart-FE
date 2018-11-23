@@ -1,4 +1,4 @@
-import genral from './genral';
+import general from './general';
 
-export default [genral];
+export default [general];
 

@@ -17,6 +17,7 @@ export const Rules = {
   subdomain: 'subdomain',
   isPromoCode: 'code',
   isNumber: 'isNumber',
+  min: n => n
 };
 
 
@@ -39,6 +40,7 @@ function validateField ({ fieldName, value }, rules) {
     case 'code': return validFormatter(regexFilters.code.test(value.trim()), 'code format does not include spaces');
     case 'isNumber': return validFormatter(Number.isInteger(value), 'should be a Number');
     case 'alphabet': return validFormatter(containSpacesOrSpceialChar(value), 'invalid format');
+    case 6 : return validFormatter(value.trim().length >= 6 , 'should be more then 6 characters')
     default: return false;
     }
   })
@@ -50,6 +52,7 @@ function validateField ({ fieldName, value }, rules) {
 export const Vaidator = (form, formRules) => {
   // console.log(form);
   // console.log(formRules);
+  if(!form) return 'should not be empty'
   const result = Object.keys(formRules)
     .map((fieldName) => validateField({ fieldName, value: form[fieldName] }, formRules[fieldName]))
     .filter((e) => e.valid === false);

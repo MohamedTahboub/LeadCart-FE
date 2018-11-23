@@ -12,8 +12,8 @@ import {
   CHANGE_ACCOUNT_PASSWORD_FAILD,
   CREATE_NEW_MEMBER_SUCCESS,
   CREATE_NEW_MEMBER_FAILD,
-  SAVE_USER_GENRAL_SETTINGS_SUCCESS,
-  SAVE_USER_GENRAL_SETTINGS_FAILD,
+  SAVE_USER_GENERAL_SETTINGS_SUCCESS,
+  SAVE_USER_GENERAL_SETTINGS_FAILD,
   UPDATE_PRODUCT_DETAILS_FAILD,
   UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILD,
   UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS,
@@ -26,8 +26,8 @@ export default ({ dispatch }) => (next) => (action) => {
   case UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS:
     dispatch(showFlashMessage({ type: 'success', message: 'Update Product Checkout Design details Successfully' }));
     break;
-  case SAVE_USER_GENRAL_SETTINGS_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Update Genral Setting Successfully' }));
+  case SAVE_USER_GENERAL_SETTINGS_SUCCESS:
+    dispatch(showFlashMessage({ type: 'success', message: 'Update General Setting Successfully' }));
     break;
   case UPDATE_PRODUCT_DETAILS_SUCCESS:
     dispatch(showFlashMessage({ type: 'success', message: 'The Product Details Updated Successfuly ' }));
@@ -62,8 +62,8 @@ export default ({ dispatch }) => (next) => (action) => {
   case CREATE_NEW_MEMBER_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Faild to create New member' }));
     break;
-  case SAVE_USER_GENRAL_SETTINGS_FAILD:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update Genral Setting' }));
+  case SAVE_USER_GENERAL_SETTINGS_FAILD:
+    dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update General Setting' }));
     break;
   case UPDATE_PRODUCT_DETAILS_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update Product Details' }));
