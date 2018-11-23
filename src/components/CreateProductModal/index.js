@@ -48,7 +48,7 @@ class CreateProductModal extends Component {
     if (isAproductCreated && this.state.currentProduct) {
       setTimeout(() => {
         toggleCreateProductModal();
-        history.push(`/product/${createdProduct.url}#details`);
+        history.push(`/product/${createdProduct.url}/details`);
       }, 320);
       this.setState({ currentProduct: false });
     }

@@ -42,7 +42,6 @@ const Login = ({
         <button type='submit' className='form-submit'>sign in now</button>
         <div className='account-refrance-links'>
           <a className='forgetpwd-link' href='/forgetpwd'> forget password?</a>
-          <a className='singup-page-link' href='/saasmantra'> Don't Have an Account?</a>
         </div>
       </form>
       <footer>

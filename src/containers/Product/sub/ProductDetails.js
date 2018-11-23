@@ -8,7 +8,7 @@ const { InputRow, MainBlock } = common;
 
 const ProductDetailes = (props) => {
   const {
-    name, internalName, url, description, image, payment = {}, price = {}, tags, thanksUrl, productFiles
+    name, internalName, url, description, errors, image, payment = {}, price = {}, tags, thanksUrl, productFiles
   } = props.productDetails;
 
   const onFieldChange = ({ target: { name, value } }) => {
@@ -40,24 +40,28 @@ const ProductDetailes = (props) => {
   };
 
   return (
-    <React.Fragment key={props.productDetails.url}>
+    <React.Fragment key='product-details-form'>
       <MainBlock title='Details'>
-        <form className='products-details-form inputs-grounp section-block'>
+        <form className='products-details-form inputs-grounp section-block' >
           <InputRow>
-            <InputRow.Label>Product Name</InputRow.Label>
-            <InputRow.NormalInput name='name' onChange={onFieldChange} value={name}>Product Name</InputRow.NormalInput>
+            <InputRow.Label error={errors.name}>Product Name</InputRow.Label>
+            <InputRow.NormalInput error={errors.name} name='name' onChange={onFieldChange} value={name}>Product Name</InputRow.NormalInput>
           </InputRow>
           <InputRow>
             <InputRow.Label>Internal Product Name(Optional)</InputRow.Label>
             <InputRow.NormalInput name='internalName' onChange={onFieldChange} value={internalName}></InputRow.NormalInput>
           </InputRow>
           <InputRow>
-            <InputRow.Label>URL</InputRow.Label>
-            <InputRow.UrlSuffixInput name='url' onChange={onFieldChange} subdomain={props.subdomain} value={url}></InputRow.UrlSuffixInput>
+            <InputRow.Label error={errors.url}>URL</InputRow.Label>
+            <InputRow.UrlSuffixInput
+              error={errors.url} name='url' onChange={onFieldChange} subdomain={props.subdomain}
+              value={url}
+            >
+            </InputRow.UrlSuffixInput>
           </InputRow>
           <InputRow>
-            <InputRow.Label>Description</InputRow.Label>
-            <InputRow.TextAreaInput name='description' onChange={onFieldChange} value={description}>Thiamounts is nimesil forte!</InputRow.TextAreaInput>
+            <InputRow.Label error={errors.description}>Description</InputRow.Label>
+            <InputRow.TextAreaInput error={errors.description} name='description' onChange={onFieldChange} value={description}>Thiamounts is nimesil forte!</InputRow.TextAreaInput>
           </InputRow>
           <InputRow>
             <InputRow.Label>Product Image</InputRow.Label>
@@ -76,11 +80,11 @@ Add files
           <PaymentType type='' onChange={onPaymentChange} value={payment || {}} price={price ? price.amount : 0} />
           <InputRow>
             <InputRow.Label>Thank you Page URL</InputRow.Label>
-            <InputRow.UrlInput name='thanksUrl' onTagsChange={onFieldChange} prefix='http://' value={thanksUrl} />
+            <InputRow.UrlInput name='thankYouPageUrl' onTagsChange={onFieldChange} prefix='http://' value={thanksUrl} />
           </InputRow>
           <InputRow>
             <InputRow.Label>Product Tags</InputRow.Label>
-            <InputRow.AddComponentField type='tags' onTagsChange={onTagsChange} value={tags}>Create tags</InputRow.AddComponentField>
+            <InputRow.EditableTagGroup tags={tags} onTagsChange={onTagsChange}>Product Tags</InputRow.EditableTagGroup>
           </InputRow>
         </form>
       </MainBlock>
@@ -113,7 +117,7 @@ Add files
 const mapStateToProps = (state) => ({
   subdomain: state.user.user.subDomain,
   productDetails: state.product.details,
-  errors: state.product.details.error,
+  errors: state.product.details.errors,
 });
 
 export default connect(mapStateToProps, producActions)(ProductDetailes);

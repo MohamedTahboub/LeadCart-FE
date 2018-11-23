@@ -1,6 +1,9 @@
 import React from 'react';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
+import { connect } from 'react-redux';
+import * as codeActions from 'actions/promoCode';
+
 const {
   InputRow,
   HeadeLine,
@@ -13,38 +16,39 @@ const {
   SpcialAnnouncement
 } = common;
 
+const CodeInputField = () => (
+  <div className='code-activation-form'>
+    <InputRow.SmallInput>AGENCY CODE</InputRow.SmallInput>
+    <SmallButton classes='primary-color'>Redeem</SmallButton>
+  </div>
+);
 
-export default (props) => (
+const PackageState = ({ level }) => (
+  level === 2 ? <div>Pro</div> : level >= 2 ? <div>Agency</div> : <div>~Pro!</div>
+);
+
+const Billing = ({ level, ...props }) => (
   <React.Fragment>
     <MainBlock title='LeadCart Plan' />
     <FlexBoxesContainer>
       <Box
-        header={<HeadeLine>$199/month</HeadeLine>}
+        header={<HeadeLine>Your Package is :</HeadeLine>}
         content={(
           <BigText>
-            <div>Pro</div>
-            <div>Package</div>
+            <PackageState level={level} />
           </BigText>
         )}
-        footer={(
-          <FlexBoxesContainer classes={['space-between-elements']}>
-            <div>
-              <InputRow.Label>Nex billing date</InputRow.Label>
-              <div>Sep 25, 2018</div>
-            </div>
-            <div>
-              <SmallButton classes='green-color'>Active</SmallButton>
-            </div>
-          </FlexBoxesContainer>
-        )}
+
       />
       <Box
+        header={<HeadeLine>Redeem Codes:</HeadeLine>}
         content={(
-          <span className='plan-card-action stick-note-icon'>
-            <SpcialAnnouncement>want to change your plan?</SpcialAnnouncement>
-            <SpcialAnnouncement classes={['blue-text']}>click here!</SpcialAnnouncement>
+          <span className='plan-card-action'>
+
+            <CodeInputField onSubmit={console.log} />
           </span>
         )}
+        footer={(<InputRow.Label>Redeem codes to Upgrade your current package and to get more access</InputRow.Label>)}
       />
     </FlexBoxesContainer>
 
@@ -79,3 +83,31 @@ export default (props) => (
     </Tabel>
   </React.Fragment>
 );
+
+const mapStateToProps = (state) => ({
+  level: state.user.user.leve
+});
+export default connect(mapStateToProps, codeActions)(Billing);
+
+
+/*
+        footer={(
+          <FlexBoxesContainer classes={['space-between-elements']}>
+            <div>
+              <InputRow.Label>Nex billing date</InputRow.Label>
+              <div>Sep 25, 2018</div>
+            </div>
+            <div>
+              <SmallButton classes='green-color'>Active</SmallButton>
+            </div>
+          </FlexBoxesContainer>
+        )}
+      />
+      <Box
+        content={(
+          <span className='plan-card-action stick-note-icon'>
+            <SpcialAnnouncement>want to change your plan?</SpcialAnnouncement>
+            <SpcialAnnouncement classes={['blue-text']}>click here!</SpcialAnnouncement>
+          </span>
+        )}
+*/

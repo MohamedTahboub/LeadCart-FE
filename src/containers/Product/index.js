@@ -42,6 +42,7 @@ class NewProductDetailes extends Component {
     }
     componentDidMount = () => {
         this.updateCurrentProductDetails()
+
     }
     updateCurrentProductDetails = () => {
         const productUrl = this.props.history.location.pathname.split('/')[2]
@@ -78,6 +79,7 @@ class NewProductDetailes extends Component {
     render() {
         const { available, id, toggleProductAvailability, productUrl, history } = this.props
         const pageName = this.props.history.location.pathname.split('/')[3]
+        const staticProductUrl = this.props.history.location.pathname.split('/')[2]
         return (
             <div className='products-details-page'>
 
@@ -95,7 +97,7 @@ class NewProductDetailes extends Component {
                 </div>
                 <TabsNavigator
                     productUrl={productUrl}
-                    tabs={newProductTabs(productUrl)}
+                    tabs={newProductTabs(staticProductUrl)}
                     history={history} />
                 <Switch>
                     <Route path='/product/:url/details' component={ProductDetailes} />

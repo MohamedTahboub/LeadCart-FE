@@ -3,7 +3,6 @@ import React from 'react';
 import Select from 'antd/lib/select';
 import 'antd/dist/antd.css';
 
-
 const Option = Select.Option;
 
 export default class SearchInput extends React.Component {
@@ -14,6 +13,7 @@ export default class SearchInput extends React.Component {
   }
 
   handleSearch = (value) => {
+    console.log(this.props.data);
     this.setState({
       filtered: this.state.data.filter((el) => el[this.props.target].includes(value))
     });
@@ -25,6 +25,7 @@ export default class SearchInput extends React.Component {
     this.props.onChange({ target: { name: this.props.name, value } });
   }
 
+
   render () {
     const { target, placeholder, style: _style } = this.props;
     const style = _style || { width: 200 };
@@ -32,7 +33,7 @@ export default class SearchInput extends React.Component {
     return (
       <Select
         showSearch
-        value={this.state.value}
+        defaultValue={this.state.data[0] && this.state.data[0][this.props.target] || 'Search'}
         placeholder={placeholder}
         style={style}
         defaultActiveFirstOption
