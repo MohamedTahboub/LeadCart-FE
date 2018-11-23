@@ -18,6 +18,7 @@ import {
   UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILD,
   UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS,
   CREATE_SUB_ACCOUNT_FAILD,
+  PRODUCT_CREATION_FAILD,
 } from 'constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -72,6 +73,9 @@ export default ({ dispatch }) => (next) => (action) => {
     break;
   case CREATE_SUB_ACCOUNT_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Create A Sub Account!' }));
+    break;
+  case PRODUCT_CREATION_FAILD:
+    dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Create The product' }));
     break;
   default:
     return next(action);

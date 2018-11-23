@@ -11,9 +11,11 @@ config.set({
 
 export const paymentMethodsLinks = {
   dev: {
-    stripe: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write'
+    stripe: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write',
+    paypal: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write'
   },
   production: {
     stripe: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write',
+    paypal: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_Dxha33TMf80xSsR1WmctbOEEtQqzoMhq&scope=read_write'
   }
 }[env || 'dev'];

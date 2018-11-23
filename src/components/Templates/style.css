@@ -7,6 +7,7 @@
 
 }
 .preview-image {
+    position: relative;
     height: 100%;
     width: 100%;
     color: #e4e4e4;
@@ -55,4 +56,17 @@
 }
 span.template-preview-name {
     font-size: 14px;
+    margin: auto 0px;
+}
+.coming-soon-sign {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #0000006e;
+    color: white;
+    font-size: 15px;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

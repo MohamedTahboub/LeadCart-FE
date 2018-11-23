@@ -3,6 +3,8 @@ import './style.css';
 import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
 import SearchInput from './SearchInput'
+import EditableTagGroup from './EditableTagGroup'
+import  DatePicker  from 'antd/lib/date-picker';
 
 export class InputRow extends Component {
   static Label = ({ notes, error, ...props }) => (
@@ -21,15 +23,15 @@ export class InputRow extends Component {
     type = 'text', name, onChange, value, classes = [], error, ...props
   }) => (
       <input
-      defaultValue={value}  onChange={onChange} name={name} type={type} className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
+        defaultValue={value} onChange={onChange} name={name} type={type} className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
         placeholder={props.children}
       />
     )
 
   static CustomInput = ({
-    width, onChange, name, value, placeholder, classes = [], ...props
+    width, onChange, name, value,type='text', placeholder, classes = [], ...props
   }) => (
-      <input onChange={onChange} name={name} defaultValue={value} className={'input-field custom-input-field ' + classes.join(' ')} placeholder={props.children || placeholder} />
+      <input onChange={onChange} type={type} name={name} defaultValue={value} className={'input-field custom-input-field ' + classes.join(' ')} placeholder={props.children || placeholder} />
     )
 
   static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
@@ -51,6 +53,8 @@ export class InputRow extends Component {
   static AddComponentField = AddFieldComponent
 
   static SearchInput = SearchInput
+  static DatePicker = DatePicker
+  static EditableTagGroup = EditableTagGroup
 
   static SelectOption = ({
     options = [], onChange, name, value, leftLabel, ...props
@@ -102,12 +106,12 @@ export class InputRow extends Component {
 
   static SwitchInput = ({ onChange, name, value, onToggle, ...props }) => (
     <label className='switch-slider-input '>
-      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} />
+      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} {...props} />
       <span className='slider-input slider-round' />
     </label>
   )
 
-  static CodeInputArea = ({ value,onChange,name, ...props }) => (
+  static CodeInputArea = ({ value, onChange, name, ...props }) => (
     <div className='code-area-container'>
       <textarea onChange={onChange} name={name} defaultValue={value} className='codearea-input-field' placeholder={props.children} />
     </div>

@@ -3,6 +3,7 @@ import appInit from './appInit'
 import apiRequest from './apiRequest'
 import login from './login'
 import proSignup from './proSignup'
+import agencyCodeActivation from './agencyCodeActivation'
 import storage from './storage'
 import uploadingFiles from './uploadingFiles'
 import settings from './settings'
@@ -12,6 +13,7 @@ import notificationCenter from './notificationCenter'
 import flashMessage from './flashMessage'
 import payments from './payments'
 import account from './account'
+import coupon from './coupon'
 import agency from './agency'
 import teamMembers from './teamMembers'
 import modelsShapers from './modelsShapers'
@@ -27,12 +29,13 @@ export default [
     login,
     proSignup,
     ...settings,
-    ...product,
     products,
     payments,
+    ...product,
     account,
     upadteUserImage,
     teamMembers,
+    agencyCodeActivation,
     agency,
     flashMessage,
     apiRequest,

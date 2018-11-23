@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import { connect } from 'react-redux'
-import * as promoCodeActions from 'actions/promocode'
+import { connect } from 'react-redux';
+import * as promoCodeActions from 'actions/promoCode';
 
 import './styles.css';
 
 class PromoCodeActivation extends Component {
-  render() {
+  render () {
     return (
       <div className='wrapper'>
         <div className='promo-container'>
@@ -27,8 +27,8 @@ class PromoCodeActivation extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   validationError: state.validation.credit
-})
+});
 
 export default connect(mapStateToProps, promoCodeActions)(PromoCodeActivation);

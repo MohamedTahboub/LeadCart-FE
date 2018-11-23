@@ -10,16 +10,11 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   const { product: { details } } = getState();
 
   const rules = {
-    image: [Rules.isRequired],
+    image: [Rules.url],
     description: [Rules.isRequired],
-    internalName: [Rules.isRequired],
     name: [Rules.isRequired],
-    payment: [Rules.isObject],
-    price: [Rules.isObject],
-    tags: [Rules.isObject],
-    url: [Rules.isRequired]
+    url: [Rules.alphabet]
   };
-
   const isInvalid = Vaidator(details, rules);
 
   if (isInvalid) dispatch(productUpdatedFaild(isInvalid));

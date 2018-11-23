@@ -8,7 +8,7 @@ class OrderBump extends Component {
 state = { isEnabled: false }
 
  toggleBumbeOfferStatus = () => {
-   this.setState({ isEnabled: !this.state.isEnabled });
+   //  this.setState({ isEnabled: !this.state.isEnabled });
    //  this.refs.bumpOptions.animat([{ opacity: 0 }, { opacity: 1 }], 1000);
  }
 
@@ -18,7 +18,7 @@ state = { isEnabled: false }
        <MainBlock title='Bump Offer'>
          <InputRow>
            <InputRow.Label>Do you want to set up a bump offer on this product?</InputRow.Label>
-           <InputRow.SwitchInput onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
+           <InputRow.SwitchInput checked={false} onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
          </InputRow>
        </MainBlock>
 
