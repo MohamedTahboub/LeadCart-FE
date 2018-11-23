@@ -11,16 +11,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   const { settings: { generalModel } } = getState();
 
   const rules = {
-    name: [Rules.isRequired],
-    country: [Rules.isRequired],
-    currency: [Rules.isRequired],
-    darkLogo: [Rules.url],
-    downloadButtonText: [Rules.isRequired],
-    firePixel: [Rules.bool],
-    lightLogo: [Rules.url],
-    productExpirationDays: [Rules.isRequired],
-    purchaseCompletion: [Rules.isRequired],
-    timeZone: [Rules.isRequired]
+    name: [Rules.isRequired]
   };
 
   const isInvalid = Vaidator(generalModel, rules);

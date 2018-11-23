@@ -7,6 +7,14 @@ import {
 
 const initialState = {
   generalModel: {
+    name: '',
+    country: 'United State',
+    currency: 'USD',
+    darkLogo: 'empty',
+    downloadButtonText: 'Download Now',
+    lightLogo: 'empty',
+    productExpirationDays: 7 * 24,
+    timeZone: '+2 GMT',
     errors: {},
   }
 };
