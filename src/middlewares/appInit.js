@@ -2,6 +2,7 @@ import { APP_INIT } from 'constantsTypes';
 import { getMembersSuccess } from 'actions/teamMembers';
 import { getSubAccountsSuccess } from 'actions/agency';
 import { getCouponsList } from 'actions/coupon';
+import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
 import { appLaunchFaild, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
@@ -25,6 +26,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
     dispatch(getCouponsList(data.coupons));
+    dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
@@ -44,18 +46,18 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   // if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
 
   // restore the application stored data in the loaclStorage
-}
+};
 
-function upadateIntercomeWithUserDetails({ firstName, lastName, email, }) {
+function upadateIntercomeWithUserDetails ({ firstName, lastName, email }) {
   window.intercomSettings = {
-    app_id: "skynydft",
+    app_id: 'skynydft',
     name: `${firstName} ${lastName}`, // Full name
     email, // Email address
     created_at: window.intercomSettings.created_at // Signup date as a Unix timestamp
   };
 }
 
-function consoleMessage() {
+function consoleMessage () {
   const LeadCarttext = `%c
   ╔╗░░╔═══╦═══╦═══╦═══╦═══╦═══╦════╗
   ║║░░║╔══╣╔═╗╠╗╔╗║╔═╗║╔═╗║╔═╗║╔╗╔╗║

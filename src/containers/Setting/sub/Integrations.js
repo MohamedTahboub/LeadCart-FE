@@ -64,20 +64,22 @@ class Integratons extends Component {
 
   componentDidUpdate = () => {
     const { activat_method } = queryString.parse(this.props.history.location.search.replace('?', ''));
-    if (this.state[activat_method].inprogress) if (this.props[activat_method].isActive || this.props[activat_method].error) this.setState({ [activat_method]: { inprogress: false } });
+    if (activat_method && this.state[activat_method].inprogress) if (this.props.methods.includes(activat_method) || this.props.errors) this.setState({ [activat_method]: { inprogress: false } });
   }
 
   render () {
     const { stripe, paypal } = this.state;
-    const { stripe: $stripe, paypal: $paypal } = this.props;
+    const { methods } = this.props;
     return (
       <React.Fragment key={Date.now()}>
         <MainTitle>Payment </MainTitle>
         <MediumCard
-          onClick={connectStripe} isActive={$stripe.isActive} imgSrc={stripeImage} error={stripe.error || $stripe.error}
+          onClick={connectStripe} isActive={methods.includes('Stripe')}
+          error={stripe.error}
+          imgSrc={stripeImage}
           isLoading={stripe.inprogress}
         />
-        <MediumCard imgSrc={paypalImage} isActive={$paypal.isActive} className='disabled-card' />
+        <MediumCard imgSrc={paypalImage} isActive={methods.includes('Paypal')} className='disabled-card' />
         <MainTitle>
           Zapier
         </MainTitle>
@@ -92,7 +94,6 @@ class Integratons extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  stripe: state.payments.stripe,
-  paypal: state.payments.paypal
+  methods: state.payments.methods
 });
 export default connect(mapStateToProps, paymentsActions)(Integratons);

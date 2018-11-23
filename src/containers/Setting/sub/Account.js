@@ -74,13 +74,14 @@ class Account extends Component {
 
       <React.Fragment>
         <MainBlock
-          title='System Emails'>
+          title='System Emails'
+        >
           <InputRow>
             <InputRow.Label>New Order</InputRow.Label>
             <InputRow.Note
               content='This email is sent every time a customer buys a product.'
             >
-              <InputRow.SwitchInput />
+              <InputRow.SwitchInput checked />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -88,7 +89,7 @@ class Account extends Component {
             <InputRow.Note
               content="This email is sent each time a customer's subscription payment fails to charge."
             >
-              <InputRow.SwitchInput />
+              <InputRow.SwitchInput checked />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -96,7 +97,7 @@ class Account extends Component {
             <InputRow.Note
               content='This email is sent each time a new affiliate applies. If auto-approval is enabled, this will not be sent.'
             >
-              <InputRow.SwitchInput />
+              <InputRow.SwitchInput checked />
             </InputRow.Note>
           </InputRow>
         </MainBlock>
