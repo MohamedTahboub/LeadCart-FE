@@ -1,12 +1,15 @@
 import { APP_INIT } from 'constantsTypes';
 import { getMembersSuccess } from 'actions/teamMembers';
 import { getSubAccountsSuccess } from 'actions/agency';
+import { getCouponsList } from 'actions/coupon';
+import { getUserPaymentMethods } from 'actions/payments';
+import { getUserProductsSuccess } from 'actions/products';
 import { appLaunchFaild, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 
 
 export default ({ dispatch, getState }) => (next) => (action) => {
-  const { user: { user: { token }, isLoggedIn } } = getState();
+  const { user: { user: { token, ...user }, isLoggedIn } } = getState();
 
 
   setTimeout(() => {
@@ -17,13 +20,18 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
   if (!isLoggedIn) return next(action);
   // /users/launch
+
+
   const onLunchSuccess = (data) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
+    dispatch(getCouponsList(data.coupons));
+    dispatch(getUserPaymentMethods(data.paymentMethods));
+    dispatch(getUserProductsSuccess({ products: data.products }));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
-
+  upadateIntercomeWithUserDetails(user);
   dispatch(apiRequest({
     options: {
       method: 'get',
@@ -40,6 +48,14 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   // restore the application stored data in the loaclStorage
 };
 
+function upadateIntercomeWithUserDetails ({ firstName, lastName, email }) {
+  window.intercomSettings = {
+    app_id: 'skynydft',
+    name: `${firstName} ${lastName}`, // Full name
+    email, // Email address
+    created_at: window.intercomSettings.created_at // Signup date as a Unix timestamp
+  };
+}
 
 function consoleMessage () {
   const LeadCarttext = `%c

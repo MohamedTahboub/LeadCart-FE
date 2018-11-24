@@ -4,7 +4,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILD,
   LOGOUT,
-  UPDATE_USER_PROFILE_IMAGE_SUCCESS
+  UPDATE_USER_PROFILE_IMAGE_SUCCESS,
+  ACTIVATE_AGENCY_CODE_SUCCESS,
+  ACTIVATE_AGENCY_CODE_FAILD
 } from 'constantsTypes';
 
 let user = {};
@@ -37,6 +39,14 @@ export default (state = initialState, { type, payload }) => {
   case LOGIN_FAILD: return { ...state, error: payload };
   case LOGOUT: return { ...state, isLoggedIn: false };
   case UPDATE_USER_PROFILE_IMAGE_SUCCESS: return { ...state, user: { ...state.user, profileImage: payload } };
+  case ACTIVATE_AGENCY_CODE_SUCCESS:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        level: payload.level
+      }
+    };
   default: return state;
   }
 };

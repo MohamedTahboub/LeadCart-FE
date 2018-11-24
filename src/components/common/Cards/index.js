@@ -10,7 +10,7 @@ export const MiniCard = ({ imgSrc, ...props }) => (
   />
 );
 export const MediumCard = ({
-  imgSrc, onClick, isLoading, isActive = false, error, ...props
+  imgSrc, onClick, isLoading,className='', isActive = false, error, ...props
 }) => {
   const wraperStatus = isActive
     ? 'success-badge'
@@ -25,7 +25,7 @@ export const MediumCard = ({
         onClick={onClick}
         src={imgSrc}
         alt='payment service'
-        className='medium-solid-card white-color'
+        className={'medium-solid-card white-color '+className}
       />
       {error && <span className='payment-error-message'>{error}</span>}
     </span>

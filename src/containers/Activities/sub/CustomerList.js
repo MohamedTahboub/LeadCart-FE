@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Tabel from 'components/common/Tabels';
 import './style.css';
 import common from 'components/common';
-
-import customersList from 'data/customers';
+import { connect } from 'react-redux';
 
 const { Avatar, MiniButton } = common;
 
@@ -11,7 +10,7 @@ const { Avatar, MiniButton } = common;
 class CustomerList extends Component {
   onExport = () => {
     const titles = 'Name,Email,Phone,Location,Total Profite,Date of join\n';
-    const convertToCSVFormat = customersList
+    const convertToCSVFormat = this.props.customers
       .map(({
         name, contact: { email, phone }, location, total_profite: { value: total }, joined_in
       }) => `${name},${email},${phone},${location},${total},${joined_in}`).join('\n');
@@ -38,7 +37,7 @@ class CustomerList extends Component {
             <Tabel.HeadCell />
           </Tabel.Head>
           <Tabel.Body>
-            {customersList
+            {this.props.customers
               .map(({
                 name,
                 contact,
@@ -96,4 +95,7 @@ class CustomerList extends Component {
   }
 }
 
-export default CustomerList;
+const mapStateToProps = ({ activities }) => ({
+  customers: activities.customers.customers || []
+});
+export default connect(mapStateToProps)(CustomerList);

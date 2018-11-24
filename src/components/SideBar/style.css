@@ -110,7 +110,7 @@
     /* line-height: 20px; */
     line-height: 16px;
     font-size: small;
-    color: #C9D3DC;
+    color: #2B3748;
     margin: 8px 0px;
     cursor: pointer;
     transition: all 350ms ease-in-out;
@@ -134,6 +134,7 @@
 /* */
 .locked-feature{
     position: relative;
+    color: #C9D3DC;
 }
 .locked-feature:before{
     position: absolute;

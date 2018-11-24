@@ -96,3 +96,18 @@
 .extra-margin-top{
     margin-top:40px;
 }
+
+.code-activation-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.code-activation-form .small-input {
+    width: 190px;
+    margin-right: 0px;
+}
+
+.disabled-card{
+    background: #f2f2f2;
+    pointer-events: none;
+}

@@ -18,7 +18,7 @@
     width: 260px;
 }
 .input-label{
-    color:#C9D3DC;
+    color: #2B3748;
     font-size: 13px;
     user-select: none;
     font-weight: bold;
@@ -600,7 +600,7 @@ input[type="radio"]{
     margin-right: 10px;
 }
 .margin-left-30 {
-    margin-left: 32px;
+    margin-left: 32px !important;
     font-size: 12px;
 }
 .margin-left-120 {
@@ -609,10 +609,11 @@ input[type="radio"]{
 }
 
 .disabled-element {
-    color: gray ;
+    color: gray !important;
+    background: #9e9e9e96;
     display: flow-root;
-    pointer-events: none;
     user-select: none;
+    pointer-events: none;
 }
 .disabled-element i.fas{
     color: gray ;

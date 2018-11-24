@@ -8,7 +8,10 @@ import {
   GET_PRODUCT_SUCCESS,
   GET_PRODUCT_FAILD,
   PRODUCT_SETTING_FIELD_UPDATE,
-  TOGGLE_PRODUCT_AVAILABILITY_SUCCESS
+  TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
+  UPDATE_PRODUCT_DETAILS_FAILD,
+  ADD_PRODUCT_PAYMENT_METHOD_SUCCESS,
+  ADD_PRODUCT_PAYMENT_METHOD_FAILD
 } from 'constantsTypes';
 
 
@@ -25,7 +28,6 @@ const initState = {
     errors: {},
   },
   payment: {
-    type: 'stripe'
   },
   bumbOffer: {
     enable: false,
@@ -59,6 +61,14 @@ export default (state = initState, { type, payload }) => {
   case PRODUCT_CREATED_SUCCESSFULY: return {
     ...state, details: { ...state.details, ...payload }, isAproductCreated: !state.isAproductCreated, newProductHolder: {}
   };
+  case UPDATE_PRODUCT_DETAILS_FAILD:
+    return {
+      ...state,
+      details: {
+        ...state.details,
+        errors: typeof payload === 'object' ? payload : { message: payload }
+      }
+    };
   case NEW_PRODUCT_FIELD_UPDATE: return { ...state, newProductHolder: { ...state.newProductHolder, [payload.name]: payload.value } };
   case PRODUCT_DETAILS_FIELD_UPDATE: return { ...state, details: { ...state.details, [payload.name]: payload.value } };
   case PRODUCT_CHECKOUT_FIELD_UPDATE: return { ...state, checkout: { ...state.checkout, [payload.name]: payload.value } };
@@ -67,7 +77,6 @@ export default (state = initState, { type, payload }) => {
   case PRODUCT_SETTING_FIELD_UPDATE: return { ...state, setting: { ...state.setting, [payload.name]: payload.value } };
 
   case GET_PRODUCT_SUCCESS: return {
-    ...state,
     _id: payload._id,
     checkout: { ...state.checkout, ...payload.checkoutPage },
     details: { ...state.details, ...payload },
@@ -76,6 +85,19 @@ export default (state = initState, { type, payload }) => {
   case GET_PRODUCT_FAILD: return { ...state, errors: payload };
   case TOGGLE_PRODUCT_AVAILABILITY_SUCCESS:
     return { ...state, details: { ...state.details, available: !state.details.available } };
+  case ADD_PRODUCT_PAYMENT_METHOD_SUCCESS:
+    return {
+      ...state,
+      payment: { ...state.payment, methods: [...state.payment.methods, payload] }
+    };
+  case ADD_PRODUCT_PAYMENT_METHOD_FAILD:
+    return {
+      ...state,
+      payment: {
+        ...state.payment,
+        error: payload
+      }
+    };
   default: return state;
   }
 };

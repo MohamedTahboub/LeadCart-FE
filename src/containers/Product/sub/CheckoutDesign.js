@@ -88,19 +88,15 @@ class CheckoutDesign extends Component {
     return (
       <React.Fragment key='checkout_design'>
         <MainBlock title='Template library' notes='Choose from a library of premade templates'>
-          <form className='products-details-form inputs-grounp section-block flex-row-wrap'>
-            <TemplatePreview active={this.state.defaultTemplate} image={temp_1_image} onSelect={this.toggleTemplates} />
-            <TemplatePreview active={!this.state.defaultTemplate} image={temp_2_image} onSelect={this.toggleTemplates} />
+          <form className='products-details-form inputs-grounp section-block flex-row-wrap checkout-pages-designs'>
+            <TemplatePreview active image={temp_1_image} name='Classic' onSelect={this.toggleTemplates} />
+            <TemplatePreview active={false} image={temp_2_image} onSelect={this.toggleTemplates} />
           </form>
         </MainBlock>
         <MainBlock title='Customize your template'>
           <form className='products-details-form inputs-grounp section-block'>
             <InputRow>
-              <InputRow.Label>Preset colors</InputRow.Label>
-              <InputRow.ColorInlinePicker name='presetColors' onChange={this.onPresentColorChange}></InputRow.ColorInlinePicker>
-            </InputRow>
-            <InputRow>
-              <InputRow.Label>Marketplace logo</InputRow.Label>
+              <InputRow.Label>Company logo</InputRow.Label>
               <InputRow.AddImage
                 onUploaded={(img) => this.onImageUploading('logo', img)}
                 notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
@@ -123,15 +119,15 @@ class CheckoutDesign extends Component {
               <InputRow.SmallInput name='checkoutButtonText' value={checkoutButtonText} onChange={this.onFieldChange}></InputRow.SmallInput>
             </InputRow>
             <InputRow>
-              <InputRow.Label>Bullet Points Title</InputRow.Label>
+              <InputRow.Label>Features Title</InputRow.Label>
               <InputRow.SmallInput name='bulletPointsTitle' value={bulletPointsTitle} onChange={this.onFieldChange}></InputRow.SmallInput>
             </InputRow>
             <InputRow>
-              <InputRow.Label>Bullet Points</InputRow.Label>
-              <InputRow.AddComponentField type='tags' onTagsChange={this.onBulletPointsChange} placeholder='Create a Bullet Points' value={bulletPoints}>Add Bullet Points</InputRow.AddComponentField>
+              <InputRow.Label>Features</InputRow.Label>
+              <InputRow.AddComponentField type='tags' onTagsChange={this.onBulletPointsChange} placeholder='Create a Feature' value={bulletPoints}>Add Feature</InputRow.AddComponentField>
             </InputRow>
             <InputRow>
-              <InputRow.Label>Bullet Point Image</InputRow.Label>
+              <InputRow.Label>Feature Image</InputRow.Label>
               <InputRow.AddImage source='bulletPointImage' onUploaded={(img) => this.onImageUploading('bulletPointImage', img)}>Add image</InputRow.AddImage>
             </InputRow>
             <Testimonials onChange={this.onTestimonialsChange} />

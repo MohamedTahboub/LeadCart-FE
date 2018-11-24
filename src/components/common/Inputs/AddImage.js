@@ -6,8 +6,8 @@ import { BlankLink } from '../Links';
 
 class AddImage extends Component {
   state = {
-    image: this.props.image || {},
-    imageChangesSaved: false
+    image: { name: 'product Image', link: this.props.value } || {},
+    imageChangesSaved: !!this.props.value
   }
 
   onAddImage = () => {
@@ -16,7 +16,7 @@ class AddImage extends Component {
 
   onImageDelete = (e) => {
     this.setState({ image: {}, imageChangesSaved: false });
-    this.props.deleteFile({ source: this.props.source });
+    this.props.deleteFile({ source: this.props.source, imageChangesSaved: false });
   }
 
   onImageUpload = (e) => {

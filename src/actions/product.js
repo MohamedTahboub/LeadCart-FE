@@ -24,11 +24,13 @@ import {
   DELETE_USER_PRODUCT,
   DELETE_USER_PRODUCT_SUCCESS,
   DELETE_USER_PRODUCT_FAILD,
-  TOGGLE_PRODUCT_PAYMENT,
+  ADD_PRODUCT_PAYMENT_METHOD,
   TOGGLE_PRODUCT_AVAILABILITY,
   TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
-  TOGGLE_PRODUCT_AVAILABILITY_FAILD
-} from 'constantsTypes';
+  TOGGLE_PRODUCT_AVAILABILITY_FAILD,
+  ADD_PRODUCT_PAYMENT_METHOD_SUCCESS,
+  ADD_PRODUCT_PAYMENT_METHOD_FAILD
+} from '../constantsTypes';
 
 
 export const onNewProductFieldChange = (field) => ({
@@ -147,8 +149,16 @@ export const updateProductAdvanceSetting = (advanceSetting) => ({
 });
 
 
-export const toggleProductPayment = (method) => ({
-  type: TOGGLE_PRODUCT_PAYMENT,
+export const addProductPaymentMethod = (method) => ({
+  type: ADD_PRODUCT_PAYMENT_METHOD,
+  payload: method
+});
+export const addProductPaymentMethodSuccess = (method) => ({
+  type: ADD_PRODUCT_PAYMENT_METHOD_SUCCESS,
+  payload: method
+});
+export const addProductPaymentMethodFaild = (method) => ({
+  type: ADD_PRODUCT_PAYMENT_METHOD_FAILD,
   payload: method
 });
 
