@@ -128,12 +128,12 @@ const GeneralSettings = (props) => {
           onChange={onFieldChange}
           options={[
             { label: '24 hour', value: 24 },
-            { label: '2 days', value: 2*24 },
-            { label: '3 days', value: 3*24 },
-            { label: '4 days', value: 4*24 },
-            { label: '5 days', value: 5*24 },
-            { label: '6 days', value: 6*24 },
-            { label: '7 days', value: 7*24 }
+            { label: '2 days', value: 2 * 24 },
+            { label: '3 days', value: 3 * 24 },
+            { label: '4 days', value: 4 * 24 },
+            { label: '5 days', value: 5 * 24 },
+            { label: '6 days', value: 6 * 24 },
+            { label: '7 days', value: 7 * 24 }
           ]}
         />
       </InputRow>
@@ -202,5 +202,5 @@ const GeneralSettings = (props) => {
     </MainBlock>
   );
 };
-const mapStateToProps = ({ settings: { generalModel: general } }) => ({ general });
+const mapStateToProps = ({ user: { user }, settings: { generalModel: general } }) => ({ general, user });
 export default connect(mapStateToProps, settingsActions)(GeneralSettings);
