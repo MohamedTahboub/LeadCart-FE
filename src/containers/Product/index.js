@@ -9,6 +9,9 @@ import AdvanecdSetting from './sub/AdvanecdSetting'
 import common from 'components/common'
 import { connect } from 'react-redux'
 import * as productAction from 'actions/product'
+import Collapsible from 'components/Collapsible'
+import Steps from 'components/Steps'
+import ActiveStep from './ActiveStep'
 const { TabsNavigator, Button, MiniButton, ActivationSwitchInput } = common
 /* temp component tp represent the empty tap */
 
@@ -20,6 +23,15 @@ const newProductTabs = productUrl => ([
     { title: 'Advanced Setting', sub: `/product/${productUrl}/advanced` }
 ])
 
+
+const steps = [
+    { sub: 'checkout', description: '', title: 'Checkout Template' ,completed: true },
+    { sub: 'product', description: '', title: 'Mandatory Product' ,completed: false },
+    { sub: 'boosters', description: 'fill out the product details', title: 'Conversion Boosters' ,completed: false },
+    { sub: 'payment', description: 'fill out the product details', title: 'Payment Method' ,completed: false },
+    { sub: 'scripts', description: 'fill out the product details', title: 'Scripts / Pixels' ,completed: false },
+    { sub: 'fullfillment', description: 'fill out the product details', title: 'FullFillment' ,completed: false },
+]
 
 const ActiveTabe = ({ tabName, onChange, ...props }) => {
     switch (tabName) {
@@ -38,7 +50,8 @@ const Link = ({ children, link, classes = [], ...props }) => (
 
 class NewProductDetailes extends Component {
     state = {
-
+        steps : steps,
+        currentStep : { value : 1 , valid : false}
     }
     componentDidMount = () => {
         this.updateCurrentProductDetails()
@@ -90,23 +103,23 @@ class NewProductDetailes extends Component {
                     <div className='product-toolbar-container'>
                         <ActivationSwitchInput active={available} onToggle={toggleProductAvailability.bind(this, { id, available })} />
                         <MiniButton onClick={this.onPreview} classes='row-explor-btn' iconClass='fa-eye' />
-                        <Button onClick={() => this.onChangesSave(pageName)} classes='save-changes-btn'>
-                            Save Changes
-                    </Button>
+
                     </div>
                 </div>
-                <TabsNavigator
-                    productUrl={productUrl}
-                    tabs={newProductTabs(staticProductUrl)}
-                    history={history} />
-                <Switch>
-                    <Route path='/product/:url/details' component={ProductDetailes} />
-                    <Route exact path='/product/:url/checkout' component={CheckoutDesign} />
-                    <Route exact path='/product/:url/payments' component={Payments} />
-                    <Route exact path='/product/:url/order' component={OrderBump} />
-                    <Route exact path='/product/:url/advanced' component={AdvanecdSetting} />
-                    <Route path='/product/:url' component={ProductDetailes} />
-                </Switch>
+                <Steps steps={steps}/>
+                <div className='product-controlls'>
+                    <Collapsible title='Product Details'>
+                        <ProductDetailes />
+                    </Collapsible>
+                    <Collapsible title='Checkout Page Design'><CheckoutDesign /></Collapsible>
+                    <Collapsible title='Product Payment Methods' ><Payments /></Collapsible>
+                    <Collapsible title='Order Bump Offer'><OrderBump /></Collapsible>
+                    <Collapsible title='More Advance Settings'><AdvanecdSetting /></Collapsible>
+                </div>
+
+                <Button onClick={() => this.onChangesSave(pageName)} classes='save-changes-btn'>
+                    Lunch the Product
+                </Button>
             </div>
         );
     }

@@ -1,0 +1,19 @@
+
+.product-toolbar-container {
+    display: flex;
+}
+.product-footer-controlls {
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    margin: 10px 0px;
+}
+.left-side-product-btns span.btn:first-child {
+    margin-right: 10px
+}
+.left-side-product-btns span.btn:last-child{
+    padding: 8px 40px;
+}
+.btn > .fas{
+    margin: 0px 5px;
+}

@@ -93,6 +93,7 @@
 }
 
 .mini-btn.row-explor-btn {
+    background: transparent;
     color: #4DA1FF;
     border-color: #4DA1FF;
 }

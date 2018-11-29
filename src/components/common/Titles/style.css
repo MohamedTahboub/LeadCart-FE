@@ -16,6 +16,11 @@
     font-size: 24px;
     font-weight: 300;
 }
+.tab-title-container{
+    color:#2B3748;
+    font-size: 16px;
+    font-weight: 400;
+}
 .spcial-announcement{
     font-size: 13px;
     letter-spacing: 2px;

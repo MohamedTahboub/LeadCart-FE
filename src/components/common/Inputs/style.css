@@ -133,6 +133,9 @@
 .primary-color{
     background: #4DA1FF;
 }
+.orange-color{
+    background:rgb(195, 152, 71);
+}
 .warning-color{
     background: rgb(219, 40, 70);
 }

@@ -60,3 +60,11 @@
 .normal-box .input-label-container{
     width: auto;
 }
+
+.block-container{
+    background: white;
+    padding:20px;
+    min-height: 350px;
+    border: 1px solid #aaa;
+    border-top: none;
+}
