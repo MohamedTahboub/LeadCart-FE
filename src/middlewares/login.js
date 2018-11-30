@@ -13,7 +13,8 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: action.payload,
-      uri: '/api/users/login'
+      uri: '/api/users/login',
+      contentType: 'json'
     },
     onSuccess: loginSuccess,
     onFaild: loginFaild
