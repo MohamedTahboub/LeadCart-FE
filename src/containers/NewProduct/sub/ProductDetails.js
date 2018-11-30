@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import common from 'components/common';
-
+import PaymentType from 'components/PaymentType'
 const { InputRow, MainBlock } = common;
 
 class ProductDetailes extends Component {
@@ -37,6 +37,7 @@ class ProductDetailes extends Component {
             <InputRow>
               <InputRow.Label>Product Image</InputRow.Label>
               <InputRow.AddComponentField
+                type='file'
                 onUploaded={this.onProductImageUploaded}
                 notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
                 name='image'
@@ -45,28 +46,15 @@ Add files
 
               </InputRow.AddComponentField>
             </InputRow>
-            <InputRow>
-              <InputRow.Label>Product Type</InputRow.Label>
-              <InputRow.SelectOption
-                name='paymentType' onChange={this.onFieldChange}
-                options={[
-                  { label: 'One Time Price', value: 0 },
-                  { label: 'Subscription', value: 1 },
-                  { label: 'Split Payments', value: 2 },
-                ]}
-              />
-            </InputRow>
-            <InputRow>
-              <InputRow.Label>Price</InputRow.Label>
-              <InputRow.PriceField currancy='$' name='price' onChange={this.onFieldChange}>1.99</InputRow.PriceField>
-            </InputRow>
+
+            <PaymentType type='' />
             <InputRow>
               <InputRow.Label>Thank you Page URL</InputRow.Label>
               <InputRow.UrlInput prefix='http://'></InputRow.UrlInput>
             </InputRow>
             <InputRow>
               <InputRow.Label>Product Tags</InputRow.Label>
-              <InputRow.AddComponentField tags='sds'>Create tags</InputRow.AddComponentField>
+              <InputRow.AddComponentField tags={[]} type='tags'>Create tags</InputRow.AddComponentField>
             </InputRow>
           </form>
         </MainBlock>
@@ -75,7 +63,7 @@ Add files
           <InputRow>
             <InputRow.Label>Type</InputRow.Label>
             <InputRow.CheckBox checked description='A digital file that buyers will download or a service.'>Digital / Service</InputRow.CheckBox>
-            <InputRow.CheckBox description='A tangible item that you will ship to buyers.'>Phisical</InputRow.CheckBox>
+            <InputRow.CheckBox disabled description='A tangible item that you will ship to buyers.'>Phisical</InputRow.CheckBox>
           </InputRow>
           <InputRow>
             <InputRow.Label>Digital File (Optional)</InputRow.Label>
@@ -93,5 +81,6 @@ Add files
     );
   }
 }
+
 
 export default ProductDetailes;
