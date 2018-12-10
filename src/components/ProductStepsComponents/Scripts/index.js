@@ -1,7 +1,7 @@
 import React from 'react';
-import ProductDetails from './Details'
-import ProductPrice from './ProductPrice'
-import ProductTags from './ProductTags'
+import OnFooter from './OnFooter'
+import AfterPurchasing from './AfterPurchasing'
+import Advanced from './Advanced'
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import common from 'components/common'
@@ -12,23 +12,23 @@ const { Block ,TabTitle} = common
 export default (props) => (
   <Tabs>
     <TabList>
-      <Tab><TabTitle error>Product Details</TabTitle></Tab>
-      <Tab><TabTitle>Product Pricing</TabTitle></Tab>
-      <Tab><TabTitle>Product Tags</TabTitle></Tab>
+      <Tab><TabTitle error>Embed HTML/Scripts in Footer</TabTitle></Tab>
+      <Tab><TabTitle>Fire pixels/scripts after an order is completed</TabTitle></Tab>
+      <Tab><TabTitle>Advance Setting</TabTitle></Tab>
     </TabList>
     <TabPanel>
       <Block>
-        <ProductDetails />
+        <OnFooter />
       </Block>
     </TabPanel>
     <TabPanel>
       <Block>
-        <ProductPrice />
+        <AfterPurchasing />
       </Block>
     </TabPanel>
     <TabPanel>
       <Block>
-        <ProductTags />
+        <Advanced />
       </Block>
     </TabPanel>
   </Tabs>

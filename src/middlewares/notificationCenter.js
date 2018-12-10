@@ -15,28 +15,20 @@ import {
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
   SAVE_USER_GENERAL_SETTINGS_FAILD,
   UPDATE_PRODUCT_DETAILS_FAILD,
-  UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILD,
-  UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS,
   CREATE_SUB_ACCOUNT_FAILD,
   PRODUCT_CREATION_FAILD,
 } from 'constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
   switch (action.type) {
-  case UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Update Product Checkout Design details Successfully' }));
+  case UPDATE_PRODUCT_SUCCESS:
+    dispatch(showFlashMessage({ type: 'success', message: 'The Product Updated Successfuly ' }));
     break;
   case SAVE_USER_GENERAL_SETTINGS_SUCCESS:
     dispatch(showFlashMessage({ type: 'success', message: 'Update General Setting Successfully' }));
     break;
-  case UPDATE_PRODUCT_DETAILS_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'The Product Details Updated Successfuly ' }));
-    break;
   case PRODUCT_CREATED_SUCCESSFULY:
     dispatch(showFlashMessage({ type: 'success', message: 'The Product Created Successfuly ' }));
-    break;
-  case UPDATE_PRODUCT_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'The Product Updated Successfuly ' }));
     break;
   case DELETE_USER_PRODUCT_SUCCESS:
     dispatch(showFlashMessage({ type: 'success', message: 'The Product Deleted Successfuly ' }));
@@ -67,9 +59,6 @@ export default ({ dispatch }) => (next) => (action) => {
     break;
   case UPDATE_PRODUCT_DETAILS_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update Product Details' }));
-    break;
-  case UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILD:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update Product Checkout Details' }));
     break;
   case CREATE_SUB_ACCOUNT_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Create A Sub Account!' }));

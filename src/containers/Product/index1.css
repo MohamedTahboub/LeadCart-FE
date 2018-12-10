@@ -5,6 +5,7 @@
 .product-footer-controlls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 17px;
     margin: 10px 0px;
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import common from 'components/common';
 import Steps from 'components/Steps'
 import ActiveStep from './ActiveStep'
+import { connect } from 'react-redux'
+import * as productAction from 'actions/product'
 import './index1.css'
 const { Button, MiniButton, ActivationSwitchInput } = common;;
 const steps = [
@@ -24,7 +26,7 @@ const steps = [
     sub: 'scripts', title: 'Scripts / Pixels', completed: false
   },
   {
-    sub: 'bumbs', title: 'Order Bump', completed: false
+    sub: 'bump', title: 'Order Bump', completed: false
   },
   {
     sub: 'thankyouPage', title: 'Thank you page', completed: false
@@ -87,7 +89,21 @@ class Product extends Component {
 
     steps[nextId] && steps[nextId].sub && this.goToStep(steps[nextId].sub);
   };
+  onChangesSave = (pageName) => {
 
+    switch (pageName) {
+        case 'details':
+            return this.props.updateProductDetails({})
+        case 'checkout':
+            return this.props.updateProductCheckoutDesign()
+        case 'payments':
+            return this.props.updateProductPayment()
+        case 'order':
+            return this.props.updateProductOrderBump()
+        case 'advanced':
+            return this.props.updateProductAdvanceSetting()
+    }
+}
   render = () => {
 
     return (
@@ -111,7 +127,7 @@ class Product extends Component {
             Previous
           </Button>
           <div className="left-side-product-btns">
-            <Button onClick={this.onNext} classes={['primary-color']}>
+            <Button onClick={()=>this.onChangesSave(this.state.currentStep)} classes={['primary-color']}>
             <i class="fas fa-save"></i>
               Save
             </Button>
@@ -125,5 +141,10 @@ class Product extends Component {
     )
   };
 }
-
-export default Product;
+const mapStateToProps = state => ({
+  subdomain: state.user.user.subDomain,
+  productUrl: state.product.details.url,
+  id: state.product._id,
+  available: state.product.details.available
+})
+export default connect(mapStateToProps, productAction)(Product);

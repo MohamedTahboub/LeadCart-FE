@@ -36,10 +36,6 @@ class ProductFeatures extends Component {
           <InputRow.Label>Features</InputRow.Label>
           <InputRow.AddComponentField type='tags' onTagsChange={this.onBulletPointsChange} placeholder='Create a Feature' value={bulletPoints}>Add Feature</InputRow.AddComponentField>
         </InputRow>
-        <InputRow>
-          <InputRow.Label>Feature Image</InputRow.Label>
-          <InputRow.AddImage source='bulletPointImage' onUploaded={(img) => this.onImageUploading('bulletPointImage', img)}>Add image</InputRow.AddImage>
-        </InputRow>
       </Fragment>
     );
   }

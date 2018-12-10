@@ -3,7 +3,7 @@ import user from './user'
 import loading from './loading'
 import validation from './validation'
 import files from './files'
-import product from './product'
+// import product from './product'
 import products from './products'
 import activities from './activities'
 import payments from './payments'
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
     user,
     loading,
     files,
-    product,
+    // product,
     products,
     activities,
     modals,

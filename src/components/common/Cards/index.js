@@ -10,7 +10,7 @@ export const MiniCard = ({ imgSrc, ...props }) => (
   />
 );
 export const MediumCard = ({
-  imgSrc, onClick, isLoading,className='', isActive = false, error, ...props
+  imgSrc, onClick, isLoading, className = '', isActive = false, error, ...props
 }) => {
   const wraperStatus = isActive
     ? 'success-badge'
@@ -25,7 +25,7 @@ export const MediumCard = ({
         onClick={onClick}
         src={imgSrc}
         alt='payment service'
-        className={'medium-solid-card white-color '+className}
+        className={`medium-solid-card white-color ${className}`}
       />
       {error && <span className='payment-error-message'>{error}</span>}
     </span>
@@ -71,5 +71,11 @@ export const NewThingCard = ({ thing, onClick, ...props }) => (
       {' '}
       {thing}
     </span>
+  </div>
+);
+
+export const BumpOfferTemplateCard = ({ image, active }) => (
+  <div className={active ? 'bump-offer-template-card active-bump-offer-template-card' : 'bump-offer-template-card'}>
+    <img src={image} alt='Bump offer Template' className='bump-offer-thumbnail' />
   </div>
 );

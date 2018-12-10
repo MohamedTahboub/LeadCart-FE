@@ -21,7 +21,7 @@
     transition: all ease-in-out 300ms;
 }
 .preview-image:hover{
-    box-shadow: 0px 1.5px 7px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 7px rgb(60, 122, 255);
 
 }
 .template-preview-footer{

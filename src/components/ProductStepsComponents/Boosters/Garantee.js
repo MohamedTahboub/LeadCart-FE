@@ -3,40 +3,47 @@ import common from 'components/common';
 
 import { connect } from 'react-redux';
 import * as producActions from 'actions/product';
+import guaranteeImage from 'assets/images/guarantee.png';
 
-const { InputRow } = common;
-
-
+import './style.css'
+const { InputRow } = common;;
 class Guarantee extends Component {
   state = {
-    testimonials: {
-      text: '',
-      value: '',
-      value: []
-    }
+    guarantee: !!this.props.product.guarantee
   }
 
-  onFieldChange = ({ target: { name, value } }) => {
-    this.props.onProductCheckoutFieldChange({ name, value });
+
+  onGuaranteeEnabled = () => {
+    const guarantee = !this.state.guarantee;
+    this.setState({ guarantee });
+
+    this.props.onProductCheckoutFieldChange({
+      name: 'guarantee',
+      value: guarantee
+    });
   }
 
   render () {
-    const { guaranteeTitle, guaranteeText } = this.props.checkout;
+    const { guarantee } = this.props.product;
     return (
       <Fragment>
-        <InputRow>
-          <InputRow.Label>Guarantee Title</InputRow.Label>
-          <InputRow.NormalInput name='guaranteeTitle' value={guaranteeTitle} onChange={this.onFieldChange}></InputRow.NormalInput>
+        <InputRow margin='45'>
+          <InputRow.Label
+            notes="This badge will be shown on the footer(or How it's described in the Checkouts Designs) of the checkout page."
+          >
+            Show Guarantee Badge
+
+          </InputRow.Label>
+          <InputRow.SwitchInput name='guarantee' onToggle={this.onGuaranteeEnabled} value={guarantee}></InputRow.SwitchInput>
         </InputRow>
-        <InputRow>
-          <InputRow.Label>Guarantee Text</InputRow.Label>
-          <InputRow.NormalInput name='guaranteeText' value={guaranteeText} onChange={this.onFieldChange}></InputRow.NormalInput>
-        </InputRow>
+        {this.state.guarantee && (
+          <img className='guarantee-badge-image' src={guaranteeImage} alt='guarantee badge' />
+        )}
       </Fragment>
     );
   }
 }
 
 
-const mapStateToProps = ({ product: { checkout } }) => ({ checkout });
+const mapStateToProps = ({ product }) => ({ product });
 export default connect(mapStateToProps, producActions)(Guarantee);
