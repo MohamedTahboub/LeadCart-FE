@@ -32,5 +32,5 @@ class CheckoutBtn extends Component {
 }
 
 
-const mapStateToProps = ({ product: { checkout } }) => ({ checkout });
+const mapStateToProps = ({ product: { checkoutPage: checkout } }) => ({ checkout });
 export default connect(mapStateToProps, producActions)(CheckoutBtn);

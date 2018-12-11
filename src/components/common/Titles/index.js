@@ -3,8 +3,10 @@ import React from 'react';
 import './style.css';
 
 
-export const MainTitle = ({ handle, children, props }) => (
-  <div className='main-title-container'>
+export const MainTitle = ({
+  handle, className, children, props
+}) => (
+  <div className={`main-title-container ${className}`}>
     {handle && (
       <span className='main-title-handle'>
         <i className={`fas ${handle.iconClass}`} />
@@ -22,7 +24,7 @@ export const HeadeLine = ({ children, ...props }) => (
 export const TabTitle = ({
   children, className, error, ...props
 }) => (
-  <div className={error ? 'tab-title-container tab-title-container-error':'tab-title-container'}>
+  <div className={error ? 'tab-title-container tab-title-container-error' : 'tab-title-container'}>
     {children}
   </div>
 );

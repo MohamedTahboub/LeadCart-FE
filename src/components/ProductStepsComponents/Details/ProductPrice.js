@@ -36,8 +36,8 @@ const ProductPrice = ({
 };
 const mapStateToProps = (state) => ({
   subdomain: state.user.user.subDomain,
-  productDetails: state.product.details,
-  errors: state.product.details.errors,
+  productDetails: state.product.mandatoryDetails,
+  errors: state.product.mandatoryDetails.error,
 });
 
 export default connect(mapStateToProps, producActions)(ProductPrice);

@@ -43,16 +43,15 @@
     font-weight: 400;
     padding: 5px 12px 12px 13px;
 }
-.active-template-preview {
-    color: white;
-    border-radius: 3px;
-    font-weight: 400;
-    padding: 5px 8px 8px 12px;
-    padding: 5px 12px 12px 13px;
-    font-size: smaller;
-    background: #4DA1FF;
-    user-select: none;
-    cursor: pointer;
+.active-template-preview:after {
+        position: absolute;
+        bottom: -40px;
+        left: 42%;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 400;
+        font-size: 30px;
+        content: "\F058";
+        color: #30e030b5;
 }
 span.template-preview-name {
     font-size: 14px;

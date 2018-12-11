@@ -69,7 +69,14 @@ class Product extends Component {
 
     steps[previousId] && steps[previousId].sub && this.goToStep(steps[previousId].sub);
   }
+  componentDidMount = () => {
+    this.updateCurrentProductDetails()
 
+  }
+  updateCurrentProductDetails = () => {
+    const productUrl = this.props.history.location.pathname.split('/')[2]
+    this.props.getProduct(productUrl);
+  }
   onNext = () => {
     const { currentStep, steps } = this.state;
     let nextId = 1;
@@ -92,18 +99,18 @@ class Product extends Component {
   onChangesSave = (pageName) => {
 
     switch (pageName) {
-        case 'details':
-            return this.props.updateProductDetails({})
-        case 'checkout':
-            return this.props.updateProductCheckoutDesign()
-        case 'payments':
-            return this.props.updateProductPayment()
-        case 'order':
-            return this.props.updateProductOrderBump()
-        case 'advanced':
-            return this.props.updateProductAdvanceSetting()
+      case 'details':
+        return this.props.updateProductDetails({})
+      case 'checkout':
+        return this.props.updateProductCheckoutDesign()
+      case 'payments':
+        return this.props.updateProductPayment()
+      case 'order':
+        return this.props.updateProductOrderBump()
+      case 'advanced':
+        return this.props.updateProductAdvanceSetting()
     }
-}
+  }
   render = () => {
 
     return (
@@ -127,8 +134,8 @@ class Product extends Component {
             Previous
           </Button>
           <div className="left-side-product-btns">
-            <Button onClick={()=>this.onChangesSave(this.state.currentStep)} classes={['primary-color']}>
-            <i class="fas fa-save"></i>
+            <Button onClick={() => this.onChangesSave(this.state.currentStep)} classes={['primary-color']}>
+              <i class="fas fa-save"></i>
               Save
             </Button>
             <Button onClick={this.onNext} classes={['primary-color']}>
@@ -143,8 +150,8 @@ class Product extends Component {
 }
 const mapStateToProps = state => ({
   subdomain: state.user.user.subDomain,
-  productUrl: state.product.details.url,
+  productUrl: state.product.mandatoryDetails.url,
   id: state.product._id,
-  available: state.product.details.available
+  available: state.product.mandatoryDetails.available
 })
 export default connect(mapStateToProps, productAction)(Product);

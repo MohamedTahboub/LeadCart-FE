@@ -1,7 +1,6 @@
 import { showFlashMessage } from 'actions/flashMessage';
 
 import {
-  UPDATE_PRODUCT_DETAILS_SUCCESS,
   PRODUCT_CREATED_SUCCESSFULY,
   UPDATE_PRODUCT_SUCCESS,
   DELETE_USER_PRODUCT_SUCCESS,

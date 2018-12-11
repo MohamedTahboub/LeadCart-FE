@@ -12,6 +12,7 @@ import {
   GET_PRODUCT_SUCCESS,
   GET_PRODUCT_FAILD,
   PRODUCT_CHECKOUT_FIELD_UPDATE,
+  PRODUCT_FULLFILLMENT_FIELD_UPDATE,
   PRODUCT_BOOSTERS_FIELD_UPDATE,
   PRODUCT_PAYMENT_FIELD_UPDATE,
   PRODUCT_BUMPOFFER_FIELD_UPDATE,
@@ -19,6 +20,7 @@ import {
   DELETE_USER_PRODUCT,
   DELETE_USER_PRODUCT_SUCCESS,
   DELETE_USER_PRODUCT_FAILD,
+  PRODUCT_THANKYOUPAGE_FIELD_UPDATE,
   TOGGLE_PRODUCT_AVAILABILITY,
   TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
   TOGGLE_PRODUCT_AVAILABILITY_FAILD,
@@ -51,6 +53,8 @@ export const productCreatingFaild = (message) => ({
   type: PRODUCT_CREATION_FAILD,
   payload: message
 });
+
+
 /* New Product Actions ends */
 
 
@@ -74,7 +78,7 @@ export const onProductPaymentFieldChange = (field) => ({
 });
 
 export const onProductFullfillmentFieldChange = (field) => ({
-  type: PRODUCT_SETTING_FIELD_UPDATE,
+  type: PRODUCT_FULLFILLMENT_FIELD_UPDATE,
   payload: field
 });
 
@@ -87,7 +91,7 @@ export const onProductBumpOfferFieldChange = (field) => ({
   payload: field
 });
 export const onProductThankYouPageFieldChange = (field) => ({
-  type: PRODUCT_BUMPOFFER_FIELD_UPDATE,
+  type: PRODUCT_THANKYOUPAGE_FIELD_UPDATE,
   payload: field
 });
 
