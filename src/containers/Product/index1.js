@@ -134,7 +134,7 @@ class Product extends Component {
             Previous
           </Button>
           <div className="left-side-product-btns">
-            <Button onClick={() => this.onChangesSave(this.state.currentStep)} classes={['primary-color']}>
+            <Button onClick={() => this.props.updateProduct()} classes={['primary-color']}>
               <i class="fas fa-save"></i>
               Save
             </Button>

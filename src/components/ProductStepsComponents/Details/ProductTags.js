@@ -6,9 +6,9 @@ import common from 'components/common';
 const { InputRow } = common;
 
 
-const ProductTags = ({ productDetails: { tags = [] }, ...props }) => {
+const ProductTags = ({ tags = [], onMandatoryDetailsFieldChange }) => {
   const onTagsChange = (tags) => {
-    props.onProductDetailsFieldChange({ name: 'tags', value: tags });
+    onMandatoryDetailsFieldChange({ name: 'tags', value: tags });
   };
 
   return (
@@ -18,9 +18,6 @@ const ProductTags = ({ productDetails: { tags = [] }, ...props }) => {
     </InputRow>
   );
 };
-const mapStateToProps = (state) => ({
-  productDetails: state.product.mandatoryDetails,
-  errors: state.product.mandatoryDetails.error,
-});
+const mapStateToProps = ({ product: { mandatoryDetails } }) => ({ ...mandatoryDetails });
 
 export default connect(mapStateToProps, producActions)(ProductTags);

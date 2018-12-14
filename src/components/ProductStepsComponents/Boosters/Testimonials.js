@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import * as producActions from 'actions/product';
 
 
-const ProductTestimonials = (props) => {
+const ProductTestimonials = ({ testimonials, onProductBoostersFieldChange }) => {
   const onTestimonialsChange = (testimonials) => {
-    props.onProductCheckoutFieldChange({
+    onProductBoostersFieldChange({
       name: 'testimonials',
       value: testimonials.map(({ text, image }) => ({ text, image })) || []
     });
   };
 
-  return <Testimonials onChange={onTestimonialsChange} />;
+  return <Testimonials list={testimonials} onChange={onTestimonialsChange} />;
 };
 
 
-const mapStateToProps = ({ product: { checkout } }) => ({ checkout });
+const mapStateToProps = ({ product: { boosters: { testimonials = [] } } }) => ({ testimonials });
 export default connect(mapStateToProps, producActions)(ProductTestimonials);

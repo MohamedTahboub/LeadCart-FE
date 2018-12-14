@@ -4,6 +4,7 @@ import { getSubAccountsSuccess } from 'actions/agency';
 import { getCouponsList } from 'actions/coupon';
 import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
+import { getCustomerList } from 'actions/activities';
 import { appLaunchFaild, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 
@@ -28,6 +29,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getCouponsList(data.coupons));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
+    dispatch(getCustomerList(data.customers));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 

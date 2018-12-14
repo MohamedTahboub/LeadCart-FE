@@ -8,20 +8,12 @@ const { InputRow } = common;
 
 
 class CheckoutBtn extends Component {
-  state = {
-    testimonials: {
-      text: '',
-      value: '',
-      value: []
-    }
-  }
-
   onFieldChange = ({ target: { name, value } }) => {
-    this.props.onProductCheckoutFieldChange({ name, value });
+    this.props.onProductBoostersFieldChange({ name, value });
   }
 
   render () {
-    const { checkoutButtonText } = this.props.checkout;
+    const { checkoutButtonText } = this.props;
     return (
       <InputRow>
         <InputRow.Label>Checkout Button Text</InputRow.Label>
@@ -32,5 +24,11 @@ class CheckoutBtn extends Component {
 }
 
 
-const mapStateToProps = ({ product: { checkoutPage: checkout } }) => ({ checkout });
+const mapStateToProps = ({
+  product: {
+    boosters: { checkoutButtonText }
+  }
+}) => ({
+  checkoutButtonText
+});
 export default connect(mapStateToProps, producActions)(CheckoutBtn);

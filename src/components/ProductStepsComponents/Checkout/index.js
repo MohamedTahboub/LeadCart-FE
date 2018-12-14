@@ -14,18 +14,31 @@ import './style.css';
 const { MainBlock, FlexBoxesContainer, MainTitle } = common;
 
 class CheckoutTemplates extends React.Component {
-  state = { selectedTemplate: 'temp3', templateColor: '#03A9F4' }
+  state = { selectedTemplate: 'temp1', templateColor: '#03A9F4' }
 
   onSelectTemplate = (template) => {
     this.setState({ selectedTemplate: template });
-    // this.props.onProductCheckoutFieldChange({
-
-    // });
+    this.props.onCheckoutPageFieldChange({
+      name: 'template',
+      value: template
+    });
   };
 
-  onColorChange = ({ hex }) => {
+  componentDidMount () {
+    const { template: selectedTemplate, presetColors: templateColor } = this.props.checkoutPage;
     this.setState({
-      templateColor: hex
+      selectedTemplate,
+      templateColor
+    });
+  }
+
+  onColorChange = ({ hex: color }) => {
+    this.setState({
+      templateColor: color
+    });
+    this.props.onCheckoutPageFieldChange({
+      name: 'presetColors',
+      value: color
     });
   }
 
@@ -51,5 +64,5 @@ class CheckoutTemplates extends React.Component {
   }
 }
 
-const mapStateToProps = ({ product }) => ({ product });
+const mapStateToProps = ({ product: { checkoutPage } }) => ({ checkoutPage });
 export default connect(mapStateToProps, producActions)(CheckoutTemplates);

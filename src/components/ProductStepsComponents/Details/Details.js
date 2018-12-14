@@ -8,15 +8,13 @@ const { InputRow } = common;
 
 
 const MandatoryDetails = ({
-  errors, productDetails: {
-    name, internalName, image, url, description
-  }, subdomain, ...props
+  errors = {}, name, internalName, image, url, description, subdomain, ...props
 }) => {
   const onFieldChange = ({ target: { name, value } }) => {
-    props.onProductDetailsFieldChange({ name, value });
+    props.onMandatoryDetailsFieldChange({ name, value });
   };
   const onProductImageUploaded = (image) => {
-    props.onProductDetailsFieldChange({ name: 'image', value: image });
+    props.onMandatoryDetailsFieldChange({ name: 'image', value: image });
   };
   return (
     <Fragment>
@@ -25,7 +23,10 @@ const MandatoryDetails = ({
         <InputRow.NormalInput error={errors.name} name='name' onChange={onFieldChange} value={name}>Product Name</InputRow.NormalInput>
       </InputRow>
       <InputRow>
-        <InputRow.Label>Internal Product Name(Optional)</InputRow.Label>
+        <InputRow.Label>
+        Internal Product Name(Optional)
+
+        </InputRow.Label>
         <InputRow.NormalInput name='internalName' onChange={onFieldChange} value={internalName}></InputRow.NormalInput>
       </InputRow>
       <InputRow>
@@ -49,17 +50,16 @@ const MandatoryDetails = ({
           notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
           name='image'
         >
-Add files
+          Add files
 
         </InputRow.AddImage>
       </InputRow>
     </Fragment>
   );
 };
-const mapStateToProps = (state) => ({
-  subdomain: state.user.user.subDomain,
-  productDetails: state.product.mandatoryDetails,
-  errors: state.product.mandatoryDetails.error,
+const mapStateToProps = ({ product: { mandatoryDetails }, user: { user: { subDomain: subdomain } } }) => ({
+  subdomain,
+  ...mandatoryDetails,
 });
 
 export default connect(mapStateToProps, producActions)(MandatoryDetails);

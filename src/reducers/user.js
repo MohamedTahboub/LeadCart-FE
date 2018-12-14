@@ -11,7 +11,7 @@ import {
 
 let user = {};
 try {
-  user = localStorage.user && JSON.parse(localStorage.user);
+  user = localStorage.LeadCart && JSON.parse(localStorage.LeadCart);
 } catch (e) {
   console.error('ERROR WHILE READING FROM THE STORAGE');
 }

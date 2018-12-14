@@ -45,6 +45,10 @@
     outline-color: lightgray;
     
 }
+.input-field:disabled{
+    background: rgba(80, 83, 87, 0.1);
+    user-select: none;
+}
 .small-input{
     width: 220px;
     margin-right: 40px;
@@ -97,6 +101,10 @@
     background: rgba(188, 201, 214, 0.1);
     border:1px solid #C9D3DC;
     outline-color: lightgray;
+}
+.textarea-input-field:disabled{
+    background: rgba(80, 83, 87, 0.1);
+    user-select: none;
 }
 .text-area-small-note{
     color:#717C8A;
@@ -210,6 +218,7 @@
     height: 32px;
     position: relative;
 }
+
 .price-input-field{
     margin-left: 32px;
     width: 112px;
@@ -222,6 +231,10 @@
     background: rgba(188, 201, 214, 0.1);
     border:1px solid #C9D3DC;
     outline-color: lightgray;
+}
+.price-input-field:disabled{
+    background: rgba(80, 83, 87, 0.1);
+    user-select: none;
 }
 .currancy-type {
     position: absolute;
@@ -624,3 +637,22 @@ input[type="radio"]{
 .text-area-container{
     position: relative;
 }
+
+
+/* Add input Field*/
+input.add-input-field {
+    border-radius: 50%;
+    border: none;
+    height: 40px;
+    width: 40px;
+    background: #03A9F4;
+    font-family: inherit;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.add-input-field:hover{
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+
+}
+/* Add input Field ends*/

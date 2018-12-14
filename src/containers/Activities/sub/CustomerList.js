@@ -39,24 +39,26 @@ class CustomerList extends Component {
           <Tabel.Body>
             {this.props.customers
               .map(({
-                name,
-                contact,
+                firstName,
+                lastName,
+                email,
+                phone,
                 location,
-                total_profite,
-                recente_charge,
-                joined_in
+                total_profite = { monthly_draft_persentage: 0, value: 0 },
+                recente_charge = { monthly_draft_persentage: 0, value: 0 },
+                joined_in = ''
               }) => (
                 <Tabel.Row>
                   <Tabel.SmallCell>
-                    <Avatar name={name} />
+                    <Avatar name={`${firstName} ${lastName}`} />
                   </Tabel.SmallCell>
                   <Tabel.Cell
-                    mainContent={name}
-                    subContent={location}
+                    mainContent={`${firstName} ${lastName}`}
+                    subContent={location || 'un set'}
                   />
                   <Tabel.Cell
-                    mainContent={contact.email}
-                    subContent={contact.phone}
+                    mainContent={email}
+                    subContent={phone}
                   />
                   <Tabel.Cell
                     mainContent={total_profite.value}

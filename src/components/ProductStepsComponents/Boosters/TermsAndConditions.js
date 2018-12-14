@@ -8,54 +8,71 @@ const { InputRow } = common;
 
 
 class ProductTerms extends Component {
-    state = {
-      isTermsEnabled: this.props.checkout.termsAndConditions
-    }
+  state = {
+    isTermsEnabled: false,
+    termsAndConditions: {}
+  }
 
-    onFieldChange = ({ target: { name, value } }) => {
-      this.props.onProductCheckoutFieldChange({ name, value });
-    }
+  componentDidMount () {
+    const { termsAndConditions } = this.props;
+    this.setState({
+      isTermsEnabled: termsAndConditions.enabled,
+      termsAndConditions
+    });
+  }
 
-    onTermsEnabled = () => {
-      const isTermsEnabled = !this.state.isTermsEnabled;
-      this.setState({ isTermsEnabled });
+  onTermsUrlChange = ({ target: { name, value } }) => {
+    this.props.onProductBoostersFieldChange({
+      name: 'termsAndConditions',
+      value: { enabled: this.state.isTermsEnabled, [name]: value }
+    });
+  }
 
-      this.props.onProductCheckoutFieldChange({
-        name: 'termsAndConditions',
-        value: { enabled: isTermsEnabled }
-      });
-    }
+  onTermsEnabled = () => {
+    const isTermsEnabled = !this.state.isTermsEnabled;
+    this.setState({ isTermsEnabled });
 
-    render () {
-      const { termsAndConditions = {} } = this.props.checkout;
-      return (
-        <Fragment>
+    this.props.onProductBoostersFieldChange({
+      name: 'termsAndConditions',
+      value: { enabled: isTermsEnabled }
+    });
+  }
+
+  render () {
+    const { termsAndConditions, isTermsEnabled } = this.state;
+    return (
+      <Fragment>
+        <InputRow margin='45'>
+          <InputRow.Label
+            notes='This requires customers to check that they agree to the terms and conditions.'
+          >
+            Terms & Conditions Checkbox
+
+          </InputRow.Label>
+          <InputRow.SwitchInput name='termsAndConditionsState' onToggle={this.onTermsEnabled} value={isTermsEnabled}></InputRow.SwitchInput>
+        </InputRow>
+        {isTermsEnabled && (
           <InputRow margin='45'>
             <InputRow.Label
-              notes='This requires customers to check that they agree to the terms and conditions.'
+              name='termsAndConditions'
+              notes='This creates a link to your custom Terms & Conditions page below the Checkout Button on your SamCart checkout page.'
             >
-        Terms & Conditions Checkbox
+              Terms & Conditions URL
 
             </InputRow.Label>
-            <InputRow.SwitchInput name='termsAndConditionsState' onToggle={this.onTermsEnabled} value={termsAndConditions.enabled}></InputRow.SwitchInput>
+            <InputRow.UrlInput
+              prefix='http://'
+              name='url'
+              value={termsAndConditions.url}
+              onChange={this.onTermsUrlChange}
+            />
           </InputRow>
-          {termsAndConditions.enabled && (
-            <InputRow margin='45'>
-              <InputRow.Label
-                name='termsAndConditions'
-                notes='This creates a link to your custom Terms & Conditions page below the Checkout Button on your SamCart checkout page.'
-              >
-          Terms & Conditions URL
-
-              </InputRow.Label>
-              <InputRow.UrlInput prefix='http://' name='termsAndConditionsUrl' value={termsAndConditions.url} onChange={this.onTermsChanges}></InputRow.UrlInput>
-            </InputRow>
-          )}
-        </Fragment>
-      );
-    }
+        )}
+      </Fragment>
+    );
+  }
 }
 
 
-const mapStateToProps = ({ product: { checkoutPage: checkout } }) => ({ checkout });
+const mapStateToProps = ({ product: { boosters: { termsAndConditions = {} } } }) => ({ termsAndConditions });
 export default connect(mapStateToProps, producActions)(ProductTerms);

@@ -5,7 +5,7 @@ import {
 
 const initialState = {
   completed: false,
-  error: {}
+  errors: {}
 };
 export default (state = initialState, { type, payload }) => {
   switch (type) {

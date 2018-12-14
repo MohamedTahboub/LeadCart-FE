@@ -5,26 +5,26 @@ import { connect } from 'react-redux';
 import * as producActions from 'actions/product';
 import guaranteeImage from 'assets/images/guarantee.png';
 
-import './style.css'
-const { InputRow } = common;;
+import './style.css';
+const { InputRow } = common;
 class Guarantee extends Component {
   state = {
-    guarantee: !!this.props.product.guarantee
+    showGuaranteeBadge: Boolean(this.props.showGuaranteeBadge)
   }
 
 
   onGuaranteeEnabled = () => {
-    const guarantee = !this.state.guarantee;
-    this.setState({ guarantee });
+    const showGuaranteeBadge = !this.state.showGuaranteeBadge;
+    this.setState({ showGuaranteeBadge });
 
-    this.props.onProductCheckoutFieldChange({
-      name: 'guarantee',
-      value: guarantee
+    this.props.onProductBoostersFieldChange({
+      name: 'showGuaranteeBadge',
+      value: showGuaranteeBadge
     });
   }
 
   render () {
-    const { guarantee } = this.props.product;
+    const { showGuaranteeBadge } = this.state;
     return (
       <Fragment>
         <InputRow margin='45'>
@@ -34,9 +34,9 @@ class Guarantee extends Component {
             Show Guarantee Badge
 
           </InputRow.Label>
-          <InputRow.SwitchInput name='guarantee' onToggle={this.onGuaranteeEnabled} value={guarantee}></InputRow.SwitchInput>
+          <InputRow.SwitchInput name='guarantee' onToggle={this.onGuaranteeEnabled} value={showGuaranteeBadge}></InputRow.SwitchInput>
         </InputRow>
-        {this.state.guarantee && (
+        {showGuaranteeBadge && (
           <img className='guarantee-badge-image' src={guaranteeImage} alt='guarantee badge' />
         )}
       </Fragment>
@@ -45,5 +45,5 @@ class Guarantee extends Component {
 }
 
 
-const mapStateToProps = ({ product }) => ({ product });
+const mapStateToProps = ({ product: { boosters } }) => ({ ...boosters });
 export default connect(mapStateToProps, producActions)(Guarantee);

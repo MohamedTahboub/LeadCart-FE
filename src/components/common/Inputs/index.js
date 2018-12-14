@@ -3,50 +3,83 @@ import './style.css';
 import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
 import SearchInput from './SearchInput'
+import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
-import  DatePicker  from 'antd/lib/date-picker';
+import DatePicker from 'antd/lib/date-picker';
 
 export class InputRow extends Component {
-  static Label = ({ notes, error, ...props }) => (
-    <div className='input-label-container'>
+  static Label = ({ notes, error, className, ...props }) => (
+    <div className={'input-label-container ' + className}>
       <span className='input-label '>{props.children}</span>
       {error && <span className="label-validation-error">*{error}</span>}
       <span className='input-label-note'>{notes}</span>
     </div>
   )
 
-  static NormalInput = ({ onChange, value, name, error, ...props }) => (
-    <input onChange={onChange} name={name} defaultValue={value} className={'input-field ' + (error && 'invalid-field')} placeholder={props.children} />
+  static NormalInput = ({ onChange, value, disabled, name, error, ...props }) => (
+    <input
+      onChange={onChange}
+      name={name}
+      defaultValue={value}
+      disabled={disabled}
+      className={'input-field ' + (error && 'invalid-field')}
+      placeholder={props.children}
+    />
   )
 
   static SmallInput = ({
-    type = 'text', name, onChange, value, classes = [], error, ...props
+    type = 'text', name, disabled, autoComplete = 'on', onChange, value, classes = [], error, ...props
   }) => (
       <input
-        defaultValue={value} onChange={onChange} name={name} type={type} className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
+        defaultValue={value}
+        onChange={onChange}
+        autoComplete={autoComplete}
+        name={name}
+        disabled={disabled}
+        type={type}
+        className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
         placeholder={props.children}
       />
     )
 
   static CustomInput = ({
-    width, onChange, name, value,type='text', placeholder, classes = [], ...props
+    width, onChange, name, value, disabled, type = 'text', placeholder, classes = [], ...props
   }) => (
-      <input onChange={onChange} type={type} name={name} defaultValue={value} className={'input-field custom-input-field ' + classes.join(' ')} placeholder={props.children || placeholder} />
+      <input onChange={onChange}
+        type={type}
+        disabled={disabled}
+        name={name}
+        defaultValue={value}
+        className={'input-field custom-input-field ' + classes.join(' ')}
+        placeholder={props.children || placeholder}
+      />
     )
 
   static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
     <div className='url-suffix-input'>
       <span className='suffix-value'>https://{subdomain}.leadcart.io/products/</span>
-      <input onChange={onChange} name={name} className={'url-suffix-input-field ' + (error && 'invalid-field')} defaultValue={value} placeholder={props.children} />
+      <input onChange={onChange}
+        name={name}
+        className={'url-suffix-input-field ' + (error && 'invalid-field')}
+        defaultValue={value}
+        placeholder={props.children}
+      />
     </div>
   )
 
-  static TextAreaInput = ({ onChange, name, value, error, ...props }) => (
-    <div className='text-area-container'>
-      <textarea onChange={onChange} name={name} value={value} className={'textarea-input-field ' + (error && 'invalid-field')} />
-      <span className='text-area-small-note'>27/260</span>
-    </div>
-  )
+  static TextAreaInput = TextAreaInput
+  //  ({ onChange, name, disabled, value, error, ...props }) => (
+  //   <div className='text-area-container'>
+  //     <textarea
+  //       onChange={onChange}
+  //       name={name}
+  //       value={value}
+  //       disabled={disabled}
+  //       className={'textarea-input-field ' + (error && 'invalid-field')}
+  //     />
+  //     <span className='text-area-small-note'>27/260</span>
+  //   </div>
+  // )
 
   static AddImage = AddImage
 
@@ -68,16 +101,29 @@ export class InputRow extends Component {
     )
 
   static PriceField = ({
-    children, onChange, name, classes = [], value, ...props
+    children, onChange, name, disabled, classes = [], value, ...props
   }) => (
       <div className={'price-input-holder ' + classes.join(' ')}>
         <span className='currancy-type'>$</span>
-        <input onChange={onChange} defaultValue={value} name={name} className='price-input-field' placeholder={children} />
+        <input
+          onChange={onChange}
+          defaultValue={value}
+          name={name}
+          className='price-input-field'
+          disabled={disabled}
+          placeholder={children} />
       </div>
     )
 
-  static UrlInput = ({ onChange, name, value, ...props }) => (
-    <input onChange={onChange} defaultValue={value} name={name} className='input-field' placeholder='http://' />
+  static UrlInput = ({ onChange, name, disabled, prefix = 'https://', value, ...props }) => (
+    <input
+      onChange={onChange}
+      defaultValue={value}
+      name={name}
+      className='input-field'
+      disabled={disabled}
+      placeholder={prefix}
+    />
   )
 
   static CheckBox = ({
@@ -104,9 +150,9 @@ export class InputRow extends Component {
     </div>
   )
 
-  static SwitchInput = ({ onChange, name, value, onToggle, ...props }) => (
+  static SwitchInput = ({ onChange, name, value, preValue,onToggle, ...props }) => (
     <label className='switch-slider-input '>
-      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} {...props} />
+      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} checked={preValue} {...props} />
       <span className='slider-input slider-round' />
     </label>
   )
@@ -138,9 +184,9 @@ export class InputRow extends Component {
   )
 
   render() {
-    const margin = this.props.margin || 12;
+    const { margin = 12, className } = this.props;
     return (
-      <div style={{ margin: `${margin}px 0px` }} className='input-row'>
+      <div style={{ margin: `${margin}px 0px` }} className={'input-row ' + className}>
         {this.props.children}
       </div>
     );

@@ -4,19 +4,12 @@ import * as producActions from 'actions/product';
 import common from 'components/common';
 import PaymentType from 'components/PaymentType';
 
-const { InputRow } = common;
+// const { InputRow } = common;
 
 
 const ProductPrice = ({
-  errors, productDetails: {
-    name, payment, price, url, description
-  }, subdomain, ...props
+  errors, payment, price, onMandatoryDetailsFieldChange
 }) => {
-  const onFieldChange = ({ target: { name, value } }) => {
-    props.onProductDetailsFieldChange({ name, value });
-  };
-
-
   const onPaymentChange = (payment) => {
     const { price: amount, ...paymentMethod } = payment;
     const casted = { type: paymentMethod.type };
@@ -24,8 +17,8 @@ const ProductPrice = ({
     if (paymentMethod.type === 'Split') casted.splits = +(paymentMethod.splits) || 2;
     if (paymentMethod.type === 'Subscription') casted.recurringPeriod = paymentMethod.recurringPeriod || 'Monthly';
 
-    props.onProductDetailsFieldChange({ name: 'price', value: { amount: +(amount) } });
-    props.onProductDetailsFieldChange({ name: 'payment', value: casted });
+    onMandatoryDetailsFieldChange({ name: 'price', value: { amount: +(amount) } });
+    onMandatoryDetailsFieldChange({ name: 'payment', value: casted });
   };
 
   return (
@@ -34,10 +27,5 @@ const ProductPrice = ({
     </Fragment>
   );
 };
-const mapStateToProps = (state) => ({
-  subdomain: state.user.user.subDomain,
-  productDetails: state.product.mandatoryDetails,
-  errors: state.product.mandatoryDetails.error,
-});
-
+const mapStateToProps = ({ product: { mandatoryDetails } }) => ({ ...mandatoryDetails });
 export default connect(mapStateToProps, producActions)(ProductPrice);
