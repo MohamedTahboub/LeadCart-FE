@@ -44,15 +44,16 @@ class Agency extends Component {
       }, 350);
     }
   }
-  componentDidMount() {
-    const { level, history } = this.props
+
+  componentDidMount () {
+    const { level, history } = this.props;
     if (level !== 3) {
-      console.log(level)
-      history.push('/')
+      console.log(level);
+      history.push('/');
     }
   }
 
-  render() {
+  render () {
     const { errors } = this.props;
     return (
       <React.Fragment>
@@ -70,24 +71,24 @@ class Agency extends Component {
                 {this.props.subAccounts.map(({
                   firstName, lastName, email, active, _id: id
                 }) => (
-                    <Tabel.Row key={id}>
-                      <Tabel.Cell
-                        mainContent={firstName || 'not set'}
-                      />
-                      <Tabel.Cell
-                        mainContent={lastName || 'not set'}
-                      />
-                      <Tabel.Cell
-                        mainContent={email}
-                      />
-                      <Tabel.Cell>
-                        {active
-                          ? <SmallButton classes='green-color'>Active</SmallButton>
-                          : <SmallButton classes='gray-color'>Inactive</SmallButton>
-                        }
-                      </Tabel.Cell>
-                    </Tabel.Row>
-                  ))}
+                  <Tabel.Row key={id}>
+                    <Tabel.Cell
+                      mainContent={firstName || 'not set'}
+                    />
+                    <Tabel.Cell
+                      mainContent={lastName || 'not set'}
+                    />
+                    <Tabel.Cell
+                      mainContent={email}
+                    />
+                    <Tabel.Cell>
+                      {active
+                        ? <SmallButton classes='green-color'>Active</SmallButton>
+                        : <SmallButton classes='gray-color'>Inactive</SmallButton>
+                      }
+                    </Tabel.Cell>
+                  </Tabel.Row>
+                ))}
               </Tabel.Body>
             </Tabel>
           )}
@@ -96,7 +97,7 @@ class Agency extends Component {
           <MainTitle>Create Sub-Accounts</MainTitle>
           <InputRow>
             <InputRow.SmallInput name='firstName' onChange={this.onFieldChange} error={errors.firstName}>First Name</InputRow.SmallInput>
-            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} classes={['margin-left-30']}>Last Name</InputRow.SmallInput>
+            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} classes={['margin-left-30 reset-font-size']}>Last Name</InputRow.SmallInput>
           </InputRow>
           <InputRow>
             <InputRow.NormalInput name='email' onChange={this.onFieldChange} error={errors.email}>Email address</InputRow.NormalInput>
