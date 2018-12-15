@@ -111,3 +111,9 @@
     background: #f2f2f2;
     pointer-events: none;
 }
+
+
+.redeem-box-error{
+    margin-top: -60px;
+    margin-left: 8px;
+}

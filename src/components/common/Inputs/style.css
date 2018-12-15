@@ -656,3 +656,13 @@ input.add-input-field {
 
 }
 /* Add input Field ends*/
+.input-field.valid {
+    padding-right: 21px !important;
+    background: url(../../../assets/images/check-img.png) no-repeat right;
+    background-size: 20px;
+}
+
+.btn-disabled {
+    pointer-events: none;
+    opacity: .5;
+}

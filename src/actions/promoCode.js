@@ -2,7 +2,8 @@ import {
   PROMO_CODE_ACTIVATE,
   ACTIVATE_AGENCY_CODE,
   ACTIVATE_AGENCY_CODE_SUCCESS,
-  ACTIVATE_AGENCY_CODE_FAILD
+  ACTIVATE_AGENCY_CODE_FAILD,
+  GET_ACTIVATED_AGENCY_CODES_NUMBERS
 } from '../constantsTypes';
 
 
@@ -22,4 +23,9 @@ export const activateAgencyCodeSuccess = (message) => ({
 export const activateAgencyCodeFaild = (message) => ({
   type: ACTIVATE_AGENCY_CODE_FAILD,
   payload: message
+});
+
+export const getActivatedPromoCodesNumber = (codes) => ({
+  type: GET_ACTIVATED_AGENCY_CODES_NUMBERS,
+  payload: codes
 });

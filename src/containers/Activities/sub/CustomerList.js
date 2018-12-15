@@ -9,11 +9,11 @@ const { Avatar, MiniButton } = common;
 
 class CustomerList extends Component {
   onExport = () => {
-    const titles = 'Name,Email,Phone,Location,Total Profite,Date of join\n';
+    const titles = 'ID,First Name,Last Name,Email Address,Phone Number\n';
     const convertToCSVFormat = this.props.customers
       .map(({
-        name, contact: { email, phone }, location, total_profite: { value: total }, joined_in
-      }) => `${name},${email},${phone},${location},${total},${joined_in}`).join('\n');
+        _id: ID, firstName, lastName, email, phone = 'N/A'
+      }) => `${ID},${firstName},${lastName},${email},${phone}`).join('\n');
 
 
     const download = document.createElement('a');
@@ -29,8 +29,8 @@ class CustomerList extends Component {
         <Tabel>
           <Tabel.Head>
             <Tabel.SmallCell />
-            <Tabel.HeadCell>info</Tabel.HeadCell>
-            <Tabel.HeadCell>Phone</Tabel.HeadCell>
+            <Tabel.HeadCell>Name</Tabel.HeadCell>
+            <Tabel.HeadCell>Email</Tabel.HeadCell>
             <Tabel.HeadCell>Life time</Tabel.HeadCell>
             <Tabel.HeadCell>recente charge</Tabel.HeadCell>
             <Tabel.HeadCell>client since</Tabel.HeadCell>
@@ -39,6 +39,7 @@ class CustomerList extends Component {
           <Tabel.Body>
             {this.props.customers
               .map(({
+                _id: id,
                 firstName,
                 lastName,
                 email,
@@ -48,7 +49,7 @@ class CustomerList extends Component {
                 recente_charge = { monthly_draft_persentage: 0, value: 0 },
                 joined_in = ''
               }) => (
-                <Tabel.Row>
+                <Tabel.Row key={id}>
                   <Tabel.SmallCell>
                     <Avatar name={`${firstName} ${lastName}`} />
                   </Tabel.SmallCell>

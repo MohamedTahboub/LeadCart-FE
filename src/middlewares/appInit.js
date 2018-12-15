@@ -5,6 +5,7 @@ import { getCouponsList } from 'actions/coupon';
 import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
 import { getCustomerList } from 'actions/activities';
+import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFaild, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 
@@ -22,7 +23,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   if (!isLoggedIn) return next(action);
   // /users/launch
 
-
   const onLunchSuccess = (data) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
@@ -30,6 +30,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getCustomerList(data.customers));
+    dispatch(getActivatedPromoCodesNumber(data.promoCodes));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 

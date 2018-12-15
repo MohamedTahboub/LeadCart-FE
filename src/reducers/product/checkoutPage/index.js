@@ -4,7 +4,7 @@ import {
 } from 'constantsTypes';
 
 const initialState = {
-  completed: false,
+  completed: true,
   error: {}
 };
 export default (state = initialState, { type, payload }) => {

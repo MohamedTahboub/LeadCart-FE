@@ -2,9 +2,9 @@ import React from 'react';
 
 
 export const Button = ({
-  classes, children, onClick, ...props
+  classes, children, onClick, disabled, ...props
 }) => (
-  <span onClick={onClick} className={`btn  ${classes || ''}`}>
+  <span onClick={onClick} className={`btn  ${classes || ''}  ${disabled ? ' btn-disabled' : ''}`}>
     {children}
   </span>
 );
@@ -17,9 +17,9 @@ export const MiniButton = ({
   </span>
 );
 export const SmallButton = ({
-  iconClass, children, classes, onClick, ...props
+  iconClass, children, classes, disabled, onClick, ...props
 }) => (
-  <span onClick={onClick} className={`small-btn  ${classes || ''}`}>
+  <span onClick={onClick} className={`small-btn  ${classes || ''} ${disabled ? ' btn-disabled' : ''}`}>
     {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
   </span>

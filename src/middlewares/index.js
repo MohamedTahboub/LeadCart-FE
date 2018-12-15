@@ -33,6 +33,7 @@ export default [
     payments,
     ...product,
     account,
+    ...coupon,
     upadteUserImage,
     teamMembers,
     agencyCodeActivation,

@@ -6,7 +6,8 @@ import {
   LOGOUT,
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
   ACTIVATE_AGENCY_CODE_SUCCESS,
-  ACTIVATE_AGENCY_CODE_FAILD
+  ACTIVATE_AGENCY_CODE_FAILD,
+  GET_ACTIVATED_AGENCY_CODES_NUMBERS
 } from 'constantsTypes';
 
 let user = {};
@@ -28,7 +29,7 @@ const initialState = {
     level: 1,
     ...user
   },
-  error: ''
+  errors: ''
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -44,9 +45,20 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       user: {
         ...state.user,
-        level: payload.level
+        level: payload.level,
+      },
+      activatedPromoCodes: state.activatedPromoCodes && state.activatedPromoCodes + 1 || 0,
+      errors: {
+        ...state.errors,
+        code: ''
       }
     };
+  case ACTIVATE_AGENCY_CODE_FAILD:
+    return {
+      ...state,
+      errors: typeof payload === 'object' ? { code: payload } : { code: { message: payload } }
+    };
+  case GET_ACTIVATED_AGENCY_CODES_NUMBERS: return { ...state, activatedPromoCodes: payload };
   default: return state;
   }
 };

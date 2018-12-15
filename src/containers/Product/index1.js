@@ -5,13 +5,13 @@ import ActiveStep from './ActiveStep'
 import { connect } from 'react-redux'
 import * as productAction from 'actions/product'
 import './index1.css'
-const { Button, MiniButton, ActivationSwitchInput } = common;;
+const { Button, MiniButton, ActivationSwitchInput } = common;
 const steps = [
   {
-    sub: 'checkout', description: '', title: 'Checkout Templates', completed: true
+    sub: 'checkoutPage', description: '', title: 'Checkout Templates', completed: true
   },
   {
-    sub: 'product', description: '', title: 'Mandatory Details', completed: false
+    sub: 'mandatoryDetails', description: '', title: 'Mandatory Details', completed: false
   },
   {
     sub: 'boosters', title: 'Conversion Boosters', completed: false
@@ -23,33 +23,33 @@ const steps = [
     sub: 'fullfillment', title: 'FullFillment', completed: false
   },
   {
-    sub: 'scripts', title: 'Scripts / Pixels', completed: false
+    sub: 'settings', title: 'Scripts / Pixels', completed: false
   },
   {
-    sub: 'bump', title: 'Order Bump', completed: false
+    sub: 'offer', title: 'Order Bump', completed: false
   },
   {
-    sub: 'thankyouPage', title: 'Thank you page', completed: false
+    sub: 'thankYouPage', title: 'Thank you page', completed: false
   },
 ];
 
 class Product extends Component {
   state = {
     steps,
-    currentStep: 'checkout'
+    currentStep: 'checkoutPage'
   }
 
 
   goToStep = (stepName) => {
-    const { steps } = this.state
-    for (var i = 0; i <= steps.length; i++) {
-      steps[i].completed = true
-      if (steps[i].sub === stepName)
-        break;
-    }
+    // const { steps } = this.state
+    // for (var i = 0; i <= steps.length; i++) {
+    //   // steps[i].completed = true
+    //   if (steps[i].sub === stepName)
+    //     break;
+    // }
 
     this.setState({
-      steps,
+      // steps,
       currentStep: stepName
     });
   }
@@ -70,6 +70,10 @@ class Product extends Component {
     steps[previousId] && steps[previousId].sub && this.goToStep(steps[previousId].sub);
   }
   componentDidMount = () => {
+    const { product } = this.props
+    this.setState({
+      steps: steps.map(({ completed, ...step }) => ({ ...step, completed: !!(product[step.sub] && product[step.sub].completed) }))
+    })
     this.updateCurrentProductDetails()
 
   }
@@ -85,16 +89,14 @@ class Product extends Component {
     steps.map((step, id) => {
 
       if (step.sub === currentStep) {
-        console.log(step.sub)
         nextId = id + 1;
         return true;
       }
     });
 
-    console.log('--------------------', steps[nextId].sub)
     if (!(nextId <= 6)) return;
 
-    steps[nextId] && steps[nextId].sub && this.goToStep(steps[nextId].sub);
+    steps[nextId] && steps[nextId].sub && steps[nextId - 1].completed && this.goToStep(steps[nextId].sub);
   };
   onChangesSave = (pageName) => {
 
@@ -111,8 +113,17 @@ class Product extends Component {
         return this.props.updateProductAdvanceSetting()
     }
   }
-  render = () => {
 
+  isNotValidNextStep = () => {
+    const { currentStep, steps } = this.state;
+    // steps.filter(({ sub, completed }) => sub === currentStep)[0].completed
+
+
+    return !steps.filter(({ sub }) => sub === currentStep)[0].completed
+  }
+
+  render = () => {
+    const { currentStep, steps } = this.state
     return (
       <div className='products-details-page'>
         <div className='products-controls-btns'>
@@ -126,8 +137,8 @@ class Product extends Component {
 
           </div>
         </div>
-        <Steps className='product-steps-process' steps={this.state.steps} currentStep={this.state.currentStep} onClick={this.goToStep} />
-        <ActiveStep currentStep={this.state.currentStep} />
+        <Steps className='product-steps-process' steps={steps} currentStep={currentStep} onClick={this.goToStep} disabled={this.isNotValidNextStep()} />
+        <ActiveStep currentStep={currentStep} />
         <div className='product-footer-controlls'>
           <Button onClick={this.onPrevious} classes={['orange-color']}>
             <i className='fas fa-chevron-left' />
@@ -138,7 +149,7 @@ class Product extends Component {
               <i class="fas fa-save"></i>
               Save
             </Button>
-            <Button onClick={this.onNext} classes={['primary-color']}>
+            <Button onClick={this.onNext} disabled={this.isNotValidNextStep()} classes={['primary-color']}>
               Next
             <i className='fas fa-chevron-right' />
             </Button>
@@ -148,10 +159,11 @@ class Product extends Component {
     )
   };
 }
-const mapStateToProps = state => ({
-  subdomain: state.user.user.subDomain,
-  productUrl: state.product.mandatoryDetails.url,
-  id: state.product._id,
-  available: state.product.mandatoryDetails.available
+const mapStateToProps = ({ product, user }) => ({
+  subdomain: user.user.subDomain,
+  productUrl: product.mandatoryDetails.url,
+  id: product._id,
+  available: product.mandatoryDetails.available,
+  product
 })
 export default connect(mapStateToProps, productAction)(Product);

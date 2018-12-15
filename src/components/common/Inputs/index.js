@@ -37,7 +37,7 @@ export class InputRow extends Component {
         name={name}
         disabled={disabled}
         type={type}
-        className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
+        className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ') }
         placeholder={props.children}
       />
     )
@@ -101,10 +101,10 @@ export class InputRow extends Component {
     )
 
   static PriceField = ({
-    children, onChange, name, disabled, classes = [], value, ...props
+    children, onChange, name, type, disabled, classes = [], value, ...props
   }) => (
       <div className={'price-input-holder ' + classes.join(' ')}>
-        <span className='currancy-type'>$</span>
+        <span className='currancy-type'>{type || '$'}</span>
         <input
           onChange={onChange}
           defaultValue={value}
@@ -150,7 +150,7 @@ export class InputRow extends Component {
     </div>
   )
 
-  static SwitchInput = ({ onChange, name, value, preValue,onToggle, ...props }) => (
+  static SwitchInput = ({ onChange, name, value, preValue, onToggle, ...props }) => (
     <label className='switch-slider-input '>
       <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} checked={preValue} {...props} />
       <span className='slider-input slider-round' />
@@ -163,15 +163,25 @@ export class InputRow extends Component {
     </div>
   )
 
-  static FlatSelect = ({ note, ...props }) => (
+  static FlatSelect = ({ note, onSelect, value, ...props }) => (
     <div className='charging-method-picker'>
       <input id='charge-method-el-1' type='radio' name='chargeMethod' className='charge-method-radio-input hiden-element' />
-      <label htmlFor='charge-method-el-1' className='charging-method-item'>%</label>
+      <label
+        onClick={() => onSelect('Percent')}
+        htmlFor='charge-method-el-1'
+        className='charging-method-item'
+        checked={value === 'Percent'}
+      >%</label>
       <input
         checked id='charge-method-el-2' type='radio' name='chargeMethod'
         className='charge-method-radio-input hiden-element'
       />
-      <label htmlFor='charge-method-el-2' className='charging-method-item'>$</label>
+      <label
+        onClick={() => onSelect('Flat')}
+        htmlFor='charge-method-el-2'
+        className='charging-method-item'
+        checked={value === 'Flat'}
+      >$</label>
       {note && <span className='charging-method-picker-notes'>{note}</span>}
     </div>
   )
