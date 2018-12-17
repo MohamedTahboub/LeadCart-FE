@@ -21,3 +21,4 @@ export default ({ dispatch }) => (next) => (action) => {
     onFaild: getProductFaild
   }));
 };
+

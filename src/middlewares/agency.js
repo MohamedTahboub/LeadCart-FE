@@ -12,7 +12,7 @@ export default ({ dispatch }) => (next) => (action) => {
       uri: '/api/users/agents/',
       contentType: 'json'
     },
-    onSuccess: onCreateSubAccountSuccess,
+    onSuccess: onCreateSubAccountSuccess.bind(this, action.payload),
     onFaild: onCreateSubAccountFaild
   }));
 };

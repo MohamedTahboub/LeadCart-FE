@@ -1,7 +1,9 @@
 import {
   CREATE_NEW_COUPON_SUCCESS,
   CREATE_NEW_COUPON_FAILD,
-  GET_COUPONS_LIST
+  GET_COUPONS_LIST,
+  CHANGE_COUPON_STATE_SUCCESS,
+  CHANGE_COUPON_STATE_FAILD,
 } from 'constantsTypes';
 
 const initailState = {
@@ -23,6 +25,19 @@ export default (state = initailState, { type, payload }) => {
         ...state.coupons,
         payload
       ]
+    };
+  case CHANGE_COUPON_STATE_SUCCESS:
+    const r = {
+      ...state,
+      coupons: state.coupons.map((c) => (c._id === payload.couponId ? { ...c, active: payload.active } : c))
+    };
+
+    console.log(r);
+    return r;
+  case CHANGE_COUPON_STATE_FAILD:
+    return {
+      ...state,
+      errors: typeof payload === 'object' ? payload : { message: payload }
     };
   case CREATE_NEW_COUPON_FAILD:
     return {

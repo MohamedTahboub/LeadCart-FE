@@ -1,5 +1,5 @@
 
-const modelFormatter = (obj, model) => {
+const modelFormatter = (obj, model = []) => {
   if (!obj) return obj;
   return model.reduce((out, key) => {
     if (typeof key === 'string') out[key] = obj[key];

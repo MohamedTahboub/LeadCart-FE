@@ -43,7 +43,7 @@ import ForgetPassword from 'containers/ForgetPassword';
 // import Dashboard from 'containers/Dashboard'
 import Guidlines from 'containers/Guidlines'
 import Products from 'containers/Products'
-import Product from 'containers/Product'
+import Product from 'containers/Product/index1'
 import Activities from './containers/Activities';
 import Coupons from './containers/Coupons';
 import Upsells from './containers/Upsells';
@@ -56,6 +56,7 @@ import registerServiceWorker from 'services/RegisterServiceWorker';
 
 // Styles
 import './index.css';
+import 'semantic-ui-css/semantic.min.css'
 import { APP_INIT } from 'constantsTypes';
 
 /* Temp page to represent the empty pages */

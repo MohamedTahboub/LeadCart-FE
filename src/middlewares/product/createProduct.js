@@ -5,12 +5,13 @@ import { apiRequest } from 'actions/apiRequest';
 export default ({ dispatch, getState }) => (next) => (action) => {
   if (action.type !== CREATE_NEW_PRODUCT) return next(action);
 
-  const { product: { newProductHolder: product } } = getState();
-
+  const { product: { newProduct } } = getState();
+  delete newProduct.isAproductCreated;
+  delete newProduct.errors;
   dispatch(apiRequest({
     options: {
       method: 'POST',
-      body: product,
+      body: newProduct,
       uri: '/api/products',
       contentType: 'json'
     },

@@ -12,7 +12,6 @@ import { connect } from 'react-redux'
 
 import common from 'components/common'
 // import { Button } from '../../components/common/Buttons';
-
 const { TabsNavigator, Button, MainTitle, FlexBoxesContainer } = common
 /* temp component tp represent the empty tap */
 
