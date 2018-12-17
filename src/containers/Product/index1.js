@@ -75,8 +75,9 @@ class Product extends Component {
     this.updateStepsWithCompletionState()
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.productUrl !== this.props.productUrl)
+  componentDidUpdate({ product}) {
+    
+    if (product!==this.props.product)
       this.updateStepsWithCompletionState()
   }
 

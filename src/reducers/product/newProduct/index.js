@@ -19,7 +19,9 @@ export default (state = initState, { type, payload }) => {
   case PRODUCT_CREATION_FAILD:
     return {
       ...state,
-      errors: typeof payload === 'string' ? { message: payload.includes('dup key') ? 'This product Url has been taken try another one Please' : payload } : payload
+      errors: typeof payload === 'string' ? {
+        message: payload.includes('dup key') ? 'This product Url has been taken try another one Please' : payload
+      } : payload
     };
   case NEW_PRODUCT_FIELD_UPDATE: return {
     ...state,
