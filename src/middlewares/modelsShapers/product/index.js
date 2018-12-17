@@ -18,7 +18,7 @@
 //   offer,
 //   thankYouPage,
 // ];
-import { GET_PRODUCT_SUCCESS } from 'constantsTypes';
+import { GET_PRODUCT_SUCCESS, UPDATE_PRODUCT_SUCCESS } from 'constantsTypes';
 import modeler from '../../helpers/modeler';
 import {
   settings,
@@ -32,10 +32,29 @@ import {
 } from '../../helpers/models';
 
 export default () => (next) => (action) => {
-  if (action.type !== GET_PRODUCT_SUCCESS) return next(action);
-  const productDetails = action.payload;
+  if (action.type !== GET_PRODUCT_SUCCESS && action.type !== UPDATE_PRODUCT_SUCCESS) return next(action);
 
-  const payload = {
+  // const productDetails = action.payload;
+  let isLocal = false;
+  if (action.type === UPDATE_PRODUCT_SUCCESS) isLocal = true;
+
+  action.payload = checkStepsCompletion(action.payload, isLocal);
+  next(action);
+};
+
+function checkStepsCompletion (productDetails, isLocal) {
+  delete productDetails.newProduct;
+  const completionCritiria = {
+    checkoutPage: ['template', 'presetColors'],
+    mandatoryDetails: ['name', 'url', 'image', 'description', 'price'],
+    boosters: ['termsAndConditions'],
+    payment: ['methods'],
+    fullfillment: ['file'],
+    settings: ['footerScript', 'postOrderScript', 'checkOutPageRedirect'],
+    offer: ['enabled', 'name', 'title', 'price', 'introText', 'bodyText', 'successUrl'],
+    thankYouPage: ['useCustomeThankPage']
+  };
+  const product = !isLocal ? {
     settings: modeler(productDetails.settings, settings),
     checkoutPage: modeler(productDetails.checkoutPage, checkoutPage),
     mandatoryDetails: modeler(productDetails, mandatoryDetails),
@@ -44,8 +63,20 @@ export default () => (next) => (action) => {
     boosters: modeler(productDetails.checkoutPage, boosters),
     offer: modeler(productDetails.offer, offer),
     thankYouPage: modeler(productDetails.payment, thankYouPage)
-  };
+  } : productDetails;
 
-  action.payload = payload;
-  next(action);
-};
+  console.log('==============>>>>>>', product);
+  const productInjected = Object.keys(product).reduce((prod, stepKey) => {
+    prod[stepKey] = { ...product[stepKey], completed: checkIfProductStepCompleted(product[stepKey], completionCritiria[stepKey]) };
+    return prod;
+  }, {});
+
+  return productInjected;
+}
+
+function checkIfProductStepCompleted (step = {}, shouldContainList = [], ignoreList = []) {
+  return shouldContainList.map((key) => {
+    if (step[key]) return true;
+    return false;
+  }).filter((c) => c).length === shouldContainList.length;
+}

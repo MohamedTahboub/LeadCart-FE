@@ -11,14 +11,27 @@ const isThePrevStepCompleted = (step, steps) => {
 
   return isCurrentCompleted || isPrevCompleted;
 };
+
+const isProductActive = (step, steps) => {
+  if (step.sub === 'checkoutPage' || step.sub === 'mandatoryDetails') return true;
+  const t = steps.filter(({ sub, completed }) => (sub === 'checkoutPage' || sub === 'mandatoryDetails'))
+    .filter((c) => c.completed).length === 2;
+  console.log(step.sub, t);
+  return t;
+};
 const Steps = ({
-  steps, activePage, disabled, onClick, ...props
+  steps, activePage, currentStep, disabled, onClick, ...props
 }) => (
   <Step.Group ordered>
     {steps.map((step) => {
-      const isDisabled = !isThePrevStepCompleted(step, steps);
+      const isDisabled = !isProductActive(step, steps);
       return (
-        <Step completed={step.completed} disabled={isDisabled} onClick={() => onClick(step.sub)}>
+        <Step
+          completed={!isDisabled && step.completed}
+          active={step.sub === currentStep && !isDisabled}
+          disabled={isDisabled}
+          onClick={() => onClick(step.sub)}
+        >
           <Step.Content>
             <Step.Title>{step.title}</Step.Title>
             {step.description && <Step.Description>{step.description}</Step.Description>}

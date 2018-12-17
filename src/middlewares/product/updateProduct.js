@@ -20,7 +20,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       uri: '/api/products',
       contentType: 'json'
     },
-    onSuccess: productUpdatedSuccessfuly,
+    onSuccess: productUpdatedSuccessfuly.bind(this, product),
     onFaild: productUpdatedFaild
   }));
   // restore the application stored data in the loaclStorage
@@ -37,7 +37,6 @@ function getProductFromat (product) {
     offer,
     thankYouPage
   } = Object.keys(modles).reduce((final, key) => {
-    console.log(product[key]);
     final[key] = modeler(product[key], modles[key]);
     return final;
   }, {});

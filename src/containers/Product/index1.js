@@ -70,12 +70,21 @@ class Product extends Component {
     steps[previousId] && steps[previousId].sub && this.goToStep(steps[previousId].sub);
   }
   componentDidMount = () => {
+   
+    this.updateCurrentProductDetails()
+    this.updateStepsWithCompletionState()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.productUrl !== this.props.productUrl)
+      this.updateStepsWithCompletionState()
+  }
+
+  updateStepsWithCompletionState = () => {
     const { product } = this.props
     this.setState({
       steps: steps.map(({ completed, ...step }) => ({ ...step, completed: !!(product[step.sub] && product[step.sub].completed) }))
     })
-    this.updateCurrentProductDetails()
-
   }
   updateCurrentProductDetails = () => {
     const productUrl = this.props.history.location.pathname.split('/')[2]
@@ -95,7 +104,7 @@ class Product extends Component {
     });
 
     if (!(nextId <= 6)) return;
-
+    if(currentStep==='checkoutPage') return this.goToStep('mandatoryDetails')
     steps[nextId] && steps[nextId].sub && steps[nextId - 1].completed && this.goToStep(steps[nextId].sub);
   };
   onChangesSave = (pageName) => {
@@ -117,7 +126,7 @@ class Product extends Component {
   isNotValidNextStep = () => {
     const { currentStep, steps } = this.state;
     // steps.filter(({ sub, completed }) => sub === currentStep)[0].completed
-
+    if(currentStep==='checkoutPage') return false
 
     return !steps.filter(({ sub }) => sub === currentStep)[0].completed
   }
@@ -140,16 +149,16 @@ class Product extends Component {
         <Steps className='product-steps-process' steps={steps} currentStep={currentStep} onClick={this.goToStep} disabled={this.isNotValidNextStep()} />
         <ActiveStep currentStep={currentStep} />
         <div className='product-footer-controlls'>
-          <Button onClick={this.onPrevious} classes={['orange-color']}>
+          <Button onClick={this.onPrevious} classes={['primary-color']} disabled={currentStep==='checkoutPage'}>
             <i className='fas fa-chevron-left' />
             Previous
           </Button>
           <div className="left-side-product-btns">
-            <Button onClick={() => this.props.updateProduct()} classes={['primary-color']}>
+            <Button onClick={() => this.props.updateProduct()}   classes={['primary-color']}>
               <i class="fas fa-save"></i>
               Save
             </Button>
-            <Button onClick={this.onNext} disabled={this.isNotValidNextStep()} classes={['primary-color']}>
+            <Button onClick={this.onNext} disabled={this.isNotValidNextStep()|| currentStep==='thankYouPage' } classes={['primary-color']}>
               Next
             <i className='fas fa-chevron-right' />
             </Button>

@@ -1,6 +1,7 @@
 import {
   GET_PRODUCT_SUCCESS,
-  PRODUCT_FULLFILLMENT_FIELD_UPDATE
+  PRODUCT_FULLFILLMENT_FIELD_UPDATE,
+  UPDATE_PRODUCT_SUCCESS
 } from 'constantsTypes';
 
 const initialState = {
@@ -10,11 +11,8 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
   case GET_PRODUCT_SUCCESS: return { ...state, ...payload.fullfillment };
+  case UPDATE_PRODUCT_SUCCESS: return { ...state, ...payload.fullfillment };
   case PRODUCT_FULLFILLMENT_FIELD_UPDATE: return { ...state, [payload.name]: payload.value };
-    //   case CHECKOUT_PAGE_INVALID_FIELDS: return {
-    //     ...state,
-    //     error: typeof payload === 'string' ? { message: payload } : payload
-    //   };
   default: return state;
   }
 };

@@ -23,6 +23,7 @@ class CreateProductModal extends Component {
   }
 
   onFieldChange = ({ target: { name, value } }) => {
+    console.log(name, value);
     this.props.onNewProductFieldChange({ name, value });
   }
 
@@ -41,16 +42,24 @@ class CreateProductModal extends Component {
     this.props.onNewProductFieldChange({ name: 'payment', value: casted });
   }
 
+  componentDidUpdate (preprop) {
+    if (preprop.url !== this.props.url) {
+      this.setState({
+        url: this.props.url
+      });
+    }
+  }
+
   componentDidUpdate = () => {
     const {
-      createdProduct, history, isAproductCreated, toggleCreateProductModal
+      url, history, isAproductCreated, toggleCreateProductModal
     } = this.props;
     if (isAproductCreated && this.state.currentProduct) {
       setTimeout(() => {
         toggleCreateProductModal();
-        history.push(`/product/${createdProduct.url}/details`);
+        history.push(`/product/${this.state.url}/details`);
       }, 320);
-      this.setState({ currentProduct: false });
+      this.setState({ currentProduct: false, url });
     }
   }
 
@@ -87,13 +96,13 @@ class CreateProductModal extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  createdProduct: state.product.details,
-  isAproductCreated: state.product.isAproductCreated,
-  errors: state.validation.newProduct,
-  subdomain: state.user.user.subDomain,
-  isVisable: state.modals.product.isVisable,
-  productDetails: state.product.details,
+const mapStateToProps = ({ product: { newProduct, mandatoryDetails }, user, modals }) => ({
+  url: newProduct.url,
+  isAproductCreated: newProduct.isAproductCreated,
+  errors: newProduct.errors,
+  subdomain: user.user.subDomain,
+  isVisable: modals.product.isVisable,
+  productDetails: newProduct,
 });
 
 export default connect(mapStateToProps, { ...producActions, ...modalsActions })(CreateProductModal);

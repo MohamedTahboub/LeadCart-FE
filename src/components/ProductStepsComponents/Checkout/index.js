@@ -27,11 +27,22 @@ class CheckoutTemplates extends React.Component {
   };
 
   componentDidMount () {
-    const { template: selectedTemplate, presetColors: templateColor } = this.props.checkoutPage;
+    const { template, presetColors } = this.props;
+    const { selectedTemplate, templateColor } = this.state;
     this.setState({
-      selectedTemplate,
-      templateColor
+      selectedTemplate: template || selectedTemplate,
+      templateColor: presetColors || templateColor
     });
+  }
+
+  componentDidUpdate (prev) {
+    const { template, presetColors } = this.props;
+    if (prev.template !== template) {
+      this.setState({
+        selectedTemplate: template,
+        templateColor: presetColors
+      });
+    }
   }
 
   onColorChange = ({ hex: color }) => {
@@ -47,6 +58,7 @@ class CheckoutTemplates extends React.Component {
   isActive = (template) => this.state.selectedTemplate === template
 
   render () {
+    const { templateColor } = this.state;
     return (
       <MainBlock>
         <MainTitle>Picke your Template Design</MainTitle>
@@ -60,13 +72,13 @@ class CheckoutTemplates extends React.Component {
         </form>
         <MainTitle className='margin-top-20'>Checkout Template Theme Color</MainTitle>
         <FlexBoxesContainer classes={['template-color-picker-container']}>
-          <CirclePicker color={this.state.templateColor} onChange={this.onColorChange} />
-          <div style={{ background: this.state.templateColor }} className='template-selected-color-simulation' />
+          <CirclePicker color={templateColor} onChange={this.onColorChange} />
+          <div style={{ background: templateColor }} className='template-selected-color-simulation' />
         </FlexBoxesContainer>
       </MainBlock>
     );
   }
 }
 
-const mapStateToProps = ({ product: { checkoutPage } }) => ({ checkoutPage });
+const mapStateToProps = ({ product: { checkoutPage } }) => ({ ...checkoutPage });
 export default connect(mapStateToProps, producActions)(CheckoutTemplates);

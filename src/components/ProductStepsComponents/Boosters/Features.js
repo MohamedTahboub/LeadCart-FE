@@ -125,7 +125,6 @@ class ProductFeatures extends Component {
     }
   }
 
-  componentDidUpdate = () => console.log(this.state.features)
 
   render () {
     const { features, featuresTitle } = this.state;

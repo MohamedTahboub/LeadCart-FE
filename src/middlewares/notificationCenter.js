@@ -16,6 +16,7 @@ import {
   UPDATE_PRODUCT_DETAILS_FAILD,
   CREATE_SUB_ACCOUNT_FAILD,
   PRODUCT_CREATION_FAILD,
+  UPDATE_PRODUCT_FAILD
 } from 'constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -56,8 +57,8 @@ export default ({ dispatch }) => (next) => (action) => {
   case SAVE_USER_GENERAL_SETTINGS_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update General Setting' }));
     break;
-  case UPDATE_PRODUCT_DETAILS_FAILD:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update Product Details' }));
+  case UPDATE_PRODUCT_FAILD:
+    dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Update The Product' }));
     break;
   case CREATE_SUB_ACCOUNT_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Faild to Create A Sub Account!' }));

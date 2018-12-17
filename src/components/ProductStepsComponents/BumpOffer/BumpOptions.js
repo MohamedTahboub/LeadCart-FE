@@ -14,8 +14,6 @@ class BumpOfferOptions extends Component {
   }
 
 
-  'bumpOfferTemplate'
-
   toggleBumbeOfferStatus = () => {
     const { isEnabled } = this.state;
     this.setState({ isEnabled: !isEnabled });

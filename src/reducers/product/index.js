@@ -7,8 +7,10 @@ import boosters from './boosters';
 import payment from './payment';
 import fullfillment from './fullfillment';
 import mandatoryDetails from './mandatoryDetails';
+import newProduct from './newProduct';
 
 export default combineReducers({
+  newProduct,
   checkoutPage,
   mandatoryDetails,
   boosters,
