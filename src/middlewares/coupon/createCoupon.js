@@ -1,7 +1,7 @@
 import { CREATE_NEW_COUPON } from 'constantsTypes';
 import {
-  changeCouponStateSuccess,
-  changeCouponStateFaild
+  createNewCouponSuccess,
+  createNewCouponFaild
 } from 'actions/coupon';
 import { apiRequest } from 'actions/apiRequest';
 
@@ -15,8 +15,8 @@ export default ({ dispatch }) => (next) => (action) => {
       uri: '/api/coupon',
       contentType: 'json'
     },
-    onSuccess: changeCouponStateSuccess,
-    onFaild: changeCouponStateFaild
+    onSuccess: createNewCouponSuccess,
+    onFaild: createNewCouponFaild
   }));
 };
 
