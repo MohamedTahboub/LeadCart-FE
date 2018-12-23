@@ -25,11 +25,9 @@ class ThankYouPage extends Component {
 
   componentDidMount () {
     const { useCustomeThankPage } = this.props;
-    console.log('--------useCustomeThankPage----------',this.state.isEnabled);
-    console.log('--------useCustomeThankPage----------',useCustomeThankPage);
 
     this.setState({
-      isEnabled :  useCustomeThankPage
+      isEnabled: useCustomeThankPage
     });
   }
 
@@ -42,12 +40,11 @@ class ThankYouPage extends Component {
     const { isEnabled } = this.state;
     const { thankyouPage } = this.props;
 
-    console.log('--------RENDERS----------', isEnabled);
     return (
 
       <Tabs>
         <TabList>
-          <Tab><TabTitle error>Thank you Page </TabTitle></Tab>
+          <Tab><TabTitle>Thank you Page </TabTitle></Tab>
         </TabList>
         <TabPanel>
           <Block>

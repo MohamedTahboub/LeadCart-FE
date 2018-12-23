@@ -13,7 +13,6 @@ const AddInputField = ({ onAdd }) => {
     e.preventDefault();
     const { target: { content: { value } } } = e;
 
-    console.log(value);
     onAdd(value);
   };
   return (
@@ -104,8 +103,13 @@ class ProductFeatures extends Component {
 
   onFeatureEdit = (feature, newFeature) => {
     if (newFeature.trim().length > 3) {
+      const newFeatures = this.state.features.map((f) => (f === feature ? newFeature : f));
       this.setState({
-        features: this.state.features.map((f) => (f === feature ? newFeature : f))
+        features: newFeatures
+      });
+      this.props.onProductBoostersFieldChange({
+        name: 'bulletPoints',
+        value: newFeatures
       });
     }
   }
@@ -119,8 +123,13 @@ class ProductFeatures extends Component {
   onAddFeature = (feature = '') => {
     const { features } = this.state;
     if (features.length < 6 && feature.trim().length > 2) {
+      const newFeatures = [...features, feature];
       this.setState({
-        features: [...features, feature]
+        features: newFeatures
+      });
+      this.props.onProductBoostersFieldChange({
+        name: 'bulletPoints',
+        value: newFeatures
       });
     }
   }
