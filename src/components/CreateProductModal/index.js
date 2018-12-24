@@ -23,7 +23,6 @@ class CreateProductModal extends Component {
   }
 
   onFieldChange = ({ target: { name, value } }) => {
-    console.log(name, value);
     this.props.onNewProductFieldChange({ name, value });
   }
 
