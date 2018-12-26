@@ -1,7 +1,7 @@
 
 
 export default [
-  'showGuaranteeBadge',
+  // 'showGuaranteeBadge',
   'bulletPointImage',
   'bulletPoints',
   'bulletPointsTitle',

@@ -8,7 +8,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   if (action.type !== CREATE_NEW_PRODUCT) return next(action);
 
   const { product: { newProduct } } = getState();
-  console.log('===================', newProduct);
   const rules = {
     name: [Rules.isRequired],
     description: [Rules.isRequired],

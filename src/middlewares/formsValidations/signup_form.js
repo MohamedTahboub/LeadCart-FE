@@ -9,7 +9,6 @@ export default ({ dispatch }) => (next) => (action) => {
     code: [Rules.isPromoCode]
   };
   const isInvalid = Vaidator(action.payload, rules);
-  console.log(isInvalid);
 
   if (isInvalid) dispatch(signUpInvalidFields(isInvalid));
   else next(action);
