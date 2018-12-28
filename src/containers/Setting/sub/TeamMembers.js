@@ -51,18 +51,14 @@ class TeamMembers extends Component {
               </Tabel.Head>
               <Tabel.Body>
                 {this.props.members.map(({
-                  firstName, lastName, email, active, _id: id
+                  member: {
+                    firstName, lastName, email, _id: id
+                  } = {}, active
                 }) => (
                   <Tabel.Row key={id}>
-                    <Tabel.Cell
-                      mainContent={firstName || '--'}
-                    />
-                    <Tabel.Cell
-                      mainContent={lastName || '--'}
-                    />
-                    <Tabel.Cell
-                      mainContent={email}
-                    />
+                    <Tabel.Cell mainContent={firstName || 'Not Set'} />
+                    <Tabel.Cell mainContent={lastName || 'Not Set'} />
+                    <Tabel.Cell mainContent={email} />
                     <Tabel.Cell>
                       {active
                         ? <SmallButton onClick={this.props.activateMember.bind(this, id)} classes='green-color'>Active</SmallButton>
