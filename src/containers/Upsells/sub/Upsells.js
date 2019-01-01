@@ -4,7 +4,7 @@ import Modal from 'components/Modal';
 import common from 'components/common';
 
 const {
- NewThingCard, MainTitle, InputRow, Button 
+  NewThingCard, MainTitle, InputRow, Button
 } = common;
 
 class Upsells extends Component {
@@ -16,8 +16,8 @@ class Upsells extends Component {
 
     render () {
       return (
-          <div>
-              <NewThingCard onClick={this.toggleModal} thing='Upsell' />
+        <div>
+          <NewThingCard onClick={this.toggleModal} thing='Upsell' />
           <Modal onClose={this.toggleModal} isVisable={this.state.isModalVisable}>
             <MainTitle>Create Upsell</MainTitle>
             <InputRow>
@@ -29,10 +29,10 @@ class Upsells extends Component {
               <InputRow.TextAreaInput></InputRow.TextAreaInput>
             </InputRow>
             <Button classes='primary-color margin-with-float-right'>
-                      <i className='fas fa-plus' />
-{' '}
+              <i className='fas fa-plus' />
+              {' '}
 Create Upsells
-</Button>
+            </Button>
           </Modal>
         </div>
       );
