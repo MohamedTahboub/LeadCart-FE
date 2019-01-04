@@ -77,3 +77,27 @@
 .react-tabs__tab--selected .tab-title-container:after{
     box-shadow: none !important;
 }
+
+
+
+
+
+/* Embeded Script Container Styles*/
+.embeded-script-container{
+    position: relative;
+}
+.copied-flag{
+    position: absolute;
+    bottom: -44px;
+    right: 10px;
+    background: gray;
+    padding: 5px 5px;
+    border-radius: 3px;
+    color: white;
+    transition: all .4s ease-in-out;
+    opacity: 0;
+}
+.input-head-note{
+    margin: 10px 0px;
+}
+/* Embeded Script Container Styles Ends*/

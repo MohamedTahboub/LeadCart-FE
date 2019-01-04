@@ -4,9 +4,9 @@ import './style.css';
 
 
 export const MainTitle = ({
-  handle, className, children, props
+  handle, className, children, bottomLine, props
 }) => (
-  <div className={`main-title-container ${className}`}>
+  <div className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''}`}>
     {handle && (
       <span className='main-title-handle'>
         <i className={`fas ${handle.iconClass}`} />

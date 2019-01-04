@@ -42,7 +42,6 @@ class TextAreaInput extends Component {
         value,
         error: ''
       });
-      console.log(this.props.name, value);
       this.props.onChange({ target: { name: this.props.name, value } });
     }
   }

@@ -37,7 +37,7 @@ export class InputRow extends Component {
         name={name}
         disabled={disabled}
         type={type}
-        className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ') }
+        className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
         placeholder={props.children}
       />
     )
@@ -157,34 +157,49 @@ export class InputRow extends Component {
     </label>
   )
 
-  static CodeInputArea = ({ value, onChange, name, ...props }) => (
+  static CodeInputArea = ({ value, onChange, name, disabled, ...props }) => (
     <div className='code-area-container'>
-      <textarea onChange={onChange} name={name} defaultValue={value} className='codearea-input-field' placeholder={props.children} />
+      <textarea
+        onChange={onChange}
+        name={name}
+        disabled={disabled}
+        defaultValue={value}
+        className='codearea-input-field'
+        placeholder={props.children}
+      />
     </div>
   )
 
-  static FlatSelect = ({ note, onSelect, value, ...props }) => (
-    <div className='charging-method-picker'>
-      <input id='charge-method-el-1' type='radio' name='chargeMethod' className='charge-method-radio-input hiden-element' />
-      <label
-        onClick={() => onSelect('Percent')}
-        htmlFor='charge-method-el-1'
-        className='charging-method-item'
-        checked={value === 'Percent'}
-      >%</label>
-      <input
-        checked id='charge-method-el-2' type='radio' name='chargeMethod'
-        className='charge-method-radio-input hiden-element'
-      />
-      <label
-        onClick={() => onSelect('Flat')}
-        htmlFor='charge-method-el-2'
-        className='charging-method-item'
-        checked={value === 'Flat'}
-      >$</label>
-      {note && <span className='charging-method-picker-notes'>{note}</span>}
-    </div>
-  )
+  static FlatSelect = ({ note, onSelect, value = 'Percent', ...props }) => {
+    console.log('charging-method-picker', value)
+    return (
+      <div className='charging-method-picker'>
+        <input id='charge-method-el-1'
+          type='radio'
+          name='chargeMethod'
+          className='charge-method-radio-input hiden-element' />
+        <label
+          onClick={() => onSelect('Percent')}
+          htmlFor='charge-method-el-1'
+          className='charging-method-item'
+          defaultChecked={value === 'Percent'}
+        >%</label>
+        <input
+          id='charge-method-el-2'
+          type='radio'
+          name='chargeMethod'
+          className='charge-method-radio-input hiden-element'
+        />
+        <label
+          onClick={() => onSelect('Flat')}
+          htmlFor='charge-method-el-2'
+          className='charging-method-item'
+          defaultChecked={value === 'Flat'}
+        >$</label>
+        {note && <span className='charging-method-picker-notes'>{note}</span>}
+      </div>
+    )
+  }
 
   static Note = ({ content, children, ...props }) => (
     <div className='note-element'>
@@ -203,3 +218,15 @@ export class InputRow extends Component {
   }
 }
 
+export const CodeInputArea = ({ value, flixable, onChange, name, disabled, ...props }) => (
+  <div className={`code-area-container ${flixable ? "flixable-code-area-container" : ""}`}>
+    <textarea
+      onChange={onChange}
+      name={name}
+      disabled={disabled}
+      defaultValue={value}
+      className={`codearea-input-field  ${flixable ? "flixable-codearea-input-field" : ""}`}
+      placeholder={props.children}
+    />
+  </div>
+)
