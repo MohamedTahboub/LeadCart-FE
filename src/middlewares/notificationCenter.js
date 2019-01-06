@@ -12,6 +12,7 @@ import {
   CREATE_NEW_MEMBER_SUCCESS,
   CREATE_NEW_MEMBER_FAILD,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
+  TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
   SAVE_USER_GENERAL_SETTINGS_FAILD,
   CREATE_SUB_ACCOUNT_FAILD,
   PRODUCT_CREATION_FAILD,
@@ -53,6 +54,9 @@ export default ({ dispatch }) => (next) => (action) => {
     break;
   case CHANGE_COUPON_STATE_SUCCESS:
     dispatch(showFlashMessage({ type: 'success', message: 'Coupon status changed Successfully' }));
+    break;
+  case TOGGLE_PRODUCT_AVAILABILITY_SUCCESS:
+    dispatch(showFlashMessage({ type: 'success', message: 'Product availability changed Successfully' }));
     break;
   case CHANGE_ACCOUNT_DETAILS_FAILD:
     dispatch(showFlashMessage({ type: 'faild', message: 'Account Details Changes Faild' }));

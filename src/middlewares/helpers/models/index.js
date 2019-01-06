@@ -1,4 +1,5 @@
 export { default as settings } from './settings';
+export { default as userSettings } from './userSettings';
 export { default as checkoutPage } from './checkoutPage';
 export { default as mandatoryDetails } from './mandatoryDetails';
 export { default as payment } from './payment';

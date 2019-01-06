@@ -20,7 +20,6 @@ export default () => (next) => (action) => {
       upadateIntercomeWithUserDetails(payload);
 
       localStorage.LeadCart = JSON.stringify({ ...payload, isLoggedIn: true });
-      console.log('-+-=-=-=-=======', localStorage.LeadCart);
     }
     if (type === UPDATE_USER_PROFILE_IMAGE_SUCCESS) {
       localStorage.LeadCart = JSON.stringify({

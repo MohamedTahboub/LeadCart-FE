@@ -8,5 +8,7 @@ export default [
   'description',
   'image',
   { value: 'price', sub: ['amount', 'currancy'] },
-  'tags'
+  'tags',
+  'available',
+  'isActive'
 ];

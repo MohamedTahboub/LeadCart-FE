@@ -52,7 +52,7 @@ function checkStepsCompletion (productDetails, isLocal) {
     fullfillment: ['file'],
     settings: ['footerScript', 'postOrderScript', 'checkOutPageRedirect'],
     offer: ['enabled', 'name', 'title', 'price', 'introText', 'bodyText', 'successUrl'],
-    thankYouPage: ['useCustomeThankPage']
+    thankYouPage: ['defaultThankYouPage', 'thankYouPageUrl']
   };
   const product = !isLocal ? {
     settings: modeler(productDetails.settings, settings),
