@@ -69,7 +69,6 @@ export default class PaymentType extends Component {
   onPaymentTypeChange = ({ target: { value } }) => this.setState({ type: value })
 
   onChange = ({ target: { value, name } }) => {
-    console.log(value, name);
     this.setState({
       currentValue: {
         ...this.state.currentValue,

@@ -56,12 +56,12 @@ class Coupons extends Component {
 
   componentDidUpdate = (prevProps) => {
     if (this.props.products !== prevProps.products) {
-      this.products = this.props.products
+      this.products = this.props.products;
       this.setState({
         products: this.props.products.map((product) => ({
           id: product._id, name: product.name
         })).unshift({ id: 'all', name: 'All products' })
-      })
+      });
     }
     if (this.props.created && (this.props.coupons.length > prevProps.coupons.length)) {
       this.setState({ isModalVisable: false });
@@ -111,8 +111,12 @@ class Coupons extends Component {
     return productName;
   };
 
-  render() {
-    const { state: { enableCoupons, products, isModalVisable, type }, props: { errors, coupons } } = this;
+  render () {
+    const {
+      state: {
+        enableCoupons, products, isModalVisable, type
+      }, props: { errors, coupons }
+    } = this;
     return (
       <div className='coupons-page'>
         <MainBlock title='Coupons'>
@@ -141,20 +145,20 @@ class Coupons extends Component {
                 forAll,
                 usedBy
               }) => (
-                  <Tabel.Row key={code}>
-                    <Tabel.Cell mainContent={code} />
-                    <Tabel.Cell mainContent={discount.type} />
-                    <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
-                    <Tabel.Cell mainContent={forAll === true ? 'All Products' : this.getProductNameByCouponId(couponId, products)} />
-                    <Tabel.Cell mainContent={createdAt.split('T')[0]} />
-                    <Tabel.Cell>
-                      {active
-                        ? <SmallButton onClick={this.props.changeCouponState.bind(this, { couponId, active: !active })} classes='green-color'>Active</SmallButton>
-                        : <SmallButton onClick={this.props.changeCouponState.bind(this, { couponId, active: !active })} classes='gray-color'>Inactive</SmallButton>
-                      }
-                    </Tabel.Cell>
-                  </Tabel.Row>
-                ))}
+                <Tabel.Row key={code}>
+                  <Tabel.Cell mainContent={code} />
+                  <Tabel.Cell mainContent={discount.type} />
+                  <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
+                  <Tabel.Cell mainContent={forAll === true ? 'All Products' : this.getProductNameByCouponId(couponId, products)} />
+                  <Tabel.Cell mainContent={createdAt.split('T')[0]} />
+                  <Tabel.Cell>
+                    {active
+                      ? <SmallButton onClick={this.props.changeCouponState.bind(this, { couponId, active: !active })} classes='green-color'>Active</SmallButton>
+                      : <SmallButton onClick={this.props.changeCouponState.bind(this, { couponId, active: !active })} classes='gray-color'>Inactive</SmallButton>
+                    }
+                  </Tabel.Cell>
+                </Tabel.Row>
+              ))}
 
           </Tabel.Body>
         </Tabel>

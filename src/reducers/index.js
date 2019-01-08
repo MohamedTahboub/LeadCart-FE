@@ -14,6 +14,7 @@ import coupons from './coupons'
 import teamMembers from './teamMembers'
 import settings from './settings'
 import agency from './agency'
+import upsells from './upsells'
 
 const rootReducer = combineReducers({
     user,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     settings,
     account,
     coupons,
+    upsells,
     teamMembers,
     agency,
     payments,

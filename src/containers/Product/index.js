@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import common from 'components/common';
 import Steps from 'components/Steps'
 import ActiveStep from './ActiveStep'
+import ShareProductModale from 'components/ShareProductModale'
 import { connect } from 'react-redux'
 import * as productAction from 'actions/product'
 import './style.css'
@@ -35,6 +36,7 @@ const steps = [
 
 class Product extends Component {
   state = {
+    showShareProductModal: false,
     steps,
     currentStep: 'checkoutPage'
   }
@@ -69,14 +71,14 @@ class Product extends Component {
     steps[previousId] && steps[previousId].sub && this.goToStep(steps[previousId].sub);
   }
   componentDidMount = () => {
-   
+
     this.updateCurrentProductDetails()
     this.updateStepsWithCompletionState()
   }
 
-  componentDidUpdate({ product}) {
-    
-    if (product!==this.props.product)
+  componentDidUpdate({ product }) {
+
+    if (product !== this.props.product)
       this.updateStepsWithCompletionState()
   }
 
@@ -103,7 +105,7 @@ class Product extends Component {
     });
 
     if (!(nextId <= 6)) return;
-    if(currentStep==='checkoutPage') return this.goToStep('mandatoryDetails')
+    if (currentStep === 'checkoutPage') return this.goToStep('mandatoryDetails')
     steps[nextId] && steps[nextId].sub && steps[nextId - 1].completed && this.goToStep(steps[nextId].sub);
   };
   onChangesSave = (pageName) => {
@@ -125,39 +127,58 @@ class Product extends Component {
   isNotValidNextStep = () => {
     const { currentStep, steps } = this.state;
     // steps.filter(({ sub, completed }) => sub === currentStep)[0].completed
-    if(currentStep==='checkoutPage') return false
+    if (currentStep === 'checkoutPage') return false
 
     return !steps.filter(({ sub }) => sub === currentStep)[0].completed
   }
-
+  onShowShareModal = () => {
+    this.onToggleShareProductModal()
+  }
+  onToggleShareProductModal = () => {
+    const { showShareProductModal } = this.state
+    this.setState({ showShareProductModal: !showShareProductModal })
+  }
+  onPreview = ({ subdomain, productUrl }) => {
+    const url = `https://${subdomain}.leadcart.io/products/${productUrl}`
+    window.open(url, '_blank')
+  }
   render = () => {
-    const { currentStep, steps } = this.state
+    const {
+      state: { currentStep, steps, showShareProductModal },
+      props: { subdomain, productUrl, toggleProductAvailability,available, id }
+    } = this
     return (
       <div className='products-details-page'>
         <div className='products-controls-btns'>
-          <Button onClick={this.onPreview} classes={['share-btn']}>
+          <Button onClick={this.onToggleShareProductModal} classes={['share-btn']}>
             <i className='fas fa-share-square' />
             Share Product
           </Button>
+          <ShareProductModale
+            isVisable={showShareProductModal}
+            onClose={this.onToggleShareProductModal}
+            subdomain={subdomain}
+            productUrl={productUrl}
+          />
           <div className='product-toolbar-container'>
-            <ActivationSwitchInput active />
-            <MiniButton onClick={this.onPreview} classes='row-explor-btn' iconClass='fa-eye' />
+            <ActivationSwitchInput active={available} onToggle={toggleProductAvailability.bind(this, { id, available})} />
+            <MiniButton onClick={this.onPreview.bind(this, { subdomain, productUrl })} classes='row-explor-btn' iconClass='fa-eye' />
 
           </div>
         </div>
         <Steps className='product-steps-process' steps={steps} currentStep={currentStep} onClick={this.goToStep} disabled={this.isNotValidNextStep()} />
         <ActiveStep currentStep={currentStep} />
         <div className='product-footer-controlls'>
-          <Button onClick={this.onPrevious} classes={['primary-color']} disabled={currentStep==='checkoutPage'}>
+          <Button onClick={this.onPrevious} classes={['primary-color']} disabled={currentStep === 'checkoutPage'}>
             <i className='fas fa-chevron-left' />
             Previous
           </Button>
           <div className="left-side-product-btns">
-            <Button onClick={() => this.props.updateProduct()}   classes={['primary-color']}>
+            <Button onClick={() => this.props.updateProduct()} classes={['primary-color']}>
               <i class="fas fa-save"></i>
               Save
             </Button>
-            <Button onClick={this.onNext} disabled={this.isNotValidNextStep()|| currentStep==='thankYouPage' } classes={['primary-color']}>
+            <Button onClick={this.onNext} disabled={this.isNotValidNextStep() || currentStep === 'thankYouPage'} classes={['primary-color']}>
               Next
             <i className='fas fa-chevron-right' />
             </Button>
@@ -170,8 +191,10 @@ class Product extends Component {
 const mapStateToProps = ({ product, user }) => ({
   subdomain: user.user.subDomain,
   productUrl: product.mandatoryDetails.url,
-  id: product._id,
+  id: product.mandatoryDetails._id,
   available: product.mandatoryDetails.available,
+  isActive: product.mandatoryDetails.isActive,
+  productName: product.mandatoryDetails.name,
   product
 })
 export default connect(mapStateToProps, productAction)(Product);

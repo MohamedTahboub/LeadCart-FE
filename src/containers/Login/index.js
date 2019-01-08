@@ -14,7 +14,6 @@ const Login = ({
     const {
       target: { email: { value: email }, password: { value: password } }
     } = e;
-    console.log(email, password);
     login({ email, password });
   };
 

@@ -30,7 +30,7 @@ class Setting extends Component {
 
         switch (pageName) {
             case 'general':
-                return this.props.saveUserGeneralSettings({})
+                return this.props.saveUserGeneralSettings()
             // case 'checkout':
             //     return this.props.updateProductCheckoutDesign()
             // case 'payments':
@@ -50,7 +50,7 @@ class Setting extends Component {
                     <MainTitle >Settings</MainTitle>
                     <Button onClick={this.onChangesSave} classes=' primary-color'>
                         Save Changes
-                    </Button>
+                    </Button>s
                 </FlexBoxesContainer>
                 <TabsNavigator
                     tabs={newProductTabs}

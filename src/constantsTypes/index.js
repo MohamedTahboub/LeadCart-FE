@@ -113,6 +113,8 @@ export const CREATE_NEW_COUPON_SUCCESS = Symbol('CREATE_NEW_COUPON_SUCCESS');
 export const CREATE_NEW_COUPON_FAILD = Symbol('CREATE_NEW_COUPON_FAILD');
 export const GET_COUPONS_LIST = Symbol('GET_COUPONS_LIST');
 
+export const RESET_COUPON_MODALE = Symbol('RESET_COUPON_MODALE');
+
 export const CHANGE_COUPON_STATE = Symbol('CHANGE_COUPON_STATE');
 export const CHANGE_COUPON_STATE_SUCCESS = Symbol('CHANGE_COUPON_STATE_SUCCESS');
 export const CHANGE_COUPON_STATE_FAILD = Symbol('CHANGE_COUPON_STATE_FAILD');
@@ -161,6 +163,20 @@ export const UPLOAD_FILE_FAILD = Symbol('UPLOAD_FILE_FAILD');
 export const GET_CUSTOMERS_LIST = Symbol('GET_CUSTOMERS_LIST');
 export const GET_ORDERS_LIST = Symbol('GET_ORDERS_LIST');
 export const GET_SUBSCRIPTIONS_LIST = Symbol('GET_SUBSCRIPTIONS_LIST');
+
+/* Upsells Actions */
+export const GET_UPSELLS = Symbol('GET_UPSELL');
+export const CREATE_UPSELL = Symbol('CREATE_UPSEL');
+export const CREATE_UPSELL_SUCCESS = Symbol('CREATE_UPSELL_SUCCES');
+export const CREATE_UPSELL_FAILD = Symbol('CREATE_UPSELL_FAIL');
+export const UPDATE_UPSELL = Symbol('UPDATE_UPSEL');
+export const UPDATE_UPSELL_SUCCESS = Symbol('UPDATE_UPSELL_SUCCES');
+export const UPDATE_UPSELL_FAILD = Symbol('UPDATE_UPSELL_FAIL');
+export const DELETE_UPSELL = Symbol('DELETE_UPSEL');
+export const DELETE_UPSELL_SUCCESS = Symbol('DELETE_UPSELL_SUCCES');
+export const DELETE_UPSELL_FAILD = Symbol('DELETE_UPSELL_FAIL');
+
+/* Upsells Actions Ends */
 
 
 /* global action types */

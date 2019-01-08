@@ -4,7 +4,7 @@ import Collapsible from 'react-collapsible';
 import './style.css';
 class App extends React.Component {
   onOpening = (e) => {
-    console.log(e);
+
   }
 
   render () {

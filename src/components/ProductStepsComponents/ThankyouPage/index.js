@@ -16,8 +16,9 @@ class ThankYouPage extends Component {
   toggleBumbeOfferStatus = () => {
     const { isEnabled } = this.state;
     this.setState({ isEnabled: !isEnabled });
-    this.props.onProductThankYouPageFieldChange({ name: 'useCustomeThankPage', value: !isEnabled });
+    this.props.onProductThankYouPageFieldChange({ name: 'defaultThankYouPage', value: !isEnabled });
   }
+
 
   onFieldChange = ({ target: { name, value } }) => {
     this.props.onProductThankYouPageFieldChange({ name, value });
@@ -50,7 +51,7 @@ class ThankYouPage extends Component {
           <Block>
             <InputRow>
               <InputRow.Label>Use default Thank you Page</InputRow.Label>
-              <InputRow.SwitchInput key='useCustomeThankPage' preValue={isEnabled} onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
+              <InputRow.SwitchInput key='thankYouPageUrl' preValue={isEnabled} onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
             </InputRow>
             <InputRow>
               <InputRow.Label>Your Own Thank you Page Link</InputRow.Label>
