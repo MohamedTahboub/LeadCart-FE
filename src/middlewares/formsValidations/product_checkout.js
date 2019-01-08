@@ -19,7 +19,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     guaranteeTitle: [Rules.isRequired],
     guaranteeText: [Rules.isRequired],
     template: [Rules.isRequired],
-    termsAndConditions: [Rules.isObject],
+    // termsAndConditions: [Rules.isObject],
     testimonials: [Rules.isArray],
     bulletPointsTitle: [Rules.isRequired],
   };
