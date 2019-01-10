@@ -157,8 +157,9 @@ export const toggleProductAvailability = (availability) => ({
   type: TOGGLE_PRODUCT_AVAILABILITY,
   payload: availability
 });
-export const toggleProductAvailabilitySuccess = () => ({
-  type: TOGGLE_PRODUCT_AVAILABILITY_SUCCESS
+export const toggleProductAvailabilitySuccess = (availability) => ({
+  type: TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
+  payload: availability
 });
 export const toggleProductAvailabilityFaild = (message) => ({
   type: TOGGLE_PRODUCT_AVAILABILITY_FAILD,

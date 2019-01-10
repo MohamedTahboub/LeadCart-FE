@@ -1,0 +1,126 @@
+[
+    {
+        "name": "Upsell #1",
+        "price": 20,
+        "linkedProduct": {
+            "productId": "",
+            "name": "X Prodcut"
+        },
+        "assets": {
+            "type": "video",
+            "video": "",
+            "image": ""
+        },
+        "features": [
+            {
+                "title": "feature one",
+                "description": "feature one description"
+            },
+            {
+                "title": "feature tow ",
+                "description": "feature tow description"
+            },
+            {
+                "title": "feature three ",
+                "description": "feature three description"
+            },
+            {
+                "title": "feature four ",
+                "description": "feature four description"
+            }
+        ]
+    },
+    {
+        "name": "Upsell #1",
+        "price": 20,
+        "linkedProduct": {
+            "productId": "",
+            "name": "X Prodcut"
+        },
+        "assets": {
+            "type": "video",
+            "video": "",
+            "image": ""
+        },
+        "features": [
+            {
+                "title": "feature one",
+                "description": "feature one description"
+            },
+            {
+                "title": "feature tow ",
+                "description": "feature tow description"
+            },
+            {
+                "title": "feature three ",
+                "description": "feature three description"
+            },
+            {
+                "title": "feature four ",
+                "description": "feature four description"
+            }
+        ]
+    },
+    {
+        "name": "Upsell #1",
+        "price": 20,
+        "linkedProduct": {
+            "productId": "",
+            "name": "X Prodcut"
+        },
+        "assets": {
+            "type": "video",
+            "video": "",
+            "image": ""
+        },
+        "features": [
+            {
+                "title": "feature one",
+                "description": "feature one description"
+            },
+            {
+                "title": "feature tow ",
+                "description": "feature tow description"
+            },
+            {
+                "title": "feature three ",
+                "description": "feature three description"
+            },
+            {
+                "title": "feature four ",
+                "description": "feature four description"
+            }
+        ]
+    },
+    {
+        "name": "Upsell",
+        "price": 20,
+        "linkedProduct": {
+            "productId": "",
+            "name": "X Prodcut"
+        },
+        "assets": {
+            "type": "video",
+            "video": "",
+            "image": ""
+        },
+        "features": [
+            {
+                "title": "feature one",
+                "description": "feature one description"
+            },
+            {
+                "title": "feature tow ",
+                "description": "feature tow description"
+            },
+            {
+                "title": "feature three ",
+                "description": "feature three description"
+            },
+            {
+                "title": "feature four ",
+                "description": "feature four description"
+            }
+        ]
+    }
+]

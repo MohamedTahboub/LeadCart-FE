@@ -6,6 +6,10 @@
     margin: 10px;
     margin-bottom: 40px;
 }
+.template-preview-container:nth-last-child(1) {
+    height: 274px;
+    width: 285px;
+}
 .preview-image {
     position: relative;
     height: 100%;

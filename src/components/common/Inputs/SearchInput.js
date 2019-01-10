@@ -13,7 +13,6 @@ export default class SearchInput extends React.Component {
   }
 
   handleSearch = (value) => {
-    console.log(this.props.data);
     this.setState({
       filtered: this.state.data.filter((el) => el[this.props.target].includes(value))
     });
@@ -27,13 +26,15 @@ export default class SearchInput extends React.Component {
 
 
   render () {
-    const { target, placeholder, style: _style } = this.props;
+    const {
+      target, defaultValue, placeholder, style: _style
+    } = this.props;
     const style = _style || { width: 200 };
     const options = this.state.filtered.map((d) => <Option key={d[target]}>{d[target]}</Option>);
     return (
       <Select
         showSearch
-        defaultValue={this.state.data[0] && this.state.data[0][this.props.target] || 'Search'}
+        defaultValue={defaultValue || 'Search'}
         placeholder={placeholder}
         style={style}
         defaultActiveFirstOption
@@ -48,10 +49,3 @@ export default class SearchInput extends React.Component {
     );
   }
 }
-
-//   <SearchInput
-//    data={data}
-//    placeholder="input search text"
-//    style={{ width: 200 }}
-//    onSelect={console.log}
-//    />

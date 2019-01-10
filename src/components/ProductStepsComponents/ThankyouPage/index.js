@@ -16,8 +16,9 @@ class ThankYouPage extends Component {
   toggleBumbeOfferStatus = () => {
     const { isEnabled } = this.state;
     this.setState({ isEnabled: !isEnabled });
-    this.props.onProductThankYouPageFieldChange({ name: 'useCustomeThankPage', value: !isEnabled });
+    this.props.onProductThankYouPageFieldChange({ name: 'defaultThankYouPage', value: !isEnabled });
   }
+
 
   onFieldChange = ({ target: { name, value } }) => {
     this.props.onProductThankYouPageFieldChange({ name, value });
@@ -25,11 +26,9 @@ class ThankYouPage extends Component {
 
   componentDidMount () {
     const { useCustomeThankPage } = this.props;
-    console.log('--------useCustomeThankPage----------',this.state.isEnabled);
-    console.log('--------useCustomeThankPage----------',useCustomeThankPage);
 
     this.setState({
-      isEnabled :  useCustomeThankPage
+      isEnabled: useCustomeThankPage
     });
   }
 
@@ -42,18 +41,17 @@ class ThankYouPage extends Component {
     const { isEnabled } = this.state;
     const { thankyouPage } = this.props;
 
-    console.log('--------RENDERS----------', isEnabled);
     return (
 
       <Tabs>
         <TabList>
-          <Tab><TabTitle error>Thank you Page </TabTitle></Tab>
+          <Tab><TabTitle>Thank you Page </TabTitle></Tab>
         </TabList>
         <TabPanel>
           <Block>
             <InputRow>
               <InputRow.Label>Use default Thank you Page</InputRow.Label>
-              <InputRow.SwitchInput key='useCustomeThankPage' preValue={isEnabled} onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
+              <InputRow.SwitchInput key='thankYouPageUrl' preValue={isEnabled} onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
             </InputRow>
             <InputRow>
               <InputRow.Label>Your Own Thank you Page Link</InputRow.Label>

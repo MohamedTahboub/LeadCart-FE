@@ -4,9 +4,11 @@ import {
   GET_COUPONS_LIST,
   CHANGE_COUPON_STATE_SUCCESS,
   CHANGE_COUPON_STATE_FAILD,
+  RESET_COUPON_MODALE
 } from 'constantsTypes';
 
 const initailState = {
+  created: false,
   coupons: [],
   errors: {}
 };
@@ -21,28 +23,36 @@ export default (state = initailState, { type, payload }) => {
   case CREATE_NEW_COUPON_SUCCESS:
     return {
       ...state,
+      created: true,
       coupons: [
         ...state.coupons,
         payload
       ]
     };
   case CHANGE_COUPON_STATE_SUCCESS:
-    const r = {
+    return {
       ...state,
       coupons: state.coupons.map((c) => (c._id === payload.couponId ? { ...c, active: payload.active } : c))
     };
 
-    console.log(r);
-    return r;
   case CHANGE_COUPON_STATE_FAILD:
     return {
       ...state,
-      errors: typeof payload === 'object' ? payload : { message: payload }
+      errors: typeof payload === 'object' ? payload : {
+        message: payload.includes('E11000') ? 'This coupon code already exist, try another' : payload
+      }
     };
   case CREATE_NEW_COUPON_FAILD:
     return {
       ...state,
-      errors: typeof payload === 'object' ? payload : { message: payload }
+      errors: typeof payload === 'object' ? payload : {
+        message: payload.includes('E11000') ? 'This coupon code already exist, try another' : payload
+      }
+    };
+  case RESET_COUPON_MODALE:
+    return {
+      ...initailState,
+      coupons: state.coupons
     };
   default: return state;
   }

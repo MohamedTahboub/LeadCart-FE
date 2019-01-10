@@ -39,6 +39,7 @@ const SideBar = ({
         <Link to={{ history, page: '/activities/customers' }}>Activity</Link>
         <Link to={{ history, page: '/coupons' }}>Coupon</Link>
         <Link to={{ history, page: '/upsells' }} classes={['locked-feature']}>Upsells</Link>
+        <Link to={{ history, page: '/funnels' }} classes={['locked-feature']}>Funnels</Link>
         <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
         <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
         {user.level === 3 && <Link to={{ history, page: '/agency' }}>Agency</Link>}

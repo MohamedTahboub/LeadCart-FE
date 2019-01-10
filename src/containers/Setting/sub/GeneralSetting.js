@@ -7,7 +7,8 @@ import timeZones from 'data/timeZones';
 
 const { InputRow, MainBlock, DeleteButton } = common;
 
-
+const defaultTimeZone = timeZones.find(({ value }) => value.includes('Central America')).value;
+const defaulteCountry = countries.find(({ code }) => code.includes('US')).name;
 const GeneralSettings = (props) => {
   const {
     name,
@@ -45,7 +46,9 @@ const GeneralSettings = (props) => {
         <InputRow.Label error={errors.name}>Company Name</InputRow.Label>
         <InputRow.NormalInput
           error={errors.name}
-          name='name' value={name} onChange={onFieldChange}
+          name='name'
+          value={name}
+          onChange={onFieldChange}
         >
         </InputRow.NormalInput>
       </InputRow>
@@ -61,8 +64,8 @@ const GeneralSettings = (props) => {
           value={lightLogo}
           subLabel='Light Logo'
           source='lightLogo'
-
-          name='lightLogo' onUploaded={(image) => onImageUpload('lightLogo', image)}
+          name='lightLogo'
+          onUploaded={(image) => onImageUpload('lightLogo', image)}
         >
           Light Logo
 
@@ -72,7 +75,8 @@ const GeneralSettings = (props) => {
           subLabel='Dark Logo'
           source='darkLogo'
           classes={['margin-left-120']}
-          name='darkLogo' onUploaded={(image) => onImageUpload('darkLogo', image)}
+          name='darkLogo'
+          onUploaded={(image) => onImageUpload('darkLogo', image)}
         >
           Dark Logo
 
@@ -87,7 +91,11 @@ const GeneralSettings = (props) => {
 
         </InputRow.Label>
         <InputRow.SearchInput
-          value={country} data={countries} target='name' name='country'
+          value='country'
+          data={countries}
+          target='name'
+          name='country'
+          defaultValue={defaulteCountry}
           onChange={onFieldChange}
         />
 
@@ -95,13 +103,17 @@ const GeneralSettings = (props) => {
       <InputRow>
         <InputRow.Label error={errors.timeZones}>Time Zone</InputRow.Label>
         <InputRow.SearchInput
-          value={timeZone} data={timeZones} target='value' name='timeZone'
+          defaultValue={defaultTimeZone}
+          value={timeZone}
+          data={timeZones}
+          target='value'
+          name='timeZone'
           onChange={onFieldChange}
         />
       </InputRow>
       <InputRow margin='20'>
         <InputRow.Label error={errors.support}>Support Contact</InputRow.Label>
-        <InputRow.SmallInput name='support'>support@</InputRow.SmallInput>
+        <InputRow.SmallInput name='support' onChange={onFieldChange}>support@</InputRow.SmallInput>
       </InputRow>
       <InputRow margin='20'>
         <InputRow.Label error={errors.currency}>Currency</InputRow.Label>
@@ -182,12 +194,19 @@ const GeneralSettings = (props) => {
         <InputRow.Label
           error={errors.firePixel}
 
-          notes='Before redirecting to your custom thank you page we will attempt to fire your custom, Facebook, and Google pixels. This will cause a few second delay. Leaving this off will immediately redirect to your thank you page without firing your pixels.'
+          notes='Before redirecting to your custom thank you page we will attempt to fire your
+           custom, Facebook, and Google pixels. This will cause a few second delay.
+           Leaving this off will immediately redirect to your thank you page without
+           firing your pixels.'
         >
           Fire Pixels Before Redirect (Optional)
 
         </InputRow.Label>
-        <InputRow.SwitchInput name='firePixel' onToggle={onChangeFirePixel} value={firePixel}></InputRow.SwitchInput>
+        <InputRow.SwitchInput
+          name='firePixel'
+          onToggle={onChangeFirePixel}
+          value={firePixel}
+        />
       </InputRow>
       <InputRow margin='30'>
         <InputRow.Label
@@ -197,7 +216,12 @@ const GeneralSettings = (props) => {
           Digital Download Button Text
 
         </InputRow.Label>
-        <InputRow.NormalInput name='downloadButtonText' onChange={onFieldChange} value={downloadButtonText} error={errors.downloadButtonText}></InputRow.NormalInput>
+        <InputRow.NormalInput
+          name='downloadButtonText'
+          onChange={onFieldChange}
+          value={downloadButtonText}
+          error={errors.downloadButtonText}
+        />
       </InputRow>
     </MainBlock>
   );

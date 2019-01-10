@@ -47,10 +47,7 @@ class Agency extends Component {
 
   componentDidMount () {
     const { level, history } = this.props;
-    if (level !== 3) {
-      console.log(level);
-      history.push('/');
-    }
+    if (level !== 3) history.push('/');
   }
 
   render () {

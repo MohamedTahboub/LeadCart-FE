@@ -1,6 +1,6 @@
 
 
 export default [
-  'useCustomeThankPage',
-  'thankyouPage'
+  'defaultThankYouPage',
+  'thankYouPageUrl'
 ];

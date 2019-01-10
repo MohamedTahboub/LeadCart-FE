@@ -12,7 +12,7 @@ const { Block ,TabTitle} = common
 export default (props) => (
   <Tabs>
     <TabList>
-      <Tab><TabTitle error>Product Details</TabTitle></Tab>
+      <Tab><TabTitle>Product Details</TabTitle></Tab>
       <Tab><TabTitle>Product Pricing</TabTitle></Tab>
       <Tab><TabTitle>Product Tags</TabTitle></Tab>
     </TabList>

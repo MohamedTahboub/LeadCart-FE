@@ -24,9 +24,8 @@ class CodeInputField extends Component {
     success: false
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const { codesUsed, error, loading: globleLoading } = this.props;
-    console.log('Loading', globleLoading);
     const { loading } = this.state;
     if (prevProps.codesUsed !== codesUsed && !error) {
       this.setState({
@@ -35,7 +34,7 @@ class CodeInputField extends Component {
         error: ''
       });
     }
-    if (!globleLoading && loading) this.setState({ loading: false ,success: false });
+    if (!globleLoading && loading) this.setState({ loading: false,success: false });
   }
 
   onCodeChange = ({ target: { value: code } }) => this.setState({ code })
@@ -44,14 +43,14 @@ class CodeInputField extends Component {
     const { code } = this.state;
     const { onSubmit } = this.props;
     if (code.trim().length > 5) {
-      this.setState({ loading: true, error: '' ,success: false});
+      this.setState({ loading: true, error: '',success: false });
       onSubmit({ code });
     }
 
     console.log(code);
   }
 
-  render() {
+  render () {
     const {
       onClick, isLoading, error, ...props
     } = this.props;
@@ -90,60 +89,64 @@ const PackageState = ({ level }) => {
 const Billing = ({
   level, activateAgencyCode, codesUsed, loading, errors = {}, ...props
 }) => (
-    <React.Fragment>
-      <MainBlock title='LeadCart Plan' />
-      <FlexBoxesContainer>
-        <Box
-          header={<HeadeLine>Your Package is :</HeadeLine>}
-          content={(
-            <BigText>
-              <PackageState level={level} />
-            </BigText>
-          )}
-          footer={(
-            <FlexBoxesContainer classes={['space-between-elements']}>
-              <div>
-                <InputRow.Label>Nex billing date</InputRow.Label>
-                <div>Dec 1, 2029</div>
-              </div>
-              <div>
-                <SmallButton classes='green-color'>Active</SmallButton>
-              </div>
-            </FlexBoxesContainer>
-          )}
-        />
-        <Box
-          header={<HeadeLine>Redeem Codes:</HeadeLine>}
-          content={(
-            <span className='plan-card-action'>
+  <React.Fragment>
+    <MainBlock title='LeadCart Plan' />
+    <FlexBoxesContainer>
+      <Box
+        header={<HeadeLine>Your Package is :</HeadeLine>}
+        content={(
+          <BigText>
+            <PackageState level={level} />
+          </BigText>
+        )}
+        footer={(
+          <FlexBoxesContainer classes={['space-between-elements']}>
+            <div>
+              <InputRow.Label>Nex billing date</InputRow.Label>
+              <div>Dec 1, 2029</div>
+            </div>
+            <div>
+              <SmallButton classes='green-color'>Active</SmallButton>
+            </div>
+          </FlexBoxesContainer>
+        )}
+      />
+      <Box
+        header={<HeadeLine>Redeem Codes:</HeadeLine>}
+        content={(
+          <span className='plan-card-action'>
 
-              <CodeInputField
-                onSubmit={activateAgencyCode}
-                error={errors.message}
-                loading={loading}
-              />
-            </span>
-          )}
-          footer={(
-            <React.Fragment>
-              <div className='error-message redeem-box-error'>
-                {errors.message}
-              </div>
-              <InputRow.Label
-                notes='Redeem codes and to get more sub accounts access'
-              >
+            <CodeInputField
+              onSubmit={activateAgencyCode}
+              error={errors.message}
+              loading={loading}
+            />
+          </span>
+        )}
+        footer={(
+          <React.Fragment>
+            <div className='error-message redeem-box-error'>
+              {errors.message}
+            </div>
+            <InputRow.Label
+              notes='Redeem codes and to get more sub accounts access'
+            >
                 You Have Redeemed
-              {' '}
-                {codesUsed || 0}
                 {' '}
-                out of {codesUsed > 5 ? codesUsed : 5} codes
-            </InputRow.Label>
-            </React.Fragment>
-          )}
-        />
-      </FlexBoxesContainer>
+              {codesUsed || 0}
+              {' '}
+                out of 
+{' '}
+{codesUsed > 5 ? codesUsed : 5}
+{' '}
+codes
+</InputRow.Label>
+          </React.Fragment>
+        )}
+      />
+    </FlexBoxesContainer>
 
-      {/* <MainTitle>One-Time Charges</MainTitle>
+    {/* <MainTitle>One-Time Charges</MainTitle>
     <Tabel>
       <Tabel.Head>
         <Tabel.HeadCell>Product Name</Tabel.HeadCell>
@@ -172,8 +175,8 @@ const Billing = ({
         </Tabel.Row>
       </Tabel.Body>
     </Tabel> */}
-    </React.Fragment>
-  );
+  </React.Fragment>
+);
 
 const mapStateToProps = ({ user: { user: { level = 0 }, activatedPromoCodes: codesUsed, errors }, loading }) => ({
   loading,

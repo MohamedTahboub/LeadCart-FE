@@ -5,7 +5,8 @@ import {
   GET_COUPONS_LIST,
   CHANGE_COUPON_STATE,
   CHANGE_COUPON_STATE_SUCCESS,
-  CHANGE_COUPON_STATE_FAILD
+  CHANGE_COUPON_STATE_FAILD,
+  RESET_COUPON_MODALE
 } from 'constantsTypes';
 
 export const getCouponsList = (coupon) => ({
@@ -36,5 +37,10 @@ export const changeCouponStateSuccess = (coupon) => ({
 export const changeCouponStateFaild = (coupon) => ({
   type: CHANGE_COUPON_STATE_FAILD,
   payload: coupon
+});
+
+
+export const resetCouponModale = () => ({
+  type: RESET_COUPON_MODALE
 });
 

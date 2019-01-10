@@ -46,13 +46,13 @@ function checkStepsCompletion (productDetails, isLocal) {
   delete productDetails.newProduct;
   const completionCritiria = {
     checkoutPage: ['template', 'presetColors'],
-    mandatoryDetails: ['name', 'url', 'image', 'description', 'price'],
+    mandatoryDetails: ['name', 'url', 'description', 'price'],
     boosters: ['termsAndConditions'],
     payment: ['methods'],
     fullfillment: ['file'],
     settings: ['footerScript', 'postOrderScript', 'checkOutPageRedirect'],
     offer: ['enabled', 'name', 'title', 'price', 'introText', 'bodyText', 'successUrl'],
-    thankYouPage: ['useCustomeThankPage']
+    thankYouPage: ['defaultThankYouPage', 'thankYouPageUrl']
   };
   const product = !isLocal ? {
     settings: modeler(productDetails.settings, settings),
@@ -65,16 +65,19 @@ function checkStepsCompletion (productDetails, isLocal) {
     thankYouPage: modeler(productDetails.payment, thankYouPage)
   } : productDetails;
 
-  console.log('==============>>>>>>', product);
   const productInjected = Object.keys(product).reduce((prod, stepKey) => {
-    prod[stepKey] = { ...product[stepKey], completed: checkIfProductStepCompleted(product[stepKey], completionCritiria[stepKey]) };
+    prod[stepKey] = {
+      ...product[stepKey],
+      completed: checkIfProductStepCompleted(product[stepKey],
+        completionCritiria[stepKey])
+    };
     return prod;
   }, {});
 
   return productInjected;
 }
 
-function checkIfProductStepCompleted (step = {}, shouldContainList = [], ignoreList = []) {
+function checkIfProductStepCompleted (step = {}, shouldContainList = []) {
   return shouldContainList.map((key) => {
     if (step[key]) return true;
     return false;

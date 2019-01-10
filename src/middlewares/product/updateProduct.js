@@ -10,9 +10,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   if (action.type !== UPDATE_PRODUCT) return next(action);
 
   const { product } = getState();
-  // console.log(product);
-  // const { _id: productId, ...details } = mandatoryDetails;
-  // console.log('============', JSON.stringify(getProductFromat(product), null, 2));
   dispatch(apiRequest({
     options: {
       method: 'put',
@@ -49,6 +46,7 @@ function getProductFromat (product) {
       ...details,
       checkoutPage: { ...checkoutPage, ...boosters },
       payment: { ...payment, methods: ['Stripe'] },
+      thankYouPage: { thankYouPageUrl: '' },
       offer,
       settings
     }

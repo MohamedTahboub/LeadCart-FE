@@ -9,7 +9,6 @@ import * as navigators from './Navigators'
 
 
 
-// console.log({ inputs})
 export default {
     ...boxes,
     ...buttons,

@@ -6,10 +6,10 @@ import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
   if (action.type !== TOGGLE_PRODUCT_AVAILABILITY) return next(action);
-
+  const { id: productId, available } = action.payload;
   const payload = {
-    productId: action.payload.id,
-    available: !action.payload.available
+    productId,
+    available: !available
   };
   dispatch(apiRequest({
     options: {
@@ -18,7 +18,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       uri: '/api/products/availability',
       contentType: 'json'
     },
-    onSuccess: toggleProductAvailabilitySuccess,
+    onSuccess: toggleProductAvailabilitySuccess.bind(this, { productId, available }),
     onFaild: toggleProductAvailabilityFaild
   }));
   // restore the application stored data in the loaclStorage

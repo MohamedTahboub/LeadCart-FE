@@ -36,6 +36,5 @@ export default ({ dispatch }) => (next) => (action) => {
       onSuccess: activateMemberSuccess.bind(this, action.payload),
       onFaild: activateMemberFaild
     }));
-    console.log(action.payload);
   }
 };

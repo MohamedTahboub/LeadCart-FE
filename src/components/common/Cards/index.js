@@ -32,13 +32,16 @@ export const MediumCard = ({
   );
 };
 
-export const Avatar = ({ imageSrc, name }) => {
+export const Avatar = ({
+  className: classname, style = {}, imageSrc, name
+}) => {
+  const className = classname ? `product-name-avatar${classname}` : 'product-name-avatar';
   const firstLetters = name.trim().split(' ').map((w) => w[0].toUpperCase()).join('');
   const backgroundColor = genrateColor(firstLetters);
   return (
     imageSrc
       ? <img src={imageSrc} alt={name} className='product-image-avatar' />
-      : <span style={{ background: backgroundColor }} className='product-name-avatar'>{firstLetters}</span>
+      : <span style={{ background: backgroundColor, ...style }} className={className}>{firstLetters}</span>
   );
 };
 
@@ -52,7 +55,7 @@ export const ProductCard = ({
       <span className='product-salles-holder'>
         {monthlyProfite}
           /monthly
-      </span>
+        </span>
       <span className='product-price-holder'>{`$ ${price.amount}`}</span>
     </div>
     <div className='card-controlls-container'>
@@ -77,5 +80,40 @@ export const NewThingCard = ({ thing, onClick, ...props }) => (
 export const BumpOfferTemplateCard = ({ image, active }) => (
   <div className={active ? 'bump-offer-template-card active-bump-offer-template-card' : 'bump-offer-template-card'}>
     <img src={image} alt='Bump offer Template' className='bump-offer-thumbnail' />
+  </div>
+);
+
+
+const Label = ({ children, ...props }) => (
+  <span className='simple-label'>
+    {children}
+  </span>
+);
+
+export const UpsellCard = ({
+  name, id, price, onEdit, onPreview, onDelete, linkedProduct: { name: productName } = {}, ...props
+}) => (
+  <div className='upsell-card-container'>
+    <Avatar style={{ margin: 'auto' }} name={name} />
+    <div className='upsell-contnet'>
+      <span className='upsell-name'>
+        <Label>Upsell Name:</Label>
+        {name}
+      </span>
+      <span className='upsell-price'>
+        <Label>Upsell Price:</Label>
+        {price}
+
+      </span>
+      <span className='upsell-associated-product'>
+        <i className='fas fa-link' />
+        {productName}
+      </span>
+    </div>
+    <div className='upsell-item-controlls'>
+      <i onClick={onEdit} className='fas fa-edit' />
+      <i onClick={onPreview} className='fas fa-book-open' />
+      <i onClick={onDelete} className='fas fa-trash-alt' />
+    </div>
   </div>
 );

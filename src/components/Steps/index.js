@@ -16,7 +16,6 @@ const isProductActive = (step, steps) => {
   if (step.sub === 'checkoutPage' || step.sub === 'mandatoryDetails') return true;
   const t = steps.filter(({ sub, completed }) => (sub === 'checkoutPage' || sub === 'mandatoryDetails'))
     .filter((c) => c.completed).length === 2;
-  console.log(step.sub, t);
   return t;
 };
 const Steps = ({

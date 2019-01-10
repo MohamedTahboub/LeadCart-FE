@@ -23,10 +23,10 @@ export default (state = initialState, { type, payload }) => {
   case ACTIVATE_MEMBER_SUCCESS:
     return {
       ...state,
-      members: state.members.map((member) => {
-        if (member._id === payload) member.active = !member.active;
+      members: state.members.map(({ active, member }) => {
+        if (member._id === payload) active = !member.active;
 
-        return member;
+        return { active, member };
       })
     };
   case ACTIVATE_MEMBER_FAILD: return { ...state, errors: { message: payload } };

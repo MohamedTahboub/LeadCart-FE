@@ -16,7 +16,7 @@ try {
 } catch (e) {
   console.error('ERROR WHILE READING FROM THE STORAGE');
 }
-if (!user) user = { token: '' };
+// if (!user.token) user = { token: '' };
 const initialState = {
   isLoggedIn: !!user.token,
   user: {

@@ -38,21 +38,19 @@ import SignUp from 'containers/SignUp';
 import SignUpSaasmantra from 'containers/SignUpSaasmantra';
 import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
-
+import Upsells from 'containers/Upsells';
 
 // import Dashboard from 'containers/Dashboard'
 import Guidlines from 'containers/Guidlines'
 import Products from 'containers/Products'
-import Product from 'containers/Product/index1'
+import Product from 'containers/Product'
 import Activities from './containers/Activities';
 import Coupons from './containers/Coupons';
-import Upsells from './containers/Upsells';
 import Setting from './containers/Setting';
 import Agency from './containers/Agency';
 
 //services
 import registerServiceWorker from 'services/RegisterServiceWorker';
-// import rootReducer from './reducers';
 
 // Styles
 import './index.css';
@@ -64,8 +62,6 @@ import { APP_INIT } from 'constantsTypes';
 window.onload = () => {
     store.dispatch({ type: APP_INIT })
 }
-// const store = createStore(rootReducer);
-// store.subscribe(() => console.log('store', store.getState()));
 
 ReactDOM.render(
     <Provider store={store}>
@@ -92,7 +88,8 @@ ReactDOM.render(
                                     <Route path='/product' component={Product} />
                                     <Route path='/activities' component={Activities} />
                                     <Route exact path='/coupons' component={Coupons} />
-                                    <Route exact path='/upsells' render={()=><ImagePageContainer title='UPSELLS' image={upsellsImage}/>} />
+                                    <Route exact path='/upsells' component={Upsells} />
+                                    <Route exact path='/funnels' render={()=><ImagePageContainer title='Funnels' image={upsellsImage}/>} />
                                     <Route exact path='/reports' render={()=><ImagePageContainer title='REPORTS' image={reportsImage}/>} />
                                     <Route exact path='/affiliates' render={()=><ImagePageContainer title='AFFILIATES' image={affiliatesImage}/>} />
                                     <Route exact path='/agency' component={Agency} />

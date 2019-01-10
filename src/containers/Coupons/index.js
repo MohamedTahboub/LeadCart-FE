@@ -9,10 +9,25 @@ const {
   InputRow, MainBlock, Button, MainTitle, SmallButton
 } = common;
 
-const getProductNameByCouponId = (id) => 'PRODUCT X';
+const getProductNameByCouponId = (id, products) => {
+  const isItCouponRelated = (coupons) => coupons.find((c) => c === id);
+  const product = products.find(({ coupons }) => isItCouponRelated(coupons)) || {};
+  console.log(product);
+  const productName = product.name || 'unrecognizable';
+  return productName;
+};
+
+const AddNewButton = ({ onClick, ...props }) => (
+  <Button onClick={onClick} classes='primary-color medium-add-btn explort-csv-btn'>
+    <i className='fas fa-plus' />
+    {' '}
+    Add new
+  </Button>
+);
+
 class Coupons extends Component {
   state = {
-    isModalVisable: false, forAll: true, enableCoupons: true, type: 'Flat'
+    isModalVisable: false, products: [], forAll: true, enableCoupons: true, type: 'Flat', submited: false
   }
 
   products = []
@@ -23,7 +38,6 @@ class Coupons extends Component {
 
 
   onChangeTarget = ({ target: { value, name } }) => {
-    console.log(name, value);
     if (value === 'All products') {
       this.setState({ forAll: true });
     } else {
@@ -32,9 +46,6 @@ class Coupons extends Component {
         productId: this.products.filter(({ name }) => name === value)[0].id
       });
     }
-    setTimeout(() => {
-      console.log(this.state);
-    }, 200);
   }
 
   onTypeSelect = (i) => {
@@ -43,12 +54,19 @@ class Coupons extends Component {
     });
   }
 
-  componentDidUpdate = () => {
-    const products = this.props.products.map((product) => ({
-      id: product._id, name: product.name
-    }));
-    products.unshift({ id: 'all', name: 'All products' });
-    this.products = products;
+  componentDidUpdate = (prevProps) => {
+    if (this.props.products !== prevProps.products) {
+      this.products = this.props.products;
+      this.setState({
+        products: this.props.products.map((product) => ({
+          id: product._id, name: product.name
+        })).unshift({ id: 'all', name: 'All products' })
+      });
+    }
+    if (this.props.created && (this.props.coupons.length > prevProps.coupons.length)) {
+      this.setState({ isModalVisable: false });
+      this.props.resetCouponModale();
+    }
   }
 
   componentDidMount = () => {
@@ -81,24 +99,31 @@ class Coupons extends Component {
     if (type === 'Flat') coupon.amount = amount;
     if (type === 'Percent') coupon.percent = percent;
     if (!forAll) coupon.productId = productId;
+    this.setState({ submited: true });
     this.props.createNewCoupon(coupon);
   }
 
+  getProductNameByCouponId = (id) => {
+    const isItCouponRelated = (coupons) => coupons.find((c) => c === id);
+    const product = this.products.find(({ coupons }) => isItCouponRelated(coupons)) || {};
+    console.log(product);
+    const productName = product.name || 'unrecognizable';
+    return productName;
+  };
+
   render () {
-    const { enableCoupons, isModalVisable, type } = this.state;
+    const {
+      state: {
+        enableCoupons, products, isModalVisable, type
+      }, props: { errors, coupons }
+    } = this;
     return (
       <div className='coupons-page'>
         <MainBlock title='Coupons'>
           <InputRow>
-            <InputRow.Label>Allow Coupons</InputRow.Label>
-            <InputRow.SwitchInput onToggle={this.onEnable} value={enableCoupons} />
+            <InputRow.Label>Create New Coupon</InputRow.Label>
+            <AddNewButton onClick={this.toggleModal} />
           </InputRow>
-          {enableCoupons && (
-            <InputRow>
-              <InputRow.Label>Configure Coupons</InputRow.Label>
-              <InputRow.AddComponentField onClick={this.toggleModal} type='click'>Add coupon</InputRow.AddComponentField>
-            </InputRow>
-          )}
         </MainBlock>
         <Tabel>
           <Tabel.Head>
@@ -110,7 +135,7 @@ class Coupons extends Component {
             <Tabel.HeadCell>Status</Tabel.HeadCell>
           </Tabel.Head>
           <Tabel.Body>
-            {this.props.coupons
+            {coupons
               .map(({
                 _id: couponId,
                 code,
@@ -120,11 +145,11 @@ class Coupons extends Component {
                 forAll,
                 usedBy
               }) => (
-                <Tabel.Row key={couponId}>
+                <Tabel.Row key={code}>
                   <Tabel.Cell mainContent={code} />
                   <Tabel.Cell mainContent={discount.type} />
                   <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
-                  <Tabel.Cell mainContent={forAll === true ? 'All Products' : getProductNameByCouponId(couponId)} />
+                  <Tabel.Cell mainContent={forAll === true ? 'All Products' : this.getProductNameByCouponId(couponId, products)} />
                   <Tabel.Cell mainContent={createdAt.split('T')[0]} />
                   <Tabel.Cell>
                     {active
@@ -167,6 +192,7 @@ class Coupons extends Component {
             <InputRow.Label>Apply to</InputRow.Label>
             <InputRow.SearchInput data={this.products} target='name' name='appiedTo' onChange={this.onChangeTarget} />
           </InputRow>
+          {errors.message && <span className='error-message'>{errors.message}</span>}
           <Button onClick={this.onSubmit} classes='primary-color margin-with-float-right'>
             <i className='fas fa-plus' />
             {' '}
@@ -178,8 +204,10 @@ class Coupons extends Component {
   }
 }
 
-const mapStateToProps = ({ coupons: { coupons = [] }, products }) => ({
+const mapStateToProps = ({ coupons: { created, coupons = [], errors }, products }) => ({
+  created,
   coupons,
+  errors,
   products: products.products
 });
 export default connect(mapStateToProps, { ...couponsActions, ...productsActions })(Coupons);
