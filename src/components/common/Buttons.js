@@ -26,7 +26,7 @@ export const SmallButton = ({
 );
 
 export const DeleteButton = ({ iconType = 'trash', onClick, ...props }) => (
-  <span onClick={onClick} className='btn delete-btn x-small-btn'>
+  <span onClick={onClick} className='delete-trash-btn'>
     <i className={`fas fa-${iconType}-alt `} />
   </span>
 );
