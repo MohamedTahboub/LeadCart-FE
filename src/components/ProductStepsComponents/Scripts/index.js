@@ -12,7 +12,7 @@ const { Block ,TabTitle} = common
 export default (props) => (
   <Tabs>
     <TabList>
-      <Tab><TabTitle error>Embed HTML/Scripts in Footer</TabTitle></Tab>
+      <Tab><TabTitle>Embed HTML/Scripts in Footer</TabTitle></Tab>
       <Tab><TabTitle>Fire pixels/scripts after an order is completed</TabTitle></Tab>
       <Tab><TabTitle>Advance Setting</TabTitle></Tab>
     </TabList>

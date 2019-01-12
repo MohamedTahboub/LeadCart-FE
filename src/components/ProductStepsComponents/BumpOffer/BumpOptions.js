@@ -37,7 +37,7 @@ class BumpOfferOptions extends Component {
       <div>
         <InputRow>
           <InputRow.Label>Do you want to set up a bump offer on this product?</InputRow.Label>
-          <InputRow.SwitchInput onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
+          <InputRow.SwitchInput active={!isEnabled} onToggle={this.toggleBumbeOfferStatus}></InputRow.SwitchInput>
         </InputRow>
         <InputRow>
           <InputRow.Label
