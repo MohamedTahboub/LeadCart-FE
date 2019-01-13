@@ -4,7 +4,7 @@ import * as settingsActions from 'actions/settings';
 import { connect } from 'react-redux';
 import countries from 'data/countries';
 import timeZones from 'data/timeZones';
-
+import defaultLogo from 'assets/images/big-logo.png';
 const { InputRow, MainBlock, DeleteButton } = common;
 
 const defaultTimeZone = timeZones.find(({ value }) => value.includes('Central America')).value;
@@ -56,7 +56,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
         </InputRow.Label>
         <InputRow.AddImage
-          value={lightLogo}
+          value={lightLogo || defaultLogo}
           subLabel='Light Logo'
           source='lightLogo'
           name='lightLogo'
@@ -66,10 +66,9 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
         </InputRow.AddImage>
         <InputRow.AddImage
-          value={darkLogo}
+          value={darkLogo || defaultLogo}
           subLabel='Dark Logo'
           source='darkLogo'
-          classes={['margin-left-120']}
           name='darkLogo'
           onUploaded={(image) => onImageUpload('darkLogo', image)}
         >
@@ -115,7 +114,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           onChange={onFieldChange}
           error={errors.support}
         >
-{support || userEmail}
+          {support || userEmail}
 
         </InputRow.SmallInput>
       </InputRow>

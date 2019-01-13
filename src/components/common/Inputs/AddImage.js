@@ -44,7 +44,7 @@ class AddImage extends Component {
     } = this.props;
     const { image: { link, name }, imageChangesSaved } = this.state;
     return (
-      <div>
+      <div className='add-input-field-holder'>
         <div
           ref='addElementContainer'
           onClick={this.onAddImage}

@@ -10,8 +10,8 @@ const initialState = {
     name: 'Leadcart',
     country: 'United States',
     currency: 'USD',
-    darkLogo: 'https://www.audiomod.com/landing/images/ICON_Lightweight-and-Slim.png',
-    lightLogo: 'https://www.audiomod.com/landing/images/ICON_Lightweight-and-Slim.png',
+    darkLogo: '',
+    lightLogo: '',
     timeZone: '(GMT-06:00) Central America',
     errors: {},
   }
