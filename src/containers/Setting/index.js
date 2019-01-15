@@ -50,7 +50,7 @@ class Setting extends Component {
                     <MainTitle >Settings</MainTitle>
                     <Button onClick={this.onChangesSave} classes=' primary-color'>
                         Save Changes
-                    </Button>s
+                    </Button>
                 </FlexBoxesContainer>
                 <TabsNavigator
                     tabs={newProductTabs}

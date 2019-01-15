@@ -4,25 +4,26 @@ import * as settingsActions from 'actions/settings';
 import { connect } from 'react-redux';
 import countries from 'data/countries';
 import timeZones from 'data/timeZones';
-
+import defaultLogo from 'assets/images/big-logo.png';
 const { InputRow, MainBlock, DeleteButton } = common;
 
 const defaultTimeZone = timeZones.find(({ value }) => value.includes('Central America')).value;
 const defaulteCountry = countries.find(({ code }) => code.includes('US')).name;
-const GeneralSettings = (props) => {
+const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
   const {
     name,
     country,
     currency,
     darkLogo,
-    downloadButtonText,
-    firePixel,
-    footerScript,
+    support,
+    // downloadButtonText,
+    // firePixel,
+    // footerScript,
+    // purchaseCompletion,
     lightLogo,
     productExpirationDays,
-    purchaseCompletion,
     timeZone,
-    url,
+    // url,
     errors
   } = props.general;
   const onFieldChange = ({ target: { name, value } }) => {
@@ -33,12 +34,6 @@ const GeneralSettings = (props) => {
     props.onUserGeneralSettingsFieldUpdate({ name, value });
   };
 
-  const onPurshaseCompletionChange = (value) => {
-    props.onUserGeneralSettingsFieldUpdate({ name: 'purchaseCompletion', value });
-  };
-  const onChangeFirePixel = () => {
-    props.onUserGeneralSettingsFieldUpdate({ name: 'firePixel', value: !props.general.firePixel });
-  };
 
   return (
     <MainBlock title='General Marketplace Settings'>
@@ -61,7 +56,7 @@ const GeneralSettings = (props) => {
 
         </InputRow.Label>
         <InputRow.AddImage
-          value={lightLogo}
+          value={lightLogo || defaultLogo}
           subLabel='Light Logo'
           source='lightLogo'
           name='lightLogo'
@@ -71,10 +66,9 @@ const GeneralSettings = (props) => {
 
         </InputRow.AddImage>
         <InputRow.AddImage
-          value={darkLogo}
+          value={darkLogo || defaultLogo}
           subLabel='Dark Logo'
           source='darkLogo'
-          classes={['margin-left-120']}
           name='darkLogo'
           onUploaded={(image) => onImageUpload('darkLogo', image)}
         >
@@ -91,11 +85,12 @@ const GeneralSettings = (props) => {
 
         </InputRow.Label>
         <InputRow.SearchInput
-          value='country'
+          // value={country}
           data={countries}
           target='name'
+          error={errors.country}
           name='country'
-          defaultValue={defaulteCountry}
+          defaultValue={country || defaulteCountry}
           onChange={onFieldChange}
         />
 
@@ -107,13 +102,21 @@ const GeneralSettings = (props) => {
           value={timeZone}
           data={timeZones}
           target='value'
+          error={errors.timeZones}
           name='timeZone'
           onChange={onFieldChange}
         />
       </InputRow>
       <InputRow margin='20'>
         <InputRow.Label error={errors.support}>Support Contact</InputRow.Label>
-        <InputRow.SmallInput name='support' onChange={onFieldChange}>support@</InputRow.SmallInput>
+        <InputRow.SmallInput
+          name='support'
+          onChange={onFieldChange}
+          error={errors.support}
+        >
+          {support || userEmail}
+
+        </InputRow.SmallInput>
       </InputRow>
       <InputRow margin='20'>
         <InputRow.Label error={errors.currency}>Currency</InputRow.Label>
@@ -126,7 +129,7 @@ const GeneralSettings = (props) => {
           ]}
         />
       </InputRow>
-      <InputRow margin='30'>
+      <InputRow>
         <InputRow.Label
           error={errors.productExpirationDays}
           notes='Number of days digital download links will be available to your customers after purchase.'
@@ -147,80 +150,6 @@ const GeneralSettings = (props) => {
             { label: '6 days', value: 6 * 24 },
             { label: '7 days', value: 7 * 24 }
           ]}
-        />
-      </InputRow>
-      <InputRow margin='50'>
-        <InputRow.Label
-          error={errors.footerScript}
-          notes='Embed any custom HTML code or scripts in the footer of all of your checkout pages.'
-        >
-          Embed HTML/Scripts
-
-        </InputRow.Label>
-        <InputRow.CodeInputArea
-          error={errors.footerScript}
-          value={footerScript}
-          name='footerScript' onChange={onFieldChange}
-        >
-          Enter HTML/Scripts here...
-
-        </InputRow.CodeInputArea>
-      </InputRow>
-      <InputRow margin='-50'>
-        <InputRow.Label
-          notes='Select where you would like to send your customers after their order is complete.'
-        >
-          Purchase Completion?
-
-        </InputRow.Label>
-        <InputRow.CheckBox
-          value={purchaseCompletion === 'ProductRedirectUrl'}
-          onChange={() => onPurshaseCompletionChange('ProductRedirectUrl')
-          }
-        >
-          Redirect To Original Product Redirect URL
-
-        </InputRow.CheckBox>
-
-        <InputRow.CheckBox
-          value={purchaseCompletion === 'Summary'}
-          onChange={() => onPurshaseCompletionChange('Summary')}
-        >
-          Display Summary Page With Redirect Links
-
-        </InputRow.CheckBox>
-      </InputRow>
-      <InputRow margin='100'>
-        <InputRow.Label
-          error={errors.firePixel}
-
-          notes='Before redirecting to your custom thank you page we will attempt to fire your
-           custom, Facebook, and Google pixels. This will cause a few second delay.
-           Leaving this off will immediately redirect to your thank you page without
-           firing your pixels.'
-        >
-          Fire Pixels Before Redirect (Optional)
-
-        </InputRow.Label>
-        <InputRow.SwitchInput
-          name='firePixel'
-          onToggle={onChangeFirePixel}
-          value={firePixel}
-        />
-      </InputRow>
-      <InputRow margin='30'>
-        <InputRow.Label
-          error={errors.downloadButtonText}
-          notes='Define what text should be shown in the digital download button that appears in the order receipt and summary page.'
-        >
-          Digital Download Button Text
-
-        </InputRow.Label>
-        <InputRow.NormalInput
-          name='downloadButtonText'
-          onChange={onFieldChange}
-          value={downloadButtonText}
-          error={errors.downloadButtonText}
         />
       </InputRow>
     </MainBlock>
