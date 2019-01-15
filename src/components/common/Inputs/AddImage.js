@@ -44,7 +44,7 @@ class AddImage extends Component {
     } = this.props;
     const { image: { link, name }, imageChangesSaved } = this.state;
     return (
-      <div>
+      <div className='add-input-field-holder'>
         <div
           ref='addElementContainer'
           onClick={this.onAddImage}
@@ -66,7 +66,7 @@ class AddImage extends Component {
 
         {(link && imageChangesSaved) && (
           <div className='child-added-element '>
-            <BlankLink to={link}>
+            <BlankLink className='display-flex' to={link}>
               <img src={link} alt={name} className='uploaded-thumbnil' />
               <span className='child-added-element-name'>{name}</span>
             </BlankLink>

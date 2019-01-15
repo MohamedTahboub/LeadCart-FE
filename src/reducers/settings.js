@@ -7,14 +7,12 @@ import {
 
 const initialState = {
   generalModel: {
-    name: '',
-    country: 'United State',
+    name: 'Leadcart',
+    country: 'United States',
     currency: 'USD',
-    darkLogo: 'empty',
-    downloadButtonText: 'Download Now',
-    lightLogo: 'empty',
-    productExpirationDays: 7 * 24,
-    timeZone: '+2 GMT',
+    darkLogo: '',
+    lightLogo: '',
+    timeZone: '(GMT-06:00) Central America',
     errors: {},
   }
 };

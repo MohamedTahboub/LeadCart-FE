@@ -537,15 +537,26 @@ input[type="radio"]{
 }
 
 
-
+.add-input-field-holder {
+    display: flex;
+    margin-right: 50px;
+    flex-direction: column;
+    justify-content: flex-start;
+}
 .child-added-element {
+    display: flex;
+    align-items: center;
     line-height: 25px;
     font-size: 12px;
     color: #656d75;
-    margin: 8px;
+    margin: 10px 0px 0px;
+    
 }
 
 
+.display-flex{
+    display: flex;
+}
 /* Tage element styles*/
 .tage-keyword-container{
     position: relative;
@@ -664,10 +675,10 @@ input.add-input-field {
     cursor: pointer;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
-.add-input-field:hover{
+/* .add-input-field:hover{
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
 
-}
+} */
 /* Add input Field ends*/
 .input-field.valid {
     padding-right: 21px !important;
@@ -679,3 +690,19 @@ input.add-input-field {
     pointer-events: none;
     opacity: .5;
 }
+
+
+
+/* Delete trash btn*/
+.delete-trash-btn i.fas {
+    color: #ff6347ba;
+    background: transparent;
+    font-size: 15px;
+    margin: 15px;
+    cursor: pointer;
+    transition:color .4s ease-in-out;
+}
+.delete-trash-btn i.fas:hover{
+    color: tomato;
+}
+/* Delete trash btn ends*/
