@@ -6,9 +6,26 @@ const {
   InputRow, MainBlock, SmallButton, EditButton
 } = common;
 
+
+const EmailTestButton = ({
+  type, testingType, loading, onClick, ...props
+}) => {
+  let classes = ['primary-color wide-element'];
+  classes += type === testingType && loading ? ' spinner' : '';
+  return (
+    <SmallButton
+      classes={classes}
+      onClick={onClick}
+    >
+      Test
+    </SmallButton>
+  );
+};
 class Email extends Component {
   state = {
-    showEmailFooterModal: false
+    showEmailFooterModal: false,
+    testing: false,
+    emailTestType: ''
   }
 
   onToggleEmailFooterModal = () => {
@@ -20,7 +37,7 @@ class Email extends Component {
 
   render () {
     const {
-      state: { showEmailFooterModal }
+      state: { showEmailFooterModal, emailTestType }
     } = this;
     return (
       <React.Fragment>
@@ -66,7 +83,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the system email sent to customer when any new order is placed.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -74,7 +95,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the system email sent to customer when any order item is refunded.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -82,7 +107,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the system email sent to customer when any recurring subscription is canceled.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -90,7 +119,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the system email sent to customer when any subscription charge is refunded.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -98,7 +131,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the email sent to customers when their subscription charges.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
         </MainBlock>
@@ -108,7 +145,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the default dunning email sent to customer when any subscription payment fails. This can be overridden by customizing the individual dunning steps below.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -116,7 +157,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the dunning email sent to customer when any subscription payment fails for the first time.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -124,7 +169,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the dunning email sent to customer when any subscription payment fails for the 2nd time.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -132,7 +181,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the dunning email sent to customer when any subscription payment fails for the 3rd time.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
           <InputRow>
@@ -140,7 +193,11 @@ class Email extends Component {
             <InputRow.Note
               content='Test the dunning email sent to customer when any subscription payment fails for the 4th time.'
             >
-              <SmallButton classes={['primary-color wide-element']}>Test</SmallButton>
+              <EmailTestButton
+                type=''
+                testingType={emailTestType}
+                onClick={this.onEmailTest}
+              />
             </InputRow.Note>
           </InputRow>
 
@@ -152,3 +209,4 @@ class Email extends Component {
 
 
 export default Email;
+
