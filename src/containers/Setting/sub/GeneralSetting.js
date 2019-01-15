@@ -57,22 +57,12 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
         </InputRow.Label>
         <InputRow.AddImage
           value={lightLogo || defaultLogo}
-          subLabel='Light Logo'
+          subLabel='Logo'
           source='lightLogo'
           name='lightLogo'
           onUploaded={(image) => onImageUpload('lightLogo', image)}
         >
-          Light Logo
-
-        </InputRow.AddImage>
-        <InputRow.AddImage
-          value={darkLogo || defaultLogo}
-          subLabel='Dark Logo'
-          source='darkLogo'
-          name='darkLogo'
-          onUploaded={(image) => onImageUpload('darkLogo', image)}
-        >
-          Dark Logo
+          Logo
 
         </InputRow.AddImage>
       </InputRow>
