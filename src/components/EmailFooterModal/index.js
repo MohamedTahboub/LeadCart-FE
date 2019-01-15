@@ -9,13 +9,22 @@ const { InputRow, Button, MainTitle } = common;
 
 class EmailFooterModal extends Component {
     state = { details: {} }
-
+    componentDidMount() {
+        const { supportEmail } = this.props
+        this.setState({
+            details: {
+                support: supportEmail ? supportEmail : ""
+            }
+        })
+    }
     onFieldChange = ({ target: { name, value } }) => {
         if (value.trim().length) {
             const { details } = this.state
             this.setState({
-                ...details,
-                [name]: value
+                details: {
+                    ...details,
+                    [name]: value
+                }
             })
         }
     }
@@ -25,6 +34,7 @@ class EmailFooterModal extends Component {
         // vaidate the fields and the data types
 
         this.props.enableEmailFooter(details)
+        console.log(details)
     }
     render() {
         const {
