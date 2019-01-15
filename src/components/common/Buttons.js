@@ -38,8 +38,10 @@ export const ActivationSwitchInput = ({ active, onToggle, ...props }) => (
   </label>
 );
 
-export const EditButton = ({ classes = [], children, ...props }) => (
-  <span className={`edit-btn ${classes.join(' ')}`}>
+export const EditButton = ({
+  classes = [], onClick, children, ...props
+}) => (
+  <span onClick={onClick} className={`edit-btn ${classes.join(' ')}`}>
     <i className='fas fa-edit' />
     {children}
   </span>
