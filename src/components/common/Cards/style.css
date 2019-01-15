@@ -1,0 +1,118 @@
+.small-solid-card {
+    height: 57px;
+    width: auto;
+    margin: 0px 15px 0px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0px 20px;
+    transition:all ease-in-out 350ms;
+    box-shadow: 1px 1px 12px 3px #00000008;
+} 
+.small-solid-card:hover{
+    box-shadow: 0px 0px 7px 2px #00000021;
+}
+
+.white-color{
+    background: white;
+}
+
+/* product card styles */
+.product-card-container{
+    height: 260px;
+    width: 330px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px 20px 0px;
+}
+.card-main-content{
+    flex:1;
+}
+.card-controlls-container{
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.card-controlls-container .fas{
+    color:#C9D3DC;
+    cursor: pointer;
+} 
+.card-controlls-container .fas:hover{
+    color:rgb(158, 164, 168);
+    cursor: pointer;
+} 
+
+
+/* Product card content styles*/
+
+.card-main-content.product-avatar-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.product-name-avatar {
+    height: 70px;
+    width: 70px;
+    color: white;
+    /* background: rgb(102, 216, 210); */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1.3px;
+}
+.product-cards-container:nth-child(2n) > .product-name-avatar{
+    background: rgb(129, 150, 173);
+}
+.product-name-holder{
+    color:#2B3748;
+    font-size: 15px;
+}
+.product-salles-holder{
+    color:#4DA1FF;
+    font-size: 12px;
+}
+
+
+.product-price-holder{
+    position: relative;
+    color: #2B3748;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 160px;
+    text-align: center;
+}
+.product-price-holder:before {
+    content: 'Price:';
+    color: #C9D3DC;
+    width: 50px;
+    font-size: 12px;
+    position: absolute;
+    top: -60%;
+    left: 35%;
+}
+
+.new-product-card{
+    padding-top: 70px;
+    position: relative;
+    margin: auto;
+    cursor: pointer;
+}
+.new-product-card:after{
+    content: '';
+    background: url(../../../assets/images/new-product-icon.png);
+    position: absolute;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 50px;
+    width: 50px;
+    bottom: 35%;
+    left: 30%;
+}

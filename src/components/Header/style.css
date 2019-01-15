@@ -1,5 +1,5 @@
 .header{
-    height: 70px;
+    height: 55px;
     width: 100%;
     display: flex;
     font-family: 'Poppins', sans-serif;
@@ -13,12 +13,13 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    min-width: 243px;
+    /* min-width: 243px; */
+    min-width: 194.4px;
+    cursor: pointer;
 }
-.logo-container{
+.logo-position .logo-container{
     position: relative;
     margin: auto;
-
 }
 .logo-image{
     height: 32px;
@@ -35,7 +36,7 @@
     text-transform: uppercase;
     margin: auto;
     margin-left: 6px;
-    margin-top: 29px;
+    margin-top: 22px;
     letter-spacing: 2px;
     font-size: 12px;
     font-weight: bold;

@@ -5,9 +5,9 @@ import { SearchBar } from 'components/common/search'
 
 import './style.css'
 
-export default props => (
+export default ({history , ...props}) => (
     <div className='header'>
-       <HeaderLogo/>
+       <HeaderLogo onClick={()=> window.location.assign('/')}/>
        <SearchBar /> 
     </div>
 )

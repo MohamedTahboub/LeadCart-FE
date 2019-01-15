@@ -1,0 +1,111 @@
+
+.tabel-container{
+    margin: 20px 0px;
+}
+
+.table-head {
+    display: flex;
+    justify-content: space-around;
+    color: #BCC9D6;
+    font-size: 12px;
+    position: relative;
+}
+
+.table-head-cell{
+    min-width: 100px;
+    display: flex;
+    justify-content: center
+}
+.table-head-cell  span{
+    position: relative;
+}
+.table-head-cell span:after {
+    position: absolute;
+    content: '\25B2';
+    color: inherit;
+    top: 10%;
+    right: -10px;
+    font-size: 9px;
+}
+
+
+.table-row {
+    background: white;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 15px 0px;
+}
+
+.table-cell {
+    min-width: 100px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tabel-row-controlls-container{
+    display: flex;
+}
+.mini-btn {
+    color:#C9D3DC;
+    margin: 0px 5px;
+    display: block;
+    height: 30px;
+    width: 40px;
+    border-radius: 3px;
+    background: white;
+    border: 1px solid #C9D3DC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.small-btn {
+    color:white;
+    margin: 0px 5px;
+    display: block;
+    height: 30px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 12px;
+    cursor: pointer;
+}
+
+.cell-main-content {
+    color: #2B3748;
+    font-size: 15px;
+}
+
+.cell-sub-content {
+    color: #C9D3DC;
+    font-size: 12px;
+    margin-left: 0px;
+}
+.wide-tabel-cell {
+
+    right: 50px;
+    display: flex;
+}
+
+.mini-btn.row-explor-btn {
+    color: #4DA1FF;
+    border-color: #4DA1FF;
+}
+
+.small-table-cell .product-name-avatar{
+    height:40px;
+    width:40px;
+}
+.small-table-cell {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+.row-controls {
+    display: flex;
+}
