@@ -14,6 +14,7 @@ export default (props) => (
         <InputRow.Note
           content='Create the email footer that will be placed at the bottom of every email sent to your customers. Include contact information so your customers can reach out if they need help.'
         >
+          <EditButton>Edit</EditButton>
         </InputRow.Note>
       </InputRow>
       <InputRow margin='30'>
