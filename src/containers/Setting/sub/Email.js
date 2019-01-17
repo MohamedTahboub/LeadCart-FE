@@ -83,7 +83,32 @@ class Email extends Component {
             <InputRow.SwitchInput value />
     </InputRow> */}
         </MainBlock>
-
+        <MainBlock title='System Emails'>
+          <InputRow>
+            <InputRow.Label>New Order</InputRow.Label>
+            <InputRow.Note
+              content='This email is sent every time a customer buys a product.'
+            >
+              <InputRow.SwitchInput checked />
+            </InputRow.Note>
+          </InputRow>
+          <InputRow>
+            <InputRow.Label> Failed Charge</InputRow.Label>
+            <InputRow.Note
+              content="This email is sent each time a customer's subscription payment fails to charge."
+            >
+              <InputRow.SwitchInput checked />
+            </InputRow.Note>
+          </InputRow>
+          <InputRow>
+            <InputRow.Label>New Affiliate</InputRow.Label>
+            <InputRow.Note
+              content='This email is sent each time a new affiliate applies. If auto-approval is enabled, this will not be sent.'
+            >
+              <InputRow.SwitchInput checked />
+            </InputRow.Note>
+          </InputRow>
+        </MainBlock>
         <MainBlock title='Orders Emails'>
           <InputRow>
             <InputRow.Label>Order Receipt</InputRow.Label>
