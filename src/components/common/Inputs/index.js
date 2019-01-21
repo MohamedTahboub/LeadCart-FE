@@ -230,3 +230,6 @@ export const CodeInputArea = ({ value, flixable, onChange, name, disabled, ...pr
     />
   </div>
 )
+
+
+export { default as EditableInputField } from './EditableInputField'
