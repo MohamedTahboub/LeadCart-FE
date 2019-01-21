@@ -77,6 +77,10 @@ Create New Upsell
         </InputRow>
         <InputRow>
           <InputRow.Label error={errors.price}>Upsell Features:</InputRow.Label>
+          <InputRow.SmallInput>Feature title</InputRow.SmallInput>
+          <InputRow.SmallInput>Feature Description</InputRow.SmallInput>
+          <input type='submit' className='add-input-field' value='Add' />
+
         </InputRow>
         <InputRow>
           <InputRow.Label error={errors.description}>Associated Product:</InputRow.Label>

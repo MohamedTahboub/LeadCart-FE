@@ -13,102 +13,84 @@ console.log(UpsellForm)
 const {
   InputRow, UpsellCard, MainTitle, FlexBoxesContainer, Button, MainBlock
 } = common;
-/* temp component tp represent the empty tap */
-const EmptyTab = (props) => (
-  <div className='nothing'>...in progress</div>
-);
-// const UpsellsTabs = [
-//   { title: 'Upsells', hash: 'upsells' },
-//   { title: 'Funnels', hash: 'funnels' }
-// ];
-
-
-// const ActiveTabe = ({ tabName, ...props }) => {
-//   switch (tabName) {
-//   case 'upsells': return <Upsells />;
-//   case 'funnels': return <Funnels />;
-//   default: return <EmptyTab />;
-//   }
-// };
-
 const NewUpsell = ({ onClick, ...props }) => (
   <Button onClick={onClick} classes='primary-color'>
     <i className='fas fa-plus' />
     {' '}
-        New Upsells
+    New Upsells
   </Button>
 );
 
 const DeleteDialuge = ({
   onClose, show, onConfirem, ...props
 }) => (
-  <Modal onClose={onClose} isVisable={show}>
-    <MainTitle>Are you sure,you want delete this upsell ?</MainTitle>
-    <Button onClick={onClose} classes='primary-color margin-with-float-left'>
-      {' '}
-                Cancel
+    <Modal onClose={onClose} isVisable={show}>
+      <MainTitle>Are you sure,you want delete this upsell ?</MainTitle>
+      <Button onClick={onClose} classes='primary-color margin-with-float-left'>
+        {' '}
+        Cancel
     </Button>
-    <Button onClick={onConfirem} classes='warning-color margin-with-float-right'>
-      <i className='fas fa-trash-alt' />
-      {' '}
-                Delete
+      <Button onClick={onConfirem} classes='warning-color margin-with-float-right'>
+        <i className='fas fa-trash-alt' />
+        {' '}
+        Delete
     </Button>
-  </Modal>
-);
+    </Modal>
+  );
 class Upsells extends Component {
-    state = {
-      showDeleteDialuge: false,
-      showUpsellEditablePreview: false,
-      showNewUpsellForm: false
-    }
+  state = {
+    showDeleteDialuge: false,
+    showUpsellEditablePreview: false,
+    showNewUpsellForm: false
+  }
 
-    toggleDeleteDialuge = () => {
-      this.setState({ showDeleteDialuge: !this.state.showDeleteDialuge });
-    }
+  toggleDeleteDialuge = () => {
+    this.setState({ showDeleteDialuge: !this.state.showDeleteDialuge });
+  }
 
-    toggleUpsellEditablePreview = () => {
-      this.setState({ showUpsellEditablePreview: !this.state.showUpsellEditablePreview });
-    }
+  toggleUpsellEditablePreview = () => {
+    this.setState({ showUpsellEditablePreview: !this.state.showUpsellEditablePreview });
+  }
 
-    toggleNewUpsellForm = () => {
-      this.setState({ showNewUpsellForm: !this.state.showNewUpsellForm });
-    }
+  toggleNewUpsellForm = () => {
+    this.setState({ showNewUpsellForm: !this.state.showNewUpsellForm });
+  }
 
-    render () {
-      const tabName = this.props.history.location.hash.slice(1);
-      const { showDeleteDialuge, showNewUpsellForm } = this.state;
-      return (
-        <React.Fragment>
-          <MainBlock title='Upsells'>
-            <InputRow>
-              <InputRow.Label>Create New Upsell</InputRow.Label>
-              <NewUpsell onClick={this.toggleNewUpsellForm} />
-            </InputRow>
-          </MainBlock>
-          <FlexBoxesContainer classes={['flex-wrap']}>
-            {upsellsData.map((upsell) => (
-              <UpsellCard
-                {...upsell}
-                onDelete={this.toggleDeleteDialuge}
-                onEdit={this.toggleNewUpsellForm}
-              />
-            ))}
-          </FlexBoxesContainer>
-          <DeleteDialuge
-            onClose={this.toggleDeleteDialuge}
-            show={showDeleteDialuge}
-            onConfirem={this.toggleDeleteDialuge}
-          />
-          <UpsellForm
-            newUpsell={true}
-            onClose={this.toggleNewUpsellForm}
-            show={showNewUpsellForm}
-            onConfirem={this.toggleNewUpsellForm}
-          />
-        </React.Fragment>
+  render() {
+    const tabName = this.props.history.location.hash.slice(1);
+    const { showDeleteDialuge, showNewUpsellForm } = this.state;
+    return (
+      <React.Fragment>
+        <FlexBoxesContainer classes={['space-between-elements']}>
+          <MainTitle >Upsells</MainTitle>
+          <Button onClick={this.toggleNewUpsellForm} classes=' primary-color'>
+            New Upsell
+          </Button>
+        </FlexBoxesContainer>
+        <FlexBoxesContainer classes={['flex-wrap']}>
+          {upsellsData.map((upsell) => (
+            <UpsellCard
+              {...upsell}
+              onDelete={this.toggleDeleteDialuge}
+              onEdit={this.toggleNewUpsellForm}
+            />
+          ))}
+        </FlexBoxesContainer>
+        <DeleteDialuge
+          onClose={this.toggleDeleteDialuge}
+          show={showDeleteDialuge}
+          onConfirem={this.toggleDeleteDialuge}
+        />
+        <UpsellForm
+          newUpsell={true}
+          onClose={this.toggleNewUpsellForm}
+          show={showNewUpsellForm}
+          onConfirem={this.toggleNewUpsellForm}
+        />
+      </React.Fragment>
 
-      );
-    }
+    );
+  }
 }
 
 
