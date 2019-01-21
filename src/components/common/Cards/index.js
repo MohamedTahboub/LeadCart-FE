@@ -55,7 +55,7 @@ export const ProductCard = ({
       <span className='product-salles-holder'>
         {monthlyProfite}
           /monthly
-        </span>
+      </span>
       <span className='product-price-holder'>{`$ ${price.amount}`}</span>
     </div>
     <div className='card-controlls-container'>
@@ -90,27 +90,47 @@ const Label = ({ children, ...props }) => (
   </span>
 );
 
+// export const UpsellCard = ({
+//   name, id, price, onEdit, onPreview, onDelete, linkedProduct: { name: productName } = {}, ...props
+// }) => (
+//   <div className='upsell-card-container'>
+//     <Avatar style={{ margin: 'auto' }} name={name} />
+//     <div className='upsell-contnet'>
+//       <span className='upsell-name'>
+//         {name}
+//       </span>
+//       <span className='upsell-price'>
+//         {price}
+
+//       </span>
+//       <span className='upsell-associated-product'>
+//         <i className='fas fa-link' />
+//         {productName}
+//       </span>
+//     </div>
+//     <div className='upsell-item-controlls'>
+//       <i onClick={onEdit} className='fas fa-edit' />
+//       <i onClick={onPreview} className='fas fa-book-open' />
+//       <i onClick={onDelete} className='fas fa-trash-alt' />
+//     </div>
+//   </div>
+// );
+
+
 export const UpsellCard = ({
   name, id, price, onEdit, onPreview, onDelete, linkedProduct: { name: productName } = {}, ...props
 }) => (
   <div className='upsell-card-container'>
-    <Avatar style={{ margin: 'auto' }} name={name} />
-    <div className='upsell-contnet'>
-      <span className='upsell-name'>
-        <Label>Upsell Name:</Label>
-        {name}
-      </span>
-      <span className='upsell-price'>
-        <Label>Upsell Price:</Label>
-        {price}
-
-      </span>
-      <span className='upsell-associated-product'>
+    <div className='card-main-content product-avatar-holder'>
+      <Avatar name={name} />
+      <span className='product-name-holder'>{name}</span>
+      <span className='product-salles-holder'>
         <i className='fas fa-link' />
         {productName}
       </span>
+      <span className='product-price-holder'>{`$ ${price}`}</span>
     </div>
-    <div className='upsell-item-controlls'>
+    <div className='card-controlls-container'>
       <i onClick={onEdit} className='fas fa-edit' />
       <i onClick={onPreview} className='fas fa-book-open' />
       <i onClick={onDelete} className='fas fa-trash-alt' />
