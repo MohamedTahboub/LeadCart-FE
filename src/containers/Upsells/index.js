@@ -77,7 +77,7 @@ class Upsells extends Component {
 
   }
   componentDidMount(){
-    this.props.getUpsells([])
+    this.props.updateUpsells([])
   }
   render() {
     const {
