@@ -9,6 +9,6 @@ export default [
   'image',
   { value: 'price', sub: ['amount', 'currancy'] },
   'tags',
-  'available',
-  'isActive'
+  // 'available',
+  // 'isActive'
 ];

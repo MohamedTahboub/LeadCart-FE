@@ -2,7 +2,7 @@ import {
   GET_USER_PAYMENTS_METHODS,
   ACTIVAT_PAYMENT,
   ACTIVAT_PAYMENT_SUCCESS,
-  ACTIVAT_PAYMENT_FAILD
+  ACTIVAT_PAYMENT_FAILED
 } from 'constantsTypes';
 
 export const getUserPaymentMethods = (mehtods) => ({
@@ -17,7 +17,7 @@ export const activatPaymentMethodSuccess = (payment) => ({
   type: ACTIVAT_PAYMENT_SUCCESS,
   payload: payment
 });
-export const activatPaymentMethodFaild = (message) => ({
-  type: ACTIVAT_PAYMENT_FAILD,
+export const activatPaymentMethodFailed = (message) => ({
+  type: ACTIVAT_PAYMENT_FAILED,
   payload: message
 });

@@ -6,7 +6,7 @@ import SearchInput from './SearchInput'
 import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
-
+import ids from 'short-id'
 export class InputRow extends Component {
   static Label = ({ notes, error, className, ...props }) => (
     <div className={'input-label-container ' + className}>
@@ -16,19 +16,19 @@ export class InputRow extends Component {
     </div>
   )
 
-  static NormalInput = ({ onChange, value, disabled, name, error, ...props }) => (
+  static NormalInput = ({ onChange, value,className, disabled, name, error, ...props }) => (
     <input
       onChange={onChange}
       name={name}
       defaultValue={value}
       disabled={disabled}
-      className={'input-field ' + (error && 'invalid-field')}
+      className={`input-field ${className ? className : ''} ${error ? 'invalid-field' : ''}`}
       placeholder={props.children}
     />
   )
 
   static SmallInput = ({
-    type = 'text', name, disabled, autoComplete = 'on', onChange, value, classes = [], error, ...props
+    type = 'text', name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
   }) => (
       <input
         defaultValue={value}
@@ -37,7 +37,7 @@ export class InputRow extends Component {
         name={name}
         disabled={disabled}
         type={type}
-        className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
+        className={`input-field small-input ${className ? className : ''} ${error ? 'invalid-field' : ''}`}
         placeholder={props.children}
       />
     )
@@ -90,20 +90,20 @@ export class InputRow extends Component {
   static EditableTagGroup = EditableTagGroup
 
   static SelectOption = ({
-    options = [], onChange, name, value, leftLabel, ...props
+    options = [], onChange,className, name, value, leftLabel, ...props
   }) => (
       <React.Fragment>
         {leftLabel && <span className="input-left-label">{leftLabel}</span>}
-        <select onClick={onChange} defaultValue={value} name={name} className='select-input-field'>
-          {options.map(({ label, value }, id) => <option key={id} className='select-option' value={value}>{label}</option>)}
+        <select onClick={onChange} defaultValue={value} name={name} className={`select-input-field ${className ? className : ''}`}>
+          {options.map(({ label, value }) => <option key={ids.generate()} className='select-option' value={value}>{label}</option>)}
         </select>
       </React.Fragment>
     )
 
   static PriceField = ({
-    children, onChange, name, type, disabled, classes = [], value, ...props
+    children, onChange, name, type, disabled, className, value, ...props
   }) => (
-      <div className={'price-input-holder ' + classes.join(' ')}>
+      <div className={`price-input-holder ${className ? className : ''}`}>
         <span className='currancy-type'>{type || '$'}</span>
         <input
           onChange={onChange}
@@ -209,9 +209,10 @@ export class InputRow extends Component {
   )
 
   render() {
-    const { margin = 12, className } = this.props;
+    const { margin, className } = this.props;
+    const style = margin ? { maring : `${margin}px 0px` } : {}
     return (
-      <div style={{ margin: `${margin}px 0px` }} className={'input-row ' + className}>
+      <div style={style} className={'input-row ' + className}>
         {this.props.children}
       </div>
     );

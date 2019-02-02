@@ -1,9 +1,9 @@
 import { CREATE_NEW_MEMBER, ACTIVATE_MEMBER } from 'constantsTypes';
 import {
   onCreateNewMemberSuccess,
-  onCreateNewMemberFaild,
+  onCreateNewMemberFailed,
   activateMemberSuccess,
-  activateMemberFaild
+  activateMemberFailed
 } from 'actions/teamMembers';
 import { apiRequest } from 'actions/apiRequest';
 
@@ -20,7 +20,7 @@ export default ({ dispatch }) => (next) => (action) => {
         contentType: 'json'
       },
       onSuccess: onCreateNewMemberSuccess.bind(this, action.payload),
-      onFaild: onCreateNewMemberFaild
+      onFailed: onCreateNewMemberFailed
     }));
   }
 
@@ -34,7 +34,7 @@ export default ({ dispatch }) => (next) => (action) => {
         contentType: 'json'
       },
       onSuccess: activateMemberSuccess.bind(this, action.payload),
-      onFaild: activateMemberFaild
+      onFailed: activateMemberFailed
     }));
   }
 };

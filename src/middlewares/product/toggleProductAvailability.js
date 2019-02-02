@@ -1,7 +1,7 @@
 
 
 import { TOGGLE_PRODUCT_AVAILABILITY } from 'constantsTypes';
-import { toggleProductAvailabilitySuccess, toggleProductAvailabilityFaild } from 'actions/product';
+import { toggleProductAvailabilitySuccess, toggleProductAvailabilityFailed } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
@@ -19,7 +19,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: toggleProductAvailabilitySuccess.bind(this, { productId, available }),
-    onFaild: toggleProductAvailabilityFaild
+    onFailed: toggleProductAvailabilityFailed
   }));
   // restore the application stored data in the loaclStorage
 };

@@ -163,6 +163,9 @@ footer {
   justify-content: center;
 }
 
+.df-warp{
+  flex-wrap: wrap;
+}
 
 @media only screen and (max-height: 600px) {
   .wrapper{ 

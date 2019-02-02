@@ -1,7 +1,7 @@
 import {
   UPLOAD_FILE,
   UPLOAD_FILE_SUCCESS,
-  UPLOAD_FILE_FAILD,
+  UPLOAD_FILE_FAILED,
   DELETE_FILE
 } from 'constantsTypes';
 
@@ -18,7 +18,7 @@ export const uploadFileSuccess = (file) => ({
   type: UPLOAD_FILE_SUCCESS,
   payload: file
 });
-export const uploadFileFaild = (message) => ({
-  type: UPLOAD_FILE_FAILD,
+export const uploadFileFailed = (message) => ({
+  type: UPLOAD_FILE_FAILED,
   payload: message
 });

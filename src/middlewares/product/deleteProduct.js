@@ -1,5 +1,5 @@
 import { DELETE_USER_PRODUCT } from 'constantsTypes';
-import { deleteProductSuccess, deleteProductFaild } from 'actions/product';
+import { deleteProductSuccess, deleteProductFailed } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
@@ -14,7 +14,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: deleteProductSuccess.bind(this, action.payload),
-    onFaild: deleteProductFaild
+    onFailed: deleteProductFailed
   }));
   // restore the application stored data in the loaclStorage
 };

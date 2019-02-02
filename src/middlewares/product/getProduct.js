@@ -1,5 +1,5 @@
 import { GET_PRODUCT_DETAILS } from 'constantsTypes';
-import { getProductSuccess, getProductFaild } from 'actions/product';
+import { getProductSuccess, getProductFailed } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -18,7 +18,7 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: getSuccess,
-    onFaild: getProductFaild
+    onFailed: getProductFailed
   }));
 };
 

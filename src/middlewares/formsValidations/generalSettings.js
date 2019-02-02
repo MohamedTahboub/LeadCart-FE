@@ -1,5 +1,5 @@
 
-import { saveUserGeneralSettingsFaild } from 'actions/settings';
+import { saveUserGeneralSettingsFailed } from 'actions/settings';
 
 import { SAVE_USER_GENERAL_SETTINGS } from 'constantsTypes';
 
@@ -16,7 +16,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
   const isInvalid = Vaidator(generalModel, rules);
 
-  if (isInvalid) dispatch(saveUserGeneralSettingsFaild(isInvalid));
+  if (isInvalid) dispatch(saveUserGeneralSettingsFailed(isInvalid));
   else next(action);
 };
 

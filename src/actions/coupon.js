@@ -1,11 +1,11 @@
 import {
   CREATE_NEW_COUPON,
   CREATE_NEW_COUPON_SUCCESS,
-  CREATE_NEW_COUPON_FAILD,
+  CREATE_NEW_COUPON_FAILED,
   GET_COUPONS_LIST,
   CHANGE_COUPON_STATE,
   CHANGE_COUPON_STATE_SUCCESS,
-  CHANGE_COUPON_STATE_FAILD,
+  CHANGE_COUPON_STATE_FAILED,
   RESET_COUPON_MODALE
 } from 'constantsTypes';
 
@@ -21,8 +21,8 @@ export const createNewCouponSuccess = (coupon) => ({
   type: CREATE_NEW_COUPON_SUCCESS,
   payload: coupon
 });
-export const createNewCouponFaild = (coupon) => ({
-  type: CREATE_NEW_COUPON_FAILD,
+export const createNewCouponFailed = (coupon) => ({
+  type: CREATE_NEW_COUPON_FAILED,
   payload: coupon
 });
 
@@ -34,8 +34,8 @@ export const changeCouponStateSuccess = (coupon) => ({
   type: CHANGE_COUPON_STATE_SUCCESS,
   payload: coupon
 });
-export const changeCouponStateFaild = (coupon) => ({
-  type: CHANGE_COUPON_STATE_FAILD,
+export const changeCouponStateFailed = (coupon) => ({
+  type: CHANGE_COUPON_STATE_FAILED,
   payload: coupon
 });
 

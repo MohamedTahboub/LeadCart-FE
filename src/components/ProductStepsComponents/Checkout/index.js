@@ -71,7 +71,7 @@ class CheckoutTemplates extends React.Component {
           <TemplatePreview name='temp6' active={this.isActive('temp6')} image={tempImage6} onSelect={this.onSelectTemplate} />
         </form>
         <MainTitle className='margin-top-20'>Checkout Template Theme Color</MainTitle>
-        <FlexBoxesContainer classes={['template-color-picker-container']}>
+        <FlexBoxesContainer className='template-color-picker-container'>
           <CirclePicker color={templateColor} onChange={this.onColorChange} />
           <div style={{ background: templateColor }} className='template-selected-color-simulation' />
         </FlexBoxesContainer>

@@ -34,7 +34,7 @@ class CodeInputField extends Component {
         error: ''
       });
     }
-    if (!globleLoading && loading) this.setState({ loading: false,success: false });
+    if (!globleLoading && loading) this.setState({ loading: false, success: false });
   }
 
   onCodeChange = ({ target: { value: code } }) => this.setState({ code })
@@ -43,7 +43,7 @@ class CodeInputField extends Component {
     const { code } = this.state;
     const { onSubmit } = this.props;
     if (code.trim().length > 5) {
-      this.setState({ loading: true, error: '',success: false });
+      this.setState({ loading: true, error: '', success: false });
       onSubmit({ code });
     }
 
@@ -100,7 +100,7 @@ const Billing = ({
           </BigText>
         )}
         footer={(
-          <FlexBoxesContainer classes={['space-between-elements']}>
+          <FlexBoxesContainer className='space-between-elements'>
             <div>
               <InputRow.Label>Nex billing date</InputRow.Label>
               <div>Dec 1, 2029</div>
@@ -132,15 +132,15 @@ const Billing = ({
               notes='Redeem codes and to get more sub accounts access'
             >
                 You Have Redeemed
-                {' '}
+              {' '}
               {codesUsed || 0}
               {' '}
-                out of 
-{' '}
-{codesUsed > 5 ? codesUsed : 5}
-{' '}
+                out of
+              {' '}
+              {codesUsed > 5 ? codesUsed : 5}
+              {' '}
 codes
-</InputRow.Label>
+            </InputRow.Label>
           </React.Fragment>
         )}
       />
@@ -189,7 +189,7 @@ export default connect(mapStateToProps, codeActions)(Billing);
 
 /*
         footer={(
-          <FlexBoxesContainer classes={['space-between-elements']}>
+          <FlexBoxesContainer className='space-between-elements'>
             <div>
               <InputRow.Label>Nex billing date</InputRow.Label>
               <div>Sep 25, 2018</div>

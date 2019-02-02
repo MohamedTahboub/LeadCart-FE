@@ -1,5 +1,5 @@
 import { SAVE_USER_GENERAL_SETTINGS } from 'constantsTypes';
-import { saveUserGeneralSettingsSuccess, saveUserGeneralSettingsFaild } from 'actions/settings';
+import { saveUserGeneralSettingsSuccess, saveUserGeneralSettingsFailed } from 'actions/settings';
 
 import { apiRequest } from 'actions/apiRequest';
 
@@ -15,6 +15,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: saveUserGeneralSettingsSuccess,
-    onFaild: saveUserGeneralSettingsFaild
+    onFailed: saveUserGeneralSettingsFailed
   }));
 };

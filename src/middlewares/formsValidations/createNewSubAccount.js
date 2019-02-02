@@ -1,6 +1,6 @@
 
 import { CREATE_SUB_ACCOUNT } from 'constantsTypes';
-import { onCreateSubAccountFaild } from 'actions/agency';
+import { onCreateSubAccountFailed } from 'actions/agency';
 import { Rules, Vaidator } from '../helpers/validators';
 
 
@@ -15,7 +15,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
   const isInvalid = Vaidator(action.payload, rules);
 
-  if (isInvalid) dispatch(onCreateSubAccountFaild(isInvalid));
+  if (isInvalid) dispatch(onCreateSubAccountFailed(isInvalid));
   else next(action);
 };
 

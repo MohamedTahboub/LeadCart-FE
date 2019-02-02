@@ -1,7 +1,7 @@
 import {
   NEW_PRODUCT_FIELD_UPDATE,
   PRODUCT_CREATED_SUCCESSFULY,
-  PRODUCT_CREATION_FAILD
+  PRODUCT_CREATION_FAILED
 } from 'constantsTypes';
 
 
@@ -16,7 +16,7 @@ export default (state = initState, { type, payload }) => {
     url: state.url,
     isAproductCreated: true
   };
-  case PRODUCT_CREATION_FAILD:
+  case PRODUCT_CREATION_FAILED:
     return {
       ...state,
       errors: typeof payload === 'string' ? {

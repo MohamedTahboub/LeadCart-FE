@@ -42,7 +42,7 @@ class EmailFooterModal extends Component {
             state: { enabling, errors, success }
         } = this
         return (
-            <Modal isVisable={isVisible} onClose={onClose} >
+            <Modal isVisible={isVisible} onClose={onClose} >
                 <MainTitle>Enable Email Footer Details</MainTitle>
                 <InputRow>
                     <InputRow.Label >Support Email</InputRow.Label>

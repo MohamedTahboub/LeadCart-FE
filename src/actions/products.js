@@ -1,7 +1,7 @@
 import {
   GET_USER_PRODUCTS,
   GET_USER_PRODUCTS_SUCCESS,
-  GET_USER_PRODUCTS_FAILD
+  GET_USER_PRODUCTS_FAILED
 } from 'constantsTypes';
 
 
@@ -12,7 +12,7 @@ export const getUserProductsSuccess = (products) => ({
   type: GET_USER_PRODUCTS_SUCCESS,
   payload: products
 });
-export const getUserProductsFaild = (message) => ({
-  type: GET_USER_PRODUCTS_FAILD,
+export const getUserProductsFailed = (message) => ({
+  type: GET_USER_PRODUCTS_FAILED,
   payload: message
 });

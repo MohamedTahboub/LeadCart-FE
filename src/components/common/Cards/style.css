@@ -321,3 +321,7 @@ span.product-salles-holder i.fas {
     padding-right: 5px;
 }
 /* Upsell Card Styles ENDS*/
+
+.item-clickable{
+    cursor: pointer;
+}

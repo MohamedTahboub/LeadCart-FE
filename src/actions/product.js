@@ -4,13 +4,13 @@ import {
   PRODUCT_DETAILS_FIELD_UPDATE,
   CREATE_NEW_PRODUCT,
   PRODUCT_CREATED_SUCCESSFULY,
-  PRODUCT_CREATION_FAILD,
+  PRODUCT_CREATION_FAILED,
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_FAILD,
+  UPDATE_PRODUCT_FAILED,
   GET_PRODUCT_DETAILS,
   GET_PRODUCT_SUCCESS,
-  GET_PRODUCT_FAILD,
+  GET_PRODUCT_FAILED,
   PRODUCT_CHECKOUT_FIELD_UPDATE,
   PRODUCT_FULLFILLMENT_FIELD_UPDATE,
   PRODUCT_BOOSTERS_FIELD_UPDATE,
@@ -19,11 +19,11 @@ import {
   PRODUCT_SETTING_FIELD_UPDATE,
   DELETE_USER_PRODUCT,
   DELETE_USER_PRODUCT_SUCCESS,
-  DELETE_USER_PRODUCT_FAILD,
+  DELETE_USER_PRODUCT_FAILED,
   PRODUCT_THANKYOUPAGE_FIELD_UPDATE,
   TOGGLE_PRODUCT_AVAILABILITY,
   TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
-  TOGGLE_PRODUCT_AVAILABILITY_FAILD,
+  TOGGLE_PRODUCT_AVAILABILITY_FAILED,
 
 } from '../constantsTypes';
 
@@ -49,8 +49,8 @@ export const productCreated = (product) => ({
   payload: product
 });
 
-export const productCreatingFaild = (message) => ({
-  type: PRODUCT_CREATION_FAILD,
+export const productCreatingFailed = (message) => ({
+  type: PRODUCT_CREATION_FAILED,
   payload: message
 });
 
@@ -109,8 +109,8 @@ export const productUpdatedSuccessfuly = (product) => ({
   payload: product
 });
 
-export const productUpdatedFaild = (message) => ({
-  type: UPDATE_PRODUCT_FAILD,
+export const productUpdatedFailed = (message) => ({
+  type: UPDATE_PRODUCT_FAILED,
   payload: message
 });
 
@@ -128,8 +128,8 @@ export const getProductSuccess = (product) => ({
   payload: product
 });
 
-export const getProductFaild = (product) => ({
-  type: GET_PRODUCT_FAILD,
+export const getProductFailed = (product) => ({
+  type: GET_PRODUCT_FAILED,
   payload: product
 });
 
@@ -146,8 +146,8 @@ export const deleteProductSuccess = (product) => ({
   payload: product
 });
 
-export const deleteProductFaild = (product) => ({
-  type: DELETE_USER_PRODUCT_FAILD,
+export const deleteProductFailed = (product) => ({
+  type: DELETE_USER_PRODUCT_FAILED,
   payload: product
 });
 /* Deleting A Product Ends */
@@ -161,8 +161,8 @@ export const toggleProductAvailabilitySuccess = (availability) => ({
   type: TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
   payload: availability
 });
-export const toggleProductAvailabilityFaild = (message) => ({
-  type: TOGGLE_PRODUCT_AVAILABILITY_FAILD,
+export const toggleProductAvailabilityFailed = (message) => ({
+  type: TOGGLE_PRODUCT_AVAILABILITY_FAILED,
   payload: message
 });
   /* Toggling Product Availability Ends */
@@ -175,8 +175,8 @@ export const toggleProductAvailabilityFaild = (message) => ({
 //   type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS,
 //   payload: checkout
 // });
-// export const updateProductCheckoutDesignFaild = (checkout) => ({
-//   type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILD,
+// export const updateProductCheckoutDesignFailed = (checkout) => ({
+//   type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILED,
 //   payload: checkout
 // });
 // export const updateProductPayment = (payment) => ({
@@ -201,8 +201,8 @@ export const toggleProductAvailabilityFaild = (message) => ({
 //   type: ADD_PRODUCT_PAYMENT_METHOD_SUCCESS,
 //   payload: method
 // });
-// export const addProductPaymentMethodFaild = (method) => ({
-//   type: ADD_PRODUCT_PAYMENT_METHOD_FAILD,
+// export const addProductPaymentMethodFailed = (method) => ({
+//   type: ADD_PRODUCT_PAYMENT_METHOD_FAILED,
 //   payload: method
 // });
 

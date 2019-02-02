@@ -46,13 +46,17 @@ export default () => (next) => (action) => {
 function upadateIntercomeWithUserDetails ({
   firstName = 'There', lastName = 'guest', email = 'anonymous@leadcart.io', _id: id
 }) {
-  if (process.env.NODE_ENV !== 'development') {
-    window.Intercom('boot', {
-      app_id: 'skynydft',
-      email,
-      created_at: Math.round((new Date()).getTime() / 1000),
-      name: `${firstName} ${lastName}`,
-      user_id: id
-    });
+  try {
+    if (process.env.NODE_ENV !== 'development') {
+      window.Intercom('boot', {
+        app_id: 'skynydft',
+        email,
+        created_at: Math.round((new Date()).getTime() / 1000),
+        name: `${firstName} ${lastName}`,
+        user_id: id
+      });
+    }
+  } catch (err) {
+    console.error(err);
   }
 }

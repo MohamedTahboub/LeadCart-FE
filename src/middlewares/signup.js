@@ -3,7 +3,7 @@ import { SIGN_UP } from 'constantsTypes';
 
 import {
   signUpSuccess,
-  signUpFaild
+  signUpFailed
 } from 'actions/signup';
 import apiRequest from './helpers/apiRequest';
 
@@ -19,7 +19,7 @@ export default ({ dispatch }) => (next) => (action) => {
   })
     .then(({ success, message, data }) => (success
         ? dispatch(signUpSuccess(data))
-        : dispatch(signUpFaild(message))))
-    .catch((err) => dispatch(signUpFaild(err.message)));
+        : dispatch(signUpFailed(message))))
+    .catch((err) => dispatch(signUpFailed(err.message)));
 };
 

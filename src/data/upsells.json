@@ -6,12 +6,14 @@
         },
         "assets": {
             "assetsType": "video",
-            "video": "sadasdadsadasdsadsa",
-            "image": "dsaasdasdadasdsad"
+            "video": "https://www.yt.co/?tag=myVideo",
+            "assetLink": "https://www.yt.co/?tag=myVideo",
+            "image": "https://flicker.ly/?ph=myImage"
         },
         "_id": "5c41bd34b87f3d672c70ca2e",
         "name": "Upsell #1",
-        "linkedProduct": "5bf8938503cb663dec6dbc44",
+        "upsellIntro":"Life Changer Power banck , new experience",
+        "linkedProduct": "5c3502c38bdad277ab5ec0f6",
         "features": [
             {
                 "_id": "5c41bd34b87f3d672c70ca32",

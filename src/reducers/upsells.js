@@ -1,10 +1,30 @@
-import { UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAILD, DELETE_FILE } from 'constantsTypes';
+import {
+  GET_UPSELLS_SUCCESS,
+  GET_UPSELLS_FAILED
+} from 'constantsTypes';
 
 
 const initialState = {
   upsell: {},
-  list: '',
+  list: [],
   errors: ''
 };
 
-export default (state = initialState, { type, payload }) => state;
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
+    case GET_UPSELLS_SUCCESS:
+      return {
+        ...state,
+        list: payload
+      };
+    case GET_UPSELLS_FAILED:
+      return {
+        ...state,
+        errors: {
+          ...state,
+          message: payload
+        }
+      }
+    default: return state;
+  }
+};

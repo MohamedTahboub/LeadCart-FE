@@ -1,5 +1,5 @@
 import { ACTIVAT_PAYMENT } from 'constantsTypes';
-import { activatPaymentMethodSuccess, activatPaymentMethodFaild } from 'actions/payments';
+import { activatPaymentMethodSuccess, activatPaymentMethodFailed } from 'actions/payments';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -16,6 +16,6 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json',
     },
     onSuccess: activatPaymentMethodSuccess.bind(this, type),
-    onFaild: (message) => activatPaymentMethodFaild({ type, message })
+    onFailed: (message) => activatPaymentMethodFailed({ type, message })
   }));
 };

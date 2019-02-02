@@ -1,5 +1,5 @@
 
-import { createNewCouponFaild } from 'actions/promoCode';
+import { createNewCouponFailed } from 'actions/promoCode';
 
 import { CREATE_NEW_COUPON } from 'constantsTypes';
 
@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
   };
   const isInvalid = Vaidator(action.payload, rules);
 
-  if (isInvalid) dispatch(createNewCouponFaild(isInvalid));
+  if (isInvalid) dispatch(createNewCouponFailed(isInvalid));
   else next(action);
 };
 

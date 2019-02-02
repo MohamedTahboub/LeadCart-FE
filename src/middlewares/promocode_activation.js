@@ -1,4 +1,4 @@
-import { activatePromocodeSuccess, activatePromocodeFaild } from 'acrion/promocode';
+import { activatePromocodeSuccess, activatePromocodeFailed } from 'acrion/promocode';
 import { PROMO_CODE_ACTIVATE } from '../constantsTypes';
 
 
@@ -13,6 +13,6 @@ export default ({ dispatch }) => (next) => (action) => {
   })
     .then(({ status, ...response }) => (status
       ? dispatch(activatePromocodeSuccess(response))
-      : dispatch(activatePromocodeFaild(response))))
-    .catch((err) => dispatch(activatePromocodeFaild(err.message)));
+      : dispatch(activatePromocodeFailed(response))))
+    .catch((err) => dispatch(activatePromocodeFailed(err.message)));
 };

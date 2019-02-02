@@ -90,11 +90,11 @@ class Agency extends Component {
             </Tabel>
           )}
         <AddNewButton key='subAccountModal' onClick={this.toggleModal} />
-        <Modal onClose={this.toggleModal} isVisable={this.state.isModalVisable}>
+        <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
           <MainTitle>Create Sub-Accounts</MainTitle>
           <InputRow>
             <InputRow.SmallInput name='firstName' onChange={this.onFieldChange} error={errors.firstName}>First Name</InputRow.SmallInput>
-            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} classes={['margin-left-30 reset-font-size']}>Last Name</InputRow.SmallInput>
+            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} className='margin-left-30 reset-font-size'>Last Name</InputRow.SmallInput>
           </InputRow>
           <InputRow>
             <InputRow.NormalInput name='email' onChange={this.onFieldChange} error={errors.email}>Email address</InputRow.NormalInput>

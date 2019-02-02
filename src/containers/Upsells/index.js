@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import upsellsData from 'data/upsells.json';
-// import Upsells from './sub/Upsells'
-// import Funnels from './sub/Funnels'
+import { connect } from 'react-redux'
+
 import Modal from 'components/Modal';
 import UpsellForm from './newUpsellModal';
 import './style.css';
-// import ProductDetailes from './sub/ProductDetails'
+import * as upsellsActions from 'actions/upsells'
 
 import common from 'components/common';
 
-console.log(UpsellForm)
 const {
   InputRow, UpsellCard, MainTitle, FlexBoxesContainer, Button, MainBlock
 } = common;
+
+
 const NewUpsell = ({ onClick, ...props }) => (
   <Button onClick={onClick} classes='primary-color'>
     <i className='fas fa-plus' />
@@ -21,16 +22,21 @@ const NewUpsell = ({ onClick, ...props }) => (
   </Button>
 );
 
+const getProductById = ({ products, id }) => {
+  const { name: productName, url: productLink } = products.find(({ id: i }) => i === id) || { url: 'unknown', name: 'not available' }
+  return { productName, productLink }
+}
+
 const DeleteDialuge = ({
-  onClose, show, onConfirem, ...props
+  onClose, show, onConfirm, ...props
 }) => (
-    <Modal onClose={onClose} isVisable={show}>
+    <Modal onClose={onClose} isVisible={show}>
       <MainTitle>Are you sure,you want delete this upsell ?</MainTitle>
       <Button onClick={onClose} classes='primary-color margin-with-float-left'>
         {' '}
         Cancel
     </Button>
-      <Button onClick={onConfirem} classes='warning-color margin-with-float-right'>
+      <Button onClick={onConfirm} classes='warning-color margin-with-float-right'>
         <i className='fas fa-trash-alt' />
         {' '}
         Delete
@@ -41,7 +47,10 @@ class Upsells extends Component {
   state = {
     showDeleteDialuge: false,
     showUpsellEditablePreview: false,
-    showNewUpsellForm: false
+    showNewUpsellForm: false,
+    products: [],
+    isNewUpsell:true,
+    stagedUpsell:{}
   }
 
   toggleDeleteDialuge = () => {
@@ -53,36 +62,56 @@ class Upsells extends Component {
   }
 
   toggleNewUpsellForm = () => {
-    this.setState({ showNewUpsellForm: !this.state.showNewUpsellForm });
+    this.setState({
+      showNewUpsellForm: !this.state.showNewUpsellForm,
+      isNewUpsell: true
+    });
   }
 
+  toggleEditUpsellForm = (id) => {
+    this.setState({
+      showNewUpsellForm: !this.state.showNewUpsellForm,
+      isNewUpsell: false,
+      stagedUpsell:this.props.upsells.find(({_id})=>_id===id)||{}
+    });
+
+  }
+  componentDidMount(){
+    this.props.getUpsells([])
+  }
   render() {
-    const tabName = this.props.history.location.hash.slice(1);
-    const { showDeleteDialuge, showNewUpsellForm } = this.state;
+    const {
+      state: { showDeleteDialuge, showNewUpsellForm ,stagedUpsell , isNewUpsell},
+      props: { upsells, products }
+    } = this
+
     return (
       <React.Fragment>
-        <FlexBoxesContainer classes={['space-between-elements']}>
+        <FlexBoxesContainer className='space-between-elements'>
           <MainTitle >Upsells</MainTitle>
           <Button onClick={this.toggleNewUpsellForm} classes=' primary-color'>
             New Upsell
           </Button>
         </FlexBoxesContainer>
-        <FlexBoxesContainer classes={['flex-wrap']}>
-          {upsellsData.map((upsell) => (
+        <FlexBoxesContainer className='flex-wrap'>
+          {upsells.map((upsell) => (
             <UpsellCard
+              key={upsell._id}
               {...upsell}
+              linkedProduct={getProductById({ products, id: upsell.linkedProduct })}
               onDelete={this.toggleDeleteDialuge}
-              onEdit={this.toggleNewUpsellForm}
+              onEdit={this.toggleEditUpsellForm.bind(this,upsell._id)}
             />
           ))}
         </FlexBoxesContainer>
         <DeleteDialuge
           onClose={this.toggleDeleteDialuge}
           show={showDeleteDialuge}
-          onConfirem={this.toggleDeleteDialuge}
+          onConfirm={this.toggleDeleteDialuge}
         />
         <UpsellForm
-          newUpsell={true}
+          upsell={stagedUpsell}
+          newUpsell={isNewUpsell}
           onClose={this.toggleNewUpsellForm}
           show={showNewUpsellForm}
           onConfirem={this.toggleNewUpsellForm}
@@ -94,4 +123,8 @@ class Upsells extends Component {
 }
 
 
-export default Upsells;
+const mapStateToProps = ({ products: { products }, upsells: { list: upsells } }) => ({
+  upsells,
+  products
+})
+export default connect(mapStateToProps,upsellsActions)(Upsells);

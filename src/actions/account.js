@@ -1,13 +1,13 @@
 import {
   CHANGE_ACCOUNT_DETAILS,
   CHANGE_ACCOUNT_DETAILS_SUCCESS,
-  CHANGE_ACCOUNT_DETAILS_FAILD,
+  CHANGE_ACCOUNT_DETAILS_FAILED,
   CHANGE_ACCOUNT_PASSWORD,
   CHANGE_ACCOUNT_PASSWORD_SUCCESS,
-  CHANGE_ACCOUNT_PASSWORD_FAILD,
+  CHANGE_ACCOUNT_PASSWORD_FAILED,
   UPDATE_USER_PROFILE_IMAGE,
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
-  UPDATE_USER_PROFILE_IMAGE_FAILD
+  UPDATE_USER_PROFILE_IMAGE_FAILED
 } from 'constantsTypes';
 
 
@@ -19,8 +19,8 @@ export const onChangeAccountDetailsSuccess = (message) => ({
   type: CHANGE_ACCOUNT_DETAILS_SUCCESS,
   payload: message
 });
-export const onChangeAccountDetailsFaild = (message) => ({
-  type: CHANGE_ACCOUNT_DETAILS_FAILD,
+export const onChangeAccountDetailsFailed = (message) => ({
+  type: CHANGE_ACCOUNT_DETAILS_FAILED,
   payload: message
 });
 
@@ -35,8 +35,8 @@ export const onChangeAccounPasswordSuccess = (message) => ({
   payload: message
 });
 
-export const onChangeAccounPasswordFaild = (message) => ({
-  type: CHANGE_ACCOUNT_PASSWORD_FAILD,
+export const onChangeAccounPasswordFailed = (message) => ({
+  type: CHANGE_ACCOUNT_PASSWORD_FAILED,
   payload: message
 });
 
@@ -51,8 +51,8 @@ export const updateUserProfileImageSuccess = (message) => ({
   payload: message
 });
 
-export const updateUserProfileImageFaild = (message) => ({
-  type: UPDATE_USER_PROFILE_IMAGE_FAILD,
+export const updateUserProfileImageFailed = (message) => ({
+  type: UPDATE_USER_PROFILE_IMAGE_FAILED,
   payload: message
 });
 

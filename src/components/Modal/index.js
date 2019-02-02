@@ -2,11 +2,11 @@ import React from 'react';
 
 import './style.css';
 export default ({
-  children, onClose, isVisable, ...props
+  children, onClose, className, isVisible, ...props
 }) => (
-  isVisable ? (
-    <div style={{ display: 'flex' }} className='modal-container'>
-      <div className='modal-content'>
+  isVisible ? (
+    <div style={{ display: 'flex' }} className="modal-container">
+      <div className={`modal-content ${className || ''}`}>
         <span onClick={onClose} className='modal-close-btn'>
           <i className='fas fa-times' />
         </span>

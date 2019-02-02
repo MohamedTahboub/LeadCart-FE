@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { navigateTo } from 'libs';
 import './style.css';
 import { genrateColor } from './helpers';
 export const MiniCard = ({ imgSrc, ...props }) => (
@@ -55,7 +55,7 @@ export const ProductCard = ({
       <span className='product-salles-holder'>
         {monthlyProfite}
           /monthly
-      </span>
+        </span>
       <span className='product-price-holder'>{`$ ${price.amount}`}</span>
     </div>
     <div className='card-controlls-container'>
@@ -118,13 +118,16 @@ const Label = ({ children, ...props }) => (
 
 
 export const UpsellCard = ({
-  name, id, price, onEdit, onPreview, onDelete, linkedProduct: { name: productName } = {}, ...props
+  name, id, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
   <div className='upsell-card-container'>
     <div className='card-main-content product-avatar-holder'>
       <Avatar name={name} />
       <span className='product-name-holder'>{name}</span>
-      <span className='product-salles-holder'>
+      <span
+        onClick={() => productLink && navigateTo(`/product/${productLink}/details`)}
+        className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
+      >
         <i className='fas fa-link' />
         {productName}
       </span>

@@ -3,8 +3,8 @@ import {
   CHANGE_ACCOUNT_PASSWORD
 } from 'constantsTypes';
 import {
-  onChangeAccountDetailsFaild,
-  onChangeAccounPasswordFaild
+  onChangeAccountDetailsFailed,
+  onChangeAccounPasswordFailed
 } from 'actions/account';
 import { Rules, Vaidator } from '../helpers/validators';
 
@@ -18,7 +18,7 @@ export default ({ dispatch }) => (next) => (action) => {
     email: [Rules.email]
   };
 
-  let faildAction = onChangeAccountDetailsFaild;
+  let faildAction = onChangeAccountDetailsFailed;
 
   if (action.type === CHANGE_ACCOUNT_PASSWORD) {
     rules = {
@@ -26,7 +26,7 @@ export default ({ dispatch }) => (next) => (action) => {
       newPassword: [Rules.isRequired],
       newPasswordConfirmation: [Rules.isRequired]
     };
-    faildAction = onChangeAccounPasswordFaild;
+    faildAction = onChangeAccounPasswordFailed;
   }
 
   const isInvalid = Vaidator(action.payload, rules);

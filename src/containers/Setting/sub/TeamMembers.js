@@ -72,11 +72,11 @@ class TeamMembers extends Component {
           )
         }
         <AddNewButton onClick={this.toggleModal} />
-        <Modal onClose={this.toggleModal} isVisable={this.state.isModalVisable}>
+        <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
           <MainTitle>Create New Team member</MainTitle>
           <InputRow>
             <InputRow.SmallInput name='firstName' onChange={this.onFieldChange} error={errors.firstName}>First Name</InputRow.SmallInput>
-            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} classes={['margin-left-30']}>Last Name</InputRow.SmallInput>
+            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} className='margin-left-30'>Last Name</InputRow.SmallInput>
           </InputRow>
           <InputRow>
             <InputRow.NormalInput name='email' onChange={this.onFieldChange} error={errors.email}>Email address</InputRow.NormalInput>

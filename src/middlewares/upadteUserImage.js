@@ -1,5 +1,5 @@
 import { UPDATE_USER_PROFILE_IMAGE } from 'constantsTypes';
-import { updateUserProfileImageSuccess, updateUserProfileImageFaild } from 'actions/account';
+import { updateUserProfileImageSuccess, updateUserProfileImageFailed } from 'actions/account';
 
 import { apiRequest } from 'actions/apiRequest';
 
@@ -14,6 +14,6 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: updateUserProfileImageSuccess.bind(this, action.payload),
-    onFaild: updateUserProfileImageFaild
+    onFailed: updateUserProfileImageFailed
   }));
 };

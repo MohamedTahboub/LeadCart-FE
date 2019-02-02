@@ -1,5 +1,5 @@
 import {
-  GET_SUBSCRIPTIONS_LIST
+  GET_CUSTOMERS_ACTIVITIES
 } from 'constantsTypes';
 
 const initalState = {
@@ -8,9 +8,11 @@ const initalState = {
 
 export default (state = initalState, { type, payload }) => {
   switch (type) {
-  case GET_SUBSCRIPTIONS_LIST:
-    return { subscriptions: payload || [] };
-
+  case GET_CUSTOMERS_ACTIVITIES:
+    return {
+      ...state,
+      subscriptions: payload.subscriptions
+    };
   default: return state;
   }
 };

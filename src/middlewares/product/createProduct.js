@@ -1,5 +1,5 @@
 import { CREATE_NEW_PRODUCT } from 'constantsTypes';
-import { productCreated, productCreatingFaild } from 'actions/product';
+import { productCreated, productCreatingFailed } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
@@ -16,7 +16,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: productCreated,
-    onFaild: productCreatingFaild
+    onFailed: productCreatingFailed
   }));
   // restore the application stored data in the loaclStorage
 };

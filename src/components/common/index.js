@@ -5,6 +5,7 @@ import * as logos from './logos'
 import * as search from './search'
 import * as titles from './Titles'
 import * as cards from './Cards'
+import List from './List'
 import * as navigators from './Navigators'
 
 
@@ -15,6 +16,7 @@ export default {
     ...inputs,
     ...logos,
     ...search,
+    List,
     ...titles,
     ...cards,
     ...navigators
