@@ -29,8 +29,8 @@
     top:110%;
     width:85%;
     color:gray;
-    font-size: 9px;
-
+    line-height: 12px;
+    font-size: 10px;
 }
 .input-field{
     width: 404px;
@@ -715,3 +715,55 @@ input.add-input-field {
     color: tomato;
 }
 /* Delete trash btn ends*/
+
+
+/* Custom Checkbox input styles Field*/
+.custom-checkbox-input-field{
+    display:none;
+}
+.custom-checkbox-input-mask{
+    position:relative;
+    display:inline-block;
+    height:15px;
+    width:15px;
+    color:#03A9F4;
+    cursor:pointer;
+    border:1px solid gray;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:all .4s ease-in-out;
+}
+.custom-checkbox-input-field:checked ~ .custom-checkbox-input-mask{
+    border:1px solid #03A9F4;
+}
+.custom-checkbox-input-field:checked ~ .custom-checkbox-input-mask:after{
+    content: "\2713";
+    font-size:18px;
+    top:0px;
+    left:0px;
+}
+  
+/* Custom Checkbox input Field StylesEnds*/
+
+
+/* Editable Text Field Styles*/
+.editable-text-field {
+    font-size: 15px !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .editable-text-input {
+    width: fit-content;
+    padding: inherit;
+    font-size: inherit;
+    border: none;
+    outline-style: none;
+  }
+  .editable-text-content{
+    /* font-weight: 600; */
+  }
+  abbr.abbr-note {
+    text-decoration: none !important;
+    cursor: pointer !important;
+}
+/* Editable Text Field Styles Ends*/

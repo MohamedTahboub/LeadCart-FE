@@ -23,47 +23,56 @@ import {
   CREATE_NEW_COUPON_FAILED,
   UPLOAD_FILE_FAILED,
   UPDATE_UPSELL,
-  CREATE_UPSELL
+  CREATE_UPSELL,
+  DELETE_UPSELL_SUCCESS,
+  DELETE_UPSELL_FAILED
 } from 'constantsTypes';
+
 export default ({ dispatch }) => (next) => (action) => {
+  const showSuccessMessage = (message) => dispatch(showFlashMessage({ type: 'success', message }));
+  const showFailurMessage = (message) => dispatch(showFlashMessage({ type: 'failed', message }));
+
   switch (action.type) {
   case CREATE_UPSELL:
     setTimeout(() => {
-      dispatch(showFlashMessage({ type: 'success', message: 'Upsell Created Successfuly ' }));
+      showSuccessMessage('\'Upsell Created Successfully \'');
     }, 300);
     break;
+  case DELETE_UPSELL_SUCCESS:
+    showSuccessMessage('Upsell Deleted Successfully');
+    break;
   case UPDATE_PRODUCT_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'The Product Updated Successfuly ' }));
+    showSuccessMessage('The Product Updated Successfully');
     break;
   case SAVE_USER_GENERAL_SETTINGS_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Update General Setting Successfully' }));
+    showSuccessMessage('Update General Setting Successfully');
     break;
   case PRODUCT_CREATED_SUCCESSFULY:
-    dispatch(showFlashMessage({ type: 'success', message: 'The Product Created Successfuly ' }));
+    showSuccessMessage('The Product Created Successfully');
     break;
   case DELETE_USER_PRODUCT_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'The Product Deleted Successfuly ' }));
+    showSuccessMessage('The Product Deleted Successfully');
     break;
   case UPLOAD_FILE_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Uploaded Successfuly ' }));
+    showSuccessMessage('Uploaded Successfully');
     break;
   case CHANGE_ACCOUNT_DETAILS_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Account Details Changes Successfully' }));
+    showSuccessMessage('Account Details Changes Successfully');
     break;
   case CHANGE_ACCOUNT_PASSWORD_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Account Password Changes Successfully' }));
+    showSuccessMessage('Account Password Changes Successfully');
     break;
   case CREATE_NEW_MEMBER_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'New Member Have Been Created' }));
+    showSuccessMessage('\'New Member Have Been');
     break;
   case CREATE_NEW_COUPON_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'New Coupon Created Successfully' }));
+    showSuccessMessage('New Coupon Created Successfully');
     break;
   case CHANGE_COUPON_STATE_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Coupon status changed Successfully' }));
+    showSuccessMessage('Coupon status changed Successfully');
     break;
   case TOGGLE_PRODUCT_AVAILABILITY_SUCCESS:
-    dispatch(showFlashMessage({ type: 'success', message: 'Product availability changed Successfully' }));
+    showSuccessMessage('Product availability changed Successfully');
     break;
   case CHANGE_ACCOUNT_DETAILS_FAILED:
     dispatch(showFlashMessage({ type: 'faild', message: 'Account Details Changes Failed' }));
@@ -98,6 +107,8 @@ export default ({ dispatch }) => (next) => (action) => {
   case UPDATE_UPSELL:
     dispatch(showFlashMessage({ type: 'faild', message: 'Upsell Failed To Update' }));
     break;
+  case DELETE_UPSELL_FAILED:
+    showSuccessMessage('Couldn\'t delete that Upsell,Something went wrong');
   default:
     return next(action);
   }

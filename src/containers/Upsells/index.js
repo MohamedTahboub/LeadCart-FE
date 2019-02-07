@@ -49,12 +49,13 @@ class Upsells extends Component {
     showUpsellEditablePreview: false,
     showNewUpsellForm: false,
     products: [],
-    isNewUpsell:true,
-    stagedUpsell:{}
+    isNewUpsell: true,
+    stagedUpsell: {}
   }
 
-  toggleDeleteDialuge = () => {
-    this.setState({ showDeleteDialuge: !this.state.showDeleteDialuge });
+  toggleDeleteDialuge = (id) => {
+    const { stagedUpsell } = this.state
+    this.setState({ showDeleteDialuge: !this.state.showDeleteDialuge, stagedUpsell: { ...stagedUpsell, id } });
   }
 
   toggleUpsellEditablePreview = () => {
@@ -72,16 +73,35 @@ class Upsells extends Component {
     this.setState({
       showNewUpsellForm: !this.state.showNewUpsellForm,
       isNewUpsell: false,
-      stagedUpsell:this.props.upsells.find(({_id})=>_id===id)||{}
+      stagedUpsell: this.props.upsells.find(({ _id }) => _id === id) || {}
     });
 
   }
-  componentDidMount(){
-    this.props.updateUpsells([])
+  onDeleteUpsell = id => {
+    const { stagedUpsell } = this.state
+    this.setState({
+      stagedUpsell: {
+        ...stagedUpsell,
+        deleted: true
+      }
+    })
+    this.props.deleteUpsell(id);
+  }
+  componentDidMount() {
+    this.props.getUpsells()
+  }
+
+  componentDidUpdate() {
+    const { upsells } = this.props
+    const { stagedUpsell: { id :deletedUpsellId} } = this.state
+
+    if (deletedUpsellId && !upsells.find(({_id:id})=>id === deletedUpsellId)) {
+      this.toggleDeleteDialuge()
+    }
   }
   render() {
     const {
-      state: { showDeleteDialuge, showNewUpsellForm ,stagedUpsell , isNewUpsell},
+      state: { showDeleteDialuge, showNewUpsellForm, stagedUpsell, isNewUpsell },
       props: { upsells, products }
     } = this
 
@@ -99,19 +119,18 @@ class Upsells extends Component {
               key={upsell._id}
               {...upsell}
               linkedProduct={getProductById({ products, id: upsell.linkedProduct })}
-              onDelete={this.toggleDeleteDialuge}
-              onEdit={this.toggleEditUpsellForm.bind(this,upsell._id)}
+              onDelete={this.toggleDeleteDialuge.bind(this, upsell._id)}
+              onEdit={this.toggleEditUpsellForm.bind(this, upsell._id)}
             />
           ))}
         </FlexBoxesContainer>
         <DeleteDialuge
           onClose={this.toggleDeleteDialuge}
           show={showDeleteDialuge}
-          onConfirm={this.toggleDeleteDialuge}
+          onConfirm={this.onDeleteUpsell.bind(this, stagedUpsell.id)}
         />
         <UpsellForm
-          upsell={stagedUpsell}
-          newUpsell={isNewUpsell}
+          upsell={isNewUpsell ? {} : stagedUpsell}
           onClose={this.toggleNewUpsellForm}
           show={showNewUpsellForm}
           onConfirem={this.toggleNewUpsellForm}
@@ -127,4 +146,4 @@ const mapStateToProps = ({ products: { products }, upsells: { list: upsells } })
   upsells,
   products
 })
-export default connect(mapStateToProps,upsellsActions)(Upsells);
+export default connect(mapStateToProps, upsellsActions)(Upsells);

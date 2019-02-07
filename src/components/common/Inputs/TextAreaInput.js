@@ -25,7 +25,18 @@ class TextAreaInput extends Component {
     });
   }
 
-  onChange = ({ target: { value } }) => {
+  componentDidUpdate (prev) {
+    const {
+      name, value, min, max, error
+    } = this.props;
+    if (prev.name !== name || prev.value !== value) {
+      this.setState({
+        name, value, min, max, error
+      });
+    }
+  }
+
+  onChange = ({ target: { name, value } }) => {
     const wordsNumber = getWordsCount(value);
     const { min, max } = this.state;
     if (this.props.countable) {
@@ -34,15 +45,19 @@ class TextAreaInput extends Component {
           wordsNumber,
           value
         });
-        this.props.onChange({ target: { value } });
-      } else {this.setState({ error: `Words shouldt'n be less than ${min} word or more than ${max} word` });}
+        this.props.onChange({ target: { name, value } });
+      } else {
+        this.setState({
+          error: `Words shouldn't be less than ${min} word or more than ${max} word`
+        });
+      }
     } else {
       this.setState({
         wordsNumber,
         value,
         error: ''
       });
-      this.props.onChange({ target: { name: this.props.name, value } });
+      this.props.onChange({ target: { name, value } });
     }
   }
 

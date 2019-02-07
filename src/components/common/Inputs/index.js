@@ -16,7 +16,7 @@ export class InputRow extends Component {
     </div>
   )
 
-  static NormalInput = ({ onChange, value,className, disabled, name, error, ...props }) => (
+  static NormalInput = ({ onChange, value, className, disabled, name, error, ...props }) => (
     <input
       onChange={onChange}
       name={name}
@@ -90,12 +90,12 @@ export class InputRow extends Component {
   static EditableTagGroup = EditableTagGroup
 
   static SelectOption = ({
-    options = [], onChange,className, name, value, leftLabel, ...props
+    options = [], onChange, className, name, value, leftLabel, ...props
   }) => (
       <React.Fragment>
         {leftLabel && <span className="input-left-label">{leftLabel}</span>}
-        <select onClick={onChange} defaultValue={value} name={name} className={`select-input-field ${className ? className : ''}`}>
-          {options.map(({ label, value }) => <option key={ids.generate()} className='select-option' value={value}>{label}</option>)}
+        <select onChange={onChange} value={value} name={name} className={`select-input-field ${className ? className : ''}`}>
+          {options.map(({ label, value: v }) => <option key={ids.generate()} className='select-option' value={v}>{label}</option>)}
         </select>
       </React.Fragment>
     )
@@ -129,12 +129,20 @@ export class InputRow extends Component {
   static CheckBox = ({
     children, description, checked, disabled, onChange, name, classes = [], ...props
   }) => (
-      <label className={'check-box-container ' + classes.join(' ')}>
+      <label onChange={(e) => {
+        console.log('CHANGE ON :', e.target.name, e.target.value)
+        onChange(e)
+      }}
+        className={'check-box-container ' + classes.join(' ')}>
         {description
           && <span className='check-box-description'>{description}</span>}
         <input
-          onChange={onChange} name={name} className='check-box' type='radio'
-          name='product-type' checked={checked} disabled={disabled}
+
+          name={name || 'chcekbox'}
+          className='check-box'
+          type='radio'
+          defaultChecked={checked}
+          disabled={disabled}
         />
         <div className='check-box-indicator'>{children}</div>
       </label>
@@ -171,7 +179,6 @@ export class InputRow extends Component {
   )
 
   static FlatSelect = ({ note, onSelect, value = 'Percent', ...props }) => {
-    console.log('charging-method-picker', value)
     return (
       <div className='charging-method-picker'>
         <input id='charge-method-el-1'
@@ -210,7 +217,7 @@ export class InputRow extends Component {
 
   render() {
     const { margin, className } = this.props;
-    const style = margin ? { maring : `${margin}px 0px` } : {}
+    const style = margin ? { margin: `${margin}px 0px` } : {}
     return (
       <div style={style} className={'input-row ' + className}>
         {this.props.children}
@@ -233,4 +240,23 @@ export const CodeInputArea = ({ value, flixable, onChange, name, disabled, ...pr
 )
 
 
+export const SelectBox = ({ checked, onChange, ...props }) => {
+  const id = ids.generate()
+
+  return (
+    <label for={`CustomCheckBoxInput_${id}`} >
+      <input
+        onChange={onChange}
+        id={`CustomCheckBoxInput_${id}`}
+        checked={checked}
+        type="checkbox"
+        className='custom-checkbox-input-field'
+      />
+      <span className="custom-checkbox-input-mask" />
+    </label>
+  )
+}
+
 export { default as EditableInputField } from './EditableInputField'
+export { default as EditableTextField } from './EditableTextField'
+

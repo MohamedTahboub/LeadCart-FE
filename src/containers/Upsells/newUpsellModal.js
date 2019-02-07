@@ -4,31 +4,55 @@ import Modal from 'components/Modal';
 import common from 'components/common';
 import ids from 'short-id';
 import UpsellFeature from 'components/UpsellFeature';
+import UpsellActionButton from 'components/UpsellActionButton';
 import * as upsellActions from 'actions/upsells';
 
 const {
-  InputRow, MainTitle, Button, List
+  InputRow,
+  MainTitle,
+  Button,
+  ActivationSwitchInput,
+  List,
+  DisableEnableWrapper,
+  FlexBoxesContainer
 } = common;
+
+
 class UpsellForm extends Component {
   state = {
     upsell: {},
     newFeature: {}
   }
 
-  componentDidMount() {
+  updateUpselldetails = (upsell) => {
+    const { features = [] } = upsell || {};
+    this.setState({
+      upsell: {
+        ...upsell,
+        features: this.refactoreUpsellFeatures(features)
+      }
+    });
+  }
+
+  componentDidMount () {
     const { upsell, newUpsell } = this.props;
-
-    if (!newUpsell && upsell) {
-      this.setState({
-        upsell
-      });
-    }
+    this.updateUpselldetails(upsell);
   }
 
-  componentDidUpdate(preProps) {
+  refactoreUpsellFeatures = (features = []) => {
+    const tf = { title: 'Click to Edit the Title', description: 'Click to edit the feature description', enabled: false };
+    const newFeaturesList = [...features];
+    for (let i = newFeaturesList.length; i < 4; i++) newFeaturesList[i] = tf;
+
+    return newFeaturesList.map((f) => ({ ...f, id: ids.generate(), enabled: typeof f.enabled === 'undefined' }));
+  }
+
+  componentDidUpdate (prev) {
     const { upsell } = this.props;
-    if (preProps.upsell !== upsell) this.setState({ upsell });
+
+    if (prev.upsell !== upsell) this.updateUpselldetails(upsell);
   }
+
 
   onUpsellFieldsChange = (name, value) => {
     const { upsell } = this.state;
@@ -68,24 +92,26 @@ class UpsellForm extends Component {
     }
   }
 
-  onFeatureAdd = () => {
-    const { upsell: { features = [], ...upsell }, newFeature } = this.state;
-    if (features.length > 4) return;
-    const newFeatures = [...features, newFeature];
-    this.setState({
-      upsell: {
-        ...upsell,
-        features: newFeatures
-      }
-    });
+  onFeatureEnabled = (id) => {
+    const { features } = this.state.upsell;
+
+    const newFeatures = features.map((f) => (f.id === id ? ({ ...f, enabled: true }) : f));
+
+    this.onUpsellFieldsChange('features', newFeatures);
+  }
+
+  onFeatureDisabled = (id) => {
+    const { features } = this.state.upsell;
+    const newFeatures = features.map((f) => (f.id === id ? ({ ...f, enabled: false }) : f));
+
+    this.onUpsellFieldsChange('features', newFeatures);
   }
 
   onCreate = () => {
     const { upsell } = this.state;
-    setTimeout(() => {
-      this.props.onClose();
-    }, 150);
-    this.props.createUpsell(upsell);
+
+    console.log(upsell);
+    // this.props.createUpsell(upsell);
   }
 
   onUpdate = () => {
@@ -94,12 +120,12 @@ class UpsellForm extends Component {
   }
 
   onAssetTypeChange = ({ target: { value: assetsType } }) => {
-    const { assets } = this.state;
+    const { assets = {} } = this.state.upsell;
     this.onUpsellFieldsChange('assets', { ...assets, assetsType });
   }
 
   onAssetsLinkChange = ({ target: { value: assetLink } }) => {
-    const { assets } = this.state;
+    const { assets = {} } = this.state.upsell;
     this.onUpsellFieldsChange('assets', { ...assets, assetLink });
   }
 
@@ -113,7 +139,33 @@ class UpsellForm extends Component {
     return product.name || 'Search Product';
   }
 
-  render() {
+  onToggleUpsellState = () => {
+    const { upsell: { active, _id: upsellId } } = this.state;
+    if (upsellId) {
+      this.props.changeUpsellState({ upsellId, active: !active });
+      this.onUpsellFieldsChange('active', active);
+    }
+  }
+
+  onActionBtnTextChange = ({ target: { value: text } }) => {
+    const { actionBtn = {} } = this.state.upsell;
+    actionBtn.text = text;
+    if (text.length <= 20) this.onUpsellFieldsChange('actionBtn', actionBtn);
+  }
+
+  onActionBtnColorChange = (color) => {
+    const { actionBtn = {} } = this.state.upsell;
+    actionBtn.color = color;
+    this.onUpsellFieldsChange('actionBtn', actionBtn);
+  }
+
+  onFeatureFieldChange = (featureId, { target: { name, value } }) => {
+    const { features } = this.state.upsell;
+    const newFeatures = features.map((f) => (f.id === featureId ? ({ ...f, [name]: value }) : f));
+    if (value) this.onUpsellFieldsChange('features', newFeatures);
+  }
+
+  render () {
     const {
       state: {
         upsell: {
@@ -123,22 +175,22 @@ class UpsellForm extends Component {
           assets: { assetsType, assetLink } = {},
           price: { amount: price } = {},
           linkedProduct,
-          upsellFulfillment
+          upsellFulfillment,
+          actionBtn = {},
+          active: UpsellState
         }
       },
       props: {
         products, errors, newUpsell, show: isVisible, onClose
       }
     } = this;
-    console.log(assetsType);
+
     return (
       <Modal onClose={onClose} isVisible={isVisible} className='upsell-modal-form'>
-        <MainTitle
-          bottomLine
-        >
-          Create New Upsell
-
-        </MainTitle>
+        <FlexBoxesContainer className='space-between-elements upsell-modal-head'>
+          <MainTitle>{newUpsell ? 'Create New Upsell' : 'Update Upsell'}</MainTitle>
+          {!newUpsell && <ActivationSwitchInput active={UpsellState} onToggle={this.onToggleUpsellState} />}
+        </FlexBoxesContainer>
         <InputRow>
           <InputRow.Label error={errors.name}>Upsell Name:</InputRow.Label>
           <InputRow.SmallInput name='name' value={name} error={errors.name} onChange={this.onFieldChange} />
@@ -152,11 +204,13 @@ class UpsellForm extends Component {
           />
         </InputRow>
         <InputRow>
-          <InputRow.Label error={errors.name}>Upsell Intro:</InputRow.Label>
-          <InputRow.NormalInput
-            name='upsellIntro'
-            value={upsellIntro}
-            error={errors.upsellIntro}
+          <InputRow.Label error={errors.description}>Upsell Description:</InputRow.Label>
+          <InputRow.TextAreaInput
+            // placeholder='Feature Description'
+            name='description'
+            countable
+            min={0}
+            max={40}
             onChange={this.onFieldChange}
           />
         </InputRow>
@@ -185,37 +239,33 @@ class UpsellForm extends Component {
         </InputRow>
         <InputRow>
           <InputRow.Label error={errors.featuresTitle}>Features Title:</InputRow.Label>
-          <InputRow.SmallInput
+          <InputRow.NormalInput
             name='featuresTitl'
             onChange={this.onFieldChange}
             error={errors.featuresTitle}
           />
         </InputRow>
         <InputRow>
-          <InputRow.Label error={errors.price}>Upsell Features:</InputRow.Label>
-          <InputRow.SmallInput
-            onChange={this.onNewFeatureTitleChange}
-          >
-            Feature title
-
-          </InputRow.SmallInput>
-          <input type='submit' onClick={this.onFeatureAdd} className='add-input-field' value='Add' />
-
-        </InputRow>
-        <InputRow>
-          <InputRow.Label />
-          <InputRow.TextAreaInput
-            placeholder='Feature Description'
-            countable
-            min={0}
-            max={40}
-            onChange={this.onNewFeatureDescriptionChange}
-          />
-        </InputRow>
-        <InputRow>
           <List ordered className='upsell-features-list'>
-            {features.map((f, id) => (
-              <UpsellFeature key={ids.generate()} id={id} {...f} />
+            {features.map(({
+              title, description, enabled, id: fId
+            }, id) => (
+              <DisableEnableWrapper
+                onEnabled={this.onFeatureEnabled}
+                onDisabled={this.onFeatureDisabled}
+                key={fId}
+                enabled={enabled}
+                id={fId}
+                className='upsell-feature-container'
+              >
+                <UpsellFeature
+                  title={title}
+                  description={description}
+                  number={id + 1}
+                  id={fId}
+                  onChange={this.onFeatureFieldChange}
+                />
+              </DisableEnableWrapper>
             ))}
           </List>
         </InputRow>
@@ -235,6 +285,26 @@ class UpsellForm extends Component {
             target='name'
             name='linkedProduct'
             onChange={this.onAssciatedProductChange}
+          />
+        </InputRow>
+        <InputRow>
+          <InputRow.Label
+            error={errors.actionBtn}
+            notes='The action Button Can just accepte 20 character '
+          >
+            Upsell Action Button:
+
+          </InputRow.Label>
+          <InputRow.SmallInput
+            name='name'
+            value={actionBtn.text}
+            error={errors.actionBtn}
+            onChange={this.onActionBtnTextChange}
+          />
+          <UpsellActionButton
+            text={actionBtn.text}
+            color={actionBtn.color}
+            onChange={this.onActionBtnColorChange}
           />
         </InputRow>
         {errors.message && <span className='error-message'>{errors.message}</span>}

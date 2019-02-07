@@ -66,7 +66,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
         </InputRow.AddImage>
       </InputRow>
-      <InputRow margin='50'>
+      <InputRow margin='30'>
         <InputRow.Label
           error={errors.country}
           notes='Select a country to be displayed as the default on your checkout pages. Your customers can always select a different country.'

@@ -11,6 +11,9 @@ import {
   DELETE_UPSELL,
   DELETE_UPSELL_SUCCESS,
   DELETE_UPSELL_FAILED,
+  CHANGE_UPSELL_STATE,
+  CHANGE_UPSELL_STATE_SUCCESS,
+  CHANGE_UPSELL_STATE_FAILED
 } from 'constantsTypes';
 
 
@@ -68,3 +71,18 @@ export const deleteUpsellFailed = (message) => ({
   type: DELETE_UPSELL_FAILED,
   payload: message
 });
+
+
+export const changeUpsellState = (upsell) => ({
+  type: CHANGE_UPSELL_STATE,
+  payload: upsell
+});
+export const changeUpsellStateSuccess = (upsell) => ({
+  type: CHANGE_UPSELL_STATE_SUCCESS,
+  payload: upsell
+});
+export const changeUpsellStateFailed = (upsell) => ({
+  type: CHANGE_UPSELL_STATE_FAILED,
+  payload: upsell
+});
+
