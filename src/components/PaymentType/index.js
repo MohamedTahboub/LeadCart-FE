@@ -1,105 +1,77 @@
-import React, { Component } from 'react';
+import React, { useState, Fragment } from 'react';
 import common from 'components/common';
 
 const { InputRow } = common;
 
+const paymentTypesEnum = (type) => ({
+  Split: { label: 'Number of Splits', name: 'splits', options: [3, 6, 9] },
+  Subscription: { label: 'Recurring time', name: 'recurringPeriod', options: ['Monthly', 'Yearly'] }
+}[type] || {});
 
-const PaymentTypePicker = ({
-  type, onChange, price, ...props
-}) => {
-  switch (type) {
-  case 'Onetime':
-    return (
-      <InputRow>
-        <InputRow.Label>Price</InputRow.Label>
-        <InputRow.PriceField onChange={onChange} currancy='$' name='price' value={price}></InputRow.PriceField>
-      </InputRow>
-    );
-  case 'Subscription':
-    return (
-      <InputRow>
-        <InputRow.Label classes='hide-element' />
-        <InputRow.PriceField onChange={onChange} currancy='$' name='price' value={price}></InputRow.PriceField>
-        <InputRow.SelectOption
-          onChange={onChange}
-          name='recurringPeriod'
-          leftLabel='Recurring time'
-          options={[
-            { label: 'Daily', value: 'Daily' },
-            { label: 'Weekly', value: 'Weekly' },
-            { label: 'Monthly', value: 'Monthly' },
-            { label: 'Yearly', value: 'Yearly' }
-          ]}
-        />
-      </InputRow>
-    );
-  case 'Split':
-    return (
-      <InputRow>
-        <InputRow.Label classes='hide-element' />
-        <InputRow.PriceField onChange={onChange} currancy='$' name='price' value={price}></InputRow.PriceField>
-        <InputRow.SelectOption
-          onChange={onChange}
-          name='splits'
-          leftLabel='Split payments'
-          options={[
-            { label: '2', value: '2' },
-            { label: '3', value: '3' },
-            { label: '4', value: '4' },
-            { label: '5', value: '5' },
-            { label: '10', value: '10' },
-            { label: '20', value: '20' },
-          ]}
-        />
-      </InputRow>
-    );
-  default: return null;
-  }
-};
 
-export default class PaymentType extends Component {
-  state = {
-    type: (this.props.value && this.props.value.type) || 'Onetime',
-    currentValue: {
+const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
+  <InputRow>
+    <InputRow.Label>Payment Type</InputRow.Label>
+    <InputRow.SelectOption
+      value={value}
+      name='type'
+      onChange={onChange}
+      options={[
+        { label: 'One Time Price', value: 'Onetime' },
+        { label: 'Subscription', value: 'Subscription' },
+        { label: 'Split Payments', value: 'Split' },
+      ]}
+    />
+  </InputRow>
+);
 
-    }
-  }
+export default ({ payment = {}, price: productPrice, onChange }) => {
+  const initState = { ...payment, price: productPrice };
 
-  // [Onetime, Subscription, Split]
-  onPaymentTypeChange = ({ target: { value } }) => this.setState({ type: value })
+  const [state, setState] = useState({ ...initState });
+  const { price, type = 'Onetime' } = state;
+  const { label: typelabel, name: typeName, options: typeOptions = [] } = paymentTypesEnum(type) || {};
 
-  onChange = ({ target: { value, name } }) => {
-    this.setState({
-      currentValue: {
-        ...this.state.currentValue,
-        type: this.state.type,
-        [name]: value
+
+  const onFieldChange = ({ target: { name, value } }) => {
+    const newState = { ...state, [name]: value };
+    setState(newState);
+
+    const { name: customField, options: [defaultOption] = [] } = paymentTypesEnum(newState.type);
+    onChange({
+      price: newState.price,
+      payment: {
+        type: newState.type || 'Onetime',
+        [customField]: newState[customField] || defaultOption
       }
     });
+  };
 
-    setTimeout(() => {
-      this.props.onChange(this.state.currentValue);
-    }, 200);
-  }
-
-  render () {
-    return (
-      <React.Fragment>
-        <InputRow>
-          <InputRow.Label>Product Type</InputRow.Label>
-          <InputRow.SelectOption
-            value={this.props.value && this.props.value.type}
-            name='paymentType' onChange={this.onPaymentTypeChange}
-            options={[
-              { label: 'One Time Price', value: 'Onetime' },
-              { label: 'Subscription', value: 'Subscription' },
-              { label: 'Split Payments', value: 'Split' },
-            ]}
-          />
-        </InputRow>
-        <PaymentTypePicker type={this.state.type} onChange={this.onChange} price={this.props.price} />
-
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <InputRow>
+        <InputRow.Label>Price</InputRow.Label>
+        <InputRow.PriceField
+          onChange={onFieldChange}
+          currancy='$'
+          name='price'
+          value={price}
+        >
+        </InputRow.PriceField>
+      </InputRow>
+      <PaymentTypeSelector value={type} onChange={onFieldChange} />
+      {type !== 'Onetime'
+                && (
+                  <InputRow>
+                    <InputRow.Label>{typelabel}</InputRow.Label>
+                    <InputRow.SelectOption
+                      onChange={onFieldChange}
+                      name={typeName}
+                      value={state[typeName]}
+                      options={typeOptions.map((f) => ({ label: f, value: f }))}
+                    />
+                  </InputRow>
+                )}
+    </Fragment>
+  );
+};
