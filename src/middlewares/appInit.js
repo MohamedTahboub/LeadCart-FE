@@ -4,19 +4,20 @@ import { getSubAccountsSuccess } from 'actions/agency';
 import { getCouponsList } from 'actions/coupon';
 import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
-import { getCustomerList } from 'actions/activities';
+import { getCustomersActivities } from 'actions/activities';
+import { getUpsellsSuccess } from 'actions/upsells';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
-import { appLaunchFaild, appLaunchSuccess } from 'actions/appInit';
+import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 
+import { filteringActivities } from 'libs';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { user: { user: { token, ...user }, isLoggedIn } } = getState();
 
-
-  setTimeout(() => {
-    consoleMessage();
-  }, 2000);
+  // setTimeout(() => {
+  //   consoleMessage();
+  // }, 2000);
   if (action.type !== APP_INIT) return next(action);
 
 
@@ -27,9 +28,10 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
     dispatch(getCouponsList(data.coupons));
+    dispatch(getUpsellsSuccess(data.upsells));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
-    dispatch(getCustomerList(data.customers));
+    dispatch(getCustomersActivities(filteringActivities(data.customers)));
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
@@ -42,7 +44,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: onLunchSuccess,
-    onFaild: appLaunchFaild
+    onFailed: appLaunchFailed
   }));
   // const user = localStorage.user && JSON.parse(localStorage.user);
 

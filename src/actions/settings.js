@@ -1,7 +1,7 @@
 import {
   SAVE_USER_GENERAL_SETTINGS,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
-  SAVE_USER_GENERAL_SETTINGS_FAILD,
+  SAVE_USER_GENERAL_SETTINGS_FAILED,
   SETTINGS_GENERAL_FIELD_UPDATE
 } from 'constantsTypes';
 
@@ -21,7 +21,7 @@ export const saveUserGeneralSettingsSuccess = (message) => ({
   payload: message
 });
 
-export const saveUserGeneralSettingsFaild = (message) => ({
-  type: SAVE_USER_GENERAL_SETTINGS_FAILD,
+export const saveUserGeneralSettingsFailed = (message) => ({
+  type: SAVE_USER_GENERAL_SETTINGS_FAILED,
   payload: message
 });

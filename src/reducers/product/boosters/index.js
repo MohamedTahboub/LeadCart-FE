@@ -2,7 +2,7 @@ import {
   GET_PRODUCT_SUCCESS,
   PRODUCT_BOOSTERS_FIELD_UPDATE,
   UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_FAILD
+  UPDATE_PRODUCT_FAILED
 } from 'constantsTypes';
 
 const initialState = {
@@ -13,7 +13,7 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
   case GET_PRODUCT_SUCCESS: return { ...state, ...payload.boosters };
   case UPDATE_PRODUCT_SUCCESS: return { ...state, ...payload.boosters };
-  case UPDATE_PRODUCT_FAILD:
+  case UPDATE_PRODUCT_FAILED:
     return {
       ...state,
       errors: typeof payload === 'string'

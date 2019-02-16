@@ -25,7 +25,18 @@ class TextAreaInput extends Component {
     });
   }
 
-  onChange = ({ target: { value } }) => {
+  componentDidUpdate (prev) {
+    const {
+      name, value, min, max, error
+    } = this.props;
+    if (prev.name !== name || prev.value !== value) {
+      this.setState({
+        name, value, min, max, error
+      });
+    }
+  }
+
+  onChange = ({ target: { name, value } }) => {
     const wordsNumber = getWordsCount(value);
     const { min, max } = this.state;
     if (this.props.countable) {
@@ -34,31 +45,38 @@ class TextAreaInput extends Component {
           wordsNumber,
           value
         });
-        this.props.onChange({ target: { value } });
-      } else {this.setState({ error: `Words shouldt'n be less than ${min} word or more than ${max} word` });}
+        this.props.onChange({ target: { name, value } });
+      } else {
+        this.setState({
+          error: `Words shouldn't be less than ${min} word or more than ${max} word`
+        });
+      }
     } else {
       this.setState({
         wordsNumber,
         value,
         error: ''
       });
-      this.props.onChange({ target: { name: this.props.name, value } });
+      this.props.onChange({ target: { name, value } });
     }
   }
 
   render () {
     const {
-      value, error, wordsNumber, max
+      value, error = this.props.error, wordsNumber, max
     } = this.state;
-    const { name, disabled, countable } = this.props;
+    const {
+      name, disabled, countable, placeholder
+    } = this.props;
     return (
       <div className='text-area-container'>
         <textarea
+          placeholder={placeholder}
           onChange={this.onChange}
           value={value}
           name={name}
           disabled={disabled}
-          className={`textarea-input-field ${error && 'invalid-field'}`}
+          className={`textarea-input-field ${error ? 'invalid-field' : ''}`}
         />
         <span className='text-area-small-note'>{countable ? `${wordsNumber} / ${max} word` : `${wordsNumber} word`}</span>
       </div>

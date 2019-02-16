@@ -1,6 +1,6 @@
 
 import { UPDATE_PRODUCT_DETAILS } from 'constantsTypes';
-import { productUpdatedFaild } from 'actions/product';
+import { productUpdatedFailed } from 'actions/product';
 
 import { Rules, Vaidator } from '../helpers/validators';
 
@@ -17,7 +17,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   };
   const isInvalid = Vaidator(details, rules);
 
-  if (isInvalid) dispatch(productUpdatedFaild(isInvalid));
+  if (isInvalid) dispatch(productUpdatedFailed(isInvalid));
   else next(action);
 };
 

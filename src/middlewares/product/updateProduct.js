@@ -1,6 +1,6 @@
 
 import { UPDATE_PRODUCT } from 'constantsTypes';
-import { productUpdatedSuccessfuly, productUpdatedFaild } from 'actions/product';
+import { productUpdatedSuccessfuly, productUpdatedFailed } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 import * as modles from '../helpers/models';
@@ -18,7 +18,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: productUpdatedSuccessfuly.bind(this, product),
-    onFaild: productUpdatedFaild
+    onFailed: productUpdatedFailed
   }));
   // restore the application stored data in the loaclStorage
 };

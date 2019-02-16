@@ -2,7 +2,7 @@ import {
   NEW_PRODUCT_INVALID_FORM,
   SIGN_UP_INVALID_FIELDS,
   LOGIN_INVALID_FIELDS,
-  PRODUCT_CREATION_FAILD
+  PRODUCT_CREATION_FAILED
 } from 'constantsTypes';
 
 const initialState = {
@@ -21,7 +21,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         newProduct: typeof payload === 'object' ? payload : { message: payload }
       };
-    case PRODUCT_CREATION_FAILD:
+    case PRODUCT_CREATION_FAILED:
       if (typeof payload !== 'object' && payload.includes('$url_1'))
         payload = 'The product URL already exist, it should be unique'
       return {

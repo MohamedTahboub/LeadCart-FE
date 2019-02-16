@@ -1,7 +1,7 @@
 import {
   SETTINGS_GENERAL_FIELD_UPDATE,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
-  SAVE_USER_GENERAL_SETTINGS_FAILD
+  SAVE_USER_GENERAL_SETTINGS_FAILED
 } from 'constantsTypes';
 
 
@@ -21,7 +21,7 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
   case SETTINGS_GENERAL_FIELD_UPDATE: return { ...state, generalModel: { ...state.generalModel, errors: {}, [payload.name]: payload.value } };
   case SAVE_USER_GENERAL_SETTINGS_SUCCESS: return { ...state };
-  case SAVE_USER_GENERAL_SETTINGS_FAILD:
+  case SAVE_USER_GENERAL_SETTINGS_FAILED:
     return {
       ...state,
       generalModel: {

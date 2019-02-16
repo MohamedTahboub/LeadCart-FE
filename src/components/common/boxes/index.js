@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { CodeInputArea } from '../Inputs'
 import './style.css';
-export const FlexBoxesContainer = ({ children, classes = [], ...props }) => (
-  <div className={`flex-boxes-container ${classes.join(' ')}`}>
+export const FlexBoxesContainer = ({ children, className, ...props }) => (
+  <div className={`flex-boxes-container ${className ? className : ''}`}>
     {children}
   </div>
 );
@@ -48,7 +48,7 @@ export const Box = ({
     </div>
   );
 
-export const EmbededScripContainer = ({ headNote,showCopied, script }) => (
+export const EmbededScripContainer = ({ headNote, showCopied, script }) => (
   <div className='embeded-script-container'>
     <div className="input-head-note">
       <span className="head-note-text">{headNote}</span>

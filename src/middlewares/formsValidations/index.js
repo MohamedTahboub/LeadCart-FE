@@ -5,13 +5,14 @@ import product_form from './product_form'
 import generalSettings from './generalSettings'
 import account from './account'
 import teamMembers from './teamMembers'
+import upsell from './upsell'
 import createNewSubAccount from './createNewSubAccount'
 
 
 export default [
     newProduct,
     product_form,
-    // product_checkout,
+    upsell,
     createNewSubAccount,
     signupForm,
     account,

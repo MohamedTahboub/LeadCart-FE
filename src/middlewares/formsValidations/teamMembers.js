@@ -1,6 +1,6 @@
 
 import { CREATE_NEW_MEMBER } from 'constantsTypes';
-import { onCreateNewMemberFaild } from 'actions/teamMembers';
+import { onCreateNewMemberFailed } from 'actions/teamMembers';
 import { Rules, Vaidator } from '../helpers/validators';
 
 
@@ -15,7 +15,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
   const isInvalid = Vaidator(action.payload, rules);
 
-  if (isInvalid) dispatch(onCreateNewMemberFaild(isInvalid));
+  if (isInvalid) dispatch(onCreateNewMemberFailed(isInvalid));
   else next(action);
 };
 

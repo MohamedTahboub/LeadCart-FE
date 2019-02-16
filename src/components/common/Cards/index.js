@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { navigateTo } from 'libs';
 import './style.css';
 import { genrateColor } from './helpers';
 export const MiniCard = ({ imgSrc, ...props }) => (
@@ -90,27 +90,50 @@ const Label = ({ children, ...props }) => (
   </span>
 );
 
-export const UpsellCard = ({
-  name, id, price, onEdit, onPreview, onDelete, linkedProduct: { name: productName } = {}, ...props
-}) => (
-  <div className='upsell-card-container'>
-    <Avatar style={{ margin: 'auto' }} name={name} />
-    <div className='upsell-contnet'>
-      <span className='upsell-name'>
-        <Label>Upsell Name:</Label>
-        {name}
-      </span>
-      <span className='upsell-price'>
-        <Label>Upsell Price:</Label>
-        {price}
+// export const UpsellCard = ({
+//   name, id, price, onEdit, onPreview, onDelete, linkedProduct: { name: productName } = {}, ...props
+// }) => (
+//   <div className='upsell-card-container'>
+//     <Avatar style={{ margin: 'auto' }} name={name} />
+//     <div className='upsell-contnet'>
+//       <span className='upsell-name'>
+//         {name}
+//       </span>
+//       <span className='upsell-price'>
+//         {price}
 
-      </span>
-      <span className='upsell-associated-product'>
+//       </span>
+//       <span className='upsell-associated-product'>
+//         <i className='fas fa-link' />
+//         {productName}
+//       </span>
+//     </div>
+//     <div className='upsell-item-controlls'>
+//       <i onClick={onEdit} className='fas fa-edit' />
+//       <i onClick={onPreview} className='fas fa-book-open' />
+//       <i onClick={onDelete} className='fas fa-trash-alt' />
+//     </div>
+//   </div>
+// );
+
+
+export const UpsellCard = ({
+  name, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
+}) => (
+  <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+    <div className='card-main-content product-avatar-holder'>
+      <Avatar name={name} />
+      <span className='product-name-holder'>{name}</span>
+      <span
+        onClick={() => productLink && navigateTo(`/product/${productLink}/details`)}
+        className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
+      >
         <i className='fas fa-link' />
         {productName}
       </span>
+      <span className='product-price-holder'>{`$ ${price}`}</span>
     </div>
-    <div className='upsell-item-controlls'>
+    <div className='card-controlls-container'>
       <i onClick={onEdit} className='fas fa-edit' />
       <i onClick={onPreview} className='fas fa-book-open' />
       <i onClick={onDelete} className='fas fa-trash-alt' />

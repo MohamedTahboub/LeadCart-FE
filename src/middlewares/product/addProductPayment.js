@@ -1,5 +1,5 @@
 import { ADD_PRODUCT_PAYMENT_METHOD } from 'constantsTypes';
-import { addProductPaymentMethodSuccess, addProductPaymentMethodFaild } from 'actions/product';
+import { addProductPaymentMethodSuccess, addProductPaymentMethodFailed } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: addProductPaymentMethodSuccess,
-    onFaild: addProductPaymentMethodFaild
+    onFailed: addProductPaymentMethodFailed
   }));
   // restore the application stored data in the loaclStorage
 };

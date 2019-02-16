@@ -47,10 +47,10 @@ class ShareProductModal extends Component {
     render() {
 
         const { copied } = this.state
-        const { onClose, subdomain, isVisable, productUrl, logo } = this.props
+        const { onClose, subdomain, isVisible, productUrl, logo } = this.props
         const script = formatEmbedScript({ productUrl, subdomain })
         return (
-            <Modal onClose={onClose} isVisable={isVisable}>
+            <Modal onClose={onClose} isVisible={isVisible}>
                 <MainTitle bottomLine>Share This Product</MainTitle>
 
                 <EmbededScripContainer

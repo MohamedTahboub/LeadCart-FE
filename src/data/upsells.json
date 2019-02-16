@@ -1,126 +1,43 @@
 [
     {
+        "price": {
+            "currency": "USD",
+            "amount": 20
+        },
+        "assets": {
+            "assetsType": "video",
+            "video": "https://www.yt.co/?tag=myVideo",
+            "assetLink": "https://www.yt.co/?tag=myVideo",
+            "image": "https://flicker.ly/?ph=myImage"
+        },
+        "_id": "5c41bd34b87f3d672c70ca2e",
         "name": "Upsell #1",
-        "price": 20,
-        "linkedProduct": {
-            "productId": "",
-            "name": "X Prodcut"
-        },
-        "assets": {
-            "type": "video",
-            "video": "",
-            "image": ""
-        },
+        "upsellIntro":"Life Changer Power banck , new experience",
+        "linkedProduct": "5c3502c38bdad277ab5ec0f6",
         "features": [
             {
+                "_id": "5c41bd34b87f3d672c70ca32",
                 "title": "feature one",
                 "description": "feature one description"
             },
             {
+                "_id": "5c41bd34b87f3d672c70ca31",
                 "title": "feature tow ",
                 "description": "feature tow description"
             },
             {
+                "_id": "5c41bd34b87f3d672c70ca30",
                 "title": "feature three ",
                 "description": "feature three description"
             },
             {
+                "_id": "5c41bd34b87f3d672c70ca2f",
                 "title": "feature four ",
                 "description": "feature four description"
             }
-        ]
-    },
-    {
-        "name": "Upsell #1",
-        "price": 20,
-        "linkedProduct": {
-            "productId": "",
-            "name": "X Prodcut"
-        },
-        "assets": {
-            "type": "video",
-            "video": "",
-            "image": ""
-        },
-        "features": [
-            {
-                "title": "feature one",
-                "description": "feature one description"
-            },
-            {
-                "title": "feature tow ",
-                "description": "feature tow description"
-            },
-            {
-                "title": "feature three ",
-                "description": "feature three description"
-            },
-            {
-                "title": "feature four ",
-                "description": "feature four description"
-            }
-        ]
-    },
-    {
-        "name": "Upsell #1",
-        "price": 20,
-        "linkedProduct": {
-            "productId": "",
-            "name": "X Prodcut"
-        },
-        "assets": {
-            "type": "video",
-            "video": "",
-            "image": ""
-        },
-        "features": [
-            {
-                "title": "feature one",
-                "description": "feature one description"
-            },
-            {
-                "title": "feature tow ",
-                "description": "feature tow description"
-            },
-            {
-                "title": "feature three ",
-                "description": "feature three description"
-            },
-            {
-                "title": "feature four ",
-                "description": "feature four description"
-            }
-        ]
-    },
-    {
-        "name": "Upsell",
-        "price": 20,
-        "linkedProduct": {
-            "productId": "",
-            "name": "X Prodcut"
-        },
-        "assets": {
-            "type": "video",
-            "video": "",
-            "image": ""
-        },
-        "features": [
-            {
-                "title": "feature one",
-                "description": "feature one description"
-            },
-            {
-                "title": "feature tow ",
-                "description": "feature tow description"
-            },
-            {
-                "title": "feature three ",
-                "description": "feature three description"
-            },
-            {
-                "title": "feature four ",
-                "description": "feature four description"
-            }
-        ]
+        ],
+        "createdAt": "2019-01-18T11:49:08.837Z",
+        "updatedAt": "2019-01-18T11:49:08.837Z",
+        "__v": 0
     }
 ]

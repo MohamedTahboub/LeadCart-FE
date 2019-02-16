@@ -1,6 +1,6 @@
 
 import { UPDATE_PRODUCT_CHECKOUT_TEMPLATE } from 'constantsTypes';
-import { updateProductCheckoutDesignFaild, updateProductCheckoutDesignSuccess } from 'actions/product';
+import { updateProductCheckoutDesignFailed, updateProductCheckoutDesignSuccess } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: updateProductCheckoutDesignSuccess,
-    onFaild: updateProductCheckoutDesignFaild
+    onFailed: updateProductCheckoutDesignFailed
   }));
   // restore the application stored data in the loaclStorage
 };

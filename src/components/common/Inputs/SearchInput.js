@@ -19,9 +19,9 @@ export default class SearchInput extends React.Component {
   }
 
 
-  handleChange = (value) => {
+  handleChange = (value, el) => {
     this.setState({ value });
-    this.props.onChange({ target: { name: this.props.name, value } });
+    this.props.onChange({ target: { name: this.props.name, value, id: el.props.id } });
   }
 
 
@@ -30,7 +30,7 @@ export default class SearchInput extends React.Component {
       target, defaultValue, placeholder, style: _style
     } = this.props;
     const style = _style || { width: 200 };
-    const options = this.state.filtered.map((d) => <Option key={d[target]}>{d[target]}</Option>);
+    const options = this.state.filtered.map((d) => <Option key={d[target]} id={d._id}>{d[target]}</Option>);
     return (
       <Select
         showSearch
@@ -38,7 +38,7 @@ export default class SearchInput extends React.Component {
         placeholder={placeholder}
         style={style}
         defaultActiveFirstOption
-        showArrow={false}
+        showArrow
         filterOption={false}
         onSearch={this.handleSearch}
         onChange={this.handleChange}

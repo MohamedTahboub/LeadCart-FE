@@ -1,6 +1,6 @@
 import { UPLOAD_FILE } from 'constantsTypes';
 import { apiRequest } from 'actions/apiRequest';
-import { uploadFileSuccess, uploadFileFaild } from 'actions/files';
+import { uploadFileSuccess, uploadFileFailed } from 'actions/files';
 
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== UPLOAD_FILE) return next(action);
@@ -18,6 +18,6 @@ export default ({ dispatch }) => (next) => (action) => {
       body: file
     },
     onSuccess: castSuccess, // .bind(this, action.payload.type),
-    onFaild: uploadFileFaild
+    onFailed: uploadFileFailed
   }));
 };

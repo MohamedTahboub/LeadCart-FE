@@ -12,18 +12,15 @@ const FooterScript = ({ onProductSettingsFieldChange, footerScript }) => {
   };
   return (
     <InputRow>
-      <InputRow.Label
-        notes="Embed any custom scripts or HTML code in the footer of this product's checkout page."
-      >
-        Embed HTML/Scripts in Footer
-
+      <InputRow.Label>
+        Paste Your Facebook Pixel ID
       </InputRow.Label>
-      <InputRow.CodeInputArea
-        name='footerScript'
+      <InputRow.NormalInput
+        children='Ex. 254179138569861'
+        name='fbPixelId'
         onChange={onFieldChange}
         value={footerScript}
-      >
-      </InputRow.CodeInputArea>
+      />
     </InputRow>
 
   );
@@ -31,3 +28,4 @@ const FooterScript = ({ onProductSettingsFieldChange, footerScript }) => {
 const mapStateToProps = ({ product: { settings } }) => ({ ...settings });
 export default connect(mapStateToProps, producActions)(FooterScript);
 
+// notes="Embed any custom scripts or HTML code in the footer of this product's checkout page."

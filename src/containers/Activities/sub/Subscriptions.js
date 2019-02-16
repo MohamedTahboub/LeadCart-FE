@@ -10,11 +10,15 @@ const { Avatar, SmallButton, MainTitle } = common;
 
 
 const onExport = (subscriptions) => {
-  const titles = 'Name,Email,Phone,Location,Total Profite,Date of join\n';
+  const titles = 'Subscriber Name,Email Address,Phone Number,Subscriptions Number,Subscribed Products\n';
   const convertToCSVFormat = subscriptions
     .map(({
-      name, contact: { email, phone }, location, total_profite: { value: total }, joined_in
-    }) => `${name},${email},${phone},${location},${total},${joined_in}`).join('\n');
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      subScriptedTo
+    }) => `${firstName} ${lastName},${email},${phoneNumber},${subScriptedTo.length},${subScriptedTo.map((p) => p.name).join(' ')}`).join('\n');
 
 
   const download = document.createElement('a');
@@ -27,44 +31,31 @@ const onExport = (subscriptions) => {
 
 const SubscriptionsList = (props) => (
   <React.Fragment>
-
     <MainTitle>Subscriptions List</MainTitle>
     <Tabel>
       <Tabel.Head>
         <Tabel.SmallCell />
-        <Tabel.HeadCell>Name</Tabel.HeadCell>
+        <Tabel.HeadCell>Subscriber Name</Tabel.HeadCell>
         <Tabel.HeadCell>Email</Tabel.HeadCell>
-        <Tabel.HeadCell>Status</Tabel.HeadCell>
-        <Tabel.HeadCell>Processor</Tabel.HeadCell>
-        <Tabel.HeadCell>Quantity</Tabel.HeadCell>
-        <Tabel.HeadCell>Coupon</Tabel.HeadCell>
-        <Tabel.HeadCell>Type</Tabel.HeadCell>
-        <Tabel.HeadCell>Order Date</Tabel.HeadCell>
+        <Tabel.HeadCell>Phone Number</Tabel.HeadCell>
+        <Tabel.HeadCell>Subscriptions</Tabel.HeadCell>
       </Tabel.Head>
       <Tabel.Body>
-        {props.subscriptions.map((sub) => (
+        {props.subscriptions.map(({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          subScriptedTo
+        }) => (
           <Tabel.Row>
             <Tabel.SmallCell>
-              <Avatar name={sub.name} />
+              <Avatar name={`${firstName} ${lastName}`} />
             </Tabel.SmallCell>
-            <Tabel.Cell
-              mainContent={sub.name}
-            />
-            <Tabel.Cell
-              mainContent={sub.email}
-            />
-            <Tabel.Cell>
-              {sub.active
-                ? <SmallButton classes='green-color'>Active</SmallButton>
-                : <SmallButton classes='gray-color'>Inactive</SmallButton>
-              }
-            </Tabel.Cell>
-
-            <Tabel.Cell mainContent={sub.proccessor}></Tabel.Cell>
-            <Tabel.Cell mainContent={sub.quantity}></Tabel.Cell>
-            <Tabel.Cell mainContent={sub.coupon}></Tabel.Cell>
-            <Tabel.Cell mainContent={sub.type}></Tabel.Cell>
-            <Tabel.Cell mainContent={sub.date}></Tabel.Cell>
+            <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
+            <Tabel.Cell mainContent={email} />
+            <Tabel.Cell mainContent={phoneNumber} />
+            <Tabel.Cell mainContent={subScriptedTo.length} />
           </Tabel.Row>
         ))}
       </Tabel.Body>

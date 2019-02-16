@@ -2,7 +2,7 @@ import { CHANGE_COUPON_STATE } from 'constantsTypes';
 
 import {
   changeCouponStateSuccess,
-  changeCouponStateFaild
+  changeCouponStateFailed
 } from 'actions/coupon';
 import { apiRequest } from 'actions/apiRequest';
 
@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: changeCouponStateSuccess.bind(this, action.payload),
-    onFaild: changeCouponStateFaild
+    onFailed: changeCouponStateFailed
   }));
 };
 

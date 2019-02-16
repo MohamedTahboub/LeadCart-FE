@@ -1,6 +1,6 @@
 
 import { UPDATE_PRODUCT_CHECKOUT_TEMPLATE } from 'constantsTypes';
-import { updateProductCheckoutDesignFaild } from 'actions/product';
+import { updateProductCheckoutDesignFailed } from 'actions/product';
 
 import { Rules, Vaidator } from '../helpers/validators';
 
@@ -26,7 +26,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
   const isInvalid = Vaidator(checkout, rules);
 
-  if (isInvalid) dispatch(updateProductCheckoutDesignFaild(isInvalid));
+  if (isInvalid) dispatch(updateProductCheckoutDesignFailed(isInvalid));
   else next(action);
 };
 

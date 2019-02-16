@@ -8,13 +8,17 @@ const { InputRow } = common;
 
 
 const MandatoryDetails = ({
-  errors = {}, name, internalName, image, url, description, subdomain, ...props
+  errors = {},
+  onMandatoryDetailsFieldChange, name, internalName, tags = [], image, url, description, subdomain, ...props
 }) => {
   const onFieldChange = ({ target: { name, value } }) => {
-    props.onMandatoryDetailsFieldChange({ name, value });
+    onMandatoryDetailsFieldChange({ name, value });
   };
   const onProductImageUploaded = (image) => {
-    props.onMandatoryDetailsFieldChange({ name: 'image', value: image });
+    onMandatoryDetailsFieldChange({ name: 'image', value: image });
+  };
+  const onTagsChange = (tags) => {
+    onMandatoryDetailsFieldChange({ name: 'tags', value: tags });
   };
   return (
     <Fragment>
@@ -24,7 +28,7 @@ const MandatoryDetails = ({
       </InputRow>
       <InputRow>
         <InputRow.Label>
-        Internal Product Name(Optional)
+          Internal Product Name(Optional)
 
         </InputRow.Label>
         <InputRow.NormalInput name='internalName' onChange={onFieldChange} value={internalName}></InputRow.NormalInput>
@@ -42,6 +46,10 @@ const MandatoryDetails = ({
         <InputRow.TextAreaInput error={errors.description} name='description' onChange={onFieldChange} value={description}>Thiamounts is nimesil forte!</InputRow.TextAreaInput>
       </InputRow>
       <InputRow>
+        <InputRow.Label>Product Tags</InputRow.Label>
+        <InputRow.EditableTagGroup tags={tags} onTagsChange={onTagsChange}>Product Tags</InputRow.EditableTagGroup>
+      </InputRow>
+      <InputRow>
         <InputRow.Label>Product Image</InputRow.Label>
         <InputRow.AddImage
           value={image}
@@ -49,10 +57,8 @@ const MandatoryDetails = ({
           onUploaded={onProductImageUploaded}
           notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
           name='image'
-        >
-          Add files
-
-        </InputRow.AddImage>
+          children='Upload'
+        />
       </InputRow>
     </Fragment>
   );

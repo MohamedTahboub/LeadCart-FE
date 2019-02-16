@@ -18,52 +18,64 @@ const {
 } = common;
 
 const Payment = ({
-  productPaymentMethods, userPayments, history, ...props
-}) => (
+  productPaymentMethods, onProductPaymentFieldChange, userPayments, history, ...props
+}) => {
+  const addProductpaymentGatway = (method) => {
+    if (userPayments.includes(method)) {
+      onProductPaymentFieldChange({
+        name: 'methods',
+        value: productPaymentMethods.includes(method)
+          ? productPaymentMethods.filter((m) => m !== method)
+          : [...productPaymentMethods, method]
+      });
+    }
+  };
+  return (
 
-  <Tabs>
-    <TabList>
-      <Tab><TabTitle>Payment Gateway</TabTitle></Tab>
-    </TabList>
-    <TabPanel>
-      <Block>
-        {userPayments.includes('Stripe')
-    && (
-      <MediumCard
-        imgSrc={stripeImage}
-        isActive={productPaymentMethods.includes('Stripe')}
-        onClick={() => props.addProductPaymentMethod('Stripe')}
-      />
-    )}
-        {userPayments.includes('Paypal')
-    && (
-      <MediumCard
-        imgSrc={paypalImage}
-        isActive={productPaymentMethods.includes('Stripe')}
-        onClick={() => props.addProductPaymentMethod('Paypal')}
-      />
-    )
-        }
-        <InputRow>
-          {userPayments.length
-            ? (
-              <Message>
-          You Can always add new Payment methods from the
-                <Link to={{ history, page: '/settings/integrations' }}> settings/integrations</Link>
-              </Message>
-            )
-            : (
-              <Message>
-          You Dont Have Any Payment Method connected to Your Account,Add from
-                <Link to={{ history, page: '/settings/integrations' }}> settings/integrations</Link>
-
-              </Message>
+    <Tabs>
+      <TabList>
+        <Tab><TabTitle>Payment Gateway</TabTitle></Tab>
+      </TabList>
+      <TabPanel>
+        <Block>
+          {userPayments.includes('Stripe')
+            && (
+              <MediumCard
+                imgSrc={stripeImage}
+                isActive={productPaymentMethods.includes('Stripe')}
+                onClick={() => addProductpaymentGatway('Stripe')}
+              />
             )}
-        </InputRow>
-      </Block>
-    </TabPanel>
-  </Tabs>
-);
+          {userPayments.includes('Paypal')
+            && (
+              <MediumCard
+                imgSrc={paypalImage}
+                isActive={productPaymentMethods.includes('Paypal')}
+                onClick={() => addProductpaymentGatway('Paypal')}
+              />
+            )
+          }
+          <InputRow>
+            {userPayments.length
+              ? (
+                <Message>
+                  You Can always add new Payment methods from the
+                  <Link to={{ history, page: '/settings/integrations' }}> settings/integrations</Link>
+                </Message>
+              )
+              : (
+                <Message>
+                  You Dont Have Any Payment Method connected to Your Account,Add from
+                  <Link to={{ history, page: '/settings/integrations' }}> settings/integrations</Link>
+
+                </Message>
+              )}
+          </InputRow>
+        </Block>
+      </TabPanel>
+    </Tabs>
+  );
+};
 
 
 function Message ({ children }) {

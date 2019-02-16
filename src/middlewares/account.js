@@ -4,9 +4,9 @@ import {
 } from 'constantsTypes';
 import {
   onChangeAccountDetailsSuccess,
-  onChangeAccountDetailsFaild,
+  onChangeAccountDetailsFailed,
   onChangeAccounPasswordSuccess,
-  onChangeAccounPasswordFaild
+  onChangeAccounPasswordFailed
 } from 'actions/account';
 import { apiRequest } from 'actions/apiRequest';
 
@@ -23,7 +23,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
   let behaviors = {
     onSuccess: onChangeAccountDetailsSuccess,
-    onFaild: onChangeAccountDetailsFaild
+    onFailed: onChangeAccountDetailsFailed
   };
 
 
@@ -31,7 +31,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options.uri = '/api/users/password';
     behaviors = {
       onSuccess: onChangeAccounPasswordSuccess,
-      onFaild: onChangeAccounPasswordFaild
+      onFailed: onChangeAccounPasswordFailed
     };
   }
 

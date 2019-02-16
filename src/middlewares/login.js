@@ -3,7 +3,7 @@ import { apiRequest } from 'actions/apiRequest';
 
 import {
   loginSuccess,
-  loginFaild
+  loginFailed
 } from 'actions/login';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -17,10 +17,10 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: loginSuccess,
-    onFaild: loginFaild
+    onFailed: loginFailed
   }));
   // .then(({ success, message, data }) => (success
   //   ? dispatch(loginSuccess(data))
-  //   : dispatch(loginFaild(message))))
-  // .catch((err) => dispatch(loginFaild('Something gone wrong,please try again later ')));
+  //   : dispatch(loginFailed(message))))
+  // .catch((err) => dispatch(loginFailed('Something gone wrong,please try again later ')));
 };

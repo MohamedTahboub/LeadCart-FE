@@ -6,7 +6,7 @@ import SearchInput from './SearchInput'
 import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
-
+import ids from 'shortid'
 export class InputRow extends Component {
   static Label = ({ notes, error, className, ...props }) => (
     <div className={'input-label-container ' + className}>
@@ -16,19 +16,19 @@ export class InputRow extends Component {
     </div>
   )
 
-  static NormalInput = ({ onChange, value, disabled, name, error, ...props }) => (
+  static NormalInput = ({ onChange, value, className, disabled, name, error, ...props }) => (
     <input
       onChange={onChange}
       name={name}
       defaultValue={value}
       disabled={disabled}
-      className={'input-field ' + (error && 'invalid-field')}
+      className={`input-field ${className ? className : ''} ${error ? 'invalid-field' : ''}`}
       placeholder={props.children}
     />
   )
 
   static SmallInput = ({
-    type = 'text', name, disabled, autoComplete = 'on', onChange, value, classes = [], error, ...props
+    type = 'text', name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
   }) => (
       <input
         defaultValue={value}
@@ -37,7 +37,7 @@ export class InputRow extends Component {
         name={name}
         disabled={disabled}
         type={type}
-        className={'input-field small-input ' + (error ? ' invalid-field ' : ' ') + classes.join(' ')}
+        className={`input-field small-input ${className ? className : ''} ${error ? 'invalid-field' : ''}`}
         placeholder={props.children}
       />
     )
@@ -90,24 +90,25 @@ export class InputRow extends Component {
   static EditableTagGroup = EditableTagGroup
 
   static SelectOption = ({
-    options = [], onChange, name, value, leftLabel, ...props
+    options = [], onChange, className, name, value, leftLabel, ...props
   }) => (
       <React.Fragment>
         {leftLabel && <span className="input-left-label">{leftLabel}</span>}
-        <select onClick={onChange} defaultValue={value} name={name} className='select-input-field'>
-          {options.map(({ label, value }, id) => <option key={id} className='select-option' value={value}>{label}</option>)}
+        <select onChange={onChange} value={value} name={name} className={`select-input-field ${className ? className : ''}`}>
+          {options.map(({ label, value: v }) => <option key={ids.generate()} className='select-option' value={v}>{label}</option>)}
         </select>
       </React.Fragment>
     )
 
   static PriceField = ({
-    children, onChange, name, type, disabled, classes = [], value, ...props
+    children, onChange, name, type, disabled, className, value, ...props
   }) => (
-      <div className={'price-input-holder ' + classes.join(' ')}>
+      <div className={`price-input-holder ${className ? className : ''}`}>
         <span className='currancy-type'>{type || '$'}</span>
         <input
           onChange={onChange}
           defaultValue={value}
+          type={type || "number"}
           name={name}
           className='price-input-field'
           disabled={disabled}
@@ -115,12 +116,12 @@ export class InputRow extends Component {
       </div>
     )
 
-  static UrlInput = ({ onChange, name, disabled, prefix = 'https://', value, ...props }) => (
+  static UrlInput = ({ onChange, name, disabled, error, prefix = 'https://', value, ...props }) => (
     <input
       onChange={onChange}
       defaultValue={value}
       name={name}
-      className='input-field'
+      className={`input-field ${error ? 'invalid-field' : '' }`}
       disabled={disabled}
       placeholder={prefix}
     />
@@ -129,12 +130,20 @@ export class InputRow extends Component {
   static CheckBox = ({
     children, description, checked, disabled, onChange, name, classes = [], ...props
   }) => (
-      <label className={'check-box-container ' + classes.join(' ')}>
+      <label onChange={(e) => {
+        console.log('CHANGE ON :', e.target.name, e.target.value)
+        onChange(e)
+      }}
+        className={'check-box-container ' + classes.join(' ')}>
         {description
           && <span className='check-box-description'>{description}</span>}
         <input
-          onChange={onChange} name={name} className='check-box' type='radio'
-          name='product-type' checked={checked} disabled={disabled}
+
+          name={name || 'chcekbox'}
+          className='check-box'
+          type='radio'
+          defaultChecked={checked}
+          disabled={disabled}
         />
         <div className='check-box-indicator'>{children}</div>
       </label>
@@ -171,7 +180,6 @@ export class InputRow extends Component {
   )
 
   static FlatSelect = ({ note, onSelect, value = 'Percent', ...props }) => {
-    console.log('charging-method-picker', value)
     return (
       <div className='charging-method-picker'>
         <input id='charge-method-el-1'
@@ -209,9 +217,10 @@ export class InputRow extends Component {
   )
 
   render() {
-    const { margin = 12, className } = this.props;
+    const { margin, className } = this.props;
+    const style = margin ? { margin: `${margin}px 0px` } : {}
     return (
-      <div style={{ margin: `${margin}px 0px` }} className={'input-row ' + className}>
+      <div style={style} className={'input-row ' + className}>
         {this.props.children}
       </div>
     );
@@ -230,3 +239,25 @@ export const CodeInputArea = ({ value, flixable, onChange, name, disabled, ...pr
     />
   </div>
 )
+
+
+export const SelectBox = ({ checked, onChange, ...props }) => {
+  const id = ids.generate()
+
+  return (
+    <label htmlFor={`CustomCheckBoxInput_${id}`} >
+      <input
+        onChange={onChange}
+        id={`CustomCheckBoxInput_${id}`}
+        checked={checked}
+        type="checkbox"
+        className='custom-checkbox-input-field'
+      />
+      <span className="custom-checkbox-input-mask" />
+    </label>
+  )
+}
+
+export { default as EditableInputField } from './EditableInputField'
+export { default as EditableTextField } from './EditableTextField'
+

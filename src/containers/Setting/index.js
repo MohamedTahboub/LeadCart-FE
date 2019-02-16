@@ -46,7 +46,7 @@ class Setting extends Component {
         
         return (
             <div key='settings' className='setting-details-page'>
-                <FlexBoxesContainer classes={['space-between-elements']}>
+                <FlexBoxesContainer className='space-between-elements'>
                     <MainTitle >Settings</MainTitle>
                     <Button onClick={this.onChangesSave} classes=' primary-color'>
                         Save Changes

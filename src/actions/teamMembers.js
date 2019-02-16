@@ -2,10 +2,10 @@ import {
   GET_MEMBERS_SUCCESS,
   CREATE_NEW_MEMBER,
   CREATE_NEW_MEMBER_SUCCESS,
-  CREATE_NEW_MEMBER_FAILD,
+  CREATE_NEW_MEMBER_FAILED,
   ACTIVATE_MEMBER,
   ACTIVATE_MEMBER_SUCCESS,
-  ACTIVATE_MEMBER_FAILD,
+  ACTIVATE_MEMBER_FAILED,
 } from 'constantsTypes';
 
 
@@ -22,8 +22,8 @@ export const onCreateNewMemberSuccess = (message) => ({
   type: CREATE_NEW_MEMBER_SUCCESS,
   payload: message
 });
-export const onCreateNewMemberFaild = (message) => ({
-  type: CREATE_NEW_MEMBER_FAILD,
+export const onCreateNewMemberFailed = (message) => ({
+  type: CREATE_NEW_MEMBER_FAILED,
   payload: message
 });
 
@@ -38,7 +38,7 @@ export const activateMemberSuccess = (id) => ({
   payload: id
 });
 
-export const activateMemberFaild = (message) => ({
-  type: ACTIVATE_MEMBER_FAILD,
+export const activateMemberFailed = (message) => ({
+  type: ACTIVATE_MEMBER_FAILED,
   payload: message
 });

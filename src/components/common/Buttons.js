@@ -33,13 +33,15 @@ export const DeleteButton = ({ iconType = 'trash', onClick, ...props }) => (
 
 export const ActivationSwitchInput = ({ active, onToggle, ...props }) => (
   <label className='switch-slider-input activability-switch'>
-    <input type='checkbox' onClick={onToggle} checked={active ? 'checked' : ''} />
+    <input type='checkbox' onChange={onToggle} defaultChecked={active} />
     <span className='slider-input slider-round' />
   </label>
 );
 
-export const EditButton = ({ classes = [], children, ...props }) => (
-  <span className={`edit-btn ${classes.join(' ')}`}>
+export const EditButton = ({
+  classes = [], onClick, children, ...props
+}) => (
+  <span onClick={onClick} className={`edit-btn ${classes.join(' ')}`}>
     <i className='fas fa-edit' />
     {children}
   </span>

@@ -18,7 +18,7 @@ class Funnels extends Component {
       return (
           <div>
           <NewThingCard onClick={this.toggleModal} thing='Funnels' />
-              <Modal onClose={this.toggleModal} isVisable={this.state.isModalVisable}>
+              <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
                   <MainTitle>Create Upsell</MainTitle>
             <InputRow>
                       <InputRow.Label>Upsell name</InputRow.Label>

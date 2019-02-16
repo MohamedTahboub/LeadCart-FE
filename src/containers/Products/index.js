@@ -63,7 +63,7 @@ class Products extends Component {
           }
           <NewThingCard thing='Product' onClick={toggleCreateProductModal} />
         </div>
-        <Modal onClose={() => this.setState({ showDeleteModal: false })} isVisable={this.state.showDeleteModal}>
+        <Modal onClose={() => this.setState({ showDeleteModal: false })} isVisible={this.state.showDeleteModal}>
           <MainTitle>Are you sure,you want delete this product ?</MainTitle>
           <Button onClick={this.onHideDeleteDialogue} classes='primary-color margin-with-float-left'>
             {' '}

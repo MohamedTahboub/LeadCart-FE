@@ -1,5 +1,5 @@
 import { CREATE_SUB_ACCOUNT } from 'constantsTypes';
-import { onCreateSubAccountSuccess, onCreateSubAccountFaild } from 'actions/agency';
+import { onCreateSubAccountSuccess, onCreateSubAccountFailed } from 'actions/agency';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -13,7 +13,7 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: onCreateSubAccountSuccess.bind(this, action.payload),
-    onFaild: onCreateSubAccountFaild
+    onFailed: onCreateSubAccountFailed
   }));
 };
 

@@ -29,8 +29,8 @@
     top:110%;
     width:85%;
     color:gray;
-    font-size: 9px;
-
+    line-height: 12px;
+    font-size: 10px;
 }
 .input-field{
     width: 404px;
@@ -121,6 +121,7 @@
     /* font-weight: bold; */
     font-size:15px;
     color:  #2B3748;
+    outline-style: none;
 }
 .add-element-circle {
     position: absolute;
@@ -217,6 +218,11 @@
     width: 161.6px;
     height: 32px;
     position: relative;
+}
+div.price-input-holder input[type=number]::-webkit-inner-spin-button,
+div.price-input-holder input[type=number]::-webkit-outer-spin-button{
+    -webkit-appearance: none; 
+    margin: 0; 
 }
 
 .price-input-field{
@@ -637,7 +643,9 @@ input[type="radio"]{
 }
 .margin-left-30 {
     margin-left: 32px !important;
-    font-size: 12px;
+}
+.margin-left-15 {
+    margin-left: 15px !important;
 }
 .reset-font-size{
     font-size: 15px;
@@ -665,14 +673,20 @@ input[type="radio"]{
 
 /* Add input Field*/
 input.add-input-field {
+    margin: 0px 10px;
     border-radius: 50%;
     border: none;
-    height: 40px;
-    width: 40px;
+    height: 32px;
+    width: 32px;
+    font-size: 13px;
     background: #03A9F4;
     font-family: inherit;
     color: white;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px 0px 3px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 /* .add-input-field:hover{
@@ -706,3 +720,55 @@ input.add-input-field {
     color: tomato;
 }
 /* Delete trash btn ends*/
+
+
+/* Custom Checkbox input styles Field*/
+.custom-checkbox-input-field{
+    display:none;
+}
+.custom-checkbox-input-mask{
+    position:relative;
+    display:inline-block;
+    height:15px;
+    width:15px;
+    color:#03A9F4;
+    cursor:pointer;
+    border:1px solid gray;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:all .4s ease-in-out;
+}
+.custom-checkbox-input-field:checked ~ .custom-checkbox-input-mask{
+    border:1px solid #03A9F4;
+}
+.custom-checkbox-input-field:checked ~ .custom-checkbox-input-mask:after{
+    content: "\2713";
+    font-size:18px;
+    top:0px;
+    left:0px;
+}
+  
+/* Custom Checkbox input Field StylesEnds*/
+
+
+/* Editable Text Field Styles*/
+.editable-text-field {
+    font-size: 15px !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .editable-text-input {
+    width: fit-content;
+    padding: inherit;
+    font-size: inherit;
+    border: none;
+    outline-style: none;
+  }
+  .editable-text-content{
+    /* font-weight: 600; */
+  }
+  abbr.abbr-note {
+    text-decoration: none !important;
+    cursor: pointer !important;
+}
+/* Editable Text Field Styles Ends*/

@@ -200,11 +200,11 @@
 
 
 
-.inactive-product {
+.inactive-card {
     position: relative;
 }
 
-.inactive-product:before {
+.inactive-card:before {
     content: 'inactive';
     position: absolute;
     font-size: 12px;
@@ -270,21 +270,21 @@
 
 
 /* Upsell Card Styles Starts*/
-
-.upsell-card-container{
-    position: relative;
-    /* min-height: 170px; */
+.upsell-card-container {
+    height: 250px;
     width: 250px;
+    background: white;
     display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction: column;
     flex-direction: column;
-    background: white;
-    margin: 10px 10px 10px 0px;
-    padding: 10px;
+    margin: 10px 0px;
     justify-content: space-between;
-    align-items: flex-start;
-    box-shadow: 1px 1px 10px -5px
+    box-shadow: 1px 1px 10px -5px;
 }
+
+
+
 .upsell-card-container:hover{
     box-shadow: 1px 1px 10px -3.5px
 }
@@ -296,9 +296,9 @@
     margin-bottom: 20px;
 }
 
-.upsell-associated-product i.fas {
-    margin-right: 5px;
-    color: #929292a3;
+span.product-salles-holder i.fas {
+    margin: 5px;
+    opacity: .6;
 }
 .upsell-item-controlls {
     position: absolute;
@@ -324,3 +324,7 @@
     padding-right: 5px;
 }
 /* Upsell Card Styles ENDS*/
+
+.item-clickable{
+    cursor: pointer;
+}

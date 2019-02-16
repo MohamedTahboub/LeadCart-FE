@@ -1,4 +1,4 @@
-import {SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILD, SIGN_UP_INVALID_FIELDS } from '../constantsTypes';
+import {SIGN_UP, SIGN_UP_SUCCESS, SIGN_UP_FAILED, SIGN_UP_INVALID_FIELDS } from '../constantsTypes';
 
 
 export const signUp = user => ({
@@ -9,8 +9,8 @@ export const signUpSuccess = user => ({
     type: SIGN_UP_SUCCESS,
     payload: user
 })
-export const signUpFaild = error => ({
-    type: SIGN_UP_FAILD,
+export const signUpFailed = error => ({
+    type: SIGN_UP_FAILED,
     payload: error
 })
 

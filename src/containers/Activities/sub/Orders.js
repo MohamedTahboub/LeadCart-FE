@@ -9,11 +9,18 @@ const { Avatar, SmallButton, MainTitle } = common;
 
 
 const onExport = (orders) => {
-  const titles = 'Name,Email,Phone,Location,Total Profite,Date of join\n';
+  const titles = 'Name,Email Adress,Phone Number,Product Name,Processor,Quantity,Price,Type\n';
   const convertToCSVFormat = orders
     .map(({
-      name, contact: { email, phone }, location, total_profite: { value: total }, joined_in
-    }) => `${name},${email},${phone},${location},${total},${joined_in}`).join('\n');
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      productName,
+      paymentType,
+      paymentMethod,
+      price,
+    }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${1},${price},${paymentType}`).join('\n');
 
 
   const download = document.createElement('a');
@@ -31,36 +38,33 @@ const OrderList = (props) => (
         <Tabel.SmallCell />
         <Tabel.HeadCell>Name</Tabel.HeadCell>
         <Tabel.HeadCell>Email</Tabel.HeadCell>
-        <Tabel.HeadCell>Status</Tabel.HeadCell>
+        <Tabel.HeadCell>Product Name</Tabel.HeadCell>
         <Tabel.HeadCell>Processor</Tabel.HeadCell>
         <Tabel.HeadCell>Quantity</Tabel.HeadCell>
-        <Tabel.HeadCell>Coupon</Tabel.HeadCell>
         <Tabel.HeadCell>Type</Tabel.HeadCell>
-        <Tabel.HeadCell>Order Date</Tabel.HeadCell>
       </Tabel.Head>
       <Tabel.Body>
         {props.orders.map(({
-          name, email, status, processor, quality, coupon, type, orderDate
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          productName,
+          paymentType,
+          paymentMethod,
+          price,
         }) => (
           <Tabel.Row>
             <Tabel.SmallCell>
-              <Avatar name={name} />
+              <Avatar name={`${firstName} ${lastName}`} />
             </Tabel.SmallCell>
-            <Tabel.Cell
-              mainContent={name}
-            />
-            <Tabel.Cell
-              mainContent={email}
-            />
-            <Tabel.Cell>
-              <SmallButton classes='green-color'>Active</SmallButton>
-            </Tabel.Cell>
+            <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
+            <Tabel.Cell mainContent={email} subContent={phoneNumber} />
+            <Tabel.Cell mainContent={productName} />
+            <Tabel.Cell mainContent={paymentMethod} />
+            <Tabel.Cell mainContent={`${1} Unit`} subContent={price} />
+            <Tabel.Cell mainContent={paymentType} />
 
-            <Tabel.Cell mainContent={status}></Tabel.Cell>
-            <Tabel.Cell mainContent={processor}></Tabel.Cell>
-            <Tabel.Cell mainContent={quality}></Tabel.Cell>
-            <Tabel.Cell mainContent={coupon}></Tabel.Cell>
-            <Tabel.Cell mainContent={orderDate}></Tabel.Cell>
           </Tabel.Row>
         ))}
       </Tabel.Body>

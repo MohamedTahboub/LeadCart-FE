@@ -1,4 +1,4 @@
-import { activateAgencyCodeSuccess, activateAgencyCodeFaild } from 'actions/promoCode';
+import { activateAgencyCodeSuccess, activateAgencyCodeFailed } from 'actions/promoCode';
 import { apiRequest } from 'actions/apiRequest';
 import { ACTIVATE_AGENCY_CODE } from '../constantsTypes';
 
@@ -12,6 +12,6 @@ export default ({ dispatch }) => (next) => (action) => {
       contentType: 'json'
     },
     onSuccess: activateAgencyCodeSuccess,
-    onFaild: activateAgencyCodeFaild
+    onFailed: activateAgencyCodeFailed
   }));
 };

@@ -1,7 +1,7 @@
 import {
   CREATE_SUB_ACCOUNT,
   CREATE_SUB_ACCOUNT_SUCCESS,
-  CREATE_SUB_ACCOUNT_FAILD,
+  CREATE_SUB_ACCOUNT_FAILED,
   GET_SUB_ACCOUNTS
 } from 'constantsTypes';
 
@@ -19,7 +19,7 @@ export const onCreateSubAccountSuccess = (message) => ({
   type: CREATE_SUB_ACCOUNT_SUCCESS,
   payload: message
 });
-export const onCreateSubAccountFaild = (message) => ({
-  type: CREATE_SUB_ACCOUNT_FAILD,
+export const onCreateSubAccountFailed = (message) => ({
+  type: CREATE_SUB_ACCOUNT_FAILED,
   payload: message
 });

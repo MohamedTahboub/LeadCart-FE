@@ -19,6 +19,7 @@ import teamMembers from './teamMembers'
 import modelsShapers from './modelsShapers'
 import upadteUserImage from './upadteUserImage'
 import formsValidations from './formsValidations'
+import upsells from './upsell'
 
 // exporting the middlewares as an array 
 export default [
@@ -30,6 +31,7 @@ export default [
     proSignup,
     ...settings,
     products,
+    ...upsells,
     payments,
     ...product,
     account,

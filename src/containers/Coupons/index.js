@@ -6,7 +6,7 @@ import * as productsActions from 'actions/products';
 import * as couponsActions from 'actions/coupon';
 import Tabel from 'components/common/Tabels';
 const {
-  InputRow, MainBlock, Button, MainTitle, SmallButton
+  InputRow, FlexBoxesContainer, Button, MainTitle, SmallButton
 } = common;
 
 const getProductNameByCouponId = (id, products) => {
@@ -119,12 +119,12 @@ class Coupons extends Component {
     } = this;
     return (
       <div className='coupons-page'>
-        <MainBlock title='Coupons'>
-          <InputRow>
-            <InputRow.Label>Create New Coupon</InputRow.Label>
-            <AddNewButton onClick={this.toggleModal} />
-          </InputRow>
-        </MainBlock>
+        <FlexBoxesContainer className='space-between-elements'>
+          <MainTitle>Create New Coupon</MainTitle>
+          <Button onClick={this.toggleModal} classes=' primary-color'>
+            New Coupon
+          </Button>
+        </FlexBoxesContainer>
         <Tabel>
           <Tabel.Head>
             <Tabel.HeadCell>Code</Tabel.HeadCell>
@@ -162,7 +162,7 @@ class Coupons extends Component {
 
           </Tabel.Body>
         </Tabel>
-        <Modal onClose={this.toggleModal} isVisable={isModalVisable}>
+        <Modal onClose={this.toggleModal} isVisible={isModalVisable}>
           <MainTitle>Create Coupon</MainTitle>
           <InputRow>
             <InputRow.Label>Coupon code</InputRow.Label>
@@ -179,13 +179,13 @@ class Coupons extends Component {
             <InputRow.FlatSelect
               onSelect={this.onTypeSelect}
               value={type}
-              note='Is this percent or flat amount off?'
             />
             <InputRow.PriceField
               type={type === 'Flat' ? '$' : '%'}
               name={type === 'Flat' ? 'amount' : 'percent'}
               onChange={this.onFieldChange}
-              note='How much off is your coupon.' classes={['margin-left-30']}
+              note='How much off is your coupon.'
+              className='margin-left-30'
             />
           </InputRow>
           <InputRow margin='35'>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as producActions from 'actions/product';
 import './style.css';
 
-const { InputRow } = common;
+const { InputRow, EditableInputField } = common;
 
 
 const AddInputField = ({ onAdd }) => {
@@ -22,63 +22,6 @@ const AddInputField = ({ onAdd }) => {
     </form>
   );
 };
-
-class EditableField extends Component {
-  state = { editable: false, content: '' }
-
-  componentDidMount () {
-    const { content } = this.props;
-    this.setState({ content });
-  }
-
-  onChange = ({ target: { value: content } }) => this.setState({ content })
-
-  onEdit = () => this.setState({ editable: true })
-
-
-  onSave = () => {
-    this.setState({ editable: false });
-    this.props.onSave(this.state.content);
-  }
-
-  componentDidUpdate (prevProps) {
-    const { content } = this.props;
-    if (prevProps.content !== content) this.setState({ content });
-  }
-
-
-  render () {
-    const { editable, content } = this.state;
-    const { onDelete } = this.props;
-    return (
-      <div className='editable-field-container'>
-        <input
-          type='text'
-          className='editable-input-field'
-          onChange={this.onChange} value={content}
-          disabled={!editable}
-        />
-        <div className='editable-field-controlls'>
-          {editable ? (
-            <span onClick={this.onSave} className='add-field-btn editable-save-btn'>
-              <i className='fas fa-save' />
-            </span>
-          )
-            : (
-              <Fragment>
-                <span onClick={this.onEdit} className='add-field-btn editable-edit-btn'>
-                  <i className='fas fa-pencil-alt' />
-                </span>
-                <span onClick={onDelete} className='add-field-btn editable-delete-btn'>
-                  <i className='fas fa-trash-alt' />
-                </span>
-              </Fragment>
-            )}
-        </div>
-      </div>
-    );
-  }
-}
 
 class ProductFeatures extends Component {
   state = {
@@ -151,7 +94,7 @@ class ProductFeatures extends Component {
           <InputRow.Label />
           <div className='features-list-container'>
             {features.map((feature, id) => (
-              <EditableField
+              <EditableInputField
                 key={id}
                 onSave={(newFeature) => this.onFeatureEdit(feature, newFeature)}
                 onDelete={() => this.onFeatureRemove(feature)}

@@ -1,115 +1,149 @@
 import React, { Component } from 'react';
-import upsellsData from 'data/upsells.json';
-// import Upsells from './sub/Upsells'
-// import Funnels from './sub/Funnels'
+import { connect } from 'react-redux'
+import ids from 'shortid'
 import Modal from 'components/Modal';
 import UpsellForm from './newUpsellModal';
 import './style.css';
-// import ProductDetailes from './sub/ProductDetails'
+import * as upsellsActions from 'actions/upsells'
 
 import common from 'components/common';
+import { isDate } from 'moment';
 
-console.log(UpsellForm)
 const {
   InputRow, UpsellCard, MainTitle, FlexBoxesContainer, Button, MainBlock
 } = common;
-/* temp component tp represent the empty tap */
-const EmptyTab = (props) => (
-  <div className='nothing'>...in progress</div>
-);
-// const UpsellsTabs = [
-//   { title: 'Upsells', hash: 'upsells' },
-//   { title: 'Funnels', hash: 'funnels' }
-// ];
 
-
-// const ActiveTabe = ({ tabName, ...props }) => {
-//   switch (tabName) {
-//   case 'upsells': return <Upsells />;
-//   case 'funnels': return <Funnels />;
-//   default: return <EmptyTab />;
-//   }
-// };
 
 const NewUpsell = ({ onClick, ...props }) => (
   <Button onClick={onClick} classes='primary-color'>
     <i className='fas fa-plus' />
     {' '}
-        New Upsells
+    New Upsells
   </Button>
 );
 
+const getProductById = ({ products, id }) => {
+  const { name: productName, url: productLink } = products.find(({ id: i }) => i === id) || { url: 'unknown', name: 'not available' }
+  return { productName, productLink }
+}
+
 const DeleteDialuge = ({
-  onClose, show, onConfirem, ...props
+  onClose, show, onConfirm, ...props
 }) => (
-  <Modal onClose={onClose} isVisable={show}>
-    <MainTitle>Are you sure,you want delete this upsell ?</MainTitle>
-    <Button onClick={onClose} classes='primary-color margin-with-float-left'>
-      {' '}
-                Cancel
+    <Modal onClose={onClose} isVisible={show}>
+      <MainTitle>Are you sure,you want delete this upsell ?</MainTitle>
+      <Button onClick={onClose} classes='primary-color margin-with-float-left'>
+        {' '}
+        Cancel
     </Button>
-    <Button onClick={onConfirem} classes='warning-color margin-with-float-right'>
-      <i className='fas fa-trash-alt' />
-      {' '}
-                Delete
+      <Button onClick={onConfirm} classes='warning-color margin-with-float-right'>
+        <i className='fas fa-trash-alt' />
+        {' '}
+        Delete
     </Button>
-  </Modal>
-);
+    </Modal>
+  );
 class Upsells extends Component {
-    state = {
-      showDeleteDialuge: false,
-      showUpsellEditablePreview: false,
-      showNewUpsellForm: false
-    }
+  state = {
+    showDeleteDialuge: false,
+    showUpsellEditablePreview: false,
+    showNewUpsellForm: false,
+    products: [],
+    isNewUpsell: true,
+    stagedUpsell: {}
+  }
 
-    toggleDeleteDialuge = () => {
-      this.setState({ showDeleteDialuge: !this.state.showDeleteDialuge });
-    }
+  toggleDeleteDialuge = (id) => {
+    const { stagedUpsell } = this.state
+    this.setState({ showDeleteDialuge: !this.state.showDeleteDialuge, stagedUpsell: { ...stagedUpsell, id } });
+  }
 
-    toggleUpsellEditablePreview = () => {
-      this.setState({ showUpsellEditablePreview: !this.state.showUpsellEditablePreview });
-    }
+  toggleUpsellEditablePreview = () => {
+    this.setState({ showUpsellEditablePreview: !this.state.showUpsellEditablePreview });
+  }
 
-    toggleNewUpsellForm = () => {
-      this.setState({ showNewUpsellForm: !this.state.showNewUpsellForm });
-    }
+  toggleNewUpsellForm = () => {
+    this.setState({
+      showNewUpsellForm: !this.state.showNewUpsellForm,
+      isNewUpsell: true
+    });
+  }
 
-    render () {
-      const tabName = this.props.history.location.hash.slice(1);
-      const { showDeleteDialuge, showNewUpsellForm } = this.state;
-      return (
-        <React.Fragment>
-          <MainBlock title='Upsells'>
-            <InputRow>
-              <InputRow.Label>Create New Upsell</InputRow.Label>
-              <NewUpsell onClick={this.toggleNewUpsellForm} />
-            </InputRow>
-          </MainBlock>
-          <FlexBoxesContainer classes={['flex-wrap']}>
-            {upsellsData.map((upsell) => (
-              <UpsellCard
-                {...upsell}
-                onDelete={this.toggleDeleteDialuge}
-                onEdit={this.toggleNewUpsellForm}
-              />
-            ))}
-          </FlexBoxesContainer>
-          <DeleteDialuge
-            onClose={this.toggleDeleteDialuge}
-            show={showDeleteDialuge}
-            onConfirem={this.toggleDeleteDialuge}
-          />
-          <UpsellForm
-            newUpsell={true}
-            onClose={this.toggleNewUpsellForm}
-            show={showNewUpsellForm}
-            onConfirem={this.toggleNewUpsellForm}
-          />
-        </React.Fragment>
+  toggleEditUpsellForm = (id) => {
+    this.setState({
+      showNewUpsellForm: !this.state.showNewUpsellForm,
+      isNewUpsell: false,
+      stagedUpsell: this.props.upsells.find(({ _id }) => _id === id) || {}
+    });
 
-      );
+  }
+  onDeleteUpsell = id => {
+    const { stagedUpsell } = this.state
+    this.setState({
+      stagedUpsell: {
+        ...stagedUpsell,
+        deleted: true
+      }
+    })
+    this.props.deleteUpsell(id);
+  }
+  componentDidMount() {
+    this.props.getUpsells()
+  }
+
+  componentDidUpdate() {
+    const { upsells } = this.props
+    const { stagedUpsell: { id :deletedUpsellId} } = this.state
+
+    if (deletedUpsellId && !upsells.find(({_id:id})=>id === deletedUpsellId)) {
+      this.toggleDeleteDialuge()
     }
+  }
+  render() {
+    const {
+      state: { showDeleteDialuge, showNewUpsellForm, stagedUpsell, isNewUpsell },
+      props: { upsells, products }
+    } = this
+
+    return (
+      <React.Fragment>
+        <FlexBoxesContainer className='space-between-elements'>
+          <MainTitle >Upsells</MainTitle>
+          <Button onClick={this.toggleNewUpsellForm} classes=' primary-color'>
+            New Upsell
+          </Button>
+        </FlexBoxesContainer>
+        <FlexBoxesContainer className='flex-wrap'>
+          {upsells.map((upsell) => (
+            <UpsellCard
+              key={ids.generate()}
+              {...upsell}
+              linkedProduct={getProductById({ products, id: upsell.linkedProduct })}
+              onDelete={this.toggleDeleteDialuge.bind(this, upsell._id)}
+              onEdit={this.toggleEditUpsellForm.bind(this, upsell._id)}
+            />
+          ))}
+        </FlexBoxesContainer>
+        <DeleteDialuge
+          onClose={this.toggleDeleteDialuge}
+          show={showDeleteDialuge}
+          onConfirm={this.onDeleteUpsell.bind(this, stagedUpsell.id)}
+        />
+        {showNewUpsellForm && <UpsellForm
+          upsell={isNewUpsell ? {} : stagedUpsell}
+          onClose={this.toggleNewUpsellForm}
+          show={showNewUpsellForm}
+          onConfirem={this.toggleNewUpsellForm}
+        />}
+      </React.Fragment>
+
+    );
+  }
 }
 
 
-export default Upsells;
+const mapStateToProps = ({ products: { products }, upsells: { list: upsells } }) => ({
+  upsells,
+  products
+})
+export default connect(mapStateToProps, upsellsActions)(Upsells);

@@ -155,7 +155,7 @@ class Product extends Component {
             Share Product
           </Button>
           <ShareProductModale
-            isVisable={showShareProductModal}
+            isVisible={showShareProductModal}
             onClose={this.onToggleShareProductModal}
             subdomain={subdomain}
             productUrl={productUrl}

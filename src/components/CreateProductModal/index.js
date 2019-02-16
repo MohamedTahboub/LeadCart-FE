@@ -64,10 +64,10 @@ class CreateProductModal extends Component {
 
   render () {
     const {
-      toggleCreateProductModal, isVisable, subdomain, isAproductCreated, errors = {}
+      toggleCreateProductModal, isVisible, subdomain, isAproductCreated, errors = {}
     } = this.props;
     return (
-      <Modal onClose={toggleCreateProductModal} isVisable={isVisable}>
+      <Modal onClose={toggleCreateProductModal} isVisible={isVisible}>
         <MainTitle>Create Product</MainTitle>
         <InputRow>
           <InputRow.Label error={errors.name}>Product Name</InputRow.Label>
@@ -100,7 +100,7 @@ const mapStateToProps = ({ product: { newProduct, mandatoryDetails }, user, moda
   isAproductCreated: newProduct.isAproductCreated,
   errors: newProduct.errors,
   subdomain: user.user.subDomain,
-  isVisable: modals.product.isVisable,
+  isVisible: modals.product.isVisible,
   productDetails: newProduct,
 });
 
