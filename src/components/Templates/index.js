@@ -1,15 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import './style.css'
-export default ({active , ...props}) => (
-    <div className='template-preview-container'>
-        <div className='preview-image'>
-            <i class="fas fa-eye"></i>
-            <div>Preview</div>
-        </div>
-        <div className='template-preview-footer'>
-            <span className='template-preview-name'>Classic</span>
-            <span className={!active ? 'btn preview-select-btn ' : 'preview-select-btn active-template-preview'}>{!active ? 'Select' : 'active'}</span>
-        </div>
-    </div>
-)
+import './style.css';
+const templateBackground = (image) => ({
+  background: `url(${image})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover'
+});
+export default ({
+  active, image, onSelect, name, classes = [], ...props
+}) => (
+  <div className='template-preview-container'>
+    <div
+      onClick={() => onSelect(name)} style={templateBackground(image)}
+      className={active ? 'preview-image active-template-preview' : 'preview-image'}
+    />
+  </div>
+);

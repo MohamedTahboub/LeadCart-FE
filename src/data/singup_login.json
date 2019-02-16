@@ -1,0 +1,20 @@
+{
+    "login" : {
+        "success" : true,
+        "user":{
+            "name" : "Mohammed T.",
+            "level": 1,
+            "avatar":"https://s3.amazonaws.com/systemgravatars/avatar_6225.jpg",
+            "token":"XSAIwqXBWxsasdDMSAnxasSA8dSXl9"       
+         }
+    },
+    "signup" : {
+        "success" : true,
+        "user":{
+            "name" : "Mohammed T.",
+            "level": 1,
+            "avatar":"https://s3.amazonaws.com/systemgravatars/avatar_6225.jpg",
+            "token":"XSAIwqXBWxsasdDMSAnxasSA8dSXl9"       
+         }
+    }
+}

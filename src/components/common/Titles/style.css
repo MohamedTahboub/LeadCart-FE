@@ -11,3 +11,44 @@
     color: #03A9F4;
     margin-right: 8px;
 }
+.heade-line-container{
+    color:#2B3748;
+    font-size: 24px;
+    font-weight: 300;
+}
+.tab-title-container{
+    color:rgb(37, 49, 66);
+    font-size: 17px;
+    font-weight: 500;
+}
+.tab-title-container-error{
+    color:tomato;
+    position: relative;
+}
+.tab-title-container-error:after{
+    content: '*';
+    right: 5px;
+    top:5px;
+    font-size: 15px;
+    color:tomato;
+}
+.spcial-announcement{
+    font-size: 13px;
+    letter-spacing: 2px;
+    color:#2B3748;
+    font-weight: bold;
+    text-align: center;
+}
+.big-text-container{
+    color: #2B3748;
+    font-size: 39px;
+    line-height: 35px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.title-bottom-line{
+    border-bottom: 2px solid #e1d5d5;
+    padding: 13px 0px;
+    width: 100%;
+}

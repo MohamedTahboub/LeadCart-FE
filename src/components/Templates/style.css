@@ -1,12 +1,17 @@
 .template-preview-container{
-    width: 230px;
-    height: 215px;
+    width: 141px;
+    height: 275px;
     display: flex;
     flex-direction: column;
-    margin: 25px;
-
+    margin: 10px;
+    margin-bottom: 40px;
+}
+.template-preview-container:nth-last-child(1) {
+    height: 274px;
+    width: 285px;
 }
 .preview-image {
+    position: relative;
     height: 100%;
     width: 100%;
     color: #e4e4e4;
@@ -20,7 +25,7 @@
     transition: all ease-in-out 300ms;
 }
 .preview-image:hover{
-    box-shadow: 0px 1.5px 7px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 7px rgb(60, 122, 255);
 
 }
 .template-preview-footer{
@@ -42,17 +47,29 @@
     font-weight: 400;
     padding: 5px 12px 12px 13px;
 }
-.active-template-preview {
-    color: white;
-    border-radius: 3px;
-    font-weight: 400;
-    padding: 5px 8px 8px 12px;
-    padding: 5px 12px 12px 13px;
-    font-size: smaller;
-    background: #4DA1FF;
-    user-select: none;
-    cursor: pointer;
+.active-template-preview:after {
+        position: absolute;
+        bottom: -40px;
+        left: 42%;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 400;
+        font-size: 30px;
+        content: "\F058";
+        color: #30e030b5;
 }
 span.template-preview-name {
     font-size: 14px;
+    margin: auto 0px;
+}
+.coming-soon-sign {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #0000006e;
+    color: white;
+    font-size: 15px;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
