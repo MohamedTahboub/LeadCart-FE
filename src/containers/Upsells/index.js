@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import upsellsData from 'data/upsells.json';
 import { connect } from 'react-redux'
-
+import ids from 'shortid'
 import Modal from 'components/Modal';
 import UpsellForm from './newUpsellModal';
 import './style.css';
 import * as upsellsActions from 'actions/upsells'
 
 import common from 'components/common';
+import { isDate } from 'moment';
 
 const {
   InputRow, UpsellCard, MainTitle, FlexBoxesContainer, Button, MainBlock
@@ -116,7 +116,7 @@ class Upsells extends Component {
         <FlexBoxesContainer className='flex-wrap'>
           {upsells.map((upsell) => (
             <UpsellCard
-              key={upsell._id}
+              key={ids.generate()}
               {...upsell}
               linkedProduct={getProductById({ products, id: upsell.linkedProduct })}
               onDelete={this.toggleDeleteDialuge.bind(this, upsell._id)}
@@ -129,12 +129,12 @@ class Upsells extends Component {
           show={showDeleteDialuge}
           onConfirm={this.onDeleteUpsell.bind(this, stagedUpsell.id)}
         />
-        <UpsellForm
+        {showNewUpsellForm && <UpsellForm
           upsell={isNewUpsell ? {} : stagedUpsell}
           onClose={this.toggleNewUpsellForm}
           show={showNewUpsellForm}
           onConfirem={this.toggleNewUpsellForm}
-        />
+        />}
       </React.Fragment>
 
     );

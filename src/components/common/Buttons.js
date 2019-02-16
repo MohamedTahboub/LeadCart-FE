@@ -33,7 +33,7 @@ export const DeleteButton = ({ iconType = 'trash', onClick, ...props }) => (
 
 export const ActivationSwitchInput = ({ active, onToggle, ...props }) => (
   <label className='switch-slider-input activability-switch'>
-    <input type='checkbox' onClick={onToggle} checked={active ? 'checked' : ''} />
+    <input type='checkbox' onChange={onToggle} defaultChecked={active} />
     <span className='slider-input slider-round' />
   </label>
 );

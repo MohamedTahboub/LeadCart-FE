@@ -219,6 +219,11 @@
     height: 32px;
     position: relative;
 }
+div.price-input-holder input[type=number]::-webkit-inner-spin-button,
+div.price-input-holder input[type=number]::-webkit-outer-spin-button{
+    -webkit-appearance: none; 
+    margin: 0; 
+}
 
 .price-input-field{
     margin-left: 32px;

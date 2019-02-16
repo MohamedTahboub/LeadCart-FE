@@ -66,7 +66,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
         </InputRow.AddImage>
       </InputRow>
-      <InputRow margin='30'>
+      <InputRow margin='37'>
         <InputRow.Label
           error={errors.country}
           notes='Select a country to be displayed as the default on your checkout pages. Your customers can always select a different country.'
@@ -85,7 +85,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
         />
 
       </InputRow>
-      <InputRow>
+      <InputRow margin='35'>
         <InputRow.Label error={errors.timeZones}>Time Zone</InputRow.Label>
         <InputRow.SearchInput
           defaultValue={defaultTimeZone}

@@ -4,7 +4,10 @@ import {
   DELETE_UPSELL_SUCCESS,
   DELETE_UPSELL_FAILED,
   CHANGE_UPSELL_STATE_SUCCESS,
-  CHANGE_UPSELL_STATE_FAILED
+  CHANGE_UPSELL_STATE_FAILED,
+  CREATE_UPSELL_SUCCESS,
+  CREATE_UPSELL_FAILED,
+  UPDATE_UPSELL_SUCCESS
 } from 'constantsTypes';
 
 
@@ -28,6 +31,24 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         message: payload
       }
+    };
+  case CREATE_UPSELL_SUCCESS:
+    return {
+      ...state,
+      list: [...state.list, payload]
+    };
+  case CREATE_UPSELL_FAILED:
+    return {
+      ...state,
+      errors: {
+        ...state,
+        message: payload
+      }
+    };
+  case UPDATE_UPSELL_SUCCESS:
+    return {
+      ...state,
+      list: state.list.map((u) => (u._id === payload.upsellId ? payload.body : u))
     };
   case DELETE_UPSELL_SUCCESS:
     return {

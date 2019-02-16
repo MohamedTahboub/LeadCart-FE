@@ -118,9 +118,9 @@ const Label = ({ children, ...props }) => (
 
 
 export const UpsellCard = ({
-  name, id, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
+  name, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
-  <div className='upsell-card-container'>
+  <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
     <div className='card-main-content product-avatar-holder'>
       <Avatar name={name} />
       <span className='product-name-holder'>{name}</span>

@@ -22,7 +22,8 @@ import {
   CHANGE_COUPON_STATE_FAILED,
   CREATE_NEW_COUPON_FAILED,
   UPLOAD_FILE_FAILED,
-  UPDATE_UPSELL,
+  UPDATE_UPSELL_SUCCESS,
+  UPDATE_UPSELL_FAILED,
   CREATE_UPSELL,
   DELETE_UPSELL_SUCCESS,
   DELETE_UPSELL_FAILED
@@ -40,6 +41,9 @@ export default ({ dispatch }) => (next) => (action) => {
     break;
   case DELETE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Deleted Successfully');
+    break;
+  case UPDATE_UPSELL_SUCCESS:
+    showSuccessMessage('Upsell Updated Successfully');
     break;
   case UPDATE_PRODUCT_SUCCESS:
     showSuccessMessage('The Product Updated Successfully');
@@ -104,11 +108,12 @@ export default ({ dispatch }) => (next) => (action) => {
   case UPLOAD_FILE_FAILED:
     dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Upload The File' }));
     break;
-  case UPDATE_UPSELL:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Upsell Failed To Update' }));
-    break;
   case DELETE_UPSELL_FAILED:
-    showSuccessMessage('Couldn\'t delete that Upsell,Something went wrong');
+    showFailurMessage('Couldn\'t delete that Upsell,Something went wrong');
+    break;
+  case UPDATE_UPSELL_FAILED:
+    showFailurMessage('Couldn\'t update that Upsell,Something went wrong');
+    break;
   default:
     return next(action);
   }

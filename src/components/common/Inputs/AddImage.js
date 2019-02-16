@@ -40,11 +40,11 @@ class AddImage extends Component {
 
   render () {
     const {
-      color = 'primary-color', onClick, classes = [], suffixIcon, children, notes, description, ...props
+      color = 'primary-color', onClick, classes = [], className, suffixIcon, children, notes, description, ...props
     } = this.props;
     const { image: { link, name }, imageChangesSaved } = this.state;
     return (
-      <div className='add-input-field-holder'>
+      <div className={`add-input-field-holder ${className}`}>
         <div
           ref='addElementContainer'
           onClick={this.onAddImage}

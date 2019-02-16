@@ -6,7 +6,7 @@ import SearchInput from './SearchInput'
 import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
-import ids from 'short-id'
+import ids from 'shortid'
 export class InputRow extends Component {
   static Label = ({ notes, error, className, ...props }) => (
     <div className={'input-label-container ' + className}>
@@ -108,6 +108,7 @@ export class InputRow extends Component {
         <input
           onChange={onChange}
           defaultValue={value}
+          type={type || "number"}
           name={name}
           className='price-input-field'
           disabled={disabled}
@@ -115,12 +116,12 @@ export class InputRow extends Component {
       </div>
     )
 
-  static UrlInput = ({ onChange, name, disabled, prefix = 'https://', value, ...props }) => (
+  static UrlInput = ({ onChange, name, disabled, error, prefix = 'https://', value, ...props }) => (
     <input
       onChange={onChange}
       defaultValue={value}
       name={name}
-      className='input-field'
+      className={`input-field ${error ? 'invalid-field' : '' }`}
       disabled={disabled}
       placeholder={prefix}
     />
@@ -244,7 +245,7 @@ export const SelectBox = ({ checked, onChange, ...props }) => {
   const id = ids.generate()
 
   return (
-    <label for={`CustomCheckBoxInput_${id}`} >
+    <label htmlFor={`CustomCheckBoxInput_${id}`} >
       <input
         onChange={onChange}
         id={`CustomCheckBoxInput_${id}`}

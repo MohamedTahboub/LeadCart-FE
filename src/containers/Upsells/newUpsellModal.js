@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'components/Modal';
 import common from 'components/common';
-import ids from 'short-id';
+import ids from 'shortid';
 import UpsellFeature from 'components/UpsellFeature';
 import UpsellActionButton from 'components/UpsellActionButton';
 import * as upsellActions from 'actions/upsells';
+import { UpsellSchema } from 'libs/validation';
 
 const {
   InputRow,
@@ -17,40 +18,87 @@ const {
   FlexBoxesContainer
 } = common;
 
+const FeaturesList = ({
+  list: features, onFeatureEnabled, onFeatureDisabled, onFeatureFieldChange, ...props
+}) => (
+  <List ordered className='upsell-features-list'>
+    {features.map(({
+      title, description: featureDescription, enabled, id: fId
+    }, id) => (
+      <DisableEnableWrapper
+        onEnabled={onFeatureEnabled}
+        onDisabled={onFeatureDisabled}
+        key={ids.generate()}
+        enabled={enabled}
+        id={fId}
+        className='upsell-feature-container'
+      >
+        <UpsellFeature
+          title={title}
+          description={featureDescription}
+          number={id + 1}
+          id={fId}
+          onChange={onFeatureFieldChange}
+        />
+      </DisableEnableWrapper>
+    ))}
+  </List>
+);
 
 class UpsellForm extends Component {
   state = {
     upsell: {},
-    newFeature: {}
+    newFeature: {},
+    created: false,
+    updated: false
   }
 
   updateUpselldetails = (upsell) => {
     const { features = [] } = upsell || {};
+
     this.setState({
       upsell: {
         ...upsell,
-        features: this.refactoreUpsellFeatures(features)
+        features: features.length === 4 ? features : this.refactoredUpsellFeatures(features)
       }
     });
   }
 
   componentDidMount () {
-    const { upsell, newUpsell } = this.props;
+    const { upsell } = this.props;
     this.updateUpselldetails(upsell);
   }
 
-  refactoreUpsellFeatures = (features = []) => {
-    const tf = { title: 'Click to Edit the Title', description: 'Click to edit the feature description', enabled: false };
+  refactoredUpsellFeatures = (features = []) => {
+    const tf = {
+      title: 'Click to Edit the Title',
+      description: 'Click to edit the feature description',
+      temp: true
+    };
+    // if (!features.length) return (tf).repeate(4);
     const newFeaturesList = [...features];
     for (let i = newFeaturesList.length; i < 4; i++) newFeaturesList[i] = tf;
 
-    return newFeaturesList.map((f) => ({ ...f, id: ids.generate(), enabled: typeof f.enabled === 'undefined' }));
+    return newFeaturesList.map((f) => ({ ...f, id: ids.generate(), enabled: !f.temp }));
   }
 
   componentDidUpdate (prev) {
-    const { upsell } = this.props;
+    const { upsells, upsell, onClose } = this.props;
+    const { upsell: { _id: upsellId }, updated, created } = this.state;
 
     if (prev.upsell !== upsell) this.updateUpselldetails(upsell);
+
+    // when an upsell is created
+    if (upsells.length && upsells.length > prev.upsells.length && created) {
+      this.setState({ created: false });
+      this.state.created && onClose();
+    }
+    // when an upsell is updated
+
+    if (upsellId === updated) {
+      this.setState({ updated: '' });
+      onClose();
+    }
   }
 
 
@@ -59,7 +107,8 @@ class UpsellForm extends Component {
     this.setState({
       upsell: {
         ...upsell,
-        [name]: value
+        errors: { ...upsell.errors, [name]: '' },
+        [name]: value,
       }
     });
   }
@@ -68,28 +117,10 @@ class UpsellForm extends Component {
     this.onUpsellFieldsChange(name, value);
   }
 
-  onNewFeatureTitleChange = ({ target: { value } }) => {
-    const { newFeature } = this.state;
-    if (value.trim().length) {
-      this.setState({
-        newFeature: {
-          ...newFeature,
-          title: value
-        }
-      });
-    }
-  }
-
-  onNewFeatureDescriptionChange = ({ target: { name, value } }) => {
-    const { newFeature } = this.state;
-    if (value.trim().length) {
-      this.setState({
-        newFeature: {
-          ...newFeature,
-          description: value
-        }
-      });
-    }
+  onUpsellPriceChange = ({ target: { value } }) => {
+    const { price } = this.state.upsell;
+    const amount = +(value);
+    if (amount && Number.isInteger(amount)) this.onUpsellFieldsChange('price', { ...price, amount });
   }
 
   onFeatureEnabled = (id) => {
@@ -107,16 +138,25 @@ class UpsellForm extends Component {
     this.onUpsellFieldsChange('features', newFeatures);
   }
 
-  onCreate = () => {
+  onCreate = async () => {
     const { upsell } = this.state;
+    const { isValid, value, errors } = await this.onUpsellEncapsulation(upsell);
 
-    console.log(upsell);
-    // this.props.createUpsell(upsell);
+    if (!isValid) return this.onUpsellFieldsChange('errors', errors);
+
+    this.props.createUpsell(value);
+    this.setState({ created: true });
   }
 
-  onUpdate = () => {
+  onUpdate = async () => {
     const { upsell } = this.state;
-    this.props.updateUpsell(upsell);
+    const upsellId = upsell._id;
+    const { isValid, value, errors } = await this.onUpsellEncapsulation(upsell);
+    console.log(isValid, errors);
+    if (!isValid) return this.onUpsellFieldsChange('errors', errors);
+    console.log(value);
+    this.props.updateUpsell({ body: value, upsellId });
+    this.setState({ updated: upsellId });
   }
 
   onAssetTypeChange = ({ target: { value: assetsType } }) => {
@@ -129,8 +169,12 @@ class UpsellForm extends Component {
     this.onUpsellFieldsChange('assets', { ...assets, assetLink });
   }
 
+  onAssetsImageLinkChange = (assetLink) => {
+    const { assets = {} } = this.state.upsell;
+    this.onUpsellFieldsChange('assets', { ...assets, assetLink });
+  }
+
   onAssciatedProductChange = ({ target: { id, value } }) => {
-    console.log(value, id);
     this.onUpsellFieldsChange('linkedProduct', id);
   }
 
@@ -165,31 +209,42 @@ class UpsellForm extends Component {
     if (value) this.onUpsellFieldsChange('features', newFeatures);
   }
 
+  onUpsellEncapsulation = (upsell) => {
+    upsell.features = upsell.features
+      .filter(({ enabled }) => enabled)
+      .map(({ title, description }) => ({ title, description }));
+    return UpsellSchema(upsell);
+  }
+
   render () {
     const {
       state: {
         upsell: {
+          featuresTitle,
           features = [],
+          _id: upsellId,
           name,
-          upsellIntro,
+          description,
           assets: { assetsType, assetLink } = {},
-          price: { amount: price } = {},
+          price = {},
           linkedProduct,
-          upsellFulfillment,
+          fulfillment,
+          errors = {},
           actionBtn = {},
           active: UpsellState
         }
       },
       props: {
-        products, errors, newUpsell, show: isVisible, onClose
+        products, errors: genralErrors = {}, newUpsell, show: isVisible, onClose
       }
     } = this;
 
+    console.log(features);
     return (
       <Modal onClose={onClose} isVisible={isVisible} className='upsell-modal-form'>
         <FlexBoxesContainer className='space-between-elements upsell-modal-head'>
           <MainTitle>{newUpsell ? 'Create New Upsell' : 'Update Upsell'}</MainTitle>
-          {!newUpsell && <ActivationSwitchInput active={UpsellState} onToggle={this.onToggleUpsellState} />}
+          {upsellId && <ActivationSwitchInput active={UpsellState} onToggle={this.onToggleUpsellState} />}
         </FlexBoxesContainer>
         <InputRow>
           <InputRow.Label error={errors.name}>Upsell Name:</InputRow.Label>
@@ -197,17 +252,18 @@ class UpsellForm extends Component {
           <InputRow.PriceField
             className='margin-left-15'
             name='price'
-            value={price}
-            error={errors.price}
-            onChange={this.onFieldChange}
-            children='Upsell Price'
+            value={price.amount}
+            error={errors.price && errors.price.amount}
+            onChange={this.onUpsellPriceChange}
+            children='Price'
           />
         </InputRow>
         <InputRow>
           <InputRow.Label error={errors.description}>Upsell Description:</InputRow.Label>
           <InputRow.TextAreaInput
-            // placeholder='Feature Description'
             name='description'
+            value={description}
+            error={errors.description}
             countable
             min={0}
             max={40}
@@ -216,10 +272,11 @@ class UpsellForm extends Component {
         </InputRow>
 
         <InputRow>
-          <InputRow.Label error={errors.assets}>Asset Type:</InputRow.Label>
+          <InputRow.Label error={errors.assets && errors.assets.assetsType}>Asset Type:</InputRow.Label>
           <InputRow.SelectOption
             value={assetsType}
             name='assetsType'
+            error={errors.assets && errors.assets.assetsType}
             onChange={this.onAssetTypeChange}
             className='asste-type-dropdown'
             options={[
@@ -227,77 +284,79 @@ class UpsellForm extends Component {
               { label: 'Image', value: 'image' }
             ]}
           />
-          <InputRow.NormalInput
-            error={errors.assets}
-            value={assetLink}
-            name='assetLink'
-            onChange={this.onAssetsLinkChange}
-            className='margin-left-15'
-          >
-            Enter a valid link for the image/video
-          </InputRow.NormalInput>
+          {assetsType === 'image'
+            ? (
+              <InputRow.AddImage
+                className='upsell-asset-image'
+                value={assetLink}
+                source='assets_link'
+                onUploaded={this.onAssetsImageLinkChange}
+                name='assets_link'
+                children='Upload Image'
+              />
+            )
+            : (
+              <InputRow.NormalInput
+                error={errors.assets}
+                value={assetLink}
+                error={errors.assets && errors.assets.assetsLink}
+                name='assetLink'
+                onChange={this.onAssetsLinkChange}
+                className='margin-left-15'
+                children='Enter a valid link for the image/video'
+              />
+            )
+          }
         </InputRow>
         <InputRow>
           <InputRow.Label error={errors.featuresTitle}>Features Title:</InputRow.Label>
           <InputRow.NormalInput
-            name='featuresTitl'
+            name='featuresTitle'
+            value={featuresTitle}
+            error={errors.featuresTitle}
             onChange={this.onFieldChange}
             error={errors.featuresTitle}
           />
         </InputRow>
         <InputRow>
-          <List ordered className='upsell-features-list'>
-            {features.map(({
-              title, description, enabled, id: fId
-            }, id) => (
-              <DisableEnableWrapper
-                onEnabled={this.onFeatureEnabled}
-                onDisabled={this.onFeatureDisabled}
-                key={fId}
-                enabled={enabled}
-                id={fId}
-                className='upsell-feature-container'
-              >
-                <UpsellFeature
-                  title={title}
-                  description={description}
-                  number={id + 1}
-                  id={fId}
-                  onChange={this.onFeatureFieldChange}
-                />
-              </DisableEnableWrapper>
-            ))}
-          </List>
+          <FeaturesList
+            list={features}
+            onFeatureEnabled={this.onFeatureEnabled}
+            onFeatureDisabled={this.onFeatureDisabled}
+            onFeatureFieldChange={this.onFeatureFieldChange}
+          />
         </InputRow>
         <InputRow>
-          <InputRow.Label error={errors.upsellFulfillment}>Upsell fulfillment link:</InputRow.Label>
+          <InputRow.Label error={errors.fulfillment}>Upsell fulfillment link:</InputRow.Label>
           <InputRow.UrlInput
-            name='upsellFulfillment'
-            value={upsellFulfillment}
+            name='fulfillment'
+            value={fulfillment}
+            error={errors.fulfillment}
             onChange={this.onFieldChange}
           />
         </InputRow>
         <InputRow>
-          <InputRow.Label error={errors.description}>Associated Product:</InputRow.Label>
+          <InputRow.Label error={errors.linkedProduct}>Associated Product:</InputRow.Label>
           <InputRow.SearchInput
             data={products}
             defaultValue={this.getProductNameById(linkedProduct)}
             target='name'
             name='linkedProduct'
+            error={errors.linkedProduct}
             onChange={this.onAssciatedProductChange}
           />
         </InputRow>
         <InputRow>
           <InputRow.Label
-            error={errors.actionBtn}
-            notes='The action Button Can just accepte 20 character '
+            error={errors.actionBtn && errors.actionBtn.text}
+            notes='The action Button Can just accepts 20 character '
           >
             Upsell Action Button:
 
           </InputRow.Label>
           <InputRow.SmallInput
-            name='name'
             value={actionBtn.text}
+            error={errors.actionBtn && errors.actionBtn.text}
             error={errors.actionBtn}
             onChange={this.onActionBtnTextChange}
           />
@@ -307,18 +366,19 @@ class UpsellForm extends Component {
             onChange={this.onActionBtnColorChange}
           />
         </InputRow>
-        {errors.message && <span className='error-message'>{errors.message}</span>}
-        <Button onClick={newUpsell ? this.onCreate : this.onUpdate} classes='primary-color margin-with-float-right'>
-          <i className={`fas fa-${newUpsell ? 'plus' : 'edit'}`} />
-          {newUpsell ? 'Create' : 'Update'}
+        {genralErrors.message && <span className='error-message'>{genralErrors.message}</span>}
+        <Button onClick={!upsellId ? this.onCreate : this.onUpdate} classes='primary-color margin-with-float-right'>
+          <i className={`fas fa-${!upsellId ? 'plus' : 'edit'}`} />
+          {!upsellId ? 'Create' : 'Update'}
         </Button>
       </Modal>
     );
   }
 }
 
-const mapStateToProps = ({ products: { products }, upsells: { errors } }) => ({
+const mapStateToProps = ({ products: { products }, upsells: { errors, list: upsells } }) => ({
   products,
+  upsells,
   errors
 });
 export default connect(mapStateToProps, upsellActions)(UpsellForm);

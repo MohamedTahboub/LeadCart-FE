@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import common from '../common'
 
 import './style.css';
@@ -6,12 +6,8 @@ import './style.css';
 const { EditableTextField } = common
 
 
-class UpsellFeature extends Component {
+export default ({title, description, id, onChange, number ,...props})=>{
 
-
-  onChange = () => console.log('Feature title changes')
-  render() {
-    const { title, description, id, onChange, number } = this.props;
     return (
       <div className='upsell-feature-item'>
         <div className='upsell-feature-title'>
@@ -31,7 +27,6 @@ class UpsellFeature extends Component {
         </div>
       </div>
     );
-  }
+  
 }
 
-export default UpsellFeature;

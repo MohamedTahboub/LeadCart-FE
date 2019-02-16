@@ -63,7 +63,7 @@ class TextAreaInput extends Component {
 
   render () {
     const {
-      value, error, wordsNumber, max
+      value, error = this.props.error, wordsNumber, max
     } = this.state;
     const {
       name, disabled, countable, placeholder
@@ -76,7 +76,7 @@ class TextAreaInput extends Component {
           value={value}
           name={name}
           disabled={disabled}
-          className={`textarea-input-field ${error && 'invalid-field'}`}
+          className={`textarea-input-field ${error ? 'invalid-field' : ''}`}
         />
         <span className='text-area-small-note'>{countable ? `${wordsNumber} / ${max} word` : `${wordsNumber} word`}</span>
       </div>
