@@ -1,5 +1,7 @@
 .active-content{
-    padding: 30px 30px 50px 30px;
+    padding: 10px 20px 0px 20px;
     flex: 1;
     background: #E5E5E5;
+    overflow: auto;
+    min-width: 1100px;
 }

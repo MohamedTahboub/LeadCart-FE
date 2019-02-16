@@ -1,0 +1,7 @@
+.blank-link {
+    text-decoration: none;
+    color: #7d7d7d;
+}
+.blank-link:hover {
+    color: #3f51b5;
+}

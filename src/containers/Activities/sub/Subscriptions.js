@@ -1,112 +1,109 @@
 import React from 'react';
-import { LineChart } from 'components/LeadCartCharts'
-import common from 'components/common'
-import Tabel from 'components/common/Tabels'
-import './style.css'
+import Chart from 'components/LeadCartCharts/chart';
+import { connect } from 'react-redux';
+import common from 'components/common';
+import Tabel from 'components/common/Tabels';
+import './style.css';
+import customersList from 'data/customers';
 
-import customersList from 'data/customers'
+const { Avatar, SmallButton, MainTitle } = common;
 
-const { Avatar, SmallButton, MainTitle } = common
 
-export default props => (
-    <React.Fragment>
-        <div className='chart-preview section-box margin-top-20'>
-            <div className='chart-head'>
-                <div className='chart-head-child'>
-                    <span className='chart-title'>Orders Statistics</span>
-                    <span className='chart-total-profite'>
-                        <span className='chart-profit-value'>
-                            10 789
-                    </span>
+const onExport = (subscriptions) => {
+  const titles = 'Subscriber Name,Email Address,Phone Number,Subscriptions Number,Subscribed Products\n';
+  const convertToCSVFormat = subscriptions
+    .map(({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      subScriptedTo
+    }) => `${firstName} ${lastName},${email},${phoneNumber},${subScriptedTo.length},${subScriptedTo.map((p) => p.name).join(' ')}`).join('\n');
 
-                    </span>
-                </div>
 
-                <div className='chart-head-child'></div>
+  const download = document.createElement('a');
 
-                <div className='chart-head-child'>
-                    <div className='chart-preview-options'>
-                        <span className='chart-option'>day</span>
-                        <span className='chart-option'>week</span>
-                        <span className='chart-option'>month</span>
-                        <span className='chart-option'>year</span>
-                    </div>
-                </div>
-            </div>
+  download.setAttribute('href', `data:text/csv;charset=utf-8,${encodeURIComponent(titles + convertToCSVFormat)}`);
+  download.setAttribute('download', 'Subscriptions List.csv');
+  download.click();
+};
 
-            <div className='chart-body'>
-                <LineChart />
-            </div>
-        </div>
-        <MainTitle>Subscriptions List</MainTitle>
-        <Tabel>
-            <Tabel.Head>
-                <Tabel.SmallCell />
-                <Tabel.HeadCell>Name</Tabel.HeadCell>
-                <Tabel.HeadCell>Email</Tabel.HeadCell>
-                <Tabel.HeadCell>Status</Tabel.HeadCell>
-                <Tabel.HeadCell>Processor</Tabel.HeadCell>
-                <Tabel.HeadCell>Quantity</Tabel.HeadCell>
-                <Tabel.HeadCell>Coupon</Tabel.HeadCell>
-                <Tabel.HeadCell>Type</Tabel.HeadCell>
-                <Tabel.HeadCell>Order Date</Tabel.HeadCell>
-            </Tabel.Head>
-            <Tabel.Body>
-                <Tabel.Row>
-                    <Tabel.SmallCell >
-                        <Avatar name='Nimesil' />
-                    </Tabel.SmallCell>
-                    <Tabel.Cell
-                        mainContent='Nimesil Forte'
-                    />
-                    <Tabel.Cell
-                        mainContent="vincent@gmail.com"
-                    />
-                    <Tabel.Cell>
-                        <SmallButton classes='green-color' >Active</SmallButton>
-                    </Tabel.Cell>
 
-                    <Tabel.Cell mainContent='_' ></Tabel.Cell>
-                    <Tabel.Cell mainContent='132' ></Tabel.Cell>
-                    <Tabel.Cell mainContent='None' ></Tabel.Cell>
-                    <Tabel.Cell mainContent='_' ></Tabel.Cell>
-                    <Tabel.Cell mainContent='21 Jun 2018' ></Tabel.Cell>
-                </Tabel.Row>
-            </Tabel.Body>
-        </Tabel>
-        <MainTitle>Subscriptions scheduled to be canceled</MainTitle>
-        <Tabel>
-            <Tabel.Head>
-                <Tabel.SmallCell />
-                <Tabel.HeadCell>Subscription ID</Tabel.HeadCell>
-                <Tabel.HeadCell>Custome Name</Tabel.HeadCell>
-                <Tabel.HeadCell>Email</Tabel.HeadCell>
-                <Tabel.HeadCell>Subscription Name</Tabel.HeadCell>
-                <Tabel.HeadCell>Subscription Price</Tabel.HeadCell>
-                <Tabel.HeadCell>Cancel On</Tabel.HeadCell>
-            </Tabel.Head>
-            <Tabel.Body>
-                <Tabel.Row>
-                    <Tabel.SmallCell >
-                        <Avatar name='Nimesil' />
-                    </Tabel.SmallCell>
-                    <Tabel.Cell
-                        mainContent='#25783'
-                    />
-                    <Tabel.Cell
-                        mainContent='Vincent Vega'
-                    />
-                    <Tabel.Cell
-                        mainContent="vincent@gmail.com"
-                    />
-                    <Tabel.Cell>
-                        <SmallButton classes='purple-color' >Advanced</SmallButton>
-                    </Tabel.Cell>
-                    <Tabel.Cell mainContent='$199/month' ></Tabel.Cell>
-                    <Tabel.Cell mainContent='21 Jun 2018' ></Tabel.Cell>
-                </Tabel.Row>
-            </Tabel.Body>
-        </Tabel>
-        <span className="btn primary-color explort-csv-btn">Explore.CSV</span>
-    </React.Fragment>
-)
+const SubscriptionsList = (props) => (
+  <React.Fragment>
+    <MainTitle>Subscriptions List</MainTitle>
+    <Tabel>
+      <Tabel.Head>
+        <Tabel.SmallCell />
+        <Tabel.HeadCell>Subscriber Name</Tabel.HeadCell>
+        <Tabel.HeadCell>Email</Tabel.HeadCell>
+        <Tabel.HeadCell>Phone Number</Tabel.HeadCell>
+        <Tabel.HeadCell>Subscriptions</Tabel.HeadCell>
+      </Tabel.Head>
+      <Tabel.Body>
+        {props.subscriptions.map(({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          subScriptedTo
+        }) => (
+          <Tabel.Row>
+            <Tabel.SmallCell>
+              <Avatar name={`${firstName} ${lastName}`} />
+            </Tabel.SmallCell>
+            <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
+            <Tabel.Cell mainContent={email} />
+            <Tabel.Cell mainContent={phoneNumber} />
+            <Tabel.Cell mainContent={subScriptedTo.length} />
+          </Tabel.Row>
+        ))}
+      </Tabel.Body>
+    </Tabel>
+
+    <span onClick={onExport.bind(this, props.subscriptions)} className='btn primary-color explort-csv-btn'>Explore.CSV</span>
+  </React.Fragment>
+);
+
+const mapStateToProps = ({ activities }) => ({
+  subscriptions: activities.subscriptions.subscriptions || []
+});
+export default connect(mapStateToProps)(SubscriptionsList);
+
+
+/*
+ <MainTitle>Subscriptions scheduled to be canceled</MainTitle>
+    <Tabel>
+      <Tabel.Head>
+        <Tabel.SmallCell />
+        <Tabel.HeadCell>Subscription ID</Tabel.HeadCell>
+        <Tabel.HeadCell>Custome Name</Tabel.HeadCell>
+        <Tabel.HeadCell>Email</Tabel.HeadCell>
+        <Tabel.HeadCell>Subscription Name</Tabel.HeadCell>
+        <Tabel.HeadCell>Subscription Price</Tabel.HeadCell>
+        <Tabel.HeadCell>Cancel On</Tabel.HeadCell>
+      </Tabel.Head>
+      <Tabel.Body>
+        <Tabel.Row>
+          <Tabel.SmallCell>
+            <Avatar name='Nimesil' />
+          </Tabel.SmallCell>
+          <Tabel.Cell
+            mainContent='#25783'
+          />
+          <Tabel.Cell
+            mainContent='Vincent Vega'
+          />
+          <Tabel.Cell
+            mainContent='vincent@gmail.com'
+          />
+          <Tabel.Cell>
+            <SmallButton classes='purple-color'>Advanced</SmallButton>
+          </Tabel.Cell>
+          <Tabel.Cell mainContent='$199/month'></Tabel.Cell>
+          <Tabel.Cell mainContent='21 Jun 2018'></Tabel.Cell>
+        </Tabel.Row>
+      </Tabel.Body>
+    </Tabel>
+
+*/

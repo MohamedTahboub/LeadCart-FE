@@ -1,5 +1,5 @@
 .side-bar{
-    /* min-width: 243px; */
+    min-height: 550px;
     min-width: 194.4px;
     background:white;
     display: flex;
@@ -20,15 +20,42 @@
     align-items: center;
     margin: 25px;
 } 
-.user-avatar{
+
+.change-avatar-layer{
+    position: relative;
     height: 70px;
     width: 70px;
     border-radius: 50%;
+    cursor: pointer;
 }
+.user-avatar{
+    height:100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.change-avatar-image {
+    height: 100%;
+    display: block;
+    position: absolute;
+    width: 100%;
+    color: white;
+    border-radius: 50%;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 350ms ease-in-out;
+}
+ .change-avatar-image:hover{
+     opacity: 1;
+    background: rgba(0,0,0,0.3)
+}
+
 .user-name{
     font-weight: bold;
     line-height: 35px;
     font-size: 15px;
+    text-transform: capitalize;
 }
 .setting-short {
     padding: 6px 10px;
@@ -38,6 +65,7 @@
     margin-left: 41px;
     color: #0080fa;
     cursor: pointer;
+    z-index: 100;
     transition: all 350ms ease-in-out;
 }
 .setting-short:hover{
@@ -51,8 +79,8 @@
 .btn{
     font-size: smaller;
     border-radius: 3px;
-    /* padding: 20px; */
-    padding: 16px;
+    text-decoration: none;
+    padding: 8px 15px;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -82,7 +110,7 @@
     /* line-height: 20px; */
     line-height: 16px;
     font-size: small;
-    color: #C9D3DC;
+    color: #2B3748;
     margin: 8px 0px;
     cursor: pointer;
     transition: all 350ms ease-in-out;
@@ -106,6 +134,7 @@
 /* */
 .locked-feature{
     position: relative;
+    color: #C9D3DC;
 }
 .locked-feature:before{
     position: absolute;
@@ -116,3 +145,8 @@
     color: #ff6347b5;
 }
 
+.logout-btn {
+    background: #c9d3dc;
+    font-size: 12px;
+    margin-top: 10px;
+}
