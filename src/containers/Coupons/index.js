@@ -43,7 +43,7 @@ class Coupons extends Component {
     } else {
       this.setState({
         forAll: false,
-        productId: this.products.filter(({ name }) => name === value)[0].id
+        productId: this.props.products.find(({ name }) => name === value)._id
       });
     }
   }
