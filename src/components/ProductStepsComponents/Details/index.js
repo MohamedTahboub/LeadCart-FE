@@ -8,13 +8,12 @@ import common from 'components/common'
 import "react-tabs/style/react-tabs.css";
 import './style.css'
 
-const { Block ,TabTitle} = common
+const { Block, TabTitle } = common
 export default (props) => (
   <Tabs>
     <TabList>
       <Tab><TabTitle>Product Details</TabTitle></Tab>
       <Tab><TabTitle>Product Pricing</TabTitle></Tab>
-      <Tab><TabTitle>Product Tags</TabTitle></Tab>
     </TabList>
     <TabPanel>
       <Block>
@@ -24,11 +23,6 @@ export default (props) => (
     <TabPanel>
       <Block>
         <ProductPrice />
-      </Block>
-    </TabPanel>
-    <TabPanel>
-      <Block>
-        <ProductTags />
       </Block>
     </TabPanel>
   </Tabs>
