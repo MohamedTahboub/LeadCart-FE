@@ -1,24 +1,33 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, Component, Fragment } from 'react';
 import common from 'components/common';
 
 import { connect } from 'react-redux';
-import * as producActions from 'actions/product';
+import * as productActions from 'actions/product';
 import './style.css';
 
 const { InputRow, EditableInputField } = common;
 
 
 const AddInputField = ({ onAdd }) => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const { target: { content: { value } } } = e;
+  const [feature, setFeature] = useState('');
 
-    onAdd(value);
+  const onChange = ({ target: { value } }) => {
+    if (value) setFeature(value);
   };
+  const onSubmit = () => onAdd(feature);
   return (
-    <form onSubmit={onSubmit} className='add-input-field-container'>
-      <InputRow.SmallInput name='content' autoComplete='off' />
-      <input type='submit' className='add-input-field' value='Add' />
+    <form className='add-input-field-container'>
+      <InputRow.TextAreaInput
+        className='feature-text-area'
+        onChange={onChange}
+        value={feature}
+        name='content'
+        max={10}
+        min={0}
+        countable
+        autoComplete='off'
+      />
+      <span onClick={onSubmit} className='btn primary-color add-input-field'>Add new Feature</span>
     </form>
   );
 };
@@ -29,7 +38,7 @@ class ProductFeatures extends Component {
   }
 
   componentDidMount () {
-    const { bulletPoints: features = [], bulletPointsTitle: featuresTitle } = this.props;
+    const { features = [], featuresTitle } = this.props;
     this.setState({
       features,
       featuresTitle
@@ -40,10 +49,6 @@ class ProductFeatures extends Component {
     this.props.onProductBoostersFieldChange({ name, value });
   }
 
-  onBulletPointsChange = (points) => {
-    this.props.onProductBoostersFieldChange({ name: 'bulletPoints', value: points.map(({ value }) => value) });
-  };
-
   onFeatureEdit = (feature, newFeature) => {
     if (newFeature.trim().length > 3) {
       const newFeatures = this.state.features.map((f) => (f === feature ? newFeature : f));
@@ -51,7 +56,7 @@ class ProductFeatures extends Component {
         features: newFeatures
       });
       this.props.onProductBoostersFieldChange({
-        name: 'bulletPoints',
+        name: 'features',
         value: newFeatures
       });
     }
@@ -71,7 +76,7 @@ class ProductFeatures extends Component {
         features: newFeatures
       });
       this.props.onProductBoostersFieldChange({
-        name: 'bulletPoints',
+        name: 'features',
         value: newFeatures
       });
     }
@@ -84,7 +89,7 @@ class ProductFeatures extends Component {
       <Fragment>
         <InputRow>
           <InputRow.Label>Features Title</InputRow.Label>
-          <InputRow.SmallInput name='bulletPointsTitle' value={featuresTitle} onChange={this.onFieldChange}></InputRow.SmallInput>
+          <InputRow.SmallInput name='featuresTitle' value={featuresTitle} onChange={this.onFieldChange}></InputRow.SmallInput>
         </InputRow>
         <InputRow>
           <InputRow.Label>Features</InputRow.Label>
@@ -99,6 +104,8 @@ class ProductFeatures extends Component {
                 onSave={(newFeature) => this.onFeatureEdit(feature, newFeature)}
                 onDelete={() => this.onFeatureRemove(feature)}
                 content={feature}
+                countable
+                number={id + 1}
               />
             ))
             }
@@ -111,4 +118,4 @@ class ProductFeatures extends Component {
 
 
 const mapStateToProps = ({ product: { boosters } }) => ({ ...boosters });
-export default connect(mapStateToProps, producActions)(ProductFeatures);
+export default connect(mapStateToProps, productActions)(ProductFeatures);

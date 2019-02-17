@@ -27,19 +27,26 @@
 }
 .editable-input-field:disabled{
     border:none;
-    background: lightgray;
+    font-weight: bold;
+    background: transparent;
     border-radius: 3px;
     user-select: none;
 }
-.editable-field-controlls{
+.editable-field-controls{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    display: none;
+}
+.editable-field-container:hover .editable-field-controls{
+    display: flex;
+}
+.editable-field-container .field-count{
+    margin: 0px 5px;
+    font-size: 16px;
 }
 .add-field-btn{
-    height: 25px;
-    width: 25px;
-    border-radius: 50px;
+    font-size: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,17 +55,16 @@
 .editable-save-btn,
 .editable-edit-btn,
 .editable-delete-btn{
-    color:white;
-    margin: 0px 10px;
+    margin: 0px 5px;
 }
 .editable-save-btn{
-    background: #27d273;
+    color: #5deb9d;
 }
 .editable-edit-btn{
-    background: #2876dd;
+    color: #72a5e7;
 }
 .editable-delete-btn{
-    background: tomato;
+    color: rgb(243, 146, 129);
 }
 
 /* Editable features input styles ends*/
