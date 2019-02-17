@@ -68,3 +68,14 @@
 }
 
 /* Editable features input styles ends*/
+
+
+/* Testimonail*/
+
+.product-testimonials-container{
+    justify-content: center;
+    align-items: center;
+}
+.product-testimonials-container div.testimonial-item{
+    margin: 80px 40px;
+}

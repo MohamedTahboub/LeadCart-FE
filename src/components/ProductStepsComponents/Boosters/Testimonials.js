@@ -1,7 +1,10 @@
-import React, { Component, Fragment } from 'react';
-import Testimonials, { Testi } from 'components/Testimonials';
+import React, { Fragment } from 'react';
+import { Testi as Testimonial } from 'components/Testimonials';
 import { connect } from 'react-redux';
 import * as producActions from 'actions/product';
+import common from 'components/common';
+
+const { FlexBoxesContainer } = common;
 
 const t = [
   {
@@ -13,7 +16,7 @@ const t = [
     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt voluptatum debitis distinctio, quisquam vel nobis nulla dolor'
   },
 ];
-const ProductTestimonials = ({ testimonials, onProductBoostersFieldChange }) => {
+const ProductTestimonials = ({ testimonials = [], onProductBoostersFieldChange }) => {
   const onTestimonialsChange = (testimonials) => {
     onProductBoostersFieldChange({
       name: 'testimonials',
@@ -21,12 +24,13 @@ const ProductTestimonials = ({ testimonials, onProductBoostersFieldChange }) => 
     });
   };
 
+  const onTestimonialChange = (...arg) =>{
+    console.log(arg)
+  }
   return (
-    <Fragment>
-      <Testimonials list={testimonials} onChange={onTestimonialsChange} />
-
-      {t.map((w) => <Testi {...w} />)}
-    </Fragment>
+    <FlexBoxesContainer className='product-testimonials-container'>
+      {t.map((w, id) => <Testimonial key={id} {...w} onChange={(e) => onTestimonialChange(e)} />)}
+    </FlexBoxesContainer>
   );
 };
 
