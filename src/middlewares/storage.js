@@ -19,10 +19,10 @@ export default () => (next) => (action) => {
     if (type === SIGN_UP_SUCCESS || type === LOGIN_SUCCESS) {
       upadateIntercomeWithUserDetails(payload);
 
-      localStorage.LeadCart = JSON.stringify({ ...payload, isLoggedIn: true });
+      localStorage.leadcart = JSON.stringify({ ...payload, signDate: Date.now(), isLoggedIn: true });
     }
     if (type === UPDATE_USER_PROFILE_IMAGE_SUCCESS) {
-      localStorage.LeadCart = JSON.stringify({
+      localStorage.leadcart = JSON.stringify({
         ...JSON.parse(localStorage.LeadCart),
         profileImage: payload
       });
@@ -31,7 +31,7 @@ export default () => (next) => (action) => {
 
     if (type === LOGOUT) {
       upadateIntercomeWithUserDetails(payload);
-      localStorage.LeadCart = '';
+      localStorage.leadcart = '{}';
     }
 
     next(action);
@@ -47,7 +47,7 @@ function upadateIntercomeWithUserDetails ({
   firstName = 'There', lastName = 'guest', email = 'anonymous@leadcart.io', _id: id
 }) {
   try {
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.NODE_ENV === 'production' && window.Intercom) {
       window.Intercom('boot', {
         app_id: 'skynydft',
         email,

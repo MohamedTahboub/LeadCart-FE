@@ -9,12 +9,18 @@ import {
   ACTIVATE_AGENCY_CODE_FAILED,
   GET_ACTIVATED_AGENCY_CODES_NUMBERS
 } from 'constantsTypes';
+import moment from 'moment';
 
 let user = {};
 try {
-  user = localStorage.LeadCart && JSON.parse(localStorage.LeadCart);
+  user = localStorage.leadcart && JSON.parse(localStorage.leadcart);
+  if (!user) user = {};
+
+  const now = moment();
+
+  if (user.signDate && now.diff(moment(user.signDate), 'days') > 2) user = {};
 } catch (e) {
-  console.error('ERROR WHILE READING FROM THE STORAGE');
+  console.error('ERROR WHILE READING FROM THE STORAGE', e.message, e.stack);
 }
 // if (!user.token) user = { token: '' };
 const initialState = {
