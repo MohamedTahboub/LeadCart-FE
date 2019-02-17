@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 
 const env = process.env.NODE_ENV;
 
-const applicationMiddleware = env === 'development'
+const applicationMiddleware = env !== 'production'
   ? applyMiddleware(logger, ...middlewares)
   : applyMiddleware(...middlewares);
 

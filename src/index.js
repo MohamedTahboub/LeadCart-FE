@@ -89,9 +89,9 @@ ReactDOM.render(
                                     <Route path='/activities' component={Activities} />
                                     <Route exact path='/coupons' component={Coupons} />
                                     <Route exact path='/upsells' component={Upsells} />
-                                    <Route exact path='/funnels' render={()=><ImagePageContainer title='Funnels' image={upsellsImage}/>} />
-                                    <Route exact path='/reports' render={()=><ImagePageContainer title='REPORTS' image={reportsImage}/>} />
-                                    <Route exact path='/affiliates' render={()=><ImagePageContainer title='AFFILIATES' image={affiliatesImage}/>} />
+                                    <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
+                                    <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
+                                    <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
                                     <Route exact path='/agency' component={Agency} />
                                     <Route path='/settings' component={Setting} />
                                     <Route exact path='/help' component={UnderDevelopment} />
@@ -107,4 +107,6 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 )
-registerServiceWorker()
+
+if (process.env.NODE_ENV !== 'production')
+    registerServiceWorker()
