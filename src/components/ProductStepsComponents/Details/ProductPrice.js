@@ -8,22 +8,19 @@ import PaymentType from 'components/PaymentType';
 
 
 const ProductPrice = ({
-  errors, payment, price, onMandatoryDetailsFieldChange
+  errors, payment, price: { amount: price = 0 } = {}, onMandatoryDetailsFieldChange
 }) => {
-  const onPaymentChange = (payment) => {
-    const { price: amount, ...paymentMethod } = payment;
-    const casted = { type: paymentMethod.type };
-
-    if (paymentMethod.type === 'Split') casted.splits = +(paymentMethod.splits) || 2;
-    if (paymentMethod.type === 'Subscription') casted.recurringPeriod = paymentMethod.recurringPeriod || 'Monthly';
-
-    onMandatoryDetailsFieldChange({ name: 'price', value: { amount: +(amount) } });
-    onMandatoryDetailsFieldChange({ name: 'payment', value: casted });
+  const onChange = ({ price, payment }) => {
+    onMandatoryDetailsFieldChange({ name: 'price', value: { amount: +(price) } });
+    onMandatoryDetailsFieldChange({ name: 'payment', value: payment });
   };
-
   return (
     <Fragment>
-      <PaymentType type='' onChange={onPaymentChange} value={payment || {}} price={price ? price.amount : 0} />
+      <PaymentType
+        payment={payment}
+        onChange={onChange}
+        price={price}
+      />
     </Fragment>
   );
 };

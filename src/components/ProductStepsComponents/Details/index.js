@@ -13,7 +13,7 @@ export default (props) => (
   <Tabs>
     <TabList>
       <Tab><TabTitle>Product Details</TabTitle></Tab>
-      <Tab><TabTitle>Product Pricing</TabTitle></Tab>
+      <Tab><TabTitle>Product Price</TabTitle></Tab>
     </TabList>
     <TabPanel>
       <Block>

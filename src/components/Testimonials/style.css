@@ -19,9 +19,9 @@ span.testamonial-content {
 
 /* Testimonial Item Styles*/
 .testimonial-item {
+    width: 360px;
     position: relative;
-    margin-bottom: 25px;
-    margin-top: 20px;
+    margin: 80px 40px;
     background-color: white;
     padding: 5px;
     border: 1px solid #eaeaea;
@@ -86,3 +86,13 @@ span.testamonial-content {
     
 }
 /* Testimonial Item Styles Ends*/
+
+
+
+textarea.testimonial-content-input {
+    border: transparent;
+    resize: none;
+    width: 100%;
+    text-decoration: underline;
+    text-decoration-color: lightgray;
+}

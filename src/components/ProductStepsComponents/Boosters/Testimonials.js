@@ -1,35 +1,31 @@
-import React, { Component, Fragment } from 'react';
-import Testimonials, { Testi } from 'components/Testimonials';
+import React, { Fragment } from 'react';
+import { Testi as Testimonial } from 'components/Testimonials';
 import { connect } from 'react-redux';
 import * as producActions from 'actions/product';
+import common from 'components/common';
+const { FlexBoxesContainer } = common;
 
-const t = [
-  {
-    author: 'Eslam',
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt voluptatum debitis distinctio, quisquam vel nobis nulla dolor'
-  },
-  {
-    author: 'Ahmad',
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt voluptatum debitis distinctio, quisquam vel nobis nulla dolor'
-  },
-];
-const ProductTestimonials = ({ testimonials, onProductBoostersFieldChange }) => {
-  const onTestimonialsChange = (testimonials) => {
+
+const ProductTestimonials = ({ testimonials = [1, 2], onProductBoostersFieldChange }) => {
+  const onTestimonialChange = (id, testimonial) => {
     onProductBoostersFieldChange({
       name: 'testimonials',
-      value: testimonials.map(({ text, image }) => ({ text, image })) || []
+      value: testimonials.map((t, i) => (i === id ? testimonial : t))
     });
   };
-
   return (
-    <Fragment>
-      <Testimonials list={testimonials} onChange={onTestimonialsChange} />
-
-      {t.map((w) => <Testi {...w} />)}
-    </Fragment>
+    <FlexBoxesContainer className='product-testimonials-container'>
+      {testimonials.map((testimonial, id) => (
+        <Testimonial
+          key={id}
+          {...testimonial}
+          onChange={onTestimonialChange.bind(this, id)}
+        />
+      ))}
+    </FlexBoxesContainer>
   );
 };
 
 
-const mapStateToProps = ({ product: { boosters: { testimonials = [] } } }) => ({ testimonials });
+const mapStateToProps = ({ product: { boosters: { testimonials } } }) => ({ testimonials });
 export default connect(mapStateToProps, producActions)(ProductTestimonials);
