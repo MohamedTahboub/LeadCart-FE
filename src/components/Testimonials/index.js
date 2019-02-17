@@ -1,117 +1,112 @@
-import React, { Component } from 'react';
-import common from 'components/common';
-import authorAvatar from 'assets/images/avatar.jpg';
+import React, { useState } from 'react';
+import Avatar from 'components/common/Avatar';
 import './style.css';
 
 
-class TestimonialElement extends Component {
-  state = {
+const TestimonialElement = ({
+  author = 'Click to edit Author name',
+  content = 'click to edit , Write the testimonial content,what the author want to say about your product',
+  image,
+  name,
+  onChange
+}) => {
+  const initState = {
     changed: false,
     editAuthor: false,
     editContent: false,
-    body: {
-      author: 'EDIT AUTHOR NAME',
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi adipisci ut quo? Beatae '
+    testimonial: {
+      author,
+      content,
+      image
     }
-  }
+  };
 
+  const [state, setState] = useState(initState);
 
-  updateState = (data) => {
-    this.setState({
-      body: data
-    });
-  }
-
-  componentDidMount() {
-    const { author, content, image } = this.props;
-    this.updateState({ author, content, image });
-  }
-
-  componentDidUpdate(prev) {
-    const { author, content, image } = this.props;
-    if (prev.author !== author) this.updateState({ author, content, image });
-  }
-
-  onEnterKey = (fieldName, e) => {
-    if (e.key === 'Enter') this.onToggleEditField(fieldName);
-  }
-
-  onToggleEditField = (fieldName) => {
-    const fieldValue = this.state[fieldName];
-    console.log('Toggled', fieldName, fieldValue);
-    this.setState({
-      [fieldName]: !fieldValue
-    });
-  }
-
-  onImageChange
-
-  onAuthorNameChange = ({ target: { value: author } }) => {
-    const { body } = this.state;
-    this.setState({
-      body: {
-        ...body,
-        author
+  const updateTestimonialModel = ({ name, value }) => {
+    const { testimonial } = state;
+    setState({
+      ...state,
+      testimonial: {
+        ...testimonial,
+        [name]: value
       }
     });
-  }
+  };
+  const onToggleEditField = (fieldName) => {
+    const fieldValue = state[fieldName];
+    const newState = {
+      ...state,
+      [fieldName]: !fieldValue
+    };
+    setState(newState);
+    onChange(newState.testimonial);
+  };
 
-  onContentChange
+  const onEnterKey = (fieldName, keyName = '') => {
+    if (keyName === 'Enter') onToggleEditField(fieldName);
+  };
 
-  updateParent = (testamonial) => {
-    this.props.onChange && this.props.onChange({ target: { value: testamonial } });
-  }
 
-  render() {
-    const {
-      body: { image, author, content }, editAuthor, editContent
-    } = this.state;
+  const onFieldChange = ({ target: { name, value } }) => {
+    if (value) updateTestimonialModel({ name, value });
+  };
 
-    return (
-      <div className='testimonial-item'>
-        <div className='testamonial-author'>
-          <img src={image || authorAvatar} alt='testimonial author photo' className='testimonial-image' />
-          <div className='testimonial-image-edit-mask'>
-            <i className='fas fa-image' />
-          </div>
-        </div>
-        <div className='testimonial-author'>
-          {editAuthor
-            ? (
-              <input
-                ref={(ref) => ref && ref.focus()}
-                onBlur={(e) => this.onToggleEditField.bind(this, 'editAuthor')}
-                onKeyDown={this.onEnterKey.bind(this, 'editAuthor')}
-                onChange={this.onAuthorNameChange}
-                type='text'
-                value={author}
-                className='light-input'
-              />
-            )
-            : <span onClick={this.onToggleEditField.bind(this, 'editAuthor')} className='t-author-name'>{author}</span>
-          }
-        </div>
-        {editContent
+  const onAuthorImageChange = (uploadedImage = {}) => {
+    if (name === uploadedImage.name) {
+      const newState = { ...state, testimonial: { ...state.testimonial, image: uploadedImage.image } };
+      setState(newState);
+      onChange(newState.testimonial);
+    }
+  };
+
+  const { testimonial: { author: tAuthor, content: tContent, image: tImage }, editAuthor, editContent } = state;
+
+  return (
+    <div className='testimonial-item'>
+      <Avatar
+        className='testamonial-author'
+        image={tImage}
+        name={name}
+        onChange={onAuthorImageChange}
+      />
+      <div className='testimonial-author'>
+        {editAuthor
           ? (
-            <textarea
-              onBlur={this.onToggleEditField.bind(this, 'editContent')}
-              onKeyDown={this.onEnterKey.bind(this, 'editContent')}
-              name='testimonial-input'
-              width='auto'
-              className='testimonial-content-input'
+            <input
+              ref={(ref) => ref && ref.focus()}
+              onBlur={(e) => onToggleEditField('editAuthor')}
+              onKeyDown={(e) => onEnterKey('editAuthor', e.key)}
+              onChange={onFieldChange}
+              type='text'
+              name='author'
+              value={tAuthor}
+              className='light-input'
             />
           )
-          : (
-            <div
-              onClick={this.onToggleEditField.bind(this, 'editContent')}
-              className='testamonial-content'
-            >
-              {content}
-            </div>
-          )}
+          : <span onClick={() => onToggleEditField('editAuthor')} className='t-author-name'>{tAuthor}</span>
+        }
       </div>
-    );
-  }
-}
+      {editContent
+        ? (
+          <textarea
+            onBlur={() => onToggleEditField('editContent')}
+            onKeyDown={(e) => onEnterKey('editContent', e.key)}
+            onChange={onFieldChange}
+            name='content'
+            value={tContent}
+            width='auto'
+            className='testimonial-content-input'
+          />
+        )
+        : (
+          <div onClick={() => onToggleEditField('editContent')} className='testamonial-content'>
+            {tContent}
+          </div>
+        )}
+    </div>
+  );
+};
+
 
 export const Testi = TestimonialElement;

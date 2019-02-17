@@ -45,7 +45,7 @@ function getProductFromat (product) {
     details: {
       ...details,
       checkoutPage: { ...checkoutPage, ...boosters },
-      payment: { ...payment, methods: ['Stripe'] },
+      payment: { ...payment },
       thankYouPage: { thankYouPageUrl: '' },
       offer,
       settings

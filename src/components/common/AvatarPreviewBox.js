@@ -12,7 +12,6 @@ const UserAvatarPreview = ({
   const onAvatarImageChange = ({ name, image }) => {
     updateUserProfileImage(image)
   }
-  console.log('image=====> ' , profileImage)
   return (
     <div className='profile-preview'>
       <div className='avatar-holder'>

@@ -1,10 +1,8 @@
 
 
 export default [
-  // 'showGuaranteeBadge',
-  'bulletPointImage',
-  'bulletPoints',
-  'bulletPointsTitle',
+  'features',
+  'featuresTitle',
   'testimonials',
   'checkoutButtonText',
   'termsAndConditions',
