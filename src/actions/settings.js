@@ -37,10 +37,10 @@ export const connectWithPaypal = (appCredit) => ({
   payload: appCredit
 });
 export const connectWithPaypalSuccess = (message) => ({
-  type: CONNECT_WITH_PAYPAL,
+  type: CONNECT_WITH_PAYPAL_SUCCESS,
   payload: message
 });
 export const connectWithPaypalFailed = (message) => ({
-  type: CONNECT_WITH_PAYPAL,
+  type: CONNECT_WITH_PAYPAL_FAILED,
   payload: message
 });
