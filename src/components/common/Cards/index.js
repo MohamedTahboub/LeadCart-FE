@@ -14,7 +14,7 @@ export const MiniCard = ({ imgSrc, ...props }) => (
   />
 );
 export const MediumCard = ({
-  imgSrc, onClick, isLoading,children, className = '', isActive = false, error, ...props
+  imgSrc, onClick, isLoading, children, className = '', isActive = false, error, ...props
 }) => {
   const wraperStatus = isActive
     ? 'success-badge'
@@ -53,23 +53,23 @@ export const Avatar = ({
 export const ProductCard = ({
   name, currancy, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
 }) => (
-    <div className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
-      <div className='card-main-content product-avatar-holder'>
-        <Avatar name={name} />
-        <span className='product-name-holder'>{name}</span>
-        <span className='product-salles-holder'>
-          {monthlyProfite}
+  <div className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+    <div className='card-main-content product-avatar-holder'>
+      <Avatar name={name} />
+      <span className='product-name-holder'>{name}</span>
+      <span className='product-salles-holder'>
+        {monthlyProfite}
           /monthly
       </span>
-        <span className='product-price-holder'>{`$ ${price.amount}`}</span>
-      </div>
-      <div className='card-controlls-container'>
-        <i onClick={onEdit} className='fas fa-edit' />
-        <i onClick={onPreview} className='fas fa-book-open' />
-        <i onClick={onDelete} className='fas fa-trash-alt' />
-      </div>
+      <span className='product-price-holder'>{`$ ${price.amount}`}</span>
     </div>
-  );
+    <div className='card-controlls-container'>
+      <i onClick={onEdit} className='fas fa-edit' />
+      <i onClick={onPreview} className='fas fa-book-open' />
+      <i onClick={onDelete} className='fas fa-trash-alt' />
+    </div>
+  </div>
+);
 
 export const NewThingCard = ({ thing, onClick, ...props }) => (
   <div onClick={onClick} className='product-card-container '>
@@ -99,26 +99,26 @@ const Label = ({ children, ...props }) => (
 export const UpsellCard = ({
   name, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
-    <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
-      <div className='card-main-content product-avatar-holder'>
-        <Avatar name={name} />
-        <span className='product-name-holder'>{name}</span>
-        <span
-          onClick={() => productLink && navigateTo(`/product/${productLink}/details`)}
-          className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
-        >
-          <i className='fas fa-link' />
-          {productName}
-        </span>
-        <span className='product-price-holder'>{`$ ${price}`}</span>
-      </div>
-      <div className='card-controlls-container'>
-        <i onClick={onEdit} className='fas fa-edit' />
-        <i onClick={onPreview} className='fas fa-book-open' />
-        <i onClick={onDelete} className='fas fa-trash-alt' />
-      </div>
+  <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+    <div className='card-main-content product-avatar-holder'>
+      <Avatar name={name} />
+      <span className='product-name-holder'>{name}</span>
+      <span
+        onClick={() => productLink && navigateTo(`/product/${productLink}/details`)}
+        className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
+      >
+        <i className='fas fa-link' />
+        {productName}
+      </span>
+      <span className='product-price-holder'>{`$ ${price}`}</span>
     </div>
-  );
+    <div className='card-controlls-container'>
+      <i onClick={onEdit} className='fas fa-edit' />
+      <i onClick={onPreview} className='fas fa-book-open' />
+      <i onClick={onDelete} className='fas fa-trash-alt' />
+    </div>
+  </div>
+);
 
 
 export const PayPalConnectContainer = (props) => {
@@ -128,7 +128,7 @@ export const PayPalConnectContainer = (props) => {
     error: 'something gonn wrong'
   };
   const [state, setState] = useState({ ...initialState, ...props });
-  
+
   const {
     imgSrc, onConnect, loading, className = '', active, error
   } = state;
@@ -153,7 +153,7 @@ export const PayPalConnectContainer = (props) => {
   };
 
   if (loading && error || loading && active) setState({ ...state, loading: false });
-
+  console.table(state);
   return (
     <MediumCard
       onClick={toggleModal}

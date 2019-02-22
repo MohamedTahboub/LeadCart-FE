@@ -26,7 +26,9 @@ import {
   UPDATE_UPSELL_FAILED,
   CREATE_UPSELL,
   DELETE_UPSELL_SUCCESS,
-  DELETE_UPSELL_FAILED
+  DELETE_UPSELL_FAILED,
+  CONNECT_WITH_PAYPAL_SUCCESS,
+  CONNECT_WITH_PAYPAL_FAILED
 } from 'constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -38,6 +40,9 @@ export default ({ dispatch }) => (next) => (action) => {
     setTimeout(() => {
       showSuccessMessage('\'Upsell Created Successfully \'');
     }, 300);
+    break;
+  case CONNECT_WITH_PAYPAL_SUCCESS:
+    showSuccessMessage('You have successfully integrated with payPal');
     break;
   case DELETE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Deleted Successfully');
@@ -113,6 +118,9 @@ export default ({ dispatch }) => (next) => (action) => {
     break;
   case UPDATE_UPSELL_FAILED:
     showFailurMessage('Couldn\'t update that Upsell,Something went wrong');
+    break;
+  case CONNECT_WITH_PAYPAL_FAILED:
+    showFailurMessage(action.payload);
     break;
   default:
     return next(action);
