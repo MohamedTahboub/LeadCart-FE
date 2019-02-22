@@ -328,3 +328,48 @@ span.product-salles-holder i.fas {
 .item-clickable{
     cursor: pointer;
 }
+
+
+
+
+/* paypal connect Container */
+.paypal-connect-container{
+    position: relative;
+    display: flex;
+    margin: 20px 0px;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+    width: 650px;
+    border-radius: 5px;
+    padding: 10px 30px;
+    box-shadow: 1px 1px 12px 3px #00000008;
+}
+.paypal-logo{
+    height: 100px;
+}
+.paypal-form{
+    flex:1;
+
+}
+.paypal-connect-input{
+    width: 100%;
+    padding: 10px 10px 4px 10px;
+    margin: 10px 0px;
+    border: none;
+    border-bottom: 1px solid #e4e4e4;
+    outline-style: none;
+}
+
+.paypal-success-badge:after {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 20px;
+    content: "\F058 connected";
+    top: 10px;
+    left: 12px;
+    color: #30e030b5;
+}
+/* paypal connect form ends  */
+
