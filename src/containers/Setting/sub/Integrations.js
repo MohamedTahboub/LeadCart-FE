@@ -75,12 +75,12 @@ class Integrations extends Component {
   }
 
   onConnectPaypal = (credits) => {
-    this.props.connectWithPaypal(credits)
+    this.props.connectWithPaypal({ cred: credits })
   }
 
   render() {
     const { stripe, paypal } = this.state;
-    const { methods, integrations: { paypal:PaypalStatus, errors: { paypalError } } } = this.props;
+    const { methods, integrations: { paypal: PaypalStatus, errors: { paypalError } } } = this.props;
     return (
       <React.Fragment key={Date.now()}>
         <MainTitle>Integrate With one of the following Payment Gateways </MainTitle>
