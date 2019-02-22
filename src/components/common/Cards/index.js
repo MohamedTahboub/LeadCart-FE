@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { navigateTo } from 'libs';
 import './style.css';
+import Modal from 'components/Modal';
 import * as yup from 'yup';
 import { genrateColor } from './helpers';
 import { SmallButton } from '../Buttons';
@@ -13,7 +14,7 @@ export const MiniCard = ({ imgSrc, ...props }) => (
   />
 );
 export const MediumCard = ({
-  imgSrc, onClick, isLoading, className = '', isActive = false, error, ...props
+  imgSrc, onClick, isLoading,children, className = '', isActive = false, error, ...props
 }) => {
   const wraperStatus = isActive
     ? 'success-badge'
@@ -31,6 +32,7 @@ export const MediumCard = ({
         className={`medium-solid-card white-color ${className}`}
       />
       {error && <span className='payment-error-message'>{error}</span>}
+      {children}
     </span>
   );
 };
@@ -51,23 +53,23 @@ export const Avatar = ({
 export const ProductCard = ({
   name, currancy, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
 }) => (
-  <div className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
-    <div className='card-main-content product-avatar-holder'>
-      <Avatar name={name} />
-      <span className='product-name-holder'>{name}</span>
-      <span className='product-salles-holder'>
-        {monthlyProfite}
+    <div className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+      <div className='card-main-content product-avatar-holder'>
+        <Avatar name={name} />
+        <span className='product-name-holder'>{name}</span>
+        <span className='product-salles-holder'>
+          {monthlyProfite}
           /monthly
       </span>
-      <span className='product-price-holder'>{`$ ${price.amount}`}</span>
+        <span className='product-price-holder'>{`$ ${price.amount}`}</span>
+      </div>
+      <div className='card-controlls-container'>
+        <i onClick={onEdit} className='fas fa-edit' />
+        <i onClick={onPreview} className='fas fa-book-open' />
+        <i onClick={onDelete} className='fas fa-trash-alt' />
+      </div>
     </div>
-    <div className='card-controlls-container'>
-      <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-book-open' />
-      <i onClick={onDelete} className='fas fa-trash-alt' />
-    </div>
-  </div>
-);
+  );
 
 export const NewThingCard = ({ thing, onClick, ...props }) => (
   <div onClick={onClick} className='product-card-container '>
@@ -97,39 +99,40 @@ const Label = ({ children, ...props }) => (
 export const UpsellCard = ({
   name, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
-  <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
-    <div className='card-main-content product-avatar-holder'>
-      <Avatar name={name} />
-      <span className='product-name-holder'>{name}</span>
-      <span
-        onClick={() => productLink && navigateTo(`/product/${productLink}/details`)}
-        className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
-      >
-        <i className='fas fa-link' />
-        {productName}
-      </span>
-      <span className='product-price-holder'>{`$ ${price}`}</span>
+    <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+      <div className='card-main-content product-avatar-holder'>
+        <Avatar name={name} />
+        <span className='product-name-holder'>{name}</span>
+        <span
+          onClick={() => productLink && navigateTo(`/product/${productLink}/details`)}
+          className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
+        >
+          <i className='fas fa-link' />
+          {productName}
+        </span>
+        <span className='product-price-holder'>{`$ ${price}`}</span>
+      </div>
+      <div className='card-controlls-container'>
+        <i onClick={onEdit} className='fas fa-edit' />
+        <i onClick={onPreview} className='fas fa-book-open' />
+        <i onClick={onDelete} className='fas fa-trash-alt' />
+      </div>
     </div>
-    <div className='card-controlls-container'>
-      <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-book-open' />
-      <i onClick={onDelete} className='fas fa-trash-alt' />
-    </div>
-  </div>
-);
+  );
 
 
 export const PayPalConnectContainer = (props) => {
   const initialState = {
+    modal: false,
     loading: false,
-    error: ''
+    error: 'something gonn wrong'
   };
   const [state, setState] = useState({ ...initialState, ...props });
-
+  
   const {
     imgSrc, onConnect, loading, className = '', active, error
   } = state;
-
+  const toggleModal = () => setState({ ...state, modal: !state.modal });
   const isActive = active ? 'paypal-success-badge' : '';
 
   const onChange = ({ target: { value, name } }) => {
@@ -152,32 +155,39 @@ export const PayPalConnectContainer = (props) => {
   if (loading && error || loading && active) setState({ ...state, loading: false });
 
   return (
-    <div className={`paypal-connect-container ${isActive || ''} `}>
-      <img src={imgSrc} alt='paypal logo' className='paypal-logo' />
-      <form className='paypal-form'>
-        <input
-          type='text'
-          onChange={onChange}
-          name='client_id'
-          disabled={loading}
-          className='paypal-connect-input'
-          placeholder='Paypal App client Id'
-        />
-        <input
-          type='text'
-          onChange={onChange}
-          name='client_secret'
-          disabled={loading}
-          className='paypal-connect-input'
-          placeholder='Paypal App secret'
-        />
-        <SmallButton
-          disabled={loading}
-          classes={loading ? 'primary-color spinner' : 'primary-color'}
-          onClick={onSubmit}
-          children='Connect'
-        />
-      </form>
-    </div>
+    <MediumCard
+      onClick={toggleModal}
+      isActive={active}
+      imgSrc={imgSrc}
+    >
+      <Modal isVisible={state.modal} onClose={toggleModal} className='paypal-connect-container'>
+        <form className='paypal-form'>
+          <input
+            type='text'
+            onChange={onChange}
+            name='client_id'
+            disabled={loading}
+            className='paypal-connect-input'
+            placeholder='Paypal App client Id'
+          />
+          <input
+            type='text'
+            onChange={onChange}
+            name='client_secret'
+            disabled={loading}
+            className='paypal-connect-input'
+            placeholder='Paypal App secret'
+          />
+          <SmallButton
+            disabled={loading}
+            classes={loading ? 'primary-color spinner' : 'primary-color'}
+            onClick={onSubmit}
+            children='Connect'
+          />
+          {error && <span className='paypal-error-message'>{error}</span>}
+        </form>
+      </Modal>
+    </MediumCard>
+
   );
 };

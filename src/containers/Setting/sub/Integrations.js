@@ -91,8 +91,6 @@ class Integrations extends Component {
           imgSrc={stripeImage}
           isLoading={stripe.onprogress}
         />
-
-
         <PayPalConnectContainer
           imgSrc={paypalImage}
           active={PaypalStatus || methods.includes('Paypal')}
