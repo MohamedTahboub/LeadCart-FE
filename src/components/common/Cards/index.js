@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { navigateTo } from 'libs';
 import './style.css';
+import Modal from 'components/Modal';
+import * as yup from 'yup';
 import { genrateColor } from './helpers';
+import { SmallButton } from '../Buttons';
+
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
     src={imgSrc}
@@ -10,7 +14,7 @@ export const MiniCard = ({ imgSrc, ...props }) => (
   />
 );
 export const MediumCard = ({
-  imgSrc, onClick, isLoading, className = '', isActive = false, error, ...props
+  imgSrc, onClick, isLoading, children, className = '', isActive = false, error, ...props
 }) => {
   const wraperStatus = isActive
     ? 'success-badge'
@@ -28,6 +32,7 @@ export const MediumCard = ({
         className={`medium-solid-card white-color ${className}`}
       />
       {error && <span className='payment-error-message'>{error}</span>}
+      {children}
     </span>
   );
 };
@@ -55,7 +60,7 @@ export const ProductCard = ({
       <span className='product-salles-holder'>
         {monthlyProfite}
           /monthly
-        </span>
+      </span>
       <span className='product-price-holder'>{`$ ${price.amount}`}</span>
     </div>
     <div className='card-controlls-container'>
@@ -90,32 +95,6 @@ const Label = ({ children, ...props }) => (
   </span>
 );
 
-// export const UpsellCard = ({
-//   name, id, price, onEdit, onPreview, onDelete, linkedProduct: { name: productName } = {}, ...props
-// }) => (
-//   <div className='upsell-card-container'>
-//     <Avatar style={{ margin: 'auto' }} name={name} />
-//     <div className='upsell-contnet'>
-//       <span className='upsell-name'>
-//         {name}
-//       </span>
-//       <span className='upsell-price'>
-//         {price}
-
-//       </span>
-//       <span className='upsell-associated-product'>
-//         <i className='fas fa-link' />
-//         {productName}
-//       </span>
-//     </div>
-//     <div className='upsell-item-controlls'>
-//       <i onClick={onEdit} className='fas fa-edit' />
-//       <i onClick={onPreview} className='fas fa-book-open' />
-//       <i onClick={onDelete} className='fas fa-trash-alt' />
-//     </div>
-//   </div>
-// );
-
 
 export const UpsellCard = ({
   name, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
@@ -140,3 +119,75 @@ export const UpsellCard = ({
     </div>
   </div>
 );
+
+
+export const PayPalConnectContainer = (props) => {
+  const initialState = {
+    modal: false,
+    loading: false,
+    error: 'something gonn wrong'
+  };
+  const [state, setState] = useState({ ...initialState, ...props });
+
+  const {
+    imgSrc, onConnect, loading, className = '', active, error
+  } = state;
+  const toggleModal = () => setState({ ...state, modal: !state.modal });
+  const isActive = active ? 'paypal-success-badge' : '';
+
+  const onChange = ({ target: { value, name } }) => {
+    if (value) setState({ ...state, error: '', [name]: value });
+  };
+  const onSubmit = () => {
+    const { client_id: clientId, client_secret: clientSecret } = state;
+
+    // const creditSchema = yup.object({
+    //   clientId : yup.string().min(10).required('This Should be '),
+    //   clientSecret:yup.string().required().min(10),
+    // }).required()
+
+    if (clientId && clientSecret) {
+      onConnect({ clientId, clientSecret });
+      setState({ ...state, active: false, loading: true });
+    }
+  };
+
+  if (loading && error || loading && active) setState({ ...state, loading: false });
+  console.table(state);
+  return (
+    <MediumCard
+      onClick={toggleModal}
+      isActive={active}
+      imgSrc={imgSrc}
+    >
+      <Modal isVisible={state.modal} onClose={toggleModal} className='paypal-connect-container'>
+        <form className='paypal-form'>
+          <input
+            type='text'
+            onChange={onChange}
+            name='client_id'
+            disabled={loading}
+            className='paypal-connect-input'
+            placeholder='Paypal App client Id'
+          />
+          <input
+            type='text'
+            onChange={onChange}
+            name='client_secret'
+            disabled={loading}
+            className='paypal-connect-input'
+            placeholder='Paypal App secret'
+          />
+          <SmallButton
+            disabled={loading}
+            classes={loading ? 'primary-color spinner' : 'primary-color'}
+            onClick={onSubmit}
+            children='Connect'
+          />
+          {error && <span className='paypal-error-message'>{error}</span>}
+        </form>
+      </Modal>
+    </MediumCard>
+
+  );
+};

@@ -240,6 +240,15 @@
     margin-top: 30px;
     color: tomato;
 }
+.paypal-error-message {
+    text-align: center;
+    font-size: 13px;
+    top: -81px;
+    left: 13px;
+    z-index: 10;
+    margin-top: 30px;
+    color: tomato;
+}
 
 .bump-offer-template-card{
     position: relative;
@@ -278,7 +287,7 @@
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
-    margin: 10px 0px;
+    margin: 10px;
     justify-content: space-between;
     box-shadow: 1px 1px 10px -5px;
 }
@@ -328,3 +337,39 @@ span.product-salles-holder i.fas {
 .item-clickable{
     cursor: pointer;
 }
+
+
+
+
+/* paypal connect Container */
+.paypal-connect-container{
+    min-width: 630px;
+}
+.paypal-logo{
+    height: 100px;
+}
+.paypal-form{
+    flex:1;
+
+}
+.paypal-connect-input{
+    width: 100%;
+    padding: 10px 10px 4px 10px;
+    margin: 10px 0px;
+    border: none;
+    border-bottom: 1px solid #e4e4e4;
+    outline-style: none;
+}
+
+.paypal-success-badge:after {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 20px;
+    content: "\F058";
+    top: 10px;
+    left: 12px;
+    color: #30e030b5;
+}
+/* paypal connect form ends  */
+
