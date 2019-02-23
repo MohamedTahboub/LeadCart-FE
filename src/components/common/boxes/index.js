@@ -31,8 +31,8 @@ export const Block = ({ children, ...props }) => (
     {children}
   </div>
 );
-export const SmallBox = ({ clickable = false, classes = [], ...props }) => (
-  <div style={({ cursor: 'pointer' })} className={`small-box ${classes.join(' ')}`}>
+export const SmallBox = ({ clickable = false, onClick, classes = [], ...props }) => (
+  <div onClick={onClick} style={({ cursor: clickable ? 'pointer' : 'inherit' })} className={`small-box ${classes.join(' ')}`}>
     <div className='small-box-container'>
       {props.children}
     </div>

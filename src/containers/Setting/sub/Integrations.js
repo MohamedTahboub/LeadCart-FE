@@ -10,8 +10,7 @@ import * as paymentsActions from 'actions/payments';
 import * as settingsActions from 'actions/settings';
 import { paymentMethodsLinks } from 'config';
 import './styles.css';
-import settings from '../../../reducers/settings';
-
+const zapierInvitationUrl = 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/';
 
 const {
   Button,
@@ -75,10 +74,14 @@ class Integrations extends Component {
   }
 
   onConnectPaypal = (credits) => {
-    this.props.connectWithPaypal({ cred: credits })
+    this.props.connectWithPaypal({ cred: credits });
   }
 
-  render() {
+  onZapierClicked = () => {
+    window.open(zapierInvitationUrl, '_blank');
+  }
+
+  render () {
     const { stripe, paypal } = this.state;
     const { methods, integrations: { paypal: PaypalStatus, errors: { paypalError } } } = this.props;
     return (
@@ -102,9 +105,11 @@ class Integrations extends Component {
           Zapier
         </MainTitle>
         <FlexBoxesContainer>
-          <SmallBox classes={['zapier-spcial-box']}>
+          <SmallBox clickable onClick={this.onZapierClicked} classes={['zapier-spcial-box']}>
             <img className='zapier-brand-image' src={zapierBrand} alt='zapier brand' />
-            <input type='text' className='zapier-client-oauth' placeholder='Enter Zapier client Id' />
+            <div className='zapier-instructions'>
+              <span>Get invited to Zapier</span>
+            </div>
           </SmallBox>
         </FlexBoxesContainer>
       </React.Fragment>
