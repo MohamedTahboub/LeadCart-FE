@@ -11,6 +11,13 @@ const ProductPrice = ({
   errors, payment, price: { amount: price = 0 } = {}, onMandatoryDetailsFieldChange
 }) => {
   const onChange = ({ price, payment }) => {
+    if (payment.type === 'Subscription') {
+      payment.recurringPeriod = {
+        Monthly: 'MONTH',
+        Yearly: 'YEAR'
+      }[payment.recurringPeriod || 'Monthly'];
+    }
+
     onMandatoryDetailsFieldChange({ name: 'price', value: { amount: +(price) } });
     onMandatoryDetailsFieldChange({ name: 'payment', value: payment });
   };
