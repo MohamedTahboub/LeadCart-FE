@@ -153,7 +153,6 @@ export const PayPalConnectContainer = (props) => {
   };
 
   if (loading && error || loading && active) setState({ ...state, loading: false });
-  console.table(state);
   return (
     <MediumCard
       onClick={toggleModal}

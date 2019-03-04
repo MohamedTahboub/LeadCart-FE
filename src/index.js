@@ -26,7 +26,7 @@ import Content from 'components/Content'
 import ActiveContent from 'components/ActiveContent'
 import SideBar from 'components/SideBar'
 import ProtectedRoute from 'components/ProtectedRoute'
-import FlashMessage from 'components/FlashMessage'
+import NotificationMessage from 'components/NotificationMessage'
 import UnderDevelopment from 'components/UnderDevelopment'
 import LoadingBar from 'components/LoadingBar'
 
@@ -67,7 +67,6 @@ ReactDOM.render(
     <Provider store={store}>
         <React.Fragment>
             <LoadingBar />
-            <FlashMessage />
             {/* <ErrorBoundary> */}
 
             <BrowserRouter>
@@ -102,6 +101,7 @@ ReactDOM.render(
 
                 </Switch>
             </BrowserRouter>
+            <NotificationMessage />
         </React.Fragment>
         {/* </ErrorBoundary> */}
     </Provider>,

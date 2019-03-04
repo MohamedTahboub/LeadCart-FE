@@ -24,7 +24,7 @@ export default (state = initialState, { type, payload }) => {
     return {
       ...state,
       members: state.members.map(({ active, member }) => {
-        if (member._id === payload) active = !member.active;
+        if (member._id === payload.id) active = payload.active;
 
         return { active, member };
       })

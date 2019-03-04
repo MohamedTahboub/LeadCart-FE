@@ -28,9 +28,9 @@ export const onCreateNewMemberFailed = (message) => ({
 });
 
 
-export const activateMember = (id) => ({
+export const activateMember = (memberState) => ({
   type: ACTIVATE_MEMBER,
-  payload: id
+  payload: memberState
 });
 
 export const activateMemberSuccess = (id) => ({

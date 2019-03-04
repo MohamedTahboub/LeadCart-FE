@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './style.css';
+import { EasyAnimate } from '../Animation';
 
 
 export default class Tabel extends Component {
@@ -25,7 +26,7 @@ export default class Tabel extends Component {
     )
 
     static Row = ({ children, ...props }) => (
-      <div className='table-row'>{children}</div>
+      <EasyAnimate className='table-row'>{children}</EasyAnimate>
     )
 
     static Cell = ({

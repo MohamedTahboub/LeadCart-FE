@@ -11,5 +11,13 @@ export default ({ children, className }) => {
   });
 
 
-  return (<animated.div style={props} className={className}>{children}</animated.div>);
+  return (
+    <animated.div
+      style={props}
+      className={className}
+    >
+      {
+        children}
+    </animated.div>
+  );
 };
