@@ -45,8 +45,8 @@ class CustomerList extends Component {
                 email,
                 phoneNumber,
                 lifeTimeCharge,
-              }) => (
-                <Tabel.Row key={id}>
+              }, orderInList) => (
+                <Tabel.Row key={id} orderInList={orderInList}>
                   <Tabel.SmallCell>
                     <Avatar name={`${firstName} ${lastName}`} />
                   </Tabel.SmallCell>

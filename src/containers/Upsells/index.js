@@ -88,7 +88,7 @@ class Upsells extends Component {
     this.props.deleteUpsell(id);
   }
   componentDidMount() {
-    this.props.getUpsells()
+    // this.props.getUpsells()
   }
 
   componentDidUpdate() {
@@ -114,9 +114,10 @@ class Upsells extends Component {
           </Button>
         </FlexBoxesContainer>
         <FlexBoxesContainer className='flex-wrap'>
-          {upsells.map((upsell) => (
+          {upsells.map((upsell,id) => (
             <UpsellCard
               key={ids.generate()}
+              orderInlist={id}
               {...upsell}
               linkedProduct={getProductById({ products, id: upsell.linkedProduct })}
               onDelete={this.toggleDeleteDialuge.bind(this, upsell._id)}

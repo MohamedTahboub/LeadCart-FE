@@ -28,7 +28,9 @@ import {
   DELETE_UPSELL_SUCCESS,
   DELETE_UPSELL_FAILED,
   CONNECT_WITH_PAYPAL_SUCCESS,
-  CONNECT_WITH_PAYPAL_FAILED
+  CONNECT_WITH_PAYPAL_FAILED,
+  ACTIVATE_MEMBER_SUCCESS,
+  ACTIVATE_MEMBER_FAILED,
 } from 'constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -42,6 +44,9 @@ export default ({ dispatch }) => (next) => (action) => {
     }, 300);
     break;
   case CONNECT_WITH_PAYPAL_SUCCESS:
+    showSuccessMessage('You have successfully integrated with payPal');
+    break;
+  case ACTIVATE_MEMBER_SUCCESS:
     showSuccessMessage('You have successfully integrated with payPal');
     break;
   case DELETE_UPSELL_SUCCESS:
@@ -121,6 +126,9 @@ export default ({ dispatch }) => (next) => (action) => {
     break;
   case CONNECT_WITH_PAYPAL_FAILED:
     showFailureMessage(action.payload);
+    break;
+  case ACTIVATE_MEMBER_FAILED:
+    showFailureMessage('You have successfully integrated with payPal');
     break;
   default:
     return next(action);

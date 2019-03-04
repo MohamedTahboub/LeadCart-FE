@@ -36,7 +36,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
-  upadateIntercomeWithUserDetails(user);
+  // upadateIntercomeWithUserDetails(user);
   dispatch(apiRequest({
     options: {
       method: 'get',
