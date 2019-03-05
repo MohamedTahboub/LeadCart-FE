@@ -2,17 +2,11 @@
 
 export default [
   'name',
-  'lightLogo',
-  'darkLogo',
+  'logo',
   'country',
   'currency',
-  // 'support',
+  'supportEmail',
   'timeZone',
   'productExpirationDays',
-  'footerScript',
-  'downloadButtonText',
-  'purchaseCompletion',
-  'purchaseCompletion',
-  'firePixel',
 ];
 

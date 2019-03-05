@@ -28,12 +28,14 @@ import {
   DELETE_UPSELL_SUCCESS,
   DELETE_UPSELL_FAILED,
   CONNECT_WITH_PAYPAL_SUCCESS,
-  CONNECT_WITH_PAYPAL_FAILED
+  CONNECT_WITH_PAYPAL_FAILED,
+  ACTIVATE_MEMBER_SUCCESS,
+  ACTIVATE_MEMBER_FAILED,
 } from 'constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
   const showSuccessMessage = (message) => dispatch(showFlashMessage({ type: 'success', message }));
-  const showFailurMessage = (message) => dispatch(showFlashMessage({ type: 'failed', message }));
+  const showFailureMessage = (message) => dispatch(showFlashMessage({ type: 'failed', message }));
 
   switch (action.type) {
   case CREATE_UPSELL:
@@ -42,6 +44,9 @@ export default ({ dispatch }) => (next) => (action) => {
     }, 300);
     break;
   case CONNECT_WITH_PAYPAL_SUCCESS:
+    showSuccessMessage('You have successfully integrated with payPal');
+    break;
+  case ACTIVATE_MEMBER_SUCCESS:
     showSuccessMessage('You have successfully integrated with payPal');
     break;
   case DELETE_UPSELL_SUCCESS:
@@ -84,43 +89,46 @@ export default ({ dispatch }) => (next) => (action) => {
     showSuccessMessage('Product availability changed Successfully');
     break;
   case CHANGE_ACCOUNT_DETAILS_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Account Details Changes Failed' }));
+    showFailureMessage('Account Details Changes Failed');
     break;
   case CHANGE_ACCOUNT_PASSWORD_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Account password Changes Failed' }));
+    showFailureMessage('Account password Changes Failed');
     break;
   case CREATE_NEW_MEMBER_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to create New member' }));
+    showFailureMessage('Failed to create New member');
     break;
   case SAVE_USER_GENERAL_SETTINGS_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Update General Setting' }));
+    showFailureMessage('Failed to Update General Setting');
     break;
   case UPDATE_PRODUCT_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Update The Product' }));
+    showFailureMessage('Failed to Update The Product');
     break;
   case CREATE_SUB_ACCOUNT_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Create A Sub Account!' }));
+    showFailureMessage('Failed to Create A Sub Account!');
     break;
   case PRODUCT_CREATION_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Create The product' }));
+    showFailureMessage('Failed to Create The product');
     break;
   case CHANGE_COUPON_STATE_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Change coupon status' }));
+    showFailureMessage('Failed to Change coupon status');
     break;
   case CREATE_NEW_COUPON_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Create New Coupon' }));
+    showFailureMessage('Failed to Create New Coupon');
     break;
   case UPLOAD_FILE_FAILED:
-    dispatch(showFlashMessage({ type: 'faild', message: 'Failed to Upload The File' }));
+    showFailureMessage('Failed to Upload The File');
     break;
   case DELETE_UPSELL_FAILED:
-    showFailurMessage('Couldn\'t delete that Upsell,Something went wrong');
+    showFailureMessage('Couldn\'t delete that Upsell,Something went wrong');
     break;
   case UPDATE_UPSELL_FAILED:
-    showFailurMessage('Couldn\'t update that Upsell,Something went wrong');
+    showFailureMessage('Couldn\'t update that Upsell,Something went wrong');
     break;
   case CONNECT_WITH_PAYPAL_FAILED:
-    showFailurMessage(action.payload);
+    showFailureMessage(action.payload);
+    break;
+  case ACTIVATE_MEMBER_FAILED:
+    showFailureMessage('You have successfully integrated with payPal');
     break;
   default:
     return next(action);

@@ -66,6 +66,26 @@ class Email extends Component {
               />
             </InputRow.Note>
           </InputRow>
+          <InputRow>
+            <InputRow.Label
+              notes='This Email represents the sender,  the from or the source email that your customers gonna get the emails from, in order to do that you have to verify the identity of your email address'
+            >
+              Source(From) Email
+
+            </InputRow.Label>
+            <InputRow.Note
+              content={(
+                <InputRow.SmallInput type='email'>
+
+                </InputRow.SmallInput>)}
+            >
+              <SmallButton
+                classes="primary-color"
+              >
+                Verify
+              </SmallButton>
+            </InputRow.Note>
+          </InputRow>
           {/* <InputRow margin='30'>
             <InputRow.Label
               notes='Send a receipt to your customers each time they are billed for their subscription.'

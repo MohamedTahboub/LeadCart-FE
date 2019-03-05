@@ -25,7 +25,7 @@ export default ({ dispatch }) => (next) => (action) => {
   }
 
   if (action.type === ACTIVATE_MEMBER) {
-    const memberStatus = { memberId: action.payload, active: true };
+    const memberStatus = { memberId: action.payload.id, active: action.payload.active };
     return dispatch(apiRequest({
       options: {
         method: 'put',

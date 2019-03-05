@@ -67,8 +67,8 @@ class Agency extends Component {
               <Tabel.Body>
                 {this.props.subAccounts.map(({
                   firstName, lastName, email, active, _id: id
-                }) => (
-                  <Tabel.Row key={id}>
+                }, orderInList) => (
+                  <Tabel.Row key={id} orderInList={orderInList}>
                     <Tabel.Cell
                       mainContent={firstName || 'not set'}
                     />

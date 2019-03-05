@@ -54,16 +54,18 @@ class TeamMembers extends Component {
                   member: {
                     firstName, lastName, email, _id: id
                   } = {}, active
-                }) => (
-                  <Tabel.Row key={id}>
+                }, orderInList) => (
+                  <Tabel.Row key={id} orderInList={orderInList}>
                     <Tabel.Cell mainContent={firstName || 'Not Set'} />
                     <Tabel.Cell mainContent={lastName || 'Not Set'} />
                     <Tabel.Cell mainContent={email} />
                     <Tabel.Cell>
-                      {active
-                        ? <SmallButton onClick={this.props.activateMember.bind(this, id)} classes='green-color'>Active</SmallButton>
-                        : <SmallButton onClick={this.props.activateMember.bind(this, id)} classes='gray-color'>Inactive</SmallButton>
-                      }
+                      <SmallButton
+                        onClick={this.props.activateMember.bind(this, { id, active: !active })}
+                        classes={active ? 'green-color' : 'gray-color'}
+                      >
+                        {active ? 'Active' : 'Inactive'}
+                      </SmallButton>
                     </Tabel.Cell>
                   </Tabel.Row>
                 ))}

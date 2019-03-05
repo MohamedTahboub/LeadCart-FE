@@ -4,8 +4,8 @@ import {
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
   LOGOUT
 } from 'constantsTypes';
-
-export default () => (next) => (action) => {
+import { appInit } from 'actions/appInit';
+export default ({ dispatch }) => (next) => (action) => {
   const { type, payload = {} } = action;
   const loggingEvent = type === SIGN_UP_SUCCESS
     || type === LOGIN_SUCCESS
@@ -17,6 +17,9 @@ export default () => (next) => (action) => {
 
   try {
     if (type === SIGN_UP_SUCCESS || type === LOGIN_SUCCESS) {
+      setTimeout(() => {
+        dispatch(appInit());
+      }, 200);
       upadateIntercomeWithUserDetails(payload);
 
       localStorage.leadcart = JSON.stringify({ ...payload, signDate: Date.now(), isLoggedIn: true });

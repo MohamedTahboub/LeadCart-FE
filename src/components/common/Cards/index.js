@@ -5,6 +5,7 @@ import Modal from 'components/Modal';
 import * as yup from 'yup';
 import { genrateColor } from './helpers';
 import { SmallButton } from '../Buttons';
+import EasyAnimate from '../Animation/EasyAnimate';
 
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
@@ -51,9 +52,9 @@ export const Avatar = ({
 };
 
 export const ProductCard = ({
-  name, currancy, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
+  name, currancy, orderInlist = 0, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
 }) => (
-  <div className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+  <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
     <div className='card-main-content product-avatar-holder'>
       <Avatar name={name} />
       <span className='product-name-holder'>{name}</span>
@@ -68,7 +69,7 @@ export const ProductCard = ({
       <i onClick={onPreview} className='fas fa-book-open' />
       <i onClick={onDelete} className='fas fa-trash-alt' />
     </div>
-  </div>
+  </EasyAnimate>
 );
 
 export const NewThingCard = ({ thing, onClick, ...props }) => (
@@ -97,9 +98,9 @@ const Label = ({ children, ...props }) => (
 
 
 export const UpsellCard = ({
-  name, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
+  name, orderInlist, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
-  <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+  <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
     <div className='card-main-content product-avatar-holder'>
       <Avatar name={name} />
       <span className='product-name-holder'>{name}</span>
@@ -117,7 +118,7 @@ export const UpsellCard = ({
       <i onClick={onPreview} className='fas fa-book-open' />
       <i onClick={onDelete} className='fas fa-trash-alt' />
     </div>
-  </div>
+  </EasyAnimate>
 );
 
 
@@ -153,7 +154,6 @@ export const PayPalConnectContainer = (props) => {
   };
 
   if (loading && error || loading && active) setState({ ...state, loading: false });
-  console.table(state);
   return (
     <MediumCard
       onClick={toggleModal}

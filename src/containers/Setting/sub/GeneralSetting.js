@@ -58,9 +58,9 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
         <InputRow.AddImage
           value={lightLogo || defaultLogo}
           subLabel='Logo'
-          source='lightLogo'
-          name='lightLogo'
-          onUploaded={(image) => onImageUpload('lightLogo', image)}
+          source='company_logo'
+          name='logo'
+          onUploaded={(image) => onImageUpload('logo', image)}
         >
           Logo
 
@@ -100,7 +100,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
       <InputRow margin='20'>
         <InputRow.Label error={errors.support}>Support Contact</InputRow.Label>
         <InputRow.SmallInput
-          name='support'
+          name='supportEmail'
           onChange={onFieldChange}
           error={errors.support}
         >

@@ -53,8 +53,8 @@ const OrderList = (props) => (
           paymentType,
           paymentMethod,
           price,
-        }) => (
-          <Tabel.Row>
+        }, orderInList) => (
+          <Tabel.Row orderInList={orderInList}>
             <Tabel.SmallCell>
               <Avatar name={`${firstName} ${lastName}`} />
             </Tabel.SmallCell>

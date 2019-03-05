@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './style.css'
+import './style.css';
 export default ({ children, ...props }) => (
-    <div className='active-content' >
-       {children}
-    </div>
+  <div className='active-content'>
+    {children}
+  </div>
 );

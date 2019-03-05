@@ -144,8 +144,8 @@ class Coupons extends Component {
                 createdAt,
                 forAll,
                 usedBy
-              }) => (
-                <Tabel.Row key={code}>
+              }, orderInList) => (
+                <Tabel.Row key={code} orderInList={orderInList}>
                   <Tabel.Cell mainContent={code} />
                   <Tabel.Cell mainContent={discount.type} />
                   <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />

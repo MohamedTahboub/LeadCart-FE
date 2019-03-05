@@ -1,14 +1,15 @@
+
 .modal-container{
-position: fixed;;
-top:0px;
-bottom:0px;
-left:0px;
-right:0px;
-background: #00000061;
-display: flex;
-justify-content: center;
-align-items: center;
-z-index: 1000;
+    position: fixed;;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    background: #00000061;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index:  2147483647;
 }
 
 .modal-content{

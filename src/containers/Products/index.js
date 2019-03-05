@@ -41,7 +41,7 @@ class Products extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getUserProducts();
+    // this.props.getUserProducts();
   }
 
   render () {
@@ -53,6 +53,7 @@ class Products extends Component {
           {products.length ? products.map((product, id) => (
             <ProductCard
               key={product._id}
+              orderInlist={id}
               {...product}
               onDelete={() => this.onShowDeleteDialogue(product._id)}
               onEdit={() => this.onProductEdit(product.url)}
