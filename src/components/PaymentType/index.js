@@ -3,7 +3,7 @@ import common from 'components/common';
 
 const { InputRow } = common;
 
-const paymentTypesEnum = (type) => ({
+const paymentTypesOptions = (type) => ({
   Split: { label: 'Number of Splits', name: 'splits', options: [3, 6, 9] },
   Subscription: { label: 'Recurring time', name: 'recurringPeriod', options: ['Monthly', 'Yearly'] }
 }[type] || {});
@@ -26,18 +26,19 @@ const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
 );
 
 export default ({ payment = {}, price: productPrice, onChange }) => {
+  console.log('==========>', payment, price);
   const initState = { ...payment, price: productPrice };
 
   const [state, setState] = useState({ ...initState });
   const { price, type = 'Onetime' } = state;
-  const { label: typelabel, name: typeName, options: typeOptions = [] } = paymentTypesEnum(type) || {};
+  const { label: typelabel, name: typeName, options: typeOptions = [] } = paymentTypesOptions(type) || {};
 
 
   const onFieldChange = ({ target: { name, value } }) => {
     const newState = { ...state, [name]: value };
     setState(newState);
 
-    const { name: customField, options: [defaultOption] = [] } = paymentTypesEnum(newState.type);
+    const { name: customField, options: [defaultOption] = [] } = paymentTypesOptions(newState.type);
     onChange({
       price: newState.price,
       payment: {
