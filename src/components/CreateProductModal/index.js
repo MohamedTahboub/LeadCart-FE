@@ -30,15 +30,19 @@ class CreateProductModal extends Component {
     this.props.onNewProductFieldChange({ name: 'image', value: image });
   }
 
-  onPaymentChange = (payment) => {
-    const { price: amount, ...paymentMethod } = payment;
-    const casted = { type: paymentMethod.type };
+  onPaymentChange = ({ payment, price: amount }) => {
+    // const { price: amount, ...paymentMethod } = payment;
+    // const casted = { type: paymentMethod.type };
 
-    if (paymentMethod.type === 'Split') casted.splits = +(paymentMethod.splits) || 2;
-    if (paymentMethod.type === 'Subscription') casted.recurringPeriod = paymentMethod.recurringPeriod || 'Monthly';
+    if (payment.type === 'Subscription') {
+      payment.recurringPeriod = {
+        Monthly: 'MONTH',
+        Yearly: 'YEAR'
+      }[payment.recurringPeriod || 'Monthly'];
+    }
 
     this.props.onNewProductFieldChange({ name: 'price', value: { amount: +(amount) } });
-    this.props.onNewProductFieldChange({ name: 'payment', value: casted });
+    this.props.onNewProductFieldChange({ name: 'payment', value: payment });
   }
 
   componentDidUpdate (preprop) {

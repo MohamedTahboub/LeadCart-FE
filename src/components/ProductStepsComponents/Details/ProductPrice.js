@@ -10,7 +10,15 @@ import PaymentType from 'components/PaymentType';
 const ProductPrice = ({
   errors, payment, price: { amount: price = 0 } = {}, onMandatoryDetailsFieldChange
 }) => {
+  console.log();
   const onChange = ({ price, payment }) => {
+    if (payment.type === 'Subscription') {
+      payment.recurringPeriod = {
+        Monthly: 'MONTH',
+        Yearly: 'YEAR'
+      }[payment.recurringPeriod || 'Monthly'];
+    }
+
     onMandatoryDetailsFieldChange({ name: 'price', value: { amount: +(price) } });
     onMandatoryDetailsFieldChange({ name: 'payment', value: payment });
   };
@@ -24,5 +32,5 @@ const ProductPrice = ({
     </Fragment>
   );
 };
-const mapStateToProps = ({ product: { mandatoryDetails } }) => ({ ...mandatoryDetails });
+const mapStateToProps = ({ product: { mandatoryDetails, payment = {} } }) => ({ payment, ...mandatoryDetails });
 export default connect(mapStateToProps, producActions)(ProductPrice);

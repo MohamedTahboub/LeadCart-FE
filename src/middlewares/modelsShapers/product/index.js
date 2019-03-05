@@ -48,7 +48,7 @@ function checkStepsCompletion (productDetails, isLocal) {
     checkoutPage: ['template', 'presetColors'],
     mandatoryDetails: ['name', 'url', 'description', 'price'],
     boosters: ['termsAndConditions'],
-    payment: ['methods'],
+    payment: ['methods', 'type'],
     fullfillment: ['file'],
     settings: ['footerScript', 'postOrderScript', 'checkOutPageRedirect'],
     offer: ['enabled', 'name', 'title', 'price', 'introText', 'bodyText', 'successUrl'],
