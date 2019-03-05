@@ -5,6 +5,21 @@ import { FormLogo } from 'components/common/logos';
 import * as loginActions from 'actions/login';
 import './styles.css';
 
+
+const CustomInputField = ({
+  type = 'text', error, name, placeholder, label = 'Label', className = ''
+}) => (
+  <div className={`custom-input-field ${className}`}>
+    {error && <span className='input-feild-error'>{error}</span>}
+    <input
+      type={type}
+      name={name}
+      id={name}
+      placeholder={placeholder}
+    />
+    <label htmlFor={name}>{label}</label>
+  </div>
+);
 const Login = ({
   isLoggedIn, history, login, errors
 }) => {
@@ -28,15 +43,19 @@ const Login = ({
         </div>
       </div>
       <form onSubmit={onLogin} className='form-container'>
-        <div className='form-input'>
-          <input type='email' name='email' placeholder='Email' />
-          {errors.email && <span className='input-feild-error'>{errors.email}</span>}
-        </div>
-        <div className='form-input'>
-          <input type='password' name='password' placeholder='Password' />
-          {errors.password && <span className='input-feild-error'>{errors.password}</span>}
-        </div>
-
+        <CustomInputField
+          name='email'
+          label='Email address'
+          placeholder='Enter your email adderss'
+          error={errors.email}
+        />
+        <CustomInputField
+          name='password'
+          label='Password'
+          type='password'
+          placeholder='Enter your password'
+          error={errors.password}
+        />
         {errors.loginError && <span className='login-error-field'>{errors.loginError}</span>}
         <button type='submit' className='form-submit'>sign in now</button>
         <div className='account-refrance-links'>
