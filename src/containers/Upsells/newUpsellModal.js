@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Modal from 'components/Modal';
+import { SlideModal as Modal } from 'components/Modals';
 import common from 'components/common';
 import ids from 'shortid';
 import UpsellFeature from 'components/UpsellFeature';
@@ -239,7 +239,6 @@ class UpsellForm extends Component {
       }
     } = this;
 
-    console.log(features);
     return (
       <Modal onClose={onClose} isVisible={isVisible} className='upsell-modal-form'>
         <FlexBoxesContainer className='space-between-elements upsell-modal-head'>

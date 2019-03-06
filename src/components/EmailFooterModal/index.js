@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Modal from '../Modal'
+import { Modal } from '../Modals'
 import common from '../common'
 import { connect } from 'react-redux'
 import * as emailsActions from 'actions/emails'

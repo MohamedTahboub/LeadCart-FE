@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import common from 'components/common';
 
 const {

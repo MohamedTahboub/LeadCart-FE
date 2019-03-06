@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import { connect } from 'react-redux';
 import common from 'components/common';
 import * as productsActions from 'actions/products';

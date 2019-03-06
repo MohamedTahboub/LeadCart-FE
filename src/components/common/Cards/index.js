@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { navigateTo } from 'libs';
 import './style.css';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import * as yup from 'yup';
 import { genrateColor } from './helpers';
 import { SmallButton } from '../Buttons';

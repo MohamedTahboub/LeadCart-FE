@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import ids from 'shortid'
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import UpsellForm from './newUpsellModal';
 import './style.css';
 import * as upsellsActions from 'actions/upsells'

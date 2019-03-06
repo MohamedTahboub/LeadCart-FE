@@ -1,0 +1,101 @@
+
+.modal-container{
+    position: fixed;;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    background: #00000061;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content{
+    position: relative;
+    padding: 40px;
+    background: white;
+}
+.modal-close-btn{
+    color:gray;
+    font-size: 12px;
+    position: absolute;
+    right: 20px;
+    top:20px;
+    height: 25px;
+    width: 25px;
+    border:1.5px solid gray;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+.modal-content .textarea-input-field{
+    width: 400px;
+}
+.modal-content .input-field{
+    margin-right: 0px;
+}
+.margin-with-float-left{
+    margin-top: 15px; 
+    float: left;
+}
+.margin-with-float-right{
+    margin-top: 15px; 
+    float: right;
+}
+
+
+/* Slide modal styles start*/ 
+.slide-modal-container{
+    position: fixed;;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.slide-modal-background{
+    position: absolute;;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    background: #00000061;
+}
+.slide-modal-close-btn{
+    color:gray;
+    font-size: 12px;
+    position: absolute;
+    left: 20px;
+    top:40px;
+    height: 25px;
+    width: 25px;
+    border:1.5px solid gray;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.slide-modal-content{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 190px;
+    right: 0px;
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    /* z-index: 50; */
+
+}
+/* Slide modal styles ends*/ 

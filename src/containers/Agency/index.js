@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { connect } from 'react-redux';
 const {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import * as teamMembersActions from 'actions/teamMembers';
 import { connect } from 'react-redux';
 const {

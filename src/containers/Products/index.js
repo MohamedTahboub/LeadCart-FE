@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as modalsActions from 'actions/modals';
 import * as productsActions from 'actions/products';
 import * as productActions from 'actions/product';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import common from 'components/common';
 // products sample data
 import productsList from 'data/products.json';
