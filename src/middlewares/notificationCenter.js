@@ -47,7 +47,7 @@ export default ({ dispatch }) => (next) => (action) => {
     showSuccessMessage('You have successfully integrated with payPal');
     break;
   case ACTIVATE_MEMBER_SUCCESS:
-    showSuccessMessage('You have successfully integrated with payPal');
+    showSuccessMessage('You have successfully Changed member status');
     break;
   case DELETE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Deleted Successfully');
@@ -128,7 +128,7 @@ export default ({ dispatch }) => (next) => (action) => {
     showFailureMessage(action.payload);
     break;
   case ACTIVATE_MEMBER_FAILED:
-    showFailureMessage('You have successfully integrated with payPal');
+    showFailureMessage('Failed to Changed member status');
     break;
   default:
     return next(action);
