@@ -1,0 +1,24 @@
+
+/* Products nav bar*/
+.tabs-titles-container {
+  margin-top: 20px;
+  padding: 16px 0px;
+  border-bottom: 1.2px solid #C9D3DC;
+}
+span.tab-link {
+  font-size: 15px;
+  margin-right: 25px;
+  color: rgb(157, 168, 179);
+  cursor: pointer;
+  padding-bottom: 16px;
+  transition:all 100ms ease-in-out;
+}
+.tab-link:hover{
+  color: rgba(43, 55, 72, 0.698);
+  border-bottom: 2px solid rgba(114, 174, 235, 0.623);
+}
+.active-tab-link{
+  color: #2B3748 !important;
+  border-bottom: 2px solid #4DA1FF;
+}
+/* Products nav bar ends*/

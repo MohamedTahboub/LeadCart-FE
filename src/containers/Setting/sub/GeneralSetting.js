@@ -2,13 +2,17 @@ import React from 'react';
 import common from 'components/common';
 import * as settingsActions from 'actions/settings';
 import { connect } from 'react-redux';
-import countries from 'data/countries';
-import timeZones from 'data/timeZones';
+import countriesList from 'data/countries';
+import timeZonesList from 'data/timeZones';
 import defaultLogo from 'assets/images/big-logo.png';
 const { InputRow, MainBlock, DeleteButton } = common;
 
+const countries = countriesList.map(({ name: label, code: value }) => ({ label, value }));
+const timeZones = timeZonesList.map(({ value }) => ({ label: value, value }));
+
 const defaultTimeZone = timeZones.find(({ value }) => value.includes('Central America')).value;
-const defaulteCountry = countries.find(({ code }) => code.includes('US')).name;
+const defaultCountry = countries.find(({ value }) => value === 'US').value;
+
 const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
   const {
     name,
@@ -76,11 +80,11 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
         </InputRow.Label>
         <InputRow.SearchInput
           // value={country}
-          data={countries}
+          options={countries}
           target='name'
           error={errors.country}
           name='country'
-          defaultValue={country || defaulteCountry}
+          defaultValue={defaultCountry}
           onChange={onFieldChange}
         />
 
@@ -89,9 +93,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
         <InputRow.Label error={errors.timeZones}>Time Zone</InputRow.Label>
         <InputRow.SearchInput
           defaultValue={defaultTimeZone}
-          value={timeZone}
-          data={timeZones}
-          target='value'
+          options={timeZones}
           error={errors.timeZones}
           name='timeZone'
           onChange={onFieldChange}
@@ -103,8 +105,9 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           name='supportEmail'
           onChange={onFieldChange}
           error={errors.support}
+          value={userEmail}
         >
-          {support || userEmail}
+          Ex. support@leadcart.io
 
         </InputRow.SmallInput>
       </InputRow>

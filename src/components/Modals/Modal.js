@@ -13,7 +13,7 @@ export default ({
     isVisible ? (
       <EasyAnimate className='modal-container'>
         <SlidingAnimation className={`modal-content ${className || ''}`}>
-          <span onClick={onClose} className='modal-close-btn'>
+          <span onClick={onClose} className='modal-close-btn' role='presentation'>
             <i className='fas fa-times' />
           </span>
           {children}

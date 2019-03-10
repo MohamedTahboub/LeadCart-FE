@@ -1,0 +1,6 @@
+.help-iframe-container {
+  border: none;
+  height: calc(100% + 6px);
+  width: calc(100% + 40px);
+  margin:-10px -20px 0px -20px;
+}

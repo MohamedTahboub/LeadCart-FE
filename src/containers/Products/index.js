@@ -66,11 +66,11 @@ class Products extends Component {
         </div>
         <Modal onClose={() => this.setState({ showDeleteModal: false })} isVisible={this.state.showDeleteModal}>
           <MainTitle>Are you sure,you want delete this product ?</MainTitle>
-          <Button onClick={this.onHideDeleteDialogue} classes='primary-color margin-with-float-left'>
+          <Button onClick={this.onHideDeleteDialogue} className='primary-color margin-with-float-left'>
             {' '}
             Cancel
           </Button>
-          <Button onClick={this.onProductDelete} classes='warning-color margin-with-float-right'>
+          <Button onClick={this.onProductDelete} className='warning-color margin-with-float-right'>
             <i className='fas fa-trash-alt' />
             {' '}
             Delete

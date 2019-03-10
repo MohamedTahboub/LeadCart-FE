@@ -8,9 +8,9 @@ export const FlexBoxesContainer = ({ children, className, ...props }) => (
 );
 
 export const MainBlock = ({
-  title, notes, children, classes = [], containerClasses, blockHandel, blockActivabilityHandle = false, ...props
+  title, notes, children,className='', containerClasses, blockHandel, blockActivabilityHandle = false, ...props
 }) => (
-    <div className={`main-block ${classes.join(' ')}`}>
+    <div className={`main-block ${className}`}>
       <div className='main-title-container'>
         <span className='main-title'>{title}</span>
         {notes && <span className='main-title-note'>{notes}</span>}
@@ -31,8 +31,8 @@ export const Block = ({ children, ...props }) => (
     {children}
   </div>
 );
-export const SmallBox = ({ clickable = false, onClick, classes = [], ...props }) => (
-  <div onClick={onClick} style={({ cursor: clickable ? 'pointer' : 'inherit' })} className={`small-box ${classes.join(' ')}`}>
+export const SmallBox = ({ clickable = false, onClick, className='', ...props }) => (
+  <div onClick={onClick} style={({ cursor: clickable ? 'pointer' : 'inherit' })} className={`small-box ${className}`}>
     <div className='small-box-container'>
       {props.children}
     </div>

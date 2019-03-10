@@ -58,7 +58,7 @@ class EmailFooterModal extends Component {
                 </InputRow>
                 <Button
                     onClick={this.onEnable}
-                    classes={`primary-color margin-with-float-right ${enabling ? 'spinner' : ''}`}
+                    className={`primary-color margin-with-float-right ${enabling ? 'spinner' : ''}`}
                 >
                     <i className='fas fa-plus' />
                     {' '}

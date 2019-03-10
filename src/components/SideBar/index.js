@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Menu, Link } from 'components/common/MainMenu';
+import { Menu, Link as PureLink } from 'components/common/MainMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { connect } from 'react-redux';
 import common from 'components/common';
@@ -25,7 +25,20 @@ const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[
 const SideBar = ({
   history, user, appInit, logout, toggleCreateProductModal, ...props
 }) => {
-  // appInit();
+  // const initalOpenedTab = history.location.pathname
+  const [activeTab, setActiveTab] = useState(history.location.pathname)
+  const onTabChange = (tab) => setActiveTab(tab)
+
+  const Link = ({ to: page, className, children, external }) => (
+    <PureLink
+      to={{ history, page }}
+      external={external}
+      className={className}
+      onTabChange={onTabChange}
+      active={activeTab === page}
+    >
+      {children}
+    </PureLink>)
   return (
     <div className='side-bar'>
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/general')} />
@@ -35,19 +48,19 @@ const SideBar = ({
         New Product
       </span>
       <Menu>
-        <Link to={{ history, page: '/products' }} classes={isActiveTab('products')}>Products</Link>
-        <Link to={{ history, page: '/activities/customers' }}>Activity</Link>
-        <Link to={{ history, page: '/coupons' }}>Coupon</Link>
-        <Link to={{ history, page: '/upsells' }} classes={['locked-feature']}>Upsells</Link>
-        <Link to={{ history, page: '/funnels' }} classes={['locked-feature']}>Funnels</Link>
-        <Link to={{ history, page: '/reports' }} classes={['locked-feature']}>Reports</Link>
-        <Link to={{ history, page: '/affiliates' }} classes={['locked-feature']}>Affiliates</Link>
-        {user.level === 3 && <Link to={{ history, page: '/agency' }}>Agency</Link>}
-        <Link to={{ history, page: '/settings/general' }}>Setting</Link>
-        <Link to={{ history, page: 'https://help.leadcart.io' }} external >Help</Link>
+        <Link to='/products' className={isActiveTab('products')}>Products</Link>
+        <Link to='/activities/customers'>Activity</Link>
+        <Link to='/coupons'>Coupon</Link>
+        <Link to='/upsells' >Upsells</Link>
+        <Link to='/funnels' className='locked-feature'>Funnels</Link>
+        <Link to='/reports' className='locked-feature'>Reports</Link>
+        <Link to='/affiliates' className='locked-feature'>Affiliates</Link>
+        {user.level === 3 && <Link to='/agency'>Agency</Link>}
+        <Link to='/settings/general'>Setting</Link>
+        <Link to='/help' external >Help</Link>
       </Menu>
 
-      <Button onClick={logout} classes='logout-btn'>
+      <Button onClick={logout} className='logout-btn'>
         <i className='fas fa-sign-out-alt' />
         {' '}
         logout

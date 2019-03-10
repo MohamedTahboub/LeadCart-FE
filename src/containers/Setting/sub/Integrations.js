@@ -22,7 +22,7 @@ const {
 } = common;
 
 const AddNewButton = (props) => (
-  <Button classes='primary-color medium-add-btn'>
+  <Button className='primary-color medium-add-btn'>
     <i className='fas fa-plus' />
     {' '}
     Add new
@@ -86,7 +86,7 @@ class Integrations extends Component {
     const { methods, integrations: { paypal: PaypalStatus, errors: { paypalError } } } = this.props;
     return (
       <React.Fragment key={Date.now()}>
-        <MainTitle>Integrate With one of the following Payment Gateways </MainTitle>
+        <MainTitle style={{ marginTop: '20px' }}>Payment Gateways </MainTitle>
         <MediumCard
           onClick={connectStripe}
           isActive={methods.includes('Stripe')}
@@ -101,16 +101,15 @@ class Integrations extends Component {
           onConnect={this.onConnectPaypal}
         />
 
-        <MainTitle>
-          Zapier
+        <MainTitle style={{ marginTop: '40px' }}>
+          WebHooks
         </MainTitle>
         <FlexBoxesContainer>
-          <SmallBox clickable onClick={this.onZapierClicked} classes={['zapier-spcial-box']}>
-            <img className='zapier-brand-image' src={zapierBrand} alt='zapier brand' />
-            <div className='zapier-instructions'>
-              <span>Get invited to Zapier</span>
-            </div>
-          </SmallBox>
+          <MediumCard
+            onClick={this.onZapierClicked}
+            imgSrc={zapierBrand}
+            headline='Get invited to Zapier'
+          />
         </FlexBoxesContainer>
       </React.Fragment>
     );

@@ -16,13 +16,13 @@ export class InputRow extends Component {
     </div>
   )
 
-  static NormalInput = ({ onChange, value, className, disabled, name, error, ...props }) => (
+  static NormalInput = ({ onChange, value, className = '', disabled, name, error, ...props }) => (
     <input
       onChange={onChange}
       name={name}
       defaultValue={value}
       disabled={disabled}
-      className={`input-field ${className ? className : ''} ${error ? 'invalid-field' : ''}`}
+      className={`input-field ${className} ${error ? 'invalid-field' : ''}`}
       placeholder={props.children}
     />
   )
@@ -43,14 +43,15 @@ export class InputRow extends Component {
     )
 
   static CustomInput = ({
-    width, onChange, name, value, disabled, type = 'text', placeholder, classes = [], ...props
+    width, onChange, name, autoComplete , value, disabled, type = 'text', placeholder, className = '', ...props
   }) => (
       <input onChange={onChange}
         type={type}
         disabled={disabled}
+        autoComplete={autoComplete ? '' : 'off'}
         name={name}
         defaultValue={value}
-        className={'input-field custom-input-field ' + classes.join(' ')}
+        className={`input-field custom-input-field ${className}`}
         placeholder={props.children || placeholder}
       />
     )
@@ -121,25 +122,22 @@ export class InputRow extends Component {
       onChange={onChange}
       defaultValue={value}
       name={name}
-      className={`input-field ${error ? 'invalid-field' : '' }`}
+      className={`input-field ${error ? 'invalid-field' : ''}`}
       disabled={disabled}
       placeholder={prefix}
     />
   )
 
   static CheckBox = ({
-    children, description, checked, disabled, onChange, name, classes = [], ...props
+    children, description, checked, disabled, onChange, name, className = '', ...props
   }) => (
-      <label onChange={(e) => {
-        console.log('CHANGE ON :', e.target.name, e.target.value)
-        onChange(e)
-      }}
-        className={'check-box-container ' + classes.join(' ')}>
+      <label onChange={onChange}
+        className={`check-box-container ${className}`}>
         {description
           && <span className='check-box-description'>{description}</span>}
         <input
 
-          name={name || 'chcekbox'}
+          name={name || 'checkbox'}
           className='check-box'
           type='radio'
           defaultChecked={checked}
@@ -184,25 +182,26 @@ export class InputRow extends Component {
       <div className='charging-method-picker'>
         <input id='charge-method-el-1'
           type='radio'
+          defaultChecked={value === 'Percent'}
           name='chargeMethod'
           className='charge-method-radio-input hiden-element' />
         <label
           onClick={() => onSelect('Percent')}
           htmlFor='charge-method-el-1'
           className='charging-method-item'
-          defaultChecked={value === 'Percent'}
         >%</label>
         <input
           id='charge-method-el-2'
           type='radio'
           name='chargeMethod'
           className='charge-method-radio-input hiden-element'
+          defaultChecked={value === 'Flat'}
         />
         <label
           onClick={() => onSelect('Flat')}
           htmlFor='charge-method-el-2'
           className='charging-method-item'
-          defaultChecked={value === 'Flat'}
+          
         >$</label>
         {note && <span className='charging-method-picker-notes'>{note}</span>}
       </div>
@@ -217,7 +216,7 @@ export class InputRow extends Component {
   )
 
   render() {
-    const { margin, className } = this.props;
+    const { margin, className = '' } = this.props;
     const style = margin ? { margin: `${margin}px 0px` } : {}
     return (
       <div style={style} className={'input-row ' + className}>

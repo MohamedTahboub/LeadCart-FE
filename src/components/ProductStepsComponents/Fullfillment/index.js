@@ -39,7 +39,7 @@ const Fullfillment = ({ onProductFullfillmentFieldChange, productLink, file }) =
           <InputRow>
             <InputRow.Label>Type</InputRow.Label>
             <InputRow.CheckBox checked description='A digital file that buyers will download or a service.'>Digital / Service</InputRow.CheckBox>
-            <InputRow.CheckBox classes={['hide-element']} description='A tangible item that you will ship to buyers.'>Phisical</InputRow.CheckBox>
+            <InputRow.CheckBox className='hide-element' description='A tangible item that you will ship to buyers.'>Phisical</InputRow.CheckBox>
           </InputRow>
           <InputRow>
             <InputRow.Label>Digital File (Optional)</InputRow.Label>

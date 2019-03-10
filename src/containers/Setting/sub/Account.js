@@ -17,7 +17,7 @@ const SmallFormContainer = ({
       {children}
     </div>
     <div className='small-form-controlls'>
-      <Button onClick={onSubmit} classes=' primary-color'>
+      <Button onClick={onSubmit} className=' primary-color'>
           Update
       </Button>
     </div>

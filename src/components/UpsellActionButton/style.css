@@ -1,12 +1,15 @@
 .upsell-action-btn-container{
+    
     flex:1;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .action-btn{
-    /* font-size: smaller; */
+    position: relative;
     min-width: 200px;
+    min-height: 36px;
     text-align: center;
     margin-bottom:20px; 
     border-radius: 3px;
@@ -16,4 +19,12 @@
     background: greenyellow;
     font-weight: bold;
     cursor: pointer;
+}
+.action-btn::before{
+    position: absolute;
+    bottom: -30px;
+    left: 0px;
+    font-size: 10px;
+    color: #9e9e9ec2;
+    content: "this is how your upsell button will look like ";
 }

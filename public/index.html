@@ -10,9 +10,9 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
 
 
@@ -21,11 +21,93 @@
 
 
   <!-- imported fontawsome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css"
+    integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css"
+    integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+  <style>
+    .loading-page {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
+    .loading-spinner {
+      position: relative;
+
+    }
+
+    .loading-spinner:before {
+      position: absolute;
+      content: '';
+      top: -120px;
+      left: -25px;
+      height: 100px;
+      width: 100px;
+      border: none;
+      border-left: 2px solid lightblue;
+      border-right: 2px solid lightblue;
+      border-radius: 50%;
+      animation: spinning .6s ease-in infinite;
+    }
+
+    .loading-spinner:after {
+      position: absolute;
+      content: '';
+      top: -5%;
+      animation: elapses 2s ease-in infinite;
+    }
+
+    .loading-page-message {
+      position: absolute;
+      top: 150px;
+    }
+
+    @keyframes spinning {
+      from {
+        transform: rotate(0deg);
+        border-left: 2px solid lightblue;
+        border-right: 4px solid lightblue;
+      }
+
+      to {
+        transform: rotate(360deg);
+        border-left: 4px solid lightblue;
+        border-right: 2px solid lightblue;
+      }
+    }
+
+    @keyframes elapses {
+      0% {
+        content: '.';
+      }
+
+      20% {
+        content: '..';
+      }
+
+      40% {
+        content: '...';
+      }
+
+      60% {
+        content: '....';
+      }
+
+      80% {
+        content: '.....';
+      }
+
+      100% {
+        content: '......';
+      }
+    }
+  </style>
   <title>Leadcart</title>
 </head>
 
@@ -33,7 +115,11 @@
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
-  <div id="root"></div>
+  <div id="root">
+    <div class="loading-page">
+      <span class="loading-spinner">loading</span>
+    </div>
+  </div>
 </body>
 <script>
   window.intercomSettings = {
@@ -42,10 +128,11 @@
     email: "customer@leadcart.io", // Email address
     created_at: Math.round((new Date()).getTime() / 1000)// Signup date as a Unix timestamp
   };
-  </script>
+</script>
 <script>
 
-(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/skynydft';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
+  (function () { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', intercomSettings); } else { var d = document; var i = function () { i.c(arguments) }; i.q = []; i.c = function (args) { i.q.push(args) }; w.Intercom = i; function l() { var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/skynydft'; var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } })()
 
 </script>
+
 </html>

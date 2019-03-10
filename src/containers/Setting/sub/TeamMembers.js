@@ -9,7 +9,7 @@ const {
 } = common;
 
 const AddNewButton = ({ onClick }) => (
-  <Button onClick={onClick} classes='primary-color medium-add-btn explort-csv-btn extra-margin-top'>
+  <Button onClick={onClick} className='primary-color medium-add-btn explort-csv-btn extra-margin-top'>
     <i className='fas fa-plus' />
     {' '}
     Add new member
@@ -62,7 +62,7 @@ class TeamMembers extends Component {
                     <Tabel.Cell>
                       <SmallButton
                         onClick={this.props.activateMember.bind(this, { id, active: !active })}
-                        classes={active ? 'green-color' : 'gray-color'}
+                        className={active ? 'green-color' : 'gray-color'}
                       >
                         {active ? 'Active' : 'Inactive'}
                       </SmallButton>
@@ -84,7 +84,7 @@ class TeamMembers extends Component {
             <InputRow.NormalInput name='email' onChange={this.onFieldChange} error={errors.email}>Email address</InputRow.NormalInput>
           </InputRow>
           {errors.message && <span className='error-message'>{errors.message}</span>}
-          <Button onClick={this.createNewMember} classes='primary-color margin-with-float-right'>
+          <Button onClick={this.createNewMember} className='primary-color margin-with-float-right'>
             <i className='fas fa-plus' />
             {' '}
             Create

@@ -2,24 +2,24 @@ import React from 'react';
 
 
 export const Button = ({
-  classes, children, onClick, disabled, ...props
+  className = '', children, onClick, disabled, ...props
 }) => (
-  <span onClick={onClick} className={`btn  ${classes || ''}  ${disabled ? ' btn-disabled' : ''}`}>
+  <span onClick={onClick} className={`btn  ${className || ''}  ${disabled ? 'btn-disabled' : ''}`}>
     {children}
   </span>
 );
 export const MiniButton = ({
-  iconClass, children, classes, onClick, ...props
+  iconClass, children, className = '', onClick, ...props
 }) => (
-  <span onClick={onClick} className={`mini-btn  ${classes || ''}`}>
+  <span onClick={onClick} className={`mini-btn  ${className}`}>
     {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
   </span>
 );
 export const SmallButton = ({
-  iconClass, children, classes, disabled, onClick, ...props
+  iconClass, children, className = '', disabled, onClick, ...props
 }) => (
-  <span onClick={onClick} className={`small-btn  ${classes || ''} ${disabled ? ' btn-disabled' : ''}`}>
+  <span onClick={onClick} className={`small-btn  ${className} ${disabled ? ' btn-disabled' : ''}`}>
     {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
   </span>
@@ -39,9 +39,9 @@ export const ActivationSwitchInput = ({ active, onToggle, ...props }) => (
 );
 
 export const EditButton = ({
-  classes = [], onClick, children, ...props
+  className = '', onClick, children, ...props
 }) => (
-  <span onClick={onClick} className={`edit-btn ${classes.join(' ')}`}>
+  <span onClick={onClick} className={`edit-btn ${className}`}>
     <i className='fas fa-edit' />
     {children}
   </span>

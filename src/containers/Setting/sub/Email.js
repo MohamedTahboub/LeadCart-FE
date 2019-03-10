@@ -8,13 +8,13 @@ const {
 
 
 const EmailTestButton = ({
-  type, testingType, loading, onClick, ...props
+  type, className = '', testingType, loading, onClick, ...props
 }) => {
-  let classes = ['primary-color wide-element'];
-  classes += type === testingType && loading ? ' spinner' : '';
+  const classNames = `${className} primary-color wide-element ${(type === testingType && loading) ? ' spinner' : ''}`;
+
   return (
     <SmallButton
-      classes={classes}
+      className={classNames}
       onClick={onClick.bind(this, type)}
     >
       Test
@@ -79,9 +79,7 @@ class Email extends Component {
 
                 </InputRow.SmallInput>)}
             >
-              <SmallButton
-                classes="primary-color"
-              >
+              <SmallButton className='primary-color'>
                 Verify
               </SmallButton>
             </InputRow.Note>

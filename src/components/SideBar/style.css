@@ -124,11 +124,23 @@
 }
 .active-menu-item:before{
     position: absolute;
-    font-family: "Font Awesome 5 Free";
+    height: 12px;
+    width: 12px;
+    left: -30px;
+    top:calc(50% - 6px);
+    border-radius: 50%;
+    content: '';
+    background: rgba(77, 160, 255, 0.507);
+    border: 1px solid rgb(255, 255, 255);
+    transition: all .4s ease-in-out;
+    /* font-family: "Font Awesome 5 Free";
     font-weight: 400;
     content: "\f111";
-    left: -30px;
-    color: #4DA1FF;
+    color: #4DA1FF; */
+}
+.active-menu-item:hover::before {
+    border: 1px solid #4DA1FF;
+    background: white;
 }
 
 /* */

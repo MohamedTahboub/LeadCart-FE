@@ -48,6 +48,8 @@ import Activities from './containers/Activities';
 import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
 import Agency from './containers/Agency';
+import Help from './containers/Help';
+
 
 //services
 import registerServiceWorker from 'services/RegisterServiceWorker';
@@ -93,7 +95,7 @@ ReactDOM.render(
                                     <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
                                     <Route exact path='/agency' component={Agency} />
                                     <Route path='/settings' component={Setting} />
-                                    <Route exact path='/help' component={UnderDevelopment} />
+                                    <Route exact path='/help' component={Help} />
                                 </ActiveContent>
                             </Content>
                         </div>)

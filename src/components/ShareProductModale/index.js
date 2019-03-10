@@ -9,7 +9,7 @@ const {
 
 const CopyScriptButton = ({onCopy , embededText}) => (
     <CopyToClipboard text={embededText}>
-        <Button  onClick={onCopy} classes={['primary-color']}>Copy</Button>
+        <Button  onClick={onCopy} className='primary-color'>Copy</Button>
     </CopyToClipboard>
 );
 const formatEmbedScript = ({ subdomain, productUrl }) =>
