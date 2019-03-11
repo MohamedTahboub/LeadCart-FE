@@ -29,13 +29,16 @@ export const UpsellCard = (props) => {
     onDelete
   } = upsell
 
-  const [state, setState] = useState({});
-
+  const [state, setState] = useState({
+    showNewUpsellForm: false,
+    showDeleteDialog: false
+  });
+  const [show, setShow] = useState(false)
   const toggleDeleteDialog = () => {
     setState({ ...state, showDeleteDialog: !state.showDeleteDialog });
   };
   const toggleEditModal = () => {
-    setState({ ...state, showNewUpsellForm: !state.showNewUpsellForm });
+    setShow(!show);
   };
 
   const onDeleteUpsell = () => {
@@ -44,6 +47,8 @@ export const UpsellCard = (props) => {
 
 
   const { showDeleteDialog, showNewUpsellForm } = state;
+
+  console.log("==============showNewUpsellForm==============>", showNewUpsellForm)
   return (
     <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
       <div className='card-main-content product-avatar-holder'>
@@ -64,8 +69,9 @@ export const UpsellCard = (props) => {
         <i onClick={toggleDeleteDialog} className='fas fa-trash-alt' />
       </div>
       <UpsellForm
+        show={show}
         upsell={upsell}
-        show={showNewUpsellForm}
+        updateForm
         onClose={toggleEditModal}
       />
       <Dialog

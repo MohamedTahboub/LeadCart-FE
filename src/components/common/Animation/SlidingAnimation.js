@@ -7,8 +7,6 @@ export default ({
 }) => {
   // vertical or horizontal
   const type = (u) => (entryType === 'vertical' ? `translateY(${u}px)` : `translateX(${u}px)`);
-
-  console.log(type(units));
   const props = useSpring({
     from: { opacity: 0, transform: type(units) },
     to: { opacity: 1, transform: type(0) }

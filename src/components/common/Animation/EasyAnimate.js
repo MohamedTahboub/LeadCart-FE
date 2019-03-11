@@ -9,7 +9,6 @@ export default ({ children, className, delay = 0 }) => {
     to: { opacity: 1, color: 'rgba(0, 0, 0, 0.4)' }
   });
 
-  console.log('animation cycle');
   return (
     <animated.div
       style={props}

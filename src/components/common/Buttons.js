@@ -1,4 +1,5 @@
 import React from 'react';
+import ids from 'shortid';
 
 
 export const Button = ({
@@ -31,17 +32,20 @@ export const DeleteButton = ({ iconType = 'trash', onClick, ...props }) => (
   </span>
 );
 
-export const ActivationSwitchInput = ({ active, onToggle, ...props }) => (
-  <label className='switch-slider-input activability-switch'>
-    <input type='checkbox' onChange={onToggle} defaultChecked={active} />
-    <span className='slider-input slider-round' />
-  </label>
-);
+export const ActivationSwitchInput = ({ active, onToggle, ...props }) => {
+  const id = ids.generate();
+  return (
+    <label htmlFor={id} className='switch-slider-input activability-switch'>
+      <input id={id} type='checkbox' onChange={onToggle} checked={active} />
+      <span className='slider-input slider-round' />
+    </label>
+  );
+};
 
 export const EditButton = ({
   className = '', onClick, children, ...props
 }) => (
-  <span onClick={onClick} className={`edit-btn ${className}`}>
+  <span onClick={onClick} className={`edit-btn ${className}`} role='presentation'>
     <i className='fas fa-edit' />
     {children}
   </span>
