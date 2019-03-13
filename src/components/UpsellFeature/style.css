@@ -1,8 +1,24 @@
 .upsell-feature-item{
-    /* flex:1; */
+    position: relative;
     color: #2B3748;
     min-width: 250px;
     margin:5px 5px 5px 25px;
+}
+.upsell-feature-item:hover .feature-delete-btn{
+    display: block;
+}
+.feature-delete-btn{
+    display: none;
+    color:#f18876;
+    position: absolute;
+    cursor: pointer;
+    bottom:0px;
+    left: -2px;
+    transition: all .4s ease-in-out;
+}
+.feature-delete-btn:hover{
+    color:#e4725e;
+    
 }
 .upsell-feature-title{
     position: relative; 

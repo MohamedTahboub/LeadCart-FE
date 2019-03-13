@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Modal from 'components/Modal';
+import { SlideModal } from 'components/Modals';
 import common from 'components/common';
 import ids from 'shortid';
 import UpsellFeature from 'components/UpsellFeature';
@@ -152,9 +152,9 @@ class UpsellForm extends Component {
     const { upsell } = this.state;
     const upsellId = upsell._id;
     const { isValid, value, errors } = await this.onUpsellEncapsulation(upsell);
-    console.log(isValid, errors);
+    // console.log(isValid, errors);
     if (!isValid) return this.onUpsellFieldsChange('errors', errors);
-    console.log(value);
+    // console.log(value);
     this.props.updateUpsell({ body: value, upsellId });
     this.setState({ updated: upsellId });
   }
@@ -174,7 +174,7 @@ class UpsellForm extends Component {
     this.onUpsellFieldsChange('assets', { ...assets, assetLink });
   }
 
-  onAssciatedProductChange = ({ target: { id, value } }) => {
+  onAssociatedProductChange = ({ target: { id, value } }) => {
     this.onUpsellFieldsChange('linkedProduct', id);
   }
 
@@ -218,32 +218,29 @@ class UpsellForm extends Component {
 
   render () {
     const {
-      state: {
-        upsell: {
-          featuresTitle,
-          features = [],
-          _id: upsellId,
-          name,
-          description,
-          assets: { assetsType, assetLink } = {},
-          price = {},
-          linkedProduct,
-          fulfillment,
-          errors = {},
-          actionBtn = {},
-          active: UpsellState
-        }
-      },
+      featuresTitle,
+      features = [],
+      _id: upsellId,
+      name,
+      description,
+      assets: { assetsType, assetLink } = {},
+      price = {},
+      linkedProduct,
+      fulfillment,
+      errors = {},
+      actionBtn = {},
+      active: UpsellState
+    } = this.props.isNewUpsell ? {} : this.state.upsell;
+    const {
       props: {
-        products, errors: genralErrors = {}, newUpsell, show: isVisible, onClose
+        products, errors: generalErrors = {}, isNewUpsell, show: isVisible, onClose
       }
     } = this;
-
-    console.log(features);
+    console.log('SHOW', this.props.show);
     return (
-      <Modal onClose={onClose} isVisible={isVisible} className='upsell-modal-form'>
+      <SlideModal onClose={onClose} isVisible={isVisible} className='upsell-modal-form'>
         <FlexBoxesContainer className='space-between-elements upsell-modal-head'>
-          <MainTitle>{newUpsell ? 'Create New Upsell' : 'Update Upsell'}</MainTitle>
+          <MainTitle>{isNewUpsell ? 'Create New Upsell' : 'Update Upsell'}</MainTitle>
           {upsellId && <ActivationSwitchInput active={UpsellState} onToggle={this.onToggleUpsellState} />}
         </FlexBoxesContainer>
         <InputRow>
@@ -255,8 +252,9 @@ class UpsellForm extends Component {
             value={price.amount}
             error={errors.price && errors.price.amount}
             onChange={this.onUpsellPriceChange}
-            children='Price'
-          />
+          >
+            Price
+          </InputRow.PriceField>
         </InputRow>
         <InputRow>
           <InputRow.Label error={errors.description}>Upsell Description:</InputRow.Label>
@@ -292,19 +290,20 @@ class UpsellForm extends Component {
                 source='assets_link'
                 onUploaded={this.onAssetsImageLinkChange}
                 name='assets_link'
-                children='Upload Image'
-              />
+              >
+                Upload Image
+              </InputRow.AddImage>
             )
             : (
               <InputRow.NormalInput
-                error={errors.assets}
                 value={assetLink}
                 error={errors.assets && errors.assets.assetsLink}
                 name='assetLink'
                 onChange={this.onAssetsLinkChange}
                 className='margin-left-15'
-                children='Enter a valid link for the image/video'
-              />
+              >
+                Enter a valid link for the image/video
+              </InputRow.NormalInput>
             )
           }
         </InputRow>
@@ -313,7 +312,6 @@ class UpsellForm extends Component {
           <InputRow.NormalInput
             name='featuresTitle'
             value={featuresTitle}
-            error={errors.featuresTitle}
             onChange={this.onFieldChange}
             error={errors.featuresTitle}
           />
@@ -343,7 +341,7 @@ class UpsellForm extends Component {
             target='name'
             name='linkedProduct'
             error={errors.linkedProduct}
-            onChange={this.onAssciatedProductChange}
+            onChange={this.onAssociatedProductChange}
           />
         </InputRow>
         <InputRow>
@@ -357,7 +355,6 @@ class UpsellForm extends Component {
           <InputRow.SmallInput
             value={actionBtn.text}
             error={errors.actionBtn && errors.actionBtn.text}
-            error={errors.actionBtn}
             onChange={this.onActionBtnTextChange}
           />
           <UpsellActionButton
@@ -366,12 +363,12 @@ class UpsellForm extends Component {
             onChange={this.onActionBtnColorChange}
           />
         </InputRow>
-        {genralErrors.message && <span className='error-message'>{genralErrors.message}</span>}
-        <Button onClick={!upsellId ? this.onCreate : this.onUpdate} classes='primary-color margin-with-float-right'>
-          <i className={`fas fa-${!upsellId ? 'plus' : 'edit'}`} />
-          {!upsellId ? 'Create' : 'Update'}
+        {generalErrors.message && <span className='error-message'>{generalErrors.message}</span>}
+        <Button onClick={!isNewUpsell ? this.onCreate : this.onUpdate} className='primary-color margin-with-float-right'>
+          <i className={`fas fa-${!isNewUpsell ? 'plus' : 'edit'}`} />
+          {!isNewUpsell ? 'Create' : 'Update'}
         </Button>
-      </Modal>
+      </SlideModal>
     );
   }
 }

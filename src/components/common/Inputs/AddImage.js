@@ -40,7 +40,7 @@ class AddImage extends Component {
 
   render () {
     const {
-      color = 'primary-color', onClick, classes = [], className, suffixIcon, children, notes, description, ...props
+      color = 'primary-color', onClick, className = '', imageClassName = '', suffixIcon, children, notes, description, ...props
     } = this.props;
     const { image: { link, name }, imageChangesSaved } = this.state;
     return (
@@ -48,7 +48,7 @@ class AddImage extends Component {
         <div
           ref='addElementContainer'
           onClick={this.onAddImage}
-          className={`add-elements-container ${classes.join(' ') || ''}`}
+          className={`add-elements-container ${imageClassName}`}
         >
           <span className={`add-element-circle ${color}`}>
             <i className='fas fa-plus' />

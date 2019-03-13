@@ -36,7 +36,7 @@ export default class Tabel extends Component {
       {mainContent && <span className='cell-main-content'>{mainContent}</span>}
       {typeof subContent !== 'object'
         ? <span className='cell-sub-content'>{subContent}</span>
-        : <span className={`cell-sub-content ${subContent && subContent.classes}`}>{subContent && subContent.content}</span>
+        : <span className={`cell-sub-content ${subContent && subContent.className}`}>{subContent && subContent.content}</span>
       }
       {children}
     </div>

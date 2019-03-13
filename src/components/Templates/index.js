@@ -7,9 +7,9 @@ const templateBackground = (image) => ({
   backgroundSize: 'cover'
 });
 export default ({
-  active, image, onSelect, name, classes = [], ...props
+  active, image, onSelect, name, className = '', ...props
 }) => (
-  <div className='template-preview-container'>
+  <div className={`template-preview-container ${className}`}>
     <div
       onClick={() => onSelect(name)} style={templateBackground(image)}
       className={active ? 'preview-image active-template-preview' : 'preview-image'}

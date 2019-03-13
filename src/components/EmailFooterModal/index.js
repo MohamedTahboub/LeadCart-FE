@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Modal from '../Modal'
+import { Modal } from '../Modals'
 import common from '../common'
 import { connect } from 'react-redux'
 import * as emailsActions from 'actions/emails'
@@ -58,7 +58,7 @@ class EmailFooterModal extends Component {
                 </InputRow>
                 <Button
                     onClick={this.onEnable}
-                    classes={`primary-color margin-with-float-right ${enabling ? 'spinner' : ''}`}
+                    className={`primary-color margin-with-float-right ${enabling ? 'spinner' : ''}`}
                 >
                     <i className='fas fa-plus' />
                     {' '}

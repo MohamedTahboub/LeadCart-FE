@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { navigateTo } from 'libs';
+import { openNewWindow } from 'libs';
 import './style.css';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import * as yup from 'yup';
 import { genrateColor } from './helpers';
 import { SmallButton } from '../Buttons';
@@ -15,7 +15,15 @@ export const MiniCard = ({ imgSrc, ...props }) => (
   />
 );
 export const MediumCard = ({
-  imgSrc, onClick, isLoading, children, className = '', isActive = false, error, ...props
+  imgSrc,
+  onClick,
+  isLoading,
+  children,
+  className = '',
+  isActive = false,
+  error,
+  headline,
+  ...props
 }) => {
   const wraperStatus = isActive
     ? 'success-badge'
@@ -25,13 +33,13 @@ export const MediumCard = ({
         : 'inactive-badge';
 
   return (
-    <span className={wraperStatus}>
+    <span onClick={onClick} className={wraperStatus}>
       <img
-        onClick={onClick}
         src={imgSrc}
         alt='payment service'
         className={`medium-solid-card white-color ${className}`}
       />
+      {headline && <span className='medium-card-headline'>{headline}</span>}
       {error && <span className='payment-error-message'>{error}</span>}
       {children}
     </span>
@@ -105,7 +113,7 @@ export const UpsellCard = ({
       <Avatar name={name} />
       <span className='product-name-holder'>{name}</span>
       <span
-        onClick={() => productLink && navigateTo(`/product/${productLink}/details`)}
+        onClick={() => productLink && openNewWindow(`/product/${productLink}/details`)}
         className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
       >
         <i className='fas fa-link' />
@@ -180,7 +188,7 @@ export const PayPalConnectContainer = (props) => {
           />
           <SmallButton
             disabled={loading}
-            classes={loading ? 'primary-color spinner' : 'primary-color'}
+            className={loading ? 'primary-color spinner' : 'primary-color'}
             onClick={onSubmit}
             children='Connect'
           />

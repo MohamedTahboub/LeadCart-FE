@@ -60,7 +60,7 @@ class CodeInputField extends Component {
         <InputRow.SmallInput
           error={error}
           name='code'
-          classes={success ? ['valid'] : []}
+          className={success ? ['valid'] : []}
           onChange={this.onCodeChange}
           success={success}
         >
@@ -69,7 +69,7 @@ class CodeInputField extends Component {
         </InputRow.SmallInput>
         <SmallButton
           disabled={loading}
-          classes={loading ? 'primary-color spinner' : 'primary-color'}
+          className={loading ? 'primary-color spinner' : 'primary-color'}
           onClick={this.onSubmit}
         >
           Redeem
@@ -106,7 +106,7 @@ const Billing = ({
               <div>Dec 1, 2029</div>
             </div>
             <div>
-              <SmallButton classes='green-color'>Active</SmallButton>
+              <SmallButton className='green-color'>Active</SmallButton>
             </div>
           </FlexBoxesContainer>
         )}
@@ -145,36 +145,6 @@ codes
         )}
       />
     </FlexBoxesContainer>
-
-    {/* <MainTitle>One-Time Charges</MainTitle>
-    <Tabel>
-      <Tabel.Head>
-        <Tabel.HeadCell>Product Name</Tabel.HeadCell>
-        <Tabel.HeadCell>Quantity</Tabel.HeadCell>
-        <Tabel.HeadCell>Amount</Tabel.HeadCell>
-        <Tabel.HeadCell>Status</Tabel.HeadCell>
-        <Tabel.HeadCell>Date</Tabel.HeadCell>
-      </Tabel.Head>
-      <Tabel.Body>
-        <Tabel.Row>
-          <Tabel.Cell
-            mainContent='-'
-          />
-          <Tabel.Cell
-            mainContent='-'
-          />
-          <Tabel.Cell
-            mainContent='-'
-          />
-          <Tabel.Cell>
-            <SmallButton classes='gray-color'>UnKnown</SmallButton>
-          </Tabel.Cell>
-          <Tabel.Cell
-            mainContent='-'
-          />
-        </Tabel.Row>
-      </Tabel.Body>
-    </Tabel> */}
   </React.Fragment>
 );
 
@@ -185,26 +155,3 @@ const mapStateToProps = ({ user: { user: { level = 0 }, activatedPromoCodes: cod
   errors: errors.code || {}
 });
 export default connect(mapStateToProps, codeActions)(Billing);
-
-
-/*
-        footer={(
-          <FlexBoxesContainer className='space-between-elements'>
-            <div>
-              <InputRow.Label>Nex billing date</InputRow.Label>
-              <div>Sep 25, 2018</div>
-            </div>
-            <div>
-              <SmallButton classes='green-color'>Active</SmallButton>
-            </div>
-          </FlexBoxesContainer>
-        )}
-      />
-      <Box
-        content={(
-          <span className='plan-card-action stick-note-icon'>
-            <SpcialAnnouncement>want to change your plan?</SpcialAnnouncement>
-            <SpcialAnnouncement classes={['blue-text']}>click here!</SpcialAnnouncement>
-          </span>
-        )}
-*/

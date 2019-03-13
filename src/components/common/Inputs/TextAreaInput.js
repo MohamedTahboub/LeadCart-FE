@@ -66,11 +66,12 @@ class TextAreaInput extends Component {
       value, error = this.props.error, wordsNumber, max
     } = this.state;
     const {
-      name, disabled, countable, className, placeholder
+      name, disabled, width = '697px', countable, className, placeholder
     } = this.props;
     return (
       <div className='text-area-container'>
         <textarea
+          style={{ width }}
           placeholder={placeholder}
           onChange={this.onChange}
           value={value}

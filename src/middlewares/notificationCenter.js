@@ -24,13 +24,14 @@ import {
   UPLOAD_FILE_FAILED,
   UPDATE_UPSELL_SUCCESS,
   UPDATE_UPSELL_FAILED,
-  CREATE_UPSELL,
+  CREATE_UPSELL_SUCCESS,
   DELETE_UPSELL_SUCCESS,
   DELETE_UPSELL_FAILED,
   CONNECT_WITH_PAYPAL_SUCCESS,
   CONNECT_WITH_PAYPAL_FAILED,
   ACTIVATE_MEMBER_SUCCESS,
   ACTIVATE_MEMBER_FAILED,
+  CREATE_UPSELL_FAILED
 } from 'constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -38,16 +39,14 @@ export default ({ dispatch }) => (next) => (action) => {
   const showFailureMessage = (message) => dispatch(showFlashMessage({ type: 'failed', message }));
 
   switch (action.type) {
-  case CREATE_UPSELL:
-    setTimeout(() => {
-      showSuccessMessage('\'Upsell Created Successfully \'');
-    }, 300);
+  case CREATE_UPSELL_SUCCESS:
+    showSuccessMessage('Upsell Created Successfully');
     break;
   case CONNECT_WITH_PAYPAL_SUCCESS:
     showSuccessMessage('You have successfully integrated with payPal');
     break;
   case ACTIVATE_MEMBER_SUCCESS:
-    showSuccessMessage('You have successfully integrated with payPal');
+    showSuccessMessage('You have successfully Changed member status');
     break;
   case DELETE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Deleted Successfully');
@@ -128,7 +127,10 @@ export default ({ dispatch }) => (next) => (action) => {
     showFailureMessage(action.payload);
     break;
   case ACTIVATE_MEMBER_FAILED:
-    showFailureMessage('You have successfully integrated with payPal');
+    showFailureMessage('Failed to Changed member status');
+    break;
+  case CREATE_UPSELL_FAILED:
+    showFailureMessage('Failed to create this upsell');
     break;
   default:
     return next(action);

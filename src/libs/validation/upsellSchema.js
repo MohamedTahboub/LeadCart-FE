@@ -8,20 +8,22 @@ export default async (upsell) => {
   });
 
   const upsellSchema = yup.object().shape({
-    name: yup.string().required('Upsell Name Required'),
+    name: yup.string().required('required field'),
+    active: yup.boolean(),
     price: yup.object().shape({
-      amount: yup.number().required('Required').positive().integer(),
+      amount: yup.number().required('required field').positive().integer(),
       currency: yup.string().default('USD')
     }),
-    description: yup.string().required('Upsell Description is Required'),
+    description: yup.string().required('required field'),
     assets: yup.object().shape({
-      assetsType: yup.string().default('vedio'),
-      assetLink: yup.string().url('Should be a valid link').required()
+      assetsType: yup.string().default('video'),
+      assetLink: yup.string().url().required('Should be a valid link')
     }),
-    featuresTitle: yup.string().required(),
+    featuresTitle: yup.string().required('required field'),
     features: yup.array().of(featureSchema).max(4),
-    fulfillment: yup.string().url('Should be a valid link').required(),
-    linkedProduct: yup.string().required('Select a product to link this upsell to'),
+    fulfillment: yup.string().url().required('Should be a valid link'),
+    linkedProduct: yup.string().required('select a product'),
+    upsellLayout: yup.string().default('vertical'),
     actionBtn: yup.object({
       color: yup.string().default('#5100ff'),
       text: yup.string('Should not be empty').default('Download Now'),

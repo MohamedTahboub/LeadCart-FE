@@ -2,39 +2,3 @@
     flex-wrap: wrap;
     justify-content: flex-start;
 }
-
-.upsell-modal-form{
-    padding: 15px 30px;
-}
-.asste-type-dropdown{
-    min-width: 80px;
-}
-.upsell-modal-form.title-bottom-line{
-    padding: 10px 0px;
-}
-.upsell-modal-form span.margin-with-float-right{
-    margin-top: 0px;
-}
-.upsell-modal-form.main-title-container{
-    margin: 10px 0px;
-}
-
-.upsell-modal-form div.input-row{
-    margin: 8px 0px;
-}
-.upsell-features-list{
-    width: 100%;
-    padding: 0px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.upsell-modal-head {
-    padding: 10px 20px;
-    border-bottom: 1px solid #9e9e9eab;
-}
-.upsell-asset-image{
-    margin-left: 30px;
-    margin-top: 5px;
-}

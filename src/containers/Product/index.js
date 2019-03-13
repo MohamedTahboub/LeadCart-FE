@@ -145,12 +145,12 @@ class Product extends Component {
   render = () => {
     const {
       state: { currentStep, steps, showShareProductModal },
-      props: { subdomain, productUrl, toggleProductAvailability,available, id }
+      props: { subdomain, productUrl, toggleProductAvailability, available, id }
     } = this
     return (
       <div className='products-details-page'>
         <div className='products-controls-btns'>
-          <Button onClick={this.onToggleShareProductModal} classes={['share-btn']}>
+          <Button onClick={this.onToggleShareProductModal} className='share-btn'>
             <i className='fas fa-share-square' />
             Share Product
           </Button>
@@ -161,24 +161,29 @@ class Product extends Component {
             productUrl={productUrl}
           />
           <div className='product-toolbar-container'>
-            <ActivationSwitchInput active={available} onToggle={toggleProductAvailability.bind(this, { id, available})} />
-            <MiniButton onClick={this.onPreview.bind(this, { subdomain, productUrl })} classes='row-explor-btn' iconClass='fa-eye' />
+            <ActivationSwitchInput active={available} onToggle={toggleProductAvailability.bind(this, { id, available })} />
+            <MiniButton onClick={this.onPreview.bind(this, { subdomain, productUrl })} className='row-explor-btn' iconClass='fa-eye' />
 
           </div>
         </div>
         <Steps className='product-steps-process' steps={steps} currentStep={currentStep} onClick={this.goToStep} disabled={this.isNotValidNextStep()} />
         <ActiveStep currentStep={currentStep} />
         <div className='product-footer-controlls'>
-          <Button onClick={this.onPrevious} classes={['primary-color']} disabled={currentStep === 'checkoutPage'}>
+          <Button onClick={this.onPrevious} className='primary-color' disabled={currentStep === 'checkoutPage'}>
             <i className='fas fa-chevron-left' />
             Previous
           </Button>
           <div className="left-side-product-btns">
-            <Button onClick={() => this.props.updateProduct()} classes={['primary-color']}>
+            <Button
+              onClick={this.props.updateProduct}
+              className='primary-color'>
               <i class="fas fa-save"></i>
               Save
             </Button>
-            <Button onClick={this.onNext} disabled={this.isNotValidNextStep() || currentStep === 'thankYouPage'} classes={['primary-color']}>
+            <Button
+              onClick={this.onNext}
+              disabled={this.isNotValidNextStep() || currentStep === 'thankYouPage'}
+              className='primary-color'>
               Next
             <i className='fas fa-chevron-right' />
             </Button>

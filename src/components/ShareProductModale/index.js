@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Modal from '../Modal';
+import { Modal } from '../Modals';
 import common from '../common';
 
 const {
@@ -9,7 +9,7 @@ const {
 
 const CopyScriptButton = ({onCopy , embededText}) => (
     <CopyToClipboard text={embededText}>
-        <Button  onClick={onCopy} classes={['primary-color']}>Copy</Button>
+        <Button  onClick={onCopy} className='primary-color'>Copy</Button>
     </CopyToClipboard>
 );
 const formatEmbedScript = ({ subdomain, productUrl }) =>

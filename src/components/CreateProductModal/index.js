@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import { connect } from 'react-redux';
 import * as producActions from 'actions/product';
 import * as modalsActions from 'actions/modals';
@@ -89,7 +89,7 @@ class CreateProductModal extends Component {
         <PaymentType type='' onChange={this.onPaymentChange} error={errors.payment} />
         {errors.message && <span className='error-message'>{errors.message}</span>}
         {(isAproductCreated && this.state.currentProduct) && <span className='success-message'>Created successfully</span>}
-        <Button onClick={this.onCreateNewProduct} classes='primary-color margin-with-float-right'>
+        <Button onClick={this.onCreateNewProduct} className='primary-color margin-with-float-right'>
           <i className='fas fa-plus' />
           {' '}
           Create Product

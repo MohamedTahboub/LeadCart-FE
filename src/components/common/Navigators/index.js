@@ -1,19 +1,62 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
+import ids from 'shortid';
+import PropTypes from 'prop-types';
+import './style.css';
 
-export const TabsNavigator = ({ tabs, history, props }) => {
+export const TabsNavigator = ({ tabs, history }) => {
   const goToTabe = (tabName) => {
     history.push(tabName);
   };
-  const classes = (thisTabe) => ({
-    className: history.location.pathname === thisTabe
-      ? 'nav-link active-nav-link'
-      : 'nav-link'
+  const classNames = (thisTab) => ({
+    className: history.location.pathname === thisTab
+      ? 'tab-link active-tab-link'
+      : 'tab-link'
   });
   return (
-    <div className='product-details-nav'>
+    <div className='tabs-titles-container'>
       {tabs.map(({ title, hash, sub }, id) => (
-        <span key={id} onClick={() => goToTabe(hash || sub)} {...classes(hash || sub)}>{title}</span>
+        <span
+          key={id}
+          onClick={() => goToTabe(hash || sub)}
+          role='presentation'
+          {...classNames(hash || sub)}
+        >
+          {title}
+        </span>
       ))}
     </div>
   );
+};
+TabsNavigator.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.object,
+};
+
+export const SubTabs = ({ tabs = {}, defaultTab }) => {
+  const [activeTabName, setActiveTabName] = useState(defaultTab);
+
+  const goToTab = (tabName) => {
+    setActiveTabName(tabName);
+  };
+  return (
+    <Fragment>
+      <div className='tabs-titles-container'>
+        {Object.keys(tabs).map((tabName) => (
+          <span
+            key={ids.generate()}
+            onClick={() => goToTab(tabName)}
+            role='presentation'
+            className={`tab-link ${activeTabName === tabName ? 'active-tab-link' : ''}`}
+          >
+            {tabName}
+          </span>
+        ))}
+      </div>
+      {tabs[activeTabName]}
+    </Fragment>
+  );
+};
+SubTabs.propTypes = {
+  tabs: PropTypes.objectOf(PropTypes.object.isRequired).isRequired,
+  defaultTab: PropTypes.string.isRequired
 };

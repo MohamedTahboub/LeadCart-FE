@@ -4,9 +4,9 @@ import './style.css';
 
 
 export const MainTitle = ({
-  handle, className, children, bottomLine, props
+  handle, className, style, children, bottomLine, props
 }) => (
-  <div className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''}`}>
+  <div style={{ ...style }} className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''}`}>
     {handle && (
       <span className='main-title-handle'>
         <i className={`fas ${handle.iconClass}`} />
@@ -29,13 +29,13 @@ export const TabTitle = ({
   </div>
 );
 
-export const SpcialAnnouncement = ({ children, classes = [], ...props }) => (
-  <span className={`spcial-announcement ${classes.join(' ')}`}>
+export const SpcialAnnouncement = ({ children, className = '', ...props }) => (
+  <span className={`spcial-announcement ${className}`}>
     {children}
   </span>
 );
-export const BigText = ({ children, classes = [], ...props }) => (
-  <div className={`big-text-container ${classes.join(' ')}`}>
+export const BigText = ({ children, className = '', ...props }) => (
+  <div className={`big-text-container ${className}`}>
     {children}
   </div>
 );

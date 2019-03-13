@@ -271,15 +271,12 @@ input[type="radio"]{
     align-items: center;
     position: relative;
     user-select: none;
-    /* margin-right: 170px; */
     margin-right: 125px;
-    margin-bottom: 30px;
 }
 .check-box-indicator{
     position: relative;
     margin-left: 25px;
     color: #2B3748;
-    /* font-size: 17px; */
     font-size: 12px;
     cursor: pointer;
 }
@@ -289,6 +286,7 @@ input[type="radio"]{
     left:-25px;
     height: 17px;
     width: 17px;
+    top:calc(50% - 8.5px);
     background: #ececec;
     border-radius: 50%;
 }
@@ -296,7 +294,7 @@ input[type="radio"]{
 .check-box:checked ~ .check-box-indicator:after{
     content: '';
     position: absolute;
-    top: 2px;
+    top:calc(50% - 5px);
     left: -19px;
     width: 3px;
     height: 9px;
@@ -545,9 +543,7 @@ input[type="radio"]{
 
 .add-input-field-holder {
     display: flex;
-    margin-right: 50px;
-    flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
 }
 .child-added-element {
     display: flex;
@@ -555,7 +551,7 @@ input[type="radio"]{
     line-height: 25px;
     font-size: 12px;
     color: #656d75;
-    margin: 10px 0px 0px;
+    margin-left: 20px;
     
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
-import Modal from 'components/Modal';
+import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { connect } from 'react-redux';
 const {
@@ -9,7 +9,7 @@ const {
 } = common;
 
 const AddNewButton = ({ onClick, ...props }) => (
-  <Button onClick={onClick} classes='primary-color medium-add-btn explort-csv-btn'>
+  <Button onClick={onClick} className='primary-color medium-add-btn explort-csv-btn'>
     <i className='fas fa-plus' />
     {' '}
     Add new
@@ -80,8 +80,8 @@ class Agency extends Component {
                     />
                     <Tabel.Cell>
                       {active
-                        ? <SmallButton classes='green-color'>Active</SmallButton>
-                        : <SmallButton classes='gray-color'>Inactive</SmallButton>
+                        ? <SmallButton className='green-color'>Active</SmallButton>
+                        : <SmallButton className='gray-color'>Inactive</SmallButton>
                       }
                     </Tabel.Cell>
                   </Tabel.Row>
@@ -100,7 +100,7 @@ class Agency extends Component {
             <InputRow.NormalInput name='email' onChange={this.onFieldChange} error={errors.email}>Email address</InputRow.NormalInput>
           </InputRow>
           {errors.message && <span className='error-message'>{errors.message}</span>}
-          <Button onClick={this.createSubAccount} classes='primary-color margin-with-float-right'>
+          <Button onClick={this.createSubAccount} className='primary-color margin-with-float-right'>
             <i className='fas fa-plus' />
             {' '}
             Invite
