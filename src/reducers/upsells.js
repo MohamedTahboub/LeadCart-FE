@@ -19,55 +19,55 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case GET_UPSELLS_SUCCESS:
-    return {
-      ...state,
-      list: payload || []
-    };
-  case GET_UPSELLS_FAILED:
-    return {
-      ...state,
-      errors: {
+    case GET_UPSELLS_SUCCESS:
+      return {
         ...state,
-        message: payload
-      }
-    };
-  case CREATE_UPSELL_SUCCESS:
-    return {
-      ...state,
-      list: [...state.list, payload]
-    };
-  case CREATE_UPSELL_FAILED:
-    return {
-      ...state,
-      errors: {
+        list: payload || []
+      };
+    case GET_UPSELLS_FAILED:
+      return {
         ...state,
-        message: payload
-      }
-    };
-  case UPDATE_UPSELL_SUCCESS:
-    return {
-      ...state,
-      list: state.list.map((u) => (u._id === payload.upsellId ? payload.body : u))
-    };
-  case DELETE_UPSELL_SUCCESS:
-    return {
-      ...state,
-      list: state.list.filter(({ _id }) => _id !== payload) || []
-    };
-  case DELETE_UPSELL_FAILED:
-    return {
-      ...state,
-      errors: {
+        errors: {
+          ...state,
+          message: payload
+        }
+      };
+    case CREATE_UPSELL_SUCCESS:
+      return {
         ...state,
-        message: payload
-      }
-    };
-  case CHANGE_UPSELL_STATE_SUCCESS:
-    return {
-      ...state,
-      list: state.list.map((u) => (u._id === payload.upsellId ? { ...u, active: payload.active } : u))
-    };
-  default: return state;
+        list: [...state.list, { ...payload, _id: payload.id }]
+      };
+    case CREATE_UPSELL_FAILED:
+      return {
+        ...state,
+        errors: {
+          ...state,
+          message: payload
+        }
+      };
+    case UPDATE_UPSELL_SUCCESS:
+      return {
+        ...state,
+        list: state.list.map((u) => (u._id === payload.upsellId ? { ...u, ...payload.body } : u))
+      };
+    case DELETE_UPSELL_SUCCESS:
+      return {
+        ...state,
+        list: state.list.filter(({ _id }) => _id !== payload) || []
+      };
+    case DELETE_UPSELL_FAILED:
+      return {
+        ...state,
+        errors: {
+          ...state,
+          message: payload
+        }
+      };
+    case CHANGE_UPSELL_STATE_SUCCESS:
+      return {
+        ...state,
+        list: state.list.map((u) => (u._id === payload.upsellId ? { ...u, active: payload.active } : u))
+      };
+    default: return state;
   }
 };

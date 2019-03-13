@@ -7,7 +7,9 @@ import UpsellFeature from '../UpsellFeature';
 import UpsellActionButton from '../UpsellActionButton';
 import * as upsellActions from 'actions/upsells';
 import { UpsellSchema } from 'libs/validation';
-import { TwitterPicker } from 'react-color';
+import TwitterPicker from 'react-color/lib/components/twitter/Twitter';
+import verticalLayoutImage from 'assets/images/upsells/vertical.png'
+import horizontalLayoutImage from 'assets/images/upsells/horizontal.png'
 
 import './style.css'
 
@@ -26,7 +28,9 @@ const FeaturesList = ({
   onFeaturesChange,
   ...props
 }) => {
+
   const [features, setFeatures] = useState(featuresList)
+
   const onFeatureChange = ({ id, value }) => {
     const newList = features.map((feature) => {
       if (feature.id === id)
@@ -34,37 +38,58 @@ const FeaturesList = ({
       return feature
     });
 
-    setFeatures(newList) //update local changes
-    onFeaturesChange(newList)// update parent with changes
+    setFeatures(newList)
+    // onFeaturesChange(newList)
+  }
+
+  const onAddFeature = () => {
+    if (features.length >= 4) return;
+    const newList = [...features,
+    {
+      _id: ids.generate(),
+      title: 'change title',
+      description: 'feature description ...'
+    }];
+    setFeatures(newList)
+    // onFeaturesChange(newList)
+  }
+  const onRemoveFeature = id => {
+    const newList = features.filter(({ _id }) => _id !== id);
+    setFeatures(newList)
   }
 
   return (
-    <List ordered className='upsell-features-list'>
+    <List onAdd={onAddFeature} ordered className='upsell-features-list'>
       {features.map(({
-        title, description: featureDescription, id
+        title, description, _id: id
       }, number) => (
           <UpsellFeature
             key={id}
             id={id}
             number={number + 1}
             title={title}
-            description={featureDescription}
+            description={description}
             onChange={onFeatureChange}
+            onRemove={onRemoveFeature.bind(this, id)}
           />
         ))}
     </List>
   )
 };
 
-const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, upsells, show: isVisible, ...props }) => {
+const UpsellForm = ({ products, updateForm, errors: outerError, upsells, show: isVisible, ...props }) => {
+
+  const upsell = upsells.find(u => u._id === isVisible) || {}
 
   const [upsellModel, setUpsellModel] = useState(upsell);
+  console.log(upsell, upsellModel)
   const [errors, setErrors] = useState(outerError)
 
 
   const onUpsellFieldsChange = ({ name, value }) => {
-    console.log(name, value)
+
     setUpsellModel({ ...upsellModel, [name]: value })
+    setErrors({})
   }
 
   const onCreate = async () => {
@@ -72,9 +97,13 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
 
       const { isValid, value, errors } = await onUpsellEncapsulation(upsellModel);
 
-      if (!isValid) return onUpsellFieldsChange('errors', errors);
+      if (!isValid) return setErrors(errors);
 
-      props.createUpsell(value);
+      props.createUpsell(value, {
+        onSuccess: () => props.onClose(),
+        onFailed: (error) => setErrors(error)
+      });
+
       setUpsellModel({ ...upsellModel, created: true });
     } catch ({ message }) {
       setErrors({ message });
@@ -84,10 +113,19 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
   const onUpdate = async () => {
     try {
       const { isValid, value, errors } = await onUpsellEncapsulation(upsellModel);
-      if (!isValid) return this.onUpsellFieldsChange('errors', errors);
+      if (!isValid) return setErrors(errors);
 
-      props.updateUpsell({ body: value, upsellId: upsellModel._id });
-      setUpsellModel({ updated: upsellModel._id });
+      props.updateUpsell({
+        body: value,
+        upsellId: upsellModel._id
+      },
+        {
+          onSuccess: (m) => {
+            console.log('---------------',m)
+            props.onClose()
+          },
+          onFailed: (error) => setErrors(error)
+        });
     } catch ({ message }) {
       setErrors({ message });
     }
@@ -109,11 +147,10 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
   const onFieldChange = ({ target: { value, name } }) => {
 
     if (name.includes('.')) {
-      const [key, nestedKey] = name.split('.')
-      console.log(key, nestedKey)
-      const nestedValue = { [nestedKey]: value }
+      const [key, nestedKey] = name.split('.');
+      const nestedValue = { [nestedKey]: value };
       name = key;
-      value = upsellModel[key] ? { ...upsellModel[key], ...nestedValue } : nestedValue
+      value = upsellModel[key] ? { ...upsellModel[key], ...nestedValue } : nestedValue;
     }
 
 
@@ -134,6 +171,7 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
     description,
     assets: { assetLink, assetsType } = {},
     featuresTitle,
+    upsellLayout = 'vertical',
     features,
     fulfillment,
     linkedProduct,
@@ -141,6 +179,7 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
 
   } = upsellModel
 
+  console.log(errors)
   return (
     <SlideModal
       onClose={props.onClose}
@@ -164,7 +203,7 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
         defaultTab='Main Details'
         tabs={{
           'Main Details': (
-            <Fragment>
+            <div className='upsell-form-container'>
               <InputRow>
                 <InputRow.Label error={errors.name}>Upsell Name:</InputRow.Label>
                 <InputRow.SmallInput name='name' value={name} error={errors.name} onChange={onFieldChange} />
@@ -220,7 +259,7 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
                   : (
                     <InputRow.NormalInput
                       value={assetLink}
-                      error={errors.assets && errors.assets.assetsLink}
+                      error={errors.assets && errors.assets.assetLink}
                       name='assets.assetLink'
                       onChange={onFieldChange}
                       className='margin-left-15'
@@ -239,7 +278,7 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
                   error={errors.featuresTitle}
                 />
               </InputRow>
-              <InputRow>
+              <InputRow className='upsell-features-container'>
                 <FeaturesList
                   features={features}
                 // onFeatureEnabled={this.onFeatureEnabled}
@@ -267,30 +306,34 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
                   onChange={onFieldChange}
                 />
               </InputRow>
-            </Fragment>
+            </div>
           ),
           'Aesthetic Details': (
-            <Fragment>
+            <div className='upsell-form-container'>
               <InputRow>
                 <InputRow.Label>Upsell Layout(Vertical/horizontal):</InputRow.Label>
                 <InputRow.CheckBox
+                  checked={upsellLayout === 'vertical'}
                   className='upsell-layout'
                   onChange={onFieldChange.bind(this, { target: { name: 'upsellLayout', value: 'vertical' } })}
                 >
                   <img
-                    src="https://i.imgur.com/SwhDxF8.png"
+                    src={verticalLayoutImage}
                     width="80px"
+                    height="93.5px"
                     alt="vertical"
                     className='upsell-layout-image'
                   />
                 </InputRow.CheckBox>
                 <InputRow.CheckBox
+                  checked={upsellLayout === 'horizontal'}
                   className='upsell-layout'
                   onChange={onFieldChange.bind(this, { target: { name: 'upsellLayout', value: 'horizontal' } })}
                 >
                   <img
-                    src="https://i.imgur.com/1ewqk3f.png"
+                    src={horizontalLayoutImage}
                     height="80px"
+                    width='164.8px'
                     alt="horizontal"
                     className='upsell-layout-image'
                   />
@@ -324,16 +367,19 @@ const UpsellForm = ({ upsell = {}, products, updateForm, errors: outerError, ups
                   onChange={({ hex }) => onActionBtnColorChange(hex)}
                 />
               </InputRow>
-            </Fragment>
+            </div>
           )
         }}
       />
 
       {errors.message && <span className='error-message'>{errors.message}</span>}
-      <Button onClick={!updateForm ? onCreate : onUpdate} className='primary-color margin-with-float-right'>
-        <i className={`fas fa-${!updateForm ? 'plus' : 'edit'}`} />
-        {!updateForm ? 'Create' : 'Update'}
-      </Button>
+      {outerError.message && <span className='error-message'>{outerError.message}</span>}
+      <div className='upsell-controls'>
+        <Button onClick={!updateForm ? onCreate : onUpdate} className='primary-color margin-with-float-right'>
+          <i className={`fas fa-${!updateForm ? 'plus' : 'edit'}`} />
+          {!updateForm ? 'Create' : 'Update'}
+        </Button>
+      </div>
     </SlideModal>
   );
 }

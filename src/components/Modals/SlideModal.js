@@ -6,8 +6,9 @@ import './slideModal.css';
 export default ({
   children, onClose, className = '', header, footer, isVisible
 }) => {
-  showIntercomIcon(!isVisible);
-
+  setTimeout(() => {
+    showIntercomIcon(!isVisible);
+  }, 200);
 
   return (isVisible
     ? (

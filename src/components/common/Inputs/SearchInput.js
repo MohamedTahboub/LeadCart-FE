@@ -2,11 +2,12 @@
 import React from 'react';
 import Select from 'antd/lib/select';
 import 'antd/dist/antd.css';
+import ids from 'shortid';
 
 const Option = Select.Option;
 
 export default ({
-  className, name, placeholder, defaultValue, onChange: onParentChange, options = []
+  className, name, placeholder, error, defaultValue, onChange: onParentChange, options = []
 }) => {
   const onChange = (value) => {
     if (value) onParentChange({ target: { name, value } });
@@ -17,13 +18,14 @@ export default ({
     <Select
       showSearch
       style={{ width: 200 }}
+      className={error ? 'invalid-field' : ''}
       defaultValue={defaultValue}
       placeholder={placeholder || 'Select'}
       optionFilterProp='children'
       onChange={onChange}
       filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
     >
-      {options.map((o) => <Option key={o.id} value={o.value}>{o.label}</Option>)}
+      {options.map((o) => <Option key={ids.generate()} value={o.value}>{o.label}</Option>)}
     </Select>
   );
 };

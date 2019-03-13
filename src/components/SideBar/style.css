@@ -83,6 +83,7 @@
     padding: 8px 15px;
     color: white;
     font-weight: bold;
+    user-select: none;
     cursor: pointer;
 }
 .btn:hover{
@@ -106,6 +107,7 @@
     /* align-items: center; */
 }
 .menu-item{
+    position: relative;
     font-weight: bold; 
     /* line-height: 20px; */
     line-height: 16px;
@@ -138,10 +140,19 @@
     content: "\f111";
     color: #4DA1FF; */
 }
-.active-menu-item:hover::before {
-    border: 1px solid #4DA1FF;
+.menu-item:hover::before{
+    content: '';
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    left: -30px;
+    top:calc(50% - 6px);
+    border-radius: 50%;
     background: white;
+    border: 1px solid #4DA1FF;
+    transition: all .4s ease-in-out;
 }
+
 
 /* */
 .locked-feature{

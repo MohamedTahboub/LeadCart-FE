@@ -6,6 +6,21 @@ export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== UPDATE_UPSELL) return next(action);
 
 
+  const { meta } = action
+
+  const onSuccess = message => {
+    if (meta)
+      meta.onSuccess(message);
+
+    return updateUpsellSuccess(action.payload)
+  }
+  const onFailed = message => {
+    if (meta)
+      meta.onFailed(message);
+
+    return updateUpsellFailed(message)
+  }
+
   dispatch(apiRequest({
     options: {
       method: 'put',
@@ -13,7 +28,7 @@ export default ({ dispatch }) => (next) => (action) => {
       uri: '/api/upsells',
       contentType: 'json'
     },
-    onSuccess: updateUpsellSuccess.bind(this, action.payload),
-    onFailed: updateUpsellFailed
+    onSuccess,
+    onFailed
   }));
 };

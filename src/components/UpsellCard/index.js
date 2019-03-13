@@ -21,7 +21,7 @@ export const UpsellCard = (props) => {
   const {
     name,
     orderInlist,
-    id,
+    _id : id,
     active,
     price: { amount: price } = {},
     onEdit,
@@ -48,9 +48,8 @@ export const UpsellCard = (props) => {
 
   const { showDeleteDialog, showNewUpsellForm } = state;
 
-  console.log("==============showNewUpsellForm==============>", showNewUpsellForm)
   return (
-    <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+    <div className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
       <div className='card-main-content product-avatar-holder'>
         <Avatar name={name} />
         <span className='product-name-holder'>{name}</span>
@@ -64,16 +63,10 @@ export const UpsellCard = (props) => {
         <span className='product-price-holder'>{`$ ${price}`}</span>
       </div>
       <div className='card-controlls-container'>
-        <i onClick={toggleEditModal} className='fas fa-edit' />
+        <i onClick={props.onEdit} className='fas fa-edit' />
         <i className='fas fa-book-open' />
         <i onClick={toggleDeleteDialog} className='fas fa-trash-alt' />
       </div>
-      <UpsellForm
-        show={show}
-        upsell={upsell}
-        updateForm
-        onClose={toggleEditModal}
-      />
       <Dialog
         title='Deleting upsell'
         description={`Are you sure,you want delete ${name} upsell ?`}
@@ -82,7 +75,7 @@ export const UpsellCard = (props) => {
         confirmBtnText='Delete'
         onConfirm={onDeleteUpsell}
       />
-    </EasyAnimate>
+    </div>
   );
 };
 UpsellCard.propTypes = {

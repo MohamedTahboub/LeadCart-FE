@@ -43,7 +43,7 @@ export class InputRow extends Component {
     )
 
   static CustomInput = ({
-    width, onChange, name, autoComplete , value, disabled, type = 'text', placeholder, className = '', ...props
+    width, onChange, name, autoComplete, value, disabled, type = 'text', placeholder, className = '', ...props
   }) => (
       <input onChange={onChange}
         type={type}
@@ -102,7 +102,7 @@ export class InputRow extends Component {
     )
 
   static PriceField = ({
-    children, onChange, name, type, disabled, className, value, ...props
+    children, onChange, name, error, type, disabled, className, value, ...props
   }) => (
       <div className={`price-input-holder ${className ? className : ''}`}>
         <span className='currancy-type'>{type || '$'}</span>
@@ -111,7 +111,7 @@ export class InputRow extends Component {
           defaultValue={value}
           type={type || "number"}
           name={name}
-          className='price-input-field'
+          className={`price-input-field ${error ? 'invalid-field' : ''}`}
           disabled={disabled}
           placeholder={children} />
       </div>
@@ -201,7 +201,7 @@ export class InputRow extends Component {
           onClick={() => onSelect('Flat')}
           htmlFor='charge-method-el-2'
           className='charging-method-item'
-          
+
         >$</label>
         {note && <span className='charging-method-picker-notes'>{note}</span>}
       </div>

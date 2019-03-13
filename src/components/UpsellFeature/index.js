@@ -14,6 +14,9 @@ export default ({ title, description, id, number, ...props }) => {
   }
   return (
     <div className='upsell-feature-item'>
+      <span onClick={props.onRemove} className="feature-delete-btn">
+        <i class="fas fa-trash-alt"></i>
+      </span>
       <div className='upsell-feature-title'>
         <span className='feature-number'>{number}</span>
         <EditableTextField
