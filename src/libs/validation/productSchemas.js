@@ -1,11 +1,53 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
+
+const featureSchema = yup.object({
+  title: yup.string(),
+  description: yup.string(),
+});
+const testimonialSchema = yup.object({
+  author: yup.string().required(),
+  image: yup.string().required(),
+  text: yup.string().required(),
+});
+
+
+const checkoutPage = yup.object({
+  template: yup.string().default('temp1'),
+  presetColors: yup.string()
+})
+
+const mandatoryDetails = yup.object({
+  name: yup.string().required(),
+  internalName: yup.string(),
+  image: yup.string(),
+  url: yup.string().url().required(),
+  description: yup.string(),
+  price: yup.object({
+    amount: yup.number().required(),
+    currency: yup.string().default('USD')
+  }).required(),
+  tags: yup.array().of(yup.string()),
+  payment: yup.object({
+    type: yup.string(),
+    recurringPeriod: yup.string(),
+    splits: yup.string()
+  })
+})
+
+const booster = yup.object({
+  features: yup.array().of(featureSchema).max(6),
+  featuresTitle: yup.string(),
+  testimonials: yup.array().of(testimonialSchema).max(2),
+  checkoutButtonText: yup.string(),
+  termsAndConditions: yup.object({
+    enabled: yup.boolean(),
+    url: yup.string().url().oneOf([true])
+  })
+})
+
 export default async (upsell) => {
-  const featureSchema = yup.object({
-    title: yup.string(),
-    description: yup.string(),
-  });
 
   const upsellSchema = yup.object().shape({
     name: yup.string().required('Upsell Name Required'),
