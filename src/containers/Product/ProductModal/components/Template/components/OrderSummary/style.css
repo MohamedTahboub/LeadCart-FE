@@ -1,0 +1,16 @@
+
+
+
+.template-summary-slice{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eaeaea;
+  font-size: 15px;
+  padding: 8px;
+}
+
+.summary-total{
+  margin: 10px 0px;
+  color:black;
+}
