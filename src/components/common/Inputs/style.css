@@ -761,3 +761,137 @@ span.add-input-field {
     cursor: pointer !important;
 }
 /* Editable Text Field Styles Ends*/
+
+
+
+
+/* Checkout input field*/
+.checkout-input-field-container{
+    position: relative;
+    margin:5px;
+    flex:1;
+}
+.checkout-input-field{
+    padding-left: 13px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+    min-height: 35px;
+}
+.checkout-input-field:focus,
+.checkout-input-field:valid {
+    outline: unset;
+    border: 1px solid #4DA1FF;
+}
+.checkout-input-field:disabled {
+    outline: unset;
+    background: transparent;
+    cursor:not-allowed;
+    border: 1px solid;
+    border-color: inherit;
+}
+
+label.checkout-input-label{
+    position: absolute;
+    top: 9px;
+    color: #999;
+    left: 13px;
+    pointer-events: none;
+    transition: 0.2s ease all;
+}
+input.checkout-input-field:focus + label.checkout-input-label,
+input.checkout-input-field:valid + label.checkout-input-label{
+    top: -10px;
+    font-size: 12px;
+    color: #4DA1FF;
+    background: linear-gradient(to bottom, #f9f9f9 0%, #f9f9f9 50%, #ffffff 50%, #ffffff 100%);
+}
+
+/* Checkout input field ends*/
+
+
+
+/*  Editable Field Styles*/
+.editable-field{
+    position: relative;
+    width: 250px;
+    max-height: 170px;
+}
+
+.editable-field-text,
+.editable-field-input{
+    padding: 2px 4px;
+    background: inherit;
+    color:inherit;
+    text-align: inherit;
+    width: inherit;
+    white-space: pre-line;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: inherit;
+    resize: none;
+}
+.editable-field-text:hover{
+    cursor: pointer;
+    /* padding: 0 2px; */
+    /* border: 2px solid #5ca2f181;     */
+}
+.editable-field-input{
+    border:none;
+    padding: 0 2px;
+    /* padding: 2px 4px; */
+    outline-color: #4da1ff;    
+}
+
+.editable-field-textarea{
+    width: inherit;
+    height: inherit;
+    border:none;
+    white-space: pre-wrap;
+    overflow: none;
+    text-overflow: unset;
+    word-wrap:normal;
+    line-height: inherit;
+    font-size: inherit;
+    
+    outline-color: #4da1ff; 
+}
+.editable-field-error{
+    position: absolute;
+    opacity:1;
+    left:-10px;
+    top: 0px;
+    color:#F78DA7;
+    cursor: pointer;
+    font-size: 13px;
+    transition: opacity .4s ease-in-out;
+}
+.editable-field:hover .editable-field-error{
+    opacity: 1;
+}
+.editable-field-error:hover::before{
+    position:absolute;
+    bottom:-5px;
+    left:50%;
+    content: attr(tooltip);
+    transform: translateX(-50%)   translateY(-100%);
+    background: rgba(0,0,0,0.6);
+    text-align: center;
+    color: #fff;
+    padding:4px 2px;
+    font-size: 12px;
+    min-width: 80px;
+    border-radius: 5px;
+    pointer-events: none;
+}
+.editable-field-error:hover::after{
+    content: "";
+    position: absolute;
+    top:-3px;
+    left:50%;
+    transform: translateX(-50%);
+    border-width: 4px 6px 0 6px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.6) transparent transparent     transparent;
+   }
+/*  Editable Field Styles Ends*/

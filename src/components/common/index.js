@@ -8,7 +8,7 @@ import * as cards from './Cards'
 import List from './List'
 import * as navigators from './Navigators'
 import * as wrappers from './Wrappers'
-
+import * as Layout from './Layout'
 
 export default {
     ...boxes,
@@ -17,6 +17,7 @@ export default {
     ...logos,
     ...search,
     ...wrappers,
+    ...Layout,
     List,
     ...titles,
     ...cards,

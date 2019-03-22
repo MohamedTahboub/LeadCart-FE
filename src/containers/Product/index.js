@@ -3,6 +3,7 @@ import common from 'components/common';
 import Steps from 'components/Steps'
 import ActiveStep from './ActiveStep'
 import ShareProductModale from 'components/ShareProductModale'
+import ProductModal from './ProductModal'
 import { connect } from 'react-redux'
 import * as productAction from 'actions/product'
 import './style.css'

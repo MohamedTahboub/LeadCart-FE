@@ -1,0 +1,20 @@
+
+
+.float-btn{
+  position: absolute;
+  display: none;
+  /* opacity: 0; */
+  cursor: pointer;
+  background: rgba(0,0,0,0.3);
+  color:white;
+  padding: 5px; 
+  transition: all .3 ease-in-out;
+  z-index: 2000000;
+}
+.float-btn:hover{
+  background: rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+*:hover>.float-btn{
+  display: block;
+}
