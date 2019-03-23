@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { HeaderLogo } from 'components/common/logos';
 import { Menu, Link as PureLink } from 'components/common/MainMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { connect } from 'react-redux';
@@ -41,6 +41,7 @@ const SideBar = ({
     </PureLink>)
   return (
     <div className='side-bar'>
+      <HeaderLogo onClick={() => history.push('/')} />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/general')} />
       <span onClick={toggleCreateProductModal} className='btn new-product-btn'>
         <i className='fas fa-plus' />
@@ -66,7 +67,7 @@ const SideBar = ({
         logout
       </Button>
       <CreateProductModal history={history} />
-    </div >
+    </div>
   );
 };
 const mapStateToProps = ({ user: { user } }) => ({ user });
