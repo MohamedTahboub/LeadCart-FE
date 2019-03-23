@@ -9,40 +9,14 @@
 /* header Logo style */
 .header-logo{
     background: #007AFF;
-    height: 100%;;
     display: flex;
     justify-content: center;
     align-content: center;
-    /* min-width: 243px; */
-    min-width: 194.4px;
+    width: 100%;
+    padding: 5px;
     cursor: pointer;
 }
-.logo-position .logo-container{
-    position: relative;
-    margin: auto;
-}
-.logo-image{
-    height: 32px;
-}
-.logo-shadow{
-    position: absolute;
-    left: 0px;
-    top:7px;
-}
-.logo-position {
-    display: flex;
-}
-.business-name{
-    text-transform: uppercase;
-    margin: auto;
-    margin-left: 6px;
-    margin-top: 22px;
-    letter-spacing: 2px;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-    line-height: 20px;
-}
+
 
 
 /* search bar*/
