@@ -5,7 +5,13 @@ import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { connect } from 'react-redux';
 const {
-  MainTitle, SmallButton, Button, InputRow
+  MainTitle,
+  SmallButton,
+  Button,
+  InputRow,
+  Page,
+  PageHeader,
+  PageContent,
 } = common;
 
 const AddNewButton = ({ onClick, ...props }) => (
@@ -45,29 +51,31 @@ class Agency extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { level, history } = this.props;
     if (level !== 3) history.push('/');
   }
 
-  render () {
-    const { errors } = this.props;
+  render() {
+    const { errors, subAccounts = [] } = this.props;
     return (
-      <React.Fragment>
-        <MainTitle>Sub-Accounts</MainTitle>
-        {this.props.subAccounts.length !== 0
-          && (
-            <Tabel>
-              <Tabel.Head>
-                <Tabel.HeadCell>First Name</Tabel.HeadCell>
-                <Tabel.HeadCell>Last Name</Tabel.HeadCell>
-                <Tabel.HeadCell>Email Address</Tabel.HeadCell>
-                <Tabel.HeadCell>status</Tabel.HeadCell>
-              </Tabel.Head>
-              <Tabel.Body>
-                {this.props.subAccounts.map(({
-                  firstName, lastName, email, active, _id: id
-                }, orderInList) => (
+      <Page>
+        <PageHeader>
+          <MainTitle>Sub-Accounts</MainTitle>
+          <AddNewButton key='subAccountModal' onClick={this.toggleModal} />
+        </PageHeader>
+        <PageContent>
+          <Tabel>
+            <Tabel.Head>
+              <Tabel.HeadCell>First Name</Tabel.HeadCell>
+              <Tabel.HeadCell>Last Name</Tabel.HeadCell>
+              <Tabel.HeadCell>Email Address</Tabel.HeadCell>
+              <Tabel.HeadCell>status</Tabel.HeadCell>
+            </Tabel.Head>
+            <Tabel.Body>
+              {this.props.subAccounts.map(({
+                firstName, lastName, email, active, _id: id
+              }, orderInList) => (
                   <Tabel.Row key={id} orderInList={orderInList}>
                     <Tabel.Cell
                       mainContent={firstName || 'not set'}
@@ -86,10 +94,9 @@ class Agency extends Component {
                     </Tabel.Cell>
                   </Tabel.Row>
                 ))}
-              </Tabel.Body>
-            </Tabel>
-          )}
-        <AddNewButton key='subAccountModal' onClick={this.toggleModal} />
+            </Tabel.Body>
+          </Tabel>
+        </PageContent>
         <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
           <MainTitle>Create Sub-Accounts</MainTitle>
           <InputRow>
@@ -106,7 +113,7 @@ class Agency extends Component {
             Invite
           </Button>
         </Modal>
-      </React.Fragment>
+      </Page>
     );
   }
 }

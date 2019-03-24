@@ -6,7 +6,14 @@ import * as productsActions from 'actions/products';
 import * as couponsActions from 'actions/coupon';
 import Tabel from 'components/common/Tabels';
 const {
-  InputRow, FlexBoxesContainer, Button, MainTitle, SmallButton
+  InputRow,
+  FlexBoxesContainer,
+  Button,
+  MainTitle,
+  SmallButton,
+  Page,
+  PageHeader,
+  PageContent
 } = common;
 
 const getProductNameByCouponId = (id, products) => {
@@ -110,11 +117,11 @@ class Coupons extends Component {
   }
 
   getProductNameByCouponId = (id) => {
-    const product = this.props.products.find(({ coupons }) => coupons.find(({ _id }) => _id === id)) || {};
+    const product = this.props.products.find(({ coupons: { list: coupons } = {} }) => coupons.find(({ _id }) => _id === id)) || {};
     return product.name || 'not set';
   };
 
-  render () {
+  render() {
     const {
       state: {
         enableCoupons, products, isModalVisable, type
@@ -122,53 +129,56 @@ class Coupons extends Component {
       props: { errors, coupons, changeCouponState }
     } = this;
     return (
-      <div className='coupons-page'>
-        <FlexBoxesContainer className='space-between-elements'>
-          <MainTitle>Create New Coupon</MainTitle>
+      <Page className='coupons-page'>
+        <PageHeader>
+          <MainTitle>Coupons</MainTitle>
           <Button onClick={this.toggleModal} className=' primary-color'>
             New Coupon
           </Button>
-        </FlexBoxesContainer>
-        <Tabel>
-          <Tabel.Head>
-            <Tabel.HeadCell>Code</Tabel.HeadCell>
-            <Tabel.HeadCell>Type</Tabel.HeadCell>
-            <Tabel.HeadCell>Amount/Percent</Tabel.HeadCell>
-            <Tabel.HeadCell>Used By Product</Tabel.HeadCell>
-            <Tabel.HeadCell>Created Date</Tabel.HeadCell>
-            <Tabel.HeadCell>Status</Tabel.HeadCell>
-          </Tabel.Head>
-          <Tabel.Body>
-            {coupons
-              .sort((a, b) => ((new Date(a.createdAt) < new Date(b.createdAt)) ? 1 : -1))
-              .map(({
-                _id: couponId,
-                code,
-                discount = {},
-                active,
-                createdAt,
-                forAll,
-                usedBy
-              }, orderInList) => (
-                <Tabel.Row key={code} orderInList={orderInList}>
-                  <Tabel.Cell mainContent={code} />
-                  <Tabel.Cell mainContent={discount.type} />
-                  <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
-                  <Tabel.Cell mainContent={forAll === true ? 'All Products' : this.getProductNameByCouponId(couponId)} />
-                  <Tabel.Cell mainContent={createdAt.split('T')[0]} />
-                  <Tabel.Cell>
-                    <SmallButton
-                      onClick={() => changeCouponState({ couponId, active: !active })}
-                      className={active ? 'green-color' : 'gray-color'}
-                    >
-                      {`${active ? 'Active' : 'Inactive'}`}
-                    </SmallButton>
-                  </Tabel.Cell>
-                </Tabel.Row>
-              ))}
+        </PageHeader>
+        <PageContent>
+          <Tabel>
+            <Tabel.Head>
+              <Tabel.HeadCell>Code</Tabel.HeadCell>
+              <Tabel.HeadCell>Type</Tabel.HeadCell>
+              <Tabel.HeadCell>Amount/Percent</Tabel.HeadCell>
+              <Tabel.HeadCell>Used By Product</Tabel.HeadCell>
+              <Tabel.HeadCell>Created Date</Tabel.HeadCell>
+              <Tabel.HeadCell>Status</Tabel.HeadCell>
+            </Tabel.Head>
+            <Tabel.Body>
+              {coupons
+                .sort((a, b) => ((new Date(a.createdAt) < new Date(b.createdAt)) ? 1 : -1))
+                .map(({
+                  _id: couponId,
+                  code,
+                  discount = {},
+                  active,
+                  createdAt,
+                  forAll,
+                  usedBy
+                }, orderInList) => (
+                    <Tabel.Row key={code} orderInList={orderInList}>
+                      <Tabel.Cell mainContent={code} />
+                      <Tabel.Cell mainContent={discount.type} />
+                      <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
+                      <Tabel.Cell mainContent={forAll === true ? 'All Products' : this.getProductNameByCouponId(couponId)} />
+                      <Tabel.Cell mainContent={createdAt.split('T')[0]} />
+                      <Tabel.Cell>
+                        <SmallButton
+                          onClick={() => changeCouponState({ couponId, active: !active })}
+                          className={active ? 'green-color' : 'gray-color'}
+                        >
+                          {`${active ? 'Active' : 'Inactive'}`}
+                        </SmallButton>
+                      </Tabel.Cell>
+                    </Tabel.Row>
+                  ))}
 
-          </Tabel.Body>
-        </Tabel>
+            </Tabel.Body>
+          </Tabel>
+        </PageContent>
+
         <Modal onClose={this.toggleModal} isVisible={isModalVisable}>
           <MainTitle>Create Coupon</MainTitle>
           <InputRow>
@@ -213,7 +223,7 @@ class Coupons extends Component {
             Create Coupon
           </Button>
         </Modal>
-      </div>
+      </Page>
     );
   }
 }

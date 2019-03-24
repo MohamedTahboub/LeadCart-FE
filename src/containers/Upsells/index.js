@@ -8,7 +8,14 @@ import UpsellCard from '../../components/UpsellCard'
 import common from 'components/common';
 
 const {
-  InputRow, MainTitle, FlexBoxesContainer, Button, MainBlock
+  InputRow,
+  MainTitle,
+  FlexBoxesContainer,
+  Button,
+  MainBlock,
+  Page,
+  PageHeader,
+  PageContent
 } = common;
 
 
@@ -55,12 +62,12 @@ class Upsells extends Component {
     const { upsells } = this.props
 
     return (
-      <React.Fragment>
-        <FlexBoxesContainer className='space-between-elements'>
+      <Page>
+        <PageHeader className='space-between-elements'>
           <MainTitle >Upsells</MainTitle>
           <NewUpsell />
-        </FlexBoxesContainer>
-        <FlexBoxesContainer className='flex-wrap'>
+        </PageHeader>
+        <PageContent className='flex-wrap'>
           {upsells.map((upsell, id) => (
             <UpsellCard
               key={ids.generate()}
@@ -70,7 +77,7 @@ class Upsells extends Component {
               linkedProduct={this.getProductById(upsell.linkedProduct)}
             />
           ))}
-        </FlexBoxesContainer>
+        </PageContent>
         {editUpsell && (
           <UpsellForm
             show={editUpsell}
@@ -78,7 +85,7 @@ class Upsells extends Component {
             onClose={this.hideUpsellEditFrom}
           />
         )}
-      </React.Fragment>
+      </Page>
     );
   }
 }
