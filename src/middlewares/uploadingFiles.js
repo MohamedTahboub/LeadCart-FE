@@ -9,7 +9,11 @@ export default ({ dispatch }) => (next) => (action) => {
   file.append('file', action.payload.file);
   file.append('type', action.payload.type);
 
-  const castSuccess = (data) => uploadFileSuccess({ source: action.payload.source, ...data });
+  const castSuccess = (data) => {
+    const { meta: { onSuccess } = {} } = action
+    onSuccess(data.url)
+    return uploadFileSuccess({ source: action.payload.source, ...data })
+  };
 
   dispatch(apiRequest({
     options: {

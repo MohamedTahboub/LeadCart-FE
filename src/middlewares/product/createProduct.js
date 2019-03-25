@@ -5,18 +5,25 @@ import { apiRequest } from 'actions/apiRequest';
 export default ({ dispatch, getState }) => (next) => (action) => {
   if (action.type !== CREATE_NEW_PRODUCT) return next(action);
 
-  const { product: { newProduct } } = getState();
-  delete newProduct.isAproductCreated;
-  delete newProduct.errors;
+  const { payload: product, meta: { onSuccess, onFailed } = {} } = action
+
+
+  console.log('NEW PRODUCT ', product)
   dispatch(apiRequest({
     options: {
       method: 'POST',
-      body: newProduct,
+      body: product,
       uri: '/api/products',
       contentType: 'json'
     },
-    onSuccess: productCreated,
-    onFailed: productCreatingFailed
+    onSuccess: (data) => {
+      onSuccess(data);
+      return productCreated(data)
+    },
+    onFailed: (message) => {
+      onFailed(message);
+      return productCreatingFailed(message)
+    }
   }));
   // restore the application stored data in the loaclStorage
 };
