@@ -1,0 +1,68 @@
+{
+    "price": {
+        "currency": "USD",
+        "amount": 97
+    },
+    "payment": {
+        "methods": [],
+        "type": "Onetime"
+    },
+    "thankYouPage": {
+        "thankYouPageUrl": ""
+    },
+    "checkoutPage": {
+        "features": {
+            "enabled": true,
+            "list": [
+                {
+                    "text": "Unstoppable Daily Journal PDF Planner - Get Focused & Fired Up (Value $19.95)"
+                },
+                {
+                    "text": "Food, Mood & You - Unleash Your Energy & Obliterate Brain Fog (Value $19.95)"
+                }
+            ]
+        },
+        "testimonials": {
+            "enabled": true,
+            "list": [
+                {
+                    "author": "John Doe",
+                    "image": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Adam-Falk-Headshot-August-2018.jpg",
+                    "content": "“You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.”"
+                },
+                {
+                    "author": "Jane Doe",
+                    "image": "http://nadiazheng.com/wp-content/uploads/2017/02/Montreal-corporate-headshot-BFL-group-on-location-white-background-02.jpg",
+                    "content": "“Wow. I just updated my site and it was SO SIMPLE. I am blown away. You guys truly kick ass. Thanks for being so awesome. High fives!”"
+                }
+            ]
+        },
+        "termsAndConditions": {
+            "enabled": false
+        },
+        "checkoutButtonText": "Complete Order",
+        "logo": "logo",
+        "presetColors": "#9900EF",
+        "template": "temp1",
+        "guaranteed": true,
+        "featuresTitle": "List Of Product Features"
+    },
+    "offer": {
+        "enabled": true,
+        "bodyText": "LIMITED EDITION, we are offering a special 'Client License Upgrade' Create unlimited carts for up to 5 simultaneous clients, using your own account for only $297 per year Or $599 One Time!",
+        "introText": "Use Leadcart For Your Clients Sites & Profit Today!",
+        "name": "Client Licenses",
+        "price": 297,
+        "successUrl": "https://example.com",
+        "title": "YES! I Want one of the Limited 'Client Licenses'"
+    },
+    "coupons": {
+        "list": []
+    },
+    "isActive": true,
+    "available": true,
+    "name": "Product Name",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus nisi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus ",
+    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5bf605e216803574c86aea00/products/51CpUpuN1BL%20%281%29.jpg",
+    "internalName": "product name"
+}
