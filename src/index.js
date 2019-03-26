@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 // Routing
@@ -41,7 +41,7 @@ import ForgetPassword from 'containers/ForgetPassword';
 import Upsells from 'containers/Upsells';
 
 // import Dashboard from 'containers/Dashboard'
-import Guidlines from 'containers/Guidlines'
+import Guidelines from 'containers/Guidelines'
 import Products from 'containers/Products'
 import Product from 'containers/Product'
 import Activities from './containers/Activities';
@@ -78,29 +78,23 @@ ReactDOM.render(
                     <Route exact path='/forgetpwd' component={ForgetPassword} />
                     <Route exact path='/promocode' component={PromoCodeActivation} />
                     <ProtectedRoute component={() => (
-                        <div className='page-container'>
-
-                            <Route render={({ history }) => <Header history={history} />} />
-                            <Content>
-                                <Route render={({ history }) => <SideBar history={history} />} />
-                                <ActiveContent >
-                                    <Route exact path='/' component={Guidlines} />
-                                    <Route exact path='/products' component={Products} />
-                                    <Route path='/product' component={Product} />
-                                    <Route path='/activities' component={Activities} />
-                                    <Route exact path='/coupons' component={Coupons} />
-                                    <Route exact path='/upsells' component={Upsells} />
-                                    <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
-                                    <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
-                                    <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
-                                    <Route exact path='/agency' component={Agency} />
-                                    <Route path='/settings' component={Setting} />
-                                    <Route exact path='/help' component={Help} />
-                                </ActiveContent>
-                            </Content>
-                        </div>)
-                    } />
-
+                        <Fragment>
+                            <Route render={({ history }) => <SideBar history={history} />} />
+                            <Route exact path='/' component={Guidelines} />
+                            <Route exact path='/products' component={Products} />
+                            <Route path='/product' component={Product} />
+                            <Route path='/activities' component={Activities} />
+                            <Route exact path='/coupons' component={Coupons} />
+                            <Route exact path='/upsells' component={Upsells} />
+                            <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
+                            <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
+                            <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
+                            <Route exact path='/agency' component={Agency} />
+                            <Route path='/settings' component={Setting} />
+                            <Route exact path='/help' component={Help} />
+                        </Fragment>
+                    )}
+                    />
                 </Switch>
             </BrowserRouter>
             <NotificationMessage />
