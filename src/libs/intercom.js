@@ -1,11 +1,13 @@
 
 
 export const showIntercomIcon = (show) => {
-  const Intercom = document.getElementById('intercom-container');
+  const Intercom = window.Intercom
+
 
   if (Intercom) {
-    if (show) Intercom.style.display = 'block';
-    else Intercom.style.display = 'none';
+      Intercom('update', { "hide_default_launcher": !show })
   }
+
+  // console.log({ "hide_default_launcher": !show })
 };
 
