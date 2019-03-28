@@ -10,13 +10,14 @@
   flex-direction: column;
   margin: 10px;
   justify-content: space-between;
-  box-shadow: 1px 1px 10px -5px;
+  transition:all .3 ease-in-out;
+  box-shadow: 1px 1px 10px -5px rgba(0,0,0,.2);
 }
 
 
 
 .upsell-card-container:hover{
-  box-shadow: 1px 1px 10px -3.5px
+  box-shadow: 1px 1px 10px -2px rgba(0,0,0,.2);
 }
 .upsell-contnet{
   display: flex;

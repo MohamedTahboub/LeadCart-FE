@@ -25,10 +25,13 @@ const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[
 const SideBar = ({
   history, user, appInit, logout, toggleCreateProductModal, ...props
 }) => {
-  // const initalOpenedTab = history.location.pathname
   const [activeTab, setActiveTab] = useState(history.location.pathname)
   const onTabChange = (tab) => setActiveTab(tab)
 
+  const navigateToProducts = ()=>{
+    history.push('/products')
+    setActiveTab('/products')
+  }
   const Link = ({ to: page, className, children, external }) => (
     <PureLink
       to={{ history, page }}
@@ -43,7 +46,7 @@ const SideBar = ({
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/general')} />
-      <span onClick={toggleCreateProductModal} className='btn new-product-btn'>
+      <span onClick={navigateToProducts} className='btn new-product-btn'>
         <i className='fas fa-plus' />
         {' '}
         New Product

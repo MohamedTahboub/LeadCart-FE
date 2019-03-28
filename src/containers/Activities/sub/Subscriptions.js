@@ -30,24 +30,22 @@ const onExport = (subscriptions) => {
 
 
 const SubscriptionsList = (props) => (
-  <React.Fragment>
-    <MainTitle>Subscriptions List</MainTitle>
-    <Tabel>
-      <Tabel.Head>
-        <Tabel.SmallCell />
-        <Tabel.HeadCell>Subscriber Name</Tabel.HeadCell>
-        <Tabel.HeadCell>Email</Tabel.HeadCell>
-        <Tabel.HeadCell>Phone Number</Tabel.HeadCell>
-        <Tabel.HeadCell>Subscriptions</Tabel.HeadCell>
-      </Tabel.Head>
-      <Tabel.Body>
-        {props.subscriptions.map(({
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          subScriptedTo
-        }, orderInList) => (
+  <Tabel>
+    <Tabel.Head>
+      <Tabel.SmallCell />
+      <Tabel.HeadCell>Subscriber Name</Tabel.HeadCell>
+      <Tabel.HeadCell>Email</Tabel.HeadCell>
+      <Tabel.HeadCell>Phone Number</Tabel.HeadCell>
+      <Tabel.HeadCell>Subscriptions</Tabel.HeadCell>
+    </Tabel.Head>
+    <Tabel.Body>
+      {props.subscriptions.map(({
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        subScriptedTo
+      }, orderInList) => (
           <Tabel.Row orderInList={orderInList}>
             <Tabel.SmallCell>
               <Avatar name={`${firstName} ${lastName}`} />
@@ -58,11 +56,8 @@ const SubscriptionsList = (props) => (
             <Tabel.Cell mainContent={subScriptedTo.length} />
           </Tabel.Row>
         ))}
-      </Tabel.Body>
-    </Tabel>
-
-    <span onClick={onExport.bind(this, props.subscriptions)} className='btn primary-color explort-csv-btn'>Explore.CSV</span>
-  </React.Fragment>
+    </Tabel.Body>
+  </Tabel>
 );
 
 const mapStateToProps = ({ activities }) => ({

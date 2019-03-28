@@ -141,9 +141,11 @@ export const PayPalConnectContainer = (props) => {
   const {
     imgSrc, onConnect, loading, className = '', active, error
   } = state;
-  const toggleModal = () => setState({ ...state, modal: !state.modal });
   const onOpenForm = () => setState({ ...state, modal: true });
-  
+  const onCloseForm = () =>{
+     setState({ ...state, modal: false });
+    console.log('Closiong =========>')
+  }
   const isActive = active ? 'paypal-success-badge' : '';
 
   const onChange = ({ target: { value, name } }) => {
@@ -170,7 +172,7 @@ export const PayPalConnectContainer = (props) => {
       isActive={active}
       imgSrc={imgSrc}
     >
-      <Modal isVisible={state.modal} onClose={toggleModal} className='paypal-connect-container'>
+      <Modal isVisible={state.modal} onClose={onCloseForm} className='paypal-connect-container'>
         <form className='paypal-form'>
           <input
             type='text'
