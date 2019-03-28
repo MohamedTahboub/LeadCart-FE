@@ -9,47 +9,44 @@ import './style.css'
 
 import common from 'components/common'
 
-const { MainTitle, TabsNavigator } = common
-/* temp component tp represent the empty tap */
-const EmptyTab = props => (
-    <div className="nothing">...in progress</div>
-)
-const activitiesTabs = [
-    { title: 'Customer list', sub: '/activities/customers' },
-    { title: 'Orders', sub: '/activities/orders' },
-    { title: 'Subscriptions', sub: '/activities/subscriptions' }
-]
+const {
+    MainTitle,
+    Page,
+    PageHeader,
+    PageContent,
+    SubTabs } = common
 
 
+export default (props) => {
 
-const ActiveTabe = ({ tabName, ...props }) => {
-    switch (tabName) {
-        case 'customers': return <CustomerList />
-        case 'orders': return <Orders />
-        case 'subscriptions': return <Subscriptions />
-        default: return <EmptyTab />
+    const onExportToCSV = (fileName, dataRows) => {
+        const download = document.createElement('a');
+        const filehref = `data:text/csv;charset=utf-8,${encodeURIComponent(dataRows)}`;
+        download.setAttribute('href', filehref);
+        download.setAttribute('download', fileName);
+        download.click();
     }
-}
-
-
-class Activities extends Component {
-    render() {
-        const tabName = this.props.history.location.hash.slice(1)
-        return (
-            <div className='products-details-page'>
+    return (
+        <Page className='products-details-page'>
+            <PageHeader>
                 <MainTitle>Activities</MainTitle>
-                <TabsNavigator
-                    tabs={activitiesTabs}
-                    history={this.props.history} />
-                <Switch>
-                    <Route path='/activities/customers' component={CustomerList} />
-                    <Route exact path='/activities/orders' component={Orders} />
-                    <Route exact path='/activities/subscriptions' component={Subscriptions} />
-                    <Route path='/activities' component={CustomerList} />
-                </Switch>
-            </div>
-        );
-    }
+                <div
+                    onClick={onExportToCSV}
+                    className='btn primary-color'
+                >
+                    Explore.CSV
+                </div>
+            </PageHeader>
+            <PageContent>
+                <SubTabs
+                    defaultTab='Customers'
+                    tabs={{
+                        'Customers': <CustomerList onExport={onExportToCSV} />,
+                        'Orders': <Orders onExport={onExportToCSV} />,
+                        'Subscriptions': <Subscriptions onExport={onExportToCSV} />
+                    }}
+                />
+            </PageContent>
+        </Page>
+    );
 }
-
-export default Activities;

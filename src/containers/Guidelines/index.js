@@ -1,13 +1,18 @@
 import React from 'react';
 import dashImage from 'assets/images/dashboardImage.svg';
+import common from 'components/common'
 
 import './style.css';
 
+const {
+  Page,
+  PageContent
+} = common
 
 const goToPage = (ref, history) => history.push(ref);
 
 const GuidlineBoxes = ({ history }) => (
-  <React.Fragment>
+  <Page>
     <div className='guidlines-container'>
       <div className='guidlines-boxies-container'>
         <div className='guidline-box'>
@@ -55,7 +60,7 @@ const GuidlineBoxes = ({ history }) => (
       </div>
       <img src={dashImage} alt='background' className='dashboard-wall-image' />
     </div>
-  </React.Fragment>
+  </Page>
 );
 
 export default GuidlineBoxes;

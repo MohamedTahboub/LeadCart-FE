@@ -6,6 +6,7 @@ import logo1 from 'assets/images/logo-1.png';
 import formLogo from 'assets/images/big-logo.png';
 import formLogoShadow from 'assets/images/big-logo-1.png';
 
+import './style.css'
 
 export const FormLogo = () => (
   <span className='logo-container'>

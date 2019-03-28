@@ -1,85 +1,124 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as modalsActions from 'actions/modals';
 import * as productsActions from 'actions/products';
 import * as productActions from 'actions/product';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-// products sample data
-import productsList from 'data/products.json';
+import ProductModal from '../Product/ProductModal'
+
+
+import productSample from 'data/product.json';
 
 import './style.css';
 
 const {
-  ProductCard, NewThingCard, MainTitle, Button
+  ProductCard,
+  Page,
+  PageHeader,
+  PageContent,
+  NewThingCard,
+  MainTitle,
+  Button
 } = common;
 
 
-const ProductShadowLodaing = () => <div className='empty-product-shadowbox animated-background' />;
+const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
-class Products extends Component {
-  state = {
-    showDeleteModal: false,
-    currentProduct: ''
-  }
+const Products = ({
+  isFetching: loadingProducts,
+  deleteProduct,
+  products
+}) => {
 
-  onProductPreview = (url) => {
+
+  const [showDelete, setShowDelete] = useState('')
+  const [showProductForm, setShowProductForm] = useState({})
+
+
+  const onProductPreview = (url) => {
     window.open(`https://${this.props.subdomain}.leadcart.io/products/${url}`, '_blank');
   }
 
-  onProductEdit = (url) => {
-    this.props.history.push(`/product/${url}/details`);
+  const onProductEdit = (product) => {
+    setShowProductForm({
+      show: true,
+      isNewForm: false,
+      product
+    })
+  }
+  const onCreateNewProduct = () => {
+    setShowProductForm({
+      show: true,
+      isNewForm: true,
+      product: productSample
+    })
   }
 
-  onShowDeleteDialogue = (id) => this.setState({ showDeleteModal: true, currentProduct: { id } });
-
-  onHideDeleteDialogue = (id) => this.setState({ showDeleteModal: false });
-
-  onProductDelete = () => {
-    this.props.deleteProduct(this.state.currentProduct.id);
-    this.setState({ showDeleteModal: false });
+  const onCloseProductForm = () => {
+    setShowProductForm({
+      show: false,
+      isNewForm: true,
+      product: {}
+    })
   }
 
-  componentDidMount = () => {
-    // this.props.getUserProducts();
+  const onShowDeleteDialogue = (id) => setShowDelete(id)
+  const onHideDeleteDialogue = () => setShowDelete('')
+
+  const onProductDelete = () => {
+    deleteProduct(showDelete);
+    onHideDeleteDialogue()
   }
 
-  render () {
-    const { products, toggleCreateProductModal, isFetching } = this.props;
-    return (
-      <div>
+  return (
+    <Page>
+      <PageHeader>
         <MainTitle>Products</MainTitle>
-        <div className='product-cards-container'>
-          {products.length ? products.map((product, id) => (
-            <ProductCard
-              key={product._id}
-              orderInlist={id}
-              {...product}
-              onDelete={() => this.onShowDeleteDialogue(product._id)}
-              onEdit={() => this.onProductEdit(product.url)}
-              onPreview={() => this.onProductPreview(product.url)}
-            />
-          ))
-            : isFetching ? ([1, 2]).map((i) => <ProductShadowLodaing key={i} />) : null
-          }
-          <NewThingCard thing='Product' onClick={toggleCreateProductModal} />
-        </div>
-        <Modal onClose={() => this.setState({ showDeleteModal: false })} isVisible={this.state.showDeleteModal}>
-          <MainTitle>Are you sure,you want delete this product ?</MainTitle>
-          <Button onClick={this.onHideDeleteDialogue} className='primary-color margin-with-float-left'>
-            {' '}
-            Cancel
+        <Button onClick={onCreateNewProduct} className='primary-color'>
+          <i className='fas fa-plus' />
+          new product
           </Button>
-          <Button onClick={this.onProductDelete} className='warning-color margin-with-float-right'>
-            <i className='fas fa-trash-alt' />
-            {' '}
-            Delete
+      </PageHeader>
+      <PageContent>
+        {products.length ? products.map((product, id) => (
+          <ProductCard
+            key={`${product._id}-${id}`}
+            orderInlist={id}
+            {...product}
+            onDelete={() => onShowDeleteDialogue(product._id)}
+            onEdit={() => onProductEdit(product)}
+            onPreview={() => onProductPreview(product.url)}
+          />
+        ))
+          : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
+        }
+      </PageContent>
+
+      <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
+        <MainTitle>Are you sure,you want delete this product ?</MainTitle>
+        <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
+          {' '}
+          Cancel
           </Button>
-        </Modal>
-      </div>
-    );
-  }
-}
+        <Button onClick={onProductDelete} className='warning-color margin-with-float-right'>
+          <i className='fas fa-trash-alt' />
+          {' '}
+          Delete
+          </Button>
+      </Modal>
+      {showProductForm.show && (
+        <ProductModal
+          isNew={showProductForm.isNewForm}
+          product={showProductForm.product}
+          onClose={onCloseProductForm}
+          isVisible
+        />
+      )}
+    </Page>
+  );
+};
+
 const mapStateToProps = (state) => ({
   isFetching: state.loading,
   subdomain: state.user.user.subDomain,

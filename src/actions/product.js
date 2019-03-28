@@ -34,8 +34,10 @@ export const onNewProductFieldChange = (field) => ({
   payload: field
 });
 
-export const createNewProduct = () => ({
-  type: CREATE_NEW_PRODUCT
+export const createNewProduct = (product, meta) => ({
+  type: CREATE_NEW_PRODUCT,
+  payload: product,
+  meta
 });
 
 export const newProductInvalidFields = (errors) => ({
@@ -99,9 +101,10 @@ export const onProductThankYouPageFieldChange = (field) => ({
 
 
 /* Update Products Details */
-export const updateProduct = (product) => ({
+export const updateProduct = (product, meta) => ({
   type: UPDATE_PRODUCT,
-  payload: product
+  payload: product,
+  meta
 });
 
 export const productUpdatedSuccessfuly = (product) => ({

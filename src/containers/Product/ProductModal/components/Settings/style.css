@@ -1,0 +1,68 @@
+.product-form-settings{
+  display: flex;
+  flex-direction: column;
+  /* min-width: 200px; */
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* margin: 10px 20px; */
+}
+
+
+.bottom-breakline{
+  border-bottom:1.3px solid rgba(0,0,0,0.3);
+}
+/* Setting Headers*/
+.product-form-settings-headers{
+  padding:5px 5px 15px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom:1px solid rgba(0,0,0,0.2);
+}
+/* Setting Headers Ends*/
+
+
+/* Collapsible Component Styles */
+div.section-collapsible{
+  overflow:hidden;
+  transition:all 0.45s ease-out;
+  height:90px;
+  flex:1;
+}
+div.section-collapsible.collapse{
+  height:0;
+  flex:0;
+}
+span.collapsible-handle{
+  margin:5px 10px;
+  color:#4DA1FF;
+  font-size: small;
+  user-select: none;
+  cursor: pointer;
+  transition:all .3s ease-in;
+}
+span.collapsible-handle:hover{
+  text-decoration:underline; 
+}
+
+/* Collapsible Component Styles Ends*/
+
+
+
+/* Optionals Setting Tabs*/ 
+.optional-setting-tabs{
+  font-size: 14px;
+  margin: 0 5px;
+  padding:5px 0px;
+  border:none
+}
+.template-header-options {
+  padding: 15px 10px;
+}
+
+.available-options-tabs-container {
+  width: 400px;
+  overflow: auto;
+  padding: 5px;
+}
+/* Optionals Setting Tabs Ends*/ 

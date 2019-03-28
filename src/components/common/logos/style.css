@@ -1,0 +1,25 @@
+.logo-position .logo-container{
+  position: relative;
+  margin: auto;
+}
+.logo-image{
+  height: 32px;
+}
+.logo-shadow{
+  position: absolute;
+  left: 0px;
+  top:7px;
+}
+.logo-position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.business-name{
+  text-transform: uppercase;
+  margin-left: 6px;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}

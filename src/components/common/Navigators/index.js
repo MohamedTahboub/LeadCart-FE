@@ -32,7 +32,7 @@ TabsNavigator.propTypes = {
   history: PropTypes.object,
 };
 
-export const SubTabs = ({ tabs = {}, defaultTab }) => {
+export const SubTabs = ({ tabs = {}, className = '', container: Container, containerClassName = '', defaultTab }) => {
   const [activeTabName, setActiveTabName] = useState(defaultTab);
 
   const goToTab = (tabName) => {
@@ -40,7 +40,7 @@ export const SubTabs = ({ tabs = {}, defaultTab }) => {
   };
   return (
     <Fragment>
-      <div className='tabs-titles-container'>
+      <div className={`tabs-titles-container ${className}`}>
         {Object.keys(tabs).map((tabName) => (
           <span
             key={ids.generate()}
@@ -52,7 +52,11 @@ export const SubTabs = ({ tabs = {}, defaultTab }) => {
           </span>
         ))}
       </div>
-      {tabs[activeTabName]}
+      {Container ? (
+        <Container className={containerClassName}>
+          {tabs[activeTabName]}
+        </Container>) : tabs[activeTabName]
+      }
     </Fragment>
   );
 };

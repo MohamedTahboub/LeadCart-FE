@@ -6,9 +6,10 @@ import {
 } from 'constantsTypes';
 
 
-export const uploadFile = (file) => ({
+export const uploadFile = (file, meta) => ({
   type: UPLOAD_FILE,
-  payload: file
+  payload: file,
+  meta
 });
 export const deleteFile = (source) => ({
   type: DELETE_FILE,

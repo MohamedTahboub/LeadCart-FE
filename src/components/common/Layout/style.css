@@ -1,0 +1,35 @@
+/* Page layout Styles*/
+.page-container{
+  margin-left: 200px;
+  background: #8080802e;
+}
+.page-header{
+  position: fixed;
+  top: 0px;
+  left: 200px;
+  right: 0px;
+  padding: 0 20px;
+  background: white;
+  height: 60px;
+  color: #2B3748;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: 10px 0px 5px 2px rgba(0,0,0,0.1);
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100000;
+}
+.page-content-container{
+  position: fixed;
+  top: 60px;
+  bottom: 0px;
+  left: 200px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 10px 20px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+/* Page layout Styles Ends*/

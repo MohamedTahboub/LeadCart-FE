@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { openNewWindow } from 'libs';
 import './style.css';
 import { Modal } from 'components/Modals';
-import * as yup from 'yup';
 import { genrateColor } from './helpers';
 import { SmallButton } from '../Buttons';
 import EasyAnimate from '../Animation/EasyAnimate';
+import ids from 'shortid'
 
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
@@ -62,23 +62,23 @@ export const Avatar = ({
 export const ProductCard = ({
   name, currancy, orderInlist = 0, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
 }) => (
-  <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
-    <div className='card-main-content product-avatar-holder'>
-      <Avatar name={name} />
-      <span className='product-name-holder'>{name}</span>
-      <span className='product-salles-holder'>
-        {monthlyProfite}
+    <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+      <div className='card-main-content product-avatar-holder'>
+        <Avatar name={name} />
+        <span className='product-name-holder'>{name}</span>
+        <span className='product-salles-holder'>
+          {monthlyProfite}
           /monthly
       </span>
-      <span className='product-price-holder'>{`$ ${price.amount}`}</span>
-    </div>
-    <div className='card-controlls-container'>
-      <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-book-open' />
-      <i onClick={onDelete} className='fas fa-trash-alt' />
-    </div>
-  </EasyAnimate>
-);
+        <span className='product-price-holder'>{`$ ${price.amount}`}</span>
+      </div>
+      <div className='card-controlls-container'>
+        <i onClick={onEdit} className='fas fa-edit' />
+        <i onClick={onPreview} className='fas fa-book-open' />
+        <i onClick={onDelete} className='fas fa-trash-alt' />
+      </div>
+    </EasyAnimate>
+  );
 
 export const NewThingCard = ({ thing, onClick, ...props }) => (
   <div onClick={onClick} className='product-card-container '>
@@ -108,26 +108,26 @@ const Label = ({ children, ...props }) => (
 export const UpsellCard = ({
   name, orderInlist, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
-  <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
-    <div className='card-main-content product-avatar-holder'>
-      <Avatar name={name} />
-      <span className='product-name-holder'>{name}</span>
-      <span
-        onClick={() => productLink && openNewWindow(`/product/${productLink}/details`)}
-        className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
-      >
-        <i className='fas fa-link' />
-        {productName}
-      </span>
-      <span className='product-price-holder'>{`$ ${price}`}</span>
-    </div>
-    <div className='card-controlls-container'>
-      <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-book-open' />
-      <i onClick={onDelete} className='fas fa-trash-alt' />
-    </div>
-  </EasyAnimate>
-);
+    <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+      <div className='card-main-content product-avatar-holder'>
+        <Avatar name={name} />
+        <span className='product-name-holder'>{name}</span>
+        <span
+          onClick={() => productLink && openNewWindow(`/product/${productLink}/details`)}
+          className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
+        >
+          <i className='fas fa-link' />
+          {productName}
+        </span>
+        <span className='product-price-holder'>{`$ ${price}`}</span>
+      </div>
+      <div className='card-controlls-container'>
+        <i onClick={onEdit} className='fas fa-edit' />
+        <i onClick={onPreview} className='fas fa-book-open' />
+        <i onClick={onDelete} className='fas fa-trash-alt' />
+      </div>
+    </EasyAnimate>
+  );
 
 
 export const PayPalConnectContainer = (props) => {
@@ -142,6 +142,8 @@ export const PayPalConnectContainer = (props) => {
     imgSrc, onConnect, loading, className = '', active, error
   } = state;
   const toggleModal = () => setState({ ...state, modal: !state.modal });
+  const onOpenForm = () => setState({ ...state, modal: true });
+  
   const isActive = active ? 'paypal-success-badge' : '';
 
   const onChange = ({ target: { value, name } }) => {
@@ -164,7 +166,7 @@ export const PayPalConnectContainer = (props) => {
   if (loading && error || loading && active) setState({ ...state, loading: false });
   return (
     <MediumCard
-      onClick={toggleModal}
+      onClick={onOpenForm}
       isActive={active}
       imgSrc={imgSrc}
     >
@@ -199,3 +201,32 @@ export const PayPalConnectContainer = (props) => {
 
   );
 };
+
+
+export const RadioImageCard = ({ title, image, name = 'radio-image', className = '', ...props }) => {
+  const id = ids.generate()
+  return (
+    <div className={`radio-image-card-container ${className}`}>
+      <input
+        type="radio"
+        name={name}
+        id={id}
+        className='radio-image-input'
+      />
+      <label
+        className="radio-image-label"
+        htmlFor={id}
+      >
+        <span className="radio-image-label-title">
+          {title}
+        </span>
+        <div className="radio-image-card-image">
+          <img
+            alt={name}
+            src={image}
+          />
+        </div>
+      </label>
+    </div>
+  )
+}

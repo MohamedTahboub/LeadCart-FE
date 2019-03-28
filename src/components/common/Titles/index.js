@@ -6,16 +6,16 @@ import './style.css';
 export const MainTitle = ({
   handle, className, style, children, bottomLine, props
 }) => (
-  <div style={{ ...style }} className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''}`}>
-    {handle && (
-      <span className='main-title-handle'>
-        <i className={`fas ${handle.iconClass}`} />
-        {handle.label}
-      </span>
-    )}
-    <span className='main-title'>{children}</span>
-  </div>
-);
+    <div style={{ ...style }} className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''}`}>
+      {handle && (
+        <span className='main-title-handle'>
+          <i className={`fas ${handle.iconClass}`} />
+          {handle.label}
+        </span>
+      )}
+      <span className='main-title'>{children}</span>
+    </div>
+  );
 export const HeadeLine = ({ children, ...props }) => (
   <div className='heade-line-container'>
     {children}
@@ -24,10 +24,10 @@ export const HeadeLine = ({ children, ...props }) => (
 export const TabTitle = ({
   children, className, error, ...props
 }) => (
-  <div className={error ? 'tab-title-container tab-title-container-error' : 'tab-title-container'}>
-    {children}
-  </div>
-);
+    <div className={error ? 'tab-title-container tab-title-container-error' : 'tab-title-container'}>
+      {children}
+    </div>
+  );
 
 export const SpcialAnnouncement = ({ children, className = '', ...props }) => (
   <span className={`spcial-announcement ${className}`}>
@@ -39,3 +39,19 @@ export const BigText = ({ children, className = '', ...props }) => (
     {children}
   </div>
 );
+
+export const Title = ({ children, className, ...props }) => {
+
+  return (
+    <div className="title-container">
+      {children}
+    </div>
+  )
+}
+
+export const CycleStepTitle = ({ children, className = '', step }) => (
+  <div className={`step-title-container ${className}`}>
+    <span className="step-title-icon">{step}</span>
+    {children}
+  </div>
+)

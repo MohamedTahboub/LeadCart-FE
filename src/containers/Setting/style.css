@@ -5,6 +5,9 @@
 }
 .share-btn {
     background: #4DA1FF;
+    font-weight: inherit;
+    padding: 5px 10px;
+    font-size: 13px;
 }
 .btn.share-btn i {
     margin: 0px 5px;

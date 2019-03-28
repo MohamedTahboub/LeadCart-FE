@@ -1,109 +1,65 @@
 import React, { useState } from 'react';
-import Avatar from 'components/common/Avatar';
-import './style.css';
+import avatarLink from 'assets/images/avatar.jpg';
 
+import Image from 'components/common/Image'
+import { EditableField } from 'components/common/Inputs'
+import './style.css';
+import ids from 'shortid'
 
 const TestimonialElement = ({
   author = 'Click to edit Author name',
   content = 'click to edit , Write the testimonial content,what the author want to say about your product',
-  image,
-  name,
-  onChange
+  image = avatarLink,
+  id,
+  onDelete,
+  ...props
 }) => {
-  const initState = {
-    changed: false,
-    editAuthor: false,
-    editContent: false,
-    testimonial: {
-      author,
-      content,
-      image
-    }
-  };
 
-  const [state, setState] = useState(initState);
+  const onChange = ({ target: { value, name } }) => {
 
-  const updateTestimonialModel = ({ name, value }) => {
-    const { testimonial } = state;
-    setState({
-      ...state,
-      testimonial: {
-        ...testimonial,
-        [name]: value
+    props.onChange({
+      target: {
+        name: id,
+        value: { author, content, image, [name]: value }
       }
-    });
-  };
-  const onToggleEditField = (fieldName) => {
-    const fieldValue = state[fieldName];
-    const newState = {
-      ...state,
-      [fieldName]: !fieldValue
-    };
-    setState(newState);
-    onChange(newState.testimonial);
-  };
-
-  const onEnterKey = (fieldName, keyName = '') => {
-    if (keyName === 'Enter') onToggleEditField(fieldName);
-  };
+    })
+  }
 
 
-  const onFieldChange = ({ target: { name, value } }) => {
-    if (value) updateTestimonialModel({ name, value });
-  };
-
-  const onAuthorImageChange = (uploadedImage = {}) => {
-    if (name === uploadedImage.name) {
-      const newState = { ...state, testimonial: { ...state.testimonial, image: uploadedImage.image } };
-      setState(newState);
-      onChange(newState.testimonial);
-    }
-  };
-
-  const { testimonial: { author: tAuthor, content: tContent, image: tImage }, editAuthor, editContent } = state;
-
+  const onImageChange = ({ value, ...res }) => {
+    props.onChange({
+      target: {
+        name: id,
+        value: { author, content, image: value }
+      }
+    })
+  }
   return (
     <div className='testimonial-item'>
-      <Avatar
-        className='testamonial-author'
-        image={tImage}
-        name={name}
-        onChange={onAuthorImageChange}
+      <Image
+        className='testimonial-author-image'
+        image={image}
+        name={'testimonial-image-' + id}
+        onChange={onImageChange}
       />
-      <div className='testimonial-author'>
-        {editAuthor
-          ? (
-            <input
-              ref={(ref) => ref && ref.focus()}
-              onBlur={(e) => onToggleEditField('editAuthor')}
-              onKeyDown={(e) => onEnterKey('editAuthor', e.key)}
-              onChange={onFieldChange}
-              type='text'
-              name='author'
-              value={tAuthor}
-              className='light-input'
-            />
-          )
-          : <span onClick={() => onToggleEditField('editAuthor')} className='t-author-name'>{tAuthor}</span>
-        }
-      </div>
-      {editContent
-        ? (
-          <textarea
-            onBlur={() => onToggleEditField('editContent')}
-            onKeyDown={(e) => onEnterKey('editContent', e.key)}
-            onChange={onFieldChange}
-            name='content'
-            value={tContent}
-            width='auto'
-            className='testimonial-content-input'
-          />
-        )
-        : (
-          <div onClick={() => onToggleEditField('editContent')} className='testamonial-content'>
-            {tContent}
-          </div>
-        )}
+      <EditableField
+        onChange={onChange}
+        name='author'
+        defaultValue='Author Name'
+        value={author}
+        className='testimonial-author light-input'
+      />
+      <EditableField
+        textarea
+        onChange={onChange}
+        name='content'
+        defaultValue='testimonial content'
+        value={content}
+        className='testimonial-content-input'
+      />
+      <span onClick={() => onDelete(id)} className="template-testimonial-delete">
+        <i className='fas fa-trash-alt' />
+      </span>
     </div>
   );
 };

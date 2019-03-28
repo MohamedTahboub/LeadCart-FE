@@ -7,7 +7,7 @@ import ids from 'shortid';
 const Option = Select.Option;
 
 export default ({
-  className, name, placeholder, error, defaultValue, onChange: onParentChange, options = []
+  className = '',size='default', name, placeholder, error, defaultValue, onChange: onParentChange, options = []
 }) => {
   const onChange = (value) => {
     if (value) onParentChange({ target: { name, value } });
@@ -17,8 +17,9 @@ export default ({
   return (
     <Select
       showSearch
+      size={size}
       style={{ width: 200 }}
-      className={error ? 'invalid-field' : ''}
+      className={`${className} ${error ? 'invalid-field' : ''}`}
       defaultValue={defaultValue}
       placeholder={placeholder || 'Select'}
       optionFilterProp='children'

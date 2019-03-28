@@ -1,7 +1,10 @@
 .side-bar{
-    min-height: 550px;
-    min-width: 194.4px;
-    background:white;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    min-width: 200px;
+    background: white;
     display: flex;
     flex-direction: column;
     align-items: center;

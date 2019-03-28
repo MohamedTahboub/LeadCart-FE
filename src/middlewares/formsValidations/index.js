@@ -10,8 +10,8 @@ import createNewSubAccount from './createNewSubAccount'
 
 
 export default [
-    newProduct,
-    product_form,
+    // newProduct,
+    // product_form,
     upsell,
     createNewSubAccount,
     signupForm,

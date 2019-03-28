@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './style.css';
 import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
@@ -257,6 +257,85 @@ export const SelectBox = ({ checked, onChange, ...props }) => {
   )
 }
 
+export const CheckoutInput = ({ className = '', disabled, name, type = 'text', label }) => (
+  <div className="checkout-input-field-container">
+    <input
+      className='checkout-input-field'
+      disabled={disabled}
+      name={name}
+      type={type}
+    />
+    <label
+      className='checkout-input-label'
+    >
+      {label}
+    </label>
+  </div>
+)
+
 export { default as EditableInputField } from './EditableInputField'
 export { default as EditableTextField } from './EditableTextField'
 
+
+
+export const EditableField = ({
+  className = '',
+  value: val,
+  children,
+  onChange,
+  type = 'text',
+  name,
+  defaultValue = 'edit text',
+  textarea,
+  error
+}) => {
+  const value = val || children || defaultValue
+  const [editable, setEditable] = useState(false);
+
+  const onEditable = () => {
+    setEditable(true);
+  };
+  const onEditableDisabled = (e) => {
+    if (e.target && !e.target.value)
+      e.target.value = defaultValue;
+
+    onChange && onChange(e)
+    setEditable(false);
+  };
+  const onEnterKey = (e) => {
+    if (e.key === 'Enter')
+      onEditableDisabled(e)
+  };
+
+  const Element = (props) => textarea ? <textarea {...props} /> : <input {...props} />
+
+  return (
+    <div onClick={onEditable} className={`editable-field ${className}`}>
+      {
+        editable ?
+          <Element
+            className={`editable-field-input ${textarea ? 'editable-field-textarea' : ''}`}
+            type={type}
+            name={name}
+            autoFocus
+            onBlur={onEditableDisabled}
+            onKeyDown={onEnterKey}
+            defaultValue={value}
+          />
+          :
+          <div className={`editable-field-text ${textarea ? 'editable-field-textarea' : ''}`}>
+            {value}
+          </div>
+      }
+      {error && (
+        <span
+          tooltip={error}
+          className='editable-field-error'
+        ><i className="fas fa-info-circle" />
+        </span>
+      )}
+
+    </div>
+  )
+
+}

@@ -1,0 +1,11 @@
+.template-guarantee-badge{
+  position: relative;
+  margin: 10px 0;
+  padding: 0 20px;
+
+}
+.template-guarantee-badge-image {
+  width: 100%;
+  height: auto;
+  /* margin-top: 50px; */
+}

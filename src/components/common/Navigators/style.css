@@ -1,16 +1,18 @@
 
 /* Products nav bar*/
 .tabs-titles-container {
+  width:100%;
   margin-top: 20px;
   padding: 16px 0px;
+  font-size: 15px;
+  height: 52px;
   border-bottom: 1.2px solid #C9D3DC;
 }
-span.tab-link {
-  font-size: 15px;
+.tabs-titles-container span.tab-link {
   margin-right: 25px;
   color: rgb(157, 168, 179);
   cursor: pointer;
-  padding-bottom: 16px;
+  padding-bottom: inherit;
   transition:all 100ms ease-in-out;
 }
 .tab-link:hover{
