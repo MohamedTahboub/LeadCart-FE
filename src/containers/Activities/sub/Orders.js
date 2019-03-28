@@ -31,29 +31,27 @@ const onExport = (orders) => {
 };
 
 const OrderList = (props) => (
-  <React.Fragment>
-    <MainTitle>Order List</MainTitle>
-    <Tabel>
-      <Tabel.Head>
-        <Tabel.SmallCell />
-        <Tabel.HeadCell>Name</Tabel.HeadCell>
-        <Tabel.HeadCell>Email</Tabel.HeadCell>
-        <Tabel.HeadCell>Product Name</Tabel.HeadCell>
-        <Tabel.HeadCell>Processor</Tabel.HeadCell>
-        <Tabel.HeadCell>Quantity</Tabel.HeadCell>
-        <Tabel.HeadCell>Type</Tabel.HeadCell>
-      </Tabel.Head>
-      <Tabel.Body>
-        {props.orders.map(({
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          productName,
-          paymentType,
-          paymentMethod,
-          price,
-        }, orderInList) => (
+  <Tabel>
+    <Tabel.Head>
+      <Tabel.SmallCell />
+      <Tabel.HeadCell>Name</Tabel.HeadCell>
+      <Tabel.HeadCell>Email</Tabel.HeadCell>
+      <Tabel.HeadCell>Product Name</Tabel.HeadCell>
+      <Tabel.HeadCell>Processor</Tabel.HeadCell>
+      <Tabel.HeadCell>Quantity</Tabel.HeadCell>
+      <Tabel.HeadCell>Type</Tabel.HeadCell>
+    </Tabel.Head>
+    <Tabel.Body>
+      {props.orders.map(({
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        productName,
+        paymentType,
+        paymentMethod,
+        price,
+      }, orderInList) => (
           <Tabel.Row orderInList={orderInList}>
             <Tabel.SmallCell>
               <Avatar name={`${firstName} ${lastName}`} />
@@ -67,10 +65,8 @@ const OrderList = (props) => (
 
           </Tabel.Row>
         ))}
-      </Tabel.Body>
-    </Tabel>
-    <span onClick={onExport.bind(this, props.orders)} className='btn primary-color explort-csv-btn'>Explore.CSV</span>
-  </React.Fragment>
+    </Tabel.Body>
+  </Tabel>
 );
 
 const mapStateToProps = ({ activities }) => ({

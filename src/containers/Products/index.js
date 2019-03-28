@@ -80,7 +80,7 @@ const Products = ({
           new product
           </Button>
       </PageHeader>
-      <PageContent>
+      <PageContent dflex>
         {products.length ? products.map((product, id) => (
           <ProductCard
             key={`${product._id}-${id}`}

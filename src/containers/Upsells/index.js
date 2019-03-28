@@ -67,7 +67,7 @@ class Upsells extends Component {
           <MainTitle >Upsells</MainTitle>
           <NewUpsell />
         </PageHeader>
-        <PageContent className='flex-wrap'>
+        <PageContent dflex>
           {upsells.map((upsell, id) => (
             <UpsellCard
               key={ids.generate()}
