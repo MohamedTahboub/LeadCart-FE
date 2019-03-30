@@ -34,8 +34,8 @@ const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = '', split
 const OrderSummary = ({ payment, productName = '', price: { amount = '' } = {}, vat = .1 }) => {
 
   const { label, nextCharge } = getPaymentDetails(productName, payment);
-  const tax = amount * vat
-  const total = tax + amount
+  // const tax = amount * vat
+  const total = Math.round(amount);
 
   return (
     <section className="product-template-order-summary">
@@ -44,10 +44,10 @@ const OrderSummary = ({ payment, productName = '', price: { amount = '' } = {}, 
         name={label}
         amount={amount}
       />
-      <SummarySlice
+      {/*<SummarySlice
         name={`VAT(${vat * 100}%)`}
         amount={`${tax}$`}
-      />
+      />*/}
       <SummarySlice
         className='summary-total'
         name='Total'

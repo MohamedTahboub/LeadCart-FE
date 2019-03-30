@@ -19,7 +19,7 @@ export default (state = initialState, { type, payload }) => {
     case GET_USER_PRODUCTS_FAILED: return { ...state, error: payload };
     case DELETE_USER_PRODUCT_SUCCESS: return { ...state, products: state.products.filter(({ _id }) => payload !== _id) };
     case DELETE_USER_PRODUCT_FAILED: return { ...state, error: payload };
-    case PRODUCT_CREATED_SUCCESSFULY: return { ...state, products: [{ ...payload }, ...state.products] };
+    case PRODUCT_CREATED_SUCCESSFULY: return { ...state, products: [{ ...payload, _id: payload.id }, ...state.products] };
     case UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
