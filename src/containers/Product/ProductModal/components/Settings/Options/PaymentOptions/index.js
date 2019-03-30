@@ -17,12 +17,12 @@ const {
 } = common;
 
 let PaymentMethods = ({
-  methods = [], onProductPaymentFieldChange, userPayments, history, ...props
+  payment: { methods = [] } = {}, userPaymentsMethods, ...props
 }) => {
   const onChange = (method) => {
-    if (userPayments.includes(method)) {
-      onProductPaymentFieldChange({
-        name: 'methods',
+    if (userPaymentsMethods.includes(method)) {
+      props.onChange({
+        name: 'payment.methods',
         value: methods.includes(method)
           ? methods.filter((m) => m !== method)
           : [...methods, method]
@@ -32,7 +32,7 @@ let PaymentMethods = ({
 
   return (
     <Fragment>
-      {userPayments.includes('Stripe')
+      {userPaymentsMethods.includes('Stripe')
         && (
           <MediumCard
             className='template-payment-card'
@@ -41,7 +41,7 @@ let PaymentMethods = ({
             onClick={() => onChange('Stripe')}
           />
         )}
-      {userPayments.includes('Paypal')
+      {userPaymentsMethods.includes('Paypal')
         && (
           <MediumCard
             className='template-payment-card'
@@ -52,12 +52,12 @@ let PaymentMethods = ({
         )
       }
       <InputRow>
-        {userPayments.length
+        {userPaymentsMethods.length
           ? (
             <Message>
-              you can add or remove the payment gateways from: 
+              you can add or remove the payment gateways from:
               <span onClick={() => openNewWindow('/settings/integrations')}>
-              {' '}settings/integrations
+                {' '}settings/integrations
               </span>
             </Message>
           )
@@ -86,14 +86,16 @@ function Message({ children }) {
 const mpaStateToProps = ({
   product: { payment },
   payments: userPayments
-}) => ({ userPayments: userPayments.methods, productPaymentMethods: payment.methods || [] });
+}) => ({ userPaymentsMethods: userPayments.methods, productPaymentMethods: payment.methods || [] });
 PaymentMethods = connect(mpaStateToProps)(PaymentMethods);
 
 
 
-const PaymentOptions = ({ price, payment, ...props }) => {
+const PaymentOptions = ({ product: { price, payment } = {}, ...props }) => {
 
-  const onChange = ({ price, payment }) => {
+  const onChange = (e) => {
+    const { price, payment } = e
+
     if (payment.type === 'Subscription') {
       payment.recurringPeriod = {
         Monthly: 'MONTH',
@@ -101,20 +103,28 @@ const PaymentOptions = ({ price, payment, ...props }) => {
       }[payment.recurringPeriod || 'Monthly'];
     }
 
+    console.log('======================', payment, price)
     props.onChange({ target: { name: 'price', value: { amount: +(price) } } });
     props.onChange({ target: { name: 'payment', value: payment } });
   };
 
+  if (payment.type === 'Subscription') {
+    payment.recurringPeriod = {
+      MONTH: 'Monthly',
+      YEAR: 'YEAR'
+    }[payment.recurringPeriod || 'MONTH'];
+  }
+
   return (
     <div className="template-payment-options">
-      <Title>Payment Type</Title>
+      <Title>Payment Type:</Title>
       <PaymentType
         payment={payment}
         onChange={onChange}
         price={price}
       />
-      <Title>Payment Gateways</Title>
-      <PaymentMethods />
+      <Title>Payment Gateways:</Title>
+      <PaymentMethods {...props} />
     </div>
   )
 }

@@ -291,14 +291,19 @@ export const EditableField = ({
 }) => {
   const value = val || children || defaultValue
   const [editable, setEditable] = useState(false);
-
+  
   const onEditable = () => {
     setEditable(true);
   };
-  const onEditableDisabled = (e) => {
+  const onEditableDisabled = (e = window.event) => {
+    
+    if( (e.shiftKey || e.ctrlKey) && e.keyCode === 13 && textarea)
+    return;
+    
     if (e.target && !e.target.value)
       e.target.value = defaultValue;
-
+      
+    e.target.value = e.target.value.trim();
     onChange && onChange(e)
     setEditable(false);
   };
