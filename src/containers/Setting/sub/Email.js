@@ -307,15 +307,15 @@ const Email = (props) => {
   );
 }
 
-const mapStatToProps = ({
-  emails: {
-    sourceEmail,
-    emailVerificationStatus
-  }
-}) => ({
-  sourceEmail,
-  emailVerificationStatus
-});
+// const mapStatToProps = ({
+//   emails: {
+//     sourceEmail,
+//     emailVerificationStatus
+//   }
+// }) => ({
+//   sourceEmail,
+//   emailVerificationStatus
+// });
 
-export default connect(mapStatToProps, emailsActions)(Email);
+export default connect(null, emailsActions)(Email);
 
