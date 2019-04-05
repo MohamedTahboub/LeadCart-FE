@@ -15,6 +15,7 @@ const Feature = ({ className, id, onChange, onDelete, text }) => {
         defaultValue='Feature description'
         onChange={onChange}
         value={text}
+        textarea
       />
       <span
         onClick={() => onDelete(id)}

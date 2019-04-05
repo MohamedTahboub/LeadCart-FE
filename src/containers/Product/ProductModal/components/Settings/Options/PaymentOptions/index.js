@@ -22,10 +22,12 @@ let PaymentMethods = ({
   const onChange = (method) => {
     if (userPaymentsMethods.includes(method)) {
       props.onChange({
-        name: 'payment.methods',
-        value: methods.includes(method)
-          ? methods.filter((m) => m !== method)
-          : [...methods, method]
+        target: {
+          name: 'payment.methods',
+          value: methods.includes(method)
+            ? methods.filter((m) => m !== method)
+            : [...methods, method]
+        }
       });
     }
   };
@@ -84,28 +86,25 @@ function Message({ children }) {
 }
 
 const mpaStateToProps = ({
-  product: { payment },
   payments: userPayments
-}) => ({ userPaymentsMethods: userPayments.methods, productPaymentMethods: payment.methods || [] });
+}) => ({ userPaymentsMethods: userPayments.methods });
 PaymentMethods = connect(mpaStateToProps)(PaymentMethods);
 
 
 
 const PaymentOptions = ({ product: { price, payment } = {}, ...props }) => {
 
-  const onChange = (e) => {
-    const { price, payment } = e
+  const onChange = ({ price : priceAmount, payment: paymentDetials }) => {
 
-    if (payment.type === 'Subscription') {
-      payment.recurringPeriod = {
+    if (paymentDetials.type === 'Subscription') {
+      paymentDetials.recurringPeriod = {
         Monthly: 'MONTH',
         Yearly: 'YEAR'
-      }[payment.recurringPeriod || 'Monthly'];
+      }[paymentDetials.recurringPeriod || 'Monthly'];
     }
 
-    console.log('======================', payment, price)
-    props.onChange({ target: { name: 'price', value: { amount: +(price) } } });
-    props.onChange({ target: { name: 'payment', value: payment } });
+    props.onChange({ target: { name: 'price', value: { ...price, amount: +(priceAmount) } } });
+    props.onChange({ target: { name: 'payment', value: { ...payment, ...paymentDetials } } });
   };
 
   if (payment.type === 'Subscription') {
@@ -124,7 +123,7 @@ const PaymentOptions = ({ product: { price, payment } = {}, ...props }) => {
         price={price}
       />
       <Title>Payment Gateways:</Title>
-      <PaymentMethods {...props} />
+      <PaymentMethods {...props} payment={payment} />
     </div>
   )
 }

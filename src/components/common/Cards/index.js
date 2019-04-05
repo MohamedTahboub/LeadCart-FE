@@ -205,7 +205,7 @@ export const PayPalConnectContainer = (props) => {
 };
 
 
-export const RadioImageCard = ({ title, image, name = 'radio-image', className = '', ...props }) => {
+export const RadioImageCard = ({ title,onClick, image, name = 'radio-image', className = '', ...props }) => {
   const id = ids.generate()
   return (
     <div className={`radio-image-card-container ${className}`}>
@@ -218,6 +218,7 @@ export const RadioImageCard = ({ title, image, name = 'radio-image', className =
       <label
         className="radio-image-label"
         htmlFor={id}
+        onClick={onClick}
       >
         <span className="radio-image-label-title">
           {title}

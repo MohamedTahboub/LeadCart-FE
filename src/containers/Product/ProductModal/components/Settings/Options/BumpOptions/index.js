@@ -2,6 +2,11 @@ import React from 'react';
 import common from 'components/common'
 
 const { InputRow, Title } = common;
+const fulfillmentList = [
+  { label: 'Undetermined', value: 'default' },
+  { label: 'Product X fulfillment', value: 'theXId' },
+  { label: 'Test Product  fulfillment', value: 'theXIsd' }
+];
 const BumpOptions = ({
   name,
   price,
@@ -29,6 +34,15 @@ const BumpOptions = ({
           onChange={onChange}
           value={price}
           currancy='$'
+        />
+      </InputRow>
+      <InputRow>
+        <InputRow.Label>Fulfillment</InputRow.Label>
+        <InputRow.SearchInput
+          // size='small'
+          options={fulfillmentList}
+          defaultValue={fulfillmentList[0].value}
+          name='fulfillment'
         />
       </InputRow>
     </div>
