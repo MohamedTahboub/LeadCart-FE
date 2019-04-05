@@ -13,23 +13,33 @@ const { Button } = common;
 
 class Product extends Component {
 
-  state = { product: {}, activeOption: '', hiddenElements: {} }
+  state = {
+    product: {},
+    activeOption: '',
+    activeTab: 'Available Settings',
+    hiddenElements: {}
+  }
 
   onChange = ({ target: { name, value } }) => {
     const { product } = this.state
-
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
       const nestedValue = { [nestedKey]: value };
       name = key;
       value = { ...product[key], ...nestedValue };
     }
+    setTimeout(() => {
+      console.log(this.state.product)
+    }, 500);
     this.setState({ product: { ...product, [name]: value } })
   }
 
 
-  onOptionSelected = activeOption => {
-    this.setState({ activeOption })
+  onOptionSelected = (activeOption, activeTab) => {
+    let tab = activeTab
+    if (this.state.activeTab !== 'Available Settings')
+      tab = 'Available Settings'
+    this.setState({ activeOption, activeTab: tab })
   }
 
 
@@ -77,7 +87,7 @@ class Product extends Component {
   render() {
     const {
       state: {
-        activeOption, hiddenElements, product
+        activeOption, activeTab, hiddenElements, product
       },
       props: {
         isVisible = true, onClose, isNew
@@ -98,7 +108,9 @@ class Product extends Component {
             key='available-options'
             product={product}
             onToggleElementVisibility={this.onToggleElementVisibility}
+            onOptionSelected={this.onOptionSelected}
             activeOption={activeOption}
+            activeTab={activeTab}
             onChange={this.onChange}
             hiddenElements={hiddenElements}
           />

@@ -102,12 +102,13 @@ export class InputRow extends Component {
     )
 
   static PriceField = ({
-    children, onChange, name, error, type, disabled, className, value, ...props
+    children, onChange,onBlur, name, error, type, disabled, className, value, ...props
   }) => (
       <div className={`price-input-holder ${className ? className : ''}`}>
         <span className='currancy-type'>{type || '$'}</span>
         <input
           onChange={onChange}
+          onBlur={onBlur}
           defaultValue={value}
           type={type || "number"}
           name={name}

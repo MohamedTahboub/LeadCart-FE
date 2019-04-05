@@ -121,7 +121,6 @@ const UpsellForm = ({ products, updateForm, errors: outerError, upsells, show: i
       },
         {
           onSuccess: (m) => {
-            console.log('---------------',m)
             props.onClose()
           },
           onFailed: (error) => setErrors(error)

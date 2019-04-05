@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState ,useEffect} from 'react';
 import common from 'components/common';
 
 import {
@@ -7,7 +7,6 @@ import {
   TermsOptions,
   BumpOptions
 } from './Options'
-import Testimonials from '../Template/components/Testimonials';
 
 
 const { InputRow, Title, SubTabs } = common;
@@ -16,7 +15,7 @@ const { InputRow, Title, SubTabs } = common;
 const Available = ({ activeOption = 'PaymentOptions', ...props }) => {
 
   let ActiveElement;
-  console.log(activeOption)
+
   switch (activeOption) {
     case 'HeaderOptions':
       ActiveElement = HeaderOptions;
@@ -44,6 +43,7 @@ const HiddenComponents = ({
       testimonials = {},
       features = {},
       termsAndConditions: terms = {},
+      coupons = {},
       guaranteed,
     } = {} } = {},
   hiddenElements = {},
@@ -87,6 +87,11 @@ const HiddenComponents = ({
       'checkoutPage.termsAndConditions',
       { ...terms, enabled: !terms.enabled })
   }
+  const onToggleCoupons = () => {
+    onChange(
+      'checkoutPage.coupons',
+      { ...coupons, enabled: !coupons.enabled })
+  }
 
   return (
     <Fragment>
@@ -126,6 +131,13 @@ const HiddenComponents = ({
           onToggle={onToggleGuaranteed}
         />
       </InputRow>
+      <InputRow>
+        <InputRow.Label>Coupons Box</InputRow.Label>
+        <InputRow.SwitchInput
+          value={coupons.enabled}
+          onToggle={onToggleCoupons}
+        />
+      </InputRow>
     </Fragment>
   )
 }
@@ -133,10 +145,19 @@ const HiddenComponents = ({
 
 export default (props) => {
 
+  const { activeTab  } = props;
+
+  const onTabChange = tab => {
+    props.onOptionSelected(props.activeOption, tab);
+  }
+
+
   return (
     <div className='product-form-settings' >
       <SubTabs
-        defaultTab='Available Settings'
+        defaultTab={'Available Settings'}
+        activeTab={activeTab}
+        onTabChange={onTabChange}
         className='optional-setting-tabs'
         container={({ className, children, ...props }) => (
           <div className="available-options-tabs-container">

@@ -23,7 +23,8 @@ const HeaderOptions = ({
   } = {},
   ...props
 }) => {
-  
+  const [scrollPosition, setScrollPosition] = useState(0)
+
   const onColorChange = ({ hex: value }) => {
     props.onChange({
       target: {
@@ -40,9 +41,13 @@ const HeaderOptions = ({
       }
     });
   };
+
+  const onScroll = (e) =>{
+    console.log(e)
+  }
   const isActive = (temp) => template === temp
   return (
-    <div className="template-header-options">
+    <div onScroll={onScroll} className="template-header-options">
       <Title>Checkout Template:</Title>
       <form className='products-details-form inputs-grounp section-block flex-row-wrap checkout-pages-designs'>
         <TemplatePreview name='temp1' active={isActive('temp1')} image={tempImage1} onSelect={onSelectTemplate} />

@@ -536,6 +536,11 @@ input[type="radio"]{
     margin: 0px 10px;
     color:#4da1ff;
 }
+
+.btn > .fas{
+    margin: 0px 5px;
+}
+
 .wide-element{
     padding: 0px 15px !important;
 }
@@ -826,6 +831,8 @@ input.checkout-input-field:valid + label.checkout-input-label{
     text-align: inherit;
     width: inherit;
     white-space: pre-line;
+    word-break: break-all;
+    /* height: auto; */
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: inherit;
@@ -839,6 +846,8 @@ input.checkout-input-field:valid + label.checkout-input-label{
 .editable-field-input{
     border:none;
     padding: 0 2px;
+    height:auto;
+    min-height:100%;
     /* padding: 2px 4px; */
     outline-color: #4da1ff;    
 }

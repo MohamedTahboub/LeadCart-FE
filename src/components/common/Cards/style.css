@@ -33,10 +33,10 @@
     position: absolute;
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
-    font-size: 20px;
+    font-size: 14px;
     content: "\F058";
-    top: -56px;
-    right: 24px;
+    top: -23px;
+    left: 6px;
     color: #30e030b5;
 }
 .failure-badge{

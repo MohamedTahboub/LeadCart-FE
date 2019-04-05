@@ -42,7 +42,8 @@ const NewUpsell = () => {
 class Upsells extends Component {
 
   state = {
-    editUpsell: ''
+    editUpsell: '',
+    newUpsell: false
   }
 
   getProductById = (productId) => {
@@ -57,15 +58,25 @@ class Upsells extends Component {
   hideUpsellEditFrom = () => {
     this.setState({ editUpsell: '' });
   }
+  showNewUpsellForm = () => {
+    this.setState({ newUpsell: true });
+  }
+  hideNewUpsellForm = () => {
+    this.setState({ newUpsell: false });
+  }
   render() {
-    const { editUpsell } = this.state
+    const { editUpsell, newUpsell } = this.state
     const { upsells } = this.props
 
     return (
       <Page>
         <PageHeader className='space-between-elements'>
           <MainTitle >Upsells</MainTitle>
-          <NewUpsell />
+          <Button onClick={this.showNewUpsellForm} className='primary-color'>
+            <i className='fas fa-plus' />
+            {' '}
+            new upsell
+      </Button>
         </PageHeader>
         <PageContent dflex>
           {upsells.map((upsell, id) => (
@@ -83,6 +94,13 @@ class Upsells extends Component {
             show={editUpsell}
             updateForm
             onClose={this.hideUpsellEditFrom}
+          />
+        )}
+
+        {newUpsell && (
+          <UpsellForm
+            show={newUpsell}
+            onClose={this.hideNewUpsellForm}
           />
         )}
       </Page>

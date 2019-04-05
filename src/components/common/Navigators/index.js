@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import ids from 'shortid';
 import PropTypes from 'prop-types';
 import './style.css';
@@ -32,12 +32,26 @@ TabsNavigator.propTypes = {
   history: PropTypes.object,
 };
 
-export const SubTabs = ({ tabs = {}, className = '', container: Container, containerClassName = '', defaultTab }) => {
+export const SubTabs = ({
+  tabs = {},
+  activeTab,
+  className = '',
+  container: Container,
+  containerClassName = '',
+  defaultTab,
+  ...props
+}) => {
   const [activeTabName, setActiveTabName] = useState(defaultTab);
 
   const goToTab = (tabName) => {
     setActiveTabName(tabName);
+    props.onTabChange && props.onTabChange(tabName)
   };
+
+  useEffect(() => {
+    if (activeTab && activeTabName !== activeTab)
+      setActiveTabName(activeTab);
+  }, [activeTab])
   return (
     <Fragment>
       <div className={`tabs-titles-container ${className}`}>

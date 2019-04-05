@@ -25,27 +25,31 @@ const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
   </InputRow>
 );
 
-export default ({ payment = {}, price: productPrice, onChange }) => {
-  console.log('==========>', payment, price);
+export default ({ payment = {}, price: { amount: productPrice } = {}, onChange }) => {
   const initState = { ...payment, price: productPrice };
 
   const [state, setState] = useState({ ...initState });
   const { price, type = 'Onetime' } = state;
-  const { label: typelabel, name: typeName, options: typeOptions = [] } = paymentTypesOptions(type) || {};
-
+  const { label: typelabel, name: typeName, options: typeOptions = [] } = paymentTypesOptions(type);
 
   const onFieldChange = ({ target: { name, value } }) => {
+
     const newState = { ...state, [name]: value };
     setState(newState);
 
     const { name: customField, options: [defaultOption] = [] } = paymentTypesOptions(newState.type);
-    onChange({
+
+    const paymentPayload = {
       price: newState.price,
       payment: {
-        type: newState.type || 'Onetime',
-        [customField]: newState[customField] || defaultOption
+        type: newState.type || 'Onetime'
       }
-    });
+    }
+
+    if (newState.type !== 'Onetime')
+      paymentPayload.payment = { ...paymentPayload.payment, [customField]: newState[customField] || defaultOption }
+
+    onChange(paymentPayload);
   };
 
   return (
@@ -53,7 +57,7 @@ export default ({ payment = {}, price: productPrice, onChange }) => {
       <InputRow>
         <InputRow.Label>Price</InputRow.Label>
         <InputRow.PriceField
-          onChange={onFieldChange}
+          onBlur={onFieldChange}
           currancy='$'
           name='price'
           value={price}
@@ -62,17 +66,17 @@ export default ({ payment = {}, price: productPrice, onChange }) => {
       </InputRow>
       <PaymentTypeSelector value={type} onChange={onFieldChange} />
       {type !== 'Onetime'
-                && (
-                  <InputRow>
-                    <InputRow.Label>{typelabel}</InputRow.Label>
-                    <InputRow.SelectOption
-                      onChange={onFieldChange}
-                      name={typeName}
-                      value={state[typeName]}
-                      options={typeOptions.map((f) => ({ label: f, value: f }))}
-                    />
-                  </InputRow>
-                )}
+        && (
+          <InputRow>
+            <InputRow.Label>{typelabel}</InputRow.Label>
+            <InputRow.SelectOption
+              onChange={onFieldChange}
+              name={typeName}
+              value={state[typeName]}
+              options={typeOptions.map((f) => ({ label: f, value: f }))}
+            />
+          </InputRow>
+        )}
     </Fragment>
   );
 };
