@@ -5,9 +5,9 @@ import common from 'components/common';
 import * as productsActions from 'actions/products';
 import * as couponsActions from 'actions/coupon';
 import Tabel from 'components/common/Tabels';
+import './style.css'
 const {
   InputRow,
-  FlexBoxesContainer,
   Button,
   MainTitle,
   SmallButton,
@@ -15,6 +15,7 @@ const {
   PageHeader,
   PageContent
 } = common;
+
 
 const getProductNameByCouponId = (id, products) => {
   const isItCouponRelated = (coupons) => coupons.find((c) => c === id);

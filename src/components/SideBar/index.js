@@ -46,11 +46,6 @@ const SideBar = ({
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/general')} />
-      <span onClick={navigateToProducts} className='btn new-product-btn'>
-        <i className='fas fa-plus' />
-        {' '}
-        New Product
-      </span>
       <Menu>
         <Link to='/products' className={isActiveTab('products')}>Products</Link>
         <Link to='/activities/customers'>Activity</Link>
@@ -61,7 +56,7 @@ const SideBar = ({
         <Link to='/affiliates' className='locked-feature'>Affiliates</Link>
         {user.level === 3 && <Link to='/agency'>Agency</Link>}
         <Link to='/settings/general'>Setting</Link>
-        <Link to='/help' external >Help</Link>
+        <Link to='https://help.leadcart.io' external >Help</Link>
       </Menu>
 
       <Button onClick={logout} className='logout-btn'>

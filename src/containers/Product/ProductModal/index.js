@@ -22,13 +22,15 @@ class Product extends Component {
 
   onChange = ({ target: { name, value } }) => {
     const { product } = this.state
-    console.log("===>", name , value)
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
       const nestedValue = { [nestedKey]: value };
       name = key;
       value = { ...product[key], ...nestedValue };
     }
+    setTimeout(() => {
+      console.log(this.state.product)
+    }, 500);
     this.setState({ product: { ...product, [name]: value } })
   }
 

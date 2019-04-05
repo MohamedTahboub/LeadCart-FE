@@ -11,7 +11,7 @@ const SummarySlice = ({ name, amount = 0, className = '' }) => (
 )
 
 
-const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = '', splits = 0 } = {}) => {
+const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'm', splits = 0 } = {}) => {
   let label = name;
   let nextCharge = ''
 
@@ -23,6 +23,7 @@ const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = '', split
         nextCharge: moment().add(1, 'M').format('MM/DD/YYYY')
       }
     case 'Subscription':
+      console.log('--------------', recurringPeriod)
       const recTime = recurringPeriod[0].toLowerCase() === 'm' ? 'M' : recurringPeriod[0].toLowerCase()
       return {
         label: `${label}(subscription-${recurringPeriod.toLowerCase()})`,

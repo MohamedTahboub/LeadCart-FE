@@ -1,0 +1,4 @@
+.ant-select-dropdown,
+.ant-calendar-picker-container{
+  z-index: 1000000;
+}

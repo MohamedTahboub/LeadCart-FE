@@ -536,6 +536,11 @@ input[type="radio"]{
     margin: 0px 10px;
     color:#4da1ff;
 }
+
+.btn > .fas{
+    margin: 0px 5px;
+}
+
 .wide-element{
     padding: 0px 15px !important;
 }
