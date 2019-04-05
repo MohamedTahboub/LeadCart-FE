@@ -1,36 +1,71 @@
 import {
-  ENABLE_EMAIL_FOOTER,
-  ENABLE_EMAIL_FOOTER_SUCCESS,
-  ENABLE_EMAIL_FOOTER_FAILED,
-  ADD_EMAIL_SOURCE,
-  ADD_EMAIL_SOURCE_SUCCESS,
-  ADD_EMAIL_SOURCE_FAILED,
+  UPDATE_EMAIL_FOOTER,
+  UPDATE_EMAIL_FOOTER_SUCCESS,
+  UPDATE_EMAIL_FOOTER_FAILED,
+  VERIFY_SOURCE_EMAIL,
+  VERIFY_SOURCE_EMAIL_SUCCESS,
+  VERIFY_SOURCE_EMAIL_FAILED,
+  CHECK_EMAIL_VERIFICATION,
+  CHECK_EMAIL_VERIFICATION_SUCCESS,
+  CHECK_EMAIL_VERIFICATION_FAILED,
+  TEST_EMAIL,
+  TEST_EMAIL_SUCCESS,
+  TEST_EMAIL_FAILED
 } from 'constantsTypes';
 
 
-export const enableEmailFooter = (details) => ({
-  type: ENABLE_EMAIL_FOOTER,
+export const updateEmailFooter = (details, meta) => ({
+  type: UPDATE_EMAIL_FOOTER,
+  payload: details,
+  meta
+});
+export const updateEmailFooterSuccess = (details) => ({
+  type: UPDATE_EMAIL_FOOTER_SUCCESS,
   payload: details
 });
-export const enableEmailFooterSuccess = (details) => ({
-  type: ENABLE_EMAIL_FOOTER_SUCCESS,
-  payload: details
-});
-export const enableEmailFooterFailed = (details) => ({
-  type: ENABLE_EMAIL_FOOTER_FAILED,
+export const updateEmailFooterFailed = (details) => ({
+  type: UPDATE_EMAIL_FOOTER_FAILED,
   payload: details
 });
 
-export const addEmailSource = (email) => ({
-  type: ADD_EMAIL_SOURCE,
+export const verifyEmailSource = (email, meta) => ({
+  type: VERIFY_SOURCE_EMAIL,
+  payload: email,
+  meta
+});
+export const verifyEmailSourceSuccess = (email) => ({
+  type: VERIFY_SOURCE_EMAIL_SUCCESS,
   payload: email
 });
-export const addEmailSourceSuccess = (email) => ({
-  type: ADD_EMAIL_SOURCE_SUCCESS,
+export const verifyEmailSourceFailed = (message) => ({
+  type: VERIFY_SOURCE_EMAIL_FAILED,
+  payload: message
+});
+
+export const checkEmailVerification = (email) => ({
+  type: CHECK_EMAIL_VERIFICATION,
   payload: email
 });
-export const addEmailSourceFailed = (message) => ({
-  type: ADD_EMAIL_SOURCE_FAILED,
+export const checkEmailVerificationSuccess = (email) => ({
+  type: CHECK_EMAIL_VERIFICATION_SUCCESS,
+  payload: email
+});
+export const checkEmailVerificationFailed = (message) => ({
+  type: CHECK_EMAIL_VERIFICATION_FAILED,
+  payload: message
+});
+
+export const testEmail = (type, meta) => ({
+  type: TEST_EMAIL,
+  payload: type,
+  meta
+});
+export const testEmailSuccess = (type) => ({
+  type: TEST_EMAIL_SUCCESS,
+  payload: type
+});
+export const testEmailFailed = (message) => ({
+  type: TEST_EMAIL_FAILED,
   payload: message
 });
 

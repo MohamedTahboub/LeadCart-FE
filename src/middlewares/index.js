@@ -20,7 +20,7 @@ import modelsShapers from './modelsShapers'
 import upadteUserImage from './upadteUserImage'
 import formsValidations from './formsValidations'
 import upsells from './upsell'
-
+import emails from './emails'
 // exporting the middlewares as an array 
 export default [
     appInit,
@@ -37,6 +37,7 @@ export default [
     account,
     ...coupon,
     upadteUserImage,
+    ...emails,
     teamMembers,
     agencyCodeActivation,
     agency,

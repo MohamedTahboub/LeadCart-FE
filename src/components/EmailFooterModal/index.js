@@ -1,72 +1,97 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal } from '../Modals'
 import common from '../common'
 import { connect } from 'react-redux'
 import * as emailsActions from 'actions/emails'
+import SocialMedia from './socialMedia'
+import { emailFooterSchema } from 'libs/validation';
 
 const { InputRow, Button, MainTitle } = common;
 
 
-class EmailFooterModal extends Component {
-    state = { details: {} }
-    componentDidMount() {
-        const { supportEmail } = this.props
-        this.setState({
-            details: {
-                support: supportEmail ? supportEmail : ""
+const EmailFooterModal = ({
+    isVisible,
+    supportEmail,
+    socialMedia = [],
+    companyAddress,
+    companyPhone,
+    ...props
+}) => {
+    const [submitting, setSubmitting] = useState(false);
+    const [errors, setErrors] = useState({})
+    const [footerDetails, setFooterDetails] = useState({
+        socialMedia,
+        companyAddress,
+        companyPhone,
+    })
+
+    const onChange = ({ target: { name, value } }) => {
+        setFooterDetails({ ...footerDetails, [name]: value });
+    }
+
+    const onSubmitEmailFooter = async () => {
+        const { isValid, value: footerValue, errors } = await emailFooterSchema(footerDetails);
+        // console.log(isValid, errors);
+        if (!isValid) return setErrors(errors);
+
+        setSubmitting(true)
+        props.updateEmailFooter(footerValue, {
+            onSuccess: () => {
+                setSubmitting(false)
+                props.onClose()
+            },
+            onFailed: (error) => {
+                console.log(error)
+                setSubmitting(false)
+                setErrors(error)
             }
         })
     }
-    onFieldChange = ({ target: { name, value } }) => {
-        if (value.trim().length) {
-            const { details } = this.state
-            this.setState({
-                details: {
-                    ...details,
-                    [name]: value
-                }
-            })
-        }
-    }
 
-    onEnable = () => {
-        const { details } = this.state
-        // vaidate the fields and the data types
-
-        this.props.enableEmailFooter(details)
-        console.log(details)
-    }
-    render() {
-        const {
-            props: { onClose, isVisible, supportEmail, ...props },
-            state: { enabling, errors, success }
-        } = this
-        return (
-            <Modal isVisible={isVisible} onClose={onClose} >
-                <MainTitle>Enable Email Footer Details</MainTitle>
-                <InputRow>
-                    <InputRow.Label >Support Email</InputRow.Label>
-                    <InputRow.NormalInput name='support' value={supportEmail} onChange={this.onFieldChange}></InputRow.NormalInput>
-                </InputRow>
-                <InputRow>
-                    <InputRow.Label >Company Phone No.</InputRow.Label>
-                    <InputRow.NormalInput name='phone' onChange={this.onFieldChange}></InputRow.NormalInput>
-                </InputRow>
-                <InputRow>
-                    <InputRow.Label >Company Address</InputRow.Label>
-                    <InputRow.NormalInput name='address' onChange={this.onFieldChange}></InputRow.NormalInput>
-                </InputRow>
-                <Button
-                    onClick={this.onEnable}
-                    className={`primary-color margin-with-float-right ${enabling ? 'spinner' : ''}`}
-                >
-                    <i className='fas fa-plus' />
-                    {' '}
-                    Save and Enable
+    return (
+        <Modal isVisible={isVisible} onClose={props.onClose} >
+            <MainTitle>Enable Email Footer Details</MainTitle>
+            <InputRow>
+                <InputRow.Label >Support Email</InputRow.Label>
+                <InputRow.NormalInput
+                    name='support'
+                    value={supportEmail}
+                    onChange={onChange}
+                    disabled
+                ></InputRow.NormalInput>
+            </InputRow>
+            <InputRow>
+                <InputRow.Label error={errors.companyPhone} >Company Phone:</InputRow.Label>
+                <InputRow.NormalInput
+                    value={footerDetails.companyPhone}
+                    error={errors.companyPhone}
+                    name='companyPhone'
+                    onChange={onChange}
+                />
+            </InputRow>
+            <InputRow>
+                <InputRow.Label error={errors.companyAddress} >Company Address:</InputRow.Label>
+                <InputRow.NormalInput
+                    value={footerDetails.companyAddress}
+                    name='companyAddress'
+                    onChange={onChange}
+                    error={errors.companyAddress}
+                />
+            </InputRow>
+            <SocialMedia
+                onChange={onChange}
+                links={footerDetails.socialMedia}
+            />
+            <Button
+                onClick={onSubmitEmailFooter}
+                className={`primary-color margin-with-float-right ${submitting ? 'spinner' : ''}`}
+            >
+                <i className='fas fa-plus' />
+                {' '}
+                Save
               </Button>
-            </Modal>
-        )
-    }
+        </Modal>
+    )
 }
 
 const mapStateToProps = ({ user: { user: { email: supportEmail } } }) => ({ supportEmail })
