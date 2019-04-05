@@ -16,23 +16,23 @@ export default ({ dispatch }) => (next) => (action) => {
 
   dispatch(apiRequest({
     options: {
-      method: 'PUT',
+      method: 'POST',
       body: payload,
-      uri: '/api/emails',
+      uri: '/api/emails/verify',
       contentType: 'json'
     },
     onSuccess: (data) => {
 
       if (meta.onSuccess)
         meta.onSuccess(data)
-      return verifyEmailSourceSuccess(payload),
+      return verifyEmailSourceSuccess(payload)
     },
-    onFailed: (message) = {
-      if(meta.onFailed)
+    onFailed: (message) => {
+      if (meta.onFailed)
         meta.onFailed(message)
 
       return verifyEmailSourceFailed(message)
-} 
+    }
   }));
 };
 

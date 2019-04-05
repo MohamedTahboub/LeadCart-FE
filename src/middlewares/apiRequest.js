@@ -16,6 +16,6 @@ export default ({ dispatch, getState }) => (next) => async (action) => {
   } catch (e) {
     dispatch({ type: TOGGLE_LOADING });
 
-    dispatch(onFailed('Something gone wrong,please try again later '));
+    dispatch(onFailed(`Something gone wrong,please try again later ${e.message}`));
   }
 };

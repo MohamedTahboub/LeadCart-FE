@@ -18,8 +18,8 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     name,
     country,
     currency,
-    darkLogo,
-    support,
+    logo,
+    supportEmail = userEmail,
     // downloadButtonText,
     // firePixel,
     // footerScript,
@@ -53,14 +53,14 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
       </InputRow>
       <InputRow>
         <InputRow.Label
-          error={errors.lightLogo || errors.darkLogo}
+          error={errors.logo}
           notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
         >
           Default Logo
 
         </InputRow.Label>
         <InputRow.AddImage
-          value={lightLogo || defaultLogo}
+          value={logo}
           subLabel='Logo'
           source='company_logo'
           name='logo'
@@ -105,7 +105,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           name='supportEmail'
           onChange={onFieldChange}
           error={errors.support}
-          value={userEmail}
+          value={supportEmail}
         >
           Ex. support@leadcart.io
 

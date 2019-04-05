@@ -14,9 +14,10 @@ import {
 } from 'constantsTypes';
 
 
-export const updateEmailFooter = (details) => ({
+export const updateEmailFooter = (details, meta) => ({
   type: UPDATE_EMAIL_FOOTER,
-  payload: details
+  payload: details,
+  meta
 });
 export const updateEmailFooterSuccess = (details) => ({
   type: UPDATE_EMAIL_FOOTER_SUCCESS,
@@ -27,9 +28,10 @@ export const updateEmailFooterFailed = (details) => ({
   payload: details
 });
 
-export const verifyEmailSource = (email) => ({
+export const verifyEmailSource = (email, meta) => ({
   type: VERIFY_SOURCE_EMAIL,
-  payload: email
+  payload: email,
+  meta
 });
 export const verifyEmailSourceSuccess = (email) => ({
   type: VERIFY_SOURCE_EMAIL_SUCCESS,
@@ -53,9 +55,10 @@ export const checkEmailVerificationFailed = (message) => ({
   payload: message
 });
 
-export const testEmail = (type) => ({
+export const testEmail = (type, meta) => ({
   type: TEST_EMAIL,
-  payload: type
+  payload: type,
+  meta
 });
 export const testEmailSuccess = (type) => ({
   type: TEST_EMAIL_SUCCESS,

@@ -127,7 +127,18 @@ export const CHECK_EMAIL_VERIFICATION = Symbol('CHECK_EMAIL_VERIFICATION');
 export const CHECK_EMAIL_VERIFICATION_SUCCESS = Symbol('CHECK_EMAIL_VERIFICATION_SUCCESS');
 export const CHECK_EMAIL_VERIFICATION_FAILED = Symbol('CHECK_EMAIL_VERIFICATION_FAILED');
 
-
+export const testEmailTypes = {
+  order_receipt: 'ORDER_RECEIPT',
+  refund_order: 'REFUND_ORDER',
+  cancel_subscription: 'CANCEL_SUBSCRIPTION',
+  refund_subscription: 'REFUND_SUBSCRIPTION',
+  subscription_charge_receipt: 'SUBSCRIPTION_CHARGE_RECEIPT',
+  default_dunning: 'DEFAULT_DUNNING',
+  dunning_1: 'DUNNING_1',
+  dunning_2: 'DUNNING_2',
+  dunning_3: 'DUNNING_3',
+  dunning_4: 'DUNNING_4'
+};
 /* Emails SETTING ACTIONS ENDS  */
 
 
