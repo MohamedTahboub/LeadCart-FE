@@ -8,6 +8,7 @@
 }
 
 
+
 .bottom-breakline{
   border-bottom:1.3px solid rgba(0,0,0,0.3);
 }
@@ -66,3 +67,8 @@ span.collapsible-handle:hover{
   padding: 5px;
 }
 /* Optionals Setting Tabs Ends*/ 
+
+
+.suffix-value{
+  background: #607d8ba3;
+}

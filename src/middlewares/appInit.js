@@ -9,7 +9,7 @@ import { getUpsellsSuccess } from 'actions/upsells';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
-
+import { updateMarketPlaceSettings } from 'actions/settings';
 import { filteringActivities } from 'libs';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
@@ -33,6 +33,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getCustomersActivities(filteringActivities(data.customers)));
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
+    dispatch(updateMarketPlaceSettings(data.marketPlace));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
@@ -53,7 +54,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   // restore the application stored data in the loaclStorage
 };
 
-function upadateIntercomeWithUserDetails ({ firstName, lastName, email }) {
+function upadateIntercomeWithUserDetails({ firstName, lastName, email }) {
   window.intercomSettings = {
     app_id: 'skynydft',
     name: `${firstName} ${lastName}`, // Full name
@@ -62,7 +63,7 @@ function upadateIntercomeWithUserDetails ({ firstName, lastName, email }) {
   };
 }
 
-function consoleMessage () {
+function consoleMessage() {
   const LeadCarttext = `%c
   ╔╗░░╔═══╦═══╦═══╦═══╦═══╦═══╦════╗
   ║║░░║╔══╣╔═╗╠╗╔╗║╔═╗║╔═╗║╔═╗║╔╗╔╗║

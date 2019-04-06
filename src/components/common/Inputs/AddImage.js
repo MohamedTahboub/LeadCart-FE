@@ -1,81 +1,79 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as fileUploadingActions from 'actions/files';
 import { DeleteButton } from '../Buttons';
 import { BlankLink } from '../Links';
 
-class AddImage extends Component {
-  state = {
-    image: { name: 'product Image', link: this.props.value } || {},
-    imageChangesSaved: !!this.props.value
-  }
+const AddImage = ({
+  color = 'primary-color',
+  name,
+  value,
+  onClick,
+  className = '',
+  imageClassName = '',
+  suffixIcon,
+  children,
+  notes,
+  description,
+  ...props
+}) => {
 
-  onAddImage = () => {
-    if (!this.state.image.link) this.refs.imageField.click();
-  }
+  const [image, setImage] = useState(value);
+  let imageFieldRef = ''
 
-  onImageDelete = (e) => {
-    this.setState({ image: {}, imageChangesSaved: false });
-    this.props.deleteFile({ source: this.props.source, imageChangesSaved: false });
-  }
-
-  onImageUpload = (e) => {
-    this.props.uploadFile({ file: e.target.files[0], type: 'products', source: this.props.source });
-    this.setState({
-      image: { name: e.target.files[0].name },
-      imageChangesSaved: false
-    });
-  }
-
-  componentDidUpdate = () => {
-    const { imageChangesSaved } = this.state;
-    if (!imageChangesSaved && this.props.files[this.props.source]) {
-      this.setState({
-        imageChangesSaved: true,
-        image: { name: this.state.image.name, link: this.props.files[this.props.source] }
-      });
-      this.props.onUploaded(this.props.files[this.props.source]);
+  useEffect(() => {
+    if (value !== image) {
+      setImage(value)
     }
+  }, [value]);
+
+  const onAddImage = () => {
+    if (imageFieldRef)
+      imageFieldRef.click();
   }
 
-  render () {
-    const {
-      color = 'primary-color', onClick, className = '', imageClassName = '', suffixIcon, children, notes, description, ...props
-    } = this.props;
-    const { image: { link, name }, imageChangesSaved } = this.state;
-    return (
-      <div className={`add-input-field-holder ${className}`}>
-        <div
-          ref='addElementContainer'
-          onClick={this.onAddImage}
-          className={`add-elements-container ${imageClassName}`}
-        >
-          <span className={`add-element-circle ${color}`}>
-            <i className='fas fa-plus' />
-          </span>
-          <span className='add-input-field'>{children}</span>
-          <span className='add-element-notes'>{notes}</span>
-          {suffixIcon && <span className='add-element-suffix-element'>{suffixIcon}</span>}
-        </div>
-        <input
-          onChange={this.onImageUpload}
-          style={{ display: 'none' }} ref='imageField' type='file' name='myImage'
-          accept='image/x-png,image/gif,image/jpeg'
-        />
 
+  const onImageUpload = (e) => {
+    props.uploadFile({
+      file: e.target.files[0],
+      type: 'products',
+      source: props.source
+    }, {
+        onSuccess: (url) => {
+          console.log(url)
+          setImage(url)
+        }
+      });
+  }
 
-        {(link && imageChangesSaved) && (
-          <div className='child-added-element '>
-            <BlankLink className='display-flex' to={link}>
-              <img src={link} alt={name} className='uploaded-thumbnil' />
-              <span className='child-added-element-name'>{name}</span>
-            </BlankLink>
-            <DeleteButton onClick={this.onImageDelete} />
-          </div>
-        )}
+  return (
+    <div className={`add-input-field-holder ${className}`}>
+      <div
+        onClick={onAddImage}
+        className={`add-elements-container ${imageClassName}`}
+        role='presentation'
+      >
+        <span className={`add-element-circle ${color}`}>
+          <i className='fas fa-plus' />
+        </span>
+        <span className='add-input-field'>{children}</span>
+        <span className='add-element-notes'>{notes}</span>
+        {suffixIcon && <span className='add-element-suffix-element'>{suffixIcon}</span>}
       </div>
-    );
-  }
+      <input
+        onChange={onImageUpload}
+        style={{ display: 'none' }}
+        ref={ref => { imageFieldRef = ref }}
+        type='file'
+        name='myImage'
+        accept='image/x-png,image/gif,image/jpeg'
+      />
+
+      {image && (
+        <img src={image} alt={name} className='uploaded-thumbnil' />
+      )}
+    </div>
+  );
 }
 const mapStateToProps = ({ files }) => ({
   files

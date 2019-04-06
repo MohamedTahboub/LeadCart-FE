@@ -1,6 +1,6 @@
 .template-preview-container{
-    width: 100px;
-    height: 188px;
+    width: 102px;
+    height: 183px;
     display: -ms-flexbox;
     flex-wrap: wrap;
     display: flex;
@@ -8,10 +8,10 @@
     flex-direction: column;
     margin: 10px;
 }
-.template-preview-container:nth-last-child(1) {
+/* .template-preview-container:nth-last-child(1) {
     height: 188px;
     width: 200px;
-}
+} */
 .preview-image {
     position: relative;
     height: 100%;

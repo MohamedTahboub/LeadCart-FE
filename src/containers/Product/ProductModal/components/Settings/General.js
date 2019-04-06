@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import common from 'components/common';
-
+import { connect } from 'react-redux'
 
 const { InputRow, Title } = common;
 
@@ -37,19 +37,20 @@ const General = ({ product = {}, subdomain, onChange, errors = {}, url, fulfillm
           onChange={onChange}
         />
       </InputRow>
+      <InputRow>
+        <InputRow.Label>
+          Facebook Pixel ID
+      </InputRow.Label>
+        <InputRow.NormalInput
+          name='scripts.fbPixelId'
+          onChange={onChange}
+          value={fbPixelId}
+        >
+          Ex. 254179138569861
+      </InputRow.NormalInput>
+      </InputRow>
+      {/*
       <Collapsible>
-        <InputRow>
-          <InputRow.Label>
-            Facebook Pixel ID
-          </InputRow.Label>
-          <InputRow.NormalInput
-            name='scripts.fbPixelId'
-            onChange={onChange}
-            value={fbPixelId}
-          >
-            Ex. 254179138569861
-          </InputRow.NormalInput>
-        </InputRow>
         <InputRow>
           <InputRow.Label>Thankyou page</InputRow.Label>
           <InputRow.UrlInput
@@ -59,13 +60,17 @@ const General = ({ product = {}, subdomain, onChange, errors = {}, url, fulfillm
             prefix='http://'
           />
         </InputRow>
-      </Collapsible>
+      </Collapsible>*/}
     </div>
   );
 }
 
 
-export default General;
+const mapStateToProps = ({
+  user: { user: { subDomain: subdomain } = {} } = {}
+}) => ({ subdomain });
+
+export default connect(mapStateToProps)(General);
 
 
 

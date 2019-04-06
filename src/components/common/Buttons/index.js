@@ -33,13 +33,16 @@ export const DeleteButton = ({ iconType = 'trash', onClick, ...props }) => (
   </span>
 );
 
-export const ActivationSwitchInput = ({ active, onToggle, ...props }) => {
+export const ActivationSwitchInput = ({ active, disabled, note, onToggle, ...props }) => {
   const id = ids.generate();
   return (
-    <label htmlFor={id} className='switch-slider-input activability-switch'>
-      <input id={id} type='checkbox' onChange={onToggle} checked={active} />
-      <span className='slider-input slider-round' />
-    </label>
+    <div className="activations-switch-input">
+      <label htmlFor={id} className='switch-slider-input activability-switch'>
+        <input disabled id={id} type='checkbox' onChange={onToggle} checked={active} />
+        <span className='slider-input slider-round' />
+      </label>
+      {note && <span className="input-note switch-activations">{note}</span>}
+    </div>
   );
 };
 

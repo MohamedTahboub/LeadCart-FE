@@ -6,7 +6,12 @@ import { openNewWindow } from 'libs'
 
 const { MiniButton, Button, ActivationSwitchInput } = common
 
-const Headers = ({ subdomain, product: { available, url: productUrl } = {}, onChange, ...props }) => {
+const Headers = ({
+  subdomain,
+  product: { available, url: productUrl , isActive } = {},
+  onChange,
+  ...props
+}) => {
   const [showShareBox, setShareBox] = useState(false)
 
   const toggleShareBox = () => {
@@ -14,12 +19,13 @@ const Headers = ({ subdomain, product: { available, url: productUrl } = {}, onCh
   }
 
   const toggleAvailability = () => {
-    onChange({
-      target: {
-        name: 'available',
-        value: !available
-      }
-    });
+    if (isActive)
+      onChange({
+        target: {
+          name: 'available',
+          value: !available
+        }
+      });
   }
 
   const onPreview = () => {
@@ -41,6 +47,8 @@ const Headers = ({ subdomain, product: { available, url: productUrl } = {}, onCh
       <ActivationSwitchInput
         active={available}
         onToggle={toggleAvailability}
+        disabled={!isActive}
+        note={!isActive ? 'connect with one payment method at least' : ''}
       />
       <MiniButton
         onClick={onPreview}

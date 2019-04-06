@@ -18,3 +18,19 @@
 *:hover>.float-btn{
   display: block;
 }
+
+.activations-switch-input{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-content: center; */
+}
+
+.input-note.switch-activations{
+  position: absolute;
+  bottom: -10px;
+  text-align: center;
+  font-size: 10px;
+  color:gray;
+}

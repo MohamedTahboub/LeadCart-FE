@@ -62,7 +62,8 @@ const ProductSchema = yup.object({
   payment: yup.object({
     type: yup.string(),
     recurringPeriod: yup.string(),
-    splits: yup.string()
+    splits: yup.string(),
+    methods: yup.array().of(yup.string())
   })
 });
 
