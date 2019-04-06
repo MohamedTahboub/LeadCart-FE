@@ -10,10 +10,15 @@ import {
   CHECK_EMAIL_VERIFICATION_FAILED,
   TEST_EMAIL,
   TEST_EMAIL_SUCCESS,
-  TEST_EMAIL_FAILED
+  TEST_EMAIL_FAILED,
+  GET_EMAIL_SETTINGS
 } from 'constantsTypes';
 
 
+export const getEmailSettings = (settings) => ({
+  type: GET_EMAIL_SETTINGS,
+  payload: settings
+})
 export const updateEmailFooter = (details, meta) => ({
   type: UPDATE_EMAIL_FOOTER,
   payload: details,

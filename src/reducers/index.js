@@ -15,6 +15,7 @@ import teamMembers from './teamMembers'
 import settings from './settings'
 import agency from './agency'
 import upsells from './upsells'
+import emails from './emails'
 
 const rootReducer = combineReducers({
     user,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     activities,
     modals,
     settings,
+    emails,
     account,
     coupons,
     upsells,

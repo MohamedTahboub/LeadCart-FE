@@ -25,6 +25,13 @@ const EmailFooterModal = ({
         companyPhone,
     })
 
+    useEffect(()=>{
+        setFooterDetails({
+            socialMedia,
+            companyAddress,
+            companyPhone,
+        });
+    },[socialMedia,companyAddress,companyPhone])
     const onChange = ({ target: { name, value } }) => {
         setFooterDetails({ ...footerDetails, [name]: value });
     }
@@ -94,5 +101,23 @@ const EmailFooterModal = ({
     )
 }
 
-const mapStateToProps = ({ user: { user: { email: supportEmail } } }) => ({ supportEmail })
+const mapStateToProps = ({
+    emails: {
+        settings: {
+            socialMedia,
+            companyAddress,
+            companyPhone
+        }
+    },
+    settings: {
+        generalModel: {
+            supportEmail
+        }
+    }
+}) => ({
+    supportEmail,
+    socialMedia,
+    companyAddress,
+    companyPhone
+})
 export default connect(mapStateToProps, emailsActions)(EmailFooterModal)

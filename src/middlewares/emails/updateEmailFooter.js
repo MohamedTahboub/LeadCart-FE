@@ -11,7 +11,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
   if (action.type !== UPDATE_EMAIL_FOOTER) return next(action);
 
-  const { payload, meta } = action;
+  const { payload, meta = {} } = action;
 
 
   dispatch(apiRequest({

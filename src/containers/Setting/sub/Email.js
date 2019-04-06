@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import common from 'components/common';
 import EmailFooterModal from 'components/EmailFooterModal';
 import { connect } from 'react-redux';
@@ -76,9 +76,13 @@ const Email = (props) => {
     })
   }
 
+  useEffect(() => {
+    if (props.sourceEmail !== sourceEmail)
+      setSourceEmail(props.sourceEmail)
+  }, [props])
 
   const { testing, emailTestType } = testType
-  const isThisEmailVerified = sourceEmail === props.sourceEmail && props.emailVerificationStatus === 1
+  // const isThisEmailVerified = sourceEmail === props.sourceEmail && props.emailVerificationStatus === 1
   return (
     <Fragment>
       <MainBlock title='Email Settings'>
@@ -93,10 +97,12 @@ const Email = (props) => {
               Edit
 
               </EditButton>
-            <EmailFooterModal
-              onClose={onToggleFooterModal}
-              isVisible={showFooterModal}
-            />
+            {showFooterModal && (
+              <EmailFooterModal
+                onClose={onToggleFooterModal}
+                isVisible={showFooterModal}
+              />
+            )}
           </InputRow.Note>
         </InputRow>
         <InputRow>
@@ -307,15 +313,17 @@ const Email = (props) => {
   );
 }
 
-// const mapStatToProps = ({
-//   emails: {
-//     sourceEmail,
-//     emailVerificationStatus
-//   }
-// }) => ({
-//   sourceEmail,
-//   emailVerificationStatus
-// });
+const mapStatToProps = ({
+  emails: {
+    settings: {
+      sourceEmail,
+      emailVerificationStatus
+    } = {}
+  } = {}
+}) => ({
+  sourceEmail,
+  emailVerificationStatus
+});
 
-export default connect(null, emailsActions)(Email);
+export default connect(mapStatToProps, emailsActions)(Email);
 
