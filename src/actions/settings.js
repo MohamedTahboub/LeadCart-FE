@@ -6,8 +6,13 @@ import {
   CONNECT_WITH_PAYPAL,
   CONNECT_WITH_PAYPAL_SUCCESS,
   CONNECT_WITH_PAYPAL_FAILED,
+  UPDATE_MARKETPLACE_SETTINGS
 } from 'constantsTypes';
 
+export const updateMarketPlaceSettings = (settings) => ({
+  type: UPDATE_MARKETPLACE_SETTINGS,
+  payload: settings
+});
 
 export const onUserGeneralSettingsFieldUpdate = (field) => ({
   type: SETTINGS_GENERAL_FIELD_UPDATE,

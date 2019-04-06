@@ -20,14 +20,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     currency,
     logo,
     supportEmail = userEmail,
-    // downloadButtonText,
-    // firePixel,
-    // footerScript,
-    // purchaseCompletion,
-    lightLogo,
-    productExpirationDays,
     timeZone,
-    // url,
     errors
   } = props.general;
   const onFieldChange = ({ target: { name, value } }) => {
@@ -38,7 +31,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     props.onUserGeneralSettingsFieldUpdate({ name, value });
   };
 
-
+  console.log(props.general)
   return (
     <MainBlock title='General Marketplace Settings'>
       <InputRow>
@@ -79,7 +72,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
         </InputRow.Label>
         <InputRow.SearchInput
-          // value={country}
+          value={country}
           options={countries}
           target='name'
           error={errors.country}
@@ -94,6 +87,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
         <InputRow.SearchInput
           defaultValue={defaultTimeZone}
           options={timeZones}
+          value={timeZone}
           error={errors.timeZones}
           name='timeZone'
           onChange={onFieldChange}
@@ -119,29 +113,6 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           onChange={onFieldChange}
           options={[
             { label: 'USD - United States Dollar', value: 'USD' }
-          ]}
-        />
-      </InputRow>
-      <InputRow>
-        <InputRow.Label
-          error={errors.productExpirationDays}
-          notes='Number of days digital download links will be available to your customers after purchase.'
-        >
-          Digital Product Expiration (Days)
-
-        </InputRow.Label>
-        <InputRow.SelectOption
-          value={productExpirationDays}
-          name='productExpirationDays'
-          onChange={onFieldChange}
-          options={[
-            { label: '24 hour', value: 24 },
-            { label: '2 days', value: 2 * 24 },
-            { label: '3 days', value: 3 * 24 },
-            { label: '4 days', value: 4 * 24 },
-            { label: '5 days', value: 5 * 24 },
-            { label: '6 days', value: 6 * 24 },
-            { label: '7 days', value: 7 * 24 }
           ]}
         />
       </InputRow>

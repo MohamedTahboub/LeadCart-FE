@@ -10,9 +10,9 @@ const { FloatButton } = common;
 
 const Header = ({
   companyName = 'LeadCart',
-  color: background = 'rgb(142, 209, 252)',
-  logo = defaultLogo,
   supportEmail = 'support@leadcart.com',
+  logo = defaultLogo,
+  color: background = 'rgb(142, 209, 252)',
   onOptionSelected,
   ...props
 }) => {
@@ -44,24 +44,23 @@ const Header = ({
     </div>
   )
 }
-const mapStateToprops = ({
+const mapStateToProps = ({
   user: {
     user: {
-      company,
-      email,
       subDomain: subdomain
     }
   },
   settings: {
     generalModel: {
       logo,
-      support
+      supportEmail,
+      name: companyName
     }
   }
 }) => ({
-  company,
-  supportEmail: support || email,
+  companyName,
+  supportEmail,
   logo,
   subdomain
 })
-export default connect(mapStateToprops)(Header);
+export default connect(mapStateToProps)(Header);

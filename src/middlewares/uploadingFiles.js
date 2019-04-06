@@ -11,7 +11,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
   const castSuccess = (data) => {
     const { meta: { onSuccess } = {} } = action
-    onSuccess(data.url)
+    onSuccess && onSuccess(data.url)
     return uploadFileSuccess({ source: action.payload.source, ...data })
   };
 

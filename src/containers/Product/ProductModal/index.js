@@ -16,7 +16,7 @@ class Product extends Component {
   state = {
     product: {},
     activeOption: '',
-    activeTab: 'Available Settings',
+    activeTab: 'Product Settings',
     hiddenElements: {}
   }
 
@@ -37,8 +37,8 @@ class Product extends Component {
 
   onOptionSelected = (activeOption, activeTab) => {
     let tab = activeTab
-    if (this.state.activeTab !== 'Available Settings')
-      tab = 'Available Settings'
+    if (this.state.activeTab !== 'Product Settings')
+      tab = 'Product Settings'
     this.setState({ activeOption, activeTab: tab })
   }
 

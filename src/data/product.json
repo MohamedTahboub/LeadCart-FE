@@ -4,7 +4,6 @@
         "amount": 97
     },
     "payment": {
-        "methods": [],
         "type": "Onetime"
     },
     "thankYouPage": {

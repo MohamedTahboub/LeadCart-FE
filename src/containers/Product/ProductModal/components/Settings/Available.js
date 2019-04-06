@@ -155,7 +155,7 @@ export default (props) => {
   return (
     <div className='product-form-settings' >
       <SubTabs
-        defaultTab={'Available Settings'}
+        defaultTab={'Product Settings'}
         activeTab={activeTab}
         onTabChange={onTabChange}
         className='optional-setting-tabs'
@@ -165,8 +165,8 @@ export default (props) => {
           </div>
         )}
         tabs={{
-          'Available Settings': <Available {...props} />,
-          'Hidden Elements': <HiddenComponents  {...props} />,
+          'Product Settings': <Available {...props} />,
+          'Conversion Boosters': <HiddenComponents  {...props} />,
         }}
       />
     </div>
