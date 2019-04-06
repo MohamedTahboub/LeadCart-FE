@@ -11,7 +11,7 @@ import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettings } from 'actions/settings';
 import { filteringActivities } from 'libs';
-
+import { getEmailSettings } from 'actions/emails'
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { user: { user: { token, ...user }, isLoggedIn } } = getState();
 
@@ -34,6 +34,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getCustomersActivities(filteringActivities(data.customers)));
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
     dispatch(updateMarketPlaceSettings(data.marketPlace));
+    dispatch(getEmailSettings(data.emailSettings))
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
