@@ -40,8 +40,8 @@ const AddImage = ({
       source: props.source
     }, {
         onSuccess: (url) => {
-          console.log(url)
           setImage(url)
+          props.onUploaded && props.onUploaded(url)
         }
       });
   }
