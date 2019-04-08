@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { openNewWindow } from 'libs';
 import './style.css';
 import { Modal } from 'components/Modals';
-import { genrateColor } from './helpers';
+import { generateColor } from './helpers';
 import { SmallButton } from '../Buttons';
 import EasyAnimate from '../Animation/EasyAnimate';
 import ids from 'shortid'
@@ -47,15 +47,16 @@ export const MediumCard = ({
 };
 
 export const Avatar = ({
-  className: classname, style = {}, imageSrc, name
+  className: classname, style = {}, imageSrc, name = ''
 }) => {
   const className = classname ? `product-name-avatar${classname}` : 'product-name-avatar';
-  const firstLetters = name.trim().split(' ').map((w) => w[0].toUpperCase()).join('');
-  const backgroundColor = genrateColor(firstLetters);
+  const [firstWord = '', secondeWord = ''] = name.trim().split(' ')
+  const words = (`${firstWord[0]}${secondeWord[0]}`).toUpperCase()
+  const backgroundColor = generateColor(words);
   return (
     imageSrc
-      ? <img src={imageSrc} alt={name} className='product-image-avatar' />
-      : <span style={{ background: backgroundColor, ...style }} className={className}>{firstLetters}</span>
+      ? <img src={imageSrc} alt={words} className='product-image-avatar' />
+      : <span style={{ background: backgroundColor, ...style }} className={className}>{words.slice(0, 2)}</span>
   );
 };
 
@@ -142,8 +143,8 @@ export const PayPalConnectContainer = (props) => {
     imgSrc, onConnect, loading, className = '', active, error
   } = state;
   const onOpenForm = () => setState({ ...state, modal: true });
-  const onCloseForm = () =>{
-     setState({ ...state, modal: false });
+  const onCloseForm = () => {
+    setState({ ...state, modal: false });
     console.log('Closiong =========>')
   }
   const isActive = active ? 'paypal-success-badge' : '';
@@ -205,7 +206,7 @@ export const PayPalConnectContainer = (props) => {
 };
 
 
-export const RadioImageCard = ({ title,onClick, image, name = 'radio-image', className = '', ...props }) => {
+export const RadioImageCard = ({ title, onClick, image, name = 'radio-image', className = '', ...props }) => {
   const id = ids.generate()
   return (
     <div className={`radio-image-card-container ${className}`}>

@@ -9,11 +9,13 @@ import List from './List'
 import * as navigators from './Navigators'
 import * as wrappers from './Wrappers'
 import * as Layout from './Layout'
+import Timeline from './Timeline'
 
 export default {
     ...boxes,
     ...buttons,
     ...inputs,
+    Timeline,
     ...logos,
     ...search,
     ...wrappers,
