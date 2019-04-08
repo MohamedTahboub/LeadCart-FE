@@ -1,40 +1,51 @@
+import ids from 'shortid'
+
+export const filterSubscriptions = (orders = []) =>
+  orders.filter(({ payment }) => payment.paymentType === 'Subscription')
 
 
-export const filteringActivities = (customers) => ({
-  customers: customers.map(({
-    _id: id, email, firstName, lastName, phoneNumber, products
-  }) => ({
-    id,
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    lifeTimeCharge: products.reduce((total, { price: { amount = 0 } = {} }) => {
-      total += amount; return total;
-    }, 0)
-  })),
-  orders: customers.reduce((orders, customers) => {
-    const { products, ...c } = customers;
-
-    return [...orders, ...products.map(({
-      name: productName,
-      payment: { type: paymentType, methods: paymentMethod },
-      price: { amount: price },
-      ...p
-    }) => ({
-      ...p,
-      productName,
-      paymentType,
-      paymentMethod,
-      price,
-      ...c
-    }))];
-  }, []),
-  subscriptions: customers.reduce((subscriptions, customer) => {
-    const subScriptedTo = customer.products.filter(({ payment: { type } }) => type === 'Onetime');
-    delete customer.products;
-    if (subScriptedTo.length) return [...subscriptions, { ...customer, subScriptedTo }];
-    return subscriptions;
-  }, [])
+export const filteringActivities = (orders) => ({
+  orders,
+  subscriptions: filterSubscriptions(orders)
 });
 
+
+
+export const filterCustomers = (orders = [], products = []) => {
+  const customers = {}
+  orders.map(({ customer, ...order }) => {
+    if (!customers[customer.email])
+      customers[customer.email] = { ...customer, orders: [order] }
+    else
+      customers[customer.email].orders.push(order)
+  });
+
+  console.log(products)
+  return Object
+    .keys(customers)
+    .map(key => customers[key])
+    .map(({ orders, ...customer }) => ({
+      ...customer,
+      orders: orders.map(o => ({
+        ...o,
+        orderCode: ids.generate().toUpperCase(),
+        coupon: {
+          code: 'E3XSwRt',
+          discount: 21
+        },
+        product: {
+          id: o.product,
+          name: 'Product V',
+          price: 120,
+          offer: {
+            name: 'This year top selling book',
+            price: 30
+          }
+        }
+      })),
+      lifeTimeCharges: orders.reduce((total, { price }) => {
+        total += price.amount
+        return total
+      }, 0)
+    }))
+}
