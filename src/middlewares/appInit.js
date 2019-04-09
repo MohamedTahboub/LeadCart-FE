@@ -4,13 +4,13 @@ import { getSubAccountsSuccess } from 'actions/agency';
 import { getCouponsList } from 'actions/coupon';
 import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
-import { getCustomersActivities } from 'actions/activities';
+import { getActivities, getCustomers } from 'actions/activities';
 import { getUpsellsSuccess } from 'actions/upsells';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettings } from 'actions/settings';
-import { filteringActivities } from 'libs';
+import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails'
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { user: { user: { token, ...user }, isLoggedIn } } = getState();
@@ -31,7 +31,10 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getUpsellsSuccess(data.upsells));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
-    dispatch(getCustomersActivities(filteringActivities(data.customers)));
+
+    dispatch(getActivities(filteringActivities(data.orders)));
+    dispatch(getCustomers(filterCustomers(data.orders, data.products)));
+
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
     dispatch(updateMarketPlaceSettings(data.marketPlace));
     dispatch(getEmailSettings(data.emailSettings))
