@@ -205,8 +205,8 @@ export const UPLOAD_FILE_FAILED = Symbol('UPLOAD_FILE_FAILED');
 /* files uploading actions ends */
 
 
-export const GET_CUSTOMERS_ACTIVITIES = Symbol('GET_CUSTOMERS_ACTIVITIES');
-export const GET_CUSTOMERS_LIST = Symbol('GET_CUSTOMERS_LIST');
+export const GET_ACTIVITIES = Symbol('GET_ACTIVITIES');
+export const GET_CUSTOMERS = Symbol('GET_CUSTOMERS');
 export const GET_ORDERS_LIST = Symbol('GET_ORDERS_LIST');
 export const GET_SUBSCRIPTIONS_LIST = Symbol('GET_SUBSCRIPTIONS_LIST');
 
