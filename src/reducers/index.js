@@ -6,6 +6,7 @@ import files from './files'
 import product from './product/index'
 import products from './products'
 import activities from './activities'
+import customers from './customers'
 import payments from './payments'
 import flashMessage from './flashMessage'
 import modals from './modals'
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     product,
     products,
     activities,
+    customers,
     modals,
     settings,
     emails,
