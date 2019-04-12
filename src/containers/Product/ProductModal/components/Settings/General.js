@@ -10,7 +10,16 @@ const fulfillmentList = [
   { label: 'Test Product  fulfillment', value: 'theXIsd' }
 ];
 
-const General = ({ product = {}, subdomain, onChange, errors = {}, url, fulfillmentId, fbPixelId, thankyouPage }) => {
+const General = ({
+  product: {
+    scripts: { fbPixelId = '' } = {},
+    url
+  } = {},
+  subdomain,
+  onChange,
+  errors = {},
+  fulfillmentId,
+  thankyouPage }) => {
 
   return (
     <div className='product-form-general-settings bottom-breakline'>
@@ -22,7 +31,7 @@ const General = ({ product = {}, subdomain, onChange, errors = {}, url, fulfillm
           name='url'
           onChange={onChange}
           subdomain={subdomain}
-          value={product.url}
+          value={url}
         >
         </InputRow.UrlSuffixInput>
       </InputRow>

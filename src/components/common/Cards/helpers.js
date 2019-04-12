@@ -1,4 +1,4 @@
-export const genrateColor = name => {
+export const generateColor = name => {
     const randomWithSeed = (number) => {
         const r = ((Math.sin(number) * 10000) - Math.floor((Math.sin(number) * 10000))) * 1000
         return 210 > r

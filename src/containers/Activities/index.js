@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import CustomerList from './sub/CustomerList'
+import React, { useState } from 'react';
 import Orders from './sub/Orders'
 import Subscriptions from './sub/Subscriptions'
 
@@ -14,18 +12,24 @@ const {
     Page,
     PageHeader,
     PageContent,
-    SubTabs } = common
+    SubTabs
+} = common
 
 
 export default (props) => {
+    const [csvData, setCsvData] = useState('')
+    const [activeTab, setActiveTab] = useState('Orders');
 
-    const onExportToCSV = (fileName, dataRows) => {
+    const onExportToCSV = () => {
+        const dataRows = csvData;
+        const fileName = `${activeTab}.csv}`
         const download = document.createElement('a');
         const filehref = `data:text/csv;charset=utf-8,${encodeURIComponent(dataRows)}`;
         download.setAttribute('href', filehref);
         download.setAttribute('download', fileName);
         download.click();
     }
+
     return (
         <Page className='products-details-page'>
             <PageHeader>
@@ -39,11 +43,11 @@ export default (props) => {
             </PageHeader>
             <PageContent>
                 <SubTabs
-                    defaultTab='Customers'
+                    defaultTab='Orders'
+                    onTabChange={setActiveTab}
                     tabs={{
-                        'Customers': <CustomerList onExport={onExportToCSV} />,
-                        'Orders': <Orders onExport={onExportToCSV} />,
-                        'Subscriptions': <Subscriptions onExport={onExportToCSV} />
+                        'Orders': <Orders updateCsvData={data => setCsvData(data)} />,
+                        'Subscriptions': <Subscriptions updateCsvData={data => setCsvData(data)} />
                     }}
                 />
             </PageContent>

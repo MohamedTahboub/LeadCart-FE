@@ -1,25 +1,16 @@
 import {
-  GET_CUSTOMERS_LIST,
-  GET_ORDERS_LIST,
-  GET_SUBSCRIPTIONS_LIST,
-  GET_CUSTOMERS_ACTIVITIES
+  GET_CUSTOMERS,
+  GET_ACTIVITIES
 } from 'constantsTypes';
 
-export const getCustomersActivities = (activities) => ({
-  type: GET_CUSTOMERS_ACTIVITIES,
+// getActivities
+// getCustomers
+
+export const getActivities = (activities) => ({
+  type: GET_ACTIVITIES,
   payload: activities
 });
-export const getCustomerList = (customers) => ({
-  type: GET_CUSTOMERS_LIST,
+export const getCustomers = (customers) => ({
+  type: GET_CUSTOMERS,
   payload: customers
-});
-
-export const getOrdersList = (orders) => ({
-  type: GET_ORDERS_LIST,
-  payload: orders
-});
-
-export const getSubscriptionsList = (subscriptions) => ({
-  type: GET_SUBSCRIPTIONS_LIST,
-  payload: subscriptions
 });

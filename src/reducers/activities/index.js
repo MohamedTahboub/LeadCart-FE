@@ -1,10 +1,21 @@
-import customers from './customers'
-import orders from './orders'
-import subscriptions from './subscriptions'
-import { combineReducers } from 'redux'
-
-export default combineReducers({
-    customers,
-    orders,
-    subscriptions
-})
+import {
+    GET_ACTIVITIES
+  } from 'constantsTypes';
+  
+  const initalState = {
+    orders: [],
+    subscriptions: []
+  };
+  
+  export default (state = initalState, { type, payload }) => {
+    switch (type) {
+      case GET_ACTIVITIES:
+        return {
+          ...state,
+          orders: payload.orders,
+          subscriptions: payload.subscriptions
+        };
+      default: return state;
+    }
+  };
+  

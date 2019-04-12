@@ -45,6 +45,7 @@ import Guidelines from 'containers/Guidelines'
 import Products from 'containers/Products'
 // import Product from 'containers/Product'
 import Activities from './containers/Activities';
+import CustomersLab from './containers/CustomersLab';
 import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
 import Agency from './containers/Agency';
@@ -83,6 +84,7 @@ ReactDOM.render(
                             <Route exact path='/' component={Guidelines} />
                             <Route exact path='/products' component={Products} />
                             <Route path='/activities' component={Activities} />
+                            <Route path='/customers' component={CustomersLab} />
                             <Route exact path='/coupons' component={Coupons} />
                             <Route exact path='/upsells' component={Upsells} />
                             <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />

@@ -94,32 +94,13 @@ PaymentMethods = connect(mpaStateToProps)(PaymentMethods);
 
 const PaymentOptions = ({ product: { price, payment } = {}, ...props }) => {
 
-  const onChange = ({ price : priceAmount, payment: paymentDetials }) => {
-
-    if (paymentDetials.type === 'Subscription') {
-      paymentDetials.recurringPeriod = {
-        Monthly: 'MONTH',
-        Yearly: 'YEAR'
-      }[paymentDetials.recurringPeriod || 'Monthly'];
-    }
-
-    props.onChange({ target: { name: 'price', value: { ...price, amount: +(priceAmount) } } });
-    props.onChange({ target: { name: 'payment', value: { ...payment, ...paymentDetials } } });
-  };
-
-  if (payment.type === 'Subscription') {
-    payment.recurringPeriod = {
-      MONTH: 'Monthly',
-      YEAR: 'YEAR'
-    }[payment.recurringPeriod || 'MONTH'];
-  }
 
   return (
     <div className="template-payment-options">
       <Title>Payment Type:</Title>
       <PaymentType
         payment={payment}
-        onChange={onChange}
+        onChange={props.onChange}
         price={price}
       />
       <Title>Payment Gateways:</Title>

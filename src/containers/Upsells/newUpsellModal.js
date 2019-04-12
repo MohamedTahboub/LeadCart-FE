@@ -236,7 +236,6 @@ class UpsellForm extends Component {
         products, errors: generalErrors = {}, isNewUpsell, show: isVisible, onClose
       }
     } = this;
-    console.log('SHOW', this.props.show);
     return (
       <SlideModal onClose={onClose} isVisible={isVisible} className='upsell-modal-form'>
         <FlexBoxesContainer className='space-between-elements upsell-modal-head'>

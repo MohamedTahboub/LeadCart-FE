@@ -1,0 +1,82 @@
+.customer-modal-content{
+  left:50%;
+  padding: 0px 20px;
+}
+.customer-history-title{
+  font-size: large;
+  border-bottom: .5px solid rgba(0,0,0,0.2);
+  padding: 4px 0px;
+  margin: 7px 0px;
+
+}
+.customer-orders-history{
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 35px;
+}
+
+
+
+/* Order styles */
+.customer-order-card{
+  border-radius: 5px;
+  padding : 15px;
+  box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.2);
+}
+.order-code{
+  font-size: inherit;
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.order-receipt-row{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin : 10px 0px;
+}
+
+.order-receipt-row::after{
+  position: absolute;
+  font-size: smaller;
+  right:5px;
+  top : -80%;
+}
+.order-receipt-row.plus::after{
+  content: '+';
+}
+.order-receipt-row.minus::after{
+  content: '-';
+}
+.order-receipt-row.receipt-total{
+  border-top: 2px solid rgba(0,0,0,0.3);
+  font-weight: bold;
+  margin : 0px;
+  padding-top : 10px;
+}
+
+span.order-receipt-name {
+  font-size: 12px;
+}
+
+span.order-receipt-name span {
+  font-weight: bold;
+}
+/* Order styles Ends*/
+
+
+
+
+/* Common Components Styles*/
+.customer-details-row{
+  margin: 3px 0px;
+}
+.customer-detail-label{
+  color:#2B3748;
+  padding-right: 10px 
+}
+.customer-detail-value{
+  font-size: 15px;
+}
+/* Common Components Styles ends */
