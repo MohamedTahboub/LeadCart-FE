@@ -78,7 +78,7 @@ const ProductSchema = yup.object({
   scripts: yup.object({
     fbPixelId: yup
       .number()
-      .test('len', 'Must be between 9 to 20 characters', val => val.toString().length >= 9 && val.toString().length <= 20)
+      .test('len', 'Must be between 9 to 20 characters', (val = '') => val.toString().length >= 9 && val.toString().length <= 20)
   })
 });
 
@@ -91,7 +91,6 @@ export default async (product) => {
       value: castedProduct
     };
   } catch (err) {
-    console.log('==========> ', err)
     return {
       isValid: false,
       errors: castYupErrors(err)
