@@ -33,7 +33,7 @@ const Available = ({ activeOption = 'PaymentOptions', ...props }) => {
       ActiveElement = HeaderOptions;
   }
 
-  return <ActiveElement {...props} />
+  return <ActiveElement {...props} key={activeOption} />
 }
 
 const HiddenComponents = ({

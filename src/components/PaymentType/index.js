@@ -1,6 +1,5 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import common from 'components/common';
-
 const { InputRow } = common;
 
 const paymentTypesOptions = (type) => ({
@@ -14,7 +13,7 @@ const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
     <InputRow.Label>Payment Type</InputRow.Label>
     <InputRow.SelectOption
       value={value}
-      name='type'
+      name='payment.type'
       onChange={onChange}
       options={[
         { label: 'One Time Price', value: 'Onetime' },
@@ -25,55 +24,73 @@ const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
   </InputRow>
 );
 
-export default ({ payment = {}, price: { amount: productPrice } = {}, onChange }) => {
-  const initState = { ...payment, price: productPrice };
+export default ({
+  payment = {},
+  price = {},
+  onChange
+}) => {
 
-  const [state, setState] = useState({ ...initState });
-  const { price, type = 'Onetime' } = state;
-  const { label: typelabel, name: typeName, options: typeOptions = [] } = paymentTypesOptions(type);
 
   const onFieldChange = ({ target: { name, value } }) => {
+    const payload = { payment, price }
 
-    const newState = { ...state, [name]: value };
-    setState(newState);
-
-    const { name: customField, options: [defaultOption] = [] } = paymentTypesOptions(newState.type);
-
-    const paymentPayload = {
-      price: newState.price,
-      payment: {
-        type: newState.type || 'Onetime'
-      }
+    if (name.includes('.')) {
+      const [key, nestedKey] = name.split('.');
+      const nestedValue = { [nestedKey]: value };
+      name = key;
+      value = { ...payload[key], ...nestedValue };
     }
 
-    if (newState.type !== 'Onetime')
-      paymentPayload.payment = { ...paymentPayload.payment, [customField]: newState[customField] || defaultOption }
-
-    onChange(paymentPayload);
+    onChange({
+      target: {
+        name, value
+      }
+    });
   };
-
+  const paymentType = payment.type
+  const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split amount(each)' : 'Price'
   return (
     <Fragment>
       <InputRow>
-        <InputRow.Label>Price</InputRow.Label>
+        <InputRow.Label>{priceLabel}</InputRow.Label>
         <InputRow.PriceField
           onBlur={onFieldChange}
           currancy='$'
-          name='price'
-          value={price}
+          name='price.amount'
+          value={price.amount}
         >
         </InputRow.PriceField>
       </InputRow>
-      <PaymentTypeSelector value={type} onChange={onFieldChange} />
-      {type !== 'Onetime'
+      <PaymentTypeSelector value={paymentType} onChange={onFieldChange} />
+      {paymentType === 'Subscription'
         && (
           <InputRow>
-            <InputRow.Label>{typelabel}</InputRow.Label>
+            <InputRow.Label>Recurring Period</InputRow.Label>
             <InputRow.SelectOption
               onChange={onFieldChange}
-              name={typeName}
-              value={state[typeName]}
-              options={typeOptions.map((f) => ({ label: f, value: f }))}
+              name='payment.recurringPeriod'
+              value={payment.recurringPeriod}
+              options={[
+                { label: 'Monthly', value: 'MONTH' },
+                { label: 'Yearly', value: 'YEAR' },
+              ]}
+            />
+          </InputRow>
+        )}
+      {paymentType === 'Split'
+        && (
+          <InputRow>
+            <InputRow.Label>Number of Splits</InputRow.Label>
+            <InputRow.SelectOption
+              onChange={onFieldChange}
+              name='payment.splits'
+              value={payment.splits}
+              options={[
+                { label: 3, value: 3 },
+                { label: 6, value: 6 },
+                { label: 9, value: 9 },
+                { label: 12, value: 12 },
+              ]}
             />
           </InputRow>
         )}

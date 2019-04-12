@@ -28,7 +28,8 @@ const ProductShadowLoading = () => <div className='empty-product-shadowbox anima
 const Products = ({
   isFetching: loadingProducts,
   deleteProduct,
-  products
+  products,
+  subdomain
 }) => {
 
 
@@ -37,7 +38,7 @@ const Products = ({
 
 
   const onProductPreview = (url) => {
-    window.open(`https://${this.props.subdomain}.leadcart.io/products/${url}`, '_blank');
+    window.open(`https://${subdomain}.leadcart.io/products/${url}`, '_blank');
   }
 
   const onProductEdit = (product) => {
