@@ -4,6 +4,7 @@ import { ProductSettings, ProductEditableTemplate } from './components'
 import common from 'components/common'
 import { ProductSchema } from 'libs/validation';
 import *  as productActions from 'actions/product';
+import *  as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
 import { showIntercomIcon } from 'libs'
 
@@ -70,8 +71,13 @@ class Product extends Component {
     const { isValid, errors, value: product } = await ProductSchema(newProduct);
 
     console.log('Product Validations ', isValid, errors, product);
-    if (!isValid)
+    if (!isValid) {
+      this.props.showFlashMessage({
+        type: 'failed',
+        message: 'Check the products Fields And Try a gain'
+      })
       return this.setState({ errors })
+    }
 
     const action = isNew ? createNewProduct : updateProduct
     const payload = isNew ? product : { details: { ...product }, productId: newProduct._id }
@@ -127,4 +133,4 @@ class Product extends Component {
 }
 
 
-export default connect(null, productActions)(Product);
+export default connect(null, { ...productActions, ...flashMessages })(Product);
