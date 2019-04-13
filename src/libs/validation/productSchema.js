@@ -77,8 +77,9 @@ const ProductSchema = yup.object({
   }),
   scripts: yup.object({
     fbPixelId: yup
-      .number()
-      .test('len', 'Must be between 9 to 20 characters', (val = '') => val.toString().length >= 9 && val.toString().length <= 20)
+      .string()
+      .min(9)
+      .max(20)
   })
 });
 
