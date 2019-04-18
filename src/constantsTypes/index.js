@@ -235,7 +235,8 @@ export const CHANGE_UPSELL_STATE_FAILED = Symbol('CHANGE_UPSELL_STATE_FAILED');
 export const TOGGLE_CREATE_PRODUCT_MODALE = Symbol('TOGGLE_CREATE_PRODUCT_MODALE');
 
 export const APP_INITIATION = Symbol('APP_INITIATION');
-export const TOGGLE_LOADING = Symbol('TOGGLE_LOADING');
+export const START_LOADING = Symbol('START_LOADING');
+export const END_LOADING = Symbol('END_LOADING');
 
 export const API_REQUEST = Symbol('API_REQUEST');
 

@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import './style.css';
 
 
-class LoadingBar extends Component {
-  render () {
-    return this.props.isLoading
-      ? (
-        <div className='application-loading-bar'>
-          <div className='lodaing-progress' />
-        </div>
-      )
-      : null;
-  }
+const LoadingBar = ({ loading }) => {
+
+  if (!loading) return null;
+
+  return (
+    <div className='application-loading-bar'>
+      <div className='lodaing-progress' />
+    </div>
+  )
 }
 
-const mapStateToProps = ({ loading }) => ({ isLoading: loading });
+const mapStateToProps = ({ loading }) => ({ loading });
 
 export default connect(mapStateToProps)(LoadingBar);
