@@ -18,7 +18,6 @@ export default ({ dispatch, getState }) => (next) => async (action) => {
     else dispatch(onFailed(message));
   } catch (e) {
     dispatch({ type: END_LOADING });
-
     dispatch(onFailed(`Something gone wrong,please try again later ${e.message}`));
   }
 };

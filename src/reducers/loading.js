@@ -6,10 +6,10 @@ import {
 
 const initialState = false;
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, { type }) => {
   switch (type) {
-    case START_LOADING: return true;
-    case END_LOADING: return false;
-    default: return state;
+  case START_LOADING: return true;
+  case END_LOADING: return false;
+  default: return state;
   }
 };
