@@ -37,9 +37,10 @@ export const saveUserGeneralSettingsFailed = (message) => ({
 
 /* Setting - Integrations - Payment Gateway */
 
-export const connectWithPaypal = (appCredit) => ({
+export const connectWithPaypal = (appCredit, meta) => ({
   type: CONNECT_WITH_PAYPAL,
-  payload: appCredit
+  payload: appCredit,
+  meta
 });
 export const connectWithPaypalSuccess = (message) => ({
   type: CONNECT_WITH_PAYPAL_SUCCESS,

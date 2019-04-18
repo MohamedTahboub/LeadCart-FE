@@ -300,7 +300,10 @@ span.medium-card-headline {
 }
 .paypal-form{
     flex:1;
-
+    
+}
+.paypal-submit-btn{
+    margin:15px auto;
 }
 .paypal-connect-input{
     width: 100%;

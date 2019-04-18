@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { openNewWindow } from 'libs';
 import './style.css';
 import { Modal } from 'components/Modals';
+import ids from 'shortid';
+import { Title } from '../Titles';
 import { generateColor } from './helpers';
 import { SmallButton } from '../Buttons';
 import EasyAnimate from '../Animation/EasyAnimate';
-import ids from 'shortid'
 
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
@@ -50,8 +51,8 @@ export const Avatar = ({
   className: classname, style = {}, imageSrc, name = ''
 }) => {
   const className = classname ? `product-name-avatar${classname}` : 'product-name-avatar';
-  const [firstWord = '', secondeWord = ''] = name.trim().split(' ')
-  const words = (`${firstWord[0]}${secondeWord[0]}`).toUpperCase()
+  const [firstWord = '', secondeWord = ''] = name.trim().split(' ');
+  const words = (`${firstWord[0]}${secondeWord[0]}`).toUpperCase();
   const backgroundColor = generateColor(words);
   return (
     imageSrc
@@ -70,7 +71,7 @@ export const ProductCard = ({
         <span className='product-salles-holder'>
           {monthlyProfite}
           /monthly
-      </span>
+        </span>
         <span className='product-price-holder'>{`$ ${price.amount}`}</span>
       </div>
       <div className='card-controlls-container'>
@@ -131,100 +132,121 @@ export const UpsellCard = ({
   );
 
 
-export const PayPalConnectContainer = (props) => {
-  const initialState = {
-    modal: false,
-    loading: false,
-    error: 'something gonn wrong'
-  };
-  const [state, setState] = useState({ ...initialState, ...props });
-
-  const {
-    imgSrc, onConnect, loading, className = '', active, error
-  } = state;
-  const onOpenForm = () => setState({ ...state, modal: true });
-  const onCloseForm = () => {
-    setState({ ...state, modal: false });
-    console.log('Closiong =========>')
-  }
-  const isActive = active ? 'paypal-success-badge' : '';
+export const PayPalConnectContainer = ({
+  imgSrc,
+  onConnect,
+  className,
+  ...props
+}) => {
+  const [showForm, setShowForm] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [active, setActive] = useState(props.active);
+  const [credits, setCredits] = useState({});
 
   const onChange = ({ target: { value, name } }) => {
-    if (value) setState({ ...state, error: '', [name]: value });
+    setCredits({ ...credits, [name]: value });
+    setErrors({});
   };
-  const onSubmit = () => {
-    const { client_id: clientId, client_secret: clientSecret } = state;
 
-    // const creditSchema = yup.object({
-    //   clientId : yup.string().min(10).required('This Should be '),
-    //   clientSecret:yup.string().required().min(10),
-    // }).required()
+  useEffect(() => {
+    setActive(props.active);
+  }, [props]);
 
-    if (clientId && clientSecret) {
-      onConnect({ clientId, clientSecret });
-      setState({ ...state, active: false, loading: true });
+  const onSubmit = async () => {
+
+    if (credits.clientId && credits.clientSecret) {
+      setSubmitting(true);
+      await onConnect(
+        credits,
+        {
+          onSuccess: () => {
+            setSubmitting(false);
+            setShowForm(false);
+          },
+          onFailed: (err = {}) => {
+            setSubmitting(false);
+            setErrors({ message: err.message });
+          }
+        }
+      );
+    } else {
+      setErrors({
+        message: 'Fields are not valid'
+      })
     }
   };
 
-  if (loading && error || loading && active) setState({ ...state, loading: false });
   return (
-    <MediumCard
-      onClick={onOpenForm}
-      isActive={active}
-      imgSrc={imgSrc}
-    >
-      <Modal isVisible={state.modal} onClose={onCloseForm} className='paypal-connect-container'>
+    <Fragment>
+      <MediumCard
+        onClick={() => setShowForm(true)}
+        isActive={active}
+        imgSrc={imgSrc}
+      />
+      <Modal
+        isVisible={showForm}
+        onClose={() => setShowForm(false)}
+        className='paypal-connect-container'
+      >
+        <Title>Connect your paypal account using paypal app credit</Title>
         <form className='paypal-form'>
           <input
             type='text'
             onChange={onChange}
-            name='client_id'
-            disabled={loading}
+            name='clientId'
+            disabled={submitting}
             className='paypal-connect-input'
             placeholder='Paypal App client Id'
           />
           <input
             type='text'
             onChange={onChange}
-            name='client_secret'
-            disabled={loading}
+            name='clientSecret'
+            disabled={submitting}
             className='paypal-connect-input'
             placeholder='Paypal App secret'
           />
+          {errors.message && <span className='paypal-error-message'>{errors.message}</span>}
           <SmallButton
-            disabled={loading}
-            className={loading ? 'primary-color spinner' : 'primary-color'}
+            disabled={submitting}
+            className={submitting ? 'primary-color paypal-submit-btn  spinner' : 'primary-color paypal-submit-btn'}
             onClick={onSubmit}
             children='Connect'
           />
-          {error && <span className='paypal-error-message'>{error}</span>}
         </form>
       </Modal>
-    </MediumCard>
-
+    </Fragment>
   );
 };
 
 
-export const RadioImageCard = ({ title, onClick, image, name = 'radio-image', className = '', ...props }) => {
-  const id = ids.generate()
+export const RadioImageCard = ({
+  title,
+  onClick,
+  image,
+  name = 'radio-image',
+  className = '',
+  ...props
+}) => {
+  const id = ids.generate();
   return (
     <div className={`radio-image-card-container ${className}`}>
       <input
-        type="radio"
+        type='radio'
         name={name}
         id={id}
         className='radio-image-input'
       />
       <label
-        className="radio-image-label"
+        className='radio-image-label'
         htmlFor={id}
         onClick={onClick}
       >
-        <span className="radio-image-label-title">
+        <span className='radio-image-label-title'>
           {title}
         </span>
-        <div className="radio-image-card-image">
+        <div className='radio-image-card-image'>
           <img
             alt={name}
             src={image}
@@ -232,5 +254,5 @@ export const RadioImageCard = ({ title, onClick, image, name = 'radio-image', cl
         </div>
       </label>
     </div>
-  )
-}
+  );
+};
