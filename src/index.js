@@ -39,6 +39,7 @@ import SignUpSaasmantra from 'containers/SignUpSaasmantra';
 import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 import Upsells from 'containers/Upsells';
+import Fulfillments from 'containers/Fulfillments';
 
 // import Dashboard from 'containers/Dashboard'
 import Guidelines from 'containers/Guidelines'
@@ -87,6 +88,7 @@ ReactDOM.render(
                             <Route path='/customers' component={CustomersLab} />
                             <Route exact path='/coupons' component={Coupons} />
                             <Route exact path='/upsells' component={Upsells} />
+                            <Route exact path='/fulfillments' component={Fulfillments} />
                             <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
                             <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
                             <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
