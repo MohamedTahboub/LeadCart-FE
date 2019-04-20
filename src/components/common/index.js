@@ -9,6 +9,8 @@ import List from './List'
 import * as navigators from './Navigators'
 import * as wrappers from './Wrappers'
 import * as Layout from './Layout'
+import * as Notes from './Notes'
+import * as Links from './Links'
 import Timeline from './Timeline'
 
 export default {
@@ -20,6 +22,8 @@ export default {
     ...search,
     ...wrappers,
     ...Layout,
+    ...Notes,
+    ...Links,
     List,
     ...titles,
     ...cards,
