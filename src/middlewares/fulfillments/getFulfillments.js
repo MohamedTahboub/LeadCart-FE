@@ -1,5 +1,5 @@
 import { GET_FULFILLMENTS } from 'constantsTypes';
-import { getFulfillmentsSuccess, getFulfillmentsFailed } from 'actions/fullfilments';
+import { getFulfillmentsSuccess, getFulfillmentsFailed } from 'actions/fulfillments';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {

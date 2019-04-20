@@ -1,5 +1,5 @@
 import { UPDATE_FULFILLMENT } from 'constantsTypes';
-import { updateFulfillmentSuccess, updateFulfillmentFailed } from 'actions/fullfilments';
+import { updateFulfillmentSuccess, updateFulfillmentFailed } from 'actions/fulfillments';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {

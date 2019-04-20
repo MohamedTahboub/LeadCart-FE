@@ -1,5 +1,5 @@
 import { DELETE_FULFILLMENT } from 'constantsTypes';
-import { deleteFulfillmentSuccess, deleteFulfillmentFailed } from 'actions/fullfilments';
+import { deleteFulfillmentSuccess, deleteFulfillmentFailed } from 'actions/fulfillments';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {

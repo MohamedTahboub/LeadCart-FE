@@ -1,7 +1,7 @@
 import {
-  GET_FULFILLMENT,
-  GET_FULFILLMENT_SUCCESS,
-  GET_FULFILLMENT_FAILED,
+  GET_FULFILLMENTS,
+  GET_FULFILLMENTS_SUCCESS,
+  GET_FULFILLMENTS_FAILED,
   CREATE_FULFILLMENT,
   CREATE_FULFILLMENT_SUCCESS,
   CREATE_FULFILLMENT_FAILED,
@@ -17,16 +17,16 @@ import {
 } from 'constantsTypes';
 
 
-export const getFulfillment = (fulfillments) => ({
-  type: GET_FULFILLMENT,
+export const getFulfillments = (fulfillments) => ({
+  type: GET_FULFILLMENTS,
   payload: fulfillments
 });
-export const getFulfillmentSuccess = (fulfillments) => ({
-  type: GET_FULFILLMENT_SUCCESS,
+export const getFulfillmentsSuccess = (fulfillments) => ({
+  type: GET_FULFILLMENTS_SUCCESS,
   payload: fulfillments
 });
-export const getFulfillmentFailed = (message) => ({
-  type: GET_FULFILLMENT_FAILED,
+export const getFulfillmentsFailed = (message) => ({
+  type: GET_FULFILLMENTS_FAILED,
   payload: message
 });
 

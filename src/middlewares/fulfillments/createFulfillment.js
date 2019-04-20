@@ -1,26 +1,27 @@
-import { CHANGE_FULFILLMENT_STATE } from 'constantsTypes';
-import { changeFulfillmentStateSuccess, changeFulfillmentStateFailed } from 'actions/fullfilments';
+import { CREATE_FULFILLMENT } from 'constantsTypes';
+import { createFulfillmentSuccess, createFulfillmentFailed } from 'actions/fulfillments';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== CHANGE_FULFILLMENT_STATE) return next(action);
+  if (action.type !== CREATE_FULFILLMENT) return next(action);
 
   const { payload, meta = {} } = action;
 
   dispatch(apiRequest({
     options: {
-      method: 'put',
+      method: 'post',
       body: payload,
-      uri: '/api/fulfillments/state',
+      uri: '/api/fulfillments',
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return changeFulfillmentStateSuccess(payload);
+      return createFulfillmentSuccess(args);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
-      return changeFulfillmentStateFailed(message);
+
+      return createFulfillmentFailed(message);
     }
   }));
 };
