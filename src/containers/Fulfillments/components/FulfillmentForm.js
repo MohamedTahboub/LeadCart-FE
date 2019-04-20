@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
+import * as fulfillmentsActions from 'actions/fulfillments'
 import { FulfillmentsTypesForms } from '.';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
+import { FulfillmentsValidationSchema } from 'libs/validation'
 
 const {
     MainTitle,
@@ -13,9 +16,10 @@ const FulfillmentForm = ({
     show,
     onClose,
     isNew,
-    data = {}
+    data = {},
+    ...props
 }) => {
-    console.log('Fulfillment' , data)
+    console.log('Fulfillment', data)
     const initialFulfillment = { ...data, type: 'noFulfillment' }
     const [fulfillment, setFulfillment] = useState(initialFulfillment)
     const [errors, setErrors] = useState({})
@@ -35,13 +39,49 @@ const FulfillmentForm = ({
 
         const data = { ...fulfillment, [name]: value }
         setFulfillment(data)
-        console.log(data)
+        setErrors({})
     };
-    const createFulfillment = () => {
-        console.log('Create', fulfillment)
+    const createFulfillment = async () => {
+        FulfillmentsValidationSchema
+        try {
+            const { isValid, value, errors } = await FulfillmentsValidationSchema(fulfillment);
+            if (!isValid) return setErrors(errors);
+
+
+            props.createFulfillment(
+                value
+                ,
+                {
+                    onSuccess: (m) => {
+                        onClose()
+                    },
+                    onFailed: ({ message  }) => setErrors({ message })
+                });
+        } catch ({ message }) {
+            setErrors({ message });
+        }
     }
-    const updateFulfillment = () => {
-        console.log('Update', fulfillment)
+    const updateFulfillment = async () => {
+
+        try {
+            const { isValid, value, errors } = await FulfillmentsValidationSchema(fulfillment);
+            if (!isValid) return setErrors(errors);
+
+            props.updateFulfillment({
+                body: value,
+                fulfillmentId: fulfillment._id
+            },
+                {
+                    onSuccess: () => {
+                        onClose()
+                    },
+                    onFailed: ({ message }) => {
+                        setErrors({ message })
+                    }
+                });
+        } catch ({ message }) {
+            setErrors({ message });
+        }
     }
     const {
         name,
@@ -106,4 +146,6 @@ const FulfillmentForm = ({
         </Modal>
     );
 };
-export default FulfillmentForm;
+
+FulfillmentForm.propTypes = {}
+export default connect(null, fulfillmentsActions)(FulfillmentForm);

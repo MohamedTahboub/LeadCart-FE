@@ -3,16 +3,23 @@ import common from 'components/common';
 import { connect } from 'react-redux';
 import * as fulfillmentsActions from 'actions/fulfillments';
 import PropTypes from 'prop-types';
-import { UpsellCard } from '../../components/UpsellCard';
 import { FulfillmentForm } from './components';
 import './style.css'
 const {
     MainTitle,
     Button,
     Page,
+    FulfillmentCard,
     PageHeader,
     PageContent
 } = common;
+
+const fulfillmentsTypesLabels = {
+    'successUrls': "Success Urls Fulfillments",
+    'noFulfillment': "No Fulfillment",
+    'manual': "Manual Fulfillment",
+    'integration': "Zapier Integration Fulfillment"
+}
 
 const Fulfillments = ({
     fulfillments
@@ -45,12 +52,14 @@ const Fulfillments = ({
             </PageHeader>
             <PageContent dflex>
                 {fulfillments.map((fulfillment, id) => (
-                    <UpsellCard
+                    <FulfillmentCard
                         key={fulfillment._id}
                         orderInlist={id}
-                        upsell={fulfillment}
+                        name={fulfillment.name}
+                        type={fulfillmentsTypesLabels[fulfillment.type]}
                         onEdit={onShowEditForm.bind(this, fulfillment)}
-                        linkedProduct={fulfillment.usedBy}
+                        onDelete={() => { }}
+
                     />
                 ))}
             </PageContent>

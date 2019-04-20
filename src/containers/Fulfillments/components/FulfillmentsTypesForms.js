@@ -6,26 +6,25 @@ const {
   Note
 } = common;
 
-const Empty = () => <div className='empty'>Empty Component</div>;
 
 const NoFulfillment = () => (
   <Note
     referenceLink='https://help.leadcart.io'
     image='https://via.placeholder.com/150x150'
   >
-    We need few information about the service so that
-     we can send it to your customers when they purchase
-      from you, we will send these fields in the receipts
-      order details.
+    we will not do any action if this type of fulfillments
+    is selected, however there is few cases where you need it.
   </Note>
 );
 
 const ManualFulfillment = ({
   onChange,
-  metaData: {
-    serviceName,
-    description,
-    enabled
+  data: {
+    metaData: {
+      serviceName,
+      description,
+      enabled
+    } = {}
   } = {},
   errors = {}
 }) => (
@@ -46,7 +45,7 @@ const ManualFulfillment = ({
         name='enabled'
         onToggle={() => onChange({
           target: {
-            name: 'enabled',
+            name: 'metaData.enabled',
             value: !enabled
           }
         })
@@ -59,7 +58,7 @@ const ManualFulfillment = ({
           Service Name:
       </InputRow.Label>
       <InputRow.NormalInput
-        name='serviceName'
+        name='metaData.serviceName'
         disabled={!enabled}
         onChange={onChange}
         value={serviceName}
@@ -71,7 +70,7 @@ const ManualFulfillment = ({
           Service Description:
       </InputRow.Label>
       <InputRow.TextAreaInput
-        name='description'
+        name='metaData.description'
         disabled={!enabled}
         className='service-description-textarea'
         onChange={onChange}
@@ -81,8 +80,26 @@ const ManualFulfillment = ({
     </InputRow>
   </Fragment>
 );
-
-const SuccessUrls = ({ successUrls, onChange }) => <Empty />;
+const SuccessUrls = ({ successUrls, onChange }) => (
+  <Note
+    referenceLink='https://help.leadcart.io/fulfillments/zapier'
+    image='http://f4d.nl/super-forms/wp-content/uploads/2017/02/zapier.png'
+  >
+    fulfilling your orders with Zapier integrations,
+    using zapier you can do so much with your products,
+    you can give access or revoke, add customers to email
+     lists and much more when tacking zapier advantages
+      by integrating your orders with apps available on zapier
+       platform,
+    {(
+      <BlankLink
+        to='https://help.leadcart.io/fulfillments/zapier'
+      >
+        {' read more...'}
+      </BlankLink>
+    )}
+  </Note>
+);
 
 const Integration = () => (
   <Note

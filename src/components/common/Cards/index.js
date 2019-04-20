@@ -64,23 +64,23 @@ export const Avatar = ({
 export const ProductCard = ({
   name, currancy, orderInlist = 0, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
 }) => (
-    <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
-      <div className='card-main-content product-avatar-holder'>
-        <Avatar name={name} />
-        <span className='product-name-holder'>{name}</span>
-        <span className='product-salles-holder'>
-          {monthlyProfite}
+  <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+    <div className='card-main-content product-avatar-holder'>
+      <Avatar name={name} />
+      <span className='product-name-holder'>{name}</span>
+      <span className='product-salles-holder'>
+        {monthlyProfite}
           /monthly
-        </span>
-        <span className='product-price-holder'>{`$ ${price.amount}`}</span>
-      </div>
-      <div className='card-controlls-container'>
-        <i onClick={onEdit} className='fas fa-edit' />
-        <i onClick={onPreview} className='fas fa-book-open' />
-        <i onClick={onDelete} className='fas fa-trash-alt' />
-      </div>
-    </EasyAnimate>
-  );
+      </span>
+      <span className='product-price-holder'>{`$ ${price.amount}`}</span>
+    </div>
+    <div className='card-controlls-container'>
+      <i onClick={onEdit} className='fas fa-edit' />
+      <i onClick={onPreview} className='fas fa-book-open' />
+      <i onClick={onDelete} className='fas fa-trash-alt' />
+    </div>
+  </EasyAnimate>
+);
 
 export const NewThingCard = ({ thing, onClick, ...props }) => (
   <div onClick={onClick} className='product-card-container '>
@@ -110,26 +110,26 @@ const Label = ({ children, ...props }) => (
 export const UpsellCard = ({
   name, orderInlist, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
-    <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
-      <div className='card-main-content product-avatar-holder'>
-        <Avatar name={name} />
-        <span className='product-name-holder'>{name}</span>
-        <span
-          onClick={() => productLink && openNewWindow(`/product/${productLink}/details`)}
-          className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
-        >
-          <i className='fas fa-link' />
-          {productName}
-        </span>
-        <span className='product-price-holder'>{`$ ${price}`}</span>
-      </div>
-      <div className='card-controlls-container'>
-        <i onClick={onEdit} className='fas fa-edit' />
-        <i onClick={onPreview} className='fas fa-book-open' />
-        <i onClick={onDelete} className='fas fa-trash-alt' />
-      </div>
-    </EasyAnimate>
-  );
+  <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+    <div className='card-main-content product-avatar-holder'>
+      <Avatar name={name} />
+      <span className='product-name-holder'>{name}</span>
+      <span
+        onClick={() => productLink && openNewWindow(`/product/${productLink}/details`)}
+        className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
+      >
+        <i className='fas fa-link' />
+        {productName}
+      </span>
+      <span className='product-price-holder'>{`$ ${price}`}</span>
+    </div>
+    <div className='card-controlls-container'>
+      <i onClick={onEdit} className='fas fa-edit' />
+      <i onClick={onPreview} className='fas fa-book-open' />
+      <i onClick={onDelete} className='fas fa-trash-alt' />
+    </div>
+  </EasyAnimate>
+);
 
 
 export const PayPalConnectContainer = ({
@@ -154,7 +154,6 @@ export const PayPalConnectContainer = ({
   }, [props]);
 
   const onSubmit = async () => {
-
     if (credits.clientId && credits.clientSecret) {
       setSubmitting(true);
       await onConnect(
@@ -173,7 +172,7 @@ export const PayPalConnectContainer = ({
     } else {
       setErrors({
         message: 'Fields are not valid'
-      })
+      });
     }
   };
 
@@ -256,3 +255,32 @@ export const RadioImageCard = ({
     </div>
   );
 };
+
+
+export const FulfillmentCard = ({
+  name,
+  orderInlist,
+  id,
+  onEdit,
+  onPreview,
+  onDelete,
+  type: fulfillmentType,
+  ...props
+}) => (
+  <EasyAnimate
+    delay={orderInlist * 100}
+    className='upsell-card-container'
+  >
+    <div className='card-main-content product-avatar-holder'>
+      <Avatar name={name} />
+      <span className='product-name-holder'>{name}</span>
+
+      <span className='fulfillment-name-holder'>{fulfillmentType}</span>
+    </div>
+    <div className='card-controlls-container'>
+      <i onClick={onEdit} className='fas fa-edit' />
+      <i onClick={onPreview} className='fas fa-book-open hide-element' />
+      <i onClick={onDelete} className='fas fa-trash-alt' />
+    </div>
+  </EasyAnimate>
+);

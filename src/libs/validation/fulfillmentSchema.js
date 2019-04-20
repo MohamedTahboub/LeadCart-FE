@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
 export default async (fulfillment) => {
-  const successUrls = yup.array().of(yup.string().url());
+  const successUrls = yup.array().of(yup.string().url()).min(1);
 
   const metaData = yup.object({
     serviceName: yup.string().required(),
@@ -12,17 +12,17 @@ export default async (fulfillment) => {
   });
 
   const schema = yup.object().shape({
-    type: yup.string().default('noFulfillment'),
-    status: yup.boolean(),
-    successUrls: yup.when('type', {
+    name: yup.string().required(),
+    type: yup.string().required(),
+    successUrls: successUrls.required().when('type', {
       is: 'successUrls',
-      then: successUrls,
-      otherwise: yup.forbidden()
+      then: successUrls.required(),
+      otherwise: yup.array().transform(() => undefined)
     }),
-    metaData: yup.when('type', {
+    metaData: metaData.required().when('type', {
       is: 'manual',
       then: metaData,
-      otherwise: yup.forbidden()
+      otherwise: yup.object().transform(() => undefined)
     })
   }).required();
 
