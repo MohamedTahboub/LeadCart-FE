@@ -15,11 +15,11 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      deleteFulfillmentSuccess(payload);
+      return deleteFulfillmentSuccess(payload);
     },
     onFailed: (error) => {
       if (meta.onFailed) meta.onFailed(error);
-      deleteFulfillmentFailed(error);
+      return deleteFulfillmentFailed(error);
     }
   }));
 };

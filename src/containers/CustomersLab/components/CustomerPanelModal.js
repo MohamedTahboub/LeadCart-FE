@@ -1,16 +1,16 @@
 import React from 'react';
-import { SlideModal } from 'components/Modals'
-import common from 'components/common'
-import Order from './Order'
+import { SlideModal } from 'components/Modals';
+import common from 'components/common';
+import Order from './Order';
 import { DetailRow } from './common';
-import './style.css'
+import './style.css';
 
 const {
   MainTitle,
   InputRow,
   Title,
   Timeline
-} = common
+} = common;
 
 const CustomerPanelModal = ({
   isVisible,
@@ -22,10 +22,10 @@ const CustomerPanelModal = ({
     firstName,
     lastName,
     email,
-    phone,
+    phoneNumber,
     lifeTimeCharges,
     orders = []
-  } = customer
+  } = customer;
 
   return (
     <SlideModal
@@ -48,16 +48,16 @@ const CustomerPanelModal = ({
       />
       <DetailRow
         label='Phone Number'
-        value={phone}
+        value={phoneNumber}
       />
       <DetailRow
         label='life time charges'
-        value={`${lifeTimeCharges}$`}
+        value={`${lifeTimeCharges} $`}
       />
       <div className='customer-history-title'>Orders History:</div>
-      <div className="customer-orders-history">
-        <Timeline mode="alternate">
-          {orders.map(order => (
+      <div className='customer-orders-history'>
+        <Timeline mode='alternate'>
+          {orders.map((order) => (
             <Timeline.Item key={order._id}>
               <Order {...order} />
             </Timeline.Item>

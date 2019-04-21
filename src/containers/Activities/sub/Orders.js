@@ -21,14 +21,20 @@ const onExport = (orders) => {
       paymentMethod,
       price,
     }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${1},${price},${paymentType}`).join('\n');
+};
 
+const PaymentTypeIcon = ({ type }) => {
+  const Icon = {
+    Stripe: <i className='fas fa-credit-card' />,
+    Paypal: <i className='fab fa-cc-paypal' />
+  }[type || 'Stripe'];
+  return Icon;
 };
 
 const OrderList = ({ orders, ...props }) => {
-
   useEffect(() => {
-    props.updateCsvData(orders)
-  }, [orders])
+    props.updateCsvData(orders);
+  }, [orders]);
 
 
   return (
@@ -38,9 +44,9 @@ const OrderList = ({ orders, ...props }) => {
         <Tabel.HeadCell>Name</Tabel.HeadCell>
         <Tabel.HeadCell>Email</Tabel.HeadCell>
         <Tabel.HeadCell>Product Name</Tabel.HeadCell>
-        <Tabel.HeadCell>Processor</Tabel.HeadCell>
-        <Tabel.HeadCell>Quantity</Tabel.HeadCell>
-        <Tabel.HeadCell>Type</Tabel.HeadCell>
+        <Tabel.HeadCell>Total Charge</Tabel.HeadCell>
+        <Tabel.HeadCell>Paid with</Tabel.HeadCell>
+        <Tabel.HeadCell>Order Type</Tabel.HeadCell>
       </Tabel.Head>
       <Tabel.Body>
         {orders.map(({
@@ -50,30 +56,37 @@ const OrderList = ({ orders, ...props }) => {
             email,
             phoneNumber
           },
-          product,
+          product: {
+            name: productName,
+            offer = {},
+
+          } = {},
           payment: {
             paymentType,
             paymentMethod
           },
-          price: { amount: price },
+          totalCharge
         }, orderInList) => (
-            <Tabel.Row orderInList={orderInList}>
-              <Tabel.SmallCell>
-                <Avatar name={`${firstName}`} />
-              </Tabel.SmallCell>
-              <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
-              <Tabel.Cell mainContent={email} subContent={phoneNumber} />
-              <Tabel.Cell mainContent={product} />
-              <Tabel.Cell mainContent={paymentMethod} />
-              <Tabel.Cell mainContent={`${1} Unit`} subContent={price} />
-              <Tabel.Cell mainContent={paymentType} />
+          <Tabel.Row orderInList={orderInList}>
+            <Tabel.SmallCell>
+              <Avatar name={`${firstName}`} />
+            </Tabel.SmallCell>
+            <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
+            <Tabel.Cell mainContent={email} subContent={phoneNumber} />
+            <Tabel.Cell mainContent={productName} subContent={offer.name ? `with offer: ${offer.name}` : ''} />
+            <Tabel.Cell mainContent={`${totalCharge} $`} />
+            <Tabel.Cell
+              mainContent={<PaymentTypeIcon type={paymentMethod} />}
+              subContent={paymentMethod}
+            />
+            <Tabel.Cell mainContent={paymentType} />
 
-            </Tabel.Row>
-          ))}
+          </Tabel.Row>
+        ))}
       </Tabel.Body>
     </Tabel>
-  )
-}
+  );
+};
 
 const mapStateToProps = ({ activities: { orders } }) => ({
   orders

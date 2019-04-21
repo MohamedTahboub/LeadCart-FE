@@ -37,30 +37,34 @@ const SubscriptionsList = (props) => (
       <Tabel.HeadCell>Email</Tabel.HeadCell>
       <Tabel.HeadCell>Phone Number</Tabel.HeadCell>
       <Tabel.HeadCell>Subscriptions</Tabel.HeadCell>
+      <Tabel.HeadCell>Subscriptions Fees</Tabel.HeadCell>
     </Tabel.Head>
     <Tabel.Body>
       {props.subscriptions.map(({
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        subScriptedTo
+        customer: {
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+        },
+        product: { name: productName, price: { amount: subscriptionFee = 0 } = {} } = {}
       }, orderInList) => (
-          <Tabel.Row orderInList={orderInList}>
-            <Tabel.SmallCell>
-              <Avatar name={`${firstName} ${lastName}`} />
-            </Tabel.SmallCell>
-            <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
-            <Tabel.Cell mainContent={email} />
-            <Tabel.Cell mainContent={phoneNumber} />
-            <Tabel.Cell mainContent={subScriptedTo.length} />
-          </Tabel.Row>
-        ))}
+        <Tabel.Row orderInList={orderInList}>
+          <Tabel.SmallCell>
+            <Avatar name={`${firstName} ${lastName}`} />
+          </Tabel.SmallCell>
+          <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
+          <Tabel.Cell mainContent={email} />
+          <Tabel.Cell mainContent={phoneNumber} />
+          <Tabel.Cell mainContent={productName} />
+          <Tabel.Cell mainContent={subscriptionFee} />
+        </Tabel.Row>
+      ))}
     </Tabel.Body>
   </Tabel>
 );
 
 const mapStateToProps = ({ activities }) => ({
-  subscriptions: activities.subscriptions.subscriptions || []
+  subscriptions: activities.subscriptions || []
 });
 export default connect(mapStateToProps)(SubscriptionsList);
