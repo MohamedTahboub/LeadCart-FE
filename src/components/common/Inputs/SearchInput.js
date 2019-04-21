@@ -20,12 +20,10 @@ export default ({
   const onChange = (value) => {
     if (value) onParentChange({ target: { name, value } });
   };
-  console.log(value , defaultValue)
-  // const defaultOption = 22 <Option value={defaultValue.value}>{defaultValue.label}</Option>;
   return (
     <Select
       showSearch
-      value={value ||defaultValue}
+      value={value || defaultValue}
       size={size}
       style={{ width: 200 }}
       className={`${className} ${error ? 'invalid-field' : ''}`}

@@ -6,12 +6,13 @@ import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
 import { getActivities, getCustomers } from 'actions/activities';
 import { getUpsellsSuccess } from 'actions/upsells';
+import { getFulfillmentsSuccess } from 'actions/fulfillments';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettings } from 'actions/settings';
 import { filteringActivities, filterCustomers } from 'libs';
-import { getEmailSettings } from 'actions/emails'
+import { getEmailSettings } from 'actions/emails';
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { user: { user: { token, ...user }, isLoggedIn } } = getState();
 
@@ -29,6 +30,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getSubAccountsSuccess(data.agents));
     dispatch(getCouponsList(data.coupons));
     dispatch(getUpsellsSuccess(data.upsells));
+    dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
 
@@ -37,7 +39,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
     dispatch(updateMarketPlaceSettings(data.marketPlace));
-    dispatch(getEmailSettings(data.emailSettings))
+    dispatch(getEmailSettings(data.emailSettings));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
@@ -58,7 +60,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   // restore the application stored data in the loaclStorage
 };
 
-function upadateIntercomeWithUserDetails({ firstName, lastName, email }) {
+function upadateIntercomeWithUserDetails ({ firstName, lastName, email }) {
   window.intercomSettings = {
     app_id: 'skynydft',
     name: `${firstName} ${lastName}`, // Full name
@@ -67,7 +69,7 @@ function upadateIntercomeWithUserDetails({ firstName, lastName, email }) {
   };
 }
 
-function consoleMessage() {
+function consoleMessage () {
   const LeadCarttext = `%c
   ╔╗░░╔═══╦═══╦═══╦═══╦═══╦═══╦════╗
   ║║░░║╔══╣╔═╗╠╗╔╗║╔═╗║╔═╗║╔═╗║╔╗╔╗║

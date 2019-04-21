@@ -1,10 +1,9 @@
 .product-form-settings{
   display: flex;
   flex-direction: column;
-  /* min-width: 200px; */
   overflow-y: auto;
   overflow-x: hidden;
-  /* margin: 10px 20px; */
+  height: 100%;
 }
 
 
@@ -65,6 +64,7 @@ span.collapsible-handle:hover{
   width: 400px;
   overflow: auto;
   padding: 5px;
+  flex:1;
 }
 /* Optionals Setting Tabs Ends*/ 
 

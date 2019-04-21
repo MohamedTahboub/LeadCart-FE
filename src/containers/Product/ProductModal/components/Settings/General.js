@@ -1,64 +1,60 @@
 import React, { useState, Fragment } from 'react';
 import common from 'components/common';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 const { InputRow, Title } = common;
 
-const fulfillmentList = [
-  { label: 'Undetermined', value: 'default' },
-  { label: 'Product X fulfillment', value: 'theXId' },
-  { label: 'Test Product  fulfillment', value: 'theXIsd' }
-];
+const castFulfillmentList = (fulfillments) => fulfillments.map(({ name: label, _id: value }) => ({ label, value }));
 
 const General = ({
+  fulfillments,
   product: {
     scripts: { fbPixelId = '' } = {},
+    fulfillment: fulfillmentId,
     url
   } = {},
   subdomain,
   onChange,
   errors = {},
-  fulfillmentId,
-  thankyouPage }) => {
-
-  return (
-    <div className='product-form-general-settings bottom-breakline'>
-      <Title>General Settings</Title>
-      <InputRow>
-        <InputRow.Label error={errors.url}>URL</InputRow.Label>
-        <InputRow.UrlSuffixInput
-          error={errors.url}
-          name='url'
-          onChange={onChange}
-          subdomain={subdomain}
-          value={url}
-        >
-        </InputRow.UrlSuffixInput>
-      </InputRow>
-      <InputRow>
-        <InputRow.Label>Fulfillment</InputRow.Label>
-        <InputRow.SearchInput
-          // size='small'
-          options={fulfillmentList}
-          defaultValue={fulfillmentId}
-          name='fulfillment'
-          error={errors.fulfillment}
-          onChange={onChange}
-        />
-      </InputRow>
-      <InputRow>
-        <InputRow.Label>
+  thankyouPage
+}) => (
+  <div className='product-form-general-settings bottom-breakline'>
+    <Title>General Settings</Title>
+    <InputRow>
+      <InputRow.Label error={errors.url}>URL</InputRow.Label>
+      <InputRow.UrlSuffixInput
+        error={errors.url}
+        name='url'
+        onChange={onChange}
+        subdomain={subdomain}
+        value={url}
+      >
+      </InputRow.UrlSuffixInput>
+    </InputRow>
+    <InputRow>
+      <InputRow.Label>Fulfillment</InputRow.Label>
+      <InputRow.SearchInput
+        // size='small'
+        options={castFulfillmentList(fulfillments)}
+        defaultValue={fulfillmentId}
+        name='fulfillment'
+        error={errors.fulfillment}
+        onChange={onChange}
+      />
+    </InputRow>
+    <InputRow>
+      <InputRow.Label>
           Facebook Pixel ID
       </InputRow.Label>
-        <InputRow.NormalInput
-          name='scripts.fbPixelId'
-          onChange={onChange}
-          value={fbPixelId}
-        >
+      <InputRow.NormalInput
+        name='scripts.fbPixelId'
+        onChange={onChange}
+        value={fbPixelId}
+      >
           Ex. 254179138569861
       </InputRow.NormalInput>
-      </InputRow>
-      {/*
+    </InputRow>
+    {/*
       <Collapsible>
         <InputRow>
           <InputRow.Label>Thankyou page</InputRow.Label>
@@ -69,26 +65,25 @@ const General = ({
             prefix='http://'
           />
         </InputRow>
-      </Collapsible>*/}
-    </div>
-  );
-}
+      </Collapsible> */}
+  </div>
+);
 
 
 const mapStateToProps = ({
+  fulfillments: { list: fulfillments = [] } = {},
   user: { user: { subDomain: subdomain } = {} } = {}
-}) => ({ subdomain });
+}) => ({ subdomain, fulfillments });
 
 export default connect(mapStateToProps)(General);
 
 
-
-function Collapsible({ expanded, children }) {
-  const [collapse, setCollapse] = useState(expanded)
+function Collapsible ({ expanded, children }) {
+  const [collapse, setCollapse] = useState(expanded);
 
   const onToggleCollapse = () => {
     setCollapse(!collapse);
-  }
+  };
   return (
     <Fragment>
       <div className={`section-collapsible ${collapse ? '' : 'collapse'}`}>
@@ -101,5 +96,5 @@ function Collapsible({ expanded, children }) {
         {`${collapse ? 'less options' : 'more options'}`}
       </span>
     </Fragment>
-  )
+  );
 }

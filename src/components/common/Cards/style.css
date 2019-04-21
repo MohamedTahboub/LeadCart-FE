@@ -163,7 +163,7 @@ span.medium-card-headline {
     font-size: 12px;
 }
 
-
+.fulfillment-name-holder,
 .product-price-holder{
     position: relative;
     color: #2B3748;
@@ -172,8 +172,13 @@ span.medium-card-headline {
     width: 160px;
     text-align: center;
 }
+
+.fulfillment-name-holder{
+    font-size: 13px;
+}
+
+.fulfillment-name-holder:before,
 .product-price-holder:before {
-    content: 'Price:';
     color: #C9D3DC;
     width: 50px;
 
@@ -181,6 +186,14 @@ span.medium-card-headline {
     position: absolute;
     top: -100%;
     left: 35%;
+}
+.fulfillment-name-holder:before{
+    left: 24%;
+    width: unset;
+    content: 'fulfillment action:';
+}
+.product-price-holder:before {
+    content: 'Price:';
 }
 
 .new-product-card{
@@ -300,7 +313,10 @@ span.medium-card-headline {
 }
 .paypal-form{
     flex:1;
-
+    
+}
+.paypal-submit-btn{
+    margin:15px auto;
 }
 .paypal-connect-input{
     width: 100%;

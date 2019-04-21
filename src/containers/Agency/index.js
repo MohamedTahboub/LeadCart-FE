@@ -51,12 +51,12 @@ class Agency extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { level, history } = this.props;
     if (level !== 3) history.push('/');
   }
 
-  render() {
+  render () {
     const { errors, subAccounts = [] } = this.props;
     return (
       <Page>
@@ -73,9 +73,16 @@ class Agency extends Component {
               <Tabel.HeadCell>status</Tabel.HeadCell>
             </Tabel.Head>
             <Tabel.Body>
-              {this.props.subAccounts.map(({
-                firstName, lastName, email, active, _id: id
-              }, orderInList) => (
+              {this.props.subAccounts.map((agent, orderInList) => {
+                if (!agent || agent === null) agent = {};
+                const {
+                  firstName,
+                  lastName,
+                  email,
+                  active,
+                  _id: id
+                } = agent;
+                return (
                   <Tabel.Row key={id} orderInList={orderInList}>
                     <Tabel.Cell
                       mainContent={firstName || 'not set'}
@@ -93,7 +100,8 @@ class Agency extends Component {
                       }
                     </Tabel.Cell>
                   </Tabel.Row>
-                ))}
+                );
+              })}
             </Tabel.Body>
           </Tabel>
         </PageContent>

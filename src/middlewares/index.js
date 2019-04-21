@@ -20,6 +20,7 @@ import modelsShapers from './modelsShapers'
 import upadteUserImage from './upadteUserImage'
 import formsValidations from './formsValidations'
 import upsells from './upsell'
+import fulfillments from './fulfillments'
 import emails from './emails'
 // exporting the middlewares as an array 
 export default [
@@ -32,6 +33,7 @@ export default [
     ...settings,
     products,
     ...upsells,
+    ...fulfillments,
     payments,
     ...product,
     account,

@@ -1,11 +1,15 @@
-import { TOGGLE_LOADING } from 'constantsTypes';
+import {
+  START_LOADING,
+  END_LOADING
+} from 'constantsTypes';
 
 
 const initialState = false;
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, { type }) => {
   switch (type) {
-  case TOGGLE_LOADING: return !state;
+  case START_LOADING: return true;
+  case END_LOADING: return false;
   default: return state;
   }
 };

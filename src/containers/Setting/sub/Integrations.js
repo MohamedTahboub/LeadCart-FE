@@ -73,9 +73,7 @@ class Integrations extends Component {
     if (activat_method && this.state[activat_method].onprogress) if (this.props.methods.includes(activat_method) || this.props.errors) this.setState({ [activat_method]: { onprogress: false } });
   }
 
-  onConnectPaypal = (credits) => {
-    this.props.connectWithPaypal({ cred: credits });
-  }
+  onConnectPaypal = (credits) => this.props.connectWithPaypal({ cred: credits })
 
   onZapierClicked = () => {
     window.open(zapierInvitationUrl, '_blank');

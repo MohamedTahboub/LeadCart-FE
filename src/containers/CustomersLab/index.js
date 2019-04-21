@@ -61,7 +61,7 @@ const CustomersLab = ({ customers }) => {
                         lastName,
                         email,
                         lifeTimeCharges,
-                        phone,
+                        phoneNumber,
                         orders = []
                       } = customer
                       return (
@@ -71,9 +71,9 @@ const CustomersLab = ({ customers }) => {
                           </Tabel.SmallCell>
                           <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
                           <Tabel.Cell mainContent={email} />
-                          <Tabel.Cell mainContent={phone} />
+                          <Tabel.Cell mainContent={phoneNumber} />
                           <Tabel.Cell mainContent={orders.length} />
-                          <Tabel.Cell mainContent={lifeTimeCharges} />
+                          <Tabel.Cell mainContent={`${lifeTimeCharges} $`} />
                           <Tabel.Cell mainContent={(
                             <MiniButton onClick={() => showCustomerPanel(customer)}>
                               <i className="fas fa-ellipsis-h" />

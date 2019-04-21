@@ -9,7 +9,10 @@ import List from './List'
 import * as navigators from './Navigators'
 import * as wrappers from './Wrappers'
 import * as Layout from './Layout'
+import * as Notes from './Notes'
+import * as Links from './Links'
 import Timeline from './Timeline'
+import * as ColorPickers from './ColorPickers'
 
 export default {
     ...boxes,
@@ -17,9 +20,12 @@ export default {
     ...inputs,
     Timeline,
     ...logos,
+    ...ColorPickers,
     ...search,
     ...wrappers,
     ...Layout,
+    ...Notes,
+    ...Links,
     List,
     ...titles,
     ...cards,

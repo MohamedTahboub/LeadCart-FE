@@ -52,6 +52,7 @@ const SideBar = ({
         <Link to='/customers'>Customers Lab</Link>
         <Link to='/coupons'>Coupon</Link>
         <Link to='/upsells' >Upsells</Link>
+        <Link to='/fulfillments' >Fulfillments</Link>
         <Link to='/funnels' className='locked-feature'>Funnels</Link>
         <Link to='/affiliates' className='locked-feature'>Affiliates</Link>
         {user.level === 3 && <Link to='/agency'>Agency</Link>}

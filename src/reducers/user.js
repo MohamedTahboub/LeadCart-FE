@@ -18,7 +18,7 @@ try {
 
   const now = moment();
 
-  if (user.signDate && now.diff(moment(user.signDate), 'days') > 2) user = {};
+  if (user.signDate && now.diff(moment(user.signDate), 'days') > 8) user = {};
 } catch (e) {
   console.error('ERROR WHILE READING FROM THE STORAGE', e.message, e.stack);
 }

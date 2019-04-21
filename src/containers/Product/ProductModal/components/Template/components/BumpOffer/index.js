@@ -1,51 +1,67 @@
 import React from 'react';
-import common from 'components/common'
+import common from 'components/common';
 
-import './style.css'
+import './style.css';
 
-const { EditableField, FloatButton } = common
+const { EditableField, FloatButton } = common;
 
-const BumpOffer = ({ onOptionSelected, offer = {}, onChange }) => {
-
+const BumpOffer = ({
+  onOptionSelected,
+  offer: { style = {}, ...offer } = {},
+  onChange
+}) => {
   const onDisable = () => {
     onChange({
       target: {
         name: 'offer.enabled',
         value: false
       }
-    })
-  }
-  
+    });
+  };
+  const containerStyle = {
+    background: style.containerBackground,
+    color: style.containerTextColor,
+    border: `${style.borderWidth || 0}px ${style.borderStyle || 'solid'} ${style.borderColor}`,
+    borderRadius: `${style.borderRadius}px`
+  };
+  const headerStyle = {
+    background: style.headerBackground,
+    color: style.headerTextColor,
+    border: `${style.borderWidth || 0}px ${style.borderStyle || 'solid'} ${style.borderColor}`,
+    borderRadius: `${style.borderRadius}px`
+  };
   return (
     offer.enabled
-      ?
-      (
+      ? (
 
-        <section className="product-template-bump-offer">
+        <section style={containerStyle} className='product-template-bump-offer'>
           <FloatButton
             onClick={() => onOptionSelected('BumpOptions')}
-            position={{ left: 10 }} >
-            <i className="fas fa-cog" />
+            position={{ left: 10 }}
+          >
+            <i className='fas fa-cog' />
           </FloatButton>
           <FloatButton onClick={onDisable} position={{ left: 35 }}>
-            <i className="fas fa-eye-slash" />
+            <i className='fas fa-eye-slash' />
           </FloatButton>
-          <div className="template-bump-offer-title">
+          <div style={headerStyle} className='template-bump-offer-title'>
             <input
-              type="checkbox"
-              id="bump-offer-checkbox"
+              type='checkbox'
+              id='bump-offer-checkbox'
               disabled
             />
-            <label htmlFor="bump-offer-checkbox">
+            <label id='bump-offer-checkbox-label' htmlFor='bump-offer-checkbox'>
               <EditableField
                 name='offer.title'
+                // color={headerStyle.color}
                 value={offer.title}
                 defaultValue='Offer Title Goes Here'
                 onChange={onChange}
-                className='template-bump-offer-title-input' />
+                className='template-bump-offer-title-input'
+              />
             </label>
           </div>
-          <div className="template-bump-offer-description">
+          <div style={{ color: containerStyle.color }} className='template-bump-offer-description'>
             <div>
               <EditableField
                 name='offer.introText'
@@ -68,8 +84,7 @@ const BumpOffer = ({ onOptionSelected, offer = {}, onChange }) => {
           </div>
         </section>
       )
-      :
-      null
+      : null
   );
 };
 

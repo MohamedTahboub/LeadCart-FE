@@ -35,7 +35,6 @@ export const createUpsell = (upsell, meta) => ({
   payload: upsell,
   meta
 });
-
 export const createUpsellSuccess = (upsell) => ({
   type: CREATE_UPSELL_SUCCESS,
   payload: upsell
@@ -45,21 +44,21 @@ export const createUpsellFailed = (message) => ({
   payload: message
 });
 
+
 export const updateUpsell = (upsell, meta) => ({
   type: UPDATE_UPSELL,
   payload: upsell,
   meta
 });
-
 export const updateUpsellSuccess = (upsell) => ({
   type: UPDATE_UPSELL_SUCCESS,
   payload: upsell
 });
-
 export const updateUpsellFailed = (message) => ({
   type: UPDATE_UPSELL_FAILED,
   payload: message
 });
+
 
 export const deleteUpsell = (id, meta) => ({
   type: DELETE_UPSELL,

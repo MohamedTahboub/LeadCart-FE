@@ -12,7 +12,7 @@ import verticalLayoutImage from 'assets/images/upsells/vertical.png'
 import horizontalLayoutImage from 'assets/images/upsells/horizontal.png'
 
 import './style.css'
-
+const castFulfillmentList = (fulfillments) => fulfillments.map(({ name: label, _id: value }) => ({ label, value }));
 const {
   InputRow,
   MainTitle,
@@ -77,7 +77,15 @@ const FeaturesList = ({
   )
 };
 
-const UpsellForm = ({ products, updateForm, errors: outerError, upsells, show: isVisible, ...props }) => {
+const UpsellForm = ({
+  fulfillments,
+  products,
+  updateForm,
+  errors: outerError,
+  upsells,
+  show: isVisible,
+  ...props
+}) => {
 
   const upsell = upsells.find(u => u._id === isVisible) || {}
 
@@ -287,9 +295,11 @@ const UpsellForm = ({ products, updateForm, errors: outerError, upsells, show: i
               </InputRow>
               <InputRow>
                 <InputRow.Label error={errors.fulfillment}>Upsell fulfillment link:</InputRow.Label>
-                <InputRow.UrlInput
+                <InputRow.SearchInput
+                  // size='small'
+                  options={castFulfillmentList(fulfillments)}
+                  defaultValue={fulfillment}
                   name='fulfillment'
-                  value={fulfillment}
                   error={errors.fulfillment}
                   onChange={onFieldChange}
                 />
@@ -384,9 +394,14 @@ const UpsellForm = ({ products, updateForm, errors: outerError, upsells, show: i
 }
 
 
-const mapStateToProps = ({ products: { products }, upsells: { errors, list: upsells } }) => ({
+const mapStateToProps = ({
+  products: { products },
+  upsells: { errors, list: upsells },
+  fulfillments: { list: fulfillments = [] } = {}
+}) => ({
   products,
   upsells,
+  fulfillments,
   errors
 });
 export default connect(mapStateToProps, upsellActions)(UpsellForm);
