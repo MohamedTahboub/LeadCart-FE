@@ -21,7 +21,7 @@ export default async (upsell) => {
     }),
     featuresTitle: yup.string().required('required field'),
     features: yup.array().of(featureSchema).max(4),
-    fulfillment: yup.string().url().required('Should be a valid link'),
+    fulfillment: yup.string(),
     linkedProduct: yup.string().required('select a product'),
     upsellLayout: yup.string().default('vertical'),
     actionBtn: yup.object({
