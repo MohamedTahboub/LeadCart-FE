@@ -71,7 +71,7 @@ ReactDOM.render(
     <Provider store={store}>
         <React.Fragment>
             <LoadingBar />
-            <ErrorBoundary>
+            {/*<ErrorBoundary>*/}
 
                 <BrowserRouter>
                     <Switch>
@@ -100,7 +100,8 @@ ReactDOM.render(
                         />
                     </Switch>
                 </BrowserRouter>
-            </ErrorBoundary>
+            
+            {/*</ErrorBoundary>*/}
             <NotificationMessage />
         </React.Fragment>
     </Provider>,

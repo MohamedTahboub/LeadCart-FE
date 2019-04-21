@@ -5,13 +5,15 @@
 .color-presentation-holder{
     background: rgb(21, 71, 71);
     cursor: pointer;
-    width: 100px;
+    width: 50px;
     border-radius: 4px;
-    height: 30px;
+    height: 20px;
+    border:.5px solid lightgray;
 }
 
 .twitter-picker-holder{
     position: absolute;
     top: 25px;
-    left: -100%;
+    left: -300%;
+    z-index: 10;
 }

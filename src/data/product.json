@@ -53,7 +53,16 @@
         "name": "Client Licenses",
         "price": 297,
         "successUrl": "https://example.com",
-        "title": "YES! I Want one of the Limited 'Client Licenses'"
+        "title": "YES! I Want one of the Limited 'Client Licenses'",
+        "style": {
+            "containerBackground": "white",
+            "containerTextColor": "gray",
+            "headerBackground": "green",
+            "headerTextColor": "white",
+            "borderColor": "aqua",
+            "borderStyle": "dashed",
+            "borderRadius": "3"
+        }
     },
     "coupons": {
         "list": []

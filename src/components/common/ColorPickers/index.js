@@ -9,18 +9,17 @@ export const MiniTwitterPicker = ({
   name
 }) => {
   const [show, setShow] = useState(false);
-
   const onColorChange = ({ hex }) => {
-    // onChange({
-    //   target: {
-    //     name,
-    //     value: hex
-    //   }
-    // });
+    onChange({
+      target: {
+        name,
+        value: hex
+      }
+    });
   };
 
   const style = {
-    // background: 'green'
+    background: value
   };
   return (
     <div className='color-picker-modal'>

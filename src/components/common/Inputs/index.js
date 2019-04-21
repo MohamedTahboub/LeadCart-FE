@@ -28,11 +28,12 @@ export class InputRow extends Component {
   )
 
   static SmallInput = ({
-    type = 'text', name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
+    type = 'text',onBlur, name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
   }) => (
       <input
         defaultValue={value}
         onChange={onChange}
+        onBlur={onBlur}
         autoComplete={autoComplete}
         name={name}
         disabled={disabled}
