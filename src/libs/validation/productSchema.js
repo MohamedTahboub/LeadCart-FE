@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import ids from 'shortid';
-import defaultLogo from 'assets/images/new-product-icon.png'
+import defaultLogo from 'assets/images/new-product-icon.png';
 import castYupErrors from './castErrors';
 
 const featuresSchema = yup.object({
@@ -37,13 +37,23 @@ const checkoutPageSchema = yup.object({
   testimonials: testimonialsSchema,
 });
 
+
 const offerSchema = yup.object({
   enabled: yup.boolean().default(false),
   bodyText: yup.string().default('offer description goes here,edit it'),
   introText: yup.string().default('offer main label goes here,edit it'),
   name: yup.string().default('Offer Name'),
   title: yup.string().default('offer title goes here,edit it'),
-  price: yup.number().default(0)
+  price: yup.number().default(0),
+  style: yup.object({
+    containerBackground: yup.string(),
+    containerTextColor: yup.string(),
+    headerBackground: yup.string(),
+    headerTextColor: yup.string(),
+    borderColor: yup.string(),
+    borderStyle: yup.string(),
+    borderRadius: yup.string()
+  })
 }).required();
 
 const ProductSchema = yup.object({
