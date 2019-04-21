@@ -1,0 +1,46 @@
+import React, { useState } from 'react';
+import { TwitterPicker } from 'react-color';
+import './style.css';
+
+export { TwitterPicker };
+export const MiniTwitterPicker = ({
+  value,
+  onChange,
+  name
+}) => {
+  const [show, setShow] = useState(false);
+
+  const onColorChange = ({ hex }) => {
+    // onChange({
+    //   target: {
+    //     name,
+    //     value: hex
+    //   }
+    // });
+  };
+
+  const style = {
+    // background: 'green'
+  };
+  return (
+    <div className='color-picker-modal'>
+      <div
+        onClick={() => setShow(!show)}
+        style={style}
+        className='color-presentation-holder'
+        role='presentation'
+      />
+      {show && (
+        <div className='twitter-picker-holder'>
+          <TwitterPicker
+            width='210px'
+            triangle='top-right'
+            color={value}
+            onChange={onColorChange}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+

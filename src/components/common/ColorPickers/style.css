@@ -1,0 +1,17 @@
+.color-picker-modal{
+    position: relative;
+
+}
+.color-presentation-holder{
+    background: rgb(21, 71, 71);
+    cursor: pointer;
+    width: 100px;
+    border-radius: 4px;
+    height: 30px;
+}
+
+.twitter-picker-holder{
+    position: absolute;
+    top: 25px;
+    left: -100%;
+}

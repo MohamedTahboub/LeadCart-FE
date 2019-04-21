@@ -12,6 +12,7 @@ import * as Layout from './Layout'
 import * as Notes from './Notes'
 import * as Links from './Links'
 import Timeline from './Timeline'
+import * as ColorPickers from './ColorPickers'
 
 export default {
     ...boxes,
@@ -19,6 +20,7 @@ export default {
     ...inputs,
     Timeline,
     ...logos,
+    ...ColorPickers,
     ...search,
     ...wrappers,
     ...Layout,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TwitterPicker } from 'react-color';
+// import { TwitterPicker } from 'react-color';
 import TemplatePreview from 'components/Templates';
 import tempImage1 from 'assets/images/checkout_templates/temp_1.png';
 import tempImage2 from 'assets/images/checkout_templates/temp_2.png';
@@ -12,7 +12,7 @@ import common from 'components/common';
 import './style.css';
 
 
-const { Title } = common;
+const { Title, TwitterPicker } = common;
 
 const HeaderOptions = ({
   product: {
@@ -23,7 +23,7 @@ const HeaderOptions = ({
   } = {},
   ...props
 }) => {
-  const [scrollPosition, setScrollPosition] = useState(0)
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const onColorChange = ({ hex: value }) => {
     props.onChange({
@@ -32,7 +32,7 @@ const HeaderOptions = ({
         value
       }
     });
-  }
+  };
   const onSelectTemplate = (template) => {
     props.onChange({
       target: {
@@ -43,11 +43,11 @@ const HeaderOptions = ({
   };
 
   const onScroll = (e) => {
-    console.log(e)
-  }
-  const isActive = (temp) => template === temp
+    console.log(e);
+  };
+  const isActive = (temp) => template === temp;
   return (
-    <div onScroll={onScroll} className="template-header-options">
+    <div onScroll={onScroll} className='template-header-options'>
       <Title>Theme Color:</Title>
       <TwitterPicker className='template-color-picker' color={color} onChange={onColorChange} />
       <Title>Checkout Template:</Title>
@@ -63,7 +63,7 @@ const HeaderOptions = ({
         to edit the company name ,logo and support email go to the marketplace setting in the setting page and edit them from there
       </span>
     </div>
-  )
-}
+  );
+};
 
 export default HeaderOptions;

@@ -1,7 +1,7 @@
 import * as yup from 'yup';
-import castYupErrors from './castErrors';
 import ids from 'shortid';
 import defaultLogo from 'assets/images/new-product-icon.png'
+import castYupErrors from './castErrors';
 
 const featuresSchema = yup.object({
   enabled: yup.boolean().default(false),
@@ -75,6 +75,7 @@ const ProductSchema = yup.object({
         otherwise: yup.string().transform(() => undefined),
       })
   }),
+  fulfillment: yup.string(),
   scripts: yup.object({
     fbPixelId: yup
       .string()

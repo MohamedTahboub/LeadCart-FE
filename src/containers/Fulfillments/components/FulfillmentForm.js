@@ -71,7 +71,7 @@ const FulfillmentForm = ({
 
             props.updateFulfillment({
                 details: value,
-                fulfillmentId: fulfillment._id
+                fulfillmentId: <fulfillment className="_id"></fulfillment>
             },
                 {
                     onSuccess: () => {
