@@ -111,7 +111,7 @@ const BumpOptions = ({
         </InputRow.Label>
         <InputRow.SelectOption
           value={style.borderStyle}
-          name='style.borderStyle'
+          name='borderStyle'
           onChange={onStyleChange}
           className='bump-offer-style-dropdown'
           options={[
@@ -126,7 +126,7 @@ const BumpOptions = ({
         </InputRow.Label>
         <InputRow.SelectOption
           value={style.borderWidth}
-          name='style.borderWidth'
+          name='borderWidth'
           onChange={onStyleChange}
           className='bump-offer-style-dropdown'
           options={[
@@ -142,7 +142,7 @@ const BumpOptions = ({
         </InputRow.Label>
         <InputRow.SelectOption
           value={style.borderRadius}
-          name='style.borderRadius'
+          name='borderRadius'
           onChange={onStyleChange}
           className='bump-offer-style-dropdown'
           options={[

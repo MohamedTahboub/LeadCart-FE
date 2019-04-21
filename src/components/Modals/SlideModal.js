@@ -13,8 +13,8 @@ export default ({
   footer,
   isVisible
 }) => {
-  
   showIntercomIcon(!isVisible);
+
   return (isVisible
     ? (
       <EasyAnimate className={`slide-modal-container ${className}`}>

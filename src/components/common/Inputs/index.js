@@ -28,7 +28,7 @@ export class InputRow extends Component {
   )
 
   static SmallInput = ({
-    type = 'text',onBlur, name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
+    type = 'text', onBlur, name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
   }) => (
       <input
         defaultValue={value}
@@ -103,7 +103,7 @@ export class InputRow extends Component {
     )
 
   static PriceField = ({
-    children, onChange,onBlur, name, error, type, disabled, className, value, ...props
+    children, onChange, onBlur, name, error, type, disabled, className, value, ...props
   }) => (
       <div className={`price-input-holder ${className ? className : ''}`}>
         <span className='currancy-type'>{type || '$'}</span>
@@ -283,6 +283,7 @@ export { default as EditableTextField } from './EditableTextField'
 export const EditableField = ({
   className = '',
   value: val,
+  color,
   children,
   onChange,
   type = 'text',
@@ -293,18 +294,18 @@ export const EditableField = ({
 }) => {
   const value = val || children || defaultValue
   const [editable, setEditable] = useState(false);
-  
+
   const onEditable = () => {
     setEditable(true);
   };
   const onEditableDisabled = (e = window.event) => {
-    
-    if( (e.shiftKey || e.ctrlKey) && e.keyCode === 13 && textarea)
-    return;
-    
+
+    if ((e.shiftKey || e.ctrlKey) && e.keyCode === 13 && textarea)
+      return;
+
     if (e.target && !e.target.value)
       e.target.value = defaultValue;
-      
+
     e.target.value = e.target.value.trim();
     onChange && onChange(e)
     setEditable(false);
@@ -315,9 +316,9 @@ export const EditableField = ({
   };
 
   const Element = (props) => textarea ? <textarea {...props} /> : <input {...props} />
-
+  const style = { color }
   return (
-    <div onClick={onEditable} className={`editable-field ${className}`}>
+    <div style={style} onClick={onEditable} className={`editable-field ${className}`}>
       {
         editable ?
           <Element

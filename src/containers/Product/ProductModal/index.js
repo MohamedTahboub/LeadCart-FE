@@ -29,9 +29,6 @@ class Product extends Component {
       name = key;
       value = { ...product[key], ...nestedValue };
     }
-    setTimeout(() => {
-      console.log(this.state.product)
-    }, 500);
     this.setState({ product: { ...product, [name]: value } })
   }
 
@@ -52,18 +49,22 @@ class Product extends Component {
 
     this.setState({ hiddenElements })
   }
-
+  count = 0
   componentDidMount = () => {
     const { product = {} } = this.props
     this.setState({ product: product })
   }
 
   componentDidUpdate(prev) {
+    showIntercomIcon(false)
     if (typeof prev.product !== 'string')
       if (prev.product._id !== this.props.product._id)
         this.setState({ product: this.props.product._id })
   }
 
+  componentWillUnmount(){
+    showIntercomIcon(true)
+  }
   onSave = async () => {
     const { product: newProduct } = this.state
     const { isNew, createNewProduct, updateProduct, postCreate } = this.props
@@ -93,10 +94,10 @@ class Product extends Component {
   render() {
     const {
       state: {
-        activeOption, activeTab, hiddenElements, product
+        activeOption, activeTab, hiddenElements, product 
       },
       props: {
-        isVisible = true, onClose, isNew
+        isVisible , onClose, isNew
       }
     } = this
     return (

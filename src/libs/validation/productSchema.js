@@ -52,6 +52,7 @@ const offerSchema = yup.object({
     headerTextColor: yup.string(),
     borderColor: yup.string(),
     borderStyle: yup.string(),
+    borderWidth: yup.string(),
     borderRadius: yup.string()
   })
 }).required();
