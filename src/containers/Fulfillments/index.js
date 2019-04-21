@@ -3,6 +3,7 @@ import common from 'components/common';
 import { connect } from 'react-redux';
 import * as fulfillmentsActions from 'actions/fulfillments';
 import PropTypes from 'prop-types';
+import Dialog from 'components/common/Dialog';
 import { FulfillmentForm } from './components';
 import './style.css'
 const {
@@ -22,10 +23,12 @@ const fulfillmentsTypesLabels = {
 }
 
 const Fulfillments = ({
-    fulfillments
+    fulfillments,
+    ...props
 }) => {
 
     const [showForm, setShowForm] = useState(false)
+    const [deleteDialog, setDeleteDialog] = useState(false)
 
     const onShowForm = () => {
         setShowForm(true)
@@ -36,6 +39,18 @@ const Fulfillments = ({
     const onShowEditForm = (fulfillment) => {
         setShowForm(fulfillment)
     }
+    const showDeleteDialog = (fulfillmentId) => {
+        setDeleteDialog(fulfillmentId)
+    }
+    const hideDeleteDialog = () => {
+        setDeleteDialog("")
+    }
+    const onDeleteFulfillment = (fulfillment) => {
+        props.deleteFulfillment(deleteDialog)
+        hideDeleteDialog()
+    }
+
+
 
     return (
         <Page>
@@ -58,8 +73,7 @@ const Fulfillments = ({
                         name={fulfillment.name}
                         type={fulfillmentsTypesLabels[fulfillment.type]}
                         onEdit={onShowEditForm.bind(this, fulfillment)}
-                        onDelete={() => { }}
-
+                        onDelete={() => showDeleteDialog(fulfillment._id)}
                     />
                 ))}
             </PageContent>
@@ -70,6 +84,15 @@ const Fulfillments = ({
                     isNew={typeof showForm === 'boolean'}
                     onClose={onHideForm}
                 />
+            )}
+            {deleteDialog && (<Dialog
+                title='Deleting fulfillment'
+                description={`Are you sure,you want delete this fulfillment?`}
+                show
+                onClose={hideDeleteDialog}
+                confirmBtnText='Delete'
+                onConfirm={onDeleteFulfillment}
+            />
             )}
         </Page>
     );

@@ -14,15 +14,15 @@ export default async (fulfillment) => {
   const schema = yup.object().shape({
     name: yup.string().required(),
     type: yup.string().required(),
-    successUrls: successUrls.required().when('type', {
+    successUrls: successUrls.when('type', {
       is: 'successUrls',
       then: successUrls.required(),
       otherwise: yup.array().transform(() => undefined)
     }),
-    metaData: metaData.required().when('type', {
+    metaData: metaData.when('type', {
       is: 'manual',
-      then: metaData,
-      otherwise: yup.object().transform(() => undefined)
+      then: metaData.required(),
+      otherwise: yup.object()
     })
   }).required();
 

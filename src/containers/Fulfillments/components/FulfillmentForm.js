@@ -19,14 +19,16 @@ const FulfillmentForm = ({
     data = {},
     ...props
 }) => {
-    console.log('Fulfillment', data)
+    if (typeof data === 'boolean')
+        data = {}
+
     const initialFulfillment = { ...data, type: 'noFulfillment' }
     const [fulfillment, setFulfillment] = useState(initialFulfillment)
     const [errors, setErrors] = useState({})
 
-    useEffect(() => {
-        setFulfillment(data)
-    }, [data])
+    // useEffect(() => {
+    //     setFulfillment(data)
+    // }, [data])
 
     const onChange = ({ target: { name, value } }) => {
 
@@ -36,18 +38,17 @@ const FulfillmentForm = ({
             name = key;
             value = { ...fulfillment[key], ...nestedValue };
         }
-
-        const data = { ...fulfillment, [name]: value }
-        setFulfillment(data)
+        setFulfillment({ ...fulfillment, [name]: value })
         setErrors({})
     };
     const createFulfillment = async () => {
-        FulfillmentsValidationSchema
+        console.log('CREATING ....')
         try {
             const { isValid, value, errors } = await FulfillmentsValidationSchema(fulfillment);
+            console.log('Error', isValid, errors)
             if (!isValid) return setErrors(errors);
 
-
+            console.log('Fulfillment', value)
             props.createFulfillment(
                 value
                 ,
@@ -55,9 +56,10 @@ const FulfillmentForm = ({
                     onSuccess: (m) => {
                         onClose()
                     },
-                    onFailed: ({ message  }) => setErrors({ message })
+                    onFailed: ({ message }) => setErrors({ message })
                 });
-        } catch ({ message }) {
+        } catch ({ message, ...err }) {
+            console.log(err)
             setErrors({ message });
         }
     }
@@ -68,7 +70,7 @@ const FulfillmentForm = ({
             if (!isValid) return setErrors(errors);
 
             props.updateFulfillment({
-                body: value,
+                details: value,
                 fulfillmentId: fulfillment._id
             },
                 {

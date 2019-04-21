@@ -39,17 +39,18 @@ export default (state = initialState, { type, payload }) => {
       errors: payload,
     };
   case UPDATE_FULFILLMENT_SUCCESS:
+
     return {
       ...state,
       list: state
         .list
-        .map((ful) => (
-          ful._id === payload.fulfillmentId
+        .map((fulfillment) => (
+          fulfillment._id === payload.fulfillmentId
             ? {
-              ...ful,
-              ...payload.body,
+              ...fulfillment,
+              ...payload.details,
             }
-            : ful
+            : fulfillment
         ))
     };
   case DELETE_FULFILLMENT_SUCCESS:
