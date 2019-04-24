@@ -44,7 +44,17 @@ export class InputRow extends Component {
     )
 
   static CustomInput = ({
-    width, onChange, name, autoComplete, value, disabled, type = 'text', placeholder, className = '', ...props
+    width,
+    onBlur,
+    onChange,
+    name,
+    autoComplete,
+    value,
+    disabled,
+    type = 'text',
+    placeholder,
+    className = '',
+    ...props
   }) => (
       <input onChange={onChange}
         type={type}
