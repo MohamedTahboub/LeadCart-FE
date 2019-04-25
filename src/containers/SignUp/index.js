@@ -6,7 +6,9 @@ import * as signupActions from 'actions/signup';
 import './styles.css';
 
 class SignUp extends Component {
-  componentDidUpdate= () => this.props.isLoggedIn && this.props.history.push('/')
+  state = { success: false, error: '' }
+
+  componentDidUpdate = () => this.props.isLoggedIn && this.props.history.push('/')
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -18,11 +20,36 @@ class SignUp extends Component {
       password: e.target.password.value,
       subDomain: e.target.subdomain.value
     };
-    this.props.signUp(newUser);
+    this.props.signUp(
+      newUser, {
+        onSuccess: () => {
+          this.setState({ success: true });
+        },
+        onFailed: (err) => {
+          console.log('errrrror ', err);
+          this.setState({ error: err });
+        }
+      }
+    );
   }
 
   render () {
-    const { validationError: errors, signupError } = this.props;
+    const { success, error, errors = {} } = this.state;
+
+    if (success) {
+      return (
+        <div className='account-verify-page'>
+          <div className='verified-message-container'>
+            <i className='fas fa-check-circle' />
+            <span className='verified-label'>
+              You Have signed up successfully,
+              <br />
+              please check your inbox to verify your account .
+            </span>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className='wrapper'>
         <FormLogo />
@@ -54,7 +81,7 @@ class SignUp extends Component {
             <span className='main-domain-suffix'>.leadcart.io</span>
             {errors.subdomain && <span className='input-feild-error'>{errors.subdomain}</span>}
           </div>
-          {signupError && <span className='signup-error-field'>{signupError}</span>}
+          {error && <span className='signup-error-field'>{error}</span>}
           <button type='submit' className='form-submit'>next</button>
         </form>
         <footer>
@@ -65,10 +92,7 @@ class SignUp extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn,
-  user: state.user,
-  signupError: state.user.error,
-  validationError: state.validation.signup
+  singupSuccess: state.user.singupSuccess
 });
 
 
