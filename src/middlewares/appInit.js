@@ -13,6 +13,7 @@ import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettings } from 'actions/settings';
 import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
+window.user = '';
 export default ({ dispatch, getState }) => (next) => (action) => {
   const { user: { user: { token, ...user }, isLoggedIn } } = getState();
 
@@ -43,7 +44,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
-  // upadateIntercomeWithUserDetails(user);
+  upadateIntercomeWithUserDetails(user);
   dispatch(apiRequest({
     options: {
       method: 'get',
@@ -61,12 +62,14 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 };
 
 function upadateIntercomeWithUserDetails ({ firstName, lastName, email }) {
+  if (!window.user) window.user = email;
   window.intercomSettings = {
     app_id: 'skynydft',
     name: `${firstName} ${lastName}`, // Full name
     email, // Email address
     created_at: window.intercomSettings.created_at // Signup date as a Unix timestamp
   };
+  consoleMessage();
 }
 
 function consoleMessage () {
