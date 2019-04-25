@@ -7,27 +7,33 @@ const {
   MainTitle
 } = common;
 const ImageFullPageContainer = ({
-  image, className, title, ...props
+  image,
+  className,
+  title,
+  hideBox,
+  ...props
 }) => (
-    <Page>
-      {title && (
-          <MainTitle>
-            {title}
-          </MainTitle>
-      )}
-      <div className='full-page-image-container'>
+  <Page>
+    {title && (
+      <MainTitle>
+        {title}
+      </MainTitle>
+    )}
+    <div className='full-page-image-container'>
+      {!hideBox && (
         <div className='underdevelopment-box'>
           <span className='underdevelopment-title'>
-            WE ARE WORKING HARD TO RELEASE THIS FEATURE FOR YOU!
-        </span>
+              WE ARE WORKING HARD TO RELEASE THIS FEATURE FOR YOU!
+          </span>
           <span className='under-development-message'>
-            Meanwhile You can check the rest of the app
-        </span>
+              Meanwhile You can check the rest of the app
+          </span>
         </div>
-        <img src={image} alt='background' className='wall-sheet-container' />
-      </div>
-    </Page>
-  );
+      )}
+      <img src={image} alt='background' className='wall-sheet-container' />
+    </div>
+  </Page>
+);
 
 export default ImageFullPageContainer;
 

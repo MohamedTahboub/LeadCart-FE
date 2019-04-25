@@ -13,9 +13,10 @@ export const getCouponsList = (coupon) => ({
   type: GET_COUPONS_LIST,
   payload: coupon
 });
-export const createNewCoupon = (coupon) => ({
+export const createNewCoupon = (coupon, meta) => ({
   type: CREATE_NEW_COUPON,
-  payload: coupon
+  payload: coupon,
+  meta
 });
 export const createNewCouponSuccess = (coupon) => ({
   type: CREATE_NEW_COUPON_SUCCESS,

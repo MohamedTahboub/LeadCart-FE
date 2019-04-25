@@ -188,9 +188,11 @@ footer {
             transform: rotate(360deg);
     }
   }
+  .big-spinner,
   .spinner{
     position: relative;
   }
+  .big-spinner::after,
   .spinner::after {
       content: '';
       -webkit-box-sizing: border-box;
@@ -209,7 +211,12 @@ footer {
       -webkit-animation: spinner .6s linear infinite;
               animation: spinner .6s linear infinite;
   }
-
+  .big-spinner::after{
+    left: -35%;
+    top: 36%;
+    width: 200px;
+    height: 200px;
+  }
   .lds-dual-ring {
     display: inline-block;
     width: 64px;

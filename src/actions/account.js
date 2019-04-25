@@ -7,7 +7,10 @@ import {
   CHANGE_ACCOUNT_PASSWORD_FAILED,
   UPDATE_USER_PROFILE_IMAGE,
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
-  UPDATE_USER_PROFILE_IMAGE_FAILED
+  UPDATE_USER_PROFILE_IMAGE_FAILED,
+  VERIFY_USER_ACCOUNT,
+  VERIFY_USER_ACCOUNT_SUCCESS,
+  VERIFY_USER_ACCOUNT_FAILED
 } from 'constantsTypes';
 
 
@@ -53,6 +56,22 @@ export const updateUserProfileImageSuccess = (message) => ({
 
 export const updateUserProfileImageFailed = (message) => ({
   type: UPDATE_USER_PROFILE_IMAGE_FAILED,
+  payload: message
+});
+
+export const verifyUserAccount = (hash, meta) => ({
+  type: VERIFY_USER_ACCOUNT,
+  payload: hash,
+  meta
+});
+
+export const verifyUserAccountSuccess = (status) => ({
+  type: VERIFY_USER_ACCOUNT_SUCCESS,
+  payload: status
+});
+
+export const verifyUserAccountFailed = (message) => ({
+  type: VERIFY_USER_ACCOUNT_FAILED,
   payload: message
 });
 

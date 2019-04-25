@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'components/Modals';
 import { connect } from 'react-redux';
 import common from 'components/common';
 import * as productsActions from 'actions/products';
 import * as couponsActions from 'actions/coupon';
+import { newCouponSchema } from 'libs/validation';
 import Tabel from 'components/common/Tabels';
 import moment from 'moment';
 import './style.css';
@@ -34,21 +35,31 @@ const Coupons = ({
     obj[id] = name;
     return obj;
   }, {});
-  products = products.map(({ _id: value, name: label }) => ({ label, value }));
+  products = [
+    { label: 'For All Products', value: 'all' },
+    ...products.map(({ _id: value, name: label }) => ({ label, value }))
+  ];
 
+  const initCoupon = {
+    active: true,
+    forAll: true,
+    type: 'Flat'
+  };
   const [showModal, setShowModal] = useState(false);
-  const [coupon, setCoupon] = useState({});
-  const [couponType, setCouponType] = useState('Flat');
+  const [coupon, setCoupon] = useState(initCoupon);
   const [errors, setErrors] = useState({});
 
-
+  useEffect(() => {
+    if (!showModal) setCoupon(initCoupon);
+  }, [showModal]);
   const toggleModal = () => setShowModal(!showModal);
 
   const onChange = ({ target: { value, name } }) => {
     if (value === 'all') {
       name = 'forAll';
       value = true;
-    }
+    } else if (name === 'productId') {coupon.forAll = false;}
+
 
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
@@ -61,11 +72,12 @@ const Coupons = ({
   };
 
   const onDiscountTypeChange = (value) => {
-    onChange({
-      target: {
-        name: 'discount.type',
-        value
-      }
+    const { amount, percent } = coupon;
+    setCoupon({
+      ...coupon,
+      type: value,
+      amount: amount || percent,
+      percent: percent || amount
     });
   };
   const onDateChange = (date) => {
@@ -73,15 +85,26 @@ const Coupons = ({
     setCoupon(coupon);
   };
 
-  const onSubmit = () => {
-    console.log(coupon);
-    props.createNewCoupon(coupon, {
-      onSuccess: () => {setShowModal(false);},
-      onFailed: ({ message }) => {setErrors({ message });}
-    });
+  const onSubmit = async () => {
+    try {
+      const { isValid, value, errors } = await newCouponSchema(coupon);
+
+      if (!isValid) return setErrors(errors);
+
+      props.createNewCoupon(value, {
+        onSuccess: () => {
+          setShowModal(false);
+        },
+        onFailed: ({ message }) => {
+          setErrors({ message });
+        }
+      });
+    } catch ({ message }) {
+      setErrors({ message });
+    }
   };
 
-  const { discount = {} } = coupon;
+  const { type } = coupon;
   return (
     <Page className='coupons-page'>
       <PageHeader>
@@ -156,12 +179,13 @@ const Coupons = ({
           <InputRow.Label>Coupon Type</InputRow.Label>
           <InputRow.FlatSelect
             onSelect={onDiscountTypeChange}
-            value={discount.type || 'Flat'}
-            defaultValue='Flat'
+            value={type}
+          // defaultValue='Flat'
           />
           <InputRow.PriceField
-            // type={discount.type === 'Flat' ? '$' : '%'}
-            name={discount.type === 'Flat' ? 'discount.amount' : 'discount.percent'}
+            // type={}
+            currency={type === 'Flat' ? '$' : '%'}
+            name={type === 'Flat' ? 'amount' : 'percent'}
             onChange={onChange}
             note='How much off is your coupon.'
             className='margin-left-30'
@@ -171,9 +195,9 @@ const Coupons = ({
           <InputRow.Label>Apply to</InputRow.Label>
           <InputRow.SearchInput
             options={products}
-            defaultValue={coupon.product || 'all'}
+            defaultValue={coupon.productId || 'all'}
             target='name'
-            name='product'
+            name='productId'
             onChange={onChange}
           />
         </InputRow>
