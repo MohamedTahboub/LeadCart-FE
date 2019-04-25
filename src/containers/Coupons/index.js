@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'components/Modals';
 import { connect } from 'react-redux';
 import common from 'components/common';
 import * as productsActions from 'actions/products';
 import * as couponsActions from 'actions/coupon';
+import { newCouponSchema } from 'libs/validation';
 import Tabel from 'components/common/Tabels';
-import './style.css'
+import moment from 'moment';
+import './style.css';
 const {
   InputRow,
   Button,
@@ -16,15 +18,6 @@ const {
   PageContent
 } = common;
 
-
-const getProductNameByCouponId = (id, products) => {
-  const isItCouponRelated = (coupons) => coupons.find((c) => c === id);
-  const product = products.find(({ coupons }) => isItCouponRelated(coupons)) || {};
-  console.log(product);
-  const productName = product.name || 'unrecognizable';
-  return productName;
-};
-
 const AddNewButton = ({ onClick, ...props }) => (
   <Button onClick={onClick} className='primary-color medium-add-btn explort-csv-btn'>
     <i className='fas fa-plus' />
@@ -33,207 +26,201 @@ const AddNewButton = ({ onClick, ...props }) => (
   </Button>
 );
 
-class Coupons extends Component {
-  state = {
-    isModalVisable: false,
-    products: [],
+const Coupons = ({
+  products,
+  coupons,
+  ...props
+}) => {
+  const productsNames = products.reduce((obj, { _id: id, name }) => {
+    obj[id] = name;
+    return obj;
+  }, {});
+  products = [
+    { label: 'For All Products', value: 'all' },
+    ...products.map(({ _id: value, name: label }) => ({ label, value }))
+  ];
+
+  const initCoupon = {
+    active: true,
     forAll: true,
-    enableCoupons: true,
-    type: 'Flat',
-    couponValue: 0,
-    submited: false
-  }
+    type: 'Flat'
+  };
+  const [showModal, setShowModal] = useState(false);
+  const [coupon, setCoupon] = useState(initCoupon);
+  const [errors, setErrors] = useState({});
 
-  products = []
+  useEffect(() => {
+    if (!showModal) setCoupon(initCoupon);
+  }, [showModal]);
+  const toggleModal = () => setShowModal(!showModal);
 
-  toggleModal = () => this.setState({ isModalVisable: !this.state.isModalVisable })
-
-  onEnable = () => this.setState({ enableCoupons: !this.state.enableCoupons })
-
-
-  onChangeTarget = ({ target: { value } }) => {
+  const onChange = ({ target: { value, name } }) => {
     if (value === 'all') {
-      this.setState({ forAll: true });
-    } else {
-      this.setState({
-        forAll: false,
-        productId: value
-      });
+      name = 'forAll';
+      value = true;
+    } else if (name === 'productId') {coupon.forAll = false;}
+
+
+    if (name.includes('.')) {
+      const [key, nestedKey] = name.split('.');
+      const nestedValue = { [nestedKey]: value };
+      name = key;
+      value = { ...coupon[key], ...nestedValue };
     }
-  }
 
-  onTypeSelect = (type) => {
-    this.setState({ type });
-  }
-
-  componentDidUpdate = (prevProps) => {
-    if (this.props.products !== prevProps.products) {
-      this.products = this.props.products;
-      const products = this.props.products.map((product) => ({
-        value: product._id, label: product.name
-      }));
-      products.unshift({ value: 'all', label: 'All products' });
-      this.setState({
-        products
-      });
-    }
-    if (this.props.created && (this.props.coupons.length > prevProps.coupons.length)) {
-      this.setState({ isModalVisable: false });
-      this.props.resetCouponModale();
-    }
-  }
-
-  componentDidMount = () => {
-    this.props.getUserProducts();
-  }
-
-  onFieldChange = ({ target: { name, value }, ...rest }) => {
-    const { couponModel } = this.state;
-    this.setState({
-      ...couponModel,
-      [name]: value
-    });
-  }
-
-  onDateChange = (date) => {
-    const { couponModel } = this.state;
-    this.setState({
-      ...couponModel,
-      duration: date.unix()
-    });
-  }
-
-  onSubmit = () => {
-    const {
-      code, duration, forAll, couponValue, percent, productId, type
-    } = this.state;
-    const coupon = {
-      code, duration, forAll, type
-    };
-    if (type === 'Flat') coupon.amount = couponValue;
-    if (type === 'Percent') coupon.percent = couponValue;
-    if (!forAll) coupon.productId = productId;
-    this.setState({ submited: true });
-    this.props.createNewCoupon(coupon);
-  }
-
-  getProductNameByCouponId = (id) => {
-    const product = this.props.products.find(({ coupons: { list: coupons } = {} }) => coupons.find(({ _id }) => _id === id)) || {};
-    return product.name || 'not set';
+    setCoupon({ ...coupon, [name]: value });
   };
 
-  render() {
-    const {
-      state: {
-        enableCoupons, products, isModalVisable, type
-      },
-      props: { errors, coupons, changeCouponState }
-    } = this;
-    return (
-      <Page className='coupons-page'>
-        <PageHeader>
-          <MainTitle>Coupons</MainTitle>
-          <Button onClick={this.toggleModal} className=' primary-color'>
-            New Coupon
-          </Button>
-        </PageHeader>
-        <PageContent>
-          <Tabel>
-            <Tabel.Head>
-              <Tabel.HeadCell>Code</Tabel.HeadCell>
-              <Tabel.HeadCell>Type</Tabel.HeadCell>
-              <Tabel.HeadCell>Amount/Percent</Tabel.HeadCell>
-              <Tabel.HeadCell>Used By Product</Tabel.HeadCell>
-              <Tabel.HeadCell>Created Date</Tabel.HeadCell>
-              <Tabel.HeadCell>Status</Tabel.HeadCell>
-            </Tabel.Head>
-            <Tabel.Body>
-              {coupons
-                .sort((a, b) => ((new Date(a.createdAt) < new Date(b.createdAt)) ? 1 : -1))
-                .map(({
-                  _id: couponId,
-                  code,
-                  discount = {},
-                  active,
-                  createdAt,
-                  forAll,
-                  usedBy
-                }, orderInList) => (
-                    <Tabel.Row key={code} orderInList={orderInList}>
-                      <Tabel.Cell mainContent={code} />
-                      <Tabel.Cell mainContent={discount.type} />
-                      <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
-                      <Tabel.Cell mainContent={forAll === true ? 'All Products' : this.getProductNameByCouponId(couponId)} />
-                      <Tabel.Cell mainContent={createdAt.split('T')[0]} />
-                      <Tabel.Cell>
-                        <SmallButton
-                          onClick={() => changeCouponState({ couponId, active: !active })}
-                          className={active ? 'green-color' : 'gray-color'}
-                        >
-                          {`${active ? 'Active' : 'Inactive'}`}
-                        </SmallButton>
-                      </Tabel.Cell>
-                    </Tabel.Row>
-                  ))}
+  const onDiscountTypeChange = (value) => {
+    const { amount, percent } = coupon;
+    setCoupon({
+      ...coupon,
+      type: value,
+      amount: amount || percent,
+      percent: percent || amount
+    });
+  };
+  const onDateChange = (date) => {
+    coupon.duration = date.format();
+    setCoupon(coupon);
+  };
 
-            </Tabel.Body>
-          </Tabel>
-        </PageContent>
+  const onSubmit = async () => {
+    try {
+      const { isValid, value, errors } = await newCouponSchema(coupon);
 
-        <Modal onClose={this.toggleModal} isVisible={isModalVisable}>
-          <MainTitle>Create Coupon</MainTitle>
-          <InputRow>
-            <InputRow.Label>Coupon code</InputRow.Label>
-            <InputRow.CustomInput name='code' placeholder='Coupon Code.' onChange={this.onFieldChange} />
-            <InputRow.DatePicker
-              name='duration'
-              type='date'
-              disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
-              placeholder='Active Duration' className='margin-left-30' onChange={this.onDateChange}
-            />
-          </InputRow>
-          <InputRow>
-            <InputRow.Label>Coupon Type</InputRow.Label>
-            <InputRow.FlatSelect
-              onSelect={this.onTypeSelect}
-              value={type || 'Flat'}
-              defaultValue='Flat'
-            />
-            <InputRow.PriceField
-              type={type === 'Flat' ? '$' : '%'}
-              name='couponValue'
-              onChange={this.onFieldChange}
-              note='How much off is your coupon.'
-              className='margin-left-30'
-            />
-          </InputRow>
-          <InputRow margin='35'>
-            <InputRow.Label>Apply to</InputRow.Label>
-            <InputRow.SearchInput
-              options={products}
-              defaultValue='all'
-              target='name'
-              name='appiedTo'
-              onChange={this.onChangeTarget}
-            />
-          </InputRow>
-          {errors.message && <span className='error-message'>{errors.message}</span>}
-          <Button onClick={this.onSubmit} className='primary-color margin-with-float-right'>
-            <i className='fas fa-plus' />
-            {' '}
-            Create Coupon
-          </Button>
-        </Modal>
-      </Page>
-    );
-  }
-}
+      if (!isValid) return setErrors(errors);
 
-const mapStateToProps = ({ coupons: { created, coupons = [], errors }, products }) => ({
-  created,
+      props.createNewCoupon(value, {
+        onSuccess: () => {
+          setShowModal(false);
+        },
+        onFailed: ({ message }) => {
+          setErrors({ message });
+        }
+      });
+    } catch ({ message }) {
+      setErrors({ message });
+    }
+  };
+
+  const { type } = coupon;
+  return (
+    <Page className='coupons-page'>
+      <PageHeader>
+        <MainTitle>Coupons</MainTitle>
+        <Button onClick={toggleModal} className=' primary-color'>
+          New Coupon
+        </Button>
+      </PageHeader>
+      <PageContent>
+        <Tabel>
+          <Tabel.Head>
+            <Tabel.HeadCell>Code</Tabel.HeadCell>
+            <Tabel.HeadCell>Type</Tabel.HeadCell>
+            <Tabel.HeadCell>Amount/Percent</Tabel.HeadCell>
+            <Tabel.HeadCell>For Product</Tabel.HeadCell>
+            <Tabel.HeadCell>Created Date</Tabel.HeadCell>
+            <Tabel.HeadCell>Status</Tabel.HeadCell>
+          </Tabel.Head>
+          <Tabel.Body>
+            {coupons
+              .sort((a, b) => ((new Date(a.createdAt) < new Date(b.createdAt)) ? 1 : -1))
+              .map(({
+                _id: couponId,
+                code,
+                discount = {},
+                active,
+                createdAt,
+                products: [productId] = [],
+                forAll,
+                usedBy
+              }, orderInList) => (
+                <Tabel.Row key={code} orderInList={orderInList}>
+                  <Tabel.Cell mainContent={code} />
+                  <Tabel.Cell mainContent={discount.type} />
+                  <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
+                  <Tabel.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
+                  <Tabel.Cell mainContent={moment(createdAt).format('YYYY-MM-DD')} />
+                  <Tabel.Cell>
+                    <SmallButton
+                      onClick={() => props.changeCouponState({ couponId, active: !active })}
+                      className={active ? 'green-color' : 'gray-color'}
+                    >
+                      {`${active ? 'Active' : 'Inactive'}`}
+                    </SmallButton>
+                  </Tabel.Cell>
+                </Tabel.Row>
+              ))}
+
+          </Tabel.Body>
+        </Tabel>
+      </PageContent>
+
+      <Modal onClose={toggleModal} isVisible={showModal}>
+        <MainTitle>Create Coupon</MainTitle>
+        <InputRow>
+          <InputRow.Label>Coupon code</InputRow.Label>
+          <InputRow.CustomInput
+            name='code'
+            placeholder='Coupon Code.'
+            onBlur={onChange}
+          />
+          <InputRow.DatePicker
+            name='duration'
+            type='date'
+            disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
+            placeholder='Active Duration'
+            className='margin-left-30'
+            onChange={onDateChange}
+          />
+        </InputRow>
+        <InputRow>
+          <InputRow.Label>Coupon Type</InputRow.Label>
+          <InputRow.FlatSelect
+            onSelect={onDiscountTypeChange}
+            value={type}
+          // defaultValue='Flat'
+          />
+          <InputRow.PriceField
+            // type={}
+            currency={type === 'Flat' ? '$' : '%'}
+            name={type === 'Flat' ? 'amount' : 'percent'}
+            onChange={onChange}
+            note='How much off is your coupon.'
+            className='margin-left-30'
+          />
+        </InputRow>
+        <InputRow margin='35'>
+          <InputRow.Label>Apply to</InputRow.Label>
+          <InputRow.SearchInput
+            options={products}
+            defaultValue={coupon.productId || 'all'}
+            target='name'
+            name='productId'
+            onChange={onChange}
+          />
+        </InputRow>
+        {errors.message && <span className='error-message'>{errors.message}</span>}
+        <Button onClick={onSubmit} className='primary-color margin-with-float-right'>
+          <i className='fas fa-plus' />
+          {' '}
+          Create Coupon
+        </Button>
+      </Modal>
+    </Page>
+  );
+};
+
+
+const mapStateToProps = ({
+  coupons: {
+    coupons = [],
+  },
+  products: { products = [] } = {}
+}) => ({
   coupons,
-  errors,
-  products: products.products
+  products
 });
 export default connect(mapStateToProps, { ...couponsActions, ...productsActions })(Coupons);
 

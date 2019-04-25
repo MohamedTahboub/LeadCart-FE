@@ -22,6 +22,7 @@ import formsValidations from './formsValidations'
 import upsells from './upsell'
 import fulfillments from './fulfillments'
 import emails from './emails'
+import verifyAccount from './verifyAccount'
 // exporting the middlewares as an array 
 export default [
     appInit,
@@ -29,6 +30,7 @@ export default [
     ...modelsShapers,
     notificationCenter,
     login,
+    verifyAccount,
     proSignup,
     ...settings,
     products,

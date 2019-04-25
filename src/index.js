@@ -60,6 +60,7 @@ import registerServiceWorker from 'services/RegisterServiceWorker';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css'
 import { APP_INIT } from 'constantsTypes';
+import VerifyAccount from './containers/VerifyAccount';
 
 /* Temp page to represent the empty pages */
 
@@ -73,34 +74,35 @@ ReactDOM.render(
             <LoadingBar />
             {/*<ErrorBoundary>*/}
 
-                <BrowserRouter>
-                    <Switch>
-                        <Route exact path='/login' component={Login} />
-                        <Route exact path='/saasmantra' component={SignUpSaasmantra} />
-                        <Route exact path='/forgetpwd' component={ForgetPassword} />
-                        <Route exact path='/promocode' component={PromoCodeActivation} />
-                        <ProtectedRoute component={() => (
-                            <Fragment>
-                                <Route render={({ history }) => <SideBar history={history} />} />
-                                <Route exact path='/' component={Guidelines} />
-                                <Route exact path='/products' component={Products} />
-                                <Route path='/activities' component={Activities} />
-                                <Route path='/customers' component={CustomersLab} />
-                                <Route exact path='/coupons' component={Coupons} />
-                                <Route exact path='/upsells' component={Upsells} />
-                                <Route exact path='/fulfillments' component={Fulfillments} />
-                                <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
-                                <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
-                                <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
-                                <Route exact path='/agency' component={Agency} />
-                                <Route path='/settings' component={Setting} />
-                                <Route exact path='/help' component={Help} />
-                            </Fragment>
-                        )}
-                        />
-                    </Switch>
-                </BrowserRouter>
-            
+            <BrowserRouter>
+                <Switch>
+                <Route exact path='/login' component={Login} />
+                    <Route exact path='/forgetpwd' component={ForgetPassword} />
+                    <Route exact path='/promocode' component={PromoCodeActivation} />
+                    <Route exact path='/saasmantra' component={SignUpSaasmantra} />
+                    <Route  path='/verify' component={VerifyAccount} />
+                    <ProtectedRoute component={() => (
+                        <Fragment>
+                            <Route render={({ history }) => <SideBar history={history} />} />
+                            <Route exact path='/' component={Guidelines} />
+                            <Route exact path='/products' component={Products} />
+                            <Route path='/activities' component={Activities} />
+                            <Route path='/customers' component={CustomersLab} />
+                            <Route exact path='/coupons' component={Coupons} />
+                            <Route exact path='/upsells' component={Upsells} />
+                            <Route exact path='/fulfillments' component={Fulfillments} />
+                            <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
+                            <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
+                            <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
+                            <Route exact path='/agency' component={Agency} />
+                            <Route path='/settings' component={Setting} />
+                            <Route exact path='/help' component={Help} />
+                        </Fragment>
+                    )}
+                    />
+                </Switch>
+            </BrowserRouter>
+
             {/*</ErrorBoundary>*/}
             <NotificationMessage />
         </React.Fragment>

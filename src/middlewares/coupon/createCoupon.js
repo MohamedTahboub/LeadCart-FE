@@ -8,15 +8,22 @@ import { apiRequest } from 'actions/apiRequest';
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== CREATE_NEW_COUPON) return next(action);
 
+  const { payload, meta = {} } = action;
   dispatch(apiRequest({
     options: {
       method: 'POST',
-      body: action.payload,
+      body: payload,
       uri: '/api/coupon',
       contentType: 'json'
     },
-    onSuccess: createNewCouponSuccess,
-    onFailed: createNewCouponFailed
+    onSuccess: (args) => {
+      if (meta.onSuccess) meta.onSuccess(args);
+      return createNewCouponSuccess(args);
+    },
+    onFailed: (args) => {
+      if (meta.onFailed) meta.onFailed(args);
+      return createNewCouponFailed(args);
+    }
   }));
 };
 
