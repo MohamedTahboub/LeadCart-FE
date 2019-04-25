@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { FormLogo } from 'components/common/logos';
 import { connect } from 'react-redux';
 import * as signupActions from 'actions/signup';
-
+import { proSingup } from 'libs/validation';
 import './styles.css';
 
 class SignUp extends Component {
+  state = { success: false, errors: '' }
+
   componentDidUpdate = () => this.props.isLoggedIn && this.props.history.push('/')
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
       firstName: e.target.firstName.value,
@@ -19,11 +21,45 @@ class SignUp extends Component {
       password: e.target.password.value,
       subDomain: e.target.subdomain.value
     };
-    this.props.signUp(newUser);
+
+    try {
+      const { isValid, value, errors } = await proSingup(newUser);
+      if (!isValid) return this.setState({ errors });
+      this.props.signUp(
+        value,
+        {
+          onSuccess: (m) => {
+            this.setState({ success: true });
+          },
+          onFailed: (error) => {
+            console.log('errrrrror', error);
+            this.setState({ success: false, errors: error });
+          }
+        }
+      );
+    } catch ({ message }) {
+      this.setState({ success: false, errors: { message } });
+    }
   }
 
   render () {
-    const { validationError: errors, signupError } = this.props;
+    // const { validationError: errors, signupError } = this.props;
+    const { success, errors = {} } = this.state;
+
+    if (success) {
+      return (
+        <div className='account-verify-page'>
+          <div className='verified-message-container'>
+            <i className='fas fa-check-circle' />
+            <span className='verified-label'>
+              You Have signed up successfully,
+              <br />
+              please check your inbox to verify your account .
+            </span>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className='wrapper'>
         <div className='logo-header'>
@@ -58,28 +94,25 @@ class SignUp extends Component {
           </div>
           <div className='promo-container'>
             <span className='promo-title'>
-              Promo Code
+                Promo Code
             </span>
             <p className='promo-description'>The code will be aplied to the account </p>
             <p className='promo-description'>Please make sure You enter your PRO code, You will be able to enter your AGENCY codes inside the application dashboard</p>
             <input className='promo-input' name='code' placeholder='PROMO CODE' />
             {errors.code && <span className='input-feild-error'>{errors.code}</span>}
           </div>
-          {signupError && <span className='signup-error-field'>{signupError}</span>}
+          {errors.message && <span className='signup-error-field'>{errors.message}</span>}
           <button type='submit' className='form-submit'>Sign Up</button>
         </form>
         <footer>
-          © LeadCart. All rights reserved 2018
+            © LeadCart. All rights reserved 2018
         </footer>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn,
-  user: state.user,
-  signupError: state.user.error,
-  validationError: state.validation.signup
+  isLoggedIn: state.user.isLoggedIn
 });
 
 

@@ -40,8 +40,8 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case SIGN_UP_SUCCESS: return { ...state, user: payload, isLoggedIn: true };
-  case SIGN_UP_FAILED: return { ...state, error: payload };
+  case SIGN_UP_SUCCESS: return { singupSuccess: true };
+  case SIGN_UP_FAILED: return { singupSuccess: false };
   case LOGIN_SUCCESS: return { ...state, user: payload, isLoggedIn: true };
   case LOGIN_FAILED: return { ...state, error: payload };
   case LOGOUT: return { ...state, isLoggedIn: false };
