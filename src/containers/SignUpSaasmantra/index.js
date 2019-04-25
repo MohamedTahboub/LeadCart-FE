@@ -33,7 +33,7 @@ class SignUp extends Component {
           },
           onFailed: (error) => {
             console.log('errrrrror', error);
-            this.setState({ success: false, errors: error });
+            this.setState({ success: false, errors: { message: error } });
           }
         }
       );
@@ -94,7 +94,7 @@ class SignUp extends Component {
           </div>
           <div className='promo-container'>
             <span className='promo-title'>
-                Promo Code
+              Promo Code
             </span>
             <p className='promo-description'>The code will be aplied to the account </p>
             <p className='promo-description'>Please make sure You enter your PRO code, You will be able to enter your AGENCY codes inside the application dashboard</p>
@@ -105,7 +105,7 @@ class SignUp extends Component {
           <button type='submit' className='form-submit'>Sign Up</button>
         </form>
         <footer>
-            © LeadCart. All rights reserved 2018
+          © LeadCart. All rights reserved 2018
         </footer>
       </div>
     );
