@@ -1,5 +1,6 @@
 .product-update-modal{
   padding: 0px;
+  left:unset;
 }
 .product-update-modal-body{
   flex-direction: row;
