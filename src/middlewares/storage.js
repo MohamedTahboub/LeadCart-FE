@@ -20,7 +20,7 @@ export default ({ dispatch }) => (next) => (action) => {
       setTimeout(() => {
         dispatch(appInit());
       }, 200);
-      upadateIntercomeWithUserDetails(payload);
+      upadateIntercomeWithUserDetails({ ...payload, logged: true });
 
       localStorage.leadcart = JSON.stringify({ ...payload, signDate: Date.now(), isLoggedIn: true });
     }
@@ -33,7 +33,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
 
     if (type === LOGOUT) {
-      upadateIntercomeWithUserDetails(payload);
+      upadateIntercomeWithUserDetails({ ...payload, logged: false });
       localStorage.leadcart = '{}';
     }
 
@@ -47,19 +47,48 @@ export default ({ dispatch }) => (next) => (action) => {
 
 
 function upadateIntercomeWithUserDetails ({
-  firstName = 'There', lastName = 'guest', email = 'anonymous@leadcart.io', _id: id
+  firstName = 'There', lastName = 'guest', logged, email = 'anonymous@leadcart.io', _id: id
 }) {
   try {
-    if (process.env.NODE_ENV === 'production' && window.Intercom) {
-      window.Intercom('boot', {
-        app_id: 'skynydft',
-        email,
-        created_at: Math.round((new Date()).getTime() / 1000),
-        name: `${firstName} ${lastName}`,
-        user_id: id
-      });
+    if (/* process.env.NODE_ENV === 'production' && */ window.Intercom) {
+      if (logged) {
+        window.intercomSettings = {
+          app_id: 'skynydft',
+          email,
+          created_at: Math.round((new Date()).getTime() / 1000),
+          name: `${firstName} ${lastName}`,
+          user_id: id
+        };
+      } else {
+        window.intercomSettings = {
+          app_id: 'skynydft'
+        };
+      }
     }
   } catch (err) {
     console.error(err);
+  }
+}
+
+
+function consoleMessage () {
+  const LeadCarttext = `%c
+  ╔╗░░╔═══╦═══╦═══╦═══╦═══╦═══╦════╗
+  ║║░░║╔══╣╔═╗╠╗╔╗║╔═╗║╔═╗║╔═╗║╔╗╔╗║
+  ║║░░║╚══╣║░║║║║║║║░╚╣║░║║╚═╝╠╝║║╚╝
+  ║║░╔╣╔══╣╚═╝║║║║║║░╔╣╚═╝║╔╗╔╝░║║░░
+  ║╚═╝║╚══╣╔═╗╠╝╚╝║╚═╝║╔═╗║║║╚╗░║║░░
+  ╚═══╩═══╩╝░╚╩═══╩═══╩╝░╚╩╝╚═╝░╚╝░░
+%c
+╔╗╔╦══╦═╦═╗╔╗╔╦══╦═╦╦╦══╗
+║╚╝║╔╗║╬║╬║║╚╝║╔╗║╔╣╔╣══╣
+║╔╗║╠╣║╔╣╔╝║╔╗║╠╣║╚╣╚╬══║
+╚╝╚╩╝╚╩╝╚╝░╚╝╚╩╝╚╩═╩╩╩══╝
+`;
+
+
+  if (process.env.NODE_ENV !== 'development') {
+    console.clear();
+    console.log(LeadCarttext, 'font-size:30px;color:lightblue', 'font-size:20px;color:gray');
   }
 }
