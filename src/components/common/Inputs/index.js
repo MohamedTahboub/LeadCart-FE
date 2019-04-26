@@ -50,6 +50,7 @@ export class InputRow extends Component {
     name,
     autoComplete,
     value,
+    error,
     disabled,
     type = 'text',
     placeholder,
@@ -64,7 +65,7 @@ export class InputRow extends Component {
         autoComplete={autoComplete ? '' : 'off'}
         name={name}
         defaultValue={value}
-        className={`input-field custom-input-field ${className}`}
+        className={`input-field custom-input-field ${className} ${error ? 'invalid-field' : ''}`}
         placeholder={props.children || placeholder}
       />
     )
