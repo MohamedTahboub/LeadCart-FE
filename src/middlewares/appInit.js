@@ -15,7 +15,16 @@ import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
 window.user = '';
 export default ({ dispatch, getState }) => (next) => (action) => {
-  const { user: { user: { token, ...user }, isLoggedIn } } = getState();
+  const {
+    products: { products = [] } = {},
+    user: {
+      user: {
+        token,
+        ...user
+      },
+      isLoggedIn
+    }
+  } = getState();
 
   // setTimeout(() => {
   //   consoleMessage();
@@ -44,7 +53,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
-  upadateIntercomeWithUserDetails(user);
+  upadateIntercomeWithUserDetails(user, { products });
   dispatch(apiRequest({
     options: {
       method: 'get',
@@ -61,16 +70,31 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   // restore the application stored data in the loaclStorage
 };
 
-function upadateIntercomeWithUserDetails ({ firstName, lastName, email }) {
+function upadateIntercomeWithUserDetails ({
+  firstName,
+  lastName,
+  email
+}, data) {
   if (!window.user) window.user = email;
+  if (window.intercomSettings.email === email) return;
+  // window.intercomSettings = {
+  //   app_id: 'skynydft',
+  //   name: `${firstName} ${lastName}`, // Full name
+  //   email, // Email address
+  //   created_at: window.intercomSettings.created_at // Signup date as a Unix timestamp
+  // };
+
   window.intercomSettings = {
     app_id: 'skynydft',
-    name: `${firstName} ${lastName}`, // Full name
-    email, // Email address
-    created_at: window.intercomSettings.created_at // Signup date as a Unix timestamp
+    email,
+    user_id: localStorage.leadcart_user_id,
+    name: `${firstName} ${lastName}`,
+    products: JSON.stringify(data)
   };
-  consoleMessage();
+
+  // consoleMessage();
 }
+
 
 function consoleMessage () {
   const LeadCarttext = `%c
