@@ -50,6 +50,7 @@ export class InputRow extends Component {
     name,
     autoComplete,
     value,
+    error,
     disabled,
     type = 'text',
     placeholder,
@@ -64,7 +65,7 @@ export class InputRow extends Component {
         autoComplete={autoComplete ? '' : 'off'}
         name={name}
         defaultValue={value}
-        className={`input-field custom-input-field ${className}`}
+        className={`input-field custom-input-field ${className} ${error ? 'invalid-field' : ''}`}
         placeholder={props.children || placeholder}
       />
     )
@@ -141,9 +142,10 @@ export class InputRow extends Component {
       </div>
     )
 
-  static UrlInput = ({ onChange, name, disabled, error, prefix = 'https://', value, ...props }) => (
+  static UrlInput = ({ onChange,onBlur, name, disabled, error, prefix = 'https://', value, ...props }) => (
     <input
       onChange={onChange}
+      onBlur={onBlur}
       defaultValue={value}
       name={name}
       className={`input-field ${error ? 'invalid-field' : ''}`}

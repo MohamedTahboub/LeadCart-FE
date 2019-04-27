@@ -2,8 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react';
 import common from 'components/common';
 import EmailFooterModal from 'components/EmailFooterModal';
 import { connect } from 'react-redux';
-import { testEmailTypes } from 'constantsTypes'
-import * as emailsActions from 'actions/emails'
+import { testEmailTypes } from 'constantsTypes';
+import * as emailsActions from 'actions/emails';
 import * as yup from 'yup';
 
 const {
@@ -12,48 +12,45 @@ const {
 
 
 const EmailTestButton = ({
-  type, className = '', testingType, loading, onClick, ...props
+  type, className = '', testingType, disabled, loading, onClick, ...props
 }) => {
-  const classNames = `${className} primary-color wide-element ${(type === testingType && loading) ? ' spinner' : ''}`;
+  const classNames = `${className} primary-color wide-element ${(type === testingType && loading) ? ' spinner' : ''} ${disabled ? 'test-disabled' : ''}`;
 
   return (
     <SmallButton
       className={classNames}
-      onClick={onClick.bind(this, type)}
+      onClick={!disabled && onClick.bind(this, type)}
     >
       Test
     </SmallButton>
   );
 };
 const Email = (props) => {
-
-  const [showFooterModal, setFooterModal] = useState(false)
-  const [testType, setTestType] = useState({})
-  const [sourceEmail, setSourceEmail] = useState(props.sourceEmail)
-  const [errors, setErrors] = useState({})
-  const [versifying, setVersifying] = useState(false)
+  const [showFooterModal, setFooterModal] = useState(false);
+  const [testType, setTestType] = useState({});
+  const [sourceEmail, setSourceEmail] = useState(props.sourceEmail);
+  const [errors, setErrors] = useState({});
+  const [versifying, setVersifying] = useState(false);
   const onToggleFooterModal = () => {
-    setFooterModal(!showFooterModal)
-  }
+    setFooterModal(!showFooterModal);
+  };
 
   const onSourceEmailChange = ({ target: { value } }) => {
-    setSourceEmail(value)
-    setErrors({ sourceEmail: '' })
-  }
+    setSourceEmail(value);
+    setErrors({ sourceEmail: '' });
+  };
 
 
   const onEmailVerify = async () => {
-
     const schema = yup.string().email().required();
 
-    if (!(await schema.isValid(sourceEmail)))
-      return setErrors({ sourceEmail: 'invalid email address' })
-    setVersifying(true)
+    if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
+    setVersifying(true);
     props.verifyEmailSource({ email: sourceEmail }, {
-      onSuccess: () => { setVersifying(false) },
-      onFailed: () => { setVersifying(false) }
-    })
-  }
+      onSuccess: () => {setVersifying(false);},
+      onFailed: () => {setVersifying(false);}
+    });
+  };
 
   const onEmailTest = (type) => {
     setTestType({
@@ -73,15 +70,14 @@ const Email = (props) => {
           emailTestType: ''
         });
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    if (props.sourceEmail !== sourceEmail)
-      setSourceEmail(props.sourceEmail)
-  }, [props])
+    if (props.sourceEmail !== sourceEmail) setSourceEmail(props.sourceEmail);
+  }, [props]);
 
-  const { testing, emailTestType } = testType
+  const { testing, emailTestType } = testType;
   // const isThisEmailVerified = sourceEmail === props.sourceEmail && props.emailVerificationStatus === 1
   return (
     <Fragment>
@@ -96,7 +92,7 @@ const Email = (props) => {
             >
               Edit
 
-              </EditButton>
+            </EditButton>
             {showFooterModal && (
               <EmailFooterModal
                 onClose={onToggleFooterModal}
@@ -105,14 +101,14 @@ const Email = (props) => {
             )}
           </InputRow.Note>
         </InputRow>
-        <InputRow>
+        {props.packageType !== 'Pro' && (<InputRow>
           <InputRow.Label
             error={errors.sourceEmail}
             notes='This Email represents the sender,  the from or the source email that your customers gonna get the emails from, in order to do that you have to verify the identity of your email address'
           >
             Source(From) Email
 
-            </InputRow.Label>
+          </InputRow.Label>
           <InputRow.Note
             content={(
               <InputRow.SmallInput
@@ -128,9 +124,10 @@ const Email = (props) => {
               className={`primary-color ${versifying ? 'spinner' : ''}`}
             >
               Verify
-              </SmallButton>
+            </SmallButton>
           </InputRow.Note>
         </InputRow>
+        )}
         {/* <InputRow margin='30'>
             <InputRow.Label
               notes='Send a receipt to your customers each time they are billed for their subscription.'
@@ -165,14 +162,6 @@ const Email = (props) => {
             <InputRow.SwitchInput checked />
           </InputRow.Note>
         </InputRow>
-        <InputRow>
-          <InputRow.Label>New Affiliate</InputRow.Label>
-          <InputRow.Note
-            content='This email is sent each time a new affiliate applies. If auto-approval is enabled, this will not be sent.'
-          >
-            <InputRow.SwitchInput checked />
-          </InputRow.Note>
-        </InputRow>
       </MainBlock>
       <MainBlock title='Orders Emails'>
         <InputRow>
@@ -181,6 +170,7 @@ const Email = (props) => {
             content='Test the system email sent to customer when any new order is placed.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.order_receipt}
               testingType={emailTestType}
@@ -194,6 +184,7 @@ const Email = (props) => {
             content='Test the system email sent to customer when any order item is refunded.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.refund_order}
               testingType={emailTestType}
@@ -207,6 +198,7 @@ const Email = (props) => {
             content='Test the system email sent to customer when any recurring subscription is canceled.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.cancel_subscription}
               testingType={emailTestType}
@@ -220,6 +212,7 @@ const Email = (props) => {
             content='Test the system email sent to customer when any subscription charge is refunded.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.refund_subscription}
               testingType={emailTestType}
@@ -233,6 +226,7 @@ const Email = (props) => {
             content='Test the email sent to customers when their subscription charges.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.subscription_charge_receipt}
               testingType={emailTestType}
@@ -241,13 +235,14 @@ const Email = (props) => {
           </InputRow.Note>
         </InputRow>
       </MainBlock>
-      <MainBlock title='Dunning Emails'>
+      {props.packageType !== 'Pro' && (<MainBlock title='Dunning Emails'>
         <InputRow>
           <InputRow.Label>Default Dunning</InputRow.Label>
           <InputRow.Note
             content='Test the default dunning email sent to customer when any subscription payment fails. This can be overridden by customizing the individual dunning steps below.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.default_dunning}
               testingType={emailTestType}
@@ -261,6 +256,7 @@ const Email = (props) => {
             content='Test the dunning email sent to customer when any subscription payment fails for the first time.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.dunning_1}
               testingType={emailTestType}
@@ -274,6 +270,7 @@ const Email = (props) => {
             content='Test the dunning email sent to customer when any subscription payment fails for the 2nd time.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.dunning_2}
               testingType={emailTestType}
@@ -287,6 +284,7 @@ const Email = (props) => {
             content='Test the dunning email sent to customer when any subscription payment fails for the 3rd time.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.dunning_3}
               testingType={emailTestType}
@@ -300,6 +298,7 @@ const Email = (props) => {
             content='Test the dunning email sent to customer when any subscription payment fails for the 4th time.'
           >
             <EmailTestButton
+              disabled={!props.companyAddress}
               loading={testing}
               type={testEmailTypes.dunning_4}
               testingType={emailTestType}
@@ -309,18 +308,27 @@ const Email = (props) => {
         </InputRow>
 
       </MainBlock>
+      )}
     </Fragment>
   );
-}
+};
 
 const mapStatToProps = ({
+  user: {
+    user: {
+      packageType
+    } = {}
+  },
   emails: {
     settings: {
+      companyAddress,
       sourceEmail,
       emailVerificationStatus
     } = {}
   } = {}
 }) => ({
+  packageType,
+  companyAddress,
   sourceEmail,
   emailVerificationStatus
 });

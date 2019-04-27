@@ -25,18 +25,14 @@ const EmailFooterModal = ({
         companyPhone,
     })
 
-    useEffect(()=>{
-        setFooterDetails({
-            socialMedia,
-            companyAddress,
-            companyPhone,
-        });
-    },[socialMedia,companyAddress,companyPhone])
     const onChange = ({ target: { name, value } }) => {
+        console.log(name, value)
         setFooterDetails({ ...footerDetails, [name]: value });
     }
 
     const onSubmitEmailFooter = async () => {
+        
+
         const { isValid, value: footerValue, errors } = await emailFooterSchema(footerDetails);
         // console.log(isValid, errors);
         if (!isValid) return setErrors(errors);
@@ -54,7 +50,7 @@ const EmailFooterModal = ({
             }
         })
     }
-
+    console.log('update',Date.now() ,footerDetails)
     return (
         <Modal isVisible={isVisible} onClose={props.onClose} >
             <MainTitle>Enable Email Footer Details</MainTitle>
@@ -107,8 +103,8 @@ const mapStateToProps = ({
             socialMedia,
             companyAddress,
             companyPhone
-        }
-    },
+        }={}
+    }={},
     settings: {
         generalModel: {
             supportEmail

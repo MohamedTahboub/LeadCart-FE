@@ -92,7 +92,7 @@ function upadateIntercomeWithUserDetails ({
     products: JSON.stringify(data)
   };
 
-  // consoleMessage();
+  consoleMessage();
 }
 
 
@@ -104,16 +104,18 @@ function consoleMessage () {
   ║║░╔╣╔══╣╚═╝║║║║║║░╔╣╚═╝║╔╗╔╝░║║░░
   ║╚═╝║╚══╣╔═╗╠╝╚╝║╚═╝║╔═╗║║║╚╗░║║░░
   ╚═══╩═══╩╝░╚╩═══╩═══╩╝░╚╩╝╚═╝░╚╝░░
-%c
-╔╗╔╦══╦═╦═╗╔╗╔╦══╦═╦╦╦══╗
-║╚╝║╔╗║╬║╬║║╚╝║╔╗║╔╣╔╣══╣
-║╔╗║╠╣║╔╣╔╝║╔╗║╠╣║╚╣╚╬══║
-╚╝╚╩╝╚╩╝╚╝░╚╝╚╩╝╚╩═╩╩╩══╝
+%c wishes you
+                 ╔╗╔╦══╦═╦═╗╔╗╔╦══╦═╦╦╦══╗
+                 ║╚╝║╔╗║╬║╬║║╚╝║╔╗║╔╣╔╣══╣
+                 ║╔╗║╠╣║╔╣╔╝║╔╗║╠╣║╚╣╚╬══║
+                 ╚╝╚╩╝╚╩╝╚╝░╚╝╚╩╝╚╩═╩╩╩══╝
 `;
 
 
   if (process.env.NODE_ENV !== 'development') {
-    console.clear();
-    console.log(LeadCarttext, 'font-size:30px;color:lightblue', 'font-size:20px;color:gray');
+    setTimeout(() => {
+      console.clear();
+      console.log(LeadCarttext, 'font-size:30px;color:lightblue', 'font-size:20px;color:gray');
+    }, 1000);
   }
 }

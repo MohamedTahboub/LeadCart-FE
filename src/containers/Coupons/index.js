@@ -29,6 +29,7 @@ const AddNewButton = ({ onClick, ...props }) => (
 const Coupons = ({
   products,
   coupons,
+  errors: { message: errMessage } = {},
   ...props
 }) => {
   const productsNames = products.reduce((obj, { _id: id, name }) => {
@@ -43,7 +44,8 @@ const Coupons = ({
   const initCoupon = {
     active: true,
     forAll: true,
-    type: 'Flat'
+    type: 'Flat',
+    // amount: 50
   };
   const [showModal, setShowModal] = useState(false);
   const [coupon, setCoupon] = useState(initCoupon);
@@ -51,7 +53,9 @@ const Coupons = ({
 
   useEffect(() => {
     if (!showModal) setCoupon(initCoupon);
-  }, [showModal]);
+
+    if (errors.message !== errMessage) setErrors({ message: errMessage });
+  }, [showModal, errMessage]);
   const toggleModal = () => setShowModal(!showModal);
 
   const onChange = ({ target: { value, name } }) => {
@@ -69,10 +73,12 @@ const Coupons = ({
     }
 
     setCoupon({ ...coupon, [name]: value });
+    setErrors({});
   };
 
   const onDiscountTypeChange = (value) => {
     const { amount, percent } = coupon;
+    console.log(value, amount, percent);
     setCoupon({
       ...coupon,
       type: value,
@@ -88,8 +94,8 @@ const Coupons = ({
   const onSubmit = async () => {
     try {
       const { isValid, value, errors } = await newCouponSchema(coupon);
-
-      if (!isValid) return setErrors(errors);
+      console.log(isValid, errors);
+      if (!isValid) return setErrors({ ...errors });
 
       props.createNewCoupon(value, {
         onSuccess: () => {
@@ -160,11 +166,16 @@ const Coupons = ({
       <Modal onClose={toggleModal} isVisible={showModal}>
         <MainTitle>Create Coupon</MainTitle>
         <InputRow>
-          <InputRow.Label>Coupon code</InputRow.Label>
+          <InputRow.Label
+            error={errors.code}
+          >
+            Coupon code
+          </InputRow.Label>
           <InputRow.CustomInput
             name='code'
             placeholder='Coupon Code.'
             onBlur={onChange}
+            error={errors.code}
           />
           <InputRow.DatePicker
             name='duration'
@@ -176,14 +187,18 @@ const Coupons = ({
           />
         </InputRow>
         <InputRow>
-          <InputRow.Label>Coupon Type</InputRow.Label>
+          <InputRow.Label
+            error={errors.amount || errors.percent}
+          >
+            Coupon Type
+          </InputRow.Label>
           <InputRow.FlatSelect
             onSelect={onDiscountTypeChange}
             value={type}
           // defaultValue='Flat'
           />
           <InputRow.PriceField
-            // type={}
+            value={type === 'Flat' ? coupon.amount : coupon.percent}
             currency={type === 'Flat' ? '$' : '%'}
             name={type === 'Flat' ? 'amount' : 'percent'}
             onChange={onChange}
@@ -192,7 +207,10 @@ const Coupons = ({
           />
         </InputRow>
         <InputRow margin='35'>
-          <InputRow.Label>Apply to</InputRow.Label>
+          <InputRow.Label>
+            Apply to
+
+          </InputRow.Label>
           <InputRow.SearchInput
             options={products}
             defaultValue={coupon.productId || 'all'}
@@ -216,9 +234,11 @@ const Coupons = ({
 const mapStateToProps = ({
   coupons: {
     coupons = [],
+    errors
   },
   products: { products = [] } = {}
 }) => ({
+  errors,
   coupons,
   products
 });

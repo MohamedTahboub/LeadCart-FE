@@ -46,8 +46,6 @@ class CodeInputField extends Component {
       this.setState({ loading: true, error: '', success: false });
       onSubmit({ code });
     }
-
-    console.log(code);
   }
 
   render () {
@@ -80,14 +78,10 @@ class CodeInputField extends Component {
   }
 }
 
-const PackageState = ({ level }) => {
-  console.log(level);
-  const packageType = level < 3 ? 'Premium' : 'Agency';
-  return <div className='package-level'>{packageType}</div>;
-};
+const PackageState = ({ type }) => <div className='package-level'>{type}</div>;
 
 const Billing = ({
-  level, activateAgencyCode, codesUsed, loading, errors = {}, ...props
+  packageType, activateAgencyCode, codesUsed, loading, errors = {}, ...props
 }) => (
   <React.Fragment>
     <MainBlock title='LeadCart Plan' />
@@ -96,14 +90,14 @@ const Billing = ({
         header={<HeadeLine>Your Package is :</HeadeLine>}
         content={(
           <BigText>
-            <PackageState level={level} />
+            <PackageState type={packageType} />
           </BigText>
         )}
         footer={(
           <FlexBoxesContainer className='space-between-elements'>
             <div>
               <InputRow.Label>Nex billing date</InputRow.Label>
-              <div>Dec 1, 2029</div>
+              <div> ~ Eternity</div>
             </div>
             <div>
               <SmallButton className='green-color'>Active</SmallButton>
@@ -139,7 +133,7 @@ const Billing = ({
               {' '}
               {codesUsed > 5 ? codesUsed : 5}
               {' '}
-codes
+                codes
             </InputRow.Label>
           </React.Fragment>
         )}
@@ -148,7 +142,17 @@ codes
   </React.Fragment>
 );
 
-const mapStateToProps = ({ user: { user: { level = 0 }, activatedPromoCodes: codesUsed, errors }, loading }) => ({
+const mapStateToProps = ({
+  user: {
+    user: {
+      level = 0,
+      packageType
+    },
+    activatedPromoCodes: codesUsed, errors
+  },
+  loading
+}) => ({
+  packageType,
   loading,
   level,
   codesUsed,

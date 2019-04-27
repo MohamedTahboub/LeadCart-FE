@@ -1,10 +1,24 @@
 import React from 'react';
-import common from 'components/common'
+import common from 'components/common';
 
 
 const { InputRow } = common;
 
-const TermsOptions = ({ url = '', onChange }) => {
+const TermsOptions = ({
+  product: {
+    checkoutPage: {
+      termsAndConditions: { url, ...restTerms } = {}
+    } = {}
+  } = {}, ...props
+}) => {
+  const onChange = ({ target: { value } }) => {
+    props.onChange({
+      target: {
+        name: 'checkoutPage.termsAndConditions',
+        value: { ...restTerms, url: value }
+      }
+    });
+  };
   return (
     <div>
       <InputRow margin='45'>
@@ -18,7 +32,7 @@ const TermsOptions = ({ url = '', onChange }) => {
           prefix='http://'
           name='termsAndConditions.url'
           value={url}
-          onChange={onChange}
+          onBlur={onChange}
         />
       </InputRow>
     </div>

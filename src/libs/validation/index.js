@@ -1,3 +1,5 @@
+import YupInit from './yupMethods'
+
 export { default as UpsellSchema } from './upsellSchema'
 export { default as ProductSchema } from './productSchema';
 export { default as FulfillmentsValidationSchema } from './fulfillmentSchema';
