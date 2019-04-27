@@ -117,3 +117,21 @@
     margin-top: -60px;
     margin-left: 8px;
 }
+
+
+
+span.test-disabled {
+    position: relative;
+    opacity: .6;
+    cursor: not-allowed;
+    background: gray;
+}
+span.test-disabled:hover::after{
+    position: absolute;
+    width: 330px;
+    content: 'update you email footer details ,so you can send test emails';
+    left: 76px;
+    top: 4px;
+    font-size: 12px;
+    color: tomato;
+}
