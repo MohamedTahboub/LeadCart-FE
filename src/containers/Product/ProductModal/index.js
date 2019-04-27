@@ -29,6 +29,7 @@ class Product extends Component {
       name = key;
       value = { ...product[key], ...nestedValue };
     }
+    console.log(name,value)
     this.setState({ product: { ...product, [name]: value } })
   }
 
@@ -109,7 +110,7 @@ class Product extends Component {
       >
         <ProductEditableTemplate product={product} onChange={this.onChange} onOptionSelected={this.onOptionSelected} />
         <ProductSettings >
-          <ProductSettings.Headers onChange={this.onChange} product={product} />
+          <ProductSettings.Headers onChange={this.onChange} isNew={isNew} product={product} />
           <ProductSettings.General onChange={this.onChange} product={product} />
           <ProductSettings.Available
             key='available-options'

@@ -2,6 +2,7 @@ import {
   SIGN_UP_SUCCESS,
   LOGIN_SUCCESS,
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
+  ACTIVATE_AGENCY_CODE_SUCCESS,
   LOGOUT
 } from 'constantsTypes';
 import { appInit } from 'actions/appInit';
@@ -10,7 +11,8 @@ export default ({ dispatch }) => (next) => (action) => {
   const loggingEvent = type === SIGN_UP_SUCCESS
     || type === LOGIN_SUCCESS
     || type === LOGOUT
-    || type === UPDATE_USER_PROFILE_IMAGE_SUCCESS;
+    || type === UPDATE_USER_PROFILE_IMAGE_SUCCESS
+    || type === ACTIVATE_AGENCY_CODE_SUCCESS;
 
   // elemenating any action thats does not belongs to the loging family!
   if (!loggingEvent) return next(action);
@@ -22,12 +24,24 @@ export default ({ dispatch }) => (next) => (action) => {
       }, 200);
       upadateIntercomeWithUserDetails({ ...payload, logged: true });
 
-      localStorage.leadcart = JSON.stringify({ ...payload, signDate: Date.now(), isLoggedIn: true });
+      localStorage.leadcart = JSON.stringify({
+        ...payload,
+        packageType: packageType(payload.level),
+        signDate: Date.now(),
+        isLoggedIn: true
+      });
     }
     if (type === UPDATE_USER_PROFILE_IMAGE_SUCCESS) {
       localStorage.leadcart = JSON.stringify({
-        ...JSON.parse(localStorage.LeadCart),
+        ...JSON.parse(localStorage.leadcart),
         profileImage: payload
+      });
+    }
+
+    if (type === ACTIVATE_AGENCY_CODE_SUCCESS) {
+      localStorage.leadcart = JSON.stringify({
+        ...JSON.parse(localStorage.leadcart),
+        packageType: packageType(payload.level)
       });
     }
 
@@ -71,24 +85,12 @@ function upadateIntercomeWithUserDetails ({
 }
 
 
-function consoleMessage () {
-  const LeadCarttext = `%c
-  ╔╗░░╔═══╦═══╦═══╦═══╦═══╦═══╦════╗
-  ║║░░║╔══╣╔═╗╠╗╔╗║╔═╗║╔═╗║╔═╗║╔╗╔╗║
-  ║║░░║╚══╣║░║║║║║║║░╚╣║░║║╚═╝╠╝║║╚╝
-  ║║░╔╣╔══╣╚═╝║║║║║║░╔╣╚═╝║╔╗╔╝░║║░░
-  ║╚═╝║╚══╣╔═╗╠╝╚╝║╚═╝║╔═╗║║║╚╗░║║░░
-  ╚═══╩═══╩╝░╚╩═══╩═══╩╝░╚╩╝╚═╝░╚╝░░
-%c
-╔╗╔╦══╦═╦═╗╔╗╔╦══╦═╦╦╦══╗
-║╚╝║╔╗║╬║╬║║╚╝║╔╗║╔╣╔╣══╣
-║╔╗║╠╣║╔╣╔╝║╔╗║╠╣║╚╣╚╬══║
-╚╝╚╩╝╚╩╝╚╝░╚╝╚╩╝╚╩═╩╩╩══╝
-`;
+function packageType (level) {
+  let type = 'Pro';
 
+  if (level === 4) type = 'Premium';
 
-  if (process.env.NODE_ENV !== 'development') {
-    console.clear();
-    console.log(LeadCarttext, 'font-size:30px;color:lightblue', 'font-size:20px;color:gray');
-  }
+  if (level >= 6) type = 'Agency';
+
+  return type;
 }

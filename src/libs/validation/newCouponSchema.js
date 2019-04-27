@@ -1,29 +1,29 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
-export default async (coupon) => {
+export default async (coupon) => {//
   const schema = yup.object().shape({
-    code: yup.string().required(),
+    code: yup.string().couponCode().required('coupon code is required'),
     duration: yup.date(),
     active: yup.bool(),
     type: yup.string().oneOf(['Flat', 'Percent']).required(),
     forAll: yup.bool().required(),
-    percent: yup.when('type',
+    percent: yup.number().when('type',
       {
         is: 'Percent',
-        then: yup.number().required(),
-        otherwise: false
+        then: yup.number().required('the discount amount is required'),
+        otherwise: yup.number().transform(() => undefined)
       }),
-    amount: yup.when('type',
+    amount: yup.number().when('type',
       {
         is: 'Flat',
-        then: yup.number().required(),
-        otherwise: false
+        then: yup.number().required('the discount amount is required'),
+        otherwise: yup.number().transform(() => undefined)
       }),
-    productId: yup.when('forAll', {
+    productId: yup.string().when('forAll', {
       is: false,
       then: yup.string().required(),
-      otherwise: false
+      otherwise: yup.string().transform(() => undefined)
     })
   }).required();
 
@@ -31,6 +31,7 @@ export default async (coupon) => {
     const casted = await schema.validateSync(coupon, { abortEarly: false, stripUnknown: true });
     return { isValid: true, value: casted };
   } catch (err) {
+    console.log(err);
     return { isValid: false, errors: castYupErrors(err) };
   }
 };

@@ -1,37 +1,38 @@
 import React, { useState, Component } from 'react';
-import { connect } from 'react-redux'
-import ShareProductModale from 'components/ShareProductModale'
-import common from 'components/common'
-import { openNewWindow } from 'libs'
+import { connect } from 'react-redux';
+import ShareProductModale from 'components/ShareProductModale';
+import common from 'components/common';
+import { openNewWindow } from 'libs';
 
-const { MiniButton, Button, ActivationSwitchInput } = common
+const { MiniButton, Button, ActivationSwitchInput } = common;
 
 const Headers = ({
   subdomain,
-  product: { available, url: productUrl , isActive } = {},
+  isNew,
+  product: { available, url: productUrl } = {},
   onChange,
   ...props
 }) => {
-  const [showShareBox, setShareBox] = useState(false)
+  const [showShareBox, setShareBox] = useState(false);
 
   const toggleShareBox = () => {
-    setShareBox(!showShareBox)
-  }
+    setShareBox(!showShareBox);
+  };
 
   const toggleAvailability = () => {
-    if (isActive)
-      onChange({
-        target: {
-          name: 'available',
-          value: !available
-        }
-      });
-  }
+    onChange({
+      target: {
+        name: 'available',
+        value: !available
+      }
+    });
+  };
 
   const onPreview = () => {
-    const url = `https://${subdomain}.leadcart.io/products/${productUrl}`
+    const url = `https://${subdomain}.leadcart.io/products/${productUrl}`;
     openNewWindow(url);
-  }
+  };
+  if (isNew) return null;
   return (
     <div className='product-form-settings-headers bottom-breakline'>
       <Button onClick={toggleShareBox} className='share-btn'>
@@ -47,8 +48,7 @@ const Headers = ({
       <ActivationSwitchInput
         active={available}
         onToggle={toggleAvailability}
-        disabled={!isActive}
-        note={!isActive ? 'connect with one payment method at least' : ''}
+        // note={? 'connect with one payment method at least' : ''}
       />
       <MiniButton
         onClick={onPreview}
@@ -57,7 +57,7 @@ const Headers = ({
       />
     </div>
   );
-}
+};
 
 const mapStateToProps = ({
   user: { user: { subDomain: subdomain } = {} } = {}

@@ -1,22 +1,24 @@
-import React, { useState, Fragment } from 'react';
-import common from 'components/common'
+import React, { useState, useEffect } from 'react';
+import common from 'components/common';
 import * as yup from 'yup';
-import ids from 'shortid'
+import ids from 'shortid';
 
-import './style.css'
-const { InputRow } = common
+import './style.css';
+const { InputRow } = common;
 
-const supportedPlatforms = ['facebook', 'twitter', 'instagram', 'linkedin']
+const supportedPlatforms = ['facebook', 'twitter', 'instagram', 'linkedin'];
 
 const LinkRow = ({ link: { name, link } = {}, id, ...props }) => {
-
   const onDelete = () => {
-    props.onDelete(id)
-  }
+    props.onDelete(id);
+  };
 
   return (
     <InputRow>
-      <InputRow.Label>{name}:</InputRow.Label>
+      <InputRow.Label>
+        {name}
+        :
+      </InputRow.Label>
       <InputRow.NormalInput
         disabled
         value={link}
@@ -25,89 +27,86 @@ const LinkRow = ({ link: { name, link } = {}, id, ...props }) => {
         <i className='fas fa-trash-alt' />
       </span>
     </InputRow>
-  )
-}
+  );
+};
 
 
-const NewLink = ({ remainsPlatforms, onAdd }) => {
-
+const NewLink = ({ remainsPlatforms = [{}], onAdd }) => {
   // console.log("=============>", remainsPlatforms)
 
-  const [socialLink, setSocialLink] = useState({})
+  const [socialLink, setSocialLink] = useState();
+  const [socialPlatform, setSocialPlatform] = useState(remainsPlatforms[0].value);
   const [error, setError] = useState();
 
-  const onChange = ({ target: { value, name } }) => {
-
-    if (name === 'link' && error) setError("")
-
-
-    setSocialLink({ ...socialLink, [name]: value });
-  }
+  const onChange = ({ target: { value } }) => {
+    setSocialLink(value);
+    setError('');
+  };
+  const onSelect = ({ target: { value } }) => {
+    setSocialPlatform(value);
+    setError('');
+  };
 
   const onSave = async () => {
-    const v = remainsPlatforms[0] && remainsPlatforms[0].value
-    if (!error) {
-      if (!socialLink.name)
-        socialLink.name = v
+    const linkSchema = yup.string().url().required();
 
-      const linkSchema = yup.string().url().required();
+    const isValidLink = await linkSchema.isValid(socialLink);
+    if (!isValidLink) return setError('you have provided an invalid URL link');
+    onAdd({
+      name: socialPlatform,
+      link: socialLink
+    });
 
-      const isValidLink = await linkSchema.isValid(socialLink.link)
-      if (!isValidLink)
-        return setError('you have provided an invalid URL link');
-      onAdd(socialLink)
-      setSocialLink({})
-    }
-  }
+    // setSocialLink({});
+  };
+  useEffect(() => {
+    if (socialPlatform !== remainsPlatforms[0].value) setSocialPlatform(remainsPlatforms[0].value);
+  }, [remainsPlatforms]);
 
-  const { name, link } = socialLink
   return (
     <InputRow>
       <InputRow.SelectOption
         options={remainsPlatforms}
-        name='name'
-        onChange={onChange}
+        value={socialPlatform}
+        onChange={onSelect}
         className='social-media-platform-name'
       />
       <InputRow.NormalInput
         className='social-media-link'
         error={error}
-        name='link'
-        value={link}
+        value={socialLink}
         onChange={onChange}
       />
       <span onClick={onSave} className='btn save-btn social-btn'>
         <i className='fas fa-save' />
       </span>
     </InputRow>
-  )
-}
+  );
+};
 
 
-export default ({ links, ...props }) => {
-
+export default ({ links = [], ...props }) => {
   const onChange = (value) => {
     props.onChange({
       target: {
         name: 'socialMedia',
         value
       }
-    })
-  }
+    });
+  };
   const onDelete = (linkId) => {
-    const newLinks = links.filter((l, id) => id !== linkId)
+    const newLinks = links.filter((l, id) => id !== linkId);
     onChange(newLinks);
-  }
+  };
 
   const onAddLink = (socialLink) => {
-    const newLinks = [...links, socialLink]
+    const newLinks = [...links, socialLink];
 
     onChange(newLinks);
-  }
-
-  const availableSocialPlatforms = supportedPlatforms.filter(p => !links.find(({ name }) => name === p)).map(p => ({ label: p, value: p }))
+  };
+  const availableSocialPlatforms = supportedPlatforms.filter((p) => !links.find(({ name }) => name === p)).map((p) => ({ label: p, value: p }));
   return (
-    <div className="email-social-media">
+    <div className='email-social-media'>
       {links.map((link, id) => (
         <LinkRow
           id={id}
@@ -123,5 +122,5 @@ export default ({ links, ...props }) => {
         />
       )}
     </div>
-  )
-}
+  );
+};
