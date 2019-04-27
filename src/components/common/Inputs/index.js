@@ -142,9 +142,10 @@ export class InputRow extends Component {
       </div>
     )
 
-  static UrlInput = ({ onChange, name, disabled, error, prefix = 'https://', value, ...props }) => (
+  static UrlInput = ({ onChange,onBlur, name, disabled, error, prefix = 'https://', value, ...props }) => (
     <input
       onChange={onChange}
+      onBlur={onBlur}
       defaultValue={value}
       name={name}
       className={`input-field ${error ? 'invalid-field' : ''}`}

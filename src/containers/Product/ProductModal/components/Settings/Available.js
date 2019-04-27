@@ -118,7 +118,7 @@ const HiddenComponents = ({
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label>Terms an Conditions</InputRow.Label>
+        <InputRow.Label>Terms and Conditions</InputRow.Label>
         <InputRow.SwitchInput
           value={terms.enabled}
           onToggle={onToggleTerms}

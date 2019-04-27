@@ -830,7 +830,7 @@ input.checkout-input-field:valid + label.checkout-input-label{
     text-align: inherit;
     width: inherit;
     white-space: pre-line;
-    word-break: break-all;
+    /* word-break: break-all; */
     /* height: auto; */
     overflow: hidden;
     text-overflow: ellipsis;
