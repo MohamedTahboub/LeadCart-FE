@@ -2,8 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react';
 import common from 'components/common';
 import EmailFooterModal from 'components/EmailFooterModal';
 import { connect } from 'react-redux';
-import { testEmailTypes } from 'constantsTypes'
-import * as emailsActions from 'actions/emails'
+import { testEmailTypes } from 'constantsTypes';
+import * as emailsActions from 'actions/emails';
 import * as yup from 'yup';
 
 const {
@@ -26,34 +26,31 @@ const EmailTestButton = ({
   );
 };
 const Email = (props) => {
-
-  const [showFooterModal, setFooterModal] = useState(false)
-  const [testType, setTestType] = useState({})
-  const [sourceEmail, setSourceEmail] = useState(props.sourceEmail)
-  const [errors, setErrors] = useState({})
-  const [versifying, setVersifying] = useState(false)
+  const [showFooterModal, setFooterModal] = useState(false);
+  const [testType, setTestType] = useState({});
+  const [sourceEmail, setSourceEmail] = useState(props.sourceEmail);
+  const [errors, setErrors] = useState({});
+  const [versifying, setVersifying] = useState(false);
   const onToggleFooterModal = () => {
-    setFooterModal(!showFooterModal)
-  }
+    setFooterModal(!showFooterModal);
+  };
 
   const onSourceEmailChange = ({ target: { value } }) => {
-    setSourceEmail(value)
-    setErrors({ sourceEmail: '' })
-  }
+    setSourceEmail(value);
+    setErrors({ sourceEmail: '' });
+  };
 
 
   const onEmailVerify = async () => {
-
     const schema = yup.string().email().required();
 
-    if (!(await schema.isValid(sourceEmail)))
-      return setErrors({ sourceEmail: 'invalid email address' })
-    setVersifying(true)
+    if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
+    setVersifying(true);
     props.verifyEmailSource({ email: sourceEmail }, {
-      onSuccess: () => { setVersifying(false) },
-      onFailed: () => { setVersifying(false) }
-    })
-  }
+      onSuccess: () => {setVersifying(false);},
+      onFailed: () => {setVersifying(false);}
+    });
+  };
 
   const onEmailTest = (type) => {
     setTestType({
@@ -73,15 +70,14 @@ const Email = (props) => {
           emailTestType: ''
         });
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    if (props.sourceEmail !== sourceEmail)
-      setSourceEmail(props.sourceEmail)
-  }, [props])
+    if (props.sourceEmail !== sourceEmail) setSourceEmail(props.sourceEmail);
+  }, [props]);
 
-  const { testing, emailTestType } = testType
+  const { testing, emailTestType } = testType;
   // const isThisEmailVerified = sourceEmail === props.sourceEmail && props.emailVerificationStatus === 1
   return (
     <Fragment>
@@ -96,7 +92,7 @@ const Email = (props) => {
             >
               Edit
 
-              </EditButton>
+            </EditButton>
             {showFooterModal && (
               <EmailFooterModal
                 onClose={onToggleFooterModal}
@@ -112,7 +108,7 @@ const Email = (props) => {
           >
             Source(From) Email
 
-            </InputRow.Label>
+          </InputRow.Label>
           <InputRow.Note
             content={(
               <InputRow.SmallInput
@@ -128,7 +124,7 @@ const Email = (props) => {
               className={`primary-color ${versifying ? 'spinner' : ''}`}
             >
               Verify
-              </SmallButton>
+            </SmallButton>
           </InputRow.Note>
         </InputRow>
         {/* <InputRow margin='30'>
@@ -161,14 +157,6 @@ const Email = (props) => {
           <InputRow.Label> Failed Charge</InputRow.Label>
           <InputRow.Note
             content="This email is sent each time a customer's subscription payment fails to charge."
-          >
-            <InputRow.SwitchInput checked />
-          </InputRow.Note>
-        </InputRow>
-        <InputRow>
-          <InputRow.Label>New Affiliate</InputRow.Label>
-          <InputRow.Note
-            content='This email is sent each time a new affiliate applies. If auto-approval is enabled, this will not be sent.'
           >
             <InputRow.SwitchInput checked />
           </InputRow.Note>
@@ -311,7 +299,7 @@ const Email = (props) => {
       </MainBlock>
     </Fragment>
   );
-}
+};
 
 const mapStatToProps = ({
   emails: {
