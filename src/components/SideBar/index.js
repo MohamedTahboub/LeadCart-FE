@@ -28,7 +28,7 @@ const SideBar = ({
   const [activeTab, setActiveTab] = useState(history.location.pathname)
   const onTabChange = (tab) => setActiveTab(tab)
 
-  const navigateToProducts = ()=>{
+  const navigateToProducts = () => {
     history.push('/products')
     setActiveTab('/products')
   }
@@ -55,7 +55,7 @@ const SideBar = ({
         <Link to='/fulfillments' >Fulfillments</Link>
         <Link to='/funnels' className='locked-feature'>Funnels</Link>
         <Link to='/affiliates' className='locked-feature'>Affiliates</Link>
-        {user.level === 3 && <Link to='/agency'>Agency</Link>}
+        {user.packageType === 'Agency' && <Link to='/agency'>Agency</Link>}
         <Link to='/settings/general'>Setting</Link>
         <Link to='https://help.leadcart.io' external >Help</Link>
       </Menu>

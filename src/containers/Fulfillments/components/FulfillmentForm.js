@@ -22,7 +22,7 @@ const FulfillmentForm = ({
     if (typeof data === 'boolean')
         data = {}
 
-    const initialFulfillment = { ...data, type: 'noFulfillment' }
+    const initialFulfillment = { type: 'noFulfillment', ...data }
     const [fulfillment, setFulfillment] = useState(initialFulfillment)
     const [errors, setErrors] = useState({})
 
@@ -38,15 +38,15 @@ const FulfillmentForm = ({
             name = key;
             value = { ...fulfillment[key], ...nestedValue };
         }
+
         setFulfillment({ ...fulfillment, [name]: value })
         setErrors({})
     };
     const createFulfillment = async () => {
-        console.log('CREATING ....')
         try {
             const { isValid, value, errors } = await FulfillmentsValidationSchema(fulfillment);
             console.log('Error', isValid, errors)
-            if (!isValid) return setErrors(errors);
+            if (!isValid) return setErrors({...errors});
 
             console.log('Fulfillment', value)
             props.createFulfillment(
@@ -56,7 +56,7 @@ const FulfillmentForm = ({
                     onSuccess: (m) => {
                         onClose()
                     },
-                    onFailed: ({ message }) => setErrors({ message })
+                    onFailed: (message ) => setErrors({ message })
                 });
         } catch ({ message, ...err }) {
             console.log(err)
@@ -67,17 +67,20 @@ const FulfillmentForm = ({
 
         try {
             const { isValid, value, errors } = await FulfillmentsValidationSchema(fulfillment);
-            if (!isValid) return setErrors(errors);
-
-            props.updateFulfillment({
-                details: value,
-                fulfillmentId: <fulfillment className="_id"></fulfillment>
-            },
+            console.log('Error', isValid, errors)
+            if (!isValid) return setErrors({...errors});
+            
+            props.updateFulfillment(
+                {
+                    details: value,
+                    fulfillmentId: fulfillment._id
+                }
+                ,
                 {
                     onSuccess: () => {
                         onClose()
                     },
-                    onFailed: ({ message }) => {
+                    onFailed: (message) => {
                         setErrors({ message })
                     }
                 });

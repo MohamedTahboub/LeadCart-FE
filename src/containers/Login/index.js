@@ -3,23 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormLogo } from 'components/common/logos';
 import * as loginActions from 'actions/login';
+import CustomInputField from 'components/CustomInputField';
 import './styles.css';
 
 
-const CustomInputField = ({
-  type = 'text', error, name, placeholder, label = 'Label', className = ''
-}) => (
-  <div className={`custom-input-field ${className}`}>
-    {error && <span className='input-feild-error'>{error}</span>}
-    <input
-      type={type}
-      name={name}
-      id={name}
-      placeholder={placeholder}
-    />
-    <label htmlFor={name}>{label}</label>
-  </div>
-);
 const Login = ({
   isLoggedIn, history, login, errors
 }) => {
@@ -59,7 +46,7 @@ const Login = ({
         {errors.loginError && <span className='login-error-field'>{errors.loginError}</span>}
         <button type='submit' className='form-submit'>sign in now</button>
         <div className='account-refrance-links'>
-          <a className='forgetpwd-link' href='/forgetpwd'> forget password?</a>
+          <a className='forgetpwd-link' href='/password/forget'> forget password?</a>
         </div>
       </form>
       <footer>

@@ -11,7 +11,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'post',
       body: payload,
-      uri: '/api/fulfillments',
+      uri: '/api/fulfillment',
       contentType: 'json'
     },
     onSuccess: (args) => {

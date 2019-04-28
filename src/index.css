@@ -212,8 +212,8 @@ footer {
               animation: spinner .6s linear infinite;
   }
   .big-spinner::after{
-    left: -35%;
-    top: 36%;
+    left: calc(50% - 200px/2);
+    top: calc(50% - 200px/2);
     width: 200px;
     height: 200px;
   }

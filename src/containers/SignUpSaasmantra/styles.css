@@ -2,6 +2,11 @@
 .form-submit {
     margin-top: 40px;
 }
+.form-submit:disabled {
+    cursor: not-allowed;
+    background: lightgray;
+    pointer-events: none;
+}
 
 .form-input.name:before{
     content:'name';
