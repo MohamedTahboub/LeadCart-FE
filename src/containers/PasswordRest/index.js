@@ -97,6 +97,7 @@ const PasswordRest = ({ isLoggedIn, history, ...props }) => {
               <CustomInputField
                 name='newPassword'
                 label='New Password'
+                type='password'
                 placeholder='Enter your email address'
               />
               <CustomInputField
