@@ -38,6 +38,7 @@ import Login from 'containers/Login';
 import SignUpSaasmantra from 'containers/SignUpSaasmantra';
 import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
+import PasswordRest from 'containers/PasswordRest';
 import Upsells from 'containers/Upsells';
 import Fulfillments from 'containers/Fulfillments';
 
@@ -77,7 +78,8 @@ ReactDOM.render(
             <BrowserRouter>
                 <Switch>
                 <Route exact path='/login' component={Login} />
-                    <Route exact path='/forgetpwd' component={ForgetPassword} />
+                    <Route exact path='/password/forget' component={ForgetPassword} />
+                    <Route exact path='/password/reset/:hash' component={PasswordRest} />
                     <Route exact path='/promocode' component={PromoCodeActivation} />
                     <Route exact path='/saasmantra' component={SignUpSaasmantra} />
                     <Route  path='/verify' component={VerifyAccount} />
