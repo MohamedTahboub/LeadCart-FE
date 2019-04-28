@@ -12,7 +12,7 @@ const featuresSchema = yup.object({
 });
 const termsAndConditionsSchema = yup.object({
   enabled: yup.boolean().default(false),
-  url: yup.string().transform((val) => (val.trim() ? val : undefined))
+  url: yup.string().default(' ')
 });
 
 const testimonialsSchema = yup.object({

@@ -2,13 +2,16 @@ import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
 export default async (fulfillment) => {
-  const successUrls = yup.array().of(yup.string().url()).min(1);
+  const successUrls = yup.array().of(yup.object({
+    url: yup.string(),
+    expirationDate: yup.date()
+  }));
 
   const metaData = yup.object({
-    serviceName: yup.string().required(),
+    enabled: yup.boolean().default(false),
+    serviceName: yup.string(),
     description: yup.string(),
     contentType: yup.string(),
-    enabled: yup.boolean().required(),
   });
 
   const schema = yup.object().shape({
@@ -16,13 +19,11 @@ export default async (fulfillment) => {
     type: yup.string().required(),
     successUrls: successUrls.when('type', {
       is: 'successUrls',
-      then: successUrls.required(),
-      otherwise: yup.array().transform(() => undefined)
+      then: successUrls.min(1).required()
     }),
     metaData: metaData.when('type', {
       is: 'manual',
-      then: metaData.required(),
-      otherwise: yup.object()
+      then: metaData.required()
     })
   }).required();
 

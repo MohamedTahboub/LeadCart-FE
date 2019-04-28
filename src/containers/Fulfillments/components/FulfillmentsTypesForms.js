@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import common from 'components/common';
+import SuccessUrls from 'components/SuccessUrls';
 const {
   InputRow,
   BlankLink,
@@ -80,17 +81,20 @@ const ManualFulfillment = ({
     </InputRow>
   </Fragment>
 );
-const SuccessUrls = ({ successUrls, onChange }) => (
-  <Note
-    referenceLink='https://help.leadcart.io/fulfillments/zapier'
-    image='https://s3.us-east-2.amazonaws.com/static.leadcart.io/5cc2ee577e6fd00200c981d2/products/secure-link.png'
-  >
-  we will send an email on a new order associated with this fulfillment with a secure link,
-  you can add more than one success URL , however on a product of one-time payment type,
-  offers and upsells we will just consider the first link,
-  and on Subscriptions, we will send them one on each subscription/split charge, until on iteration left.
+const SuccessUrlsFulfillment = ({ data: { successUrls } = {}, onChange }) => (
+  <Fragment>
+    <Note
+      referenceLink='https://help.leadcart.io/fulfillments/zapier'
+      image='https://s3.us-east-2.amazonaws.com/static.leadcart.io/5cc2ee577e6fd00200c981d2/products/secure-link.png'
+    >
+      we will send an email on a new order associated with this fulfillment with a secure link,
+      you can add more than one success URL , however on a product of one-time payment type,
+      offers and upsells we will just consider the first link,
+      and on Subscriptions, we will send them one on each subscription/split charge, until on iteration left.
 
-  </Note>
+    </Note>
+    <SuccessUrls list={successUrls} onChange={onChange} />
+  </Fragment>
 );
 
 const Integration = () => (
@@ -119,7 +123,7 @@ const FulfillmentsTypesForms = ({ type, ...props }) => {
   switch (type) {
   case 'noFulfillment': return <NoFulfillment {...props} />;
   case 'manual': return <ManualFulfillment {...props} />;
-  case 'successUrls': return <SuccessUrls {...props} />;
+  case 'successUrls': return <SuccessUrlsFulfillment {...props} />;
   case 'integration': return <Integration {...props} />;
   default: return null;
   }

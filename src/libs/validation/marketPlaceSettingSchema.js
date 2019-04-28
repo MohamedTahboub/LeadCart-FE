@@ -2,9 +2,8 @@ import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
 export default async (settings) => {
-  
   const settingsSchema = yup.object().shape({
-    name: yup.string().default('marketplace name'),
+    name: yup.string().default(' '),
     logo: yup.string().url(),
     country: yup.string().default('US'),
     timeZone: yup.string().default('(GMT-06:00) Central America'),

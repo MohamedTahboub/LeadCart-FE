@@ -76,7 +76,7 @@ export const ProductCard = ({
     </div>
     <div className='card-controlls-container'>
       <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-book-open' />
+      <i onClick={onPreview} className='fas fa-eye' />
       <i onClick={onDelete} className='fas fa-trash-alt' />
     </div>
   </EasyAnimate>
