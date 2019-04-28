@@ -10,7 +10,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'delete',
       body: { fulfillmentId: payload },
-      uri: '/api/fulfillments',
+      uri: '/api/fulfillment',
       contentType: 'json'
     },
     onSuccess: (args) => {

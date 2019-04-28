@@ -904,3 +904,8 @@ input.checkout-input-field:valid + label.checkout-input-label{
     border-color: rgba(0,0,0,0.6) transparent transparent     transparent;
    }
 /*  Editable Field Styles Ends*/
+
+
+.danger-color{
+    color:tomato;
+}

@@ -16,16 +16,26 @@ export class InputRow extends Component {
     </div>
   )
 
-  static NormalInput = ({ onChange, value, className = '', disabled, name, error, ...props }) => (
-    <input
-      onChange={onChange}
-      name={name}
-      defaultValue={value}
-      disabled={disabled}
-      className={`input-field ${className} ${error ? 'invalid-field' : ''}`}
-      placeholder={props.children}
-    />
-  )
+  static NormalInput = ({
+    onChange,
+    value,
+    className = '',
+    disabled,
+    onBlur,
+    name,
+    error,
+    ...props
+  }) => (
+      <input
+        onChange={onChange}
+        onBlur={onBlur}
+        name={name}
+        defaultValue={value}
+        disabled={disabled}
+        className={`input-field ${className} ${error ? 'invalid-field' : ''}`}
+        placeholder={props.children}
+      />
+    )
 
   static SmallInput = ({
     type = 'text', onBlur, name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
@@ -142,7 +152,7 @@ export class InputRow extends Component {
       </div>
     )
 
-  static UrlInput = ({ onChange,onBlur, name, disabled, error, prefix = 'https://', value, ...props }) => (
+  static UrlInput = ({ onChange, onBlur, name, disabled, error, prefix = 'https://', value, ...props }) => (
     <input
       onChange={onChange}
       onBlur={onBlur}
