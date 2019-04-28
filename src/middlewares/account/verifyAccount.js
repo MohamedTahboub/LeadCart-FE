@@ -5,11 +5,6 @@ import {
   verifyUserAccountFailed
 } from 'actions/account';
 
-import {
-  loginSuccess,
-  loginFailed
-} from 'actions/login';
-
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== VERIFY_USER_ACCOUNT) return next(action);
 
@@ -31,8 +26,4 @@ export default ({ dispatch }) => (next) => (action) => {
     }
 
   }));
-  // .then(({ success, message, data }) => (success
-  //   ? dispatch(loginSuccess(data))
-  //   : dispatch(loginFailed(message))))
-  // .catch((err) => dispatch(loginFailed('Something gone wrong,please try again later ')));
 };

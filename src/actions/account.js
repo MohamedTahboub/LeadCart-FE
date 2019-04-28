@@ -10,7 +10,16 @@ import {
   UPDATE_USER_PROFILE_IMAGE_FAILED,
   VERIFY_USER_ACCOUNT,
   VERIFY_USER_ACCOUNT_SUCCESS,
-  VERIFY_USER_ACCOUNT_FAILED
+  VERIFY_USER_ACCOUNT_FAILED,
+  VERIFY_RESET_KEY,
+  VERIFY_RESET_KEY_SUCCESS,
+  VERIFY_RESET_KEY_FAILED,
+  RESET_PASSWORD,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
+  FORGOT_PASSWORD,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILED
 } from 'constantsTypes';
 
 
@@ -59,6 +68,7 @@ export const updateUserProfileImageFailed = (message) => ({
   payload: message
 });
 
+
 export const verifyUserAccount = (hash, meta) => ({
   type: VERIFY_USER_ACCOUNT,
   payload: hash,
@@ -72,6 +82,58 @@ export const verifyUserAccountSuccess = (status) => ({
 
 export const verifyUserAccountFailed = (message) => ({
   type: VERIFY_USER_ACCOUNT_FAILED,
+  payload: message
+});
+
+
+export const forgotPassword = (data, meta) => ({
+  type: FORGOT_PASSWORD,
+  payload: data,
+  meta
+});
+
+export const forgotPasswordSuccess = (status) => ({
+  type: FORGOT_PASSWORD_SUCCESS,
+  payload: status
+});
+
+export const forgotPasswordFailed = (message) => ({
+  type: FORGOT_PASSWORD_FAILED,
+  payload: message
+});
+
+
+export const verifyResetKey = (hash, meta) => ({
+  type: VERIFY_RESET_KEY,
+  payload: hash,
+  meta
+});
+
+
+export const verifyResetKeySuccess = (status) => ({
+  type: VERIFY_RESET_KEY_SUCCESS,
+  payload: status
+});
+
+export const verifyResetKeyFailed = (message) => ({
+  type: VERIFY_RESET_KEY_FAILED,
+  payload: message
+});
+
+
+export const resetPassword = (data, meta) => ({
+  type: RESET_PASSWORD,
+  payload: data,
+  meta
+});
+
+export const resetPasswordSuccess = (status) => ({
+  type: RESET_PASSWORD_SUCCESS,
+  payload: status
+});
+
+export const resetPasswordFailed = (message) => ({
+  type: RESET_PASSWORD_FAILED,
   payload: message
 });
 

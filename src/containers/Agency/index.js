@@ -52,8 +52,8 @@ class Agency extends Component {
   }
 
   componentDidMount () {
-    const { level, history } = this.props;
-    if (level !== 3) history.push('/');
+    const { packageType, history } = this.props;
+    if (packageType !== 'Agency') history.push('/');
   }
 
   render () {
@@ -126,8 +126,8 @@ class Agency extends Component {
   }
 }
 
-const mapStateToProps = ({ user: { user: { level } }, agency: { subAccounts, errors } }) => ({
-  level,
+const mapStateToProps = ({ user: { user: { packageType } }, agency: { subAccounts, errors } }) => ({
+  packageType,
   subAccounts,
   errors
 });
