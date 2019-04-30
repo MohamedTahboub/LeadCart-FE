@@ -1,5 +1,6 @@
 .customer-modal-content{
-  left:50%;
+  left:38%;
+  /* min-width: 800px; */
   padding: 0px 20px;
 }
 .customer-history-title{
@@ -28,6 +29,9 @@
   font-weight: bold;
   text-decoration: underline;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .order-receipt-row{
@@ -78,5 +82,9 @@ span.order-receipt-name span {
 }
 .customer-detail-value{
   font-size: 15px;
+}
+.refund-btn{
+  display: flex;
+  justify-content: center;
 }
 /* Common Components Styles ends */

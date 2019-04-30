@@ -11,7 +11,9 @@ export default ({
   value,
   size = 'default',
   name,
+  disabled,
   placeholder,
+  width = 200,
   error,
   defaultValue,
   onChange: onParentChange,
@@ -24,8 +26,9 @@ export default ({
     <Select
       showSearch
       value={value || defaultValue}
+      disabled={disabled}
       size={size}
-      style={{ width: 200 }}
+      style={{ width }}
       className={`${className} ${error ? 'invalid-field' : ''}`}
       defaultValue={defaultValue}
       placeholder={placeholder || 'Select'}

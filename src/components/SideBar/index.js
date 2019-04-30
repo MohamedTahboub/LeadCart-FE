@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { HeaderLogo } from 'components/common/logos';
 import { Menu, Link as PureLink } from 'components/common/MainMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
@@ -11,13 +11,24 @@ import CreateProductModal from '../CreateProductModal';
 import * as modalsActions from 'actions/modals';
 import './style.css';
 
-const { Button } = common;
+const { Button, InputRow } = common;
 
 // const goToPage = ({ history, page }) => {
 //   if (!history || history.location.pathname === `/${page}`) return;
 //   history && history.push(page);
 // };
-
+const BrandSelect = ({ value }) => (
+  <Fragment>
+    <span className='tiny-text'>Active Brand:</span>
+    <InputRow.SearchInput
+      width={120}
+      disabled
+      size='small'
+      options={[{ label: value, value }]}
+      value={value}
+    />
+  </Fragment>
+)
 const currentTab = 'products5' // history.location.pathname
 
 const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[0]) ? ['active-menu-item'] : []
@@ -46,6 +57,7 @@ const SideBar = ({
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/general')} />
+      <BrandSelect value={user.subDomain} />
       <Menu>
         <Link to='/products' className={isActiveTab('products')}>Products</Link>
         <Link to='/activities'>Activity</Link>

@@ -6,12 +6,14 @@ import * as productActions from 'actions/product';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import ProductModal from '../Product/ProductModal'
+import config from 'config';
 
 
 import productSample from 'data/product.json';
 
 import './style.css';
 
+const { USER_SUB_DOMAIN_URL } = config;
 const {
   ProductCard,
   Page,
@@ -38,7 +40,8 @@ const Products = ({
 
 
   const onProductPreview = (url) => {
-    window.open(`https://${subdomain}.leadcart.io/products/${url}`, '_blank');
+    const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}/${url}`;
+    window.open(productUrl, '_blank');
   }
 
   const onProductEdit = (product) => {

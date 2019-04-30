@@ -8,9 +8,13 @@ import stripeImage from 'assets/images/stripe.png';
 import { connect } from 'react-redux';
 import * as paymentsActions from 'actions/payments';
 import * as settingsActions from 'actions/settings';
-import { paymentMethodsLinks } from 'config';
+import config from 'config';
 import './styles.css';
-const zapierInvitationUrl = 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/';
+
+const {
+  ZAPIER_INVITATION_LINK,
+  STRIP_AUTH_LINK
+} = config;
 
 const {
   Button,
@@ -30,7 +34,7 @@ const AddNewButton = (props) => (
 );
 // ColorInlinePicker
 const connectStripe = () => {
-  window.open(paymentMethodsLinks.stripe);
+  window.open(STRIP_AUTH_LINK);
 };
 
 
@@ -76,7 +80,7 @@ class Integrations extends Component {
   onConnectPaypal = (credits) => this.props.connectWithPaypal({ cred: credits })
 
   onZapierClicked = () => {
-    window.open(zapierInvitationUrl, '_blank');
+    window.open(ZAPIER_INVITATION_LINK, '_blank');
   }
 
   render () {
