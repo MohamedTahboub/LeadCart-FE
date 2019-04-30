@@ -81,6 +81,7 @@
 
 /* new product button  */
 .btn{
+    text-transform: capitalize;
     font-size: smaller;
     border-radius: 3px;
     text-decoration: none;
@@ -181,4 +182,9 @@
     font-size: 12px;
     margin-top: -13px;
     margin-left: -24px;
+}
+
+.tiny-text{
+    font-size: 11px;
+    color:gray;
 }
