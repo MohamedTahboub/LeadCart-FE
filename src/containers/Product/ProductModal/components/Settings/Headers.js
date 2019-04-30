@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import ShareProductModale from 'components/ShareProductModale';
 import common from 'components/common';
 import { openNewWindow } from 'libs';
+import config from 'config';
 
+const { USER_SUB_DOMAIN_URL } = config;
 const { MiniButton, Button, ActivationSwitchInput } = common;
 
 const Headers = ({
@@ -29,7 +31,7 @@ const Headers = ({
   };
 
   const onPreview = () => {
-    const url = `https://${subdomain}.leadcart.io/products/${productUrl}`;
+    const url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}/${productUrl}`;
     openNewWindow(url);
   };
   if (isNew) return null;
@@ -48,7 +50,7 @@ const Headers = ({
       <ActivationSwitchInput
         active={available}
         onToggle={toggleAvailability}
-        // note={? 'connect with one payment method at least' : ''}
+      // note={? 'connect with one payment method at least' : ''}
       />
       <MiniButton
         onClick={onPreview}

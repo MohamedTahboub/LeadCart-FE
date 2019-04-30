@@ -4,9 +4,9 @@ import ids from 'shortid';
 import './style.css';
 
 export const Button = ({
-  className = '', children, onClick, disabled, ...props
+  className = '', children, onClick, onprogress, disabled, ...props
 }) => (
-  <span onClick={onClick} className={`btn  ${className || ''}  ${disabled ? 'btn-disabled' : ''}`}>
+  <span onClick={onClick} className={`btn  ${className || ''}  ${disabled ? 'btn-disabled' : ''} ${onprogress ? 'spinner' : ''}`}>
     {children}
   </span>
 );
