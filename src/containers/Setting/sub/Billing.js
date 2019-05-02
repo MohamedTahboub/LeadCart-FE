@@ -62,7 +62,7 @@ class CodeInputField extends Component {
           onChange={this.onCodeChange}
           success={success}
         >
-          AGENCY CODE
+          PROMO CODE
 
         </InputRow.SmallInput>
         <SmallButton

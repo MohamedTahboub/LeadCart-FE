@@ -4,6 +4,7 @@ import Tabel from 'components/common/Tabels';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { connect } from 'react-redux';
+import './style.css';
 const {
   MainTitle,
   SmallButton,
@@ -58,6 +59,8 @@ class Agency extends Component {
 
   render () {
     const { errors, subAccounts = [] } = this.props;
+
+    const { subAccountModel } = this.state;
     return (
       <Page>
         <PageHeader>
@@ -94,10 +97,7 @@ class Agency extends Component {
                       mainContent={email}
                     />
                     <Tabel.Cell>
-                      {active
-                        ? <SmallButton className='green-color'>Active</SmallButton>
-                        : <SmallButton className='gray-color'>Inactive</SmallButton>
-                      }
+                      <SmallButton className='green-color'>Active</SmallButton>
                     </Tabel.Cell>
                   </Tabel.Row>
                 );
@@ -106,14 +106,48 @@ class Agency extends Component {
           </Tabel>
         </PageContent>
         <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
-          <MainTitle>Create Sub-Accounts</MainTitle>
+          <MainTitle className='margin-b-40'>Create Sub-Accounts</MainTitle>
           <InputRow>
-            <InputRow.SmallInput name='firstName' onChange={this.onFieldChange} error={errors.firstName}>First Name</InputRow.SmallInput>
-            <InputRow.SmallInput name='lastName' onChange={this.onFieldChange} error={errors.lastName} className='margin-left-30 reset-font-size'>Last Name</InputRow.SmallInput>
+            <InputRow.Label error={errors.firstName}>First Name:</InputRow.Label>
+            <InputRow.SmallInput
+              name='firstName'
+              onChange={this.onFieldChange}
+              value={subAccountModel.firstName}
+              error={errors.firstName}
+              className='margin-left-30 reset-font-size'
+            />
           </InputRow>
           <InputRow>
-            <InputRow.NormalInput name='email' onChange={this.onFieldChange} error={errors.email}>Email address</InputRow.NormalInput>
+            <InputRow.Label error={errors.lastName}>Last Name:</InputRow.Label>
+            <InputRow.SmallInput
+              name='lastName'
+              onChange={this.onFieldChange}
+              value={subAccountModel.lastName}
+              error={errors.lastName}
+              className='margin-left-30 reset-font-size'
+            />
           </InputRow>
+          <InputRow>
+            <InputRow.Label error={errors.subDomain}>SubDomain:</InputRow.Label>
+            <InputRow.SmallInput
+              name='subDomain'
+              onChange={this.onFieldChange}
+              value={subAccountModel.subDomain}
+              error={errors.subDomain}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+          <InputRow>
+            <InputRow.Label error={errors.email}>Email Address:</InputRow.Label>
+            <InputRow.SmallInput
+              name='email'
+              onChange={this.onFieldChange}
+              value={subAccountModel.email}
+              error={errors.email}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+
           {errors.message && <span className='error-message'>{errors.message}</span>}
           <Button onClick={this.createSubAccount} className='primary-color margin-with-float-right'>
             <i className='fas fa-plus' />
