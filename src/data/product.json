@@ -41,7 +41,7 @@
         },
         "checkoutButtonText": "Complete Order",
         "logo": "logo",
-        "presetColors": "#9900EF",
+        "presetColors": "#0693E3",
         "template": "temp1",
         "guaranteed": true,
         "featuresTitle": "List Of Product Features"
@@ -57,15 +57,16 @@
         "style": {
             "containerBackground": "white",
             "containerTextColor": "gray",
-            "headerBackground": "green",
-            "headerTextColor": "white",
-            "borderColor": "aqua",
+            "headerBackground": "#8ed1fc",
+            "headerTextColor": "#000000",
+            "borderColor": "#0693e3",
             "borderStyle": "dashed",
-            "borderRadius": "3"
+            "borderRadius": "0",
+            "borderWidth": "3"
         }
     },
     "coupons": {
-        "list": []
+        "enabled": true
     },
     "isActive": true,
     "available": true,

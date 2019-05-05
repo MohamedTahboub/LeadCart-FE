@@ -62,11 +62,25 @@ export const Avatar = ({
 };
 
 export const ProductCard = ({
-  name, currancy, orderInlist = 0, monthlyProfite = 0, price, available, onEdit, onPreview, onDelete, ...props
+  name,
+  image: productImage,
+  currancy,
+  orderInlist = 0,
+  monthlyProfite = 0,
+  price,
+  available,
+  onEdit,
+  onPreview,
+  onDelete,
+  ...props
 }) => (
   <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
     <div className='card-main-content product-avatar-holder'>
-      <Avatar name={name} />
+      {
+        productImage
+          ? <img src={productImage} alt='product avatar' className='card-product-image' />
+          : <Avatar name={name} />
+      }
       <span className='product-name-holder'>{name}</span>
       <span className='product-salles-holder'>
         {monthlyProfite}
