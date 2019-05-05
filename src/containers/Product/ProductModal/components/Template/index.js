@@ -20,8 +20,8 @@ import Product from '../..';
 const Template = ({ product = {}, onChange, onOptionSelected }) => {
 
   const color = product.checkoutPage && product.checkoutPage.presetColors
-  const { features = {}, testimonials = {}, coupons = {} } = product.checkoutPage || {}
-
+  const { features = {}, testimonials = {} } = product.checkoutPage || {}
+  const { coupons = {} } = product
   const showRightSide = features.enabled || testimonials.enabled || coupons.enabled;
   return (
     <div className="editable-product-form-container">
@@ -74,21 +74,21 @@ const Template = ({ product = {}, onChange, onOptionSelected }) => {
         </section>
         {showRightSide && (
           <section className="richening-components-section">
-          <Features
-            onChange={onChange}
-            features={features}
-          />
-          <Testimonials
-            onChange={onChange}
-            testimonials={testimonials}
-          />
+            <Features
+              onChange={onChange}
+              features={features}
+            />
+            <Testimonials
+              onChange={onChange}
+              testimonials={testimonials}
+            />
 
-          <CouponActivation
-            color={color}
-            onChange={onChange}
-            coupons={coupons}
-          />
-        </section>
+            <CouponActivation
+              color={color}
+              onChange={onChange}
+              coupons={coupons}
+            />
+          </section>
         )}
       </section>
     </div>

@@ -136,8 +136,14 @@ span.medium-card-headline {
     justify-content: space-around;
     align-items: center;
 }
-
+.card-product-image{
+    margin-top: 20px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
 .product-name-avatar {
+    margin-top: 20px;
     height: 70px;
     width: 70px;
     color: white;
@@ -399,3 +405,5 @@ span.medium-card-headline {
 .radio-image-card-container .radio-image-input:checked ~ .radio-image-card-container.active{
     border : 2px solid green;
 }
+
+
