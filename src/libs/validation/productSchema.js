@@ -87,6 +87,9 @@ const ProductSchema = yup.object({
       })
   }),
   fulfillment: yup.string(),
+  coupons: yup.object({
+    enabled: yup.bool().default(true),
+  }),
   scripts: yup.object({
     fbPixelId: yup
       .string()

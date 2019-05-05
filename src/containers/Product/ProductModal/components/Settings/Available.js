@@ -39,11 +39,11 @@ const Available = ({ activeOption = 'PaymentOptions', ...props }) => {
 const HiddenComponents = ({
   product: {
     offer = {},
+    coupons = {},
     checkoutPage: {
       testimonials = {},
       features = {},
       termsAndConditions: terms = {},
-      coupons = {},
       guaranteed,
     } = {} } = {},
   hiddenElements = {},
@@ -89,8 +89,8 @@ const HiddenComponents = ({
   }
   const onToggleCoupons = () => {
     onChange(
-      'checkoutPage.coupons',
-      { ...coupons, enabled: !coupons.enabled })
+      'coupons',
+      { enabled: !coupons.enabled })
   }
 
   return (

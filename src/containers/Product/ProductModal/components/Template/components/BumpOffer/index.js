@@ -62,25 +62,21 @@ const BumpOffer = ({
             </label>
           </div>
           <div style={{ color: containerStyle.color }} className='template-bump-offer-description'>
-            <div>
-              <EditableField
-                name='offer.introText'
-                defaultValue='Offer intro statement'
-                value={offer.introText}
-                onChange={onChange}
-                className='template-bump-offer-description-title'
-              />
-            </div>
-            <div>
-              <EditableField
-                name='offer.bodyText'
-                defaultValue='Offer Description goes here,lorem'
-                value={offer.bodyText}
-                onChange={onChange}
-                textarea
-                className='template-bump-offer-description-content'
-              />
-            </div>
+            <EditableField
+              name='offer.introText'
+              defaultValue='Offer intro statement'
+              value={offer.introText}
+              onChange={onChange}
+              className='template-bump-offer-description-title'
+            />
+            <EditableField
+              name='offer.bodyText'
+              defaultValue='Offer Description goes here,lorem'
+              value={offer.bodyText}
+              onChange={onChange}
+              textarea
+              className='template-bump-offer-description-content'
+            />
           </div>
         </section>
       )
