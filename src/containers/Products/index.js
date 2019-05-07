@@ -7,6 +7,7 @@ import { Modal } from 'components/Modals';
 import common from 'components/common';
 import ProductModal from '../Product/ProductModal'
 import config from 'config';
+import ids from 'shortid'
 
 
 import productSample from 'data/product.json';
@@ -31,7 +32,8 @@ const Products = ({
   isFetching: loadingProducts,
   deleteProduct,
   products,
-  subdomain
+  subdomain,
+  ...props
 }) => {
 
 
@@ -66,7 +68,27 @@ const Products = ({
       product: {}
     })
   }
-
+  const onProductDuplicate = ({
+    __v,
+    id,
+    _id,
+    name,
+    isActive,
+    owner,
+    coupons: { list, enabled } = {},
+    url,
+    ...product
+  }) => {
+    product.name = name + '- copy'
+    product.url = ids.generate()
+    product.coupons = { enabled: !!enabled }
+    
+    props.createNewProduct(product, {
+      onSuccess: (msg) => {
+      },
+      onFailed: (message) => { }
+    })
+  }
   const onShowDeleteDialogue = (id) => setShowDelete(id)
   const onHideDeleteDialogue = () => setShowDelete('')
 
@@ -91,6 +113,7 @@ const Products = ({
             orderInlist={id}
             {...product}
             onDelete={() => onShowDeleteDialogue(product._id)}
+            onDuplicate={() => onProductDuplicate(product)}
             onEdit={() => onProductEdit(product)}
             onPreview={() => onProductPreview(product.url)}
           />

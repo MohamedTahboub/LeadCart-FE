@@ -11,7 +11,6 @@ const {
 const NoFulfillment = () => (
   <Note
     referenceLink='https://help.leadcart.io'
-    image='https://via.placeholder.com/150x150'
   >
     we will not do any action if this type of fulfillments
     is selected, however there is few cases where you need it.
@@ -83,16 +82,6 @@ const ManualFulfillment = ({
 );
 const SuccessUrlsFulfillment = ({ data: { successUrls } = {}, onChange }) => (
   <Fragment>
-    <Note
-      referenceLink='https://help.leadcart.io/fulfillments/zapier'
-      image='https://s3.us-east-2.amazonaws.com/static.leadcart.io/5cc2ee577e6fd00200c981d2/products/secure-link.png'
-    >
-      we will send an email on a new order associated with this fulfillment with a secure link,
-      you can add more than one success URL , however on a product of one-time payment type,
-      offers and upsells we will just consider the first link,
-      and on Subscriptions, we will send them one on each subscription/split charge, until on iteration left.
-
-    </Note>
     <SuccessUrls list={successUrls} onChange={onChange} />
   </Fragment>
 );

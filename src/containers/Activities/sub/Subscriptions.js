@@ -9,27 +9,7 @@ import customersList from 'data/customers';
 const { Avatar, SmallButton, MainTitle } = common;
 
 
-const onExport = (subscriptions) => {
-  const titles = 'Subscriber Name,Email Address,Phone Number,Subscriptions Number,Subscribed Products\n';
-  const convertToCSVFormat = subscriptions
-    .map(({
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      subScriptedTo
-    }) => `${firstName} ${lastName},${email},${phoneNumber},${subScriptedTo.length},${subScriptedTo.map((p) => p.name).join(' ')}`).join('\n');
-
-
-  const download = document.createElement('a');
-
-  download.setAttribute('href', `data:text/csv;charset=utf-8,${encodeURIComponent(titles + convertToCSVFormat)}`);
-  download.setAttribute('download', 'Subscriptions List.csv');
-  download.click();
-};
-
-
-const SubscriptionsList = (props) => (
+const SubscriptionsList = ({ subscriptions = [] }) => (
   <Tabel>
     <Tabel.Head>
       <Tabel.SmallCell />
@@ -40,7 +20,7 @@ const SubscriptionsList = (props) => (
       <Tabel.HeadCell>Subscriptions Fees</Tabel.HeadCell>
     </Tabel.Head>
     <Tabel.Body>
-      {props.subscriptions.map(({
+      {subscriptions.map(({
         customer: {
           firstName,
           lastName,
@@ -64,7 +44,4 @@ const SubscriptionsList = (props) => (
   </Tabel>
 );
 
-const mapStateToProps = ({ activities }) => ({
-  subscriptions: activities.subscriptions || []
-});
-export default connect(mapStateToProps)(SubscriptionsList);
+export default SubscriptionsList;
