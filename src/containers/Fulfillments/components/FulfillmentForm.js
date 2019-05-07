@@ -123,7 +123,7 @@ const FulfillmentForm = ({
                         { label: 'No Fulfillment', value: 'noFulfillment' },
                         { label: 'Manual Fulfillment', value: 'manual' },
                         { label: 'Success Urls Fulfillment', value: 'successUrls' },
-                        { label: 'Zapire Integrations Fulfillment', value: 'integration' }
+                        { label: 'Zapier Integrations Fulfillment', value: 'integration' }
                     ]}
                 />
             </InputRow>
