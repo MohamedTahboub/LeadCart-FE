@@ -10,7 +10,7 @@
   right:0px;
   border:unset;
   color:rgba(255, 99, 71, 0.52);
-  top:calc(50% - 30/2);
+  top:20px;
   transition: color .4s ease-in-out;
 }
 .coupon-delete-btn:hover{
