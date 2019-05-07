@@ -7,6 +7,7 @@ import { Modal } from 'components/Modals';
 import common from 'components/common';
 import ProductModal from '../Product/ProductModal'
 import config from 'config';
+import ids from 'shortid'
 
 
 import productSample from 'data/product.json';
@@ -79,7 +80,7 @@ const Products = ({
     ...product
   }) => {
     product.name = name + '- copy'
-    product.url = url + '-copy'
+    product.url = ids.generate()
     product.coupons = { enabled: !!enabled }
     
     props.createNewProduct(product, {
