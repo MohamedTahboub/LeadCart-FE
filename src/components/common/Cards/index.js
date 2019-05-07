@@ -5,7 +5,7 @@ import { Modal } from 'components/Modals';
 import ids from 'shortid';
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
-import { SmallButton } from '../Buttons';
+import { SmallButton, MiniButton } from '../Buttons';
 import EasyAnimate from '../Animation/EasyAnimate';
 
 export const MiniCard = ({ imgSrc, ...props }) => (
@@ -72,9 +72,15 @@ export const ProductCard = ({
   onEdit,
   onPreview,
   onDelete,
+  onDuplicate,
   ...props
 }) => (
   <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+    <MiniButton
+      iconClass='fa-copy'
+      onClick={onDuplicate}
+      className='product-duplicate-btn'
+    />
     <div className='card-main-content product-avatar-holder'>
       {
         productImage

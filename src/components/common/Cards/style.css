@@ -97,6 +97,7 @@ span.medium-card-headline {
 
 /* product card styles */
 .product-card-container{
+    position: relative;
     height: 260px;
     width: 330px;
     background: white;
@@ -108,6 +109,19 @@ span.medium-card-headline {
 }
 .product-card-container:hover{
     box-shadow: 1px 1px 10px -2px rgba(0,0,0,.2);
+}
+.product-duplicate-btn{
+    position: absolute;
+    border:unset !important;
+    right:0px;
+    top:5px;
+    font-size: 14px;
+    transition: all .4s ease-in-out;
+}
+
+.product-duplicate-btn:hover{
+    color:#03A9F4;
+    font-size: 15px;
 }
 .card-main-content{
     flex:1;

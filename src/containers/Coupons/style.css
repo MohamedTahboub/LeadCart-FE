@@ -2,3 +2,17 @@
 .ant-calendar-picker-container{
   z-index: 1000000;
 }
+.coupon-tabel-row{
+  position: relative;
+}
+.coupon-delete-btn{
+  position: absolute;
+  right:0px;
+  border:unset;
+  color:rgba(255, 99, 71, 0.52);
+  top:calc(50% - 30/2);
+  transition: color .4s ease-in-out;
+}
+.coupon-delete-btn:hover{
+  color:tomato
+}
