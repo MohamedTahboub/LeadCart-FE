@@ -284,3 +284,9 @@ export const API_REQUEST = Symbol('API_REQUEST');
 export const SHOW_FLASH_MESSAGE = Symbol('SHOW_FLASH_MESSAGE');
 export const HIDE_FLASH_MESSAGE = Symbol('HIDE_FLASH_MESSAGE');
 
+
+//  Customers Actions
+export const ORDER_REFUND = Symbol('ORDER_REFUND');
+export const ORDER_REFUND_SUCCESS = Symbol('ORDER_REFUND_SUCCESS');
+export const ORDER_REFUND_FAILED = Symbol('ORDER_REFUND_FAILED');
+
