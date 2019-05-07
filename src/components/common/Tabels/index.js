@@ -25,8 +25,13 @@ export default class Tabel extends Component {
     </div>
   )
 
-  static Row = ({ children, orderInList = 0, ...props }) => (
-    <EasyAnimate className='table-row' delay={orderInList * 100}>{children}</EasyAnimate>
+  static Row = ({
+    children,
+    orderInList = 0,
+    className = '',
+    ...props
+  }) => (
+    <EasyAnimate className={`table-row ${className}`} delay={orderInList * 50}>{children}</EasyAnimate>
   )
 
   static Cell = ({

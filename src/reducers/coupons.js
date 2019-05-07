@@ -4,7 +4,9 @@ import {
   GET_COUPONS_LIST,
   CHANGE_COUPON_STATE_SUCCESS,
   CHANGE_COUPON_STATE_FAILED,
-  RESET_COUPON_MODALE
+  RESET_COUPON_MODALE,
+  DELETE_COUPON_SUCCESS,
+  DELETE_COUPON_FAILED
 } from 'constantsTypes';
 
 const initailState = {
@@ -53,6 +55,11 @@ export default (state = initailState, { type, payload }) => {
     return {
       ...initailState,
       coupons: state.coupons
+    };
+  case DELETE_COUPON_SUCCESS:
+    return {
+      ...state,
+      coupons: state.coupons.filter(({ _id }) => _id !== payload.couponId)
     };
   default: return state;
   }

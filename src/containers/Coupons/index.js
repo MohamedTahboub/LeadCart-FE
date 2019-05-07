@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import * as productsActions from 'actions/products';
 import * as couponsActions from 'actions/coupon';
+import Dialog from 'components/common/Dialog';
+
 import { newCouponSchema } from 'libs/validation';
 import Tabel from 'components/common/Tabels';
 import moment from 'moment';
@@ -15,6 +17,7 @@ const {
   SmallButton,
   Page,
   PageHeader,
+  MiniButton,
   PageContent
 } = common;
 
@@ -48,6 +51,7 @@ const Coupons = ({
     // amount: 50
   };
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [coupon, setCoupon] = useState(initCoupon);
   const [errors, setErrors] = useState({});
 
@@ -109,7 +113,18 @@ const Coupons = ({
       setErrors({ message });
     }
   };
-
+  const onCouponDelete = (couponId) => {
+    props.deleteCoupon({
+      couponId
+    }, {
+      onSuccess: () => {
+        setShowDeleteModal('');
+      },
+      onFailed: (message) => {
+        setShowDeleteModal('');
+      }
+    });
+  };
   const { type } = coupon;
   return (
     <Page className='coupons-page'>
@@ -142,7 +157,7 @@ const Coupons = ({
                 forAll,
                 usedBy
               }, orderInList) => (
-                <Tabel.Row key={code} orderInList={orderInList}>
+                <Tabel.Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
                   <Tabel.Cell mainContent={code} />
                   <Tabel.Cell mainContent={discount.type} />
                   <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
@@ -156,6 +171,12 @@ const Coupons = ({
                       {`${active ? 'Active' : 'Inactive'}`}
                     </SmallButton>
                   </Tabel.Cell>
+                  <MiniButton
+                    toolTip='Delete'
+                    className='coupon-delete-btn'
+                    iconClass='fa-trash-alt'
+                    onClick={() => setShowDeleteModal(couponId)}
+                  />
                 </Tabel.Row>
               ))}
 
@@ -226,6 +247,16 @@ const Coupons = ({
           Create Coupon
         </Button>
       </Modal>
+      {showDeleteModal && (
+        <Dialog
+          title='Coupon Deletion'
+          description='Are you sure,you want delete this coupon?'
+          show
+          onClose={() => setShowDeleteModal('')}
+          confirmBtnText='Delete'
+          onConfirm={() => onCouponDelete(showDeleteModal)}
+        />
+      )}
     </Page>
   );
 };

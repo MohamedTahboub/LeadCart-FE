@@ -6,7 +6,10 @@ import {
   CHANGE_COUPON_STATE,
   CHANGE_COUPON_STATE_SUCCESS,
   CHANGE_COUPON_STATE_FAILED,
-  RESET_COUPON_MODALE
+  RESET_COUPON_MODALE,
+  DELETE_COUPON,
+  DELETE_COUPON_SUCCESS,
+  DELETE_COUPON_FAILED
 } from 'constantsTypes';
 
 export const getCouponsList = (coupon) => ({
@@ -43,5 +46,20 @@ export const changeCouponStateFailed = (coupon) => ({
 
 export const resetCouponModale = () => ({
   type: RESET_COUPON_MODALE
+});
+
+
+export const deleteCoupon = (id, meta) => ({
+  type: DELETE_COUPON,
+  payload: id,
+  meta
+});
+export const deleteCouponSuccess = (coupon) => ({
+  type: DELETE_COUPON_SUCCESS,
+  payload: coupon
+});
+export const deleteCouponFailed = (message) => ({
+  type: DELETE_COUPON_FAILED,
+  payload: message
 });
 
