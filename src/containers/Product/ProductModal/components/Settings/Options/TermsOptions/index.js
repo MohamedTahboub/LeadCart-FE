@@ -24,7 +24,7 @@ const TermsOptions = ({
       <InputRow margin='45'>
         <InputRow.Label
           name='termsAndConditions'
-          notes='This creates a link to your custom Terms & Conditions page below the Checkout Button on your SamCart checkout page.'
+          notes='This creates a link to your custom Terms & Conditions page below the Checkout Button on your checkout page.'
         >
           Terms & Conditions URL
         </InputRow.Label>
