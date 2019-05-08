@@ -1,10 +1,8 @@
 import React from 'react';
-import Chart from 'components/LeadCartCharts/chart';
-import { connect } from 'react-redux';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
 import './style.css';
-import customersList from 'data/customers';
+import { getCurrencySymbol } from 'libs';
 
 const { Avatar, SmallButton, MainTitle } = common;
 
@@ -27,7 +25,7 @@ const SubscriptionsList = ({ subscriptions = [] }) => (
           email,
           phoneNumber,
         },
-        product: { name: productName, price: { amount: subscriptionFee = 0 } = {} } = {}
+        product: { name: productName, price: { amount: subscriptionFee = 0, currency = 'USD' } = {} } = {}
       }, orderInList) => (
         <Tabel.Row orderInList={orderInList}>
           <Tabel.SmallCell>
@@ -37,7 +35,7 @@ const SubscriptionsList = ({ subscriptions = [] }) => (
           <Tabel.Cell mainContent={email} />
           <Tabel.Cell mainContent={phoneNumber} />
           <Tabel.Cell mainContent={productName} />
-          <Tabel.Cell mainContent={subscriptionFee} />
+          <Tabel.Cell mainContent={`${getCurrencySymbol(currency)} ${subscriptionFee}`} />
         </Tabel.Row>
       ))}
     </Tabel.Body>

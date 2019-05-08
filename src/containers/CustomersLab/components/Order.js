@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import common from 'components/common';
+import { getCurrencySymbol } from 'libs';
 import { ReceiptRow } from './common';
-
 const { Button } = common;
 
 const Order = ({
@@ -49,7 +49,7 @@ const Order = ({
       <ReceiptRow
         className='receipt-total'
         label='total'
-        value={`$${totalCharge}`}
+        value={`${getCurrencySymbol(product.price && product.price.currency)} ${totalCharge}`}
       />
       <div className='refund-btn'>
         <Button
@@ -59,9 +59,10 @@ const Order = ({
           onprogress={progress}
         >
           {' '}
-      Refund Order ($
+          Refund Order (
+          {`${getCurrencySymbol(product.price && product.price.currency)}`}
           {totalCharge}
-        )
+          )
         </Button>
       </div>
     </div>

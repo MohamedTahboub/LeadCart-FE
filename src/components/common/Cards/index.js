@@ -3,6 +3,7 @@ import { openNewWindow } from 'libs';
 import './style.css';
 import { Modal } from 'components/Modals';
 import ids from 'shortid';
+import { getCurrencySymbol } from 'libs';
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
 import { SmallButton, MiniButton } from '../Buttons';
@@ -67,7 +68,7 @@ export const ProductCard = ({
   currancy,
   orderInlist = 0,
   monthlyProfite = 0,
-  price,
+  price = {},
   available,
   onEdit,
   onPreview,
@@ -88,11 +89,7 @@ export const ProductCard = ({
           : <Avatar name={name} />
       }
       <span className='product-name-holder'>{name}</span>
-      <span className='product-salles-holder'>
-        {monthlyProfite}
-          /monthly
-      </span>
-      <span className='product-price-holder'>{`$ ${price.amount}`}</span>
+      <span className='product-price-holder'>{`${getCurrencySymbol(price.currency)} ${price.amount}`}</span>
     </div>
     <div className='card-controlls-container'>
       <i onClick={onEdit} className='fas fa-edit' />

@@ -1,17 +1,18 @@
 import React, { Fragment } from 'react';
 import PaymentType from 'components/PaymentType';
 import { connect } from 'react-redux';
-
+import currencies from 'data/currencies.json';
 // import common from 'components/common';
 // import * as productActions from 'actions/product';
 import { Link } from 'components/common/MainMenu';
 import paypalImage from 'assets/images/paypal.png';
 import stripeImage from 'assets/images/stripe.png';
-import { openNewWindow } from 'libs'
+import { openNewWindow } from 'libs';
 import common from 'components/common';
 
-import './style.css'
+import './style.css';
 
+const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 const {
   Title, MediumCard, InputRow
 } = common;
@@ -59,16 +60,18 @@ let PaymentMethods = ({
             <Message>
               you can add or remove the payment gateways from:
               <span onClick={() => openNewWindow('/settings/integrations')}>
-                {' '}settings/integrations
+                {' '}
+                settings/integrations
               </span>
             </Message>
           )
           : (
             <Message>
               You Dont Have Any Payment Method connected to Your Account,Add from
-            <span onClick={() => openNewWindow('/settings/integrations')}>
-                {' '}settings/integrations
-          </span>
+              <span onClick={() => openNewWindow('/settings/integrations')}>
+                {' '}
+                settings/integrations
+              </span>
             </Message>
           )}
       </InputRow>
@@ -77,7 +80,7 @@ let PaymentMethods = ({
 };
 
 
-function Message({ children }) {
+function Message ({ children }) {
   return (
     <div className='product-payment-message'>
       <span className='message-content'>{children}</span>
@@ -91,22 +94,27 @@ const mpaStateToProps = ({
 PaymentMethods = connect(mpaStateToProps)(PaymentMethods);
 
 
-
-const PaymentOptions = ({ product: { price, payment } = {}, ...props }) => {
-
-
-  return (
-    <div className="template-payment-options">
-      <Title>Payment Type:</Title>
-      <PaymentType
-        payment={payment}
+const PaymentOptions = ({ product: { price = {}, payment } = {}, ...props }) => (
+  <div className='template-payment-options'>
+    <Title>Payment Type:</Title>
+    <InputRow>
+      <InputRow.Label>Currency</InputRow.Label>
+      <InputRow.SearchInput
+        size='small'
+        options={currenciesList}
+        defaultValue={price.currency || 'USD'}
+        name='price.currency'
         onChange={props.onChange}
-        price={price}
       />
-      <Title>Payment Gateways:</Title>
-      <PaymentMethods {...props} payment={payment} />
-    </div>
-  )
-}
+    </InputRow>
+    <PaymentType
+      payment={payment}
+      onChange={props.onChange}
+      price={price}
+    />
+    <Title>Payment Gateways:</Title>
+    <PaymentMethods {...props} payment={payment} />
+  </div>
+);
 
 export default PaymentOptions;

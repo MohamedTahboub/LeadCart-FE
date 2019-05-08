@@ -248,7 +248,7 @@ div.price-input-holder input[type=number]::-webkit-outer-spin-button{
     color: #4DA1FF;
     font-size: 15px;
     height: 100%;
-    width: 32px;
+    min-width: 32px;
     font-weight: 700;
     background: #C9D3DC;
     display: flex;
