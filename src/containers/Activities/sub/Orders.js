@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
 import './style.css';
-import customersList from 'data/customers';
+import { getCurrencySymbol } from 'libs';
+
 
 const { Avatar, SmallButton, MainTitle } = common;
 
@@ -36,6 +37,7 @@ const OrderList = ({ orders, ...props }) => (
           phoneNumber
         },
         product: {
+          price = {},
           name: productName,
           offer = {},
 
@@ -53,7 +55,7 @@ const OrderList = ({ orders, ...props }) => (
           <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
           <Tabel.Cell mainContent={email} subContent={phoneNumber} />
           <Tabel.Cell mainContent={productName} subContent={offer.name ? `with offer: ${offer.name}` : ''} />
-          <Tabel.Cell mainContent={`${totalCharge} $`} />
+          <Tabel.Cell mainContent={`${getCurrencySymbol(price.currency)} ${totalCharge}`} />
           <Tabel.Cell
             mainContent={<PaymentTypeIcon type={paymentMethod} />}
             subContent={paymentMethod}

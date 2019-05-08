@@ -4,9 +4,12 @@ import * as settingsActions from 'actions/settings';
 import { connect } from 'react-redux';
 import countriesList from 'data/countries';
 import timeZonesList from 'data/timeZones';
-import defaultLogo from 'assets/images/big-logo.png';
+import currencies from 'data/currencies.json';
+
+
 const { InputRow, MainBlock, DeleteButton } = common;
 
+const currenciesList = currencies.map((c) => ({ value: c.code, label: `${c.symbol} - ${c.name}` }));
 const countries = countriesList.map(({ name: label, code: value }) => ({ label, value }));
 const timeZones = timeZonesList.map(({ value }) => ({ label: value, value }));
 
@@ -17,7 +20,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
   const {
     name,
     country,
-    currency,
+    currency = 'USD',
     logo,
     supportEmail = userEmail,
     timeZone,
@@ -31,7 +34,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     props.onUserGeneralSettingsFieldUpdate({ name, value });
   };
 
-  console.log(props.general)
+  console.log(props.general);
   return (
     <MainBlock title='General Marketplace Settings'>
       <InputRow>
@@ -107,13 +110,12 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
       </InputRow>
       <InputRow margin='20'>
         <InputRow.Label error={errors.currency}>Currency</InputRow.Label>
-        <InputRow.SelectOption
-          value={currency}
+        <InputRow.SearchInput
+          // size='small'
+          options={currenciesList}
+          defaultValue={currency}
           name='currency'
           onChange={onFieldChange}
-          options={[
-            { label: 'USD - United States Dollar', value: 'USD' }
-          ]}
         />
       </InputRow>
     </MainBlock>

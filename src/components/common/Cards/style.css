@@ -121,7 +121,7 @@ span.medium-card-headline {
 
 .product-duplicate-btn:hover{
     color:#03A9F4;
-    font-size: 15px;
+    transform: scale(1.2);
 }
 .card-main-content{
     flex:1;
@@ -133,12 +133,12 @@ span.medium-card-headline {
     justify-content: space-around;
 }
 .card-controlls-container .fas{
-    color:rgb(115, 123, 129);
     cursor: pointer;
+    transition: all .4s ease-in-out;
 } 
 .card-controlls-container .fas:hover{
-    color:rgb(47, 49, 51);
-    cursor: pointer;
+    color:#03A9F4;
+    transform: scale(1.2);
 } 
 
 
