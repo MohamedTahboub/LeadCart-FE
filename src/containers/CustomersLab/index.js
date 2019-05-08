@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import './style.css'
 import { CustomerPanelModal } from './components';
-
+import { getCurrencySymbol } from 'libs';
 import Tabel from 'components/common/Tabels';
 
 import common from 'components/common'
@@ -73,7 +73,7 @@ const CustomersLab = ({ customers }) => {
                           <Tabel.Cell mainContent={email} />
                           <Tabel.Cell mainContent={phoneNumber} />
                           <Tabel.Cell mainContent={orders.length} />
-                          <Tabel.Cell mainContent={`${lifeTimeCharges} $`} />
+                          <Tabel.Cell mainContent={`$ ${lifeTimeCharges}`} />
                           <Tabel.Cell mainContent={(
                             <MiniButton onClick={() => showCustomerPanel(customer)}>
                               <i className="fas fa-ellipsis-h" />

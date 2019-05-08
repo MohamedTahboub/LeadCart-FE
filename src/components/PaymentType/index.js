@@ -1,5 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import common from 'components/common';
+import { getCurrencySymbol } from 'libs';
 const { InputRow } = common;
 
 const paymentTypesOptions = (type) => ({
@@ -29,10 +30,8 @@ export default ({
   price = {},
   onChange
 }) => {
-
-
   const onFieldChange = ({ target: { name, value } }) => {
-    const payload = { payment, price }
+    const payload = { payment, price };
 
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
@@ -47,15 +46,15 @@ export default ({
       }
     });
   };
-  const paymentType = payment.type
-  const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split amount(each)' : 'Price'
+  const paymentType = payment.type;
+  const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split amount(each)' : 'Price';
   return (
     <Fragment>
       <InputRow>
         <InputRow.Label>{priceLabel}</InputRow.Label>
         <InputRow.PriceField
           onBlur={onFieldChange}
-          currancy='$'
+          currency={getCurrencySymbol(price.currency)}
           name='price.amount'
           value={price.amount}
         >
