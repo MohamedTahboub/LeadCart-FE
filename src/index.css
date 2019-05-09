@@ -51,6 +51,20 @@ div#root {
   font-weight: bold;
   padding-bottom: 4px;
 }
+.login-header-message{
+  font-size:14px;
+  text-transform: uppercase;
+  color: #2B3748;
+  align-content: center;
+  justify-content: center;
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+.login-header-message a{
+  text-decoration: none;
+  color:#4DA1FF;
+  cursor: pointer;
+}
 .logo-description{
   font-size: 12px;
   color:#2B3748;

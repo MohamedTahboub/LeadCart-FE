@@ -6,4 +6,4 @@ export { default as FulfillmentsValidationSchema } from './fulfillmentSchema';
 export { default as emailFooterSchema } from './emailFooter';
 export { default as generalSettingSchema } from './marketPlaceSettingSchema';
 export { default as newCouponSchema } from './newCouponSchema';
-export { default as proSingup } from './proSingup';
+export { freeTrailSignup, proSignup } from './proSignup';
