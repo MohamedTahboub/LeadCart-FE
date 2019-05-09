@@ -1,4 +1,4 @@
-import React, { Fragment, useState ,useEffect} from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import common from 'components/common';
 
 import {
@@ -39,6 +39,7 @@ const Available = ({ activeOption = 'PaymentOptions', ...props }) => {
 const HiddenComponents = ({
   product: {
     offer = {},
+    shippingDetails,
     coupons = {},
     checkoutPage: {
       testimonials = {},
@@ -57,6 +58,12 @@ const HiddenComponents = ({
         value
       }
     })
+  }
+  const onToggleShippingDetails = () => {
+    onChange(
+      'shippingDetails.enabled',
+      !shippingDetails.enabled
+    );
   }
   const onToggleTestimonials = () => {
     onChange(
@@ -97,42 +104,49 @@ const HiddenComponents = ({
     <Fragment>
       <Title>Disable/Enable the following Elements:</Title>
       <InputRow>
-        <InputRow.Label>Testimonial</InputRow.Label>
+        <InputRow.Label>Shipping Details:</InputRow.Label>
+        <InputRow.SwitchInput
+          value={shippingDetails.enabled}
+          onToggle={onToggleShippingDetails}
+        />
+      </InputRow>
+      <InputRow>
+        <InputRow.Label>Testimonial:</InputRow.Label>
         <InputRow.SwitchInput
           value={testimonials.enabled}
           onToggle={onToggleTestimonials}
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label>Features</InputRow.Label>
+        <InputRow.Label>Features:</InputRow.Label>
         <InputRow.SwitchInput
           value={features.enabled}
           onToggle={onToggleFeatures}
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label>Bump Offer</InputRow.Label>
+        <InputRow.Label>Bump Offer:</InputRow.Label>
         <InputRow.SwitchInput
           value={offer.enabled}
           onToggle={onToggleBumpOffer}
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label>Terms and Conditions</InputRow.Label>
+        <InputRow.Label>Terms and Conditions:</InputRow.Label>
         <InputRow.SwitchInput
           value={terms.enabled}
           onToggle={onToggleTerms}
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label>Guarantee Message</InputRow.Label>
+        <InputRow.Label>Guarantee Message:</InputRow.Label>
         <InputRow.SwitchInput
           value={guaranteed}
           onToggle={onToggleGuaranteed}
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label>Coupons Box</InputRow.Label>
+        <InputRow.Label>Coupons Box:</InputRow.Label>
         <InputRow.SwitchInput
           value={coupons.enabled}
           onToggle={onToggleCoupons}
@@ -145,7 +159,7 @@ const HiddenComponents = ({
 
 export default (props) => {
 
-  const { activeTab  } = props;
+  const { activeTab } = props;
 
   const onTabChange = tab => {
     props.onOptionSelected(props.activeOption, tab);

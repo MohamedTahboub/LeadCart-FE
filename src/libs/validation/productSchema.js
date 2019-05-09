@@ -90,6 +90,9 @@ const ProductSchema = yup.object({
   coupons: yup.object({
     enabled: yup.bool().transform((val) => !!val),
   }),
+  shippingDetails: yup.object({
+    enabled: yup.bool()
+  }),
   scripts: yup.object({
     fbPixelId: yup
       .string()
