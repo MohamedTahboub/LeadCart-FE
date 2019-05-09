@@ -10,6 +10,7 @@ import {
   OrderSummary,
   PaymentMethods,
   TermsAndConditionsBadge,
+  ShippingDetails,
   BumpOffer,
   Testimonials
 } from './components'
@@ -17,7 +18,7 @@ import {
 import './style.css'
 import Product from '../..';
 
-const Template = ({ product = {}, onChange, onOptionSelected }) => {
+const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
   const color = product.checkoutPage && product.checkoutPage.presetColors
   const { features = {}, testimonials = {} } = product.checkoutPage || {}
@@ -38,7 +39,15 @@ const Template = ({ product = {}, onChange, onOptionSelected }) => {
       <section className="product-template-body">
         <section className="billing-components-section">
           <BillingDetails color={color} />
+          
+            <ShippingDetails
+              data={shippingDetails}
+              onChange={onChange}
+              color={color}
+            />
+      
           <PaymentMethods
+            step={shippingDetails.enabled ? 3 : 2}
             onOptionSelected={onOptionSelected}
             methods
             onShowSetting

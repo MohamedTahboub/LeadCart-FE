@@ -1,6 +1,7 @@
 export { default as Header } from './Header';
 export { default as AboutProduct } from './AboutProduct';
 export { default as BillingDetails } from './BillingDetails';
+export { default as ShippingDetails } from './ShippingDetails';
 export { default as CompleteOrderBtn } from './CompleteOrderBtn';
 export { default as CouponActivation } from './CouponActivation';
 export { default as Features } from './Features';

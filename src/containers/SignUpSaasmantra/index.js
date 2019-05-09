@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormLogo } from 'components/common/logos';
 import { connect } from 'react-redux';
 import * as signupActions from 'actions/signup';
-import { proSingup } from 'libs/validation';
+import { proSignup } from 'libs/validation';
 import './styles.css';
 
 class SignUp extends Component {
@@ -23,7 +23,7 @@ class SignUp extends Component {
     };
 
     try {
-      const { isValid, value, errors } = await proSingup(newUser);
+      const { isValid, value, errors } = await proSignup(newUser);
       if (!isValid) return this.setState({ errors });
       this.props.signUp(
         value,
@@ -105,7 +105,7 @@ class SignUp extends Component {
           <button type='submit' className='form-submit'>Sign Up</button>
         </form>
         <footer>
-          © LeadCart. All rights reserved 2018
+          © LeadCart. All rights reserved 2019
         </footer>
       </div>
     );
