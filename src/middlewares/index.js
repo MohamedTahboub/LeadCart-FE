@@ -2,7 +2,7 @@
 import appInit from './appInit'
 import apiRequest from './apiRequest'
 import login from './login'
-import proSignup from './proSignup'
+import signup from './signup'
 import agencyCodeActivation from './agencyCodeActivation'
 import storage from './storage'
 import uploadingFiles from './uploadingFiles'
@@ -29,7 +29,7 @@ export default [
     ...modelsShapers,
     notificationCenter,
     login,
-    proSignup,
+    signup,
     ...settings,
     products,
     ...upsells,

@@ -76,7 +76,7 @@ const ForgetPassword = (props) => {
         <a className='singup-page-link' href='/login'>Try to login</a>
       </div>
       <footer>
-        © LeadCart. All rights reserved 2018
+        © LeadCart. All rights reserved 2019
       </footer>
     </div>
   );

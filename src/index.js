@@ -34,7 +34,7 @@ import ErrorBoundary from 'containers/ErrorBoundary'
 
 // Container
 import Login from 'containers/Login';
-// import SignUp from 'containers/SignUp';
+import SignUp from 'containers/SignUp';
 import SignUpSaasmantra from 'containers/SignUpSaasmantra';
 import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
@@ -77,7 +77,8 @@ ReactDOM.render(
 
             <BrowserRouter>
                 <Switch>
-                <Route exact path='/login' component={Login} />
+                    <Route exact path='/login' component={Login} />
+                    <Route exact path='/signup' component={SignUp} />
                     <Route exact path='/password/forget' component={ForgetPassword} />
                     <Route exact path='/password/reset/:hash' component={PasswordRest} />
                     <Route exact path='/promocode' component={PromoCodeActivation} />

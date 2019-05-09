@@ -50,7 +50,7 @@ const Login = ({
         </div>
       </form>
       <footer>
-        © LeadCart. All rights reserved 2018
+        © LeadCart. All rights reserved 2019
       </footer>
     </div>
   );
