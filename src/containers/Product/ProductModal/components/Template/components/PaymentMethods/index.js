@@ -15,7 +15,7 @@ const PaymentSelectionDemo = ({ method }) => {
   if (method === 1) {
     src = creditCardImage;
     classes = 'credit-card';
-  } else {src = paypalImage;}
+  } else { src = paypalImage; }
 
   return (
     <img
@@ -25,7 +25,7 @@ const PaymentSelectionDemo = ({ method }) => {
     />
   );
 };
-const PaymentMethods = ({ onOptionSelected }) => {
+const PaymentMethods = ({ onOptionSelected, step = 2 }) => {
   const [method, setMethod] = useState(1);
 
 
@@ -40,7 +40,7 @@ const PaymentMethods = ({ onOptionSelected }) => {
           <i className='fas fa-cog' />
         </FloatButton>
         <CycleStepTitle
-          step='2'
+          step={step}
           className='underlined template-payment-method-title'
         >
           PAYMENT METHOD
