@@ -135,3 +135,18 @@ span.test-disabled:hover::after{
     font-size: 12px;
     color: tomato;
 }
+
+
+div.mail-chimp-logo{
+    background-size: 32% !important;
+}
+div.ever-lesson-logo{
+    background-size: 50% !important;
+}
+/* Cards Container Styles*/
+.crads-container-element{
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+}
+/* Cards Container Styles Ends*/

@@ -23,6 +23,7 @@ export const MediumCard = ({
   children,
   className = '',
   isActive = false,
+  disabled,
   error,
   headline,
   ...props
@@ -34,17 +35,22 @@ export const MediumCard = ({
         ? 'failure-badge'
         : 'inactive-badge';
 
+  const style = {
+    backgroundImage: `url(${imgSrc})`,
+    backgroundPosition: 'center',
+    backgroundSize: '80%',
+    backgroundRepeat: 'no-repeat'
+  };
   return (
-    <span onClick={onClick} className={wraperStatus}>
-      <img
-        src={imgSrc}
-        alt='payment service'
-        className={`medium-solid-card white-color ${className}`}
-      />
+    <div
+      style={style}
+      onClick={onClick}
+      className={`medium-solid-card ${wraperStatus} ${disabled ? 'card-disabled' : ''} ${className}`}
+    >
       {headline && <span className='medium-card-headline'>{headline}</span>}
       {error && <span className='payment-error-message'>{error}</span>}
       {children}
-    </span>
+    </div>
   );
 };
 

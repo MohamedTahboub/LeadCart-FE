@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import queryString from 'querystring';
 import common from 'components/common';
-import zapierBrand from 'assets/images/zapier_brand.png';
 
-import paypalImage from 'assets/images/paypal.png';
-import stripeImage from 'assets/images/stripe.png';
+
 import { connect } from 'react-redux';
 import * as paymentsActions from 'actions/payments';
 import * as settingsActions from 'actions/settings';
 import config from 'config';
+import * as brandsLogos from './importBrands';
 import './styles.css';
 
 const {
@@ -25,13 +24,20 @@ const {
   PayPalConnectContainer
 } = common;
 
-const AddNewButton = (props) => (
-  <Button className='primary-color medium-add-btn'>
-    <i className='fas fa-plus' />
-    {' '}
-    Add new
-  </Button>
+
+const CardsContainer = ({ className = '', children }) => (
+  <div className={`crads-container-element ${className}`}>
+    {children}
+  </div>
 );
+
+// const AddNewButton = (props) => (
+//   <Button className='primary-color medium-add-btn'>
+//     <i className='fas fa-plus' />
+//     {' '}
+//     Add new
+//   </Button>
+// );
 // ColorInlinePicker
 const connectStripe = () => {
   window.open(STRIP_AUTH_LINK);
@@ -88,31 +94,224 @@ class Integrations extends Component {
     const { methods, integrations: { paypal: PaypalStatus, errors: { paypalError } } } = this.props;
     return (
       <React.Fragment key={Date.now()}>
-        <MainTitle style={{ marginTop: '20px' }}>Payment Gateways </MainTitle>
-        <MediumCard
-          onClick={connectStripe}
-          isActive={methods.includes('Stripe')}
-          error={stripe.error}
-          imgSrc={stripeImage}
-          isLoading={stripe.onprogress}
-        />
-        <PayPalConnectContainer
-          imgSrc={paypalImage}
-          active={PaypalStatus || methods.includes('Paypal')}
-          error={paypalError}
-          onConnect={this.onConnectPaypal}
-        />
+        <MainTitle style={{ marginTop: '20px' }}>
+          Payment Gateways
+        </MainTitle>
+        <CardsContainer>
+          <MediumCard
+            onClick={connectStripe}
+            isActive={methods.includes('Stripe')}
+            error={stripe.error}
+            imgSrc={brandsLogos.stripeImage}
+            isLoading={stripe.onprogress}
+          />
+          <PayPalConnectContainer
+            imgSrc={brandsLogos.paypalImage}
+            active={PaypalStatus || methods.includes('Paypal')}
+            error={paypalError}
+            onConnect={this.onConnectPaypal}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.razorpayLogo}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.authorizeNetLogo}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.checkoutLogo}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.braintreeLogo}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.towCheckoutLogo}
+          />
+        </CardsContainer>
+
+        <MainTitle style={{ marginTop: '20px' }}>
+          Autoresponders/Email Integrations
+        </MainTitle>
+        <CardsContainer>
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.activeCampaign}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.aweber}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.getresponse}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            className='mail-chimp-logo'
+            imgSrc={brandsLogos.mailChimp}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.drip}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.ontraport}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.convertkit}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.infusionSoft}
+          />
+        </CardsContainer>
+
+        <MainTitle style={{ marginTop: '20px' }}>
+          Membership Platforms
+        </MainTitle>
+        <CardsContainer>
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.Kajabi}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.teachable}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.Thinkific}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            // className='mail-chimp-logo'
+            imgSrc={brandsLogos.wishListMember}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.memberMouse}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            className='ever-lesson-logo'
+            imgSrc={brandsLogos.everlesson}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.Memberful}
+          />
+        </CardsContainer>
+
+        <MainTitle style={{ marginTop: '20px' }}>
+          Misc Integrations
+        </MainTitle>
+        <CardsContainer>
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.Demio}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.everWebinar}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.webinarJam}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            // className='mail-chimp-logo'
+            imgSrc={brandsLogos.goToWebinar}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.BigMarker}
+          />
+        </CardsContainer>
+
+        <MainTitle style={{ marginTop: '20px' }}>
+          Dropshipping/Shipping
+        </MainTitle>
+        <CardsContainer>
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.dropified}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.shipStation}
+          />
+        </CardsContainer>
+
 
         <MainTitle style={{ marginTop: '40px' }}>
           WebHooks
         </MainTitle>
-        <FlexBoxesContainer>
+        <CardsContainer>
           <MediumCard
             onClick={this.onZapierClicked}
-            imgSrc={zapierBrand}
+            imgSrc={brandsLogos.zapierBrand}
             headline='Get invited to Zapier'
           />
-        </FlexBoxesContainer>
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.twillio}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.wordpress}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.wooCommerce}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.shopify}
+          />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.taxamo}
+          />
+        </CardsContainer>
       </React.Fragment>
     );
   }
