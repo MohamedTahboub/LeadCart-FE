@@ -16,7 +16,6 @@ import {
 } from './components'
 
 import './style.css'
-import Product from '../..';
 
 const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
@@ -39,13 +38,13 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
       <section className="product-template-body">
         <section className="billing-components-section">
           <BillingDetails color={color} />
-          
-            <ShippingDetails
-              data={shippingDetails}
-              onChange={onChange}
-              color={color}
-            />
-      
+
+          <ShippingDetails
+            data={shippingDetails}
+            onChange={onChange}
+            color={color}
+          />
+
           <PaymentMethods
             step={shippingDetails.enabled ? 3 : 2}
             onOptionSelected={onOptionSelected}

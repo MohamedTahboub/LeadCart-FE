@@ -17,7 +17,7 @@ const { TabsNavigator, Button, MainTitle, FlexBoxesContainer } = common
 /* temp component tp represent the empty tap */
 
 const newProductTabs = [
-    { title: 'General Setting', sub: '/settings/general' },
+    { title: 'Brands Setting', sub: '/settings/brand' },
     { title: 'Integrations', sub: '/settings/integrations' },
     { title: 'Email', sub: '/settings/email' },
     { title: 'Team Members', sub: '/settings/team' },

@@ -42,8 +42,8 @@ import PasswordRest from 'containers/PasswordRest';
 import Upsells from 'containers/Upsells';
 import Fulfillments from 'containers/Fulfillments';
 
-// import Dashboard from 'containers/Dashboard'
-import Guidelines from 'containers/Guidelines'
+import Dashboard from 'containers/Dashboard'
+// import Guidelines from 'containers/Guidelines'
 import Products from 'containers/Products'
 // import Product from 'containers/Product'
 import Activities from './containers/Activities';
@@ -87,7 +87,7 @@ ReactDOM.render(
                     <ProtectedRoute component={() => (
                         <Fragment>
                             <Route render={({ history }) => <SideBar history={history} />} />
-                            <Route exact path='/' component={Guidelines} />
+                            <Route exact path='/' component={Dashboard} />
                             <Route exact path='/products' component={Products} />
                             <Route path='/activities' component={Activities} />
                             <Route path='/customers' component={CustomersLab} />
