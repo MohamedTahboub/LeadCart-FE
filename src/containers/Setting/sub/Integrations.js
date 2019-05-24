@@ -229,7 +229,7 @@ class Integrations extends Component {
         </CardsContainer>
 
         <MainTitle style={{ marginTop: '20px' }}>
-          Misc Integrations
+        Webinar Platforms
         </MainTitle>
         <CardsContainer>
           <MediumCard
@@ -261,7 +261,8 @@ class Integrations extends Component {
         </CardsContainer>
 
         <MainTitle style={{ marginTop: '20px' }}>
-          Dropshipping/Shipping
+         Dropshipping/Shipping
+
         </MainTitle>
         <CardsContainer>
           <MediumCard
@@ -278,7 +279,8 @@ class Integrations extends Component {
 
 
         <MainTitle style={{ marginTop: '40px' }}>
-          WebHooks
+        Misc Integrations
+
         </MainTitle>
         <CardsContainer>
           <MediumCard
