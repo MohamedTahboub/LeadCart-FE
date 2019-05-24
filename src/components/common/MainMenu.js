@@ -17,10 +17,10 @@ export const Link = ({
   };
 
   const onClick = () => {
-    if (!external)goToPage(page);
+    if (!external) goToPage(page);
     else openNewWindow(page);
 
-    onTabChange(page);
+    if (onTabChange) onTabChange(page);
   };
   return (
     <span

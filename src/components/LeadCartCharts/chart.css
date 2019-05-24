@@ -1,0 +1,30 @@
+#chart{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.chart-toolbar{
+    margin:25px auto; 
+}
+.chart-view-period-btn:nth-last-child(1) {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 3px;
+  }
+  .chart-view-period-btn:first-child {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 3px;
+  }
+  .chart-view-period-btn {
+    border: 1px solid rgba(211, 211, 211, 0.582);
+    padding: 5px 10px;
+    text-transform: capitalize;
+    background: white;
+    outline-style: none;
+    cursor: pointer;
+  }
+  .chart-view-period-btn.active {
+    background: rgb(247, 245, 245);
+    padding-bottom: 4px;
+    border-bottom: 2px solid rgb(144, 190, 206);
+  }
+  
