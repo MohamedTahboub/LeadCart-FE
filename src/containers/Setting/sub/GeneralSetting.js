@@ -121,13 +121,13 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
         </InputRow>
       </MainBlock>
 
-      <MainBlock title='Marketplace Interface Settings'>
+      <MainBlock title='Marketplace Design'>
         <InputRow>
           <InputRow.Label error={errors.name}>Displayed Company Name</InputRow.Label>
           <InputRow.NormalInput
             // error={errors.name}
             name='name'
-            value={name}
+            // value={`Displayed - ${name || ''}`}
             // onChange={onFieldChange}
           >
           </InputRow.NormalInput>
