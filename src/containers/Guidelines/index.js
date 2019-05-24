@@ -1,13 +1,13 @@
 import React from 'react';
 import dashImage from 'assets/images/dashboardImage.svg';
-import common from 'components/common'
+import common from 'components/common';
 
 import './style.css';
 
 const {
   Page,
   PageContent
-} = common
+} = common;
 
 const goToPage = (ref, history) => history.push(ref);
 
@@ -25,7 +25,7 @@ const GuidlineBoxes = ({ history }) => (
           <span className='guildline-description'>
             Take a minute to customize your receipts, upload your logo, and more.
           </span>
-          <span onClick={() => goToPage('/settings/general', history)} className='guidline-action-btn btn primary-color'>
+          <span onClick={() => goToPage('/settings/brand', history)} className='guidline-action-btn btn primary-color'>
             Edit settings
           </span>
         </div>

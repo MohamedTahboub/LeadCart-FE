@@ -1,24 +1,25 @@
 import React from 'react';
-import common from 'components/common'
+import common from 'components/common';
 
-import './style.css'
+import './style.css';
 const { CycleStepTitle, CheckoutInput, FloatButton } = common;
 
 
-export default ({data ={}, color, onOptionSelected, ...props }) => {
-
+export default ({
+ data = {}, color, onOptionSelected, ...props 
+}) => {
   const onDisable = () => {
     props.onChange({
       target: {
         name: 'shippingDetails.enabled',
         value: false
       }
-    })
-  }
+    });
+  };
 
-  if(!data.enabled) return null
+  if (!data.enabled) return null;
   return (
-    <div className="product-template-billing">
+    <div className='product-template-billing'>
       <FloatButton
         className='payment-setting-btn'
         onClick={onDisable}
@@ -27,21 +28,21 @@ export default ({data ={}, color, onOptionSelected, ...props }) => {
         <i className='fas fa-eye-slash' />
       </FloatButton>
       <CycleStepTitle step='2'>SHIPPING ADDRESS</CycleStepTitle>
-      <div style={{ color }} className="flex-row">
+      <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
           name='address'
           label='Street Address'
         />
       </div>
-      <div style={{ color }} className="flex-row">
+      <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
           name='sec_address'
           label='Street Address Line 2'
         />
       </div>
-      <div style={{ color }} className="flex-row">
+      <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
           name='city'
@@ -53,7 +54,7 @@ export default ({data ={}, color, onOptionSelected, ...props }) => {
           label='State / Province'
         />
       </div>
-      <div style={{ color }} className="flex-row">
+      <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
           name='postal'

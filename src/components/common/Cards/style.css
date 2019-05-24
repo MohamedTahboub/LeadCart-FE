@@ -15,7 +15,8 @@
     position: relative;
     height: 150px;
     width: 266px;
-    margin: 0px 15px 0px 0px;
+    margin: 15px 15px 0px 0px;
+    background: white;
     border-radius: 5px;
     cursor: pointer;
     padding: 0px 20px;
@@ -26,6 +27,13 @@
 .medium-solid-card:hover{
     box-shadow: 0px 0px 7px 2px #00000021;
 }
+
+.medium-card-image{
+    width: 80%;
+    height: auto;
+    max-height: 100%;
+}
+
 .success-badge{
     position: relative;
 }
@@ -33,10 +41,10 @@
     position: absolute;
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
-    font-size: 14px;
+    font-size: 17px;
     content: "\F058";
-    top: -23px;
-    left: 6px;
+    top: 10px;
+    left: 10px;
     color: #30e030b5;
 }
 .failure-badge{
@@ -48,8 +56,8 @@
     font-weight: 400;
     font-size: 20px;
     content: "\f057";
-    top: -56px;
-    right: 24px;
+    top: 10px;
+    left: 10px;
     color: #d30f5ab5;
 }
 .loading-badge{
@@ -60,13 +68,18 @@
     position: absolute;
     height: 20px;
     width: 20px;
-    top: -56px;
-    right: 24px;
+    top: 10px;
+    left: 10px;
     border: none;
     border-left: 2px solid #9E9E9E;
     border-right: 2px solid #9E9E9E;
     border-radius: 50%;
     animation:spinning .6s ease-in infinite;
+}
+.card-disabled{
+    /* pointer-events: none; */
+    opacity: .75;
+    cursor: not-allowed;
 }
    
    @keyframes spinning {
@@ -418,5 +431,8 @@ span.medium-card-headline {
 .radio-image-card-container .radio-image-input:checked ~ .radio-image-card-container.active{
     border : 2px solid green;
 }
+
+
+
 
 

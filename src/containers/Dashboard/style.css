@@ -31,7 +31,7 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     padding: 20px 0px;
     align-items: center;
 }
@@ -74,7 +74,7 @@
 }
 .chart-head{
     display: flex;
-
+    justify-content: space-between;
 }
 
 .chart-head-child{
@@ -84,8 +84,8 @@
     align-items: center;
 }
 .chart-title{
-    color:#2B3748;
-    font-size: 15px;
+    color: #2b3748d6;
+    font-size: 17px;
     font-weight: bold;
     text-transform: capitalize;
 }
@@ -100,7 +100,7 @@
 .chart-option{
     text-transform: capitalize;
     font-size: small;
-    color:rgba(43, 55, 72, 0.753);
+    color:#2b3748d6;
     padding: 10px 20px;
     display: inline-block;
     transition:all 350ms ease-in-out;
@@ -124,7 +124,7 @@
     min-width: 100px;
     font-size: large;
     font-weight: bold;
-    color: #2B3748;
+    color: #2b3748d6;
 }
 
 .stock-up,.stock-down{
@@ -163,44 +163,58 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    align-items: center;
+    /* align-items: center; */
 }
 .insight-box{
-    height: 100%;
-    /* width: 290px; */
-    height: 56px;
-    width: 200px;
+    min-width: 150px;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 0px;
     margin-top: 10px;
+    padding: 7px;
+    box-shadow: 2px 2px 4px -2px rgba(0,0,0,.2);
 }
 .insight-details{
     /* margin-left: 35px; */
-    margin-left: 15px;
-    margin-top: 10px;
+    /* margin-left: 15px;
+    margin-top: 10px; */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 .insight-icon{
-    margin-right:10px; 
-    display: flex;
+    /* margin-right:10px;  */
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 .insight-icon i {
-    font-size: x-large;
+    margin: 0 10px;
+    font-size: 17px;
     color:#C9D3DC;
 }
 .insight-title {
-    font-size: 13px;
+    font-size: 12px;
+    font-weight: bold;
     text-transform: uppercase;
     /* font-weight: bold; */
     color: #2B3748;
 }
 .insight-value {
     /* font-size: 28px; */
-    font-size: 16px;
+    font-size: 13px;
+    font-weight: bold;
     color: #4DA1FF;
+}
+
+.dashboard-temp-data-message{
+    color:gray;
+    font-size: 12px;
+    padding: 10px 30px;
+    margin: 10px auto;
+    background: white;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 2px 2px 4px -2px rgba(0,0,0,.2);
 }
