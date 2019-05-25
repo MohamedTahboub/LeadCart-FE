@@ -67,7 +67,7 @@ export default (props) => (
         </div>
       </div>
       <div className='dashboard-temp-data-message'>
-        Note: This is dummy data. It will updated once you have live transactions.
+        Note: This is dummy data. It will be updated once you have live transactions.
       </div>
     </PageContent>
   </Page>

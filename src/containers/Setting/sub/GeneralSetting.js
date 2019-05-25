@@ -34,7 +34,6 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     props.onUserGeneralSettingsFieldUpdate({ name, value });
   };
 
-  // console.log(props.general);
   return (
     <Fragment>
       <MainBlock title='General Brand Settings'>

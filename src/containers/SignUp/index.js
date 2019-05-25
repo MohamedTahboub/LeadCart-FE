@@ -24,7 +24,6 @@ class SignUp extends Component {
       };
 
       const { isValid, value, errors } = await freeTrailSignup(newUser);
-      console.log(isValid, value);
 
       if (!isValid) return this.setState({ errors });
       this.setState({ processing: true });
@@ -36,7 +35,6 @@ class SignUp extends Component {
             this.setState({ success: true, processing: false });
           },
           onFailed: (error) => {
-            console.log('errrrrror', error);
             this.setState({ success: false, errors: { message: error }, processing: false });
           }
         }
@@ -48,12 +46,12 @@ class SignUp extends Component {
   }
 
   onChange = ({ target: { name } }) => {
-
     this.setState({
       errors: { ...this.state.errors, [name]: '', message: '' }
-    })
+    });
   }
-  render() {
+
+  render () {
     // const { validationError: errors, signupError } = this.props;
     const { success, errors = {}, processing } = this.state;
 

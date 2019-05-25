@@ -45,10 +45,8 @@ const FulfillmentForm = ({
     const createFulfillment = async () => {
         try {
             const { isValid, value, errors } = await FulfillmentsValidationSchema(fulfillment);
-            console.log('Error', isValid, errors)
             if (!isValid) return setErrors({...errors});
 
-            console.log('Fulfillment', value)
             props.createFulfillment(
                 value
                 ,
@@ -59,7 +57,6 @@ const FulfillmentForm = ({
                     onFailed: (message ) => setErrors({ message })
                 });
         } catch ({ message, ...err }) {
-            console.log(err)
             setErrors({ message });
         }
     }
@@ -67,7 +64,6 @@ const FulfillmentForm = ({
 
         try {
             const { isValid, value, errors } = await FulfillmentsValidationSchema(fulfillment);
-            console.log('Error', isValid, errors)
             if (!isValid) return setErrors({...errors});
             
             props.updateFulfillment(

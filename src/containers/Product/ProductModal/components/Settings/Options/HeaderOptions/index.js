@@ -43,7 +43,6 @@ const HeaderOptions = ({
   };
 
   const onScroll = (e) => {
-    console.log(e);
   };
   const isActive = (temp) => template === temp;
   return (

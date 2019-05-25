@@ -31,7 +31,6 @@ export default async (coupon) => {//
     const casted = await schema.validateSync(coupon, { abortEarly: false, stripUnknown: true });
     return { isValid: true, value: casted };
   } catch (err) {
-    console.log(err);
     return { isValid: false, errors: castYupErrors(err) };
   }
 };

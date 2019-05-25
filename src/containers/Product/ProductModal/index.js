@@ -29,7 +29,6 @@ class Product extends Component {
       name = key;
       value = { ...product[key], ...nestedValue };
     }
-    console.log(name,value)
     this.setState({ product: { ...product, [name]: value } })
   }
 
@@ -72,7 +71,6 @@ class Product extends Component {
 
     const { isValid, errors, value: product } = await ProductSchema(newProduct);
 
-    console.log('Product Validations ', isValid, errors, product);
     if (!isValid) {
       this.props.showFlashMessage({
         type: 'failed',

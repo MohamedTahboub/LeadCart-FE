@@ -32,8 +32,6 @@ const LinkRow = ({ link: { name, link } = {}, id, ...props }) => {
 
 
 const NewLink = ({ remainsPlatforms = [{}], onAdd }) => {
-  // console.log("=============>", remainsPlatforms)
-
   const [socialLink, setSocialLink] = useState();
   const [socialPlatform, setSocialPlatform] = useState(remainsPlatforms[0].value);
   const [error, setError] = useState();
