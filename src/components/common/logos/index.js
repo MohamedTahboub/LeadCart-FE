@@ -6,7 +6,7 @@ import logo1 from 'assets/images/logo-1.png';
 import formLogo from 'assets/images/big-logo.png';
 import formLogoShadow from 'assets/images/big-logo-1.png';
 
-import './style.css'
+import './style.css';
 
 export const FormLogo = () => (
   <span className='logo-container'>
@@ -23,11 +23,16 @@ export const Logo = (props) => (
 );
 
 
-export const HeaderLogo = ({onClick , ...props}) => (
+export const HeaderLogo = ({ onClick, ...props }) => (
   <div onClick={onClick} className='header-logo'>
     <div className='logo-position'>
       <Logo />
       <span className='business-name'>leadcart</span>
+      <div className='announcekit-widget'>
+        <abbr title='Whats New?'>
+          <i className='fas fa-bullhorn' />
+        </abbr>
+      </div>
     </div>
   </div>
 );

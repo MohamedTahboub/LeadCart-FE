@@ -11,6 +11,7 @@
   top:7px;
 }
 .logo-position {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,4 +23,22 @@
   font-size: 12px;
   font-weight: bold;
   color: white;
+}
+
+.announcekit-widget{
+  position: absolute;
+  right: -20px;
+  /* top:calc(50% - .5em); */
+  color:white;
+  cursor: pointer;
+}
+.announcekit-widget abbr{
+  cursor: unset;
+}
+.announcekit-widget i.fas{
+  padding-right: 5px;
+}
+.announcekit-widget-badge{
+  width: 1em !important;
+    height: 1em !important;
 }
