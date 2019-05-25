@@ -90,7 +90,6 @@ const UpsellForm = ({
   const upsell = upsells.find(u => u._id === isVisible) || {}
 
   const [upsellModel, setUpsellModel] = useState(upsell);
-  console.log(upsell, upsellModel)
   const [errors, setErrors] = useState(outerError)
 
 
@@ -186,7 +185,6 @@ const UpsellForm = ({
 
   } = upsellModel
 
-  console.log(errors)
   return (
     <SlideModal
       onClose={props.onClose}
