@@ -344,4 +344,15 @@
     g.clearUserCookie = function () { };
   })(window, document, window['_fs_namespace'], 'script', 'user');
 </script>
+
+<script>
+  window.announcekit = (window.announcekit || { queue: [], on: function(n, x) { window.announcekit.queue.push([n, x]); }, push: function(x) { window.announcekit.queue.push(x); } });
+  window.announcekit.push({
+    "widget": "https://announcekit.app/widget/3dQ9Fu",
+    "selector": ".announcekit-widget",
+    "version": 2
+  })
+</script>
+<script async src="https://cdn.announcekit.app/widget.js"></script>
+
 </html>
