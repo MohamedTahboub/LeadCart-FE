@@ -13,10 +13,6 @@ import './style.css';
 
 const { Button, InputRow } = common;
 
-// const goToPage = ({ history, page }) => {
-//   if (!history || history.location.pathname === `/${page}`) return;
-//   history && history.push(page);
-// };
 const BrandSelect = ({ value }) => (
   <Fragment>
     <span className='tiny-text'>Active Brand:</span>
@@ -60,15 +56,15 @@ const SideBar = ({
       <BrandSelect value={user.subDomain} />
       <Menu>
         <Link to='/products' className={isActiveTab('products')}>Products</Link>
-        <Link to='/activities'>Activity</Link>
-        <Link to='/customers'>Customers Lab</Link>
-        <Link to='/coupons'>Coupon</Link>
+        <Link to='/transactions'>Transactions</Link>
+        <Link to='/customers'>Customers</Link>
+        <Link to='/coupons'>Coupons</Link>
         <Link to='/upsells' >Upsells</Link>
-        <Link to='/fulfillments' >Fulfillments</Link>
+        <Link to='/fulfillments' >Fulfillment</Link>
         <Link to='/funnels' className='locked-feature'>Funnels</Link>
         <Link to='/affiliates' className='locked-feature'>Affiliates</Link>
-        {user.packageType === 'Agency' && <Link to='/agency'>Agency</Link>}
-        <Link to='/settings/brand'>Setting</Link>
+        {user.packageType === 'Agency' && <Link to='/agency'>Sub Accounts</Link>}
+        <Link to='/settings/brand'>Settings</Link>
         <Link to='https://help.leadcart.io' external >Help</Link>
       </Menu>
 
