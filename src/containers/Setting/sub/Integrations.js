@@ -63,7 +63,6 @@ class Integrations extends Component {
       activat_method, code, scope, error, error_description
     } = queryString.parse(this.props.history.location.search.replace('?', ''));
 
-    console.log(queryString.parse(this.props.history.location.search.replace('?', '')));
 
     if (activat_method === 'stripe' || activat_method === 'paypal') {
       if (!error) {

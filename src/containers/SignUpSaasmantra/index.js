@@ -32,7 +32,6 @@ class SignUp extends Component {
             this.setState({ success: true });
           },
           onFailed: (error) => {
-            console.log('errrrrror', error);
             this.setState({ success: false, errors: { message: error } });
           }
         }

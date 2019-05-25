@@ -6,10 +6,7 @@ export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== GET_UPSELLS) return next(action);
 
 
-  const getSuccess = (upsells) => {
-    console.log(upsells);
-    return getUpsellsSuccess(upsells);
-  };
+  const getSuccess = (upsells) => getUpsellsSuccess(upsells);
 
   dispatch(apiRequest({
     options: {

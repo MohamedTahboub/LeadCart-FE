@@ -29,7 +29,7 @@ import ProtectedRoute from 'components/ProtectedRoute'
 import NotificationMessage from 'components/NotificationMessage'
 // import UnderDevelopment from 'components/UnderDevelopment'
 import LoadingBar from 'components/LoadingBar'
-
+import FourOFour from 'containers/FourOFour'
 import ErrorBoundary from 'containers/ErrorBoundary'
 
 // Container
@@ -83,27 +83,30 @@ ReactDOM.render(
                     <Route exact path='/password/reset/:hash' component={PasswordRest} />
                     <Route exact path='/promocode' component={PromoCodeActivation} />
                     <Route exact path='/saasmantra' component={SignUpSaasmantra} />
-                    <Route  path='/verify' component={VerifyAccount} />
+                    <Route path='/verify' component={VerifyAccount} />
                     <ProtectedRoute component={() => (
                         <Fragment>
                             <Route render={({ history }) => <SideBar history={history} />} />
-                            <Route exact path='/' component={Dashboard} />
-                            <Route exact path='/products' component={Products} />
-                            <Route path='/activities' component={Activities} />
-                            <Route path='/customers' component={CustomersLab} />
-                            <Route exact path='/coupons' component={Coupons} />
-                            <Route exact path='/upsells' component={Upsells} />
-                            <Route exact path='/fulfillments' component={Fulfillments} />
-                            <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
-                            <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
-                            <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
-                            <Route exact path='/agency' component={Agency} />
-                            <Route path='/settings' component={Setting} />
-                            <Route exact path='/help' component={Help} />
+                            <Switch>
+                                <Route exact path='/' component={Dashboard} />
+                                <Route exact path='/products' component={Products} />
+                                <Route path='/transactions' component={Activities} />
+                                <Route path='/customers' component={CustomersLab} />
+                                <Route exact path='/coupons' component={Coupons} />
+                                <Route exact path='/upsells' component={Upsells} />
+                                <Route exact path='/fulfillments' component={Fulfillments} />
+                                <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
+                                <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
+                                <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
+                                <Route exact path='/agency' component={Agency} />
+                                <Route path='/settings' component={Setting} />
+                                <Route exact path='/help' component={Help} />
+                                <Route exact path='*' component={FourOFour} />
+                            </Switch>
                         </Fragment>
                     )}
                     />
-                </Switch>
+                </Switch>   
             </BrowserRouter>
 
             {/*</ErrorBoundary>*/}

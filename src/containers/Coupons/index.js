@@ -82,7 +82,6 @@ const Coupons = ({
 
   const onDiscountTypeChange = (value) => {
     const { amount, percent } = coupon;
-    console.log(value, amount, percent);
     setCoupon({
       ...coupon,
       type: value,
@@ -98,7 +97,6 @@ const Coupons = ({
   const onSubmit = async () => {
     try {
       const { isValid, value, errors } = await newCouponSchema(coupon);
-      console.log(isValid, errors);
       if (!isValid) return setErrors({ ...errors });
 
       props.createNewCoupon(value, {

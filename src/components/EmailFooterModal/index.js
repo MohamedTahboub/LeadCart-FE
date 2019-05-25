@@ -26,7 +26,6 @@ const EmailFooterModal = ({
     })
 
     const onChange = ({ target: { name, value } }) => {
-        console.log(name, value)
         setFooterDetails({ ...footerDetails, [name]: value });
     }
 
@@ -34,7 +33,6 @@ const EmailFooterModal = ({
         
 
         const { isValid, value: footerValue, errors } = await emailFooterSchema(footerDetails);
-        // console.log(isValid, errors);
         if (!isValid) return setErrors(errors);
 
         setSubmitting(true)
@@ -44,13 +42,11 @@ const EmailFooterModal = ({
                 props.onClose()
             },
             onFailed: (error) => {
-                console.log(error)
                 setSubmitting(false)
                 setErrors(error)
             }
         })
     }
-    console.log('update',Date.now() ,footerDetails)
     return (
         <Modal isVisible={isVisible} onClose={props.onClose} >
             <MainTitle>Enable Email Footer Details</MainTitle>
