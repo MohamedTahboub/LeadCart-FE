@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Modal } from '../Modals';
 import common from '../common';
 
+import './style.css'
 const {
-    ShareButton, MainTitle, Button, EmbededScripContainer, ShareBtnContainer
+    ShareButton,
+    MainTitle,
+    Button,
+    EmbededScripContainer,
+    ShareBtnContainer,
+    SubTabs
 } = common;
 
-const CopyScriptButton = ({onCopy , embededText}) => (
+const CopyScriptButton = ({ onCopy, embededText }) => (
     <CopyToClipboard text={embededText}>
-        <Button  onClick={onCopy} className='primary-color'>Copy</Button>
+        <Button onClick={onCopy} className='primary-color'>Copy</Button>
     </CopyToClipboard>
 );
 const formatEmbedScript = ({ subdomain, productUrl }) =>
@@ -52,15 +58,54 @@ class ShareProductModal extends Component {
         return (
             <Modal onClose={onClose} isVisible={isVisible}>
                 <MainTitle bottomLine>Share This Product</MainTitle>
-
-                <EmbededScripContainer
-                    headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
-                    script={script}
-                    showCopied={copied}
-                />
-                <CopyScriptButton
-                    embededText={script}
-                    onCopy={this.onCopy}
+                <div>This is you Product Link</div>
+                <div>
+                    <pre className='product-link-preview'>{`https://${subdomain}.leadcart.io/products/${productUrl}`}</pre>
+                </div>
+                <SubTabs
+                    defaultTab='Full Page Embed Script'
+                    tabs={{
+                        'Full Page Embed Script': (
+                            <Fragment>
+                                <EmbededScripContainer
+                                    headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
+                                    script={script}
+                                    showCopied={copied}
+                                />
+                                <CopyScriptButton
+                                    embededText={script}
+                                    onCopy={this.onCopy}
+                                />
+                            </Fragment>
+                        ),
+                        'Buy Now Button Script': (
+                            <Fragment>
+                                <EmbededScripContainer
+                                    headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
+                                    script={script}
+                                    showCopied={copied}
+                                />
+                                <CopyScriptButton
+                                    embededText={script}
+                                    onCopy={this.onCopy}
+                                />
+                            </Fragment>
+                        )
+                        ,
+                        'Buy Now Button Script': (
+                            <Fragment>
+                                <EmbededScripContainer
+                                    headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
+                                    script={script}
+                                    showCopied={copied}
+                                />
+                                <CopyScriptButton
+                                    embededText={script}
+                                    onCopy={this.onCopy}
+                                />
+                            </Fragment>
+                        )
+                    }}
                 />
             </Modal>
         )
@@ -69,13 +114,13 @@ class ShareProductModal extends Component {
 
 
 export default ShareProductModal
-/*
- <ShareBtnContainer
-            headNote='This is what the button you embed on your sales will look like'
-        >
-            <ShareButton
-                logo={logo}
-                btnText={'Buy Now'}
-            />
-        </ShareBtnContainer>
+    /*
+<ShareBtnContainer
+headNote='This is what the button you embed on your sales will look like'
+>
+<ShareButton
+    logo={logo}
+    btnText={'Buy Now'}
+/>
+</ShareBtnContainer>
 */
