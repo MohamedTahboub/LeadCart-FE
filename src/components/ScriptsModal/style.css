@@ -1,0 +1,28 @@
+
+.separating-statement{
+    position: relative;
+    font-size: 20px;
+    border-bottom: 2px solid lightgray;
+    display: flex;
+    justify-content: center;
+    margin:15px 0;
+}
+
+.separating-statement span{
+    position: absolute;
+    padding: 0 10px;
+    left:calc(50% - 20px);
+    top: -10px;
+   text-align: center;
+   background: white;
+}
+
+.scripts-labels{
+    width: 140px !important;
+}
+
+.scripts-head-message{
+    margin: 10px 0;
+    font-size: 14px;
+    max-width: 570px;
+}
