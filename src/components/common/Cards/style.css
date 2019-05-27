@@ -128,14 +128,14 @@ span.medium-card-headline {
     border:unset !important;
     right:0px;
     top:5px;
-    font-size: 14px;
     transition: all .4s ease-in-out;
+    font-size: 14px;
 }
 
 .product-duplicate-btn:hover{
     color:#03A9F4;
-    transform: scale(1.2);
 }
+
 .card-main-content{
     flex:1;
 }
