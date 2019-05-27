@@ -435,8 +435,8 @@ input[type="radio"]{
     color: #666;
     page-break-inside: avoid;
     font-family: monospace;
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 12px;
+    /* line-height: 1.6; */
     margin-bottom: 1.6em;
     max-width: 100%;
     overflow: auto;
@@ -935,4 +935,11 @@ input.checkout-input-field:valid + label.checkout-input-label{
 [data-tooltip]:after:hover{
     transform: scale(1);
     font-size: 13px !important;
+}
+
+
+
+.item-align-center{
+    margin-left:auto; 
+    margin-right:auto; 
 }

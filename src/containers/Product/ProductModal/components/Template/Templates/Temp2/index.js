@@ -95,7 +95,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
               image={product.image || defaultLogo}
               onChange={(target) => onChange({ target })}
               name='image'
-              className='product-template-image'
+              className='product-template-image item-align-center'
             />
             <Testimonials
               onChange={onChange}

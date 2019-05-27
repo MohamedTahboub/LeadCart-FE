@@ -34,7 +34,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
       <AboutProduct
         onChange={onChange}
         // image={product.image}
-        containerClassName='horizontal-about-product-container'
+        // containerClassName='about-product-section-h'
         descriptionInnerClassName='horizontal-product-template-description'
         subContainerClassName='template-description-fullWidth'
         name={product.name}
@@ -90,7 +90,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
             image={product.image || defaultLogo}
             onChange={(target) => onChange({ target })}
             name='image'
-            className='product-template-image'
+            className='product-template-image item-align-center'
           />
           <Features
             onChange={onChange}

@@ -26,21 +26,21 @@ const ProductsScripts = ({
 
 
     return (
-        <Modal onClose={onClose} isVisible={isVisible}>
+        <Modal onClose={onClose} isVisible={isVisible} affectIntercom={false}>
             <MainTitle bottomLine>Embed Scripts</MainTitle>
             <SubTabs
 
                 defaultTab='Product Scripts'
                 tabs={{
                     'Product Scripts': (
-                        <div className="scripts-container">
+                        <div className="scripts-container" key='productPage-Scripts' >
                             <div className='scripts-head-message'>These Scripts will be injected in your Product Page</div>
                             <InputRow>
                                 <InputRow.Label className='scripts-labels'>Facebook Pixel Id :</InputRow.Label>
                                 <InputRow.NormalInput
                                     name='scripts.fbPixelId'
                                     value={scripts.fbPixelId}
-                                    Blur={onChange}
+                                    onBlur={onChange}
                                 >
                                     25417913856****
                                     </InputRow.NormalInput>
@@ -50,7 +50,7 @@ const ProductsScripts = ({
                                 <InputRow.NormalInput
                                     name='scripts.googleTagManager'
                                     value={scripts.googleTagManager}
-                                    Blur={onChange}
+                                    onBlur={onChange}
                                 >
                                     GTM-XXXX
                                 </InputRow.NormalInput>
@@ -67,20 +67,22 @@ const ProductsScripts = ({
                                     className='free-script-input-field'
                                     name='scripts.scriptTag'
                                     value={scripts.scriptTag}
-                                    Blur={onChange}
-                                />
+                                    onBlur={onChange}
+                                >
+                                {`<script>\n\t//your js code here (valid javascript)\n</script>`}
+                                </InputRow.CodeInputArea>
                             </InputRow>
                         </div>
                     ),
                     'Thankyou Page Scripts': (
-                        <div className="scripts-container">
+                        <div className="scripts-container" key='thankYouPage-Scripts'>
                             <div className='scripts-head-message' >These Scripts will be injected in your thank-you page after purchase complete or post access to the thank-you page resources(fulfillments resources)</div>
                             <InputRow>
                                 <InputRow.Label className='scripts-labels' >Facebook Pixel Id :</InputRow.Label>
                                 <InputRow.NormalInput
                                     name='scripts.t_fbPixelId'
                                     value={scripts.t_fbPixelId}
-                                    Blur={onChange}
+                                    onBlur={onChange}
                                 >
                                     25417913856****
                                     </InputRow.NormalInput>
@@ -90,7 +92,7 @@ const ProductsScripts = ({
                                 <InputRow.NormalInput
                                     name='scripts.t_googleTagManager'
                                     value={scripts.t_googleTagManager}
-                                    Blur={onChange}
+                                    onBlur={onChange}
                                 >
                                     GTM-XXXX
                                 </InputRow.NormalInput>
@@ -107,13 +109,16 @@ const ProductsScripts = ({
                                     className='free-script-input-field'
                                     name='scripts.t_scriptTag'
                                     value={scripts.t_scriptTag}
-                                    Blur={onChange}
-                                />
+                                    onBlur={onChange}
+                                >
+                                {`<script>\n\t//your js code here (valid javascript)\n</script>`}
+                                </InputRow.CodeInputArea>
                             </InputRow>
                         </div>
                     )
                 }}
             />
+        <div className='scripts-footer-message' >Note: To save the changes here just edit them and save the product,if you close the product modal without saving you may lose your changes here</div>
         </Modal>
     )
 }

@@ -36,6 +36,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
         <section className="richening-components-section">
           <AboutProduct
             onChange={onChange}
+            containerClassName='about-product-section-h'
             descriptionInnerClassName={'vertical-product-template-description'}
             image={product.image}
             name={product.name}

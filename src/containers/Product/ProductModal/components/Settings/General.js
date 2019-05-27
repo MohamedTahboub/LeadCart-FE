@@ -14,7 +14,7 @@ const castFulfillmentList = (fulfillments) => fulfillments.map(({ name: label, _
 const General = ({
   fulfillments,
   product: {
-    scripts, // { fbPixelId = '' } = {},
+    scripts = {}, // { fbPixelId = '' } = {},
     fulfillment: fulfillmentId,
     url
   } = {},

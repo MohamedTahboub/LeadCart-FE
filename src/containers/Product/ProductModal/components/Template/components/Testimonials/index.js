@@ -52,21 +52,7 @@ const Testimonials = ({
   if (!enabled) return null;
   return (
     <div className='product-template-testimonials-container'>
-      <FloatButton onClick={onDisable} position={{ left: 0 }}>
-        <i className='fas fa-eye-slash' />
-      </FloatButton>
-      <FloatButton
-        onClick={onAdd}
-        position={{
-          right: -5,
-          left: 'unset',
-          top: '0',
-          background: 'transparent',
-          color: '#4DA1FF'
-        }}
-      >
-        <i className='fas fa-plus-circle' />
-      </FloatButton>
+
       <h3>
         <EditableField
           name='testimonials'
@@ -74,6 +60,21 @@ const Testimonials = ({
           onChange={onTitleChange}
           value={title}
         />
+        <FloatButton onClick={onDisable} position={{ left: 0 }}>
+          <i className='fas fa-eye-slash' />
+        </FloatButton>
+        <FloatButton
+          onClick={onAdd}
+          position={{
+            right: -5,
+            left: 'unset',
+            top: '0',
+            background: 'transparent',
+            color: '#4DA1FF'
+          }}
+        >
+          <i className='fas fa-plus-circle' />
+        </FloatButton>
       </h3>
       <Wrapper className={testimonialsWrapperClassName}>
         {list.map((i, id) => (

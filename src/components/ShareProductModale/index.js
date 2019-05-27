@@ -31,6 +31,18 @@ const formatEmbedScript = ({ subdomain, productUrl }) =>
     }
     prepareFrame();
 </script>`;
+const ButtonFormatEmbedScript = ({ subdomain, productUrl }) =>
+    `<a
+    href="https://${subdomain}.leadcart.io/products/${productUrl}"
+    target='_blank'
+    style="background:blue;border-radius:5px;
+    font-size:16px;font-weight:bold;color:white;
+    padding:10px 20px;text-decoration:none;
+    box-shadow:2px 2px 5px 2px rgba(0,0,0,.2);margin:20px;"
+>
+    Buy Now
+</a>
+    `;
 
 
 class ShareProductModal extends Component {
@@ -55,8 +67,9 @@ class ShareProductModal extends Component {
         const { copied } = this.state
         const { onClose, subdomain, isVisible, productUrl, logo } = this.props
         const script = formatEmbedScript({ productUrl, subdomain })
+        const buttonScript = ButtonFormatEmbedScript({ productUrl, subdomain })
         return (
-            <Modal onClose={onClose} isVisible={isVisible}>
+            <Modal onClose={onClose} isVisible={isVisible} affectIntercom={false}>
                 <MainTitle bottomLine>Share This Product</MainTitle>
                 <div>Product Link:</div>
                 <div>
@@ -66,7 +79,7 @@ class ShareProductModal extends Component {
                     defaultTab='Full Page Embed Script'
                     tabs={{
                         'Full Page Embed Script': (
-                            <Fragment>
+                            <Fragment key='Full Page Embed Script'>
                                 <EmbededScripContainer
                                     headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
                                     script={script}
@@ -79,28 +92,14 @@ class ShareProductModal extends Component {
                             </Fragment>
                         ),
                         'Buy Now Button Script': (
-                            <Fragment>
+                            <Fragment key='Buy Now Button Script'>
                                 <EmbededScripContainer
-                                    headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
-                                    script={script}
+                                    headNote="This Element is basic and you are free to customize it the way it suits your requirement."
+                                    script={buttonScript}
                                     showCopied={copied}
                                 />
                                 <CopyScriptButton
-                                    embededText={script}
-                                    onCopy={this.onCopy}
-                                />
-                            </Fragment>
-                        )
-                        ,
-                        'Buy Now Button Script': (
-                            <Fragment>
-                                <EmbededScripContainer
-                                    headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
-                                    script={script}
-                                    showCopied={copied}
-                                />
-                                <CopyScriptButton
-                                    embededText={script}
+                                    embededText={buttonScript}
                                     onCopy={this.onCopy}
                                 />
                             </Fragment>

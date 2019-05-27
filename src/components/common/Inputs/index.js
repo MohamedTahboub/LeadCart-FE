@@ -235,6 +235,7 @@ export class InputRow extends Component {
     onChange,
     error,
     className = '',
+    onBlur,
     name,
     disabled,
     ...props
@@ -242,6 +243,7 @@ export class InputRow extends Component {
       <div className={`code-area-container ${className}`}>
         <textarea
           onChange={onChange}
+          onBlur={onBlur}
           name={name}
           disabled={disabled}
           defaultValue={value}
