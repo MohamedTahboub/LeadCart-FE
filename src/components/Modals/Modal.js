@@ -5,9 +5,14 @@ import './style.css';
 
 
 export default ({
-  children, onClose, className, isVisible, ...props
+  children,
+  onClose,
+  className,
+  isVisible,
+  affectIntercom = true,
+  ...props
 }) => {
-  showIntercomIcon(!isVisible);
+  if (affectIntercom) showIntercomIcon(!isVisible);
 
   return (
     isVisible ? (

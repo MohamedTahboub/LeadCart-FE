@@ -10,11 +10,12 @@
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .template-bump-offer-title {
-  margin: 10px;
+  width: 100%;
+  margin: 10px auto;
   padding: 14px;
   font-size: 14px;
   cursor: pointer;

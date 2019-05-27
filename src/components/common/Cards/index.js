@@ -83,9 +83,11 @@ export const ProductCard = ({
   ...props
 }) => (
   <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+
     <MiniButton
       iconClass='fa-copy'
       onClick={onDuplicate}
+      tooltip='Duplicate Product'
       className='product-duplicate-btn'
     />
     <div className='card-main-content product-avatar-holder'>
@@ -98,9 +100,15 @@ export const ProductCard = ({
       <span className='product-price-holder'>{`${getCurrencySymbol(price.currency)} ${price.amount}`}</span>
     </div>
     <div className='card-controlls-container'>
-      <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-eye' />
-      <i onClick={onDelete} className='fas fa-trash-alt' />
+      <span data-tooltip='Edit Product'>
+        <i onClick={onEdit} className='fas fa-edit' />
+      </span>
+      <span data-tooltip='Preview Product'>
+        <i onClick={onPreview} className='fas fa-eye' />
+      </span>
+      <span data-tooltip='Delete Product'>
+        <i onClick={onDelete} className='fas fa-trash-alt' />
+      </span>
     </div>
   </EasyAnimate>
 );
@@ -147,9 +155,15 @@ export const UpsellCard = ({
       <span className='product-price-holder'>{`$ ${price}`}</span>
     </div>
     <div className='card-controlls-container'>
-      <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-book-open' />
-      <i onClick={onDelete} className='fas fa-trash-alt' />
+      <span data-tooltip='Edit Upsell'>
+        <i onClick={onEdit} className='fas fa-edit' />
+      </span>
+      <span data-tooltip='Preview Upsell'>
+        <i onClick={onPreview} className='fas fa-book-open' />
+      </span>
+      <span data-tooltip='Delete Upsell'>
+        <i onClick={onDelete} className='fas fa-trash-alt' />
+      </span>
     </div>
   </EasyAnimate>
 );
@@ -301,9 +315,13 @@ export const FulfillmentCard = ({
       <span className='fulfillment-name-holder'>{fulfillmentType}</span>
     </div>
     <div className='card-controlls-container'>
-      <i onClick={onEdit} className='fas fa-edit' />
-      <i onClick={onPreview} className='fas fa-book-open hide-element' />
-      <i onClick={onDelete} className='fas fa-trash-alt' />
+      <span data-tooltip='Edit Fulfillment'>
+        <i onClick={onEdit} className='fas fa-edit' />
+      </span>
+      <span />
+      <span data-tooltip='Delete Fulfillment'>
+        <i onClick={onDelete} className='fas fa-trash-alt' />
+      </span>
     </div>
   </EasyAnimate>
 );

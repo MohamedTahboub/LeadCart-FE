@@ -97,7 +97,17 @@ const ProductSchema = yup.object({
     fbPixelId: yup
       .string()
       .min(9)
-      .max(20)
+      .max(20),
+    googleTagManager: yup
+      .string(),
+    scriptTag: yup
+      .string(),
+    t_fbPixelId: yup
+      .string(),
+    t_googleTagManager: yup
+      .string(),
+    t_scriptTag: yup
+      .string(),
   })
 });
 
