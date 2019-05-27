@@ -1,2 +1,2 @@
 export { default as ProductSettings } from './Settings'
-export { default as ProductEditableTemplate } from './Template'
+export { Template as ProductEditableTemplate } from './Template'

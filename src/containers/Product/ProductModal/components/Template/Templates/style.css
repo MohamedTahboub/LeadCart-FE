@@ -1,0 +1,41 @@
+.editable-product-form-container{
+    flex: 1 1;
+    /* min-width: 600px;
+    width: 60%; */
+    height: 100%;
+    max-width: 850px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    clear: both;
+  }
+  
+  .product-template-body{
+    display: flex;
+    padding: 20px;
+    /* flex-direction: column; */
+  }
+  .billing-components-section{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px;
+  }
+  
+  .richening-components-section{
+    max-width: 290px;
+    padding: 0px 22px;
+  }
+  
+  
+  .df-h-between{
+    display: flex;
+    justify-content: space-around;
+  }
+  .margin-t-20{
+    margin-top: 20px;
+  }
+  .margin-h-20{
+    margin-left:20px;
+    margin-right:20px;
+  }
+  

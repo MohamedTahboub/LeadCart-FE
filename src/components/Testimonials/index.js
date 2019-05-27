@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import avatarLink from 'assets/images/avatar.jpg';
 
-import Image from 'components/common/Image'
-import { EditableField } from 'components/common/Inputs'
+import Image from 'components/common/Image';
+import { EditableField } from 'components/common/Inputs';
 import './style.css';
-import ids from 'shortid'
+import ids from 'shortid';
 
 const TestimonialElement = ({
   author = 'Click to edit Author name',
   content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
+  className,
   id,
   onDelete,
   ...props
 }) => {
-
   const onChange = ({ target: { value, name } }) => {
-
     props.onChange({
       target: {
         name: id,
-        value: { author, content, image, [name]: value }
+        value: {
+          author, content, image, [name]: value
+        }
       }
-    })
-  }
+    });
+  };
 
 
   const onImageChange = ({ value, ...res }) => {
@@ -32,14 +33,14 @@ const TestimonialElement = ({
         name: id,
         value: { author, content, image: value }
       }
-    })
-  }
+    });
+  };
   return (
-    <div className='testimonial-item'>
+    <div className={`testimonial-item ${className}`}>
       <Image
         className='testimonial-author-image'
         image={image}
-        name={'testimonial-image-' + id}
+        name={`testimonial-image-${id}`}
         onChange={onImageChange}
       />
       <EditableField
@@ -57,7 +58,7 @@ const TestimonialElement = ({
         value={content}
         className='testimonial-content-input'
       />
-      <span onClick={() => onDelete(id)} className="template-testimonial-delete">
+      <span onClick={() => onDelete(id)} className='template-testimonial-delete'>
         <i className='fas fa-trash-alt' />
       </span>
     </div>

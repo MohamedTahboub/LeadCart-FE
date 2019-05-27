@@ -29,6 +29,7 @@ class Product extends Component {
       name = key;
       value = { ...product[key], ...nestedValue };
     }
+    console.log(name,value)
     this.setState({ product: { ...product, [name]: value } })
   }
 
