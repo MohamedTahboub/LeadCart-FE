@@ -58,7 +58,7 @@ class ShareProductModal extends Component {
         return (
             <Modal onClose={onClose} isVisible={isVisible}>
                 <MainTitle bottomLine>Share This Product</MainTitle>
-                <div>This is you Product Link</div>
+                <div>Product Link:</div>
                 <div>
                     <pre className='product-link-preview'>{`https://${subdomain}.leadcart.io/products/${productUrl}`}</pre>
                 </div>
