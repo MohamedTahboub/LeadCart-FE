@@ -2,14 +2,19 @@ import React, { useState, Fragment } from 'react';
 import common from 'components/common';
 import { connect } from 'react-redux';
 
-const { InputRow, Title } = common;
+import ScriptsModal from 'components/ScriptsModal';
+const {
+  InputRow,
+  Title,
+  Button,
+} = common;
 
 const castFulfillmentList = (fulfillments) => fulfillments.map(({ name: label, _id: value }) => ({ label, value }));
 
 const General = ({
   fulfillments,
   product: {
-    scripts: { fbPixelId = '' } = {},
+    scripts, // { fbPixelId = '' } = {},
     fulfillment: fulfillmentId,
     url
   } = {},
@@ -17,44 +22,50 @@ const General = ({
   onChange,
   errors = {},
   thankyouPage
-}) => (
-  <div className='product-form-general-settings bottom-breakline'>
-    <Title>General Settings</Title>
-    <InputRow>
-      <InputRow.Label error={errors.url}>URL</InputRow.Label>
-      <InputRow.UrlSuffixInput
-        error={errors.url}
-        name='url'
+}) => {
+  const [showScriptsModal, setShowScriptsModal] = useState(false);
+
+
+  return (
+    <div className='product-form-general-settings bottom-breakline'>
+      <Title>General Settings</Title>
+      <InputRow>
+        <InputRow.Label error={errors.url}>URL</InputRow.Label>
+        <InputRow.UrlSuffixInput
+          error={errors.url}
+          name='url'
+          onChange={onChange}
+          subdomain={subdomain}
+          value={url}
+        >
+        </InputRow.UrlSuffixInput>
+      </InputRow>
+      <InputRow>
+        <InputRow.Label>Fulfillment</InputRow.Label>
+        <InputRow.SearchInput
+          // size='small'
+          options={castFulfillmentList(fulfillments)}
+          defaultValue={fulfillmentId}
+          name='fulfillment'
+          error={errors.fulfillment}
+          onChange={onChange}
+        />
+      </InputRow>
+      <InputRow>
+        <InputRow.Label>
+          Product Scripts
+        </InputRow.Label>
+        <Button className='share-btn' onClick={() => setShowScriptsModal(true)}>
+          Show Scripts
+        </Button>
+      </InputRow>
+      <ScriptsModal
+        isVisible={showScriptsModal}
+        scripts={scripts}
         onChange={onChange}
-        subdomain={subdomain}
-        value={url}
-      >
-      </InputRow.UrlSuffixInput>
-    </InputRow>
-    <InputRow>
-      <InputRow.Label>Fulfillment</InputRow.Label>
-      <InputRow.SearchInput
-        // size='small'
-        options={castFulfillmentList(fulfillments)}
-        defaultValue={fulfillmentId}
-        name='fulfillment'
-        error={errors.fulfillment}
-        onChange={onChange}
+        onClose={() => setShowScriptsModal(false)}
       />
-    </InputRow>
-    <InputRow>
-      <InputRow.Label>
-          Facebook Pixel ID
-      </InputRow.Label>
-      <InputRow.NormalInput
-        name='scripts.fbPixelId'
-        onChange={onChange}
-        value={fbPixelId}
-      >
-          Ex. 254179138569861
-      </InputRow.NormalInput>
-    </InputRow>
-    {/*
+      {/*
       <Collapsible>
         <InputRow>
           <InputRow.Label>Thankyou page</InputRow.Label>
@@ -66,8 +77,9 @@ const General = ({
           />
         </InputRow>
       </Collapsible> */}
-  </div>
-);
+    </div>
+  );
+};
 
 
 const mapStateToProps = ({

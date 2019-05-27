@@ -8,8 +8,8 @@ import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
 import ids from 'shortid'
 export class InputRow extends Component {
-  static Label = ({ notes, error, className, ...props }) => (
-    <div className={'input-label-container ' + className}>
+  static Label = ({ notes, error, className='', ...props }) => (
+    <div className={`input-label-container ${className}`}>
       <span className='input-label '>{props.children}</span>
       {error && <span className="label-validation-error">*{error}</span>}
       <span className='input-label-note'>{notes}</span>
@@ -38,7 +38,16 @@ export class InputRow extends Component {
     )
 
   static SmallInput = ({
-    type = 'text', onBlur, name, disabled, autoComplete = 'on', onChange, value, className, error, ...props
+    type = 'text',
+    onBlur,
+    name,
+    disabled,
+    autoComplete = 'on',
+    onChange,
+    value,
+    className,
+    error,
+    ...props
   }) => (
       <input
         defaultValue={value}
@@ -115,7 +124,13 @@ export class InputRow extends Component {
   static EditableTagGroup = EditableTagGroup
 
   static SelectOption = ({
-    options = [], onChange, className, name, value, leftLabel, ...props
+    options = [],
+    onChange,
+    className,
+    name,
+    value,
+    leftLabel,
+    ...props
   }) => (
       <React.Fragment>
         {leftLabel && <span className="input-left-label">{leftLabel}</span>}
@@ -152,20 +167,35 @@ export class InputRow extends Component {
       </div>
     )
 
-  static UrlInput = ({ onChange, onBlur, name, disabled, error, prefix = 'https://', value, ...props }) => (
-    <input
-      onChange={onChange}
-      onBlur={onBlur}
-      defaultValue={value}
-      name={name}
-      className={`input-field ${error ? 'invalid-field' : ''}`}
-      disabled={disabled}
-      placeholder={prefix}
-    />
-  )
+  static UrlInput = ({
+    onChange,
+    onBlur,
+    name,
+    disabled,
+    error,
+    prefix = 'https://',
+    value,
+    ...props }) => (
+      <input
+        onChange={onChange}
+        onBlur={onBlur}
+        defaultValue={value}
+        name={name}
+        className={`input-field ${error ? 'invalid-field' : ''}`}
+        disabled={disabled}
+        placeholder={prefix}
+      />
+    )
 
   static CheckBox = ({
-    children, description, checked, disabled, onChange, name, className = '', ...props
+    children,
+    description,
+    checked,
+    disabled,
+    onChange,
+    name,
+    className = '',
+    ...props
   }) => (
       <label onChange={onChange}
         className={`check-box-container ${className}`}>
@@ -200,18 +230,26 @@ export class InputRow extends Component {
     </label>
   )
 
-  static CodeInputArea = ({ value, onChange, name, disabled, ...props }) => (
-    <div className='code-area-container'>
-      <textarea
-        onChange={onChange}
-        name={name}
-        disabled={disabled}
-        defaultValue={value}
-        className='codearea-input-field'
-        placeholder={props.children}
-      />
-    </div>
-  )
+  static CodeInputArea = ({
+    value,
+    onChange,
+    error,
+    className = '',
+    name,
+    disabled,
+    ...props
+  }) => (
+      <div className={`code-area-container ${className}`}>
+        <textarea
+          onChange={onChange}
+          name={name}
+          disabled={disabled}
+          defaultValue={value}
+          className={`codearea-input-field ${error ? 'invalid-field' : ''}`}
+          placeholder={props.children}
+        />
+      </div>
+    )
 
   static FlatSelect = ({ note, onSelect, value = 'Percent', ...props }) => {
     return (
@@ -262,10 +300,11 @@ export class InputRow extends Component {
   }
 }
 
-export const CodeInputArea = ({ value, flixable, onChange, name, disabled, ...props }) => (
+export const CodeInputArea = ({ value, flixable, onChange,onBlur, name, disabled, ...props }) => (
   <div className={`code-area-container ${flixable ? "flixable-code-area-container" : ""}`}>
     <textarea
       onChange={onChange}
+      onBlur={onBlur}
       name={name}
       disabled={disabled}
       defaultValue={value}

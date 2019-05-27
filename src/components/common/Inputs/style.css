@@ -428,8 +428,8 @@ input[type="radio"]{
 
 /* COde area input styles*/
 .codearea-input-field{
-    height: 100px;
-    width: 90%;
+    height: 200px;
+    width: 400px;
     background: #ffffff;
     border: 1px solid #ddd;
     color: #666;
@@ -908,4 +908,31 @@ input.checkout-input-field:valid + label.checkout-input-label{
 
 .danger-color{
     color:tomato;
+}
+
+
+/* Tooltip Customization */
+
+[data-tooltip]:not([data-position]):before,
+[data-tooltip]::before,
+[data-tooltip]:after{
+    /* background: lightgray !important;
+    color: white !important;
+    z-index: 2; */
+    /* padding: .433em .8em !important; */
+    /* overflow: hidden; */
+}
+
+[data-tooltip]:before{
+    /* z-index: unset; */
+}
+
+[data-tooltip]:after{
+    font-size: 13px !important;
+    -webkit-transform: unset !important;
+    transform: unset !important;
+}
+[data-tooltip]:after:hover{
+    transform: scale(1);
+    font-size: 13px !important;
 }
