@@ -1,8 +1,13 @@
 import React from 'react';
 import moment from 'moment';
-
-
 import './style.css';
+
+const capitalize = (s) => {
+  if (typeof s !== 'string') return '';
+  const str = s.toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 const SummarySlice = ({ name, amount = 0, className = '' }) => (
   <div className={`template-summary-slice ${className}`}>
     <span>{name}</span>
@@ -11,7 +16,7 @@ const SummarySlice = ({ name, amount = 0, className = '' }) => (
 );
 
 
-const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'm', splits = 0 } = {}) => {
+const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'month', splits = 0 } = {}) => {
   const label = name;
   const nextCharge = '';
 
@@ -19,13 +24,13 @@ const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'm', spli
   case 'Onetime': return { label, nextCharge };
   case 'Split':
     return {
-      label: `${label}(the first charge of ${splits})`,
+      label: `${label}(First Installment Out of ${splits})`,
       nextCharge: moment().add(1, 'M').format('MM/DD/YYYY')
     };
   case 'Subscription': {
     const recTime = recurringPeriod[0].toLowerCase();
     return {
-      label: `${label}(subscription-${recurringPeriod.toLowerCase()})`,
+      label: `${label}( Subscription - ${capitalize(recurringPeriod)}ly )`,
       nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format('MM/DD/YYYY')
     };
   }
@@ -58,7 +63,7 @@ const OrderSummary = ({
       {nextCharge && (
         <span>
           {' '}
-          your next charge gonna be in
+          Your next charge is going to be on
           {' '}
           {nextCharge}
         </span>
