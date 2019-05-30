@@ -42,7 +42,7 @@ const Products = ({
 
 
   const onProductPreview = (url) => {
-    const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}/${url}`;
+    const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
     window.open(productUrl, '_blank');
   }
 
