@@ -65,7 +65,7 @@ const Activities = ({ orders, subscriptions }) => {
     return (
         <Page className='products-details-page'>
             <PageHeader>
-                <MainTitle>Activities</MainTitle>
+                <MainTitle>Transactions</MainTitle>
                 <div
                     onClick={onExportToCSV}
                     className='btn primary-color'
