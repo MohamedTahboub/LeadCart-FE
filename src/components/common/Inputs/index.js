@@ -91,7 +91,7 @@ export class InputRow extends Component {
 
   static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
     <div className='url-suffix-input'>
-      <span className='suffix-value'>https://{subdomain}.leadcart.io/products/</span>
+      <span className='suffix-value'>https://{subdomain}.leadcart.io/</span>
       <input onChange={onChange}
         name={name}
         className={'url-suffix-input-field ' + (error && 'invalid-field')}

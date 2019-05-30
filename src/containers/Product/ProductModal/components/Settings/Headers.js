@@ -31,7 +31,7 @@ const Headers = ({
   };
 
   const onPreview = () => {
-    const url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}/${productUrl}`;
+    const url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${productUrl}`;
     openNewWindow(url);
   };
   if (isNew) return null;
