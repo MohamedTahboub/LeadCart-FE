@@ -30,7 +30,7 @@ class Setting extends Component {
         const pageName = this.props.history.location.pathname.split('/')[2]
 
         switch (pageName) {
-            case 'general':
+            case 'brand':
                 return this.props.saveUserGeneralSettings()
             // case 'checkout':
             //     return this.props.updateProductCheckoutDesign()
