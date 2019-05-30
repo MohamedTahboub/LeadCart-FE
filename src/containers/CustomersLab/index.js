@@ -36,7 +36,7 @@ const CustomersLab = ({ customers }) => {
   return (
     <Page>
       <PageHeader>
-        <MainTitle>Customers Lab</MainTitle>
+        <MainTitle>Customers</MainTitle>
       </PageHeader>
       <PageContent>
         <SubTabs
