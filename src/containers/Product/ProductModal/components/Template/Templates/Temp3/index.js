@@ -35,6 +35,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
         onChange={onChange}
         // image={product.image}
         // containerClassName='about-product-section-h'
+        containerClassName='horizontal-about-product-container'
         descriptionInnerClassName='horizontal-product-template-description'
         subContainerClassName='template-description-fullWidth'
         name={product.name}

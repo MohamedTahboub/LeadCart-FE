@@ -34,7 +34,7 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "dev:build": "NODE_ENV=staging react-scripts build",
+    "staging:build": "NODE_ENV=staging react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
