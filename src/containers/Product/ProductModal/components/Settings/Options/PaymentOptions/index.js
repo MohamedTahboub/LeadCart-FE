@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import PaymentType from 'components/PaymentType';
 import { connect } from 'react-redux';
 import currencies from 'data/currencies.json';
@@ -7,7 +7,7 @@ import currencies from 'data/currencies.json';
 import { Link } from 'components/common/MainMenu';
 import paypalImage from 'assets/images/paypal.png';
 import stripeImage from 'assets/images/stripe.png';
-import payOnDeliveryImage from 'assets/images/payOnDelivery.jpg';
+import cashOnDeliveryImage from 'assets/images/cod.png';
 import { openNewWindow } from 'libs';
 import common from 'components/common';
 
@@ -19,9 +19,13 @@ const {
 } = common;
 
 let PaymentMethods = ({
-  payment: { methods = [] } = {}, userPaymentsMethods, ...props
+  payment: { methods = [] } = {}, userPaymentsMethods = [], ...props
 }) => {
+  const [error, setError] = useState('');
+
   const onChange = (method) => {
+    if (!methods.includes(method) && methods.length >= 2) return setError('each product accepts two payment methods as max');
+
     if (userPaymentsMethods.includes(method) || method === 'COD') {
       props.onChange({
         target: {
@@ -31,6 +35,7 @@ let PaymentMethods = ({
             : [...methods, method]
         }
       });
+      setError('');
     }
   };
 
@@ -58,11 +63,13 @@ let PaymentMethods = ({
         }
         <MediumCard
           className='template-payment-card'
-          imgSrc={payOnDeliveryImage}
+          imgSrc={cashOnDeliveryImage}
           isActive={methods.includes('COD')}
           onClick={() => onChange('COD')}
         />
       </div>
+      {error && <span className='payment-error-message'>{error}</span>}
+      <br />
       <InputRow>
         {userPaymentsMethods.length
           ? (

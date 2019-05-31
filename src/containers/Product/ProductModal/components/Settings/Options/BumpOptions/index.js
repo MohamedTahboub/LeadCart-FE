@@ -55,9 +55,11 @@ const BumpOptions = ({
         <InputRow.Label>Fulfillment</InputRow.Label>
         <InputRow.SearchInput
           // size='small'
+
+          onChange={onChange}
           options={castFulfillmentList(fulfillments)}
           defaultValue={fulfillment}
-          name='fulfillment'
+          name='offer.fulfillment'
         />
       </InputRow>
       <Title>Bump Offer Styles:</Title>

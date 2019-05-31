@@ -21,7 +21,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
 
   const color = product.checkoutPage && product.checkoutPage.presetColors
   const { features = {}, testimonials = {} } = product.checkoutPage || {}
-  const { coupons = {} } = product
+  const { coupons = {} , payment={}} = product
   const showRightSide = features.enabled || testimonials.enabled || coupons.enabled;
   return (
     <div className="editable-product-form-container">
@@ -48,7 +48,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
           <PaymentMethods
             step={shippingDetails.enabled ? 3 : 2}
             onOptionSelected={onOptionSelected}
-            methods
+            methods={payment.methods}
             onShowSetting
             onFieldChange
           />

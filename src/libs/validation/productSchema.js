@@ -44,6 +44,7 @@ const offerSchema = yup.object({
   introText: yup.string().default('offer main label goes here,edit it'),
   name: yup.string().default('Offer Name'),
   title: yup.string().default('offer title goes here,edit it'),
+  fulfillment: yup.string(),
   price: yup.number().default(0),
   style: yup.object({
     containerBackground: yup.string(),
