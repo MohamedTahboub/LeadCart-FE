@@ -7,6 +7,7 @@ import currencies from 'data/currencies.json';
 import { Link } from 'components/common/MainMenu';
 import paypalImage from 'assets/images/paypal.png';
 import stripeImage from 'assets/images/stripe.png';
+import payOnDeliveryImage from 'assets/images/payOnDelivery.jpg';
 import { openNewWindow } from 'libs';
 import common from 'components/common';
 
@@ -21,7 +22,7 @@ let PaymentMethods = ({
   payment: { methods = [] } = {}, userPaymentsMethods, ...props
 }) => {
   const onChange = (method) => {
-    if (userPaymentsMethods.includes(method)) {
+    if (userPaymentsMethods.includes(method) || method === 'COD') {
       props.onChange({
         target: {
           name: 'payment.methods',
@@ -35,25 +36,33 @@ let PaymentMethods = ({
 
   return (
     <Fragment>
-      {userPaymentsMethods.includes('Stripe')
-        && (
-          <MediumCard
-            className='template-payment-card'
-            imgSrc={stripeImage}
-            isActive={methods.includes('Stripe')}
-            onClick={() => onChange('Stripe')}
-          />
-        )}
-      {userPaymentsMethods.includes('Paypal')
-        && (
-          <MediumCard
-            className='template-payment-card'
-            imgSrc={paypalImage}
-            isActive={methods.includes('Paypal')}
-            onClick={() => onChange('Paypal')}
-          />
-        )
-      }
+      <div className='payment-methods-cards-container'>
+        {userPaymentsMethods.includes('Stripe')
+          && (
+            <MediumCard
+              className='template-payment-card'
+              imgSrc={stripeImage}
+              isActive={methods.includes('Stripe')}
+              onClick={() => onChange('Stripe')}
+            />
+          )}
+        {userPaymentsMethods.includes('Paypal')
+          && (
+            <MediumCard
+              className='template-payment-card'
+              imgSrc={paypalImage}
+              isActive={methods.includes('Paypal')}
+              onClick={() => onChange('Paypal')}
+            />
+          )
+        }
+        <MediumCard
+          className='template-payment-card'
+          imgSrc={payOnDeliveryImage}
+          isActive={methods.includes('COD')}
+          onClick={() => onChange('COD')}
+        />
+      </div>
       <InputRow>
         {userPaymentsMethods.length
           ? (
