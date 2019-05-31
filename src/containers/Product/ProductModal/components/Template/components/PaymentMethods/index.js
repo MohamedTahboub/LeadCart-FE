@@ -22,8 +22,8 @@ const PaymentSelectionDemo = ({ method }) => {
   } else if (method === 3) {
     src = payOnDeliveryImage;
     classes = 'cod-image';
-  }else{
-    return null
+  }else {
+    return null;
   }
 
   return (
@@ -35,7 +35,7 @@ const PaymentSelectionDemo = ({ method }) => {
   );
 };
 const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
-  const [method, setMethod] = useState(1);
+  const [method, setMethod] = useState(0);
 
 
   return (
