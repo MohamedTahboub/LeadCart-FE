@@ -26,12 +26,12 @@
             "list": [
                 {
                     "author": "John Doe",
-                    "image": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Adam-Falk-Headshot-August-2018.jpg",
+                    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5cc123168001ea7df2cc1dcf/products/Webp.net-resizeimage%20%282%29.jpg",
                     "content": "“You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.”"
                 },
                 {
                     "author": "Jane Doe",
-                    "image": "http://nadiazheng.com/wp-content/uploads/2017/02/Montreal-corporate-headshot-BFL-group-on-location-white-background-02.jpg",
+                    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5cc123168001ea7df2cc1dcf/products/Webp.net-resizeimage%20%283%29.jpg",
                     "content": "“Wow. I just updated my site and it was SO SIMPLE. I am blown away. You guys truly kick ass. Thanks for being so awesome. High fives!”"
                 }
             ]
