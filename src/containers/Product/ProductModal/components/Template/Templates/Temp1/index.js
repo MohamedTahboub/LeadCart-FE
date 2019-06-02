@@ -19,9 +19,8 @@ import {
 
 const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
-  const color = product.checkoutPage && product.checkoutPage.presetColors
-  const { features = {}, testimonials = {} } = product.checkoutPage || {}
-  const { coupons = {} , payment={}} = product
+  const { presetColors: color, features = {}, testimonials = {} } = product.checkoutPage || {}
+  const { coupons = {}, payment = {} } = product
   const showRightSide = features.enabled || testimonials.enabled || coupons.enabled;
   return (
     <div className="editable-product-form-container">
@@ -85,6 +84,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
             <Features
               onChange={onChange}
               features={features}
+              color={color}
             />
             <Testimonials
               onChange={onChange}

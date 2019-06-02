@@ -37,8 +37,7 @@
   width: 18px;
   border-radius: 50%;
   color: white;
-  background-color: rgb(142, 209, 252);
-  display: -ms-flexbox;
+  background-color: inherit;
   display: flex;
   justify-content: center;
   align-items: center;

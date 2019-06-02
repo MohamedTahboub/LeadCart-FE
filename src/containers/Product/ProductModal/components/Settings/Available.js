@@ -39,7 +39,7 @@ const Available = ({ activeOption = 'PaymentOptions', ...props }) => {
 const HiddenComponents = ({
   product: {
     offer = {},
-    shippingDetails,
+    shippingDetails={},
     coupons = {},
     checkoutPage: {
       testimonials = {},

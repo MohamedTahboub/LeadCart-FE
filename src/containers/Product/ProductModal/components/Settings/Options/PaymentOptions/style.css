@@ -6,3 +6,11 @@
   display: flex;
   flex-wrap: wrap;
 }
+.adding-payment-error{
+  /* float: left; */
+  font-size: 13px;
+  /* width: 100%; */
+  text-align: center;
+  margin: 14px;
+  color: tomato;
+}
