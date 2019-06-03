@@ -68,7 +68,7 @@ let PaymentMethods = ({
           onClick={() => onChange('COD')}
         />
       </div>
-      {error && <span className='payment-error-message'>{error}</span>}
+      {error && <div className='adding-payment-error'>{error}</div>}
       <br />
       <InputRow>
         {userPaymentsMethods.length
