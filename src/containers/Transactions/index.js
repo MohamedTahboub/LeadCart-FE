@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import Orders from './sub/Orders'
+import PropTypes from 'prop-types'
 import Subscriptions from './sub/Subscriptions'
 
 import './style.css'
@@ -49,7 +50,7 @@ const {
 
 
 
-const Activities = ({ orders, subscriptions }) => {
+const Transactions = ({ orders, subscriptions }) => {
     const [activeTab, setActiveTab] = useState('Orders');
 
     const onExportToCSV = () => {
@@ -93,4 +94,12 @@ const mapStateToProps = ({ activities: { orders = [], subscriptions = [] } }) =>
     orders,
     subscriptions
 });
-export default connect(mapStateToProps)(Activities);
+Transactions.propTypes = {
+    orders:PropTypes.array,
+    subscriptions:PropTypes.array
+}
+Transactions.defaultProps = {
+    orders:[],
+    subscriptions:[]
+}
+export default connect(mapStateToProps)(Transactions);
