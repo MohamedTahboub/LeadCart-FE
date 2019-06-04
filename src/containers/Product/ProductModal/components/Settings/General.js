@@ -56,6 +56,7 @@ const General = ({
           Product Scripts
         </InputRow.Label>
         <Button className='share-btn' onClick={() => setShowScriptsModal(true)}>
+          <i className='fas fa-code' />
           Show Scripts
         </Button>
       </InputRow>

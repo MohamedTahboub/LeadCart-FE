@@ -46,7 +46,7 @@ import Dashboard from 'containers/Dashboard'
 // import Guidelines from 'containers/Guidelines'
 import Products from 'containers/Products'
 // import Product from 'containers/Product'
-import Activities from './containers/Activities';
+import Transactions from './containers/Transactions';
 import CustomersLab from './containers/CustomersLab';
 import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
@@ -90,7 +90,7 @@ ReactDOM.render(
                             <Switch>
                                 <Route exact path='/' component={Dashboard} />
                                 <Route exact path='/products' component={Products} />
-                                <Route path='/transactions' component={Activities} />
+                                <Route path='/transactions' component={Transactions} />
                                 <Route path='/customers' component={CustomersLab} />
                                 <Route exact path='/coupons' component={Coupons} />
                                 <Route exact path='/upsells' component={Upsells} />
