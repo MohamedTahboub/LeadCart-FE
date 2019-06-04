@@ -6,7 +6,7 @@ import './style.css';
 
 export default ({
   children,
-  // onClose,
+  onClose,
   className = '',
   closeBtnClassName = '',
   isVisible,
@@ -15,20 +15,20 @@ export default ({
 }) => {
   if (affectIntercom) showIntercomIcon(!isVisible);
 
-  const onClose = (e) => {
-    if (e.key === 'Escape') props.onClose();
+  // const onClose = (e) => {
+  //   if (e.key === 'Escape') props.onClose();
 
 
-    if (!e.key) props.onClose();
-  };
+  //   if (!e.key) props.onClose();
+  // };
 
-  useEffect(() => {
-    window.addEventListener('keydown', onClose, false);
+  // useEffect(() => {
+  //   window.addEventListener('keydown', onClose, false);
 
-    return () => {
-      window.removeEventListener('keydown', onClose, false);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('keydown', onClose, false);
+  //   };
+  // }, []);
 
   return (
     isVisible ? (

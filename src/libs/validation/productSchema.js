@@ -102,7 +102,8 @@ const ProductSchema = yup.object({
     googleTagManager: yup
       .string(),
     scriptTag: yup
-      .string(),
+      .string()
+      .transform((val) => val || undefined),
     t_fbPixelId: yup
       .string(),
     t_googleTagManager: yup
