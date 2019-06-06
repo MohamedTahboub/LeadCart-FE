@@ -3,18 +3,20 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
 import './style.css';
-import { getCurrencySymbol } from 'libs';
-
+import { getCurrencySymbol, RoundTow } from 'libs';
+import PropTypes from 'prop-types';
 
 const { Avatar, SmallButton, MainTitle } = common;
 
 
 const PaymentTypeIcon = ({ type }) => {
-  const Icon = {
+  const icon = {
     Stripe: <i className='fas fa-credit-card' />,
+    COD: <i className='fas fa-money-bill-alt' />,
     Paypal: <i className='fab fa-cc-paypal' />
-  }[type || 'Stripe'];
-  return Icon;
+  }[type];
+
+  return icon || null;
 };
 
 const OrderList = ({ orders, ...props }) => (
@@ -55,7 +57,7 @@ const OrderList = ({ orders, ...props }) => (
           <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
           <Tabel.Cell mainContent={email} subContent={phoneNumber} />
           <Tabel.Cell mainContent={productName} subContent={offer.name ? `with offer: ${offer.name}` : ''} />
-          <Tabel.Cell mainContent={`${getCurrencySymbol(price.currency)} ${totalCharge}`} />
+          <Tabel.Cell mainContent={`${getCurrencySymbol(price.currency)} ${RoundTow(totalCharge)}`} />
           <Tabel.Cell
             mainContent={<PaymentTypeIcon type={paymentMethod} />}
             subContent={paymentMethod}
@@ -67,5 +69,10 @@ const OrderList = ({ orders, ...props }) => (
     </Tabel.Body>
   </Tabel>
 );
-
+OrderList.propTypes = {
+  orders: PropTypes.arrayOf(PropTypes.object)
+};
+OrderList.defaultProps = {
+  orders: []
+};
 export default OrderList;

@@ -33,3 +33,6 @@ function sortCustomers (customer1, customer2) {
 function sortOrders (o1, o2) {
   return (new Date(o2.createdAt) - new Date(o1.createdAt));
 }
+
+
+export const RoundTow = (number) => Math.round(number * 100) / 100;

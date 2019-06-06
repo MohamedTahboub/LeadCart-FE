@@ -44,6 +44,7 @@ const offerSchema = yup.object({
   introText: yup.string().default('offer main label goes here,edit it'),
   name: yup.string().default('Offer Name'),
   title: yup.string().default('offer title goes here,edit it'),
+  fulfillment: yup.string(),
   price: yup.number().default(0),
   style: yup.object({
     containerBackground: yup.string(),
@@ -101,7 +102,8 @@ const ProductSchema = yup.object({
     googleTagManager: yup
       .string(),
     scriptTag: yup
-      .string(),
+      .string()
+      .transform((val) => val || undefined),
     t_fbPixelId: yup
       .string(),
     t_googleTagManager: yup
