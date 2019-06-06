@@ -31,6 +31,8 @@
   /* top:calc(50% - .5em); */
   color:white;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .announcekit-widget abbr{
   cursor: unset;
@@ -39,6 +41,11 @@
   padding-right: 5px;
 }
 .announcekit-widget-badge{
-  width: 1em !important;
-    height: 1em !important;
+  width: 1.2em !important;
+  height: 1.2em !important;
+  line-height: unset !important;
+  font-size:.7em unset !important;
+  display: flex  !important;
+  justify-content: center;
+  align-items: center;
 }

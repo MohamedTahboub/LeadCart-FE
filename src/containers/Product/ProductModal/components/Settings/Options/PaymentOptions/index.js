@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import PaymentType from 'components/PaymentType';
 import { connect } from 'react-redux';
 import currencies from 'data/currencies.json';
@@ -7,6 +7,7 @@ import currencies from 'data/currencies.json';
 import { Link } from 'components/common/MainMenu';
 import paypalImage from 'assets/images/paypal.png';
 import stripeImage from 'assets/images/stripe.png';
+import cashOnDeliveryImage from 'assets/images/cod.png';
 import { openNewWindow } from 'libs';
 import common from 'components/common';
 
@@ -18,10 +19,14 @@ const {
 } = common;
 
 let PaymentMethods = ({
-  payment: { methods = [] } = {}, userPaymentsMethods, ...props
+  payment: { methods = [] } = {}, userPaymentsMethods = [], ...props
 }) => {
+  const [error, setError] = useState('');
+
   const onChange = (method) => {
-    if (userPaymentsMethods.includes(method)) {
+    if (!methods.includes(method) && methods.length >= 2) return setError('each product accepts two payment methods as max');
+
+    if (userPaymentsMethods.includes(method) || method === 'COD') {
       props.onChange({
         target: {
           name: 'payment.methods',
@@ -30,30 +35,41 @@ let PaymentMethods = ({
             : [...methods, method]
         }
       });
+      setError('');
     }
   };
 
   return (
     <Fragment>
-      {userPaymentsMethods.includes('Stripe')
-        && (
-          <MediumCard
-            className='template-payment-card'
-            imgSrc={stripeImage}
-            isActive={methods.includes('Stripe')}
-            onClick={() => onChange('Stripe')}
-          />
-        )}
-      {userPaymentsMethods.includes('Paypal')
-        && (
-          <MediumCard
-            className='template-payment-card'
-            imgSrc={paypalImage}
-            isActive={methods.includes('Paypal')}
-            onClick={() => onChange('Paypal')}
-          />
-        )
-      }
+      <div className='payment-methods-cards-container'>
+        {userPaymentsMethods.includes('Stripe')
+          && (
+            <MediumCard
+              className='template-payment-card'
+              imgSrc={stripeImage}
+              isActive={methods.includes('Stripe')}
+              onClick={() => onChange('Stripe')}
+            />
+          )}
+        {userPaymentsMethods.includes('Paypal')
+          && (
+            <MediumCard
+              className='template-payment-card'
+              imgSrc={paypalImage}
+              isActive={methods.includes('Paypal')}
+              onClick={() => onChange('Paypal')}
+            />
+          )
+        }
+        <MediumCard
+          className='template-payment-card'
+          imgSrc={cashOnDeliveryImage}
+          isActive={methods.includes('COD')}
+          onClick={() => onChange('COD')}
+        />
+      </div>
+      {error && <div className='adding-payment-error'>{error}</div>}
+      <br />
       <InputRow>
         {userPaymentsMethods.length
           ? (

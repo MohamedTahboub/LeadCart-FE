@@ -2,12 +2,12 @@ import React from 'react';
 import common from 'components/common';
 import Tabel from 'components/common/Tabels';
 import './style.css';
-import { getCurrencySymbol } from 'libs';
-
+import { getCurrencySymbol, RoundTow } from 'libs';
+import PropTypes from 'prop-types';
 const { Avatar, SmallButton, MainTitle } = common;
 
 
-const SubscriptionsList = ({ subscriptions = [] }) => (
+const SubscriptionsList = ({ subscriptions }) => (
   <Tabel>
     <Tabel.Head>
       <Tabel.SmallCell />
@@ -35,11 +35,16 @@ const SubscriptionsList = ({ subscriptions = [] }) => (
           <Tabel.Cell mainContent={email} />
           <Tabel.Cell mainContent={phoneNumber} />
           <Tabel.Cell mainContent={productName} />
-          <Tabel.Cell mainContent={`${getCurrencySymbol(currency)} ${subscriptionFee}`} />
+          <Tabel.Cell mainContent={`${getCurrencySymbol(currency)} ${RoundTow(subscriptionFee)}`} />
         </Tabel.Row>
       ))}
     </Tabel.Body>
   </Tabel>
 );
-
+SubscriptionsList.propTypes = {
+  subscriptions: PropTypes.arrayOf(PropTypes.object)
+};
+SubscriptionsList.defaultProps = {
+  subscriptions: []
+};
 export default SubscriptionsList;

@@ -26,8 +26,8 @@ const ProductsScripts = ({
 
 
     return (
-        <Modal onClose={onClose} isVisible={isVisible} affectIntercom={false}>
-            <MainTitle bottomLine>Embed Scripts</MainTitle>
+        <Modal onClose={onClose} isVisible={isVisible} affectIntercom={false} closeBtnClassName='scripts-modal-close-btn'>
+            <MainTitle bottomLine className='scripts-modal-title'>Embed Scripts</MainTitle>
             <SubTabs
 
                 defaultTab='Product Scripts'
@@ -61,17 +61,14 @@ const ProductsScripts = ({
                                 </span>
                             </div>
                             <div>Enter a valid Scripts Tags so we can enable them in your Product page</div>
-                            <InputRow>
-                                <InputRow.Label className='scripts-labels'>Past A Embed Script:</InputRow.Label>
-                                <InputRow.CodeInputArea
-                                    className='free-script-input-field'
-                                    name='scripts.scriptTag'
-                                    value={scripts.scriptTag}
-                                    onBlur={onChange}
-                                >
+                            <InputRow.CodeInputArea
+                                className='free-script-input-field'
+                                name='scripts.scriptTag'
+                                value={scripts.scriptTag}
+                                onBlur={onChange}
+                            >
                                 {`<script>\n\t//your js code here (valid javascript)\n</script>`}
-                                </InputRow.CodeInputArea>
-                            </InputRow>
+                            </InputRow.CodeInputArea>
                         </div>
                     ),
                     'Thankyou Page Scripts': (
@@ -103,25 +100,23 @@ const ProductsScripts = ({
                                 </span>
                             </div>
                             <div>Enter a valid Scripts Tags so we can enable them in your thank-you page</div>
-                            <InputRow>
-                                <InputRow.Label className='scripts-labels' >Past A Embed Script:</InputRow.Label>
-                                <InputRow.CodeInputArea
-                                    className='free-script-input-field'
-                                    name='scripts.t_scriptTag'
-                                    value={scripts.t_scriptTag}
-                                    onBlur={onChange}
-                                >
+                            <InputRow.CodeInputArea
+                                className='free-script-input-field'
+                                name='scripts.t_scriptTag'
+                                value={scripts.t_scriptTag}
+                                onBlur={onChange}
+                            >
                                 {`<script>\n\t//your js code here (valid javascript)\n</script>`}
-                                </InputRow.CodeInputArea>
-                            </InputRow>
+                            </InputRow.CodeInputArea>
                         </div>
                     )
                 }}
             />
-        <div className='scripts-footer-message' >Note: To save the changes here just edit them and save the product,if you close the product modal without saving you may lose your changes here</div>
+            <Button onClick={onClose} className='primary-color script-save-btn'>Save</Button>
         </Modal>
     )
 }
+// <div className='scripts-footer-message' >Note: To save the changes here just edit them and save the product,if you close the product modal without saving you may lose your changes here</div>
 ProductsScripts.propTypes = {
     scripts: PropTypes.object.isRequired,
     isVisible: PropTypes.bool.isRequired,
