@@ -171,7 +171,7 @@ const Coupons = ({
                   </Tabel.Cell>
                   <MiniButton
                     toolTip='Delete'
-                    className='coupon-delete-btn'
+                    className='table-row-delete-btn'
                     iconClass='fa-trash-alt'
                     onClick={() => setShowDeleteModal(couponId)}
                   />
