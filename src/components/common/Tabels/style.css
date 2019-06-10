@@ -112,3 +112,17 @@
 .row-controls {
     display: flex;
 }
+
+
+
+.table-row-delete-btn{
+    position: absolute;
+    right:0px;
+    border:unset;
+    color:rgba(255, 99, 71, 0.52);
+    top:20px;
+    transition: color .4s ease-in-out;
+  }
+  .table-row-delete-btn:hover{
+    color:tomato
+  }
