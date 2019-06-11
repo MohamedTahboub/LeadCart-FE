@@ -6,7 +6,8 @@ import {
   CHANGE_COUPON_STATE_FAILED,
   RESET_COUPON_MODALE,
   DELETE_COUPON_SUCCESS,
-  DELETE_COUPON_FAILED
+  DELETE_COUPON_FAILED,
+  EDIT_COUPON_SUCCESS
 } from 'constantsTypes';
 
 const initailState = {
@@ -43,6 +44,12 @@ export default (state = initailState, { type, payload }) => {
       errors: typeof payload === 'object' ? payload : {
         message: payload.includes('E11000') ? 'This coupon code already exist, try another' : payload
       }
+    };
+  case EDIT_COUPON_SUCCESS:
+    console.log('payload', payload);
+    return {
+      ...state,
+      coupons: state.coupons.map((c) => (c._id === payload.couponId ? { ...c, ...payload.details } : c))
     };
   case CREATE_NEW_COUPON_FAILED:
     return {

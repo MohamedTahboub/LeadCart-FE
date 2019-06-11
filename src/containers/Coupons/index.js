@@ -6,7 +6,7 @@ import * as productsActions from 'actions/products';
 import * as couponsActions from 'actions/coupon';
 import Dialog from 'components/common/Dialog';
 
-import { newCouponSchema } from 'libs/validation';
+import { couponSchema } from 'libs/validation';
 
 import CouponModal from './modal'
 
@@ -162,7 +162,7 @@ const Coupons = ({
             <Tabel.HeadCell>Type</Tabel.HeadCell>
             <Tabel.HeadCell>Amount/Percent</Tabel.HeadCell>
             <Tabel.HeadCell>For Product</Tabel.HeadCell>
-            <Tabel.HeadCell>Created Date</Tabel.HeadCell>
+            <Tabel.HeadCell>Expiration Date</Tabel.HeadCell>
             <Tabel.HeadCell>Status</Tabel.HeadCell>
           </Tabel.Head>
           <Tabel.Body>
@@ -177,6 +177,7 @@ const Coupons = ({
                   createdAt,
                   products: [productId] = [],
                   forAll,
+                  duration,
                   usedBy
                 } = coupon;
                 return (
@@ -185,7 +186,7 @@ const Coupons = ({
                     <Tabel.Cell mainContent={discount.type} />
                     <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
                     <Tabel.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
-                    <Tabel.Cell mainContent={moment(createdAt).format('YYYY-MM-DD')} />
+                    <Tabel.Cell mainContent={moment(duration).format('YYYY-MM-DD')} />
                     <Tabel.Cell>
                       <SmallButton
                         onClick={() => props.changeCouponState({ couponId, active: !active })}

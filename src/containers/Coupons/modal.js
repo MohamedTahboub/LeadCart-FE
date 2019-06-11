@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as couponsActions from 'actions/coupon';
 import propTypes from 'prop-types';
 import common from 'components/common';
-import { newCouponSchema } from 'libs/validation';
+import { couponSchema } from 'libs/validation';
 import { Modal } from 'components/Modals';
 import moment from 'moment';
 const {
@@ -18,6 +18,7 @@ const CouponModal = ({
   show,
   onClose,
   products = [],
+  coupon: couponData = { products: [] },
   //   coupon,
   ...props
 }) => {
@@ -26,9 +27,10 @@ const CouponModal = ({
     discount: {
       type: 'Flat'
     },
-    duration: Date.now(),
+    duration: moment().format(),
     forAll: true,
-    ...props.coupon
+    productId: couponData.products && couponData.products[0],
+    ...couponData
   };
 
   const [coupon, setCoupon] = useState(initCoupon);
@@ -58,16 +60,25 @@ const CouponModal = ({
     setCoupon(coupon);
   };
   const onCouponTypeChange = (value) => {
+    let { discount: { percent, amount } = {} } = coupon;
+    percent = percent === 0 || !percent ? amount : percent;
+    amount = amount === 0 || !amount ? percent : amount;
     setCoupon({
       ...coupon,
-      type: value,
+      discount: {
+        type: value,
+        percent,
+        amount
+      }
     });
   };
 
   const onValidate = async (coupon) => {
     try {
-      const { isValid, value, errors } = await newCouponSchema(coupon);
+      const { isValid, value, errors } = await couponSchema(coupon);
+      console.log('TCL: onValidate ->  isValid, value, errors', isValid, value, errors);
 
+      console.log(coupon);
       if (!isValid) {
         setErrors(errors);
         return false;
@@ -102,7 +113,10 @@ const CouponModal = ({
 
     if (validCoupon) {
       props.editCoupon(
-        validCoupon,
+        {
+          couponId: coupon._id,
+          details: validCoupon
+        },
         {
           onSuccess: () => {
             onClose();
@@ -126,7 +140,7 @@ const CouponModal = ({
         <InputRow.Label
           error={errors.code}
         >
-                    Coupon code
+          Coupon code
         </InputRow.Label>
         <InputRow.CustomInput
           name='code'
@@ -139,7 +153,7 @@ const CouponModal = ({
           name='duration'
           type='date'
           disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
-          placeholder='Active Duration'
+          placeholder='Expiration Date'
           defaultValue={moment(coupon.duration)}
           className='margin-left-30'
           onChange={onDateChange}
@@ -149,7 +163,7 @@ const CouponModal = ({
         <InputRow.Label
           error={errors.amount || errors.percent}
         >
-                    Coupon Type
+          Coupon Type
         </InputRow.Label>
         <InputRow.FlatSelect
           onSelect={onCouponTypeChange}
@@ -166,7 +180,7 @@ const CouponModal = ({
       </InputRow>
       <InputRow margin='35'>
         <InputRow.Label>
-                    Apply to
+          Apply to
 
         </InputRow.Label>
         <InputRow.SearchInput
