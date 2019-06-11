@@ -126,3 +126,15 @@
   .table-row-delete-btn:hover{
     color:tomato
   }
+
+.table-row-edit-btn{
+    position: absolute;
+    left:0px;
+    border:unset;
+    color:rgba(43, 165, 212, 0.52);
+    top:20px;
+    transition: color .4s ease-in-out;
+  }
+  .table-row-edit-btn:hover{
+    color:rgba(43, 164, 212, 0.904)
+  }

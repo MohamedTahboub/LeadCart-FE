@@ -7,9 +7,14 @@ import * as couponsActions from 'actions/coupon';
 import Dialog from 'components/common/Dialog';
 
 import { newCouponSchema } from 'libs/validation';
+
+import CouponModal from './modal'
+
 import Tabel from 'components/common/Tabels';
 import moment from 'moment';
 import './style.css';
+
+
 const {
   InputRow,
   Button,
@@ -52,78 +57,96 @@ const Coupons = ({
   };
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const [coupon, setCoupon] = useState(initCoupon);
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    if (!showModal) setCoupon(initCoupon);
-
-    if (errors.message !== errMessage) setErrors({ message: errMessage });
-  }, [showModal, errMessage]);
-  const toggleModal = () => setShowModal(!showModal);
-
-  const onChange = ({ target: { value, name } }) => {
-    if (value === 'all') {
-      name = 'forAll';
-      value = true;
-    } else if (name === 'productId') {coupon.forAll = false;}
+  const [editCoupon, setEditCoupon] = useState(false);
 
 
-    if (name.includes('.')) {
-      const [key, nestedKey] = name.split('.');
-      const nestedValue = { [nestedKey]: value };
-      name = key;
-      value = { ...coupon[key], ...nestedValue };
-    }
+  // useEffect(() => {
+  //   if (!showModal) setCoupon(initCoupon);
 
-    setCoupon({ ...coupon, [name]: value });
-    setErrors({});
-  };
+  //   if (errors.message !== errMessage) setErrors({ message: errMessage });
+  // }, [showModal, errMessage]);
 
-  const onDiscountTypeChange = (value) => {
-    const { amount, percent } = coupon;
-    setCoupon({
-      ...coupon,
-      type: value,
-      amount: amount || percent,
-      percent: percent || amount
-    });
-  };
-  const onDateChange = (date) => {
-    coupon.duration = date.format();
-    setCoupon(coupon);
-  };
 
-  const onSubmit = async () => {
-    try {
-      const { isValid, value, errors } = await newCouponSchema(coupon);
-      if (!isValid) return setErrors({ ...errors });
+  const toggleModal = () => {
+    setShowModal(!showModal)
+    if (showModal && editCoupon)
+      setEditCoupon(false)
+  }
 
-      props.createNewCoupon(value, {
-        onSuccess: () => {
-          setShowModal(false);
-        },
-        onFailed: ({ message }) => {
-          setErrors({ message });
-        }
-      });
-    } catch ({ message }) {
-      setErrors({ message });
-    }
-  };
+  // const onChange = ({ target: { value, name } }) => {
+  //   if (value === 'all') {
+  //     name = 'forAll';
+  //     value = true;
+  //   } else if (name === 'productId') {coupon.forAll = false;}
+
+
+  //   if (name.includes('.')) {
+  //     const [key, nestedKey] = name.split('.');
+  //     const nestedValue = { [nestedKey]: value };
+  //     name = key;
+  //     value = { ...coupon[key], ...nestedValue };
+  //   }
+
+  //   setCoupon({ ...coupon, [name]: value });
+  //   setErrors({});
+  // };
+
+  // const onDiscountTypeChange = (value) => {
+  //   const { amount, percent } = coupon;
+  //   setCoupon({
+  //     ...coupon,
+  //     type: value,
+  //     amount: amount || percent,
+  //     percent: percent || amount
+  //   });
+  // };
+  // const onDateChange = (date) => {
+  //   coupon.duration = date.format();
+  //   setCoupon(coupon);
+  // };
+
+  // const onSubmit = async () => {
+  //   try {
+  //     const { isValid, value, errors } = await newCouponSchema(coupon);
+  //     if (!isValid) return setErrors({ ...errors });
+
+  //     props.createNewCoupon(value, {
+  //       onSuccess: () => {
+  //         setShowModal(false);
+  //         setCoupon({});
+  //       },
+  //       onFailed: ({ message }) => {
+  //         setErrors({ message });
+  //       }
+  //     });
+  //   } catch ({ message }) {
+  //     setErrors({ message });
+  //   }
+  // };
+
   const onCouponDelete = (couponId) => {
     props.deleteCoupon({
       couponId
     }, {
-      onSuccess: () => {
-        setShowDeleteModal('');
-      },
-      onFailed: (message) => {
-        setShowDeleteModal('');
-      }
-    });
+        onSuccess: () => {
+          setShowDeleteModal('');
+        },
+        onFailed: (message) => {
+          setShowDeleteModal('');
+        }
+      });
   };
-  const { type } = coupon;
+
+
+  const showEditModal = (coupon) => {
+    setShowModal(true);
+    setEditCoupon(coupon);
+  };
+
+
   return (
     <Page className='coupons-page'>
       <PageHeader>
@@ -145,106 +168,61 @@ const Coupons = ({
           <Tabel.Body>
             {coupons
               .sort((a, b) => ((new Date(a.createdAt) < new Date(b.createdAt)) ? 1 : -1))
-              .map(({
-                _id: couponId,
-                code,
-                discount = {},
-                active,
-                createdAt,
-                products: [productId] = [],
-                forAll,
-                usedBy
-              }, orderInList) => (
-                <Tabel.Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
-                  <Tabel.Cell mainContent={code} />
-                  <Tabel.Cell mainContent={discount.type} />
-                  <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
-                  <Tabel.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
-                  <Tabel.Cell mainContent={moment(createdAt).format('YYYY-MM-DD')} />
-                  <Tabel.Cell>
-                    <SmallButton
-                      onClick={() => props.changeCouponState({ couponId, active: !active })}
-                      className={active ? 'green-color' : 'gray-color'}
-                    >
-                      {`${active ? 'Active' : 'Inactive'}`}
-                    </SmallButton>
-                  </Tabel.Cell>
-                  <MiniButton
-                    toolTip='Delete'
-                    className='table-row-delete-btn'
-                    iconClass='fa-trash-alt'
-                    onClick={() => setShowDeleteModal(couponId)}
-                  />
-                </Tabel.Row>
-              ))}
+              .map((coupon, orderInList) => {
+                const {
+                  _id: couponId,
+                  code,
+                  discount = {},
+                  active,
+                  createdAt,
+                  products: [productId] = [],
+                  forAll,
+                  usedBy
+                } = coupon;
+                return (
+                  <Tabel.Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
+                    <Tabel.Cell mainContent={code} />
+                    <Tabel.Cell mainContent={discount.type} />
+                    <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
+                    <Tabel.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
+                    <Tabel.Cell mainContent={moment(createdAt).format('YYYY-MM-DD')} />
+                    <Tabel.Cell>
+                      <SmallButton
+                        onClick={() => props.changeCouponState({ couponId, active: !active })}
+                        className={active ? 'green-color' : 'gray-color'}
+                      >
+                        {`${active ? 'Active' : 'Inactive'}`}
+                      </SmallButton>
+                    </Tabel.Cell>
+                    <MiniButton
+                      toolTip='Delete'
+                      className='table-row-delete-btn'
+                      iconClass='fa-trash-alt'
+                      onClick={() => setShowDeleteModal(couponId)}
+                    />
+                    <MiniButton
+                      toolTip='Edit'
+                      className='table-row-edit-btn'
+                      iconClass='fas fa-edit'
+                      onClick={() => showEditModal(coupon)}
+                    />
+                  </Tabel.Row>
+                );
+              })}
 
           </Tabel.Body>
         </Tabel>
       </PageContent>
+      {showModal && (
+        <CouponModal
+          show={showModal}
+          edit={editCoupon}
+          onClose={toggleModal}
+          coupon={editCoupon}
+          products={products}
+        />
+      )}
 
-      <Modal onClose={toggleModal} isVisible={showModal}>
-        <MainTitle>Create Coupon</MainTitle>
-        <InputRow>
-          <InputRow.Label
-            error={errors.code}
-          >
-            Coupon code
-          </InputRow.Label>
-          <InputRow.CustomInput
-            name='code'
-            placeholder='Coupon Code.'
-            onBlur={onChange}
-            error={errors.code}
-          />
-          <InputRow.DatePicker
-            name='duration'
-            type='date'
-            disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
-            placeholder='Active Duration'
-            className='margin-left-30'
-            onChange={onDateChange}
-          />
-        </InputRow>
-        <InputRow>
-          <InputRow.Label
-            error={errors.amount || errors.percent}
-          >
-            Coupon Type
-          </InputRow.Label>
-          <InputRow.FlatSelect
-            onSelect={onDiscountTypeChange}
-            value={type}
-          // defaultValue='Flat'
-          />
-          <InputRow.PriceField
-            value={type === 'Flat' ? coupon.amount : coupon.percent}
-            currency={type === 'Flat' ? '$' : '%'}
-            name={type === 'Flat' ? 'amount' : 'percent'}
-            onChange={onChange}
-            note='How much off is your coupon.'
-            className='margin-left-30'
-          />
-        </InputRow>
-        <InputRow margin='35'>
-          <InputRow.Label>
-            Apply to
-
-          </InputRow.Label>
-          <InputRow.SearchInput
-            options={products}
-            defaultValue={coupon.productId || 'all'}
-            target='name'
-            name='productId'
-            onChange={onChange}
-          />
-        </InputRow>
-        {errors.message && <span className='error-message'>{errors.message}</span>}
-        <Button onClick={onSubmit} className='primary-color margin-with-float-right'>
-          <i className='fas fa-plus' />
-          {' '}
-          Create Coupon
-        </Button>
-      </Modal>
       {showDeleteModal && (
         <Dialog
           title='Coupon Deletion'
