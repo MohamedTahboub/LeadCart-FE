@@ -66,7 +66,17 @@ class Agency extends Component {
   }
 
   onDeleteSubAccount = () => {
-
+    const { deleteModal } = this.state;
+    this.props.deleteSubAccount({
+      id: deleteModal
+    }, {
+      onSuccess: () => {
+        this.setState({ deleteModal: '' });
+      },
+      onFailed: (message) => {
+        alert(message);
+      }
+    });
   }
 
   render () {
