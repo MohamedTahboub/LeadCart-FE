@@ -9,9 +9,9 @@ export default ({ dispatch }) => (next) => (action) => {
   const { payload, meta = {} } = action;
   dispatch(apiRequest({
     options: {
-      method: 'POST',
+      method: 'PUT',
       body: action.payload,
-      uri: '/api/users/agents/',
+      uri: '/api/users/agents',
       contentType: 'json'
     },
     onSuccess: (args) => {
