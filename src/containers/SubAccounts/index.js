@@ -74,7 +74,6 @@ class Agency extends Component {
         this.setState({ deleteModal: '' });
       },
       onFailed: (message) => {
-        alert(message);
       }
     });
   }
@@ -138,8 +137,8 @@ class Agency extends Component {
             </Tabel.Body>
             {deleteModal && (
               <Dialog
-                title='Sub Account Deletion'
-                description='Are you sure,you want to delete this Sub Account?'
+                title='Delete Sub-Account'
+                description='Are you sure you want to delete this Sub-Account?'
                 show
                 onClose={() => this.showDeleteModal('')}
                 confirmBtnText='Delete'

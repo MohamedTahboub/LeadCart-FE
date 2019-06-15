@@ -23,9 +23,10 @@ import {
 } from 'constantsTypes';
 
 
-export const onChangeAccountDetails = (details) => ({
+export const onChangeAccountDetails = (details, meta) => ({
   type: CHANGE_ACCOUNT_DETAILS,
-  payload: details
+  payload: details,
+  meta
 });
 export const onChangeAccountDetailsSuccess = (message) => ({
   type: CHANGE_ACCOUNT_DETAILS_SUCCESS,
@@ -37,9 +38,10 @@ export const onChangeAccountDetailsFailed = (message) => ({
 });
 
 
-export const onChangeAccounPassword = (pwds) => ({
+export const onChangeAccounPassword = (pwds, meta) => ({
   type: CHANGE_ACCOUNT_PASSWORD,
-  payload: pwds
+  payload: pwds,
+  meta
 });
 
 export const onChangeAccounPasswordSuccess = (message) => ({

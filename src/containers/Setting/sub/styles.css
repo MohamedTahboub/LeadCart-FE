@@ -22,13 +22,17 @@
 
 /* Small box container */
 
-.small-forms-container{
+/* .small-forms-container{
     flex-wrap: wrap;
     width: calc(100% - 300px);
+} */
+.account-form-input{
+    justify-content: space-between;
 }
 .small-form-container{
-    max-width: 550px;
-    min-width: 500px;
+    flex:1;
+    /* max-width: 550px;
+    min-width: 500px; */
 }
 .small-form-container:nth-child(1) {
     margin: 20px 20px 20px 0px;
@@ -36,9 +40,11 @@
 
 
 .small-form-controlls {
-    padding: 20px 0px;
+    padding: 0 55px 10px 0;
+    
     display: flex;
     justify-content: flex-end;
+    background: white;
 }
 .small-form-container .input-label-container{
     width:200px;
