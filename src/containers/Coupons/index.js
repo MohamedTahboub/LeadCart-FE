@@ -167,7 +167,6 @@ const Coupons = ({
           </Tabel.Head>
           <Tabel.Body>
             {coupons
-              .sort((a, b) => ((new Date(a.createdAt) < new Date(b.createdAt)) ? 1 : -1))
               .map((coupon, orderInList) => {
                 const {
                   _id: couponId,
@@ -184,7 +183,7 @@ const Coupons = ({
                   <Tabel.Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
                     <Tabel.Cell mainContent={code} />
                     <Tabel.Cell mainContent={discount.type} />
-                    <Tabel.Cell mainContent={discount.type !== 'Percent' ? `${discount.amount}$` : `${discount.percent}%`} />
+                    <Tabel.Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
                     <Tabel.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
                     <Tabel.Cell mainContent={moment(duration).format('YYYY-MM-DD')} />
                     <Tabel.Cell>

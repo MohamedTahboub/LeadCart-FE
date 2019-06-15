@@ -66,7 +66,17 @@ class Agency extends Component {
   }
 
   onDeleteSubAccount = () => {
-
+    const { deleteModal } = this.state;
+    this.props.deleteSubAccount({
+      id: deleteModal
+    }, {
+      onSuccess: () => {
+        this.setState({ deleteModal: '' });
+      },
+      onFailed: (message) => {
+        alert(message);
+      }
+    });
   }
 
   render () {
@@ -109,7 +119,12 @@ class Agency extends Component {
                       mainContent={email}
                     />
                     <Tabel.Cell>
-                      <SmallButton className='green-color'>Active</SmallButton>
+                      <SmallButton
+                        onClick={this.props.changeSubAccountStatus.bind(this, { agentId: id, active: !active })}
+                        className={active ? 'green-color' : 'gray-color'}
+                      >
+                        {active ? 'Active' : 'Inactive'}
+                      </SmallButton>
                     </Tabel.Cell>
                     <MiniButton
                       toolTip='Delete'
@@ -123,8 +138,8 @@ class Agency extends Component {
             </Tabel.Body>
             {deleteModal && (
               <Dialog
-                title='Member Deletion'
-                description='Are you sure,you want to delete this member?'
+                title='Sub Account Deletion'
+                description='Are you sure,you want to delete this Sub Account?'
                 show
                 onClose={() => this.showDeleteModal('')}
                 confirmBtnText='Delete'

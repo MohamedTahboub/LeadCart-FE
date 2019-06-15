@@ -18,7 +18,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return createNewCouponSuccess(args);
+      return createNewCouponSuccess({ ...payload, _id: args.id });
     },
     onFailed: (args) => {
       if (meta.onFailed) meta.onFailed(args);

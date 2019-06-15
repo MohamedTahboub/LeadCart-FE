@@ -33,7 +33,7 @@ export default ({ dispatch }) => (next) => (action) => {
       },
       onSuccess: (args) => {
         if (meta.onSuccess) meta.onSuccess(args);
-        return onCreateNewMemberSuccess(payload);
+        return onCreateNewMemberSuccess({ ...payload, _id: args.id });
       },
       onFailed: (message) => {
         if (meta.onFailed) meta.onFailed(message);
@@ -68,7 +68,7 @@ export default ({ dispatch }) => (next) => (action) => {
       },
       onSuccess: (args) => {
         if (meta.onSuccess) meta.onSuccess(args);
-        return deleteMemberSuccess(args);
+        return deleteMemberSuccess(payload);
       },
       onFailed:  (message) => {
         if (meta.onFailed) meta.onFailed(message);
