@@ -22,7 +22,7 @@ export default (state = initailState, { type, payload }) => {
   case GET_COUPONS_LIST:
     return {
       ...state,
-      coupons: payload
+      coupons: payload.sort((a, b) => ((new Date(a.createdAt) < new Date(b.createdAt)) ? 1 : -1))
     };
   case CREATE_NEW_COUPON_SUCCESS:
     return {

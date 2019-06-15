@@ -21,8 +21,14 @@
 
 
 /* Small box container */
+
+.small-forms-container{
+    flex-wrap: wrap;
+    width: calc(100% - 300px);
+}
 .small-form-container{
-    flex:1;
+    max-width: 550px;
+    min-width: 500px;
 }
 .small-form-container:nth-child(1) {
     margin: 20px 20px 20px 0px;

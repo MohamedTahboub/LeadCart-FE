@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
 
 const {
-  InputRow, MainBlock, Button, FlexBoxesContainer, MainTitle
+  InputRow,
+  MainBlock,
+  Button,
+  FlexBoxesContainer,
+  MainTitle
 } = common;
 
 
@@ -16,11 +20,13 @@ const SmallFormContainer = ({
     <div className='small-form-content'>
       {children}
     </div>
-    <div className='small-form-controlls'>
-      <Button onClick={onSubmit} className=' primary-color'>
+    {onSubmit && (
+      <div className='small-form-controlls'>
+        <Button onClick={onSubmit} className=' primary-color'>
           Update
-      </Button>
-    </div>
+        </Button>
+      </div>
+    )}
   </div>
 );
 class Account extends Component {
@@ -73,7 +79,7 @@ class Account extends Component {
     return (
 
       <React.Fragment>
-        <FlexBoxesContainer>
+        <FlexBoxesContainer className='small-forms-container'>
           <SmallFormContainer onSubmit={this.onChangeAccountDetails} title='profile'>
 
             <InputRow>
@@ -114,6 +120,18 @@ class Account extends Component {
                 type='password' name='newPasswordConfirmation' onChange={this.onPasswordsFieldsChange}
               >
               </InputRow.SmallInput>
+            </InputRow>
+          </SmallFormContainer>
+          <SmallFormContainer title='Account Deactivation'>
+            <InputRow>
+              <InputRow.Label>Deactivate the account</InputRow.Label>
+              <Button
+                className='warning-btn'
+                onClick={this.deactivateAccount}
+              >
+Deactivate
+
+              </Button>
             </InputRow>
           </SmallFormContainer>
         </FlexBoxesContainer>

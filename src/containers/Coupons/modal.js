@@ -41,6 +41,7 @@ const CouponModal = ({
     if (value === 'all') {
       name = 'forAll';
       value = true;
+      coupon.productId = 'all';
     } else if (name === 'productId') {coupon.forAll = false;}
 
 
@@ -50,7 +51,7 @@ const CouponModal = ({
       name = key;
       value = { ...coupon[key], ...nestedValue };
     }
-
+    console.log('coupon', name, value);
     setCoupon({ ...coupon, [name]: value });
     setErrors({});
   };
@@ -110,6 +111,8 @@ const CouponModal = ({
 
   const onUpdate = async () => {
     const validCoupon = await onValidate(coupon);
+    console.log('TCL: onUpdate -> coupon', coupon);
+    console.log('TCL: onUpdate -> validCoupon', validCoupon);
 
     if (validCoupon) {
       props.editCoupon(
@@ -135,7 +138,7 @@ const CouponModal = ({
       onClose={onClose}
       isVisible
     >
-      <MainTitle>{edit ? 'Edit Coupon' : 'Create Coupon'}</MainTitle>
+      <MainTitle>{edit ? 'Update Coupon' : 'Create Coupon'}</MainTitle>
       <InputRow>
         <InputRow.Label
           error={errors.code}
@@ -185,7 +188,7 @@ const CouponModal = ({
         </InputRow.Label>
         <InputRow.SearchInput
           options={products}
-          value={coupon.productId || 'all'}
+          value={typeof coupon.productId !== 'boolean' ? coupon.productId : 'all'}
           target='name'
           name='productId'
           onChange={onChange}
@@ -194,7 +197,7 @@ const CouponModal = ({
       {errors.message && <span className='error-message'>{errors.message}</span>}
       <Button onClick={edit ? onUpdate : onCreate} className='primary-color margin-with-float-right'>
         <i className='fas fa-plus' />
-        {`${edit ? 'Edit' : 'Create'} Coupon`}
+        {`${edit ? 'Update' : 'Create'} Coupon`}
       </Button>
     </Modal>
   );
