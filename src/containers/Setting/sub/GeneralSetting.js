@@ -24,6 +24,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     logo,
     supportEmail = userEmail,
     timeZone,
+    subDomain,
     errors
   } = props.general;
   const onFieldChange = ({ target: { name, value } }) => {
@@ -38,7 +39,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     <Fragment>
       <MainBlock title='General Brand Settings'>
         <InputRow>
-          <InputRow.Label error={errors.name}>Company Name</InputRow.Label>
+          <InputRow.Label error={errors.name}>Company Name:</InputRow.Label>
           <InputRow.NormalInput
             error={errors.name}
             name='name'
@@ -52,7 +53,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
             error={errors.logo}
             notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
           >
-            Default Logo
+            Default Logo:
 
           </InputRow.Label>
           <InputRow.AddImage
@@ -66,12 +67,21 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
           </InputRow.AddImage>
         </InputRow>
-        <InputRow margin='37'>
+        <InputRow margin='43'>
+          <InputRow.Label error={errors.subDomain}>Brand SubDomain:</InputRow.Label>
+          <InputRow.SmallInput
+            name='subDomain'
+            onChange={onFieldChange}
+            error={errors.subDomain}
+            value={subDomain}
+          />
+        </InputRow>
+        <InputRow margin='20'>
           <InputRow.Label
             error={errors.country}
             notes='Select a country to be displayed as the default on your checkout pages. Your customers can always select a different country.'
           >
-            Default Country
+            Default Country:
 
           </InputRow.Label>
           <InputRow.SearchInput
@@ -86,7 +96,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
         </InputRow>
         <InputRow margin='35'>
-          <InputRow.Label error={errors.timeZones}>Time Zone</InputRow.Label>
+          <InputRow.Label error={errors.timeZones}>Time Zone:</InputRow.Label>
           <InputRow.SearchInput
             defaultValue={defaultTimeZone}
             options={timeZones}
@@ -97,7 +107,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           />
         </InputRow>
         <InputRow margin='20'>
-          <InputRow.Label error={errors.support}>Support Contact</InputRow.Label>
+          <InputRow.Label error={errors.support}>Support Contact:</InputRow.Label>
           <InputRow.SmallInput
             name='supportEmail'
             onChange={onFieldChange}
@@ -109,7 +119,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           </InputRow.SmallInput>
         </InputRow>
         <InputRow margin='20'>
-          <InputRow.Label error={errors.currency}>Currency</InputRow.Label>
+          <InputRow.Label error={errors.currency}>Currency:</InputRow.Label>
           <InputRow.SearchInput
             // size='small'
             options={currenciesList}
@@ -122,7 +132,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
       <MainBlock title='Settings'>
         <InputRow>
-          <InputRow.Label error={errors.name}>Displayed Company Name</InputRow.Label>
+          <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>
           <InputRow.NormalInput
             // error={errors.name}
             name='name'
@@ -136,7 +146,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
             error={errors.logo}
             notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
           >
-            Background Image
+            Background Image:
 
           </InputRow.Label>
           <InputRow.AddImage
@@ -151,7 +161,7 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           </InputRow.AddImage>
         </InputRow>
         <InputRow>
-          <InputRow.Label error={errors.support}>Contact Link</InputRow.Label>
+          <InputRow.Label error={errors.support}>Contact Link:</InputRow.Label>
           <InputRow.NormalInput
             name='supportEmail'
             notes='This will be shown in the marketplace navbar'

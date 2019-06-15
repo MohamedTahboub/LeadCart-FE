@@ -116,7 +116,7 @@ export default ({ dispatch }) => (next) => (action) => {
     showFailureMessage('Failed to create New member');
     break;
   case types.SAVE_USER_GENERAL_SETTINGS_FAILED:
-    showFailureMessage('Failed to Update General Setting');
+    showFailureMessage(action.payload);
     break;
   case types.UPDATE_PRODUCT_FAILED:
     showFailureMessage('Failed to Update The Product');
