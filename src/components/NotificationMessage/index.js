@@ -11,6 +11,7 @@ const FlashMessage = ({
   const isFailed = type === 'failed' ? 'notification-failure-message' : '';
   const isShow = show ? 'show-notification-message' : '';
 
+
   const className = `notification-message-container ${isShow} ${isSuccess} ${isFailed}`;
   return (
     <div className={className}>

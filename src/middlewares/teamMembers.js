@@ -43,11 +43,10 @@ export default ({ dispatch }) => (next) => (action) => {
   }
 
   if (action.type === ACTIVATE_MEMBER) {
-    const memberStatus = { memberId: action.payload.id, active: action.payload.active };
     return dispatch(apiRequest({
       options: {
         method: 'put',
-        body: memberStatus,
+        body:  action.payload,
         uri: '/api/users/member/active',
         contentType: 'json'
       },

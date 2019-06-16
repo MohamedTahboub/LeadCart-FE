@@ -71,6 +71,9 @@ const TeamMembers = ({ members = [], ...props }) => {
     );
   };
 
+  const onMemberActivationChange = (memberId, active) => {
+    props.activateMember({ memberId, active: !active });
+  };
 
   return (
     <React.Fragment>
@@ -86,16 +89,16 @@ const TeamMembers = ({ members = [], ...props }) => {
             <Tabel.Body>
               {members.map(({
                 member: {
-                  firstName, lastName, email, _id: id
+                  firstName, lastName, email, _id: memberId
                 } = {}, active
               }, orderInList) => (
-                <Tabel.Row key={id} orderInList={orderInList} className='member-table-row'>
+                <Tabel.Row key={memberId} orderInList={orderInList} className='member-table-row'>
                   <Tabel.Cell mainContent={firstName || 'Not Set'} />
                   <Tabel.Cell mainContent={lastName || 'Not Set'} />
                   <Tabel.Cell mainContent={email} />
                   <Tabel.Cell>
                     <SmallButton
-                      onClick={props.activateMember.bind(this, { id, active: !active })}
+                      onClick={() => onMemberActivationChange(memberId, active)}
                       className={active ? 'green-color' : 'gray-color'}
                     >
                       {active ? 'Active' : 'Inactive'}
@@ -105,15 +108,15 @@ const TeamMembers = ({ members = [], ...props }) => {
                     toolTip='Delete'
                     className='table-row-delete-btn'
                     iconClass='fa-trash-alt'
-                    onClick={() => setShowDeleteModal(id)}
+                    onClick={() => setShowDeleteModal(memberId)}
                   />
                 </Tabel.Row>
               ))}
             </Tabel.Body>
             {showDeleteModal && (
               <Dialog
-                title='Member Deletion'
-                description='Are you sure,you want to delete this member?'
+                title='Delete Team Member'
+                description='Are you sure you want to delete this team member?'
                 show
                 onClose={() => setShowDeleteModal('')}
                 confirmBtnText='Delete'

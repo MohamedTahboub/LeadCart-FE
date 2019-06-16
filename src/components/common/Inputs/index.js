@@ -45,7 +45,7 @@ export class InputRow extends Component {
     autoComplete = 'on',
     onChange,
     value,
-    className,
+    className='',
     error,
     ...props
   }) => (
@@ -57,7 +57,7 @@ export class InputRow extends Component {
         name={name}
         disabled={disabled}
         type={type}
-        className={`input-field small-input ${className ? className : ''} ${error ? 'invalid-field' : ''}`}
+        className={`input-field small-input ${className} ${error ? 'invalid-field' : ''}`}
         placeholder={props.children}
       />
     )
