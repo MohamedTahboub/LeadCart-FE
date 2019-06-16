@@ -55,7 +55,7 @@ const Fulfillments = ({
     return (
         <Page>
             <PageHeader className='space-between-elements'>
-                <MainTitle>Fulfillments</MainTitle>
+                <MainTitle>Fulfillment</MainTitle>
                 <Button
                     onClick={onShowForm}
                     className='primary-color'
