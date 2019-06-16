@@ -14,7 +14,7 @@ import flashMessage from './flashMessage'
 import payments from './payments'
 import account from './account'
 import coupon from './coupon'
-import agency from './agency'
+import subAccounts from './subAccounts'
 import teamMembers from './teamMembers'
 import modelsShapers from './modelsShapers'
 import upadteUserImage from './upadteUserImage'
@@ -42,7 +42,7 @@ export default [
     ...emails,
     teamMembers,
     agencyCodeActivation,
-    agency,
+    ...subAccounts,
     flashMessage,
     apiRequest,
     uploadingFiles,

@@ -7,6 +7,7 @@ export default async (settings) => {
     logo: yup.string().url(),
     country: yup.string().default('US'),
     timeZone: yup.string().default('(GMT-06:00) Central America'),
+    subDomain: yup.string(),
     supportEmail: yup.string().email(),
     currency: yup.string().default('USD')
   }).required();

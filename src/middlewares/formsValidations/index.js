@@ -14,6 +14,6 @@ export default [
     upsell,
     createNewSubAccount,
     // signupForm,
-    account,
+    // account,
     teamMembers
 ]

@@ -4,9 +4,11 @@ import Tabel from 'components/common/Tabels';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { connect } from 'react-redux';
+import Dialog from 'components/common/Dialog';
 import './style.css';
 const {
   MainTitle,
+  MiniButton,
   SmallButton,
   Button,
   InputRow,
@@ -24,7 +26,9 @@ const AddNewButton = ({ onClick, ...props }) => (
 );
 
 class Agency extends Component {
-  state = { isModalVisable: false, subAccountModel: {}, created: false }
+  state = {
+    isModalVisable: false, subAccountModel: {}, created: false, deleteModal: ''
+  }
 
   toggleModal = () => this.setState({ isModalVisable: !this.state.isModalVisable })
 
@@ -57,10 +61,27 @@ class Agency extends Component {
     if (packageType !== 'Agency') history.push('/');
   }
 
+  showDeleteModal = (id) => {
+    this.setState({ deleteModal: id });
+  }
+
+  onDeleteSubAccount = () => {
+    const { deleteModal } = this.state;
+    this.props.deleteSubAccount({
+      id: deleteModal
+    }, {
+      onSuccess: () => {
+        this.setState({ deleteModal: '' });
+      },
+      onFailed: (message) => {
+      }
+    });
+  }
+
   render () {
     const { errors, subAccounts = [] } = this.props;
 
-    const { subAccountModel } = this.state;
+    const { subAccountModel, deleteModal } = this.state;
     return (
       <Page>
         <PageHeader>
@@ -86,7 +107,7 @@ class Agency extends Component {
                   _id: id
                 } = agent;
                 return (
-                  <Tabel.Row key={id} orderInList={orderInList}>
+                  <Tabel.Row key={id} orderInList={orderInList} className='member-table-row'>
                     <Tabel.Cell
                       mainContent={firstName || 'not set'}
                     />
@@ -97,12 +118,33 @@ class Agency extends Component {
                       mainContent={email}
                     />
                     <Tabel.Cell>
-                      <SmallButton className='green-color'>Active</SmallButton>
+                      <SmallButton
+                        onClick={this.props.changeSubAccountStatus.bind(this, { agentId: id, active: !active })}
+                        className={active ? 'green-color' : 'gray-color'}
+                      >
+                        {active ? 'Active' : 'Inactive'}
+                      </SmallButton>
                     </Tabel.Cell>
+                    <MiniButton
+                      toolTip='Delete'
+                      className='table-row-delete-btn'
+                      iconClass='fa-trash-alt'
+                      onClick={() => this.showDeleteModal(id)}
+                    />
                   </Tabel.Row>
                 );
               })}
             </Tabel.Body>
+            {deleteModal && (
+              <Dialog
+                title='Delete Sub-Account'
+                description='Are you sure you want to delete this Sub-Account?'
+                show
+                onClose={() => this.showDeleteModal('')}
+                confirmBtnText='Delete'
+                onConfirm={() => this.onDeleteSubAccount(deleteModal)}
+              />
+            )}
           </Tabel>
         </PageContent>
         <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>

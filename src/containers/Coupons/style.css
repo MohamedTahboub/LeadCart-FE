@@ -5,14 +5,3 @@
 .coupon-tabel-row{
   position: relative;
 }
-.coupon-delete-btn{
-  position: absolute;
-  right:0px;
-  border:unset;
-  color:rgba(255, 99, 71, 0.52);
-  top:20px;
-  transition: color .4s ease-in-out;
-}
-.coupon-delete-btn:hover{
-  color:tomato
-}
