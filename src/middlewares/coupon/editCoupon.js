@@ -1,28 +1,30 @@
-import { CREATE_NEW_COUPON } from 'constantsTypes';
+import { EDIT_COUPON } from 'constantsTypes';
+
 import {
-  createNewCouponSuccess,
-  createNewCouponFailed
+  editCouponSuccess,
+  editCouponFailed
 } from 'actions/coupon';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== CREATE_NEW_COUPON) return next(action);
+  if (action.type !== EDIT_COUPON) return next(action);
 
   const { payload, meta = {} } = action;
   dispatch(apiRequest({
     options: {
-      method: 'POST',
+      method: 'PUT',
       body: payload,
       uri: '/api/coupon',
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return createNewCouponSuccess({ ...payload, _id: args.id });
+
+      return editCouponSuccess(payload);
     },
-    onFailed: (args) => {
-      if (meta.onFailed) meta.onFailed(args);
-      return createNewCouponFailed(args);
+    onFailed: (message) => {
+      if (meta.onFailed) meta.onFailed(message);
+      return editCouponFailed(message);
     }
   }));
 };

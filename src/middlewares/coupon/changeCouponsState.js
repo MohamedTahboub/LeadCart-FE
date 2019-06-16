@@ -13,7 +13,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'PUT',
       body: action.payload,
-      uri: '/api/coupon',
+      uri: '/api/coupon/status',
       contentType: 'json'
     },
     onSuccess: changeCouponStateSuccess.bind(this, action.payload),

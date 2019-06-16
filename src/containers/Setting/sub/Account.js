@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
 
 const {
-  InputRow, MainBlock, Button, FlexBoxesContainer, MainTitle
+  InputRow,
+  MainBlock,
+  Button,
+  FlexBoxesContainer,
+  MainTitle
 } = common;
 
 
@@ -16,13 +20,17 @@ const SmallFormContainer = ({
     <div className='small-form-content'>
       {children}
     </div>
-    <div className='small-form-controlls'>
-      <Button onClick={onSubmit} className=' primary-color'>
-          Update
-      </Button>
-    </div>
+    {onSubmit && (
+      <div className='small-form-controlls'>
+        <Button onClick={onSubmit} className=' primary-color'>
+            Update
+          </Button>
+      </div>
+    )}
   </div>
 );
+
+
 class Account extends Component {
   state = {
     passwordsModel: {},
@@ -33,7 +41,8 @@ class Account extends Component {
     this.setState({
       passwordsModel: {
         ...this.state.passwordsModel,
-        [name]: value
+        [name]: value,
+        error: ''
       }
     });
   }
@@ -48,7 +57,18 @@ class Account extends Component {
   }
 
   onChangePassword = () => {
-    this.props.onChangeAccounPassword(this.state.passwordsModel);
+    const { error, ...passwords } = this.state.passwordsModel;
+    this.props.onChangeAccounPassword(
+      passwords,
+      {
+        onSuccess: () => {
+          this.setState({ passwordsModel: {} });
+        },
+        onFailed: (message) => {
+          this.setState({ passwordsModel: { error: message } });
+        }
+      }
+    );
   }
 
   onChangeAccountDetails = () => {
@@ -66,9 +86,7 @@ class Account extends Component {
     const {
       user,
       detailsModel: { errors = {} },
-      passwordsModel: {
-        currentPassword, newPassword, newPasswordConfirmation, pwd_errors
-      }
+      passwordsModel: { error: PwdError = '' },
     } = this.props;
     return (
 
@@ -76,46 +94,71 @@ class Account extends Component {
         <FlexBoxesContainer>
           <SmallFormContainer onSubmit={this.onChangeAccountDetails} title='profile'>
 
-            <InputRow>
+            <InputRow className='account-form-input'>
               <InputRow.Label error={errors.firstName}>First Name</InputRow.Label>
-              <InputRow.SmallInput name='firstName' value={user.firstName} onChange={this.onDetailsFieldsChange} error={errors.firstName}></InputRow.SmallInput>
+              <InputRow.SmallInput
+                name='firstName'
+                value={user.firstName}
+                onChange={this.onDetailsFieldsChange}
+                error={errors.firstName}
+
+              />
             </InputRow>
-            <InputRow>
+            <InputRow className='account-form-input'>
               <InputRow.Label error={errors.lastName}>Last Name</InputRow.Label>
-              <InputRow.SmallInput name='lastName' value={user.lastName} onChange={this.onDetailsFieldsChange} error={errors.lastName}></InputRow.SmallInput>
+              <InputRow.SmallInput
+                name='lastName'
+                value={user.lastName}
+                onChange={this.onDetailsFieldsChange}
+                error={errors.lastName}
+
+              />
             </InputRow>
-            <InputRow>
+            <InputRow className='account-form-input'>
               <InputRow.Label error={errors.email}>Email</InputRow.Label>
-              <InputRow.SmallInput name='email' value={user.email} onChange={this.onDetailsFieldsChange} error={errors.email}></InputRow.SmallInput>
+              <InputRow.SmallInput
+                name='email'
+                value={user.email}
+                onChange={this.onDetailsFieldsChange}
+                error={errors.email}
+
+              />
             </InputRow>
           </SmallFormContainer>
           <SmallFormContainer onSubmit={this.onChangePassword} title='Password'>
-            <InputRow>
+            <InputRow className='account-form-input'>
               <InputRow.Label>Current Password</InputRow.Label>
               <InputRow.SmallInput
                 type='password'
-                name='currentPassword' onChange={this.onPasswordsFieldsChange}
+                name='currentPassword'
+                onChange={this.onPasswordsFieldsChange}
                 error={errors.currentPassword}
-              >
-              </InputRow.SmallInput>
+
+              />
             </InputRow>
-            <InputRow>
+            <InputRow className='account-form-input'>
               <InputRow.Label>New Password</InputRow.Label>
               <InputRow.SmallInput
                 error={errors.newPassword}
-                type='password' name='newPassword' onChange={this.onPasswordsFieldsChange}
-              >
-              </InputRow.SmallInput>
+                type='password'
+                name='newPassword'
+                onChange={this.onPasswordsFieldsChange}
+
+              />
             </InputRow>
-            <InputRow>
+            <InputRow className='account-form-input'>
               <InputRow.Label>Confirm Password</InputRow.Label>
               <InputRow.SmallInput
                 error={errors.newPasswordConfirmation}
-                type='password' name='newPasswordConfirmation' onChange={this.onPasswordsFieldsChange}
-              >
-              </InputRow.SmallInput>
+                type='password'
+                name='newPasswordConfirmation'
+                onChange={this.onPasswordsFieldsChange}
+
+              />
             </InputRow>
+            {PwdError && <div className='error-message'>{PwdError}</div>}
           </SmallFormContainer>
+
         </FlexBoxesContainer>
       </React.Fragment>
     );
@@ -127,3 +170,21 @@ const mapStateToProps = ({ account, user: { user } }) => ({
   detailsModel: account.detailsModel || {}
 });
 export default connect(mapStateToProps, accountActions)(Account);
+
+
+/*
+className='account-form-input'
+
+  <SmallFormContainer title='Account Deactivation'>
+            <InputRow className='account-form-input'>
+              <InputRow.Label >Deactivate the account</InputRow.Label>
+              <Button
+                className='warning-btn'
+                onClick={this.deactivateAccount}
+              >
+Deactivate
+
+              </Button>
+            </InputRow>
+          </SmallFormContainer>
+*/

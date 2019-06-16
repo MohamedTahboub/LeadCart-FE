@@ -7,7 +7,8 @@ import {
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
   ACTIVATE_AGENCY_CODE_SUCCESS,
   ACTIVATE_AGENCY_CODE_FAILED,
-  GET_ACTIVATED_AGENCY_CODES_NUMBERS
+  GET_ACTIVATED_AGENCY_CODES_NUMBERS,
+  SAVE_USER_GENERAL_SETTINGS_SUCCESS
 } from 'constantsTypes';
 import moment from 'moment';
 
@@ -73,6 +74,14 @@ export default (state = initialState, { type, payload }) => {
       errors: typeof payload === 'object' ? { code: payload } : { code: { message: payload } }
     };
   case GET_ACTIVATED_AGENCY_CODES_NUMBERS: return { ...state, activatedPromoCodes: payload };
+  case SAVE_USER_GENERAL_SETTINGS_SUCCESS:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        subDomain: payload.subDomain
+      }
+    };
   default: return state;
   }
 };

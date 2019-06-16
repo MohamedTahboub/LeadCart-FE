@@ -60,10 +60,10 @@ const SideBar = ({
         <Link to='/customers'>Customers</Link>
         <Link to='/coupons'>Coupons</Link>
         <Link to='/upsells' >Upsells</Link>
-        <Link to='/fulfillments' >Fulfillment</Link>
+        <Link to='/fulfillment' >Fulfillment</Link>
         <Link to='/funnels' className='locked-feature'>Funnels</Link>
         <Link to='/affiliates' className='locked-feature'>Affiliates</Link>
-        {user.packageType === 'Agency' && <Link to='/agency'>Sub Accounts</Link>}
+        {user.packageType === 'Agency' && <Link to='/sub-accounts'>Sub-Accounts</Link>}
         <Link to='/settings/brand'>Settings</Link>
         <Link to='https://help.leadcart.io' external >Help</Link>
       </Menu>

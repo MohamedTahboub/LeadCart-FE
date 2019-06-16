@@ -50,7 +50,7 @@ import Transactions from './containers/Transactions';
 import CustomersLab from './containers/CustomersLab';
 import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
-import Agency from './containers/Agency';
+import SubAccounts from './containers/SubAccounts';
 import Help from './containers/Help';
 
 
@@ -94,11 +94,11 @@ ReactDOM.render(
                                 <Route path='/customers' component={CustomersLab} />
                                 <Route exact path='/coupons' component={Coupons} />
                                 <Route exact path='/upsells' component={Upsells} />
-                                <Route exact path='/fulfillments' component={Fulfillments} />
+                                <Route exact path='/fulfillment' component={Fulfillments} />
                                 <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
                                 <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
                                 <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
-                                <Route exact path='/agency' component={Agency} />
+                                <Route exact path='/sub-accounts' component={SubAccounts} />
                                 <Route path='/settings' component={Setting} />
                                 <Route exact path='/help' component={Help} />
                                 <Route exact path='*' component={FourOFour} />

@@ -9,13 +9,17 @@ import {
   RESET_COUPON_MODALE,
   DELETE_COUPON,
   DELETE_COUPON_SUCCESS,
-  DELETE_COUPON_FAILED
+  DELETE_COUPON_FAILED,
+  EDIT_COUPON,
+  EDIT_COUPON_SUCCESS,
+  EDIT_COUPON_FAILED
 } from 'constantsTypes';
 
 export const getCouponsList = (coupon) => ({
   type: GET_COUPONS_LIST,
   payload: coupon
 });
+
 export const createNewCoupon = (coupon, meta) => ({
   type: CREATE_NEW_COUPON,
   payload: coupon,
@@ -29,6 +33,22 @@ export const createNewCouponFailed = (coupon) => ({
   type: CREATE_NEW_COUPON_FAILED,
   payload: coupon
 });
+
+
+export const editCoupon = (coupon, meta) => ({
+  type: EDIT_COUPON,
+  payload: coupon,
+  meta
+});
+export const editCouponSuccess = (coupon) => ({
+  type: EDIT_COUPON_SUCCESS,
+  payload: coupon
+});
+export const editCouponFailed = (message) => ({
+  type: EDIT_COUPON_FAILED,
+  payload: message
+});
+
 
 export const changeCouponState = (coupon) => ({
   type: CHANGE_COUPON_STATE,

@@ -14,6 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== CHANGE_ACCOUNT_DETAILS && action.type !== CHANGE_ACCOUNT_PASSWORD) return next(action);
 
 
+  const { payload, meta = {} } = action;
   const options = {
     method: 'put',
     body: action.payload,
@@ -26,12 +27,18 @@ export default ({ dispatch }) => (next) => (action) => {
     onFailed: onChangeAccountDetailsFailed
   };
 
-
   if (action.type === CHANGE_ACCOUNT_PASSWORD) {
     options.uri = '/api/users/password';
     behaviors = {
-      onSuccess: onChangeAccounPasswordSuccess,
-      onFailed: onChangeAccounPasswordFailed
+      onSuccess: (args) => {
+        if (meta.onSuccess) meta.onSuccess(args);
+
+        return onChangeAccounPasswordSuccess(args);
+      },
+      onFailed: (message) => {
+        if (meta.onFailed) meta.onFailed(message);
+        return onChangeAccounPasswordFailed(message);
+      }
     };
   }
 
