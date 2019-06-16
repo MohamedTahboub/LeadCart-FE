@@ -22,7 +22,7 @@ const PaymentSelectionDemo = ({ method }) => {
   } else if (method === 3) {
     src = payOnDeliveryImage;
     classes = 'cod-image';
-  }else {
+  } else {
     return null;
   }
 
@@ -72,7 +72,7 @@ const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
         )}
         {methods.includes('COD') && (
           <RadioImageCard
-            title='Credit Cards'
+            title='Cash On Delivery'
             name='payment-type'
             image={cashOnDeliveryImage}
             onClick={() => setMethod(3)}
