@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import common from 'components/common';
 import { getCurrencySymbol } from 'libs';
 import { ReceiptRow } from './common';
+import { OrderOptions } from '.';
 const { Button } = common;
 
 const Order = ({
+  _id: orderId,
   orderCode,
   totalCharge,
   product: {
@@ -14,8 +16,9 @@ const Order = ({
   } = {}
 }) => {
   const [progress, setProgress] = useState(false);
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
 
-
+  const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
   const onRefund = () => {
     setProgress(true);
     setTimeout(() => {
@@ -49,22 +52,15 @@ const Order = ({
       <ReceiptRow
         className='receipt-total'
         label='total'
-        value={`${getCurrencySymbol(product.price && product.price.currency)} ${totalCharge}`}
+        value={`${currencySymbol} ${totalCharge}`}
       />
-      <div className='refund-btn'>
-        <Button
-          disabled={progress}
-          className='primary-color'
-          onClick={onRefund}
-          onprogress={progress}
-        >
-          {' '}
-          Refund Order (
-          {`${getCurrencySymbol(product.price && product.price.currency)}`}
-          {totalCharge}
-          )
-        </Button>
-      </div>
+      <OrderOptions
+        details={{
+          orderId, offer, product, currency: currencySymbol
+        }}
+        show={showMoreOptions}
+        onHide={() => setShowMoreOptions(false)}
+      />
     </div>
   );
 };

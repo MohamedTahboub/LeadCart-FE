@@ -39,3 +39,10 @@
   background: tomato;
   color:white
 }
+
+.btn.spinner::after{
+  right: 110%;
+  top: 29%;
+  left: unset;
+  margin: unset;
+}
