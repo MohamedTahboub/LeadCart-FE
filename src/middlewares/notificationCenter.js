@@ -164,7 +164,25 @@ export default ({ dispatch }) => (next) => (action) => {
     showSuccessMessage('Coupon has been updated successfully');
     break;
   case types.EDIT_COUPON_FAILED:
-    showSuccessMessage('Failed to update the coupon');
+    showFailureMessage('Failed to update the coupon');
+    break;
+  case types.RESEND_RECEIPT_EMAIL_SUCCESS:
+    showSuccessMessage('Receipt email sent successfully');
+    break;
+  case types.RESEND_RECEIPT_EMAIL_FAILED:
+    showFailureMessage('Failed to resend the receipt email');
+    break;
+  case types.RESEND_FULFILLMENT_EMAIL_SUCCESS:
+    showSuccessMessage('Fulfillment email sent successfully');
+    break;
+  case types.RESEND_FULFILLMENT_EMAIL_FAILED:
+    showFailureMessage('Failed to resend the fulfillment email');
+    break;
+  case types.ORDER_REFUND_SUCCESS:
+    showSuccessMessage('Order have been refunded successfully');
+    break;
+  case types.ORDER_REFUND_FAILED:
+    showFailureMessage(`${action.payload || 'Failed to Refund the order for some reson'}`);
     break;
   default:
     return next(action);

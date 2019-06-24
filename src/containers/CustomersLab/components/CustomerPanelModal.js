@@ -3,6 +3,7 @@ import { SlideModal } from 'components/Modals';
 import common from 'components/common';
 import Order from './Order';
 import { DetailRow } from './common';
+import { RoundTow } from 'libs';
 import './style.css';
 
 const {
@@ -52,7 +53,7 @@ const CustomerPanelModal = ({
       />
       <DetailRow
         label='life time charges'
-        value={`${lifeTimeCharges} $`}
+        value={`${RoundTow(lifeTimeCharges)} $`}
       />
       <div className='customer-history-title'>Orders History:</div>
       <div className='customer-orders-history'>
