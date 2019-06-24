@@ -15,7 +15,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
   dispatch(apiRequest({
     options: {
-      method: 'PUT',
+      method: 'POST',
       body: payload,
       uri: '/api/orders/refund',
       contentType: 'json'

@@ -62,5 +62,6 @@
 .notification-message{
     padding: 15px;
     color:gray;
+    white-space: pre-line;
     user-select: none;
 }

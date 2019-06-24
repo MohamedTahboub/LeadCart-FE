@@ -1,4 +1,4 @@
-import { RESEND_RECEIPT_EMAIL } from '../../constantsTypes';
+import { RESEND_FULFILLMENT_EMAIL} from '../../constantsTypes';
 
 import {
   resendFulfillmentEmailSuccess,
@@ -8,7 +8,7 @@ import {
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== RESEND_RECEIPT_EMAIL) return next(action);
+  if (action.type !== RESEND_FULFILLMENT_EMAIL) return next(action);
 
   const { payload, meta = {} } = action;
 

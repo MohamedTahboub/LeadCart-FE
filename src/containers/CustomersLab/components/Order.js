@@ -3,8 +3,8 @@ import common from 'components/common';
 import { getCurrencySymbol } from 'libs';
 import { ReceiptRow } from './common';
 import { OrderOptions } from '.';
+import { RoundTow } from 'libs';
 const { Button } = common;
-
 const Order = ({
   _id: orderId,
   orderCode,
@@ -15,16 +15,10 @@ const Order = ({
     ...product
   } = {}
 }) => {
-  const [progress, setProgress] = useState(false);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
-  const onRefund = () => {
-    setProgress(true);
-    setTimeout(() => {
-      setProgress(false);
-    }, 800);
-  };
+
   return (
     <div className='customer-order-card'>
       <div className='order-code'>{`#${product.name}`}</div>
@@ -52,7 +46,7 @@ const Order = ({
       <ReceiptRow
         className='receipt-total'
         label='total'
-        value={`${currencySymbol} ${totalCharge}`}
+        value={`${currencySymbol} ${RoundTow(totalCharge)}`}
       />
       <OrderOptions
         details={{
