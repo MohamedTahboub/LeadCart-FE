@@ -21,6 +21,7 @@
 /* Order styles */
 
 .customer-order-card {
+    position: relative;
     border-radius: 5px;
     padding: 15px;
     box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.2);
@@ -225,4 +226,14 @@ span.order-receipt-name span {
 .order-more-option-label{
     min-width: 90px;
     width: unset;
+}
+
+
+
+.order-payment-method-icon{
+    position: absolute;
+    right:20px;
+    top:20px;
+    font-size: 15px;
+    /* color:lightgray; */
 }
