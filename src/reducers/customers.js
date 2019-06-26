@@ -30,7 +30,6 @@ export default (state = initState, { type, payload }) => {
           if (payload.target === 'offer') order.offerPaymentRefunded = true;
 
 
-          console.log('TCL: order ========>', order);
           return order;
         });
         return customer;
