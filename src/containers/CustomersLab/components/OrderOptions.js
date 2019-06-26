@@ -15,14 +15,25 @@ const OrderOptions = ({
     orderId,
     offer,
     currency,
+    payment:{
+      paymentType,
+      paymentMethod,
+      paymentRefunded,
+      offerPaymentRefunded,
+      subscriptionCanceled
+    }={},
     product: {
       price: {
         amount: productPrice
-      } = {}
+      } = {},
     } = {}
   } = details
 
-
+  const [refundState , setRefundState]=useState({
+    paymentRefunded,
+      offerPaymentRefunded,
+      subscriptionCanceled
+  })
   const [loading, setLoading] = useState({})
   const [unfoldOptions, setUnfoldOptions] = useState(true);
 
@@ -31,6 +42,11 @@ const OrderOptions = ({
   }
   const onRefund = (target = 'product') => {
     const loadingName = target === 'product' ? 'refundProduct' : 'refundOffer'
+
+    const refundType = target === 'offer' ?
+     'offerPaymentRefunded'
+      : 
+      paymentType === 'Onetime'  ? 'paymentRefunded' : 'subscriptionCanceled'
     updateLoading({ [loadingName]: true })
     props.orderRefund({
       orderId,
@@ -39,6 +55,10 @@ const OrderOptions = ({
       {
         onSuccess: () => {
           updateLoading({ [loadingName]: false })
+          setRefundState({
+            ...refundState,
+            [refundType]:true  
+          })
         },
         onFailed: () => {
           updateLoading({ [loadingName]: false })
@@ -78,6 +98,13 @@ const OrderOptions = ({
       }
     )
   }
+
+  const notPaypal = paymentMethod !== 'Paypal'
+  const notCOD = paymentMethod !== 'COD'
+  const refundLabel = paymentType === 'Onetime' ? 'Refund' : 'Cancel Subscription' 
+  const isRefundedOrCanceled =  paymentType === 'Onetime' ? refundState.paymentRefunded : refundState.subscriptionCanceled
+  const isOfferPaymentRefunded = refundState.offerPaymentRefunded 
+
   return (
     <div>
       <div
@@ -88,10 +115,11 @@ const OrderOptions = ({
         {`show ${unfoldOptions ? 'more' : 'less'} options`}
       </div>
       <div className={`more-order-options ${unfoldOptions ? 'close' : 'open'}`}>
-        <InputRow className='order-more-option-row'>
-          <InputRow.Label className='order-more-option-label'>Refund</InputRow.Label>
+        {notCOD && (
+          <InputRow className='order-more-option-row'>
+          <InputRow.Label className='order-more-option-label'>{refundLabel}</InputRow.Label>
           <Button
-            disabled={loading.refundProduct}
+            disabled={loading.refundProduct || isRefundedOrCanceled}
             className='primary-color more-order-options-btns'
             onClick={() => onRefund()}
             onprogress={loading.refundProduct}
@@ -99,20 +127,21 @@ const OrderOptions = ({
             {`Product ${currency}${productPrice}`}
           </Button>
 
-          {offer.price && (<Button
+          {(offer.price && notPaypal) && (<Button
             disabled={loading.refundOffer}
             className='primary-color more-order-options-btns'
             onClick={() => onRefund('offer')}
             onprogress={loading.refundOffer}
           >
-            {`Offer ${currency}${offer.price}`}
+            {`Refund Offer ${currency}${offer.price}`}
           </Button>
           )}
         </InputRow>
+        )}
         <InputRow className='order-more-option-row'>
           <InputRow.Label className='order-more-option-label' >Resend Receipt Email</InputRow.Label>
           <Button
-            disabled={loading.resendReceipt}
+            disabled={loading.resendReceipt || isOfferPaymentRefunded}
             className='primary-color more-order-options-btns'
             onClick={onResendReceiptEmail}
             onprogress={loading.resendReceipt}
