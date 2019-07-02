@@ -1,14 +1,14 @@
-import { ORDER_REFUND } from 'constantsTypes';
+import { RESEND_RECEIPT_EMAIL } from '../../constantsTypes';
 
 import {
-  orderRefundSuccess,
-  orderRefundFailed
-} from 'actions/customer';
+  resendReceiptEmailSuccess,
+  resendReceiptEmailFailed,
+} from '../../actions/customer';
 
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== ORDER_REFUND) return next(action);
+  if (action.type !== RESEND_RECEIPT_EMAIL) return next(action);
 
   const { payload, meta = {} } = action;
 
@@ -17,17 +17,17 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/orders/refund',
+      uri: '/api/orders/receipt',
       contentType: 'json'
     },
     onSuccess: (data) => {
       if (meta.onSuccess) meta.onSuccess(data);
-      return orderRefundSuccess(payload);
+      return resendReceiptEmailSuccess(payload);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
 
-      return orderRefundFailed(message);
+      return resendReceiptEmailFailed(message);
     }
   }));
 };
