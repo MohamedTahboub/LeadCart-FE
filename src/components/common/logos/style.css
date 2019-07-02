@@ -24,10 +24,20 @@
   font-weight: bold;
   color: white;
 }
+.header-logo{
+  background: #4DA1FF;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  /* width: 100%; */
+  padding:8px 12px;
+  padding-right: 25px;
+  cursor: pointer;
+}
 
 .announcekit-widget{
   position: absolute;
-  right: -20px;
+  right: -10px;
   /* top:calc(50% - .5em); */
   color:white;
   cursor: pointer;

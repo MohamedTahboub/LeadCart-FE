@@ -46,3 +46,11 @@
   left: unset;
   margin: unset;
 }
+
+span.primary-btn{
+  background: #4DA1FF;
+  font-weight: inherit;
+  padding: 5px 8px;
+  margin:0 5px;
+  font-size: 13px;
+}

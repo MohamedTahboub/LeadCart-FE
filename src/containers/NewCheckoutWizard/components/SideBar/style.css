@@ -1,0 +1,32 @@
+.checkout-nav-sidebar{
+    position: absolute;
+    top:48px;
+    left: 0px;
+    bottom: 0px;
+}
+.side-buttons-container{
+
+    position: relative;
+    height: 100%;
+    width: 50%;
+    background: #4DA1FF;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding:20px 0;
+}
+
+.side-button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:white;
+    font-size: 11px;
+    padding: 10px 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.side-button.active{
+    background: #0478fb;
+}
