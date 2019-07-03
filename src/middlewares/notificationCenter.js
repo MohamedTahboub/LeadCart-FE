@@ -182,7 +182,7 @@ export default ({ dispatch }) => (next) => (action) => {
     showSuccessMessage('Order have been refunded successfully');
     break;
   case types.ORDER_REFUND_FAILED:
-    showFailureMessage(`${action.payload || 'Failed to Refund the order for some reson'}`);
+    showFailureMessage('Failed to refund order. Product/Offer may not Exist');
     break;
   default:
     return next(action);
