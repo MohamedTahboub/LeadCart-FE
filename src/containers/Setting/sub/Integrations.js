@@ -182,6 +182,11 @@ class Integrations extends Component {
             onClick={() => { }}
             imgSrc={brandsLogos.infusionSoft}
           />
+          <MediumCard
+            disabled
+            onClick={() => { }}
+            imgSrc={brandsLogos.mooSend}
+          />
         </CardsContainer>
 
         <MainTitle style={{ marginTop: '20px' }}>
