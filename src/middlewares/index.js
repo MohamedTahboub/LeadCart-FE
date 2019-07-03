@@ -22,6 +22,7 @@ import formsValidations from './formsValidations'
 import upsells from './upsell'
 import fulfillments from './fulfillments'
 import emails from './emails'
+import customers from './customers'
 // exporting the middlewares as an array 
 export default [
     appInit,
@@ -40,6 +41,7 @@ export default [
     ...coupon,
     upadteUserImage,
     ...emails,
+    ...customers,
     teamMembers,
     agencyCodeActivation,
     ...subAccounts,
