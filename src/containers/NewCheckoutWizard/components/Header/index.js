@@ -1,50 +1,130 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import { desktopIcon, mobileIcon, ipadIcon } from '../Icons';
-
+import config from 'config';
 import './style.css';
+import ShareProductModal from 'components/ShareProductModal';
+import ScriptsModal from 'components/ScriptsModal';
+
+const { USER_SUB_DOMAIN_URL } = config;
 const {
   HeaderLogo,
   Button,
   ActivationSwitchInput
 } = common;
 
-const DisplayMode = ({ onChange }) => (
-  <div className='display-controls'>
-    <i className='fas fa-desktop zoom-effect display-mode-icon active' />
-    <i className='fas fa-tablet-alt zoom-effect display-mode-icon' />
-    <i className='fas fa-mobile-alt zoom-effect display-mode-icon' />
-  </div>
-);
-const Header = (props) => (
-  <div className='checkout-header'>
-    <HeaderLogo />
-    <ActivationSwitchInput />
-    <DisplayMode />
-    <div className='header-buttons'>
-      <Button className='primary-btn '>
-        <i className='fas fa-code' />
-        Show Scripts
-      </Button>
-      <Button className='primary-btn '>
-        <i className='fas fa-share-square' />
-        Share
-      </Button>
-      <Button className='primary-btn '>
-        <i className='fas fa-eye' />
-        Share
-      </Button>
-      <Button className='primary-btn '>
-        <i className='fas fa-save' />
-        Share
-      </Button>
+const DisplayMode = ({ onChange, type }) => {
+  const Icon = ({
+    type, onChange, iconClassName, activeType
+  }) => (
+    <i
+      onClick={() => onChange(type)}
+      className={`fas fa-${iconClassName} zoom-effect display-mode-icon ${activeType === type ? 'active' : ''}`}
+      role='presentation'
+    />
+  );
+  return (
+    <div className='display-controls'>
+      <Icon
+        onChange={onChange}
+        type='desktop'
+        activeType={type}
+        iconClassName='desktop'
+      />
+      <Icon
+        onChange={onChange}
+        type='tablet'
+        activeType={type}
+        iconClassName='tablet-alt'
+      />
+      <Icon
+        onChange={onChange}
+        type='mobile'
+        activeType={type}
+        iconClassName='mobile-alt'
+      />
     </div>
-  </div>
-);
+  );
+};
+
+const Header = ({
+  onDisplayChange,
+  type,
+  onChange,
+  product,
+  subdomain,
+  onSave,
+  ...props
+}) => {
+  const [showModal, setShowModal] = useState({});
+
+  const onPreview = () => {
+    const { url } = product;
+    const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
+    window.open(productUrl, '_blank');
+  };
+
+  const onShowScripts = () => {
+    setShowModal({ scripts: true });
+  };
+
+  const onShowShare = () => {
+    setShowModal({ share: true });
+  };
+  const onCloseModal = () => {
+    setShowModal({});
+  };
+
+  return (
+    <div className='checkout-header'>
+      <HeaderLogo />
+      <ActivationSwitchInput />
+      <DisplayMode onChange={onDisplayChange} type={type} />
+      <div className='header-buttons'>
+        <Button onClick={onShowScripts} className='primary-btn '>
+          <i className='fas fa-code' />
+          Embed Scripts
+        </Button>
+        <Button onClick={onShowShare} className='primary-btn '>
+          <i className='fas fa-share-square' />
+          Share
+        </Button>
+        <Button onClick={onPreview} className='primary-btn '>
+          <i className='fas fa-eye' />
+          Preview
+        </Button>
+        <Button onClick={onSave} className='primary-btn '>
+          <i className='fas fa-save' />
+          Save
+        </Button>
+      </div>
+      <ShareProductModal
+        isVisible={showModal.share}
+        onClose={onCloseModal}
+        subdomain={subdomain}
+        productUrl={product.url}
+      />
+      <ScriptsModal
+        isVisible={showModal.scripts}
+        scripts={product.scripts}
+        onChange={onChange}
+        onClose={onCloseModal}
+      />
+    </div>
+  );
+};
 
 Header.propTypes = {
+  onDisplayChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
+  subdomain: PropTypes.string.isRequired,
+  product: PropTypes.objectOf({}),
+};
 
+Header.defaultProps = {
+  product: {}
 };
 
 export default Header;

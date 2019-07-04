@@ -1,0 +1,27 @@
+.checkout-wizard-container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background: #f1f1f1;
+    padding: 50px;
+    padding-top: 20px;
+}
+
+.checkout-wizard-page.loading {
+    position: relative;
+    filter:blur(8px);
+}
+.loading-layer {
+    background-color:rgba(0,0,0,0.3);
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom: 0px;
+    z-index: 20000;
+}
+.editable-product-form-container.mobile{
+    width: 375px;
+    height: 667px;
+    flex:unset;
+}

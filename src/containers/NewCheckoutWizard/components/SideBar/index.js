@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
+import Menus from './Menus';
+
 import {
   AppearanceIcon,
   conversionsBoostersIcon,
@@ -28,43 +31,58 @@ const SideButton = ({
   </div>
 );
 
-const SideButtons = ({ active, onClick }) => {
-  const Button = (props) => <SideButton active={active} onClick={onClick} {...props} />;
-  return (
-    <div className='side-buttons-container'>
-      <Button
-        image={AppearanceIcon}
-        id='appearance'
-        label='appearance'
-      />
-      <Button
-        image={conversionsBoostersIcon}
-        id='conversionsBoosters'
-        label='Conversion Boosters'
-      />
-      <Button
-        image={fulfillmentIcon}
-        id='fulfillment'
-        label='fulfillment'
-      />
-      <Button
-        image={bumpOfferIcon}
-        id='bumpOffer'
-        label='Bump Offer'
-      />
-      <Button
-        image={couponIcon}
-        id='coupon'
-        label='Coupons'
-      />
+const SideButtons = ({ active, onClick }) => (
+  <div className='side-buttons-container'>
+    <SideButton
+      active={active}
+      onClick={onClick}
+      image={AppearanceIcon}
+      id='appearance'
+      label='appearance'
+    />
+    <SideButton
+      active={active}
+      onClick={onClick}
+      image={conversionsBoostersIcon}
+      id='conversionsBoosters'
+      label='Conversion Boosters'
+    />
+    <SideButton
+      active={active}
+      onClick={onClick}
+      image={fulfillmentIcon}
+      id='fulfillment'
+      label='fulfillment'
+    />
+    <SideButton
+      active={active}
+      onClick={onClick}
+      image={bumpOfferIcon}
+      id='bumpOffer'
+      label='Bump Offer'
+    />
+    <SideButton
+      active={active}
+      onClick={onClick}
+      image={couponIcon}
+      id='coupon'
+      label='Coupons'
+    />
 
-    </div>
-  );
-};
+  </div>
+);
+
+
 const SideBar = (props) => {
-  const [activeMenuItem, setActiveMenuItem] = useState('appearance');
+  const [activeMenuItem, setActiveMenuItem] = useState('');
+  const [open, setOpen] = useState(false);
 
   const onActivateMenuItem = (item) => {
+    if (item === activeMenuItem) {
+      if (open) setOpen(false);
+      else setOpen(true);
+    } else {setOpen(true);}
+
     setActiveMenuItem(item);
   };
   return (
@@ -72,7 +90,9 @@ const SideBar = (props) => {
 
       <SideButtons active={activeMenuItem} onClick={onActivateMenuItem} />
 
-      <div className='side-menu-container' />
+      <div className={`side-menu-container ${open ? 'open' : ''}`}>
+        <Menus activeMenu={activeMenuItem} {...props} />
+      </div>
     </div>
   );
 };
