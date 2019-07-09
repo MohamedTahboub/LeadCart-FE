@@ -34,6 +34,7 @@ const Headers = ({
     const url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${productUrl}`;
     openNewWindow(url);
   };
+
   if (isNew) return null;
   return (
     <div className='product-form-settings-headers bottom-breakline'>

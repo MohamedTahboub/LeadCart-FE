@@ -8,7 +8,7 @@ import common from 'components/common';
 import ProductModal from '../Product/ProductModal'
 import config from 'config';
 import ids from 'shortid'
-
+import PrecreateProductModals from 'components/PrecreateProductModals'
 
 import productSample from 'data/product.json';
 
@@ -39,7 +39,7 @@ const Products = ({
 
   const [showDelete, setShowDelete] = useState('')
   const [showProductForm, setShowProductForm] = useState({})
-
+  const [showCreateModal,setShowProductModal]=useState(false)
 
   const onProductPreview = (url) => {
     const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
@@ -101,7 +101,7 @@ const Products = ({
     <Page>
       <PageHeader>
         <MainTitle>Products</MainTitle>
-        <Button onClick={onCreateNewProduct} className='primary-color'>
+        <Button onClick={()=>setShowProductModal(true)} className='primary-color'>
           <i className='fas fa-plus' />
           new product
           </Button>
@@ -120,6 +120,8 @@ const Products = ({
         ))
           : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
         }
+        <PrecreateProductModals show={showCreateModal} {...props}/>
+
       </PageContent>
 
       <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
@@ -134,14 +136,6 @@ const Products = ({
           Delete
           </Button>
       </Modal>
-      {showProductForm.show && (
-        <ProductModal
-          isNew={showProductForm.isNewForm}
-          product={showProductForm.product}
-          onClose={onCloseProductForm}
-          isVisible
-        />
-      )}
     </Page>
   );
 };
