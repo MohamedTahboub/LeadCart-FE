@@ -325,3 +325,17 @@ export const FulfillmentCard = ({
     </div>
   </EasyAnimate>
 );
+
+
+export const CategoryCard = ({
+  className = '',
+  image,
+  label,
+  onClick,
+  ...props
+}) => (
+  <div onClick={onClick} className={`category-card-holder ${className}`}>
+    <img src={image} alt={label} className='category-card-image' />
+    <div className='category-card-title'>{label}</div>
+  </div>
+);

@@ -434,5 +434,53 @@ span.medium-card-headline {
 
 
 
+.category-card-holder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    width: 250px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.13);
+    transition: all .2s ease-in-out;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.category-card-holder.disabled{
+    filter:grayscale(.7);
+    opacity: .9;
+    cursor: not-allowed;
+}
+.category-card-holder:active:not(.disabled){
+    opacity: .8;
+}
+.category-card-holder:hover:not(.disabled){
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.3);
+}
+
+.category-card-image{
+    width: 35px;
+    height: auto;
+    max-height: 50%;
+}
+
+.category-card-title{
+    text-align: center;
+    margin-top: 10px;
+    color: #4DA1FF;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+}
 
 
+
+.box-shadow{
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.13);
+    transition:box-shadow .3s ease-in-out;
+}
+.box-shadow:hover:not(.disabled){
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.3);
+}

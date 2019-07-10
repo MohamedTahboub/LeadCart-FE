@@ -43,8 +43,7 @@
         "logo": "logo",
         "presetColors": "#0693E3",
         "template": "temp1",
-        "guaranteed": true,
-        "featuresTitle": "List Of Product Features"
+        "guaranteed": true
     },
     "offer": {
         "enabled": true,
@@ -52,7 +51,6 @@
         "introText": "Use Leadcart For Your Clients Sites & Profit Today!",
         "name": "Client Licenses",
         "price": 297,
-        "successUrl": "https://example.com",
         "title": "YES! I Want one of the Limited 'Client Licenses'",
         "style": {
             "containerBackground": "white",
@@ -68,7 +66,6 @@
     "coupons": {
         "enabled": true
     },
-    "isActive": true,
     "available": true,
     "name": "Product Name",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus nisi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus ",
