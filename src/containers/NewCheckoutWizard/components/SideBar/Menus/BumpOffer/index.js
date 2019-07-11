@@ -15,6 +15,7 @@ const castFulfillmentList = (fulfillments) => fulfillments.map(({ name: label, _
 const {
   Collapse,
   MiniTwitterPicker,
+  FulfillmentRowCard,
   InputRow
 } = common;
 
@@ -40,11 +41,20 @@ const BumpOffer = ({
       }
     });
   };
+
+  const onFulfillmentChange = (fulfillmentId) => () => {
+    onChange({
+      target: {
+        name: 'offer.fulfillment',
+        value: fulfillmentId
+      }
+    });
+  };
   return (
     <MenuItem>
       <MenuTitle>Bump Offer</MenuTitle>
       <MenuContent>
-        <Collapse defaultActiveKey={['1']}>
+        <Collapse defaultActiveKey={['1', '3']}>
           <Panel header='Offer General Settings' key='1'>
             <InputRow>
               <InputRow.Label description='This will appear on your cart page,this is just for presentation purpose'>
@@ -68,17 +78,18 @@ const BumpOffer = ({
                 currency='$'
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>Fulfillment</InputRow.Label>
-              <InputRow.SearchInput
-                // size='small'
-
-                onChange={onChange}
-                options={castFulfillmentList(fulfillments)}
-                defaultValue={fulfillment}
-                name='offer.fulfillment'
+          </Panel>
+          <Panel header='Fulfillment' className='offer-fulfillment-panel' key='2'>
+            {fulfillments.map((ful) => (
+              <FulfillmentRowCard
+                key={ful._id}
+                activeFulfillment={fulfillment}
+                onSelect={onFulfillmentChange}
+                {...ful}
               />
-            </InputRow>
+            ))}
+          </Panel>
+          <Panel header='Appearance' className='offer-appearance-panel' key='3'>
             <InputRow>
               <InputRow.Label>
                 Background:
@@ -88,6 +99,8 @@ const BumpOffer = ({
                 value={style.containerBackground}
                 onChange={onStyleChange}
               />
+            </InputRow>
+            <InputRow>
               <InputRow.Label>
                 Container text:
               </InputRow.Label>
@@ -95,6 +108,92 @@ const BumpOffer = ({
                 name='containerTextColor'
                 value={style.containerTextColor}
                 onChange={onStyleChange}
+              />
+            </InputRow>
+            <InputRow>
+              <InputRow.Label>
+                Header Background:
+              </InputRow.Label>
+              <MiniTwitterPicker
+                name='headerBackground'
+                value={style.headerBackground}
+                onChange={onStyleChange}
+              />
+            </InputRow>
+            <InputRow>
+              <InputRow.Label>
+                Header text:
+              </InputRow.Label>
+              <MiniTwitterPicker
+                name='headerTextColor'
+                value={style.headerTextColor}
+                onChange={onStyleChange}
+              />
+            </InputRow>
+            <InputRow>
+              <InputRow.Label>
+                Border Color:
+              </InputRow.Label>
+              <MiniTwitterPicker
+                name='borderColor'
+                value={style.borderColor}
+                onChange={onStyleChange}
+              />
+
+            </InputRow>
+            <InputRow>
+              <InputRow.Label>
+                Border Style:
+              </InputRow.Label>
+              <InputRow.SelectOption
+                value={style.borderStyle}
+                name='borderStyle'
+                onChange={onStyleChange}
+                className='bump-offer-style-dropdown'
+                options={[
+                  { label: 'Solid', value: 'solid' },
+                  { label: 'Dashed', value: 'dashed' }
+                ]}
+              />
+            </InputRow>
+            <InputRow>
+              <InputRow.Label>
+                Border Width:
+              </InputRow.Label>
+              <InputRow.SelectOption
+                value={style.borderWidth}
+                name='borderWidth'
+                onChange={onStyleChange}
+                className='bump-offer-style-dropdown'
+                options={[
+                  { label: '0 px', value: '0' },
+                  { label: '1 px', value: '1' },
+                  { label: '2 px', value: '2' },
+                  { label: '3 px', value: '3' },
+                  { label: '4 px', value: '4' }
+                ]}
+              />
+            </InputRow>
+
+            <InputRow>
+              <InputRow.Label>
+                Border Radius:
+              </InputRow.Label>
+              <InputRow.SelectOption
+                value={style.borderRadius}
+                name='borderRadius'
+                onChange={onStyleChange}
+                className='bump-offer-style-dropdown'
+                options={[
+                  { label: '0 px', value: '0' },
+                  { label: '1 px', value: '1' },
+                  { label: '2 px', value: '2' },
+                  { label: '3 px', value: '3' },
+                  { label: '4 px', value: '4' },
+                  { label: '5 px', value: '5' },
+                  { label: '6 px', value: '6' },
+                  { label: '7 px', value: '7' },
+                ]}
               />
             </InputRow>
           </Panel>

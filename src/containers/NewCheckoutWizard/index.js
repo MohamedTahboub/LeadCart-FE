@@ -47,6 +47,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
 
   useEffect(() => {
     const { url } = props.match.params
+    console.log(props)
     const product = products.find(({ url: u }) => u === url) || {}
     setFields(product);
     if(product._id)
@@ -105,7 +106,8 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
     {loading.product && (
       <div className="loading-layer">
       <div className="loading-message">Setting Up...</div>
-      </div>)}
+      </div>
+      )}
     <div className={`checkout-wizard-page ${loading.product ? 'loading' : ''}`}>
       <Header
         onChange={onChange}
@@ -114,6 +116,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
         subdomain={subdomain}
         product={fields}
         onSave={onSave}
+        history={props.history}
       />
       <SideBar onChange={onChange} product={fields} />
       <div className="checkout-wizard-container" >
@@ -131,11 +134,12 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
 };
 
 NewCheckoutWizard.propTypes = {
-
+  history:PropTypes.objectOf({})
 };
 
 NewCheckoutWizard.defaultProps = {
-  products: []
+  products: [],
+  history:{}
 }
 
 const mapStateToProps = ({

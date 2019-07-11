@@ -339,3 +339,58 @@ export const CategoryCard = ({
     <div className='category-card-title'>{label}</div>
   </div>
 );
+
+
+export const FulfillmentRowCard = ({
+  _id: id,
+  activeFulfillment,
+  name,
+  onSelect,
+  type
+}) => (
+  <div
+    onClick={onSelect(id)}
+    className={`sidebar-fulfillment-card ${activeFulfillment === id ? 'active' : ''}`}
+  >
+    <Avatar name={name} className='sidebar-profile-avatar' />
+    <div className='sidebar-fulfillment-card-details'>
+      <div className='sidebar-fulfillment-card-name'>{name}</div>
+      <div className='sidebar-fulfillment-card-type'>{type}</div>
+    </div>
+  </div>
+);
+
+export const CouponRowCard = ({
+  _id: id,
+  code,
+  discount: {
+    type,
+    amount,
+    percent
+  } = {},
+  onToggleStatus,
+  active,
+}) => (
+  <div
+    className='sidebar-fulfillment-card sidebar-custom-coupons-card'
+  >
+    <Avatar name={code} className='sidebar-profile-avatar' />
+    <div className='sidebar-fulfillment-card-details'>
+      <div className='sidebar-fulfillment-card-name'>{code}</div>
+      <div className='menu-coupon-type'>
+        <span className='type'>
+          {type}
+          {' '}
+=>
+        </span>
+        <span className='value'>{type === 'Flat' ? ` $${amount}` : `${percent}%`}</span>
+      </div>
+    </div>
+    <SmallButton
+      onClick={() => onToggleStatus({ couponId: id, active: !active })}
+      className={active ? 'green-color' : 'gray-color'}
+    >
+      {`${active ? 'Active' : 'Inactive'}`}
+    </SmallButton>
+  </div>
+);

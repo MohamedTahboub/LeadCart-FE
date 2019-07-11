@@ -12,7 +12,10 @@ import tempImage6 from 'assets/images/checkout_templates/temp_6.png';
 
 import './style.css';
 import {
-  MenuItem, MenuTitle, MenuContent, MenuFlexContent
+  MenuItem, 
+  MenuTitle,
+   MenuContent,
+    MenuFlexContent
 } from '../MenuElements';
 
 const { Collapse, TwitterPicker } = common;

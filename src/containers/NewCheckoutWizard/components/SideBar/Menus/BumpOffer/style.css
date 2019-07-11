@@ -3,3 +3,7 @@
     width: 150px;
     margin-right: 0px;
 }
+
+.offer-fulfillment-panel .ant-collapse-content > .ant-collapse-content-box{
+    padding: 10px 0;
+}

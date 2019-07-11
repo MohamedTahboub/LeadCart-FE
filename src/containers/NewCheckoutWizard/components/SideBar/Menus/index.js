@@ -4,6 +4,7 @@ import ConversionBoosters from './ConversionBoosters';
 import Fulfillment from './Fulfillment';
 import BumpOffer from './BumpOffer';
 import Coupons from './Coupons';
+import Settings from './Settings';
 
 
 export default ({ activeMenu, ...props }) => {
@@ -14,6 +15,7 @@ export default ({ activeMenu, ...props }) => {
   case 'fulfillment': return <Fulfillment {...props} />;
   case 'bumpOffer': return <BumpOffer {...props} />;
   case 'coupon': return <Coupons {...props} />;
+  case 'settings': return <Settings {...props} />;
 
   default: return <Appearance {...props} />;
   }

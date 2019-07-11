@@ -9,26 +9,8 @@ import {
 
 import './style.css';
 
-const { Avatar } = common;
+const { FulfillmentRowCard } = common;
 
-const FulfillmentRowCard = ({
-  _id: id,
-  activeFulfillment,
-  name,
-  onSelect,
-  type
-}) => (
-  <div
-    onClick={onSelect(id)}
-    className={`sidebar-fulfillment-card ${activeFulfillment === id ? 'active' : ''}`}
-  >
-    <Avatar name={name} className='sidebar-profile-avatar' />
-    <div className='sidebar-fulfillment-card-details'>
-      <div className='sidebar-fulfillment-card-name'>{name}</div>
-      <div className='sidebar-fulfillment-card-type'>{type}</div>
-    </div>
-  </div>
-);
 const Fulfillments = ({
   product: { fulfillment } = {},
   fulfillments,

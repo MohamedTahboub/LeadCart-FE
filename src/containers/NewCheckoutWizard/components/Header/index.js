@@ -53,6 +53,7 @@ const Header = ({
   onChange,
   product,
   subdomain,
+  history,
   onSave,
   ...props
 }) => {
@@ -75,10 +76,24 @@ const Header = ({
     setShowModal({});
   };
 
+  const onToggleAvailability = () => {
+    onChange({
+      target: {
+        name: 'available',
+        value: !product.available
+      }
+    });
+  };
+  const navigateToHome = () => {
+    history.push('/');
+  };
+
   return (
     <div className='checkout-header'>
-      <HeaderLogo />
-      <ActivationSwitchInput />
+      <HeaderLogo
+        onClick={navigateToHome}
+      />
+      <ActivationSwitchInput active={product.available} onToggle={onToggleAvailability} />
       <DisplayMode onChange={onDisplayChange} type={type} />
       <div className='header-buttons'>
         <Button onClick={onShowScripts} className='primary-btn '>
@@ -120,11 +135,13 @@ Header.propTypes = {
   onSave: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   subdomain: PropTypes.string.isRequired,
+  history: PropTypes.objectOf({}),
   product: PropTypes.objectOf({}),
 };
 
 Header.defaultProps = {
-  product: {}
+  history: {},
+  product: {},
 };
 
 export default Header;
