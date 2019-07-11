@@ -1,0 +1,87 @@
+.checkout-nav-sidebar{
+    position: absolute;
+    top:48px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1;
+}
+.side-buttons-container{
+
+    position: relative;
+    height: 100%;
+    width: 50%;
+    background: #4DA1FF;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding:20px 0;
+    padding-top: 0;
+    z-index: 1010;
+}
+
+.side-button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:white;
+    font-size: 11px;
+    padding: 10px 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.side-button.active:hover,
+.side-button.active{
+    background: #0478fb;
+}
+.side-button:active,
+.side-button:hover{
+    background: #1e85fb;
+}
+
+
+.side-menu-container{
+    position: absolute;
+    top: 0px;
+    left: 65px;
+    bottom: 0px;
+    width: 280px;
+    background: rgb(255, 255, 255);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-positive: 1;
+    /* flex-grow: 1; */
+    padding: 20px 0;
+    padding-top: 0px;
+    box-shadow: 2px 4px 4px 2px rgba(0,0,0,0.08);
+    z-index: 1000;
+    transform: translateX(-282px);
+    transition:transform .4s ease-in-out;
+
+}
+.side-menu-container.open{
+    transform: translateX(0px);
+}
+
+
+/* .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    background: #4DA1FF;
+    color:white;
+} */
+.ant-collapse > .ant-collapse-item > div.ant-collapse-header:focus,
+.ant-collapse > .ant-collapse-item > div.ant-collapse-header:active{
+    background: lightgray;
+} 
+
+
+.side-button.checkout-wizard-setting-btn {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+.checkout-wizard-setting-btn img.side-button-image{
+    height: 20px;
+    margin: 5px 0px;
+}

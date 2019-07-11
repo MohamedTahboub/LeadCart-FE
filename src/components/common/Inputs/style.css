@@ -364,11 +364,11 @@ input[type="radio"]{
     text-transform: uppercase;
 }
 .activability-switch:before{
-    content:'active';
+    content:'Live';
     right:-60px;
 }
 .activability-switch:after{
-    content:'inactive';
+    content:'Sandbox';
     left:-76px;
 }
 .switch-slider-input input {display:none;}

@@ -1,0 +1,11 @@
+.categories-cards-container{
+    display: flex;
+    justify-content: space-evenly;
+    width: 580px;
+    flex-wrap: wrap;
+}
+
+.transparent-bg{
+    background: transparent;
+    background-color: transparent;
+}

@@ -11,7 +11,10 @@ class App extends React.Component {
     return (
 
       <Collapsible
-        open onOpening={this.onOpening} trigger={this.props.title} easing='ease-in-out'
+        open
+        onOpening={this.onOpening}
+        trigger={this.props.title}
+        easing='ease-in-out'
         {...this.props}
       >
         {this.props.children}

@@ -434,5 +434,109 @@ span.medium-card-headline {
 
 
 
+.category-card-holder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    width: 250px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.13);
+    transition: all .2s ease-in-out;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.category-card-holder.disabled{
+    filter:grayscale(.7);
+    opacity: .9;
+    cursor: not-allowed;
+}
+.category-card-holder:active:not(.disabled){
+    opacity: .8;
+}
+.category-card-holder:hover:not(.disabled){
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.3);
+}
+
+.category-card-image{
+    width: 35px;
+    height: auto;
+    max-height: 50%;
+}
+
+.category-card-title{
+    text-align: center;
+    margin-top: 10px;
+    color: #4DA1FF;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+}
 
 
+
+.box-shadow{
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.13);
+    transition:box-shadow .3s ease-in-out;
+}
+.box-shadow:hover:not(.disabled){
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* FUlfillment Card Styles */
+.sidebar-fulfillment-card {
+    display: flex;
+    padding: 15px 10px;
+}
+.sidebar-fulfillment-card.active{
+    position: relative;
+    background:#d3d3d363;
+    opacity: .8;
+}
+
+.sidebar-fulfillment-card.active::after {
+    position: absolute;
+    top: 37%;
+    right:10px;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 20px;
+    content: "\F058";
+    color: #30e030b5;
+}
+
+.sidebar-fulfillment-card:hover{
+    background:#d3d3d363;
+    cursor: pointer;
+}
+.sidebar-fulfillment-card-details {
+    margin-left: 8px;
+}
+
+.sidebar-fulfillment-card-type {
+    font-size: 12px;
+    color: gray;
+    text-transform: capitalize;
+}
+/* FUlfillment Card Styles Ends*/
+
+
+
+.sidebar-custom-coupons-card{
+    justify-content: space-between;
+}
+
+.menu-coupon-type{
+    font-size: 12px;
+}
+.menu-coupon-type .type{
+    color:gray;
+    text-transform: capitalize;
+}
+.menu-coupon-type .value{
+    margin-left: 10px;
+}

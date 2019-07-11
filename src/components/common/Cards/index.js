@@ -57,7 +57,7 @@ export const MediumCard = ({
 export const Avatar = ({
   className: classname, style = {}, imageSrc, name = ''
 }) => {
-  const className = classname ? `product-name-avatar${classname}` : 'product-name-avatar';
+  const className = classname ? `product-name-avatar ${classname}` : 'product-name-avatar';
   const [firstWord = '', secondeWord = ''] = name.trim().split(' ');
   const words = (`${firstWord[0]}${secondeWord[0]}`).toUpperCase();
   const backgroundColor = generateColor(words);
@@ -324,4 +324,73 @@ export const FulfillmentCard = ({
       </span>
     </div>
   </EasyAnimate>
+);
+
+
+export const CategoryCard = ({
+  className = '',
+  image,
+  label,
+  onClick,
+  ...props
+}) => (
+  <div onClick={onClick} className={`category-card-holder ${className}`}>
+    <img src={image} alt={label} className='category-card-image' />
+    <div className='category-card-title'>{label}</div>
+  </div>
+);
+
+
+export const FulfillmentRowCard = ({
+  _id: id,
+  activeFulfillment,
+  name,
+  onSelect,
+  type
+}) => (
+  <div
+    onClick={onSelect(id)}
+    className={`sidebar-fulfillment-card ${activeFulfillment === id ? 'active' : ''}`}
+  >
+    <Avatar name={name} className='sidebar-profile-avatar' />
+    <div className='sidebar-fulfillment-card-details'>
+      <div className='sidebar-fulfillment-card-name'>{name}</div>
+      <div className='sidebar-fulfillment-card-type'>{type}</div>
+    </div>
+  </div>
+);
+
+export const CouponRowCard = ({
+  _id: id,
+  code,
+  discount: {
+    type,
+    amount,
+    percent
+  } = {},
+  onToggleStatus,
+  active,
+}) => (
+  <div
+    className='sidebar-fulfillment-card sidebar-custom-coupons-card'
+  >
+    <Avatar name={code} className='sidebar-profile-avatar' />
+    <div className='sidebar-fulfillment-card-details'>
+      <div className='sidebar-fulfillment-card-name'>{code}</div>
+      <div className='menu-coupon-type'>
+        <span className='type'>
+          {type}
+          {' '}
+=>
+        </span>
+        <span className='value'>{type === 'Flat' ? ` $${amount}` : `${percent}%`}</span>
+      </div>
+    </div>
+    <SmallButton
+      onClick={() => onToggleStatus({ couponId: id, active: !active })}
+      className={active ? 'green-color' : 'gray-color'}
+    >
+      {`${active ? 'Active' : 'Inactive'}`}
+    </SmallButton>
+  </div>
 );
