@@ -11,4 +11,5 @@ export { default as pricingIcon } from '../../../../assets/images/icons/pricing.
 export { default as desktopIcon } from '../../../../assets/images/icons/desktop.svg';
 export { default as ipadIcon } from '../../../../assets/images/icons/ipad.svg';
 export { default as mobileIcon } from '../../../../assets/images/icons/mobile.svg';
+export { default as settingsIcon } from '../../../../assets/images/icons/cogs-solid.svg';
 

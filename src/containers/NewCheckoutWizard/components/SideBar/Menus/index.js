@@ -7,6 +7,7 @@ import Coupons from './Coupons';
 
 
 export default ({ activeMenu, ...props }) => {
+  console.log('activeMenu==>',activeMenu)
   switch (activeMenu) {
   case 'appearance': return <Appearance {...props} />;
   case 'conversionsBoosters': return <ConversionBoosters {...props} />;

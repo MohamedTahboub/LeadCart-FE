@@ -35,12 +35,6 @@ const BumpOffer = ({
       ? (
 
         <section style={containerStyle} className='product-template-bump-offer'>
-          <FloatButton
-            onClick={() => onOptionSelected('BumpOptions')}
-            position={{ left: 10 }}
-          >
-            <i className='fas fa-cog' />
-          </FloatButton>
           <FloatButton onClick={onDisable} position={{ left: 35 }}>
             <i className='fas fa-eye-slash' />
           </FloatButton>

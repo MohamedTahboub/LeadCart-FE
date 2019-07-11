@@ -57,7 +57,7 @@ export const MediumCard = ({
 export const Avatar = ({
   className: classname, style = {}, imageSrc, name = ''
 }) => {
-  const className = classname ? `product-name-avatar${classname}` : 'product-name-avatar';
+  const className = classname ? `product-name-avatar ${classname}` : 'product-name-avatar';
   const [firstWord = '', secondeWord = ''] = name.trim().split(' ');
   const words = (`${firstWord[0]}${secondeWord[0]}`).toUpperCase();
   const backgroundColor = generateColor(words);

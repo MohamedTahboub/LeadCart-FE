@@ -9,6 +9,7 @@ import {
   fulfillmentIcon,
   bumpOfferIcon,
   couponIcon,
+  settingsIcon
 } from '../Icons';
 
 import './style.css';
@@ -68,6 +69,14 @@ const SideButtons = ({ active, onClick }) => (
       id='coupon'
       label='Coupons'
     />
+    <SideButton
+      className='checkout-wizard-setting-btn'
+      active={active}
+      onClick={onClick}
+      image={settingsIcon}
+      id='settings'
+      label='Settings'
+    />
 
   </div>
 );
@@ -79,7 +88,10 @@ const SideBar = (props) => {
 
   const onActivateMenuItem = (item) => {
     if (item === activeMenuItem) {
-      if (open) setOpen(false);
+      if (open) {
+        setOpen(false)
+        return setActiveMenuItem('')
+      }
       else setOpen(true);
     } else {setOpen(true);}
 

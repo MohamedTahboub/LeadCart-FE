@@ -41,13 +41,6 @@ const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
   return (
     <Fragment>
       <div className='template-payment-methods-container'>
-        <FloatButton
-          className='payment-setting-btn'
-          onClick={() => onOptionSelected('PaymentOptions')}
-          position={{ left: -25 }}
-        >
-          <i className='fas fa-cog' />
-        </FloatButton>
         <CycleStepTitle
           step={step}
           className='underlined template-payment-method-title'

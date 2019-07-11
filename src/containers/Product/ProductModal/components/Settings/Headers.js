@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { connect } from 'react-redux';
-import ShareProductModale from 'components/ShareProductModale';
+import ShareProductModal from 'components/ShareProductModal';
 import common from 'components/common';
 import { openNewWindow } from 'libs';
 import config from 'config';
@@ -42,7 +42,7 @@ const Headers = ({
         <i className='fas fa-share-square' />
         Share
       </Button>
-      <ShareProductModale
+      <ShareProductModal
         isVisible={showShareBox}
         onClose={toggleShareBox}
         subdomain={subdomain}

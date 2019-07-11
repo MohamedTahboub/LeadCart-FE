@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,Fragment} from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { SideBar, Header } from './components';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { ProductSchema } from 'libs/validation';
 import *  as productActions from 'actions/product';
 import *  as flashMessages from 'actions/flashMessage';
-
+import { stopTabClosing } from 'libs' 
 import './style.css'
 
 const {
@@ -23,9 +23,15 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
 
   const [fields, setFields] = useState({});
   const [displayType, setDisplayType] = useState('desktop');
+  // const [changesDetected, setChangesDetected] = useState(false)
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState({ product: true })
 
+
+
+  const changesDetected = ()=>{
+    stopTabClosing(true)
+  }
   const onChange = ({ target: { name, value } }) => {
 
     if (name.includes('.')) {
@@ -36,6 +42,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
     }
     setFields({ ...fields, [name]: value })
     setErrors({ ...errors, [name]: '' })
+    changesDetected()
   }
 
   useEffect(() => {
@@ -44,6 +51,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
     setFields(product);
     if(product._id)
       setLoading({ product: false })
+   
     return () => {
       setFields({});
     };
@@ -80,6 +88,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
             type: 'success',
             message: `Your Changes Saved Successfully`
           })
+          stopTabClosing(false)
         },
         onFailed: (message) => {
           props.showFlashMessage({
@@ -92,8 +101,12 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
   }
 
   return (
+    <Fragment>
+    {loading.product && (
+      <div className="loading-layer">
+      <div className="loading-message">Setting Up...</div>
+      </div>)}
     <div className={`checkout-wizard-page ${loading.product ? 'loading' : ''}`}>
-      {loading.product && <div className="loading-layer"></div>}
       <Header
         onChange={onChange}
         onDisplayChange={onDisplayChange}
@@ -113,6 +126,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
         />
       </div>
     </div>
+    </Fragment>
   )
 };
 
