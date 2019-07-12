@@ -36,7 +36,7 @@
 }
 
 .announcekit-widget{
-  position: absolute;
+  position: relative;
   right: -10px;
   /* top:calc(50% - .5em); */
   color:white;
