@@ -356,7 +356,7 @@ input[type="radio"]{
 }
 .switch-slider-input:after{
     content:'off';
-    left:-36px;
+    left:-35px;
     position:absolute;
     top:-50%;
     font-size:12px;
@@ -365,7 +365,7 @@ input[type="radio"]{
 }
 .activability-switch:before{
     content:'Live';
-    right:-60px;
+    right:-35px;
 }
 .activability-switch:after{
     content:'Sandbox';
