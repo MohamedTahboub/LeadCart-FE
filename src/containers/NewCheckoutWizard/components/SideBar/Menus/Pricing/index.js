@@ -28,20 +28,26 @@ const Settings = ({
   <MenuItem>
     <MenuTitle>Settings</MenuTitle>
     <MenuContent>
-      <Collapse defaultActiveKey={['1']}>
-        <Panel header='Accessability' key='1'>
-          <InputRow className='sidebar-row'>
-            <InputRow.Label>URL</InputRow.Label>
-            <InputRow.SmallInput
-              // error={errors.url}
-              name='url'
+      <Collapse defaultActiveKey={['1', '2']}>
+        <Panel header='Price' key='1'>
+          <InputRow>
+            <InputRow.Label>Currency</InputRow.Label>
+            <InputRow.SearchInput
+              size='small'
+              options={currenciesList}
+              defaultValue={price.currency || 'USD'}
+              name='price.currency'
               onChange={props.onChange}
-              // subdomain={subdomain}
-              className='sidebar-offer-input'
-              value={url}
-            >
-            </InputRow.SmallInput>
+            />
           </InputRow>
+          <PaymentType
+            payment={payment}
+            onChange={props.onChange}
+            price={price}
+          />
+        </Panel>
+        <Panel header='Payment Gateways' key='2'>
+          <PaymentGateway {...props} payment={payment} />
         </Panel>
       </Collapse>
     </MenuContent>

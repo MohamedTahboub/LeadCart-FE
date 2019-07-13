@@ -9,9 +9,10 @@ import {
   fulfillmentIcon,
   bumpOfferIcon,
   couponIcon,
+  pricingIcon,
   settingsIcon
 } from '../Icons';
-
+ 
 import './style.css';
 
 const SideButton = ({
@@ -39,7 +40,7 @@ const SideButtons = ({ active, onClick }) => (
       onClick={onClick}
       image={AppearanceIcon}
       id='appearance'
-      label='appearance'
+      label='Appearance'
     />
     <SideButton
       active={active}
@@ -51,9 +52,16 @@ const SideButtons = ({ active, onClick }) => (
     <SideButton
       active={active}
       onClick={onClick}
+      image={pricingIcon}
+      id='pricing'
+      label='Pricing'
+    />
+    <SideButton
+      active={active}
+      onClick={onClick}
       image={fulfillmentIcon}
       id='fulfillment'
-      label='fulfillment'
+      label='Fulfillment'
     />
     <SideButton
       active={active}
