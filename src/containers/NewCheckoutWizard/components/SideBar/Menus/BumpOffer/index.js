@@ -29,6 +29,7 @@ const BumpOffer = ({
       fulfillment,
       name,
       price,
+      enabled,
       style
     } = {}
   }
@@ -50,12 +51,31 @@ const BumpOffer = ({
       }
     });
   };
+  const onToggleBumpOffer = () => {
+    onChange({
+      target: {
+        name: 'offer.enabled',
+        value: !enabled
+      }
+    });
+  };
+
   return (
     <MenuItem>
       <MenuTitle>Bump Offer</MenuTitle>
       <MenuContent>
-        <Collapse defaultActiveKey={['1', '3']}>
-          <Panel header='Offer General Settings' key='1'>
+        <Collapse defaultActiveKey={['1', '2', '3']}>
+          <Panel header='Appearance' key='1'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>SHow</InputRow.Label>
+              <InputRow.SwitchInput
+                value={enabled}
+                onToggle={onToggleBumpOffer}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
+          <Panel header='Settings' key='2'>
             <InputRow>
               <InputRow.Label description='This will appear on your cart page,this is just for presentation purpose'>
                 Offer Name:
@@ -78,16 +98,6 @@ const BumpOffer = ({
                 currency='$'
               />
             </InputRow>
-          </Panel>
-          <Panel header='Fulfillment' className='offer-fulfillment-panel' key='2'>
-            {fulfillments.map((ful) => (
-              <FulfillmentRowCard
-                key={ful._id}
-                activeFulfillment={fulfillment}
-                onSelect={onFulfillmentChange}
-                {...ful}
-              />
-            ))}
           </Panel>
           <Panel header='Appearance' className='offer-appearance-panel' key='3'>
             <InputRow>
@@ -196,6 +206,16 @@ const BumpOffer = ({
                 ]}
               />
             </InputRow>
+          </Panel>
+          <Panel header='Fulfillment' className='offer-fulfillment-panel' key='4'>
+            {fulfillments.map((ful) => (
+              <FulfillmentRowCard
+                key={ful._id}
+                activeFulfillment={fulfillment}
+                onSelect={onFulfillmentChange}
+                {...ful}
+              />
+            ))}
           </Panel>
         </Collapse>
       </MenuContent>

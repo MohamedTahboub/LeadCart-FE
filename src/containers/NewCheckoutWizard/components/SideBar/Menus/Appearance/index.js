@@ -12,10 +12,10 @@ import tempImage6 from 'assets/images/checkout_templates/temp_6.png';
 
 import './style.css';
 import {
-  MenuItem, 
+  MenuItem,
   MenuTitle,
-   MenuContent,
-    MenuFlexContent
+  MenuContent,
+  MenuFlexContent
 } from '../MenuElements';
 
 const { Collapse, TwitterPicker } = common;
@@ -40,7 +40,7 @@ const TemplateThumbnail = ({
 }) => {
   const templateName = `temp${order}`;
   const isActive = activeTemplate === templateName;
-  
+
   return (
     <div
       onClick={onSelect(templateName)}
@@ -63,7 +63,7 @@ const Appearance = ({ product: { checkoutPage: { template, color } = {} } = {}, 
     });
   };
   const onTemplateChange = (value) => () => {
-    console.log(value)
+    props.toggleTemplateChangeEffect();
     props.onChange({
       target: {
         name: 'checkoutPage.template',
