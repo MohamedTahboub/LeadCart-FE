@@ -45,7 +45,7 @@ const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
           step={step}
           className='underlined template-payment-method-title'
         >
-          PAYMENT METHOD
+          Payment Methods
         </CycleStepTitle>
         {methods.includes('Stripe') && (
           <RadioImageCard

@@ -62,3 +62,17 @@
     height: 667px;
     flex:unset;
 }
+
+.blur-effect{
+    position: relative;
+    filter: blur(6px);
+}
+.blur-effect::after{
+    position: absolute;
+    content: "";
+    left:0px;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    background: rgba(241, 233, 233, 0.52);
+}
