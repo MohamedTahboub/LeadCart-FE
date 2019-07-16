@@ -943,3 +943,34 @@ input.checkout-input-field:valid + label.checkout-input-label{
     margin-left:auto; 
     margin-right:auto; 
 }
+
+
+
+/* TEXT FIELD STYLES START  */
+.text-input-filed-container{
+    position: relative;
+}
+input.text-input-filed{
+    border: .6px solid lightgray;
+    padding: 5px;
+    width: inherit;
+    border-radius: 3px;
+}
+
+input.text-input-filed:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(29,150,243,.25);
+}
+/* TEXT FIELD STYLES START ENDS */
+
+
+
+
+
+
+/* SEARCH INPUT FIELD */
+div.ant-select-sm .ant-select-selection--single{
+    height: 28px;
+}
+/* SEARCH INPUT FIELD ENds*/
+

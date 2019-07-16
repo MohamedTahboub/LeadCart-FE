@@ -3,12 +3,12 @@
   margin: auto;
 }
 .logo-image{
-  height: 22px;
+  height: 25px;
 }
 .logo-shadow{
   position: absolute;
   left: 0px;
-  top:5px;
+  top:6.5px;
 }
 .logo-position {
   position: relative;
@@ -20,7 +20,7 @@
   text-transform: uppercase;
   margin-left: 6px;
   letter-spacing: 2px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   color: white;
 }

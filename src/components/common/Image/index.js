@@ -2,10 +2,10 @@ import React, { useState, useEffect, Component } from 'react';
 import avatarLink from 'assets/images/avatar.jpg';
 import { connect } from 'react-redux';
 import * as filesActions from 'actions/files';
-import { bytesToSize } from 'libs'
+// import { bytesToSize } from 'libs';
 
 
-import './style.css'
+import './style.css';
 
 export const Image = ({
   image: initImage = avatarLink,
@@ -15,7 +15,6 @@ export const Image = ({
   name = 'imageHolder',
   onChange
 }) => {
-
   let fileInput = '';
   const onImageUpload = () => {
     fileInput.click();
@@ -26,22 +25,17 @@ export const Image = ({
 
     if (file && !(file.size > 1024 ** 2)) {
       uploadFile({ file, type: 'products', source }, {
-        onSuccess: fileLink => onChange({ name, value: fileLink })
+        onSuccess: (fileLink) => onChange({ name, value: fileLink })
       });
     }
   };
-  // useEffect(() => {
-  //   if (files[name]) {
-  //     onChange({ name, value: files[name] });
-  //   }
-  // }, [files]);
 
   const imageStyle = {
     backgroundImage: `url(${initImage})`,
     backgroundPosition: 'center',
-    backgroundSize: 'contain',
+    backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'
-  }
+  };
 
   return (
     <div
