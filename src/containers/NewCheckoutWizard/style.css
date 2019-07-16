@@ -4,7 +4,21 @@
     height: 100vh;
     background: #f1f1f1;
     padding: 50px;
+    padding-left: 100px;
     padding-top: 0px;
+    transition:padding .3s ease-in-out;
+}
+.checkout-wizard-container.side-opened {
+    padding-left: 400px;
+}
+
+@keyframes spacing{
+    from{
+        padding-left: 100px;
+    }
+    to{
+        padding-left: 380px;
+    }
 }
 
 .checkout-wizard-page.loading {

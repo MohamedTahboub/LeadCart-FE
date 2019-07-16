@@ -56,7 +56,7 @@ img.side-button-image {
 .side-menu-container{
     position: absolute;
     top: 0px;
-    left: 65px;
+    left: 64px;
     bottom: 0px;
     width: 280px;
     background: rgb(255, 255, 255);
@@ -88,3 +88,67 @@ img.side-button-image {
     background: lightgray;
 } 
 
+
+
+
+
+/* Shared Classes */
+.sidebar-menu-item .input-label{
+    color: rgb(105, 115, 134);
+    font-weight: unset;
+}
+.sidebar-row{
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin: 10px 0px;
+}
+.sidebar-input-label .input-label{
+    width: unset;
+    color: rgb(105, 115, 134);
+    font-weight: unset;
+}
+.sidebar-switch-input{
+    margin: 10px 50px;
+}
+.sidebar-switch-input::after {
+    content: 'hide';
+    text-transform: capitalize;
+}
+.sidebar-switch-input::before {
+    content: 'show';
+    text-transform: capitalize;
+}
+.flexColumn{
+    flex-direction: column;
+}
+.alignedStart{
+    align-items: flex-start;
+}
+
+.normal-padding{
+    padding: 20px 10px;
+}
+
+.sub-menu-title{
+    color:rgb(105, 115, 134);
+    font-size: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: .5px solid lightgray;
+}
+
+div.ant-collapse-content > .ant-collapse-content-box {
+    padding: 0px;
+}
+
+div.ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    line-height: unset;
+    padding: 5px 0 5px 30px;
+    color: rgb(105, 115, 134); 
+    font-weight: bold;
+}
+div.ant-collapse > .ant-collapse-item > .ant-collapse-header i.arrow{
+    font-size: 10px;
+    line-height: 0;
+}

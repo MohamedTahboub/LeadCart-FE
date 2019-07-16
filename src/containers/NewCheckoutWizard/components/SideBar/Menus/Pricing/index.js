@@ -27,29 +27,26 @@ const Settings = ({
 }) => (
   <MenuItem>
     <MenuTitle>Settings</MenuTitle>
-    <MenuContent>
-      <Collapse defaultActiveKey={['1', '2']}>
-        <Panel header='Price' key='1'>
-          <InputRow>
-            <InputRow.Label>Currency</InputRow.Label>
-            <InputRow.SearchInput
-              size='small'
-              options={currenciesList}
-              defaultValue={price.currency || 'USD'}
-              name='price.currency'
-              onChange={props.onChange}
-            />
-          </InputRow>
-          <PaymentType
-            payment={payment}
-            onChange={props.onChange}
-            price={price}
-          />
-        </Panel>
-        <Panel header='Payment Gateways' key='2'>
-          <PaymentGateway {...props} payment={payment} />
-        </Panel>
-      </Collapse>
+    <MenuContent className='normal-padding'>
+      <div className='sub-menu-title'>Product Price & Currency:</div>
+      <InputRow>
+        <InputRow.Label>Currency</InputRow.Label>
+        <InputRow.SearchInput
+          size='small'
+          width={350}
+          options={currenciesList}
+          defaultValue={price.currency || 'USD'}
+          name='price.currency'
+          onChange={props.onChange}
+        />
+      </InputRow>
+      <PaymentType
+        payment={payment}
+        onChange={props.onChange}
+        price={price}
+      />
+      <div className='sub-menu-title'>Product Payment Methods:</div>
+      <PaymentGateway {...props} payment={payment} />
     </MenuContent>
   </MenuItem>
 );

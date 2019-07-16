@@ -27,7 +27,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState({ product: true })
   const [templateChanging, setTemplateChanging] = useState(false)
-
+  const [isSidebarOpened,setSidebarOpened]=useState(true);
 
   const changesDetected = () => {
     stopTabClosing(true)
@@ -100,7 +100,9 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
       })
 
   }
-
+  const postSideChanging= (state)=>{
+    setSidebarOpened(state)
+  }
   const toggleTemplateChangeEffect = () => {
     const state = !templateChanging
     setTemplateChanging(state)
@@ -129,9 +131,10 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
         <SideBar
           onChange={onChange}
           product={fields}
+          onSidebarChange={postSideChanging}
           toggleTemplateChangeEffect={toggleTemplateChangeEffect}
         />
-        <div className="checkout-wizard-container" >
+        <div className={`checkout-wizard-container ${isSidebarOpened ? 'side-opened' : '' }`} >
           <ProductEditableTemplate
             className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
             product={fields}

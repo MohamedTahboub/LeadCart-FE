@@ -59,16 +59,21 @@ const ConversionBoosters = ({
     );
   };
 
-  const onToggleBumpOffer = () => {
-    onChange('offer.enabled', !offer.enabled);
-  };
-  const onToggleTerms = () => {
+
+  const onChangeTermsField = ({ target: { name, value } }) => {
     onChange(
       'checkoutPage.termsAndConditions',
-      { ...terms, enabled: !terms.enabled }
+      { ...terms, [name]: value }
     );
   };
-
+  const onToggleTerms = () => {
+    onChangeTermsField({
+      target: {
+        name: 'enabled',
+        value: !terms.enabled
+      }
+    });
+  };
 
   return (
     <MenuItem>
@@ -112,6 +117,14 @@ const ConversionBoosters = ({
                 value={terms.enabled}
                 onToggle={onToggleTerms}
                 className='sidebar-switch-input'
+              />
+            </InputRow>
+            <InputRow className='sidebar-row flexColumn alignedStart'>
+              <InputRow.Label className='sidebar-input-label'>Terms & conditions Link:</InputRow.Label>
+              <InputRow.TextField
+                value={terms.url}
+                name='url'
+                onToggle={onChangeTermsField}
               />
             </InputRow>
           </Panel>

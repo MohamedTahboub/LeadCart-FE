@@ -67,7 +67,7 @@ const BumpOffer = ({
         <Collapse defaultActiveKey={['1', '2', '3']}>
           <Panel header='Appearance' key='1'>
             <InputRow className='sidebar-row'>
-              <InputRow.Label className='sidebar-input-label'>SHow</InputRow.Label>
+              <InputRow.Label className='sidebar-input-label' className='sidebar-input-label'>Show</InputRow.Label>
               <InputRow.SwitchInput
                 value={enabled}
                 onToggle={onToggleBumpOffer}
@@ -76,22 +76,23 @@ const BumpOffer = ({
             </InputRow>
           </Panel>
           <Panel header='Settings' key='2'>
-            <InputRow>
-              <InputRow.Label description='This will appear on your cart page,this is just for presentation purpose'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label' description='This will appear on your cart page,this is just for presentation purpose'>
                 Offer Name:
               </InputRow.Label>
-              <InputRow.SmallInput
-                className='sidebar-offer-input'
+              <InputRow.TextField
+                className='default-pricing-field-length'
                 name='offer.name'
                 onBlur={onChange}
                 value={name}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Offer Price:
               </InputRow.Label>
-              <InputRow.PriceField
+              <InputRow.TextField
+                className='default-pricing-field-length'
                 name='offer.price'
                 onBlur={onChange}
                 value={price}
@@ -100,8 +101,8 @@ const BumpOffer = ({
             </InputRow>
           </Panel>
           <Panel header='Appearance' className='offer-appearance-panel' key='3'>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Background:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -110,8 +111,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Container text:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -120,8 +121,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Header Background:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -130,8 +131,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Header text:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -140,8 +141,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Color:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -151,8 +152,8 @@ const BumpOffer = ({
               />
 
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Style:
               </InputRow.Label>
               <InputRow.SelectOption
@@ -166,8 +167,8 @@ const BumpOffer = ({
                 ]}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Width:
               </InputRow.Label>
               <InputRow.SelectOption
@@ -185,8 +186,8 @@ const BumpOffer = ({
               />
             </InputRow>
 
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Radius:
               </InputRow.Label>
               <InputRow.SelectOption

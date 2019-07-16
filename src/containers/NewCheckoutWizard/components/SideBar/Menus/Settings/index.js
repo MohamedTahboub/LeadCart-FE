@@ -30,17 +30,13 @@ const Settings = ({
     <MenuContent>
       <Collapse defaultActiveKey={['1']}>
         <Panel header='Accessability' key='1'>
-          <InputRow className='sidebar-row'>
-            <InputRow.Label>URL</InputRow.Label>
-            <InputRow.SmallInput
-              // error={errors.url}
+          <InputRow className='sidebar-row flexColumn alignedStart'>
+            <InputRow.Label className='sidebar-input-label'>Product Publishable Link (URL):</InputRow.Label>
+            <InputRow.TextField
               name='url'
               onChange={props.onChange}
-              // subdomain={subdomain}
-              className='sidebar-offer-input'
               value={url}
-            >
-            </InputRow.SmallInput>
+            />
           </InputRow>
         </Panel>
       </Collapse>

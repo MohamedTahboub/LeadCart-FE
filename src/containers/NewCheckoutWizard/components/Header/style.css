@@ -18,7 +18,7 @@
     cursor: pointer;
     font-size: 17px;
     transition: all .3s ease-in-out;
-    margin: 0 5px;
+    margin: 0 7px;
 }
 .display-mode-icon.active,
 .display-mode-icon:hover{

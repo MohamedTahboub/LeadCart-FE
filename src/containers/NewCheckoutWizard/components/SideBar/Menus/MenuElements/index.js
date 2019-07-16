@@ -32,11 +32,11 @@ export const MenuTitle = ({
 );
 
 export const MenuContent = ({
-  className,
+  className = ';',
   children,
   ...props
 }) => (
-  <div className='sidebar-menu-content'>{children}</div>
+  <div className={`sidebar-menu-content ${className}`}>{children}</div>
 );
 
 
