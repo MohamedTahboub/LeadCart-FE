@@ -33,6 +33,7 @@
   padding:8px 12px;
   padding-right: 25px;
   cursor: pointer;
+  background: var(--header-color);
 }
 
 .announcekit-widget{

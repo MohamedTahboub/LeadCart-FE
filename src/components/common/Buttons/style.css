@@ -49,6 +49,7 @@
 
 span.primary-btn{
   background: #4DA1FF;
+  background: var(--btn-bg);
   font-weight: inherit;
   padding: 3px 5px;
   padding-right: 8px;

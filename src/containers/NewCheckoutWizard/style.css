@@ -90,3 +90,46 @@
     bottom:0px;
     background: rgba(241, 233, 233, 0.52);
 }
+
+
+
+
+
+.mobile .product-template-body {
+    flex-wrap:wrap;
+}
+.mobile .checkout-input-field-container {
+    flex: unset;
+    width: 100%;
+}
+.mobile  .product-template-testimonials-container div{
+    flex-wrap:wrap;
+}
+.mobile .richening-components-section{
+    margin-top:20px;
+    max-width:unset;
+}
+.mobile .billing-components-section{
+    width:100%;
+}
+.mobile .template-bump-offer-title-input {
+    width: 226px;
+}
+
+.mobile .about-product-section{
+    justify-content: center;
+}
+
+
+
+
+.dark-mode{
+    --header-color: #1a1f37;
+    --wizard-container-bg: rgb(60, 66, 87);
+    --btn-bg: rgb(42, 47, 69);
+    --text-color: rgb(163, 172, 185);
+    --shadow-color: #ffffff14;
+    --btn-focus-bg: rgb(57, 63, 88);
+    --active-el-color: rgb(108, 142, 239);
+    --active-tab-color: rgb(32, 47, 88);
+}

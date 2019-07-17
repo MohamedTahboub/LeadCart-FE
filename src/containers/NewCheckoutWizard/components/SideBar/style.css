@@ -6,11 +6,11 @@
     z-index: 1;
 }
 .side-buttons-container{
-
     position: relative;
     height: 100%;
     width: 50%;
     background: #4DA1FF;
+    background: var(--header-color);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -37,6 +37,7 @@
 .side-button:active,
 .side-button:hover{
     background: #1e85fb;
+    background: var(--active-tab-color);
 }
 img.side-button-image {
     height: 20px;
@@ -142,13 +143,22 @@ div.ant-collapse-content > .ant-collapse-content-box {
     padding: 0px;
 }
 
+div.ant-collapse > .ant-collapse-item > .ant-collapse-content{
+    background: var(--header-color);
+    border-color: var(--header-color);
+}
 div.ant-collapse > .ant-collapse-item > .ant-collapse-header{
     line-height: unset;
     padding: 5px 0 5px 30px;
     color: rgb(105, 115, 134); 
+    background: var(--header-color);
     font-weight: bold;
 }
 div.ant-collapse > .ant-collapse-item > .ant-collapse-header i.arrow{
     font-size: 10px;
     line-height: 0;
+}
+
+div.sidebar-menu-content div.ant-collapse{
+    border-color: var(--header-color);
 }

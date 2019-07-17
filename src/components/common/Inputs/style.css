@@ -352,6 +352,7 @@ input[type="radio"]{
     top:-30%;
     font-size:10px;
     color:gray;
+    color: var(--text-color);
     text-transform: uppercase;
 }
 .switch-slider-input:after{
@@ -361,6 +362,7 @@ input[type="radio"]{
     top:-30%;
     font-size:10px;
     color:gray;
+    color: var(--text-color);
     text-transform: uppercase;
 }
 .activability-switch:before{
@@ -409,11 +411,10 @@ input[type="radio"]{
   }
   
   input:checked ~ .slider-input:before {
-    -webkit-transform: translateX(10px);
-    -ms-transform: translateX(10px);
     transform: translateX(10px);
-    /* background-color: #2196F3; */
     border:.8px solid rgb(115, 181, 235);
+    background: var(--header-color);
+    border-color: var(--text-color);
   }
   .slider-input.slider-round {
     margin:0px;

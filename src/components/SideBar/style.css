@@ -94,6 +94,8 @@
 }
 .btn:hover{
     box-shadow: 0px 0px 5px 0px #00000040;
+    box-shadow: 0px 0px 5px 0px var(--shadow-color);
+    background: var(--btn-focus-bg);
 }
 .new-product-btn{
     background: #FF7B7F;

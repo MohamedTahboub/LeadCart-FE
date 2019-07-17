@@ -118,7 +118,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
           <div className="loading-message">Setting Up...</div>
         </div>
       )}
-      <div className={`checkout-wizard-page ${loading.product ? 'loading' : ''}`}>
+      <div className={`checkout-wizard-page dark-mode${loading.product ? 'loading' : ''}`}>
         <Header
           onChange={onChange}
           onDisplayChange={onDisplayChange}
