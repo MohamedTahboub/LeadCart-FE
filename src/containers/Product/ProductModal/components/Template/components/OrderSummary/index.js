@@ -61,12 +61,12 @@ const OrderSummary = ({
         amount={`${total}$`}
       />
       {nextCharge && (
-        <span>
+        <div className='purchases-charge-details'>
           {' '}
           Your next charge is going to be on
           {' '}
           {nextCharge}
-        </span>
+        </div>
       )}
     </section>
   );

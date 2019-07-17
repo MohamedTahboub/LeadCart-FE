@@ -51,6 +51,14 @@ const Coupons = ({
             className='sidebar-switch-input'
           />
         </InputRow>
+        <div className='sub-menu-title padding-left-10'>
+          Coupons List:
+        </div>
+        {!filteredCoupons.length && (
+          <div className='message-note'>
+            No Coupons Available
+          </div>
+        )}
         {filteredCoupons.map((coupon) => (
           <CouponRowCard
             {...coupon}

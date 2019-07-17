@@ -1,14 +1,18 @@
 import React from 'react';
-import guaranteeImage from 'assets/images/guarantee.png';
+import defaultGuaranteeImage from 'assets/images/guarantee.png';
+import Image from 'components/common/Image';
+import common from 'components/common';
 
-import common from 'components/common'
+import './style.css';
 
-import './style.css'
-
-const { FloatButton } = common
-const GuaranteeMessage = ({ guaranteed, onChange }) => {
-  return (
-    guaranteed ?
+const { FloatButton } = common;
+const GuaranteeMessage = ({
+  guaranteed,
+  guaranteeImage = defaultGuaranteeImage,
+  onChange
+}) => (
+  guaranteed
+    ? (
       <div className='template-guarantee-badge'>
         <FloatButton
           name='checkoutPage.guaranteed'
@@ -17,16 +21,20 @@ const GuaranteeMessage = ({ guaranteed, onChange }) => {
               name: 'checkoutPage.guaranteed',
               value: !guaranteed
             }
-          }
-          )}
+          })}
         >
-          <i className="fas fa-eye-slash" />
+          <i className='fas fa-eye-slash' />
         </FloatButton>
-        <img src={guaranteeImage} alt='guarantee badge' className='template-guarantee-badge-image' />
+        <Image
+          image={guaranteeImage}
+          onChange={(target) => onChange({ target })}
+          name='checkoutPage.guaranteeImage'
+          className='template-guarantee-badge-image'
+          alt='guarantee badge'
+        />
       </div>
-      :
-      null
-  );
-};
+    )
+    : null
+);
 
 export default GuaranteeMessage;

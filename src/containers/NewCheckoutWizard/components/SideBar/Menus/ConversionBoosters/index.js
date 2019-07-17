@@ -79,7 +79,7 @@ const ConversionBoosters = ({
     <MenuItem>
       <MenuTitle>Conversion Boosters</MenuTitle>
       <MenuContent>
-        <Collapse defaultActiveKey={['1', '2', '3', '4']}>
+        <Collapse defaultActiveKey={['1', '2', '3', '4', '5']}>
           <Panel header='Shipping Details' key='1'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
@@ -124,7 +124,8 @@ const ConversionBoosters = ({
               <InputRow.TextField
                 value={terms.url}
                 name='url'
-                onToggle={onChangeTermsField}
+                className='terms-and-conditions-input'
+                onChange={onChangeTermsField}
               />
             </InputRow>
           </Panel>

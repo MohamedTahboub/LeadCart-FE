@@ -27,7 +27,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState({ product: true })
   const [templateChanging, setTemplateChanging] = useState(false)
-  const [isSidebarOpened,setSidebarOpened]=useState(true);
+  const [isSidebarOpened,setSidebarOpened]=useState(false);
 
   const changesDetected = () => {
     stopTabClosing(true)

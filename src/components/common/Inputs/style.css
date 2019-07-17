@@ -974,3 +974,17 @@ div.ant-select-sm .ant-select-selection--single{
 }
 /* SEARCH INPUT FIELD ENds*/
 
+
+
+.message-note{
+    color: #9E9E9E;
+    font-size: 10px;
+    text-align: center;
+}
+
+.padding-10{
+    padding: 10px;
+}
+.padding-left-10{
+    padding-left: 10px;
+}

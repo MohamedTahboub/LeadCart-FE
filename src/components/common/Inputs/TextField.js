@@ -6,12 +6,14 @@ const TextField = ({
   type,
   onChange,
   onBlur,
+  name,
   value,
   ...props
 }) => (
-  <div {...props} className={`text-input-filed-container ${className}`}>
+  <div className={`text-input-filed-container ${className}`}>
     <input
       type={type}
+      name={name}
       value={value}
       className='text-input-filed'
       onChange={onChange}

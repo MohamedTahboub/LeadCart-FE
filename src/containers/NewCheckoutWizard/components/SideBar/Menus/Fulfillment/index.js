@@ -28,6 +28,14 @@ const Fulfillments = ({
     <MenuItem>
       <MenuTitle>Fulfillments</MenuTitle>
       <MenuContent>
+        <div className='sub-menu-title padding-10'>
+          Fulfillments List:
+        </div>
+        {!fulfillments.length && (
+          <div className='message-note'>
+            No Fulfillments Available
+          </div>
+        )}
         {fulfillments.map((ful) => (
           <FulfillmentRowCard
             key={ful._id}
