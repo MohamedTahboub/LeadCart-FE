@@ -511,6 +511,7 @@ span.medium-card-headline {
 
 .sidebar-fulfillment-card:hover{
     background:#d3d3d363;
+    background : var(--sub-element-color);
     cursor: pointer;
 }
 .sidebar-fulfillment-card-details {
@@ -520,6 +521,7 @@ span.medium-card-headline {
 .sidebar-fulfillment-card-type {
     font-size: 12px;
     color: gray;
+    color: var(--text-color);
     text-transform: capitalize;
 }
 /* FUlfillment Card Styles Ends*/

@@ -10,7 +10,7 @@
     height: 100%;
     width: 50%;
     background: #4DA1FF;
-    background: var(--header-color);
+    background: var(--primary-color);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -33,11 +33,12 @@
 .side-button.active:hover,
 .side-button.active{
     background: #0478fb;
+    background: var(--dark-primary-color); 
 }
 .side-button:active,
 .side-button:hover{
     background: #1e85fb;
-    background: var(--active-tab-color);
+    background: var(--dark-primary-color);
 }
 img.side-button-image {
     height: 20px;
@@ -54,6 +55,10 @@ img.side-button-image {
     margin: 5px 0px;
 }
 
+.sidebar-fulfillment-card-name{
+    color:var(--sub-tabs-text-color);
+}
+
 .side-menu-container{
     position: absolute;
     top: 0px;
@@ -61,6 +66,7 @@ img.side-button-image {
     bottom: 0px;
     width: 280px;
     background: rgb(255, 255, 255);
+    background: var(--side-bar-menu-bg);
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;

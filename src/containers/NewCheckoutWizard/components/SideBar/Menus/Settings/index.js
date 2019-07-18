@@ -23,6 +23,8 @@ const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }))
 const Settings = ({
   product: { url, price = {}, payment } = {},
   subdomain,
+  onToggleDarkTheme,
+  darkTheme,
   ...props
 }) => (
   <MenuItem>
@@ -36,6 +38,14 @@ const Settings = ({
               name='url'
               onChange={props.onChange}
               value={url}
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <InputRow.Label className='sidebar-input-label'>Activate Dark Theme</InputRow.Label>
+            <InputRow.SwitchInput
+              value={darkTheme}
+              onToggle={onToggleDarkTheme}
+              className='sidebar-switch-input'
             />
           </InputRow>
         </Panel>

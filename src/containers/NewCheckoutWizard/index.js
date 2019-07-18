@@ -28,6 +28,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
   const [loading, setLoading] = useState({ product: true })
   const [templateChanging, setTemplateChanging] = useState(false)
   const [isSidebarOpened,setSidebarOpened]=useState(false);
+  const [enableDarkTheme,setEnableDarkTheme]=useState(false)
 
   const changesDetected = () => {
     stopTabClosing(true)
@@ -45,6 +46,9 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
     changesDetected()
   }
 
+  const onToggleDarkTheme = () =>{
+    setEnableDarkTheme(!enableDarkTheme)
+  }
   useEffect(() => {
     const { url } = props.match.params
     console.log(props)
@@ -118,7 +122,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
           <div className="loading-message">Setting Up...</div>
         </div>
       )}
-      <div className={`checkout-wizard-page dark-mode${loading.product ? 'loading' : ''}`}>
+      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode' } ${loading.product ? 'loading' : ''}`}>
         <Header
           onChange={onChange}
           onDisplayChange={onDisplayChange}
@@ -132,6 +136,8 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
           onChange={onChange}
           product={fields}
           onSidebarChange={postSideChanging}
+          onToggleDarkTheme={onToggleDarkTheme}
+          darkTheme={enableDarkTheme}
           toggleTemplateChangeEffect={toggleTemplateChangeEffect}
         />
         <div className={`checkout-wizard-container ${isSidebarOpened ? 'side-opened' : '' }`} >
