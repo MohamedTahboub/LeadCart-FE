@@ -16,6 +16,7 @@ const GuaranteeMessage = ({
       <div className='template-guarantee-badge'>
         <FloatButton
           name='checkoutPage.guaranteed'
+          position={{ padding: '0 5px', left: '-6px' }}
           onClick={() => onChange({
             target: {
               name: 'checkoutPage.guaranteed',

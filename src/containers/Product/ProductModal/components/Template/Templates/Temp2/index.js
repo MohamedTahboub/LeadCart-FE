@@ -43,6 +43,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
         <section className="billing-components-section">
           <GuaranteeMessage
             onChange={onChange}
+            guaranteeImage={product.checkoutPage && product.checkoutPage.guaranteeImage}
             guaranteed={product.checkoutPage && product.checkoutPage.guaranteed}
           />
           <Features

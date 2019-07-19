@@ -1,15 +1,14 @@
 import React from 'react';
-import common from 'components/common'
+import common from 'components/common';
 
-import './style.css'
+import './style.css';
 
-const { FloatButton } = common
+const { FloatButton } = common;
 
 const TermsAndConditionsBadge = ({ onChange, onOptionSelected, terms = {} }) => {
-
-  const onLinkClick = e => {
+  const onLinkClick = (e) => {
     e.preventDefault();
-  }
+  };
 
   const onHideTerms = () => {
     onChange({
@@ -17,35 +16,29 @@ const TermsAndConditionsBadge = ({ onChange, onOptionSelected, terms = {} }) => 
         name: 'termsAndConditions.enable',
         value: { ...terms, enabled: false }
       }
-    })
-  }
+    });
+  };
   return (
     terms.enabled ? (
-      <div className="template-terms-container">
-        <FloatButton
-          onClick={() => onOptionSelected('TermsOptions')}
-          position={{ padding: '0 5px' }}>
-          <i className="fas fa-cog" />
-        </FloatButton>
+      <div className='template-terms-container'>
         <FloatButton
           onClick={onHideTerms}
-          position={{ padding: '0 5px', left: 45 }}
+          position={{ padding: '0 5px', left: 0 }}
         >
-          <i className="fas fa-eye-slash" />
+          <i className='fas fa-eye-slash' />
         </FloatButton>
         By placing an order you are stating that you agree to the
         <a
           onClick={onLinkClick}
           href={terms.url}
-          target="_blank"
-          rel="noopener noreferrer"
+          target='_blank'
+          rel='noopener noreferrer'
         >
           Terms & Conditions
         </a>
       </div>
     )
-      :
-      null
+      : null
   );
 };
 

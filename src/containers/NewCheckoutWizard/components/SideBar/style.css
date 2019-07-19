@@ -73,8 +73,8 @@ img.side-button-image {
     flex-direction: column;
     -ms-flex-positive: 1;
     /* flex-grow: 1; */
-    padding: 20px 0;
-    padding-top: 0px;
+    /* padding: 20px 0;
+    padding-top: 0px; */
     box-shadow: 2px 4px 4px 2px rgba(0,0,0,0.08);
     z-index: 1000;
     transform: translateX(-282px);
@@ -157,12 +157,16 @@ div.ant-collapse > .ant-collapse-item > .ant-collapse-header{
     line-height: unset;
     padding: 5px 0 5px 30px;
     color: rgb(105, 115, 134); 
+    border-bottom: 1px solid rgba(153, 156, 160, 0.52);
     background: var(--header-color);
     font-weight: bold;
 }
 div.ant-collapse > .ant-collapse-item > .ant-collapse-header i.arrow{
     font-size: 10px;
     line-height: 0;
+}
+div.ant-collapse > .ant-collapse-item:last-child, .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header{
+    border-radius: unset;
 }
 
 div.sidebar-menu-content div.ant-collapse{

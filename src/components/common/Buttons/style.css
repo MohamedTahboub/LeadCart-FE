@@ -9,7 +9,7 @@
   color:white;
   padding: 5px; 
   transition: all .3 ease-in-out;
-  /* z-index: 100; */
+  z-index: 1;
 }
 .float-btn:hover{
   background: rgba(0,0,0,0.15);
