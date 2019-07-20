@@ -27,8 +27,8 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState({ product: true })
   const [templateChanging, setTemplateChanging] = useState(false)
-  const [isSidebarOpened,setSidebarOpened]=useState(false);
-  const [enableDarkTheme,setEnableDarkTheme]=useState(false)
+  const [isSidebarOpened, setSidebarOpened] = useState(false);
+  const [enableDarkTheme, setEnableDarkTheme] = useState(false)
 
   const changesDetected = () => {
     stopTabClosing(true)
@@ -46,17 +46,19 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
     changesDetected()
   }
 
-  const onToggleDarkTheme = () =>{
+  const onToggleDarkTheme = () => {
     setEnableDarkTheme(!enableDarkTheme)
   }
-  useEffect(() => {
+useEffect(() => {
     const { url } = props.match.params
     console.log(props)
     const product = products.find(({ url: u }) => u === url) || {}
     setFields(product);
     if (product._id)
       setLoading({ product: false })
-
+    else {
+      props.history.push('/')
+    } 
     return () => {
       setFields({});
     };
@@ -105,7 +107,7 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
 
   }
   const postSideChanging= (state)=>{
-    setSidebarOpened(state)
+    setSidebarOpened(state)  
   }
   const toggleTemplateChangeEffect = () => {
     const state = !templateChanging
