@@ -8,13 +8,13 @@ import {
 
 import './style.css';
 
-const { InputRow } = common;
+const { InputRow, Collapse } = common;
+const { Panel } = Collapse;
 
 const ConversionBoosters = ({
   product: {
     offer = {},
     shippingDetails = {},
-    coupons = {},
     checkoutPage: {
       testimonials = {},
       features = {},
@@ -59,83 +59,87 @@ const ConversionBoosters = ({
     );
   };
 
-  const onToggleBumpOffer = () => {
-    onChange('offer.enabled', !offer.enabled);
-  };
-  const onToggleTerms = () => {
+
+  const onChangeTermsField = ({ target: { name, value } }) => {
     onChange(
       'checkoutPage.termsAndConditions',
-      { ...terms, enabled: !terms.enabled }
+      { ...terms, [name]: value }
     );
   };
-  const onToggleCoupons = () => {
-    onChange(
-      'coupons',
-      { enabled: !coupons.enabled }
-    );
+  const onToggleTerms = () => {
+    onChangeTermsField({
+      target: {
+        name: 'enabled',
+        value: !terms.enabled
+      }
+    });
   };
-
 
   return (
     <MenuItem>
       <MenuTitle>Conversion Boosters</MenuTitle>
       <MenuContent>
-        <InputRow className='sidebar-row'>
-          <InputRow.Label className='sidebar-input-label'>Shipping Details:</InputRow.Label>
-          <InputRow.SwitchInput
-            value={shippingDetails.enabled}
-            onToggle={onToggleShippingDetails}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <InputRow.Label className='sidebar-input-label'>Testimonials:</InputRow.Label>
-          <InputRow.SwitchInput
-            value={testimonials.enabled}
-            onToggle={onToggleTestimonials}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <InputRow.Label className='sidebar-input-label'>Features:</InputRow.Label>
-          <InputRow.SwitchInput
-            value={features.enabled}
-            onToggle={onToggleFeatures}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <InputRow.Label className='sidebar-input-label'>Bump Offer:</InputRow.Label>
-          <InputRow.SwitchInput
-            value={offer.enabled}
-            onToggle={onToggleBumpOffer}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <InputRow.Label className='sidebar-input-label'>Terms And Conditions:</InputRow.Label>
-          <InputRow.SwitchInput
-            value={terms.enabled}
-            onToggle={onToggleTerms}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <InputRow.Label className='sidebar-input-label'>Guarantee Message:</InputRow.Label>
-          <InputRow.SwitchInput
-            value={guaranteed}
-            onToggle={onToggleGuaranteed}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <InputRow.Label className='sidebar-input-label'>Coupons:</InputRow.Label>
-          <InputRow.SwitchInput
-            value={coupons.enabled}
-            onToggle={onToggleCoupons}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
+        <Collapse defaultActiveKey={['1', '2', '3', '4', '5']}>
+          <Panel header='Shipping Details' key='1'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
+              <InputRow.SwitchInput
+                value={shippingDetails.enabled}
+                onToggle={onToggleShippingDetails}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
+          <Panel header='Testimonials' key='2'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
+              <InputRow.SwitchInput
+                value={testimonials.enabled}
+                onToggle={onToggleTestimonials}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
+          <Panel header='Features' key='3'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
+              <InputRow.SwitchInput
+                value={features.enabled}
+                onToggle={onToggleFeatures}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
+          <Panel header='Terms And Conditions' key='4'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
+              <InputRow.SwitchInput
+                value={terms.enabled}
+                onToggle={onToggleTerms}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+            <InputRow className='sidebar-row flexColumn alignedStart'>
+              <InputRow.Label className='sidebar-input-label'>Terms & conditions Link:</InputRow.Label>
+              <InputRow.TextField
+                value={terms.url}
+                name='url'
+                className='terms-and-conditions-input'
+                onChange={onChangeTermsField}
+              />
+            </InputRow>
+          </Panel>
+          <Panel header='Guarantee Message' key='5'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Guarantee Message:</InputRow.Label>
+              <InputRow.SwitchInput
+                value={guaranteed}
+                onToggle={onToggleGuaranteed}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
+        </Collapse>
       </MenuContent>
     </MenuItem>
   );

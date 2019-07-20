@@ -29,6 +29,7 @@ const BumpOffer = ({
       fulfillment,
       name,
       price,
+      enabled,
       style
     } = {}
   }
@@ -50,28 +51,48 @@ const BumpOffer = ({
       }
     });
   };
+  const onToggleBumpOffer = () => {
+    onChange({
+      target: {
+        name: 'offer.enabled',
+        value: !enabled
+      }
+    });
+  };
+
   return (
     <MenuItem>
       <MenuTitle>Bump Offer</MenuTitle>
       <MenuContent>
-        <Collapse defaultActiveKey={['1', '3']}>
-          <Panel header='Offer General Settings' key='1'>
-            <InputRow>
-              <InputRow.Label description='This will appear on your cart page,this is just for presentation purpose'>
+        <Collapse defaultActiveKey={['1', '2', '3']}>
+          <Panel header='Appearance' key='1'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label' className='sidebar-input-label'>Show</InputRow.Label>
+              <InputRow.SwitchInput
+                value={enabled}
+                onToggle={onToggleBumpOffer}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
+          <Panel header='Settings' key='2'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label' description='This will appear on your cart page,this is just for presentation purpose'>
                 Offer Name:
               </InputRow.Label>
-              <InputRow.SmallInput
-                className='sidebar-offer-input'
+              <InputRow.TextField
+                className='default-pricing-field-length'
                 name='offer.name'
                 onBlur={onChange}
                 value={name}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Offer Price:
               </InputRow.Label>
-              <InputRow.PriceField
+              <InputRow.TextField
+                className='default-pricing-field-length'
                 name='offer.price'
                 onBlur={onChange}
                 value={price}
@@ -79,19 +100,9 @@ const BumpOffer = ({
               />
             </InputRow>
           </Panel>
-          <Panel header='Fulfillment' className='offer-fulfillment-panel' key='2'>
-            {fulfillments.map((ful) => (
-              <FulfillmentRowCard
-                key={ful._id}
-                activeFulfillment={fulfillment}
-                onSelect={onFulfillmentChange}
-                {...ful}
-              />
-            ))}
-          </Panel>
           <Panel header='Appearance' className='offer-appearance-panel' key='3'>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Background:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -100,8 +111,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Container text:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -110,8 +121,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Header Background:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -120,8 +131,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Header text:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -130,8 +141,8 @@ const BumpOffer = ({
                 onChange={onStyleChange}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Color:
               </InputRow.Label>
               <MiniTwitterPicker
@@ -141,8 +152,8 @@ const BumpOffer = ({
               />
 
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Style:
               </InputRow.Label>
               <InputRow.SelectOption
@@ -156,8 +167,8 @@ const BumpOffer = ({
                 ]}
               />
             </InputRow>
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Width:
               </InputRow.Label>
               <InputRow.SelectOption
@@ -175,8 +186,8 @@ const BumpOffer = ({
               />
             </InputRow>
 
-            <InputRow>
-              <InputRow.Label>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
                 Border Radius:
               </InputRow.Label>
               <InputRow.SelectOption
@@ -196,6 +207,16 @@ const BumpOffer = ({
                 ]}
               />
             </InputRow>
+          </Panel>
+          <Panel header='Fulfillment' className='offer-fulfillment-panel' key='4'>
+            {fulfillments.map((ful) => (
+              <FulfillmentRowCard
+                key={ful._id}
+                activeFulfillment={fulfillment}
+                onSelect={onFulfillmentChange}
+                {...ful}
+              />
+            ))}
           </Panel>
         </Collapse>
       </MenuContent>

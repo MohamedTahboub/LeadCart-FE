@@ -6,7 +6,7 @@ const { CycleStepTitle, CheckoutInput, FloatButton } = common;
 
 
 export default ({
- data = {}, color, onOptionSelected, ...props 
+  data = {}, color, onOptionSelected, ...props
 }) => {
   const onDisable = () => {
     props.onChange({
@@ -27,7 +27,7 @@ export default ({
       >
         <i className='fas fa-eye-slash' />
       </FloatButton>
-      <CycleStepTitle step='2'>SHIPPING ADDRESS</CycleStepTitle>
+      <CycleStepTitle step='2'>Shipping Address</CycleStepTitle>
       <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled

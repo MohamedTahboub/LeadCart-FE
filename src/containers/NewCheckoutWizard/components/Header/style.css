@@ -3,26 +3,30 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    background: var(--header-color);
 }
 
 
 .display-controls{
     display: flex;
-    padding: 8px 10px;
+    padding: 4px 7px;
     border-radius: 5px;
     border: 1px solid lightgray;
+    border-color: var(--text-color);
 }
 
 .display-mode-icon{
     color:lightgray;
+    color: var(--text-color);
     cursor: pointer;
-    font-size: 20px;
+    font-size: 17px;
     transition: all .3s ease-in-out;
-    margin: 0 5px;
+    margin: 0 7px;
 }
 .display-mode-icon.active,
 .display-mode-icon:hover{
     color:#4DA1FF;
+    color: var(--active-el-color);
     transform: scale(1.1);
 }
 .header-buttons{

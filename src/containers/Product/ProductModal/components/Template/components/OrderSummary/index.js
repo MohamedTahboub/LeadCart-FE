@@ -58,15 +58,15 @@ const OrderSummary = ({
       <SummarySlice
         className='summary-total'
         name='Total'
-        amount={`${total}$`}
+        amount={`$ ${total}`}
       />
       {nextCharge && (
-        <span>
+        <div className='purchases-charge-details'>
           {' '}
           Your next charge is going to be on
           {' '}
           {nextCharge}
-        </span>
+        </div>
       )}
     </section>
   );

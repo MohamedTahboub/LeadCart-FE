@@ -15,20 +15,50 @@ import {
 } from '../MenuElements';
 
 const {
-  CouponRowCard
+  CouponRowCard,
+  InputRow
 } = common;
 
 const Coupons = ({
+  onChange,
   coupons,
   changeCouponState,
-  product = {}
+  product: {
+    coupons: productCoupon = {},
+    ...product
+  } = {}
 }) => {
   const filteredCoupons = coupons.filter(({ products }) => products.includes(product._id));
+  const onToggleCoupons = () => {
+    onChange({
+      target: {
+        name: 'coupons',
+        value: { enabled: !productCoupon.enabled }
+      }
+    });
+  };
+
 
   return (
     <MenuItem>
       <MenuTitle>Coupons</MenuTitle>
       <MenuContent>
+        <InputRow className='sidebar-row'>
+          <InputRow.Label className='sidebar-input-label'>Show:</InputRow.Label>
+          <InputRow.SwitchInput
+            value={productCoupon.enabled}
+            onToggle={onToggleCoupons}
+            className='sidebar-switch-input'
+          />
+        </InputRow>
+        <div className='sub-menu-title padding-left-10'>
+          Coupons List:
+        </div>
+        {!filteredCoupons.length && (
+          <div className='message-note'>
+            No Coupons Available
+          </div>
+        )}
         {filteredCoupons.map((coupon) => (
           <CouponRowCard
             {...coupon}

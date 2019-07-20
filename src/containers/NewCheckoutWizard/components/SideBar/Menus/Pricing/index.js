@@ -23,33 +23,30 @@ const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }))
 const Settings = ({
   product: { url, price = {}, payment } = {},
   subdomain,
-  onToggleDarkTheme,
-  darkTheme,
   ...props
 }) => (
   <MenuItem>
     <MenuTitle>Settings</MenuTitle>
-    <MenuContent>
-      <Collapse defaultActiveKey={['1']}>
-        <Panel header='Accessability' key='1'>
-          <InputRow className='sidebar-row flexColumn alignedStart'>
-            <InputRow.Label className='sidebar-input-label'>Product Publishable Link (URL):</InputRow.Label>
-            <InputRow.TextField
-              name='url'
-              onChange={props.onChange}
-              value={url}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <InputRow.Label className='sidebar-input-label'>Activate Dark Theme</InputRow.Label>
-            <InputRow.SwitchInput
-              value={darkTheme}
-              onToggle={onToggleDarkTheme}
-              className='sidebar-switch-input'
-            />
-          </InputRow>
-        </Panel>
-      </Collapse>
+    <MenuContent className='normal-padding'>
+      <div className='sub-menu-title'>Product Price & Currency:</div>
+      <InputRow>
+        <InputRow.Label>Currency</InputRow.Label>
+        <InputRow.SearchInput
+          size='small'
+          width={350}
+          options={currenciesList}
+          defaultValue={price.currency || 'USD'}
+          name='price.currency'
+          onChange={props.onChange}
+        />
+      </InputRow>
+      <PaymentType
+        payment={payment}
+        onChange={props.onChange}
+        price={price}
+      />
+      <div className='sub-menu-title'>Product Payment Methods:</div>
+      <PaymentGateway {...props} payment={payment} />
     </MenuContent>
   </MenuItem>
 );

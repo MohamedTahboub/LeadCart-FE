@@ -9,7 +9,7 @@
   color:white;
   padding: 5px; 
   transition: all .3 ease-in-out;
-  /* z-index: 100; */
+  z-index: 1;
 }
 .float-btn:hover{
   background: rgba(0,0,0,0.15);
@@ -49,8 +49,11 @@
 
 span.primary-btn{
   background: #4DA1FF;
+  background: var(--btn-bg);
   font-weight: inherit;
-  padding: 5px 8px;
-  margin:0 5px;
-  font-size: 13px;
+  padding: 3px 5px;
+  padding-right: 8px;
+  margin: 0 5px;
+  font-size: 12px;
+  border-radius: 7px;
 }

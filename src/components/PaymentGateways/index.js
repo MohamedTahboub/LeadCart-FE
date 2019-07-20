@@ -16,7 +16,7 @@ const {
 
 function Message ({ children }) {
   return (
-    <div className='product-payment-message'>
+    <div className='message-note'>
       <span className='message-content'>{children}</span>
     </div>
   );

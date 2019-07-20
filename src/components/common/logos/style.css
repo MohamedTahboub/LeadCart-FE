@@ -3,12 +3,12 @@
   margin: auto;
 }
 .logo-image{
-  height: 32px;
+  height: 25px;
 }
 .logo-shadow{
   position: absolute;
   left: 0px;
-  top:7px;
+  top:6.5px;
 }
 .logo-position {
   position: relative;
@@ -33,10 +33,11 @@
   padding:8px 12px;
   padding-right: 25px;
   cursor: pointer;
+  background: var(--primary-color);
 }
 
 .announcekit-widget{
-  position: absolute;
+  position: relative;
   right: -10px;
   /* top:calc(50% - .5em); */
   color:white;

@@ -3,13 +3,30 @@
     justify-content: center;
     height: 100vh;
     background: #f1f1f1;
+    background: var(--wizard-container-bg);
     padding: 50px;
-    padding-top: 20px;
+    padding-left: 100px;
+    padding-top: 0px;
+    transition:all .3s ease-in-out;
+}
+.checkout-wizard-container.side-opened {
+    padding-left: 400px;
+}
+
+@keyframes spacing{
+    from{
+        padding-left: 100px;
+    }
+    to{
+        padding-left: 380px;
+    }
 }
 
 .checkout-wizard-page.loading {
     position: relative;
     filter:blur(8px);
+    transition:all .3s ease-in-out;
+    
 }
 .loading-layer {
     background-color:rgba(0,0,0,0.3);
@@ -62,3 +79,50 @@
     height: 667px;
     flex:unset;
 }
+
+.blur-effect{
+    position: relative;
+    filter: blur(6px);
+}
+.blur-effect::after{
+    position: absolute;
+    content: "";
+    left:0px;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    background: rgba(241, 233, 233, 0.52);
+}
+
+
+
+
+
+.mobile .product-template-body {
+    flex-wrap:wrap;
+}
+.mobile .checkout-input-field-container {
+    flex: unset;
+    width: 100%;
+}
+.mobile  .product-template-testimonials-container div{
+    flex-wrap:wrap;
+}
+.mobile .richening-components-section{
+    margin-top:20px;
+    max-width:unset;
+}
+.mobile .billing-components-section{
+    width:100%;
+}
+.mobile .template-bump-offer-title-input {
+    width: 226px;
+}
+
+.mobile .about-product-section{
+    justify-content: center;
+}
+
+/* 
+background:#d3d3d363;
+background : var(--dark-primary-color); */

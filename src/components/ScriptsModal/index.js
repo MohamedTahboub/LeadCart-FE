@@ -34,7 +34,7 @@ const ProductsScripts = ({
                 tabs={{
                     'Product Scripts': (
                         <div className="scripts-container" key='productPage-Scripts' >
-                            <div className='scripts-head-message'>These Scripts will be injected in your Product Page</div>
+                            <div className='scripts-head-message'>These Scripts will be injected in your product page</div>
                             <InputRow>
                                 <InputRow.Label className='scripts-labels'>Facebook Pixel Id :</InputRow.Label>
                                 <InputRow.NormalInput
@@ -60,7 +60,7 @@ const ProductsScripts = ({
                                     OR
                                 </span>
                             </div>
-                            <div>Enter a valid Scripts Tags so we can enable them in your Product page</div>
+                            <div>Enter valid Script Tags so we can enable them on your product page</div>
                             <InputRow.CodeInputArea
                                 className='free-script-input-field'
                                 name='scripts.scriptTag'
@@ -71,7 +71,7 @@ const ProductsScripts = ({
                             </InputRow.CodeInputArea>
                         </div>
                     ),
-                    'Thankyou Page Scripts': (
+                    'Thank You Page Scripts': (
                         <div className="scripts-container" key='thankYouPage-Scripts'>
                             <div className='scripts-head-message' >These Scripts will be injected in your thank-you page after purchase complete or post access to the thank-you page resources(fulfillments resources)</div>
                             <InputRow>

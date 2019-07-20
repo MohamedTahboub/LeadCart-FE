@@ -3,6 +3,7 @@ import './style.css';
 import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
 import SearchInput from './SearchInput'
+import TextField from './TextField'
 import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
@@ -122,6 +123,7 @@ export class InputRow extends Component {
   static SearchInput = SearchInput
   static DatePicker = DatePicker
   static EditableTagGroup = EditableTagGroup
+  static TextField = TextField
 
   static SelectOption = ({
     options = [],

@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,Fragment} from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { SideBar, Header } from './components';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { ProductSchema } from 'libs/validation';
 import *  as productActions from 'actions/product';
 import *  as flashMessages from 'actions/flashMessage';
-import { stopTabClosing } from 'libs' 
+import { stopTabClosing } from 'libs'
 import './style.css'
 
 const {
@@ -26,10 +26,11 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
   // const [changesDetected, setChangesDetected] = useState(false)
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState({ product: true })
+  const [templateChanging, setTemplateChanging] = useState(false)
+  const [isSidebarOpened,setSidebarOpened]=useState(false);
+  const [enableDarkTheme,setEnableDarkTheme]=useState(false)
 
-
-
-  const changesDetected = ()=>{
+  const changesDetected = () => {
     stopTabClosing(true)
   }
   const onChange = ({ target: { name, value } }) => {
@@ -45,14 +46,17 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
     changesDetected()
   }
 
+  const onToggleDarkTheme = () =>{
+    setEnableDarkTheme(!enableDarkTheme)
+  }
   useEffect(() => {
     const { url } = props.match.params
     console.log(props)
     const product = products.find(({ url: u }) => u === url) || {}
     setFields(product);
-    if(product._id)
+    if (product._id)
       setLoading({ product: false })
-   
+
     return () => {
       setFields({});
     };
@@ -100,46 +104,63 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
       })
 
   }
+  const postSideChanging= (state)=>{
+    setSidebarOpened(state)
+  }
+  const toggleTemplateChangeEffect = () => {
+    const state = !templateChanging
+    setTemplateChanging(state)
+    setTimeout(() => {
+      setTemplateChanging(!state)
+    }, 350);
+  }
 
   return (
     <Fragment>
-    {loading.product && (
-      <div className="loading-layer">
-      <div className="loading-message">Setting Up...</div>
-      </div>
+      {loading.product && (
+        <div className="loading-layer">
+          <div className="loading-message">Setting Up...</div>
+        </div>
       )}
-    <div className={`checkout-wizard-page ${loading.product ? 'loading' : ''}`}>
-      <Header
-        onChange={onChange}
-        onDisplayChange={onDisplayChange}
-        type={displayType}
-        subdomain={subdomain}
-        product={fields}
-        onSave={onSave}
-        history={props.history}
-      />
-      <SideBar onChange={onChange} product={fields} />
-      <div className="checkout-wizard-container" >
-        <ProductEditableTemplate
-          className={`${displayType}`}
-          product={fields}
+      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode' } ${loading.product ? 'loading' : ''}`}>
+        <Header
           onChange={onChange}
-          errors={errors}
-        // onOptionSelected={this.onOptionSelected}
+          onDisplayChange={onDisplayChange}
+          type={displayType}
+          subdomain={subdomain}
+          product={fields}
+          onSave={onSave}
+          history={props.history}
         />
+        <SideBar
+          onChange={onChange}
+          product={fields}
+          onSidebarChange={postSideChanging}
+          onToggleDarkTheme={onToggleDarkTheme}
+          darkTheme={enableDarkTheme}
+          toggleTemplateChangeEffect={toggleTemplateChangeEffect}
+        />
+        <div className={`checkout-wizard-container ${isSidebarOpened ? 'side-opened' : '' }`} >
+          <ProductEditableTemplate
+            className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
+            product={fields}
+            onChange={onChange}
+            errors={errors}
+          // onOptionSelected={this.onOptionSelected}
+          />
+        </div>
       </div>
-    </div>
     </Fragment>
   )
 };
 
 NewCheckoutWizard.propTypes = {
-  history:PropTypes.objectOf({})
+  history: PropTypes.objectOf({})
 };
 
 NewCheckoutWizard.defaultProps = {
   products: [],
-  history:{}
+  history: {}
 }
 
 const mapStateToProps = ({

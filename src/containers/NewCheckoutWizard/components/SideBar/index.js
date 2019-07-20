@@ -9,6 +9,7 @@ import {
   fulfillmentIcon,
   bumpOfferIcon,
   couponIcon,
+  pricingIcon,
   settingsIcon
 } from '../Icons';
 
@@ -22,15 +23,15 @@ const SideButton = ({
   id,
   active,
 }) => (
-  <div
-    className={`side-button ${active === id ? 'active' : ''} ${className}`}
-    onClick={() => onClick(id)}
-    role='presentation'
-  >
-    <img src={image} alt='side icon' className='side-button-image' />
-    <span className='side-button-label'>{label}</span>
-  </div>
-);
+    <div
+      className={`side-button ${active === id ? 'active' : ''} ${className}`}
+      onClick={() => onClick(id)}
+      role='presentation'
+    >
+      <img src={image} alt='side icon' className='side-button-image' />
+      <span className='side-button-label'>{label}</span>
+    </div>
+  );
 
 const SideButtons = ({ active, onClick }) => (
   <div className='side-buttons-container'>
@@ -39,7 +40,7 @@ const SideButtons = ({ active, onClick }) => (
       onClick={onClick}
       image={AppearanceIcon}
       id='appearance'
-      label='appearance'
+      label='Appearance'
     />
     <SideButton
       active={active}
@@ -51,9 +52,16 @@ const SideButtons = ({ active, onClick }) => (
     <SideButton
       active={active}
       onClick={onClick}
+      image={pricingIcon}
+      id='pricing'
+      label='Pricing'
+    />
+    <SideButton
+      active={active}
+      onClick={onClick}
       image={fulfillmentIcon}
       id='fulfillment'
-      label='fulfillment'
+      label='Fulfillment'
     />
     <SideButton
       active={active}
@@ -86,14 +94,30 @@ const SideBar = (props) => {
   const [activeMenuItem, setActiveMenuItem] = useState('');
   const [open, setOpen] = useState(false);
 
+
+  const onOpen = () => {
+    setOpen(true)
+    if (props.onSidebarChange)
+    props.onSidebarChange(true)
+  }
+  const onClose = () => {
+    setOpen(false)
+    if (props.onSidebarChange)
+    props.onSidebarChange(false)
+  }
+
   const onActivateMenuItem = (item) => {
     if (item === activeMenuItem) {
       if (open) {
-        setOpen(false)
+        onClose()
         return setActiveMenuItem('')
       }
-      else setOpen(true);
-    } else {setOpen(true);}
+      else {
+        onOpen()
+      }
+    } else {
+      onOpen()
+    }
 
     setActiveMenuItem(item);
   };

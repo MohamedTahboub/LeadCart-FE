@@ -1,15 +1,13 @@
 .template-payment-card{
-  height: 70px;
-  width: 147px;
+  height: 50px;
+  width: 110px;
 }
 .payment-methods-cards-container{
   display: flex;
   flex-wrap: wrap;
 }
 .adding-payment-error{
-  /* float: left; */
   font-size: 13px;
-  /* width: 100%; */
   text-align: center;
   margin: 14px;
   color: tomato;

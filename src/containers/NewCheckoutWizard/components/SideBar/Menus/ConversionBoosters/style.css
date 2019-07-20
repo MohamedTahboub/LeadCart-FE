@@ -4,6 +4,7 @@
     padding: 0 10px;
 }
 .sidebar-input-label{
+    margin:5px 0;
     width: unset;
 }
 .sidebar-switch-input{
@@ -16,4 +17,13 @@
 .sidebar-switch-input::before {
     content: 'show';
     text-transform: capitalize;
+}
+.flexColumn{
+    flex-direction: column;
+}
+.alignedStart{
+    align-items: flex-start;
+}
+.terms-and-conditions-input{
+    width: 100%;
 }
