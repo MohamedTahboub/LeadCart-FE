@@ -110,10 +110,9 @@ useEffect(() => {
     setSidebarOpened(state)  
   }
   const toggleTemplateChangeEffect = () => {
-    const state = !templateChanging
-    setTemplateChanging(state)
+    setTemplateChanging(!templateChanging)
     setTimeout(() => {
-      setTemplateChanging(!state)
+      setTemplateChanging(state=>!state)
     }, 350);
   }
 
