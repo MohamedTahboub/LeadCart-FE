@@ -6,6 +6,7 @@ import stripeImage from 'assets/images/stripe.png';
 import cashOnDeliveryImage from 'assets/images/cod.png';
 import { openNewWindow } from 'libs';
 import common from 'components/common';
+import { connect } from 'react-redux';
 
 import './style.css';
 
@@ -50,23 +51,23 @@ const PaymentMethods = ({
     <Fragment>
       <div className='payment-methods-cards-container'>
         {userPaymentsMethods.includes('Stripe')
-                    && (
-                      <MediumCard
-                        className='template-payment-card'
-                        imgSrc={stripeImage}
-                        isActive={methods.includes('Stripe')}
-                        onClick={() => onChange('Stripe')}
-                      />
-                    )}
+          && (
+            <MediumCard
+              className='template-payment-card'
+              imgSrc={stripeImage}
+              isActive={methods.includes('Stripe')}
+              onClick={() => onChange('Stripe')}
+            />
+          )}
         {userPaymentsMethods.includes('Paypal')
-                    && (
-                      <MediumCard
-                        className='template-payment-card'
-                        imgSrc={paypalImage}
-                        isActive={methods.includes('Paypal')}
-                        onClick={() => onChange('Paypal')}
-                      />
-                    )
+          && (
+            <MediumCard
+              className='template-payment-card'
+              imgSrc={paypalImage}
+              isActive={methods.includes('Paypal')}
+              onClick={() => onChange('Paypal')}
+            />
+          )
         }
         <MediumCard
           className='template-payment-card'
@@ -81,19 +82,19 @@ const PaymentMethods = ({
         {userPaymentsMethods.length
           ? (
             <Message>
-                            you can add or remove the payment gateways from:
+              you can add or remove the payment gateways from:
               <span onClick={() => openNewWindow('/settings/integrations')}>
                 {' '}
-                                settings/integrations
+                settings/integrations
               </span>
             </Message>
           )
           : (
             <Message>
-                            You Don't Have Any Payment Method connected to Your Account,Add from
+              You Don't Have Any Payment Method connected to Your Account,Add from
               <span onClick={() => openNewWindow('/settings/integrations')}>
                 {' '}
-                                settings/integrations
+                settings/integrations
               </span>
             </Message>
           )}
@@ -102,4 +103,13 @@ const PaymentMethods = ({
   );
 };
 
-export default PaymentMethods;
+const mpaStateToProps = ({
+  payments: {
+    methods: userPaymentsMethods = {}
+  } = {}
+}) => ({
+  userPaymentsMethods
+});
+
+export default connect(mpaStateToProps)(PaymentMethods);
+
