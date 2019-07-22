@@ -7,10 +7,12 @@ const TextField = ({
   onChange,
   onBlur,
   name,
+  prefix,
   value,
   ...props
 }) => (
   <div className={`text-input-filed-container ${className}`}>
+    {prefix && prefix}
     <input
       type={type}
       name={name}
