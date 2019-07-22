@@ -6,6 +6,12 @@ import { getCurrencySymbol } from 'libs';
 import './style.css';
 const { InputRow } = common;
 
+const Currency = ({ value, className = '', ...props }) => (
+  <div className={`currency-label ${className}`}>
+    {getCurrencySymbol(value)}
+  </div>
+);
+
 // const paymentTypesOptions = (type) => ({
 //   Split: { label: 'Number of Splits', name: 'splits', options: [3, 6, 9] },
 //   Subscription: { label: 'Recurring time', name: 'recurringPeriod', options: ['Monthly', 'Yearly'] }
@@ -50,17 +56,18 @@ export default ({
     });
   };
   const paymentType = payment.type;
-  const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split amount(each)' : 'Price';
+  const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split Amount (Each)' : 'Price';
   return (
     <Fragment>
       <InputRow>
         <InputRow.Label>{priceLabel}</InputRow.Label>
         <InputRow.TextField
-          onBlur={onFieldChange}
+          onBlur={onChange}
           className='default-pricing-field-length'
           // currency={getCurrencySymbol(price.currency)}
           name='price.amount'
           value={price.amount}
+          prefix={<Currency value={price.currency} />}
         />
       </InputRow>
       <PaymentTypeSelector value={paymentType} onChange={onFieldChange} />

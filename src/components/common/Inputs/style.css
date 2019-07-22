@@ -952,7 +952,7 @@ input.checkout-input-field:valid + label.checkout-input-label{
     position: relative;
 }
 input.text-input-filed{
-    border: .6px solid lightgray;
+    border: 1px solid lightgray;
     padding: 5px;
     width: inherit;
     border-radius: 3px;
@@ -965,6 +965,25 @@ input.text-input-filed:focus {
 /* TEXT FIELD STYLES START ENDS */
 
 
+.text-input-filed-container .currency-label + .text-input-filed {
+    padding-left:45px; 
+}
+
+.currency-label {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    top: 0px;
+    background: var(--primary-color);
+    color: white;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
 
 
 

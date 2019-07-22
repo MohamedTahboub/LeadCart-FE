@@ -30,8 +30,8 @@ const Settings = ({
   <MenuItem>
     <MenuTitle>Settings</MenuTitle>
     <MenuContent>
-      <Collapse defaultActiveKey={['1']}>
-        <Panel header='Accessability' key='1'>
+      <Collapse defaultActiveKey={['1', '2']}>
+        <Panel header='Product Settings' key='1'>
           <InputRow className='sidebar-row flexColumn alignedStart'>
             <InputRow.Label className='sidebar-input-label'>Product Publishable Link (URL):</InputRow.Label>
             <InputRow.TextField
@@ -40,8 +40,11 @@ const Settings = ({
               value={url}
             />
           </InputRow>
+
+        </Panel>
+        <Panel header='Wizard Settings' key='2'>
           <InputRow className='sidebar-row'>
-            <InputRow.Label className='sidebar-input-label'>Activate Dark Theme</InputRow.Label>
+            <InputRow.Label className='sidebar-input-label'>Dark Theme</InputRow.Label>
             <InputRow.SwitchInput
               value={darkTheme}
               onToggle={onToggleDarkTheme}

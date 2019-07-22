@@ -19,7 +19,7 @@ const {
   // Button
 } = common;
 
-const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
+const NewCheckoutWizard = ({ products, subdomain, globelLoading, ...props }) => {
 
   const [fields, setFields] = useState({});
   const [displayType, setDisplayType] = useState('desktop');
@@ -49,20 +49,17 @@ const NewCheckoutWizard = ({ products, subdomain, ...props }) => {
   const onToggleDarkTheme = () => {
     setEnableDarkTheme(!enableDarkTheme)
   }
-useEffect(() => {
+  useEffect(() => {
     const { url } = props.match.params
-    console.log(props)
     const product = products.find(({ url: u }) => u === url) || {}
     setFields(product);
-    if (product._id)
+  
+    if(product._id)
       setLoading({ product: false })
-    else {
-      props.history.push('/')
-    } 
     return () => {
       setFields({});
     };
-  }, [products]);
+  }, [products, globelLoading]);
 
   const onDisplayChange = (type) => {
     setDisplayType(type)
@@ -106,14 +103,13 @@ useEffect(() => {
       })
 
   }
-  const postSideChanging= (state)=>{
-    setSidebarOpened(state)  
+  const postSideChanging = (state) => {
+    setSidebarOpened(state)
   }
   const toggleTemplateChangeEffect = () => {
-    const state = !templateChanging
-    setTemplateChanging(state)
+    setTemplateChanging(!templateChanging)
     setTimeout(() => {
-      setTemplateChanging(!state)
+      setTemplateChanging(state => !state);
     }, 350);
   }
 
@@ -124,7 +120,7 @@ useEffect(() => {
           <div className="loading-message">Setting Up...</div>
         </div>
       )}
-      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode' } ${loading.product ? 'loading' : ''}`}>
+      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.product ? 'loading' : ''}`}>
         <Header
           onChange={onChange}
           onDisplayChange={onDisplayChange}
@@ -142,7 +138,7 @@ useEffect(() => {
           darkTheme={enableDarkTheme}
           toggleTemplateChangeEffect={toggleTemplateChangeEffect}
         />
-        <div className={`checkout-wizard-container ${isSidebarOpened ? 'side-opened' : '' }`} >
+        <div className={`checkout-wizard-container ${isSidebarOpened ? 'side-opened' : ''}`} >
           <ProductEditableTemplate
             className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
             product={fields}
@@ -167,6 +163,7 @@ NewCheckoutWizard.defaultProps = {
 
 const mapStateToProps = ({
   products: { products } = {},
+  loading: globelLoading,
   user: { user: { subDomain: subdomain } }
-}) => ({ products, subdomain })
+}) => ({ products, subdomain, globelLoading })
 export default connect(mapStateToProps, { ...productActions, ...flashMessages })(NewCheckoutWizard);
