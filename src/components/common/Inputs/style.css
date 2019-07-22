@@ -975,7 +975,7 @@ input.text-input-filed:focus {
     bottom: 0px;
     top: 0px;
     background: var(--primary-color);
-    color: var(--header-color);
+    color: white;
     height: inherit;
     display: flex;
     justify-content: center;
