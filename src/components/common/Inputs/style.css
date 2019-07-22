@@ -952,7 +952,7 @@ input.checkout-input-field:valid + label.checkout-input-label{
     position: relative;
 }
 input.text-input-filed{
-    border: .6px solid lightgray;
+    border: 1px solid lightgray;
     padding: 5px;
     width: inherit;
     border-radius: 3px;

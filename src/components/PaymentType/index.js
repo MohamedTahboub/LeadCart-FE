@@ -56,7 +56,7 @@ export default ({
       <InputRow>
         <InputRow.Label>{priceLabel}</InputRow.Label>
         <InputRow.TextField
-          onBlur={onFieldChange}
+          onBlur={onChange}
           className='default-pricing-field-length'
           // currency={getCurrencySymbol(price.currency)}
           name='price.amount'

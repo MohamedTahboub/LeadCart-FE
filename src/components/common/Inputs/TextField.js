@@ -14,7 +14,7 @@ const TextField = ({
     <input
       type={type}
       name={name}
-      value={value}
+      defaultValue={value}
       className='text-input-filed'
       onChange={onChange}
       onBlur={onBlur}
