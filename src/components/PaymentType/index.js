@@ -1,16 +1,9 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import common from 'components/common';
-import { getCurrencySymbol } from 'libs';
 
 
 import './style.css';
-const { InputRow } = common;
-
-const Currency = ({ value, className = '', ...props }) => (
-  <div className={`currency-label ${className}`}>
-    {getCurrencySymbol(value)}
-  </div>
-);
+const { InputRow, Currency } = common;
 
 // const paymentTypesOptions = (type) => ({
 //   Split: { label: 'Number of Splits', name: 'splits', options: [3, 6, 9] },

@@ -965,25 +965,7 @@ input.text-input-filed:focus {
 /* TEXT FIELD STYLES START ENDS */
 
 
-.text-input-filed-container .currency-label + .text-input-filed {
-    padding-left:45px; 
-}
 
-.currency-label {
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-    top: 0px;
-    background: var(--primary-color);
-    color: white;
-    height: inherit;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 40px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
 
 
 

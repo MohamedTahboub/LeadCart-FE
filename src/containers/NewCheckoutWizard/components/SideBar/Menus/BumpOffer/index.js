@@ -6,16 +6,16 @@ import {
   MenuItem,
   MenuTitle,
   MenuContent,
-  MenuFlexContent
 } from '../MenuElements';
+
 import './style.css';
 
-const castFulfillmentList = (fulfillments) => fulfillments.map(({ name: label, _id: value }) => ({ label, value }));
 
 const {
   Collapse,
   MiniTwitterPicker,
   FulfillmentRowCard,
+  Currency,
   InputRow
 } = common;
 
@@ -25,6 +25,9 @@ const BumpOffer = ({
   fulfillments,
   onChange,
   product: {
+    price: {
+      currency = 'usd'
+    } = {},
     offer: {
       fulfillment,
       name,
@@ -95,6 +98,7 @@ const BumpOffer = ({
                 className='default-pricing-field-length'
                 name='offer.price'
                 onBlur={onChange}
+                prefix={<Currency value={currency} />}
                 value={price}
                 currency='$'
               />

@@ -5,7 +5,7 @@ import './style.css';
 
 const { FloatButton } = common;
 
-const TermsAndConditionsBadge = ({ onChange, onOptionSelected, terms = {} }) => {
+const TermsAndConditionsBadge = ({ onChange, terms = {} }) => {
   const onLinkClick = (e) => {
     e.preventDefault();
   };

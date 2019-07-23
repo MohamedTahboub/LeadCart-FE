@@ -28,7 +28,10 @@ const Coupons = ({
     ...product
   } = {}
 }) => {
-  const filteredCoupons = coupons.filter(({ products }) => products.includes(product._id));
+  const filteredCoupons = coupons.filter(({ products, forAll }) => {
+    if (forAll) return true;
+    return products.includes(product._id);
+  });
   const onToggleCoupons = () => {
     onChange({
       target: {

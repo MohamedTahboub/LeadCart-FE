@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 
 import {
-  MenuItem, MenuTitle, MenuContent, MenuFlexContent
+  MenuItem,
+  MenuTitle,
+  MenuContent,
 } from '../MenuElements';
 
 import './style.css';
@@ -16,14 +18,15 @@ const Fulfillments = ({
   fulfillments,
   ...props
 }) => {
-  const onSelect = (id) => () => {
+  const onToggle = (id) => () => {
     props.onChange({
       target: {
         name: 'fulfillment',
-        value: id
+        value: fulfillment !== id ? id : ''
       }
     });
   };
+
   return (
     <MenuItem>
       <MenuTitle>Fulfillments</MenuTitle>
@@ -40,7 +43,7 @@ const Fulfillments = ({
           <FulfillmentRowCard
             key={ful._id}
             activeFulfillment={fulfillment}
-            onSelect={onSelect}
+            onSelect={onToggle}
             {...ful}
           />
         ))}
