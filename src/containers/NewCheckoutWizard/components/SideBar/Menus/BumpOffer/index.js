@@ -33,7 +33,7 @@ const BumpOffer = ({
       name,
       price,
       enabled,
-      style
+      style = {}
     } = {}
   }
 }) => {

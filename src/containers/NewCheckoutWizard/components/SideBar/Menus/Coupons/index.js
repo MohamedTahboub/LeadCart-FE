@@ -21,7 +21,7 @@ const {
 
 const Coupons = ({
   onChange,
-  coupons,
+  coupons = [],
   changeCouponState,
   product: {
     coupons: productCoupon = {},
