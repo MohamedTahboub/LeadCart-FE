@@ -225,9 +225,9 @@ export class InputRow extends Component {
     </div>
   )
 
-  static SwitchInput = ({ onChange,className='', name, value, preValue, onToggle, ...props }) => (
+  static SwitchInput = ({ onChange,className='', name, value, preValue,defaultChecked, onToggle, ...props }) => (
     <label className={`switch-slider-input ${className}`}>
-      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} checked={preValue} {...props} />
+      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={defaultChecked} checked={value} {...props} />
       <span className='slider-input slider-round' />
     </label>
   )

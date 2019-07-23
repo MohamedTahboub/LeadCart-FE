@@ -18,6 +18,6 @@ export default ({ activeMenu, ...props }) => {
   case 'pricing': return <Pricing {...props} />;
   case 'settings': return <Settings {...props} />;
 
-  default: return <Appearance {...props} />;
+  default: return null;
   }
 };
