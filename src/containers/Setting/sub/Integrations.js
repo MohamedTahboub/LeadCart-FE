@@ -31,14 +31,7 @@ const CardsContainer = ({ className = '', children }) => (
   </div>
 );
 
-// const AddNewButton = (props) => (
-//   <Button className='primary-color medium-add-btn'>
-//     <i className='fas fa-plus' />
-//     {' '}
-//     Add new
-//   </Button>
-// );
-// ColorInlinePicker
+const CardHandler = ({ children }) => <div className='card-handler'>{children}</div>;
 const connectStripe = () => {
   window.open(STRIP_AUTH_LINK);
 };
@@ -91,6 +84,12 @@ class Integrations extends Component {
   render () {
     const { stripe, paypal } = this.state;
     const { methods, integrations: { paypal: PaypalStatus, errors: { paypalError } } } = this.props;
+    const isMethodActive = (method) => methods.find(({ name }) => name === method);
+    const getHandlerName = method => {
+      if(isMethodActive(method))
+        return isMethodActive(method).handler 
+      return 'Not Connected'
+    }
     return (
       <React.Fragment key={Date.now()}>
         <MainTitle style={{ marginTop: '20px' }}>
@@ -99,15 +98,17 @@ class Integrations extends Component {
         <CardsContainer>
           <MediumCard
             onClick={connectStripe}
-            isActive={methods.includes('Stripe')}
+            isActive={isMethodActive('Stripe')}
             error={stripe.error}
             imgSrc={brandsLogos.stripeImage}
+            headline={<CardHandler>{getHandlerName('Stripe')}</CardHandler>}
             isLoading={stripe.onprogress}
           />
           <PayPalConnectContainer
             imgSrc={brandsLogos.paypalImage}
-            active={PaypalStatus || methods.includes('Paypal')}
+            active={PaypalStatus || isMethodActive('Paypal')}
             error={paypalError}
+            headline={<CardHandler>{getHandlerName('Paypal')}</CardHandler>}
             onConnect={this.onConnectPaypal}
           />
           <MediumCard
@@ -233,7 +234,7 @@ class Integrations extends Component {
         </CardsContainer>
 
         <MainTitle style={{ marginTop: '20px' }}>
-        Webinar Platforms
+          Webinar Platforms
         </MainTitle>
         <CardsContainer>
           <MediumCard
@@ -265,7 +266,7 @@ class Integrations extends Component {
         </CardsContainer>
 
         <MainTitle style={{ marginTop: '20px' }}>
-         Dropshipping/Shipping
+          Dropshipping/Shipping
 
         </MainTitle>
         <CardsContainer>
@@ -283,7 +284,7 @@ class Integrations extends Component {
 
 
         <MainTitle style={{ marginTop: '40px' }}>
-        Misc Integrations
+          Misc Integrations
 
         </MainTitle>
         <CardsContainer>

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { CodeInputArea } from '../Inputs'
 import './style.css';
-export const FlexBoxesContainer = ({ children, className, ...props }) => (
-  <div className={`flex-boxes-container ${className ? className : ''}`}>
+export const FlexBoxesContainer = ({ children,flex='', className, ...props }) => (
+  <div className={`flex-boxes-container ${className ? className : ''} ${flex}`}>
     {children}
   </div>
 );

@@ -97,9 +97,12 @@ span.inactive-badge {
 span.medium-card-headline {
     position: absolute;
     bottom: 15px;
-    left: 25%;
+    left: 0;
+    right: 0;
     text-align: center;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -542,3 +545,76 @@ span.medium-card-headline {
 .menu-coupon-type .value{
     margin-left: 10px;
 }
+
+
+
+/* Package Card Styles */
+.flex-boxes-container.packages-container{
+    flex-grow: 1;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.flex-boxes-container.packages-cards-container{
+   
+}
+
+.package-card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1.5px solid #eee;
+    padding: 5px 10px;
+    margin: 10px 5px;
+    border-radius: 4px;
+    min-width: 200px;
+    flex: 1;
+    cursor: pointer;
+    transition:border-color .4s ease-in-out;
+}
+.package-card.active{
+    position: relative;
+    border-color: #4da0fc;
+}
+.package-card.active::after{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 25px;
+    content: "\F058";
+    bottom: 12px;
+    right: 10px;
+    color: #4da0fc;
+}
+.package-card:hover{
+    border-color: #4da0fc6b;
+}
+.package-card-header{
+    display: flex;
+    justify-content: space-between;
+}
+.package-card-features{
+    display: flex;
+    flex-direction: column;
+}
+.active-package-card{
+    position: absolute;
+    right:20px;
+    bottom: 20px;
+}
+.package-card-title {
+    color: #485579;
+    font-weight: bold;
+    font-size: 16px;
+}
+.package-card-price {
+    color: gray;
+    font-size: 13px;
+    text-transform: capitalize;
+    margin: 5px;
+}
+.package-card-price .amount {
+    font-weight: bold;
+    color: #485579;
+}
+/* Package Card Styles Ends */
