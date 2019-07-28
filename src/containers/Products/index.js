@@ -115,7 +115,11 @@ const Products = ({
         ))
           : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
         }
-        <PrecreateProductModals show={showCreateModal} {...props} />
+        <PrecreateProductModals
+          show={showCreateModal}
+          onClose={() => setShowProductModal(false)}
+          {...props}
+        />
 
       </PageContent>
 

@@ -7,10 +7,14 @@ import productSample from 'data/product.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux'
 import ids from 'shortid'
+import common from '../common'
 
 import './style.css'
 
-const ProductCategoryModal = ({ show, ...props }) => {
+const {
+    Button
+} = common
+const ProductCategoryModal = ({ show,onClose, ...props }) => {
     const [next, setNext] = useState('categories')
     const [progress, setProgress] = useState(false)
 
@@ -50,7 +54,14 @@ const ProductCategoryModal = ({ show, ...props }) => {
             className='transparent-bg'
             isVisible={show}
             hideCloseBtn
-
+            footer={(
+                <Button
+                    onClick={onClose}
+                    className='percreate-product-modal-cancel-btn'
+                >
+                    Cancel
+                </Button>
+            )}
         >
             {next === 'categories' ? (
                 <ProductCategories onSelect={onNext('templatesList')} />
@@ -58,6 +69,7 @@ const ProductCategoryModal = ({ show, ...props }) => {
                 :
                 <TemplatesList onSelect={onTemplateSelect} />
             }
+
         </Modal>
     )
 }
