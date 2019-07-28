@@ -6,6 +6,17 @@
 }
 
 .transparent-bg{
+    position: relative;
     background: transparent;
     background-color: transparent;
+}
+.percreate-product-modal-cancel-btn{
+    position: absolute;
+    left: 50px;
+    bottom: 30px;
+    background: white;
+    color:gray;
+}
+.percreate-product-modal-cancel-btn:hover{
+    background: lightgray;
 }
