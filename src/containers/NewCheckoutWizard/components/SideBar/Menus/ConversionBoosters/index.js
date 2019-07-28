@@ -19,7 +19,7 @@ const ConversionBoosters = ({
       testimonials = {},
       features = {},
       termsAndConditions: terms = {},
-      guaranteed,
+      guaranteed = {},
     } = {}
   } = {},
   ...props
@@ -55,7 +55,7 @@ const ConversionBoosters = ({
   const onToggleGuaranteed = () => {
     onChange(
       'checkoutPage.guaranteed',
-      !guaranteed
+      { ...guaranteed, enabled: !guaranteed.enabled }
     );
   };
 
@@ -133,7 +133,7 @@ const ConversionBoosters = ({
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Guarantee Message:</InputRow.Label>
               <InputRow.SwitchInput
-                value={guaranteed}
+                value={guaranteed.enabled}
                 onToggle={onToggleGuaranteed}
                 className='sidebar-switch-input'
               />

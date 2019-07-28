@@ -43,7 +43,10 @@
         "logo": "logo",
         "presetColors": "#0693E3",
         "template": "temp1",
-        "guaranteed": true
+        "guaranteed": {
+            "enabled":false,
+            "url":"https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/guarantee-badge.png"
+        }
     },
     "offer": {
         "enabled": true,

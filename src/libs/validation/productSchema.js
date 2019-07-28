@@ -31,7 +31,10 @@ const checkoutPageSchema = yup.object({
   checkoutButtonText: yup.string().default('Complete Order'),
   presetColors: yup.string().default('#8ED1FC'),
   features: featuresSchema,
-  guaranteed: yup.boolean().default(false),
+  guaranteed: yup.object({
+    enabled: yup.bool().default(false),
+    url: yup.string().url()
+  }),
   logo: yup.string().default(defaultLogo),
   termsAndConditions: termsAndConditionsSchema,
   testimonials: testimonialsSchema,
