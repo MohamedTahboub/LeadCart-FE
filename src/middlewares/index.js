@@ -23,7 +23,7 @@ import upsells from './upsell'
 import fulfillments from './fulfillments'
 import emails from './emails'
 import customers from './customers'
-import eventsTracker from './eventsTracker'
+// import eventsTracker from './eventsTracker'
 // exporting the middlewares as an array 
 export default [
     appInit,
@@ -49,6 +49,6 @@ export default [
     flashMessage,
     apiRequest,
     uploadingFiles,
-    eventsTracker,
+    // eventsTracker,
     storage
 ]
