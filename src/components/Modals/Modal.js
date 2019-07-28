@@ -10,6 +10,7 @@ export default ({
   className = '',
   closeBtnClassName = '',
   isVisible,
+  footer,
   hideCloseBtn,
   affectIntercom = true,
   ...props
@@ -38,10 +39,11 @@ export default ({
           {!hideCloseBtn
             && (<span onClick={onClose} className={`modal-close-btn ${closeBtnClassName}`} role='presentation'>
               <i className='fas fa-times' />
-            </span>
+                </span>
             )}
           {children}
         </SlidingAnimation>
+        {footer && footer}
       </EasyAnimate>
     )
       : null
