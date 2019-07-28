@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import * as codeActions from 'actions/promoCode';
 import './styles.css';
 import moment from 'moment';
-import config from 'config'
+import config from 'config';
+import SubscriptionPackages from 'components/';
+const { prices = {} } = config;
 
-const { prices = {} } = config
 const {
   InputRow,
   HeadeLine,
@@ -28,7 +29,7 @@ class CodeInputField extends Component {
     success: false
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const { codesUsed, error, loading: globleLoading } = this.props;
     const { loading } = this.state;
     if (prevProps.codesUsed !== codesUsed && !error) {
@@ -52,7 +53,7 @@ class CodeInputField extends Component {
     }
   }
 
-  render() {
+  render () {
     const {
       onClick, isLoading, error, ...props
     } = this.props;
@@ -82,7 +83,7 @@ class CodeInputField extends Component {
   }
 }
 
-const TrialCountDown = props => <span>end date</span>
+const TrialCountDown = (props) => <span>end date</span>;
 const PackageState = ({ type, trial: { trial, trialEndDate } = {} }) => (
   <div className='package-level'>
     {type}
@@ -90,7 +91,9 @@ const PackageState = ({ type, trial: { trial, trialEndDate } = {} }) => (
       <Fragment>
         <span className='trial-package'>(trial)</span>
         <span className='trial-package-expiration'>
-          Ends : {moment(trialEndDate).fromNow()}
+          Ends : 
+{' '}
+{moment(trialEndDate).fromNow()}
         </span>
       </Fragment>
     )}
@@ -107,85 +110,39 @@ const Billing = ({
   trialEndDate,
   ...props
 }) => (
-    <Fragment>
-      <MainBlock title='LeadCart Plan' />
-      <FlexBoxesContainer className='billing-cards-container'>
-        <FlexBoxesContainer flex='column'>
-          <Box
-            header={<HeadeLine>Your Package is :</HeadeLine>}
-            content={(
-              <BigText>
-                <PackageState type={packageType} trial={{ trial, trialEndDate }} />
-              </BigText>
-            )}
-            footer={(
-              <FlexBoxesContainer className='space-between-elements'>
-                <div>
-                  <InputRow.Label>Nex billing date</InputRow.Label>
-                  <div> ~ Eternity</div>
-                </div>
-                <div>
-                  <SmallButton className='green-color'>Active</SmallButton>
-                </div>
-              </FlexBoxesContainer>
-            )}
-          />
-          <Box
-            header={<HeadeLine>Redeem Codes:</HeadeLine>}
-            content={(
-              <span className='plan-card-action'>
-                <CodeInputField
-                  onSubmit={activateAgencyCode}
-                  error={errors.message}
-                  loading={loading}
-                />
-              </span>
-            )}
-            footer={(
-              <Fragment>
-                <div className='error-message redeem-box-error'>
-                  {errors.message}
-                </div>
-                <InputRow.Label
-                  notes='Redeem codes and to get more sub accounts access'
-                >
-                  You Have Redeemed
-              {' '}
-                  {codesUsed || 0}
-                  {' '}
-                  out of
-              {' '}
-                  {codesUsed > 5 ? codesUsed : 5}
-                  {' '}
-                  codes
-            </InputRow.Label>
-              </Fragment>
-            )}
-          />
-        </FlexBoxesContainer>
+  <Fragment>
+    <MainBlock title='LeadCart Plan' />
+    <FlexBoxesContainer className='billing-cards-container'>
+      <FlexBoxesContainer flex='column'>
         <Box
-          header={(
-            <Fragment>
-              <HeadeLine className='subscription-head-line'>
-                Subscription
-            </HeadeLine>
-              <div className='subscription-head-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nam, perferendis fugiat nobis deserunt exercitationem officia error fugit omnis asperiores voluptates vero, illo eos ipsam? Adipisci unde quos voluptatem qui.</div>
-            </Fragment>
-          )}
+          header={<HeadeLine>Your Package is :</HeadeLine>}
           content={(
-            <FlexBoxesContainer className='packages-container'>
-              <PackageCard
-                name='Pro'
-                prices={prices.pro}
-                onSelect={() => { }}
-              />
-              <PackageCard
-                name='Premium'
-                prices={prices.premium}
-                onSelect={() => { }}
-                active
-              />
+            <BigText>
+              <PackageState type={packageType} trial={{ trial, trialEndDate }} />
+            </BigText>
+          )}
+          footer={(
+            <FlexBoxesContainer className='space-between-elements'>
+              <div>
+                <InputRow.Label>Nex billing date</InputRow.Label>
+                <div> ~ Eternity</div>
+              </div>
+              <div>
+                <SmallButton className='green-color'>Active</SmallButton>
+              </div>
             </FlexBoxesContainer>
+          )}
+        />
+        <Box
+          header={<HeadeLine>Redeem Codes:</HeadeLine>}
+          content={(
+            <span className='plan-card-action'>
+              <CodeInputField
+                onSubmit={activateAgencyCode}
+                error={errors.message}
+                loading={loading}
+              />
+            </span>
           )}
           footer={(
             <Fragment>
@@ -195,22 +152,24 @@ const Billing = ({
               <InputRow.Label
                 notes='Redeem codes and to get more sub accounts access'
               >
-                You Have Redeemed
-              {' '}
+                  You Have Redeemed
+                {' '}
                 {codesUsed || 0}
                 {' '}
-                out of
-              {' '}
+                  out of
+                  {' '}
                 {codesUsed > 5 ? codesUsed : 5}
                 {' '}
-                codes
-            </InputRow.Label>
+                  codes
+              </InputRow.Label>
             </Fragment>
           )}
         />
       </FlexBoxesContainer>
-    </Fragment>
-  )
+      <SubscriptionPackages />
+    </FlexBoxesContainer>
+  </Fragment>
+);
 const mapStateToProps = ({
   user: {
     user: {
