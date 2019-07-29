@@ -55,7 +55,7 @@ const index = ({
       header={(
         <Fragment>
           <HeadeLine className='subscription-head-line'>
-            Subscription
+            Your Subscription
           </HeadeLine>
           <div className='subscription-head-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nam, perferendis fugiat nobis deserunt exercitationem officia error fugit omnis asperiores voluptates vero, illo eos ipsam? Adipisci unde quos voluptatem qui.</div>
         </Fragment>
@@ -117,10 +117,8 @@ const index = ({
 
             </SmallButton>
           </div>
-          <InputRow.Label
-            // className='subscription-promo-code-label'
-          >
-          Fill Your Cards Details
+          <InputRow.Label>
+          Fill Your Card Details
           </InputRow.Label>
           <CreditCardInputs />
           <SmallButton
