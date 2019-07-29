@@ -1,46 +1,50 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 
 const Feature = ({ children }) => (
-    <div className="package-card-feature">{children}</div>
-)
+  <div className='package-card-feature'>{children}</div>
+);
 
 const PackageCard = ({
-    name,
-    prices,
-    onSelect,
-    active
+  name,
+  prices,
+  onSelect,
+  features = [],
+  activePackage
 }) => {
-    const [interval, setInterval] = useState('monthly');
+  const [interval, setInterval] = useState('monthly');
 
 
-    return (
-        <div
-            onClick={onSelect}
-            className={`package-card ${active ? 'active' : ''}`}
-        >
-            <div className="package-card-header">
-                <div className="package-card-title">{name}</div>
-                <div className="package-card-price">
-                    <span className="amount">$ {prices[interval]}</span>
-                    / {interval}
-                </div>
-            </div>
-            <div className="package-card-features">
-                <Feature>Feature 1</Feature>
-                <Feature>Feature 1</Feature>
-                <Feature>Feature 1</Feature>
-                <Feature>Feature 1</Feature>
-                <Feature>Feature 1</Feature>
-                <Feature>Feature 1</Feature>
-            </div>
+  return (
+    <div
+      onClick={() => onSelect(name)}
+      className={`package-card ${activePackage === name ? 'active' : ''}`}
+    >
+      <div className='package-card-header'>
+        <div className='package-card-title'>{name}</div>
+        <div className='package-card-price'>
+          <span className='amount'>
+                        $
+            {' '}
+            {prices[interval]}
+          </span>
+                    /
+          {' '}
+          {interval}
         </div>
-    )
-}
+      </div>
+      <div className='package-card-features'>
+        {features.map((f, id) => (
+          <Feature key={f + id}>{f}</Feature>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 PackageCard.propTypes = {
 
-}
+};
 
-export default PackageCard
+export default PackageCard;

@@ -551,7 +551,7 @@ span.medium-card-headline {
 /* Package Card Styles */
 .flex-boxes-container.packages-container{
     flex-grow: 1;
-    align-items: flex-start;
+    align-items: unset ;
     flex-wrap: wrap;
     justify-content: space-between;
 }
@@ -564,13 +564,13 @@ span.medium-card-headline {
     display: flex;
     flex-direction: column;
     border: 1.5px solid #eee;
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     margin: 10px 5px;
     border-radius: 4px;
     min-width: 200px;
     flex: 1;
     cursor: pointer;
-    transition:border-color .4s ease-in-out;
+    transition:all .4s ease-in-out;
 }
 .package-card.active{
     position: relative;
@@ -591,11 +591,16 @@ span.medium-card-headline {
 }
 .package-card-header{
     display: flex;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    padding: 6px 10px;
+    align-items: center;
+    border-bottom: 1.5px solid #eee;
 }
 .package-card-features{
     display: flex;
     flex-direction: column;
+    padding: 10px;
 }
 .active-package-card{
     position: absolute;
@@ -605,16 +610,36 @@ span.medium-card-headline {
 .package-card-title {
     color: #485579;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
 }
 .package-card-price {
     color: gray;
-    font-size: 13px;
+    font-size: 14px;
     text-transform: capitalize;
     margin: 5px;
 }
 .package-card-price .amount {
     font-weight: bold;
     color: #485579;
+}
+
+
+
+.package-card-feature{
+    position: relative;
+    padding-left: 20px;
+    margin: 5px 0;
+    color:#2B3748;
+    font-size: 15px;
+}
+.package-card-feature::after{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 13px;
+    content: "\F00C";
+    top: 0px;
+    left: 0px;
+    color: #4da0fc;
 }
 /* Package Card Styles Ends */

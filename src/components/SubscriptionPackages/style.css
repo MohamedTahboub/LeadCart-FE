@@ -1,0 +1,55 @@
+.subscription-box-content{
+    flex-direction: column;
+}
+
+.subscription-toggle-input{
+    margin: 20px 80px;
+}
+.subscription-toggle-input::before,
+.subscription-toggle-input::after {
+        font-size:16px;
+}
+.subscription-toggle-input::before {
+    content:'Yearly';
+    right: -55px;
+    position: absolute;
+    top: -5px;
+    font-size: 15px;
+    color:gray;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+.subscription-toggle-input::after {
+    content:'Monthly';
+    left: -81px;
+    position: absolute;
+    top: -5px;
+    font-size: 15px;
+    color:gray;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+.subscription-toggle-input.monthly::after,
+.subscription-toggle-input.yearly::before{
+    color:#4da0fc;
+    font-weight: bold;
+}
+
+.subscription-box-content input ~ .slider-input {
+    background-color: #2196F3;
+}
+
+.subscription-promo-code-label{
+    margin: 10px 5px;
+    margin-bottom: 25px;
+}
+.subscription-promocode-section{
+    margin: 10px 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.update-subscription-plan-btn{
+    float: right;
+}
