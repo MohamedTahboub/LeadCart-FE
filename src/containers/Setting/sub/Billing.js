@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import * as codeActions from 'actions/promoCode';
 import './styles.css';
 import moment from 'moment';
-import config from 'config';
-import SubscriptionPackages from 'components/';
-const { prices = {} } = config;
+import SubscriptionPackages from '../../../components/SubscriptionPackages';
+
 
 const {
   InputRow,
