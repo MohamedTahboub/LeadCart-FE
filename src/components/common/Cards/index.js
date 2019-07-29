@@ -82,36 +82,36 @@ export const ProductCard = ({
   onDuplicate,
   ...props
 }) => (
-  <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+    <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
 
-    <MiniButton
-      iconClass='fa-copy'
-      onClick={onDuplicate}
-      tooltip='Duplicate Product'
-      className='product-duplicate-btn'
-    />
-    <div className='card-main-content product-avatar-holder'>
-      {
-        productImage
-          ? <img src={productImage} alt='product avatar' className='card-product-image' />
-          : <Avatar name={name} />
-      }
-      <span className='product-name-holder'>{name}</span>
-      <span className='product-price-holder'>{`${getCurrencySymbol(price.currency)} ${price.amount}`}</span>
-    </div>
-    <div className='card-controlls-container'>
-      <span data-tooltip='Edit Product'>
-        <i onClick={onEdit} className='fas fa-edit' />
-      </span>
-      <span data-tooltip='Preview Product'>
-        <i onClick={onPreview} className='fas fa-eye' />
-      </span>
-      <span data-tooltip='Delete Product'>
-        <i onClick={onDelete} className='fas fa-trash-alt' />
-      </span>
-    </div>
-  </EasyAnimate>
-);
+      <MiniButton
+        iconClass='fa-copy'
+        onClick={onDuplicate}
+        tooltip='Duplicate Product'
+        className='product-duplicate-btn'
+      />
+      <div className='card-main-content product-avatar-holder'>
+        {
+          productImage
+            ? <img src={productImage} alt='product avatar' className='card-product-image' />
+            : <Avatar name={name} />
+        }
+        <span className='product-name-holder'>{name}</span>
+        <span className='product-price-holder'>{`${getCurrencySymbol(price.currency)} ${price.amount}`}</span>
+      </div>
+      <div className='card-controlls-container'>
+        <span data-tooltip='Edit Product'>
+          <i onClick={onEdit} className='fas fa-edit' />
+        </span>
+        <span data-tooltip='Preview Product'>
+          <i onClick={onPreview} className='fas fa-eye' />
+        </span>
+        <span data-tooltip='Delete Product'>
+          <i onClick={onDelete} className='fas fa-trash-alt' />
+        </span>
+      </div>
+    </EasyAnimate>
+  );
 
 export const NewThingCard = ({ thing, onClick, ...props }) => (
   <div onClick={onClick} className='product-card-container '>
@@ -141,37 +141,38 @@ const Label = ({ children, ...props }) => (
 export const UpsellCard = ({
   name, orderInlist, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
 }) => (
-  <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
-    <div className='card-main-content product-avatar-holder'>
-      <Avatar name={name} />
-      <span className='product-name-holder'>{name}</span>
-      <span
-        onClick={() => productLink && openNewWindow(`/product/${productLink}/details`)}
-        className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
-      >
-        <i className='fas fa-link' />
-        {productName}
-      </span>
-      <span className='product-price-holder'>{`$ ${price}`}</span>
-    </div>
-    <div className='card-controlls-container'>
-      <span data-tooltip='Edit Upsell'>
-        <i onClick={onEdit} className='fas fa-edit' />
-      </span>
-      <span data-tooltip='Preview Upsell'>
-        <i onClick={onPreview} className='fas fa-book-open' />
-      </span>
-      <span data-tooltip='Delete Upsell'>
-        <i onClick={onDelete} className='fas fa-trash-alt' />
-      </span>
-    </div>
-  </EasyAnimate>
-);
+    <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+      <div className='card-main-content product-avatar-holder'>
+        <Avatar name={name} />
+        <span className='product-name-holder'>{name}</span>
+        <span
+          onClick={() => productLink && openNewWindow(`/product/${productLink}/details`)}
+          className={`product-salles-holder ${productLink ? 'item-clickable' : ''}`}
+        >
+          <i className='fas fa-link' />
+          {productName}
+        </span>
+        <span className='product-price-holder'>{`$ ${price}`}</span>
+      </div>
+      <div className='card-controlls-container'>
+        <span data-tooltip='Edit Upsell'>
+          <i onClick={onEdit} className='fas fa-edit' />
+        </span>
+        <span data-tooltip='Preview Upsell'>
+          <i onClick={onPreview} className='fas fa-book-open' />
+        </span>
+        <span data-tooltip='Delete Upsell'>
+          <i onClick={onDelete} className='fas fa-trash-alt' />
+        </span>
+      </div>
+    </EasyAnimate>
+  );
 
 
 export const PayPalConnectContainer = ({
   imgSrc,
   onConnect,
+  headline,
   className,
   ...props
 }) => {
@@ -219,6 +220,7 @@ export const PayPalConnectContainer = ({
         onClick={() => setShowForm(true)}
         isActive={active}
         imgSrc={imgSrc}
+        headline={headline}
       />
       <Modal
         isVisible={showForm}
@@ -227,6 +229,14 @@ export const PayPalConnectContainer = ({
       >
         <Title>Connect your paypal account using paypal app credit</Title>
         <form className='paypal-form'>
+          <input
+            type='text'
+            onChange={onChange}
+            name='handler'
+            disabled={submitting}
+            className='paypal-connect-input'
+            placeholder='Paypal App Name (just for presentation purpose)'
+          />
           <input
             type='text'
             onChange={onChange}
@@ -304,27 +314,27 @@ export const FulfillmentCard = ({
   type: fulfillmentType,
   ...props
 }) => (
-  <EasyAnimate
-    delay={orderInlist * 100}
-    className='upsell-card-container'
-  >
-    <div className='card-main-content product-avatar-holder'>
-      <Avatar name={name} />
-      <span className='product-name-holder'>{name}</span>
+    <EasyAnimate
+      delay={orderInlist * 100}
+      className='upsell-card-container'
+    >
+      <div className='card-main-content product-avatar-holder'>
+        <Avatar name={name} />
+        <span className='product-name-holder'>{name}</span>
 
-      <span className='fulfillment-name-holder'>{fulfillmentType}</span>
-    </div>
-    <div className='card-controlls-container'>
-      <span data-tooltip='Edit Fulfillment'>
-        <i onClick={onEdit} className='fas fa-edit' />
-      </span>
-      <span />
-      <span data-tooltip='Delete Fulfillment'>
-        <i onClick={onDelete} className='fas fa-trash-alt' />
-      </span>
-    </div>
-  </EasyAnimate>
-);
+        <span className='fulfillment-name-holder'>{fulfillmentType}</span>
+      </div>
+      <div className='card-controlls-container'>
+        <span data-tooltip='Edit Fulfillment'>
+          <i onClick={onEdit} className='fas fa-edit' />
+        </span>
+        <span />
+        <span data-tooltip='Delete Fulfillment'>
+          <i onClick={onDelete} className='fas fa-trash-alt' />
+        </span>
+      </div>
+    </EasyAnimate>
+  );
 
 
 export const CategoryCard = ({
@@ -334,11 +344,11 @@ export const CategoryCard = ({
   onClick,
   ...props
 }) => (
-  <div onClick={onClick} className={`category-card-holder ${className}`}>
-    <img src={image} alt={label} className='category-card-image' />
-    <div className='category-card-title'>{label}</div>
-  </div>
-);
+    <div onClick={onClick} className={`category-card-holder ${className}`}>
+      <img src={image} alt={label} className='category-card-image' />
+      <div className='category-card-title'>{label}</div>
+    </div>
+  );
 
 
 export const FulfillmentRowCard = ({
@@ -348,17 +358,17 @@ export const FulfillmentRowCard = ({
   onSelect,
   type
 }) => (
-  <div
-    onClick={onSelect(id)}
-    className={`sidebar-fulfillment-card ${activeFulfillment === id ? 'active' : ''}`}
-  >
-    <Avatar name={name} className='sidebar-profile-avatar' />
-    <div className='sidebar-fulfillment-card-details'>
-      <div className='sidebar-fulfillment-card-name'>{name}</div>
-      <div className='sidebar-fulfillment-card-type'>{type}</div>
+    <div
+      onClick={onSelect(id)}
+      className={`sidebar-fulfillment-card ${activeFulfillment === id ? 'active' : ''}`}
+    >
+      <Avatar name={name} className='sidebar-profile-avatar' />
+      <div className='sidebar-fulfillment-card-details'>
+        <div className='sidebar-fulfillment-card-name'>{name}</div>
+        <div className='sidebar-fulfillment-card-type'>{type}</div>
+      </div>
     </div>
-  </div>
-);
+  );
 
 export const CouponRowCard = ({
   _id: id,
@@ -371,26 +381,30 @@ export const CouponRowCard = ({
   onToggleStatus,
   active,
 }) => (
-  <div
-    className='sidebar-fulfillment-card sidebar-custom-coupons-card'
-  >
-    <Avatar name={code} className='sidebar-profile-avatar' />
-    <div className='sidebar-fulfillment-card-details'>
-      <div className='sidebar-fulfillment-card-name'>{code}</div>
-      <div className='menu-coupon-type'>
-        <span className='type'>
-          {type}
-          {' '}
-=>
-        </span>
-        <span className='value'>{type === 'Flat' ? ` $${amount}` : `${percent}%`}</span>
-      </div>
-    </div>
-    <SmallButton
-      onClick={() => onToggleStatus({ couponId: id, active: !active })}
-      className={active ? 'green-color' : 'gray-color'}
+    <div
+      className='sidebar-fulfillment-card sidebar-custom-coupons-card'
     >
-      {`${active ? 'Active' : 'Inactive'}`}
-    </SmallButton>
-  </div>
-);
+      <Avatar name={code} className='sidebar-profile-avatar' />
+      <div className='sidebar-fulfillment-card-details'>
+        <div className='sidebar-fulfillment-card-name'>{code}</div>
+        <div className='menu-coupon-type'>
+          <span className='type'>
+            {type}
+            {' '}
+            =>
+        </span>
+          <span className='value'>{type === 'Flat' ? ` $${amount}` : `${percent}%`}</span>
+        </div>
+      </div>
+      <SmallButton
+        onClick={() => onToggleStatus({ couponId: id, active: !active })}
+        className={active ? 'green-color' : 'gray-color'}
+      >
+        {`${active ? 'Active' : 'Inactive'}`}
+      </SmallButton>
+    </div>
+  );
+
+
+
+export { default as PackageCard } from './PackageCard'

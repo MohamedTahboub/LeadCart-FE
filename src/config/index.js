@@ -16,7 +16,38 @@ export default {
   development: { // ca_C82XtIMbphaPO4JDiO1TJretDIMhEi3o
     ZAPIER_INVITATION_LINK: 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/',
     STRIP_AUTH_LINK: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_C82XtIMbphaPO4JDiO1TJretDIMhEi3o&scope=read_write',
-    USER_SUB_DOMAIN_URL: 'http://localhost:3000/'
+    USER_SUB_DOMAIN_URL: 'http://localhost:3000/',
+    prices: {
+      pro: {
+        monthly: 99,
+        yearly: 990
+      },
+      premium: {
+        monthly: 199,
+        yearly: 1990
+      },
+    },
+    packagesFeatures: {
+      pro: [
+        '+ Checkout Templates',
+        'Unlimited Products',
+        'Use Checkout Pages Everywhere',
+        'Built In Credit Card & PayPal processors',
+        'One-Time Payments, Subscriptions, Trials, & Payment Plans',
+        'Advanced Stats & Reports',
+        'Prospects (Cart Abandonment)',
+        'Webhooks & Zapier',
+        '1-Click Upsells',
+        'Unlimited Funnels',
+        'Priority Support'
+      ],
+      premium: [
+        'The Subscription Saver (Dunning)',
+        'The Affiliate Center',
+        'Email Builder & Customizations',
+        'Dedicated Training & Support'
+      ]
+    }
   },
   staging: { // ca_C82XtIMbphaPO4JDiO1TJretDIMhEi3o
     ZAPIER_INVITATION_LINK: 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/',
