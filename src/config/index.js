@@ -29,23 +29,24 @@ export default {
     },
     packagesFeatures: {
       pro: [
-        '+ Checkout Templates',
-        'Unlimited Products',
-        'Use Checkout Pages Everywhere',
-        'Built In Credit Card & PayPal processors',
-        'One-Time Payments, Subscriptions, Trials, & Payment Plans',
-        'Advanced Stats & Reports',
-        'Prospects (Cart Abandonment)',
-        'Webhooks & Zapier',
-        '1-Click Upsells',
-        'Unlimited Funnels',
-        'Priority Support'
+        '+ Checkout Templates.',
+        'Unlimited Products.',
+        'Use Checkout Pages Everywhere.',
+        'Built In Credit Card & PayPal processors.',
+        'One-Time Payments, Subscriptions, Trials, & Payment Plans.',
+        'Advanced Stats & Reports.',
+        'Prospects (Cart Abandonment).',
+        'Webhooks & Zapier.',
+        '1-Click Upsells.',
+        'Unlimited Funnels.',
+        'Priority Support.'
       ],
       premium: [
-        'The Subscription Saver (Dunning)',
-        'The Affiliate Center',
-        'Email Builder & Customizations',
-        'Dedicated Training & Support'
+        'Includes Pro Package Features.',
+        'The Subscription Saver (Dunning).',
+        'The Affiliate Center.',
+        'Email Builder & Customizations.',
+        'Dedicated Training & Support.'
       ]
     }
   },
