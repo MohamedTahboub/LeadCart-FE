@@ -8,6 +8,7 @@
 .subscription-toggle-input::before,
 .subscription-toggle-input::after {
         font-size:16px;
+        cursor: pointer;
 }
 .subscription-toggle-input::before {
     content:'Yearly';
@@ -29,8 +30,8 @@
     color: var(--text-color);
     text-transform: uppercase;
 }
-.subscription-toggle-input.monthly::after,
-.subscription-toggle-input.yearly::before{
+.subscription-toggle-input.Monthly::after,
+.subscription-toggle-input.Yearly::before{
     color:#4da0fc;
     font-weight: bold;
 }

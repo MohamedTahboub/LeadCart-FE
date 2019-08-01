@@ -23,8 +23,8 @@ import upsells from './upsell'
 import fulfillments from './fulfillments'
 import emails from './emails'
 import customers from './customers'
-// import eventsTracker from './eventsTracker'
-// exporting the middlewares as an array 
+import billing from './billing'
+
 export default [
     appInit,
     ...formsValidations,
@@ -40,6 +40,7 @@ export default [
     ...product,
     ...account,
     ...coupon,
+    ...billing,
     upadteUserImage,
     ...emails,
     ...customers,
