@@ -55,9 +55,6 @@ const Settings = ({
             <InputRow.Label className='sidebar-input-label'>Auto VAT Calculation:</InputRow.Label>
             <InputRow.SwitchInput
               disabled
-              // value={false}
-              // onToggle={onToggleDarkTheme}
-              // className=''
               className='sidebar-switch-input onoff-switch-label'
             />
           </InputRow>
@@ -72,17 +69,6 @@ const Settings = ({
             </InputRow.Label>
             <InputRow.SwitchInput
               disabled
-              // value={false}
-              // onToggle={onToggleDarkTheme}
-              className='sidebar-switch-input onoff-switch-label'
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <InputRow.Label className='sidebar-input-label'>Affiliate Commission:</InputRow.Label>
-            <InputRow.SwitchInput
-              disabled
-              // value={false}
-              // onToggle={onToggleDarkTheme}
               className='sidebar-switch-input onoff-switch-label'
             />
           </InputRow>
