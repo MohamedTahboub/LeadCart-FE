@@ -90,7 +90,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
 
 
         </section>
-        {showRightSide && (
+        {showRightSide ? (
           <section className="richening-components-section">
             <Image
               image={product.image || defaultLogo}
@@ -108,6 +108,14 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
               coupons={coupons}
             />
           </section>
+        )
+        :(
+          <Image
+          image={product.image || defaultLogo}
+          onChange={(target) => onChange({ target })}
+          name='image'
+          className='product-template-image item-align-center'
+        /> 
         )}
       </section>
     </div>

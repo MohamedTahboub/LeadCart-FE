@@ -131,7 +131,12 @@ const ConversionBoosters = ({
           </Panel>
           <Panel header='Guarantee Message' key='5'>
             <InputRow className='sidebar-row'>
-              <InputRow.Label className='sidebar-input-label'>Guarantee Message:</InputRow.Label>
+              <InputRow.Label
+                className='sidebar-input-label margin-bottom-20'
+                notes='Recommended image ratio 10:1 (W:H)'
+              >
+              Guarantee Message:
+              </InputRow.Label>
               <InputRow.SwitchInput
                 value={guaranteed.enabled}
                 onToggle={onToggleGuaranteed}
