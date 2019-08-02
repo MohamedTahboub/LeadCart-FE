@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (arg) => {
       if (meta.onSuccess) meta.onSuccess(arg);
-      return connectWithPaypalSuccess(arg);
+      return connectWithPaypalSuccess(payload);
     },
     onFailed: (arg) => {
       if (meta.onFailed) meta.onFailed(arg);
