@@ -2,46 +2,45 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 
-const Feature = ({ children }) => (
-  <div className='package-card-feature'>{children}</div>
+const Feature = ({ children, plus }) => (
+  <div className={`package-card-feature ${plus ? 'plus' : ''} `}>{children}</div>
 );
 
 const PackageCard = ({
   name,
-  prices,
+  plus,
+  package: {
+    price = {},
+    features = []
+  } = {},
   onSelect,
-  features = [],
+  interval,
   activePackage
-}) => {
-  const [interval, setInterval] = useState('monthly');
-
-
-  return (
-    <div
-      onClick={() => onSelect(name)}
-      className={`package-card ${activePackage === name ? 'active' : ''}`}
-    >
-      <div className='package-card-header'>
-        <div className='package-card-title'>{name}</div>
-        <div className='package-card-price'>
-          <span className='amount'>
-                        $
+}) => (
+  <div
+    onClick={() => onSelect(name)}
+    className={`package-card ${activePackage === name ? 'active' : ''}`}
+  >
+    <div className='package-card-header'>
+      <div className='package-card-title'>{name}</div>
+      <div className='package-card-price'>
+        <span className='amount'>
+            $
             {' '}
-            {prices[interval]}
-          </span>
-                    /
+          {price[interval]}
+        </span>
+          /
           {' '}
-          {interval}
-        </div>
-      </div>
-      <div className='package-card-features'>
-        {features.map((f, id) => (
-          <Feature key={f + id}>{f}</Feature>
-        ))}
+        {interval}
       </div>
     </div>
-  );
-};
+    <div className='package-card-features'>
+      {features.map((f, id) => (
+        <Feature key={f + id} plus={plus && id === 0}>{f}</Feature>
+      ))}
+    </div>
+  </div>
+);
 
 PackageCard.propTypes = {
 

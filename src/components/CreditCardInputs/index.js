@@ -5,13 +5,35 @@ import './style.css';
 
 export default ({
   className = '',
-  onChange = () => {}
+  onChange
 }) => {
+  const [credit, setCredit] = useState({});
+
+
   const onCreditFieldChange = (name, value) => {
+    let fields;
+    if (name === 'expireDate' && value) {
+      const [expiryMonth, expiryYear] = value.split(' / ');
+      fields = {
+        ...credit,
+        expiryMonth,
+        expiryYear
+      };
+    }else {
+      fields = {
+        ...credit,
+        [name]: value
+      };
+    }
+    setCredit(fields);
     onChange({
-      target: { name, value }
+      target: {
+        name: 'credit',
+        value: fields
+      }
     });
   };
+
 
   return (
     <div
@@ -23,21 +45,21 @@ export default ({
           <input
             {...props}
             autoComplete='cc-number'
-            onChange={handleCardNumberChange((e) => onCreditFieldChange('credit.cardNumber', e.target.value))}
+            onChange={handleCardNumberChange((e) => onCreditFieldChange('cardNumber', e.target.value))}
           />
         )}
         cardExpiryInputRenderer={({ handleCardExpiryChange, props }) => (
           <input
             {...props}
             autoComplete='cc-exp-month-year'
-            onChange={handleCardExpiryChange((e) => onCreditFieldChange('credit.expiryDate', e.target.value))}
+            onChange={handleCardExpiryChange((e) => onCreditFieldChange('expireDate', e.target.value))}
           />
         )}
         cardCVCInputRenderer={({ handleCardCVCChange, props }) => (
           <input
             {...props}
             autoComplete='cc-csc'
-            onChange={handleCardCVCChange((e) => onCreditFieldChange('credit.cvc', e.target.value))}
+            onChange={handleCardCVCChange((e) => onCreditFieldChange('cvc', e.target.value))}
           />
         )}
       />
