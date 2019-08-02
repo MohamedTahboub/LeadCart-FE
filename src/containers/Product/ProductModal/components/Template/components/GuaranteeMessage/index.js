@@ -19,7 +19,7 @@ const GuaranteeMessage = ({
     });
   };
   return (
-    guaranteed
+    guaranteed.enabled
       ? (
         <div className='template-guarantee-badge'>
           <FloatButton

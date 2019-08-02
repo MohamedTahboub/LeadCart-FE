@@ -1,11 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import CreditCardInputs from 'components/CreditCardInputs';
 import config from 'config';
 import './style.css';
-
-const { prices = {}, packagesFeatures = {} } = config;
+import { connect } from 'react-redux';
+import * as promoCodeActions from '../../actions/promoCode';
+import * as billingActions from '../../actions/billing';
+const { packagesPlans = {} } = config;
 
 const {
   InputRow,
@@ -22,34 +24,74 @@ const {
 } = common;
 
 
-const index = ({
-  activePackage = '',
-  codesUsed = 2,
+const SubscriptionPackages = ({
+  activePackage = {},
   ...props
 }) => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [fields, setFields] = useState({
     packageType: 'Pro',
-    recurringPeriod: 'monthly',
-    card: {}
+    recurringPeriod: 'Monthly',
+    useOldCredit: false,
+    credit: {}
   });
 
+  useEffect(() => {
+    setFields({
+      ...fields,
+      packageType: activePackage.type,
+      recurringPeriod: activePackage.period,
+    });
+  }, [activePackage]);
 
   const onPackageTypeChange = (pkg) => {
-    console.log(pkg);
     setFields({ ...fields, packageType: pkg });
   };
 
   const togglePeriod = () => {
     setFields({
       ...fields,
-      recurringPeriod: fields.recurringPeriod === 'monthly' ? 'yearly' : 'monthly'
+      recurringPeriod: fields.recurringPeriod === 'Monthly' ? 'Yearly' : 'Monthly'
     });
   };
 
-  const onChange = () => {};
-  const onSubmit = () => {};
+  const onChange = ({ target: { name, value } }) => {
+    setFields({ ...fields, [name]: value });
+  };
+
+  const onPromoCodeCheck = () => {
+    if (fields.promoCode) {
+      setSubmitting(true);
+      props.checkPromoCode(
+        fields.promoCode,
+        {
+          onSuccess: () => {
+            setSubmitting(false);
+          },
+          onFialed: () => {
+            setSubmitting(false);
+          }
+        }
+      );
+    }
+  };
+
+
+  const onSubmit = () => {
+    props.upgradeUserPackage(
+      fields,
+      {
+        onSuccess: () => {
+
+        },
+        onFialed: () => {
+
+        }
+      }
+    );
+  };
+
   return (
     <Box
       header={(
@@ -57,31 +99,39 @@ const index = ({
           <HeadeLine className='subscription-head-line'>
             Your Subscription
           </HeadeLine>
-          <div className='subscription-head-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nam, perferendis fugiat nobis deserunt exercitationem officia error fugit omnis asperiores voluptates vero, illo eos ipsam? Adipisci unde quos voluptatem qui.</div>
+          <div className='subscription-head-description'>
+            Lorem ipsum dolor sit amet
+            consectetur adipisicing elit.
+            Doloribus nam, perferendis fugiat
+            nobis deserunt exercitationem officia
+            error fugit omnis asperiores voluptates vero,
+            illo eos ipsam? Adipisci unde quos voluptatem qui.
+          </div>
         </Fragment>
       )}
       contentClassName='subscription-box-content'
       content={(
         <Fragment>
           <ActivationSwitchInput
-            active={fields.recurringPeriod === 'monthly'}
+            active={fields.recurringPeriod === 'Monthly'}
             className={`subscription-toggle-input ${fields.recurringPeriod}`}
             onToggle={togglePeriod}
           />
           <FlexBoxesContainer className='packages-container'>
             <PackageCard
               name='Pro'
-              prices={prices.pro}
+              package={packagesPlans.pro}
               onSelect={onPackageTypeChange}
-              features={packagesFeatures.pro}
               activePackage={fields.packageType}
+              interval={fields.recurringPeriod}
             />
             <PackageCard
               name='Premium'
-              prices={prices.premium}
+              package={packagesPlans.premium}
               onSelect={onPackageTypeChange}
-              features={packagesFeatures.premium}
               activePackage={fields.packageType}
+              interval={fields.recurringPeriod}
+              plus
             />
           </FlexBoxesContainer>
         </Fragment>
@@ -105,36 +155,46 @@ const index = ({
               onChange={onChange}
               success='success'
             >
-          PROMO CODE
+              PROMO CODE
 
             </InputRow.SmallInput>
             <SmallButton
               disabled={submitting}
               className={submitting ? 'primary-color spinner' : 'primary-color'}
-              onClick={onSubmit}
+              onClick={onPromoCodeCheck}
             >
-          Check Promo Code
+              Check Promo Code
 
             </SmallButton>
           </div>
           <InputRow.Label>
-          Fill Your Card Details
+              Fill Your Card Details
           </InputRow.Label>
-          <CreditCardInputs />
+          <CreditCardInputs onChange={onChange} />
           <SmallButton
             disabled={submitting}
-            className=' primary-color update-subscription-plan-btn'
+            className={submitting ? ' update-subscription-plan-btn primary-color spinner' : 'update-subscription-plan-btn primary-color'}
             onClick={onSubmit}
           >
-      Update My Package
+            Update My Package
           </SmallButton>
         </Fragment>
       )}
     />
   );
 };
-index.propTypes = {
 
+
+SubscriptionPackages.propTypes = {
+  checkPromoCode: PropTypes.func.isRequired,
+  upgradeUserPackage: PropTypes.func.isRequired,
 };
 
-export default index;
+const mapStateToProps = ({
+  user: {
+    user: {
+      activePackage = {}
+    } = {}
+  } = {}
+}) => ({ activePackage });
+export default connect(mapStateToProps, { ...billingActions, ...promoCodeActions })(SubscriptionPackages);

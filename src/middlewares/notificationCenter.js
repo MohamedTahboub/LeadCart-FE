@@ -181,6 +181,12 @@ export default ({ dispatch }) => (next) => (action) => {
   case types.ORDER_REFUND_SUCCESS:
     showSuccessMessage('Order have been refunded successfully');
     break;
+  case types.UPGRADE_USER_PACKAGE_FAILED:
+    showFailureMessage(action.payload, 'Failed to upgrade you current plan');
+    break;
+  case types.UPGRADE_USER_PACKAGE_SUCCESS:
+    showSuccessMessage('Your account have been upgraded successfully');
+    break;
   case types.ORDER_REFUND_FAILED:
     showFailureMessage(`${action.payload || 'Failed to Refund the order for some reson'}`);
     break;

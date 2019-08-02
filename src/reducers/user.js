@@ -8,7 +8,8 @@ import {
   ACTIVATE_AGENCY_CODE_SUCCESS,
   ACTIVATE_AGENCY_CODE_FAILED,
   GET_ACTIVATED_AGENCY_CODES_NUMBERS,
-  SAVE_USER_GENERAL_SETTINGS_SUCCESS
+  SAVE_USER_GENERAL_SETTINGS_SUCCESS,
+  GET_USER_PLAN
 } from 'constantsTypes';
 import moment from 'moment';
 
@@ -80,6 +81,14 @@ export default (state = initialState, { type, payload }) => {
       user: {
         ...state.user,
         subDomain: payload.subDomain
+      }
+    };
+  case GET_USER_PLAN:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        activePackage: payload
       }
     };
   default: return state;

@@ -13,7 +13,9 @@ import {
   MenuContent,
   MenuFlexContent
 } from '../MenuElements';
-
+const languages = [
+  { value: 'en', label: 'English' }
+];
 const {
   Collapse, InputRow, MediumCard, Title
 } = common;
@@ -40,7 +42,50 @@ const Settings = ({
               value={url}
             />
           </InputRow>
+          <InputRow className='sidebar-row'>
+            <InputRow.Label className='sidebar-input-label'>Translation</InputRow.Label>
+            <InputRow.SearchInput
+              size='small'
+              width={150}
+              options={languages}
+              defaultValue='en'
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <InputRow.Label className='sidebar-input-label'>Auto VAT Calculation:</InputRow.Label>
+            <InputRow.SwitchInput
+              disabled
+              // value={false}
+              // onToggle={onToggleDarkTheme}
+              // className=''
+              className='sidebar-switch-input onoff-switch-label'
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <InputRow.Label className='sidebar-input-label'>
+              <abbr title='General Data Protection Regulation'>
+               GDPR
+              </abbr>
+              &ensp;Compliance
+            :
 
+            </InputRow.Label>
+            <InputRow.SwitchInput
+              disabled
+              // value={false}
+              // onToggle={onToggleDarkTheme}
+              className='sidebar-switch-input onoff-switch-label'
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <InputRow.Label className='sidebar-input-label'>Affiliate Commission:</InputRow.Label>
+            <InputRow.SwitchInput
+              disabled
+              // value={false}
+              // onToggle={onToggleDarkTheme}
+              className='sidebar-switch-input onoff-switch-label'
+            />
+          </InputRow>
         </Panel>
         <Panel header='Wizard Settings' key='2'>
           <InputRow className='sidebar-row'>
@@ -48,7 +93,7 @@ const Settings = ({
             <InputRow.SwitchInput
               value={darkTheme}
               onToggle={onToggleDarkTheme}
-              className='sidebar-switch-input'
+              className='sidebar-switch-input onoff-switch-label'
             />
           </InputRow>
         </Panel>

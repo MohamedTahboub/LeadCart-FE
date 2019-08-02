@@ -76,7 +76,7 @@
 }
 .editable-product-form-container.mobile{
     width: 375px;
-    height: 667px;
+    min-height: 667px;
     flex:unset;
 }
 

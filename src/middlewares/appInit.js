@@ -13,6 +13,7 @@ import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettings } from 'actions/settings';
 import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
+import { getUserPlanSuccess } from 'actions/billing';
 window.user = '';
 export default ({ dispatch, getState }) => (next) => (action) => {
   const {
@@ -43,6 +44,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
+    dispatch(getUserPlanSuccess(data.activePackage));
 
     dispatch(getActivities(filteringActivities(data.orders)));
     dispatch(getCustomers(filterCustomers(data.orders, data.products)));
