@@ -112,7 +112,7 @@ const Billing = ({
   <Fragment>
     <MainBlock title='LeadCart Plan' />
     <FlexBoxesContainer className='billing-cards-container'>
-      <FlexBoxesContainer flex='column'>
+      <FlexBoxesContainer /*  flex='column' */>
         <Box
           header={<HeadeLine>Your Package is :</HeadeLine>}
           content={(
@@ -165,7 +165,7 @@ const Billing = ({
           )}
         />
       </FlexBoxesContainer>
-      <SubscriptionPackages />
+     { /*<SubscriptionPackages />*/}
     </FlexBoxesContainer>
   </Fragment>
 );

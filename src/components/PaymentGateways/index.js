@@ -31,10 +31,12 @@ const PaymentMethods = ({
 }) => {
   const [error, setError] = useState('');
 
+  const isMethodExist = (method) => userPaymentsMethods.find(({ name }) => name === method);
+
   const onChange = (method) => {
     if (!methods.includes(method) && methods.length >= 2) return setError('each product accepts two payment methods as max');
 
-    if (userPaymentsMethods.includes(method) || method === 'COD') {
+    if (isMethodExist(method) || method === 'COD') {
       props.onChange({
         target: {
           name: 'payment.methods',
@@ -50,7 +52,7 @@ const PaymentMethods = ({
   return (
     <Fragment>
       <div className='payment-methods-cards-container'>
-        {userPaymentsMethods.includes('Stripe')
+        {isMethodExist('Stripe')
           && (
             <MediumCard
               className='template-payment-card'
@@ -59,7 +61,7 @@ const PaymentMethods = ({
               onClick={() => onChange('Stripe')}
             />
           )}
-        {userPaymentsMethods.includes('Paypal')
+        {isMethodExist('Paypal')
           && (
             <MediumCard
               className='template-payment-card'
