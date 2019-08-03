@@ -26,7 +26,7 @@
             "list": [
                 {
                     "author": "John Doe",
-                    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5cc123168001ea7df2cc1dcf/products/Webp.net-resizeimage%20%282%29.jpg",
+                    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d24599e696231019ddd06fe/products/mohammedThboubAvatar.jpg",
                     "content": "“You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change and click save.”"
                 },
                 {
@@ -43,8 +43,10 @@
         "logo": "logo",
         "presetColors": "#0693E3",
         "template": "temp1",
-        "guaranteed": true,
-        "featuresTitle": "List Of Product Features"
+        "guaranteed": {
+            "enabled":false,
+            "url":"https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/guarantee-badge.png"
+        }
     },
     "offer": {
         "enabled": true,
@@ -52,7 +54,6 @@
         "introText": "Use Leadcart For Your Clients Sites & Profit Today!",
         "name": "Client Licenses",
         "price": 297,
-        "successUrl": "https://example.com",
         "title": "YES! I Want one of the Limited 'Client Licenses'",
         "style": {
             "containerBackground": "white",
@@ -68,7 +69,6 @@
     "coupons": {
         "enabled": true
     },
-    "isActive": true,
     "available": true,
     "name": "Product Name",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus nisi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus ",

@@ -10,13 +10,15 @@ export default ({
   className = '',
   closeBtnClassName = '',
   isVisible,
+  footer,
+  hideCloseBtn,
   affectIntercom = true,
   ...props
 }) => {
   if (affectIntercom) showIntercomIcon(!isVisible);
 
   // const onClose = (e) => {
-  //   if (e.key === 'Escape') props.onClose();
+  //   if (e.key === 'Escape' && isVisible) props.onClose();
 
 
   //   if (!e.key) props.onClose();
@@ -34,11 +36,14 @@ export default ({
     isVisible ? (
       <EasyAnimate className='modal-container'>
         <SlidingAnimation className={`modal-content ${className}`}>
-          <span onClick={onClose} className={`modal-close-btn ${closeBtnClassName}`} role='presentation'>
-            <i className='fas fa-times' />
-          </span>
+          {!hideCloseBtn
+            && (<span onClick={onClose} className={`modal-close-btn ${closeBtnClassName}`} role='presentation'>
+              <i className='fas fa-times' />
+                </span>
+            )}
           {children}
         </SlidingAnimation>
+        {footer && footer}
       </EasyAnimate>
     )
       : null

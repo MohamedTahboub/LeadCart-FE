@@ -102,6 +102,7 @@ const CouponModal = ({
             onClose();
           },
           onFailed: (message) => {
+            if (message.includes('Coupons.$code_1 dup')) return setErrors({ message: 'This coupon code is not available,try to pick another one' });
             setErrors({ message });
           }
         }

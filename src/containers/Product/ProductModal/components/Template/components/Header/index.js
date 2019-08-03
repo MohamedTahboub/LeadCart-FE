@@ -17,12 +17,7 @@ const Header = ({
   ...props
 }) => (
   <div style={{ background }} className='product-template-header'>
-    <FloatButton
-      onClick={() => onOptionSelected('HeaderOptions')}
-    >
-      <i className='fas fa-cog' />
-    </FloatButton>
-    <div className='col-3 company-details-container'>
+    <div className='company-details-container'>
       {
         logo
           ? <img alt='product' src={logo} className='logo-image' />

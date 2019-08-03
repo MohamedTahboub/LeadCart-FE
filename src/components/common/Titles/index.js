@@ -16,8 +16,8 @@ export const MainTitle = ({
       <span className='main-title'>{children}</span>
     </div>
   );
-export const HeadeLine = ({ children, ...props }) => (
-  <div className='heade-line-container'>
+export const HeadeLine = ({ children,className='', ...props }) => (
+  <div className={`heade-line-container ${className}`}>
     {children}
   </div>
 );

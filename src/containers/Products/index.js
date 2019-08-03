@@ -5,10 +5,10 @@ import * as productsActions from 'actions/products';
 import * as productActions from 'actions/product';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-import ProductModal from '../Product/ProductModal'
+// import ProductModal from '../Product/ProductModal'
 import config from 'config';
-import ids from 'shortid'
-
+import ids from 'shortid';
+import PrecreateProductModals from 'components/PrecreateProductModals';
 
 import productSample from 'data/product.json';
 
@@ -35,39 +35,34 @@ const Products = ({
   subdomain,
   ...props
 }) => {
-
-
-  const [showDelete, setShowDelete] = useState('')
-  const [showProductForm, setShowProductForm] = useState({})
-
+  const [showDelete, setShowDelete] = useState('');
+  const [showProductForm, setShowProductForm] = useState({});
+  const [showCreateModal, setShowProductModal] = useState(false);
 
   const onProductPreview = (url) => {
     const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
     window.open(productUrl, '_blank');
-  }
+  };
 
-  const onProductEdit = (product) => {
-    setShowProductForm({
-      show: true,
-      isNewForm: false,
-      product
-    })
-  }
+  const onProductEdit = (url) => {
+    props.history.push(`/products/${url}`);
+  };
+
   const onCreateNewProduct = () => {
     setShowProductForm({
       show: true,
       isNewForm: true,
       product: productSample
-    })
-  }
+    });
+  };
 
   const onCloseProductForm = () => {
     setShowProductForm({
       show: false,
       isNewForm: true,
       product: {}
-    })
-  }
+    });
+  };
   const onProductDuplicate = ({
     __v,
     id,
@@ -79,32 +74,32 @@ const Products = ({
     url,
     ...product
   }) => {
-    product.name = name + '- copy'
-    product.url = ids.generate()
-    product.coupons = { enabled: !!enabled }
-    
+    product.name = `${name}- copy`;
+    product.url = ids.generate();
+    product.coupons = { enabled: !!enabled };
+
     props.createNewProduct(product, {
       onSuccess: (msg) => {
       },
       onFailed: (message) => { }
-    })
-  }
-  const onShowDeleteDialogue = (id) => setShowDelete(id)
-  const onHideDeleteDialogue = () => setShowDelete('')
+    });
+  };
+  const onShowDeleteDialogue = (id) => setShowDelete(id);
+  const onHideDeleteDialogue = () => setShowDelete('');
 
   const onProductDelete = () => {
     deleteProduct(showDelete);
-    onHideDeleteDialogue()
-  }
+    onHideDeleteDialogue();
+  };
 
   return (
     <Page>
       <PageHeader>
         <MainTitle>Products</MainTitle>
-        <Button onClick={onCreateNewProduct} className='primary-color'>
+        <Button onClick={() => setShowProductModal(true)} className='primary-color'>
           <i className='fas fa-plus' />
           new product
-          </Button>
+        </Button>
       </PageHeader>
       <PageContent dflex>
         {products.length ? products.map((product, id) => (
@@ -114,12 +109,18 @@ const Products = ({
             {...product}
             onDelete={() => onShowDeleteDialogue(product._id)}
             onDuplicate={() => onProductDuplicate(product)}
-            onEdit={() => onProductEdit(product)}
+            onEdit={() => onProductEdit(product.url)}
             onPreview={() => onProductPreview(product.url)}
           />
         ))
           : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
         }
+        <PrecreateProductModals
+          show={showCreateModal}
+          onClose={() => setShowProductModal(false)}
+          {...props}
+        />
+
       </PageContent>
 
       <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
@@ -127,21 +128,13 @@ const Products = ({
         <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
           {' '}
           Cancel
-          </Button>
+        </Button>
         <Button onClick={onProductDelete} className='warning-color margin-with-float-right'>
           <i className='fas fa-trash-alt' />
           {' '}
           Delete
-          </Button>
+        </Button>
       </Modal>
-      {showProductForm.show && (
-        <ProductModal
-          isNew={showProductForm.isNewForm}
-          product={showProductForm.product}
-          onClose={onCloseProductForm}
-          isVisible
-        />
-      )}
     </Page>
   );
 };

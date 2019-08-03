@@ -6,11 +6,12 @@
   font-size: 11px;
   margin: 10px 0px;
   margin-bottom: 20px;
+  user-select: none;
 }
 .template-terms-container a{
   text-decoration-color: rgb(142, 209, 252);
   text-decoration: unset;
-  margin: 0px auto;
+  margin: 0px 2px;
 }
 .template-terms-container a:hover{
   text-decoration: underline;

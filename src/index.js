@@ -41,6 +41,7 @@ import ForgetPassword from 'containers/ForgetPassword';
 import PasswordRest from 'containers/PasswordRest';
 import Upsells from 'containers/Upsells';
 import Fulfillments from 'containers/Fulfillments';
+import NewCheckoutWizard from 'containers/NewCheckoutWizard';
 
 import Dashboard from 'containers/Dashboard'
 // import Guidelines from 'containers/Guidelines'
@@ -84,6 +85,8 @@ ReactDOM.render(
                     <Route exact path='/promocode' component={PromoCodeActivation} />
                     <Route exact path='/saasmantra' component={SignUpSaasmantra} />
                     <Route path='/verify' component={VerifyAccount} />
+
+                    <ProtectedRoute exact path='/products/:url' component={NewCheckoutWizard} />
                     <ProtectedRoute component={() => (
                         <Fragment>
                             <Route render={({ history }) => <SideBar history={history} />} />

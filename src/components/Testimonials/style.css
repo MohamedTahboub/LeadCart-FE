@@ -62,6 +62,9 @@ span.testamonial-content {
 
 .testimonial-content-input{
     width: 100%;
+    font-size: 12px;
+    text-align: center;
+    color: #a2a2a2;
 }
 .template-testimonial-delete{
     position: absolute;

@@ -51,7 +51,7 @@ const SideBar = ({
     </PureLink>)
   return (
     <div className='side-bar'>
-      <HeaderLogo onClick={() => history.push('/')} />
+      <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandSelect value={user.subDomain} />
       <Menu>

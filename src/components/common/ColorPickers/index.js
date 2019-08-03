@@ -16,6 +16,7 @@ export const MiniTwitterPicker = ({
         value: hex
       }
     });
+    setShow(false);
   };
 
   const style = {

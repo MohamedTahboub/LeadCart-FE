@@ -3,12 +3,13 @@ import './style.css';
 import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
 import SearchInput from './SearchInput'
+import TextField from './TextField'
 import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
 import ids from 'shortid'
 export class InputRow extends Component {
-  static Label = ({ notes, error, className='', ...props }) => (
+  static Label = ({ notes, error, className = '', ...props }) => (
     <div className={`input-label-container ${className}`}>
       <span className='input-label '>{props.children}</span>
       {error && <span className="label-validation-error">*{error}</span>}
@@ -45,7 +46,7 @@ export class InputRow extends Component {
     autoComplete = 'on',
     onChange,
     value,
-    className='',
+    className = '',
     error,
     ...props
   }) => (
@@ -122,6 +123,7 @@ export class InputRow extends Component {
   static SearchInput = SearchInput
   static DatePicker = DatePicker
   static EditableTagGroup = EditableTagGroup
+  static TextField = TextField
 
   static SelectOption = ({
     options = [],
@@ -223,12 +225,28 @@ export class InputRow extends Component {
     </div>
   )
 
-  static SwitchInput = ({ onChange, name, value, preValue, onToggle, ...props }) => (
-    <label className='switch-slider-input '>
-      <input onChange={onToggle} name={name} type='checkbox' defaultChecked={value} checked={preValue} {...props} />
-      <span className='slider-input slider-round' />
-    </label>
-  )
+  static SwitchInput = ({
+    onChange,
+    className = '',
+    name,
+    value,
+    preValue,
+    defaultChecked,
+    onToggle,
+    ...props
+  }) => (
+      <label className={`switch-slider-input ${className}`}>
+        <input
+          onChange={onToggle}
+          name={name}
+          type='checkbox'
+          defaultChecked={defaultChecked}
+          checked={value}
+          {...props}
+        />
+        <span className='slider-input slider-round' />
+      </label>
+    )
 
   static CodeInputArea = ({
     value,
@@ -302,7 +320,7 @@ export class InputRow extends Component {
   }
 }
 
-export const CodeInputArea = ({ value, flixable, onChange,onBlur, name, disabled, ...props }) => (
+export const CodeInputArea = ({ value, flixable, onChange, onBlur, name, disabled, ...props }) => (
   <div className={`code-area-container ${flixable ? "flixable-code-area-container" : ""}`}>
     <textarea
       onChange={onChange}

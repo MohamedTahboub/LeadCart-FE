@@ -1,6 +1,6 @@
 import React, { useState, Component } from 'react';
 import { connect } from 'react-redux';
-import ShareProductModale from 'components/ShareProductModale';
+import ShareProductModal from 'components/ShareProductModal';
 import common from 'components/common';
 import { openNewWindow } from 'libs';
 import config from 'config';
@@ -34,6 +34,7 @@ const Headers = ({
     const url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${productUrl}`;
     openNewWindow(url);
   };
+
   if (isNew) return null;
   return (
     <div className='product-form-settings-headers bottom-breakline'>
@@ -41,7 +42,7 @@ const Headers = ({
         <i className='fas fa-share-square' />
         Share
       </Button>
-      <ShareProductModale
+      <ShareProductModal
         isVisible={showShareBox}
         onClose={toggleShareBox}
         subdomain={subdomain}

@@ -37,6 +37,14 @@
   /* height: auto; */
   height: inherit;
 }
+.product-template-description-container .editable-field-text{
+  font-size: 22px;
+  color: rgba(0,0,0,.7);
+}
+.product-template-description-container .editable-field-textarea{
+  font-size: 16px;
+  color: #a8a4ac;
+}
 .vertical-product-template-description .editable-field-textarea{
 
   height: 215px;

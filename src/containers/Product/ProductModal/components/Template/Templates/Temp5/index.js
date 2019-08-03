@@ -19,14 +19,14 @@ import {
 
 // import './style.css'
 
-const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
+const Template = ({ className='' ,product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
   const color = product.checkoutPage && product.checkoutPage.presetColors
   const { features = {}, testimonials = {} } = product.checkoutPage || {}
   const { coupons = {} ,payment ={}} = product
   const showRightSide = testimonials.enabled || coupons.enabled;
   return (
-    <div className="editable-product-form-container">
+    <div className={`editable-product-form-container ${className}`}>
       <Header
         onOptionSelected={onOptionSelected}
         color={color}
@@ -93,6 +93,7 @@ const Template = ({ product: { shippingDetails = {}, ...product } = {}, onChange
           />
           <GuaranteeMessage
             onChange={onChange}
+            guaranteeImage={product.checkoutPage && product.checkoutPage.guaranteeImage}
             guaranteed={product.checkoutPage && product.checkoutPage.guaranteed}
           />
 
