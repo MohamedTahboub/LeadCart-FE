@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import { CodeInputArea } from '../Inputs'
 import './style.css';
-export const FlexBoxesContainer = ({ children, className, ...props }) => (
-  <div className={`flex-boxes-container ${className ? className : ''}`}>
+export const FlexBoxesContainer = ({ children, flex = '', className, ...props }) => (
+  <div className={`flex-boxes-container ${className ? className : ''} ${flex}`}>
     {children}
   </div>
 );
 
 export const MainBlock = ({
-  title, notes, children,className='', containerClasses, blockHandel, blockActivabilityHandle = false, ...props
+  title, notes, children, className = '', containerClasses, blockHandel, blockActivabilityHandle = false, ...props
 }) => (
     <div className={`main-block ${className}`}>
       <div className='main-title-container'>
@@ -31,7 +31,7 @@ export const Block = ({ children, ...props }) => (
     {children}
   </div>
 );
-export const SmallBox = ({ clickable = false, onClick, className='', ...props }) => (
+export const SmallBox = ({ clickable = false, onClick, className = '', ...props }) => (
   <div onClick={onClick} style={({ cursor: clickable ? 'pointer' : 'inherit' })} className={`small-box ${className}`}>
     <div className='small-box-container'>
       {props.children}
@@ -39,11 +39,15 @@ export const SmallBox = ({ clickable = false, onClick, className='', ...props })
   </div>
 );
 export const Box = ({
-  header, content, footer, ...props
+  header,
+  contentClassName = '',
+  content,
+  footer,
+  ...props
 }) => (
     <div className='normal-box'>
       {header && <div className='box-header'>{header}</div>}
-      {content && <div className='box-content'>{content}</div>}
+      {content && <div className={`box-content ${contentClassName}`}>{content}</div>}
       {footer && <div className='box-footer'>{footer}</div>}
     </div>
   );

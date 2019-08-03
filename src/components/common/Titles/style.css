@@ -73,15 +73,16 @@
 }
 .step-title-icon{
     margin-right: 4px;
+    font-size: 14px;
     display: inline-block;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background-color: transparent;
     border: 1px solid #000;
-    color:#000;
+    color: #000;
     vertical-align: middle;
     border-radius: 100%;
     font-weight: 200;
     text-align: center;
-    line-height: 22px;
+    line-height: 21px;
 }

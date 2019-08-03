@@ -6,7 +6,8 @@ const ProtectedRoute = ({
   component: Component, isLoggedIn, user, ...props
 }) => (
   <Route
-    {...props} render={(props) => (
+    {...props}
+    render={(props) => (
       isLoggedIn
         ? user.level !== 0 || true
           ? <Component {...props} />

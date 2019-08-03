@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import common from 'components/common';
 import Steps from 'components/Steps'
 import ActiveStep from './ActiveStep'
-import ShareProductModale from 'components/ShareProductModale'
+import ShareProductModal from 'components/ShareProductModal'
 import ProductModal from './ProductModal'
 import { connect } from 'react-redux'
 import * as productAction from 'actions/product'
@@ -155,7 +155,7 @@ class Product extends Component {
             <i className='fas fa-share-square' />
             Share Product
           </Button>
-          <ShareProductModale
+          <ShareProductModal
             isVisible={showShareProductModal}
             onClose={this.onToggleShareProductModal}
             subdomain={subdomain}

@@ -10,6 +10,9 @@ node_modules/
 /build
 /build-temp
 
+#vscode
+.vscode/
+
 # misc
 .DS_Store
 .env.local

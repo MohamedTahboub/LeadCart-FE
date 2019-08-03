@@ -1,12 +1,13 @@
 .editable-product-form-container{
-    flex: 1 1;
-    /* min-width: 600px;
-    width: 60%; */
-    height: 100%;
-    max-width: 850px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    clear: both;
+  flex: 1 1;
+  height: 100%;
+  max-width: 750px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  clear: both;
+  background: white;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   }
   
   .product-template-body{

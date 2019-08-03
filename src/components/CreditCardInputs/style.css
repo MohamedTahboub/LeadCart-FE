@@ -1,0 +1,9 @@
+#credit-card-box{
+    margin:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #credit-card-box .kJnpoy{
+    border:.8px solid rgba(0,0,0,0.2) !important;
+  }

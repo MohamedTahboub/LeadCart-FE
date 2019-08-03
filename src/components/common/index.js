@@ -13,6 +13,9 @@ import * as Notes from './Notes'
 import * as Links from './Links'
 import Timeline from './Timeline'
 import * as ColorPickers from './ColorPickers'
+import * as Collapsable from './Collapse'
+import * as prefixes from './Prefixes'
+
 
 export default {
     ...boxes,
@@ -29,5 +32,7 @@ export default {
     List,
     ...titles,
     ...cards,
-    ...navigators
+    ...navigators,
+    ...prefixes,
+    ...Collapsable
 }

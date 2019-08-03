@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import * as codeActions from 'actions/promoCode';
 import './styles.css';
 import moment from 'moment';
+import SubscriptionPackages from '../../../components/SubscriptionPackages';
+
 
 const {
   InputRow,
@@ -13,6 +15,7 @@ const {
   FlexBoxesContainer,
   MainBlock,
   MainTitle,
+  PackageCard,
   Box,
   SmallButton,
   SpcialAnnouncement
@@ -25,7 +28,7 @@ class CodeInputField extends Component {
     success: false
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     const { codesUsed, error, loading: globleLoading } = this.props;
     const { loading } = this.state;
     if (prevProps.codesUsed !== codesUsed && !error) {
@@ -49,7 +52,7 @@ class CodeInputField extends Component {
     }
   }
 
-  render() {
+  render () {
     const {
       onClick, isLoading, error, ...props
     } = this.props;
@@ -79,7 +82,7 @@ class CodeInputField extends Component {
   }
 }
 
-const TrialCountDown = props => <span>end date</span>
+const TrialCountDown = (props) => <span>end date</span>;
 const PackageState = ({ type, trial: { trial, trialEndDate } = {} }) => (
   <div className='package-level'>
     {type}
@@ -87,7 +90,9 @@ const PackageState = ({ type, trial: { trial, trialEndDate } = {} }) => (
       <Fragment>
         <span className='trial-package'>(trial)</span>
         <span className='trial-package-expiration'>
-          Ends : {moment(trialEndDate).fromNow()}
+          Ends : 
+{' '}
+{moment(trialEndDate).fromNow()}
         </span>
       </Fragment>
     )}
@@ -104,9 +109,10 @@ const Billing = ({
   trialEndDate,
   ...props
 }) => (
-    <React.Fragment>
-      <MainBlock title='LeadCart Plan' />
-      <FlexBoxesContainer>
+  <Fragment>
+    <MainBlock title='LeadCart Plan' />
+    <FlexBoxesContainer className='billing-cards-container'>
+      <FlexBoxesContainer /*  flex='column' */>
         <Box
           header={<HeadeLine>Your Package is :</HeadeLine>}
           content={(
@@ -130,7 +136,6 @@ const Billing = ({
           header={<HeadeLine>Redeem Codes:</HeadeLine>}
           content={(
             <span className='plan-card-action'>
-
               <CodeInputField
                 onSubmit={activateAgencyCode}
                 error={errors.message}
@@ -139,29 +144,31 @@ const Billing = ({
             </span>
           )}
           footer={(
-            <React.Fragment>
+            <Fragment>
               <div className='error-message redeem-box-error'>
                 {errors.message}
               </div>
               <InputRow.Label
                 notes='Redeem codes and to get more sub accounts access'
               >
-                You Have Redeemed
-              {' '}
+                  You Have Redeemed
+                {' '}
                 {codesUsed || 0}
                 {' '}
-                out of
-              {' '}
+                  out of
+                  {' '}
                 {codesUsed > 5 ? codesUsed : 5}
                 {' '}
-                codes
-            </InputRow.Label>
-            </React.Fragment>
+                  codes
+              </InputRow.Label>
+            </Fragment>
           )}
         />
       </FlexBoxesContainer>
-    </React.Fragment>
-  )
+     { /*<SubscriptionPackages />*/}
+    </FlexBoxesContainer>
+  </Fragment>
+);
 const mapStateToProps = ({
   user: {
     user: {

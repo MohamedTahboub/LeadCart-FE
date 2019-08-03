@@ -1,13 +1,14 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import common from 'components/common';
-import { getCurrencySymbol } from 'libs';
-const { InputRow } = common;
 
-const paymentTypesOptions = (type) => ({
-  Split: { label: 'Number of Splits', name: 'splits', options: [3, 6, 9] },
-  Subscription: { label: 'Recurring time', name: 'recurringPeriod', options: ['Monthly', 'Yearly'] }
-}[type] || {});
 
+import './style.css';
+const { InputRow, Currency } = common;
+
+// const paymentTypesOptions = (type) => ({
+//   Split: { label: 'Number of Splits', name: 'splits', options: [3, 6, 9] },
+//   Subscription: { label: 'Recurring time', name: 'recurringPeriod', options: ['Monthly', 'Yearly'] }
+// }[type] || {});;
 
 const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
   <InputRow>
@@ -15,6 +16,7 @@ const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
     <InputRow.SelectOption
       value={value}
       name='payment.type'
+      className='small-select-element'
       onChange={onChange}
       options={[
         { label: 'One Time Price', value: 'Onetime' },
@@ -47,18 +49,19 @@ export default ({
     });
   };
   const paymentType = payment.type;
-  const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split amount(each)' : 'Price';
+  const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split Amount (Each)' : 'Price';
   return (
     <Fragment>
       <InputRow>
         <InputRow.Label>{priceLabel}</InputRow.Label>
-        <InputRow.PriceField
-          onBlur={onFieldChange}
-          currency={getCurrencySymbol(price.currency)}
+        <InputRow.TextField
+          onBlur={onChange}
+          className='default-pricing-field-length'
+          // currency={getCurrencySymbol(price.currency)}
           name='price.amount'
           value={price.amount}
-        >
-        </InputRow.PriceField>
+          prefix={<Currency value={price.currency} />}
+        />
       </InputRow>
       <PaymentTypeSelector value={paymentType} onChange={onFieldChange} />
       {paymentType === 'Subscription'
@@ -67,6 +70,7 @@ export default ({
             <InputRow.Label>Recurring Period</InputRow.Label>
             <InputRow.SelectOption
               onChange={onFieldChange}
+              className='small-select-element'
               name='payment.recurringPeriod'
               value={payment.recurringPeriod}
               options={[
@@ -82,6 +86,7 @@ export default ({
             <InputRow.Label>Number of Splits</InputRow.Label>
             <InputRow.SelectOption
               onChange={onFieldChange}
+              className='small-select-element'
               name='payment.splits'
               value={payment.splits}
               options={[

@@ -116,7 +116,7 @@ export default ({ dispatch }) => (next) => (action) => {
     showFailureMessage('Failed to create New member');
     break;
   case types.SAVE_USER_GENERAL_SETTINGS_FAILED:
-    showFailureMessage(action.payload);
+    showFailureMessage('Failed to save the setting, fields maybe not valid');
     break;
   case types.UPDATE_PRODUCT_FAILED:
     showFailureMessage('Failed to Update The Product');
@@ -180,6 +180,12 @@ export default ({ dispatch }) => (next) => (action) => {
     break;
   case types.ORDER_REFUND_SUCCESS:
     showSuccessMessage('Order have been refunded successfully');
+    break;
+  case types.UPGRADE_USER_PACKAGE_FAILED:
+    showFailureMessage(action.payload, 'Failed to upgrade you current plan');
+    break;
+  case types.UPGRADE_USER_PACKAGE_SUCCESS:
+    showSuccessMessage('Your account have been upgraded successfully');
     break;
   case types.ORDER_REFUND_FAILED:
     showFailureMessage('Failed to refund order. Product/Offer may not Exist');

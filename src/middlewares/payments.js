@@ -1,9 +1,9 @@
-import { ACTIVAT_PAYMENT } from 'constantsTypes';
+import { ACTIVATE_PAYMENT } from 'constantsTypes';
 import { activatPaymentMethodSuccess, activatPaymentMethodFailed } from 'actions/payments';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== ACTIVAT_PAYMENT) return next(action);
+  if (action.type !== ACTIVATE_PAYMENT) return next(action);
 
   const { type, code } = action.payload;
 

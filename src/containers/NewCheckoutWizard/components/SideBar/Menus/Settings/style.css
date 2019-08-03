@@ -1,0 +1,10 @@
+.flex-horizontal{
+    flex-direction: column;
+}
+
+label.onoff-switch-label:before {
+    content: 'On';
+}
+label.onoff-switch-label::after {
+    content: 'Off';
+}
