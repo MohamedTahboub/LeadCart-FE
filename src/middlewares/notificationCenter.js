@@ -188,7 +188,7 @@ export default ({ dispatch }) => (next) => (action) => {
     showSuccessMessage('Your account have been upgraded successfully');
     break;
   case types.ORDER_REFUND_FAILED:
-    showFailureMessage(`${action.payload || 'Failed to Refund the order for some reson'}`);
+    showFailureMessage('Failed to refund order. Product/Offer may not Exist');
     break;
   default:
     return next(action);
