@@ -11,7 +11,7 @@ const { packagesPlans = {} } = config;
 
 const {
   InputRow,
-  HeadeLine,
+  HeadLine,
   BigText,
   FlexBoxesContainer,
   MainBlock,
@@ -24,7 +24,7 @@ const {
 } = common;
 
 
-const SubscriptionPackages = ({
+const Subscription = ({
   activePackage = {},
   ...props
 }) => {
@@ -96,16 +96,11 @@ const SubscriptionPackages = ({
     <Box
       header={(
         <Fragment>
-          <HeadeLine className='subscription-head-line'>
+          <HeadLine className='subscription-head-line'>
             Your Subscription
-          </HeadeLine>
+          </HeadLine>
           <div className='subscription-head-description'>
-            Lorem ipsum dolor sit amet
-            consectetur adipisicing elit.
-            Doloribus nam, perferendis fugiat
-            nobis deserunt exercitationem officia
-            error fugit omnis asperiores voluptates vero,
-            illo eos ipsam? Adipisci unde quos voluptatem qui.
+            here your can change and review you subscription plans and your leadcart package.
           </div>
         </Fragment>
       )}
@@ -168,7 +163,7 @@ const SubscriptionPackages = ({
             </SmallButton>
           </div>
           <InputRow.Label>
-              Fill Your Card Details
+            Fill Your Card Details
           </InputRow.Label>
           <CreditCardInputs onChange={onChange} />
           <SmallButton
@@ -185,7 +180,7 @@ const SubscriptionPackages = ({
 };
 
 
-SubscriptionPackages.propTypes = {
+Subscription.propTypes = {
   checkPromoCode: PropTypes.func.isRequired,
   upgradeUserPackage: PropTypes.func.isRequired,
 };
@@ -197,4 +192,12 @@ const mapStateToProps = ({
     } = {}
   } = {}
 }) => ({ activePackage });
-export default connect(mapStateToProps, { ...billingActions, ...promoCodeActions })(SubscriptionPackages);
+export const SubscriptionPackages = connect(
+  mapStateToProps,
+  {
+    ...billingActions,
+    ...promoCodeActions
+  }
+)(Subscription);
+
+export { default as TransactionsTable } from './components/Transactions'

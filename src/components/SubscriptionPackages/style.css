@@ -1,5 +1,9 @@
 .subscription-box-content{
+    align-items: unset;
     flex-direction: column;
+}
+.subscription-box-content .activations-switch-input{
+    margin: 0 auto;
 }
 
 .subscription-toggle-input{
@@ -53,4 +57,10 @@
 
 .update-subscription-plan-btn{
     float: right;
+}
+
+
+
+.transaction-table-row{
+    background: #eee;
 }
