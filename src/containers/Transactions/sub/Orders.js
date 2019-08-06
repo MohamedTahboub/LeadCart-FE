@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import common from 'components/common';
-import Tabel from 'components/common/Tabels';
+import Table from 'components/common/Tables';
 import './style.css';
 import { getCurrencySymbol, RoundTow } from 'libs';
 import PropTypes from 'prop-types';
@@ -20,17 +20,17 @@ const PaymentTypeIcon = ({ type }) => {
 };
 
 const OrderList = ({ orders, ...props }) => (
-  <Tabel>
-    <Tabel.Head>
-      <Tabel.SmallCell />
-      <Tabel.HeadCell>Name</Tabel.HeadCell>
-      <Tabel.HeadCell>Email</Tabel.HeadCell>
-      <Tabel.HeadCell>Product Name</Tabel.HeadCell>
-      <Tabel.HeadCell>Total Charge</Tabel.HeadCell>
-      <Tabel.HeadCell>Paid with</Tabel.HeadCell>
-      <Tabel.HeadCell>Order Type</Tabel.HeadCell>
-    </Tabel.Head>
-    <Tabel.Body>
+  <Table>
+    <Table.Head>
+      <Table.SmallCell />
+      <Table.HeadCell>Name</Table.HeadCell>
+      <Table.HeadCell>Email</Table.HeadCell>
+      <Table.HeadCell>Product Name</Table.HeadCell>
+      <Table.HeadCell>Total Charge</Table.HeadCell>
+      <Table.HeadCell>Paid with</Table.HeadCell>
+      <Table.HeadCell>Order Type</Table.HeadCell>
+    </Table.Head>
+    <Table.Body>
       {orders.map(({
         customer: {
           firstName,
@@ -50,24 +50,24 @@ const OrderList = ({ orders, ...props }) => (
         },
         totalCharge
       }, orderInList) => (
-        <Tabel.Row orderInList={orderInList}>
-          <Tabel.SmallCell>
+        <Table.Row orderInList={orderInList}>
+          <Table.SmallCell>
             <Avatar name={`${firstName}`} />
-          </Tabel.SmallCell>
-          <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
-          <Tabel.Cell mainContent={email} subContent={phoneNumber} />
-          <Tabel.Cell mainContent={productName} subContent={offer.name ? `with offer: ${offer.name}` : ''} />
-          <Tabel.Cell mainContent={`${getCurrencySymbol(price.currency)} ${RoundTow(totalCharge)}`} />
-          <Tabel.Cell
+          </Table.SmallCell>
+          <Table.Cell mainContent={`${firstName} ${lastName}`} />
+          <Table.Cell mainContent={email} subContent={phoneNumber} />
+          <Table.Cell mainContent={productName} subContent={offer.name ? `with offer: ${offer.name}` : ''} />
+          <Table.Cell mainContent={`${getCurrencySymbol(price.currency)} ${RoundTow(totalCharge)}`} />
+          <Table.Cell
             mainContent={<PaymentTypeIcon type={paymentMethod} />}
             subContent={paymentMethod}
           />
-          <Tabel.Cell mainContent={paymentType} />
+          <Table.Cell mainContent={paymentType} />
 
-        </Tabel.Row>
+        </Table.Row>
       ))}
-    </Tabel.Body>
-  </Tabel>
+    </Table.Body>
+  </Table>
 );
 OrderList.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.object)
