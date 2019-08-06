@@ -44,7 +44,10 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
-    dispatch(getUserPlanSuccess(data.activePackage));
+    dispatch(getUserPlanSuccess({
+      activePackage : data.activePackage,
+      transactions : data.transactions
+    }));
 
     dispatch(getActivities(filteringActivities(data.orders)));
     dispatch(getCustomers(filterCustomers(data.orders, data.products)));
