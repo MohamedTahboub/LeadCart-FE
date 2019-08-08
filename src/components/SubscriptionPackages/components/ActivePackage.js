@@ -21,7 +21,7 @@ const ActivePackage = ({
     trialEndDate
   } = {},
   userSource,
-  lastTransaction
+  lastTransaction = {}
 }) => (
   <Box
     className='active-package-box'
@@ -61,8 +61,11 @@ const ActivePackage = ({
 
 ActivePackage.propTypes = {
   type: PropTypes.string.isRequired,
-  trail: PropTypes.objectOf({}).isRequired
+  trail: PropTypes.objectOf({}).isRequired,
+  lastTransaction: PropTypes.objectOf({})
 };
-
+ActivePackage.defaultProps = {
+  lastTransaction: {}
+};
 
 export default ActivePackage;
