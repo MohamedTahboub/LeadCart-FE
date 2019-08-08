@@ -64,3 +64,10 @@
 .transaction-table-row{
     background: #eee;
 }
+
+.active-package-box {
+    border: 2px solid;
+    border-color: #03a9f45e;
+    border-radius: 5px;
+    background: #bad8f91f;
+}

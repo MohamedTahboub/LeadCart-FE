@@ -7,6 +7,8 @@ import './style.css';
 import { connect } from 'react-redux';
 import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
+import ActivePackage from './components/ActivePackage'
+
 const { packagesPlans = {} } = config;
 
 const {
@@ -26,6 +28,7 @@ const {
 
 const Subscription = ({
   activePackage = {},
+  transactions,
   ...props
 }) => {
   const [errors, setErrors] = useState({});
@@ -107,6 +110,12 @@ const Subscription = ({
       contentClassName='subscription-box-content'
       content={(
         <Fragment>
+          {activePackage.type && (
+            <ActivePackage
+              {...activePackage}
+              lastTransaction={transactions[transactions.length - 1]}
+            />
+          )}
           <ActivationSwitchInput
             active={fields.recurringPeriod === 'Monthly'}
             className={`subscription-toggle-input ${fields.recurringPeriod}`}
@@ -188,10 +197,11 @@ Subscription.propTypes = {
 const mapStateToProps = ({
   user: {
     user: {
-      activePackage = {}
+      activePackage = {},
+      transactions = []
     } = {}
   } = {}
-}) => ({ activePackage });
+}) => ({ activePackage, transactions });
 export const SubscriptionPackages = connect(
   mapStateToProps,
   {
