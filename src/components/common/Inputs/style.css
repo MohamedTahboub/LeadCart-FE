@@ -990,3 +990,11 @@ div.ant-select-sm .ant-select-selection--single{
 .padding-left-10{
     padding-left: 10px;
 }
+
+
+
+.note-text{
+    color: #9E9E9E;
+    font-size: 13px;
+    margin: 30px 0 0 0;
+}

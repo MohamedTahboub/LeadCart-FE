@@ -10,7 +10,7 @@ import { couponSchema } from 'libs/validation';
 
 import CouponModal from './modal'
 
-import Tabel from 'components/common/Tabels';
+import Table from 'components/common/Tables';
 import moment from 'moment';
 import './style.css';
 
@@ -156,16 +156,16 @@ const Coupons = ({
         </Button>
       </PageHeader>
       <PageContent>
-        <Tabel>
-          <Tabel.Head>
-            <Tabel.HeadCell>Code</Tabel.HeadCell>
-            <Tabel.HeadCell>Type</Tabel.HeadCell>
-            <Tabel.HeadCell>Amount/Percent</Tabel.HeadCell>
-            <Tabel.HeadCell>For Product</Tabel.HeadCell>
-            <Tabel.HeadCell>Expiration Date</Tabel.HeadCell>
-            <Tabel.HeadCell>Status</Tabel.HeadCell>
-          </Tabel.Head>
-          <Tabel.Body>
+        <Table>
+          <Table.Head>
+            <Table.HeadCell>Code</Table.HeadCell>
+            <Table.HeadCell>Type</Table.HeadCell>
+            <Table.HeadCell>Amount/Percent</Table.HeadCell>
+            <Table.HeadCell>For Product</Table.HeadCell>
+            <Table.HeadCell>Expiration Date</Table.HeadCell>
+            <Table.HeadCell>Status</Table.HeadCell>
+          </Table.Head>
+          <Table.Body>
             {coupons
               .map((coupon, orderInList) => {
                 const {
@@ -180,20 +180,20 @@ const Coupons = ({
                   usedBy
                 } = coupon;
                 return (
-                  <Tabel.Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
-                    <Tabel.Cell mainContent={code} />
-                    <Tabel.Cell mainContent={discount.type} />
-                    <Tabel.Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
-                    <Tabel.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
-                    <Tabel.Cell mainContent={moment(duration).format('YYYY-MM-DD')} />
-                    <Tabel.Cell>
+                  <Table.Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
+                    <Table.Cell mainContent={code} />
+                    <Table.Cell mainContent={discount.type} />
+                    <Table.Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
+                    <Table.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
+                    <Table.Cell mainContent={moment(duration).format('YYYY-MM-DD')} />
+                    <Table.Cell>
                       <SmallButton
                         onClick={() => props.changeCouponState({ couponId, active: !active })}
                         className={active ? 'green-color' : 'gray-color'}
                       >
                         {`${active ? 'Active' : 'Inactive'}`}
                       </SmallButton>
-                    </Tabel.Cell>
+                    </Table.Cell>
                     <MiniButton
                       toolTip='Delete'
                       className='table-row-delete-btn'
@@ -206,12 +206,12 @@ const Coupons = ({
                       iconClass='fas fa-edit'
                       onClick={() => showEditModal(coupon)}
                     />
-                  </Tabel.Row>
+                  </Table.Row>
                 );
               })}
 
-          </Tabel.Body>
-        </Tabel>
+          </Table.Body>
+        </Table>
       </PageContent>
       {showModal && (
         <CouponModal

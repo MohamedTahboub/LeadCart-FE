@@ -41,11 +41,12 @@ export const SmallBox = ({ clickable = false, onClick, className = '', ...props 
 export const Box = ({
   header,
   contentClassName = '',
+  className='',
   content,
   footer,
   ...props
 }) => (
-    <div className='normal-box'>
+    <div className={`normal-box ${className}`}>
       {header && <div className='box-header'>{header}</div>}
       {content && <div className={`box-content ${contentClassName}`}>{content}</div>}
       {footer && <div className='box-footer'>{footer}</div>}

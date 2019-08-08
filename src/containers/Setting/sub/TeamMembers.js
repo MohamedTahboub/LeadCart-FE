@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import common from 'components/common';
-import Tabel from 'components/common/Tabels';
+import Table from 'components/common/Tables';
 import { Modal } from 'components/Modals';
 import * as teamMembersActions from 'actions/teamMembers';
 import { connect } from 'react-redux';
@@ -79,40 +79,40 @@ const TeamMembers = ({ members = [], ...props }) => {
     <React.Fragment>
       {members.length !== 0
         && (
-          <Tabel>
-            <Tabel.Head>
-              <Tabel.HeadCell>First Name</Tabel.HeadCell>
-              <Tabel.HeadCell>Last Name</Tabel.HeadCell>
-              <Tabel.HeadCell>Email Address</Tabel.HeadCell>
-              <Tabel.HeadCell>status</Tabel.HeadCell>
-            </Tabel.Head>
-            <Tabel.Body>
+          <Table>
+            <Table.Head>
+              <Table.HeadCell>First Name</Table.HeadCell>
+              <Table.HeadCell>Last Name</Table.HeadCell>
+              <Table.HeadCell>Email Address</Table.HeadCell>
+              <Table.HeadCell>status</Table.HeadCell>
+            </Table.Head>
+            <Table.Body>
               {members.map(({
                 member: {
                   firstName, lastName, email, _id: memberId
                 } = {}, active
               }, orderInList) => (
-                <Tabel.Row key={memberId} orderInList={orderInList} className='member-table-row'>
-                  <Tabel.Cell mainContent={firstName || 'Not Set'} />
-                  <Tabel.Cell mainContent={lastName || 'Not Set'} />
-                  <Tabel.Cell mainContent={email} />
-                  <Tabel.Cell>
+                <Table.Row key={memberId} orderInList={orderInList} className='member-table-row'>
+                  <Table.Cell mainContent={firstName || 'Not Set'} />
+                  <Table.Cell mainContent={lastName || 'Not Set'} />
+                  <Table.Cell mainContent={email} />
+                  <Table.Cell>
                     <SmallButton
                       onClick={() => onMemberActivationChange(memberId, active)}
                       className={active ? 'green-color' : 'gray-color'}
                     >
                       {active ? 'Active' : 'Inactive'}
                     </SmallButton>
-                  </Tabel.Cell>
+                  </Table.Cell>
                   <MiniButton
                     toolTip='Delete'
                     className='table-row-delete-btn'
                     iconClass='fa-trash-alt'
                     onClick={() => setShowDeleteModal(memberId)}
                   />
-                </Tabel.Row>
+                </Table.Row>
               ))}
-            </Tabel.Body>
+            </Table.Body>
             {showDeleteModal && (
               <Dialog
                 title='Delete Team Member'
@@ -123,7 +123,7 @@ const TeamMembers = ({ members = [], ...props }) => {
                 onConfirm={() => onMemberDelete(showDeleteModal)}
               />
             )}
-          </Tabel>
+          </Table>
         )
       }
       <AddNewButton onClick={toggleModal} />
