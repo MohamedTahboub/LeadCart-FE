@@ -9,6 +9,7 @@ import {
   ACTIVATE_AGENCY_CODE_FAILED,
   GET_ACTIVATED_AGENCY_CODES_NUMBERS,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
+  UPGRADE_USER_PACKAGE_SUCCESS,
   GET_USER_PLAN
 } from 'constantsTypes';
 import moment from 'moment';
@@ -35,6 +36,7 @@ const initialState = {
     status: false,
     role: '',
     level: 1,
+    transactions: [],
     ...user
   },
   errors: ''
@@ -42,61 +44,70 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case SIGN_UP_SUCCESS: return { singupSuccess: true };
-  case SIGN_UP_FAILED: return { singupSuccess: false };
-  case LOGIN_SUCCESS: return {
-    ...state,
-    user: {
-      packageType: packageType(payload.level),
-      ...payload
-    },
-    isLoggedIn: true
-  };
-  case LOGIN_FAILED: return { ...state, error: payload };
-  case LOGOUT: return { ...state, isLoggedIn: false };
-  case UPDATE_USER_PROFILE_IMAGE_SUCCESS: return { ...state, user: { ...state.user, profileImage: payload } };
-  case ACTIVATE_AGENCY_CODE_SUCCESS:
-    return {
+    case SIGN_UP_SUCCESS: return { singupSuccess: true };
+    case SIGN_UP_FAILED: return { singupSuccess: false };
+    case LOGIN_SUCCESS: return {
       ...state,
       user: {
-        ...state.user,
         packageType: packageType(payload.level),
-        level: payload.level,
+        ...payload
       },
-      activatedPromoCodes: state.activatedPromoCodes && state.activatedPromoCodes + 1 || 0,
-      errors: {
-        ...state.errors,
-        code: ''
-      }
+      isLoggedIn: true
     };
-  case ACTIVATE_AGENCY_CODE_FAILED:
-    return {
-      ...state,
-      errors: typeof payload === 'object' ? { code: payload } : { code: { message: payload } }
-    };
-  case GET_ACTIVATED_AGENCY_CODES_NUMBERS: return { ...state, activatedPromoCodes: payload };
-  case SAVE_USER_GENERAL_SETTINGS_SUCCESS:
-    return {
-      ...state,
-      user: {
-        ...state.user,
-        subDomain: payload.subDomain
-      }
-    };
-  case GET_USER_PLAN:
-    return {
-      ...state,
-      user: {
-        ...state.user,
-        activePackage: payload
-      }
-    };
-  default: return state;
+    case LOGIN_FAILED: return { ...state, error: payload };
+    case LOGOUT: return { ...state, isLoggedIn: false };
+    case UPDATE_USER_PROFILE_IMAGE_SUCCESS: return { ...state, user: { ...state.user, profileImage: payload } };
+    case ACTIVATE_AGENCY_CODE_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          packageType: packageType(payload.level),
+          level: payload.level,
+        },
+        activatedPromoCodes: state.activatedPromoCodes && state.activatedPromoCodes + 1 || 0,
+        errors: {
+          ...state.errors,
+          code: ''
+        }
+      };
+    case ACTIVATE_AGENCY_CODE_FAILED:
+      return {
+        ...state,
+        errors: typeof payload === 'object' ? { code: payload } : { code: { message: payload } }
+      };
+    case GET_ACTIVATED_AGENCY_CODES_NUMBERS: return { ...state, activatedPromoCodes: payload };
+    case SAVE_USER_GENERAL_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          subDomain: payload.subDomain
+        }
+      };
+    case GET_USER_PLAN:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...payload
+        }
+      };
+    case UPGRADE_USER_PACKAGE_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          packageType: payload.packageType,
+          transactions: [...state.user.transactions, payload.transaction]
+        }
+      };
+    default: return state;
   }
 };
 
 
-function packageType (level) {
+function packageType(level) {
   let type = 'Pro';
 
   if (level === 4) type = 'Premium';

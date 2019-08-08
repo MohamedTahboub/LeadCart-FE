@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { getCurrencySymbol } from 'libs';
 import './style.css';
 
 const capitalize = (s) => {
@@ -38,27 +39,23 @@ const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'month', 
   }
 };
 const OrderSummary = ({
-  payment, productName = '', price: { amount = '' } = {}, vat = 0.1
+  payment, productName = '', price: { amount = 0, currency = 'USD' } = {}, vat = 0.1
 }) => {
   const { label, nextCharge } = getPaymentDetails(productName, payment);
   // const tax = amount * vat
-  const total = Math.round(amount);
-
+  const total = Number.parseFloat(amount).toFixed(2);
+  const currencySymbol = getCurrencySymbol(currency);
   return (
     <section className='product-template-order-summary'>
       <h4>Order Summary</h4>
       <SummarySlice
         name={label}
-        amount={amount}
+        amount={`${currencySymbol} ${total}`}
       />
-      {/* <SummarySlice
-        name={`VAT(${vat * 100}%)`}
-        amount={`${tax}$`}
-      /> */}
       <SummarySlice
         className='summary-total'
         name='Total'
-        amount={`$ ${total}`}
+        amount={`${currencySymbol} ${total}`}
       />
       {nextCharge && (
         <div className='purchases-charge-details'>

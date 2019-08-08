@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import './style.css'
 import { CustomerPanelModal } from './components';
 import { RoundTow } from 'libs';
-import Tabel from 'components/common/Tabels';
+import Table from 'components/common/Tables';
 
 import common from 'components/common'
 
@@ -43,17 +43,17 @@ const CustomersLab = ({ customers }) => {
           defaultTab='Customers'
           tabs={{
             'Customers': (
-              <Tabel>
-                <Tabel.Head>
-                  <Tabel.SmallCell />
-                  <Tabel.HeadCell>Customer Name</Tabel.HeadCell>
-                  <Tabel.HeadCell>Email</Tabel.HeadCell>
-                  <Tabel.HeadCell>Phone Number</Tabel.HeadCell>
-                  <Tabel.HeadCell>Orders</Tabel.HeadCell>
-                  <Tabel.HeadCell>Life time Charges</Tabel.HeadCell>
-                  <Tabel.HeadCell>Expand</Tabel.HeadCell>
-                </Tabel.Head>
-                <Tabel.Body>
+              <Table>
+                <Table.Head>
+                  <Table.SmallCell />
+                  <Table.HeadCell>Customer Name</Table.HeadCell>
+                  <Table.HeadCell>Email</Table.HeadCell>
+                  <Table.HeadCell>Phone Number</Table.HeadCell>
+                  <Table.HeadCell>Orders</Table.HeadCell>
+                  <Table.HeadCell>Life time Charges</Table.HeadCell>
+                  <Table.HeadCell>Expand</Table.HeadCell>
+                </Table.Head>
+                <Table.Body>
                   {customers
                     .map((customer, orderInList) => {
                       const {
@@ -65,26 +65,26 @@ const CustomersLab = ({ customers }) => {
                         orders = []
                       } = customer
                       return (
-                        <Tabel.Row key={email} orderInList={orderInList}>
-                          <Tabel.SmallCell>
+                        <Table.Row key={email} orderInList={orderInList}>
+                          <Table.SmallCell>
                             <Avatar name={`${firstName} ${lastName}`} />
-                          </Tabel.SmallCell>
-                          <Tabel.Cell mainContent={`${firstName} ${lastName}`} />
-                          <Tabel.Cell mainContent={email} />
-                          <Tabel.Cell mainContent={phoneNumber} />
-                          <Tabel.Cell mainContent={orders.length} />
-                          <Tabel.Cell mainContent={`$ ${RoundTow(lifeTimeCharges)}`} />
-                          <Tabel.Cell mainContent={(
+                          </Table.SmallCell>
+                          <Table.Cell mainContent={`${firstName} ${lastName}`} />
+                          <Table.Cell mainContent={email} />
+                          <Table.Cell mainContent={phoneNumber} />
+                          <Table.Cell mainContent={orders.length} />
+                          <Table.Cell mainContent={`$ ${RoundTow(lifeTimeCharges)}`} />
+                          <Table.Cell mainContent={(
                             <MiniButton onClick={() => showCustomerPanel(customer)}>
                               <i className="fas fa-ellipsis-h" />
                             </MiniButton>
                           )} />
-                        </Tabel.Row>
+                        </Table.Row>
                       )
                     })}
 
-                </Tabel.Body>
-              </Tabel>
+                </Table.Body>
+              </Table>
             ),
           }}
         />

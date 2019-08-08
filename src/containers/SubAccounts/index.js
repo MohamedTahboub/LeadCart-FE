@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import common from 'components/common';
-import Tabel from 'components/common/Tabels';
+import Table from 'components/common/Tables';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { connect } from 'react-redux';
@@ -89,14 +89,14 @@ class Agency extends Component {
           <AddNewButton key='subAccountModal' onClick={this.toggleModal} />
         </PageHeader>
         <PageContent>
-          <Tabel>
-            <Tabel.Head>
-              <Tabel.HeadCell>First Name</Tabel.HeadCell>
-              <Tabel.HeadCell>Last Name</Tabel.HeadCell>
-              <Tabel.HeadCell>Email Address</Tabel.HeadCell>
-              <Tabel.HeadCell>status</Tabel.HeadCell>
-            </Tabel.Head>
-            <Tabel.Body>
+          <Table>
+            <Table.Head>
+              <Table.HeadCell>First Name</Table.HeadCell>
+              <Table.HeadCell>Last Name</Table.HeadCell>
+              <Table.HeadCell>Email Address</Table.HeadCell>
+              <Table.HeadCell>status</Table.HeadCell>
+            </Table.Head>
+            <Table.Body>
               {this.props.subAccounts.map((agent, orderInList) => {
                 if (!agent || agent === null) agent = {};
                 const {
@@ -107,34 +107,34 @@ class Agency extends Component {
                   _id: id
                 } = agent;
                 return (
-                  <Tabel.Row key={id} orderInList={orderInList} className='member-table-row'>
-                    <Tabel.Cell
+                  <Table.Row key={id} orderInList={orderInList} className='member-table-row'>
+                    <Table.Cell
                       mainContent={firstName || 'not set'}
                     />
-                    <Tabel.Cell
+                    <Table.Cell
                       mainContent={lastName || 'not set'}
                     />
-                    <Tabel.Cell
+                    <Table.Cell
                       mainContent={email}
                     />
-                    <Tabel.Cell>
+                    <Table.Cell>
                       <SmallButton
                         onClick={this.props.changeSubAccountStatus.bind(this, { agentId: id, active: !active })}
                         className={active ? 'green-color' : 'gray-color'}
                       >
                         {active ? 'Active' : 'Inactive'}
                       </SmallButton>
-                    </Tabel.Cell>
+                    </Table.Cell>
                     <MiniButton
                       toolTip='Delete'
                       className='table-row-delete-btn'
                       iconClass='fa-trash-alt'
                       onClick={() => this.showDeleteModal(id)}
                     />
-                  </Tabel.Row>
+                  </Table.Row>
                 );
               })}
-            </Tabel.Body>
+            </Table.Body>
             {deleteModal && (
               <Dialog
                 title='Delete Sub-Account'
@@ -145,7 +145,7 @@ class Agency extends Component {
                 onConfirm={() => this.onDeleteSubAccount(deleteModal)}
               />
             )}
-          </Tabel>
+          </Table>
         </PageContent>
         <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
           <MainTitle className='margin-b-40'>Create Sub-Accounts</MainTitle>

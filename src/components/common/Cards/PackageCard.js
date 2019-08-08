@@ -17,30 +17,33 @@ const PackageCard = ({
   interval,
   activePackage
 }) => (
-  <div
-    onClick={() => onSelect(name)}
-    className={`package-card ${activePackage === name ? 'active' : ''}`}
-  >
-    <div className='package-card-header'>
-      <div className='package-card-title'>{name}</div>
-      <div className='package-card-price'>
-        <span className='amount'>
+    <div
+      onClick={() => onSelect(name)}
+      className={`package-card ${activePackage === name ? 'active' : ''}`}
+    >
+      <div className='package-card-header'>
+        <div className='package-card-title'>{name}</div>
+
+      </div>
+      <div className='package-card-features'>
+        {features.map((f, id) => (
+          <Feature key={f + id} plus={plus && id === 0}>{f}</Feature>
+        ))}
+      </div>
+      <div className='package-card-footer'>
+        <div className='package-card-price'>
+          <span className='amount'>
             $
             {' '}
-          {price[interval]}
-        </span>
+            {price[interval]}
+          </span>
           /
           {' '}
-        {interval}
+          {interval}
+        </div>
       </div>
     </div>
-    <div className='package-card-features'>
-      {features.map((f, id) => (
-        <Feature key={f + id} plus={plus && id === 0}>{f}</Feature>
-      ))}
-    </div>
-  </div>
-);
+  );
 
 PackageCard.propTypes = {
 
