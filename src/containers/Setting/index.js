@@ -26,22 +26,14 @@ const newProductTabs = [
 ]
 
 class Setting extends Component {
-    onChangesSave = () => {
-        const pageName = this.props.history.location.pathname.split('/')[2]
+    // onChangesSave = () => {
+    //     const pageName = this.props.history.location.pathname.split('/')[2]
 
-        switch (pageName) {
-            case 'brand':
-                return this.props.saveUserGeneralSettings()
-            // case 'checkout':
-            //     return this.props.updateProductCheckoutDesign()
-            // case 'payments':
-            //     return this.props.updateProductPayment()
-            // case 'order':
-            //     return this.props.updateProductOrderBump()
-            // case 'advanced':
-            //     return this.props.updateProductAdvanceSetting()
-        }
-    }
+    //     switch (pageName) {
+    //         case 'brand':
+    //             return this.props.saveUserGeneralSettings()
+    //     }
+    // }
 
     render() {
 
@@ -49,9 +41,7 @@ class Setting extends Component {
             <Page key='settings' className='setting-details-page'>
                 <PageHeader>
                     <MainTitle >Settings</MainTitle>
-                    <Button onClick={this.onChangesSave} className=' primary-color'>
-                        Save Changes
-                    </Button>
+                    
                 </PageHeader>
 
                 <PageContent>
