@@ -10,7 +10,7 @@ import { getFulfillmentsSuccess } from 'actions/fulfillments';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
-import { updateMarketPlaceSettings } from 'actions/settings';
+import { updateMarketPlaceSettingsSuccess } from 'actions/settings';
 import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
@@ -45,15 +45,15 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getUserPlanSuccess({
-      activePackage : data.activePackage,
-      transactions : data.transactions
+      activePackage: data.activePackage,
+      transactions: data.transactions
     }));
 
     dispatch(getActivities(filteringActivities(data.orders)));
     dispatch(getCustomers(filterCustomers(data.orders, data.products)));
 
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
-    dispatch(updateMarketPlaceSettings(data.marketPlace));
+    dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
     dispatch(getEmailSettings(data.emailSettings));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };

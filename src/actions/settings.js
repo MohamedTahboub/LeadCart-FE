@@ -6,12 +6,23 @@ import {
   CONNECT_WITH_PAYPAL,
   CONNECT_WITH_PAYPAL_SUCCESS,
   CONNECT_WITH_PAYPAL_FAILED,
-  UPDATE_MARKETPLACE_SETTINGS
+  UPDATE_MARKETPLACE_SETTINGS,
+  UPDATE_MARKETPLACE_SETTINGS_SUCCESS,
+  UPDATE_MARKETPLACE_SETTINGS_FAILED
 } from 'constantsTypes';
 
-export const updateMarketPlaceSettings = (settings) => ({
+export const updateMarketPlaceSettings = (settings, meta) => ({
   type: UPDATE_MARKETPLACE_SETTINGS,
+  payload: settings,
+  meta
+});
+export const updateMarketPlaceSettingsSuccess = (settings) => ({
+  type: UPDATE_MARKETPLACE_SETTINGS_SUCCESS,
   payload: settings
+});
+export const updateMarketPlaceSettingsFailed = (message) => ({
+  type: UPDATE_MARKETPLACE_SETTINGS_FAILED,
+  payload: message
 });
 
 export const onUserGeneralSettingsFieldUpdate = (field) => ({
