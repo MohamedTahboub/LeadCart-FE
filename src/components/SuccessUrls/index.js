@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import NewUrlRow from './NewUrlRow';
 import './style.css';
 import moment from 'moment';
-
+import ids from 'shortid'
 
 const SuccessUrls = ({
   list = [],
@@ -46,7 +46,7 @@ const SuccessUrls = ({
       <div className='success-urls-container'>
         {list.map((url, id) => (
           <NewUrlRow
-            key={url._id + id}
+            key={url._id + id.toString()}
             id={id}
             onChange={onChange}
             onDelete={onDelete}
@@ -58,7 +58,7 @@ const SuccessUrls = ({
         <span className='add-label'>Add New Success Url :</span>
         <i className='fas fa-plus' />
         {' '}
-New Success Url
+        New Success Url
       </span>
     </Fragment>
   );
