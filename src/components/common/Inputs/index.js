@@ -335,11 +335,20 @@ export const CodeInputArea = ({ value, flixable, onChange, onBlur, name, disable
 )
 
 
-export const SelectBox = ({ checked, onChange, ...props }) => {
+export const SelectBox = ({
+   checked,
+    onChange,
+     className='',
+     label,
+      ...props
+     }) => {
   const id = ids.generate()
 
   return (
-    <label htmlFor={`CustomCheckBoxInput_${id}`} >
+    <label 
+    className={className} 
+    htmlFor={`CustomCheckBoxInput_${id}`} 
+    >
       <input
         onChange={onChange}
         id={`CustomCheckBoxInput_${id}`}
@@ -348,6 +357,7 @@ export const SelectBox = ({ checked, onChange, ...props }) => {
         className='custom-checkbox-input-field'
       />
       <span className="custom-checkbox-input-mask" />
+      {label && <span className="checkbox-label">{label}</span>}
     </label>
   )
 }

@@ -24,7 +24,7 @@ const SmallFormContainer = ({
       <div className='small-form-controlls'>
         <Button onClick={onSubmit} className=' primary-color'>
             Update
-          </Button>
+        </Button>
       </div>
     )}
   </div>
@@ -117,10 +117,11 @@ class Account extends Component {
             <InputRow className='account-form-input'>
               <InputRow.Label error={errors.email}>Email</InputRow.Label>
               <InputRow.SmallInput
+                disabled
                 name='email'
                 value={user.email}
-                onChange={this.onDetailsFieldsChange}
-                error={errors.email}
+                // onChange={this.onDetailsFieldsChange}
+                // error={errors.email}
 
               />
             </InputRow>
