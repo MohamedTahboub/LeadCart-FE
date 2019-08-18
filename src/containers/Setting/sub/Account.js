@@ -72,7 +72,9 @@ class Account extends Component {
   }
 
   onChangeAccountDetails = () => {
-    this.props.onChangeAccountDetails(this.state.detailsModel);
+    const { firstName, lastName } = this.state.detailsModel;
+
+    this.props.onChangeAccountDetails({ firstName, lastName });
   }
 
   componentDidMount = () => {
