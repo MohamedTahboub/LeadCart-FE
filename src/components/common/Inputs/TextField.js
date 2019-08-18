@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 const TextField = ({
   className,
-  type,
+  type = 'text',
+  disabled,
   onChange,
   onBlur,
   name,
@@ -16,10 +17,12 @@ const TextField = ({
     <input
       type={type}
       name={name}
-      defaultValue={value}
+      disabled={disabled}
+      value={value}
       className='text-input-filed'
       onChange={onChange}
       onBlur={onBlur}
+      {...props}
     />
   </div>
 );

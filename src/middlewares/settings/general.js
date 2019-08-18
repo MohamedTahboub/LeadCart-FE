@@ -1,36 +1,32 @@
-import { SAVE_USER_GENERAL_SETTINGS } from 'constantsTypes';
 import {
-  saveUserGeneralSettingsSuccess,
-  saveUserGeneralSettingsFailed,
-  updateMarketPlaceSettings
+  UPDATE_MARKETPLACE_SETTINGS
+} from 'constantsTypes';
+import {
+  updateMarketPlaceSettingsSuccess,
+  updateMarketPlaceSettingsFailed,
 } from 'actions/settings';
-
-import { generalSettingSchema } from 'libs/validation'
 
 import { apiRequest } from 'actions/apiRequest';
 
-export default ({ dispatch, getState }) => (next) => async (action) => {
-  if (action.type !== SAVE_USER_GENERAL_SETTINGS) return next(action);
+export default ({ dispatch }) => (next) => async (action) => {
+  if (action.type !== UPDATE_MARKETPLACE_SETTINGS) return next(action);
 
-  const { settings: { generalModel } } = getState();
-
-  const { isValid, value, errors } = await generalSettingSchema(generalModel)
-
-  if (!isValid)
-    return dispatch(saveUserGeneralSettingsFailed(errors));
-
+  const { payload, meta = {} } = action;
 
   dispatch(apiRequest({
     options: {
       method: 'PUT',
       uri: '/api/users/marketplace',
-      body: value,
+      body: payload,
       contentType: 'json'
     },
     onSuccess: () => {
-      dispatch(updateMarketPlaceSettings(value))
-      return saveUserGeneralSettingsSuccess(value)
+      meta.onSuccess && meta.onSuccess(payload);
+      return updateMarketPlaceSettingsSuccess(action.payload);
     },
-    onFailed: saveUserGeneralSettingsFailed
+    onFailed: (message) => {
+      meta.onFailed && meta.onFailed(message);
+      return updateMarketPlaceSettingsFailed(message);
+    }
   }));
 };

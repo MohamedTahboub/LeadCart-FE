@@ -108,7 +108,7 @@ const PackageState = ({ type, trial: { trial, trialEndDate } = {} ,packageType})
     footer={(
       <FlexBoxesContainer className='space-between-elements'>
         <div>
-          <InputRow.Label>Nex billing date</InputRow.Label>
+          <InputRow.Label>Next billing date</InputRow.Label>
           <div> ~ Eternity</div>
         </div>
         <div>

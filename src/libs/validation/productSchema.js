@@ -3,6 +3,8 @@ import ids from 'shortid';
 import defaultLogo from 'assets/images/new-product-icon.png';
 import castYupErrors from './castErrors';
 
+const defaultGuaranteeImage = 'https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/guarantee-badge.png';
+
 const featuresSchema = yup.object({
   enabled: yup.boolean().default(false),
   title: yup.string().default('Features List'),
@@ -33,7 +35,7 @@ const checkoutPageSchema = yup.object({
   features: featuresSchema,
   guaranteed: yup.object({
     enabled: yup.bool().default(false),
-    url: yup.string().url()
+    url: yup.string().url().default(defaultGuaranteeImage)
   }),
   logo: yup.string().default(defaultLogo),
   termsAndConditions: termsAndConditionsSchema,

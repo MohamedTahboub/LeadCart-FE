@@ -58,3 +58,40 @@ span.success-order {
     justify-content: center;
     align-items: center;
 }
+
+
+
+.success-url-interval {
+    display: flex;
+    min-width: 240px;
+    justify-content: space-around;
+    align-items: center;
+}
+.success-url-interval-label-text{
+    width: unset;
+    margin: 0 10px;
+}
+
+.success-url-interval-interval {
+    border: 1px solid lightgray;
+    padding: 4px;
+    background: white;
+    border-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.success-url-interval-value input {
+    width:70px;
+}
+.success-url-interval-interval:disabled {
+    background: #eee;
+}
+
+
+.success-url-interval-select{
+    display: flex;
+    min-width: 70px;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+}
