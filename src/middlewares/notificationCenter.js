@@ -190,6 +190,12 @@ export default ({ dispatch }) => (next) => (action) => {
   case types.ORDER_REFUND_FAILED:
     showFailureMessage('Failed to refund order. Product/Offer may not Exist');
     break;
+  case types.UPDATE_FULFILLMENT_SUCCESS:
+    showSuccessMessage('Fulfillment Updated Successfully successfully');
+    break;
+  case types.UPDATE_FULFILLMENT_FAILED:
+    showFailureMessage('Failed to update fulfillment.');
+    break;
   default:
     return next(action);
   }

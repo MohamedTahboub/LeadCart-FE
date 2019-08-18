@@ -1,13 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import common from 'components/common';
 import * as settingsActions from 'actions/settings';
 import { connect } from 'react-redux';
 import countriesList from 'data/countries';
 import timeZonesList from 'data/timeZones';
 import currencies from 'data/currencies.json';
+import PropTypes from 'prop-types';
+import { marketPlaceSettingSchema } from 'libs/validation';
+import * as flashMessagesActions from 'actions/flashMessage';
 
-
-const { InputRow, MainBlock, DeleteButton } = common;
+const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
+const { InputRow, MainBlock, Button } = common;
 
 const currenciesList = currencies.map((c) => ({ value: c.code, label: `${c.symbol} - ${c.name}` }));
 const countries = countriesList.map(({ name: label, code: value }) => ({ label, value }));
@@ -16,35 +19,80 @@ const timeZones = timeZonesList.map(({ value }) => ({ label: value, value }));
 const defaultTimeZone = timeZones.find(({ value }) => value.includes('Central America')).value;
 const defaultCountry = countries.find(({ value }) => value === 'US').value;
 
-const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
-  const {
-    name,
-    country,
-    currency = 'USD',
-    logo,
-    supportEmail = userEmail,
-    timeZone,
-    subDomain,
-    errors
-  } = props.general;
-  const onFieldChange = ({ target: { name, value } }) => {
-    props.onUserGeneralSettingsFieldUpdate({ name, value });
+const GeneralSettings = ({
+  user: {
+    email: userEmail
+  },
+  marketPlace,
+  ...props
+}) => {
+  const [fields, setFields] = useState({ ...marketPlace });
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setFields(marketPlace);
+  }, [marketPlace]);
+
+  const updateFields = (name, value) => {
+    if (name.includes('.')) {
+      const [key, nestedKey] = name.split('.');
+      const nestedValue = { [nestedKey]: value };
+      name = key;
+      value = { ...fields[key], ...nestedValue };
+    }
+    setFields({ ...fields, [name]: value });
   };
 
-  const onImageUpload = (name, value) => {
-    props.onUserGeneralSettingsFieldUpdate({ name, value });
+  const onChange = ({ target: { name, value } }) => {
+    updateFields(name, value);
+    setErrors({ [name]: '' });
+  };
+
+  const onSave = async () => {
+    try {
+      const { isValid, value, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
+      if (!isValid) return setErrors({ ...fieldsErrors });
+
+      props.updateMarketPlaceSettings(
+        value,
+        {
+          onSuccess: (m) => {
+            props.showFlashMessage({
+              type: 'success',
+              message: 'Your Changes Saved Successfully'
+            });
+          },
+          onFailed: (message) => {
+            setErrors({ message });
+            props.showFlashMessage({
+              type: 'failed',
+              message
+            });
+          }
+        }
+      );
+    } catch ({ message, ...err }) {
+      setErrors({ message });
+    }
   };
 
   return (
     <Fragment>
-      <MainBlock title='General Brand Settings'>
+      <MainBlock
+        title='General Brand Settings'
+        blockHandel={(
+          <Button onClick={onSave} className=' primary-color'>
+            Save Changes
+          </Button>
+        )}
+      >
         <InputRow>
           <InputRow.Label error={errors.name}>Company Name:</InputRow.Label>
           <InputRow.NormalInput
             error={errors.name}
             name='name'
-            value={name}
-            onChange={onFieldChange}
+            value={fields.name}
+            onChange={onChange}
           >
           </InputRow.NormalInput>
         </InputRow>
@@ -57,11 +105,11 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
           </InputRow.Label>
           <InputRow.AddImage
-            value={logo}
+            value={fields.logo}
             subLabel='Logo'
             source='company_logo'
             name='logo'
-            onUploaded={(image) => onImageUpload('logo', image)}
+            onUploaded={(image) => updateFields('logo', image)}
           >
             Logo
 
@@ -71,9 +119,9 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           <InputRow.Label error={errors.subDomain}>Brand SubDomain:</InputRow.Label>
           <InputRow.SmallInput
             name='subDomain'
-            onChange={onFieldChange}
+            onChange={onChange}
             error={errors.subDomain}
-            value={subDomain}
+            value={fields.subDomain}
           />
         </InputRow>
         <InputRow margin='20'>
@@ -85,13 +133,13 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
 
           </InputRow.Label>
           <InputRow.SearchInput
-            value={country}
+            value={fields.country}
             options={countries}
             target='name'
             error={errors.country}
             name='country'
             defaultValue={defaultCountry}
-            onChange={onFieldChange}
+            onChange={onChange}
           />
 
         </InputRow>
@@ -100,19 +148,19 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           <InputRow.SearchInput
             defaultValue={defaultTimeZone}
             options={timeZones}
-            value={timeZone}
+            value={fields.timeZone}
             error={errors.timeZones}
             name='timeZone'
-            onChange={onFieldChange}
+            onChange={onChange}
           />
         </InputRow>
         <InputRow margin='20'>
           <InputRow.Label error={errors.support}>Support Contact:</InputRow.Label>
           <InputRow.SmallInput
             name='supportEmail'
-            onChange={onFieldChange}
+            onChange={onChange}
             error={errors.support}
-            value={supportEmail}
+            value={fields.supportEmail}
           >
             Ex. support@leadcart.io
 
@@ -123,38 +171,38 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
           <InputRow.SearchInput
             // size='small'
             options={currenciesList}
-            defaultValue={currency}
+            defaultValue={fields.currency}
             name='currency'
-            onChange={onFieldChange}
+            onChange={onChange}
           />
         </InputRow>
       </MainBlock>
 
-      <MainBlock title='Settings'>
+      <MainBlock title='Marketplace Page Settings'>
         <InputRow>
           <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>
           <InputRow.NormalInput
-            // error={errors.name}
-            name='name'
-            // value={`Displayed - ${name || ''}`}
-            // onChange={onFieldChange}
+            error={errors.layout && errors.layout.name}
+            name='layout.name'
+            value={fields.layout.name}
+            onChange={onChange}
           >
           </InputRow.NormalInput>
         </InputRow>
         <InputRow margin='40'>
           <InputRow.Label
-            error={errors.logo}
+            error={errors.layout && errors.layout.coverImage}
             notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
           >
             Background Image:
 
           </InputRow.Label>
           <InputRow.AddImage
-            // value={logo}
+            value={fields.layout.coverImage}
             subLabel='Logo'
-            source='company_logo'
-            name='logo'
-            onUploaded={(image) => { }}
+            source='company_layout_coverImage'
+            name='layout.coverImage'
+            onUploaded={(image) => updateFields('layout.coverImage', image)}
           >
             Image
 
@@ -177,5 +225,44 @@ const GeneralSettings = ({ user: { email: userEmail }, ...props }) => {
     </Fragment>
   );
 };
-const mapStateToProps = ({ user: { user }, settings: { generalModel: general } }) => ({ general, user });
-export default connect(mapStateToProps, settingsActions)(GeneralSettings);
+
+const mapStateToProps = ({
+  user: { user },
+  settings: { generalModel: marketPlace }
+}) => ({
+  marketPlace,
+  user
+});
+
+GeneralSettings.propTypes = {
+  user: PropTypes.objectOf({
+    email: PropTypes.string.isRequired
+  }),
+  marketPlace: PropTypes.objectOf({
+    layout: PropTypes.objectOf({
+      name: PropTypes.string.isRequired,
+      coverImage: PropTypes.string.isRequired,
+      links: PropTypes.arrayOf({
+        label: PropTypes.string,
+        url: PropTypes.string,
+      }).isRequired
+    }).isRequired,
+  }),
+  showFlashMessage: PropTypes.func.isRequired,
+  updateMarketPlaceSettings: PropTypes.func.isRequired,
+};
+GeneralSettings.defaultProps = {
+  marketPlace: {
+    layout: {
+      coverImage: defaultCoverImage
+    }
+  },
+  user: {}
+};
+export default connect(
+  mapStateToProps,
+  {
+    ...settingsActions,
+    ...flashMessagesActions
+  }
+)(GeneralSettings);
