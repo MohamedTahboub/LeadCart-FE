@@ -34,6 +34,10 @@ export const GET_ACTIVATED_AGENCY_CODES_NUMBERS = Symbol('GET_ACTIVATED_AGENCY_C
 export const PROMO_CODE_ACTIVATE = Symbol('PROMO_CODE_ACTIVATE');
 export const PROMO_CODE_ACTIVATE_SUCCESS = Symbol('PROMO_CODE_ACTIVATE_SUCCESS');
 export const PROMO_CODE_ACTIVATE_FAILED = Symbol('PROMO_CODE_ACTIVATE_FAILED');
+
+export const CHECK_PROMO_CODE = Symbol('CHECK_PROMO_CODE');
+export const CHECK_PROMO_CODE_SUCCESS = Symbol('CHECK_PROMO_CODE_SUCCESS');
+export const CHECK_PROMO_CODE_FAILED = Symbol('CHECK_PROMO_CODE_FAILED');
 /* PromoCode actions types ends */
 
 /* Product action types */
