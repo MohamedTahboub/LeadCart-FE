@@ -252,7 +252,6 @@ const mapStateToProps = ({
     activePackage.type = level >= 4 ? 'Premium' : 'Pro'
     activePackage.period = 'Monthly'
   }
-  console.log('=========>', activePackage)
   return { activePackage, trial: { trialEndDate, trial }, transactions };
 }
 
