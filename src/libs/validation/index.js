@@ -7,4 +7,6 @@ export { default as emailFooterSchema } from './emailFooter';
 export { default as generalSettingSchema } from './marketPlaceSettingSchema';
 export { default as marketPlaceSettingSchema } from './settings';
 export { default as couponSchema } from './couponSchema';
+export { default as upgradeUserSchema } from './userUpgrade';
 export { freeTrailSignup, proSignup } from './proSignup';
+ 

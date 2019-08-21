@@ -32,7 +32,7 @@ const Transactions = ({ list }) => {
                             } = transaction
                             return (
                                 <Table.Row
-                                    key={_id + orderInList}
+                                    key={`${_id}-${orderInList}`}
                                     orderInList={orderInList}
                                     className='transaction-table-row'
                                 >

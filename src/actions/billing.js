@@ -6,9 +6,10 @@ import {
 } from '../constantsTypes';
 
 
-export const upgradeUserPackage = (packageDetails) => ({
+export const upgradeUserPackage = (packageDetails, meta) => ({
   type: UPGRADE_USER_PACKAGE,
-  payload: packageDetails
+  payload: packageDetails,
+  meta
 });
 export const upgradeUserPackageSuccess = (packageDetails) => ({
   type: UPGRADE_USER_PACKAGE_SUCCESS,
