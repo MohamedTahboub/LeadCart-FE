@@ -43,12 +43,12 @@ const Email = ({ isPremium, ...props }) => {
 
   const onEmailVerify = async () => {
     const schema = yup.string().email().required();
-
+    console.log(sourceEmail);
     if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
     setVersifying(true);
     props.verifyEmailSource({ email: sourceEmail }, {
-      onSuccess: () => { setVersifying(false); },
-      onFailed: () => { setVersifying(false); }
+      onSuccess: () => {setVersifying(false);},
+      onFailed: () => {setVersifying(false);}
     });
   };
 
@@ -74,8 +74,8 @@ const Email = ({ isPremium, ...props }) => {
   };
 
   useEffect(() => {
-    if (props.sourceEmail !== sourceEmail) setSourceEmail(props.sourceEmail);
-  }, [props]);
+    setSourceEmail(props.sourceEmail);
+  }, [props.sourceEmail]);
 
   const { testing, emailTestType } = testType;
   // const isThisEmailVerified = sourceEmail === props.sourceEmail && props.emailVerificationStatus === 1
@@ -126,7 +126,7 @@ const Email = ({ isPremium, ...props }) => {
               Verify
             </SmallButton>
           </InputRow.Note>
-        </InputRow>
+                       </InputRow>
         )}
         {/* <InputRow margin='30'>
             <InputRow.Label
@@ -307,7 +307,7 @@ const Email = ({ isPremium, ...props }) => {
           </InputRow.Note>
         </InputRow>
 
-      </MainBlock>
+                     </MainBlock>
       )}
     </Fragment>
   );
@@ -330,7 +330,7 @@ const mapStatToProps = ({
 }) => {
   let isPremium = activePackage.type === 'Premium';
 
-  if (level >= 4) isPremium = true
+  if (level >= 4) isPremium = true;
 
   return {
     companyAddress,

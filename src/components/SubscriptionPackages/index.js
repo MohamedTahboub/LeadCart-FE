@@ -82,14 +82,22 @@ const Subscription = ({
       }
     })
   }
+  const onChangePromoCode = ({ target: { name, value } }) => {
+    onChange({
+      target: {
+        name: 'promoCode',
+        value: { ...fields.promoCode, code: value }
+      }
+    })
+  }
   const onPromoCodeCheck = () => {
-    const { promoCode } = fields
+    const { promoCode: { code } = {} } = fields
 
-    if (promoCode) {
+    if (code) {
       setLoading({ ...loading, promoCode: true });
       props.checkPromoCode(
         {
-          promoCode
+          promoCode: code
         },
         {
           onSuccess: (promoCode) => {
@@ -99,6 +107,7 @@ const Subscription = ({
               amount: promoCode.amount,
               promoCode: {
                 ...promoCode,
+                code,
                 applied: true
               },
               packageType: promoCode.packageType,
@@ -119,7 +128,7 @@ const Subscription = ({
   const cleanUp = () => {
     setFields({
       ...fields,
-      promoCode: {},
+      promoCode: {code:""},
       credit: {}
     });
   }
@@ -127,11 +136,9 @@ const Subscription = ({
 
     let promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined
 
-
+    console.log(promoCode)
     const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode })
 
-
-    console.log(isValid, value, errors)
     if (!isValid)
       return setErrors({
         ...errors,
@@ -215,7 +222,8 @@ const Subscription = ({
               error={errors.promoCode}
               name='promoCode'
               className={fields.promoCode.applied ? 'valid' : ''}
-              onChange={onChange}
+              onChange={onChangePromoCode}
+              Value={fields.promoCode.code}
             >
               PROMO CODE
 
@@ -273,8 +281,8 @@ const mapStateToProps = ({
 }) => {
 
   if (trial) {
-    activePackage.type = 'Pro'
-    activePackage.period = 'Monthly'
+    activePackage.type = activePackage.type || 'Pro'
+    activePackage.period = activePackage.period || 'Monthly'
   } else if (!activePackage.type && level) {
     activePackage.type = level >= 4 ? 'Premium' : 'Pro'
     activePackage.period = 'Monthly'
