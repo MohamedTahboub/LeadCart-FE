@@ -23,7 +23,7 @@ export default {
           Yearly: 990
         },
         features: [
-          '+ Checkout Templates.',
+          '+6 Checkout Templates.',
           'Unlimited Products.',
           'Use Checkout Pages Everywhere.',
           'Built In Credit Card & PayPal processors.',
@@ -62,7 +62,7 @@ export default {
           Yearly: 990
         },
         features: [
-          '+ Checkout Templates.',
+          '+6 Checkout Templates.',
           'Unlimited Products.',
           'Use Checkout Pages Everywhere.',
           'Built In Credit Card & PayPal processors.',
@@ -101,7 +101,7 @@ export default {
           Yearly: 990
         },
         features: [
-          '+ Checkout Templates.',
+          '+6 Checkout Templates.',
           'Unlimited Products.',
           'Use Checkout Pages Everywhere.',
           'Built In Credit Card & PayPal processors.',

@@ -17,7 +17,7 @@ const ActivePackage = ({
   type: packageType,
   period,
   trial: {
-    trial: isTrail,
+    trial: isTrial,
     trialEndDate
   } = {},
   userSource,
@@ -30,7 +30,7 @@ const ActivePackage = ({
       <BigText>
         <div className='package-level'>
           {packageType}
-          {isTrail && (
+          {isTrial && (
             <Fragment>
               <span className='trial-package'>(trial)</span>
               <span className='trial-package-expiration'>

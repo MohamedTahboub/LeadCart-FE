@@ -25,7 +25,7 @@ const EmailTestButton = ({
     </SmallButton>
   );
 };
-const Email = (props) => {
+const Email = ({ isPremium, ...props }) => {
   const [showFooterModal, setFooterModal] = useState(false);
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(props.sourceEmail);
@@ -43,7 +43,7 @@ const Email = (props) => {
 
   const onEmailVerify = async () => {
     const schema = yup.string().email().required();
-
+    console.log(sourceEmail);
     if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
     setVersifying(true);
     props.verifyEmailSource({ email: sourceEmail }, {
@@ -74,8 +74,8 @@ const Email = (props) => {
   };
 
   useEffect(() => {
-    if (props.sourceEmail !== sourceEmail) setSourceEmail(props.sourceEmail);
-  }, [props]);
+    setSourceEmail(props.sourceEmail);
+  }, [props.sourceEmail]);
 
   const { testing, emailTestType } = testType;
   // const isThisEmailVerified = sourceEmail === props.sourceEmail && props.emailVerificationStatus === 1
@@ -101,7 +101,7 @@ const Email = (props) => {
             )}
           </InputRow.Note>
         </InputRow>
-        {props.packageType !== 'Pro' && (<InputRow>
+        {isPremium && (<InputRow>
           <InputRow.Label
             error={errors.sourceEmail}
             notes='This Email represents the sender,  the from or the source email that your customers gonna get the emails from, in order to do that you have to verify the identity of your email address'
@@ -126,7 +126,7 @@ const Email = (props) => {
               Verify
             </SmallButton>
           </InputRow.Note>
-        </InputRow>
+                       </InputRow>
         )}
         {/* <InputRow margin='30'>
             <InputRow.Label
@@ -235,7 +235,7 @@ const Email = (props) => {
           </InputRow.Note>
         </InputRow>
       </MainBlock>
-      {props.packageType !== 'Pro' && (<MainBlock title='Dunning Emails'>
+      {isPremium && (<MainBlock title='Dunning Emails'>
         <InputRow>
           <InputRow.Label>Default Dunning</InputRow.Label>
           <InputRow.Note
@@ -307,7 +307,7 @@ const Email = (props) => {
           </InputRow.Note>
         </InputRow>
 
-      </MainBlock>
+                     </MainBlock>
       )}
     </Fragment>
   );
@@ -316,7 +316,8 @@ const Email = (props) => {
 const mapStatToProps = ({
   user: {
     user: {
-      packageType
+      level,
+      activePackage = {}
     } = {}
   },
   emails: {
@@ -326,12 +327,17 @@ const mapStatToProps = ({
       emailVerificationStatus
     } = {}
   } = {}
-}) => ({
-  packageType,
-  companyAddress,
-  sourceEmail,
-  emailVerificationStatus
-});
+}) => {
+  let isPremium = activePackage.type === 'Premium';
 
+  if (level >= 4) isPremium = true;
+
+  return {
+    companyAddress,
+    isPremium,
+    sourceEmail,
+    emailVerificationStatus
+  };
+};
 export default connect(mapStatToProps, emailsActions)(Email);
 
