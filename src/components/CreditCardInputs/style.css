@@ -1,6 +1,5 @@
 #credit-card-box{
-    margin:20px;
-    margin-left:50px; 
+    margin:20px 5px;
     display: flex;
     align-items: center;
     /* justify-content: center; */

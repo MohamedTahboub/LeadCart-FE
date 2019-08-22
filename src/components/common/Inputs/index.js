@@ -46,12 +46,14 @@ export class InputRow extends Component {
     autoComplete = 'on',
     onChange,
     value,
+    // Value,
     className = '',
     error,
     ...props
   }) => (
       <input
         defaultValue={value}
+        // value={Value}
         onChange={onChange}
         onBlur={onBlur}
         autoComplete={autoComplete}

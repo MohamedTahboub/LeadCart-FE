@@ -635,6 +635,11 @@ span.medium-card-headline {
     color: #485579;
 }
 
+.package-card-price  .line-though {
+    color: #bdb8b8;
+    margin: 0 5px;
+}
+
 
 
 .package-card-feature{
