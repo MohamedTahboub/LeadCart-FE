@@ -10,6 +10,7 @@ const TextField = ({
   name,
   prefix,
   value,
+  defaultValue,
   ...props
 }) => (
   <div className={`text-input-filed-container ${className}`}>
@@ -19,6 +20,7 @@ const TextField = ({
       name={name}
       disabled={disabled}
       value={value}
+      defaultValue={defaultValue}
       className='text-input-filed'
       onChange={onChange}
       onBlur={onBlur}

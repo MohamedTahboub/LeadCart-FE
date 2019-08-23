@@ -87,7 +87,7 @@ const BumpOffer = ({
                 className='default-pricing-field-length'
                 name='offer.name'
                 onBlur={onChange}
-                value={name}
+                defaultValue={name}
               />
             </InputRow>
             <InputRow className='sidebar-row'>
@@ -99,7 +99,7 @@ const BumpOffer = ({
                 name='offer.price'
                 onBlur={onChange}
                 prefix={<Currency value={currency} />}
-                value={price}
+                defaultValue={price}
                 currency='$'
               />
             </InputRow>
