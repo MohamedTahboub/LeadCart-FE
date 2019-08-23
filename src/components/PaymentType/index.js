@@ -59,7 +59,7 @@ export default ({
           className='default-pricing-field-length'
           // currency={getCurrencySymbol(price.currency)}
           name='price.amount'
-          value={price.amount}
+          defaultValue={price.amount}
           prefix={<Currency value={price.currency} />}
         />
       </InputRow>
