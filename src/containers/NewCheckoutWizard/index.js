@@ -53,8 +53,8 @@ const NewCheckoutWizard = ({ products, subdomain, globelLoading, ...props }) => 
     const { url } = props.match.params
     const product = products.find(({ url: u }) => u === url) || {}
     setFields(product);
-  
-    if(product._id)
+
+    if (product._id)
       setLoading({ product: false })
     return () => {
       setFields({});
@@ -63,6 +63,12 @@ const NewCheckoutWizard = ({ products, subdomain, globelLoading, ...props }) => 
 
   const onDisplayChange = (type) => {
     setDisplayType(type)
+  }
+
+  const updateUrlOnChange = (updatedUrl) => {
+    const { url: currentUrl } = props.match.params
+    if (updatedUrl !== currentUrl)
+      props.history.push(updatedUrl)
   }
 
   const onSave = async () => {
@@ -93,6 +99,7 @@ const NewCheckoutWizard = ({ products, subdomain, globelLoading, ...props }) => 
             message: `Your Changes Saved Successfully`
           })
           stopTabClosing(false)
+          updateUrlOnChange(fields.url)
         },
         onFailed: (message) => {
           props.showFlashMessage({
