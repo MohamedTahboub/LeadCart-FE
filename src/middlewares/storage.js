@@ -51,7 +51,7 @@ export default ({ dispatch }) => (next) => (action) => {
       localStorage.leadcart = JSON.stringify({
         ...JSON.parse(localStorage.leadcart),
         activePackage: payload.activePackage,
-        trail: false
+        trial: false
       });
     }
 

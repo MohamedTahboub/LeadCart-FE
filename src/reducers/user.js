@@ -98,7 +98,7 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       user: {
         ...state.user,
-        trail: false,
+        trial: false,
         activePackage: payload.activePackage,
         transactions: [...state.user.transactions, payload.transaction]
       }

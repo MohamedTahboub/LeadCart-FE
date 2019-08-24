@@ -41,7 +41,7 @@ const ActivePackage = ({
             </Fragment>
           )}
         </div>
-        <div className='note-text'>{`subscribed to a ${period.toLowerCase()} plan`}</div>
+        <div className='note-text '>{`Subscribed to a ${period} Plan`}</div>
       </BigText>
     )}
     footer={(
@@ -50,7 +50,7 @@ const ActivePackage = ({
           <InputRow.Label>Nex billing date</InputRow.Label>
           {userSource === 'saasmntra'
             ? <div> ~ Eternity</div>
-            : <div>{moment(lastTransaction.updateAt).add(1, 'M').format('MMM DD, YYYY')}</div>
+            : <div>{moment(lastTransaction.createdAt).add(1, 'M').format('MMM DD, YYYY')}</div>
           }
         </div>
 
