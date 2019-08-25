@@ -1,6 +1,6 @@
 {
-  "short_name": "Leadcart",
   "name": "Lead Cart Marketplace",
+  "short_name": "Leadcart",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,8 +8,10 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": "/",
-  "display": "fullscreen",
+  "description":"Modern Checkout Platform for Online Entrepreneurs",
+  "start_url": "/?utm_source=homescreen",
+  "display": "standalone",
   "theme_color": "#000000",
+  "homepage_url": "https://app.leadcart.io",
   "background_color": "#ffffff"
 }
