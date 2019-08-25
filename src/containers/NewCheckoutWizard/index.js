@@ -30,8 +30,18 @@ const NewCheckoutWizard = ({ products, subdomain, globelLoading, ...props }) => 
   const [isSidebarOpened, setSidebarOpened] = useState(false);
   const [enableDarkTheme, setEnableDarkTheme] = useState(false)
 
+  const [unblock,SetUnblock]=useState()
+
+
   const changesDetected = () => {
+    const unblock = props.history.block('Changes you made may not be saved.');
+    SetUnblock(unblock)
     stopTabClosing(true)
+  }
+  
+  const changesSaved = ()=>{
+    typeof unblock === 'function' && unblock();
+    stopTabClosing(false)
   }
   const onChange = ({ target: { name, value } }) => {
 
@@ -98,7 +108,7 @@ const NewCheckoutWizard = ({ products, subdomain, globelLoading, ...props }) => 
             type: 'success',
             message: `Your Changes Saved Successfully`
           })
-          stopTabClosing(false)
+          changesSaved()
           updateUrlOnChange(fields.url)
         },
         onFailed: (message) => {

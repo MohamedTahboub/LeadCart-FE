@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 // Routing
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route as ReactRouter } from 'react-router-dom';
 // import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
@@ -66,6 +66,16 @@ import VerifyAccount from './containers/VerifyAccount';
 
 /* Temp page to represent the empty pages */
 
+const Route = (props) => {
+    return <ReactRouter {...props} >{(componentProps) => {
+        console.log('componentProps.history.listen', componentProps.history.listen)
+        componentProps.history.listen((route, action) => {
+            console.log(route)
+        });
+        return props.children
+    }}</ReactRouter>
+}
+
 window.onload = () => {
     store.dispatch({ type: APP_INIT })
 }
@@ -77,7 +87,9 @@ ReactDOM.render(
             {/*<ErrorBoundary>*/}
 
             <BrowserRouter>
-                <Switch>
+                <Switch onChange={() => {
+                    console.log('XXXXXXXXXXX')
+                }}>
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/signup' component={SignUp} />
                     <Route exact path='/password/forget' component={ForgetPassword} />
@@ -109,7 +121,7 @@ ReactDOM.render(
                         </Fragment>
                     )}
                     />
-                </Switch>   
+                </Switch>
             </BrowserRouter>
 
             {/*</ErrorBoundary>*/}
