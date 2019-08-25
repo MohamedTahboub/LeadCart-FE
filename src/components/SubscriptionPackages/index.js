@@ -168,7 +168,7 @@ const Subscription = ({
             Your Subscription
           </HeadLine>
           <div className='subscription-head-description'>
-            here your can change and review you subscription plans and your leadcart package.
+            Here you can change and review you subscription plans
           </div>
         </Fragment>
       )}
@@ -212,7 +212,7 @@ const Subscription = ({
         <Fragment>
 
           <InputRow.Label
-            notes='save your money, get a promo code from our affiliates to get great discounts'
+            notes='If you have a promo code, please enter it below'
             className='subscription-promo-code-label'
           >
             Do You have a Promo Code ?
