@@ -1,7 +1,7 @@
 import { showFlashMessage } from 'actions/flashMessage';
 
 // import {
-//   PRODUCT_CREATED_SUCCESSFULY,
+//   PRODUCT_CREATED_SUCCESSFULLY,
 //   UPDATE_PRODUCT_SUCCESS,
 //   DELETE_USER_PRODUCT_SUCCESS,
 //   UPLOAD_FILE_SUCCESS,
@@ -79,7 +79,7 @@ export default ({ dispatch }) => (next) => (action) => {
   case types.SAVE_USER_GENERAL_SETTINGS_SUCCESS:
     showSuccessMessage('Update General Setting Successfully');
     break;
-  case types.PRODUCT_CREATED_SUCCESSFULY:
+  case types.PRODUCT_CREATED_SUCCESSFULLY:
     showSuccessMessage('The Product Created Successfully');
     break;
   case types.DELETE_USER_PRODUCT_SUCCESS:

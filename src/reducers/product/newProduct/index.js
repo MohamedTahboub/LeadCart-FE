@@ -1,6 +1,6 @@
 import {
   NEW_PRODUCT_FIELD_UPDATE,
-  PRODUCT_CREATED_SUCCESSFULY,
+  PRODUCT_CREATED_SUCCESSFULLY,
   PRODUCT_CREATION_FAILED
 } from 'constantsTypes';
 
@@ -12,7 +12,7 @@ const initState = {
 
 export default (state = initState, { type, payload }) => {
   switch (type) {
-  case PRODUCT_CREATED_SUCCESSFULY: return {
+  case PRODUCT_CREATED_SUCCESSFULLY: return {
     url: state.url,
     isAproductCreated: true
   };

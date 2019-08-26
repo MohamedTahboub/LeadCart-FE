@@ -1,11 +1,17 @@
+import LeadCartEvents from './leadcartEvents';
+import { userPilotEvents, mixPanelEvents } from './trackersIntegrations';
 
 export default () => (next) => (action) => {
-  try {
-    if (window.mixpanel) window.mixpanel.track(action.type.toString(), action.payload);
-    else console.log(' window.mixpanel is not defined');
-  } catch (error) {
-    console.log(error.message, error);
-  }
+  const leadcartEvents = LeadCartEvents(action);
+  leadcartEvents.register({
+    source: 'userPilot',
+    events: userPilotEvents
+  });
+  leadcartEvents.register({
+    source: 'mixPanel',
+    events: mixPanelEvents
+  });
+
 
   next(action);
 };
