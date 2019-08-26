@@ -75,7 +75,7 @@ ReactDOM.render(
     <Provider store={store}>
         <React.Fragment>
             <LoadingBar />
-            <ErrorBoundary>*
+            <ErrorBoundary>
             <BrowserRouter>
                     <Switch >
                         <Route exact path='/login' component={Login} />
