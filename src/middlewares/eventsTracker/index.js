@@ -1,11 +1,15 @@
 import LeadCartEvents from './leadcartEvents';
-import { userPilotEvents } from './trackersIntegrations';
+import { userPilotEvents, mixPanelEvents } from './trackersIntegrations';
 
 export default () => (next) => (action) => {
   const leadcartEvents = LeadCartEvents(action);
   leadcartEvents.register({
     source: 'userPilot',
     events: userPilotEvents
+  });
+  leadcartEvents.register({
+    source: 'mixPanel',
+    events: mixPanelEvents
   });
 
 

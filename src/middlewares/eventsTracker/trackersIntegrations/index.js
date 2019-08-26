@@ -1,2 +1,4 @@
 import * as userPilotEvents from './userPilotEvents';
-export { userPilotEvents };
+import * as mixPanelEvents from './mixpanel';
+
+export { userPilotEvents , mixPanelEvents};

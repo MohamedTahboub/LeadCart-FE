@@ -30,8 +30,7 @@ export const onOrders = (eventData) => {
   if (window.userpilot) window.userpilot.track('Orders Made', eventData);
 };
 
-export const onLogin = (eventData) => {
-  delete eventData.token;
+export const onLogin = ({ token, ...eventData }) => {
   if (window.userpilot) {
     window.userpilot.identify(
       eventData.id, // Used to identify users
@@ -45,5 +44,5 @@ export const onLogout = (eventData) => {
 };
 
 export const onUserUpgrade = (eventData) => {
-  if (window.userpilot) window.userpilot.track('eventName', eventData);
+  if (window.userpilot) window.userpilot.track('User Package Upgrade', eventData);
 };

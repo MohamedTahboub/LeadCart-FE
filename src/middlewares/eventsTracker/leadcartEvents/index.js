@@ -11,10 +11,14 @@ function EventsRegister ({ source, events }) {
 
 
 function fireEvent (eventName, payload) {
-  Object.values(groups).map((eventsGroup) => {
-    const func = eventsGroup[eventName];
-    if (typeof func === 'function') func(payload);
-  });
+  try {
+    Object.values(groups).map((eventsGroup) => {
+      const func = eventsGroup[eventName];
+      if (typeof func === 'function') func(payload);
+    });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 
