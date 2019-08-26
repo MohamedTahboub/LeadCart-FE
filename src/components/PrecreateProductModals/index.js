@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from '../Modals'
 import ProductCategories from './ProductCategories'
@@ -35,6 +35,12 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
     const onNext = nextInterface => () => {
         setNext(nextInterface)
     }
+
+    useEffect(()=>{
+        return ()=>{
+            setNext('categories')
+        }
+    },[show]);
 
     const onSubmit = ({ template }) => {
         const product = productSample
