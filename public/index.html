@@ -260,7 +260,7 @@
     </div>
   </div>
 </body>
-<script src = "https://deploy.userpilot.io/72xt98k10.js"></script>
+<script src="https://deploy.userpilot.io/72xt98k10.js"></script>
 <script>
   window.intercomSettings = {
     app_id: "skynydft",
@@ -309,7 +309,7 @@
   })();
 </script>
 <!-- <script>
-  window['_fs_debug'] = window.location.origin.includes('localhost:');
+  window['_fs_debug'] = window.location.origin.includes('localhost:') ?;
   window['_fs_host'] = 'fullstory.com';
   window['_fs_org'] = 'KNMSR';
   window['_fs_namespace'] = 'FS';
@@ -364,7 +364,7 @@
 </script> -->
 
 <!-- start Mixpanel -->
-<!-- <script type="text/javascript">(function (c, a) {
+<script type="text/javascript">(function (c, a) {
     if (!a.__SV) {
       var b = window; try { var d, m, j, k = b.location, f = k.hash; d = function (a, b) { return (m = a.match(RegExp(b + "=([^&]*)"))) ? m[1] : null }; f && d(f, "state") && (j = JSON.parse(decodeURIComponent(d(f, "state"))), "mpeditor" === j.action && (b.sessionStorage.setItem("_mpcehash", f), history.replaceState(j.desiredHash || "", c.title, k.pathname + k.search))) } catch (n) { } var l, h; window.mixpanel = a; a._i = []; a.init = function (b, d, g) {
         function c(b, i) {
@@ -378,7 +378,14 @@
         MIXPANEL_CUSTOM_LIB_URL : "file:" === c.location.protocol && "//cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js"; d = c.getElementsByTagName("script")[0]; d.parentNode.insertBefore(b, d)
     }
   })(document, window.mixpanel || []);
-  mixpanel.init("6f1e8d2fe9734115de1fdcac460bd8ba");</script> -->
+  mixpanel.init(
+    window.location.origin.includes('localhost:')
+      ?
+      "6f1e8d2fe9734115de1fdcac460bd8ba"
+      :
+      "9f4e14f1602b54645779337eb660525a"
+  );
+</script>
 <!-- end Mixpanel -->
 
 <script>
