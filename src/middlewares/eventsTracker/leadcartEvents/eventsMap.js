@@ -10,6 +10,7 @@ export default (type) => {
   case actions.UPDATE_MARKETPLACE_SETTINGS: return 'onUpdateBrandSettings';
   case actions.ACTIVATE_PAYMENT_SUCCESS: return 'onConnectPaymentGateway';
   case actions.PRODUCT_CREATED_SUCCESSFULLY: return 'onCreateProduct';
+  case actions.GET_USER_PRODUCTS_SUCCESS: return 'onGetProducts';
   case actions.GET_ACTIVITIES: return 'onOrders';
   case actions.LOGIN_SUCCESS: return 'onLogin';
   case actions.LOGOUT: return 'onLogout';
