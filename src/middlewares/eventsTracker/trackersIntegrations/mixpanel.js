@@ -30,13 +30,17 @@ export const onCreateProduct = (eventData) => {
   // fire on 3  Products creation
 };
 
-
-export const onOrders = ({ orders = [], subscriptions = [] }) => {
+export const onGetProducts = ({ products = [] }) => {
   if (window.mixpanel) {
-    if (orders.length === 1)
-      window.mixpanel.track('First Order', orders[0]);
-    if (orders.length === 3)
-      window.mixpanel.track('First 3 Orders', orders);
+    if (products.length === 1) window.mixpanel.track('First Product', products[0]);
+    if (products.length === 3) window.mixpanel.track('First 3 Product', products);
+  }
+};
+
+export const onOrders = ({ orders = [] }) => {
+  if (window.mixpanel) {
+    if (orders.length === 1) window.mixpanel.track('First Order', orders[0]);
+    if (orders.length === 3) window.mixpanel.track('First 3 Orders', orders);
   }
 };
 
