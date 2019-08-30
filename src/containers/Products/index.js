@@ -10,7 +10,8 @@ import config from 'config';
 import ids from 'shortid';
 import PrecreateProductModals from 'components/PrecreateProductModals';
 
-import productSample from 'data/product.json';
+
+// import productSample from 'data/product.json';
 
 import './style.css';
 
@@ -36,7 +37,7 @@ const Products = ({
   ...props
 }) => {
   const [showDelete, setShowDelete] = useState('');
-  const [showProductForm, setShowProductForm] = useState({});
+  // const [showProductForm, setShowProductForm] = useState({});
   const [showCreateModal, setShowProductModal] = useState(false);
 
   const onProductPreview = (url) => {
@@ -48,21 +49,6 @@ const Products = ({
     props.history.push(`/products/${url}`);
   };
 
-  const onCreateNewProduct = () => {
-    setShowProductForm({
-      show: true,
-      isNewForm: true,
-      product: productSample
-    });
-  };
-
-  const onCloseProductForm = () => {
-    setShowProductForm({
-      show: false,
-      isNewForm: true,
-      product: {}
-    });
-  };
   const onProductDuplicate = ({
     __v,
     id,
@@ -75,8 +61,10 @@ const Products = ({
     ...product
   }) => {
     product.name = `${name}- copy`;
-    product.url = ids.generate();
+    product.url = 'autoGenerateUrl';
     product.coupons = { enabled: !!enabled };
+
+    delete product.token;
 
     props.createNewProduct(product, {
       onSuccess: (msg) => {

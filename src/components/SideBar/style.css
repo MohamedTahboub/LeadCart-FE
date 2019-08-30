@@ -99,9 +99,11 @@
     box-shadow: 0px 0px 2px 2px var(--shadow-color);
     background: var(--btn-focus-bg);
 }
+.btn.warning-color:hover{
+    background: rgb(247, 121, 142);
+}
 .new-product-btn{
     background: #FF7B7F;
-    
 }
 
 
