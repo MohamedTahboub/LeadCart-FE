@@ -4,7 +4,7 @@ import './style.css';
 import { EasyAnimate } from '../Animation';
 
 
-export default class Tabel extends Component {
+export default class Table extends Component {
   static Head = ({ children, ...props }) => (
     <span className='table-head'>
       {children}

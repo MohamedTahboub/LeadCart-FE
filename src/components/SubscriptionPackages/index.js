@@ -7,33 +7,38 @@ import './style.css';
 import { connect } from 'react-redux';
 import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
+import ActivePackage from './components/ActivePackage'
+import { upgradeUserSchema } from '../../libs/validation'
 const { packagesPlans = {} } = config;
 
 const {
   InputRow,
-  HeadeLine,
-  BigText,
+  HeadLine,
+  // BigText,
   FlexBoxesContainer,
-  MainBlock,
-  MainTitle,
+  // MainBlock,
+  // MainTitle,
   PackageCard,
   Box,
   SmallButton,
-  SpcialAnnouncement,
+  // SpcialAnnouncement,
   ActivationSwitchInput
 } = common;
 
 
-const SubscriptionPackages = ({
+const Subscription = ({
   activePackage = {},
+  trial,
+  transactions,
   ...props
 }) => {
   const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState({});
   const [fields, setFields] = useState({
     packageType: 'Pro',
     recurringPeriod: 'Monthly',
-    useOldCredit: false,
+    amount: 199,
+    promoCode: {},
     credit: {}
   });
 
@@ -46,13 +51,22 @@ const SubscriptionPackages = ({
   }, [activePackage]);
 
   const onPackageTypeChange = (pkg) => {
-    setFields({ ...fields, packageType: pkg });
+    const { promoCode, recurringPeriod } = fields;
+    const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod]
+    setFields({
+      ...fields,
+      packageType: pkg,
+      amount: promoCode.applied ? promoCode.amount : currentPkgPrice
+    });
   };
 
   const togglePeriod = () => {
+    const { promoCode, recurringPeriod, packageType: pkg } = fields
+    const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod]
     setFields({
       ...fields,
-      recurringPeriod: fields.recurringPeriod === 'Monthly' ? 'Yearly' : 'Monthly'
+      recurringPeriod: recurringPeriod === 'Monthly' ? 'Yearly' : 'Monthly',
+      amount: promoCode.applied ? promoCode.amount : currentPkgPrice
     });
   };
 
@@ -60,33 +74,87 @@ const SubscriptionPackages = ({
     setFields({ ...fields, [name]: value });
   };
 
+  const onUpdatePromoCode = (promoCode) => {
+    onChange({
+      target: {
+        name: 'promoCode',
+        value: promoCode
+      }
+    })
+  }
+  const onChangePromoCode = ({ target: { name, value } }) => {
+    onChange({
+      target: {
+        name: 'promoCode',
+        value: { ...fields.promoCode, code: value }
+      }
+    })
+  }
   const onPromoCodeCheck = () => {
-    if (fields.promoCode) {
-      setSubmitting(true);
+    const { promoCode: { code } = {} } = fields
+
+    if (code) {
+      setLoading({ ...loading, promoCode: true });
       props.checkPromoCode(
-        fields.promoCode,
         {
-          onSuccess: () => {
-            setSubmitting(false);
+          promoCode: code
+        },
+        {
+          onSuccess: (promoCode) => {
+            setLoading({ ...loading, promoCode: false });
+            setFields({
+              ...fields,
+              amount: promoCode.amount,
+              promoCode: {
+                ...promoCode,
+                code,
+                applied: true
+              },
+              packageType: promoCode.packageType,
+              recurringPeriod: promoCode.recurringPeriod,
+            })
+            setErrors({})
           },
-          onFialed: () => {
-            setSubmitting(false);
+          onFailed: (message) => {
+            setLoading({ ...loading, promoCode: false });
+            setErrors({ promoCode: message })
+            onUpdatePromoCode({})
           }
         }
       );
     }
   };
 
+  const cleanUp = () => {
+    setFields({
+      ...fields,
+      promoCode: {code:""},
+      credit: {}
+    });
+  }
+  const onSubmit = async () => {
 
-  const onSubmit = () => {
+    let promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined
+
+    console.log(promoCode)
+    const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode })
+
+    if (!isValid)
+      return setErrors({
+        ...errors,
+        message: ' please check your The Fields above'
+      })
+
+    setLoading({ ...loading, upgrade: true });
     props.upgradeUserPackage(
-      fields,
+      value,
       {
         onSuccess: () => {
-
+          setLoading({ ...loading, upgrade: false });
+          cleanUp()
         },
-        onFialed: () => {
-
+        onFailed: () => {
+          setLoading({ ...loading, upgrade: false });
         }
       }
     );
@@ -96,22 +164,24 @@ const SubscriptionPackages = ({
     <Box
       header={(
         <Fragment>
-          <HeadeLine className='subscription-head-line'>
+          <HeadLine className='subscription-head-line'>
             Your Subscription
-          </HeadeLine>
+          </HeadLine>
           <div className='subscription-head-description'>
-            Lorem ipsum dolor sit amet
-            consectetur adipisicing elit.
-            Doloribus nam, perferendis fugiat
-            nobis deserunt exercitationem officia
-            error fugit omnis asperiores voluptates vero,
-            illo eos ipsam? Adipisci unde quos voluptatem qui.
+            Here you can change and review you subscription plans
           </div>
         </Fragment>
       )}
       contentClassName='subscription-box-content'
       content={(
         <Fragment>
+          {activePackage.type && (
+            <ActivePackage
+              {...activePackage}
+              trial={trial}
+              lastTransaction={transactions[transactions.length - 1]}
+            />
+          )}
           <ActivationSwitchInput
             active={fields.recurringPeriod === 'Monthly'}
             className={`subscription-toggle-input ${fields.recurringPeriod}`}
@@ -124,6 +194,7 @@ const SubscriptionPackages = ({
               onSelect={onPackageTypeChange}
               activePackage={fields.packageType}
               interval={fields.recurringPeriod}
+              code={fields.promoCode}
             />
             <PackageCard
               name='Premium'
@@ -132,17 +203,16 @@ const SubscriptionPackages = ({
               activePackage={fields.packageType}
               interval={fields.recurringPeriod}
               plus
+              code={fields.promoCode}
             />
           </FlexBoxesContainer>
         </Fragment>
       )}
       footer={(
         <Fragment>
-          <div className='error-message redeem-box-error'>
-            {errors.message}
-          </div>
+
           <InputRow.Label
-            notes='save your money, get a promo code from our affiliates to get great discounts'
+            notes='If you have a promo code, please enter it below'
             className='subscription-promo-code-label'
           >
             Do You have a Promo Code ?
@@ -151,29 +221,36 @@ const SubscriptionPackages = ({
             <InputRow.SmallInput
               error={errors.promoCode}
               name='promoCode'
-              className='valid?'
-              onChange={onChange}
-              success='success'
+              className={fields.promoCode.applied ? 'valid' : ''}
+              onChange={onChangePromoCode}
+              Value={fields.promoCode.code}
             >
               PROMO CODE
 
             </InputRow.SmallInput>
             <SmallButton
-              disabled={submitting}
-              className={submitting ? 'primary-color spinner' : 'primary-color'}
+              disabled={loading.promoCode}
+              className={loading.promoCode ? 'primary-color spinner' : 'primary-color'}
               onClick={onPromoCodeCheck}
             >
-              Check Promo Code
-
+              Apply Promo Code
             </SmallButton>
+            {errors.promoCode && (
+              <div className='error-message redeem-box-error'>
+                {errors.promoCode}
+              </div>)
+            }
           </div>
-          <InputRow.Label>
-              Fill Your Card Details
+          <InputRow.Label className='margin-top-20'>
+            Fill Your Card Details
           </InputRow.Label>
           <CreditCardInputs onChange={onChange} />
+          <div className='error-message redeem-box-error'>
+            {errors.message}
+          </div>
           <SmallButton
-            disabled={submitting}
-            className={submitting ? ' update-subscription-plan-btn primary-color spinner' : 'update-subscription-plan-btn primary-color'}
+            disabled={loading.upgrade}
+            className={loading.upgrade ? ' update-subscription-plan-btn primary-color spinner' : 'update-subscription-plan-btn primary-color'}
             onClick={onSubmit}
           >
             Update My Package
@@ -185,16 +262,40 @@ const SubscriptionPackages = ({
 };
 
 
-SubscriptionPackages.propTypes = {
+Subscription.propTypes = {
   checkPromoCode: PropTypes.func.isRequired,
   upgradeUserPackage: PropTypes.func.isRequired,
 };
 
+
 const mapStateToProps = ({
   user: {
     user: {
-      activePackage = {}
+      activePackage = {},
+      trial,
+      level,
+      trialEndDate,
+      transactions = []
     } = {}
   } = {}
-}) => ({ activePackage });
-export default connect(mapStateToProps, { ...billingActions, ...promoCodeActions })(SubscriptionPackages);
+}) => {
+
+  if (trial) {
+    activePackage.type = activePackage.type || 'Pro'
+    activePackage.period = activePackage.period || 'Monthly'
+  } else if (!activePackage.type && level) {
+    activePackage.type = level >= 4 ? 'Premium' : 'Pro'
+    activePackage.period = 'Monthly'
+  }
+  return { activePackage, trial: { trialEndDate, trial }, transactions };
+}
+
+export const SubscriptionPackages = connect(
+  mapStateToProps,
+  {
+    ...billingActions,
+    ...promoCodeActions
+  }
+)(Subscription);
+
+export { default as TransactionsTable } from './components/Transactions'

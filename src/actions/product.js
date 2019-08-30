@@ -3,7 +3,7 @@ import {
   NEW_PRODUCT_INVALID_FORM,
   PRODUCT_DETAILS_FIELD_UPDATE,
   CREATE_NEW_PRODUCT,
-  PRODUCT_CREATED_SUCCESSFULY,
+  PRODUCT_CREATED_SUCCESSFULLY,
   PRODUCT_CREATION_FAILED,
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_SUCCESS,
@@ -47,7 +47,7 @@ export const newProductInvalidFields = (errors) => ({
 
 
 export const productCreated = (product) => ({
-  type: PRODUCT_CREATED_SUCCESSFULY,
+  type: PRODUCT_CREATED_SUCCESSFULLY,
   payload: product
 });
 

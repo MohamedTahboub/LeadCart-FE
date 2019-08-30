@@ -15,9 +15,10 @@ import Timeline from './Timeline'
 import * as ColorPickers from './ColorPickers'
 import * as Collapsable from './Collapse'
 import * as prefixes from './Prefixes'
-
+import Table from './Tables'
 
 export default {
+    Table,
     ...boxes,
     ...buttons,
     ...inputs,

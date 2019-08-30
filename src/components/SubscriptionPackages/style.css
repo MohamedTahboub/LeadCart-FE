@@ -1,5 +1,9 @@
 .subscription-box-content{
+    align-items: unset;
     flex-direction: column;
+}
+.subscription-box-content .activations-switch-input{
+    margin: 0 auto;
 }
 
 .subscription-toggle-input{
@@ -49,8 +53,32 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .update-subscription-plan-btn{
     float: right;
+}
+
+
+
+.transaction-table-row{
+    background: #eee;
+}
+
+.active-package-box {
+    border: 2px solid;
+    border-color: #03a9f45e;
+    border-radius: 5px;
+    background: #bad8f91f;
+}
+
+
+.redeem-box-error{
+   margin: 0 20px;
+   font-size: 11.5px;
+}
+
+.text-capitalize{
+    text-transform: capitalize;
 }

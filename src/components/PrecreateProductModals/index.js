@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from '../Modals'
 import ProductCategories from './ProductCategories'
@@ -14,7 +14,21 @@ import './style.css'
 const {
     Button
 } = common
-const ProductCategoryModal = ({ show,onClose, ...props }) => {
+
+const getTemplateColor = (template) => {
+    const schema =  {
+        "temp1": "rgb(6, 147, 227)",
+        "temp2": "rgb(247, 141, 167)",
+        "temp3": "rgb(0, 208, 132)",
+        "temp4": "rgb(255, 105, 0)",
+        "temp5": "rgb(235, 20, 76)",
+        "temp6": "#3F51B5",
+    }
+    return schema[template] ? schema[template] : schema['temp1']
+}
+
+
+const ProductCategoryModal = ({ show, onClose, ...props }) => {
     const [next, setNext] = useState('categories')
     const [progress, setProgress] = useState(false)
 
@@ -22,9 +36,16 @@ const ProductCategoryModal = ({ show,onClose, ...props }) => {
         setNext(nextInterface)
     }
 
+    useEffect(()=>{
+        return ()=>{
+            setNext('categories')
+        }
+    },[show]);
+
     const onSubmit = ({ template }) => {
         const product = productSample
         product.checkoutPage.template = template
+        product.checkoutPage.presetColors = getTemplateColor(template)
         product.url = ids.generate()
 
         setProgress(true)

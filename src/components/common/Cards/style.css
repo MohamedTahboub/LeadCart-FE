@@ -575,6 +575,7 @@ span.medium-card-headline {
 .package-card.active{
     position: relative;
     border-color: #4da0fc;
+    transition:all .3s ease-in-out;
 }
 .package-card.active::after{
     position: absolute;
@@ -597,10 +598,21 @@ span.medium-card-headline {
     align-items: center;
     border-bottom: 1.5px solid #eee;
 }
+.package-card-footer{
+    display: flex;
+    justify-content: flex-end;
+    padding: 6px 10px;
+    align-items: center;
+    border-top: 1.5px solid #eee;
+}
+.active .package-card-footer{
+    padding-right: 50px;
+}
 .package-card-features{
     display: flex;
     flex-direction: column;
     padding: 10px;
+    flex:1;
 }
 .active-package-card{
     position: absolute;
@@ -621,6 +633,11 @@ span.medium-card-headline {
 .package-card-price .amount {
     font-weight: bold;
     color: #485579;
+}
+
+.package-card-price  .line-though {
+    color: #bdb8b8;
+    margin: 0 5px;
 }
 
 

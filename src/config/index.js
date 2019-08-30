@@ -23,7 +23,7 @@ export default {
           Yearly: 990
         },
         features: [
-          '+ Checkout Templates.',
+          '+6 Checkout Templates.',
           'Unlimited Products.',
           'Use Checkout Pages Everywhere.',
           'Built In Credit Card & PayPal processors.',
@@ -49,7 +49,8 @@ export default {
           'Dedicated Training & Support.'
         ]
       },
-    }
+    },
+    mixPanelId: '6f1e8d2fe9734115de1fdcac460bd8ba'
   },
   staging: { // ca_C82XtIMbphaPO4JDiO1TJretDIMhEi3o
     ZAPIER_INVITATION_LINK: 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/',
@@ -62,7 +63,7 @@ export default {
           Yearly: 990
         },
         features: [
-          '+ Checkout Templates.',
+          '+6 Checkout Templates.',
           'Unlimited Products.',
           'Use Checkout Pages Everywhere.',
           'Built In Credit Card & PayPal processors.',
@@ -88,7 +89,8 @@ export default {
           'Dedicated Training & Support.'
         ]
       },
-    }
+    },
+    mixPanelId: '6f1e8d2fe9734115de1fdcac460bd8ba'
   },
   production: {
     ZAPIER_INVITATION_LINK: 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/',
@@ -101,7 +103,7 @@ export default {
           Yearly: 990
         },
         features: [
-          '+ Checkout Templates.',
+          '+6 Checkout Templates.',
           'Unlimited Products.',
           'Use Checkout Pages Everywhere.',
           'Built In Credit Card & PayPal processors.',
@@ -127,7 +129,8 @@ export default {
           'Dedicated Training & Support.'
         ]
       },
-    }
+    },
+    mixPanelId: '9f4e14f1602b54645779337eb660525a'
   }
 }[process.env.REACT_APP_ENV || 'development'];
 

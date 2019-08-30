@@ -9,6 +9,7 @@ import {
   ACTIVATE_AGENCY_CODE_FAILED,
   GET_ACTIVATED_AGENCY_CODES_NUMBERS,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
+  UPGRADE_USER_PACKAGE_SUCCESS,
   GET_USER_PLAN
 } from 'constantsTypes';
 import moment from 'moment';
@@ -35,6 +36,7 @@ const initialState = {
     status: false,
     role: '',
     level: 1,
+    transactions: [],
     ...user
   },
   errors: ''
@@ -88,7 +90,17 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       user: {
         ...state.user,
-        activePackage: payload
+        ...payload
+      }
+    };
+  case UPGRADE_USER_PACKAGE_SUCCESS:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        trial: false,
+        activePackage: payload.activePackage,
+        transactions: [...state.user.transactions, payload.transaction]
       }
     };
   default: return state;

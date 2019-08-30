@@ -24,8 +24,10 @@ import fulfillments from './fulfillments'
 import emails from './emails'
 import customers from './customers'
 import billing from './billing'
+import eventsTracker from './eventsTracker'
 
 export default [
+    eventsTracker,
     appInit,
     ...formsValidations,
     ...modelsShapers,
@@ -50,6 +52,5 @@ export default [
     flashMessage,
     apiRequest,
     uploadingFiles,
-    // eventsTracker,
     storage
 ]

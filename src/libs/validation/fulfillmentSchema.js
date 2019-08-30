@@ -4,7 +4,7 @@ import castYupErrors from './castErrors';
 export default async (fulfillment) => {
   const successUrls = yup.array().of(yup.object({
     url: yup.string(),
-    expirationDate: yup.date()
+    activeDuration: yup.string().default('7,day')
   }));
 
   const metaData = yup.object({

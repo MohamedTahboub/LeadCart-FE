@@ -9,6 +9,7 @@ node_modules/
 # production
 /build
 /build-temp
+/build-live
 
 #vscode
 .vscode/
