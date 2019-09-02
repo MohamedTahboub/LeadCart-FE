@@ -36,6 +36,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   if (!isLoggedIn) return next(action);
   // /users/launch
 
+  const { meta = {} } = action;
   const onLunchSuccess = (data) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
@@ -65,8 +66,14 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       uri: '/api/users/launch',
       contentType: 'json'
     },
-    onSuccess: onLunchSuccess,
-    onFailed: appLaunchFailed
+    onSuccess: (args) => {
+      meta.onSuccess && meta.onSuccess(args);
+      return onLunchSuccess(args);
+    },
+    onFailed: (message) => {
+      meta.onFailed && meta.onFailed(message);
+      return appLaunchFailed(message);
+    }
   }));
   // const user = localStorage.user && JSON.parse(localStorage.user);
 

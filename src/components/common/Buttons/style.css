@@ -57,3 +57,39 @@ span.primary-btn{
   font-size: 12px;
   border-radius: 7px;
 }
+
+
+.refresh-btn{
+  position: absolute;
+  left: 10px;
+  top: 50px;
+  color: gray;
+  border:1px solid lightgray;
+  box-shadow: 1px 1px 9px 1px rgba(0,0,0,0.06);
+  height: 27px;
+  width: 27px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: box-shadow .2s ease-in-out;
+}
+.refresh-btn:hover{
+  box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
+}
+
+.refresh-btn i.rotate{
+  -webkit-animation: spinner .6s linear infinite;
+              animation: spinner .6s linear infinite;
+}
+
+.refresh-btn .tooltip::after{
+  font-size: 12px;
+  color:gray;
+}
+.refresh-btn i{
+  font-size: small;
+}
+
+
