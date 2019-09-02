@@ -100,8 +100,14 @@ export const RefreshButton = ({
   const iconClassName = `fas fa-sync-alt ${loading ? 'rotate' : ''}`;
 
   return (
-    <div onClick={onClick} role='presentation' className='refresh-btn'>
-      <i className={iconClassName} />
+    <div
+      onClick={onClick}
+      role='presentation'
+      className='refresh-btn'
+    >
+      <span className='tooltip' data-tooltip='Sync Updates' data-position='right center'>
+        <i className={iconClassName} />
+      </span>
     </div>
   );
 };

@@ -83,7 +83,13 @@ span.primary-btn{
   -webkit-animation: spinner .6s linear infinite;
               animation: spinner .6s linear infinite;
 }
+
+.refresh-btn .tooltip::after{
+  font-size: 12px;
+  color:gray;
+}
 .refresh-btn i{
   font-size: small;
 }
+
 
