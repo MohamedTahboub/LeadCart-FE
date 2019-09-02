@@ -10,8 +10,9 @@ import { appInit } from 'actions/appInit';
 import CreateProductModal from '../CreateProductModal';
 import * as modalsActions from 'actions/modals';
 import './style.css';
+import *  as flashMessages from 'actions/flashMessage';
 
-const { Button, InputRow } = common;
+const { RefreshButton ,Button, InputRow } = common;
 
 const BrandSelect = ({ value }) => (
   <Fragment>
@@ -30,15 +31,24 @@ const currentTab = 'products5' // history.location.pathname
 const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[0]) ? ['active-menu-item'] : []
 
 const SideBar = ({
-  history, user, appInit, logout, toggleCreateProductModal, ...props
+  history,
+  user,
+  appInit,
+  logout,
+  toggleCreateProductModal,
+  ...props
 }) => {
+
   const [activeTab, setActiveTab] = useState(history.location.pathname)
+  const [refreshing, setRefresh] = useState(false)
+
   const onTabChange = (tab) => setActiveTab(tab)
 
   const navigateToProducts = () => {
     history.push('/products')
     setActiveTab('/products')
   }
+
   const Link = ({ to: page, className, children, external }) => (
     <PureLink
       to={{ history, page }}
@@ -49,9 +59,33 @@ const SideBar = ({
     >
       {children}
     </PureLink>)
+
+  const onRefresh = () => {
+    setRefresh(true)
+    appInit(
+      {},
+      {
+        onSuccess: () => {
+          setRefresh(false)
+          props.showFlashMessage({
+            type: 'success',
+            message: `Up to Date`
+          })
+        },
+        onFailed: () => {
+          setRefresh(false)
+          props.showFlashMessage({
+            type: 'failed',
+            message: 'Failed to Update'
+          })
+        }
+      })
+  }
+
   return (
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
+      <RefreshButton onClick={onRefresh} loading={refreshing} />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandSelect value={user.subDomain} />
       <Menu>
@@ -79,4 +113,11 @@ const SideBar = ({
 };
 const mapStateToProps = ({ user: { user } }) => ({ user });
 
-export default connect(mapStateToProps, { ...logout, ...modalsActions, appInit })(SideBar);
+export default connect(
+  mapStateToProps,
+  {
+    ...logout,
+    ...modalsActions,
+    ...flashMessages,
+    appInit
+  })(SideBar);

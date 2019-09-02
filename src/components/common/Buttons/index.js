@@ -91,3 +91,17 @@ export const FloatButton = ({
   );
 };
 
+
+export const RefreshButton = ({
+  onClick,
+  loading,
+  ...props
+}) => {
+  const iconClassName = `fas fa-sync-alt ${loading ? 'rotate' : ''}`;
+
+  return (
+    <div onClick={onClick} role='presentation' className='refresh-btn'>
+      <i className={iconClassName} />
+    </div>
+  );
+};
