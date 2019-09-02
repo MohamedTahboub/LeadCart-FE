@@ -50,11 +50,11 @@ const GeneralSettings = ({
 
   const onSave = async () => {
     try {
-      const { isValid, value, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
+      const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
       if (!isValid) return setErrors({ ...fieldsErrors });
 
       props.updateMarketPlaceSettings(
-        value,
+        payload,
         {
           onSuccess: (m) => {
             props.showFlashMessage({
