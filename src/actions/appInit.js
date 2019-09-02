@@ -6,8 +6,9 @@ import {
 } from '../constantsTypes';
 
 
-export const appInit = () => ({
-  type: APP_INIT
+export const appInit = (payload, meta) => ({
+  type: APP_INIT,
+  meta
 });
 export const appLaunchFailed = (msg) => ({
   type: APP_LAUNCH_FAILED,
