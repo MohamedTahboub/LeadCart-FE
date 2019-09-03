@@ -1,32 +1,103 @@
-import React from 'react'
+import React, { useState } from 'react';
+import './style.css';
+import { appInit } from 'actions/appInit';
+import * as flashMessages from 'actions/flashMessage';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { RefreshButton } from '../Buttons';
 
-import './style.css'
 
-const classes = (flex, column) => `${flex ? 'display-flex' : ''} ${column ? 'flex-column' : ''}`
+const classes = (flex, column) => `${flex ? 'display-flex' : ''} ${column ? 'flex-column' : ''}`;
+
+export const Page = ({
+  children,
+  className = '',
+  dflex,
+  flexColumn,
+  ...props
+}) => (
+  <div className={`page-container ${className} ${classes(dflex, flexColumn)}`}>
+    {children}
+  </div>
+);
 
 
-export const Page = ({ children, className = '', dflex, flexColumn, ...props }) => {
+const Header = ({
+  children,
+  className = '',
+  dflex,
+  withRefreshBtn,
+  flexColumn,
+  showFlashMessage,
+  appInit,
+  ...props
+}) => {
+  const [refreshing, setRefresh] = useState(false);
 
-  return (
-    <div className={`page-container ${className} ${classes(dflex, flexColumn)}`}>
-      {children}
-    </div>
-  )
-}
-export const PageHeader = ({ children, className = '', dflex, flexColumn, ...props }) => {
+  const onRefresh = () => {
+    setRefresh(true);
+    appInit(
+      {},
+      {
+        onSuccess: () => {
+          setRefresh(false);
+          showFlashMessage({
+            type: 'success',
+            message: 'Up to Date'
+          });
+        },
+        onFailed: () => {
+          setRefresh(false);
+          showFlashMessage({
+            type: 'failed',
+            message: 'Failed to Update'
+          });
+        }
+      }
+    );
+  };
 
   return (
     <div className={`page-header ${className} ${classes(dflex, flexColumn)}`}>
       {children}
+      {withRefreshBtn && (
+        <RefreshButton
+          onClick={onRefresh}
+          loading={refreshing}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export const PageContent = ({ children, className = '', dflex, flexColumn, ...props }) => {
-  return (
-    <div className={`page-content-container ${className} ${classes(dflex, flexColumn)}`}>
-      {children}
-    </div>
-  )
-}
+Header.propTypes = {
+  children: PropTypes.instanceOf(HTMLElement).isRequired,
+  className: PropTypes.string,
+  dflex: PropTypes.bool,
+  withRefreshBtn: PropTypes.bool,
+  flexColumn: PropTypes.bool,
+  showFlashMessage: PropTypes.func.isRequired,
+  appInit: PropTypes.func.isRequired,
+};
+Header.defaultProps = {
+  className: '',
+  dflex: false,
+  withRefreshBtn: false,
+  flexColumn: false,
+};
+
+
+export const PageHeader = connect(null, { appInit, ...flashMessages })(Header);
+
+export const PageContent = ({
+  children,
+  className = '',
+  dflex,
+  flexColumn,
+  ...props
+}) => (
+  <div className={`page-content-container ${className} ${classes(dflex, flexColumn)}`}>
+    {children}
+  </div>
+);
 

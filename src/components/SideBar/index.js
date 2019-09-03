@@ -6,13 +6,12 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 
 import * as logout from 'actions/logout';
-import { appInit } from 'actions/appInit';
 import CreateProductModal from '../CreateProductModal';
 import * as modalsActions from 'actions/modals';
 import './style.css';
-import *  as flashMessages from 'actions/flashMessage';
+import { appInit } from 'actions/appInit';
 
-const { RefreshButton ,Button, InputRow } = common;
+const { Button, InputRow } = common;
 
 const BrandSelect = ({ value }) => (
   <Fragment>
@@ -40,14 +39,8 @@ const SideBar = ({
 }) => {
 
   const [activeTab, setActiveTab] = useState(history.location.pathname)
-  const [refreshing, setRefresh] = useState(false)
 
   const onTabChange = (tab) => setActiveTab(tab)
-
-  const navigateToProducts = () => {
-    history.push('/products')
-    setActiveTab('/products')
-  }
 
   const Link = ({ to: page, className, children, external }) => (
     <PureLink
@@ -60,32 +53,11 @@ const SideBar = ({
       {children}
     </PureLink>)
 
-  const onRefresh = () => {
-    setRefresh(true)
-    appInit(
-      {},
-      {
-        onSuccess: () => {
-          setRefresh(false)
-          props.showFlashMessage({
-            type: 'success',
-            message: `Up to Date`
-          })
-        },
-        onFailed: () => {
-          setRefresh(false)
-          props.showFlashMessage({
-            type: 'failed',
-            message: 'Failed to Update'
-          })
-        }
-      })
-  }
+
 
   return (
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
-      <RefreshButton onClick={onRefresh} loading={refreshing} />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandSelect value={user.subDomain} />
       <Menu>
@@ -118,6 +90,5 @@ export default connect(
   {
     ...logout,
     ...modalsActions,
-    ...flashMessages,
     appInit
   })(SideBar);
