@@ -149,7 +149,21 @@ class AreaChart extends Component {
   render () {
     return (
       <div id='chart'>
-        <div className='chart-toolbar '>
+
+        <ApexCharts
+          options={this.state.options}
+          series={this.state.series}
+          type='area'
+          height='350'
+        />
+      </div>
+    );
+  }
+}
+
+export default AreaChart;
+/*
+ <div className='chart-toolbar '>
           <button
             onClick={() => this.updateData('one_month')}
             id='one_month'
@@ -192,16 +206,6 @@ class AreaChart extends Component {
           >
             All
           </button>
-        </div>
-        <ApexCharts
-          options={this.state.options}
-          series={this.state.series}
-          type='area'
-          height='350'
-        />
-      </div>
-    );
-  }
-}
+        </div>`
 
-export default AreaChart;
+*/

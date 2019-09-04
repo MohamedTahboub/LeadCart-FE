@@ -188,3 +188,45 @@ div.ant-select.chart-select-filter:first-child{
     box-shadow: 2px 2px 4px -2px rgba(0,0,0,.2);
 }
 
+
+
+
+.chart-header-cards{
+    /* width: 100%; */
+    margin:20px 0;
+    display: flex;
+    align-content: space-around;
+    justify-content: stretch;
+    flex-wrap: wrap;
+    background: #f1f6fe;
+    padding: 10px;
+}
+.chart-preview-card{
+    min-width: 60px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f1f6fe;
+    border-radius: 3px;
+    padding: 10px;
+    transition: background .3s ease-in-out;
+}
+.chart-preview-card.active{
+    background: #d6e6ff;
+}
+.chart-preview-card:hover{
+    background: #eaf1fd;
+}
+.chart-preview-card .label{
+    font-size: 13px;
+    color:#2B3748;
+}
+.chart-preview-card .value.warning{
+    color:rgb(231, 119, 99);
+}
+.chart-preview-card .value{
+    font-size: 13px;
+    font-weight: bold;
+    color:#2B3748;
+}

@@ -69,7 +69,36 @@ const Dashboard = ({
                   />
                   <i className='fas fa-cog chart-setting-btn' />
                 </div>
-
+                <div className='chart-header-cards'>
+                  <div className='chart-preview-card'>
+                    <div className='label'>Avg. daily rev</div>
+                    <div className='value'>$32</div>
+                  </div>
+                  <div className='chart-preview-card'>
+                    <div className='label'>Views</div>
+                    <div className='value'>520</div>
+                  </div>
+                  <div className='chart-preview-card active'>
+                    <div className='label'>Sales</div>
+                    <div className='value'>131</div>
+                  </div>
+                  <div className='chart-preview-card'>
+                    <div className='label'>Cart Conversion</div>
+                    <div className='value'>%25.2</div>
+                  </div>
+                  <div className='chart-preview-card'>
+                    <div className='label'>Refunds</div>
+                    <div className='value warning'>$30</div>
+                  </div>
+                  <div className='chart-preview-card'>
+                    <div className='label'>Refund Rate</div>
+                    <div className='value warning'>%15.4</div>
+                  </div>
+                  <div className='chart-preview-card'>
+                    <div className='label'>Net Revenue</div>
+                    <div className='value'>$320</div>
+                  </div>
+                </div>
                 <div className='chart-body'>
                   <Chart />
                 </div>
@@ -77,7 +106,7 @@ const Dashboard = ({
               {/* overview insights section */}
               <div className='overview-insights-container'>
                 <InsightBadge
-                  title='page views'
+                  title='Gross Revenue'
                   value={1579}
                   icon={<i className='fas fa-eye' />}
                   chart={(
@@ -85,7 +114,7 @@ const Dashboard = ({
                   )}
                 />
                 <InsightBadge
-                  title='active subscriptions'
+                  title='Net Revenue'
                   value={37}
                   icon={<i className='fas fa-user' />}
                   chart={(
@@ -93,7 +122,7 @@ const Dashboard = ({
                   )}
                 />
                 <InsightBadge
-                  title='open payments'
+                  title='Total Views'
                   value='$4500.00'
                   icon={<i className='fas fa-wallet' />}
                   chart={(
@@ -101,7 +130,31 @@ const Dashboard = ({
                   )}
                 />
                 <InsightBadge
-                  title='open invoices'
+                  title='Conversion Rate'
+                  value='$4500.00'
+                  icon={<i className='fas fa-wallet' />}
+                  chart={(
+                    <MiniChart />
+                  )}
+                />
+                <InsightBadge
+                  title='Total Refunds'
+                  value='$4500.00'
+                  icon={<i className='fas fa-wallet' />}
+                  chart={(
+                    <MiniChart />
+                  )}
+                />
+                <InsightBadge
+                  title='Total Transactions'
+                  value='$4500.00'
+                  icon={<i className='fas fa-wallet' />}
+                  chart={(
+                    <MiniChart />
+                  )}
+                />
+                <InsightBadge
+                  title='Total Customers'
                   value={5}
                   icon={<i className='fas fa-file-invoice-dollar' />}
                   chart={(
