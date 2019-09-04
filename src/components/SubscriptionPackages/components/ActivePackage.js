@@ -34,7 +34,7 @@ const ActivePackage = ({
             <Fragment>
               <span className='trial-package'>(trial)</span>
               <span className='trial-package-expiration'>
-                                    Ends :
+                  Ends :
                 {' '}
                 {moment(trialEndDate).fromNow()}
               </span>
@@ -44,18 +44,22 @@ const ActivePackage = ({
         <div className='note-text '>{`Subscribed to a ${period} Plan`}</div>
       </BigText>
     )}
-    footer={(
+    footer={lastTransaction.createdAt ? (
       <FlexBoxesContainer>
         <div>
           <InputRow.Label>Nex billing date</InputRow.Label>
           {userSource === 'saasmntra'
             ? <div> ~ Eternity</div>
-            : <div>{moment(lastTransaction.createdAt).add(1, 'M').format('MMM DD, YYYY')}</div>
+            : (
+              <div>
+                {moment(lastTransaction.createdAt).add(1, 'M').format('MMM DD, YYYY')}
+              </div>
+            )
           }
         </div>
 
       </FlexBoxesContainer>
-    )}
+    ) : null}
   />
 );
 

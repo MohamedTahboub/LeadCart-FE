@@ -15,11 +15,9 @@ const {
 } = common;
 
 export default (props) => {
-
   useEffect(() => {
     const unlisten = props.history.listen((location, action) => {
-      if (window.userpilot)
-        window.userpilot.reload()
+      if (window.userpilot) window.userpilot.reload();
     });
     return () => {
     };
@@ -27,9 +25,8 @@ export default (props) => {
 
   return (
     <Page>
-      <PageHeader>
-        <MainTitle>Dashboard</MainTitle>
-        <Title>Sales Overview</Title>
+      <PageHeader withRefreshBtn>
+        <MainTitle>Sales Overview</MainTitle>
       </PageHeader>
       <PageContent>
         <div className='dashboard-page'>
@@ -57,7 +54,7 @@ export default (props) => {
                   <span className='chart-total-profite'>
                     <span className='chart-profit-value'>
                       $102 387.00
-                  </span>
+                    </span>
                     <span className='stock-up'>17.4%</span>
                   </span>
                 </div>
@@ -79,11 +76,11 @@ export default (props) => {
         </div>
         <div className='dashboard-temp-data-message'>
           Note: This is dummy data. It will be updated once you have live transactions.
-      </div>
+        </div>
       </PageContent>
     </Page>
-  )
-}
+  );
+};
 
 
 /*
