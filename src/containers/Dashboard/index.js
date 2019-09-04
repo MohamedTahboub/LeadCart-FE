@@ -1,27 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'components/LeadCartCharts/Chart';
-import { Menu, Link } from 'components/common/MainMenu';
-import InsightBadge from 'components/common/InsightBadge';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import './style.css';
 
 import common from 'components/common';
+
 const {
   MainTitle,
   Title,
   Page,
   PageHeader,
   PageContent,
+  InputRow,
+  InsightBadge,
   SubTabs
 } = common;
 
-export default (props) => {
+const Dashboard = ({
+  products,
+  ...props
+}) => {
+  const [filterKeys, setFilterKeys] = useState({});
+
   useEffect(() => {
     const unlisten = props.history.listen((location, action) => {
       if (window.userpilot) window.userpilot.reload();
     });
     return () => {
+
     };
   }, []);
+
+  const onChange = () => {
+
+  };
 
   return (
     <Page>
@@ -31,26 +45,19 @@ export default (props) => {
       <PageContent>
         <div className='dashboard-page'>
           <div className='dashboar-content-holder'>
-            <div className='dashboard-sidebar'>
-              <span className='btn btn-primary'>Gross Sales</span>
-              <Menu>
-                <Link>Profit</Link>
-                <Link>LTV</Link>
-                <Link>Refunds</Link>
-                <Link>Orders</Link>
-                <Link>Page Views</Link>
-                <Link>Conversion Rate</Link>
-                <Link>Monthly Recurring Revenue</Link>
-                <Link>Active Subsicriptions</Link>
-                <Link>Churn Rate</Link>
-              </Menu>
-            </div>
-            {/* Chart previews section */}
             <div className='dashboard-content'>
-
               <div className='chart-preview section-box'>
                 <div className='chart-head'>
-                  <span className='chart-title'>gross sales</span>
+                  <InputRow.SearchInput
+                    options={products}
+                    value={filterKeys.product}
+                    defaultValue='All Products'
+                    target='name'
+                    name='productId'
+                    onChange={onChange}
+                  />
+                  <InputRow.SearchInput />
+
                   <span className='chart-total-profite'>
                     <span className='chart-profit-value'>
                       $102 387.00
@@ -63,10 +70,14 @@ export default (props) => {
                   <Chart />
                 </div>
               </div>
-
               {/* overview insights section */}
               <div className='overview-insights-container'>
-                <InsightBadge title='page views' value={1579} icon={<i className='fas fa-eye' />} />
+                <InsightBadge
+                  title='page views'
+                  value={1579}
+                  icon={<i className='fas fa-eye' />}
+                // chart
+                />
                 <InsightBadge title='active subscriptions' value={37} icon={<i className='fas fa-user' />} />
                 <InsightBadge title='open payments' value='$4500.00' icon={<i className='fas fa-wallet' />} />
                 <InsightBadge title='open invoices' value={5} icon={<i className='fas fa-file-invoice-dollar' />} />
@@ -74,16 +85,39 @@ export default (props) => {
             </div>
           </div>
         </div>
-        <div className='dashboard-temp-data-message'>
-          Note: This is dummy data. It will be updated once you have live transactions.
-        </div>
       </PageContent>
     </Page>
   );
 };
 
 
+Dashboard.propTypes = {
+  products: PropTypes.arrayOf({})
+
+};
+Dashboard.defaultProps = {
+  products: []
+};
+const mapStateToProps = ({
+  products: {
+    products = []
+  }
+}) => ({
+  products: products.map(({
+    _id,
+    name
+  }) => ({
+    label: name,
+    value: _id
+  }))
+});
+
+
+export default connect(mapStateToProps)(Dashboard);
 /*
+      <div className='dashboard-temp-data-message'>
+        Note: This is dummy data. It will be updated once you have live transactions.
+      </div>
   <div className='chart-head-child'>
                   <div className='chart-preview-options'>
                     <span className='chart-option'>day</span>

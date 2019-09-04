@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import { CodeInputArea } from '../Inputs'
+import PropTypes from 'prop-types';
+
 import './style.css';
+
 export const FlexBoxesContainer = ({ children, flex = '', className, ...props }) => (
   <div className={`flex-boxes-container ${className ? className : ''} ${flex}`}>
     {children}
@@ -67,3 +70,31 @@ export const EmbededScripContainer = ({ headNote, showCopied, script }) => (
     <span style={{ opacity: showCopied ? 1 : 0 }} className="copied-flag">Copied!</span>
   </div>
 )
+
+
+export const InsightBadge = ({
+  title,
+  value,
+  chart,
+  icon
+}) => (
+  <div className='insight-box'>
+    <div className='insight-details'>
+      <span className='insight-icon'>{icon}</span>
+      <span className='insight-title'>{title}</span>
+    </div>
+    <span className='insight-value'>{value}</span>
+  </div>
+);
+
+InsightBadge.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  chart: PropTypes.instanceOf(HTMLElement),
+  icon: PropTypes.instanceOf(HTMLElement),
+};
+
+InsightBadge.defaultProps = {
+  chart: null,
+  icon: null
+};
