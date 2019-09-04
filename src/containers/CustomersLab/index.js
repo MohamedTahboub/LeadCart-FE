@@ -35,7 +35,7 @@ const CustomersLab = ({ customers }) => {
 
   return (
     <Page>
-      <PageHeader>
+      <PageHeader withRefreshBtn >
         <MainTitle>Customers</MainTitle>
       </PageHeader>
       <PageContent>

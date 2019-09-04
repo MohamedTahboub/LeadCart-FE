@@ -1,5 +1,6 @@
 import React from 'react';
 import ids from 'shortid';
+import PropTypes from 'prop-types';
 
 import './style.css';
 
@@ -94,20 +95,22 @@ export const FloatButton = ({
 
 export const RefreshButton = ({
   onClick,
-  loading,
-  ...props
-}) => {
-  const iconClassName = `fas fa-sync-alt ${loading ? 'rotate' : ''}`;
+  loading
+}) => (
+  <SmallButton
+    onClick={onClick}
+    disabled={loading}
+    className='btn refresh-btn primary-color'
+  >
+    <i className={`fas fa-sync-alt ${loading ? 'rotate' : ''}`} />
+      Sync Now
+  </SmallButton>
+);
 
-  return (
-    <div
-      onClick={onClick}
-      role='presentation'
-      className='refresh-btn'
-    >
-      <span className='tooltip' data-tooltip='Sync Updates' data-position='right center'>
-        <i className={iconClassName} />
-      </span>
-    </div>
-  );
+RefreshButton.propTypes = {
+  loading: PropTypes.bool,
+  onClick: PropTypes.func.isRequired
+};
+RefreshButton.defaultProps = {
+  loading: false,
 };
