@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Chart from 'components/LeadCartCharts/Chart';
+import { Chart, MiniChart } from 'components/LeadCartCharts';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import dateOptions from 'data/dateOptions';
+import chartsDummyData from 'data/dashboardChartsData.js';
 import './style.css';
 
 import common from 'components/common';
@@ -49,6 +50,7 @@ const Dashboard = ({
               <div className='chart-preview section-box'>
                 <div className='chart-head'>
                   <InputRow.SearchInput
+                    className='chart-select-filter'
                     options={products}
                     value={filterKeys.product}
                     defaultValue='All Products'
@@ -56,14 +58,16 @@ const Dashboard = ({
                     name='productId'
                     onChange={onChange}
                   />
-                  <InputRow.SearchInput />
-
-                  <span className='chart-total-profite'>
-                    <span className='chart-profit-value'>
-                      $102 387.00
-                    </span>
-                    <span className='stock-up'>17.4%</span>
-                  </span>
+                  <InputRow.SearchInput
+                    className='chart-select-filter'
+                    options={dateOptions}
+                    value={filterKeys.date}
+                    defaultValue={dateOptions[0].label}
+                    target='label'
+                    name='date'
+                    onChange={onChange}
+                  />
+                  <i className='fas fa-cog chart-setting-btn' />
                 </div>
 
                 <div className='chart-body'>
@@ -76,11 +80,34 @@ const Dashboard = ({
                   title='page views'
                   value={1579}
                   icon={<i className='fas fa-eye' />}
-                // chart
+                  chart={(
+                    <MiniChart />
+                  )}
                 />
-                <InsightBadge title='active subscriptions' value={37} icon={<i className='fas fa-user' />} />
-                <InsightBadge title='open payments' value='$4500.00' icon={<i className='fas fa-wallet' />} />
-                <InsightBadge title='open invoices' value={5} icon={<i className='fas fa-file-invoice-dollar' />} />
+                <InsightBadge
+                  title='active subscriptions'
+                  value={37}
+                  icon={<i className='fas fa-user' />}
+                  chart={(
+                    <MiniChart />
+                  )}
+                />
+                <InsightBadge
+                  title='open payments'
+                  value='$4500.00'
+                  icon={<i className='fas fa-wallet' />}
+                  chart={(
+                    <MiniChart />
+                  )}
+                />
+                <InsightBadge
+                  title='open invoices'
+                  value={5}
+                  icon={<i className='fas fa-file-invoice-dollar' />}
+                  chart={(
+                    <MiniChart />
+                  )}
+                />
               </div>
             </div>
           </div>
@@ -115,6 +142,14 @@ const mapStateToProps = ({
 
 export default connect(mapStateToProps)(Dashboard);
 /*
+
+                  <span className='chart-total-profite'>
+                    <span className='chart-profit-value'>
+                      $102 387.00
+                    </span>
+                    <span className='stock-up'>17.4%</span>
+                  </span>
+
       <div className='dashboard-temp-data-message'>
         Note: This is dummy data. It will be updated once you have live transactions.
       </div>

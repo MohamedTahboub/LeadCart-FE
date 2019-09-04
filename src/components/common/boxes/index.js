@@ -84,6 +84,11 @@ export const InsightBadge = ({
       <span className='insight-title'>{title}</span>
     </div>
     <span className='insight-value'>{value}</span>
+    {chart && (
+      <span className='insight-chart'>
+      {chart}
+      </span>
+    )}
   </div>
 );
 

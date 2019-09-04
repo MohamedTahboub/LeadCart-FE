@@ -156,4 +156,10 @@
     color: #4DA1FF;
 }
 
+span.insight-chart {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 /* insights box section style ends */

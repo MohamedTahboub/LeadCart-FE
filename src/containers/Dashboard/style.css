@@ -73,8 +73,27 @@
     flex-direction: column;
 }
 .chart-head{
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+}
+.chart-select-filter{
+    margin-left: 20px; 
+}
+div.ant-select.chart-select-filter:first-child{
+    margin-left: 0px ;  
+}
+.chart-head .chart-setting-btn{
+    position: absolute;
+    right:20px;
+    top:10px;
+    color: lightgray;
+    cursor: pointer;
+    transition: color .3s ease-in-out;
+}
+.chart-head .chart-setting-btn:hover{
+    color: #0080fa;
 }
 
 .chart-head-child{
@@ -168,3 +187,4 @@
     border-radius: 3px;
     box-shadow: 2px 2px 4px -2px rgba(0,0,0,.2);
 }
+
