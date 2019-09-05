@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 import * as paymentsActions from 'actions/payments';
 import * as settingsActions from 'actions/settings';
 import config from 'config';
+import { property } from 'libs';
 import * as brandsLogos from './importBrands';
-import './styles.css';
 
+import './styles.css';
 const {
   ZAPIER_INVITATION_LINK,
   STRIP_AUTH_LINK
@@ -19,6 +20,8 @@ const {
   Button,
   MainTitle,
   SmallBox,
+  WarningMessage,
+  Dialog,
   FlexBoxesContainer,
   MediumCard,
   PayPalConnectContainer
@@ -37,10 +40,6 @@ const onZapierClicked = () => {
   window.open(ZAPIER_INVITATION_LINK, '_blank');
 };
 
-const connectStripe = () => {
-  window.open(STRIP_AUTH_LINK);
-};
-
 
 const Integrations = ({
   methods: PaymentMethods,
@@ -52,6 +51,7 @@ const Integrations = ({
   const [state, setState] = useState({});
   const [onProgress, setProgress] = useState({});
   const [errors, setErrors] = useState({});
+  const [showStripeOverridingWaring, setShowStripeOverridingWarning] = useState(false);
 
   useEffect(() => {
     const {
@@ -71,11 +71,10 @@ const Integrations = ({
         },
         {
           onSuccess: (arg) => {
-            alert('SUccess');
             setProgress({ [activat_method]: false });
           },
           onFailed: (message) => {
-            alert('Failed');
+            setErrors({ [activat_method]: message });
             setProgress({ [activat_method]: false });
           }
         });
@@ -84,13 +83,13 @@ const Integrations = ({
         setProgress({ [activat_method]: false });
       }
     }
-  }, []);
+  }, [PaymentMethods]);
 
 
-  const onConnectPaypal = (credits) => connectWithPaypal({ cred: credits });
-
-
-  const isMethodActive = (method) => PaymentMethods.find(({ name }) => name === method);
+  const isMethodActive = (method) => {
+    const isConnected = PaymentMethods.find(({ name }) => name === method);
+    return errors[method.toLowerCase()] ? false : isConnected;
+  };
 
   const getHandlerName = (method) => {
     if (isMethodActive(method)) {
@@ -100,6 +99,10 @@ const Integrations = ({
     return 'Not Connected';
   };
 
+  const connectStripe = () => {
+    if (isMethodActive('Stripe')) setShowStripeOverridingWarning(true);
+    else window.open(STRIP_AUTH_LINK);
+  };
   return (
     <React.Fragment key={Date.now()}>
       <MainTitle style={{ marginTop: '20px' }}>
@@ -119,7 +122,7 @@ const Integrations = ({
           active={isMethodActive('Paypal')}
           error={errors.paypal}
           headline={<CardHandler>{getHandlerName('Paypal')}</CardHandler>}
-          onConnect={onConnectPaypal}
+          onConnect={connectWithPaypal}
           isLoading={onProgress.paypal}
         />
         <MediumCard
@@ -330,6 +333,24 @@ const Integrations = ({
           imgSrc={brandsLogos.taxamo}
         />
       </CardsContainer>
+      <Dialog
+        onClose={() => setShowStripeOverridingWarning(false)}
+        show={showStripeOverridingWaring}
+        confirmBtnText='Continue'
+        confirmBtnIcon={null}
+        title='You have already integrated Stripe with your account'
+        description={(
+          <WarningMessage>
+            {property('settings.integrations.stripe.overridingWarning')}
+          </WarningMessage>
+        )}
+        onConfirm={() => {
+          setShowStripeOverridingWarning(false);
+          setTimeout(() => {
+            window.open(STRIP_AUTH_LINK);
+          }, 100);
+        }}
+      />
     </React.Fragment>
   );
 };
