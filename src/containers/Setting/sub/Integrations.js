@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import queryString from 'querystring';
 import common from 'components/common';
-
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import * as paymentsActions from 'actions/payments';
@@ -32,302 +32,321 @@ const CardsContainer = ({ className = '', children }) => (
 );
 
 const CardHandler = ({ children }) => <div className='card-handler'>{children}</div>;
+
+const onZapierClicked = () => {
+  window.open(ZAPIER_INVITATION_LINK, '_blank');
+};
+
 const connectStripe = () => {
   window.open(STRIP_AUTH_LINK);
 };
 
 
-class Integrations extends Component {
-  state = {
-    stripe: {
+const Integrations = ({
+  methods: PaymentMethods,
+  activatPaymentMethod,
+  connectWithPaypal,
+  history,
+  ...props
+}) => {
+  const [state, setState] = useState({});
+  const [onProgress, setProgress] = useState({});
+  const [errors, setErrors] = useState({});
 
-    },
-    paypal: {
-
-    },
-    zapier: {
-
-    },
-    mounts: 0
-  }
-
-  componentDidMount = () => {
+  useEffect(() => {
     const {
-      activat_method, code, scope, error, error_description
-    } = queryString.parse(this.props.history.location.search.replace('?', ''));
-
+      activat_method,
+      code,
+      scope,
+      error,
+      error_description
+    } = queryString.parse(history.location.search.replace('?', ''));
 
     if (activat_method === 'stripe' || activat_method === 'paypal') {
+      setProgress({ [activat_method]: true });
       if (!error) {
-        this.setState({ [activat_method]: { onprogress: true } });
-        this.props.activatPaymentMethod({
+        activatPaymentMethod({
           type: activat_method,
           code
+        },
+        {
+          onSuccess: (arg) => {
+            alert('SUccess');
+            setProgress({ [activat_method]: false });
+          },
+          onFailed: (message) => {
+            alert('Failed');
+            setProgress({ [activat_method]: false });
+          }
         });
       } else {
-        this.setState({ [activat_method]: { error: error_description, onprogress: false } });
+        setErrors({ [activat_method]: error_description });
+        setProgress({ [activat_method]: false });
       }
     }
-  }
+  }, []);
 
-  componentDidUpdate = () => {
-    const { activat_method } = queryString.parse(this.props.history.location.search.replace('?', ''));
-    if (activat_method && this.state[activat_method].onprogress) if (this.props.methods.includes(activat_method) || this.props.errors) this.setState({ [activat_method]: { onprogress: false } });
-  }
 
-  onConnectPaypal = (credits) => this.props.connectWithPaypal({ cred: credits })
+  const onConnectPaypal = (credits) => connectWithPaypal({ cred: credits });
 
-  onZapierClicked = () => {
-    window.open(ZAPIER_INVITATION_LINK, '_blank');
-  }
 
-  render () {
-    const { stripe, paypal } = this.state;
-    const { methods, integrations: { paypal: PaypalStatus, errors: { paypalError } } } = this.props;
-    const isMethodActive = (method) => methods.find(({ name }) => name === method);
-    const getHandlerName = method => {
-      if(isMethodActive(method))
-        return isMethodActive(method).handler 
-      return 'Not Connected'
+  const isMethodActive = (method) => PaymentMethods.find(({ name }) => name === method);
+
+  const getHandlerName = (method) => {
+    if (isMethodActive(method)) {
+      const { handler = 'unknown app connected' } = isMethodActive(method);
+      return handler;
     }
-    return (
-      <React.Fragment key={Date.now()}>
-        <MainTitle style={{ marginTop: '20px' }}>
-          Payment Gateways
-        </MainTitle>
-        <CardsContainer>
-          <MediumCard
-            onClick={connectStripe}
-            isActive={isMethodActive('Stripe')}
-            error={stripe.error}
-            imgSrc={brandsLogos.stripeImage}
-            headline={<CardHandler>{getHandlerName('Stripe')}</CardHandler>}
-            isLoading={stripe.onprogress}
-          />
-          <PayPalConnectContainer
-            imgSrc={brandsLogos.paypalImage}
-            active={PaypalStatus || isMethodActive('Paypal')}
-            error={paypalError}
-            headline={<CardHandler>{getHandlerName('Paypal')}</CardHandler>}
-            onConnect={this.onConnectPaypal}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.razorpayLogo}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.authorizeNetLogo}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.checkoutLogo}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.braintreeLogo}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.towCheckoutLogo}
-          />
-        </CardsContainer>
+    return 'Not Connected';
+  };
 
-        <MainTitle style={{ marginTop: '20px' }}>
-          Autoresponders/Email Integrations
-        </MainTitle>
-        <CardsContainer>
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.activeCampaign}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.aweber}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.getresponse}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            className='mail-chimp-logo'
-            imgSrc={brandsLogos.mailChimp}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.drip}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.ontraport}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.convertkit}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.infusionSoft}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.mooSend}
-          />
-        </CardsContainer>
+  return (
+    <React.Fragment key={Date.now()}>
+      <MainTitle style={{ marginTop: '20px' }}>
+        Payment Gateways
+      </MainTitle>
+      <CardsContainer>
+        <MediumCard
+          onClick={connectStripe}
+          isActive={isMethodActive('Stripe')}
+          error={errors.stripe}
+          imgSrc={brandsLogos.stripeImage}
+          headline={<CardHandler>{getHandlerName('Stripe')}</CardHandler>}
+          isLoading={onProgress.stripe}
+        />
+        <PayPalConnectContainer
+          imgSrc={brandsLogos.paypalImage}
+          active={isMethodActive('Paypal')}
+          error={errors.paypal}
+          headline={<CardHandler>{getHandlerName('Paypal')}</CardHandler>}
+          onConnect={onConnectPaypal}
+          isLoading={onProgress.paypal}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.razorpayLogo}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.authorizeNetLogo}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.checkoutLogo}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.braintreeLogo}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.towCheckoutLogo}
+        />
+      </CardsContainer>
 
-        <MainTitle style={{ marginTop: '20px' }}>
-          Membership Platforms
-        </MainTitle>
-        <CardsContainer>
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.Kajabi}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.teachable}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.Thinkific}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            // className='mail-chimp-logo'
-            imgSrc={brandsLogos.wishListMember}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.memberMouse}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            className='ever-lesson-logo'
-            imgSrc={brandsLogos.everlesson}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.Memberful}
-          />
-        </CardsContainer>
+      <MainTitle style={{ marginTop: '20px' }}>
+        Autoresponders/Email Integrations
+      </MainTitle>
+      <CardsContainer>
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.activeCampaign}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.aweber}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.getresponse}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          className='mail-chimp-logo'
+          imgSrc={brandsLogos.mailChimp}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.drip}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.ontraport}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.convertkit}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.infusionSoft}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.mooSend}
+        />
+      </CardsContainer>
 
-        <MainTitle style={{ marginTop: '20px' }}>
-          Webinar Platforms
-        </MainTitle>
-        <CardsContainer>
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.Demio}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.everWebinar}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.webinarJam}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            // className='mail-chimp-logo'
-            imgSrc={brandsLogos.goToWebinar}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.BigMarker}
-          />
-        </CardsContainer>
+      <MainTitle style={{ marginTop: '20px' }}>
+        Membership Platforms
+      </MainTitle>
+      <CardsContainer>
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.Kajabi}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.teachable}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.Thinkific}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          // className='mail-chimp-logo'
+          imgSrc={brandsLogos.wishListMember}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.memberMouse}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          className='ever-lesson-logo'
+          imgSrc={brandsLogos.everlesson}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.Memberful}
+        />
+      </CardsContainer>
 
-        <MainTitle style={{ marginTop: '20px' }}>
-          Dropshipping/Shipping
+      <MainTitle style={{ marginTop: '20px' }}>
+        Webinar Platforms
+      </MainTitle>
+      <CardsContainer>
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.Demio}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.everWebinar}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.webinarJam}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          // className='mail-chimp-logo'
+          imgSrc={brandsLogos.goToWebinar}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.BigMarker}
+        />
+      </CardsContainer>
 
-        </MainTitle>
-        <CardsContainer>
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.dropified}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.shipStation}
-          />
-        </CardsContainer>
+      <MainTitle style={{ marginTop: '20px' }}>
+        Dropshipping/Shipping
+
+      </MainTitle>
+      <CardsContainer>
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.dropified}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.shipStation}
+        />
+      </CardsContainer>
 
 
-        <MainTitle style={{ marginTop: '40px' }}>
-          Misc Integrations
+      <MainTitle style={{ marginTop: '40px' }}>
+        Misc Integrations
 
-        </MainTitle>
-        <CardsContainer>
-          <MediumCard
-            onClick={this.onZapierClicked}
-            imgSrc={brandsLogos.zapierBrand}
-            headline='Get invited to Zapier'
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.twillio}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.wordpress}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.wooCommerce}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.shopify}
-          />
-          <MediumCard
-            disabled
-            onClick={() => { }}
-            imgSrc={brandsLogos.taxamo}
-          />
-        </CardsContainer>
-      </React.Fragment>
-    );
-  }
-}
+      </MainTitle>
+      <CardsContainer>
+        <MediumCard
+          onClick={onZapierClicked}
+          imgSrc={brandsLogos.zapierBrand}
+          headline='Get invited to Zapier'
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.twillio}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.wordpress}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.wooCommerce}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.shopify}
+        />
+        <MediumCard
+          disabled
+          onClick={() => { }}
+          imgSrc={brandsLogos.taxamo}
+        />
+      </CardsContainer>
+    </React.Fragment>
+  );
+};
+
+
+Integrations.propTypes = {
+  methods: PropTypes.arrayOf({}),
+  activatPaymentMethod: PropTypes.func.isRequired,
+  connectWithPaypal: PropTypes.func.isRequired,
+  history: PropTypes.objectOf.isRequired,
+};
+Integrations.defaultProps = {
+  methods: [],
+};
 const mapStateToProps = ({
-  payments: { methods = [] } = {},
-  settings: { integrations = {} } = {}
+  payments: { methods = [] } = {}
 }) => ({
-  methods,
-  integrations
+  methods
 });
 export default connect(mapStateToProps, { ...paymentsActions, ...settingsActions })(Integrations);
