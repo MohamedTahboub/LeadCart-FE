@@ -5,7 +5,7 @@ import { apiRequest } from 'actions/apiRequest';
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== ACTIVATE_PAYMENT) return next(action);
 
-  const { type, code } = action.payload;
+  const { payload: { type, code } = {}, meta = {} } = action;
 
 
   dispatch(apiRequest({
@@ -15,7 +15,13 @@ export default ({ dispatch }) => (next) => (action) => {
       body: { code },
       contentType: 'json',
     },
-    onSuccess: activatPaymentMethodSuccess.bind(this, type),
-    onFailed: (message) => activatPaymentMethodFailed({ type, message })
+    onSuccess: (arg) => {
+      meta.onSuccess && meta.onSuccess(arg);
+      return activatPaymentMethodSuccess(type);
+    },
+    onFailed: (message) => {
+      meta.onFailed && meta.onFailed(message);
+      return activatPaymentMethodFailed({ type, message });
+    }
   }));
 };
