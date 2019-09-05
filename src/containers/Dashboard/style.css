@@ -196,7 +196,7 @@ div.ant-select.chart-select-filter:first-child{
     margin:20px 0;
     display: flex;
     align-content: space-around;
-    justify-content: stretch;
+    justify-content: space-between;
     flex-wrap: wrap;
     background: #f1f6fe;
     padding: 10px;

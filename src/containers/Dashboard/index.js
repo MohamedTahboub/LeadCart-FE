@@ -34,8 +34,8 @@ const Dashboard = ({
     };
   }, []);
 
-  const onChange = () => {
-
+  const onChange = (e) => {
+    console.log(e);
   };
 
   return (
