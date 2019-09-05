@@ -2,7 +2,6 @@ import { CONNECT_WITH_PAYPAL } from 'constantsTypes';
 import { connectWithPaypalSuccess, connectWithPaypalFailed } from 'actions/settings';
 
 import { apiRequest } from 'actions/apiRequest';
-import { Meta } from 'antd/lib/list/Item';
 
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== CONNECT_WITH_PAYPAL) return next(action);
@@ -19,9 +18,9 @@ export default ({ dispatch }) => (next) => (action) => {
       if (meta.onSuccess) meta.onSuccess(arg);
       return connectWithPaypalSuccess(payload);
     },
-    onFailed: (arg) => {
-      if (meta.onFailed) meta.onFailed(arg);
-      return connectWithPaypalFailed(arg);
+    onFailed: (message) => {
+      if (meta.onFailed) meta.onFailed(message);
+      return connectWithPaypalFailed(message);
     }
   }));
 };
