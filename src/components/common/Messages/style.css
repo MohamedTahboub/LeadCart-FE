@@ -1,0 +1,14 @@
+.message.warning-message {
+    display: flex;
+    align-items: center;
+}
+
+.warning-message-icon {
+    font-size: 30px;
+    color: #FF9800;
+    margin: 0 10px;
+}
+
+.message-content {
+    max-width: 611px;
+}

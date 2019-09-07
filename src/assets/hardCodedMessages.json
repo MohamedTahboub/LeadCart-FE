@@ -1,0 +1,12 @@
+{
+    "settings": {
+        "integrations": {
+            "paypal": {
+                "overridingWarning": "Please pay attention for the following, by connection another PayPal account we will not be able to refund the orders and the transactions that have been processed through the current PayPal account"
+            },
+            "stripe": {
+                "overridingWarning": "Please pay attention for the following, by connection another Stripe account we will not be able to refund the orders and the transactions that have been processed through the current PayPal account"
+            }
+        }
+    }
+}

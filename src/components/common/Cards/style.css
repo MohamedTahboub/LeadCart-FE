@@ -282,24 +282,20 @@ span.medium-card-headline {
     color: white;
 }
 
-
 .payment-error-message {
     float: left;
     position: absolute;
-    font-size: 13px;
-    top: -81px;
-    left: 13px;
-    z-index: 10;
-    margin-top: 30px;
-    color: tomato;
+    font-size: 10px;
+    top: 7px;
+    left: 22px;
+    line-height: 13px;
+    text-align: center;
+    color: rgba(255, 99, 71, 0.815);
 }
+
 .paypal-error-message {
     text-align: center;
-    font-size: 13px;
-    top: -81px;
-    left: 13px;
-    z-index: 10;
-    margin-top: 30px;
+    font-size: 11px;
     color: tomato;
 }
 
@@ -351,7 +347,16 @@ span.medium-card-headline {
     
 }
 .paypal-submit-btn{
+    position: relative;
     margin:15px auto;
+    text-align: center;
+    display: block;
+}
+.paypal-submit-btn.spinner::after {
+    right: -25px;
+    top: 15%;
+    left: unset;
+    margin: unset;
 }
 .paypal-connect-input{
     width: 100%;
