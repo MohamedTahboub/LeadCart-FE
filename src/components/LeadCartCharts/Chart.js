@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ApexCharts from 'react-apexcharts';
 import dummyData from 'data/chartData.js';
 import moment from 'moment';
 import './chart.css';
 
 
-class AreaChart extends Component {
-  state = {
+const AreaChart = ({
+  data = [],
+  timelineFilter,
+}) => {
+  const options = {
     selection: 'one_year',
     options: {
       // annotations: {
@@ -70,96 +73,98 @@ class AreaChart extends Component {
     },
     series: [
       {
-        data: dummyData()
+        data
       }
     ]
   };
 
 
-  updateData (timeline) {
-    this.setState({
-      selection: timeline
-    });
-
+  const updateData = (timeline) => {
     switch (timeline) {
-    case 'one_month':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 May 2019').getTime(),
-            max: moment()
-          }
-        }
-      });
-      break;
-    case 'quarter ':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Feb 2019').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'six_months':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Dec 2018').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'one_year':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 May 2018').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'ytd':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Jan 2019').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'all':
-      this.setState({
-        options: {
-          xaxis: {
-            min: undefined,
-            max: undefined
-          }
-        }
-      });
-      break;
-    default:
+    case 'today':
+      return {
+        min: moment().subtract(1, 'days').endOf('day'),
+        max: moment()
+      };
+    case 'yesterday ':
+      return {
+        min: moment().subtract(1, 'days'),
+        max: moment().format()
+      };
+    case 'weekToDate':
+      return {
+        min: moment().subtract(7, 'days').endOf('day'),
+        max: moment().format()
+      };
+    case 'lastWeek':
+      return {
+        min: moment().subtract(7, 'days'),
+        max: moment().format()
+      };
+    case 'monthToDate':
+      return {
+        min: moment().subtract(1, 'months').endOf('month'),
+        max: moment().format()
+      };
+    case 'lastMonth':
+      return {
+        min: moment().subtract(1, 'months'),
+        max: moment().format()
+      };
+    case 'last3Months':
+      return {
+        min: moment().subtract(3, 'months'),
+        max: moment().format()
+      };
+    case 'last6Months':
+      return {
+        min: moment().subtract(6, 'months'),
+        max: moment().format()
+      };
+    case 'yearToDate':
+      return {
+        min: moment().subtract(1, 'years').endOf('year'),
+        max: moment().format()
+      };
+    case 'lastYear':
+      return {
+        min: moment().subtract(1, 'years'),
+        max: moment().format()
+      };
+    case 'currentFinancialYear':
+      return {
+        min: moment().subtract(1, 'years').endOf('year'),
+        max: moment().format()
+      };
+    case 'previousFinancialYear':
+      return {
+        min: moment().subtract(2, 'years').endOf('year'),
+        max: moment().subtract(1, 'years').endOf('year')
+      };
+    default: return {
+      min: undefined,
+      max: undefined
+    };
     }
-  }
+  };
 
-  render () {
-    return (
-      <div id='chart'>
-
-        <ApexCharts
-          options={this.state.options}
-          series={this.state.series}
-          type='area'
-          height='350'
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div id='chart'>
+      <ApexCharts
+        options={{
+          ...options,
+          options: {
+            ...options.options,
+            xaxis: updateData(timelineFilter)
+          }
+        }}
+        series={data}
+        type='area'
+        height='350'
+      />
+    </div>
+  );
+};
 
 export default AreaChart;
 /*
