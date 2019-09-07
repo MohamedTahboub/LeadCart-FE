@@ -3,10 +3,14 @@ import { Chart, MiniChart } from 'components/LeadCartCharts';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import dateOptions from 'data/dateOptions';
-import chartsDummyData from 'data/dashboardChartsData.js';
+import chartsDummyData, { getChartsFeed } from 'data/dashboardChartsData.js';
+import { ChartTypeCard } from './components';
+import { reshapeFeed } from './helpers';
+
 import './style.css';
 
 import common from 'components/common';
+
 
 const {
   MainTitle,
@@ -21,11 +25,26 @@ const {
 
 const Dashboard = ({
   products,
+  activities,
   ...props
 }) => {
   const [filterKeys, setFilterKeys] = useState({});
+  const [activeType, setActiveType] = useState('dailyAvg');
+  const [chartsFeed, setChartsFeed] = useState({ activities: {}, sums: {} });
 
   useEffect(() => {
+    getChartsFeed(
+      filterKeys,
+      {
+        onSuccess: (feed) => {
+          setChartsFeed(reshapeFeed(feed));
+        },
+        onFailed: () => {
+
+        }
+      }
+    );
+
     const unlisten = props.history.listen((location, action) => {
       if (window.userpilot) window.userpilot.reload();
     });
@@ -34,9 +53,22 @@ const Dashboard = ({
     };
   }, []);
 
-  const onChange = (e) => {
-    console.log(e);
+  const onChange = ({ target: { name, value } }) => {
+    setFilterKeys({ ...filterKeys, [name]: value });
+
+    getChartsFeed(
+      filterKeys,
+      {
+        onSuccess: (feed) => {
+          setChartsFeed(reshapeFeed(feed));
+        },
+        onFailed: () => {
+
+        }
+      }
+    );
   };
+
 
   return (
     <Page>
@@ -55,7 +87,7 @@ const Dashboard = ({
                     value={filterKeys.product}
                     defaultValue='All Products'
                     target='name'
-                    name='productId'
+                    name='product'
                     onChange={onChange}
                   />
                   <InputRow.SearchInput
@@ -70,37 +102,69 @@ const Dashboard = ({
                   <i className='fas fa-cog chart-setting-btn' />
                 </div>
                 <div className='chart-header-cards'>
-                  <div className='chart-preview-card'>
-                    <div className='label'>Avg. daily rev</div>
-                    <div className='value'>$32</div>
-                  </div>
-                  <div className='chart-preview-card'>
-                    <div className='label'>Views</div>
-                    <div className='value'>520</div>
-                  </div>
-                  <div className='chart-preview-card active'>
-                    <div className='label'>Sales</div>
-                    <div className='value'>131</div>
-                  </div>
-                  <div className='chart-preview-card'>
-                    <div className='label'>Cart Conversion</div>
-                    <div className='value'>%25.2</div>
-                  </div>
-                  <div className='chart-preview-card'>
-                    <div className='label'>Refunds</div>
-                    <div className='value warning'>$30</div>
-                  </div>
-                  <div className='chart-preview-card'>
-                    <div className='label'>Refund Rate</div>
-                    <div className='value warning'>%15.4</div>
-                  </div>
-                  <div className='chart-preview-card'>
-                    <div className='label'>Net Revenue</div>
-                    <div className='value'>$320</div>
-                  </div>
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Avg. daily rev'
+                    data={chartsFeed.sums}
+                    name='dailyAvg'
+                    onClick={setActiveType}
+                    prefix='$'
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Views'
+                    data={chartsFeed.sums}
+                    name='views'
+                    prefix={<i className='fas fa-eye' />}
+                    onClick={setActiveType}
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Sales'
+                    data={chartsFeed.sums}
+                    name='sales'
+                    onClick={setActiveType}
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Cart Conversion'
+                    data={chartsFeed.sums}
+                    name='conversion'
+                    suffix='%'
+                    onClick={setActiveType}
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Refunds'
+                    data={chartsFeed.sums}
+                    name='refunds'
+                    prefix='$'
+                    onClick={setActiveType}
+                    warning
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Refund Rate'
+                    data={chartsFeed.sums}
+                    name='refundRate'
+                    suffix='%'
+                    onClick={setActiveType}
+                    warning
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Net Revenue'
+                    data={chartsFeed.sums}
+                    name='netRevenue'
+                    prefix='$'
+                    onClick={setActiveType}
+                  />
                 </div>
                 <div className='chart-body'>
-                  <Chart />
+                  <Chart
+                    data={chartsFeed.activities[activeType]}
+                    timelineFilter={filterKeys.date}
+                  />
                 </div>
               </div>
               {/* overview insights section */}
@@ -172,24 +236,20 @@ const Dashboard = ({
 
 
 Dashboard.propTypes = {
-  products: PropTypes.arrayOf({})
+  products: PropTypes.arrayOf({}),
+  activities: PropTypes.arrayOf({})
 
 };
 Dashboard.defaultProps = {
-  products: []
+  products: [],
+  activities: chartsDummyData
 };
 const mapStateToProps = ({
   products: {
     products = []
   }
 }) => ({
-  products: products.map(({
-    _id,
-    name
-  }) => ({
-    label: name,
-    value: _id
-  }))
+  products: chartsDummyData.map(({ productId: value, productName: label }) => ({ label, value }))
 });
 
 
