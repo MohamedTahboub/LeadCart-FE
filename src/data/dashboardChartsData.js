@@ -1,110 +1,63 @@
-export default [
-  {
-    productId: '1',
-    owner: '',
+const faker = require('faker');
+
+const generateProductActivities = (repeats = 4) => {
+  const getRandom = () => Math.round(Math.random(10));
+
+  const repeat = (object, type = 'list') => {
+    const times = (times = 1) => {
+      const list = [];
+      for (let i = 1; i <= times; i += 1) {
+        if (typeof object === 'function') list.push(object());
+        else list.push(object);
+      }
+      return list;
+    };
+    return {
+      for: times
+    };
+  };
+
+  const ActivitySchema = () => ({
+    productId: faker.random.uuid(),
+    productName: faker.commerce.productName(),
+    owner: faker.random.uuid(),
     activities: {
-      refunds: [
+      refunds: repeat(() => (
         {
-          date: new Date(),
-          amount: 20
-        },
+          date: faker.date.past(),
+          amount: faker.finance.amount()
+        })).for(getRandom()),
+      prospects: repeat(() => (
         {
-          date: new Date(),
-          amount: 10
-        },
+          date: faker.date.past(),
+          email: faker.internet.email()
+        })).for(getRandom()),
+      views: repeat(() => (
+
         {
-          date: new Date(),
-          amount: 50
+          date: faker.date.past(),
+          agent: faker.internet.userAgent(),
+          ip: faker.internet.ip()
         }
-      ],
-      prospects: [
+      )).for(getRandom()),
+      sales: repeat(() => (
         {
-          date: new Date(),
-          email: 'test@customer.com'
-        }
-      ],
-      views: [
-        {
-          date: new Date(),
-          agent: 'Chrome',
-        }
-      ],
-      sales: [
-        {
-          date: new Date(),
-          amount: 120
-        },
-        {
-          date: new Date(),
-          amount: 110
-        },
-        {
-          date: new Date(),
-          amount: 140
-        },
-        {
-          date: new Date(),
-          amount: 20
-        },
-        {
-          date: new Date(),
-          amount: 80
-        }
-      ]
+          date: faker.date.past(),
+          amount: faker.finance.amount()
+        })).for(getRandom())
     }
-  },
-  {
-    productId: '3',
-    owner: '',
-    activities: {
-      refunds: [
-        {
-          date: new Date(),
-          amount: 20
-        },
-        {
-          date: new Date(),
-          amount: 10
-        },
-        {
-          date: new Date(),
-          amount: 50
-        }
-      ],
-      prospects: [
-        {
-          date: new Date(),
-          email: 'test@customer.com'
-        }
-      ],
-      views: [
-        {
-          date: new Date(),
-          agent: 'Chrome',
-        }
-      ],
-      sales: [
-        {
-          date: new Date(),
-          amount: 120
-        },
-        {
-          date: new Date(),
-          amount: 110
-        },
-        {
-          date: new Date(),
-          amount: 140
-        },
-        {
-          date: new Date(),
-          amount: 20
-        },
-        {
-          date: new Date(),
-          amount: 80
-        }
-      ]
-    }
-  }
-];
+  });
+
+  return repeat(ActivitySchema).for(repeats);
+};
+
+
+export default generateProductActivities();
+
+
+export const getChartsFeed = (filters, meta) => {
+  setTimeout(() => {
+    if (meta.onSuccess) meta.onSuccess(generateProductActivities(1));
+  }, 200);
+};
+
