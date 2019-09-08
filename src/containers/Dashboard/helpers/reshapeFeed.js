@@ -14,7 +14,12 @@ export default (feeds = []) => {
       prospects: getSumOf().from(prospects),
       sales: getSumOf('amount').from(sales),
     },
-    activities: {}
+    activities: {
+      refunds: getListOf(['date', 'amount']).from(refunds),
+      views: getListOf(['date']).from(views),
+      prospects: getListOf(['date']).from(prospects),
+      sales: getListOf(['date', 'amount']).from(sales),
+    }
   }));
 
 
@@ -27,6 +32,11 @@ export default (feeds = []) => {
     total.sums.prospects += product.sums.prospects;
     total.sums.sales += product.sums.sales;
 
+    total.activities.refunds = [...total.activities.refunds, ...product.activities.refunds];
+    total.activities.views = [...total.activities.views, ...product.activities.views];
+    total.activities.prospects = [...total.activities.prospects, ...product.activities.prospects];
+    total.activities.sales = [...total.activities.sales, ...product.activities.sales];
+
     return total;
   },
   {
@@ -36,7 +46,12 @@ export default (feeds = []) => {
       prospects: 0,
       sales: 0
     },
-    activities: {}
+    activities: {
+      refunds: [],
+      views: [],
+      prospects: [],
+      sales: []
+    }
   });
 
   return {
@@ -53,4 +68,8 @@ const getSumOf = (key) => ({
       return total;
     }, 0)
     : list.length)
+});
+
+const getListOf = (keys) => ({
+  from: (list) => list.map((item) => [...keys.map((k) => item[k])])
 });

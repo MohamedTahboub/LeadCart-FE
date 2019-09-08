@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ApexCharts from 'react-apexcharts';
 import dummyData from 'data/chartData.js';
 import moment from 'moment';
@@ -7,8 +7,12 @@ import './chart.css';
 
 const AreaChart = ({
   data = [],
+  activities = {},
+  activeTypes = ['refunds'],
   timelineFilter,
 }) => {
+  const [series, setSeries] = useState([]);
+
   const options = {
     selection: 'one_year',
     options: {
@@ -148,6 +152,19 @@ const AreaChart = ({
     }
   };
 
+  const updateSeriesWithActivities = (activities) => {
+    const seriesData = activeTypes.map((type) => ({
+      name: type.toUpperCase(),
+      data: activities[type]
+    }));
+
+    setSeries(seriesData);
+  };
+
+  useEffect(() => {
+    updateSeriesWithActivities(activities);
+  }, [timelineFilter, activities]);
+
   return (
     <div id='chart'>
       <ApexCharts
@@ -158,7 +175,7 @@ const AreaChart = ({
             xaxis: updateData(timelineFilter)
           }
         }}
-        series={data}
+        series={series}
         type='area'
         height='350'
       />

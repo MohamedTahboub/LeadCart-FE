@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const faker = require('faker');
 
 const generateProductActivities = (repeats = 4) => {
@@ -17,6 +19,7 @@ const generateProductActivities = (repeats = 4) => {
     };
   };
 
+
   const ActivitySchema = () => ({
     productId: faker.random.uuid(),
     productName: faker.commerce.productName(),
@@ -26,7 +29,7 @@ const generateProductActivities = (repeats = 4) => {
         {
           date: faker.date.past(),
           amount: faker.finance.amount()
-        })).for(getRandom()),
+        })).for(1000),
       prospects: repeat(() => (
         {
           date: faker.date.past(),
@@ -44,7 +47,7 @@ const generateProductActivities = (repeats = 4) => {
         {
           date: faker.date.past(),
           amount: faker.finance.amount()
-        })).for(getRandom())
+        })).for(500)
     }
   });
 

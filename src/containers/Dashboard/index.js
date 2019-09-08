@@ -28,9 +28,9 @@ const Dashboard = ({
   activities,
   ...props
 }) => {
-  const [filterKeys, setFilterKeys] = useState({});
-  const [activeType, setActiveType] = useState('dailyAvg');
-  const [chartsFeed, setChartsFeed] = useState({ activities: {}, sums: {} });
+  const [filterKeys, setFilterKeys] = useState({ date: 'all' });
+  const [activeType, setActiveType] = useState('refunds');
+  const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
 
   useEffect(() => {
     getChartsFeed(
