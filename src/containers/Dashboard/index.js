@@ -60,6 +60,7 @@ const Dashboard = ({
       filterKeys,
       {
         onSuccess: (feed) => {
+          console.log(feed);
           setChartsFeed(reshapeFeed(feed));
         },
         onFailed: () => {
@@ -164,6 +165,7 @@ const Dashboard = ({
                   <Chart
                     data={chartsFeed.activities[activeType]}
                     timelineFilter={filterKeys.date}
+                    activeTypeValue={activeType}
                   />
                 </div>
               </div>
