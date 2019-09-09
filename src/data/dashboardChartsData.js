@@ -9,7 +9,7 @@ const generateProductActivities = (repeats = 4) => {
     const times = (times = 1) => {
       const list = [];
       for (let i = 1; i <= times; i += 1) {
-        if (typeof object === 'function') list.push(object());
+        if (typeof object === 'function') list.push(object(i));
         else list.push(object);
       }
       return list;
@@ -25,29 +25,29 @@ const generateProductActivities = (repeats = 4) => {
     productName: faker.commerce.productName(),
     owner: faker.random.uuid(),
     activities: {
-      refunds: repeat(() => (
+      refunds: repeat((i) => (
         {
-          date: faker.date.past(),
-          amount: faker.finance.amount()
-        })).for(1000),
-      prospects: repeat(() => (
+          date: moment(faker.date.past(i)).format(),
+          amount: faker.random.number(10)
+        })).for(10),
+      prospects: repeat((i) => (
         {
-          date: faker.date.past(),
+          date: moment(faker.date.past(i)).format(),
           email: faker.internet.email()
         })).for(getRandom()),
-      views: repeat(() => (
+      views: repeat((i) => (
 
         {
-          date: faker.date.past(),
+          date: moment(faker.date.past(i)).format(),
           agent: faker.internet.userAgent(),
           ip: faker.internet.ip()
         }
       )).for(getRandom()),
-      sales: repeat(() => (
+      sales: repeat((i) => (
         {
-          date: faker.date.past(),
-          amount: faker.finance.amount()
-        })).for(500)
+          date: moment(faker.date.past(i)).format(),
+          amount: faker.random.number(100)
+        })).for(50)
     }
   });
 
@@ -60,7 +60,7 @@ export default generateProductActivities();
 
 export const getChartsFeed = (filters, meta) => {
   setTimeout(() => {
-    if (meta.onSuccess) meta.onSuccess(generateProductActivities(1));
+    if (meta.onSuccess) meta.onSuccess(generateProductActivities(10));
   }, 200);
 };
 
