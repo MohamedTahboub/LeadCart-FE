@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import dateOptions from 'data/dateOptions';
 import chartsDummyData, { getChartsFeed } from 'data/dashboardChartsData.js';
-import { ChartTypeCard } from './components';
+import { ChartTypeCard, ChartsSettingsModal } from './components';
 import { reshapeFeed } from './helpers';
 
 import './style.css';
@@ -31,6 +31,16 @@ const Dashboard = ({
   const [filterKeys, setFilterKeys] = useState({ date: 'all' });
   const [activeType, setActiveType] = useState('refunds');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
+
+  const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(false);
+
+  const onOpenChartsSettingsModal = () => {
+    setShowChartsSettingsModal(true);
+  };
+  const onCloseChartsSettingModal = () => {
+    setShowChartsSettingsModal(false);
+  };
+
 
   useEffect(() => {
     getChartsFeed(
@@ -100,7 +110,15 @@ const Dashboard = ({
                     name='date'
                     onChange={onChange}
                   />
-                  <i className='fas fa-cog chart-setting-btn' />
+                  <i
+                    role='presentation'
+                    onClick={onOpenChartsSettingsModal}
+                    className='fas fa-cog chart-setting-btn'
+                  />
+                  <ChartsSettingsModal
+                    show={showChartsSettingsModal}
+                    onClose={onCloseChartsSettingModal}
+                  />
                 </div>
                 <div className='chart-header-cards'>
                   <ChartTypeCard
