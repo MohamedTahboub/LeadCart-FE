@@ -3,15 +3,31 @@ import ApexCharts from 'react-apexcharts';
 import dummyData from 'data/chartData.js';
 import moment from 'moment';
 import './chart.css';
+import PropTypes from 'prop-types';
+
+
+const LoadingIcon = ({
+  className,
+  show,
+  ...props
+}) => (show ? <div className={`loading spinner ${className}`}>Loading...</div> : null);
 
 
 const AreaChart = ({
   data = [],
-  activities = {},
-  activeTypes = ['refunds'],
+  activeTypeValue,
   timelineFilter,
 }) => {
-  const [series, setSeries] = useState([]);
+  const initialState = {
+    timeline: timelineFilter,
+    series: [
+      {
+        name: activeTypeValue,
+        data
+      }
+    ]
+  };
+  const [state, setState] = useState(initialState);
 
   const options = {
     selection: 'one_year',
@@ -74,12 +90,7 @@ const AreaChart = ({
           stops: [0, 100]
         }
       }
-    },
-    series: [
-      {
-        data
-      }
-    ]
+    }
   };
 
 
@@ -152,21 +163,22 @@ const AreaChart = ({
     }
   };
 
-  const updateSeriesWithActivities = (activities) => {
-    const seriesData = activeTypes.map((type) => ({
-      name: type.toUpperCase(),
-      data: activities[type]
-    }));
-
-    setSeries(seriesData);
-  };
-
   useEffect(() => {
-    updateSeriesWithActivities(activities);
-  }, [timelineFilter, activities]);
+    // console.log('Charts Updates');
+    // console.log(data);
+    setState({
+      timeline: timelineFilter,
+      series: [
+        {
+          name: activeTypeValue,
+          data
+        }
+      ]
+    });
+  }, [timelineFilter, data]);
 
   return (
-    <div id='chart'>
+    <div className='dashboard-main-chart' id='chart'>
       <ApexCharts
         options={{
           ...options,
@@ -175,16 +187,30 @@ const AreaChart = ({
             xaxis: updateData(timelineFilter)
           }
         }}
-        series={series}
+        series={state.series}
         type='area'
         height='350'
+        loading
       />
     </div>
   );
 };
 
+
+AreaChart.propTypes = {
+  data: PropTypes.arrayOf({}),
+  activeTypeValue: PropTypes.string.isRequired,
+  timelineFilter: PropTypes.string.isRequired,
+};
+AreaChart.defaultProps = {
+  data: []
+};
+
 export default AreaChart;
 /*
+      <LoadingIcon className='chart-loading' show />
+
+
  <div className='chart-toolbar '>
           <button
             onClick={() => this.updateData('one_month')}
