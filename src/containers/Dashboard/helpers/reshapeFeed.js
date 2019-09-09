@@ -10,9 +10,11 @@ export default (feeds = []) => {
 
     sums: {
       refunds: getSumOf('amount').from(refunds),
+      refundsNumber: getSumOf().from(refunds),
       views: getSumOf().from(views),
       prospects: getSumOf().from(prospects),
-      sales: getSumOf('amount').from(sales),
+      grossRevenue: getSumOf('amount').from(sales),
+      sales: getSumOf().from(sales),
     },
     activities: {
       refunds: getListOf(['date', 'amount']).from(refunds),
@@ -28,8 +30,10 @@ export default (feeds = []) => {
     activities
   } = activitiesSums.reduce((total, product) => {
     total.sums.refunds += product.sums.refunds;
+    total.sums.refundsNumber += product.sums.refundsNumber;
     total.sums.views += product.sums.views;
     total.sums.prospects += product.sums.prospects;
+    total.sums.grossRevenue += product.sums.grossRevenue;
     total.sums.sales += product.sums.sales;
 
     total.activities.refunds = [...total.activities.refunds, ...product.activities.refunds];
@@ -42,8 +46,10 @@ export default (feeds = []) => {
   {
     sums: {
       refunds: 0,
+      refundsNumber: 0,
       views: 0,
       prospects: 0,
+      grossRevenue: 0,
       sales: 0
     },
     activities: {
@@ -54,6 +60,16 @@ export default (feeds = []) => {
     }
   });
 
+  const numberOfDays = 100;
+  sums.dailyAvg = sums.grossRevenue / numberOfDays;
+  sums.conversion = sums.sales / sums.views;
+  sums.refundRate = sums.refundsNumber / sums.sales;
+  sums.netRevenue = sums.grossRevenue - sums.refunds;
+
+  console.log(
+    sums,
+    activities
+  );
   return {
     sums,
     activities
@@ -71,5 +87,5 @@ const getSumOf = (key) => ({
 });
 
 const getListOf = (keys) => ({
-  from: (list) => list.map((item) => [...keys.map((k) => item[k])])
+  from: (list) => list.map((item) => ({ x: item[0], y: item[1] }))
 });

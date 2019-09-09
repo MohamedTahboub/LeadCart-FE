@@ -27,27 +27,27 @@ const generateProductActivities = (repeats = 4) => {
     activities: {
       refunds: repeat((i) => (
         {
-          date: moment(faker.date.past(i)).format(),
+          date: moment(faker.date.past(i)).format('L'),
           amount: faker.random.number(10)
         })).for(10),
       prospects: repeat((i) => (
         {
-          date: moment(faker.date.past(i)).format(),
+          date: moment(faker.date.past(i)).format('L'),
           email: faker.internet.email()
         })).for(getRandom()),
       views: repeat((i) => (
 
         {
-          date: moment(faker.date.past(i)).format(),
+          date: moment(faker.date.past(i)).format('L'),
           agent: faker.internet.userAgent(),
           ip: faker.internet.ip()
         }
-      )).for(getRandom()),
+      )).for(getRandom(20)),
       sales: repeat((i) => (
         {
-          date: moment(faker.date.past(i)).format(),
+          date: moment(faker.date.past(i)).format('L'),
           amount: faker.random.number(100)
-        })).for(50)
+        })).for(5)
     }
   });
 
