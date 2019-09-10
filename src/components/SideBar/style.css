@@ -190,6 +190,10 @@
     margin-top: -13px;
     margin-left: -24px;
 }
+.logout-btn.btn:hover{
+    /* background: rgb(154, 158, 161); */
+    background: #afb7bd;
+}
 
 .tiny-text{
     font-size: 11px;

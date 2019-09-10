@@ -32,7 +32,7 @@ const Dashboard = ({
   const [activeType, setActiveType] = useState('refunds');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
 
-  const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(false);
+  const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(true);
 
   const onOpenChartsSettingsModal = () => {
     setShowChartsSettingsModal(true);
@@ -55,7 +55,7 @@ const Dashboard = ({
     //   }
     // );
 
-    setChartsFeed(reshapeFeed(activities));
+    // setChartsFeed(reshapeFeed(activities));
 
     // userPilot routes listener
     // const unlisten = props.history.listen((location, action) => {
