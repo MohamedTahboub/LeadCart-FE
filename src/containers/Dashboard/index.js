@@ -24,7 +24,7 @@ const {
 } = common;
 
 const Dashboard = ({
-  products,
+  filtersLabels,
   activities,
   ...props
 }) => {
@@ -43,25 +43,25 @@ const Dashboard = ({
 
 
   useEffect(() => {
-    getChartsFeed(
-      filterKeys,
-      {
-        onSuccess: (feed) => {
-          setChartsFeed(reshapeFeed(feed));
-        },
-        onFailed: () => {
+    // getChartsFeed(
+    //   filterKeys,
+    //   {
+    //     onSuccess: (feed) => {
 
-        }
-      }
-    );
+    //     },
+    //     onFailed: () => {
 
-    const unlisten = props.history.listen((location, action) => {
-      if (window.userpilot) window.userpilot.reload();
-    });
-    return () => {
+    //     }
+    //   }
+    // );
 
-    };
-  }, []);
+    setChartsFeed(reshapeFeed(activities));
+
+    // userPilot routes listener
+    // const unlisten = props.history.listen((location, action) => {
+    //   if (window.userpilot) window.userpilot.reload();
+    // });
+  }, [activities]);
 
   const onChange = ({ target: { name, value } }) => {
     setFilterKeys({ ...filterKeys, [name]: value });
@@ -94,7 +94,7 @@ const Dashboard = ({
                 <div className='chart-head'>
                   <InputRow.SearchInput
                     className='chart-select-filter'
-                    options={products}
+                    options={filtersLabels}
                     value={filterKeys.product}
                     defaultValue='All Products'
                     target='name'
@@ -256,20 +256,21 @@ const Dashboard = ({
 
 
 Dashboard.propTypes = {
-  products: PropTypes.arrayOf({}),
+  filtersLabels: PropTypes.arrayOf({}),
   activities: PropTypes.arrayOf({})
 
 };
 Dashboard.defaultProps = {
-  products: [],
+  filtersLabels: [],
   activities: chartsDummyData
 };
+
 const mapStateToProps = ({
-  products: {
-    products = []
-  }
+  products: { products = [] } = {},
+  dashboardData
 }) => ({
-  products: chartsDummyData.map(({ productId: value, productName: label }) => ({ label, value }))
+  filtersLabels: products.map(({ _id: value, name: label }) => ({ label, value })),
+  activities: dashboardData
 });
 
 
