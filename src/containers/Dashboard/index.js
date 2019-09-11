@@ -6,6 +6,8 @@ import dateOptions from 'data/dateOptions';
 import chartsDummyData, { getChartsFeed } from 'data/dashboardChartsData.js';
 import { ChartTypeCard, ChartsSettingsModal } from './components';
 import { reshapeFeed } from './helpers';
+import * as dashboardActions from 'actions/dashboard'
+import dashboardSettings from 'data/dashboardSettings'
 
 import './style.css';
 
@@ -26,13 +28,16 @@ const {
 const Dashboard = ({
   filtersLabels,
   activities,
+  settings,
+  getDashboardChartsData,
   ...props
 }) => {
   const [filterKeys, setFilterKeys] = useState({ date: 'all' });
   const [activeType, setActiveType] = useState('refunds');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
+  const [updatingCharts, setUpdatingCharts] = useState(false)
 
-  const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(true);
+  const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(false);
 
   const onOpenChartsSettingsModal = () => {
     setShowChartsSettingsModal(true);
@@ -55,25 +60,29 @@ const Dashboard = ({
     //   }
     // );
 
-    // setChartsFeed(reshapeFeed(activities));
-
+    setChartsFeed(reshapeFeed(activities));
+    console.log('updates -------------charts')
     // userPilot routes listener
     // const unlisten = props.history.listen((location, action) => {
     //   if (window.userpilot) window.userpilot.reload();
     // });
-  }, [activities]);
+    console.log('Settings',settings)
+  }, [activities,settings]);
 
   const onChange = ({ target: { name, value } }) => {
-    setFilterKeys({ ...filterKeys, [name]: value });
+    const filters = { ...filterKeys, [name]: value }
+    setFilterKeys(filters);
 
-    getChartsFeed(
-      filterKeys,
+    setUpdatingCharts(true)
+    getDashboardChartsData(
+      filters,
       {
         onSuccess: (feed) => {
-          console.log(feed);
           setChartsFeed(reshapeFeed(feed));
+          setUpdatingCharts(false)
         },
-        onFailed: () => {
+        onFailed: (message) => {
+          setUpdatingCharts(false)
 
         }
       }
@@ -117,6 +126,7 @@ const Dashboard = ({
                   />
                   <ChartsSettingsModal
                     show={showChartsSettingsModal}
+                    // settings={settings}
                     onClose={onCloseChartsSettingModal}
                   />
                 </div>
@@ -176,6 +186,22 @@ const Dashboard = ({
                     data={chartsFeed.sums}
                     name='netRevenue'
                     prefix='$'
+                    onClick={setActiveType}
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Cart Abandonments'
+                    data={chartsFeed.sums}
+                    name='cartAbandonments'
+                    prefix='$'
+                    onClick={setActiveType}
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Abandonments Rate'
+                    data={chartsFeed.sums}
+                    name='abandonmentsRate'
+                    suffix='%'
                     onClick={setActiveType}
                   />
                 </div>
@@ -257,24 +283,30 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   filtersLabels: PropTypes.arrayOf({}),
-  activities: PropTypes.arrayOf({})
-
+  activities: PropTypes.arrayOf({}),
+  settings: PropTypes.objectOf({}),
+  getDashboardChartsData: PropTypes.func.isRequired
 };
 Dashboard.defaultProps = {
   filtersLabels: [],
-  activities: chartsDummyData
+  activities: {},
+  settings: dashboardSettings
 };
 
 const mapStateToProps = ({
   products: { products = [] } = {},
-  dashboardData
+  dashboard: {
+    activities,
+    settings
+  } = {}
 }) => ({
   filtersLabels: products.map(({ _id: value, name: label }) => ({ label, value })),
-  activities: dashboardData
+  activities,
+  settings
 });
 
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, dashboardActions)(Dashboard);
 /*
 
                   <span className='chart-total-profite'>
