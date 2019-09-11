@@ -1,4 +1,6 @@
-export default (feeds = []) => {
+import moment from 'moment';
+
+export default (feeds = [], fromDate) => {
   try {
     const activitiesSums = feeds.map(({
       activities: {
@@ -10,12 +12,12 @@ export default (feeds = []) => {
     }) => ({
 
       sums: {
-        refunds: getSumOf('amount').from(refunds),
+        refundsAmount: getSumOf('amount').from(refunds),
         refundsNumber: getSumOf().from(refunds),
         views: getSumOf().from(views),
         prospects: getSumOf().from(prospects),
         grossRevenue: getSumOf('amount').from(sales),
-        sales: getSumOf().from(sales),
+        salesNumber: getSumOf().from(sales)
       },
       activities: {
         refunds: getListOf(['date', 'amount']).from(refunds),
@@ -30,12 +32,12 @@ export default (feeds = []) => {
       sums,
       activities
     } = activitiesSums.reduce((total, product) => {
-      total.sums.refunds += product.sums.refunds;
+      total.sums.refundsAmount += product.sums.refundsAmount;
       total.sums.refundsNumber += product.sums.refundsNumber;
       total.sums.views += product.sums.views;
       total.sums.prospects += product.sums.prospects;
       total.sums.grossRevenue += product.sums.grossRevenue;
-      total.sums.sales += product.sums.sales;
+      total.sums.salesNumber += product.sums.salesNumber;
 
       total.activities.refunds = [...total.activities.refunds, ...product.activities.refunds];
       total.activities.views = [...total.activities.views, ...product.activities.views];
@@ -46,12 +48,12 @@ export default (feeds = []) => {
     },
     {
       sums: {
-        refunds: 0,
+        refundsAmount: 0,
         refundsNumber: 0,
         views: 0,
         prospects: 0,
         grossRevenue: 0,
-        sales: 0
+        salesNumber: 0
       },
       activities: {
         refunds: [],
@@ -61,11 +63,14 @@ export default (feeds = []) => {
       }
     });
 
-    const numberOfDays = 100;
-    sums.dailyAvg = sums.grossRevenue / numberOfDays;
-    sums.conversion = sums.sales / sums.views;
-    sums.refundRate = sums.refundsNumber / sums.sales;
-    sums.netRevenue = sums.grossRevenue - sums.refunds;
+    const numberOfDays = moment().diff(fromDate.min, 'days');
+    sums.dailyAvg = divided(sums.grossRevenue).by(numberOfDays);
+    sums.conversionRate = divided(sums.salesNumber).by(sums.views, true);
+    sums.refundRate = divided(sums.refundsNumber).by(sums.salesNumber, true);
+    sums.netRevenue = sums.grossRevenue - sums.refundsAmount;
+    sums.transactions = sums.salesNumber;
+    sums.cartAbandonments = sums.prospects;
+    sums.abandonmentsRate = divided(sums.prospects).by(sums.salesNumber, true);
 
     console.log(
       sums,
@@ -97,3 +102,11 @@ const getSumOf = (key) => ({
 const getListOf = (keys = []) => ({
   from: (list = []) => list.map((item) => [...keys.map((k) => item[k])])
 });
+
+const divided = (amount) => ({
+  by: (b, isPercent) => {
+    const percents = Math.round((amount / ((b === 0 || isNaN(b)) ? 1 : b)) * 100);
+    return isPercent ? percents : percents / 100;
+  }
+});
+

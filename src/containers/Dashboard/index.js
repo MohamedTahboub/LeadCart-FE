@@ -3,12 +3,12 @@ import { Chart, MiniChart } from 'components/LeadCartCharts';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import dateOptions from 'data/dateOptions';
-import chartsDummyData, { getChartsFeed } from 'data/dashboardChartsData.js';
+// import chartsDummyData, { getChartsFeed } from 'data/dashboardChartsData.js';
 import { ChartTypeCard, ChartsSettingsModal } from './components';
 import { reshapeFeed } from './helpers';
 import * as dashboardActions from 'actions/dashboard'
 import dashboardSettings from 'data/dashboardSettings'
-
+import { getDateValueReferences } from 'libs'
 import './style.css';
 
 import common from 'components/common';
@@ -32,8 +32,8 @@ const Dashboard = ({
   getDashboardChartsData,
   ...props
 }) => {
-  const [filterKeys, setFilterKeys] = useState({ date: 'all' });
-  const [activeType, setActiveType] = useState('refunds');
+  const [filterKeys, setFilterKeys] = useState({ date: 'today' });
+  const [activeType, setActiveType] = useState('views');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
   const [updatingCharts, setUpdatingCharts] = useState(false)
 
@@ -60,22 +60,25 @@ const Dashboard = ({
     //   }
     // );
 
-    setChartsFeed(reshapeFeed(activities));
+    setChartsFeed(reshapeFeed(activities, getDateValueReferences(filterKeys.date)));
     console.log('updates -------------charts')
     // userPilot routes listener
     // const unlisten = props.history.listen((location, action) => {
     //   if (window.userpilot) window.userpilot.reload();
     // });
-    console.log('Settings',settings)
-  }, [activities,settings]);
+    console.log('Settings', settings)
+  }, [activities, settings]);
 
   const onChange = ({ target: { name, value } }) => {
-    const filters = { ...filterKeys, [name]: value }
+    const filters = { ...filterKeys, [name]: value } 
     setFilterKeys(filters);
 
     setUpdatingCharts(true)
     getDashboardChartsData(
-      filters,
+      {
+        productId: filters.product,
+        date: getDateValueReferences(filters.date),
+      },
       {
         onSuccess: (feed) => {
           setChartsFeed(reshapeFeed(feed));
@@ -108,6 +111,7 @@ const Dashboard = ({
                     defaultValue='All Products'
                     target='name'
                     name='product'
+                    disabled={updatingCharts}
                     onChange={onChange}
                   />
                   <InputRow.SearchInput
@@ -117,8 +121,10 @@ const Dashboard = ({
                     defaultValue={dateOptions[0].label}
                     target='label'
                     name='date'
+                    disabled={updatingCharts}
                     onChange={onChange}
                   />
+                  {updatingCharts && <span className="spinner" />}
                   <i
                     role='presentation'
                     onClick={onOpenChartsSettingsModal}
@@ -151,14 +157,14 @@ const Dashboard = ({
                     activeType={activeType}
                     label='Sales'
                     data={chartsFeed.sums}
-                    name='sales'
+                    name='salesNumber'
                     onClick={setActiveType}
                   />
                   <ChartTypeCard
                     activeType={activeType}
                     label='Cart Conversion'
                     data={chartsFeed.sums}
-                    name='conversion'
+                    name='conversionRate'
                     suffix='%'
                     onClick={setActiveType}
                   />
@@ -166,8 +172,7 @@ const Dashboard = ({
                     activeType={activeType}
                     label='Refunds'
                     data={chartsFeed.sums}
-                    name='refunds'
-                    prefix='$'
+                    name='refundsNumber'
                     onClick={setActiveType}
                     warning
                   />
@@ -193,7 +198,6 @@ const Dashboard = ({
                     label='Cart Abandonments'
                     data={chartsFeed.sums}
                     name='cartAbandonments'
-                    prefix='$'
                     onClick={setActiveType}
                   />
                   <ChartTypeCard
@@ -210,67 +214,40 @@ const Dashboard = ({
                     data={chartsFeed.activities[activeType]}
                     timelineFilter={filterKeys.date}
                     activeTypeValue={activeType}
+                    display={settings.displayMainChart}
                   />
                 </div>
               </div>
               {/* overview insights section */}
               <div className='overview-insights-container'>
-                <InsightBadge
-                  title='Gross Revenue'
-                  value={1579}
-                  icon={<i className='fas fa-eye' />}
-                  chart={(
-                    <MiniChart />
-                  )}
-                />
-                <InsightBadge
-                  title='Net Revenue'
-                  value={37}
-                  icon={<i className='fas fa-user' />}
-                  chart={(
-                    <MiniChart />
-                  )}
-                />
-                <InsightBadge
-                  title='Total Views'
-                  value='$4500.00'
-                  icon={<i className='fas fa-wallet' />}
-                  chart={(
-                    <MiniChart />
-                  )}
-                />
-                <InsightBadge
-                  title='Conversion Rate'
-                  value='$4500.00'
-                  icon={<i className='fas fa-wallet' />}
-                  chart={(
-                    <MiniChart />
-                  )}
-                />
-                <InsightBadge
-                  title='Total Refunds'
-                  value='$4500.00'
-                  icon={<i className='fas fa-wallet' />}
-                  chart={(
-                    <MiniChart />
-                  )}
-                />
-                <InsightBadge
-                  title='Total Transactions'
-                  value='$4500.00'
-                  icon={<i className='fas fa-wallet' />}
-                  chart={(
-                    <MiniChart />
-                  )}
-                />
-                <InsightBadge
-                  title='Total Customers'
-                  value={5}
-                  icon={<i className='fas fa-file-invoice-dollar' />}
-                  chart={(
-                    <MiniChart />
-                  )}
-                />
+                {settings.defaultCardsSettings.sales.map(card => (
+                  <InsightBadge
+                    key={card.value}
+                    {...card}
+                    activeType={activeType}
+                    onClick={setActiveType}
+                    title={card.label}
+                    name={card.value}
+                    value={chartsFeed.sums[card.value]}
+                    chart={(
+                      <MiniChart data={chartsFeed.activities[card.value]} />
+                    )}
+                  />
+                ))}
+                {settings.defaultCardsSettings.refunds.map(card => (
+                  <InsightBadge
+                    key={card.value}
+                    {...card}
+                    activeType={activeType}
+                    onClick={setActiveType}
+                    title={card.label}
+                    name={card.value}
+                    value={chartsFeed.sums[card.value]}
+                    chart={(
+                      <MiniChart data={chartsFeed.activities[card.value]} />
+                    )}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -300,7 +277,7 @@ const mapStateToProps = ({
     settings
   } = {}
 }) => ({
-  filtersLabels: products.map(({ _id: value, name: label }) => ({ label, value })),
+  filtersLabels: [{ label: 'All Products' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
   activities,
   settings
 });

@@ -13,18 +13,18 @@ export default ({ dispatch }) => (next) => (action) => {
 
   dispatch(apiRequest({
     options: {
-      method: 'GET',
+      method: 'PUT',
       uri: '/api/product-activity',
       body: payload,
       contentType: 'json',
     },
     onSuccess: (arg) => {
       if (meta.onSuccess) meta.onSuccess(arg);
-      return getDashboardChartsDataFailed(arg);
+      return getDashboardChartsDataSuccess(arg);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
-      return getDashboardChartsDataSuccess(message);
+      return getDashboardChartsDataFailed(message);
     }
   }));
 };

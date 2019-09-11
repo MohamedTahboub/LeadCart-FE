@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { CodeInputArea } from '../Inputs'
 import PropTypes from 'prop-types';
-
+import { iconsClassesReference, getSymbolsReferences } from 'libs'
 import './style.css';
 
 export const FlexBoxesContainer = ({ children, flex = '', className, ...props }) => (
@@ -44,7 +44,7 @@ export const SmallBox = ({ clickable = false, onClick, className = '', ...props 
 export const Box = ({
   header,
   contentClassName = '',
-  className='',
+  className = '',
   content,
   footer,
   ...props
@@ -75,22 +75,35 @@ export const EmbededScripContainer = ({ headNote, showCopied, script }) => (
 export const InsightBadge = ({
   title,
   value,
+  name,
   chart,
+  show,
   icon
-}) => (
-  <div className='insight-box'>
-    <div className='insight-details'>
-      <span className='insight-icon'>{icon}</span>
+}) => {
+
+  // const iconClassName = iconsClassesReference(name)
+  const { prefixSymbol, suffixSymbol } = getSymbolsReferences(name)
+
+  if (!show) return null;
+  return (
+    <div className='insight-box'>
       <span className='insight-title'>{title}</span>
-    </div>
-    <span className='insight-value'>{value}</span>
-    {chart && (
-      <span className='insight-chart'>
-      {chart}
+      <span className='insight-value'>
+        {prefixSymbol}
+        {isNaN(+value) ? 0 : +value}
+        {suffixSymbol}
       </span>
-    )}
-  </div>
-);
+      {chart && (
+        <span className='insight-chart'>
+          {chart}
+        </span>
+      )}
+      <span className="insight-box-info-tip">
+        <i className="fas fa-info-circle" />
+      </span>
+    </div>
+  )
+}
 
 InsightBadge.propTypes = {
   title: PropTypes.string.isRequired,

@@ -20,7 +20,7 @@ export default (state = initialState, { type, payload }) => {
   case GET_DASHBOARD_CHARTS_DATA_SUCCESS:
     return {
       ...state,
-      activities: payload
+      activities: payload.data
     };
   case UPDATE_DASHBOARD_CHARTS_SETTINGS_SUCCESS:
     return {

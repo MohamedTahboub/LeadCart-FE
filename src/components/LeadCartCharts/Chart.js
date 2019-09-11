@@ -16,6 +16,7 @@ const LoadingIcon = ({
 const AreaChart = ({
   data = [],
   activeTypeValue,
+  display,
   timelineFilter,
 }) => {
   const initialState = {
@@ -94,74 +95,74 @@ const AreaChart = ({
   };
 
 
-  const updateData = (timeline) => {
-    switch (timeline) {
-    case 'today':
-      return {
-        min: moment().subtract(1, 'days').endOf('day'),
-        max: moment()
-      };
-    case 'yesterday ':
-      return {
-        min: moment().subtract(1, 'days'),
-        max: moment().format()
-      };
-    case 'weekToDate':
-      return {
-        min: moment().subtract(7, 'days').endOf('day'),
-        max: moment().format()
-      };
-    case 'lastWeek':
-      return {
-        min: moment().subtract(7, 'days'),
-        max: moment().format()
-      };
-    case 'monthToDate':
-      return {
-        min: moment().subtract(1, 'months').endOf('month'),
-        max: moment().format()
-      };
-    case 'lastMonth':
-      return {
-        min: moment().subtract(1, 'months'),
-        max: moment().format()
-      };
-    case 'last3Months':
-      return {
-        min: moment().subtract(3, 'months'),
-        max: moment().format()
-      };
-    case 'last6Months':
-      return {
-        min: moment().subtract(6, 'months'),
-        max: moment().format()
-      };
-    case 'yearToDate':
-      return {
-        min: moment().subtract(1, 'years').endOf('year'),
-        max: moment().format()
-      };
-    case 'lastYear':
-      return {
-        min: moment().subtract(1, 'years'),
-        max: moment().format()
-      };
-    case 'currentFinancialYear':
-      return {
-        min: moment().subtract(1, 'years').endOf('year'),
-        max: moment().format()
-      };
-    case 'previousFinancialYear':
-      return {
-        min: moment().subtract(2, 'years').endOf('year'),
-        max: moment().subtract(1, 'years').endOf('year')
-      };
-    default: return {
-      min: undefined,
-      max: undefined
-    };
-    }
-  };
+  // const updateData = (timeline) => {
+  //   switch (timeline) {
+  //   case 'today':
+  //     return {
+  //       min: moment().subtract(1, 'days').endOf('day'),
+  //       max: moment()
+  //     };
+  //   case 'yesterday ':
+  //     return {
+  //       min: moment().subtract(1, 'days'),
+  //       max: moment().format()
+  //     };
+  //   case 'weekToDate':
+  //     return {
+  //       min: moment().subtract(7, 'days').endOf('day'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastWeek':
+  //     return {
+  //       min: moment().subtract(7, 'days'),
+  //       max: moment().format()
+  //     };
+  //   case 'monthToDate':
+  //     return {
+  //       min: moment().subtract(1, 'months').endOf('month'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastMonth':
+  //     return {
+  //       min: moment().subtract(1, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'last3Months':
+  //     return {
+  //       min: moment().subtract(3, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'last6Months':
+  //     return {
+  //       min: moment().subtract(6, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'yearToDate':
+  //     return {
+  //       min: moment().subtract(1, 'years').endOf('year'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastYear':
+  //     return {
+  //       min: moment().subtract(1, 'years'),
+  //       max: moment().format()
+  //     };
+  //   case 'currentFinancialYear':
+  //     return {
+  //       min: moment().subtract(1, 'years').endOf('year'),
+  //       max: moment().format()
+  //     };
+  //   case 'previousFinancialYear':
+  //     return {
+  //       min: moment().subtract(2, 'years').endOf('year'),
+  //       max: moment().subtract(1, 'years').endOf('year')
+  //     };
+  //   default: return {
+  //     min: undefined,
+  //     max: undefined
+  //   };
+  //   }
+  // };
 
   useEffect(() => {
     // console.log('Charts Updates');
@@ -177,23 +178,21 @@ const AreaChart = ({
     });
   }, [timelineFilter, data]);
 
-  return (
+  return display ? (
     <div className='dashboard-main-chart' id='chart'>
       <ApexCharts
         options={{
           ...options,
-          options: {
-            ...options.options,
-            xaxis: updateData(timelineFilter)
-          }
+          options: options.options
         }}
         series={state.series}
         type='area'
-        height='350'
+        height='250'
         loading
       />
     </div>
-  );
+  )
+    : null;
 };
 
 
