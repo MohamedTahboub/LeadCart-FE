@@ -18,7 +18,7 @@ import agency from './agency'
 import upsells from './upsells'
 import fulfillments from './fulfillments'
 import emails from './emails'
-import dashboardData from './dashboardData'
+import dashboard from './dashboard'
 
 const rootReducer = combineReducers({
     user,
@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
     agency,
     payments,
     flashMessage,
-    dashboardData,
+    dashboard,
     validation
 })
 
