@@ -158,6 +158,10 @@
 .gray-color{
     background: #C9D3DC;
 }
+.btn.gray-color:hover{
+    /* background: rgb(154, 158, 161); */
+    background: #afb7bd;
+}
 .add-element-notes{
     position: absolute;
     content: '';

@@ -1,0 +1,39 @@
+.chart-preview-card{
+    min-width: 60px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f1f6fe;
+    border-radius: 3px;
+    padding: 10px;
+    transition: background .3s ease-in-out;
+}
+.chart-preview-card.active{
+    background: #d6e6ff;
+}
+.chart-preview-card:hover:not(.active){
+    background: #eaf1fd;
+}
+.chart-preview-card .label{
+    font-size: 13px;
+    color:#2B3748;
+}
+.chart-preview-card .value.warning{
+    color:rgb(231, 119, 99);
+}
+.chart-preview-card .value{
+    font-size: 11px;
+    font-weight: bold;
+    color:#2B3748;
+}
+
+.chart-preview-card .value i.fas {
+    margin: 0 3px;
+    font-size: 9px;
+    opacity: .6;
+}
+
+
+
+

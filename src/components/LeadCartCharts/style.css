@@ -77,3 +77,16 @@
     font-weight: bold;
     color: #2B3748;
 }
+
+
+
+
+/* LOADING ELEMENT */
+.dashboard-main-chart{
+    position: relative;
+}
+.chart-loading{
+    position: absolute;
+    top:50%;
+    left:50%;
+}

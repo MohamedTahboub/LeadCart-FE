@@ -73,8 +73,27 @@
     flex-direction: column;
 }
 .chart-head{
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+}
+.chart-select-filter{
+    margin-left: 20px; 
+}
+div.ant-select.chart-select-filter:first-child{
+    margin-left: 0px ;  
+}
+.chart-head .chart-setting-btn{
+    position: absolute;
+    right:20px;
+    top:10px;
+    color: lightgray;
+    cursor: pointer;
+    transition: color .3s ease-in-out;
+}
+.chart-head .chart-setting-btn:hover{
+    color: #0080fa;
 }
 
 .chart-head-child{
@@ -156,57 +175,7 @@
 
 
 
-/* insights section */
-.overview-insights-container {
-    width: 100%;
-    
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    /* align-items: center; */
-}
-.insight-box{
-    min-width: 150px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0px;
-    margin-top: 10px;
-    padding: 7px;
-    box-shadow: 2px 2px 4px -2px rgba(0,0,0,.2);
-}
-.insight-details{
-    /* margin-left: 35px; */
-    /* margin-left: 15px;
-    margin-top: 10px; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-.insight-icon{
-    /* margin-right:10px;  */
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-}
-.insight-icon i {
-    margin: 0 10px;
-    font-size: 17px;
-    color:#C9D3DC;
-}
-.insight-title {
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    /* font-weight: bold; */
-    color: #2B3748;
-}
-.insight-value {
-    /* font-size: 28px; */
-    font-size: 13px;
-    font-weight: bold;
-    color: #4DA1FF;
-}
+
 
 .dashboard-temp-data-message{
     color:gray;
@@ -217,4 +186,18 @@
     text-align: center;
     border-radius: 3px;
     box-shadow: 2px 2px 4px -2px rgba(0,0,0,.2);
+}
+
+
+
+
+.chart-header-cards{
+    /* width: 100%; */
+    margin:20px 0;
+    display: flex;
+    align-content: space-around;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: #f1f6fe;
+    padding: 10px;
 }
