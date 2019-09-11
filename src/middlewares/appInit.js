@@ -11,6 +11,7 @@ import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettingsSuccess } from 'actions/settings';
+import { getDashboardDataSuccess } from 'actions/dashboard';
 import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
@@ -44,6 +45,10 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getUpsellsSuccess(data.upsells));
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
+    dispatch(getDashboardDataSuccess({
+      activities: data.productActivities,
+      settings: data.preferences && data.preferences.dashboardSettings
+    }));
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,

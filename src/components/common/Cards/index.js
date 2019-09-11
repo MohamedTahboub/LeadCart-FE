@@ -4,10 +4,14 @@ import './style.css';
 import { Modal } from 'components/Modals';
 import ids from 'shortid';
 import { getCurrencySymbol } from 'libs';
+import { property } from 'libs';
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
-import { SmallButton, MiniButton } from '../Buttons';
+import { Button, SmallButton, MiniButton } from '../Buttons';
+import { WarningMessage } from '../Messages';
+import Dialog from '../Dialog';
 import EasyAnimate from '../Animation/EasyAnimate';
+
 
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
@@ -181,6 +185,7 @@ export const PayPalConnectContainer = ({
   const [submitting, setSubmitting] = useState(false);
   const [active, setActive] = useState(props.active);
   const [credits, setCredits] = useState({});
+  const [showWarringDialogue, setShowWarringDialogue] = useState(false);
 
   const onChange = ({ target: { value, name } }) => {
     setCredits({ ...credits, [name]: value });
@@ -189,21 +194,30 @@ export const PayPalConnectContainer = ({
 
   useEffect(() => {
     setActive(props.active);
-  }, [props]);
+
+    return () => {
+      setErrors({});
+      setSubmitting(false);
+      setCredits({});
+    };
+  }, [showForm]);
 
   const onSubmit = async () => {
     if (credits.clientId && credits.clientSecret) {
       setSubmitting(true);
       await onConnect(
-        credits,
+        {
+          cred: credits
+        },
         {
           onSuccess: () => {
             setSubmitting(false);
             setShowForm(false);
+            setActive(true);
           },
-          onFailed: (err = {}) => {
+          onFailed: (message) => {
             setSubmitting(false);
-            setErrors({ message: err.message });
+            setErrors({ message });
           }
         }
       );
@@ -214,10 +228,15 @@ export const PayPalConnectContainer = ({
     }
   };
 
+  const openConnectModal = () => {
+    if (active) setShowWarringDialogue(true);
+    else setShowForm(true);
+  };
+
   return (
     <Fragment>
       <MediumCard
-        onClick={() => setShowForm(true)}
+        onClick={openConnectModal}
         isActive={active}
         imgSrc={imgSrc}
         headline={headline}
@@ -253,15 +272,34 @@ export const PayPalConnectContainer = ({
             className='paypal-connect-input'
             placeholder='Paypal App secret'
           />
-          {errors.message && <span className='paypal-error-message'>{errors.message}</span>}
-          <SmallButton
+          <Button
             disabled={submitting}
             className={submitting ? 'primary-color paypal-submit-btn  spinner' : 'primary-color paypal-submit-btn'}
             onClick={onSubmit}
             children='Connect'
           />
+          {errors.message && <div className='paypal-error-message'>{errors.message}</div>}
+
         </form>
       </Modal>
+      <Dialog
+        onClose={() => setShowWarringDialogue(false)}
+        show={showWarringDialogue}
+        title='You have already integrated Paypal with your account'
+        confirmBtnText='Continue'
+        confirmBtnIcon={null}
+        description={(
+          <WarningMessage>
+            {property('settings.integrations.paypal.overridingWarning')}
+          </WarningMessage>
+        )}
+        onConfirm={() => {
+          setShowWarringDialogue(false);
+          setTimeout(() => {
+            setShowForm(true);
+          }, 100);
+        }}
+      />
     </Fragment>
   );
 };
@@ -392,7 +430,7 @@ export const CouponRowCard = ({
           {type}
           {' '}
             =>
-          </span>
+        </span>
         <span className='value'>{type === 'Flat' ? ` $${amount}` : `${percent}%`}</span>
       </div>
     </div>

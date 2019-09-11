@@ -1,0 +1,17 @@
+{
+    "dailyAvg":"fas fa-user",
+    "transactions":"fas fa-user",
+    "grossRevenue":"fas fa-user",
+    "netRevenue":"fas fa-user",
+    "customers":"fas fa-user",
+    "newCustomers":"fas fa-user",
+    "annualRevenue":"fas fa-user",
+    "conversionRate":"fas fa-user",
+    "views":"fas fa-eye",
+    "refunds":"fas fa-user",
+    "refundRate":"fas fa-user",
+    "refundAmount":"fas fa-user",
+    "refundedCustomers":"fas fa-user",
+    "cartAbandonments":"fas fa-user",
+    "abandonmentsRate":"fas fa-user"
+}

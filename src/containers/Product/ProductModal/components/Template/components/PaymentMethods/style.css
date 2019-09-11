@@ -22,9 +22,3 @@
 .payment-setting-btn{
   display: block;
 }
-
-.payment-error-message{
-  font-size: 13px;
-  color:rgba(255, 99, 71, 0.815);
-  text-align:  center;
-}

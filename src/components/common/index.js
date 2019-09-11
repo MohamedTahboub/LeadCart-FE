@@ -16,6 +16,9 @@ import * as ColorPickers from './ColorPickers'
 import * as Collapsable from './Collapse'
 import * as prefixes from './Prefixes'
 import Table from './Tables'
+import * as messages from './Messages'
+import Dialog from './Dialog'
+
 
 export default {
     Table,
@@ -35,5 +38,7 @@ export default {
     ...cards,
     ...navigators,
     ...prefixes,
-    ...Collapsable
+    ...messages,
+    ...Collapsable,
+    Dialog
 }

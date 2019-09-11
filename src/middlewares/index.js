@@ -25,6 +25,7 @@ import emails from './emails'
 import customers from './customers'
 import billing from './billing'
 import eventsTracker from './eventsTracker'
+import dashboard from './dashboard'
 
 export default [
     eventsTracker,
@@ -49,6 +50,7 @@ export default [
     teamMembers,
     agencyCodeActivation,
     ...subAccounts,
+    ...dashboard,
     flashMessage,
     apiRequest,
     uploadingFiles,

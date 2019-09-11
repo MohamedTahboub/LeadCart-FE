@@ -9,9 +9,10 @@ export const getUserPaymentMethods = (mehtods) => ({
   type: GET_USER_PAYMENTS_METHODS,
   payload: mehtods
 });
-export const activatPaymentMethod = (type) => ({
+export const activatPaymentMethod = (type, meta) => ({
   type: ACTIVATE_PAYMENT,
-  payload: type
+  payload: type,
+  meta
 });
 export const activatPaymentMethodSuccess = (payment) => ({
   type: ACTIVATE_PAYMENT_SUCCESS,

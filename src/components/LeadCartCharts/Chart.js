@@ -1,12 +1,36 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import ApexCharts from 'react-apexcharts';
 import dummyData from 'data/chartData.js';
 import moment from 'moment';
 import './chart.css';
+import PropTypes from 'prop-types';
 
 
-class AreaChart extends Component {
-  state = {
+const LoadingIcon = ({
+  className,
+  show,
+  ...props
+}) => (show ? <div className={`loading spinner ${className}`}>Loading...</div> : null);
+
+
+const AreaChart = ({
+  data = [],
+  activeTypeValue,
+  display,
+  timelineFilter,
+}) => {
+  const initialState = {
+    timeline: timelineFilter,
+    series: [
+      {
+        name: activeTypeValue,
+        data
+      }
+    ]
+  };
+  const [state, setState] = useState(initialState);
+
+  const options = {
     selection: 'one_year',
     options: {
       // annotations: {
@@ -67,89 +91,126 @@ class AreaChart extends Component {
           stops: [0, 100]
         }
       }
-    },
-    series: [
-      {
-        data: dummyData()
-      }
-    ]
+    }
   };
 
 
-  updateData (timeline) {
-    this.setState({
-      selection: timeline
+  // const updateData = (timeline) => {
+  //   switch (timeline) {
+  //   case 'today':
+  //     return {
+  //       min: moment().subtract(1, 'days').endOf('day'),
+  //       max: moment()
+  //     };
+  //   case 'yesterday ':
+  //     return {
+  //       min: moment().subtract(1, 'days'),
+  //       max: moment().format()
+  //     };
+  //   case 'weekToDate':
+  //     return {
+  //       min: moment().subtract(7, 'days').endOf('day'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastWeek':
+  //     return {
+  //       min: moment().subtract(7, 'days'),
+  //       max: moment().format()
+  //     };
+  //   case 'monthToDate':
+  //     return {
+  //       min: moment().subtract(1, 'months').endOf('month'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastMonth':
+  //     return {
+  //       min: moment().subtract(1, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'last3Months':
+  //     return {
+  //       min: moment().subtract(3, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'last6Months':
+  //     return {
+  //       min: moment().subtract(6, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'yearToDate':
+  //     return {
+  //       min: moment().subtract(1, 'years').endOf('year'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastYear':
+  //     return {
+  //       min: moment().subtract(1, 'years'),
+  //       max: moment().format()
+  //     };
+  //   case 'currentFinancialYear':
+  //     return {
+  //       min: moment().subtract(1, 'years').endOf('year'),
+  //       max: moment().format()
+  //     };
+  //   case 'previousFinancialYear':
+  //     return {
+  //       min: moment().subtract(2, 'years').endOf('year'),
+  //       max: moment().subtract(1, 'years').endOf('year')
+  //     };
+  //   default: return {
+  //     min: undefined,
+  //     max: undefined
+  //   };
+  //   }
+  // };
+
+  useEffect(() => {
+    // console.log('Charts Updates');
+    // console.log(data);
+    setState({
+      timeline: timelineFilter,
+      series: [
+        {
+          name: activeTypeValue,
+          data
+        }
+      ]
     });
+  }, [timelineFilter, data]);
 
-    switch (timeline) {
-    case 'one_month':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 May 2019').getTime(),
-            max: moment()
-          }
-        }
-      });
-      break;
-    case 'quarter ':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Feb 2019').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'six_months':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Dec 2018').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'one_year':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 May 2018').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'ytd':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Jan 2019').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'all':
-      this.setState({
-        options: {
-          xaxis: {
-            min: undefined,
-            max: undefined
-          }
-        }
-      });
-      break;
-    default:
-    }
-  }
+  return display ? (
+    <div className='dashboard-main-chart' id='chart'>
+      <ApexCharts
+        options={{
+          ...options,
+          options: options.options
+        }}
+        series={state.series}
+        type='area'
+        height='250'
+        loading
+      />
+    </div>
+  )
+    : null;
+};
 
-  render () {
-    return (
-      <div id='chart'>
-        <div className='chart-toolbar '>
+
+AreaChart.propTypes = {
+  data: PropTypes.arrayOf({}),
+  activeTypeValue: PropTypes.string.isRequired,
+  timelineFilter: PropTypes.string.isRequired,
+};
+AreaChart.defaultProps = {
+  data: []
+};
+
+export default AreaChart;
+/*
+      <LoadingIcon className='chart-loading' show />
+
+
+ <div className='chart-toolbar '>
           <button
             onClick={() => this.updateData('one_month')}
             id='one_month'
@@ -192,16 +253,6 @@ class AreaChart extends Component {
           >
             All
           </button>
-        </div>
-        <ApexCharts
-          options={this.state.options}
-          series={this.state.series}
-          type='area'
-          height='350'
-        />
-      </div>
-    );
-  }
-}
+        </div>`
 
-export default AreaChart;
+*/

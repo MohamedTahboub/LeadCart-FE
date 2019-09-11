@@ -8,8 +8,10 @@ export default ({
   title,
   description,
   onConfirm,
+  cancelBtnIcon = null,
   cancelBtnText = 'cancel',
   confirmBtnText = 'confirm',
+  confirmBtnIcon =  (<i className='fas fa-trash-alt' />),
   ...props
 }) => (
     <Modal onClose={onClose} isVisible={show}>
@@ -20,7 +22,7 @@ export default ({
         {cancelBtnText}
       </Button>
       <Button onClick={onConfirm} className='warning-color margin-with-float-right'>
-        <i className='fas fa-trash-alt' />
+        {confirmBtnIcon}
         {confirmBtnText}
       </Button>
     </Modal>
