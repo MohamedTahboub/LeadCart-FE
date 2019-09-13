@@ -4,7 +4,7 @@ import dummyData from 'data/chartData.js';
 import moment from 'moment';
 import './chart.css';
 import PropTypes from 'prop-types';
-
+import { getDateValueReferences } from 'libs';
 
 const LoadingIcon = ({
   className,
@@ -20,7 +20,7 @@ const AreaChart = ({
   timelineFilter,
 }) => {
   const initialState = {
-    timeline: timelineFilter,
+    // timeline: getDateValueReferences(timelineFilter) || {},
     series: [
       {
         name: activeTypeValue,
@@ -31,65 +31,33 @@ const AreaChart = ({
   const [state, setState] = useState(initialState);
 
   const options = {
-    selection: 'one_year',
-    options: {
-      // annotations: {
-      //   yaxis: [
-      //     {
-      //       y: 30,
-      //       borderColor: '#999',
-      //       label: {
-      //         show: false,
-      //         text: 'Support',
-      //         style: {
-      //           color: '#fff',
-      //           background: '#00E396'
-      //         }
-      //       }
-      //     }
-      //   ],
-      //   xaxis: [
-      //     {
-      //       x: new Date('14 Nov 2012').getTime(),
-      //       borderColor: '#999',
-      //       yAxisIndex: 0,
-      //       label: {
-      //         show: true,
-      //         text: 'Rally',
-      //         style: {
-      //           color: '#fff',
-      //           background: '#775DD0'
-      //         }
-      //       }
-      //     }
-      //   ]
-      // },
-      dataLabels: {
-        enabled: false
-      },
-      markers: {
-        size: 0,
-        style: 'hollow'
-      },
-      xaxis: {
-        type: 'datetime',
-        min: new Date('01 Mar 2018').getTime(),
-        tickAmount: 6
-      },
-      tooltip: {
-        x: {
-          format: 'dd MMM yyyy'
-        }
-      },
-      colors: ['#4DA1FF'],
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shadeIntensity: 1,
-          opacityFrom: 0.7,
-          opacityTo: 0.9,
-          stops: [0, 100]
-        }
+    dataLabels: {
+      enabled: false
+    },
+    markers: {
+      size: 3,
+      style: 'hollow'
+    },
+    xaxis: {
+      type: 'datetime',
+      // x: getDateValueReferences(timelineFilter).min,
+      min: undefined,
+      max: undefined,
+      tickAmount: 1
+    },
+    tooltip: {
+      x: {
+        format: 'dd MMM yyyy'
+      }
+    },
+    colors: ['#4DA1FF'],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        stops: [0, 100]
       }
     }
   };
@@ -168,7 +136,7 @@ const AreaChart = ({
     // console.log('Charts Updates');
     // console.log(data);
     setState({
-      timeline: timelineFilter,
+      // timeline: getDateValueReferences(timelineFilter) || {},
       series: [
         {
           name: activeTypeValue,
@@ -178,13 +146,11 @@ const AreaChart = ({
     });
   }, [timelineFilter, data]);
 
+  console.log(state.series);
   return display ? (
     <div className='dashboard-main-chart' id='chart'>
       <ApexCharts
-        options={{
-          ...options,
-          options: options.options
-        }}
+        options={options}
         series={state.series}
         type='area'
         height='250'
