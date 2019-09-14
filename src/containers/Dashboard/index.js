@@ -32,7 +32,7 @@ const Dashboard = ({
   getDashboardChartsData,
   ...props
 }) => {
-  const [filterKeys, setFilterKeys] = useState({ date: 'today' });
+  const [filterKeys, setFilterKeys] = useState({ date: 'weekToDate' });
   const [activeType, setActiveType] = useState('views');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
   const [updatingCharts, setUpdatingCharts] = useState(false)
