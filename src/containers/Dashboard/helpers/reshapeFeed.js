@@ -1,5 +1,15 @@
 import moment from 'moment';
 
+const getDiffsRate = (salesList, viewsList) => salesList.map(([saleDate, saleNumber]) => {
+  const sameDayExist = viewsList.find(([viewDate]) => viewDate === saleDate);
+  let amount = saleNumber / 1;
+
+  if (sameDayExist) amount = saleNumber / (isNaN(sameDayExist[1]) ? 1 : sameDayExist[1]);
+
+  amount = Math.round(amount * 100);
+  return [saleDate, amount];
+});
+
 export default (feeds = [], fromDate) => {
   try {
     const activitiesSums = feeds.map(({
@@ -77,8 +87,12 @@ export default (feeds = [], fromDate) => {
     activities.salesNumber = groupList(activities.sales).for('date');
 
     // activities.refundRate = calcCartRefundRateList(activities.sales, activities.refunds)
-    // activities.conversionRate = calcCartConversionRateList(activities.sales, activities.views);
+    activities.conversionRate = getDiffsRate(activities.salesNumber, activities.views);
+    activities.refundRate = getDiffsRate(activities.refundsNumber, activities.salesNumber);
+    activities.abandonmentsRate = getDiffsRate(activities.cartAbandonments, activities.salesNumber);
+    activities.abandonmentsRate = getDiffsRate(activities.cartAbandonments, activities.salesNumber);
 
+    // activities.netRevenue = getDiffs(activities.cartAbandonments, activities.salesNumber);
 
     return {
       sums,
@@ -144,8 +158,3 @@ const groupList = (list) => ({
   }
 });
 
-
-// const getConversionRate = (salesList, viewsList) => {
-
-
-// }

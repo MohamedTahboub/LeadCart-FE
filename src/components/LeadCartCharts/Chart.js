@@ -5,6 +5,7 @@ import moment from 'moment';
 import './chart.css';
 import PropTypes from 'prop-types';
 import { getDateValueReferences } from 'libs';
+import { getLabelByValue } from 'data/dashboardSettings';
 
 const LoadingIcon = ({
   className,
@@ -13,6 +14,9 @@ const LoadingIcon = ({
 }) => (show ? <div className={`loading spinner ${className}`}>Loading...</div> : null);
 
 
+const isPercentageRequires = (type) => {
+  console.log('type==>', type);
+};
 const AreaChart = ({
   data = [],
   activeTypeValue,
@@ -31,6 +35,14 @@ const AreaChart = ({
   const [state, setState] = useState(initialState);
 
   const options = {
+    chart: {
+      zoom: {
+        enabled: false
+      },
+      toolbar: {
+        show: false
+      }
+    },
     dataLabels: {
       enabled: false
     },
@@ -43,8 +55,17 @@ const AreaChart = ({
       // x: getDateValueReferences(timelineFilter).min,
       min: undefined,
       max: undefined,
+
       tickAmount: 1
     },
+    // yaxis: {
+    //   labels: {
+    //     formatter: (value) => {
+    //       if (isPercentageRequires(activeTypeValue)) return `${value.toFixed(0)}%`;
+    //       return value.toFixed(0);
+    //     },
+    //   },
+    // },
     tooltip: {
       x: {
         format: 'dd MMM yyyy'
@@ -139,14 +160,13 @@ const AreaChart = ({
       // timeline: getDateValueReferences(timelineFilter) || {},
       series: [
         {
-          name: activeTypeValue,
+          name: getLabelByValue(activeTypeValue),
           data
         }
       ]
     });
   }, [timelineFilter, data]);
 
-  console.log(state.series);
   return display ? (
     <div className='dashboard-main-chart' id='chart'>
       <ApexCharts
