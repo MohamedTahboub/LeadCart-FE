@@ -10,7 +10,6 @@ export default (feeds = [], fromDate) => {
         prospects
       } = {}
     }) => ({
-
       sums: {
         refundsAmount: getSumOf('amount').from(refunds),
         refundsNumber: getSumOf().from(refunds),
@@ -20,10 +19,10 @@ export default (feeds = [], fromDate) => {
         salesNumber: getSumOf().from(sales)
       },
       activities: {
-        refunds: getListOf(['date', 'amount']).from(refunds),
+        refunds, // : getListOf(['date', 'amount']).from(refunds),
         views,
-        prospects: getListOf(['date']).from(prospects),
-        sales: getListOf(['date', 'amount']).from(sales),
+        prospects, // : getListOf(['date']).from(prospects),
+        sales, // getListOf(['date', 'amount']).from(sales),
       }
     }));
 
@@ -72,10 +71,16 @@ export default (feeds = [], fromDate) => {
     sums.cartAbandonments = sums.prospects;
     sums.abandonmentsRate = divided(sums.prospects).by(sums.salesNumber, true);
 
-    console.log(
-      sums,
-      activities
-    );
+    activities.refunds = groupList(activities.refunds).for('date');
+    activities.views = groupList(activities.views).for();
+    activities.prospects = groupList(activities.prospects).for('date');
+    activities.sales = groupList(activities.sales).for('date');
+
+    // activities.refundRate = calcCartRefundRateList(activities.sales, activities.refunds)
+    // activities.conversionRate = calcCartConversionRateList(activities.sales, activities.views);
+
+
+    console.log('activities List =====> ', activities);
     return {
       sums,
       activities
@@ -110,3 +115,28 @@ const divided = (amount) => ({
   }
 });
 
+
+const groupList = (list) => ({
+  for: (key) => {
+    const group = list.reduce((group, item) => {
+      const DayDate = moment(key ? item[key] : item).format('YYYY-MM-DDTHH:mm');
+      if (group[DayDate]) group[DayDate]++;
+      else group[DayDate] = 1;
+      return group;
+    }, {});
+
+
+    const sortDates = (a, b) => {
+      const isBefore = moment(a[0]).isBefore(b[0]);
+      return isBefore ? -1 : 1;
+    };
+
+    return Object.entries(group).sort(sortDates);
+  }
+});
+
+
+// const getConversionRate = (salesList, viewsList) => {
+
+
+// }

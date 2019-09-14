@@ -70,8 +70,11 @@ const Dashboard = ({
   }, [activities, settings]);
 
   const onChange = ({ target: { name, value } }) => {
-    const filters = { ...filterKeys, [name]: value } 
+    const filters = { ...filterKeys, [name]: value }
     setFilterKeys(filters);
+
+    if (filters['product'] === 'all')
+      filters['product'] = undefined
 
     setUpdatingCharts(true)
     getDashboardChartsData(
@@ -277,7 +280,7 @@ const mapStateToProps = ({
     settings
   } = {}
 }) => ({
-  filtersLabels: [{ label: 'All Products' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
+  filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
   activities,
   settings
 });
