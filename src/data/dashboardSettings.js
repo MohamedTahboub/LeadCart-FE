@@ -1,6 +1,6 @@
 
 
-export default {
+const settings = {
   defaultCardsSettings: {
     sales: [
       { value: 'dailyAvg', label: 'Average Daily Revenue', show: true },
@@ -31,4 +31,14 @@ export default {
     ]
   },
   displayMainChart: true
+};
+
+export default settings;
+
+export const getLabelByValue = (value) => {
+  let label = settings.defaultCardsSettings.sales.find(({ value: v }) => v === value);
+
+  if (!label) label = settings.defaultCardsSettings.refunds.find(({ value: v }) => v === value);
+
+  return label ? label.label : value;
 };

@@ -32,7 +32,7 @@ const Dashboard = ({
   getDashboardChartsData,
   ...props
 }) => {
-  const [filterKeys, setFilterKeys] = useState({ date: 'today' });
+  const [filterKeys, setFilterKeys] = useState({ date: 'weekToDate' });
   const [activeType, setActiveType] = useState('views');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
   const [updatingCharts, setUpdatingCharts] = useState(false)
@@ -70,15 +70,13 @@ const Dashboard = ({
   }, [activities, settings]);
 
   const onChange = ({ target: { name, value } }) => {
-    const filters = { ...filterKeys, [name]: value } 
+    const filters = { ...filterKeys, [name]: value }
     setFilterKeys(filters);
+
 
     setUpdatingCharts(true)
     getDashboardChartsData(
-      {
-        productId: filters.product,
-        date: getDateValueReferences(filters.date),
-      },
+      constructFilters(filters),
       {
         onSuccess: (feed) => {
           setChartsFeed(reshapeFeed(feed));
@@ -92,10 +90,18 @@ const Dashboard = ({
     );
   };
 
+  const constructFilters = (filters) => {
+    if (filters['product'] === 'all')
+      filters['product'] = undefined
 
+    return {
+      productId: filters.product,
+      date: getDateValueReferences(filters.date),
+    }
+  }
   return (
     <Page>
-      <PageHeader withRefreshBtn>
+      <PageHeader withRefreshBtn data={{ chartsFilters: constructFilters(filterKeys) }}>
         <MainTitle>Sales Overview</MainTitle>
       </PageHeader>
       <PageContent>
@@ -277,7 +283,7 @@ const mapStateToProps = ({
     settings
   } = {}
 }) => ({
-  filtersLabels: [{ label: 'All Products' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
+  filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
   activities,
   settings
 });

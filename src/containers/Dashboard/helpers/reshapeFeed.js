@@ -1,5 +1,15 @@
 import moment from 'moment';
 
+const getDiffsRate = (salesList, viewsList) => salesList.map(([saleDate, saleNumber]) => {
+  const sameDayExist = viewsList.find(([viewDate]) => viewDate === saleDate);
+  let amount = saleNumber / 1;
+
+  if (sameDayExist) amount = saleNumber / (isNaN(sameDayExist[1]) ? 1 : sameDayExist[1]);
+
+  amount = Math.round(amount * 100);
+  return [saleDate, amount];
+});
+
 export default (feeds = [], fromDate) => {
   try {
     const activitiesSums = feeds.map(({
@@ -10,7 +20,6 @@ export default (feeds = [], fromDate) => {
         prospects
       } = {}
     }) => ({
-
       sums: {
         refundsAmount: getSumOf('amount').from(refunds),
         refundsNumber: getSumOf().from(refunds),
@@ -20,10 +29,10 @@ export default (feeds = [], fromDate) => {
         salesNumber: getSumOf().from(sales)
       },
       activities: {
-        refunds: getListOf(['date', 'amount']).from(refunds),
+        refunds, // : getListOf(['date', 'amount']).from(refunds),
         views,
-        prospects: getListOf(['date']).from(prospects),
-        sales: getListOf(['date', 'amount']).from(sales),
+        prospects, // : getListOf(['date']).from(prospects),
+        sales, // getListOf(['date', 'amount']).from(sales),
       }
     }));
 
@@ -72,10 +81,19 @@ export default (feeds = [], fromDate) => {
     sums.cartAbandonments = sums.prospects;
     sums.abandonmentsRate = divided(sums.prospects).by(sums.salesNumber, true);
 
-    console.log(
-      sums,
-      activities
-    );
+    activities.refundsNumber = groupList(activities.refunds).for('date');
+    activities.views = groupList(activities.views).for();
+    activities.cartAbandonments = groupList(activities.prospects).for('date');
+    activities.salesNumber = groupList(activities.sales).for('date');
+
+    // activities.refundRate = calcCartRefundRateList(activities.sales, activities.refunds)
+    activities.conversionRate = getDiffsRate(activities.salesNumber, activities.views);
+    activities.refundRate = getDiffsRate(activities.refundsNumber, activities.salesNumber);
+    activities.abandonmentsRate = getDiffsRate(activities.cartAbandonments, activities.salesNumber);
+    activities.abandonmentsRate = getDiffsRate(activities.cartAbandonments, activities.salesNumber);
+
+    // activities.netRevenue = getDiffs(activities.cartAbandonments, activities.salesNumber);
+
     return {
       sums,
       activities
@@ -107,6 +125,36 @@ const divided = (amount) => ({
   by: (b, isPercent) => {
     const percents = Math.round((amount / ((b === 0 || isNaN(b)) ? 1 : b)) * 100);
     return isPercent ? percents : percents / 100;
+  }
+});
+
+
+const groupList = (list) => ({
+  for: (key) => {
+    const group = list.reduce((group, item) => {
+      const DayDate = moment(key ? item[key] : item).format('YYYY-MM-DD');// YYYY-MM-DDTHH:mm
+      if (group[DayDate]) group[DayDate]++;
+      else group[DayDate] = 1;
+      return group;
+    }, {});
+
+
+    const sortDates = (a, b) => {
+      const isBefore = moment(a[0]).isBefore(b[0]);
+      return isBefore ? -1 : 1;
+    };
+
+    let result = Object.entries(group).sort(sortDates);
+
+    if (result.length === 1) {
+      result.push([
+        moment().subtract(1, 'weeks').format('YYYY-MM-DD'),
+        0
+      ]);
+
+      result = result.reverse();
+    }
+    return result;
   }
 });
 
