@@ -37,7 +37,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   if (!isLoggedIn) return next(action);
   // /users/launch
 
-  const { meta = {} } = action;
+  const { payload, meta = {} } = action;
   const onLunchSuccess = (data) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
@@ -45,10 +45,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getUpsellsSuccess(data.upsells));
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
-    dispatch(getDashboardDataSuccess({
-      activities: data.productActivities,
-      settings: data.preferences && data.preferences.dashboardSettings
-    }));
+    dispatch(getDashboardDataSuccess(data.dashboard));
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,
@@ -67,9 +64,10 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   upadateIntercomeWithUserDetails(user, { products });
   dispatch(apiRequest({
     options: {
-      method: 'get',
+      method: 'post',
       uri: '/api/users/launch',
-      contentType: 'json'
+      contentType: 'json',
+      body: payload
     },
     onSuccess: (args) => {
       meta.onSuccess && meta.onSuccess(args);

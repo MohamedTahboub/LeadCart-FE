@@ -71,16 +71,15 @@ export default (feeds = [], fromDate) => {
     sums.cartAbandonments = sums.prospects;
     sums.abandonmentsRate = divided(sums.prospects).by(sums.salesNumber, true);
 
-    activities.refunds = groupList(activities.refunds).for('date');
+    activities.refundsNumber = groupList(activities.refunds).for('date');
     activities.views = groupList(activities.views).for();
-    activities.prospects = groupList(activities.prospects).for('date');
-    activities.sales = groupList(activities.sales).for('date');
+    activities.cartAbandonments = groupList(activities.prospects).for('date');
+    activities.salesNumber = groupList(activities.sales).for('date');
 
     // activities.refundRate = calcCartRefundRateList(activities.sales, activities.refunds)
     // activities.conversionRate = calcCartConversionRateList(activities.sales, activities.views);
 
 
-    console.log('activities List =====> ', activities);
     return {
       sums,
       activities
@@ -119,7 +118,7 @@ const divided = (amount) => ({
 const groupList = (list) => ({
   for: (key) => {
     const group = list.reduce((group, item) => {
-      const DayDate = moment(key ? item[key] : item).format('YYYY-MM-DDTHH:mm');
+      const DayDate = moment(key ? item[key] : item).format('YYYY-MM-DD');// YYYY-MM-DDTHH:mm
       if (group[DayDate]) group[DayDate]++;
       else group[DayDate] = 1;
       return group;
@@ -131,7 +130,17 @@ const groupList = (list) => ({
       return isBefore ? -1 : 1;
     };
 
-    return Object.entries(group).sort(sortDates);
+    let result = Object.entries(group).sort(sortDates);
+
+    if (result.length === 1) {
+      result.push([
+        moment().subtract(1, 'weeks').format('YYYY-MM-DD'),
+        0
+      ]);
+
+      result = result.reverse();
+    }
+    return result;
   }
 });
 
