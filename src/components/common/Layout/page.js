@@ -28,6 +28,7 @@ const Header = ({
   dflex,
   withRefreshBtn,
   flexColumn,
+  data,
   showFlashMessage,
   appInit,
   ...props
@@ -37,7 +38,7 @@ const Header = ({
   const onRefresh = () => {
     setRefresh(true);
     appInit(
-      {},
+      data,
       {
         onSuccess: () => {
           setRefresh(false);

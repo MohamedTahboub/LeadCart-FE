@@ -73,15 +73,10 @@ const Dashboard = ({
     const filters = { ...filterKeys, [name]: value }
     setFilterKeys(filters);
 
-    if (filters['product'] === 'all')
-      filters['product'] = undefined
 
     setUpdatingCharts(true)
     getDashboardChartsData(
-      {
-        productId: filters.product,
-        date: getDateValueReferences(filters.date),
-      },
+      constructFilters(filters),
       {
         onSuccess: (feed) => {
           setChartsFeed(reshapeFeed(feed));
@@ -95,10 +90,18 @@ const Dashboard = ({
     );
   };
 
+  const constructFilters = (filters) => {
+    if (filters['product'] === 'all')
+      filters['product'] = undefined
 
+    return {
+      productId: filters.product,
+      date: getDateValueReferences(filters.date),
+    }
+  }
   return (
     <Page>
-      <PageHeader withRefreshBtn>
+      <PageHeader withRefreshBtn data={{ chartsFilters: constructFilters(filterKeys) }}>
         <MainTitle>Sales Overview</MainTitle>
       </PageHeader>
       <PageContent>
