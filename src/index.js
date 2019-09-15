@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-
+import moment from 'moment'
 // Routing
 import { BrowserRouter, withRouter, Switch, Route } from 'react-router-dom';
 // import { createStore } from 'redux';
@@ -68,7 +68,17 @@ import VerifyAccount from './containers/VerifyAccount';
 
 
 window.onload = () => {
-    store.dispatch({ type: APP_INIT })
+    store.dispatch({
+        type: APP_INIT,
+        payload: {
+            chartsFilters: {
+                date: {
+                    min: moment().subtract(7, 'days').endOf('day').format('YYYY-MM-DD'),
+                    max: moment().format('YYYY-MM-DD')
+                }
+            }
+        }
+    })
 }
 
 ReactDOM.render(
@@ -76,7 +86,7 @@ ReactDOM.render(
         <React.Fragment>
             <LoadingBar />
             <ErrorBoundary>
-            <BrowserRouter>
+                <BrowserRouter>
                     <Switch >
                         <Route exact path='/login' component={Login} />
                         <Route exact path='/signup' component={SignUp} />
