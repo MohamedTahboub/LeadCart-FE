@@ -9,4 +9,4 @@ export { default as marketPlaceSettingSchema } from './settings';
 export { default as couponSchema } from './couponSchema';
 export { default as upgradeUserSchema } from './userUpgrade';
 export { freeTrailSignup, proSignup } from './proSignup';
- 
+export { default as dashboardChartsSettings } from './dashboardChartsSettings'

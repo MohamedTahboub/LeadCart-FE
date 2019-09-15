@@ -2,8 +2,7 @@ import moment from 'moment';
 
 export default {
   today: {
-    min: moment().startOf('day').format('YYYY-MM-DD'),
-    max: moment().format('YYYY-MM-DD')
+    min: moment().format('YYYY-MM-DD')
   },
   yesterday: {
     min: moment().subtract(1, 'days').format('YYYY-MM-DD'),

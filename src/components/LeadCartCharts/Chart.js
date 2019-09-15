@@ -56,7 +56,7 @@ const AreaChart = ({
       min: undefined,
       max: undefined,
 
-      tickAmount: 1
+      tickAmount: 5
     },
     // yaxis: {
     //   labels: {

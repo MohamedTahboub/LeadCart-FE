@@ -23,7 +23,7 @@ const settings = {
       { value: 'refunds', label: 'Refunds', show: true },
       { value: 'refundRate', label: 'Refund Rate', show: true },
       {
-        value: 'refundAmount', label: 'Refund Amount', show: false
+        value: 'refundsAmount', label: 'Refunds Amount', show: false
       },
       {
         value: 'refundedCustomers', label: 'Refunded Customers', disabled: true, show: false
