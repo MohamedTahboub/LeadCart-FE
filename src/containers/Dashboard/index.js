@@ -145,11 +145,11 @@ const Dashboard = ({
                 <div className='chart-header-cards'>
                   <ChartTypeCard
                     activeType={activeType}
-                    label='Avg. daily rev'
+                    label='Net Revenue'
                     data={chartsFeed.sums}
-                    name='dailyAvg'
-                    onClick={setActiveType}
+                    name='netRevenue'
                     prefix='$'
+                    onClick={setActiveType}
                   />
                   <ChartTypeCard
                     activeType={activeType}
@@ -193,12 +193,13 @@ const Dashboard = ({
                   />
                   <ChartTypeCard
                     activeType={activeType}
-                    label='Net Revenue'
+                    label='Gross Revenue'
                     data={chartsFeed.sums}
-                    name='netRevenue'
-                    prefix='$'
+                    name='grossRevenue'
                     onClick={setActiveType}
+                    prefix='$'
                   />
+
                   <ChartTypeCard
                     activeType={activeType}
                     label='Cart Abandonments'

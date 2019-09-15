@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import * as dashboardActions from '../../../../actions/dashboard';
 import * as flashMessagesActions from '../../../../actions/flashMessage';
 import dashboardSettings from 'data/dashboardSettings'
-
+import * as Schemas  from 'libs/validation'
 
 const { Button, InputRow } = common;;
 
@@ -64,35 +64,50 @@ const SettingsModal = ({
     setDisplayMainChart(settings.displayMainChart)
     setOptions(settings.defaultCardsSettings)
 
-  }, [show , settings]);
+  }, [show, settings]);
 
-  const onSave = () => {
-    setSaving(true);
-    updateDashboardChartsSettings(
-      {
-        dashboardSettings: {
-          defaultCardsSettings: options,
-          displayMainChart
-        }
-      },
-      {
-        onSuccess: (arg) => {
-          setSaving(false);
-          showFlashMessage({
-            type: 'success',
-            message: 'Dashboard Customization Settings Updated Successfully'
-          });
-          onClose()
-        },
-        onFailed: (message) => {
-          setSaving(false);
-          showFlashMessage({
-            type: 'failed',
-            message: 'Failed to Save Dashboard Customization Settings'
-          });
-        }
+  const onSave = async () => {
+    const settings = {
+      dashboardSettings: {
+        defaultCardsSettings: options,
+        displayMainChart
       }
-    );
+    };
+
+    const { isValid, value: validSettings, errors } = await Schemas.dashboardChartsSettings(settings)
+
+    if (isValid) {
+      setSaving(true);
+      updateDashboardChartsSettings(
+        validSettings
+        ,
+        {
+          onSuccess: (arg) => {
+            setSaving(false);
+            showFlashMessage({
+              type: 'success',
+              message: 'Dashboard Customization Settings Updated Successfully'
+            });
+            onClose()
+          },
+          onFailed: (message) => {
+            setSaving(false);
+            showFlashMessage({
+              type: 'failed',
+              message: 'Failed to Save Dashboard Customization Settings'
+            });
+          }
+        }
+      );
+
+    } else {
+      console.log("isValid" , isValid)
+      console.log("errors" , errors)
+      showFlashMessage({
+        type: 'failed',
+        message: 'Failed to Save Dashboard Customization Settings'
+      });
+    }
   };
 
   return (
