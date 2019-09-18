@@ -18,10 +18,10 @@ const {
 } = common;
 
 const AddNewButton = ({ onClick, ...props }) => (
-  <Button onClick={onClick} className='primary-color medium-add-btn explort-csv-btn'>
+  <Button onClick={onClick} className='primary-color'>
     <i className='fas fa-plus' />
     {' '}
-    Add new
+    New Sub Account
   </Button>
 );
 
