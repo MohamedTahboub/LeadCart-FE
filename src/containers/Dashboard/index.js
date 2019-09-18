@@ -8,7 +8,7 @@ import { ChartTypeCard, ChartsSettingsModal } from './components';
 import { reshapeFeed } from './helpers';
 import * as dashboardActions from 'actions/dashboard'
 import dashboardSettings from 'data/dashboardSettings'
-import { getDateValueReferences } from 'libs'
+import { getDateValueReferences,getChartPreviewCardDescription } from 'libs'
 import './style.css';
 
 import common from 'components/common';
@@ -235,6 +235,7 @@ const Dashboard = ({
                     onClick={setActiveType}
                     title={card.label}
                     name={card.value}
+                    description={getChartPreviewCardDescription(card.value)}
                     value={chartsFeed.sums[card.value]}
                     chart={(
                       <MiniChart data={chartsFeed.activities[card.value]} />
@@ -249,6 +250,7 @@ const Dashboard = ({
                     onClick={setActiveType}
                     title={card.label}
                     name={card.value}
+                    description={getChartPreviewCardDescription(card.value)}
                     value={chartsFeed.sums[card.value]}
                     chart={(
                       <MiniChart data={chartsFeed.activities[card.value]} />

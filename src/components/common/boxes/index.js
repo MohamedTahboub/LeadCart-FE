@@ -77,6 +77,7 @@ export const InsightBadge = ({
   value,
   name,
   chart,
+  description,
   show,
   icon
 }) => {
@@ -98,9 +99,13 @@ export const InsightBadge = ({
           {chart}
         </span>
       )}
-      <span className="insight-box-info-tip">
-        <i className="fas fa-info-circle" />
-      </span>
+      {description && (
+        <div
+          data-label={description}
+          className="insight-box-info-tip">
+          <i className="fas fa-info-circle" />
+        </div>
+      )}
     </div>
   )
 }

@@ -114,6 +114,7 @@
     flex-wrap: wrap;
     margin: 0px 10px 0px 15px;
     /* margin: 10px 0; */
+    overflow: hidden;
 }
 
 .insight-box{
@@ -176,10 +177,42 @@ span.insight-chart {
     bottom: 5px;
     left: 8px;
     cursor: pointer;
+    z-index: 100;
+
 }
 .insight-box-info-tip .fas{
     font-size: 10px;
     color: #4DA1FF;
 }
-
+.insight-box-info-tip::after{
+    position: absolute;
+    top: 100%;
+    left:15px;
+    padding: 3px 5px;
+    background: #4DA1FF;
+    color:white;
+    content: attr(data-label);
+    min-width: 170px;
+    max-width: 300px;
+    opacity: 0;
+    line-height: 13px;
+    font-size: 11px;
+    border-radius: 5px;
+    text-transform: lowercase;
+    transform:translateX(-10%);
+    cursor: default;
+    transition: all .3s ease-in-out;
+}
+.insight-box-info-tip:hover::after{
+    transform:translateX(0);
+    opacity: .9;
+}
+/* 
+.insight-box:nth-last-child(-n+3) .insight-box-info-tip::after{
+    left:-100px;
+}
+.insight-box:nth-last-child(-n+2) .insight-box-info-tip::after{
+    top: -25px;
+    left:20px;
+} */
 /* insights box section style ends */
