@@ -250,15 +250,16 @@ export const PayPalConnectContainer = ({
         <form className='paypal-form'>
           <input
             type='text'
-            onChange={onChange}
+            onBlur={onChange}
             name='handler'
             disabled={submitting}
+            autoComplete='off'
             className='paypal-connect-input'
             placeholder='Paypal App Name (just for presentation purpose)'
           />
           <input
             type='text'
-            onChange={onChange}
+            onBlur={onChange}
             name='clientId'
             disabled={submitting}
             className='paypal-connect-input'
@@ -266,7 +267,7 @@ export const PayPalConnectContainer = ({
           />
           <input
             type='text'
-            onChange={onChange}
+            onBlur={onChange}
             name='clientSecret'
             disabled={submitting}
             className='paypal-connect-input'

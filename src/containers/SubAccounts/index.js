@@ -18,10 +18,10 @@ const {
 } = common;
 
 const AddNewButton = ({ onClick, ...props }) => (
-  <Button onClick={onClick} className='primary-color medium-add-btn explort-csv-btn'>
+  <Button onClick={onClick} className='primary-color'>
     <i className='fas fa-plus' />
     {' '}
-    Add new
+    New Sub Account
   </Button>
 );
 
@@ -147,56 +147,58 @@ class Agency extends Component {
             )}
           </Table>
         </PageContent>
-        <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
-          <MainTitle className='margin-b-40'>Create Sub-Accounts</MainTitle>
-          <InputRow>
-            <InputRow.Label error={errors.firstName}>First Name:</InputRow.Label>
-            <InputRow.SmallInput
-              name='firstName'
-              onChange={this.onFieldChange}
-              value={subAccountModel.firstName}
-              error={errors.firstName}
-              className='margin-left-30 reset-font-size'
-            />
-          </InputRow>
-          <InputRow>
-            <InputRow.Label error={errors.lastName}>Last Name:</InputRow.Label>
-            <InputRow.SmallInput
-              name='lastName'
-              onChange={this.onFieldChange}
-              value={subAccountModel.lastName}
-              error={errors.lastName}
-              className='margin-left-30 reset-font-size'
-            />
-          </InputRow>
-          <InputRow>
-            <InputRow.Label error={errors.subDomain}>SubDomain:</InputRow.Label>
-            <InputRow.SmallInput
-              name='subDomain'
-              onChange={this.onFieldChange}
-              value={subAccountModel.subDomain}
-              error={errors.subDomain}
-              className='margin-left-30 reset-font-size'
-            />
-          </InputRow>
-          <InputRow>
-            <InputRow.Label error={errors.email}>Email Address:</InputRow.Label>
-            <InputRow.SmallInput
-              name='email'
-              onChange={this.onFieldChange}
-              value={subAccountModel.email}
-              error={errors.email}
-              className='margin-left-30 reset-font-size'
-            />
-          </InputRow>
+        {this.state.isModalVisable && (
+          <Modal onClose={this.toggleModal} isVisible={this.state.isModalVisable}>
+            <MainTitle className='margin-b-40'>Create Sub-Accounts</MainTitle>
+            <InputRow>
+              <InputRow.Label error={errors.firstName}>First Name:</InputRow.Label>
+              <InputRow.SmallInput
+                name='firstName'
+                onChange={this.onFieldChange}
+                value={subAccountModel.firstName}
+                error={errors.firstName}
+                className='margin-left-30 reset-font-size'
+              />
+            </InputRow>
+            <InputRow>
+              <InputRow.Label error={errors.lastName}>Last Name:</InputRow.Label>
+              <InputRow.SmallInput
+                name='lastName'
+                onChange={this.onFieldChange}
+                value={subAccountModel.lastName}
+                error={errors.lastName}
+                className='margin-left-30 reset-font-size'
+              />
+            </InputRow>
+            <InputRow>
+              <InputRow.Label error={errors.subDomain}>SubDomain:</InputRow.Label>
+              <InputRow.SmallInput
+                name='subDomain'
+                onChange={this.onFieldChange}
+                value={subAccountModel.subDomain}
+                error={errors.subDomain}
+                className='margin-left-30 reset-font-size'
+              />
+            </InputRow>
+            <InputRow>
+              <InputRow.Label error={errors.email}>Email Address:</InputRow.Label>
+              <InputRow.SmallInput
+                name='email'
+                onChange={this.onFieldChange}
+                value={subAccountModel.email}
+                error={errors.email}
+                className='margin-left-30 reset-font-size'
+              />
+            </InputRow>
 
-          {errors.message && <span className='error-message'>{errors.message}</span>}
-          <Button onClick={this.createSubAccount} className='primary-color margin-with-float-right'>
-            <i className='fas fa-plus' />
-            {' '}
-            Invite
-          </Button>
-        </Modal>
+            {errors.message && <span className='error-message'>{errors.message}</span>}
+            <Button onClick={this.createSubAccount} className='primary-color margin-with-float-right'>
+              <i className='fas fa-plus' />
+              {' '}
+              Invite
+            </Button>
+          </Modal>
+        )}
       </Page>
     );
   }

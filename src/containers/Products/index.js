@@ -103,26 +103,30 @@ const Products = ({
         ))
           : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
         }
-        <PrecreateProductModals
-          show={showCreateModal}
-          onClose={() => setShowProductModal(false)}
-          {...props}
-        />
+        {!!showCreateModal && (
+          <PrecreateProductModals
+            show={showCreateModal}
+            onClose={() => setShowProductModal(false)}
+            {...props}
+          />
+        )}
 
       </PageContent>
 
-      <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
-        <MainTitle>Are you sure,you want delete this product ?</MainTitle>
-        <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
-          {' '}
-          Cancel
-        </Button>
-        <Button onClick={onProductDelete} className='warning-color margin-with-float-right'>
-          <i className='fas fa-trash-alt' />
-          {' '}
-          Delete
-        </Button>
-      </Modal>
+      {!!showDelete && (
+        <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
+          <MainTitle>Are you sure,you want delete this product ?</MainTitle>
+          <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
+            {' '}
+            Cancel
+          </Button>
+          <Button onClick={onProductDelete} className='warning-color margin-with-float-right'>
+            <i className='fas fa-trash-alt' />
+            {' '}
+            Delete
+          </Button>
+        </Modal>
+      )}
     </Page>
   );
 };
