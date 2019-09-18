@@ -15,8 +15,14 @@ export default ({
   affectIntercom = true,
   ...props
 }) => {
-  if (affectIntercom) showIntercomIcon(!isVisible);
+  // if (affectIntercom) showIntercomIcon(!isVisible);
 
+  useEffect(() => {
+    showIntercomIcon(!isVisible);
+    return () => {
+      showIntercomIcon(isVisible);
+    };
+  }, [isVisible]);
   // const onClose = (e) => {
   //   if (e.key === 'Escape' && isVisible) props.onClose();
 
@@ -39,7 +45,7 @@ export default ({
           {!hideCloseBtn
             && (<span onClick={onClose} className={`modal-close-btn ${closeBtnClassName}`} role='presentation'>
               <i className='fas fa-times' />
-                </span>
+            </span>
             )}
           {children}
         </SlidingAnimation>

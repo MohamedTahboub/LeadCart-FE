@@ -13,7 +13,12 @@ export default ({
   footer,
   isVisible
 }) => {
-  showIntercomIcon(!isVisible);
+  useEffect(() => {
+    showIntercomIcon(!isVisible);
+    return () => {
+      showIntercomIcon(isVisible);
+    };
+  }, [isVisible]);
 
   return (isVisible
     ? (
@@ -25,14 +30,14 @@ export default ({
               <i className='fas fa-chevron-circle-left' />
             </span>
             {header}
-          </div>
+                      </div>
           )}
           <div className={`slide-modal-body ${bodyClassName}`}>
             {children}
           </div>
           {footer && (<div className='slide-modal-footer'>
             {footer}
-          </div>
+                      </div>
           )}
         </SlidingAnimation>
       </EasyAnimate>
