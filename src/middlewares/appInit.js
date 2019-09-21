@@ -11,6 +11,7 @@ import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettingsSuccess } from 'actions/settings';
+import { getDashboardDataSuccess } from 'actions/dashboard';
 import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
@@ -36,6 +37,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   if (!isLoggedIn) return next(action);
   // /users/launch
 
+  const { payload, meta = {} } = action;
   const onLunchSuccess = (data) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
@@ -43,6 +45,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getUpsellsSuccess(data.upsells));
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
+    dispatch(getDashboardDataSuccess(data.dashboard));
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,
@@ -61,12 +64,19 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   upadateIntercomeWithUserDetails(user, { products });
   dispatch(apiRequest({
     options: {
-      method: 'get',
+      method: 'post',
       uri: '/api/users/launch',
-      contentType: 'json'
+      contentType: 'json',
+      body: payload
     },
-    onSuccess: onLunchSuccess,
-    onFailed: appLaunchFailed
+    onSuccess: (args) => {
+      meta.onSuccess && meta.onSuccess(args);
+      return onLunchSuccess(args);
+    },
+    onFailed: (message) => {
+      meta.onFailed && meta.onFailed(message);
+      return appLaunchFailed(message);
+    }
   }));
   // const user = localStorage.user && JSON.parse(localStorage.user);
 

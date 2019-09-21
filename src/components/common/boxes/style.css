@@ -104,3 +104,115 @@
     margin: 10px 0px;
 }
 /* Embeded Script Container Styles Ends*/
+
+
+
+/* insights box  style starts   */
+.overview-insights-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0px 10px 0px 15px;
+    /* margin: 10px 0; */
+    overflow: hidden;
+}
+
+.insight-box{
+    position: relative;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin: 7px 0;
+    padding: 5px;
+    padding-bottom: 20px;
+    background: #FFFFFF;
+    /* margin: 0px 10px 0px 15px; */
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,.01)
+}
+/* .insight-box:first-child{
+    margin-left: 0px;
+}
+.insight-box:last-child{
+    margin-right: 0px;
+} */
+
+.insight-icon i {
+    margin: 0 10px;
+    font-size: 13px;
+    color:#C9D3DC;
+}
+.insight-title {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: capitalize;
+    /* font-weight: bold; */
+    color: rgb(68, 84, 105);
+    text-align: center;
+}
+.insight-value {
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #4DA1FF;
+    margin: 5px auto;
+}
+
+span.insight-chart {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.insight-box .insight-box-info-tip{
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+}
+.insight-box:hover .insight-box-info-tip{
+    opacity: 1;
+}
+.insight-box-info-tip{
+    position: absolute;
+    bottom: 5px;
+    left: 8px;
+    cursor: pointer;
+    z-index: 100;
+
+}
+.insight-box-info-tip .fas{
+    font-size: 10px;
+    color: #4DA1FF;
+}
+.insight-box-info-tip::after{
+    position: absolute;
+    top: 100%;
+    left:15px;
+    padding: 3px 5px;
+    background: #4DA1FF;
+    color:white;
+    content: attr(data-label);
+    min-width: 170px;
+    max-width: 300px;
+    opacity: 0;
+    line-height: 13px;
+    font-size: 11px;
+    border-radius: 5px;
+    text-transform: lowercase;
+    transform:translateX(-10%);
+    cursor: default;
+    transition: all .3s ease-in-out;
+}
+.insight-box-info-tip:hover::after{
+    transform:translateX(0);
+    opacity: .9;
+}
+/* 
+.insight-box:nth-last-child(-n+3) .insight-box-info-tip::after{
+    left:-100px;
+}
+.insight-box:nth-last-child(-n+2) .insight-box-info-tip::after{
+    top: -25px;
+    left:20px;
+} */
+/* insights box section style ends */

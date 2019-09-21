@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as hideFlashMessageActions from 'actions/flashMessage';
 import PropTypes from 'prop-types';
+import { showIntercomIcon } from 'libs';
+
 import './style.css';
 
 const FlashMessage = ({
   message, hideFlashMessage, show = true, type
 }) => {
+  useEffect(() => {
+    showIntercomIcon(!show);
+    return () => {
+      showIntercomIcon(!show);
+    };
+  }, [show]);
+
   const isSuccess = type === 'success' ? 'notification-success-message' : '';
   const isFailed = type === 'failed' ? 'notification-failure-message' : '';
   const isShow = show ? 'show-notification-message' : '';

@@ -1,0 +1,77 @@
+{
+    "dailyAvg": {
+        "value": "$",
+        "prefix": true,
+        "suffix": false
+    },
+    "transactions": {
+        "value": "",
+        "prefix": true,
+        "suffix": false
+    },
+    "grossRevenue": {
+        "value": "$",
+        "prefix": true,
+        "suffix": false
+    },
+    "netRevenue": {
+        "value": "$",
+        "prefix": true,
+        "suffix": false
+    },
+    "customers": {
+        "value": "",
+        "prefix": true,
+        "suffix": false
+    },
+    "newCustomers": {
+        "value": "",
+        "prefix": true,
+        "suffix": false
+    },
+    "annualRevenue": {
+        "value": "$",
+        "prefix": true,
+        "suffix": false
+    },
+    "conversionRate": {
+        "value": "%",
+        "prefix": false,
+        "suffix": true
+    },
+    "views": {
+        "value": "",
+        "prefix": true,
+        "suffix": false
+    },
+    "refunds": {
+        "value": "",
+        "prefix": true,
+        "suffix": false
+    },
+    "refundRate": {
+        "value": "%",
+        "prefix": false,
+        "suffix": true
+    },
+    "refundAmount": {
+        "value": "$",
+        "prefix": true,
+        "suffix": false
+    },
+    "refundedCustomers": {
+        "value": "",
+        "prefix": true,
+        "suffix": false
+    },
+    "cartAbandonments": {
+        "value": "",
+        "prefix": true,
+        "suffix": false
+    },
+    "abandonmentsRate": {
+        "value": "%",
+        "prefix": false,
+        "suffix": true
+    }
+}

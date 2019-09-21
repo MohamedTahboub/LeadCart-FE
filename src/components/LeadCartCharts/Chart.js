@@ -1,155 +1,202 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import ApexCharts from 'react-apexcharts';
 import dummyData from 'data/chartData.js';
 import moment from 'moment';
 import './chart.css';
+import PropTypes from 'prop-types';
+import { getDateValueReferences } from 'libs';
+import { getLabelByValue } from 'data/dashboardSettings';
+
+const LoadingIcon = ({
+  className,
+  show,
+  ...props
+}) => (show ? <div className={`loading spinner ${className}`}>Loading...</div> : null);
 
 
-class AreaChart extends Component {
-  state = {
-    selection: 'one_year',
-    options: {
-      // annotations: {
-      //   yaxis: [
-      //     {
-      //       y: 30,
-      //       borderColor: '#999',
-      //       label: {
-      //         show: false,
-      //         text: 'Support',
-      //         style: {
-      //           color: '#fff',
-      //           background: '#00E396'
-      //         }
-      //       }
-      //     }
-      //   ],
-      //   xaxis: [
-      //     {
-      //       x: new Date('14 Nov 2012').getTime(),
-      //       borderColor: '#999',
-      //       yAxisIndex: 0,
-      //       label: {
-      //         show: true,
-      //         text: 'Rally',
-      //         style: {
-      //           color: '#fff',
-      //           background: '#775DD0'
-      //         }
-      //       }
-      //     }
-      //   ]
-      // },
-      dataLabels: {
-        enabled: false
-      },
-      markers: {
-        size: 0,
-        style: 'hollow'
-      },
-      xaxis: {
-        type: 'datetime',
-        min: new Date('01 Mar 2018').getTime(),
-        tickAmount: 6
-      },
-      tooltip: {
-        x: {
-          format: 'dd MMM yyyy'
-        }
-      },
-      colors: ['#4DA1FF'],
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shadeIntensity: 1,
-          opacityFrom: 0.7,
-          opacityTo: 0.9,
-          stops: [0, 100]
-        }
-      }
-    },
+const isPercentageRequires = (type) => {
+  console.log('type==>', type);
+};
+const AreaChart = ({
+  data = [],
+  activeTypeValue,
+  display,
+  timelineFilter,
+}) => {
+  const initialState = {
+    // timeline: getDateValueReferences(timelineFilter) || {},
     series: [
       {
-        data: dummyData()
+        name: activeTypeValue,
+        data
       }
     ]
   };
+  const [state, setState] = useState(initialState);
 
+  const options = {
+    chart: {
+      zoom: {
+        enabled: false
+      },
+      toolbar: {
+        show: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    markers: {
+      size: 3,
+      style: 'hollow'
+    },
+    xaxis: {
+      type: 'datetime',
+      // x: getDateValueReferences(timelineFilter).min,
+      min: undefined,
+      max: undefined,
 
-  updateData (timeline) {
-    this.setState({
-      selection: timeline
-    });
-
-    switch (timeline) {
-    case 'one_month':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 May 2019').getTime(),
-            max: moment()
-          }
-        }
-      });
-      break;
-    case 'quarter ':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Feb 2019').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'six_months':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Dec 2018').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'one_year':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 May 2018').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'ytd':
-      this.setState({
-        options: {
-          xaxis: {
-            min: new Date('01 Jan 2019').getTime(),
-            max: moment().format()
-          }
-        }
-      });
-      break;
-    case 'all':
-      this.setState({
-        options: {
-          xaxis: {
-            min: undefined,
-            max: undefined
-          }
-        }
-      });
-      break;
-    default:
+      tickAmount: 5
+    },
+    // yaxis: {
+    //   labels: {
+    //     formatter: (value) => {
+    //       if (isPercentageRequires(activeTypeValue)) return `${value.toFixed(0)}%`;
+    //       return value.toFixed(0);
+    //     },
+    //   },
+    // },
+    tooltip: {
+      x: {
+        format: 'dd MMM yyyy'
+      }
+    },
+    colors: ['#4DA1FF'],
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        stops: [0, 100]
+      }
     }
-  }
+  };
 
-  render () {
-    return (
-      <div id='chart'>
-        <div className='chart-toolbar '>
+
+  // const updateData = (timeline) => {
+  //   switch (timeline) {
+  //   case 'today':
+  //     return {
+  //       min: moment().subtract(1, 'days').endOf('day'),
+  //       max: moment()
+  //     };
+  //   case 'yesterday ':
+  //     return {
+  //       min: moment().subtract(1, 'days'),
+  //       max: moment().format()
+  //     };
+  //   case 'weekToDate':
+  //     return {
+  //       min: moment().subtract(7, 'days').endOf('day'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastWeek':
+  //     return {
+  //       min: moment().subtract(7, 'days'),
+  //       max: moment().format()
+  //     };
+  //   case 'monthToDate':
+  //     return {
+  //       min: moment().subtract(1, 'months').endOf('month'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastMonth':
+  //     return {
+  //       min: moment().subtract(1, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'last3Months':
+  //     return {
+  //       min: moment().subtract(3, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'last6Months':
+  //     return {
+  //       min: moment().subtract(6, 'months'),
+  //       max: moment().format()
+  //     };
+  //   case 'yearToDate':
+  //     return {
+  //       min: moment().subtract(1, 'years').endOf('year'),
+  //       max: moment().format()
+  //     };
+  //   case 'lastYear':
+  //     return {
+  //       min: moment().subtract(1, 'years'),
+  //       max: moment().format()
+  //     };
+  //   case 'currentFinancialYear':
+  //     return {
+  //       min: moment().subtract(1, 'years').endOf('year'),
+  //       max: moment().format()
+  //     };
+  //   case 'previousFinancialYear':
+  //     return {
+  //       min: moment().subtract(2, 'years').endOf('year'),
+  //       max: moment().subtract(1, 'years').endOf('year')
+  //     };
+  //   default: return {
+  //     min: undefined,
+  //     max: undefined
+  //   };
+  //   }
+  // };
+
+  useEffect(() => {
+    // console.log('Charts Updates');
+    // console.log(data);
+    setState({
+      // timeline: getDateValueReferences(timelineFilter) || {},
+      series: [
+        {
+          name: getLabelByValue(activeTypeValue),
+          data
+        }
+      ]
+    });
+  }, [timelineFilter, data]);
+
+  return display ? (
+    <div className='dashboard-main-chart' id='chart'>
+      <ApexCharts
+        options={options}
+        series={state.series}
+        type='area'
+        height='250'
+        loading
+      />
+    </div>
+  )
+    : null;
+};
+
+
+AreaChart.propTypes = {
+  data: PropTypes.arrayOf({}),
+  activeTypeValue: PropTypes.string.isRequired,
+  timelineFilter: PropTypes.string.isRequired,
+};
+AreaChart.defaultProps = {
+  data: []
+};
+
+export default AreaChart;
+/*
+      <LoadingIcon className='chart-loading' show />
+
+
+ <div className='chart-toolbar '>
           <button
             onClick={() => this.updateData('one_month')}
             id='one_month'
@@ -192,16 +239,6 @@ class AreaChart extends Component {
           >
             All
           </button>
-        </div>
-        <ApexCharts
-          options={this.state.options}
-          series={this.state.series}
-          type='area'
-          height='350'
-        />
-      </div>
-    );
-  }
-}
+        </div>`
 
-export default AreaChart;
+*/
