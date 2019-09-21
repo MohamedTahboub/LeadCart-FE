@@ -8,7 +8,7 @@ import { ChartTypeCard, ChartsSettingsModal } from './components';
 import { reshapeFeed } from './helpers';
 import * as dashboardActions from 'actions/dashboard'
 import dashboardSettings from 'data/dashboardSettings'
-import { getDateValueReferences,getChartPreviewCardDescription } from 'libs'
+import { getDateValueReferences, getChartPreviewCardDescription } from 'libs'
 import './style.css';
 
 import common from 'components/common';
@@ -145,12 +145,13 @@ const Dashboard = ({
                 <div className='chart-header-cards'>
                   <ChartTypeCard
                     activeType={activeType}
-                    label='Net Revenue'
+                    label='Gross Revenue'
                     data={chartsFeed.sums}
-                    name='netRevenue'
-                    prefix='$'
+                    name='grossRevenue'
                     onClick={setActiveType}
+                    prefix='$'
                   />
+
                   <ChartTypeCard
                     activeType={activeType}
                     label='Views'
@@ -164,6 +165,14 @@ const Dashboard = ({
                     label='Sales'
                     data={chartsFeed.sums}
                     name='salesNumber'
+                    onClick={setActiveType}
+                  />
+                  <ChartTypeCard
+                    activeType={activeType}
+                    label='Net Revenue'
+                    data={chartsFeed.sums}
+                    name='netRevenue'
+                    prefix='$'
                     onClick={setActiveType}
                   />
                   <ChartTypeCard
@@ -190,14 +199,6 @@ const Dashboard = ({
                     suffix='%'
                     onClick={setActiveType}
                     warning
-                  />
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Gross Revenue'
-                    data={chartsFeed.sums}
-                    name='grossRevenue'
-                    onClick={setActiveType}
-                    prefix='$'
                   />
 
                   <ChartTypeCard
