@@ -48,24 +48,14 @@ const Dashboard = ({
 
 
   useEffect(() => {
-    // getChartsFeed(
-    //   filterKeys,
-    //   {
-    //     onSuccess: (feed) => {
-
-    //     },
-    //     onFailed: () => {
-
-    //     }
-    //   }
-    // );
 
     setChartsFeed(reshapeFeed(activities, getDateValueReferences(filterKeys.date)));
-    console.log('updates -------------charts')
+
     // userPilot routes listener
     // const unlisten = props.history.listen((location, action) => {
     //   if (window.userpilot) window.userpilot.reload();
     // });
+
     console.log('Settings', settings)
   }, [activities, settings]);
 
@@ -284,13 +274,20 @@ const mapStateToProps = ({
   products: { products = [] } = {},
   dashboard: {
     activities,
-    settings
+    settings={}
   } = {}
-}) => ({
-  filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
-  activities,
-  settings
-});
+}) => {
+  
+  if(settings.defaultCardsSettings && !settings.defaultCardsSettings.sales.length){
+    settings = dashboardSettings;
+  }
+    
+  return {
+    filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
+    activities,
+    settings
+  }
+};
 
 
 export default connect(mapStateToProps, dashboardActions)(Dashboard);
