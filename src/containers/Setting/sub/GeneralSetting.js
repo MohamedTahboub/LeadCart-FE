@@ -51,7 +51,14 @@ const GeneralSettings = ({
   const onSave = async () => {
     try {
       const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
-      if (!isValid) return setErrors({ ...fieldsErrors });
+      if (!isValid) {
+        const invalidFields = Object.keys(fieldsErrors).join(', ');
+        props.showFlashMessage({
+          type: 'failed',
+          message: `Invalid Fields ${invalidFields}`
+        });
+        return setErrors({ ...fieldsErrors });
+      }
 
       props.updateMarketPlaceSettings(
         payload,
@@ -72,6 +79,10 @@ const GeneralSettings = ({
         }
       );
     } catch ({ message, ...err }) {
+      props.showFlashMessage({
+        type: 'failed',
+        message
+      });
       setErrors({ message });
     }
   };
@@ -155,11 +166,11 @@ const GeneralSettings = ({
           />
         </InputRow>
         <InputRow margin='20'>
-          <InputRow.Label error={errors.support}>Support Contact:</InputRow.Label>
+          <InputRow.Label error={errors.supportEmail}>Support Contact:</InputRow.Label>
           <InputRow.SmallInput
             name='supportEmail'
             onChange={onChange}
-            error={errors.support}
+            error={errors.supportEmail}
             value={fields.supportEmail}
           >
             Ex. support@leadcart.io

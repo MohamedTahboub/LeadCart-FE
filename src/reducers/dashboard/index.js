@@ -1,3 +1,4 @@
+import dashboardSettings from 'data/dashboardSettings';
 import {
   GET_DASHBOARD_DATA_SUCCESS,
   GET_DASHBOARD_CHARTS_DATA_SUCCESS,
@@ -6,7 +7,7 @@ import {
 
 const initialState = {
   activities: [],
-  // settings: {}
+  settings: dashboardSettings
 };
 
 
