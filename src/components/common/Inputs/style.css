@@ -117,6 +117,8 @@
     position: relative;
     margin-left: 27px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 .add-input-field{
     /* font-weight: bold; */

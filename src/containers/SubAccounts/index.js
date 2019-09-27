@@ -3,14 +3,16 @@ import common from 'components/common';
 import Table from 'components/common/Tables';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
+import { property } from 'libs';
 import { connect } from 'react-redux';
-import Dialog from 'components/common/Dialog';
 import './style.css';
 const {
   MainTitle,
   MiniButton,
   SmallButton,
+  WarningMessage,
   Button,
+  Dialog,
   InputRow,
   Page,
   PageHeader,
@@ -27,7 +29,11 @@ const AddNewButton = ({ onClick, ...props }) => (
 
 class Agency extends Component {
   state = {
-    isModalVisable: false, subAccountModel: {}, created: false, deleteModal: ''
+    isModalVisable: false,
+    subAccountModel: {},
+    created: false,
+    deleteModal: '',
+    isShowWarringDialog: false
   }
 
   toggleModal = () => this.setState({ isModalVisable: !this.state.isModalVisable })
@@ -78,15 +84,23 @@ class Agency extends Component {
     });
   }
 
+  showWarringDialog = () => {
+    this.setState({ isShowWarringDialog: true });
+  }
+
+  hideWarringDialog = () => {
+    this.setState({ isShowWarringDialog: false });
+  }
+
   render () {
     const { errors, subAccounts = [] } = this.props;
 
-    const { subAccountModel, deleteModal } = this.state;
+    const { subAccountModel, deleteModal, isShowWarringDialog } = this.state;
     return (
       <Page>
         <PageHeader>
           <MainTitle>Sub-Accounts</MainTitle>
-          <AddNewButton key='subAccountModal' onClick={this.toggleModal} />
+          <AddNewButton key='subAccountModal' onClick={this.showWarringDialog} />
         </PageHeader>
         <PageContent>
           <Table>
@@ -199,6 +213,21 @@ class Agency extends Component {
             </Button>
           </Modal>
         )}
+        <Dialog
+          onClose={this.hideWarringDialog}
+          show={isShowWarringDialog}
+          confirmBtnText='Ok'
+          confirmBtnClass='primary-color'
+          confirmBtnIcon={null}
+          hideCancelBtn
+          title='Oops, we are so sorry for that!'
+          description={(
+            <WarningMessage>
+              {property('subAccounts.createSubAccount.warning')}
+            </WarningMessage>
+          )}
+          onConfirm={this.hideWarringDialog}
+        />
       </Page>
     );
   }
