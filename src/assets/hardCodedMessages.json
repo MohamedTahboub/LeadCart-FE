@@ -8,5 +8,10 @@
                 "overridingWarning": "Please pay attention for the following, by connection another Stripe account we will not be able to refund the orders and the transactions that have been processed through the current PayPal account"
             }
         }
+    },
+    "subAccounts": {
+        "createSubAccount": {
+            "warning": "We afraid that this feature have been disabled temporarily, and we are working to bring it back online as soon as possible, \nThank you for your understanding"
+        }
     }
 }

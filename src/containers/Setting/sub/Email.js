@@ -4,6 +4,7 @@ import EmailFooterModal from 'components/EmailFooterModal';
 import { connect } from 'react-redux';
 import { testEmailTypes } from 'constantsTypes';
 import * as emailsActions from 'actions/emails';
+import * as flashMessagesActions from 'actions/flashMessage';
 import * as yup from 'yup';
 
 const {
@@ -12,7 +13,13 @@ const {
 
 
 const EmailTestButton = ({
-  type, className = '', testingType, disabled, loading, onClick, ...props
+  type,
+  className = '',
+  testingType,
+  disabled,
+  loading,
+  onClick,
+  ...props
 }) => {
   const classNames = `${className} primary-color wide-element ${(type === testingType && loading) ? ' spinner' : ''} ${disabled ? 'test-disabled' : ''}`;
 
@@ -25,7 +32,11 @@ const EmailTestButton = ({
     </SmallButton>
   );
 };
-const Email = ({ isPremium, ...props }) => {
+
+const Email = ({
+  isPremium,
+  ...props
+}) => {
   const [showFooterModal, setFooterModal] = useState(false);
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(props.sourceEmail);
@@ -43,7 +54,7 @@ const Email = ({ isPremium, ...props }) => {
 
   const onEmailVerify = async () => {
     const schema = yup.string().email().required();
-    console.log(sourceEmail);
+
     if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
     setVersifying(true);
     props.verifyEmailSource({ email: sourceEmail }, {
@@ -77,12 +88,49 @@ const Email = ({ isPremium, ...props }) => {
     setSourceEmail(props.sourceEmail);
   }, [props.sourceEmail]);
 
+  const updateEmailLogo = (emailLogo) => {
+    props.updateEmailFooter(
+      {
+        emailLogo
+      }, {
+        onSuccess: () => {
+          props.showFlashMessage({
+            type: 'success',
+            message: 'Brand logo on Email Header Successfully Updated'
+          });
+        },
+        onFailed: (error) => {
+          props.showFlashMessage({
+            type: 'failed',
+            message: 'Failed To Update the Brand Email Header Logo'
+          });
+        }
+      }
+    );
+  };
   const { testing, emailTestType } = testType;
   // const isThisEmailVerified = sourceEmail === props.sourceEmail && props.emailVerificationStatus === 1
   return (
     <Fragment>
       <MainBlock title='Email Settings'>
         <InputRow>
+          <InputRow.Label
+            notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
+          >
+            Brand Email Logo:
+
+          </InputRow.Label>
+          <InputRow.AddImage
+            value={props.emailLogo}
+            subLabel='Logo'
+            source='brand_email_logo'
+            name='emailLogo'
+            onUploaded={updateEmailLogo}
+          >
+            Brand Logo
+          </InputRow.AddImage>
+        </InputRow>
+        <InputRow margin='45'>
           <InputRow.Label>Email Footer</InputRow.Label>
           <InputRow.Note
             content='Create the email footer that will be placed at the bottom of every email sent to your customers. Include contact information so your customers can reach out if they need help.'
@@ -126,7 +174,7 @@ const Email = ({ isPremium, ...props }) => {
               Verify
             </SmallButton>
           </InputRow.Note>
-                       </InputRow>
+        </InputRow>
         )}
         {/* <InputRow margin='30'>
             <InputRow.Label
@@ -307,7 +355,7 @@ const Email = ({ isPremium, ...props }) => {
           </InputRow.Note>
         </InputRow>
 
-                     </MainBlock>
+      </MainBlock>
       )}
     </Fragment>
   );
@@ -322,6 +370,7 @@ const mapStatToProps = ({
   },
   emails: {
     settings: {
+      emailLogo,
       companyAddress,
       sourceEmail,
       emailVerificationStatus
@@ -333,11 +382,12 @@ const mapStatToProps = ({
   if (level >= 4) isPremium = true;
 
   return {
+    emailLogo,
     companyAddress,
     isPremium,
     sourceEmail,
     emailVerificationStatus
   };
 };
-export default connect(mapStatToProps, emailsActions)(Email);
+export default connect(mapStatToProps, { ...emailsActions, ...flashMessagesActions })(Email);
 

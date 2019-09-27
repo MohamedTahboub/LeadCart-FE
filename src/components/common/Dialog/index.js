@@ -11,19 +11,27 @@ export default ({
   cancelBtnIcon = null,
   cancelBtnText = 'cancel',
   confirmBtnText = 'confirm',
-  confirmBtnIcon =  (<i className='fas fa-trash-alt' />),
+  hideConfirmBtn,
+  confirmBtnClass='warning-color',
+  cancelBtnClass='primary-color',
+  hideCancelBtn,
+  confirmBtnIcon = (<i className='fas fa-trash-alt' />),
   ...props
 }) => (
     <Modal onClose={onClose} isVisible={show}>
       <MainTitle>{title}</MainTitle>
       <div className='dialog-description'>{description}</div>
-      <Button onClick={onClose} className='primary-color margin-with-float-left'>
-        {' '}
-        {cancelBtnText}
-      </Button>
-      <Button onClick={onConfirm} className='warning-color margin-with-float-right'>
-        {confirmBtnIcon}
-        {confirmBtnText}
-      </Button>
+      {!hideCancelBtn && (
+        <Button onClick={onClose} className={`${cancelBtnClass} margin-with-float-left`}>
+          {' '}
+          {cancelBtnText}
+        </Button>
+      )}
+      {!hideConfirmBtn && (
+        <Button onClick={onConfirm} className={`${confirmBtnClass} margin-with-float-right`}>
+          {confirmBtnIcon}
+          {confirmBtnText}
+        </Button>
+      )}
     </Modal>
   );
