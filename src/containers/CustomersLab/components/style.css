@@ -196,7 +196,7 @@ span.order-receipt-name span {
 }
 .more-order-options {
     text-align: left;
-    height: 0px;
+    /* height: 0px; */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -208,7 +208,8 @@ span.order-receipt-name span {
     animation: folding .3s linear;
 }
 .more-order-options.open {
-    height: 170px;
+    /* height: 170px; */
+    overflow: auto;
     animation: unfolding .4s linear;
 }
 .more-order-options-btns{
