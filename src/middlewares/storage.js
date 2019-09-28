@@ -81,7 +81,7 @@ function upadateIntercomeWithUserDetails ({
           email,
           created_at: Math.round((new Date()).getTime() / 1000),
           name: `${firstName} ${lastName}`,
-          user_id: id
+          // user_id: id
         };
       } else {
         window.intercomSettings = {

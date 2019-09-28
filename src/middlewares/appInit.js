@@ -102,9 +102,9 @@ function upadateIntercomeWithUserDetails ({
   window.intercomSettings = {
     app_id: 'skynydft',
     email,
-    user_id: localStorage.leadcart_user_id,
+    // user_id: localStorage.leadcart_user_id,
     name: `${firstName} ${lastName}`,
-    products: JSON.stringify(data)
+    // products: JSON.stringify(data)
   };
 
   consoleMessage();
