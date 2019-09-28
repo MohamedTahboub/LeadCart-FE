@@ -61,7 +61,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
-  upadateIntercomeWithUserDetails(user, { products });
+  // upadateIntercomeWithUserDetails(user, { products });
   dispatch(apiRequest({
     options: {
       method: 'post',
@@ -97,7 +97,7 @@ function upadateIntercomeWithUserDetails ({
   //   name: `${firstName} ${lastName}`, // Full name
   //   email, // Email address
   //   created_at: window.intercomSettings.created_at // Signup date as a Unix timestamp
-  // };
+  // };window.Inter
 
   window.intercomSettings = {
     app_id: 'skynydft',

@@ -71,23 +71,26 @@ export default ({ dispatch }) => (next) => (action) => {
 
 
 function upadateIntercomeWithUserDetails ({
-  firstName = 'There', lastName = 'guest', logged, email = 'anonymous@leadcart.io', _id: id
+  firstName = 'There',
+  lastName = 'guest',
+  logged,
+  email = '',
+  _id: id
 }) {
   try {
-    if (/* process.env.NODE_ENV === 'production' && */ window.Intercom) {
-      if (logged) {
-        window.intercomSettings = {
-          app_id: 'skynydft',
-          email,
-          created_at: Math.round((new Date()).getTime() / 1000),
-          name: `${firstName} ${lastName}`,
-          // user_id: id
-        };
-      } else {
-        window.intercomSettings = {
-          app_id: 'skynydft'
-        };
-      }
+    if (window.Intercom && logged) {
+      window.Intercom('boot', {
+        app_id: 'skynydft',
+        email,
+        name: `${firstName} ${lastName}`,
+        user_id: id,
+        created_at: Math.round((new Date()).getTime() / 1000),
+      });
+    }else {
+      window.Intercom('boot', {
+        app_id: 'skynydft',
+        // Website visitor so may not have any user related info
+      });
     }
   } catch (err) {
     console.error(err);
