@@ -12,8 +12,8 @@ const IntercomAPP = ({ user = {} }) => {
 
   useEffect(() => {
     const ActiveUser = {
-      email: user.email,
       user_id: user._id,
+      email: user.email,
       name: `${user.firstName} ${user.lastName}`
     };
     setState(ActiveUser);
