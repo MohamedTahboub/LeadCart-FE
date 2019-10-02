@@ -7,6 +7,7 @@ import {
   LOGOUT
 } from 'constantsTypes';
 import { appInit } from 'actions/appInit';
+
 export default ({ dispatch }) => (next) => (action) => {
   const { type, payload = {} } = action;
   const loggingEvent = type === SIGN_UP_SUCCESS
@@ -24,7 +25,6 @@ export default ({ dispatch }) => (next) => (action) => {
       setTimeout(() => {
         dispatch(appInit());
       }, 200);
-      upadateIntercomeWithUserDetails({ ...payload, logged: true });
 
       localStorage.leadcart = JSON.stringify({
         ...payload,
@@ -56,10 +56,9 @@ export default ({ dispatch }) => (next) => (action) => {
     }
 
 
-    if (type === LOGOUT) {
-      upadateIntercomeWithUserDetails({ ...payload, logged: false });
+    if (type === LOGOUT) 
       localStorage.leadcart = '{}';
-    }
+    
 
     next(action);
   } catch (e) {
@@ -68,31 +67,6 @@ export default ({ dispatch }) => (next) => (action) => {
     next(action);
   }
 };
-
-
-function upadateIntercomeWithUserDetails ({
-  firstName = 'There', lastName = 'guest', logged, email = 'anonymous@leadcart.io', _id: id
-}) {
-  try {
-    if (/* process.env.NODE_ENV === 'production' && */ window.Intercom) {
-      if (logged) {
-        window.intercomSettings = {
-          app_id: 'skynydft',
-          email,
-          created_at: Math.round((new Date()).getTime() / 1000),
-          name: `${firstName} ${lastName}`,
-          user_id: id
-        };
-      } else {
-        window.intercomSettings = {
-          app_id: 'skynydft'
-        };
-      }
-    }
-  } catch (err) {
-    console.error(err);
-  }
-}
 
 
 function packageType (level) {
