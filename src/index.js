@@ -17,7 +17,7 @@ import affiliatesImage from 'assets/images/affiliates_bg.svg'
 import reportsImage from 'assets/images/reports_bg.svg'
 
 import ImagePageContainer from 'components/ImagePageContainer'
-
+import IntercomApp from './components/Intercom'
 
 
 // Components
@@ -85,6 +85,7 @@ ReactDOM.render(
     <Provider store={store}>
         <React.Fragment>
             <LoadingBar />
+            <IntercomApp />
             <ErrorBoundary>
                 <BrowserRouter>
                     <Switch >

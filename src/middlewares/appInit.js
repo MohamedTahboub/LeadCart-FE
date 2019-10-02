@@ -15,6 +15,8 @@ import { getDashboardDataSuccess } from 'actions/dashboard';
 import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
+
+
 window.user = '';
 export default ({ dispatch, getState }) => (next) => (action) => {
   const {
@@ -36,7 +38,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
   if (!isLoggedIn) return next(action);
   // /users/launch
-
   const { payload, meta = {} } = action;
   const onLunchSuccess = (data) => {
     dispatch(getMembersSuccess(data.members));
@@ -61,7 +62,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 
-  upadateIntercomeWithUserDetails(user, { products });
+  cleanUpTheConsole();
   dispatch(apiRequest({
     options: {
       method: 'post',
@@ -85,28 +86,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   // restore the application stored data in the loaclStorage
 };
 
-function upadateIntercomeWithUserDetails ({
-  firstName,
-  lastName,
-  email
-}, data) {
-  if (!window.user) window.user = email;
-  if (window.intercomSettings.email === email) return;
-  // window.intercomSettings = {
-  //   app_id: 'skynydft',
-  //   name: `${firstName} ${lastName}`, // Full name
-  //   email, // Email address
-  //   created_at: window.intercomSettings.created_at // Signup date as a Unix timestamp
-  // };
-
-  window.intercomSettings = {
-    app_id: 'skynydft',
-    email,
-    user_id: localStorage.leadcart_user_id,
-    name: `${firstName} ${lastName}`,
-    products: JSON.stringify(data)
-  };
-
+function cleanUpTheConsole () {
   consoleMessage();
 }
 
