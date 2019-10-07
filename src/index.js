@@ -39,9 +39,9 @@ import SignUpSaasmantra from 'containers/SignUpSaasmantra';
 import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 import PasswordRest from 'containers/PasswordRest';
-import Upsells from 'containers/Upsells';
+// import Upsells from 'containers/Upsells';
 import Fulfillments from 'containers/Fulfillments';
-import NewCheckoutWizard from 'containers/NewCheckoutWizard';
+import ProductBuilder from 'containers/ProductBuilder';
 
 import Dashboard from 'containers/Dashboard'
 // import Guidelines from 'containers/Guidelines'
@@ -97,7 +97,8 @@ ReactDOM.render(
                         <Route exact path='/saasmantra' component={SignUpSaasmantra} />
                         <Route path='/verify' component={VerifyAccount} />
 
-                        <ProtectedRoute exact path='/products/:url' component={NewCheckoutWizard} />
+                        <ProtectedRoute exact path='/checkout/:url' component={ProductBuilder} />
+                        <ProtectedRoute exact path='/upsell/:url' component={ProductBuilder} />
                         <ProtectedRoute component={() => (
                             <Fragment>
                                 <Route render={({ history }) => <SideBar history={history} />} />
@@ -107,7 +108,6 @@ ReactDOM.render(
                                     <Route path='/transactions' component={Transactions} />
                                     <Route path='/customers' component={CustomersLab} />
                                     <Route exact path='/coupons' component={Coupons} />
-                                    <Route exact path='/upsells' component={Upsells} />
                                     <Route exact path='/fulfillment' component={Fulfillments} />
                                     <Route exact path='/funnels' render={() => <ImagePageContainer title='Funnels' image={upsellsImage} />} />
                                     <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />

@@ -65,7 +65,6 @@ const SideBar = ({
         <Link to='/transactions'>Transactions</Link>
         <Link to='/customers'>Customers</Link>
         <Link to='/coupons'>Coupons</Link>
-        <Link to='/upsells' >Upsells</Link>
         <Link to='/fulfillment' >Fulfillment</Link>
         <Link to='/funnels' className='locked-feature'>Funnels</Link>
         <Link to='/affiliates' className='locked-feature'>Affiliates</Link>
