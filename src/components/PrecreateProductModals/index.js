@@ -1,8 +1,8 @@
-import React, { useState , useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from '../Modals'
 import ProductCategories from './ProductCategories'
-import TemplatesList from './TemplatesList'
+import { CheckoutTemplates, UpsellsTemplates } from './TemplatesList'
 import productSample from 'data/product.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux'
@@ -16,7 +16,7 @@ const {
 } = common
 
 const getTemplateColor = (template) => {
-    const schema =  {
+    const schema = {
         "temp1": "rgb(6, 147, 227)",
         "temp2": "rgb(247, 141, 167)",
         "temp3": "rgb(0, 208, 132)",
@@ -27,26 +27,40 @@ const getTemplateColor = (template) => {
     return schema[template] ? schema[template] : schema['temp1']
 }
 
+const NextPage = ({ page, ...props }) => {
+    switch (page) {
+        case "categories": return <ProductCategories  {...props} />
+        case "checkoutTemplates": return <CheckoutTemplates {...props} />
+        case "upsellsTemplates": return <UpsellsTemplates {...props} />
+        default: return <ProductCategories  {...props} />
+    }
+}
+
 
 const ProductCategoryModal = ({ show, onClose, ...props }) => {
     const [next, setNext] = useState('categories')
     const [progress, setProgress] = useState(false)
+    const [category,setCategory]=useState('checkout');
 
-    const onNext = nextInterface => () => {
+    const onNext = (nextInterface,category) => () => {
+        if(category){
+            setCategory(category)
+        }
         setNext(nextInterface)
     }
 
-    useEffect(()=>{
-        return ()=>{
+    useEffect(() => {
+        return () => {
             setNext('categories')
         }
-    },[show]);
+    }, [show]);
 
-    const onSubmit = ({ template }) => {
+    const onSubmit = (template) => () =>{
         const product = productSample
         product.checkoutPage.template = template
         product.checkoutPage.presetColors = getTemplateColor(template)
-        product.url = ids.generate()
+        // product.url = ids.generate()
+        // product.category = category
 
         setProgress(true)
         props.createNewProduct(
@@ -55,7 +69,7 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
                 onSuccess: (product) => {
                     setProgress(false)
                     setTimeout(() => {
-                        props.history.push(`/products/${product.url}`)
+                        props.history.push(`/${category}/${product.url}`)
                     }, 300);
                 },
                 onFailed: (message) => {
@@ -63,10 +77,6 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
 
                 }
             })
-    }
-
-    const onTemplateSelect = template => () => {
-        onSubmit({ template })
     }
 
     return (
@@ -84,13 +94,11 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
                 </Button>
             )}
         >
-            {next === 'categories' ? (
-                <ProductCategories onSelect={onNext('templatesList')} />
-            )
-                :
-                <TemplatesList onSelect={onTemplateSelect} />
-            }
-
+            <NextPage
+                page={next}
+                onSelect={onNext}
+                onSubmit={onSubmit}
+            />
         </Modal>
     )
 }
