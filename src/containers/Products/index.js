@@ -46,7 +46,7 @@ const Products = ({
   };
 
   const onProductEdit = (url) => {
-    props.history.push(`/products/${url}`);
+    props.history.push(`/checkout/${url}`);
   };
 
   const onProductDuplicate = ({
