@@ -1,0 +1,176 @@
+.upsell-template{
+    flex: 1 1;
+    height: 100%;
+    max-width: 750px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    clear: both;
+    background: white;
+    /* border-top-left-radius: 16px;
+    border-top-right-radius: 16px; */
+    padding: 20px;
+}
+
+
+.upsell-head-image{
+    display: flex;
+    justify-content: center;
+}
+
+.upsell-details-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upsell-media-asset-container{
+    margin: 20px auto;
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.media-assets{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+}
+.editing-warper{
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    right:0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .2s ease-in-out;
+}
+.editing-warper-from{
+    min-width: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.31);
+    align-items: center;
+    justify-content: space-between;
+
+}
+.asset-type{
+    width: 70px;
+    min-width: 80px;
+    margin: 0 10px;
+    border-radius: 4px;
+}
+.asset-input-value{
+    width: 300px;
+    margin: 0 15px;
+    color: black;
+}
+.upsell-media-asset-container:hover .editing-warper{
+    opacity: 1;
+}
+.upsell-title{
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    margin: 10px 0;
+}
+.upsell-description{
+    font-size: 17px;
+    /* font-weight: bold; */
+    line-height: 18px;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.upsell-details-container .upsell-features-container{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+.upsell-features-title{
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+.upsell-features-list{
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    padding: 10px 50px;
+}
+.upsell-features-list .feature-item{
+    /* flex: 1; */
+    min-width: 200px;
+    max-width: 280px;
+    margin: 10px;
+}
+.feature-item .feater-title{
+    font-weight: bold;
+}
+.feature-item .feater-content{
+    
+}
+
+.upsell-notes-container{
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: 1px solid lightgray;
+    font-size: 14px;
+}
+
+.upsell-order-button{
+    display: flex;
+    justify-content: center;
+}
+.upsell-btn{
+    padding: 10px 29px;
+    margin: 15px;
+}
+
+.light-green-color{
+    background: #8BC34A;
+}
+.light-green-color:hover{
+    background: rgb(188, 219, 152);
+}
+
+.upsell-decline-text{
+    text-decoration: underline;
+    font-style: italic;
+    text-align: center;
+}
+
+.progress-bar-container{
+    display: flex;
+   justify-content: center;
+   margin: 10px 0;
+}
+.progress-bar-wrapper{
+    border-radius: 7px;
+    background: #fff;
+    border: 1px solid lightgray;
+    width: 400px;
+}
+.progress-bar{
+    height: 15px;
+    width: 80%;
+    line-height: 11px;
+    font-size: 10px;
+    border-radius: 7px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid #8BC34A;
+    background: #8BC34A;
+    color:white;
+}
