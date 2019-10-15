@@ -23,7 +23,7 @@ export const MiniButton = ({
   <span onClick={onClick} className={`mini-btn  ${className}`}>
     {iconClass && (
       tooltip ? (
-        <span data-tooltip='Duplicate Product' data-position='left center'>
+        <span data-tooltip={tooltip} data-position='left center'>
           <i className={`fas ${iconClass} scale-12`} />
         </span>
       ) : (

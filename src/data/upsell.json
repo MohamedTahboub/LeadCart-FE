@@ -1,0 +1,59 @@
+{
+    "name": "{'blocks':[{'key':'4h76v','text':'Upsell Title','type':'unstyled','depth':0,'inlineStyleRanges':[],'entityRanges':[],'data':{}}],'entityMap':{}} ",
+    "internalName": "upsell",
+    "category": "UpSell",
+    "available": true,
+    "price": {
+        "currency": "USD",
+        "amount": 50
+    },
+    "tags": [],
+    "pagePreferences": {
+        "template": "temp1",
+        "themeColor": "green",
+        "backgroundColor": "white",
+        "logo": "https://logo.com",
+        "description": "{'blocks':[{'key':'4h76v','text':'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil molestias voluptatum non numquam accusantium soluta assumenda voluptates unde excepturi, distinctio pariatur quae odio vel ullam similique nesciunt? Molestiae, iusto magni!','type':'unstyled','depth':0,'inlineStyleRanges':[{'offset':89,'length':7,'style':'BOLD'},{'offset':213,'length':9,'style':'UNDERLINE'}],'entityRanges':[],'data':{}}],'entityMap':{}} ",
+        "asset": {
+            "type": "image",
+            "link": "https://via.placeholder.com/800x400",
+            "visible": true
+        },
+        "image": "https://wpjournals.com/wp-content/uploads/2018/10/Why-You-Consider-Animated-Whiteboard-Video-For-Your-Marketing.png",
+        "guaranteed": {
+            "enabled": true,
+            "url": "https://guaranteed.img"
+        },
+        "orderNote": {
+            "enabled": true,
+            "text": "{'blocks':[{'key':'4h76v','text':'notes about the upsell that you want to ','type':'unstyled','depth':0,'inlineStyleRanges':[{'offset':16,'length':6,'style':'BOLD'}],'entityRanges':[],'data':{}},{'key':'7im3i','text':'let you customers now about','type':'unstyled','depth':0,'inlineStyleRanges':[{'offset':8,'length':9,'style':'BOLD'}],'entityRanges':[],'data':{}}],'entityMap':{}}" ,
+             "style": "style"
+        },
+        "declineButtonText": "no i don't wnat this order",
+        "orderButtonText": "Complete Order Now!",
+        "features": {
+            "enabled": true,
+            "title": "Features List",
+            "listItemStyle": "style goes here",
+            "listStyle": "style goes here",
+            "list": [
+                {
+                    "title":"Unique Order",
+                    "text": "here is why its unique!"
+                },
+                {
+                    "title":"Unique Order",
+                    "text": "here is why its unique!"
+                },
+                {
+                    "title":"Unique Order",
+                    "text": "here is why its unique!"
+                },
+                {
+                    "title":"Unique Order",
+                    "text": "here is why its unique!"
+                }
+            ]
+        }
+    }
+}

@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
+import shortid from 'shortid';
+
 import {
   convertToRaw,
   EditorState,
@@ -38,9 +40,9 @@ import editorStyles from './style.css';
 // const alignmentPlugin = createAlignmentPlugin();
 // const { AlignmentTool } = alignmentPlugin;
 
-const inlineToolbarPlugin = createInlineToolbarPlugin();
-const { InlineToolbar } = inlineToolbarPlugin;
-const plugins = [inlineToolbarPlugin];
+// const inlineToolbarPlugin = createInlineToolbarPlugin();
+// const { InlineToolbar } = inlineToolbarPlugin;
+// const plugins = [inlineToolbarPlugin];
 
 const CustomInlineToolbarEditor = ({
   state,
@@ -51,6 +53,15 @@ const CustomInlineToolbarEditor = ({
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(convertFromRaw(textRowState))
   );
+  const [{ plugins, InlineToolbar }] = useState(() => {
+    const inlineToolbarPlugin = createInlineToolbarPlugin();
+    const { InlineToolbar } = inlineToolbarPlugin;
+    const plugins = [inlineToolbarPlugin];
+    return {
+      plugins,
+      InlineToolbar
+    };
+  });
 
   const editor = useRef(null);
 

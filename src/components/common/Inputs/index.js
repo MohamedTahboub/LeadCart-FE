@@ -338,18 +338,18 @@ export const CodeInputArea = ({ value, flixable, onChange, onBlur, name, disable
 
 
 export const SelectBox = ({
-   checked,
-    onChange,
-     className='',
-     label,
-      ...props
-     }) => {
+  checked,
+  onChange,
+  className = '',
+  label,
+  ...props
+}) => {
   const id = ids.generate()
 
   return (
-    <label 
-    className={className} 
-    htmlFor={`CustomCheckBoxInput_${id}`} 
+    <label
+      className={className}
+      htmlFor={`CustomCheckBoxInput_${id}`}
     >
       <input
         onChange={onChange}
@@ -395,7 +395,8 @@ export const EditableField = ({
   name,
   defaultValue = 'edit text',
   textarea,
-  error
+  error,
+  childElement
 }) => {
   const value = val || children || defaultValue
   const [editable, setEditable] = useState(false);
@@ -447,7 +448,7 @@ export const EditableField = ({
         ><i className="fas fa-info-circle" />
         </span>
       )}
-
+      {childElement && childElement}
     </div>
   )
 
