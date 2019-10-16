@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import common from 'components/common';
+const { EditableField } = common;
 
 const DeclineButton = ({ value, ...props }) => (
-  <div className='upsell-decline-text'>
+  <EditableField className='upsell-decline-text'>
         No Thanks I'd rather not take the advantage of this offer!
-  </div>
+  </EditableField>
 );
 
 DeclineButton.propTypes = {

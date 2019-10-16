@@ -66,7 +66,7 @@ const ProductBuilder = ({
 
     if (product._id) setLoading({ product: false });
     return () => {
-      setFields({});
+      // setFields({});
     };
   }, [products, globelLoading]);
 
@@ -139,7 +139,7 @@ const ProductBuilder = ({
           onChange={onChange}
           onDisplayChange={onDisplayChange}
           displayType={displayType}
-          type={fields.type}
+          type={fields.category}
           subdomain={subdomain}
           product={fields}
           onSave={onSave}
@@ -148,7 +148,7 @@ const ProductBuilder = ({
         <SideBar
           onChange={onChange}
           product={fields}
-          type={fields.type}
+          type={fields.category}
           onSidebarChange={postSideChanging}
           onToggleDarkTheme={onToggleDarkTheme}
           darkTheme={enableDarkTheme}
@@ -156,7 +156,7 @@ const ProductBuilder = ({
         />
         <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
           <ProductEditableTemplate
-            // type=''
+            type={fields.category}
             className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
             product={fields}
             onChange={onChange}

@@ -18,15 +18,15 @@ const Temp1 = (props) => (
   <div className='upsell-template upsell-temp-1'>
     <LogoImage />
     <div className='flex-container fb-column'>
-      <Title />
-      <Description />
+      <Title {...props}/>
+      <Description {...props}/>
     </div>
-    <MediaAsset />
-    <Features />
-    <ProgressBar />
-    <Note />
-    <OrderButton />
-    <DeclineButton />
+    <MediaAsset {...props}/>
+    <Features {...props}/>
+    <ProgressBar {...props}/>
+    <Note {...props}/>
+    <OrderButton {...props}/>
+    <DeclineButton {...props}/>
   </div>
 );
 

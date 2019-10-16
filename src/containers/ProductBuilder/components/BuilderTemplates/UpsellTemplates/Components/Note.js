@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import EditableField from './EditableField';
 const Note = ({ value, ...props }) => (
   <div className='upsell-notes-container'>
-        This special offer is available on this page only, Click below to upgrade your membership now and claim your three bonuses
+    <EditableField  id="note"/>
   </div>
 );
 

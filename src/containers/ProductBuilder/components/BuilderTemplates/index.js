@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import CheckoutTemplate from './CheckoutTemplates'
 import UpsellTemplate from './UpsellTemplates'
 
-export default ({ type="upsell", ...props }) => {
-  switch (type) {
+export default ({ category="upsell", ...props }) => {
+  switch (category) {
   case 'checkout': return <CheckoutTemplate {...props} />;
   case 'upsell': return <UpsellTemplate {...props} />;
 

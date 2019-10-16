@@ -9,7 +9,7 @@ const Title = ({ value, ...props }) => {
   }
   return (
     <div className="upsell-title">
-      <EditableField onEdited={onEdit} />
+      <EditableField onEdited={onEdit} id="title" />
     </div>
   )
 };

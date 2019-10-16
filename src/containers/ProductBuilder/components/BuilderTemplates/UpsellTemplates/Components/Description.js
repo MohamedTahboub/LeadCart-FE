@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EditableField from './EditableField';
 
 const Description = ({ value, ...props }) => (
-  <div className='upsell-description'>
+  <div className='upsell-description' id="description">
     <EditableField />
   </div>
 );
