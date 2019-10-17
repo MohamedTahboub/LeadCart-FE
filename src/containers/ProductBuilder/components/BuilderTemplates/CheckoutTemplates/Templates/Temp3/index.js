@@ -19,11 +19,11 @@ import {
 
 // import './style.css'
 
-const Template = ({ className='' ,product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
+const Template = ({ className = '', product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
-  const color = product.checkoutPage && product.checkoutPage.presetColors
-  const { features = {}, testimonials = {} } = product.checkoutPage || {}
-  const { coupons = {},payment={} } = product
+  const color = product.pagePreferences && product.pagePreferences.themeColor
+  const { features = {}, testimonials = {} } = product.pagePreferences || {}
+  const { coupons = {}, payment = {} } = product
   // const showRightSide = testimonials.enabled || coupons.enabled;
   return (
     <div className={`editable-product-form-container ${className}`}>
@@ -33,13 +33,11 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
       />
       <AboutProduct
         onChange={onChange}
-        // image={product.image}
-        // containerClassName='about-product-section-h'
+        pagePreferences={product.pagePreferences}
         containerClassName='horizontal-about-product-container'
         descriptionInnerClassName='horizontal-product-template-description'
         subContainerClassName='template-description-fullWidth'
-        name={product.name}
-        description={product.description}
+        withoutImage
       />
       <section className="product-template-body">
         <section className="billing-components-section">
@@ -71,18 +69,18 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
           <TermsAndConditionsBadge
             onChange={onChange}
             onOptionSelected={onOptionSelected}
-            terms={product.checkoutPage && product.checkoutPage.termsAndConditions}
+            terms={product.pagePreferences && product.pagePreferences.termsAndConditions}
           />
 
           <CompleteOrderBtn
-            text={product.checkoutPage && product.checkoutPage.checkoutButtonText}
+            text={product.pagePreferences && product.pagePreferences.orderButtonText}
             color={color}
             onChange={onChange}
           />
           <GuaranteeMessage
             onChange={onChange}
-            guaranteeImage={product.checkoutPage && product.checkoutPage.guaranteeImage}
-            guaranteed={product.checkoutPage && product.checkoutPage.guaranteed}
+            guaranteeImage={product.pagePreferences && product.pagePreferences.guaranteeImage}
+            guaranteed={product.pagePreferences && product.pagePreferences.guaranteed}
           />
 
 

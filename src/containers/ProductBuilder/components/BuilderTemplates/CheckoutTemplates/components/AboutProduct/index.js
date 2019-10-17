@@ -9,35 +9,40 @@ const { EditableField } = common;
 
 
 const AboutProduct = ({
-  image,
+  // image,
   name,
   descriptionInnerClassName = '',
   containerClassName = '',
   textAreaClassName = '',
   subContainerClassName = '',
-  description,
+  // description,
+  withoutImage,
+  pagePreferences: {
+    image,
+    description
+  } = {},
   onChange
 }) => (
   <section className={`about-product-section underlined ${containerClassName}`}>
-    {image && (
+    {!withoutImage && (
       <Image
         image={image || defaultLogo}
         onChange={(target) => onChange({ target })}
-        name='image'
+        name='pagePreferences.image'
         className='product-template-image'
       />
     )
     }
     <div className={`product-template-description-container ${subContainerClassName}`}>
       <EditableField
-        name='name'
+        name='pagePreferences.name'
         defaultValue='Product Name'
         onChange={onChange}
         className='product-template-name'
         value={name}
       />
       <EditableField
-        name='description'
+        name='pagePreferences.description'
         defaultValue='Product Description, you can edit it by clicking'
         onChange={onChange}
         textarea

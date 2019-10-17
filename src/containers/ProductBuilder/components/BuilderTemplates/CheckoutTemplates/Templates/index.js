@@ -8,7 +8,7 @@ import Temp5 from './Temp5';
 import './style.css'
 
 export default ({ ...props }) => {
-    const { product: { checkoutPage: { template } = {} } = {} } = props
+    const { product: { pagePreferences: { template } = {} } = {} } = props
 
     switch (template) {
         case 'temp1': return <Temp1 {...props} />;

@@ -17,9 +17,9 @@ import {
 
 // import './style.css'
 
-const Template = ({ className='' ,product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
+const Template = ({ className = '', product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
-  const { presetColors: color, features = {}, testimonials = {} } = product.checkoutPage || {}
+  const { themeColor: color, features = {}, testimonials = {} } = product.pagePreferences || {}
   const { coupons = {}, payment = {} } = product
   const showRightSide = features.enabled || testimonials.enabled || coupons.enabled;
   return (
@@ -30,8 +30,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
       />
       <AboutProduct
         onChange={onChange}
-        image={product.image}
-        name={product.name}
+        pagePreferences={product.pagePreferences}
         description={product.description}
       />
       <section className="product-template-body">
@@ -64,19 +63,19 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
           <TermsAndConditionsBadge
             onChange={onChange}
             onOptionSelected={onOptionSelected}
-            terms={product.checkoutPage && product.checkoutPage.termsAndConditions}
+            terms={product.pagePreferences && product.pagePreferences.termsAndConditions}
           />
 
           <CompleteOrderBtn
-            text={product.checkoutPage && product.checkoutPage.checkoutButtonText}
+            text={product.pagePreferences && product.pagePreferences.orderButtonText}
             color={color}
             onChange={onChange}
           />
 
           <GuaranteeMessage
             onChange={onChange}
-            guaranteeImage={product.checkoutPage && product.checkoutPage.guaranteeImage}
-            guaranteed={product.checkoutPage && product.checkoutPage.guaranteed}
+            guaranteeImage={product.pagePreferences && product.pagePreferences.guaranteeImage}
+            guaranteed={product.pagePreferences && product.pagePreferences.guaranteed}
           />
 
         </section>

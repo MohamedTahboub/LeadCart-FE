@@ -13,7 +13,7 @@ const GuaranteeMessage = ({
   const onFieldChange = ({ target: { name, value } }) => {
     onChange({
       target: {
-        name: 'checkoutPage.guaranteed',
+        name: 'pagePreferences.guaranteed',
         value: {}
       }
     });
@@ -23,11 +23,11 @@ const GuaranteeMessage = ({
       ? (
         <div className='template-guarantee-badge'>
           <FloatButton
-            name='checkoutPage.guaranteed'
+            name='pagePreferences.guaranteed'
             position={{ padding: '0 5px', left: '-6px' }}
             onClick={() => onChange({
               target: {
-                name: 'checkoutPage.guaranteed',
+                name: 'pagePreferences.guaranteed',
                 value: { ...guaranteed, enabled: !guaranteed.enabled }
               }
             })}
@@ -38,14 +38,14 @@ const GuaranteeMessage = ({
             image={guaranteed.url || defaultGuaranteeImage}
             onChange={(target) => onChange({
               target: {
-                name: 'checkoutPage.guaranteed',
+                name: 'pagePreferences.guaranteed',
                 value: {
                   ...guaranteed,
                   url: target.value
                 }
               }
             })}
-            name='checkoutPage.guaranteeImage'
+            name='pagePreferences.guaranteeImage'
             className='template-guarantee-badge-image'
             alt='guarantee badge'
           />

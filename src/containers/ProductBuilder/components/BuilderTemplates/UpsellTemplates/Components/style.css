@@ -108,6 +108,7 @@
 .upsell-description{
     font-size: 17px;
     /* font-weight: bold; */
+    width: 100%;
     line-height: 18px;
     text-align: center;
     margin: 15px 0;

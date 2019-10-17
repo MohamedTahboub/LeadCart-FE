@@ -20,7 +20,7 @@ const Testimonials = ({
     const newTestimonials = { ...testimonials, [name]: value };
     props.onChange({
       target: {
-        name: 'checkoutPage.testimonials',
+        name: 'pagePreferences.testimonials',
         value: newTestimonials
       }
     });

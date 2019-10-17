@@ -21,8 +21,8 @@ import {
 
 const Template = ({ className='' ,product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
-  const color = product.checkoutPage && product.checkoutPage.presetColors
-  const { features = {}, testimonials = {} } = product.checkoutPage || {}
+  const color = product.pagePreferences && product.pagePreferences.themeColor
+  const { features = {}, testimonials = {} } = product.pagePreferences || {}
   const { coupons = {} ,payment ={}} = product
   const showRightSide = testimonials.enabled || coupons.enabled;
   return (
@@ -83,18 +83,18 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
           <TermsAndConditionsBadge
             onChange={onChange}
             onOptionSelected={onOptionSelected}
-            terms={product.checkoutPage && product.checkoutPage.termsAndConditions}
+            terms={product.pagePreferences && product.pagePreferences.termsAndConditions}
           />
 
           <CompleteOrderBtn
-            text={product.checkoutPage && product.checkoutPage.checkoutButtonText}
+            text={product.pagePreferences && product.pagePreferences.orderButtonText}
             color={color}
             onChange={onChange}
           />
           <GuaranteeMessage
             onChange={onChange}
-            guaranteeImage={product.checkoutPage && product.checkoutPage.guaranteeImage}
-            guaranteed={product.checkoutPage && product.checkoutPage.guaranteed}
+            guaranteeImage={product.pagePreferences && product.pagePreferences.guaranteeImage}
+            guaranteed={product.pagePreferences && product.pagePreferences.guaranteed}
           />
 
 

@@ -1,15 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EditableField from './EditableField';
+// import EditableField from './EditableField';
+import common from 'components/common';
+const {
+  List,
+  // InputRow,
+  // MainTitle,
+  // Button,
+  // ActivationSwitchInput,
+  // SubTabs,
+  // FlexBoxesContainer
+  EditableField
+} = common;
 
-const Title = ({ value, ...props }) => {
+const Title = ({ product : {name}={}, onChange, ...props }) => {
 
-  const onEdit = (text) => {
-    console.log(text)
-  }
+  // const onEdit = (text) => {
+  //   console.log(text)
+  // }
   return (
     <div className="upsell-title">
-      <EditableField onEdited={onEdit} id="title" />
+      <EditableField
+        name='name'
+        value={name}
+        onChange={onChange}
+      />
     </div>
   )
 };

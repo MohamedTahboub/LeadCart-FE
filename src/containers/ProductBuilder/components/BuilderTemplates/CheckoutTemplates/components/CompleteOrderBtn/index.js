@@ -10,7 +10,7 @@ const CompleteOrderBtn = ({ text, color: background, onChange }) => {
   return (
     <div style={style} className='template-complete-order'>
       <EditableField
-        name='checkoutPage.checkoutButtonText'
+        name='pagePreferences.orderButtonText'
         onChange={onChange}
         value={text}
         defaultValue='Complete Order'

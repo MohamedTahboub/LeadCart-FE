@@ -45,7 +45,7 @@ const Features = ({
     const newFeatures = { ...features, [name]: value };
     props.onChange({
       target: {
-        name: 'checkoutPage.features',
+        name: 'pagePreferences.features',
         value: newFeatures
       }
     });
@@ -102,7 +102,7 @@ const Features = ({
 
           <EditableField
             className='template-features-title'
-            name='checkoutPage.featuresTitle'
+            name='pagePreferences.featuresTitle'
             defaultValue='Features List'
             onChange={onTitleChange}
             value={title}

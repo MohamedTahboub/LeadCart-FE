@@ -9,17 +9,14 @@ const Media = ({
   value,
   autoPlay,
   ...props
-}) => {
-  const Element = (props) => (
-    type === 'video'
-      ? (<ReactPlayer url={value} playing={autoPlay} {...props} />)
-      : (<img src={value} alt='asset link' {...props} />)
-  );
-  useEffect(() => {
+}) => (type === 'image'
+  ? (<img src={value} alt='asset link' {...props} />)
+  : (<ReactPlayer url={value} playing={autoPlay} {...props} />));
 
-  }, [type, value]);
-  return <Element {...props} />;
-};
+// Media.propTypes ={
+//   type:PropTypes
+// }
+
 const {
   InputRow,
   // MainTitle,
@@ -30,48 +27,54 @@ const {
   // FlexBoxesContainer
 } = common;
 
-const MediaAsset = ({ value, type, ...props }) => {
-  const [state, setState] = useState({ changed: false, type: 'video', value: upsellDefaultImage });
+const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ...props }) => {
+  // const { asset= {} } = product.pagePreferences
+  const [state, setState] = useState({ type: 'video', ...asset });
+  const [changed, setChanged] = useState(false);
+
 
   const onChange = ({ target: { name, value } }) => {
     setState((state) => ({
       ...state,
-      [name]: value,
-      changed: true
+      [name]: value
     }));
   };
 
   const onSubmit = () => {
-    // props.onChange && props.onChange({
-    //   name: "upsellAsset",
-    //   value: { type, value }
-    // })
-    setState((state) => ({
-      ...state,
-      changed: false
-    }));
+    props.onChange && props.onChange({
+      target: {
+        name: 'pagePreferences.asset',
+        value: {
+          type: state.type,
+          link: state.link
+        }
+      }
+    });
+    setChanged(false);
   };
+
+  // useEffect(() => {
+  //   console.log('UPDATESSS', asset);
+  //   if (asset.type !== state.type || asset.link !== state.link) setState(asset);
+  // }, [asset]);
 
   const onAssetImageChange = (image) => {
     onChange({ target: { name: 'value', value: image } });
   };
 
   const onEditMode = () => {
-    setState((state) => ({
-      ...state,
-      changed: true
-    }));
+    setChanged(true);
   };
 
   return (
     <div className='upsell-media-asset-container'>
       <Media
         type={state.type}
-        value={state.value}
+        value={state.link}
         alt=''
         className='media-assets'
       />
-      {state.changed ? (
+      {changed ? (
         <div className='editing-warper'>
           <InputRow className='editing-warper-from'>
             <InputRow.SelectOption
@@ -88,10 +91,10 @@ const MediaAsset = ({ value, type, ...props }) => {
             {state.type === 'image'
               ? (
                 <InputRow.AddImage
-                  value={state.value}
+                  value={state.link}
                   source='assets_link'
                   onUploaded={onAssetImageChange}
-                  name='assets.assetLink'
+                  name='link'
                   className='upsell-image-alignment'
                 >
                   Upload Image
@@ -99,9 +102,9 @@ const MediaAsset = ({ value, type, ...props }) => {
               )
               : (
                 <InputRow.TextField
-                  value={state.value}
+                  value={state.link}
                   // error={errors.assets && errors.assets.assetLink}
-                  name='value'
+                  name='link'
                   onChange={onChange}
                   placeholder='Enter Valid video link'
                   className='asset-input-value'

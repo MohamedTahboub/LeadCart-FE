@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EditableField from './EditableField';
-const Note = ({ value, ...props }) => (
+const Note = ({ product : {pagePreferences}={}, ...props }) => (
   <div className='upsell-notes-container'>
-    <EditableField  id="note"/>
+    <EditableField  value={pagePreferences.description} id="note"/>
   </div>
 );
 
