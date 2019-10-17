@@ -4,6 +4,7 @@ import { Modal } from '../Modals'
 import ProductCategories from './ProductCategories'
 import { CheckoutTemplates, UpsellsTemplates } from './TemplatesList'
 import productSample from 'data/product.json';
+import upsellSample from 'data/upsell.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux'
 import ids from 'shortid'
@@ -56,9 +57,9 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
     }, [show]);
 
     const onSubmit = (template) => () =>{
-        const product = productSample
-        product.checkoutPage.template = template
-        product.checkoutPage.presetColors = getTemplateColor(template)
+        const product = category === 'checkout' ? productSample : upsellSample
+        product.pagePreferences.template = template
+        product.pagePreferences.themeColor = getTemplateColor(template)
         // product.url = ids.generate()
         // product.category = category
 
@@ -69,7 +70,7 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
                 onSuccess: (product) => {
                     setProgress(false)
                     setTimeout(() => {
-                        props.history.push(`/${category}/${product.url}`)
+                        props.history.push(`/${category}/${product.id}`)
                     }, 300);
                 },
                 onFailed: (message) => {
