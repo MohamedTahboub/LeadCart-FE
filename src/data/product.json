@@ -6,10 +6,8 @@
     "payment": {
         "type": "Onetime"
     },
-    "thankYouPage": {
-        "thankYouPageUrl": ""
-    },
-    "checkoutPage": {
+    "category": "Checkout",
+    "pagePreferences": {
         "features": {
             "enabled": true,
             "list": [
@@ -39,14 +37,16 @@
         "termsAndConditions": {
             "enabled": false
         },
-        "checkoutButtonText": "Complete Order",
+        "orderButtonText": "Complete Order",
         "logo": "logo",
-        "presetColors": "#0693E3",
+        "themeColor": "#0693E3",
         "template": "temp1",
         "guaranteed": {
             "enabled":false,
             "url":"https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/guarantee-badge.png"
-        }
+        },
+    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5bf605e216803574c86aea00/products/51CpUpuN1BL%20%281%29.jpg",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus nisi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus "
     },
     "offer": {
         "enabled": true,
@@ -71,7 +71,5 @@
     },
     "available": true,
     "name": "Product Name",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus nisi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus ",
-    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5bf605e216803574c86aea00/products/51CpUpuN1BL%20%281%29.jpg",
     "internalName": "product name"
 }

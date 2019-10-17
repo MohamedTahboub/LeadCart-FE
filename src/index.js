@@ -97,8 +97,8 @@ ReactDOM.render(
                         <Route exact path='/saasmantra' component={SignUpSaasmantra} />
                         <Route path='/verify' component={VerifyAccount} />
 
-                        <ProtectedRoute exact path='/checkout/:url' component={ProductBuilder} />
-                        <ProtectedRoute exact path='/upsell/:url' component={ProductBuilder} />
+                        <ProtectedRoute exact path='/checkout/:id' component={ProductBuilder} />
+                        <ProtectedRoute exact path='/upsell/:id' component={ProductBuilder} />
                         <ProtectedRoute component={() => (
                             <Fragment>
                                 <Route render={({ history }) => <SideBar history={history} />} />

@@ -4,7 +4,7 @@ export default [
   'features',
   'featuresTitle',
   'testimonials',
-  'checkoutButtonText',
+  'orderButtonText',
   'termsAndConditions',
 ];
 

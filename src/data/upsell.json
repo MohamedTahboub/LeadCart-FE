@@ -1,5 +1,5 @@
 {
-    "name": "{'blocks':[{'key':'4h76v','text':'Upsell Title','type':'unstyled','depth':0,'inlineStyleRanges':[],'entityRanges':[],'data':{}}],'entityMap':{}} ",
+    "name": "Upsell Name",
     "internalName": "upsell",
     "category": "UpSell",
     "available": true,

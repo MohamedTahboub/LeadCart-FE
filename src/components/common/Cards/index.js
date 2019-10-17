@@ -75,12 +75,14 @@ export const Avatar = ({
 export const ProductCard = ({
   name,
   image: productImage,
+  // pagePreferences:{}={}
   currancy,
   orderInlist = 0,
   monthlyProfite = 0,
   price = {},
   available,
   onEdit,
+  category,
   onPreview,
   onDelete,
   onDuplicate,
@@ -100,6 +102,18 @@ export const ProductCard = ({
           ? <img src={productImage} alt='product avatar' className='card-product-image' />
           : <Avatar name={name} />
       }
+      {
+        category && (category === 'Checkout' ? (
+          <span data-tooltip='Checkout Product'>
+            <i className='fas fa-shopping-cart' />
+          </span>
+        )
+          : (
+            <span data-tooltip='Upsell Product'>
+              <i className='fas fa-chart-line' />
+            </span>
+          ))
+      }
       <span className='product-name-holder'>{name}</span>
       <span className='product-price-holder'>{`${getCurrencySymbol(price.currency)} ${price.amount}`}</span>
     </div>
@@ -107,9 +121,11 @@ export const ProductCard = ({
       <span data-tooltip='Edit Product'>
         <i onClick={onEdit} className='fas fa-edit' />
       </span>
-      <span data-tooltip='Preview Product'>
-        <i onClick={onPreview} className='fas fa-eye' />
-      </span>
+      {onPreview && (
+        <span data-tooltip='Preview Product'>
+          <i onClick={onPreview} className='fas fa-eye' />
+        </span>
+      )}
       <span data-tooltip='Delete Product'>
         <i onClick={onDelete} className='fas fa-trash-alt' />
       </span>

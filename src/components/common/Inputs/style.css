@@ -996,7 +996,19 @@ div.ant-select-sm .ant-select-selection--single{
 .padding-left-10{
     padding-left: 10px;
 }
-
+.margin-v-20{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.margin-left-20{
+    margin-left: 20px;
+}
+.margin-left-10{
+    margin-left: 10px !important;
+}
+.fb-aligned-center{
+    align-items: center;
+}
 
 
 .note-text{

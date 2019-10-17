@@ -9,7 +9,8 @@ const featuresSchema = yup.object({
   enabled: yup.boolean().default(false),
   title: yup.string().default('Features List'),
   list: yup.array().of(yup.object({
-    text: yup.string().required()
+    title: yup.string().default(' '),
+    text: yup.string().required(),
   }))
 });
 const termsAndConditionsSchema = yup.object({
@@ -28,10 +29,10 @@ const testimonialsSchema = yup.object({
 });
 
 
-const checkoutPageSchema = yup.object({
+const pagePreferencesSchema = yup.object({
   template: yup.string().default('temp1'),
-  checkoutButtonText: yup.string().default('Complete Order'),
-  presetColors: yup.string().default('#8ED1FC'),
+  orderButtonText: yup.string().default('Complete Order'),
+  themeColor: yup.string().default('#8ED1FC'),
   features: featuresSchema,
   guaranteed: yup.object({
     enabled: yup.bool().default(false),
@@ -40,6 +41,12 @@ const checkoutPageSchema = yup.object({
   logo: yup.string().default(defaultLogo),
   termsAndConditions: termsAndConditionsSchema,
   testimonials: testimonialsSchema,
+  image: yup.string(),
+  description: yup.string(),
+  asset: yup.object({
+    link: yup.string().url(),
+    type: yup.string()
+  })
 });
 
 
@@ -65,13 +72,11 @@ const offerSchema = yup.object({
 
 const ProductSchema = yup.object({
   available: yup.boolean().default(false),
-  checkoutPage: checkoutPageSchema,
+  pagePreferences: pagePreferencesSchema,
   offer: offerSchema,
   name: yup.string().default('Product-Name'),
-  image: yup.string(),
   internalName: yup.string(),
-  url: yup.string().default(() => ids.generate()),
-  description: yup.string(),
+  // url: yup.string().default(() => ids.generate()),
   price: yup.object({
     amount: yup.number().required(),
     currency: yup.string().default('USD')
@@ -127,6 +132,7 @@ export default async (product) => {
       value: castedProduct
     };
   } catch (err) {
+    console.log(err);
     return {
       isValid: false,
       errors: castYupErrors(err)

@@ -7,6 +7,8 @@ import TextField from './TextField'
 import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
+import Checkbox from 'antd/lib/checkbox';
+
 import ids from 'shortid'
 export class InputRow extends Component {
   static Label = ({ notes, error, className = '', ...props }) => (
@@ -126,6 +128,7 @@ export class InputRow extends Component {
   static DatePicker = DatePicker
   static EditableTagGroup = EditableTagGroup
   static TextField = TextField
+  static Checkbox = Checkbox
 
   static SelectOption = ({
     options = [],
