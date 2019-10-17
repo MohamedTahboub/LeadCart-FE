@@ -18,7 +18,7 @@ const HeaderOptions = ({
   product: {
     checkoutPage: {
       template = 'temp1',
-      presetColors: color
+      themeColor:color
     } = {}
   } = {},
   ...props
