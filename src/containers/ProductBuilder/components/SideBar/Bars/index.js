@@ -3,10 +3,10 @@ import CheckoutSidebarButtons from './CheckoutSidebar';
 import UpsellSidebarButtons from './UpsellSidebar';
 
 
-export default ({ type, ...props }) => {
-  switch (type) {
-  case 'checkout': return <CheckoutSidebarButtons {...props} />;
-  case 'upsell': return <UpsellSidebarButtons {...props} />;
+export default ({ category, ...props }) => {
+  switch (category) {
+  case 'Checkout': return <CheckoutSidebarButtons {...props} />;
+  case 'UpSell': return <UpsellSidebarButtons {...props} />;
   default: return <CheckoutSidebarButtons {...props} />;
   }
 };

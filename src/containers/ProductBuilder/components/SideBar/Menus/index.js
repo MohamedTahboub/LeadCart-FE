@@ -2,11 +2,11 @@ import React from 'react'
 import CheckoutMenu from './CheckoutMenu'
 import UpsellMenu from './UpsellMenu'
 
-export default ({ type='upsell', ...props }) => {
+export default ({ category, ...props }) => {
 
-    switch (type) {
-        case 'checkout': return <CheckoutMenu {...props} />
-        case 'upsell': return <UpsellMenu {...props} />
+    switch (category) {
+        case 'Checkout': return <CheckoutMenu {...props} />
+        case 'UpSell': return <UpsellMenu {...props} />
         default: return <CheckoutMenu {...props} />
     }
 }

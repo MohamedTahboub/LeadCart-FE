@@ -47,11 +47,11 @@ import editorStyles from './style.css';
 const CustomInlineToolbarEditor = ({
   state,
   onEdited,
-  textRowState,
+  rowTextState,
   ...props
 }) => {
   const [editorState, setEditorState] = useState(
-    EditorState.createWithContent(convertFromRaw(textRowState))
+    EditorState.createWithContent(convertFromRaw(rowTextState))
   );
   const [{ plugins, InlineToolbar }] = useState(() => {
     const inlineToolbarPlugin = createInlineToolbarPlugin();
@@ -71,8 +71,8 @@ const CustomInlineToolbarEditor = ({
   const focus = () => editor.current.focus();
 
   useEffect(() => {
-    setEditorState(EditorState.createWithContent(convertFromRaw(textRowState)));
-  }, [textRowState]);
+    setEditorState(EditorState.createWithContent(convertFromRaw(rowTextState)));
+  }, [rowTextState]);
 
   const onBlur = (state) => {
     const contentState = convertToRaw(editorState.getCurrentContent());
@@ -108,6 +108,6 @@ const CustomInlineToolbarEditor = ({
 };
 
 CustomInlineToolbarEditor.defaultProps = {
-  textRowState: convertToRaw(ContentState.createFromText('title'))
+  rowTextState: convertToRaw(ContentState.createFromText('Editable Text'))
 };
 export default CustomInlineToolbarEditor;

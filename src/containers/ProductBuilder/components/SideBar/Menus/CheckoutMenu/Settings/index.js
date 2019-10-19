@@ -34,6 +34,7 @@ const Settings = ({
     <MenuContent>
       <Collapse defaultActiveKey={['1', '2']}>
         <Panel header='Product Settings' key='1'>
+          {/*
           <InputRow className='sidebar-row flexColumn alignedStart'>
             <InputRow.Label className='sidebar-input-label'>Product Publishable Link (URL):</InputRow.Label>
             <InputRow.TextField
@@ -42,6 +43,8 @@ const Settings = ({
               value={url}
             />
           </InputRow>
+          
+          */}
           <InputRow className='sidebar-row'>
             <InputRow.Label className='sidebar-input-label'>Translation</InputRow.Label>
             <InputRow.SearchInput

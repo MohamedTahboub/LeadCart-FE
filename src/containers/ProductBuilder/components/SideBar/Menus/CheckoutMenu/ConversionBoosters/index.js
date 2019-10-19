@@ -15,7 +15,7 @@ const ConversionBoosters = ({
   product: {
     offer = {},
     shippingDetails = {},
-    checkoutPage: {
+    pagePreferences: {
       testimonials = {},
       features = {},
       termsAndConditions: terms = {},
@@ -40,21 +40,21 @@ const ConversionBoosters = ({
   };
   const onToggleTestimonials = () => {
     onChange(
-      'checkoutPage.testimonials',
+      'pagePreferences.testimonials',
       { ...testimonials, enabled: !testimonials.enabled }
     );
   };
 
   const onToggleFeatures = () => {
     onChange(
-      'checkoutPage.features',
+      'pagePreferences.features',
       { ...features, enabled: !features.enabled }
     );
   };
 
   const onToggleGuaranteed = () => {
     onChange(
-      'checkoutPage.guaranteed',
+      'pagePreferences.guaranteed',
       { ...guaranteed, enabled: !guaranteed.enabled }
     );
   };
@@ -62,7 +62,7 @@ const ConversionBoosters = ({
 
   const onChangeTermsField = ({ target: { name, value } }) => {
     onChange(
-      'checkoutPage.termsAndConditions',
+      'pagePreferences.termsAndConditions',
       { ...terms, [name]: value }
     );
   };

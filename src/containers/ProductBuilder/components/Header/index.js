@@ -7,13 +7,13 @@ import {
 
 } from './components';
 
-const Header = ({ type="upsell", ...props }) => {
-  switch (type) {
-  case 'checkout': return <CheckoutHeader {...props} />;
-  case 'upsell': return <UpsellHeader {...props} />;
+const Header = ({ category, ...props }) => {
+  switch (category) {
+    case 'Checkout': return <CheckoutHeader {...props} />;
+    case 'UpSell': return <UpsellHeader {...props} />;
     // case 'funnel': return <DefaultHeader {...props} />
 
-  default: return <DefaultHeader {...props} />;
+    default: return <DefaultHeader {...props} />;
   }
 };
 

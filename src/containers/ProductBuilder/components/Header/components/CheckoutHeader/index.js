@@ -59,19 +59,12 @@ const CheckoutHeader = ({
         <Button onClick={onShowScripts} className='primary-btn '>
           <i className='fas fa-code' />
           Embed Scripts
-    </Button>
-        <Button onClick={onShowShare} className='primary-btn '>
-          <i className='fas fa-share-square' />
-          Share
-    </Button>
-        <Button onClick={onPreview} className='primary-btn '>
-          <i className='fas fa-eye' />
-          Preview
-    </Button>
+        </Button>
+
         <Button onClick={onSave} className='primary-btn '>
           <i className='fas fa-save' />
           Save
-    </Button>
+        </Button>
       </div>
       <ShareProductModal
         isVisible={showModal.share}
@@ -94,3 +87,13 @@ CheckoutHeader.propTypes = {
 };
 
 export default CheckoutHeader;
+
+
+// <Button onClick={onShowShare} className='primary-btn '>
+// <i className='fas fa-share-square' />
+// Share
+// </Button>
+// <Button onClick={onPreview} className='primary-btn '>
+// <i className='fas fa-eye' />
+// Preview
+// </Button>

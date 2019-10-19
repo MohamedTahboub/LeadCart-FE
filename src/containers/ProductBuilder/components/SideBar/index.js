@@ -38,14 +38,13 @@ const SideBar = (props) => {
     <div className='checkout-nav-sidebar'>
 
       <Sidebars
-        type='upsell'
+        {...props}
         active={activeMenuItem}
         onClick={onActivateMenuItem}
       />
 
       <div className={`side-menu-container ${open ? 'open' : ''}`}>
         <Menus
-          type='upsell'
           activeMenu={activeMenuItem}
           {...props}
         />

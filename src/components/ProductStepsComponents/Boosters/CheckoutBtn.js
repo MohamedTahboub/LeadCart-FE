@@ -13,11 +13,11 @@ class CheckoutBtn extends Component {
   }
 
   render () {
-    const { checkoutButtonText } = this.props;
+    const { orderButtonText } = this.props;
     return (
       <InputRow>
         <InputRow.Label>Checkout Button Text</InputRow.Label>
-        <InputRow.SmallInput name='checkoutButtonText' value={checkoutButtonText} onChange={this.onFieldChange}></InputRow.SmallInput>
+        <InputRow.SmallInput name='orderButtonText' value={orderButtonText} onChange={this.onFieldChange}></InputRow.SmallInput>
       </InputRow>
     );
   }
@@ -26,9 +26,9 @@ class CheckoutBtn extends Component {
 
 const mapStateToProps = ({
   product: {
-    boosters: { checkoutButtonText }
+    boosters: { orderButtonText }
   }
 }) => ({
-  checkoutButtonText
+  orderButtonText
 });
 export default connect(mapStateToProps, producActions)(CheckoutBtn);

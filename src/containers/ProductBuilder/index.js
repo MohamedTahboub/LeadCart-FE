@@ -51,6 +51,7 @@ const ProductBuilder = ({
       name = key;
       value = { ...fields[key], ...nestedValue };
     }
+    console.log("Changes registered",name,value)
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -60,11 +61,17 @@ const ProductBuilder = ({
     setEnableDarkTheme(!enableDarkTheme);
   };
   useEffect(() => {
-    const { url } = props.match.params;
-    const product = products.find(({ url: u }) => u === url) || {};
+    const { id } = props.match.params;
+    const product = products.find(({ _id }) => _id === id) || {};
+    if(product._id !== fields._id)
     setFields(product);
 
-    if (product._id) setLoading({ product: false });
+    if (product._id) {
+      setLoading({ product: false });
+    }
+    
+
+
     return () => {
       // setFields({});
     };
@@ -74,9 +81,9 @@ const ProductBuilder = ({
     setDisplayType(type);
   };
 
-  const updateUrlOnChange = (updatedUrl) => {
-    const { url: currentUrl } = props.match.params;
-    if (updatedUrl !== currentUrl) props.history.push(updatedUrl);
+  const updateUrlOnChange = (currentId) => {
+    const { id } = props.match.params;
+    if (currentId !== id) props.history.push(id);
   };
 
   const onSave = async () => {
@@ -106,7 +113,7 @@ const ProductBuilder = ({
             message: 'Your Changes Saved Successfully'
           });
           changesSaved();
-          updateUrlOnChange(fields.url);
+          updateUrlOnChange(fields._id);
         },
         onFailed: (message) => {
           props.showFlashMessage({
@@ -139,7 +146,7 @@ const ProductBuilder = ({
           onChange={onChange}
           onDisplayChange={onDisplayChange}
           displayType={displayType}
-          type={fields.category}
+          category={fields.category}
           subdomain={subdomain}
           product={fields}
           onSave={onSave}
@@ -148,7 +155,7 @@ const ProductBuilder = ({
         <SideBar
           onChange={onChange}
           product={fields}
-          type={fields.category}
+          category={fields.category}
           onSidebarChange={postSideChanging}
           onToggleDarkTheme={onToggleDarkTheme}
           darkTheme={enableDarkTheme}
@@ -156,7 +163,7 @@ const ProductBuilder = ({
         />
         <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
           <ProductEditableTemplate
-            type={fields.category}
+            category={fields.category}
             className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
             product={fields}
             onChange={onChange}

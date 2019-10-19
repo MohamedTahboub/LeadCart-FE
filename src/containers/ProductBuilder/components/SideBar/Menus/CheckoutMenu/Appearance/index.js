@@ -53,11 +53,11 @@ const TemplateThumbnail = ({
 };
 
 
-const Appearance = ({ product: { checkoutPage: { template, color } = {} } = {}, ...props }) => {
+const Appearance = ({ product: { pagePreferences: { template, color } = {} } = {}, ...props }) => {
   const onColorChange = ({ hex: value }) => {
     props.onChange({
       target: {
-        name: 'checkoutPage.presetColors',
+        name: 'pagePreferences.themeColor',
         value
       }
     });
@@ -66,7 +66,7 @@ const Appearance = ({ product: { checkoutPage: { template, color } = {} } = {}, 
     props.toggleTemplateChangeEffect();
     props.onChange({
       target: {
-        name: 'checkoutPage.template',
+        name: 'pagePreferences.template',
         value
       }
     });
