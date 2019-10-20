@@ -3,10 +3,21 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 const { EditableField } = common;
 
-const DeclineButton = ({ value, ...props }) => (
-  <EditableField className='upsell-decline-text'>
-        No Thanks I'd rather not take the advantage of this offer!
-  </EditableField>
+const DeclineButton = ({
+  product: {
+    pagePreferences: {
+      declineButtonText
+    } = {}
+  } = {},
+  onChange,
+  ...props
+}) => (
+  <EditableField
+    value={declineButtonText}
+    onChange={onChange}
+    name='pagePreferences.declineButtonText'
+    className='upsell-decline-text'
+  />
 );
 
 DeclineButton.propTypes = {

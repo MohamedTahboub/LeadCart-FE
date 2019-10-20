@@ -32,6 +32,7 @@ const testimonialsSchema = yup.object({
 const pagePreferencesSchema = yup.object({
   template: yup.string().default('temp1'),
   orderButtonText: yup.string().default('Complete Order'),
+  declineButtonText: yup.string().default('No thanks!'),
   themeColor: yup.string().default('#8ED1FC'),
   backgroundColor: yup.string().default('#fff'),
   features: featuresSchema,

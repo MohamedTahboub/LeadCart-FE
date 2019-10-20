@@ -11,11 +11,22 @@ const {
   // FlexBoxesContainer
   EditableField
 } = common;
-const OrderButton = ({ value, ...props }) => (
+const OrderButton = ({
+  product: {
+    pagePreferences: {
+      orderButtonText
+    } = {}
+  } = {},
+  onChange,
+  ...props
+}) => (
   <div className='upsell-order-button'>
-    <EditableField className='btn upsell-btn light-green-color'>
-      Get Offer Now - $99
-    </EditableField>
+    <EditableField
+      name='pagePreferences.orderButtonText'
+      className='btn upsell-btn light-green-color'
+      value={orderButtonText}
+      onChange={onChange}
+    />
   </div>
 );
 
