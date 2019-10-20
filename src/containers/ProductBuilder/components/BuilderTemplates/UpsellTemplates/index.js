@@ -7,11 +7,20 @@ import {
   Template2
 } from './Templates';
 
-const UpsellTemplates = ({ template = 'temp1', ...props }) => {
+const UpsellTemplates = (props) => {
+
+  const {
+    product: {
+      pagePreferences: {
+        template = 'temp1'
+      } = {}
+    } = {}
+  } = props;
+
   switch (template) {
-  case 'temp1': return <Template1 {...props} />;
-  case 'temp2': return <Template2 {...props} />;
-  default: return <Template2 {...props} />;
+    case 'temp1': return <Template1 {...props} />;
+    case 'temp2': return <Template2 {...props} />;
+    default: return <Template2 {...props} />;
   }
 };
 UpsellTemplates.propTypes = {
