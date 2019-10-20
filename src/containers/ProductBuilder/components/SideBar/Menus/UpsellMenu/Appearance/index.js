@@ -58,7 +58,7 @@ const Appearance = ({
   const onColorChange = (name) => ({ hex: value }) => {
     props.onChange({
       target: {
-        name: 'pagePreferences.themeColor',
+        name,
         value
       }
     });

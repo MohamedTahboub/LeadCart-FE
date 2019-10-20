@@ -67,7 +67,7 @@ const ConversionBoosters = ({
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
-                value={progressBar.enabled}
+                value={features.enabled}
                 name='enabled'
                 onToggle={onToggleFeatures}
                 className='sidebar-switch-input'
