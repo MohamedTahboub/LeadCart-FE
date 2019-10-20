@@ -1,0 +1,37 @@
+.sidebar-row{
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+.sidebar-input-label{
+    margin:5px 0;
+    width: unset;
+}
+.sidebar-switch-input{
+    margin: 10px 50px;
+}
+.sidebar-switch-input::after {
+    content: 'hide';
+    text-transform: capitalize;
+}
+.sidebar-switch-input::before {
+    content: 'show';
+    text-transform: capitalize;
+}
+.flexColumn{
+    flex-direction: column;
+}
+.alignedStart{
+    align-items: flex-start;
+}
+.terms-and-conditions-input{
+    width: 100%;
+}
+/* .widget.progress-bar-input */
+.progress-bar-input{
+    /* width: 100%; */
+    max-width: 50px;
+}
+.margin-bottom-20{
+    margin-bottom: 20px;
+}

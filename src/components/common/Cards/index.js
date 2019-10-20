@@ -5,6 +5,7 @@ import { Modal } from 'components/Modals';
 import ids from 'shortid';
 import { getCurrencySymbol } from 'libs';
 import { property } from 'libs';
+import defaultFunnelThumbnail from 'assets/images/funnelCardThumbnail.png';
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
 import { Button, SmallButton, MiniButton } from '../Buttons';
@@ -447,7 +448,7 @@ export const CouponRowCard = ({
           {type}
           {' '}
             =>
-        </span>
+          </span>
         <span className='value'>{type === 'Flat' ? ` $${amount}` : `${percent}%`}</span>
       </div>
     </div>
@@ -462,3 +463,57 @@ export const CouponRowCard = ({
 
 
 export { default as PackageCard } from './PackageCard';
+
+
+export const FunnelCard = ({
+  name,
+  orderInlist,
+  id,
+  onEdit,
+  onPreview,
+  thumbnail = defaultFunnelThumbnail,
+  onDelete,
+  ...props
+}) => {
+  const coverImageStyle = {
+    backgroundImage: ` linear-gradient(
+          to bottom,
+          rgba(0,0,0, 0),
+          rgba(0,0,0, .35)
+        ),url(${thumbnail})`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  };
+
+  return (
+    <EasyAnimate
+      delay={orderInlist * 100}
+      className='funnel-card-container'
+    >
+      <div style={coverImageStyle} className='funnel-cover-image' />
+      <MiniButton
+        iconClass='fa-copy'
+        // onClick={onDuplicate}
+        tooltip='Duplicate'
+        className='product-duplicate-btn funnel-duplicate-btn'
+      />
+      <div className='funnel-card-content'>
+        <div className='name-holder'>
+          <span data-tooltip='Open in new Tap'>
+            <i onClick={onPreview} className='fas fa-link' />
+          </span>
+          <span className='funnel-name-holder'>{name}</span>
+        </div>
+        <div className='card-controlls-container'>
+          <span data-tooltip='Edit Fulfillment'>
+            <i onClick={onEdit} className='fas fa-edit' />
+          </span>
+          <span data-tooltip='Delete Fulfillment'>
+            <i onClick={onDelete} className='fas fa-trash-alt' />
+          </span>
+        </div>
+      </div>
+    </EasyAnimate>
+  );
+};

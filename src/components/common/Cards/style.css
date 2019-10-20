@@ -674,3 +674,58 @@ span.medium-card-headline {
     content: "\F067";
 }
 /* Package Card Styles Ends */
+
+
+
+
+
+/* FUnnel Card Styles */
+
+.funnel-card-container{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px 20px 0px;
+    transition:all .3 ease-in-out;
+    box-shadow: 1px 1px 10px -5px rgba(0,0,0,.2);
+}
+.funnel-cover-image{
+    height: 50%;
+    width: 100%;
+}
+
+.funnel-card-container .name-holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+.funnel-name-holder{
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 5px;
+}
+
+.funnel-card-content .fas{
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+} 
+.funnel-card-content .fas:hover{
+    color:#03A9F4;
+    transform: scale(1.2);
+} 
+.product-duplicate-btn.funnel-duplicate-btn{
+    background: transparent;
+}
+.funnel-card-container  .fas{
+    font-size: 12px;
+}
+.funnel-card-container  .card-controlls-container{
+    height: unset;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
