@@ -41,6 +41,15 @@ const pagePreferencesSchema = yup.object({
   logo: yup.string().default(defaultLogo),
   termsAndConditions: termsAndConditionsSchema,
   testimonials: testimonialsSchema,
+  widgets: yup.object({
+    progressBar: yup.object({
+      enabled: yup.bool().default(false),
+      type: yup.string(),
+      value: yup.number().default(60),
+      color: yup.string(),
+      label: yup.string(),
+    })
+  }),
   image: yup.string(),
   description: yup.string(),
   asset: yup.object({

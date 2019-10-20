@@ -84,12 +84,16 @@
     cursor: pointer;
     color:white;
 }
+.smooth-select,
 .asset-type{
-    width: 70px;
-    min-width: 80px;
     margin: 0 10px;
     border-radius: 4px;
 }
+.asset-type{
+    width: 70px;
+    min-width: 80px;
+}
+
 .asset-input-value{
     width: 300px;
     margin: 0 15px;

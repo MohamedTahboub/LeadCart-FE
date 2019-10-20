@@ -8,18 +8,22 @@ import {
 
 import './style.css';
 
-const { InputRow, Collapse } = common;
+const {
+  InputRow,
+  MiniTwitterPicker,
+  Collapse
+} = common;
+
 const { Panel } = Collapse;
 
 const ConversionBoosters = ({
   product: {
-    offer = {},
-    shippingDetails = {},
-    checkoutPage: {
-      testimonials = {},
+    pagePreferences: {
+      widgets: {
+        progressBar = {},
+        ...widgets
+      } = {},
       features = {},
-      termsAndConditions: terms = {},
-      guaranteed = {},
     } = {}
   } = {},
   ...props
@@ -32,48 +36,27 @@ const ConversionBoosters = ({
       }
     });
   };
-  const onToggleShippingDetails = () => {
-    onChange(
-      'shippingDetails.enabled',
-      !shippingDetails.enabled
-    );
-  };
-  const onToggleTestimonials = () => {
-    onChange(
-      'checkoutPage.testimonials',
-      { ...testimonials, enabled: !testimonials.enabled }
-    );
-  };
 
   const onToggleFeatures = () => {
     onChange(
-      'checkoutPage.features',
+      'pagePreferences.features',
       { ...features, enabled: !features.enabled }
     );
   };
-
-  const onToggleGuaranteed = () => {
+  const onProgressBarChange = ({ target: { name, value } }) => {
+    if (name === 'enabled') value = value === 'on';
     onChange(
-      'checkoutPage.guaranteed',
-      { ...guaranteed, enabled: !guaranteed.enabled }
-    );
-  };
-
-
-  const onChangeTermsField = ({ target: { name, value } }) => {
-    onChange(
-      'checkoutPage.termsAndConditions',
-      { ...terms, [name]: value }
-    );
-  };
-  const onToggleTerms = () => {
-    onChangeTermsField({
-      target: {
-        name: 'enabled',
-        value: !terms.enabled
+      'pagePreferences.widgets',
+      {
+        ...widgets,
+        progressBar: {
+          ...progressBar,
+          [name]: value
+        }
       }
-    });
+    );
   };
+
 
   return (
     <MenuItem>
@@ -84,7 +67,8 @@ const ConversionBoosters = ({
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
-                value={features.enabled}
+                value={progressBar.enabled}
+                name='enabled'
                 onToggle={onToggleFeatures}
                 className='sidebar-switch-input'
               />
@@ -94,21 +78,55 @@ const ConversionBoosters = ({
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
-                // value={terms.enabled}
-                // onToggle={onToggleTerms}
+                value={progressBar.enabled}
+                name='enabled'
+                onToggle={onProgressBarChange}
                 className='sidebar-switch-input'
+              />
+            </InputRow>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Progress Bar Type:</InputRow.Label>
+              <InputRow.SelectOption
+                value={progressBar.type}
+                name='type'
+                // error={errors.assets && errors.assets.assetsType}
+                onChange={onProgressBarChange}
+                className='smooth-select'
+                options={[
+                  { label: 'Edgy Bar', value: 'edgy' },
+                  { label: 'Rectangle Bar', value: 'rectangle' }
+                ]}
               />
             </InputRow>
             <InputRow className='padding-v-10 '>
               <InputRow.Label className='sidebar-input-label'>Progress Bar Value(%):</InputRow.Label>
               <InputRow.TextField
-                // value={terms.url}
+                value={progressBar.value}
                 type='number'
                 min={0}
                 max={100}
                 name='value'
                 className='progress-bar-input margin-left-20'
-                onChange={onChangeTermsField}
+                onChange={onProgressBarChange}
+              />
+            </InputRow>
+            <InputRow className='padding-v-10 '>
+              <InputRow.Label className='sidebar-input-label'>Bar Label:</InputRow.Label>
+              <InputRow.TextField
+                value={progressBar.label}
+                name='label'
+                className='progress-bar-input margin-left-20'
+                onChange={onProgressBarChange}
+              />
+            </InputRow>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
+                Background:
+              </InputRow.Label>
+              <MiniTwitterPicker
+                name='containerBackground'
+                value={progressBar.color}
+                onChange={onProgressBarChange}
               />
             </InputRow>
           </Panel>

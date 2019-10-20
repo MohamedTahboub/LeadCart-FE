@@ -45,11 +45,20 @@ const TemplateThumbnail = ({
 };
 
 
-const Appearance = ({ product: { checkoutPage: { template, color } = {} } = {}, ...props }) => {
-  const onColorChange = ({ hex: value }) => {
+const Appearance = ({
+  product: {
+    pagePreferences: {
+      template,
+      themeColor,
+      backgroundColor
+    } = {}
+  } = {},
+  ...props
+}) => {
+  const onColorChange = (name) => ({ hex: value }) => {
     props.onChange({
       target: {
-        name: 'checkoutPage.presetColors',
+        name: 'pagePreferences.themeColor',
         value
       }
     });
@@ -58,7 +67,7 @@ const Appearance = ({ product: { checkoutPage: { template, color } = {} } = {}, 
     props.toggleTemplateChangeEffect();
     props.onChange({
       target: {
-        name: 'checkoutPage.template',
+        name: 'pagePreferences.template',
         value
       }
     });
@@ -85,13 +94,17 @@ const Appearance = ({ product: { checkoutPage: { template, color } = {} } = {}, 
             </MenuFlexContent>
           </Panel>
           <Panel header='Theme Color' key='2'>
-            <TwitterPicker className='template-color-picker' color={color} onChange={onColorChange} />
+            <TwitterPicker
+              className='template-color-picker'
+              color={themeColor}
+              onChange={onColorChange('pagePreferences.themeColor')}
+            />
           </Panel>
           <Panel header='Page Background Color' key='3'>
             <TwitterPicker
               className='template-color-picker'
-              color={color}
-            // onChange={onColorChange}
+              color={backgroundColor}
+              onChange={onColorChange('pagePreferences.backgroundColor')}
             />
           </Panel>
         </Collapse>
