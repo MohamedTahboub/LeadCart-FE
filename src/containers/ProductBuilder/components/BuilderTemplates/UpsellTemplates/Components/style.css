@@ -147,6 +147,17 @@
     flex-wrap: wrap;
     padding: 10px 50px;
 }
+.upsell-features-list.grid{
+  justify-content: space-between;
+}
+.upsell-features-list.grid .feature-item{
+    flex: 1;
+    max-width: 300px;
+}
+.upsell-features-list.list{
+    flex-direction: column;
+}
+
 .upsell-features-list .feature-item{
     /* flex: 1; */
     min-width: 200px;

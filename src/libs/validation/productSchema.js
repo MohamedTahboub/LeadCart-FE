@@ -9,8 +9,8 @@ const featuresSchema = yup.object({
   enabled: yup.boolean().default(false),
   title: yup.string().default('Features List'),
   list: yup.array().of(yup.object({
-    title: yup.string().default(' '),
-    text: yup.string().required(),
+    title: yup.string().default('Feature Title'),
+    text: yup.string().default('Feature Description'),
   }))
 });
 const termsAndConditionsSchema = yup.object({
@@ -33,6 +33,7 @@ const pagePreferencesSchema = yup.object({
   template: yup.string().default('temp1'),
   orderButtonText: yup.string().default('Complete Order'),
   themeColor: yup.string().default('#8ED1FC'),
+  backgroundColor: yup.string().default('#fff'),
   features: featuresSchema,
   guaranteed: yup.object({
     enabled: yup.bool().default(false),

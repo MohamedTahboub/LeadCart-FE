@@ -16,48 +16,71 @@ const AddIcon = ({ tooltip, ...props }) => (
 );
 
 const {
-  List,
-  // InputRow,
-  // MainTitle,
-  // Button,
-  // ActivationSwitchInput,
-  // SubTabs,
-  // FlexBoxesContainer
   EditableField
 } = common;
 
 const Features = ({
-  list,
-  title,
-  type,
+  product: {
+    pagePreferences = {}
+  } = {},
+  ...props
 }) => {
-  const [features, setFeatures] = useState(list);
+  const {
+    list,
+    title,
+    type,
+  } = pagePreferences.features;
 
+
+  const onFeaturesChange = ({ target: { name, value } }) => {
+    props.onChange({
+      target: {
+        name: 'pagePreferences.features',
+        value: {
+          ...pagePreferences.features,
+          [name]: value
+        }
+      }
+    });
+  };
   const onFeatureChange = ({ id, value }) => {
-    const newList = features.map((feature) => {
-      if (feature.id === id) return { id, value };
+    const newList = list.map((feature, i) => {
+      if (i === id) return { ...value };
       return feature;
     });
 
-    setFeatures(newList);
-    // onFeaturesChange(newList)
+    onFeaturesChange({
+      target: {
+        name: 'list',
+        value: newList
+      }
+    });
   };
 
   const onAddFeature = (e) => {
     e.stopPropagation();
-    if (features.length >= 8) return;
-    const newList = [...features,
+    if (list.length >= 8) return;
+    const newList = [...list,
       {
-        _id: ids.generate(),
         title: 'change title',
-        description: 'feature description ...'
+        text: 'feature description ...'
       }];
-    setFeatures(newList);
-    // onFeaturesChange(newList)
+    onFeaturesChange({
+      target: {
+        name: 'list',
+        value: newList
+      }
+    });
   };
+
   const onRemoveFeature = (id) => {
-    const newList = features.filter(({ _id }) => _id !== id);
-    setFeatures(newList);
+    const newList = list.filter((feature, i) => i !== id);
+    onFeaturesChange({
+      target: {
+        name: 'list',
+        value: newList
+      }
+    });
   };
 
   return (
@@ -66,23 +89,24 @@ const Features = ({
         <EditableField
           name='title'
           value={title}
-          // onChange={onChange.bind(this, id)}
+          onChange={onFeaturesChange}
           className='upsell-features-title'
           childElement={<AddIcon onClick={onAddFeature} toolTip='add new feature' />}
         />
       </div>
-      <div className='upsell-features-list'>
-        {features.map(({
-          title, description, _id: id
+      <div className={`upsell-features-list ${type}`}>
+        {list.map(({
+          title,
+          text,
         }, number) => (
           <UpsellFeature
-            key={id}
-            id={id}
+            key={`${number}:${title},${text}`}
+            id={number}
             number={number + 1}
             title={title}
-            description={description}
+            text={text}
             onChange={onFeatureChange}
-            onRemove={onRemoveFeature.bind(this, id)}
+            onRemove={onRemoveFeature}
           />
         ))}
       </div>
