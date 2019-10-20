@@ -2,17 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EditableField from './EditableField';
 
-const Description = ({ product : {pagePreferences}={}, ...props }) => {
+const Description = ({
+  product: {
+    pagePreferences
+  } = {},
+  ...props
+}) => {
 
-  const onChange = (value) => {
-    console.log(value)
+
+  const onEdit = (text) => {
+    props.onChange({
+      target: {
+        name: "pagePreferences.description",
+        value: text
+      }
+    })
   }
 
   return (
     <div className='upsell-description' id="description">
       <EditableField
         value={pagePreferences.description}
-        onEdit={onChange}
+        onEdit={onEdit}
       />
     </div>
   )

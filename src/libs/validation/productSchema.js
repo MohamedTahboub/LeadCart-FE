@@ -56,6 +56,11 @@ const pagePreferencesSchema = yup.object({
   asset: yup.object({
     link: yup.string().url(),
     type: yup.string()
+  }),
+  orderNote: yup.object({
+    enabled: yup.boolean(),
+    text: yup.string(),
+    style: yup.string()
   })
 });
 
