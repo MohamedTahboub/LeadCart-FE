@@ -13,3 +13,6 @@ export { default as ipadIcon } from '../../../../assets/images/icons/ipad.svg';
 export { default as mobileIcon } from '../../../../assets/images/icons/mobile.svg';
 export { default as settingsIcon } from '../../../../assets/images/icons/cogs-solid.svg';
 
+export { default as upsellIcon } from '../../../../assets/images/icons/upsell_icon.svg';
+export { default as checkoutProductIcon } from '../../../../assets/images/icons/checkout_product_icon.svg';
+

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './style.css';
-import Sidebars from './Bars';
+import Sidebars from './Bar';
 import Menus from './Menus';
 
 

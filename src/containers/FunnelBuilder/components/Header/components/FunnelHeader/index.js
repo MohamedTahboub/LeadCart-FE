@@ -18,6 +18,7 @@ const {
 
 const CheckoutHeader = ({
   funnel,
+  isNew,
   onChange,
   subdomain,
   onSave,
@@ -54,17 +55,17 @@ const CheckoutHeader = ({
       history={history}
     >
       <div className='header-buttons'>
-        <Button onClick={onShowShare} className='primary-btn '>
+        <Button disabled={isNew} onClick={onShowShare} className='primary-btn '>
           <i className='fas fa-share-square' />
           Share
         </Button>
-        <Button onClick={onPreview} className='primary-btn '>
+        <Button disabled={isNew} onClick={onPreview} className='primary-btn '>
           <i className='fas fa-eye' />
           Preview
         </Button>
         <Button onClick={onSave} className='primary-btn '>
           <i className='fas fa-save' />
-          Save
+          {isNew ? 'Create' : 'Save'}
         </Button>
       </div>
       <ShareProductModal

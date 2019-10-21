@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 
 import {
+  upsellIcon,
+  checkoutProductIcon,
   AppearanceIcon,
   conversionsBoostersIcon,
   fulfillmentIcon,
@@ -33,49 +35,22 @@ const SideButton = ({
 );
 
 const SideButtons = ({ active, onClick }) => (
-  <div className='side-buttons-container'>
+  <div className='side-buttons-container funnel-bar'>
     <SideButton
       active={active}
       onClick={onClick}
-      image={AppearanceIcon}
-      id='appearance'
-      label='Appearance'
+      image={checkoutProductIcon}
+      id='checkouts'
+      label='Checkout Products'
     />
     <SideButton
       active={active}
       onClick={onClick}
-      image={conversionsBoostersIcon}
-      id='conversionsBoosters'
-      label='Conversion Boosters'
+      image={upsellIcon}
+      id='upsells'
+      label='Up/Down Sales'
     />
-    <SideButton
-      active={active}
-      onClick={onClick}
-      image={pricingIcon}
-      id='pricing'
-      label='Pricing'
-    />
-    <SideButton
-      active={active}
-      onClick={onClick}
-      image={fulfillmentIcon}
-      id='fulfillment'
-      label='Fulfillment'
-    />
-    <SideButton
-      active={active}
-      onClick={onClick}
-      image={bumpOfferIcon}
-      id='bumpOffer'
-      label='Bump Offer'
-    />
-    <SideButton
-      active={active}
-      onClick={onClick}
-      image={couponIcon}
-      id='coupon'
-      label='Coupons'
-    />
+
     <SideButton
       className='checkout-wizard-setting-btn'
       active={active}

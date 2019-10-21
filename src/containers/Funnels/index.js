@@ -45,6 +45,13 @@ const Funnels = ({
   const onFunnelEdit = (url) => {
     props.history.push(`/funnels/${url}`);
   };
+  const onFunnelCreate = (url) => {
+    setCreateFunnel(true);
+    setTimeout(() => {
+      setCreateFunnel(false);
+      props.history.push('/funnels/new');
+    }, 500);
+  };
 
 
   // useEffect(() => {
@@ -117,7 +124,7 @@ const Funnels = ({
           <div className='margin-v-20 flex-container fb-aligned-center'>
             <MainTitle>Funnels</MainTitle>
           </div>
-          <Button onClick={() => setShowLoadingModal(true)} className='primary-color'>
+          <Button onClick={onFunnelCreate} className='primary-color'>
             <i className='fas fa-plus' />
           new funnel
           </Button>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import common from 'components/common';
+// import common from 'components/common';
+import { connect } from 'react-redux';
 
 
 import tempImage1 from 'assets/images/checkout_templates/temp_1.png';
@@ -18,8 +19,8 @@ import {
   MenuFlexContent
 } from '../MenuElements';
 
-const { Collapse, TwitterPicker } = common;
-const { Panel } = Collapse;
+// const { Collapse, TwitterPicker } = common;
+// const { Panel } = Collapse;
 
 const templates = [
   tempImage1,
@@ -35,7 +36,6 @@ const TemplateThumbnail = ({
   order,
   onClick,
   activeTemplate,
-  onSelect,
   ...props
 }) => {
   const templateName = `temp${order}`;
@@ -43,7 +43,6 @@ const TemplateThumbnail = ({
 
   return (
     <div
-      onClick={onSelect(templateName)}
       className={`template-thumbnail-element box-shadow small ${isActive ? 'active' : ''}`}
       role='button'
     >
@@ -53,52 +52,40 @@ const TemplateThumbnail = ({
 };
 
 
-const Appearance = ({ product: { pagePreferences: { template, color } = {} } = {}, ...props }) => {
-  const onColorChange = ({ hex: value }) => {
-    props.onChange({
-      target: {
-        name: 'pagePreferences.themeColor',
-        value
-      }
-    });
-  };
-  const onTemplateChange = (value) => () => {
-    props.toggleTemplateChangeEffect();
-    props.onChange({
-      target: {
-        name: 'pagePreferences.template',
-        value
-      }
-    });
-  };
+const Appearance = ({ products, ...props }) => {
+  let productsWithImages = [];
+  try {
+    productsWithImages = products.map((product) => {
+      const { pagePreferences: { template = '1' } = {} } = product;
+      const [imageIndex = 1] = template.split('').reverse();
 
+      product.image = templates[+imageIndex - 1];
+      return product;
+    });
+  } catch (err) {
+    productsWithImages = [];
+  }
 
   return (
     <MenuItem>
-      <MenuTitle>Appearance</MenuTitle>
+      <MenuTitle>Checkout Products</MenuTitle>
       <MenuContent>
-        <Collapse defaultActiveKey={['1']}>
-          <Panel header='Templates' key='1'>
-            <MenuFlexContent>
-              {templates.map((image, id) => (
-                <TemplateThumbnail
-                  key={id}
-                  image={image}
-                  activeTemplate={template}
-                  order={id + 1}
-                  onSelect={onTemplateChange}
-                />
-              ))}
-            </MenuFlexContent>
-          </Panel>
-          <Panel header='Theme Color' key='2'>
-            <TwitterPicker className='template-color-picker' color={color} onChange={onColorChange} />
-          </Panel>
-        </Collapse>
+        <MenuFlexContent>
+          {productsWithImages.map(({ _id, image }, id) => (
+            <TemplateThumbnail
+              key={_id}
+              image={image}
+              // activeTemplate={template}
+              order={id + 1}
+            // onSelect={onTemplateChange}
+            />
+          ))}
+        </MenuFlexContent>
       </MenuContent>
     </MenuItem>
   );
 };
+
 
 Appearance.propTypes = {
   product: PropTypes.objectOf({}),
@@ -109,4 +96,8 @@ Appearance.defaultProps = {
   product: {}
 };
 
-export default Appearance;
+const mapStateToProps = ({ products: { products = [] } = {} }) => ({
+  products: products.filter(({ category }) => (category === 'Checkout' || !category))
+});
+
+export default connect(mapStateToProps)(Appearance);

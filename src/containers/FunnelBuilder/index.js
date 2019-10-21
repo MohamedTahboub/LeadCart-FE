@@ -24,6 +24,7 @@ const FunnelBuilder = ({
   globelLoading,
   ...props
 }) => {
+  const [isNew, setIsNew] = useState(true);
   const [fields, setFields] = useState({});
   // const [displayType, setDisplayType] = useState('desktop');
   // const [changesDetected, setChangesDetected] = useState(false)
@@ -50,6 +51,7 @@ const FunnelBuilder = ({
     typeof unblock === 'function' && unblock();
     // stopTabClosing(false);
   };
+
   const onChange = ({ target: { name, value } }) => {
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
@@ -68,6 +70,9 @@ const FunnelBuilder = ({
   };
   useEffect(() => {
     const { url: funnelUrl } = props.match.params;
+
+    if (funnelUrl !== 'new') setIsNew(false);
+
     const funnel = funnels.find(({ url }) => url === funnelUrl) || {};
     if (funnel.url !== fields.url) setFields(funnel);
 
@@ -103,7 +108,9 @@ const FunnelBuilder = ({
       return setErrors(errors);
     }
 
-    props.updateFunnel(
+    const action = isNew ? props.createFunnel : props.updateFunnel;
+
+    action(
       {
         funnelId: fields._id,
         details: funnel
@@ -150,6 +157,7 @@ const FunnelBuilder = ({
           subdomain={subdomain}
           funnel={fields}
           onSave={onSave}
+          isNew={isNew}
           history={props.history}
         />
         <SideBar

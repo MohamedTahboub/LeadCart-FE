@@ -172,3 +172,20 @@ div.ant-collapse > .ant-collapse-item:last-child, .ant-collapse > .ant-collapse-
 div.sidebar-menu-content div.ant-collapse{
     border-color: var(--header-color);
 }
+
+.funnel-bar .side-button{
+    font-size: 11px;
+}
+.funnel-bar{
+    padding-top: 80px;
+}
+.funnel-bar img.side-button-image{
+    height: 30px;
+    width: 30px;
+}
+.funnel-bar .side-button.checkout-wizard-setting-btn.active {
+    padding: 8px 12px;
+}
+.funnel-bar .side-button.checkout-wizard-setting-btn:hover {
+    padding: 8px 12px;
+}

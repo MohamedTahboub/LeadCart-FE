@@ -1,12 +1,15 @@
-import React from 'react'
-import CheckoutMenu from './CheckoutMenu'
-import UpsellMenu from './UpsellMenu'
+import React from 'react';
+import CheckoutProducts from './CheckoutProducts';
+import UpsellsProducts from './UpsellsProducts';
+import Settings from './Settings';
 
-export default ({ category, ...props }) => {
 
-    switch (category) {
-        case 'Checkout': return <CheckoutMenu {...props} />
-        case 'UpSell': return <UpsellMenu {...props} />
-        default: return <CheckoutMenu {...props} />
-    }
-}
+export default ({ activeMenu, ...props }) => {
+  switch (activeMenu) {
+  case 'checkouts': return <CheckoutProducts {...props} />;
+  case 'upsells': return <UpsellsProducts {...props} />;
+  case 'settings': return <Settings {...props} />;
+
+  default: return null;
+  }
+};
