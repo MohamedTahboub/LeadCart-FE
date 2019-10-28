@@ -1,15 +1,17 @@
 .funnel-work-space{
-    padding-top: 50px;
-}
+    /* position: relative;
+    padding-top: 50px; */
 
-.product-first-node{
     position: relative;
-    height: 160px;
-    width: 100px;
-    background: white;
-    border-radius: 6px;
-    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.05);
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
 }
-.add-upsell-btn{
 
+
+.fixable-product-node{
+    position: absolute;
+}
+.connecting-mode{
+    cursor: url("../../../../assets/images/icons/crosshair.png")  11 11, crosshair ;
 }

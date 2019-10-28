@@ -35,7 +35,7 @@ const SideBar = (props) => {
     setActiveMenuItem(item);
   };
   return (
-    <div className='checkout-nav-sidebar'>
+    <div className='checkout-nav-sidebar funnel-nav-bar'>
 
       <Sidebars
         {...props}

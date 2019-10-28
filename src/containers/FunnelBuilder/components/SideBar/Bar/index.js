@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
+import common from 'components/common';
+import nodesTemplates from './nodeTemplates';
 
 import {
   upsellIcon,
@@ -15,6 +16,9 @@ import {
 } from '../../Icons';
 
 // import '../style.css';
+
+const { FunnelTemplateNode } = common;
+
 
 const SideButton = ({
   className = '',
@@ -36,20 +40,11 @@ const SideButton = ({
 
 const SideButtons = ({ active, onClick }) => (
   <div className='side-buttons-container funnel-bar'>
-    <SideButton
-      active={active}
-      onClick={onClick}
-      image={checkoutProductIcon}
-      id='checkouts'
-      label='Checkout Products'
-    />
-    <SideButton
-      active={active}
-      onClick={onClick}
-      image={upsellIcon}
-      id='upsells'
-      label='Up/Down Sales'
-    />
+    <div className='funnel-nodes-schemas'>
+      {
+        nodesTemplates.map((node) => <FunnelTemplateNode key={node.category} {...node} />)
+      }
+    </div>
 
     <SideButton
       className='checkout-wizard-setting-btn'

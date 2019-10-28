@@ -59,33 +59,11 @@ img.side-button-image {
     color:var(--sub-tabs-text-color);
 }
 
-.side-menu-container{
-    position: absolute;
-    top: 0px;
-    left: 64px;
-    bottom: 0px;
-    width: 280px;
-    background: rgb(255, 255, 255);
-    background: var(--side-bar-menu-bg);
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -ms-flex-positive: 1;
-    /* flex-grow: 1; */
-    /* padding: 20px 0;
-    padding-top: 0px; */
-    box-shadow: 2px 4px 4px 2px rgba(0,0,0,0.08);
-    z-index: 1000;
-    transform: translateX(-282px);
-    transition:transform .4s ease-in-out;
 
+.funnel-nav-bar .side-menu-container{
+    left: 107px;
+    border-left: 4px solid rgba(77, 160, 255, 0.37);
 }
-.side-menu-container.open{
-    transform: translateX(0px);
-}
-
-
 /* .ant-collapse > .ant-collapse-item > .ant-collapse-header{
     background: #4DA1FF;
     color:white;
@@ -176,16 +154,30 @@ div.sidebar-menu-content div.ant-collapse{
 .funnel-bar .side-button{
     font-size: 11px;
 }
+.funnel-nodes-schemas{
+    padding-top: 20px;
+    background: white;
+    border-left: 2px solid #4DA1FF;
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    overflow-x: hidden;
+    overflow-y:auto;
+    
+}
 .funnel-bar{
-    padding-top: 80px;
+    padding: unset;
+    width: unset;
 }
 .funnel-bar img.side-button-image{
     height: 30px;
     width: 30px;
 }
+.funnel-bar .side-button.checkout-wizard-setting-btn:hover ,
 .funnel-bar .side-button.checkout-wizard-setting-btn.active {
     padding: 8px 12px;
 }
-.funnel-bar .side-button.checkout-wizard-setting-btn:hover {
-    padding: 8px 12px;
+.funnel-bar .side-button.checkout-wizard-setting-btn{
+ background: #4DA1FF;
+ width: 100%;
 }
