@@ -1,0 +1,45 @@
+
+.product-node.disabled{
+    opacity: .8;
+    filter: grayscale(.3);
+}
+.product-node{
+    position: relative;
+    margin: 5px 15px;
+    
+    height: 120px;
+    width: 75px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: box-shadow .3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.product-node-title{
+  width: 100%;
+  padding: 2px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 10px;
+  font-weight: bold;
+  color: #4DA1FF;
+}
+.product-node:hover{
+    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.1);
+}
+.product-node-body{
+    flex: 1;
+}
+.active-mark{
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    color: lightgreen;
+    font-size: 13px;
+}

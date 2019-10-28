@@ -2,7 +2,12 @@ import React from 'react';
 import { useSpring, animated } from 'react-spring';
 
 
-export default ({ children, className, delay = 0 }) => {
+export default ({
+  children,
+  onClick,
+  className,
+  delay = 0
+}) => {
   const props = useSpring({
     delay,
     from: { opacity: 0, color: '#fff' },
@@ -11,6 +16,7 @@ export default ({ children, className, delay = 0 }) => {
 
   return (
     <animated.div
+      onClick={onClick}
       style={props}
       className={className}
     >

@@ -1,0 +1,160 @@
+
+
+.setting-btn-container{
+    position: absolute;
+    top: -5%;
+    left: -10%;
+    width: 120%;
+    height: 127%;
+    border:1px solid rgb(78, 160, 251);
+    display: flex;
+    flex-direction: column-reverse;
+    border-radius: 4px;
+    box-sizing:unset;
+}
+
+.setting-btn-container.clean-border{
+    height: 110%;
+}
+
+
+.setting-btn-container.hide{
+    display: none;
+
+}
+.btns-container{
+    display: flex;
+    width: 100%;
+    /* justify-content: space-evenly; */
+    
+}
+.node-setting-btn{
+    flex: 1;
+    background: rgb(78, 160, 251);
+    color: white;
+    padding: 5px 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background .3s ease-in-out;
+}
+.node-setting-btn.active,
+.node-setting-btn:hover{
+    background: rgb(51, 146, 255);
+}
+.node-setting-btn.delete:hover{
+    background: tomato;
+}
+.node-forks{
+    position: absolute;
+    left: 100%;
+    top: calc(50% - 30px);
+    height: 60px;
+    width: 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    font-size: 10px;
+    padding-left: 5px;
+    cursor: default;
+}
+.node-forks .yes-fork,
+.node-forks .no-fork{
+    padding: 0px 5px;
+    color: white;
+    background: rgb(51, 146, 255);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.node-forks .no-fork{
+        background: tomato;
+}
+.node-forks i.fas{
+    margin-left:5px;
+    line-height: inherit;
+}
+
+
+.node-connect-socket{
+    position: absolute;
+    right: 100%;
+    top: calc(50% - 15px);
+    height: 30px;
+    width: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: white;
+    background: rgb(51, 146, 255);
+}
+/* 
+.node-setting-btn{
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    color: white;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(78, 160, 251);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+
+
+     transform: translate(20px,-20px);
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+.node-setting-btn.node-link-btn{
+    transform: translate(20px,0px);
+    right: -3px;
+    bottom: 2px;
+    top: unset;
+}
+
+.node-setting-btn.node-socket-btn{
+    transform: translateX(-20px);
+    left: -3px;
+    top:calc(50% - 10px);
+    background: tomato;
+} */
+
+/* 
+
+.setting-btn-container:hover .node-setting-btn{
+    transform: translate(0px,0px);
+}
+.setting-btn-container .node-setting-btn:hover,
+.setting-btn-container .node-setting-btn:active{
+    transform:scale(1.5) translate(-2px,2px);
+}
+.setting-btn-container .node-setting-btn.node-socket-btn:active{
+    transform:scale(2) translate(4px,0px);
+}
+.setting-btn-container .node-setting-btn:active{
+    opacity: .8;
+}
+.add-upsell-btn{
+
+}
+.funnel-work-space.node-connecting .node-setting-btn:not(.node-socket-btn){
+    display: none;
+}
+.funnel-work-space .node-socket-btn{
+    display: none;
+}
+.funnel-work-space.node-connecting .node-socket-btn{
+    display: flex;
+} */
+/* .funnel-work-space.node-connecting .node-setting-btn.node-socket-btn{
+    display: flex;
+} */
