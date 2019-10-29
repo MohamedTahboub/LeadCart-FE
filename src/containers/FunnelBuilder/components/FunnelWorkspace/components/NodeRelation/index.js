@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 
 import findAbsolutePosition from '../helpers/findAbsolutePosition';
 
@@ -58,18 +58,11 @@ export default (props) => {
   // x1 y1 x2 y2 , svgWidth(x1+x2) , svgHeight(y1+y2)
 
   const {
-    x1, x2, y1, y2, svgWidth, svgHeight, svgStyles
-  } = calcCoordinates(
-    props
-  );
+    x1, x2, y1, y2
+  } = calcCoordinates(props);
 
   return (
-    <svg
-      className='node-link-svg'
-      style={svgStyles}
-      width={svgWidth}
-          height={svgHeight}
-    >
+    <Fragment>
       <path d={`M ${x1} ${y1} C 0 0 0 0 ${x2} ${y2}`} fill='none' stroke='#456' />
       <circle
         className='start' cx={x1} cy={y1} r='5'
@@ -84,7 +77,7 @@ export default (props) => {
         r='5'
         fill='blue'
       />
-    </svg>
+    </Fragment>
   );
 };
 

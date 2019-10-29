@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import * as flashMessages from 'actions/flashMessage';
@@ -124,38 +124,47 @@ const FunnelWorkSpace = ({
 
 
   return (
-    <div
-      onDragOver={onDragOver}
-      onDrop={onDrop}
-      ref={elementRef}
-      onClick={cleanUpWorkSpace}
-      id='funnel-workspace'
-      className={`funnel-work-space ${connecting ? 'node-connecting' : ''} ${connecting ? 'connecting-mode' : ''}`}
-      role='presentation'
-    >
-      {nodes.map((node) => (
-        <FunnelNode
-          className='fixable-product-node'
-          key={node.id}
-          id={node.id}
-          onShowNodeOptions={onShowNodeOptions}
-          activeNodeOptions={showNodeOptions}
-          onConnect={onConnectNode}
-          connectingMode={connecting}
-          onNodeSetting={onNodeSetting}
-          onNodeDelete={onNodeDelete}
-          onConnected={onNodeConnected}
-          activeSetting={showNodeSettingModal}
-          {...node}
+    <Fragment>
+      <svg
+        className='funnel-nodes-relactions-svg'
+        width="100%"
+        height="100%"
+      >
+        {relations.map(relation => <NodeRelation {...relation} />)}
+      </svg>
+      <div
+        onDragOver={onDragOver}
+        onDrop={onDrop}
+        ref={elementRef}
+        onClick={cleanUpWorkSpace}
+        id='funnel-workspace'
+        className={`funnel-work-space ${connecting ? 'node-connecting' : ''} ${connecting ? 'connecting-mode' : ''}`}
+        role='presentation'
+      >
+        {nodes.map((node) => (
+          <FunnelNode
+            className='fixable-product-node'
+            key={node.id}
+            id={node.id}
+            onShowNodeOptions={onShowNodeOptions}
+            activeNodeOptions={showNodeOptions}
+            onConnect={onConnectNode}
+            connectingMode={connecting}
+            onNodeSetting={onNodeSetting}
+            onNodeDelete={onNodeDelete}
+            onConnected={onNodeConnected}
+            activeSetting={showNodeSettingModal}
+            {...node}
+          />
+        ))}
+        {showNodeSettingModal && <NodeSettingModal
+          show={showNodeSettingModal}
+          nodes={nodes}
+          onClose={() => onNodeSetting()}
         />
-      ))}
-      {showNodeSettingModal && <NodeSettingModal
-        show={showNodeSettingModal}
-        nodes={nodes}
-        onClose={()=>onNodeSetting()}
-      />
-      }
-    </div>
+        }
+      </div>
+    </Fragment>
   );
 };
 
