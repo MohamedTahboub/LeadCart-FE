@@ -57,15 +57,21 @@ export default (props) => {
 
   // x1 y1 x2 y2 , svgWidth(x1+x2) , svgHeight(y1+y2)
 
-  const {
-    x1, x2, y1, y2
-  } = calcCoordinates(props);
+  // const {
+  //   x1, x2, y1, y2
+  // } = calcCoordinates(props);
 
+  const { x1, y1 } = props.from;
+  const { x2, y2 } = props.to;
+
+  const pathCoords = getPathCoords({
+    x1, x2, y1: y1 - 41, y2: y2 - 41, tension: 0.35
+  });
   return (
     <Fragment>
-      <path d={`M ${x1} ${y1} C 0 0 0 0 ${x2} ${y2}`} fill='none' stroke='#456' />
+      <path d={pathCoords} fill='none' stroke='#456' />
       <circle
-        className='start' cx={x1} cy={y1} r='5'
+        className='start' cx={x1} cy={y1 - 41} r='5'
         fill='red'
       />
       <circle
@@ -73,13 +79,27 @@ export default (props) => {
         // onMouseUp={onMouseUp}
         className='end'
         cx={x2}
-        cy={y2}
+        cy={y2 - 41}
         r='5'
         fill='blue'
       />
     </Fragment>
   );
 };
+
+
+function getPathCoords ({
+  x1, x2, y1, y2, tension
+}) {
+  const delta = (x2 - x1) * tension;
+  const hx1 = x1 + delta;
+  const hy1 = y1;
+  const hx2 = x2 - delta;
+  const hy2 = y2;
+  const path = `M ${x1} ${y1} C ${hx1} ${hy1} ${hx2} ${hy2} ${x2} ${y2}`;
+
+  return path;
+}
 
 function calcCoordinates ({ currentId, targetId }) {
   console.log(targetId, currentId);

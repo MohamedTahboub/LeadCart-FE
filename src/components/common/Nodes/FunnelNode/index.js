@@ -49,13 +49,14 @@ const FunnelNode = ({
   const onConnect = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    props.onConnect(props.id)
+    props.onConnect(props.id,e)
   }
 
   const onConnected = (e) => {
     // let targetId = e.target.id
     stopPropagation(e)
-    props.onConnected(props.id)
+
+    props.onConnected(props.id,e)
   }
 
 

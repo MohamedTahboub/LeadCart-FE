@@ -7,7 +7,7 @@ import ids from 'shortid';
 
 import targetMouseIcon from 'assets/images/icons/targetIcon.png';
 
-import { NodeRelation, NodeSettingModal } from './components';
+import { RelationsWorkSpace, NodeSettingModal } from './components';
 
 import './style.css';
 
@@ -23,6 +23,8 @@ const FunnelWorkSpace = ({
   const [connecting, setConnecting] = useState(false);
   const [showNodeOptions, setShowNodeOptions] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false)
+
+  const [currentNodeRelation, setCurrentNodeRelation] = useState({})
 
   const elementRef = useRef(null);
 
@@ -83,21 +85,40 @@ const FunnelWorkSpace = ({
   };
 
 
-  const onConnectNode = (currentId) => {
+  const onConnectNode = (currentId, e) => {
+
+    //
     setConnecting(currentId);
+    setCurrentNodeRelation({
+      currentId,
+      from: {
+        x1: e.pageX,
+        y1: e.pageY,
+      }
+    })
+    console.log(e.pageX, e.pageY)
 
     // docume
     // document.body.cursor = `url(${targetMouseIcon})`;
   };
-  const onNodeConnected = (targetId) => {
+  const onNodeConnected = (targetId, e) => {
+    console.log(e.pageX, e.pageY)
+
     setConnecting(false);
+
+    currentNodeRelation.to = {
+      x2: e.pageX,
+      y2: e.pageY,
+    }
     setRelations([
       ...relations,
       {
+        ...currentNodeRelation,
         currentId: connecting,
-        targetId
+        targetId,
       }
     ]);
+    setCurrentNodeRelation({})
     // document.body.cursor = 'inherit';
   };
 
@@ -125,13 +146,7 @@ const FunnelWorkSpace = ({
 
   return (
     <Fragment>
-      <svg
-        className='funnel-nodes-relactions-svg'
-        width="100%"
-        height="100%"
-      >
-        {relations.map(relation => <NodeRelation {...relation} />)}
-      </svg>
+      <RelationsWorkSpace relations={relations} />
       <div
         onDragOver={onDragOver}
         onDrop={onDrop}
