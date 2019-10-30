@@ -69,20 +69,29 @@ export default (props) => {
   });
   return (
     <Fragment>
-      <path d={pathCoords} fill='none' stroke='#456' />
+      <path
+        d={pathCoords}
+        fill='none'
+        stroke='#03a9f4d4'
+        strokeWidth='1.5'
+        markerEnd='url(#triangle)'
+      />
       <circle
         className='start' cx={x1} cy={y1 - 41} r='5'
-        fill='red'
+        fill='#4DA1FF'
       />
-      <circle
-        // onMouseDown={onMouseDown}
-        // onMouseUp={onMouseUp}
-        className='end'
-        cx={x2}
-        cy={y2 - 41}
-        r='5'
-        fill='blue'
-      />
+      <defs>
+        <marker
+          id='triangle' viewBox='0 0 10 10'
+          refX='1' refY='5'
+          markerUnits='strokeWidth'
+          markerWidth='10' markerHeight='10'
+          orient='auto'
+        >
+          <path d='M 0 0 L 10 5 L 0 10 z' fill='#4DA1FF' strokeWidth='1' />
+        </marker>
+      </defs>
+
     </Fragment>
   );
 };
@@ -132,3 +141,4 @@ function calcCoordinates ({ currentId, targetId }) {
     svgHeight: height
   };
 }
+
