@@ -41,11 +41,18 @@ const FunnelNode = ({
     // e.dataTransfer.setData("text/plain", "This sssss may be dragged");
     // console.log(`template-${id} have been draged`);
     e.dataTransfer.setData('dropedElement', JSON.stringify({ product, category, id }));
-    const { left, top } = elementRef.current.getBoundingClientRect();
+    const {
+      left,
+      top,
+      width,
+      height
+    } = elementRef.current.getBoundingClientRect();
 
     const shiftX = e.clientX - left;
     const shiftY = e.clientY - top;
-    e.dataTransfer.setData('shift', JSON.stringify({ shiftX, shiftY }));
+    e.dataTransfer.setData('shift', JSON.stringify({
+      shiftX, shiftY, width, height
+    }));
   };
 
 

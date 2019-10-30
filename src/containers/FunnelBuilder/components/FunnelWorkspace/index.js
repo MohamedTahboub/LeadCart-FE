@@ -37,6 +37,31 @@ const FunnelWorkSpace = ({
   };
 
 
+  function updateNodesPosition(nodeId, event,originalMouseOffset) {
+    const { shiftX , width } = originalMouseOffset;
+
+    const { pageX: x, pageY: y } = event;
+
+    const updatedRelations = relations.map(relation => {
+      if (relation.currentId === nodeId) {
+        relation.from = {
+          x1: x + (width - shiftX),
+          y1: y
+        }
+      }
+
+      if (relation.targetId === nodeId) {
+        relation.to = {
+          x2: x - shiftX - 15,
+          y2: y
+        }
+      }
+
+      return relation
+    })
+    setRelations(updatedRelations)
+  }
+
   const onDrop = (event) => {
     event.preventDefault();
     const data = event.dataTransfer.getData('dropedElement');
@@ -59,7 +84,11 @@ const FunnelWorkSpace = ({
 
       if (isExist) {
         const updatedList = nodes.map((n) => {
-          if (n.id === node.id) return { ...n, ...node, position };
+          if (n.id === node.id) {
+            updateNodesPosition(node.id, event,originalMouseOffset)
+
+            return { ...n, ...node, position };
+          }
           return n;
         });
         return setNodes(updatedList);
@@ -101,6 +130,11 @@ const FunnelWorkSpace = ({
     // docume
     // document.body.cursor = `url(${targetMouseIcon})`;
   };
+
+  const isRelationExist = (currentId , targetId) => {
+    return relations.find(relation =>  (relation.currentId  === currentId &&relation.targetId === targetId))
+  }
+
   const onNodeConnected = (targetId, e) => {
     console.log(e.pageX, e.pageY)
 
@@ -110,6 +144,9 @@ const FunnelWorkSpace = ({
       x2: e.pageX,
       y2: e.pageY,
     }
+
+    if (isRelationExist(connecting ,targetId))
+      return setCurrentNodeRelation({})
     setRelations([
       ...relations,
       {
@@ -122,7 +159,6 @@ const FunnelWorkSpace = ({
     // document.body.cursor = 'inherit';
   };
 
-  console.log(relations);
 
   const cleanUpWorkSpace = () => {
     setConnecting(false);
@@ -136,6 +172,19 @@ const FunnelWorkSpace = ({
 
   const onNodeDelete = (id) => {
     setNodes((nodes) => nodes.filter((node) => node.id !== id));
+    console.log(relations, id)
+    // if(!Array.isArray(relations)) return;
+
+
+    setRelations(relations => {
+
+      return relations
+        .filter(relation => {
+          if (relation.currentId === id || relation.targetId === id)
+            return false
+          return true;
+        })
+    })
   };
 
   const onNodeSetting = (id) => {
@@ -182,17 +231,6 @@ const FunnelWorkSpace = ({
     </Fragment>
   );
 };
-
-// {
-//   relations.map((relation) => <NodeRelation {...relation} />)
-// }
-/*
-
-     <span className='add-upsell-btn'>
-        <i className='fas fa-plus' />
-      </span>
-*/
-
 
 function getElementPosition(event, originalMouseOffset, parentRef) {
   const {
