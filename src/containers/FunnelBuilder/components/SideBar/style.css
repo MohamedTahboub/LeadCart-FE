@@ -163,7 +163,8 @@ div.sidebar-menu-content div.ant-collapse{
     flex:1;
     overflow-x: hidden;
     overflow-y:auto;
-    
+    user-select: none;
+    min-height: 700px;
 }
 .funnel-bar{
     padding: unset;

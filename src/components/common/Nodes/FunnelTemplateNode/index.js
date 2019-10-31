@@ -25,7 +25,7 @@ const categoriesNames = {
 const FunnelNode = ({
   product,
   category,
-  className,
+  className = '',
   disabled,
   position,
   active,
@@ -69,7 +69,7 @@ const FunnelNode = ({
 
   return (
     <div
-      draggable
+      draggable={!disabled}
       // onDragStart="event.dataTransfer.setData('text/plain', 'This text may be dragged')"
       onClick={onClick}
       ref={elementRef}

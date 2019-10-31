@@ -49,14 +49,14 @@ const FunnelNode = ({
   const onConnect = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    props.onConnect(props.id,e)
+    props.onConnect(props.id, e)
   }
 
   const onConnected = (e) => {
     // let targetId = e.target.id
     stopPropagation(e)
 
-    props.onConnected(props.id,e)
+    props.onConnected(props.id, e)
   }
 
 
@@ -79,7 +79,7 @@ const FunnelNode = ({
 
   useEffect(() => {
     setConnectingStarted(false)
-  }, [activeNodeOptions , activeSetting]);
+  }, [activeNodeOptions, activeSetting]);
 
   const showNodeOptions = activeNodeOptions === props.id
 
@@ -92,7 +92,7 @@ const FunnelNode = ({
       <Fragment>
 
         <div className={`setting-btn-container ${showNodeOptions ? '' : 'hide'}`}>
-          {connectingStarted && (
+          {(connectingStarted && props.category !== "thankyouPage") && (
             <div onClick={stopPropagation} className="node-forks">
               <span
                 onClick={onConnect}
@@ -103,15 +103,18 @@ const FunnelNode = ({
               </span>
                 <i class="fas fa-long-arrow-alt-right"></i>
               </span>
-              <span
-                onClick={onConnect}
-                className="no-fork"
-              >
-                <span>
-                  No
+              {props.category !== "checkout" && (
+                <span
+                  onClick={onConnect}
+                  className="no-fork"
+                >
+                  <span>
+                    No
               </span>
-                <i class="fas fa-long-arrow-alt-right"></i>
-              </span>
+                  <i class="fas fa-long-arrow-alt-right"></i>
+                </span>
+              )
+              }
             </div>
           )}
           <div className="btns-container">
@@ -121,12 +124,14 @@ const FunnelNode = ({
             <span onClick={onDelete} className='node-setting-btn delete'>
               <i className='fas fa-trash' />
             </span>
-            <span
-              onClick={onConnectingToggle}
-              className={`node-setting-btn ${connectingStarted ? 'active' : ''}`}
-            >
-              <i className="fas fa-code-branch" />
-            </span>
+            {props.category !== "thankyouPage" && (
+              <span
+                onClick={onConnectingToggle}
+                className={`node-setting-btn ${connectingStarted ? 'active' : ''}`}
+              >
+                <i className="fas fa-code-branch" />
+              </span>
+            )}
           </div>
         </div>
         {showSocketOnConnect &&

@@ -1,6 +1,6 @@
 export default [
   {
-    disabled: false,
+    disabled: true,
     category: 'onePageFunnel',
     relations: [
       {
@@ -37,7 +37,6 @@ export default [
 
   },
   {
-    disabled: false,
     category: 'thankyouPage',
     relations: [
       {

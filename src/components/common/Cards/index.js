@@ -448,7 +448,7 @@ export const CouponRowCard = ({
           {type}
           {' '}
             =>
-          </span>
+        </span>
         <span className='value'>{type === 'Flat' ? ` $${amount}` : `${percent}%`}</span>
       </div>
     </div>
@@ -479,9 +479,9 @@ export const FunnelCard = ({
     backgroundImage: ` linear-gradient(
           to bottom,
           rgba(0,0,0, 0),
-          rgba(0,0,0, .35)
+          rgba(0,0,0, .1)
         ),url(${thumbnail})`,
-    backgroundSize: 'contain',
+    backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
   };

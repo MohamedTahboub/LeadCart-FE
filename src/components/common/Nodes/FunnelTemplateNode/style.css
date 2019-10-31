@@ -1,8 +1,5 @@
 
-.product-node.disabled{
-    opacity: .8;
-    filter: grayscale(.3);
-}
+
 .product-node{
     position: relative;
     margin: 5px 15px;
@@ -17,6 +14,21 @@
     display: flex;
     flex-direction: column;
 
+}
+
+.product-node.disabled{
+    position: relative;
+}
+.product-node.disabled::after{
+    position: absolute;
+    content: "";
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    border-radius: 6px;
+    background-color: rgba(0,0,0,0.1);
+    cursor: not-allowed;
 }
 
 .product-node-title{
