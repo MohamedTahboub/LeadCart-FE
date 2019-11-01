@@ -2,10 +2,35 @@ import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
 
+const coordsSchema = yup.object({
+  x: yup.string(),
+  y: yup.string(),
+});
+
+
+const RelationsSchema = yup.object({
+  target: yup.string(),
+  from: coordsSchema,
+  to: coordsSchema
+});
+
+const ProductsSchema = yup.object({
+  productId: yup.string().required(),
+  relations: yup.array().of(RelationsSchema).default([]),
+  position: yup.string(),
+  elementId: yup.string(),
+  category: yup.string()
+});
+
 const funnelSchema = yup.object({
-  product: yup.string().required(),
-  upSells: yup.array().of(yup.string()).default([]),
-  thankyouPage: yup.string()
+  name: yup.string(),
+  style: yup.string(),
+  thumbnail: yup.string().required(),
+  startPoint: yup.string().required(),
+  products: yup.array().of(ProductsSchema).default([]),
+  thankyouPage: yup.string(),
+  productsUpdates: yup.object({}),
+  url: yup.string().url()
 });
 
 export default async (funnel) => {

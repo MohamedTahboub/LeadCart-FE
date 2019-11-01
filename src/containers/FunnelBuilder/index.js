@@ -52,14 +52,8 @@ const FunnelBuilder = ({
     // stopTabClosing(false);
   };
 
-  const onChange = ({ target: { name, value } }) => {
-    if (name.includes('.')) {
-      const [key, nestedKey] = name.split('.');
-      const nestedValue = { [nestedKey]: value };
-      name = key;
-      value = { ...fields[key], ...nestedValue };
-    }
-    console.log('Changes registered', name, value);
+  const onChange = ({ name, value  }) => {
+   
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -94,6 +88,7 @@ const FunnelBuilder = ({
   };
 
   const onSave = async () => {
+    console.log(fields)
     const {
       isValid,
       errors,
@@ -103,10 +98,12 @@ const FunnelBuilder = ({
     if (!isValid) {
       props.showFlashMessage({
         type: 'failed',
-        message: `Check the funnel Fields And Try a gain\n${errors}`
+        message: `Check the funnel Fields And Try a gain`
       });
       return setErrors(errors);
     }
+
+
 
     const action = isNew ? props.createFunnel : props.updateFunnel;
 
@@ -152,7 +149,6 @@ const FunnelBuilder = ({
       )}
       <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
         <Header
-          onChange={onChange}
           // onDisplayChange={onDisplayChange}
           subdomain={subdomain}
           funnel={fields}

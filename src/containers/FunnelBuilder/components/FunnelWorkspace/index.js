@@ -15,6 +15,7 @@ const { FunnelNode } = common;
 
 const FunnelWorkSpace = ({
   category = 'checkout',
+  onChange,
   showFlashMessage,
   ...props
 }) => {
@@ -37,8 +38,8 @@ const FunnelWorkSpace = ({
   };
 
 
-  function updateNodesPosition(nodeId, event,originalMouseOffset) {
-    const { shiftX , width } = originalMouseOffset;
+  function updateNodesPosition(nodeId, event, originalMouseOffset) {
+    const { shiftX, width } = originalMouseOffset;
 
     const { pageX: x, pageY: y } = event;
 
@@ -85,12 +86,16 @@ const FunnelWorkSpace = ({
       if (isExist) {
         const updatedList = nodes.map((n) => {
           if (n.id === node.id) {
-            updateNodesPosition(node.id, event,originalMouseOffset)
+            updateNodesPosition(node.id, event, originalMouseOffset)
 
             return { ...n, ...node, position };
           }
           return n;
         });
+        onChange({
+          name: 'nodes',
+          value: updatedList
+        })
         return setNodes(updatedList);
       }
     } else {
@@ -107,7 +112,13 @@ const FunnelWorkSpace = ({
     }
     // const newNodes = nodes.filter((n) => n.id !== node.id);
     // newNodes.push(node);
-    setNodes([...nodes, { ...node, position }]);
+    const updatedList = [...nodes, { ...node, position }];
+
+    setNodes(updatedList);
+    onChange({
+      name: 'nodes',
+      value: updatedList
+    })
     console.log(position);
     // }
     // /?! update the state with the Node
@@ -131,8 +142,8 @@ const FunnelWorkSpace = ({
     // document.body.cursor = `url(${targetMouseIcon})`;
   };
 
-  const isRelationExist = (currentId , targetId) => {
-    return relations.find(relation =>  (relation.currentId  === currentId &&relation.targetId === targetId))
+  const isRelationExist = (currentId, targetId) => {
+    return relations.find(relation => (relation.currentId === currentId && relation.targetId === targetId))
   }
 
   const onNodeConnected = (targetId, e) => {
@@ -145,16 +156,23 @@ const FunnelWorkSpace = ({
       y2: e.pageY,
     }
 
-    if (isRelationExist(connecting ,targetId))
+    if (isRelationExist(connecting, targetId))
       return setCurrentNodeRelation({})
-    setRelations([
+
+    const updatedRelations = [
       ...relations,
       {
         ...currentNodeRelation,
         currentId: connecting,
         targetId,
       }
-    ]);
+    ];
+
+    setRelations(updatedRelations);
+    onChange({
+      name: 'relations',
+      value: updatedRelations
+    })
     setCurrentNodeRelation({})
     // document.body.cursor = 'inherit';
   };
@@ -178,12 +196,17 @@ const FunnelWorkSpace = ({
 
     setRelations(relations => {
 
-      return relations
-        .filter(relation => {
-          if (relation.currentId === id || relation.targetId === id)
-            return false
-          return true;
-        })
+      const updatedRelations = relations.filter(relation => {
+        if (relation.currentId === id || relation.targetId === id)
+          return false
+        return true;
+      })
+
+      onChange({
+        name: 'relations',
+        value: updatedRelations
+      })
+      return updatedRelations
     })
   };
 
