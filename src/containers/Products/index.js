@@ -24,6 +24,7 @@ const {
   NewThingCard,
   MainTitle,
   InputRow,
+  Currency,
   Button
 } = common;
 
@@ -91,7 +92,7 @@ const Products = ({
 
   const onFilterProducts = (searchKey, categories) => {
     let filtered = products;
-    if (searchKey) filtered = filtered.filter((p) => p._id === searchKey);
+    if (searchKey) filtered = filtered.filter(({ name = '' }) => name.toLowerCase().includes(searchKey.toLowerCase()));
 
     if (categories) filtered = filtered.filter((p) => categories.includes(p.category));
 
@@ -99,7 +100,7 @@ const Products = ({
     setFilteredProducts(filtered);
   };
 
-  const onSearch = ({ target: { name, value: searchKey } }) => {
+  const onSearch = ({ target: { value: searchKey } }) => {
     const { categories } = filterKeys;
     if (searchKey === 'all') return onFilterProducts(undefined, categories);
     onFilterProducts(searchKey, categories);
@@ -116,16 +117,14 @@ const Products = ({
     <Page>
       <PageHeader>
         <div className='margin-v-20 flex-container fb-aligned-center'>
-          <InputRow.SearchInput
-            className='chart-select-filter'
-            options={filtersLabels}
+          <InputRow.TextField
+            // className='products-search-field'
             onChange={onSearch}
+            prefix={<Currency value={<i class="fas fa-search"></i>} />}
             value={filterKeys.searchKey}
-            defaultValue='All Products'
-            target='name'
             name='product'
-            size='small'
           />
+
 
           <InputRow.Checkbox
             className='margin-left-10'
@@ -156,7 +155,7 @@ const Products = ({
             onDelete={() => onShowDeleteDialogue(product._id)}
             onDuplicate={() => onProductDuplicate(product)}
             onEdit={() => onProductEdit(product)}
-            // onPreview={() => onProductPreview(product.url)}
+          // onPreview={() => onProductPreview(product.url)}
           />
         ))
           : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null

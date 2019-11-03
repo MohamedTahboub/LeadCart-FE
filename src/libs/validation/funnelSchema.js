@@ -15,6 +15,7 @@ const coordinatesSchema = yup.object({
 
 const RelationsSchema = yup.object({
   target: yup.string(),
+  // type : yup.oneOf([checkout,upsell]),
   coordinates: coordinatesSchema
 });
 
