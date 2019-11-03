@@ -68,7 +68,6 @@ const FunnelBuilder = ({
     if (funnelUrl !== 'new') setIsNew(false);
 
     const funnel = funnels.find(({ url }) => url === funnelUrl) || {};
-    console.log("FUNNEL", funnel)
     if (funnel.url !== fields.url) setFields(funnel);
 
     if (funnel._id) setLoading({ funnel: false });
@@ -89,7 +88,6 @@ const FunnelBuilder = ({
   };
 
   const onSave = async () => {
-    console.log(fields)
     const {
       isValid,
       errors,

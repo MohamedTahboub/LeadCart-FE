@@ -70,7 +70,7 @@ export default ({
     startPoints,
     pathsCoords,
     markers
-  } = maintainConnections(coordinates, relations);
+  } = maintainConnections(coordinates, [...relations]);
   // const pathCoords = getPathCoords({
   //   x1,
   //   x2,
@@ -79,10 +79,10 @@ export default ({
   //   tension: 0.35
   // });
   return (
-    <Fragment>
+    <Fragment key="nodes-connections-elements">
       {pathsCoords.map(({ path, id }) => (
         <path
-          // key={id}
+          key={id}
           d={path}
           fill='none'
           stroke='#03a9f4d4'
@@ -93,7 +93,7 @@ export default ({
       }
       {startPoints.map((point, id) => (
         <circle
-          // key={id}
+          key={id}
           className='start'
           cx={point.x}
           cy={point.y}
@@ -105,7 +105,7 @@ export default ({
       <defs>
         {markers.map((id) => (
           <marker
-            // key={id}
+            key={id}
             id={`arrowHead_${id}`} viewBox='0 0 10 10'
             refX='1' refY='5'
             markerUnits='strokeWidth'
@@ -123,12 +123,12 @@ export default ({
 };
 
 
-function maintainConnections (startPosition, relations) {
+function maintainConnections(startPosition, relations) {
   const shiftX = startPosition.width;
   const shiftY = startPosition.height / 2;
 
   const startCircle = {
-    x: startPosition.x + shiftX,
+    x: startPosition.x + shiftX + 15,
     y: startPosition.y + shiftY,
   };
 
@@ -136,21 +136,26 @@ function maintainConnections (startPosition, relations) {
   const startPoints = [];
 
   const pathsCoords = relations.map((relation) => {
-    let start = startCircle;
+    const start = startCircle;
+    const coordinates = {
+      ...relation.coordinates,
+      y: relation.coordinates.y + 60
+    };
 
-    if (relation.coordinates.x < startCircle.x) {
-      start = {
-        x: startPosition.x,
-        y: startPosition.y + shiftY,
-      };
-      relation.coordinates = {
-        ...relation.coordinates,
-        x: relation.coordinates.x,
-        y: relation.coordinates.y + relation.coordinates.shiftY,
-      };
 
-      startPoints.push(start);
-    }
+
+    // if (relation.coordinates.x < startCircle.x) {
+    //   start = {
+    //     x: startPosition.x,
+    //     y: startPosition.y + shiftY,
+    //   };
+    //   relation.coordinates = {
+    //     ...relation.coordinates,
+    //     x: relation.coordinates.x + ,
+    //   };
+
+    //   startPoints.push(start);
+    // }
     //  else {
     //   const x = {
     //     x: relation.coordinates.x,
@@ -163,10 +168,10 @@ function maintainConnections (startPosition, relations) {
     // eslint-disable-next-line
     // relation.coordinates = {
     //   ...relation.coordinates,
-    //   y: relation.coordinates.y + shiftY
+    //   y: relation.coordinates.y + relation.coordinates.height / 2
     // };
     // eslint-disable-next-line
-    return getPathCoords({...relation}, {...start}, { shiftX, shiftY });
+    return getPathCoords({ ...relation,coordinates }, { ...start });
   });
 
   const markersIds = relations.map(({ target }) => target);
@@ -178,7 +183,7 @@ function maintainConnections (startPosition, relations) {
   };
 }
 
-function getPathCoords ({
+function getPathCoords({
   target: targetId,
   coordinates: {
     x: x2,

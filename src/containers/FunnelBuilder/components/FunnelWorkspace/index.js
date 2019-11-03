@@ -172,7 +172,7 @@ const FunnelWorkSpace = ({
         const relation = { target: targetId, coordinates: targetElement.coordinates }
         if (Array.isArray(node.relations)) {
           const isExist = node.relations.find(relation => relation.target === targetId)
-          if (isExist) return;
+          if (isExist) return node;
 
           node.relations.push(relation)
         } else {
