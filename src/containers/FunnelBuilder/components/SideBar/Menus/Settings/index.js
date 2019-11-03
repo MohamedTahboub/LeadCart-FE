@@ -24,7 +24,7 @@ const { Panel } = Collapse;
 
 
 const Settings = ({
-  product: { url, price = {}, payment } = {},
+  funnel: { url } = {},
   subdomain,
   onToggleDarkTheme,
   darkTheme,

@@ -53,7 +53,7 @@ const FunnelBuilder = ({
   };
 
   const onChange = ({ name, value }) => {
-
+    console.log(name, value)
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -85,7 +85,7 @@ const FunnelBuilder = ({
 
   const updateUrlOnChange = (currentUrl) => {
     const { url } = props.match.params;
-    if (currentUrl !== url) props.history.push(url);
+    if (currentUrl !== url) props.history.push(currentUrl);
   };
 
   const onSave = async () => {
