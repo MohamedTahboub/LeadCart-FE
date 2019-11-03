@@ -85,6 +85,16 @@ const ConversionBoosters = ({
               />
             </InputRow>
             <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>
+                Background:
+            </InputRow.Label>
+              <MiniTwitterPicker
+                name='containerBackground'
+                value={progressBar.color}
+                onChange={onProgressBarChange}
+              />
+            </InputRow>
+            <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Progress Bar Type:</InputRow.Label>
               <InputRow.SelectOption
                 value={progressBar.type}
@@ -115,20 +125,11 @@ const ConversionBoosters = ({
               <InputRow.TextField
                 value={progressBar.label}
                 name='label'
-                className='progress-bar-input margin-left-20'
+                className='progress-bar-input long margin-left-20'
                 onChange={onProgressBarChange}
               />
             </InputRow>
-            <InputRow className='sidebar-row'>
-              <InputRow.Label className='sidebar-input-label'>
-                Background:
-              </InputRow.Label>
-              <MiniTwitterPicker
-                name='containerBackground'
-                value={progressBar.color}
-                onChange={onProgressBarChange}
-              />
-            </InputRow>
+
           </Panel>
 
         </Collapse>

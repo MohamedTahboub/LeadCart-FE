@@ -9,7 +9,7 @@ const DisplayModeButtons = ({ onChange, type }) => {
     activeType
   }) => (
     <i
-      onClick={() => onChange(type)}
+      onClick={() => onChange && onChange(type)}
       className={`fas fa-${iconClassName} zoom-effect display-mode-icon ${activeType === type ? 'active' : ''}`}
       role='presentation'
     />

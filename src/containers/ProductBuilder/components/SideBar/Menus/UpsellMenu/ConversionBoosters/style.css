@@ -37,3 +37,6 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+.progress-bar-input.long{
+    width: 160px;
+}

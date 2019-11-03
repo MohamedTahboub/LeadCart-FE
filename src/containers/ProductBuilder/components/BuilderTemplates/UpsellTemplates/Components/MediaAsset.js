@@ -59,7 +59,7 @@ const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ..
   // }, [asset]);
 
   const onAssetImageChange = (image) => {
-    onChange({ target: { name: 'value', value: image } });
+    onChange({ target: { name: 'link', value: image } });
   };
 
   const onEditMode = () => {
