@@ -5,7 +5,7 @@ import NodeRelation from '../NodeRelation';
 import './style.css';
 
 const RelationsWorkSpace = ({
-  relations,
+  nodes,
   ...props
 }) => (
   <svg
@@ -13,7 +13,7 @@ const RelationsWorkSpace = ({
     width='100%'
     height='100%'
   >
-    {relations.map((relation) => <NodeRelation {...relation} />)}
+    {nodes.map((node) => <NodeRelation {...node} />)}
   </svg>
 );
 

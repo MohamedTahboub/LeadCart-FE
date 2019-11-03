@@ -24,7 +24,7 @@ const FunnelNode = ({
   connectingMode,
   ...props
 }) => {
-  const [connecting, setConnecting] = useState(false);
+  // const [connecting, setConnecting] = useState(false);
   // const [showOptions, setShowOptions] = useState(false)
   const [connectingStarted, setConnectingStarted] = useState(false)
 

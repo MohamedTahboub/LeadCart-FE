@@ -126,19 +126,19 @@ const Funnels = ({
           </div>
           <Button onClick={onFunnelCreate} className='primary-color'>
             <i className='fas fa-plus' />
-          new funnel
+            new funnel
           </Button>
         </PageHeader>
         <PageContent dflex>
-          {funnels.length && funnels.map((funnel, id) => (
+          {!!funnels.length && funnels.map((funnel, id) => (
             <FunnelCard
               {...funnel}
               key={`${funnel._id}`}
               orderInlist={id}
               onDelete={() => onShowDeleteDialogue(funnel._id)}
               onEdit={() => onFunnelEdit(funnel.url)}
-              // onDuplicate={() => onProductDuplicate(product)}
-              // onPreview={() => onProductPreview(product.url)}
+            // onDuplicate={() => onProductDuplicate(product)}
+            // onPreview={() => onProductPreview(product.url)}
             />
           ))
           }
@@ -149,12 +149,12 @@ const Funnels = ({
             <MainTitle>Are you sure,you want delete this funnel?</MainTitle>
             <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
               {' '}
-            Cancel
+              Cancel
             </Button>
             <Button onClick={onFunnelDelete} className='warning-color margin-with-float-right'>
               <i className='fas fa-trash-alt' />
               {' '}
-            Delete
+              Delete
             </Button>
           </Modal>
         )}
@@ -172,6 +172,7 @@ const Funnels = ({
 const mapStateToProps = (state) => ({
   isFetching: state.loading,
   subdomain: state.user.user.subDomain,
+  funnels: state.funnels,
   products: state.products.products.map((p) => ({ ...p, category: p.category || 'Checkout' })),
   filtersLabels: [
     { label: 'All Products', value: 'all' },
@@ -180,7 +181,7 @@ const mapStateToProps = (state) => ({
 });
 
 Funnels.defaultProps = {
-  funnels: sampleFunnels
+  funnels: []
 };
 
 export default connect(mapStateToProps, { ...productsActions, ...productActions, ...modalsActions })(Funnels);

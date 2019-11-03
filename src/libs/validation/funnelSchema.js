@@ -1,23 +1,27 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
+const funnelCoverDefaultImage = 'https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/funnelDemoFlow.png';
 
-const coordsSchema = yup.object({
-  x: yup.string(),
-  y: yup.string(),
+const coordinatesSchema = yup.object({
+  x: yup.number(),
+  y: yup.number(),
+  shiftX: yup.number(),
+  shiftY: yup.number(),
+  height: yup.number(),
+  width: yup.number()
 });
 
 
 const RelationsSchema = yup.object({
   target: yup.string(),
-  from: coordsSchema,
-  to: coordsSchema
+  coordinates: coordinatesSchema
 });
 
 const ProductsSchema = yup.object({
-  productId: yup.string().required(),
+  productId: yup.string(),
   relations: yup.array().of(RelationsSchema).default([]),
-  position: yup.string(),
+  coordinates: coordinatesSchema,
   elementId: yup.string(),
   category: yup.string()
 });
@@ -25,12 +29,12 @@ const ProductsSchema = yup.object({
 const funnelSchema = yup.object({
   name: yup.string(),
   style: yup.string(),
-  thumbnail: yup.string().required(),
-  startPoint: yup.string().required(),
+  thumbnail: yup.string().default(funnelCoverDefaultImage),
+  startPoint: yup.string(),
   products: yup.array().of(ProductsSchema).default([]),
-  thankyouPage: yup.string(),
+  thankyouPage: yup.string().nullable(),
   productsUpdates: yup.object({}),
-  url: yup.string().url()
+  url: yup.string().productUrl()
 });
 
 export default async (funnel) => {

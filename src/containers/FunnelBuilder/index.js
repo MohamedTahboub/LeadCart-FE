@@ -52,8 +52,8 @@ const FunnelBuilder = ({
     // stopTabClosing(false);
   };
 
-  const onChange = ({ name, value  }) => {
-   
+  const onChange = ({ name, value }) => {
+
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -68,6 +68,7 @@ const FunnelBuilder = ({
     if (funnelUrl !== 'new') setIsNew(false);
 
     const funnel = funnels.find(({ url }) => url === funnelUrl) || {};
+    console.log("FUNNEL", funnel)
     if (funnel.url !== fields.url) setFields(funnel);
 
     if (funnel._id) setLoading({ funnel: false });
@@ -106,12 +107,11 @@ const FunnelBuilder = ({
 
 
     const action = isNew ? props.createFunnel : props.updateFunnel;
+    const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
+
 
     action(
-      {
-        funnelId: fields._id,
-        details: funnel
-      },
+      payload,
       {
         onSuccess: (msg) => {
           props.showFlashMessage({
@@ -189,7 +189,8 @@ FunnelBuilder.defaultProps = {
 
 const mapStateToProps = ({
   products: { products } = {},
+  funnels,
   loading: globelLoading,
   user: { user: { subDomain: subdomain } }
-}) => ({ products, subdomain, globelLoading });
+}) => ({ products, subdomain, globelLoading, funnels });
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);

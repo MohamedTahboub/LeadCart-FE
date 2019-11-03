@@ -6,6 +6,7 @@ import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
 import { getActivities, getCustomers } from 'actions/activities';
 import { getUpsellsSuccess } from 'actions/upsells';
+import { getFunnels } from 'actions/funnels';
 import { getFulfillmentsSuccess } from 'actions/fulfillments';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
@@ -47,6 +48,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getDashboardDataSuccess(data.dashboard));
+    dispatch(getFunnels(data.funnels));
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,

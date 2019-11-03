@@ -17,10 +17,11 @@ const languages = [
   { value: 'en', label: 'English' }
 ];
 const {
-  Collapse, InputRow, MediumCard, Title
+  Collapse,
+  InputRow
 } = common;
 const { Panel } = Collapse;
-const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
+
 
 const Settings = ({
   product: { url, price = {}, payment } = {},
@@ -38,7 +39,7 @@ const Settings = ({
             <InputRow.Label className='sidebar-input-label'>Product Publishable Link (URL):</InputRow.Label>
             <InputRow.TextField
               name='url'
-              onChange={props.onChange}
+              onChange={({ target }) => props.onChange(target)}
               value={url}
             />
           </InputRow>

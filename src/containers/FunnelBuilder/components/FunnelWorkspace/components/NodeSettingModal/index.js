@@ -14,20 +14,25 @@ const NodeSettingModal = ({
   show: isVisible,
   products,
   nodes,
+  onNodeSettingChange,
   onClose,
   ...props
 }) => {
-  const initialNode = nodes.find((node) => node.id === isVisible);
-  const [node, setNode] = useState(initialNode);
+  const node = nodes.find((node) => node.elementId === isVisible);
+
+  if(!node) return null
+  // const [node, setNode] = useState(initialNode);
   const [matchProducts, setMatchedProducts] = useState([]);
 
   useEffect(() => {
-    const node = nodes.find((node) => node.id === isVisible);
-    setNode(node);
+    // const node = nodes.find((node) => node.id === isVisible);
+    // setNode(node);
+    const { category } = node || {};
+
     showIntercomIcon(!isVisible);
 
-    const matched = products.filter((p) => (p.category && (p.category.toLowerCase() === node.category.toLowerCase())));
-    console.log(products, matched);
+    const matched = products.filter((p) => (p.category && (p.category.toLowerCase() === category.toLowerCase())));
+    // console.log(products, matched);
     setMatchedProducts(matched);
   }, [isVisible, products]);
 
@@ -37,8 +42,9 @@ const NodeSettingModal = ({
     e.stopPropagation();
   };
 
-  const onSelect = (product) => {
-    setNode({ ...node, product });
+  const onSelect = (productId) => {
+    // setNode({ ...node, product });
+    onNodeSettingChange(node.elementId, { name: 'productId', value: productId });
   };
 
   return (
@@ -65,7 +71,7 @@ const NodeSettingModal = ({
             <FunnelTemplateNode
               key={node.category}
               onClick={() => onSelect(product._id)}
-              active={product._id === node.product}
+              active={product._id === node.productId}
               product={{
                 image: product.pagePreferences && product.pagePreferences.image
               }

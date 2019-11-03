@@ -10,14 +10,14 @@ export default ({ dispatch }) => (next) => (action) => {
 
   dispatch(apiRequest({
     options: {
-      method: 'update',
+      method: 'PUT',
       body: payload,
-      uri: '/api/funnel',
+      uri: '/api/funnels',
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return updateFunnelSuccess(args);
+      return updateFunnelSuccess(payload);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);

@@ -27,7 +27,7 @@ const FunnelNode = ({
   category,
   className = '',
   disabled,
-  position,
+  coordinates = {},
   active,
   onClick,
   id,
@@ -40,7 +40,7 @@ const FunnelNode = ({
     // e.preventDefault();
     // e.dataTransfer.setData("text/plain", "This sssss may be dragged");
     // console.log(`template-${id} have been draged`);
-    e.dataTransfer.setData('dropedElement', JSON.stringify({ product, category, id }));
+    e.dataTransfer.setData('dropedElement', JSON.stringify({ product, category, elementId: id }));
     const {
       left,
       top,
@@ -73,7 +73,10 @@ const FunnelNode = ({
       // onDragStart="event.dataTransfer.setData('text/plain', 'This text may be dragged')"
       onClick={onClick}
       ref={elementRef}
-      style={position}
+      style={{
+        left: coordinates.x,
+        top: coordinates.y
+      }}
       onDragStart={onDrag}
       className={`product-node ${className} ${disabled ? 'disabled' : ''}`}
     >

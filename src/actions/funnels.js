@@ -19,16 +19,16 @@ export const getFunnels = (funnels, meta) => ({
 });
 
 export const createFunnel = (funnel, meta) => ({
-  type: CREATE_FUNNEL_SUCCESS,
+  type: CREATE_FUNNEL,
   payload: funnel,
   meta
 });
 export const createFunnelSuccess = (funnel) => ({
-  type: CREATE_FUNNEL_FAILED,
+  type: CREATE_FUNNEL_SUCCESS,
   payload: funnel
 });
 export const createFunnelFailed = (message) => ({
-  type: CREATE_FUNNEL,
+  type: CREATE_FUNNEL_FAILED,
   payload: message
 });
 
