@@ -13,21 +13,16 @@ export default ({
   // vertical or horizontal
   const type = (u) => (entryType === 'vertical' ? `translateY(${u}px)` : `translateX(${u}px)`);
 
-  const openProps = useSpring({
-    delay: 0,
+  const props = useSpring({
     from: { opacity: 0, transform: type(units) },
     to: { opacity: 1, transform: type(0) }
-  });
-  const closeProps = useSpring({
-    from: { opacity: 1, transform: type(0) },
-    to: { opacity: 0, transform: type(units) },
   });
 
 
   return (
     <animated.div
       onClick={onClick}
-      style={open ? openProps : closeProps}
+      style={props}
       className={className}
     >
       {children}
