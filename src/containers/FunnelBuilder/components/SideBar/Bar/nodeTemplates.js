@@ -13,7 +13,7 @@ export default [
 
   },
   {
-    category: 'Checkout',
+    category: 'checkout',
     relations: [
       {
         target: '',
@@ -25,7 +25,7 @@ export default [
 
   },
   {
-    category: 'UpSell',
+    category: 'upsell',
     relations: [
       {
         target: '',
@@ -37,7 +37,7 @@ export default [
 
   },
   {
-    category: 'thankyouPage',
+    category: 'thankyoupage',
     relations: [
       {
         target: '',

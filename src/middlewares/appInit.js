@@ -48,7 +48,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getDashboardDataSuccess(data.dashboard));
-    dispatch(getFunnels(data.funnels));
+    dispatch(getFunnels(data.funnels || []));
     dispatch(getUserProductsSuccess({ products: data.products }));
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,

@@ -46,10 +46,10 @@ const FunnelNode = ({
 
 
 
-  const onConnect = (e) => {
+  const onConnect = type => (e) => {
     e.preventDefault()
     e.stopPropagation()
-    props.onConnect(props.id, e)
+    props.onConnect(props.id, type)
   }
 
   const onConnected = (e) => {
@@ -95,7 +95,7 @@ const FunnelNode = ({
           {(connectingStarted && props.category !== "thankyouPage") && (
             <div onClick={stopPropagation} className="node-forks">
               <span
-                onClick={onConnect}
+                onClick={onConnect('upSell')}
                 className="yes-fork"
               >
                 <span>
@@ -105,7 +105,7 @@ const FunnelNode = ({
               </span>
               {props.category !== "checkout" && (
                 <span
-                  onClick={onConnect}
+                  onClick={onConnect('downSell')}
                   className="no-fork"
                 >
                   <span>

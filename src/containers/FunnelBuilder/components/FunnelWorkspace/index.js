@@ -137,10 +137,10 @@ const FunnelWorkSpace = ({
   };
 
 
-  const onConnectNode = (currentId, e) => {
+  const onConnectNode = (currentId, type) => {
 
     //
-    setConnecting(currentId);
+    setConnecting({ currentId, type });
     // setCurrentNodeRelation({
     //   currentId,
     //   from: {
@@ -148,7 +148,6 @@ const FunnelWorkSpace = ({
     //     y1: e.pageY,
     //   }
     // })
-    console.log(e.pageX, e.pageY)
 
     // docume
     // document.body.cursor = `url(${targetMouseIcon})`;
@@ -158,9 +157,9 @@ const FunnelWorkSpace = ({
   //   return relations.find(relation => (relation.currentId === currentId && relation.targetId === targetId))
   // }
 
-  const onNodeConnected = (targetId, e) => {
+  const onNodeConnected = (targetId) => {
+    const { currentId, type } = connecting
     setConnecting(false);
-    const currentId = connecting
 
     const targetElement = nodes.find(({ elementId }) => elementId === targetId)
 
@@ -169,7 +168,7 @@ const FunnelWorkSpace = ({
 
     const updatedList = nodes.map(node => {
       if (node.elementId === currentId) {
-        const relation = { target: targetId, coordinates: targetElement.coordinates }
+        const relation = { target: targetId, coordinates: targetElement.coordinates, type }
         if (Array.isArray(node.relations)) {
           const isExist = node.relations.find(relation => relation.target === targetId)
           if (isExist) return node;
@@ -237,7 +236,7 @@ const FunnelWorkSpace = ({
     setShowNodeSettingModal(id)
   };
 
-  const onNodeSettingChange = (id, filed ) => {
+  const onNodeSettingChange = (id, filed) => {
     const updatedList = nodes.map(node => {
       if (node.elementId === id) {
         return { ...node, [filed.name]: filed.value }
