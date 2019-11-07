@@ -21,7 +21,7 @@ export const extractProductsRelations = ({ products = [] }) => {
     if (Object.keys(productsObj[key]).length) result[key] = productsObj[key];
   });
 
-  console.log('result==========>', result);
+  console.log('Products Relations Object: ==========>\n', result);
 
   return result;
 };

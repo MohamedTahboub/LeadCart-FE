@@ -8,6 +8,9 @@ import sampleFunnels from 'data/funnels.json';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 
+import {
+  PreCreateModal
+} from './components';
 
 import './style.css';
 
@@ -32,9 +35,8 @@ const Funnels = ({
 }) => {
   const [showDelete, setShowDelete] = useState('');
   const [creatingFunnel, setCreateFunnel] = useState(false);
-
+  const [showCreateModal, setShowCreateModal] = useState(false);
   // const [showProductForm, setShowProductForm] = useState({});
-  const [showCreateModal, setShowLoadingModal] = useState(false);
   // const [filteredProducts, setFilteredProducts] = useState(products);
   const [filterKeys, setFilterKeys] = useState({ categories: ['Checkout', 'UpSell'] });
   // const onProductPreview = ({category , _id }) => {
@@ -116,6 +118,14 @@ const Funnels = ({
   //   onFilterProducts(searchKey, categories);
   // };
 
+  const onCreate = () => {
+    setShowCreateModal(true);
+  };
+
+  const onCreateCancel = () => {
+    setShowCreateModal(false);
+  };
+
 
   return (
     <Fragment>
@@ -124,7 +134,7 @@ const Funnels = ({
           <div className='margin-v-20 flex-container fb-aligned-center'>
             <MainTitle>Funnels</MainTitle>
           </div>
-          <Button onClick={onFunnelCreate} className='primary-color'>
+          <Button onClick={onCreate} className='primary-color'>
             <i className='fas fa-plus' />
             new funnel
           </Button>
@@ -143,6 +153,14 @@ const Funnels = ({
           ))
           }
         </PageContent>
+
+
+        <PreCreateModal
+          show={showCreateModal}
+          history={props.history}
+          onClose={onCreateCancel}
+        />
+
 
         {!!showDelete && (
           <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>

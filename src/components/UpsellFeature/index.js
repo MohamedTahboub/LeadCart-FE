@@ -9,19 +9,21 @@ const { EditableTextField } = common
 export default ({ title, text, id, number, ...props }) => {
 
   const onChange = ({ target: { name, value } }) => {
-    if (value)
-      props.onChange({
-        id,
-        value: {
-          title,
-          text,
-          [name]: value
-        }
-      })
+    //   if (value){
+    //   props.onChange && props.onChange({
+    //       id,
+    //       value: {
+    //         title,
+    //         text,
+    //         [name]: value
+    //       }
+    //     })
+    // }
   }
+  
   return (
     <div className='upsell-feature-item'>
-      <span onClick={()=>props.onRemove(id)} className="feature-delete-btn">
+      <span onClick={() => props.onRemove(id)} className="feature-delete-btn">
         <i class="fas fa-trash-alt"></i>
       </span>
       <div className='upsell-feature-title'>
