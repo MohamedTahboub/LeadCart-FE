@@ -23,7 +23,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
   const { coupons = {}, payment = {} } = product
   const showRightSide = features.enabled || testimonials.enabled || coupons.enabled;
   return (
-    <div className={`editable-product-form-container ${className}`}>
+    <div id={product._id} className={`editable-product-form-container ${className}`}>
       <Header
         onOptionSelected={onOptionSelected}
         color={color}

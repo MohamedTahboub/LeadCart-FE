@@ -14,29 +14,31 @@ import {
 } from '../Components';
 
 
-const Temp1 = ({ className = '', ...props }) => {
+const Temp1 = ({ className = '', ref, ...props }) => {
 
   const { backgroundColor } = props.product.pagePreferences
   const style = {
     backgroundColor
   }
   return (
-    <div style={style} className={`upsell-template upsell-temp-1 ${className}`}>
-      <LogoImage />
-      <div className='flex-container fb-column'>
-        <Title {...props} />
-        <Description {...props} />
+    <div id={props.product._id} className="upsell-wrapper">
+      <div style={style} className={`upsell-template upsell-temp-1 ${className}`}>
+        <div className='flex-container fb-column'>
+          <Description {...props} />
+        </div>
+        <MediaAsset {...props} />
+        <Note {...props} />
+        <ProgressBar {...props} />
+        <OrderButton {...props} />
+        <DeclineButton {...props} />
       </div>
-      <MediaAsset {...props} />
-      <Features {...props} />
-      <ProgressBar {...props} />
-      <Note {...props} />
-      <OrderButton {...props} />
-      <DeclineButton {...props} />
     </div>
   )
 };
-
+//        <LogoImage />
+//          <Title {...props} />
+//   <Features {...props} />
+//      <ProgressBar {...props} />
 Temp1.propTypes = {
 
 };

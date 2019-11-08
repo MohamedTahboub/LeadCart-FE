@@ -53,10 +53,9 @@ const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ..
     setChanged(false);
   };
 
-  // useEffect(() => {
-  //   console.log('UPDATESSS', asset);
-  //   if (asset.type !== state.type || asset.link !== state.link) setState(asset);
-  // }, [asset]);
+  useEffect(() => {
+    setState(asset);
+  }, [asset.enabled]);
 
   const onAssetImageChange = (image) => {
     onChange({ target: { name: 'link', value: image } });
@@ -65,6 +64,13 @@ const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ..
   const onEditMode = () => {
     setChanged(true);
   };
+  const onHideMedia = () => {
+    // setChanged(true);
+    onChange({ target: { name: 'enabled', value: !state.enabled } });
+  };
+
+
+  if (!state.enabled) return null;
 
   return (
     <div className='upsell-media-asset-container'>
@@ -119,6 +125,9 @@ const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ..
       )
         : (
           <div className='editing-warper edit-btn-warper'>
+            <div onClick={onHideMedia} className='asset-edit-btn asset-hide-btn'>
+              <i className='fas fa-eye-slash' />
+            </div>
             <div onClick={onEditMode} className='asset-edit-btn'>
               <i className='fas fa-pen' />
             </div>

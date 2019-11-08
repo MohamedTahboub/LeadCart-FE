@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EditableField from './EditableField';
+// import EditableField from './EditableField';
+import QuillEditor from 'components/QuillEditor';
 
 const Description = ({
   product: {
@@ -8,25 +9,23 @@ const Description = ({
   } = {},
   ...props
 }) => {
-
-
   const onEdit = (text) => {
     props.onChange({
       target: {
-        name: "pagePreferences.description",
+        name: 'pagePreferences.description',
         value: text
       }
-    })
-  }
+    });
+  };
 
   return (
-    <div className='upsell-description' id="description">
-      <EditableField
+    <div className='upsell-description' id='description'>
+      <QuillEditor
         value={pagePreferences.description}
         onEdit={onEdit}
       />
     </div>
-  )
+  );
 };
 
 Description.propTypes = {

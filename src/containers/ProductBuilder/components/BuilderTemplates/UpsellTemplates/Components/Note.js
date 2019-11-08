@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EditableField from './EditableField';
+// import EditableField from './EditableField';
+import QuillEditor from 'components/QuillEditor';
+
 const Note = ({
   product: {
     pagePreferences: {
       orderNote: {
-        enabled ,
+        enabled,
         text,
         style
       } = {}
@@ -13,30 +15,28 @@ const Note = ({
   } = {},
   ...props
 }) => {
-
   const onEdit = (text) => {
     props.onChange({
       target: {
-        name: "pagePreferences.orderNote",
+        name: 'pagePreferences.orderNote',
         value: {
           enabled,
           text,
           style
         }
       }
-    })
-  }
+    });
+  };
 
   return enabled ? (
     <div className='upsell-notes-container'>
-      <EditableField
+      <QuillEditor
         value={text}
         onEdit={onEdit}
       />
     </div>
-  ) : null
-
-}
+  ) : null;
+};
 Note.propTypes = {
   value: PropTypes.string
 };

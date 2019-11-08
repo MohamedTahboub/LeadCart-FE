@@ -19,6 +19,7 @@ const { Panel } = Collapse;
 const ConversionBoosters = ({
   product: {
     pagePreferences: {
+      asset = {},
       widgets: {
         progressBar = {},
         ...widgets
@@ -43,6 +44,14 @@ const ConversionBoosters = ({
       { ...features, enabled: !features.enabled }
     );
   };
+
+  const onToggleMediaAsset = () => {
+    onChange(
+      'pagePreferences.asset',
+      { ...asset, enabled: !asset.enabled }
+    );
+  };
+
   const onProgressBarChange = ({ target: { name, value } }) => {
     if (name === 'enabled') value = value === 'on';
     onChange(
@@ -74,7 +83,18 @@ const ConversionBoosters = ({
               />
             </InputRow>
           </Panel>
-          <Panel header='Progress Bar' key='2'>
+          <Panel header='Media Asset' key='2'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
+              <InputRow.SwitchInput
+                value={asset.enabled}
+                name='enabled'
+                onToggle={onToggleMediaAsset}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
+          <Panel header='Progress Bar' key='3'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
@@ -87,9 +107,9 @@ const ConversionBoosters = ({
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>
                 Background:
-            </InputRow.Label>
+              </InputRow.Label>
               <MiniTwitterPicker
-                name='containerBackground'
+                name='color'
                 value={progressBar.color}
                 onChange={onProgressBarChange}
               />
@@ -115,6 +135,7 @@ const ConversionBoosters = ({
                 type='number'
                 min={0}
                 max={100}
+                autoComplete='off'
                 name='value'
                 className='progress-bar-input margin-left-20'
                 onChange={onProgressBarChange}

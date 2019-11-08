@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 const ProgressBar = ({
   product: {
     pagePreferences: {
+      themeColor = '#8BC34A',
       widgets: {
         progressBar: {
           label = 'progress bar label',
           value = '',
-          color,
+          color = themeColor,
           type,
           enabled
         } = {}
@@ -16,16 +17,21 @@ const ProgressBar = ({
     } = {}
   },
   ...props
-}) => (enabled ? (
-  <div className='progress-bar-container'>
-    <div className='progress-bar-wrapper'>
-      <div style={{ width: `${value}%` }} className='progress-bar'>
-        {label}
+}) => {
+  const style = {
+    backgroundColor: color,
+    borderColor: color
+  };
+  return (enabled ? (
+    <div className='progress-bar-container'>
+      <div className='progress-bar-wrapper'>
+        <div style={{ width: `${value}%`, ...style }} className='progress-bar'>
+          {label}
+        </div>
       </div>
     </div>
-  </div>
-) : null);
-
+  ) : null);
+};
 ProgressBar.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired

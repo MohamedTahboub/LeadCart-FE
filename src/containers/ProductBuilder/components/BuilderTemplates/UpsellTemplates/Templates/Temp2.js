@@ -14,14 +14,14 @@ import {
 } from '../Components';
 
 
-const Temp2 = ({ className = '', ...props }) => {
+const Temp2 = ({ className = '',ref, ...props }) => {
 
   const { backgroundColor } = props.product.pagePreferences
   const style = {
     backgroundColor
   }
   return (
-    <div style={style} className={`upsell-template upsell-temp-2 ${className}`}>
+    <div ref={ref} style={style} className={`upsell-template upsell-temp-2 ${className}`}>
       <div className="upsell-template-section">
         <LogoImage />
         <MediaAsset {...props} />
@@ -31,8 +31,6 @@ const Temp2 = ({ className = '', ...props }) => {
           <Title {...props} />
           <Description {...props} />
         </div>
-        <Features {...props} />
-        <ProgressBar {...props} />
         <Note {...props} />
         <OrderButton {...props} />
         <DeclineButton {...props} />
@@ -41,6 +39,9 @@ const Temp2 = ({ className = '', ...props }) => {
   )
 };
 
+
+//        <Features {...props} />
+//        <ProgressBar {...props} />
 Temp2.propTypes = {
 
 };

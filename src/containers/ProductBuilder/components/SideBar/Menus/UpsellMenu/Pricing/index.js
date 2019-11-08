@@ -4,7 +4,6 @@ import common from 'components/common';
 import currencies from 'data/currencies.json';
 import PaymentType from 'components/PaymentType';
 import PaymentGateway from 'components/PaymentGateways';
-
 import './style.css';
 
 import {
@@ -38,6 +37,7 @@ const Settings = ({
         onChange={props.onChange}
         price={price}
       />
+      <PaymentGateway {...props} payment={payment} />
     </MenuContent>
   </MenuItem>
 );

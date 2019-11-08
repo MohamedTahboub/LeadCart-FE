@@ -5,8 +5,8 @@ import UpsellMenu from './UpsellMenu'
 export default ({ category, ...props }) => {
 
     switch (category) {
-        case 'Checkout': return <CheckoutMenu {...props} />
-        case 'UpSell': return <UpsellMenu {...props} />
+        case 'checkout': return <CheckoutMenu {...props} />
+        case 'upsell': return <UpsellMenu {...props} />
         default: return <CheckoutMenu {...props} />
     }
 }

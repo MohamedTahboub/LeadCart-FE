@@ -5,8 +5,8 @@ import UpsellTemplate from './UpsellTemplates'
 
 export default ({ category, ...props }) => {
   switch (category) {
-  case 'Checkout': return <CheckoutTemplate {...props} />;
-  case 'UpSell': return <UpsellTemplate {...props} />;
+  case 'checkout': return <CheckoutTemplate {...props} />;
+  case 'upsell': return <UpsellTemplate {...props} />;
 
   default: return <CheckoutTemplate {...props} />;
   }
