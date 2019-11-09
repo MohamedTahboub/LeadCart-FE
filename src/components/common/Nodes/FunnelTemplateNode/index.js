@@ -62,7 +62,7 @@ const FunnelNode = ({
   const style = {
     backgroundImage: `url(${bgImage})`,
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundSize: '100% 100%',
     backgroundRepeat: 'no-repeat'
   };
 

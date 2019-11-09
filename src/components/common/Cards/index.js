@@ -104,7 +104,7 @@ export const ProductCard = ({
           : <Avatar name={name} />
       }
       {
-        category && (category === 'Checkout' ? (
+        category && (category === 'checkout' ? (
           <span data-tooltip='Checkout Product'>
             <i className='fas fa-shopping-cart' />
           </span>

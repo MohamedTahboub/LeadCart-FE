@@ -34,7 +34,7 @@ class EditableTextField extends Component {
     const { editable, value } = this.state;
 
     return (
-      <div className={`editable-text-field ${this.props.className || ''}`}>
+      <div className={`editable-text-field ${this.props.className || ''}`} style={this.props.style}>
         {editable ? (
           <input
             ref={(ref) => ref && ref.focus()}
@@ -42,6 +42,7 @@ class EditableTextField extends Component {
             onKeyDown={this.onEnterKey}
             name={this.props.name}
             onChange={this.onChange}
+            autoComplete={this.props.autoComplete}
             type='text'
             defaultValue={value}
             className='editable-text-input'
