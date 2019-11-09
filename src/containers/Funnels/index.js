@@ -1,8 +1,11 @@
 import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as modalsActions from 'actions/modals';
+import * as funnelsActions from 'actions/funnels';
 import * as productsActions from 'actions/products';
-import * as productActions from 'actions/product';
+import * as flashMessages from 'actions/flashMessage';
+
+
 import sampleFunnels from 'data/funnels.json';
 
 import { Modal } from 'components/Modals';
@@ -30,6 +33,7 @@ const ProductShadowLoading = () => <div className='empty-product-shadowbox anima
 const Funnels = ({
   funnels,
   filtersLabels,
+  deleteFunnel,
   subdomain,
   ...props
 }) => {
@@ -46,13 +50,6 @@ const Funnels = ({
 
   const onFunnelEdit = (url) => {
     props.history.push(`/funnels/${url}`);
-  };
-  const onFunnelCreate = (url) => {
-    setCreateFunnel(true);
-    setTimeout(() => {
-      setCreateFunnel(false);
-      props.history.push('/funnels/new');
-    }, 500);
   };
 
 
@@ -90,7 +87,25 @@ const Funnels = ({
   const onHideDeleteDialogue = () => setShowDelete('');
 
   const onFunnelDelete = () => {
-    // deleteProduct(showDelete);
+    deleteFunnel(
+       {funnelId : showDelete}, 
+      {
+        onSuccess: () => {
+          props.showFlashMessage({
+            type: 'success',
+            message: `Funnel Deleted Successfully`
+          });
+          onHideDeleteDialogue()
+        },
+        onFailed: (msg) => {
+          props.showFlashMessage({
+            type: 'failed',
+            message: msg
+          });
+        }
+      }
+
+    );
     // onHideDeleteDialogue();
   };
 
@@ -202,4 +217,4 @@ Funnels.defaultProps = {
   funnels: []
 };
 
-export default connect(mapStateToProps, { ...productsActions, ...productActions, ...modalsActions })(Funnels);
+export default connect(mapStateToProps, { ...productsActions, ...funnelsActions, ...flashMessages })(Funnels);

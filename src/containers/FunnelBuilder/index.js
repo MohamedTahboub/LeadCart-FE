@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
-import { extractProductsRelations } from 'libs/funnels'
+import { extractProductsRelations,getStartPointProduct } from 'libs/funnels'
 
 import { SideBar, Header, FunnelWorkspace } from './components';
 
@@ -107,7 +107,12 @@ const FunnelBuilder = ({
     const action = isNew ? props.createFunnel : props.updateFunnel;
     const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
 
+    const startPoint = getStartPointProduct(funnel)
+    if(startPoint){
+      payload.funnel.startPoint = startPoint
+    }
     payload.productsUpdates = extractProductsRelations(funnel)
+    
     action(
       payload,
       {

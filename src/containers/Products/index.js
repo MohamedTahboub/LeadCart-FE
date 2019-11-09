@@ -44,7 +44,7 @@ const Products = ({
   // const [showProductForm, setShowProductForm] = useState({});
   const [showCreateModal, setShowProductModal] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState(products);
-  const [filterKeys, setFilterKeys] = useState({ categories: ['Checkout', 'UpSell'] });
+  const [filterKeys, setFilterKeys] = useState({ categories: ['checkout', 'upsell'] });
   // const onProductPreview = ({category , _id }) => {
   //   const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
   //   window.open(productUrl, '_blank');
@@ -120,7 +120,7 @@ const Products = ({
           <InputRow.TextField
             // className='products-search-field'
             onChange={onSearch}
-            prefix={<Currency value={<i class="fas fa-search"></i>} />}
+            prefix={<Currency value={<i className='fas fa-search' />} />}
             value={filterKeys.searchKey}
             name='product'
           />
@@ -128,15 +128,15 @@ const Products = ({
 
           <InputRow.Checkbox
             className='margin-left-10'
-            onClick={onToggleCategory('Checkout')}
-            checked={filterKeys.categories.includes('Checkout')}
+            onClick={onToggleCategory('checkout')}
+            checked={filterKeys.categories.includes('checkout')}
           >
             Checkout
           </InputRow.Checkbox>
           <InputRow.Checkbox
             className='margin-left-10'
-            onClick={onToggleCategory('UpSell')}
-            checked={filterKeys.categories.includes('UpSell')}
+            onClick={onToggleCategory('upsell')}
+            checked={filterKeys.categories.includes('upsell')}
           >
             Upsell
           </InputRow.Checkbox>

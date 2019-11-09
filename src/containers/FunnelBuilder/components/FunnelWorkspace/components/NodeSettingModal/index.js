@@ -20,7 +20,7 @@ const NodeSettingModal = ({
 }) => {
   const node = nodes.find((node) => node.elementId === isVisible);
 
-  if(!node) return null
+  if (!node) return null;
   // const [node, setNode] = useState(initialNode);
   const [matchProducts, setMatchedProducts] = useState([]);
 
@@ -33,6 +33,7 @@ const NodeSettingModal = ({
 
     const matched = products.filter((p) => (p.category && (p.category.toLowerCase() === category.toLowerCase())));
     // console.log(products, matched);
+    console.log('matched', matched);
     setMatchedProducts(matched);
   }, [isVisible, products]);
 
@@ -46,6 +47,7 @@ const NodeSettingModal = ({
     // setNode({ ...node, product });
     onNodeSettingChange(node.elementId, { name: 'productId', value: productId });
   };
+
 
   return (
     <SlidingAnimation
@@ -73,7 +75,8 @@ const NodeSettingModal = ({
               onClick={() => onSelect(product._id)}
               active={product._id === node.productId}
               product={{
-                image: product.pagePreferences && product.pagePreferences.image
+                image: product.thumbnail || product.pagePreferences.image,
+                name: product.name
               }
               }
               {...product}

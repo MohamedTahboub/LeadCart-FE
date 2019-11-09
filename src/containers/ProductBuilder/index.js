@@ -1,11 +1,15 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, {
+  useState, useEffect, Fragment, useRef
+} from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import { ProductSchema } from 'libs/validation';
 import * as productActions from 'actions/product';
 import * as flashMessages from 'actions/flashMessage';
-import { stopTabClosing } from 'libs';
+import * as filesActions from 'actions/files';
+
+import { stopTabClosing, htmlToImage, slugify } from 'libs';
 // import  ProductEditableTemplate  from './';
 import { SideBar, Header, ProductEditableTemplate } from './components';
 import './style.css';
@@ -22,6 +26,8 @@ const {
 const ProductBuilder = ({
   products, subdomain, globelLoading, ...props
 }) => {
+  const productRef = useRef(null);
+
   const [fields, setFields] = useState({});
   const [displayType, setDisplayType] = useState('desktop');
   // const [changesDetected, setChangesDetected] = useState(false)
@@ -51,7 +57,7 @@ const ProductBuilder = ({
       name = key;
       value = { ...fields[key], ...nestedValue };
     }
-    console.log("Changes registered",name,value)
+    console.log('Changes registered', name, value);
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -63,13 +69,9 @@ const ProductBuilder = ({
   useEffect(() => {
     const { id } = props.match.params;
     const product = products.find(({ _id }) => _id === id) || {};
-    if(product._id !== fields._id)
-    setFields(product);
+    if (product._id !== fields._id) setFields(product);
 
-    if (product._id) {
-      setLoading({ product: false });
-    }
-    
+    if (product._id) setLoading({ product: false });
 
 
     return () => {
@@ -100,29 +102,66 @@ const ProductBuilder = ({
       });
       return setErrors(errors);
     }
-
-    props.updateProduct(
-      {
-        productId: fields._id,
-        details: product
-      },
-      {
-        onSuccess: (msg) => {
-          props.showFlashMessage({
-            type: 'success',
-            message: 'Your Changes Saved Successfully'
-          });
-          changesSaved();
-          updateUrlOnChange(fields._id);
+    const thumbnail = await htmlToImage(fields._id);
+    // thumbnail.filename = fields.name;
+    if (thumbnail) {
+      props.uploadFile({
+        file: thumbnail,
+        fileName: slugify(fields.name),
+        type: 'products',
+        source: 'product.thumbnail'
+      }, {
+        onSuccess: (data) => {
+          product.thumbnail = data;
+          props.updateProduct(
+            {
+              productId: fields._id,
+              details: product
+            },
+            {
+              onSuccess: (msg) => {
+                props.showFlashMessage({
+                  type: 'success',
+                  message: 'Your Changes Saved Successfully'
+                });
+                changesSaved();
+                updateUrlOnChange(fields._id);
+              },
+              onFailed: (message) => {
+                props.showFlashMessage({
+                  type: 'failed',
+                  message: `Check the Fields And Try a gain\n${errors}`
+                });
+              }
+            }
+          );
         },
-        onFailed: (message) => {
-          props.showFlashMessage({
-            type: 'failed',
-            message: `Check the Fields And Try a gain\n${errors}`
-          });
+        // onFailed: reject
+      });
+    } else {
+      props.updateProduct(
+        {
+          productId: fields._id,
+          details: product
+        },
+        {
+          onSuccess: (msg) => {
+            props.showFlashMessage({
+              type: 'success',
+              message: 'Your Changes Saved Successfully'
+            });
+            changesSaved();
+            updateUrlOnChange(fields._id);
+          },
+          onFailed: (message) => {
+            props.showFlashMessage({
+              type: 'failed',
+              message: `Check the Fields And Try a gain\n${errors}`
+            });
+          }
         }
-      }
-    );
+      );
+    }
   };
   const postSideChanging = (state) => {
     setSidebarOpened(state);
@@ -161,7 +200,7 @@ const ProductBuilder = ({
           darkTheme={enableDarkTheme}
           toggleTemplateChangeEffect={toggleTemplateChangeEffect}
         />
-        <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
+        <div className={`product-workspace-container ${fields.category === 'checkout' ? '' : 'editor-workspace-wrapper'} ${isSidebarOpened ? 'side-opened' : ''}`}>
           <ProductEditableTemplate
             category={fields.category}
             className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
@@ -189,4 +228,5 @@ const mapStateToProps = ({
   loading: globelLoading,
   user: { user: { subDomain: subdomain } }
 }) => ({ products, subdomain, globelLoading });
-export default connect(mapStateToProps, { ...productActions, ...flashMessages })(ProductBuilder);
+
+export default connect(mapStateToProps, { ...productActions, ...flashMessages, ...filesActions })(ProductBuilder);
