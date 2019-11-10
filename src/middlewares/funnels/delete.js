@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return deleteFunnelSuccess(args);
+      return deleteFunnelSuccess(payload);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);

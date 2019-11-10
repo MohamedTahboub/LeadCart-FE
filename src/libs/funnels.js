@@ -26,3 +26,9 @@ export const extractProductsRelations = ({ products = [] }) => {
   return result;
 };
 
+
+export const getStartPointProduct = (funnel) => {
+  const funnelCheckoutProduct = funnel.products.find(({ category = '' }) => category.toLowerCase() === 'checkout');
+
+  return funnelCheckoutProduct.productId;
+};

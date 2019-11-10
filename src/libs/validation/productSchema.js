@@ -92,6 +92,7 @@ const ProductSchema = yup.object({
   offer: offerSchema,
   name: yup.string().default('Product-Name'),
   internalName: yup.string(),
+  thumbnail: yup.string(),
   // url: yup.string().default(() => ids.generate()),
   price: yup.object({
     amount: yup.number().required(),
@@ -99,7 +100,7 @@ const ProductSchema = yup.object({
   }).required(),
   payment: yup.object({
     methods: yup.array().of(yup.string()),
-    type: yup.string(),
+    type: yup.string().default('Onetime'),
     recurringPeriod: yup.string().when('type',
       {
         is: 'Subscription',

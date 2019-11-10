@@ -6,13 +6,13 @@ export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== UPLOAD_FILE) return next(action);
 
   const file = new FormData();
-  file.append('file', action.payload.file);
+  file.append('file', action.payload.file, action.payload.fileName);
   file.append('type', action.payload.type);
 
   const castSuccess = (data) => {
-    const { meta: { onSuccess } = {} } = action
-    onSuccess && onSuccess(data.url)
-    return uploadFileSuccess({ source: action.payload.source, ...data })
+    const { meta: { onSuccess } = {} } = action;
+    onSuccess && onSuccess(data.url);
+    return uploadFileSuccess({ source: action.payload.source, ...data });
   };
 
   dispatch(apiRequest({

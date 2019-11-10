@@ -1,13 +1,16 @@
 {
     "name": "Upsell Name",
     "internalName": "upsell",
-    "category": "UpSell",
+    "category": "upsell",
     "available": true,
     "price": {
         "currency": "USD",
         "amount": 50
     },
     "tags": [],
+    "payment": {
+        "type": "Onetime"
+    },
     "pagePreferences": {
         "template": "temp1",
         "themeColor": "green",
