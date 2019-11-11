@@ -133,7 +133,7 @@ export default {
       },
     },
     mixPanelId: '9f4e14f1602b54645779337eb660525a',
-    intercomAppId: 'skynydft'
+    intercomAppId: 'oiankyy0'
   }
 }[process.env.REACT_APP_ENV || 'development'];
 
