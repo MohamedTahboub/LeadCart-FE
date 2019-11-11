@@ -35,7 +35,7 @@ const AboutProduct = ({
     }
     <div className={`product-template-description-container ${subContainerClassName}`}>
       <EditableField
-        name='pagePreferences.name'
+        name='name'
         defaultValue='Product Name'
         onChange={onChange}
         className='product-template-name'

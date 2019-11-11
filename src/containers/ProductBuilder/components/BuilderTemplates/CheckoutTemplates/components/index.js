@@ -11,3 +11,4 @@ export { default as PaymentMethods } from './PaymentMethods';
 export { default as TermsAndConditionsBadge } from './TermsAndConditionsBadge';
 export { default as Testimonials } from './Testimonials';
 export { default as BumpOffer } from './BumpOffer';
+export { default as MediaAsset } from './MediaAsset';

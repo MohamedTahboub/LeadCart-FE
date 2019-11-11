@@ -16,6 +16,7 @@ const ConversionBoosters = ({
     offer = {},
     shippingDetails = {},
     pagePreferences: {
+      asset = {},
       testimonials = {},
       features = {},
       termsAndConditions: terms = {},
@@ -75,11 +76,29 @@ const ConversionBoosters = ({
     });
   };
 
+
+  const onToggleMediaAsset = () => {
+    onChange(
+      'pagePreferences.asset',
+      { ...asset, visible: !asset.visible }
+    );
+  };
   return (
     <MenuItem>
       <MenuTitle>Conversion Boosters</MenuTitle>
       <MenuContent>
         <Collapse defaultActiveKey={['1', '2', '3', '4', '5']}>
+          <Panel header='Media Asset' key='2'>
+            <InputRow className='sidebar-row'>
+              <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
+              <InputRow.SwitchInput
+                value={asset.visible}
+                name='visible'
+                onToggle={onToggleMediaAsset}
+                className='sidebar-switch-input'
+              />
+            </InputRow>
+          </Panel>
           <Panel header='Shipping Details' key='1'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
@@ -135,7 +154,7 @@ const ConversionBoosters = ({
                 className='sidebar-input-label margin-bottom-20'
                 notes='Recommended image ratio 10:1 (W:H)'
               >
-              Guarantee Message:
+                Guarantee Message:
               </InputRow.Label>
               <InputRow.SwitchInput
                 value={guaranteed.enabled}

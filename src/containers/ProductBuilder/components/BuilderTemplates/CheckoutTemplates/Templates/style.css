@@ -10,6 +10,9 @@
   border-top-right-radius: 16px;
   }
   
+  .editable-product-form-container .upsell-media-asset-container{
+    padding: 0 20px;
+  }
   .product-template-body{
     display: flex;
     padding: 20px;

@@ -23,7 +23,7 @@ const getTemplateColor = (template) => {
         "temp3": "rgb(0, 208, 132)",
         "temp4": "rgb(255, 105, 0)",
         "temp5": "rgb(235, 20, 76)",
-        "temp6": "#3F51B5",
+        "temp6": "rgb(247, 141, 167)",
     }
     return schema[template] ? schema[template] : schema['temp1']
 }

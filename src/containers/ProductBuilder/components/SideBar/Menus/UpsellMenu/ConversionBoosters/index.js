@@ -48,7 +48,7 @@ const ConversionBoosters = ({
   const onToggleMediaAsset = () => {
     onChange(
       'pagePreferences.asset',
-      { ...asset, enabled: !asset.enabled }
+      { ...asset, visible: !asset.visible }
     );
   };
 
@@ -87,7 +87,7 @@ const ConversionBoosters = ({
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
-                value={asset.enabled}
+                value={asset.visible}
                 name='enabled'
                 onToggle={onToggleMediaAsset}
                 className='sidebar-switch-input'

@@ -1,13 +1,18 @@
 {
     "price": {
         "currency": "USD",
-        "amount": 97
+        "amount": 11.9
     },
     "payment": {
         "type": "Onetime"
     },
     "category": "checkout",
     "pagePreferences": {
+        "asset": {
+            "type": "video",
+            "link": "https://fast.wistia.com/embed/m6b92iiggl",
+            "visible": true
+        },
         "features": {
             "enabled": true,
             "list": [
@@ -53,7 +58,7 @@
         "bodyText": "LIMITED EDITION, we are offering a special 'Client License Upgrade' Create unlimited carts for up to 5 simultaneous clients, using your own account for only $297 per year Or $599 One Time!",
         "introText": "Use Leadcart For Your Clients Sites & Profit Today!",
         "name": "Client Licenses",
-        "price": 297,
+        "price": 8.9,
         "title": "YES! I Want one of the Limited 'Client Licenses'",
         "style": {
             "containerBackground": "white",
