@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
-import { extractProductsRelations,getStartPointProduct } from 'libs/funnels'
+import { extractProductsRelations, getStartPointProduct } from 'libs/funnels'
 
 import { SideBar, Header, FunnelWorkspace } from './components';
 
@@ -20,6 +20,7 @@ import './style.css';
 
 const FunnelBuilder = ({
   funnels,
+  products,
   subdomain,
   globelLoading,
   ...props
@@ -39,6 +40,9 @@ const FunnelBuilder = ({
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
 
   const [unblock, SetUnblock] = useState();
+
+  const [productsNodeDetails, setProductsNodeDetails] = useState({});
+
 
 
   const changesDetected = () => {
@@ -72,6 +76,19 @@ const FunnelBuilder = ({
 
     if (funnel._id) setLoading({ funnel: false });
 
+
+    const productsDetails = products
+      .filter(({ thumbnail }) => thumbnail)
+      .reduce((obj, product) => {
+        obj[product._id] = {
+          image : product.thumbnail,
+          name : product.name
+        }
+        return obj
+      }, {})
+
+    if (Object.keys(productsDetails).length)
+    setProductsNodeDetails(productsDetails)
 
     return () => {
       // setFields({});
@@ -108,11 +125,11 @@ const FunnelBuilder = ({
     const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
 
     const startPoint = getStartPointProduct(funnel)
-    if(startPoint){
+    if (startPoint) {
       payload.funnel.startPoint = startPoint
     }
     payload.productsUpdates = extractProductsRelations(funnel)
-    
+
     action(
       payload,
       {
@@ -172,6 +189,7 @@ const FunnelBuilder = ({
             className={`${templateChanging ? 'blur-effect' : ''}`}
             funnel={fields}
             onChange={onChange}
+            productsNodeDetails={productsNodeDetails}
             errors={errors}
           />
         </div>

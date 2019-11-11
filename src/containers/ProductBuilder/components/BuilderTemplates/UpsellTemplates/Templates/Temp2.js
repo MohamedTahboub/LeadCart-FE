@@ -14,7 +14,7 @@ import {
 } from '../Components';
 
 
-const Temp2 = ({ className = '',ref, ...props }) => {
+const Temp2 = ({ className = '', ref, ...props }) => {
 
   const { backgroundColor } = props.product.pagePreferences
   const style = {
@@ -23,12 +23,11 @@ const Temp2 = ({ className = '',ref, ...props }) => {
   return (
     <div ref={ref} style={style} className={`upsell-template upsell-temp-2 ${className}`}>
       <div className="upsell-template-section">
-        <LogoImage />
         <MediaAsset {...props} />
       </div>
       <div className="upsell-template-section">
         <div className='flex-container fb-column'>
-          <Title {...props} />
+          <LogoImage />
           <Description {...props} />
         </div>
         <Note {...props} />

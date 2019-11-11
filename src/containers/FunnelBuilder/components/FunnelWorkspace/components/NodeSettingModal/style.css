@@ -10,12 +10,17 @@
     right: 0px;
     left: unset;
     box-shadow: -1px 5px 10px 5px rgba(0, 0, 0, 0.01);
-    transition: all .6s ease-in-out;
+    transform:translateX(300px);
+    transition: transform .3s ease-in-out;
 }
 
 .funnel-nav-bar + .product-workspace-container,
 .funnel-nav-bar + .product-workspace-container.side-opened{
     padding: unset;
+}
+
+.node-setting-modal.open{
+    transform:translateX(0px);
 }
 /* .node-setting-modal */
 

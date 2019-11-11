@@ -18,24 +18,27 @@ const NodeSettingModal = ({
   onClose,
   ...props
 }) => {
-  const node = nodes.find((node) => node.elementId === isVisible);
-
-  if (!node) return null;
-  // const [node, setNode] = useState(initialNode);
   const [matchProducts, setMatchedProducts] = useState([]);
 
   useEffect(() => {
-    // const node = nodes.find((node) => node.id === isVisible);
-    // setNode(node);
-    const { category } = node || {};
+    const node = nodes.find((node) => node.elementId === isVisible);
 
-    showIntercomIcon(!isVisible);
 
-    const matched = products.filter((p) => (p.category && (p.category.toLowerCase() === category.toLowerCase())));
-    // console.log(products, matched);
-    console.log('matched', matched);
-    setMatchedProducts(matched);
-  }, [isVisible, products]);
+    if (node) {
+      const { category } = node || {};
+      showIntercomIcon(!isVisible);
+
+      const matched = products
+        .filter((p) => (p.category && (p.category.toLowerCase() === category.toLowerCase())))
+        .map((p) => (p._id === node.productId ? { ...p, active: true } : p));
+
+      setMatchedProducts(matched);
+    }
+
+    return () => {
+      setMatchedProducts([]);
+    };
+  }, [isVisible, products, nodes]);
 
 
   const stopPropagation = (e) => {
@@ -43,21 +46,15 @@ const NodeSettingModal = ({
     e.stopPropagation();
   };
 
-  const onSelect = (productId) => {
-    // setNode({ ...node, product });
-    onNodeSettingChange(node.elementId, { name: 'productId', value: productId });
+  const onSelect = (nodeId, productId) => () => {
+    onNodeSettingChange(nodeId, productId);
   };
 
-
   return (
-    <SlidingAnimation
+    <div
       onClick={stopPropagation}
-      open={isVisible}
-      type='horizontal'
-      units={300}
-      delay={0}
-      className='node-setting-modal'
-    // bodyClassName='node-setting-container'
+      className={`node-setting-modal ${isVisible ? 'open' : ''}`}
+      role='presentation'
     >
       <div className='node-setting-header'>
         <span onClick={onClose} className='close-btn' role='presentation'>
@@ -71,9 +68,9 @@ const NodeSettingModal = ({
         {
           matchProducts.map((product) => (
             <FunnelTemplateNode
-              key={node.category}
-              onClick={() => onSelect(product._id)}
-              active={product._id === node.productId}
+              key={product._id}
+              onClick={onSelect(isVisible, product._id)}
+              active={product.active}
               product={{
                 image: product.thumbnail || product.pagePreferences.image,
                 name: product.name
@@ -84,7 +81,7 @@ const NodeSettingModal = ({
           ))
         }
       </div>
-    </SlidingAnimation>
+    </div>
   );
 };
 

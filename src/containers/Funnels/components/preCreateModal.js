@@ -7,8 +7,9 @@ import * as flashMessageActions from 'actions/flashMessage';
 
 import { Modal } from 'components/Modals';
 
-// import sampleBasicFunnel from 'data/sampleFunnel';
-// import sampleBlankFunnel from 'data/sampleFunnel';
+import {
+  basic as sampleBasicFunnel,
+} from 'data/sampleFunnel';
 
 import basicFunnelImage from 'assets/images/basicFunnelImage.png';
 import blankFunnelImage from 'assets/images/blankFunnelImage.png';
@@ -20,7 +21,7 @@ const {
 } = common;
 
 const funnelsTypes = {
-  basic: {}, // sampleBasicFunnel,
+  basic: sampleBasicFunnel, // sampleBasicFunnel,
   blank: {} // sampleBlankFunnel
 };
 

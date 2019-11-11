@@ -19,6 +19,7 @@ const FunnelWorkSpace = ({
   funnel: {
     products: nodes = [],
   },
+  productsNodeDetails,
   showFlashMessage,
   ...props
 }) => {
@@ -236,10 +237,10 @@ const FunnelWorkSpace = ({
     setShowNodeSettingModal(id)
   };
 
-  const onNodeSettingChange = (id, filed) => {
+  const onNodeSettingChange = (id, productId) => {
     const updatedList = nodes.map(node => {
       if (node.elementId === id) {
-        return { ...node, [filed.name]: filed.value }
+        return { ...node, productId: node.productId === productId ? '' : productId }
       }
       return node
     })
@@ -274,16 +275,17 @@ const FunnelWorkSpace = ({
             onNodeDelete={onNodeDelete}
             onConnected={onNodeConnected}
             activeSetting={showNodeSettingModal}
+            product={productsNodeDetails[node.productId]}
             {...node}
           />
         ))}
-        {showNodeSettingModal && <NodeSettingModal
+        <NodeSettingModal
           show={showNodeSettingModal}
           nodes={nodes}
           onNodeSettingChange={onNodeSettingChange}
           onClose={() => onNodeSetting()}
         />
-        }
+
       </div>
     </Fragment>
   );

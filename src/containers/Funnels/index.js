@@ -6,7 +6,9 @@ import * as productsActions from 'actions/products';
 import * as flashMessages from 'actions/flashMessage';
 
 
-import sampleFunnels from 'data/funnels.json';
+
+import config from 'config';
+
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
@@ -17,6 +19,7 @@ import {
 
 import './style.css';
 
+const { USER_SUB_DOMAIN_URL } = config;
 const {
   FunnelCard,
   Page,
@@ -88,7 +91,7 @@ const Funnels = ({
 
   const onFunnelDelete = () => {
     deleteFunnel(
-       {funnelId : showDelete}, 
+      { funnelId: showDelete },
       {
         onSuccess: () => {
           props.showFlashMessage({
@@ -142,6 +145,13 @@ const Funnels = ({
   };
 
 
+
+  const onPreview = (url) => () => {
+    const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
+    window.open(funnelUrl, '_blank');
+  }
+
+
   return (
     <Fragment>
       <Page>
@@ -162,8 +172,8 @@ const Funnels = ({
               orderInlist={id}
               onDelete={() => onShowDeleteDialogue(funnel._id)}
               onEdit={() => onFunnelEdit(funnel.url)}
-            // onDuplicate={() => onProductDuplicate(product)}
-            // onPreview={() => onProductPreview(product.url)}
+              // onDuplicate={() => onProductDuplicate(product)}
+              onPreview={onPreview(funnel.url)}
             />
           ))
           }
