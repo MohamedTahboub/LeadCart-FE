@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 class EditableTextField extends Component {
   state = { editable: false, value: '' };
 
-  onToggle = () => {
+  onToggle = (e) => {
     const { editable } = this.state;
     this.setState({ editable: !editable });
+    this.props.onBlur && this.props.onBlur(e);
   };
 
   onEnterKey = (e) => {
@@ -15,7 +16,7 @@ class EditableTextField extends Component {
   onChange = ({ target: { value, name } }) => {
     if (value) {
       this.setState({ value });
-      this.props.onChange({ target: { name, value } });
+      this.props.onChange && this.props.onChange({ target: { name, value } });
     }
   };
 
@@ -33,7 +34,7 @@ class EditableTextField extends Component {
     const { editable, value } = this.state;
 
     return (
-      <div className={`editable-text-field ${this.props.className || ''}`}>
+      <div className={`editable-text-field ${this.props.className || ''}`} style={this.props.style}>
         {editable ? (
           <input
             ref={(ref) => ref && ref.focus()}
@@ -41,6 +42,7 @@ class EditableTextField extends Component {
             onKeyDown={this.onEnterKey}
             name={this.props.name}
             onChange={this.onChange}
+            autoComplete={this.props.autoComplete}
             type='text'
             defaultValue={value}
             className='editable-text-input'

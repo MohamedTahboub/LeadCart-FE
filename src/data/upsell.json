@@ -1,0 +1,68 @@
+{
+    "name": "Pro Package(sample upsell)",
+    "internalName": "upsell",
+    "category": "upsell",
+    "available": true,
+    "price": {
+        "currency": "USD",
+        "amount": 23.9
+    },
+    "tags": [],
+    "payment": {
+        "type": "Onetime"
+    },
+    "pagePreferences": {
+        "orderNote": {
+            "enabled": true,
+            "text": "<h2 class=\"ql-align-center\"><strong class=\"ql-size-large\">What You Get</strong></h2><p class=\"ql-align-center\"><br></p><p><span style=\"color: rgb(68, 68, 68);\">👉  </span><strong style=\"color: rgb(68, 68, 68);\">Huge Discount (Suggested Retail Price: $1,188).</strong></p><p><span style=\"color: rgb(68, 68, 68);\">👉  </span><strong style=\"color: rgb(68, 68, 68);\">Full LIFETIME Leadcart Account.</strong></p><p><span style=\"color: rgb(68, 68, 68);\">👉  </span><strong style=\"color: rgb(68, 68, 68);\">NO Monthly or Yearly Fees!.</strong></p><p><span style=\"color: rgb(68, 68, 68);\">👉 </span><strong style=\"color: rgb(68, 68, 68);\">Early VIP New Feature Access.</strong></p><p><span style=\"color: rgb(68, 68, 68);\">👉&nbsp;</span><strong style=\"color: rgb(68, 68, 68);\">VIP Support via Chat &amp; Email.</strong></p><p><span style=\"color: rgb(68, 68, 68);\">👉 </span><strong style=\"color: rgb(68, 68, 68);\">7 Days No Questions Asked Money Back Guarantee.</strong></p><p><br></p><p><br></p><p><br></p><p><br></p><p><img src=\"https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/unnamed.gif\"></p>",
+            "style": "style"
+        },
+        "asset": {
+            "type": "video",
+            "link": "https://fast.wistia.com/embed/m6b92iiggl",
+            "visible": true
+        },
+        "description": "<h1 class=\"ql-align-center\">Leadcart Pro Lifetime</h1><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\"><br></p><p class=\"ql-align-center\"><br></p><h1 class=\"ql-align-center\">Get The Simple Script That Effortlessly Convinces Your Customers To Spend More Money With You...FOR FREE!</h1><h1 class=\"ql-align-center\">(Proven To Boost Sales By Up To 83%)</h1>",
+        "image": "https://wpjournals.com/wp-content/uploads/2018/10/Why-You-Consider-Animated-Whiteboard-Video-For-Your-Marketing.png",
+        "testimonials": {
+            "enabled": false,
+            "list": [],
+            "title": "Testimonials List"
+        },
+        "termsAndConditions": {
+            "enabled": false,
+            "url": " "
+        },
+        "guaranteed": {
+            "enabled": true,
+            "url": "https://guaranteed.img"
+        },
+        "features": {
+            "list": [
+                {
+                    "title": "Unique Order",
+                    "text": "here is why its unique!"
+                },
+                {
+                    "title": "Unique Order",
+                    "text": "here is why its unique!"
+                },
+                {
+                    "title": "Unique Order",
+                    "text": "here is why its unique!"
+                },
+                {
+                    "title": "Unique Order",
+                    "text": "here is why its unique!"
+                }
+            ],
+            "title": "Features List",
+            "enabled": true
+        },
+        "backgroundColor": "white",
+        "themeColor": "rgb(6, 147, 227)",
+        "declineButtonText": "no i don't wnat this order",
+        "orderButtonText": "Complete Order Now! $50.00",
+        "template": "temp1"
+    }
+}

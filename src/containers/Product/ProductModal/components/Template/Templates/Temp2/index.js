@@ -31,8 +31,9 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
         onOptionSelected={onOptionSelected}
         color={color}
       />
-      <AboutProduct
+           <AboutProduct
         onChange={onChange}
+        pagePreferences={product.pagePreferences}
         containerClassName='horizontal-about-product-container'
         descriptionInnerClassName='horizontal-product-template-description'
         subContainerClassName='template-description-fullWidth'
@@ -82,7 +83,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
           />
 
           <CompleteOrderBtn
-            text={product.checkoutPage && product.checkoutPage.checkoutButtonText}
+            text={product.checkoutPage && product.checkoutPage.orderButtonText}
             color={color}
             onChange={onChange}
           />
@@ -92,10 +93,10 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
         </section>
         {showRightSide ? (
           <section className="richening-components-section">
-            <Image
-              image={product.image || defaultLogo}
+         <Image
+              image={product.pagePreferences.image || defaultLogo}
               onChange={(target) => onChange({ target })}
-              name='image'
+              name='pagePreferences.image'
               className='product-template-image item-align-center'
             />
             <Testimonials
@@ -111,9 +112,9 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
         )
         :(
           <Image
-          image={product.image || defaultLogo}
-          onChange={(target) => onChange({ target })}
-          name='image'
+              image={product.pagePreferences.image || defaultLogo}
+              onChange={(target) => onChange({ target })}
+              name='pagePreferences.image'
           className='product-template-image item-align-center'
         /> 
         )}

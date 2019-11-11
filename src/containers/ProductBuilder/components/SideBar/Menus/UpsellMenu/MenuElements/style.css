@@ -1,0 +1,22 @@
+.sidebar-menu-item {
+    overflow: auto;
+}
+.sidebar-menu-title {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: darkgray;
+    border-bottom: 2px solid #68a3e4;
+    border-color:var(--title-bar-color);
+}
+.sidebar-menu-content{
+    overflow: auto;
+}
+
+.sidebar-menu-flex-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

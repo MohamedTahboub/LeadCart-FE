@@ -1,0 +1,32 @@
+.product-cards-container{
+    display: flex;
+    justify-content:flex-start;
+    flex-wrap: wrap;
+}
+
+.empty-product-shadowbox {
+    height: 260px;
+    width: 330px;
+    margin: 10px 20px 20px 0px;
+}
+
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+
+.animated-background {
+    animation-duration: 2.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: contain;
+    position: relative;
+}

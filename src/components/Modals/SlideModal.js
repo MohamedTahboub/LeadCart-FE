@@ -11,6 +11,7 @@ export default ({
   bodyClassName = '',
   header,
   footer,
+  onContentClick,
   isVisible
 }) => {
   useEffect(() => {
@@ -20,27 +21,25 @@ export default ({
     };
   }, [isVisible]);
 
-  return (isVisible
-    ? (
-      <EasyAnimate className={`slide-modal-container ${className}`}>
-        <div onClick={onClose} className='slide-modal-background' role='presentation' />
-        <SlidingAnimation type='horizontal' units={1000} className={`slide-modal-content ${contentClassName}`}>
-          {header && (<div className='slide-modal-header'>
-            <span onClick={onClose} className='slide-modal-close-btn' role='presentation'>
-              <i className='fas fa-chevron-circle-left' />
-            </span>
-            {header}
-                      </div>
-          )}
-          <div className={`slide-modal-body ${bodyClassName}`}>
-            {children}
-          </div>
-          {footer && (<div className='slide-modal-footer'>
-            {footer}
-                      </div>
-          )}
-        </SlidingAnimation>
-      </EasyAnimate>
-    )
-    : null);
+  return (
+    <EasyAnimate className={`slide-modal-container ${className}`}>
+      <div onClick={onClose} className='slide-modal-background' role='presentation' />
+      <SlidingAnimation open={isVisible} type='horizontal' units={300} className={`slide-modal-content ${contentClassName}`}>
+        {header && (<div className='slide-modal-header'>
+          <span onClick={onClose} className='slide-modal-close-btn' role='presentation'>
+            <i className='fas fa-chevron-circle-left' />
+          </span>
+          {header}
+        </div>
+        )}
+        <div onClick={onContentClick} className={`slide-modal-body ${bodyClassName}`}>
+          {children}
+        </div>
+        {footer && (<div className='slide-modal-footer'>
+          {footer}
+        </div>
+        )}
+      </SlidingAnimation>
+    </EasyAnimate>
+  );
 };

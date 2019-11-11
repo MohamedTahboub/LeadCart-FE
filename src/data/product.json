@@ -1,26 +1,21 @@
 {
     "price": {
         "currency": "USD",
-        "amount": 97
+        "amount": 11.9
     },
     "payment": {
         "type": "Onetime"
     },
-    "thankYouPage": {
-        "thankYouPageUrl": ""
-    },
-    "checkoutPage": {
-        "features": {
-            "enabled": true,
-            "list": [
-                {
-                    "text": "Unstoppable Daily Journal PDF Planner - Get Focused & Fired Up (Value $19.95)"
-                },
-                {
-                    "text": "Food, Mood & You - Unleash Your Energy & Obliterate Brain Fog (Value $19.95)"
-                }
-            ]
+    "category": "checkout",
+    "pagePreferences": {
+        "orderNote": {},
+        "asset": {
+            "type": "video",
+            "link": "https://fast.wistia.com/embed/m6b92iiggl",
+            "visible": true
         },
+        "description": "LeadCart is a checkout page platform specifically designed using measurable research data and customer feedback with a goal to help you maximize your conversion rates, sales and profits.",
+        "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/Group%202.1.png",
         "testimonials": {
             "enabled": true,
             "list": [
@@ -34,26 +29,47 @@
                     "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5cc123168001ea7df2cc1dcf/products/Webp.net-resizeimage%20%283%29.jpg",
                     "content": "“Wow. I just updated my site and it was SO SIMPLE. I am blown away. You guys truly kick ass. Thanks for being so awesome. High fives!”"
                 }
-            ]
+            ],
+            "title": "Testimonials List"
         },
         "termsAndConditions": {
-            "enabled": false
+            "enabled": true,
+            "url": " https://leadcart.io/terms-and-conditions"
         },
-        "checkoutButtonText": "Complete Order",
-        "logo": "logo",
-        "presetColors": "#0693E3",
-        "template": "temp1",
         "guaranteed": {
-            "enabled":false,
-            "url":"https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/guarantee-badge.png"
-        }
+            "enabled": true,
+            "url": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/guarantee-badge.png"
+        },
+        "features": {
+            "enabled": true,
+            "list": [
+                {
+                    "text": "Huge Discount (Suggested Retail Price: $2,388)",
+                    "title": "Feature Title"
+                },
+                {
+                    "text": "Full LIFETIME Leadcart Account",
+                    "title": "Feature Title"
+                },
+                {
+                    "text": "VIP Support via Chat & Email",
+                    "title": "Feature Title"
+                }
+            ],
+            "title": "What You Get"
+        },
+        "backgroundColor": "#fff",
+        "themeColor": "#22194D",
+        "declineButtonText": "No thanks!",
+        "orderButtonText": "Complete Order",
+        "template": "temp6"
     },
     "offer": {
         "enabled": true,
         "bodyText": "LIMITED EDITION, we are offering a special 'Client License Upgrade' Create unlimited carts for up to 5 simultaneous clients, using your own account for only $297 per year Or $599 One Time!",
         "introText": "Use Leadcart For Your Clients Sites & Profit Today!",
         "name": "Client Licenses",
-        "price": 297,
+        "price": 8.9,
         "title": "YES! I Want one of the Limited 'Client Licenses'",
         "style": {
             "containerBackground": "white",
@@ -70,8 +86,6 @@
         "enabled": true
     },
     "available": true,
-    "name": "Product Name",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus nisi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur, consequatur dolores ducimus excepturi exercitationem impedit libero necessitatibus ",
-    "image": "https://s3.us-east-2.amazonaws.com/static.leadcart.io/5bf605e216803574c86aea00/products/51CpUpuN1BL%20%281%29.jpg",
-    "internalName": "product name"
+    "name": "Leadcart Premium",
+    "internalName": "leadcart-premium-lifetime"
 }

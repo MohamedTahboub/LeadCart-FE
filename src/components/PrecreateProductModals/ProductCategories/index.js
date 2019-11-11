@@ -15,7 +15,7 @@ const ProductCategories = ({ onSelect }) => (
     />
     <CategoryCard
       image={checkoutIcon}
-      onClick={onSelect}
+      onClick={onSelect('checkoutTemplates', 'checkout')}
       label='One Step Checkout'
     />
     <CategoryCard
@@ -25,8 +25,9 @@ const ProductCategories = ({ onSelect }) => (
     />
     <CategoryCard
       image={popUpCheckoutIcon}
+      onClick={onSelect('upsellsTemplates', 'upsell')}
       label='Upsell/Downsell'
-      className='disabled'
+    // className='disabled'
     />
   </div>
 );

@@ -26,6 +26,7 @@ import customers from './customers'
 import billing from './billing'
 import eventsTracker from './eventsTracker'
 import dashboard from './dashboard'
+import funnels from './funnels'
 
 export default [
     eventsTracker,
@@ -38,6 +39,7 @@ export default [
     ...settings,
     products,
     ...upsells,
+    ...funnels,
     ...fulfillments,
     payments,
     ...product,

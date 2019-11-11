@@ -87,7 +87,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
           />
 
           <CompleteOrderBtn
-            text={product.checkoutPage && product.checkoutPage.checkoutButtonText}
+            text={product.checkoutPage && product.checkoutPage.orderButtonText}
             color={color}
             onChange={onChange}
           />

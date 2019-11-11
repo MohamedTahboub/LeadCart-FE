@@ -14,7 +14,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     presetColors: [Rules.isRequired],
     bulletPointImage: [Rules.isRequired],
     bulletPoints: [Rules.isArray],
-    checkoutButtonText: [Rules.isRequired],
+    orderButtonText: [Rules.isRequired],
     customContent: [Rules.isRequired],
     guaranteeTitle: [Rules.isRequired],
     guaranteeText: [Rules.isRequired],

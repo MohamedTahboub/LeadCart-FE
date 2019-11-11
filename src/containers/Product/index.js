@@ -140,7 +140,7 @@ class Product extends Component {
     this.setState({ showShareProductModal: !showShareProductModal })
   }
   onPreview = ({ subdomain, productUrl }) => {
-    const url = `https://${subdomain}.leadcart.io/products/${productUrl}`
+    const url = `https://${subdomain}.leadcart.io/checkout/${productUrl}`
     window.open(url, '_blank')
   }
   render = () => {
