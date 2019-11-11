@@ -11,8 +11,8 @@ import { ImageResize } from 'quill-image-resize-module';
 import * as filesActions from 'actions/files';
 import { formats, modules } from './config';
 
-Quill.register('modules/imageResize', ImageResize);
-Quill.register('modules/imageUploader', ImageUploader);
+// Quill.register('modules/imageResize', ImageResize);
+// Quill.register('modules/imageUploader', ImageUploader);
 
 const Editor = ({ value: htmlValue, onEdit, uploadFile }) => {
   // const [html, setHtml] = useState('');
@@ -37,7 +37,8 @@ const Editor = ({ value: htmlValue, onEdit, uploadFile }) => {
       onFailed: reject
     });
   });
-  modules.imageUploader.upload = onUploadImage;
+  // modules.imageUploader.upload = onUploadImage;
+
   return (
     <ReactQuill
       theme='bubble'

@@ -58,35 +58,30 @@ const modules = {
       { list: 'bullet' },
       { align: ['', 'right', 'center', 'justify'] }
     ],
-    ['code', 'link', 'image']
+    [
+      'code',
+      'link',
+      // 'image'
+    ]
     // ["quill-emoji"],
   ],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: true
   },
-  imageResize: {
-    displayStyles: {
-      backgroundColor: 'black',
-      border: 'none',
-      color: 'white'
-      // other camelCase styles for size display
-    }
-  },
-  imageUploader: {
-    upload: (file) => new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/480px-JavaScript-logo.png'
-        );
-      }, 3500);
-    })
-  }
+  // imageResize: {
+  //   displayStyles: {
+  //     backgroundColor: 'black',
+  //     border: 'none',
+  //     color: 'white'
+  //     // other camelCase styles for size display
+  //   }
+  // }
 };
-  /*
-   * Quill editor formats
-   * See https://quilljs.com/docs/formats/
-   */
+/*
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
+ */
 const formats = [
   'header',
   'font',
@@ -102,7 +97,7 @@ const formats = [
   'align',
   'link',
   'image',
-  'video',
+  // 'video',
   'code'
 ];
 
