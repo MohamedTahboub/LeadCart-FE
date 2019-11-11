@@ -50,6 +50,11 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getDashboardDataSuccess(data.dashboard));
     dispatch(getFunnels(data.funnels || []));
     dispatch(getUserProductsSuccess({ products: data.products }));
+
+    dispatch(getActivatedPromoCodesNumber(data.promoCodes));
+    dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
+    dispatch(getEmailSettings(data.emailSettings));
+
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,
       transactions: data.transactions
@@ -58,9 +63,6 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getActivities(filteringActivities(data.orders)));
     dispatch(getCustomers(filterCustomers(data.orders, data.products)));
 
-    dispatch(getActivatedPromoCodesNumber(data.promoCodes));
-    dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
-    dispatch(getEmailSettings(data.emailSettings));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 

@@ -13,22 +13,21 @@ const {
   EditableField
 } = common;
 
-const Title = ({ product : {name}={}, onChange, ...props }) => {
-
-  // const onEdit = (text) => {
-  //   console.log(text)
-  // }
-  return (
-    <div className="upsell-title">
-      <EditableField
-        name='name'
-        value={name}
-        onChange={onChange}
-      />
-    </div>
-  )
-};
-
+const Title = ({
+  product: {
+    pagePreferences: { name } = {}
+  } = {},
+  onChange,
+  ...props
+}) => (
+  <div className='upsell-title'>
+    <EditableField
+      name='name'
+      value={name}
+      onChange={onChange}
+    />
+  </div>
+);
 Title.propTypes = {
   value: PropTypes.string
 };

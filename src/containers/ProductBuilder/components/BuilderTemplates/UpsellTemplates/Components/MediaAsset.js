@@ -47,7 +47,7 @@ const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ..
         value: {
           type: state.type,
           link: state.link,
-          enabled: state.enabled
+          visible: state.visible
         }
       }
     });
@@ -56,7 +56,7 @@ const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ..
 
   useEffect(() => {
     setState(asset);
-  }, [asset.enabled]);
+  }, [asset.visible]);
 
   const onAssetImageChange = (image) => {
     onChange({ target: { name: 'link', value: image } });
@@ -67,11 +67,11 @@ const MediaAsset = ({ product: { pagePreferences: { asset = {} } = {} } = {}, ..
   };
   const onHideMedia = () => {
     // setChanged(true);
-    onChange({ target: { name: 'enabled', value: !state.enabled } });
+    onChange({ target: { name: 'visible', value: !state.visible } });
   };
 
 
-  if (!state.enabled) return null;
+  if (!state.visible) return null;
 
   return (
     <div className='upsell-media-asset-container'>
