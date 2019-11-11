@@ -3,11 +3,11 @@ import React, {
 } from 'react';
 import 'react-quill/dist/quill.bubble.css';
 import ReactQuill, { Quill } from 'react-quill';
-import ImageUploader from 'quill-image-uploader';
+// import ImageUploader from 'quill-image-uploader';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './style.css';
-import { ImageResize } from 'quill-image-resize-module';
+// import { ImageResize } from 'quill-image-resize-module';
 import * as filesActions from 'actions/files';
 import { formats, modules } from './config';
 
