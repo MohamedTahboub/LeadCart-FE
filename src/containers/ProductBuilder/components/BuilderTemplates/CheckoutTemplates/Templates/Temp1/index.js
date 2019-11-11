@@ -29,6 +29,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
         color={color}
       />
       <AboutProduct
+        {...product}
         onChange={onChange}
         pagePreferences={product.pagePreferences}
         description={product.description}

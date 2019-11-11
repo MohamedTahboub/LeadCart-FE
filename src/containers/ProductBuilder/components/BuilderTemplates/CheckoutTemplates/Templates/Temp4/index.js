@@ -83,6 +83,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
 
         <section className="richening-components-section">
           <AboutProduct
+          {...product}
             onChange={onChange}
             descriptionInnerClassName={'vertical-product-template-description'}
             image={product.image}

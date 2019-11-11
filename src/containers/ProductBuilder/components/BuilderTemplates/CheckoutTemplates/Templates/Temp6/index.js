@@ -37,6 +37,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
         product={product}
       />
       <AboutProduct
+        {...product}
         onChange={onChange}
         pagePreferences={product.pagePreferences}
         containerClassName='horizontal-about-product-container'
@@ -97,12 +98,6 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
         </section>
         {showRightSide ? (
           <section className="richening-components-section">
-            <Image
-              image={product.pagePreferences.image || defaultLogo}
-              onChange={(target) => onChange({ target })}
-              name='pagePreferences.image'
-              className='product-template-image item-align-center'
-            />
             <Testimonials
               onChange={onChange}
               testimonials={testimonials}

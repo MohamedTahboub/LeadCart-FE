@@ -32,6 +32,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
         color={color}
       />
       <AboutProduct
+      {...product}
         onChange={onChange}
         pagePreferences={product.pagePreferences}
         containerClassName='horizontal-about-product-container'
