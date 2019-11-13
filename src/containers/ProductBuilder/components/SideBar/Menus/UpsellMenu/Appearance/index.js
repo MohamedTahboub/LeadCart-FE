@@ -50,7 +50,8 @@ const Appearance = ({
     pagePreferences: {
       template,
       themeColor,
-      backgroundColor
+      backgroundColor,
+      upsellBackgroundColor
     } = {}
   } = {},
   ...props
@@ -78,12 +79,12 @@ const Appearance = ({
     <MenuItem>
       <MenuTitle>Appearance</MenuTitle>
       <MenuContent>
-        <Collapse defaultActiveKey={['1', '2']}>
+        <Collapse defaultActiveKey={['1', '2', '3', '4']}>
           <Panel header='Templates' key='1'>
             <MenuFlexContent>
               {templates.map((image, id) => (
                 <TemplateThumbnail
-                  key={id}
+                  key={image}
                   image={image}
                   activeTemplate={template}
                   className={id === 1 ? 'vertical-oriented' : ''}
@@ -100,7 +101,14 @@ const Appearance = ({
               onChange={onColorChange('pagePreferences.themeColor')}
             />
           </Panel>
-          <Panel header='Page Background Color' key='3'>
+          <Panel header='Upsell Background Color' key='3'>
+            <TwitterPicker
+              className='template-color-picker'
+              color={upsellBackgroundColor}
+              onChange={onColorChange('pagePreferences.upsellBackgroundColor')}
+            />
+          </Panel>
+          <Panel header='Page Background Color' key='4'>
             <TwitterPicker
               className='template-color-picker'
               color={backgroundColor}

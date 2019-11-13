@@ -11,6 +11,7 @@ const Wrapper = ({ className, children, ...props }) => (className ? <div classNa
 const Testimonials = ({
   testimonialsWrapperClassName,
   testimonialClassName,
+  titleClassName = '',
   testimonials = {},
   ...props
 }) => {
@@ -52,8 +53,7 @@ const Testimonials = ({
   if (!enabled) return null;
   return (
     <div className='product-template-testimonials-container'>
-
-      <h3>
+      <h3 className={titleClassName}>
         <EditableField
           name='testimonials'
           defaultValue='Testimonials'

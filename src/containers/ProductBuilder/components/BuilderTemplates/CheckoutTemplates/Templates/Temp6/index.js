@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Image from 'components/common/Image';
 import defaultLogo from 'assets/images/new-product-icon.png';
+import { MediaAsset } from '../../../../common'
+import QuillEditor from 'components/QuillEditor';
+
 import {
   Header,
   AboutProduct,
@@ -13,7 +16,7 @@ import {
   PaymentMethods,
   TermsAndConditionsBadge,
   ShippingDetails,
-  MediaAsset,
+  // MediaAsset,
   BumpOffer,
   Testimonials
 } from '../../components'
@@ -26,6 +29,9 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
   const { features = {}, testimonials = {} } = product.pagePreferences || {}
   const { coupons = {}, payment = {} } = product
   const showRightSide = testimonials.enabled || coupons.enabled;
+
+
+
   return (
     <div id={product._id} className={`editable-product-form-container ${className}`}>
       <Header
@@ -36,14 +42,16 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
         onChange={onChange}
         product={product}
       />
-      <AboutProduct
-        {...product}
-        onChange={onChange}
-        pagePreferences={product.pagePreferences}
-        containerClassName='horizontal-about-product-container'
-        descriptionInnerClassName='horizontal-product-template-description'
-        subContainerClassName='template-description-fullWidth'
-        withoutImage
+      <QuillEditor
+        value={product.pagePreferences && product.pagePreferences.description}
+        onEdit={(value) => {
+          onChange({
+            target: {
+              name: "pagePreferences.description",
+              value
+            }
+          })
+        }}
       />
       <section className="product-template-body">
         <section className="billing-components-section">
@@ -52,10 +60,22 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
             guaranteeImage={product.pagePreferences && product.pagePreferences.guaranteeImage}
             guaranteed={product.pagePreferences && product.pagePreferences.guaranteed}
           />
-          <Features
-            onChange={onChange}
-            features={features}
-          />
+          <div className="feature-editor">
+            <QuillEditor
+              value={features.title}
+              onEdit={(value) => {
+                onChange({
+                  target: {
+                    name: "pagePreferences.features",
+                    value: {
+                      ...features,
+                      title: value
+                    }
+                  }
+                })
+              }}
+            />
+          </div>
           <BillingDetails color={color} />
 
           <ShippingDetails
@@ -96,28 +116,23 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
 
 
         </section>
-        {showRightSide ? (
+        {showRightSide && (
           <section className="richening-components-section">
-            <Testimonials
-              onChange={onChange}
-              testimonials={testimonials}
-            />
             <CouponActivation
               color={color}
               onChange={onChange}
               coupons={coupons}
             />
           </section>
-        )
-          : (
-            <Image
-              image={product.pagePreferences.image || defaultLogo}
-              onChange={(target) => onChange({ target })}
-              name='pagePreferences.image'
-              className='product-template-image item-align-center'
-            />
-          )}
+        )}
       </section>
+      <Testimonials
+        testimonialClassName='margin-h-20'
+        testimonialsWrapperClassName="df-h-between margin-h-20 margin-t-20"
+        titleClassName="aligned-center"
+        onChange={onChange}
+        testimonials={testimonials}
+      />
     </div>
   );
 }

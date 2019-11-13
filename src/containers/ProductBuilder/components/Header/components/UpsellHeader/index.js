@@ -27,6 +27,7 @@ const CheckoutHeader = ({
       showDisplayModes
       onChange={onChange}
       history={history}
+      product={product}
     >
       <div className='header-buttons'>
         <Button onClick={onSave} className='primary-btn '>

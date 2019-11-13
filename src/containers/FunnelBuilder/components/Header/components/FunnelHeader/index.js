@@ -53,6 +53,7 @@ const CheckoutHeader = ({
       // onDisplayChange={onDisplayChange}
       // displayType={displayType}
       history={history}
+      funnel={funnel}
     >
       <div className='header-buttons'>
         <Button disabled={isNew} onClick={onShowShare} className='primary-btn '>

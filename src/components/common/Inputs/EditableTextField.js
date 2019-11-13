@@ -14,7 +14,11 @@ class EditableTextField extends Component {
   };
 
   onChange = ({ target: { value, name } }) => {
+    const { min = 0, max } = this.props;
     if (value) {
+      if (value.length > max || value.length < min)
+        return;
+
       this.setState({ value });
       this.props.onChange && this.props.onChange({ target: { name, value } });
     }
@@ -32,17 +36,26 @@ class EditableTextField extends Component {
 
   render () {
     const { editable, value } = this.state;
-
+    const {
+      className,
+      min,
+      max,
+      name,
+      autoComplete,
+      style
+    } = this.props;
     return (
-      <div className={`editable-text-field ${this.props.className || ''}`} style={this.props.style}>
+      <div className={`editable-text-field ${className || ''}`} style={style}>
         {editable ? (
           <input
             ref={(ref) => ref && ref.focus()}
             onBlur={this.onToggle}
             onKeyDown={this.onEnterKey}
-            name={this.props.name}
+            name={name}
             onChange={this.onChange}
-            autoComplete={this.props.autoComplete}
+            min={min}
+            max={max}
+            autoComplete={autoComplete}
             type='text'
             defaultValue={value}
             className='editable-text-input'

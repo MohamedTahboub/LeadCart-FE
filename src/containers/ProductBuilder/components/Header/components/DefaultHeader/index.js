@@ -8,10 +8,12 @@ import {
   DisplayModeButtons
 } from './components';
 
+
 const { USER_SUB_DOMAIN_URL } = config;
 const {
   HeaderLogo,
   Button,
+  EditableField,
   ActivationSwitchInput
 } = common;
 
@@ -45,9 +47,18 @@ const Header = ({
       <HeaderLogo
         onClick={navigateToHome}
       />
-      {showSandBoxSwitch && <ActivationSwitchInput active={product.available} onToggle={onToggleAvailability} />}
-      {showDisplayModes && <DisplayModeButtons onChange={onDisplayChange} type={displayType} />}
-      {props.children}
+      <div className='flex-container fb-space-between flex'>
+        <EditableField
+          className='product-name'
+          name='name'
+          onChange={onChange}
+          value={product.name}
+          max={50}
+        />
+        {showSandBoxSwitch && <ActivationSwitchInput active={product.available} onToggle={onToggleAvailability} />}
+        {showDisplayModes && <DisplayModeButtons onChange={onDisplayChange} type={displayType} />}
+        {props.children}
+      </div>
     </div>
   );
 };

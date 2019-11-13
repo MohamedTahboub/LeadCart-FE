@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
+import { MediaAsset } from '../../../common'
+
 import {
   LogoImage,
   Title,
   Description,
-  MediaAsset,
+  // MediaAsset,
   Features,
   ProgressBar,
   Note,
@@ -17,9 +19,9 @@ import {
 
 const Temp1 = ({ className = '', ref, ...props }) => {
 
-  const { backgroundColor  } = props.product.pagePreferences
+  const { upsellBackgroundColor } = props.product.pagePreferences
   const style = {
-    backgroundColor
+    backgroundColor: upsellBackgroundColor
   }
   return (
     <div id={props.product._id} className="upsell-wrapper">
