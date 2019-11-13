@@ -170,6 +170,7 @@ const FunnelBuilder = ({
       <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
         <Header
           // onDisplayChange={onDisplayChange}
+          onChange={onChange}
           subdomain={subdomain}
           funnel={fields}
           onSave={onSave}

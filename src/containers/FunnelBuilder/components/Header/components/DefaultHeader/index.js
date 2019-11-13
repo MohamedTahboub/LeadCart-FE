@@ -11,6 +11,7 @@ import {
 const { USER_SUB_DOMAIN_URL } = config;
 const {
   HeaderLogo,
+  EditableField,
   Button,
   ActivationSwitchInput
 } = common;
@@ -20,7 +21,7 @@ const Header = ({
   onDisplayChange,
   displayType,
   onChange,
-  product,
+  funnel,
   subdomain,
   showSandBoxSwitch,
   showDisplayModes,
@@ -33,21 +34,34 @@ const Header = ({
   };
 
   const onToggleAvailability = () => {
-    onChange({
-      target: {
-        name: 'available',
-        value: !product.available
-      }
-    });
+    // onChange({
+    //   target: {
+    //     name: 'available',
+    //     value: !funnel.available
+    //   }
+    // });
+  };
+  const onNameChange = ({ target: { name, value } }) => {
+    onChange({ name, value });
   };
   return (
-    <div className='checkout-header '>
+    <div className='checkout-header funnel-header'>
       <HeaderLogo
         onClick={navigateToHome}
       />
-      {showSandBoxSwitch && <ActivationSwitchInput active={product.available} onToggle={onToggleAvailability} />}
-      {showDisplayModes && <DisplayModeButtons onChange={onDisplayChange} type={displayType} />}
-      {props.children}
+      <div className='flex-container fb-space-between flex'>
+        <EditableField
+          className='product-name'
+          name='name'
+          defaultValue=' '
+          onChange={onNameChange}
+          value={funnel.name}
+          max={50}
+        />
+        {showSandBoxSwitch && <ActivationSwitchInput active={funnel.available} onToggle={onToggleAvailability} />}
+        {showDisplayModes && <DisplayModeButtons onChange={onDisplayChange} type={displayType} />}
+        {props.children}
+      </div>
     </div>
   );
 };
