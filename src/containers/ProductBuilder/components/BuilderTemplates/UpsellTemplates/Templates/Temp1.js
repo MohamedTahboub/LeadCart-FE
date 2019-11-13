@@ -19,9 +19,9 @@ import {
 
 const Temp1 = ({ className = '', ref, ...props }) => {
 
-  const { upsellBackgroundColor } = props.product.pagePreferences
+  const { productBackgroundColor } = props.product.pagePreferences
   const style = {
-    backgroundColor: upsellBackgroundColor
+    backgroundColor: productBackgroundColor
   }
   return (
     <div id={props.product._id} className="upsell-wrapper">

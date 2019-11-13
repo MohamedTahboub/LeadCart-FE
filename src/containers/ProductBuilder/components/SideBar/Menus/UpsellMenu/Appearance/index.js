@@ -51,7 +51,7 @@ const Appearance = ({
       template,
       themeColor,
       backgroundColor,
-      upsellBackgroundColor
+      productBackgroundColor
     } = {}
   } = {},
   ...props
@@ -104,8 +104,8 @@ const Appearance = ({
           <Panel header='Upsell Background Color' key='3'>
             <TwitterPicker
               className='template-color-picker'
-              color={upsellBackgroundColor}
-              onChange={onColorChange('pagePreferences.upsellBackgroundColor')}
+              color={productBackgroundColor}
+              onChange={onColorChange('pagePreferences.productBackgroundColor')}
             />
           </Panel>
           <Panel header='Page Background Color' key='4'>
