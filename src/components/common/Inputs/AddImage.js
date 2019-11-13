@@ -17,20 +17,18 @@ const AddImage = ({
   description,
   ...props
 }) => {
-
   const [image, setImage] = useState(value);
-  let imageFieldRef = ''
+  let imageFieldRef = '';
 
   useEffect(() => {
-    if (value !== image) {
+    if (value !== image) 
       setImage(value)
-    }
+    
   }, [value]);
 
   const onAddImage = () => {
-    if (imageFieldRef)
-      imageFieldRef.click();
-  }
+    if (imageFieldRef) imageFieldRef.click();
+  };
 
 
   const onImageUpload = (e) => {
@@ -39,12 +37,12 @@ const AddImage = ({
       type: 'products',
       source: props.source
     }, {
-        onSuccess: (url) => {
-          setImage(url)
-          props.onUploaded && props.onUploaded(url)
-        }
-      });
-  }
+      onSuccess: (url) => {
+        setImage(url);
+        props.onUploaded && props.onUploaded(url);
+      }
+    });
+  };
 
   return (
     <div className={`add-input-field-holder ${className}`}>
@@ -63,18 +61,18 @@ const AddImage = ({
       <input
         onChange={onImageUpload}
         style={{ display: 'none' }}
-        ref={ref => { imageFieldRef = ref }}
+        ref={(ref) => {imageFieldRef = ref;}}
         type='file'
         name='myImage'
         accept='image/x-png,image/gif,image/jpeg'
       />
 
       {image && (
-        <img src={image} alt={name} className='uploaded-thumbnil' />
+        <img src={image} alt={name} className='uploaded-thumbnail' />
       )}
     </div>
   );
-}
+};
 const mapStateToProps = ({ files }) => ({
   files
 });
