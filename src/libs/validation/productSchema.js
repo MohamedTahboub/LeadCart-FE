@@ -34,7 +34,8 @@ const pagePreferencesSchema = yup.object({
   orderButtonText: yup.string().default('Complete Order'),
   declineButtonText: yup.string().default('No thanks!'),
   themeColor: yup.string().default('#8ED1FC'),
-  backgroundColor: yup.string().default('#fff'),
+  backgroundColor: yup.string().default('#eee'),
+  productBackgroundColor: yup.string().default('#fff'),
   features: featuresSchema,
   guaranteed: yup.object({
     enabled: yup.bool().default(false),
