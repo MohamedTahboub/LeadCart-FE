@@ -61,13 +61,14 @@ const NodeSettingModal = ({
           <i className='fas fa-times-circle' />
         </span>
         <span className='title'>
-          Category Node Setting:
+          Product Setting:
         </span>
       </div>
       <div className='node-products-list-container'>
         {
           matchProducts.map((product) => (
             <FunnelTemplateNode
+              className='side-bar-nodes'
               key={product._id}
               onClick={onSelect(isVisible, product._id)}
               active={product.active}
