@@ -173,6 +173,11 @@ const ProductBuilder = ({
     }, 350);
   };
 
+
+  const workSpaceStyles = {
+    backgroundColor: fields.pagePreferences && fields.pagePreferences.backgroundColor
+  };
+
   return (
     <Fragment>
       {loading.product && (
@@ -200,7 +205,7 @@ const ProductBuilder = ({
           darkTheme={enableDarkTheme}
           toggleTemplateChangeEffect={toggleTemplateChangeEffect}
         />
-        <div className={`product-workspace-container ${fields.category === 'checkout' ? '' : 'editor-workspace-wrapper'} ${isSidebarOpened ? 'side-opened' : ''}`}>
+        <div style={workSpaceStyles} className={`product-workspace-container ${fields.category === 'checkout' ? '' : 'editor-workspace-wrapper'} ${isSidebarOpened ? 'side-opened' : ''}`}>
           <ProductEditableTemplate
             category={fields.category}
             className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
