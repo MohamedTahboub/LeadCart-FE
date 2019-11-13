@@ -54,6 +54,7 @@ const CheckoutHeader = ({
       onDisplayChange={onDisplayChange}
       displayType={displayType}
       history={history}
+      product={product}
     >
       <div className='header-buttons'>
         <Button onClick={onShowScripts} className='primary-btn '>

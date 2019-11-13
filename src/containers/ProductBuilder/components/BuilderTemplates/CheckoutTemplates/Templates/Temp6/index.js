@@ -118,10 +118,6 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
         </section>
         {showRightSide && (
           <section className="richening-components-section">
-            <Testimonials
-              onChange={onChange}
-              testimonials={testimonials}
-            />
             <CouponActivation
               color={color}
               onChange={onChange}
@@ -130,6 +126,13 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
           </section>
         )}
       </section>
+      <Testimonials
+        testimonialClassName='margin-h-20'
+        testimonialsWrapperClassName="df-h-between margin-h-20 margin-t-20"
+        titleClassName="aligned-center"
+        onChange={onChange}
+        testimonials={testimonials}
+      />
     </div>
   );
 }
