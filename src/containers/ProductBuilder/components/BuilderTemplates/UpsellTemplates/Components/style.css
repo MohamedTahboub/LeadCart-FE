@@ -1,13 +1,14 @@
-.editor-workspace-wrapper{
+.editor-workspace-wrapper {
     overflow-y: auto;
     overflow-x: hidden;
     clear: both;
 }
-.upsell-template{
+
+.upsell-template {
     flex: 1 1;
     /* height: 100%; */
     max-width: 750px;
-   
+
     background: white;
     /* border-top-left-radius: 16px;
     border-top-right-radius: 16px; */
@@ -16,112 +17,32 @@
 }
 
 
-.upsell-head-image{
+.upsell-head-image {
     display: flex;
     justify-content: center;
 }
+
 img.brand-logo {
     height: 50px;
     width: auto;
 }
 
 
-.upsell-details-container{
+.upsell-details-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.upsell-media-asset-container{
-    margin: 20px auto;
-    width: 100%;
-    min-height: 200px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.media-assets{
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
-}
-.editing-warper{
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0%;
-    right:0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity .2s ease-in-out;
-    user-select: none;
-}
-.editing-warper-from{
-    min-width: 400px;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.31);
-    align-items: center;
-    justify-content: space-between;
-
-}
-.editing-warper.edit-btn-warper{
-    justify-content: space-between;
-    align-items: flex-start;
-    background: transparent;
-}
-.editing-warper.edit-btn-warper:hover{
-    border: 1px solid #eee;
-    overflow: hidden;
-}
-.asset-edit-btn{
-    margin: 20px;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    background: rgba(0,0,0,.4);
-    cursor: pointer;
-    color:white;
-}
-.asset-hide-btn{
-    
-}
-.smooth-select,
-.asset-type{
-    margin: 0 10px;
-    border-radius: 4px;
-}
-.asset-type{
-    width: 70px;
-    min-width: 80px;
-}
-
-.asset-input-value{
-    width: 300px;
-    margin: 0 15px;
-    color: black;
-}
-.upsell-media-asset-container:hover .editing-warper{
-    opacity: 1;
-}
-.upsell-title{
+.upsell-title {
     font-size: 22px;
     font-weight: bold;
     line-height: 20px;
     text-align: center;
     margin: 10px 0;
 }
-.upsell-description{
+
+.upsell-description {
     font-size: 17px;
     /* font-weight: bold; */
     width: 100%;
@@ -130,18 +51,20 @@ img.brand-logo {
     margin: 15px 0;
 }
 
-.upsell-details-container .upsell-features-container{
+.upsell-details-container .upsell-features-container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
 }
-.upsell-features-title{
+
+.upsell-features-title {
     position: relative;
     text-align: center;
     font-size: 17px;
     font-weight: bold;
 }
-.add-new-upsell-btn{
+
+.add-new-upsell-btn {
     position: absolute;
     left: -13px;
     top: 3.5px;
@@ -150,40 +73,45 @@ img.brand-logo {
     opacity: 0;
     transition: opacity .2s ease-in-out;
 }
-.upsell-features-title .add-new-upsell-btn{
+
+.upsell-features-title .add-new-upsell-btn {
     opacity: 1;
 }
-.upsell-features-list{
+
+.upsell-features-list {
     display: flex;
     /* justify-content: space-between; */
     flex-wrap: wrap;
     padding: 10px 50px;
 }
-.upsell-features-list.grid{
-  justify-content: space-between;
+
+.upsell-features-list.grid {
+    justify-content: space-between;
 }
-.upsell-features-list.grid .feature-item{
+
+.upsell-features-list.grid .feature-item {
     flex: 1;
     max-width: 300px;
 }
-.upsell-features-list.list{
+
+.upsell-features-list.list {
     flex-direction: column;
 }
 
-.upsell-features-list .feature-item{
+.upsell-features-list .feature-item {
     /* flex: 1; */
     min-width: 200px;
     max-width: 280px;
     margin: 10px;
 }
-.feature-item .feater-title{
+
+.feature-item .feater-title {
     font-weight: bold;
 }
-.feature-item .feater-content{
-    
-}
 
-.upsell-notes-container{
+.feature-item .feater-content {}
+
+.upsell-notes-container {
     position: relative;
     margin: 10px 0;
     /* padding: 10px 20px;
@@ -191,24 +119,26 @@ img.brand-logo {
     font-size: 14px; */
 }
 
-.upsell-order-button{
+.upsell-order-button {
     display: flex;
     justify-content: center;
 }
-.upsell-btn{
+
+.upsell-btn {
     padding: 10px 29px;
     margin: 15px;
     width: inherit;
 }
 
-.light-green-color{
+.light-green-color {
     background: #8BC34A;
 }
-.light-green-color:hover{
+
+.light-green-color:hover {
     background: rgb(188, 219, 152);
 }
 
-.upsell-decline-text{
+.upsell-decline-text {
     text-decoration: underline;
     font-style: italic;
     text-align: center;
@@ -216,18 +146,20 @@ img.brand-logo {
     margin: 0 auto;
 }
 
-.progress-bar-container{
+.progress-bar-container {
     display: flex;
-   justify-content: center;
-   margin: 30px 0;
+    justify-content: center;
+    margin: 30px 0;
 }
-.progress-bar-wrapper{
+
+.progress-bar-wrapper {
     border-radius: 7px;
     background: #fff;
     border: 1px solid lightgray;
     width: 400px;
 }
-.progress-bar{
+
+.progress-bar {
     height: 15px;
     width: 80%;
     line-height: 11px;
@@ -240,5 +172,5 @@ img.brand-logo {
     padding: 0 10px;
     border: 1px solid inherit;
     /* background: #8BC34A; */
-    color:white;
+    color: white;
 }

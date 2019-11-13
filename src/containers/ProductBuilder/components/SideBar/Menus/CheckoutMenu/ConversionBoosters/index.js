@@ -88,7 +88,7 @@ const ConversionBoosters = ({
       <MenuTitle>Conversion Boosters</MenuTitle>
       <MenuContent>
         <Collapse defaultActiveKey={['1', '2', '3', '4', '5']}>
-          <Panel header='Media Asset' key='2'>
+          <Panel header='Media Asset' key='1'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
@@ -99,7 +99,7 @@ const ConversionBoosters = ({
               />
             </InputRow>
           </Panel>
-          <Panel header='Shipping Details' key='1'>
+          <Panel header='Shipping Details' key='2'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
@@ -109,7 +109,7 @@ const ConversionBoosters = ({
               />
             </InputRow>
           </Panel>
-          <Panel header='Testimonials' key='2'>
+          <Panel header='Testimonials' key='3'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
@@ -119,7 +119,7 @@ const ConversionBoosters = ({
               />
             </InputRow>
           </Panel>
-          <Panel header='Features' key='3'>
+          <Panel header='Features' key='4'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
@@ -129,7 +129,7 @@ const ConversionBoosters = ({
               />
             </InputRow>
           </Panel>
-          <Panel header='Terms And Conditions' key='4'>
+          <Panel header='Terms And Conditions' key='5'>
             <InputRow className='sidebar-row'>
               <InputRow.Label className='sidebar-input-label'>Show Section</InputRow.Label>
               <InputRow.SwitchInput
@@ -148,7 +148,7 @@ const ConversionBoosters = ({
               />
             </InputRow>
           </Panel>
-          <Panel header='Guarantee Message' key='5'>
+          <Panel header='Guarantee Message' key='6'>
             <InputRow className='sidebar-row'>
               <InputRow.Label
                 className='sidebar-input-label margin-bottom-20'

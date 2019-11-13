@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MediaAsset } from '../../../common'
 
 import {
   LogoImage,
-  Title,
+  // Title,
   Description,
-  MediaAsset,
-  Features,
-  ProgressBar,
+  // Features,
+  // ProgressBar,
   Note,
   OrderButton,
   DeclineButton

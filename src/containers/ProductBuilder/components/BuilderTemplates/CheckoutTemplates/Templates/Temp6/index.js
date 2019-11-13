@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Image from 'components/common/Image';
 import defaultLogo from 'assets/images/new-product-icon.png';
+import { MediaAsset } from '../../../../common'
+
 import {
   Header,
   AboutProduct,
@@ -13,7 +15,7 @@ import {
   PaymentMethods,
   TermsAndConditionsBadge,
   ShippingDetails,
-  MediaAsset,
+  // MediaAsset,
   BumpOffer,
   Testimonials
 } from '../../components'
@@ -96,7 +98,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
 
 
         </section>
-        {showRightSide ? (
+        {showRightSide && (
           <section className="richening-components-section">
             <Testimonials
               onChange={onChange}
@@ -108,15 +110,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
               coupons={coupons}
             />
           </section>
-        )
-          : (
-            <Image
-              image={product.pagePreferences.image || defaultLogo}
-              onChange={(target) => onChange({ target })}
-              name='pagePreferences.image'
-              className='product-template-image item-align-center'
-            />
-          )}
+        )}
       </section>
     </div>
   );
