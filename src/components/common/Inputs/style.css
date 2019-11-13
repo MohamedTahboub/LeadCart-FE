@@ -1161,8 +1161,12 @@ div.ant-select-sm .ant-select-selection--single {
 .fb-column {
     flex-direction: column;
 }
-
-
+.fb-space-between{
+    justify-content: space-between;
+}
+.flex{
+    flex: 1;
+}
 .note-text {
     color: #9E9E9E;
     font-size: 13px;
