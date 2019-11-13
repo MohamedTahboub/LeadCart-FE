@@ -175,7 +175,7 @@ const ProductBuilder = ({
 
 
   const workSpaceStyles = {
-    backgroundColor: fields.pagePreferences && fields.pagePreferences.backgroundColor
+    backgroundColor: (fields.pagePreferences && fields.pagePreferences.backgroundColor) || 'var(--wizard-container-bg)'
   };
 
   return (

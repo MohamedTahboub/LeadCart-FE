@@ -53,11 +53,20 @@ const TemplateThumbnail = ({
 };
 
 
-const Appearance = ({ product: { pagePreferences: { template, color } = {} } = {}, ...props }) => {
-  const onColorChange = ({ hex: value }) => {
+const Appearance = ({
+  product: {
+    pagePreferences: {
+      template,
+      themeColor,
+      backgroundColor
+    } = {}
+  } = {},
+  ...props
+}) => {
+  const onColorChange = (name) => ({ hex: value }) => {
     props.onChange({
       target: {
-        name: 'pagePreferences.themeColor',
+        name,
         value
       }
     });
@@ -77,7 +86,7 @@ const Appearance = ({ product: { pagePreferences: { template, color } = {} } = {
     <MenuItem>
       <MenuTitle>Appearance</MenuTitle>
       <MenuContent>
-        <Collapse defaultActiveKey={['1']}>
+        <Collapse defaultActiveKey={['1', '2', '3']}>
           <Panel header='Templates' key='1'>
             <MenuFlexContent>
               {templates.map((image, id) => (
@@ -92,7 +101,18 @@ const Appearance = ({ product: { pagePreferences: { template, color } = {} } = {
             </MenuFlexContent>
           </Panel>
           <Panel header='Theme Color' key='2'>
-            <TwitterPicker className='template-color-picker' color={color} onChange={onColorChange} />
+            <TwitterPicker
+              className='template-color-picker'
+              color={themeColor}
+              onChange={onColorChange('pagePreferences.themeColor')}
+            />
+          </Panel>
+          <Panel header='Page Background Color' key='3'>
+            <TwitterPicker
+              className='template-color-picker'
+              color={backgroundColor}
+              onChange={onColorChange('pagePreferences.backgroundColor')}
+            />
           </Panel>
         </Collapse>
       </MenuContent>
@@ -103,6 +123,7 @@ const Appearance = ({ product: { pagePreferences: { template, color } = {} } = {
 Appearance.propTypes = {
   product: PropTypes.objectOf({}),
   onChange: PropTypes.func.isRequired,
+  toggleTemplateChangeEffect: PropTypes.func.isRequired,
 };
 
 Appearance.defaultProps = {

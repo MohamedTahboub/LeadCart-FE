@@ -58,7 +58,7 @@
             ],
             "title": "What You Get"
         },
-        "backgroundColor": "#fff",
+        "backgroundColor": "var(--wizard-container-bg)",
         "themeColor": "#22194D",
         "declineButtonText": "No thanks!",
         "orderButtonText": "Complete Order",
