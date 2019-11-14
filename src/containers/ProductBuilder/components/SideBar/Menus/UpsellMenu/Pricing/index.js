@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import common from 'components/common';
-import currencies from 'data/currencies.json';
+// import common from 'components/common';
+// import currencies from 'data/currencies.json';
 import PaymentType from 'components/PaymentType';
-import PaymentGateway from 'components/PaymentGateways';
+// import PaymentGateway from 'components/PaymentGateways';
 import './style.css';
 
 import {
   MenuItem,
   MenuTitle,
   MenuContent,
-  MenuFlexContent
+  // MenuFlexContent
 } from '../MenuElements';
 
-const {
-  Collapse, InputRow, MediumCard, Title
-} = common;
+// const {
+//   Collapse, InputRow, MediumCard, Title
+// } = common;
 // const { Panel } = Collapse;
-const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
+// const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 
 const Settings = ({
   product: {
@@ -37,7 +37,6 @@ const Settings = ({
         onChange={props.onChange}
         price={price}
       />
-      <PaymentGateway {...props} payment={payment} />
     </MenuContent>
   </MenuItem>
 );
