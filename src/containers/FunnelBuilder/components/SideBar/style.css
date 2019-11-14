@@ -5,11 +5,10 @@
     bottom: 0px;
     z-index: 100;
 }
-.funnel-builder.side-buttons-container{
+/* .side-buttons-container{
     position: relative;
     height: 100%;
-    /* width: 50%; */
-    width: unset;
+    width: 50%;
     background: #4DA1FF;
     background: var(--primary-color);
     display: flex;
@@ -18,7 +17,7 @@
     padding:20px 0;
     padding-top: 0;
     z-index: 1010;
-}
+} */
 
 .side-button{
     display: flex;

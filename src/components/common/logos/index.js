@@ -23,18 +23,25 @@ export const Logo = (props) => (
 );
 
 
+const stopPropagation = (event) => {
+  event.stopPropagation();
+};
 export const HeaderLogo = ({ onClick, fullWidth, ...props }) => {
   const style = {
     width: fullWidth ? '100%' : 'inherit'
   };
+
+
   return (
     <div style={style} onClick={onClick} className='header-logo'>
       <div className='logo-position'>
         <Logo />
         <span className='business-name'>leadcart</span>
-        <div className='announcekit-widget'>
+        <div onClick={stopPropagation} className='feedy-widget'>
           <abbr title='Whats New?'>
-            <i className='fas fa-bullhorn' />
+            <a href='https://leadcart.feedy.app/feedback/' target='_blank'>
+              <i className='fas fa-bell' />
+            </a>
           </abbr>
         </div>
       </div>

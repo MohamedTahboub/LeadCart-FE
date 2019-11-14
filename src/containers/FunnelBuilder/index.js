@@ -81,14 +81,14 @@ const FunnelBuilder = ({
       .filter(({ thumbnail }) => thumbnail)
       .reduce((obj, product) => {
         obj[product._id] = {
-          image : product.thumbnail,
-          name : product.name
+          image: product.thumbnail,
+          name: product.name
         }
         return obj
       }, {})
 
     if (Object.keys(productsDetails).length)
-    setProductsNodeDetails(productsDetails)
+      setProductsNodeDetails(productsDetails)
 
     return () => {
       // setFields({});
@@ -167,7 +167,7 @@ const FunnelBuilder = ({
           <div className='loading-message'>Setting Up...</div>
         </div>
       )}
-      <div className={`checkout-wizard-page funnel-builder ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
+      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
         <Header
           // onDisplayChange={onDisplayChange}
           onChange={onChange}
@@ -194,6 +194,7 @@ const FunnelBuilder = ({
             errors={errors}
           />
         </div>
+
       </div>
     </Fragment>
   );
