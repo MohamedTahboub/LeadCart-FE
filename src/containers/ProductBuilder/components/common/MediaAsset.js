@@ -128,7 +128,7 @@ const MediaAsset = ({
               <InputRow.TextField
                 value={link}
                 name='link'
-                onChange={onChange}
+                onChange={onUpdate}
                 placeholder='Enter Valid video link'
                 className='asset-input-value'
               />
