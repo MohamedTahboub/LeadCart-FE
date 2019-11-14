@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './style.css';
 import Sidebars from './Bar';
-import Menus from './Menus';
+import SettingMenu from './Menus';
 
 
 const SideBar = (props) => {
@@ -44,8 +44,8 @@ const SideBar = (props) => {
       />
 
       <div className={`side-menu-container ${open ? 'open' : ''}`}>
-        <Menus
-          activeMenu={activeMenuItem}
+        <SettingMenu
+          // activeMenu={activeMenuItem}
           {...props}
         />
       </div>

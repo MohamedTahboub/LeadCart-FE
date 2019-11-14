@@ -124,7 +124,7 @@ const FunnelNode = ({
             <span onClick={onDelete} className='node-setting-btn delete'>
               <i className='fas fa-trash' />
             </span>
-            {props.category !== "thankyouPage" && (
+            {props.category !== "thankyoupage" && (
               <span
                 onClick={onConnectingToggle}
                 className={`node-setting-btn ${connectingStarted ? 'active' : ''}`}

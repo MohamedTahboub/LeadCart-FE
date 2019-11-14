@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import currencies from 'data/currencies.json';
-import PaymentType from 'components/PaymentType';
-import PaymentGateway from 'components/PaymentGateways';
+// import currencies from 'data/currencies.json';
+// import PaymentType from 'components/PaymentType';
+// import PaymentGateway from 'components/PaymentGateways';
 
 import './style.css';
 
@@ -43,38 +43,6 @@ const Settings = ({
               value={url}
             />
           </InputRow>
-
-          {/* <InputRow className='sidebar-row'>
-            <InputRow.Label className='sidebar-input-label'>Translation</InputRow.Label>
-            <InputRow.SearchInput
-              size='small'
-              width={150}
-              options={languages}
-              defaultValue='en'
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <InputRow.Label className='sidebar-input-label'>Auto VAT Calculation:</InputRow.Label>
-            <InputRow.SwitchInput
-              disabled
-              className='sidebar-switch-input onoff-switch-label'
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <InputRow.Label className='sidebar-input-label'>
-              <abbr title='General Data Protection Regulation'>
-               GDPR
-              </abbr>
-              &ensp;Compliance
-            :
-
-            </InputRow.Label>
-            <InputRow.SwitchInput
-              disabled
-              className='sidebar-switch-input onoff-switch-label'
-            />
-          </InputRow>
-*/}
         </Panel>
 
         <Panel header='Wizard Settings' key='2'>
