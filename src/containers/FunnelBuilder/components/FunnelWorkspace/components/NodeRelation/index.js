@@ -79,7 +79,7 @@ export default ({
   //   tension: 0.35
   // });
   return (
-    <Fragment key="nodes-connections-elements">
+    <Fragment key='nodes-connections-elements'>
       {pathsCoords.map(({ path, id }) => (
         <path
           key={id}
@@ -98,7 +98,7 @@ export default ({
           cx={point.x}
           cy={point.y}
           r='5'
-          fill='#4DA1FF'
+          fill={point.color}
         />
       ))
       }
@@ -123,7 +123,7 @@ export default ({
 };
 
 
-function maintainConnections(startPosition, relations) {
+function maintainConnections (startPosition, relations) {
   const shiftX = startPosition.width;
   const shiftY = startPosition.height / 2;
 
@@ -137,12 +137,19 @@ function maintainConnections(startPosition, relations) {
 
   const pathsCoords = relations.map((relation) => {
     const start = startCircle;
+
+    const isUpsell = (relation.type && relation.type.toLowerCase()) === 'upsell';
+
+    startPoints.push({
+      ...startCircle,
+      color: isUpsell ? '#4DA1FF' : 'tomato',
+      y: isUpsell ? startCircle.y : startCircle.y + 20
+    });
+
     const coordinates = {
       ...relation.coordinates,
       y: relation.coordinates.y + 60
     };
-
-
 
     // if (relation.coordinates.x < startCircle.x) {
     //   start = {
@@ -171,7 +178,7 @@ function maintainConnections(startPosition, relations) {
     //   y: relation.coordinates.y + relation.coordinates.height / 2
     // };
     // eslint-disable-next-line
-    return getPathCoords({ ...relation,coordinates }, { ...start });
+    return getPathCoords({ ...relation, coordinates }, { ...start ,isUpsell});
   });
 
   const markersIds = relations.map(({ target }) => target);
@@ -183,7 +190,7 @@ function maintainConnections(startPosition, relations) {
   };
 }
 
-function getPathCoords({
+function getPathCoords ({
   target: targetId,
   coordinates: {
     x: x2,
@@ -192,8 +199,10 @@ function getPathCoords({
   tension = 0.35
 }, {
   x: x1,
-  y: y1
+  y: startY,
+  isUpsell
 }) {
+  const y1 = isUpsell ? startY : startY + 20;
   const delta = (x2 - x1) * tension;
   const hx1 = x1 + delta;
   const hy1 = y1;
