@@ -5,10 +5,11 @@
     bottom: 0px;
     z-index: 100;
 }
-.side-buttons-container{
+.funnel-builder.side-buttons-container{
     position: relative;
     height: 100%;
-    width: 50%;
+    /* width: 50%; */
+    width: unset;
     background: #4DA1FF;
     background: var(--primary-color);
     display: flex;

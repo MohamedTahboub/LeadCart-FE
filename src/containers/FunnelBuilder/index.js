@@ -167,7 +167,7 @@ const FunnelBuilder = ({
           <div className='loading-message'>Setting Up...</div>
         </div>
       )}
-      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
+      <div className={`checkout-wizard-page funnel-builder ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
         <Header
           // onDisplayChange={onDisplayChange}
           onChange={onChange}
