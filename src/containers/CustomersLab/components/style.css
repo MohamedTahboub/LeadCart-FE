@@ -50,7 +50,53 @@
     right: 5px;
     top: -80%;
 }
+.left-sub-branch{
+    position: relative;
+ 
+}
+.left-sub-branch::before {
+    position: absolute;
+    top: -8px;
+    left: 2px;
+    content: " ";
+    height: 20px;
+    width: 10px;
+    opacity: .5;
+    background-image: url(../../../assets/images/subBranch.png);;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: rotate(180deg);
+}
 
+.receipt-sub-row{
+    padding-left: 15px;
+}
+.order-product-action-btn{
+
+    /* text-align: right; */
+    border-radius: 3px;
+    /* display: flex;
+    align-items: center; */
+    color:gray;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+.order-product-action-btn i.fas{
+    margin-right:5px;
+    font-size: 10px;
+}
+
+/* 
+.receipt-sub-row::before{
+    content: " ";
+    height: 30px;
+    width: 10px;
+    opacity: .7;
+    transform: rotate(180deg);
+
+} */
 .order-receipt-row.plus::after {
     content: '+';
 }

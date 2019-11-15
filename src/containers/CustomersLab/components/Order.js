@@ -4,6 +4,9 @@ import { getCurrencySymbol } from 'libs';
 import { RoundTow } from 'libs';
 import { ReceiptRow } from './common';
 import { OrderOptions } from '.';
+
+
+import ProductRow from './ProductRow';
 const { Button } = common;
 
 const PaymentTypeIcon = ({ type, className = '' }) => {
@@ -19,51 +22,42 @@ const PaymentTypeIcon = ({ type, className = '' }) => {
 
 const Order = ({
   _id: orderId,
-  orderCode,
+  orderNumber,
   totalCharge,
+  paymentMethod,
   payment = {},
-  product: {
-    offer = {},
-    coupon = {},
-    ...product
-  } = {}
+  product = {},
+  products = [],
 }) => {
-  const [showMoreOptions, setShowMoreOptions] = useState(false);
+
+  if(product.name && !products.length) products.push(product)
+  
+  const [moreOptions, setMoreOptions] = useState(false);
   const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
 
   return (
     <div className='customer-order-card'>
-      <div className='order-code'>{`#${product.name}`}</div>
+      <div className='order-code'>{`#LC-${orderNumber}`}</div>
       <PaymentTypeIcon
-        type={payment.paymentMethod}
+        type={paymentMethod}
         className='order-payment-method-icon'
       />
-      <ReceiptRow
-        label={product.name}
-        prefix='Product Name'
-        value={product.price && product.price.amount}
-      />
-      {offer.price && (<ReceiptRow
-        className='plus'
-        label={offer.name}
-        prefix='Offer Included'
-        value={offer.price}
-      />
+      {products.map(product => (
+        <ProductRow
+          {...product}
+          orderId={orderId}
+        />)
       )}
-      {coupon.code && (
-        <ReceiptRow
-          className='minus'
-          prefix='Applied coupon code'
-          label={coupon.code}
-          value={coupon.discount}
-        />
-      )}
-
       <ReceiptRow
         className='receipt-total'
         label='total'
         value={`${currencySymbol} ${RoundTow(totalCharge)}`}
       />
+
+    </div>
+  );
+};
+/*
       <OrderOptions
         details={{
           orderId,
@@ -72,10 +66,8 @@ const Order = ({
           product,
           currency: currencySymbol
         }}
-        show={showMoreOptions}
-        onHide={() => setShowMoreOptions(false)}
+        show={moreOptions}
+        onHide={() => setMoreOptions(false)}
       />
-    </div>
-  );
-};
+*/
 export default Order;

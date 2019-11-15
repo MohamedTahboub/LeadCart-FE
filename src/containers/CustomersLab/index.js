@@ -50,8 +50,8 @@ const CustomersLab = ({ customers }) => {
                   <Table.HeadCell>Email</Table.HeadCell>
                   <Table.HeadCell>Phone Number</Table.HeadCell>
                   <Table.HeadCell>Orders</Table.HeadCell>
-                  <Table.HeadCell>Life time Charges</Table.HeadCell>
-                  <Table.HeadCell>Expand</Table.HeadCell>
+                  <Table.HeadCell>Life Time Charges</Table.HeadCell>
+                  <Table.HeadCell>History</Table.HeadCell>
                 </Table.Head>
                 <Table.Body>
                   {customers
