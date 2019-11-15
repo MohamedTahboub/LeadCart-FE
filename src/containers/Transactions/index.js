@@ -80,7 +80,6 @@ const Transactions = ({ orders, subscriptions }) => {
                     onTabChange={setActiveTab}
                     tabs={{
                         'Orders': <Orders orders={orders} />,
-                        'Subscriptions': <Subscriptions subscriptions={subscriptions} />
                     }}
                 />
             </PageContent>
@@ -90,9 +89,8 @@ const Transactions = ({ orders, subscriptions }) => {
 
 
 
-const mapStateToProps = ({ activities: { orders = [], subscriptions = [] } }) => ({
-    orders,
-    subscriptions
+const mapStateToProps = ({ orders = [] }) => ({
+    orders 
 });
 Transactions.propTypes = {
     orders:PropTypes.array,
