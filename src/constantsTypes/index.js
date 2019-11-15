@@ -265,7 +265,7 @@ export const UPLOAD_FILE_FAILED = Symbol('UPLOAD_FILE_FAILED');
 
 export const GET_ACTIVITIES = Symbol('GET_ACTIVITIES');
 export const GET_CUSTOMERS = Symbol('GET_CUSTOMERS');
-export const GET_ORDERS_LIST = Symbol('GET_ORDERS_LIST');
+export const GET_ORDERS = Symbol('GET_ORDERS');
 export const GET_SUBSCRIPTIONS_LIST = Symbol('GET_SUBSCRIPTIONS_LIST');
 
 /* Upsells Actions */
