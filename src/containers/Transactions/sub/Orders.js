@@ -14,16 +14,20 @@ const { Avatar, SmallButton, MainTitle } = common;
 const OrderList = ({ orders, ...props }) => (
   <Table>
     <Table.Head>
-      <Table.SmallCell />
       <Table.HeadCell>Order #</Table.HeadCell>
-      <Table.HeadCell>Checkout Product</Table.HeadCell>
+      <Table.HeadCell># of Items</Table.HeadCell>
       <Table.HeadCell>Customer</Table.HeadCell>
       <Table.HeadCell>Total Charge</Table.HeadCell>
       <Table.HeadCell>Processor</Table.HeadCell>
+      <Table.HeadCell>Order Date</Table.HeadCell>
     </Table.Head>
     <Table.Body>
       {orders.map((order, orderInList) => (
-        <OrderRow {...order} orderInList={orderInList} />
+        <OrderRow
+          key={order._id}
+          {...order}
+          orderInList={orderInList}
+        />
       ))}
     </Table.Body>
   </Table>

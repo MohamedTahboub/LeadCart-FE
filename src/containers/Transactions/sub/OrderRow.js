@@ -1,64 +1,79 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import Table from 'components/common/Tables';
 import './style.css';
+import moment from 'moment';
 
 import { getCurrencySymbol, RoundTow } from 'libs';
 import common from 'components/common';
+import { spawn } from 'child_process';
 
 const { Avatar, SmallButton, MainTitle } = common;
 
 
-const PaymentTypeIcon = ({ type }) => {
-    const icon = {
-        Stripe: <i className='fas fa-credit-card' />,
-        COD: <i className='fas fa-money-bill-alt' />,
-        Paypal: <i className='fab fa-cc-paypal' />
-    }[type];
+// const getCheckoutProduct = (products = []) => products.find(({ category }) => category === 'checkout') || {};
+// const getCurrency = (products) => {
+//   const product = products.find(({ payment: { price: { currency } = {} } = {} }) => currency);
+//   console.log(product.payment && product.payment.price);
+//   return product ? product.payment.price.currency : 'USD';
+// };
 
-    return icon || null;
+const PaymentTypeIcon = ({ type }) => {
+  const icon = {
+    Stripe: <i className='fas fa-credit-card' />,
+    COD: <i className='fas fa-money-bill-alt' />,
+    Paypal: <i className='fab fa-cc-paypal' />
+  }[type];
+
+  return icon || null;
 };
 
 
-
 const OrderRow = ({
-    orderInList,
-    orderNumber,
-    customer: {
-        firstName,
-        lastName,
-        email,
-        phoneNumber
-    } = {},
-    products = [],
-    product = {}, // deprecated - for backward compatibility
-    paymentMethod,
-    totalCharge = 0
+  orderInList,
+  orderNumber,
+  customer: {
+    firstName,
+    lastName,
+    email,
+    phoneNumber
+  } = {},
+  products = [],
+  product = {}, // deprecated - for backward compatibility
+  paymentMethod,
+  createdAt,
+  totalCharge = 0
 }) => {
+  const productsCount = products.length;
 
-    // const [expand, setExpand] = useState(false);
+  // const currency = getCurrency(products);
 
-    const checkoutProduct = products.find(p => p.category === 'checkout')
-
-    return (
-        <Table.Row orderInList={orderInList}>
-            <Table.Cell mainContent={`#LC-${orderNumber}`} />
-            <Table.Cell mainContent={checkoutProduct.name} />
-            <Table.Cell
-                mainContent={`${firstName} ${lastName}`}
-                subContent={email}
-            />
-            <Table.Cell mainContent={`${RoundTow(totalCharge)}`} />
-            <Table.Cell
-                mainContent={<PaymentTypeIcon type={paymentMethod} />}
-                subContent={paymentMethod}
-            />
-        </Table.Row>
-    )
-}
-
+  return (
+    <Table.Row orderInList={orderInList}>
+      <Table.Cell
+        mainContent={`#LC-${orderNumber}`}
+        sideContent={productsCount ? (
+          <span className='row-expand'>
+            <i className='fas fa-caret-down' />
+          </span>
+        ) : null}
+      />
+      <Table.Cell mainContent={productsCount} />
+      <Table.Cell
+        mainContent={`${firstName} ${lastName}`}
+        subContent={email}
+      />
+      <Table.Cell mainContent={`$ ${RoundTow(totalCharge)}`} />
+      <Table.Cell
+        mainContent={<PaymentTypeIcon type={paymentMethod} />}
+        subContent={paymentMethod}
+      />
+      <Table.Cell mainContent={moment(createdAt).format('MMM DD YYYY')} />
+    </Table.Row>
+  );
+};
 OrderRow.propTypes = {
 
-}
-//getCurrencySymbol(checkoutProduct && checkoutProduct.payment.currency)}
-export default OrderRow
+};
+// getCurrencySymbol(checkoutProduct && checkoutProduct.payment.currency)}
+export default OrderRow;

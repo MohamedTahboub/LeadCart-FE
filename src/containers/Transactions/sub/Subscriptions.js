@@ -19,15 +19,22 @@ const SubscriptionsList = ({ subscriptions }) => (
     </Table.Head>
     <Table.Body>
       {subscriptions.map(({
+        _id,
         customer: {
           firstName,
           lastName,
           email,
           phoneNumber,
         },
-        product: { name: productName, price: { amount: subscriptionFee = 0, currency = 'USD' } = {} } = {}
+        product: {
+          name: productName,
+          price: {
+            amount: subscriptionFee = 0,
+            currency = 'USD'
+          } = {}
+        } = {}
       }, orderInList) => (
-        <Table.Row orderInList={orderInList}>
+        <Table.Row orderInList={orderInList} key={_id}>
           <Table.SmallCell>
             <Avatar name={`${firstName} ${lastName}`} />
           </Table.SmallCell>
