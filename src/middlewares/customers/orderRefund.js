@@ -3,7 +3,7 @@ import { ORDER_REFUND } from 'constantsTypes';
 import {
   orderRefundSuccess,
   orderRefundFailed
-} from 'actions/customer';
+} from 'actions/customers';
 
 import { apiRequest } from 'actions/apiRequest';
 
