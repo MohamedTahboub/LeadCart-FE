@@ -33,7 +33,8 @@ const getSubRows = ({ offer, coupon }) => {
 
 const ProductRow = ({
   orderId,
-  _id: productId,
+  _id,
+  id: productId = _id,
   name,
   price: {
     amount,
