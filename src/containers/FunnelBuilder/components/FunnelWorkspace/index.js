@@ -154,7 +154,7 @@ const FunnelWorkSpace = ({
     // document.body.cursor = `url(${targetMouseIcon})`;
   };
 
-  // const isRelationExist = (currentId, targetId) => {
+  // const iselationExist = (currentId, targetId) => {
   //   return relations.find(relation => (relation.currentId === currentId && relation.targetId === targetId))
   // }
 
@@ -169,10 +169,21 @@ const FunnelWorkSpace = ({
 
     const updatedList = nodes.map(node => {
       if (node.elementId === currentId) {
-        const relation = { target: targetId, coordinates: targetElement.coordinates, type }
+        const relation = {
+          target: targetId,
+          coordinates: targetElement.coordinates,
+          type
+        }
+
         if (Array.isArray(node.relations)) {
           const isExist = node.relations.find(relation => relation.target === targetId)
-          if (isExist) return node;
+          if(
+            isExist ||
+            (node.category === 'checkout' && node.relations.length >= 1) ||
+            (node.relations.length >= 2)
+          )
+            return node;
+
 
           node.relations.push(relation)
         } else {
@@ -214,18 +225,10 @@ const FunnelWorkSpace = ({
   const onNodeDelete = (elementId) => {
     const updatedList = nodes
       .filter(node => node.elementId !== elementId)
-    // setNodes(updatedList)
-    // console.log(relations, id)
-    // // if(!Array.isArray(relations)) return;
-
-
-    // setRelations(relations => {
-
-    //   const updatedRelations = relations.filter(relation => {
-    //     if (relation.currentId === id || relation.targetId === id)
-    //       return false
-    //     return true;
-    //   })
+      .map(node => {
+        node.relations = node.relations.filter(relation => relation.target !== elementId)
+        return node
+      })
 
     onChange({
       name: 'products',
