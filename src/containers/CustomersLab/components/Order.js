@@ -21,7 +21,7 @@ const PaymentTypeIcon = ({ type, className = '' }) => {
 
 
 const Order = ({
-  _id: orderId,
+  id: orderId,
   orderNumber,
   onRefund,
   totalCharge,
