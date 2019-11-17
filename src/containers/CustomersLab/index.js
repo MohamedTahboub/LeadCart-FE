@@ -4,6 +4,7 @@ import './style.css'
 import { CustomerPanelModal } from './components';
 import { RoundTow } from 'libs';
 import Table from 'components/common/Tables';
+import * as customersActions from 'actions/customers'
 
 import common from 'components/common'
 
@@ -18,7 +19,7 @@ const {
 } = common
 
 
-const CustomersLab = ({ customers }) => {
+const CustomersLab = ({ customers, orderRefund }) => {
 
   const [showPanel, setShowPanel] = useState(false)
   const [activeCustomer, setCustomer] = useState({})
@@ -94,6 +95,7 @@ const CustomersLab = ({ customers }) => {
           isVisible={showPanel}
           onClose={hideCustomerPanel}
           customer={activeCustomer}
+          onOrderRefund={orderRefund}
         />
       )}
     </Page>
@@ -108,4 +110,4 @@ const mapStateToProps = ({ customers: { list } }) => ({
   customers: list
 });
 
-export default connect(mapStateToProps)(CustomersLab);
+export default connect(mapStateToProps,customersActions)(CustomersLab);

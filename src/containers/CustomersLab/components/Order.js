@@ -23,6 +23,7 @@ const PaymentTypeIcon = ({ type, className = '' }) => {
 const Order = ({
   _id: orderId,
   orderNumber,
+  onRefund,
   totalCharge,
   paymentMethod,
   payment = {},
@@ -30,8 +31,8 @@ const Order = ({
   products = [],
 }) => {
 
-  if(product.name && !products.length) products.push(product)
-  
+  if (product.name && !products.length) products.push(product)
+
   const [moreOptions, setMoreOptions] = useState(false);
   const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
 
@@ -45,6 +46,7 @@ const Order = ({
       {products.map(product => (
         <ProductRow
           {...product}
+          onRefund={onRefund}
           orderId={orderId}
         />)
       )}

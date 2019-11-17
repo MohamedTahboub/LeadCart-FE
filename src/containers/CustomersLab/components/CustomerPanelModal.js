@@ -18,6 +18,7 @@ const CustomerPanelModal = ({
   isVisible,
   ordersItems,
   onClose,
+  onOrderRefund,
   customer,
   ...props
 }) => {
@@ -64,7 +65,7 @@ const CustomerPanelModal = ({
         <Timeline mode='alternate'>
           {orders.map((order) => (
             <Timeline.Item key={order._id}>
-              <Order {...order} />
+              <Order {...order} onRefund={onOrderRefund} />
             </Timeline.Item>
           ))}
         </Timeline>
