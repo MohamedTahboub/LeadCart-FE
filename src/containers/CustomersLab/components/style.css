@@ -98,6 +98,16 @@
     font-size: 11px;
     margin: 2px;
 }
+
+.order-refund-btn.spinner::after{
+    left: calc(50% - 6.5px);
+    width: 13px;
+    height: 13px;
+    top: calc(50% - 6.5px);
+    margin: unset;
+    border: 2px solid white;
+    border-top-color: transparent;
+  }
 /* 
 .receipt-sub-row::before{
     content: " ";

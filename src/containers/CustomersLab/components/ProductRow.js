@@ -33,6 +33,7 @@ const getSubRows = ({ offer, coupon }) => {
 
 const ProductRow = ({
   orderId,
+  _id: productId,
   name,
   price: {
     amount,
@@ -40,7 +41,8 @@ const ProductRow = ({
   },
   offer,
   payment,
-  coupon
+  coupon,
+  onRefund
 }) => {
   const [expand, setExpand] = useState(false);
   const currencySymbol = getCurrencySymbol(currency);
@@ -55,8 +57,11 @@ const ProductRow = ({
   const renderOptions = expand && (
     <ProductActions
       payment={payment}
+      onRefund={onRefund}
+      offer={offer}
       productName={name}
       orderId={orderId}
+      productId={productId}
     />
   )
 

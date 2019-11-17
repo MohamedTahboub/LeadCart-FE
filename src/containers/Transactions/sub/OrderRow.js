@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Table from 'components/common/Tables';
 import './style.css';
@@ -45,16 +45,27 @@ const OrderRow = ({
   totalCharge = 0
 }) => {
   const productsCount = products.length;
+  const [expand, setExpand] = useState(false);
 
+  const onToggleExpand = () => {
+    setExpand((expand) => !expand);
+  };
   // const currency = getCurrency(products);
 
   return (
-    <Table.Row orderInList={orderInList}>
+    <Table.Row
+      orderInList={orderInList}
+      subRow={expand && products.map((product) => (
+        <Table.Row>
+          {product.name}
+        </Table.Row>
+      ))}
+    >
       <Table.Cell
         mainContent={`#LC-${orderNumber}`}
         sideContent={productsCount ? (
-          <span className='row-expand'>
-            <i className='fas fa-caret-down' />
+          <span className='row-expand' role='presentation'>
+            <i className={`fas fa-caret-${expand ? 'up' : 'down'}`} />
           </span>
         ) : null}
       />
