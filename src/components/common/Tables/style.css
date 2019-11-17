@@ -29,15 +29,20 @@
     font-size: 9px;
 }
 
-
-.table-row {
+.table-row-container{
     background: white;
     min-width: 860px;
-    height: 70px;
+    min-height: 70px;
+    margin: 15px 0px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.table-row {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 15px 0px;
 }
 
 .table-cell {

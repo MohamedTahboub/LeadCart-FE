@@ -28,10 +28,16 @@ export default class Table extends Component {
   static Row = ({
     children,
     orderInList = 0,
+    subRow,
     className = '',
     ...props
   }) => (
-    <EasyAnimate className={`table-row ${className}`} delay={orderInList * 50}>{children}</EasyAnimate>
+    <EasyAnimate className={`table-row-container ${className}`} delay={orderInList * 50}>
+      <div className='table-row'>
+        {children}
+      </div>
+      {subRow}
+    </EasyAnimate>
   )
 
   static Cell = ({
