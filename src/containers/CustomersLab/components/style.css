@@ -72,22 +72,32 @@
     padding-left: 15px;
 }
 .order-product-action-btn{
-
-    /* text-align: right; */
     border-radius: 3px;
-    /* display: flex;
-    align-items: center; */
     color:gray;
     font-size: 13px;
     cursor: pointer;
     margin-right: 10px;
-
 }
 .order-product-action-btn i.fas{
     margin-right:5px;
     font-size: 10px;
 }
 
+.order-product-action{
+    align-items: flex-start;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px;;
+}
+
+.order-refund-btn{
+    background: cornflowerblue;
+    border-radius: 4px;
+    padding:3px 8px;
+    font-size: 11px;
+    margin: 2px;
+}
 /* 
 .receipt-sub-row::before{
     content: " ";

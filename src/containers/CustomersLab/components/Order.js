@@ -50,10 +50,9 @@ const Order = ({
       )}
       <ReceiptRow
         className='receipt-total'
-        label='total'
+        label='Total'
         value={`${currencySymbol} ${RoundTow(totalCharge)}`}
       />
-
     </div>
   );
 };

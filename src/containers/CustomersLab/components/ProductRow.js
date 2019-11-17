@@ -2,6 +2,11 @@ import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getCurrencySymbol } from 'libs';
 import { ReceiptRow } from './common';
+// import { ActivationSwitchInput } from '../../../components/common/Buttons';
+
+import ProductActions from './ProductActions'
+
+
 
 
 const getSubRows = ({ offer, coupon }) => {
@@ -9,7 +14,7 @@ const getSubRows = ({ offer, coupon }) => {
   if (offer.name) {
     rows.push({
       name: offer.name,
-      type: 'Offer',
+      type: 'Offer: ',
       value: offer.price,
       sign: ''
     });
@@ -17,7 +22,7 @@ const getSubRows = ({ offer, coupon }) => {
   if (coupon.code) {
     rows.push({
       name: coupon.code,
-      type: 'Coupon',
+      type: 'Coupon: ',
       value: coupon.discount,
       sign: '-'
     });
@@ -27,6 +32,7 @@ const getSubRows = ({ offer, coupon }) => {
 };
 
 const ProductRow = ({
+  orderId,
   name,
   price: {
     amount,
@@ -44,6 +50,16 @@ const ProductRow = ({
   const onToggleActions = () => {
     setExpand((v) => !v);
   };
+
+
+  const renderOptions = expand && (
+    <ProductActions
+      payment={payment}
+      productName={name}
+      orderId={orderId}
+    />
+  )
+
   return (
     <ReceiptRow
       label={name}
@@ -54,11 +70,11 @@ const ProductRow = ({
           role='presentation'
         >
           <i className={`fas ${expand ? 'fa-minus-square' : 'fa-plus-square'}`} />
-                    Product:
+          Product:
         </span>
       )}
       value={`${currencySymbol} ${amount}`}
-      subRow={(haveSubRows && (
+      subRow={(haveSubRows ? (
         <div
           className='receipt-sub-row left-sub-branch'
         >
@@ -69,39 +85,16 @@ const ProductRow = ({
               value={`${row.sign} ${currencySymbol}  ${row.value}`}
             />
           ))}
-          {
-            expand && <div>No Actions Available for Now!</div>
-          }
+          {renderOptions}
         </div>
-      )
+      ) : (
+          <div className='receipt-sub-row '>{renderOptions}</div>
+        )
       )}
     />
   );
 };
 
-// <ProductActions payment={payment} />
-/*
- <ReceiptRow
-        label={product.name}
-        prefix='Product Name'
-        value={product.price && product.price.amount}
-      />
-      {offer.price && (<ReceiptRow
-        className='plus'
-        label={offer.name}
-        prefix='Offer Included'
-        value={offer.price}
-      />
-      )}
-      {coupon.code && (
-        <ReceiptRow
-          className='minus'
-          prefix='Applied coupon code'
-          label={coupon.code}
-          value={coupon.discount}
-        />
-      )}
-*/
 ProductRow.propTypes = {
   price: PropTypes.objectOf(),
   name: PropTypes.string,
