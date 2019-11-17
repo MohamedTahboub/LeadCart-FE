@@ -13,28 +13,28 @@ export default (state = initState, { type, payload }) => {
       ...state,
       list: payload
     };
-  case ORDER_REFUND_SUCCESS:
+  // case ORDER_REFUND_SUCCESS:
 
 
-    return {
-      ...state,
-      list: state.list.map((customer) => {
-        customer.orders.map((order) => {
-          if (order._id !== payload.orderId) return order;
+  //   return {
+  //     ...state,
+  //     list: state.list.map((customer) => {
+  //       customer.orders.map((order) => {
+  //         if (order._id !== payload.orderId) return order;
 
-          const { paymentType } = order.payment;
+  //         const { paymentType } = order.payment;
 
-          if (paymentType === 'Onetime') order.paymentRefunded = true;
-          else order.subscriptionCanceled = true;
+  //         if (paymentType === 'Onetime') order.paymentRefunded = true;
+  //         else order.subscriptionCanceled = true;
 
-          if (payload.target === 'offer') order.offerPaymentRefunded = true;
+  //         if (payload.target === 'offer') order.offerPaymentRefunded = true;
 
 
-          return order;
-        });
-        return customer;
-      })
-    };
+  //         return order;
+  //       });
+  //       return customer;
+  //     })
+  //   };
   default: return state;
   }
 };

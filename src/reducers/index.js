@@ -19,6 +19,7 @@ import upsells from './upsells'
 import fulfillments from './fulfillments'
 import emails from './emails'
 import dashboard from './dashboard'
+import orders from  './orders'
 import funnels from  './funnels'
 
 
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
     fulfillments,
     teamMembers,
     agency,
+    orders,
     payments,
     flashMessage,
     dashboard,

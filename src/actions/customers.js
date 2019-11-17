@@ -1,4 +1,5 @@
 import {
+  GET_CUSTOMERS,
   ORDER_REFUND,
   ORDER_REFUND_SUCCESS,
   ORDER_REFUND_FAILED,
@@ -9,6 +10,12 @@ import {
   RESEND_FULFILLMENT_EMAIL_SUCCESS,
   RESEND_FULFILLMENT_EMAIL_FAILED,
 } from 'constantsTypes';
+
+
+export const getCustomers = (customers) => ({
+  type: GET_CUSTOMERS,
+  payload: customers
+});
 
 export const orderRefund = (order, meta) => ({
   type: ORDER_REFUND,

@@ -4,7 +4,8 @@ import { getSubAccountsSuccess } from 'actions/agency';
 import { getCouponsList } from 'actions/coupon';
 import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
-import { getActivities, getCustomers } from 'actions/activities';
+import { getCustomers } from 'actions/customers';
+import { getOrders } from 'actions/orders';
 import { getUpsellsSuccess } from 'actions/upsells';
 import { getFunnels } from 'actions/funnels';
 import { getFulfillmentsSuccess } from 'actions/fulfillments';
@@ -60,8 +61,8 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       transactions: data.transactions
     }));
 
-    dispatch(getActivities(filteringActivities(data.orders)));
-    dispatch(getCustomers(filterCustomers(data.orders, data.products)));
+    dispatch(getOrders(data.orders));
+    dispatch(getCustomers(data.customers));
 
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };

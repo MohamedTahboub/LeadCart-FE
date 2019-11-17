@@ -63,7 +63,7 @@ const Dashboard = ({
     const filters = { ...filterKeys, [name]: value }
     setFilterKeys(filters);
 
-
+  
     setUpdatingCharts(true)
     getDashboardChartsData(
       constructFilters(filters),
@@ -83,9 +83,11 @@ const Dashboard = ({
   const constructFilters = (filters) => {
     if (filters['product'] === 'all')
       filters['product'] = undefined
+      
 
     return {
       productId: filters.product,
+      category: filters.category,
       date: getDateValueReferences(filters.date),
     }
   }
@@ -107,6 +109,20 @@ const Dashboard = ({
                     defaultValue='All Products'
                     target='name'
                     name='product'
+                    disabled={updatingCharts}
+                    onChange={onChange}
+                  />
+                  <InputRow.SearchInput
+                    className='chart-select-filter product-categories'
+                    options={[
+                      { label: 'All Products Categories' },
+                      { label: 'Checkout Products', value: 'checkout' },
+                      { label: 'Upsell/Downsell Products', value: 'upsell' },
+                    ]}
+                    value={filterKeys.category}
+                    defaultValue='All Products Categories'
+                    // target='category'
+                    name='category'
                     disabled={updatingCharts}
                     onChange={onChange}
                   />
@@ -274,14 +290,14 @@ const mapStateToProps = ({
   products: { products = [] } = {},
   dashboard: {
     activities,
-    settings={}
+    settings = {}
   } = {}
 }) => {
-  
-  if(settings.defaultCardsSettings && !settings.defaultCardsSettings.sales.length){
+
+  if (settings.defaultCardsSettings && !settings.defaultCardsSettings.sales.length) {
     settings = dashboardSettings;
   }
-    
+
   return {
     filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
     activities,

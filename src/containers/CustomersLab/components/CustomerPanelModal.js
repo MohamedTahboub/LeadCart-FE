@@ -5,6 +5,7 @@ import Order from './Order';
 import { DetailRow } from './common';
 import { RoundTow } from 'libs';
 import './style.css';
+import { connect } from 'react-redux'
 
 const {
   MainTitle,
@@ -15,6 +16,7 @@ const {
 
 const CustomerPanelModal = ({
   isVisible,
+  ordersItems,
   onClose,
   customer,
   ...props
@@ -25,8 +27,10 @@ const CustomerPanelModal = ({
     email,
     phoneNumber,
     lifeTimeCharges,
-    orders = []
+    orders: ordersIds = []
   } = customer;
+
+  const orders = ordersItems.filter(order => ordersIds.includes(order._id));
 
   return (
     <SlideModal
@@ -68,5 +72,8 @@ const CustomerPanelModal = ({
     </SlideModal>
   );
 };
-
-export default CustomerPanelModal;
+CustomerPanelModal.defaultProps = {
+  orders: []
+}
+const mapStateToProps = ({ orders }) => ({ ordersItems: orders })
+export default connect(mapStateToProps)(CustomerPanelModal);
