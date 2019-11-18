@@ -67,14 +67,26 @@ const Products = ({
     isActive,
     owner,
     coupons: { list, enabled } = {},
+    payment,
+    createdAt,
+    updatedAt,
+    downSell,
+    upSell,
     url,
     ...product
   }) => {
     product.name = `${name}- copy`;
-    product.url = 'autoGenerateUrl';
     product.coupons = { enabled: !!enabled };
-
     delete product.token;
+
+
+    if (payment.type === 'Onetime' && payment.recurringPeriod) 
+      delete payment.recurringPeriod
+    
+
+    if (product.category === 'upsell') product.payment = { type: payment.type };
+    else product.payment = payment;
+
 
     props.createNewProduct(product, {
       onSuccess: (msg) => {
