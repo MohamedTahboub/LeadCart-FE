@@ -392,6 +392,7 @@ export const EditableField = ({
   className = '',
   value: val,
   color,
+  backgroundColor,
   children,
   onChange,
   type = 'text',
@@ -425,7 +426,7 @@ export const EditableField = ({
   };
 
   const Element = (props) => textarea ? <textarea {...props} /> : <input {...props} />
-  const style = { color }
+  const style = { color, backgroundColor }
   return (
     <div style={style} onClick={onEditable} className={`editable-field ${className}`}>
       {

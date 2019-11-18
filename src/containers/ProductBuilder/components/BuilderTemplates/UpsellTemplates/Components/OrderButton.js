@@ -32,21 +32,17 @@ const OrderButton = ({
   const currencySymbol = getCurrencySymbol(currency);
 
 
-  const style = {
-    backgroundColor: themeColor
-  };
-
   const price = `-${currencySymbol}${total}`;
 
   return (
     <div className='upsell-order-button'>
       <EditableField
         name='pagePreferences.orderButtonText'
-        className='btn upsell-btn light-green-color'
+        className='btn upsell-btn'
         value={`${orderButtonText}`}
         autoComplete='off'
         onChange={onChange}
-        style={style}
+        backgroundColor={themeColor}
       />
     </div>
   );
