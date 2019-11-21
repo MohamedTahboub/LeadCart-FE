@@ -32,7 +32,7 @@ export default class Table extends Component {
     className = '',
     ...props
   }) => (
-    <EasyAnimate className={`table-row-container ${className}`} delay={orderInList * 50}>
+    <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
       <div className='table-row'>
         {children}
       </div>

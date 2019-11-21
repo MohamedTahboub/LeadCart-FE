@@ -143,3 +143,7 @@
   .table-row-edit-btn:hover{
     color:rgba(43, 164, 212, 0.904)
   }
+
+  .row-aligned-center{
+    justify-content: center;
+  }
