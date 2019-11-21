@@ -57,21 +57,20 @@ const Appearance = ({
   product: {
     pagePreferences: {
       template,
-      themeColor,
-      backgroundColor
+      themeColor = '#4da1ff',
+      backgroundColor = '#eee'
     } = {}
   } = {},
   ...props
 }) => {
-  // const onColorChange = ({ target: { name, value } = {} }) => {
-  //   // const { hex: value } = color;
-  //   props.onChange({
-  //     target: {
-  //       name,
-  //       value
-  //     }
-  //   });
-  // };
+  const onColorChange = (name) => (color = {}) => {
+    props.onChange({
+      target: {
+        name,
+        value: color.hex
+      }
+    });
+  };
   const onTemplateChange = (value) => () => {
     props.toggleTemplateChangeEffect();
     props.onChange({
@@ -104,17 +103,17 @@ const Appearance = ({
           <Panel header='Theme Color' key='2'>
             <TwitterPicker
               className='template-color-picker'
-              color={themeColor}
+              // color={themeColor}
               name='pagePreferences.themeColor'
-              onChange={props.onChange}
+              onChange={onColorChange('pagePreferences.themeColor')}
             />
           </Panel>
           <Panel header='Page Background Color' key='3'>
             <TwitterPicker
               className='template-color-picker'
+              // color={backgroundColor}
               name='pagePreferences.backgroundColor'
-              color={backgroundColor}
-              onChange={props.onChange}
+              onChange={onColorChange('pagePreferences.backgroundColor')}
             />
           </Panel>
         </Collapse>

@@ -75,15 +75,15 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
         // product.url = ids.generate()
         // product.category = category
 
-        if (template === 'temp5') {
+        if (template === 'temp6') {
             const {
                 description: defaultDescription,
                 features: defaultFeatures
             } = hardCodedMessages.products.defaults.temp5
 
-            product.description = defaultDescription
-            if (product.features && product.features.title) {
-                product.features.title = defaultFeatures
+            product.pagePreferences.description = defaultDescription
+            if (product.pagePreferences.features && product.pagePreferences.features.title) {
+                product.pagePreferences.features.title = defaultFeatures
             }
         }
         setProgress(true)
