@@ -6,15 +6,24 @@ import './style.css';
 const { EditableTextField } = common
 
 
-export default ({ title, description, id, number, ...props }) => {
+export default ({ title, text, id, number, ...props }) => {
 
-  const onChange = (id, { target: { value } }) => {
-    if (value)
-      props.onChange({ id, value })
+  const onChange = ({ target: { name, value } }) => {
+    //   if (value){
+    //   props.onChange && props.onChange({
+    //       id,
+    //       value: {
+    //         title,
+    //         text,
+    //         [name]: value
+    //       }
+    //     })
+    // }
   }
+  
   return (
     <div className='upsell-feature-item'>
-      <span onClick={props.onRemove} className="feature-delete-btn">
+      <span onClick={() => props.onRemove(id)} className="feature-delete-btn">
         <i class="fas fa-trash-alt"></i>
       </span>
       <div className='upsell-feature-title'>
@@ -22,14 +31,14 @@ export default ({ title, description, id, number, ...props }) => {
         <EditableTextField
           name='title'
           value={title}
-          onChange={onChange.bind(this, id)}
+          onBlur={onChange}
         />
       </div>
       <div className='upsell-feature-description'>
         <EditableTextField
-          name='description'
-          value={description}
-          onChange={onChange.bind(this, id)}
+          name='text'
+          value={text}
+          onBlur={onChange}
         />
       </div>
     </div>

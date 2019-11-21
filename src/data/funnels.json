@@ -1,0 +1,50 @@
+[
+    {
+        "_id": "5d9c09d2158565fc1f6bde9e",
+        "name":"Funnel Name",
+        "upSells": [
+            "5d8d3468e7e5d293f017fd0f",
+            "5d8d3468e7e5d293f017fd0f"
+        ],
+        "thankyouPage": null,
+        "url": "CbxOÑ0irH",
+        "owner": "5d3bd34d97d3ea503e8659ae",
+        "product": "5d8d3468e7e5d293f017fd0f"
+    },
+    {
+        "_id": "5d9c0a1f0ce139fc33f800b5",
+        "name":"Funnel Name",
+        "upSells": [
+            "5d8d3468e7e5d293f017fd0f",
+            "5d8d3468e7e5d293f017fd0f"
+        ],
+        "thankyouPage": null,
+        "url": "0KWpFLAtK",
+        "owner": "5d3bd34d97d3ea503e8659ae",
+        "product": "5d8d3468e7e5d293f017fd0f"
+    },
+    {
+        "_id": "5d9c0a3e0ce139fc33f800b6",
+        "name":"Funnel Name",
+        "upSells": [
+            "5d8d3468e7e5d293f017fd0f",
+            "5d8d3468e7e5d293f017fd0f"
+        ],
+        "thankyouPage": null,
+        "url": "Yc1QMZ7nE",
+        "owner": "5d3bd34d97d3ea503e8659ae",
+        "product": "5d8d3468e7e5d293f017fd0f"
+    },
+    {
+        "_id": "5d9c0b2ce71131fc523df1fa",
+        "name":"Funnel Name",
+        "upSells": [
+            null,
+            null
+        ],
+        "thankyouPage": null,
+        "url": "xZvj1zTxi",
+        "owner": "5d3bd34d97d3ea503e8659ae",
+        "product": "5d8d3468e7e5d293f017fd0f"
+    }
+]

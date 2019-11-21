@@ -5,6 +5,7 @@ import { Modal } from 'components/Modals';
 import ids from 'shortid';
 import { getCurrencySymbol } from 'libs';
 import { property } from 'libs';
+import defaultFunnelThumbnail from 'assets/images/funnelCardThumbnail.png';
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
 import { Button, SmallButton, MiniButton } from '../Buttons';
@@ -75,12 +76,14 @@ export const Avatar = ({
 export const ProductCard = ({
   name,
   image: productImage,
+  // pagePreferences:{}={}
   currancy,
   orderInlist = 0,
   monthlyProfite = 0,
   price = {},
   available,
   onEdit,
+  category,
   onPreview,
   onDelete,
   onDuplicate,
@@ -100,6 +103,18 @@ export const ProductCard = ({
           ? <img src={productImage} alt='product avatar' className='card-product-image' />
           : <Avatar name={name} />
       }
+      {
+        category && (category === 'checkout' ? (
+          <span data-tooltip='Checkout Product'>
+            <i className='fas fa-shopping-cart' />
+          </span>
+        )
+          : (
+            <span data-tooltip='Upsell Product'>
+              <i className='fas fa-chart-line' />
+            </span>
+          ))
+      }
       <span className='product-name-holder'>{name}</span>
       <span className='product-price-holder'>{`${getCurrencySymbol(price.currency)} ${price.amount}`}</span>
     </div>
@@ -107,9 +122,11 @@ export const ProductCard = ({
       <span data-tooltip='Edit Product'>
         <i onClick={onEdit} className='fas fa-edit' />
       </span>
-      <span data-tooltip='Preview Product'>
-        <i onClick={onPreview} className='fas fa-eye' />
-      </span>
+      {onPreview && (
+        <span data-tooltip='Preview Product'>
+          <i onClick={onPreview} className='fas fa-eye' />
+        </span>
+      )}
       <span data-tooltip='Delete Product'>
         <i onClick={onDelete} className='fas fa-trash-alt' />
       </span>
@@ -446,3 +463,57 @@ export const CouponRowCard = ({
 
 
 export { default as PackageCard } from './PackageCard';
+
+
+export const FunnelCard = ({
+  name,
+  orderInlist,
+  id,
+  onEdit,
+  onPreview,
+  thumbnail = defaultFunnelThumbnail,
+  onDelete,
+  ...props
+}) => {
+  const coverImageStyle = {
+    backgroundImage: ` linear-gradient(
+          to bottom,
+          rgba(0,0,0, 0),
+          rgba(0,0,0, .1)
+        ),url(${thumbnail})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  };
+
+  return (
+    <EasyAnimate
+      delay={orderInlist * 100}
+      className='funnel-card-container'
+    >
+      <div style={coverImageStyle} className='funnel-cover-image' />
+      <MiniButton
+        iconClass='fa-copy'
+        // onClick={onDuplicate}
+        tooltip='Duplicate'
+        className='product-duplicate-btn funnel-duplicate-btn'
+      />
+      <div className='funnel-card-content'>
+        <div className='name-holder'>
+          <span data-tooltip='Open in new Tap'>
+            <i onClick={onPreview} className='fas fa-link' />
+          </span>
+          <span className='funnel-name-holder'>{name}</span>
+        </div>
+        <div className='card-controlls-container'>
+          <span data-tooltip='Edit Fulfillment'>
+            <i onClick={onEdit} className='fas fa-edit' />
+          </span>
+          <span data-tooltip='Delete Fulfillment'>
+            <i onClick={onDelete} className='fas fa-trash-alt' />
+          </span>
+        </div>
+      </div>
+    </EasyAnimate>
+  );
+};

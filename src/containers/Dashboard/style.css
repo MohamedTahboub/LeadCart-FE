@@ -81,6 +81,9 @@
 .chart-select-filter{
     margin-left: 20px; 
 }
+.product-categories{
+    width: 120px;
+}
 div.ant-select.chart-select-filter:first-child{
     margin-left: 0px ;  
 }

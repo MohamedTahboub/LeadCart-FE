@@ -18,6 +18,8 @@ import * as prefixes from './Prefixes'
 import Table from './Tables'
 import * as messages from './Messages'
 import Dialog from './Dialog'
+import * as Nodes from './Nodes'
+
 
 
 export default {
@@ -40,5 +42,6 @@ export default {
     ...prefixes,
     ...messages,
     ...Collapsable,
+    ...Nodes,
     Dialog
 }

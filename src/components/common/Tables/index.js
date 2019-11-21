@@ -28,17 +28,45 @@ export default class Table extends Component {
   static Row = ({
     children,
     orderInList = 0,
+    subRow,
     className = '',
     ...props
   }) => (
-    <EasyAnimate className={`table-row ${className}`} delay={orderInList * 50}>{children}</EasyAnimate>
+    <EasyAnimate className={`table-row-container ${className}`} delay={orderInList * 50}>
+      <div className='table-row'>
+        {children}
+      </div>
+      {subRow}
+    </EasyAnimate>
   )
 
   static Cell = ({
-    children, mainContent, subContent, ...props
+    children,
+    mainContent,
+    subContent,
+    sideContent,
+    ...props
   }) => (
     <div className='table-cell'>
-      {mainContent && <span className='cell-main-content'>{mainContent}</span>}
+      {mainContent && (
+        !sideContent
+          ? (
+            <span className='cell-main-content'>
+              {mainContent}
+            </span>
+          )
+          : (
+            <div>
+              <span className='cell-main-content'>
+                {mainContent}
+              </span>
+              <span className='cell-main-content'>
+                {sideContent}
+              </span>
+            </div>
+          )
+      )
+      }
       {typeof subContent !== 'object'
         ? <span className='cell-sub-content'>{subContent}</span>
         : <span className={`cell-sub-content ${subContent && subContent.className}`}>{subContent && subContent.content}</span>

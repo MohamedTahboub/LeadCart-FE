@@ -4,8 +4,10 @@ import { getSubAccountsSuccess } from 'actions/agency';
 import { getCouponsList } from 'actions/coupon';
 import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
-import { getActivities, getCustomers } from 'actions/activities';
+import { getCustomers } from 'actions/customers';
+import { getOrders } from 'actions/orders';
 import { getUpsellsSuccess } from 'actions/upsells';
+import { getFunnels } from 'actions/funnels';
 import { getFulfillmentsSuccess } from 'actions/fulfillments';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
@@ -47,18 +49,21 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getFulfillmentsSuccess(data.fulfillments));
     dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getDashboardDataSuccess(data.dashboard));
+    dispatch(getFunnels(data.funnels || []));
     dispatch(getUserProductsSuccess({ products: data.products }));
+
+    dispatch(getActivatedPromoCodesNumber(data.promoCodes));
+    dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
+    dispatch(getEmailSettings(data.emailSettings));
+
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,
       transactions: data.transactions
     }));
 
-    dispatch(getActivities(filteringActivities(data.orders)));
-    dispatch(getCustomers(filterCustomers(data.orders, data.products)));
+    dispatch(getOrders(data.orders));
+    dispatch(getCustomers(data.customers));
 
-    dispatch(getActivatedPromoCodesNumber(data.promoCodes));
-    dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
-    dispatch(getEmailSettings(data.emailSettings));
     return appLaunchSuccess('THE APPLICATION LUNCHED');
   };
 

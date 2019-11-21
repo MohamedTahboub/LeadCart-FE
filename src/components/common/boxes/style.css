@@ -198,7 +198,7 @@ span.insight-chart {
     line-height: 13px;
     font-size: 11px;
     border-radius: 5px;
-    text-transform: lowercase;
+    /* text-transform: lowercase; */
     transform:translateX(-10%);
     cursor: default;
     transition: all .3s ease-in-out;
