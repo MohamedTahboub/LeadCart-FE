@@ -56,14 +56,15 @@ const Appearance = ({
   } = {},
   ...props
 }) => {
-  const onColorChange = (name) => ({ hex: value }) => {
+  const onColorChange = (name) => (color = {}) => {
     props.onChange({
       target: {
         name,
-        value
+        value: color.hex
       }
     });
   };
+
   const onTemplateChange = (value) => () => {
     props.toggleTemplateChangeEffect();
     props.onChange({
@@ -99,6 +100,7 @@ const Appearance = ({
               className='template-color-picker'
               color={themeColor}
               onChange={onColorChange('pagePreferences.themeColor')}
+              name='pagePreferences.themeColor'
             />
           </Panel>
           <Panel header='Upsell Background Color' key='3'>
@@ -106,6 +108,7 @@ const Appearance = ({
               className='template-color-picker'
               color={productBackgroundColor}
               onChange={onColorChange('pagePreferences.productBackgroundColor')}
+              name='pagePreferences.productBackgroundColor'
             />
           </Panel>
           <Panel header='Page Background Color' key='4'>
@@ -113,6 +116,7 @@ const Appearance = ({
               className='template-color-picker'
               color={backgroundColor}
               onChange={onColorChange('pagePreferences.backgroundColor')}
+              name='pagePreferences.backgroundColor'
             />
           </Panel>
         </Collapse>

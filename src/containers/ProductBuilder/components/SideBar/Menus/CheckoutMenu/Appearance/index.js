@@ -57,17 +57,17 @@ const Appearance = ({
   product: {
     pagePreferences: {
       template,
-      themeColor,
-      backgroundColor
+      themeColor = '#4da1ff',
+      backgroundColor = '#eee'
     } = {}
   } = {},
   ...props
 }) => {
-  const onColorChange = (name) => ({ hex: value }) => {
+  const onColorChange = (name) => (color = {}) => {
     props.onChange({
       target: {
         name,
-        value
+        value: color.hex
       }
     });
   };
@@ -103,14 +103,16 @@ const Appearance = ({
           <Panel header='Theme Color' key='2'>
             <TwitterPicker
               className='template-color-picker'
-              color={themeColor}
+              // color={themeColor}
+              name='pagePreferences.themeColor'
               onChange={onColorChange('pagePreferences.themeColor')}
             />
           </Panel>
           <Panel header='Page Background Color' key='3'>
             <TwitterPicker
               className='template-color-picker'
-              color={backgroundColor}
+              // color={backgroundColor}
+              name='pagePreferences.backgroundColor'
               onChange={onColorChange('pagePreferences.backgroundColor')}
             />
           </Panel>
