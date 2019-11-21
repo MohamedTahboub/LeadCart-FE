@@ -27,17 +27,17 @@ export default ({
       <SlidingAnimation open={isVisible} type='horizontal' units={300} className={`slide-modal-content ${contentClassName}`}>
         {header && (<div className='slide-modal-header'>
           <span onClick={onClose} className='slide-modal-close-btn' role='presentation'>
-            <i className='fas fa-chevron-circle-left' />
+            <i className='fas fa-times-circle' />
           </span>
           {header}
-        </div>
+                    </div>
         )}
         <div onClick={onContentClick} className={`slide-modal-body ${bodyClassName}`}>
           {children}
         </div>
         {footer && (<div className='slide-modal-footer'>
           {footer}
-        </div>
+                    </div>
         )}
       </SlidingAnimation>
     </EasyAnimate>
