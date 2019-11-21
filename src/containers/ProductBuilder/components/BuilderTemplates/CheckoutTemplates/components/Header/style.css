@@ -1,0 +1,33 @@
+
+.product-template-header{
+  position: relative;
+  display: flex;
+  min-height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.company-details-container{
+  display: flex;
+  align-items: center;
+}
+.company-details-container img.logo-image{
+  height: 70px;
+ width: auto;
+}
+.company-details-container span.campany-name {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+.support-component{
+  color:white;
+}
+.support-component a.company-name-support-email {
+  text-decoration: none;
+  color: inherit;
+  margin: 0px 5px;
+}

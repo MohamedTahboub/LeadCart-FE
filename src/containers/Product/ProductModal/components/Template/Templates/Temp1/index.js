@@ -19,7 +19,7 @@ import {
 
 const Template = ({ className='' ,product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 
-  const { presetColors: color, features = {}, testimonials = {} } = product.checkoutPage || {}
+  const { themeColor:color, features = {}, testimonials = {} } = product.checkoutPage || {}
   const { coupons = {}, payment = {} } = product
   const showRightSide = features.enabled || testimonials.enabled || coupons.enabled;
   return (
@@ -28,10 +28,9 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
         onOptionSelected={onOptionSelected}
         color={color}
       />
-      <AboutProduct
+           <AboutProduct
         onChange={onChange}
-        image={product.image}
-        name={product.name}
+        pagePreferences={product.pagePreferences}
         description={product.description}
       />
       <section className="product-template-body">
@@ -68,7 +67,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
           />
 
           <CompleteOrderBtn
-            text={product.checkoutPage && product.checkoutPage.checkoutButtonText}
+            text={product.checkoutPage && product.checkoutPage.orderButtonText}
             color={color}
             onChange={onChange}
           />

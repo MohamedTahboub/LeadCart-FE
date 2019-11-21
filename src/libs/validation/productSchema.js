@@ -9,7 +9,8 @@ const featuresSchema = yup.object({
   enabled: yup.boolean().default(false),
   title: yup.string().default('Features List'),
   list: yup.array().of(yup.object({
-    text: yup.string().required()
+    title: yup.string().default('Feature Title'),
+    text: yup.string().default('Feature Description'),
   }))
 });
 const termsAndConditionsSchema = yup.object({
@@ -28,10 +29,13 @@ const testimonialsSchema = yup.object({
 });
 
 
-const checkoutPageSchema = yup.object({
+const pagePreferencesSchema = yup.object({
   template: yup.string().default('temp1'),
-  checkoutButtonText: yup.string().default('Complete Order'),
-  presetColors: yup.string().default('#8ED1FC'),
+  orderButtonText: yup.string().default('Complete Order'),
+  declineButtonText: yup.string().default('No thanks!'),
+  themeColor: yup.string().default('#8ED1FC'),
+  backgroundColor: yup.string().default('#eee'),
+  productBackgroundColor: yup.string().default('#fff'),
   features: featuresSchema,
   guaranteed: yup.object({
     enabled: yup.bool().default(false),
@@ -40,6 +44,27 @@ const checkoutPageSchema = yup.object({
   logo: yup.string().default(defaultLogo),
   termsAndConditions: termsAndConditionsSchema,
   testimonials: testimonialsSchema,
+  widgets: yup.object({
+    progressBar: yup.object({
+      enabled: yup.bool().default(false),
+      type: yup.string(),
+      value: yup.number().default(60),
+      color: yup.string(),
+      label: yup.string(),
+    })
+  }),
+  image: yup.string(),
+  description: yup.string(),
+  asset: yup.object({
+    link: yup.string().url(),
+    type: yup.string(),
+    visible: yup.bool()
+  }),
+  orderNote: yup.object({
+    enabled: yup.boolean(),
+    text: yup.string(),
+    style: yup.string()
+  })
 });
 
 
@@ -65,20 +90,19 @@ const offerSchema = yup.object({
 
 const ProductSchema = yup.object({
   available: yup.boolean().default(false),
-  checkoutPage: checkoutPageSchema,
+  pagePreferences: pagePreferencesSchema,
   offer: offerSchema,
   name: yup.string().default('Product-Name'),
-  image: yup.string(),
   internalName: yup.string(),
-  url: yup.string().default(() => ids.generate()),
-  description: yup.string(),
+  thumbnail: yup.string(),
+  // url: yup.string().default(() => ids.generate()),
   price: yup.object({
     amount: yup.number().required(),
     currency: yup.string().default('USD')
   }).required(),
   payment: yup.object({
     methods: yup.array().of(yup.string()),
-    type: yup.string(),
+    type: yup.string().default('Onetime'),
     recurringPeriod: yup.string().when('type',
       {
         is: 'Subscription',
@@ -127,6 +151,7 @@ export default async (product) => {
       value: castedProduct
     };
   } catch (err) {
+    console.log(err);
     return {
       isValid: false,
       errors: castYupErrors(err)

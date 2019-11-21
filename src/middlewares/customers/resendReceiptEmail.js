@@ -3,7 +3,7 @@ import { RESEND_RECEIPT_EMAIL } from '../../constantsTypes';
 import {
   resendReceiptEmailSuccess,
   resendReceiptEmailFailed,
-} from '../../actions/customer';
+} from '../../actions/customers';
 
 import { apiRequest } from 'actions/apiRequest';
 

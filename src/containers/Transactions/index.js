@@ -10,7 +10,14 @@ import './style.css'
 import common from 'components/common'
 
 
-
+const getSubscriptionsList = orders => {
+    return orders.reduce((subs, { products = [], ...order }) => {
+        const subscriptionProducts = products
+            .filter(({ payment = {} }) => payment.paymentType === 'Onetime')
+            .map(product => ({ ...order, product }))
+        return [...subs, ...subscriptionProducts]
+    }, []);
+}
 
 const exportToCsv = (orders) => {
     const titles = 'Name,Email Address,Phone Number,Product Name,Payment Processor,offer included,coupon used,coupon discount,total Charge,product payment Type\n';
@@ -50,7 +57,7 @@ const {
 
 
 
-const Transactions = ({ orders, subscriptions }) => {
+const Transactions = ({ orders }) => {
     const [activeTab, setActiveTab] = useState('Orders');
 
     const onExportToCSV = () => {
@@ -63,6 +70,13 @@ const Transactions = ({ orders, subscriptions }) => {
         download.click();
     }
 
+    const orderedList = orders.sort(function (a, b) {
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    const subscriptions = getSubscriptionsList(orderedList)
+    console.log("subscriptions",subscriptions)
     return (
         <Page className='products-details-page'>
             <PageHeader>
@@ -79,8 +93,8 @@ const Transactions = ({ orders, subscriptions }) => {
                     defaultTab='Orders'
                     onTabChange={setActiveTab}
                     tabs={{
-                        'Orders': <Orders orders={orders} />,
-                        'Subscriptions': <Subscriptions subscriptions={subscriptions} />
+                        'Orders': <Orders orders={orderedList} />,
+                        'Subscriptions': <Subscriptions subscriptions={subscriptions} />,
                     }}
                 />
             </PageContent>
@@ -90,16 +104,15 @@ const Transactions = ({ orders, subscriptions }) => {
 
 
 
-const mapStateToProps = ({ activities: { orders = [], subscriptions = [] } }) => ({
-    orders,
-    subscriptions
+const mapStateToProps = ({ orders = [] }) => ({
+    orders
 });
 Transactions.propTypes = {
-    orders:PropTypes.array,
-    subscriptions:PropTypes.array
+    orders: PropTypes.array,
+    subscriptions: PropTypes.array
 }
 Transactions.defaultProps = {
-    orders:[],
-    subscriptions:[]
+    orders: [],
+    subscriptions: []
 }
 export default connect(mapStateToProps)(Transactions);

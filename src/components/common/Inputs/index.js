@@ -7,6 +7,8 @@ import TextField from './TextField'
 import TextAreaInput from './TextAreaInput'
 import EditableTagGroup from './EditableTagGroup'
 import DatePicker from 'antd/lib/date-picker';
+import Checkbox from 'antd/lib/checkbox';
+
 import ids from 'shortid'
 export class InputRow extends Component {
   static Label = ({ notes, error, className = '', ...props }) => (
@@ -126,6 +128,7 @@ export class InputRow extends Component {
   static DatePicker = DatePicker
   static EditableTagGroup = EditableTagGroup
   static TextField = TextField
+  static Checkbox = Checkbox
 
   static SelectOption = ({
     options = [],
@@ -338,18 +341,18 @@ export const CodeInputArea = ({ value, flixable, onChange, onBlur, name, disable
 
 
 export const SelectBox = ({
-   checked,
-    onChange,
-     className='',
-     label,
-      ...props
-     }) => {
+  checked,
+  onChange,
+  className = '',
+  label,
+  ...props
+}) => {
   const id = ids.generate()
 
   return (
-    <label 
-    className={className} 
-    htmlFor={`CustomCheckBoxInput_${id}`} 
+    <label
+      className={className}
+      htmlFor={`CustomCheckBoxInput_${id}`}
     >
       <input
         onChange={onChange}
@@ -389,13 +392,15 @@ export const EditableField = ({
   className = '',
   value: val,
   color,
+  backgroundColor,
   children,
   onChange,
   type = 'text',
   name,
   defaultValue = 'edit text',
   textarea,
-  error
+  error,
+  childElement
 }) => {
   const value = val || children || defaultValue
   const [editable, setEditable] = useState(false);
@@ -421,7 +426,7 @@ export const EditableField = ({
   };
 
   const Element = (props) => textarea ? <textarea {...props} /> : <input {...props} />
-  const style = { color }
+  const style = { color, backgroundColor }
   return (
     <div style={style} onClick={onEditable} className={`editable-field ${className}`}>
       {
@@ -447,7 +452,7 @@ export const EditableField = ({
         ><i className="fas fa-info-circle" />
         </span>
       )}
-
+      {childElement && childElement}
     </div>
   )
 

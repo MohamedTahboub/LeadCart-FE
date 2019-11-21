@@ -10,3 +10,18 @@
 .margin-top-20{
     margin: 20px 0px;
 }
+
+
+
+.row-expand{
+  margin-left:10px;  
+  cursor: pointer;
+}
+
+.row-expand i.fas{
+    color: gray;
+    transition: color .3s ease-in-out;
+}
+.row-expand:hover i.fas{
+    color: rgb(73, 72, 72);
+}

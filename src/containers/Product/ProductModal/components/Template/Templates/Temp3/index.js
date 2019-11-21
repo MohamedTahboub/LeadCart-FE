@@ -31,8 +31,9 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
         onOptionSelected={onOptionSelected}
         color={color}
       />
-      <AboutProduct
+           <AboutProduct
         onChange={onChange}
+        pagePreferences={product.pagePreferences}
         // image={product.image}
         // containerClassName='about-product-section-h'
         containerClassName='horizontal-about-product-container'
@@ -75,7 +76,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
           />
 
           <CompleteOrderBtn
-            text={product.checkoutPage && product.checkoutPage.checkoutButtonText}
+            text={product.checkoutPage && product.checkoutPage.orderButtonText}
             color={color}
             onChange={onChange}
           />
