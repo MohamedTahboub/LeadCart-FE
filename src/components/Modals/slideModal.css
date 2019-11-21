@@ -25,10 +25,10 @@
 }
 .slide-modal-close-btn{
   color:gray;
-  font-size: 30px;
+  font-size: 20px;
   position: absolute;
   left: 12px;
-  top: 11px;
+  top: 14px;
   cursor: pointer;
   display: flex;
   justify-content: center;
