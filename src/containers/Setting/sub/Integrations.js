@@ -48,10 +48,15 @@ const Integrations = ({
   history,
   ...props
 }) => {
-  const [state, setState] = useState({});
+  // const [state, setState] = useState({});
   const [onProgress, setProgress] = useState({});
   const [errors, setErrors] = useState({});
   const [showStripeOverridingWaring, setShowStripeOverridingWarning] = useState(false);
+
+
+  const navigateTOIntegrationPage = () => {
+    history.push('/settings/integrations');
+  };
 
   useEffect(() => {
     const {
@@ -72,10 +77,12 @@ const Integrations = ({
         {
           onSuccess: (arg) => {
             setProgress({ [activat_method]: false });
+            navigateTOIntegrationPage();
           },
           onFailed: (message) => {
             setErrors({ [activat_method]: message });
             setProgress({ [activat_method]: false });
+            navigateTOIntegrationPage();
           }
         });
       } else {
@@ -83,7 +90,7 @@ const Integrations = ({
         setProgress({ [activat_method]: false });
       }
     }
-  }, [PaymentMethods]);
+  }, []);
 
 
   const isMethodActive = (method) => {
