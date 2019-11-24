@@ -134,7 +134,7 @@ const FunnelNode = ({
             )}
           </div>
         </div>
-        {showSocketOnConnect &&
+        {(showSocketOnConnect && props.category !== "checkout") &&
           (
             <div className={`setting-btn-container clean-border`}>
               <div onClick={onConnected} className="node-connect-socket connecting-mode">
