@@ -3,7 +3,7 @@ import castYupErrors from './castErrors';
 
 export default async (packageDetails) => {//
   const schema = yup.object().shape({
-    packageType: yup.string().oneOf(['Pro', 'Premium']).required(),
+    packageType: yup.string().oneOf(['Basic', 'Pro', 'Premium']).required(),
     recurringPeriod: yup.string().oneOf(['Monthly', 'Yearly']).required(),
     useOldCredit: yup.bool().default(false),
     amount: yup.number(),

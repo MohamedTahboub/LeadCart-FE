@@ -189,6 +189,14 @@ const Subscription = ({
           />
           <FlexBoxesContainer className='packages-container'>
             <PackageCard
+              name='Basic'
+              package={packagesPlans.basic}
+              onSelect={onPackageTypeChange}
+              activePackage={fields.packageType}
+              interval={fields.recurringPeriod}
+              code={fields.promoCode}
+            />
+            <PackageCard
               name='Pro'
               package={packagesPlans.pro}
               onSelect={onPackageTypeChange}
