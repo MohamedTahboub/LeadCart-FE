@@ -122,52 +122,7 @@ img.side-button-image {
     transition:all .3s ease-in-out;
     
 }
-.loading-layer {
-    background-color:rgba(0,0,0,0.3);
-    position: absolute;
-    top:0px;
-    left:0px;
-    right:0px;
-    bottom: 0px;
-    z-index: 1000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.loading-message{
-    position: relative;
-    color:white;
-    font-size: 14px;
-    font-weight: bold;
-}
 
-.loading-message::after{
-    content: '';
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    position: absolute;
-    top: 30%;
-    left: -60px;
-    width: 30px;
-    height: 30px;
-    margin-top: -10px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 50%;
-    /* border: 0px solid transparent; */
-    border-left:0px solid #dbdbdb;
-    border-right:0px solid transparent;
-    border-bottom:0px solid #dbdbdb;
-    border-top:4px solid #dbdbdb;
-    /* border-top-color: #dbdbdb; */
-    /* border-bottom-color: #dbdbdb; */
-    -webkit-animation: spinner .6s linear infinite;
-            animation: spinner .6s linear infinite;
-}
-.loading-message::before{
-    -webkit-animation: spinner .6s linear infinite;
-    animation: spinner .6s linear infinite;
-}
 .editable-product-form-container.mobile{
     width: 375px;
     min-height: 667px;

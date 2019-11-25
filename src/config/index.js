@@ -17,6 +17,23 @@ export default {
     STRIP_AUTH_LINK: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_C82XtIMbphaPO4JDiO1TJretDIMhEi3o&scope=read_write',
     USER_SUB_DOMAIN_URL: 'http://localhost:3000/',
     packagesPlans: {
+      basic: {
+        price: {
+          Monthly: 69,
+          Yearly: 690
+        },
+        features: [
+          '+6 Checkout Templates.',
+          'Unlimited Products.',
+          'Use Checkout Pages Everywhere.',
+          'Built In Credit Card & PayPal processors.',
+          'One-Time Payments, Subscriptions, Trials, & Payment Plans.',
+          'Advanced Stats & Reports.',
+          'Prospects (Cart Abandonment).',
+          '1-Click Upsells.',
+          'Unlimited Funnels.',
+        ]
+      },
       pro: {
         price: {
           Monthly: 99,
