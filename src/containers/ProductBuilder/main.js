@@ -8,7 +8,7 @@ import { ProductSchema } from 'libs/validation';
 import * as productActions from 'actions/product';
 import * as flashMessages from 'actions/flashMessage';
 import * as filesActions from 'actions/files';
-
+import { ProductBuilderSkelton } from 'components/Loaders';
 import { stopTabClosing, htmlToImage, slugify } from 'libs';
 // import  ProductEditableTemplate  from './';
 import { SideBar, Header, ProductEditableTemplate } from './components';
@@ -181,9 +181,7 @@ const ProductBuilder = ({
   return (
     <Fragment>
       {loading.product && (
-        <div className='loading-layer'>
-          <div className='loading-message'>Setting Up...</div>
-        </div>
+        <ProductBuilderSkelton />
       )}
       <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.product ? 'loading' : ''}`}>
         <Header
