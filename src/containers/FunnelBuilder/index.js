@@ -6,7 +6,7 @@ import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels'
-
+import { ProductBuilderSkelton } from 'components/Loaders';
 import { SideBar, Header, FunnelWorkspace } from './components';
 
 import './style.css';
@@ -163,9 +163,7 @@ const FunnelBuilder = ({
   return (
     <Fragment>
       {loading.funnel && (
-        <div className='loading-layer'>
-          <div className='loading-message'>Setting Up...</div>
-        </div>
+        <ProductBuilderSkelton />
       )}
       <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
         <Header

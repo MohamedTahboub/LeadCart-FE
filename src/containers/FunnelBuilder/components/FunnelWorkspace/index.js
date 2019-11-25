@@ -226,7 +226,8 @@ const FunnelWorkSpace = ({
     const updatedList = nodes
       .filter(node => node.elementId !== elementId)
       .map(node => {
-        node.relations = node.relations.filter(relation => relation.target !== elementId)
+        if(Array.isArray(node.relations))
+          node.relations = node.relations.filter(relation => relation.target !== elementId)
         return node
       })
 
