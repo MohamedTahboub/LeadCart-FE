@@ -16,7 +16,7 @@
     },
     "products":{
         "defaults":{
-            "temp5":{
+            "temp6":{
                 "description":"<h1>Product Name</h1><p><br></p><h1 class=\"ql-align-justify\"><span class=\"ql-size-small\">Get The Simple Script That Effortlessly Convinces Your Customers To Spend More Money With You...FOR FREE!</span></h1>",
                 "features":"<h2><strong>What You Get</strong></h2><p><br></p><p class=\"ql-align-center\"><br></p><p><strong style=\"color: rgb(68, 68, 68);\">👉 Ability to create any membership type</strong></p><p><strong style=\"color: rgb(68, 68, 68);\">👉 Ability to define membership access level</strong></p><p><strong style=\"color: rgb(68, 68, 68);\">👉 Ability to define customized membership requirements</strong></p><p><strong style=\"color: rgb(68, 68, 68);\">👉 Design templates editor in Control Panel</strong></p><p><strong style=\"color: rgb(68, 68, 68);\">👉 \"Bad words\" customization filter</strong></p><p><br></p><p><br></p><p><br></p>"
             }
