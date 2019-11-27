@@ -41,10 +41,14 @@ const ActivePackage = ({
             </Fragment>
           )}
         </div>
-        <div className='note-text '>{`Subscribed to a ${period} Plan`}</div>
+        {lastTransaction.amount !== 0 && (
+          <div className='note-text '>
+            {`Subscribed to a ${period} Plan`}
+          </div>
+        )}
       </BigText>
     )}
-    footer={lastTransaction.createdAt ? (
+    footer={(lastTransaction.createdAt && lastTransaction.amount !== 0) ? (
       <FlexBoxesContainer>
         <div>
           <InputRow.Label>Nex billing date</InputRow.Label>
