@@ -15,7 +15,8 @@ const Price = ({
   originalPrice,
   interval,
   packageType,
-  code = {}
+  code = {},
+  lastTransaction = {}
 }) => {
   let price = originalPrice;
   let dashed = false;
@@ -27,6 +28,11 @@ const Price = ({
     price = code.amount;
     dashed = true;
   }
+  if (lastTransaction._id && lastTransaction.name === packageType) {
+    dashed = true;
+    price = lastTransaction.amount;
+  }
+
 
   return (
     <div className='package-card-price'>
@@ -56,7 +62,8 @@ const PackageCard = ({
   } = {},
   onSelect,
   interval = 'Monthly',
-  activePackage
+  activePackage,
+  lastTransaction
 }) => (
   <div
     onClick={() => onSelect(name)}
@@ -77,6 +84,7 @@ const PackageCard = ({
         interval={interval}
         code={code}
         packageType={name}
+        lastTransaction={lastTransaction}
       />
     </div>
   </div>
