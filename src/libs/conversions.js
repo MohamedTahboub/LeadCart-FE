@@ -13,4 +13,13 @@ export const downloadCSV = (fileName, dataRows) => {
   download.setAttribute('href', filehref);
   download.setAttribute('download', fileName);
   download.click();
-}
+};
+
+
+export const getTextContentFromTextNode = (htmlText) => {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = htmlText;
+
+  return wrapper.textContent;
+};
+

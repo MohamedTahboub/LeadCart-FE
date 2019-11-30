@@ -11,6 +11,9 @@ import ActivePackage from './components/ActivePackage'
 import { upgradeUserSchema } from '../../libs/validation'
 const { packagesPlans = {} } = config;
 
+
+const getLastItem = list => list[list.length - 1];
+
 const {
   InputRow,
   HeadLine,
@@ -29,6 +32,7 @@ const {
 const Subscription = ({
   activePackage = {},
   trial,
+  globalLoading,
   transactions,
   ...props
 }) => {
@@ -128,7 +132,7 @@ const Subscription = ({
   const cleanUp = () => {
     setFields({
       ...fields,
-      promoCode: {code:""},
+      promoCode: { code: "" },
       credit: {}
     });
   }
@@ -136,7 +140,7 @@ const Subscription = ({
 
     let promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined
 
-    console.log(promoCode)
+    // console.log(promoCode)
     const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode })
 
     if (!isValid)
@@ -160,6 +164,7 @@ const Subscription = ({
     );
   };
 
+  const lastTransaction = getLastItem(transactions)
   return (
     <Box
       header={(
@@ -179,7 +184,8 @@ const Subscription = ({
             <ActivePackage
               {...activePackage}
               trial={trial}
-              lastTransaction={transactions[transactions.length - 1]}
+              lastTransaction={lastTransaction}
+              isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
             />
           )}
           <ActivationSwitchInput
@@ -195,6 +201,7 @@ const Subscription = ({
               activePackage={fields.packageType}
               interval={fields.recurringPeriod}
               code={fields.promoCode}
+              lastTransaction={lastTransaction}
             />
             <PackageCard
               name='Pro'
@@ -203,6 +210,7 @@ const Subscription = ({
               activePackage={fields.packageType}
               interval={fields.recurringPeriod}
               code={fields.promoCode}
+              lastTransaction={lastTransaction}
             />
             <PackageCard
               name='Premium'
@@ -212,6 +220,7 @@ const Subscription = ({
               interval={fields.recurringPeriod}
               plus
               code={fields.promoCode}
+              lastTransaction={lastTransaction}
             />
           </FlexBoxesContainer>
         </Fragment>
@@ -277,6 +286,7 @@ Subscription.propTypes = {
 
 
 const mapStateToProps = ({
+  loading: globalLoading,
   user: {
     user: {
       activePackage = {},
@@ -295,7 +305,12 @@ const mapStateToProps = ({
     activePackage.type = level >= 4 ? 'Premium' : 'Pro'
     activePackage.period = 'Monthly'
   }
-  return { activePackage, trial: { trialEndDate, trial }, transactions };
+  return {
+    activePackage,
+    trial: { trialEndDate, trial },
+    globalLoading,
+    transactions
+  };
 }
 
 export const SubscriptionPackages = connect(

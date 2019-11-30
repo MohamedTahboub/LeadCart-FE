@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-
+import hardCodedMessages from 'assets/hardCodedMessages.json';
+import productSample from 'data/product.json';
 
 import tempImage1 from 'assets/images/checkout_templates/temp_1.png';
 import tempImage2 from 'assets/images/checkout_templates/temp_2.png';
@@ -57,8 +58,10 @@ const Appearance = ({
   product: {
     pagePreferences: {
       template,
-      themeColor = '#4da1ff',
-      backgroundColor = '#eee'
+      // themeColor = '#4da1ff',
+      // backgroundColor = '#eee',
+      // description,
+      // features
     } = {}
   } = {},
   ...props
@@ -71,15 +74,47 @@ const Appearance = ({
       }
     });
   };
-  const onTemplateChange = (value) => () => {
-    props.toggleTemplateChangeEffect();
-    props.onChange({
-      target: {
-        name: 'pagePreferences.template',
-        value
-      }
-    });
-  };
+  // const updateSideEffectTemplates = (current, next, cb) => {
+  //   console.log(current, next);
+  //   if (
+  //     (current !== next)
+  //     && current === 'temp6'
+  //   ) {
+  //     const {
+  //       description: defaultDescription,
+  //       features: {
+  //         title: featuresTitle
+  //       } = {}
+  //     } = productSample.pagePreferences;
+
+  //     props.onChange({
+  //       target: {
+  //         name: 'pagePreferences.features.title',
+  //         value: featuresTitle
+  //       }
+  //     });
+  //     props.onChange({
+  //       target: {
+  //         name: 'pagePreferences.description',
+  //         value: defaultDescription
+  //       }
+  //     });
+  //   }
+  //   cb();
+  // };
+  // const onTemplateChange = (value) => () => {
+  //   props.toggleTemplateChangeEffect();
+  //   updateSideEffectTemplates(template, value, () => {
+  //     setTimeout(() => {
+  //       props.onChange({
+  //         target: {
+  //           name: 'pagePreferences.template',
+  //           value
+  //         }
+  //       });
+  //     }, 300);
+  //   });
+  // };
 
 
   return (
@@ -95,7 +130,7 @@ const Appearance = ({
                   image={image}
                   activeTemplate={template}
                   order={id + 1}
-                  onSelect={onTemplateChange}
+                  onSelect={props.onTemplateChange}
                 />
               ))}
             </MenuFlexContent>

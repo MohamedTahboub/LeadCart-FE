@@ -35,7 +35,7 @@ const funnelSchema = yup.object({
   products: yup.array().of(ProductsSchema).default([]),
   thankyouPage: yup.string().nullable(),
   productsUpdates: yup.object({}),
-  url: yup.string().productUrl()
+  url: yup.string()
 });
 
 export default async (funnel) => {
