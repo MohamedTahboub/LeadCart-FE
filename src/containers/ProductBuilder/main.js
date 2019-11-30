@@ -9,7 +9,11 @@ import * as productActions from 'actions/product';
 import * as flashMessages from 'actions/flashMessage';
 import * as filesActions from 'actions/files';
 import { ProductBuilderSkelton } from 'components/Loaders';
-import { stopTabClosing, htmlToImage, slugify } from 'libs';
+import hardCodedMessages from 'assets/hardCodedMessages.json';
+
+import {
+  stopTabClosing, htmlToImage, slugify, getTextContentFromTextNode
+} from 'libs';
 // import  ProductEditableTemplate  from './';
 import { SideBar, Header, ProductEditableTemplate } from './components';
 import './style.css';
@@ -173,9 +177,59 @@ const ProductBuilder = ({
     }, 350);
   };
 
+  const onTemplateChange = (template) => () => {
+    const { pagePreferences: { template: currentTemplate, ...pagePreferences } = {} } = fields;
+    const updatesObj = {};
+
+    if (
+      (currentTemplate !== template)
+      && currentTemplate === 'temp6'
+    ) {
+      const featuresTitle = 'Features Title';
+      // getTextContentFromTextNode(
+      //   pagePreferences.features
+      //   && pagePreferences.features.title
+      // );
+      const description = getTextContentFromTextNode(
+        pagePreferences.description
+      );
+
+      updatesObj.pagePreferences = {
+        ...pagePreferences,
+        features: {
+          ...pagePreferences.features,
+          title: featuresTitle
+        },
+        description,
+        template
+      };
+    } else {
+      const {
+        products: {
+          defaults: {
+            temp6: {
+              features: featuresTitle
+            }
+          }
+        }
+      } = hardCodedMessages;
+
+      updatesObj.pagePreferences = {
+        ...pagePreferences,
+        description: pagePreferences.description,
+        features: {
+          ...pagePreferences.features,
+          title: featuresTitle
+        },
+        template
+      };
+    }
+
+    setFields({ ...fields, ...updatesObj });
+  };
 
   const workSpaceStyles = {
-    backgroundColor: (fields.pagePreferences && fields.pagePreferences.backgroundColor) || 'var(--wizard-container-bg)'
+    backgroundColor: (fields.pagePreferences && fields.pagePreferences.backgroundColor) || '#eee'
   };
 
   return (
@@ -202,6 +256,7 @@ const ProductBuilder = ({
           onToggleDarkTheme={onToggleDarkTheme}
           darkTheme={enableDarkTheme}
           toggleTemplateChangeEffect={toggleTemplateChangeEffect}
+          onTemplateChange={onTemplateChange}
         />
         <div style={workSpaceStyles} className={`product-workspace-container editor-workspace-wrapper ${isSidebarOpened ? 'side-opened' : ''}`}>
           <ProductEditableTemplate

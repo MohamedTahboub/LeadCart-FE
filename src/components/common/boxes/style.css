@@ -1,9 +1,10 @@
-.box-container{
+.box-container {
     background: white;
     /* padding: 15px 20px 46px 20px; */
     padding: 15px 20px 40px 20px;
 }
-.main-title-container{
+
+.main-title-container {
     position: relative;
     color: #2B3748;
     margin: 15px 0px;
@@ -11,73 +12,86 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .main-title {
     text-transform: capitalize;
     font-size: 20px;
     font-weight: normal;
 }
+
 .main-title-note {
     font-size: 14px;
     margin-left: 50px;
 }
-.small-box{
+
+.small-box {
     margin: 15px 20px 5px 0px;
     height: 150px;
-    width:150px;
+    width: 150px;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.small-box-container{
+
+.small-box-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.flex-boxes-container{
+
+.flex-boxes-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
-.flex-boxes-container.column{
+
+.flex-boxes-container.column {
     flex-direction: column;
 }
-.space-between-elements{
+
+.space-between-elements {
     justify-content: space-between;
 }
-.normal-box{
-    min-height: 260px;
+
+.normal-box {
+    min-height: 130px;
     min-width: 330px;
     margin: 10px 20px 20px 0px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     background: white;
-    padding: 20px;
+    padding: 20px 15px 10px;
 }
-.box-content{
-    flex:1;
+
+.box-content {
+    flex: 1;
     display: flex;
     align-items: center;
 }
-.normal-box .input-label-container{
+
+.normal-box .input-label-container {
     width: auto;
 }
 
-.block-container{
+.block-container {
     background: white;
-    padding:20px;
+    padding: 20px;
     min-height: 350px;
     border: 1px solid #aaa;
     /* border-top:1px solid transparent; */
 }
-.react-tabs__tab{
+
+.react-tabs__tab {
     bottom: -2px !important;
 }
-.react-tabs__tab-list{
-    border:none !important;
+
+.react-tabs__tab-list {
+    border: none !important;
 }
-.react-tabs__tab--selected .tab-title-container:after{
+
+.react-tabs__tab--selected .tab-title-container:after {
     box-shadow: none !important;
 }
 
@@ -86,10 +100,11 @@
 
 
 /* Embeded Script Container Styles*/
-.embeded-script-container{
+.embeded-script-container {
     position: relative;
 }
-.copied-flag{
+
+.copied-flag {
     position: absolute;
     bottom: -44px;
     right: 10px;
@@ -100,9 +115,11 @@
     transition: all .4s ease-in-out;
     opacity: 0;
 }
-.input-head-note{
+
+.input-head-note {
     margin: 10px 0px;
 }
+
 /* Embeded Script Container Styles Ends*/
 
 
@@ -117,7 +134,7 @@
     overflow: hidden;
 }
 
-.insight-box{
+.insight-box {
     position: relative;
     width: 150px;
     display: flex;
@@ -129,8 +146,9 @@
     background: #FFFFFF;
     /* margin: 0px 10px 0px 15px; */
     border-radius: 3px;
-    box-shadow: 2px 2px 2px 0px rgba(0,0,0,.01)
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, .01)
 }
+
 /* .insight-box:first-child{
     margin-left: 0px;
 }
@@ -141,8 +159,9 @@
 .insight-icon i {
     margin: 0 10px;
     font-size: 13px;
-    color:#C9D3DC;
+    color: #C9D3DC;
 }
+
 .insight-title {
     font-size: 13px;
     font-weight: bold;
@@ -151,6 +170,7 @@
     color: rgb(68, 84, 105);
     text-align: center;
 }
+
 .insight-value {
     font-size: 15px;
     text-align: center;
@@ -165,14 +185,16 @@ span.insight-chart {
     margin-top: 10px;
 }
 
-.insight-box .insight-box-info-tip{
+.insight-box .insight-box-info-tip {
     opacity: 0;
     transition: opacity .3s ease-in-out;
 }
-.insight-box:hover .insight-box-info-tip{
+
+.insight-box:hover .insight-box-info-tip {
     opacity: 1;
 }
-.insight-box-info-tip{
+
+.insight-box-info-tip {
     position: absolute;
     bottom: 5px;
     left: 8px;
@@ -180,17 +202,19 @@ span.insight-chart {
     z-index: 100;
 
 }
-.insight-box-info-tip .fas{
+
+.insight-box-info-tip .fas {
     font-size: 10px;
     color: #4DA1FF;
 }
-.insight-box-info-tip::after{
+
+.insight-box-info-tip::after {
     position: absolute;
     top: 100%;
-    left:15px;
+    left: 15px;
     padding: 3px 5px;
     background: #4DA1FF;
-    color:white;
+    color: white;
     content: attr(data-label);
     min-width: 170px;
     max-width: 300px;
@@ -199,14 +223,16 @@ span.insight-chart {
     font-size: 11px;
     border-radius: 5px;
     /* text-transform: lowercase; */
-    transform:translateX(-10%);
+    transform: translateX(-10%);
     cursor: default;
     transition: all .3s ease-in-out;
 }
-.insight-box-info-tip:hover::after{
-    transform:translateX(0);
+
+.insight-box-info-tip:hover::after {
+    transform: translateX(0);
     opacity: .9;
 }
+
 /* 
 .insight-box:nth-last-child(-n+3) .insight-box-info-tip::after{
     left:-100px;

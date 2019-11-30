@@ -79,7 +79,7 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
             const {
                 description: defaultDescription,
                 features: defaultFeatures
-            } = hardCodedMessages.products.defaults.temp5
+            } = hardCodedMessages.products.defaults.temp6
 
             product.pagePreferences.description = defaultDescription
             if (product.pagePreferences.features && product.pagePreferences.features.title) {

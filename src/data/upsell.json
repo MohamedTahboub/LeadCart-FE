@@ -59,7 +59,7 @@
             "title": "Features List",
             "enabled": true
         },
-        "backgroundColor": "var(--wizard-container-bg)",
+        "backgroundColor": "#eee",
         "themeColor": "rgb(6, 147, 227)",
         "declineButtonText": "no i don't wnat this order",
         "orderButtonText": "Complete Order Now! $50.00",
