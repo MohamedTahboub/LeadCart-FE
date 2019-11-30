@@ -1,27 +1,29 @@
-.explort-csv-btn{
+.explort-csv-btn {
     float: right;
 }
-.orders-chart-container{
+
+.orders-chart-container {
     background: white;
     margin: 20px 0px;
     padding: 20px;
 }
 
-.margin-top-20{
+.margin-top-20 {
     margin: 20px 0px;
 }
 
 
 
-.row-expand{
-  margin-left:10px;  
-  cursor: pointer;
+.row-expand {
+    margin-left: 10px;
+    cursor: pointer;
 }
 
-.row-expand i.fas{
+.row-expand i.fas {
     color: gray;
     transition: color .3s ease-in-out;
 }
-.row-expand:hover i.fas{
+
+.row-expand:hover i.fas {
     color: rgb(73, 72, 72);
 }
