@@ -13,7 +13,7 @@ import common from 'components/common'
 const getSubscriptionsList = orders => {
     return orders.reduce((subs, { products = [], ...order }) => {
         const subscriptionProducts = products
-            .filter(({ payment = {} }) => payment.paymentType === 'Onetime')
+            .filter(({ payment = {} }) => payment.paymentType === 'Subscriptions')
             .map(product => ({ ...order, product }))
         return [...subs, ...subscriptionProducts]
     }, []);

@@ -1,20 +1,22 @@
-.medium-add-btn{
+.medium-add-btn {
     padding: 10px 20px;
 }
-.smooth-box-padding{
+
+.smooth-box-padding {
     padding: 20px 20px 20px 20px;
 }
 
-.box-text-small{
-    color:#2B3748;
+.box-text-small {
+    color: #2B3748;
     font-size: 15px;
 }
-.box-text-small .fas{
+
+.box-text-small .fas {
     font-size: 12px;
     margin: 0px 5px;
 }
 
-.zapier-brand-image{
+.zapier-brand-image {
     height: 160px;
     width: auto;
 }
@@ -26,14 +28,16 @@
     flex-wrap: wrap;
     width: calc(100% - 300px);
 } */
-.account-form-input{
+.account-form-input {
     justify-content: space-between;
 }
-.small-form-container{
-    flex:1;
+
+.small-form-container {
+    flex: 1;
     /* max-width: 550px;
     min-width: 500px; */
 }
+
 .small-form-container:nth-child(1) {
     margin: 20px 20px 20px 0px;
 }
@@ -41,13 +45,14 @@
 
 .small-form-controlls {
     padding: 0 55px 10px 0;
-    
+
     display: flex;
     justify-content: flex-end;
     background: white;
 }
-.small-form-container .input-label-container{
-    width:200px;
+
+.small-form-container .input-label-container {
+    width: 200px;
 }
 
 .small-form-content {
@@ -57,22 +62,25 @@
 
 
 /* Billing page styles */
-.plan-card-action{
+.plan-card-action {
     margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
 }
-.blue-text{
-    color:#4DA1FF;
+
+.blue-text {
+    color: #4DA1FF;
     cursor: pointer;
 }
-.stick-note-icon{
+
+.stick-note-icon {
     position: relative;
     margin-top: 45%;
 }
-.stick-note-icon:before{
+
+.stick-note-icon:before {
     content: '';
     background: url(../../../assets/images/sticky-note-icon.png);
     position: absolute;
@@ -84,7 +92,8 @@
     top: -54px;
     left: 40%;
 }
-.light-red-color{
+
+.light-red-color {
     background: rgb(206, 45, 45);
 }
 
@@ -94,9 +103,11 @@
     display: flex;
     flex-direction: column;
 }
-.zapier-spcial-box .small-box-container{
+
+.zapier-spcial-box .small-box-container {
     flex-direction: column;
 }
+
 .zapier-client-oauth {
     width: 100%;
     padding: 3px 10px;
@@ -105,21 +116,22 @@
     outline-style: none;
 }
 
-.extra-margin-top{
-    margin-top:40px;
+.extra-margin-top {
+    margin-top: 40px;
 }
 
-.code-activation-form{
+.code-activation-form {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .code-activation-form .small-input {
     width: 190px;
     margin-right: 0px;
 }
 
-.disabled-card{
+.disabled-card {
     background: #f2f2f2;
     pointer-events: none;
 }
@@ -134,7 +146,8 @@ span.test-disabled {
     cursor: not-allowed;
     background: gray;
 }
-span.test-disabled:hover::after{
+
+span.test-disabled:hover::after {
     position: absolute;
     width: 330px;
     content: 'update you email footer details ,so you can send test emails';
@@ -145,31 +158,35 @@ span.test-disabled:hover::after{
 }
 
 
-div.mail-chimp-logo{
+div.mail-chimp-logo {
     background-size: 32% !important;
 }
-div.ever-lesson-logo{
+
+div.ever-lesson-logo {
     background-size: 50% !important;
 }
+
 /* Cards Container Styles*/
-.crads-container-element{
+.crads-container-element {
     display: flex;
     /* justify-content: space-between; */
     flex-wrap: wrap;
 }
+
 /* Cards Container Styles Ends*/
 
 
 
 
-.member-table-row{
+.member-table-row {
     position: relative;
 }
 
-.billing-cards-container{
+.billing-cards-container {
     flex: 1;
     align-items: unset;
 }
+
 .card-handler {
     background: whitesmoke;
     border: 1px solid #e9e9e9;
@@ -184,12 +201,13 @@ div.ever-lesson-logo{
     text-overflow: ellipsis;
 }
 
-.subscription-head-line{
+.subscription-head-line {
     font-weight: bold;
-    color:#485579;
+    color: #485579;
 }
-.subscription-head-description{
-    color:#9E9E9E;
+
+.subscription-head-description {
+    color: #9E9E9E;
     font-size: 13px;
-    margin:10px 0;
+    margin: 10px 0;
 }
