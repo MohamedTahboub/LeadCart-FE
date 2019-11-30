@@ -32,6 +32,7 @@ const {
 const Subscription = ({
   activePackage = {},
   trial,
+  globalLoading,
   transactions,
   ...props
 }) => {
@@ -131,7 +132,7 @@ const Subscription = ({
   const cleanUp = () => {
     setFields({
       ...fields,
-      promoCode: {code:""},
+      promoCode: { code: "" },
       credit: {}
     });
   }
@@ -184,6 +185,7 @@ const Subscription = ({
               {...activePackage}
               trial={trial}
               lastTransaction={lastTransaction}
+              isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
             />
           )}
           <ActivationSwitchInput
@@ -284,6 +286,7 @@ Subscription.propTypes = {
 
 
 const mapStateToProps = ({
+  loading: globalLoading,
   user: {
     user: {
       activePackage = {},
@@ -302,7 +305,12 @@ const mapStateToProps = ({
     activePackage.type = level >= 4 ? 'Premium' : 'Pro'
     activePackage.period = 'Monthly'
   }
-  return { activePackage, trial: { trialEndDate, trial }, transactions };
+  return {
+    activePackage,
+    trial: { trialEndDate, trial },
+    globalLoading,
+    transactions
+  };
 }
 
 export const SubscriptionPackages = connect(

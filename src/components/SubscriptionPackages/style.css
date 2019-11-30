@@ -82,3 +82,9 @@
 .text-capitalize{
     text-transform: capitalize;
 }
+
+.blur-effect{
+    transition: all .3s ease-in-out;
+    filter: blur(5px);
+    opacity: .6;
+}

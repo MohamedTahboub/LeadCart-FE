@@ -21,13 +21,15 @@ const ActivePackage = ({
     trialEndDate
   } = {},
   userSource,
+  className = '',
+  isLoadingClass,
   lastTransaction = {}
 }) => (
   <Box
-    className='active-package-box'
+    className='active-package-box '
     header={<HeadLine>Active Package :</HeadLine>}
     content={(
-      <BigText>
+      <BigText className={isLoadingClass}>
         <div className='package-level'>
           {packageType}
           {isTrial && (
@@ -49,7 +51,7 @@ const ActivePackage = ({
       </BigText>
     )}
     footer={(lastTransaction.createdAt && lastTransaction.amount !== 0) ? (
-      <FlexBoxesContainer>
+      <FlexBoxesContainer className={isLoadingClass}>
         <div>
           <InputRow.Label>Nex billing date</InputRow.Label>
           {userSource === 'saasmntra'
