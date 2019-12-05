@@ -53,7 +53,7 @@ const ActivePackage = ({
     footer={(lastTransaction.createdAt && lastTransaction.amount !== 0) ? (
       <FlexBoxesContainer className={isLoadingClass}>
         <div>
-          <InputRow.Label>Nex billing date</InputRow.Label>
+          <InputRow.Label>Next billing date</InputRow.Label>
           {userSource === 'saasmntra'
             ? <div> ~ Eternity</div>
             : (

@@ -21,8 +21,8 @@ export default ({ dispatch }) => (next) => async (action) => {
       body: payload,
       contentType: 'json'
     },
-    onSuccess: () => {
-      meta.onSuccess && meta.onSuccess(payload);
+    onSuccess: (args) => {
+      meta.onSuccess && meta.onSuccess(args);
       return updateMarketPlaceDomainsSuccess(action.payload);
     },
     onFailed: (message) => {
