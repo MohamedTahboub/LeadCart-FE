@@ -23,6 +23,7 @@
 }
 
 .note.error-note,
+.note.success-note,
 .note.general-note {
     border: 1px solid #80808042;
     border-left: 3px solid #3072a5;
@@ -30,6 +31,9 @@
     margin: 20px 0;
     border-radius: 4px;
     font-size: 12px;
+}
+.note.success-note{
+    border-left: 3px solid lightgreen;
 }
 .note.error-note{
     border-left: 3px solid tomato;

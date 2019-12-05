@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
@@ -21,14 +21,28 @@ const {
 const VerificationProcess = ({
   verifying,
   connected,
+  records = [],
   error
 }) => {
-  if (!error) return null;
+  if (verifying) return null;
+
+  if (!error && !connected) return null;
+
+
+  if (error && error.includes('ENOTFOUND')) error = 'This domain does not seem to exist, Please check your domain name and try again';
   return (
     <div className='flex-container flex-start'>
-      <div className='note error-note'>
-        {error}
-      </div>
+      {error
+        ? (
+          <div className='note error-note'>
+            {error}
+          </div>
+        ) : (
+          <div className='note success-note'>
+            <strong>You Domain is verified & Connected Successfully</strong>
+          </div>
+        )
+      }
     </div>
   );
 };
@@ -73,16 +87,19 @@ const DomainConnectInstruction = () => (
   </div>
 );
 const DomainSetting = ({
-  updateMarketPlaceDomains
+  updateMarketPlaceDomains,
+  customDomain
 }) => {
-  const [error, setError] = useState();
+  const [error, setError] = useState({});
   const [domain, setDomain] = useState('');
   const [loading, setLoading] = useState(false);
   const [connected, setConnected] = useState(false);
+  const [records, setRecords] = useState([]);
 
   const onChange = ({ target: { value } }) => {
     setDomain(value);
-    setError();
+    setError({});
+    setConnected(false);
   };
 
   const onUpdate = () => {
@@ -92,18 +109,30 @@ const DomainSetting = ({
         domain
       },
       {
-        onSuccess: () => {
-          setLoading(false);
+        onSuccess: (data) => {
+          setRecords(data.records);
           setConnected(true);
+
+          setLoading(false);
         },
         onFailed: (err) => {
-          setError(err);
+          let error = {};
+          if (typeof err === 'string') error.message = err;
+          else error = err;
+          setError(error);
           setLoading(false);
         }
       }
     );
   };
 
+  useEffect(() => {
+    setDomain(customDomain);
+    return () => {
+      setError({});
+      setConnected();
+    };
+  }, [customDomain]);
 
   return (
     <MainBlock title='MarketPlace Domain Settings' className='domains-setting-block'>
@@ -121,7 +150,7 @@ const DomainSetting = ({
           name='customDomain'
           onChange={onChange}
           placeholder='e.g. example.com'
-          error={error}
+          error={error.message}
           value={domain}
         />
         <Button
@@ -135,7 +164,8 @@ const DomainSetting = ({
       </InputRow>
       <VerificationProcess
         verifying={loading}
-        error={error}
+        error={error.message}
+        recorder={records}
         connected={connected}
       />
     </MainBlock>
