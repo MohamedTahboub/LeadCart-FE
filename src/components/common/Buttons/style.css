@@ -41,12 +41,14 @@
 }
 
 .btn.spinner::after{
-  right: 110%;
-  top: 29%;
-  left: unset;
+  left: calc(50% - 6.5px);
+  width: 14px;
+  height: 14px;
+  top: calc(50% - 6.5px);
   margin: unset;
+  border: 2px solid rgb(62, 89, 240);
+  border-top-color: #fefefe;
 }
-
 span.primary-btn{
   background: #4DA1FF;
   background: var(--btn-bg);

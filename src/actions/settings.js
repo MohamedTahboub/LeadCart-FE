@@ -8,7 +8,10 @@ import {
   CONNECT_WITH_PAYPAL_FAILED,
   UPDATE_MARKETPLACE_SETTINGS,
   UPDATE_MARKETPLACE_SETTINGS_SUCCESS,
-  UPDATE_MARKETPLACE_SETTINGS_FAILED
+  UPDATE_MARKETPLACE_SETTINGS_FAILED,
+  UPDATE_MARKETPLACE_DOMAINS,
+  UPDATE_MARKETPLACE_DOMAINS_SUCCESS,
+  UPDATE_MARKETPLACE_DOMAINS_FAILED,
 } from 'constantsTypes';
 
 export const updateMarketPlaceSettings = (settings, meta) => ({
@@ -59,5 +62,19 @@ export const connectWithPaypalSuccess = (data) => ({
 });
 export const connectWithPaypalFailed = (message) => ({
   type: CONNECT_WITH_PAYPAL_FAILED,
+  payload: message
+});
+
+export const updateMarketPlaceDomains = (domains, meta) => ({
+  type: UPDATE_MARKETPLACE_DOMAINS,
+  payload: domains,
+  meta
+});
+export const updateMarketPlaceDomainsSuccess = (domains) => ({
+  type: UPDATE_MARKETPLACE_DOMAINS_SUCCESS,
+  payload: domains
+});
+export const updateMarketPlaceDomainsFailed = (message) => ({
+  type: UPDATE_MARKETPLACE_DOMAINS_FAILED,
   payload: message
 });
