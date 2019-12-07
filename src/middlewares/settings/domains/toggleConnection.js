@@ -1,16 +1,16 @@
+import {
+  CONNECT_MARKETPLACE_DOMAIN
+} from 'constantsTypes';
 
 import {
-    toggleMarketPlaceDomainConnectionSuccess,
-    toggleMarketPlaceDomainConnectionFailed
-} from '../../../actions/settings';
+  connectMarketPlaceDomainSuccess,
+  connectMarketPlaceDomainFailed,
+} from 'actions/settings';
 
 import { apiRequest } from 'actions/apiRequest';
-import {
-    TOGGLE_MARKETPLACE_DOMAIN_CONNECTION
-} from '../../../constantsTypes';
 
 export default ({ dispatch }) => (next) => async (action) => {
-  if (action.type !== TOGGLE_MARKETPLACE_DOMAIN_CONNECTION) return next(action);
+  if (action.type !== CONNECT_MARKETPLACE_DOMAIN) return next(action);
 
   const { payload, meta = {} } = action;
 
@@ -23,11 +23,11 @@ export default ({ dispatch }) => (next) => async (action) => {
     },
     onSuccess: (args) => {
       meta.onSuccess && meta.onSuccess(args);
-      return toggleMarketPlaceDomainConnectionSuccess(action.payload);
+      return connectMarketPlaceDomainSuccess(action.payload);
     },
     onFailed: (message) => {
       meta.onFailed && meta.onFailed(message);
-      return toggleMarketPlaceDomainConnectionFailed(message);
+      return connectMarketPlaceDomainFailed(message);
     }
   }));
 };

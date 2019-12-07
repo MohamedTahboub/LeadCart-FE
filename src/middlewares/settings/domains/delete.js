@@ -1,16 +1,16 @@
 import {
-    CONNECT_MARKETPLACE_DOMAIN
-} from 'constantsTypes';
+    DELETE_MARKETPLACE_DOMAIN
+} from '../../../constantsTypes';
 
 import {
-    connectMarketPlaceDomainSuccess,
-    connectMarketPlaceDomainFailed,
-} from 'actions/settings';
+    deleteMarketPlaceDomainSuccess,
+    deleteMarketPlaceDomainFailed,
+} from '../../../actions/settings';
 
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => async (action) => {
-    if (action.type !== CONNECT_MARKETPLACE_DOMAIN) return next(action);
+    if (action.type !== DELETE_MARKETPLACE_DOMAIN) return next(action);
 
     const { payload, meta = {} } = action;
 
@@ -23,11 +23,11 @@ export default ({ dispatch }) => (next) => async (action) => {
         },
         onSuccess: (args) => {
             meta.onSuccess && meta.onSuccess(args);
-            return connectMarketPlaceDomainSuccess(action.payload);
+            return deleteMarketPlaceDomainSuccess(action.payload);
         },
         onFailed: (message) => {
             meta.onFailed && meta.onFailed(message);
-            return connectMarketPlaceDomainFailed(message);
+            return deleteMarketPlaceDomainFailed(message);
         }
     }));
 };
