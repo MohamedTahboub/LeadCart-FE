@@ -22,6 +22,7 @@ const DomainForm = ({ domains, connectMarketPlaceDomain }) => {
 
   const onChange = ({ target: { value } }) => {
     setValue(value);
+    if (error) setError();
   };
 
 
@@ -34,6 +35,7 @@ const DomainForm = ({ domains, connectMarketPlaceDomain }) => {
       {
         onSuccess: (data) => {
           setLoading(false);
+          setError();
         },
         onFailed: (err) => {
           setError(err);
