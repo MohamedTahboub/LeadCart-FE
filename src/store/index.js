@@ -2,12 +2,14 @@ import rootReducer from 'reducers';
 import middlewares from 'middlewares';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import LogRocket from 'logrocket';
+
 
 const env = process.env.NODE_ENV;
 
 const applicationMiddleware = env !== 'production'
   ? applyMiddleware(logger, ...middlewares)
-  : applyMiddleware(...middlewares);
+  : applyMiddleware(...middlewares, LogRocket.reduxMiddleware());
 
 
 const store = createStore(rootReducer, applicationMiddleware);

@@ -22,6 +22,8 @@
     color: #2B3748;
 }
 
+.note.error-note,
+.note.success-note,
 .note.general-note {
     border: 1px solid #80808042;
     border-left: 3px solid #3072a5;
@@ -30,7 +32,12 @@
     border-radius: 4px;
     font-size: 12px;
 }
-
+.note.success-note{
+    border-left: 3px solid lightgreen;
+}
+.note.error-note{
+    border-left: 3px solid tomato;
+}
 .charts-settings-footer {
     display: flex;
     justify-content: space-between;

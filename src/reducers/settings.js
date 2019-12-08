@@ -4,14 +4,19 @@ import {
   SAVE_USER_GENERAL_SETTINGS_FAILED,
   CONNECT_WITH_PAYPAL_SUCCESS,
   CONNECT_WITH_PAYPAL_FAILED,
-  UPDATE_MARKETPLACE_SETTINGS_SUCCESS
-} from 'constantsTypes';
+  UPDATE_MARKETPLACE_SETTINGS_SUCCESS,
+  VERIFY_MARKETPLACE_DOMAIN_SUCCESS,
+  TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_SUCCESS,
+  DELETE_MARKETPLACE_DOMAIN_SUCCESS,
+  CONNECT_MARKETPLACE_DOMAIN_SUCCESS
+} from '../constantsTypes';
 
 
 const initialState = {
   generalModel: {
     errors: {},
-    layout: {}
+    layout: {},
+    domains: []
   },
   integrations: {
     errors: {}
@@ -30,6 +35,7 @@ export default (state = initialState, { type, payload }) => {
         ...payload
       }
     };
+
   case SAVE_USER_GENERAL_SETTINGS_FAILED:
     return {
       ...state,
@@ -56,6 +62,44 @@ export default (state = initialState, { type, payload }) => {
           ...state.integrations.errors.paypal,
           paypal: payload
         }
+      }
+    };
+  case CONNECT_MARKETPLACE_DOMAIN_SUCCESS:
+    return {
+      ...state,
+      generalModel: {
+        ...state.generalModel,
+        domains: [...state.generalModel.domains, { ...payload, connected: true }]
+      }
+    };
+  case VERIFY_MARKETPLACE_DOMAIN_SUCCESS:
+    return {
+      ...state,
+      generalModel: {
+        ...state.generalModel,
+        domains: state.generalModel.domains.map((domain) => {
+          if (domain.domain === payload.domain) return ({ ...domain, verified: true });
+          return domain;
+        })
+      }
+    };
+  case TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_SUCCESS:
+    return {
+      ...state,
+      generalModel: {
+        ...state.generalModel,
+        domains: state.generalModel.domains.map((domain) => {
+          if (domain.domain === payload.domain) return ({ ...domain, connected: !domain.connected });
+          return domain;
+        })
+      }
+    };
+  case DELETE_MARKETPLACE_DOMAIN_SUCCESS:
+    return {
+      ...state,
+      generalModel: {
+        ...state.generalModel,
+        domains: state.generalModel.domains.filter(({ domain }) => domain !== payload.domain)
       }
     };
   default: return state;
