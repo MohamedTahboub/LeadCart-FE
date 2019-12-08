@@ -72,6 +72,17 @@ export default (state = initialState, { type, payload }) => {
         domains: [...state.generalModel.domains, { ...payload, connected: true }]
       }
     };
+  case VERIFY_MARKETPLACE_DOMAIN_SUCCESS:
+    return {
+      ...state,
+      generalModel: {
+        ...state.generalModel,
+        domains: state.generalModel.domains.map((domain) => {
+          if (domain.domain === payload.domain) return ({ ...domain, verified: true });
+          return domain;
+        })
+      }
+    };
   case TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_SUCCESS:
     return {
       ...state,

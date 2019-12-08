@@ -1,6 +1,6 @@
 import connect from './connect'
-import verify from './verify'
 import toggleConnection from './toggleConnection'
+import verify from './verify'
 import deleteDomain from './delete'
 
 

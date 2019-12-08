@@ -17,3 +17,34 @@ tr.domain-table-row{
   .domain-delete-btn:hover{
     color:tomato
   }
+
+  .verified-badge{
+      font-size: 13px;
+      /* text-align: center; */
+      margin-left: -12px;;
+  }
+  .verified-badge i.fas{
+      color:lightgreen;
+      margin: 0 4px ;
+  }
+  .aligned-center{
+      text-align: center;
+  }
+
+  .note.general-note {
+    border-left: 3px solid #4ea0fc;
+}
+
+.note.general-note code {
+    /* background: #eee; */
+    padding: 0px 5px;
+    border-radius: 3px;
+    color: rgb(77, 161, 255);
+    border-bottom: 1px solid #eee;
+}
+.copy-icon{
+    color: lightgray;
+    cursor: pointer;
+    margin-left: 3px;
+}
+
