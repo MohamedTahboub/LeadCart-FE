@@ -176,7 +176,7 @@ const mapStateToProps = ({
   products,
   settings: {
     generalModel: {
-      subdomain,
+      subDomain :subdomain,
       domains = []
     } = {}
   } = {}
