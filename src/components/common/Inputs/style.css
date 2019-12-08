@@ -1098,7 +1098,9 @@ input.text-input-filed {
     width: inherit;
     border-radius: 3px;
 }
-
+.text-input-filed.error{
+    color:rgb(253, 93, 64);
+}
 input.text-input-filed:focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(29, 150, 243, .25);
@@ -1136,8 +1138,8 @@ div.ant-select-sm .ant-select-selection--single {
 }
 
 .margin-v-20 {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .margin-left-20 {
@@ -1157,7 +1159,12 @@ div.ant-select-sm .ant-select-selection--single {
     align-items: center;
     justify-content: center;
 }
-
+.flex-start{
+    justify-content: flex-start;
+}
+.flex-end{
+    justify-content: flex-end;
+}
 .fb-column {
     flex-direction: column;
 }
@@ -1178,3 +1185,18 @@ div.ant-select-sm .ant-select-selection--single {
 .line-though {
     text-decoration: line-through;
 }
+
+
+.df-h-between {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .margin-t-20 {
+    margin-top: 20px;
+  }
+  
+  .margin-h-20 {
+    margin-left: 20px;
+    margin-right: 20px;
+  }

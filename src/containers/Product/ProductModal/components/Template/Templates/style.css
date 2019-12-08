@@ -29,17 +29,3 @@
   padding: 0px 22px;
 }
 
-
-.df-h-between {
-  display: flex;
-  justify-content: space-around;
-}
-
-.margin-t-20 {
-  margin-top: 20px;
-}
-
-.margin-h-20 {
-  margin-left: 20px;
-  margin-right: 20px;
-}

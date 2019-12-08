@@ -9,6 +9,7 @@ const TextField = ({
   onBlur,
   name,
   prefix,
+  error,
   value,
   defaultValue,
   ...props
@@ -21,7 +22,7 @@ const TextField = ({
       disabled={disabled}
       value={value}
       defaultValue={defaultValue}
-      className='text-input-filed'
+      className={`text-input-filed ${error ? 'error' : ''}`}
       onChange={onChange}
       onBlur={onBlur}
       {...props}

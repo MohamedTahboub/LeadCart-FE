@@ -68,7 +68,8 @@ export default {
       },
     },
     mixPanelId: '6f1e8d2fe9734115de1fdcac460bd8ba',
-    intercomAppId: 'hegmjd4b'
+    intercomAppId: 'hegmjd4b',
+    logRocketId: 'olwrix/leadcart'
   },
   staging: { // ca_C82XtIMbphaPO4JDiO1TJretDIMhEi3o
     ZAPIER_INVITATION_LINK: 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/',
@@ -126,7 +127,8 @@ export default {
       },
     },
     mixPanelId: '6f1e8d2fe9734115de1fdcac460bd8ba',
-    intercomAppId: 'hegmjd4b'
+    intercomAppId: 'hegmjd4b',
+    logRocketId: 'olwrix/leadcart'
   },
   production: {
     ZAPIER_INVITATION_LINK: 'https://zapier.com/platform/public-invite/9563/25175f8086de29f4464aa004da95b81f/',
@@ -184,7 +186,8 @@ export default {
       },
     },
     mixPanelId: '9f4e14f1602b54645779337eb660525a',
-    intercomAppId: 'oiankyy0'
+    intercomAppId: 'oiankyy0',
+    logRocketId: 'olwrix/leadcart'
   }
 }[process.env.REACT_APP_ENV || 'development'];
 

@@ -1,6 +1,6 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import * as modalsActions from 'actions/modals';
+// import * as modalsActions from 'actions/modals';
 import * as funnelsActions from 'actions/funnels';
 import * as productsActions from 'actions/products';
 import * as flashMessages from 'actions/flashMessage';
@@ -31,6 +31,9 @@ const {
 
 // const { SearchInput, Checkbox } = InputRow;
 
+const getValidDomain = (domains = []) => {
+  return domains.find(({ verified, connected }) => verified && connected)
+}
 const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
 const Funnels = ({
@@ -38,52 +41,19 @@ const Funnels = ({
   filtersLabels,
   deleteFunnel,
   subdomain,
+  domains,
   ...props
 }) => {
+
+  console.log("domains=>",domains)
   const [showDelete, setShowDelete] = useState('');
   const [creatingFunnel, setCreateFunnel] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  // const [showProductForm, setShowProductForm] = useState({});
-  // const [filteredProducts, setFilteredProducts] = useState(products);
-  const [filterKeys, setFilterKeys] = useState({ categories: ['Checkout', 'UpSell'] });
-  // const onProductPreview = ({category , _id }) => {
-  //   const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
-  //   window.open(productUrl, '_blank');
-  // };
 
   const onFunnelEdit = (url) => {
     props.history.push(`/funnels/${url}`);
   };
 
-
-  // useEffect(() => {
-  //   setFilteredProducts(funnels);
-  // }, [funnels]);
-
-
-  // const onProductDuplicate = ({
-  //   __v,
-  //   id,
-  //   _id,
-  //   name,
-  //   isActive,
-  //   owner,
-  //   coupons: { list, enabled } = {},
-  //   url,
-  //   ...product
-  // }) => {
-  //   product.name = `${name}- copy`;
-  //   product.url = 'autoGenerateUrl';
-  //   product.coupons = { enabled: !!enabled };
-
-  //   delete product.token;
-
-  //   props.createNewProduct(product, {
-  //     onSuccess: (msg) => {
-  //     },
-  //     onFailed: (message) => { }
-  //   });
-  // };
 
 
   const onShowDeleteDialogue = (id) => setShowDelete(id);
@@ -109,32 +79,7 @@ const Funnels = ({
       }
 
     );
-    // onHideDeleteDialogue();
   };
-
-  // const onFilterProducts = (searchKey, categories) => {
-  //   let filtered = products;
-  //   if (searchKey) filtered = filtered.filter((p) => p._id === searchKey);
-
-  //   if (categories) filtered = filtered.filter((p) => categories.includes(p.category));
-
-  //   setFilterKeys({ searchKey, categories });
-  //   setFilteredProducts(filtered);
-  // };
-
-  // const onSearch = ({ target: { name, value: searchKey } }) => {
-  //   const { categories } = filterKeys;
-  //   if (searchKey === 'all') return onFilterProducts(undefined, categories);
-  //   onFilterProducts(searchKey, categories);
-  // };
-
-
-  // const onToggleCategory = (name) => () => {
-  //   let { searchKey, categories } = filterKeys;
-
-  //   categories = categories.includes(name) ? categories.filter((c) => c !== name) : [...categories, name];
-  //   onFilterProducts(searchKey, categories);
-  // };
 
   const onCreate = () => {
     setShowCreateModal(true);
@@ -146,17 +91,28 @@ const Funnels = ({
 
 
 
-  const onPreview = (url) => () => {
-    const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
-    window.open(funnelUrl, '_blank');
+  const onPreview = (funnelUrl) => {
+    const domain = getValidDomain(domains)
+
+    console.log(domains, domain)
+    let url;
+    if (domain && domain.domain)
+      url = `https://${domain.domain}/${funnelUrl}`;
+    else
+      url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
+
+    // const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
+    window.open(url, '_blank');
   }
 
+  // useEffect(() => {
 
+  // }, [subdomain, domains])
   return (
     <Fragment>
       <Page>
         <PageHeader>
-          <div className='margin-v-20 flex-container fb-aligned-center'>
+          <div className='margin-h-20 flex-container fb-aligned-center'>
             <MainTitle>Funnels</MainTitle>
           </div>
           <Button onClick={onCreate} className='primary-color'>
@@ -173,7 +129,7 @@ const Funnels = ({
               onDelete={() => onShowDeleteDialogue(funnel._id)}
               onEdit={() => onFunnelEdit(funnel.url)}
               // onDuplicate={() => onProductDuplicate(product)}
-              onPreview={onPreview(funnel.url)}
+              onPreview={() => onPreview(funnel.url)}
             />
           ))
           }
@@ -212,14 +168,27 @@ const Funnels = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  isFetching: state.loading,
-  subdomain: state.user.user.subDomain,
-  funnels: state.funnels,
-  products: state.products.products.map((p) => ({ ...p, category: p.category || 'Checkout' })),
+
+
+const mapStateToProps = ({
+  loading,
+  funnels,
+  products,
+  settings: {
+    generalModel: {
+      subDomain :subdomain,
+      domains = []
+    } = {}
+  } = {}
+}) => ({
+  isFetching: loading,
+  subdomain,
+  domains,
+  funnels,
+  products: products.products.map((p) => ({ ...p, category: p.category || 'Checkout' })),
   filtersLabels: [
     { label: 'All Products', value: 'all' },
-    ...state.products.products.map((p) => ({ label: p.name, value: p._id || p.id }))
+    ...products.products.map((p) => ({ label: p.name, value: p._id || p.id }))
   ]
 });
 

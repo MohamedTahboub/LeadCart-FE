@@ -9,6 +9,10 @@ import PropTypes from 'prop-types';
 import { marketPlaceSettingSchema } from 'libs/validation';
 import * as flashMessagesActions from 'actions/flashMessage';
 
+import {
+  DomainsSettings
+} from './components'
+
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, Button } = common;
 
@@ -126,16 +130,7 @@ const GeneralSettings = ({
 
           </InputRow.AddImage>
         </InputRow>
-        <InputRow margin='43'>
-          <InputRow.Label error={errors.subDomain}>Brand SubDomain:</InputRow.Label>
-          <InputRow.SmallInput
-            name='subDomain'
-            onChange={onChange}
-            error={errors.subDomain}
-            value={fields.subDomain}
-          />
-        </InputRow>
-        <InputRow margin='20'>
+        <InputRow margin='42'>
           <InputRow.Label
             error={errors.country}
             notes='Select a country to be displayed as the default on your checkout pages. Your customers can always select a different country.'
@@ -187,8 +182,22 @@ const GeneralSettings = ({
             onChange={onChange}
           />
         </InputRow>
+        <InputRow>
+          <InputRow.Label
+            error={errors.subDomain}
+            notes='Brand SubDomain'
+          >
+            Brand SubDomain:
+        </InputRow.Label>
+          <InputRow.TextField
+            name='subDomain'
+            onChange={onChange}
+            error={errors.subDomain}
+            value={fields.subDomain}
+          />
+        </InputRow>
       </MainBlock>
-
+      <DomainsSettings />
       <MainBlock title='Marketplace Page Settings'>
         <InputRow>
           <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>
