@@ -16,11 +16,16 @@ const {
   ActivationSwitchInput
 } = common;
 
+const getValidDomain = (domains = []) => {
+  return domains.find(({ verified, connected }) => verified && connected)
+}
+
 const CheckoutHeader = ({
   funnel,
   isNew,
   onChange,
   subdomain,
+  domains,
   onSave,
   history,
   ...props
@@ -29,9 +34,19 @@ const CheckoutHeader = ({
   const [showModal, setShowModal] = useState({});
 
   const onPreview = () => {
-    const { url } = funnel;
-    const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
-    window.open(funnelUrl, '_blank');
+    const { url:funnelUrl } = funnel;
+
+    const domain = getValidDomain(domains)
+
+    console.log(domains, domain)
+    let url;
+    if (domain && domain.domain)
+      url = `https://${domain.domain}/${funnelUrl}`;
+    else
+      url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
+
+    // const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
+    window.open(url, '_blank');
   };
 
   // const onShowScripts = () => {
