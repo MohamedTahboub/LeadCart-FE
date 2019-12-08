@@ -22,6 +22,7 @@ const FunnelBuilder = ({
   funnels,
   products,
   subdomain,
+  domains,
   globelLoading,
   ...props
 }) => {
@@ -170,6 +171,7 @@ const FunnelBuilder = ({
           // onDisplayChange={onDisplayChange}
           onChange={onChange}
           subdomain={subdomain}
+          domains={domains}
           funnel={fields}
           onSave={onSave}
           isNew={isNew}
@@ -212,6 +214,11 @@ const mapStateToProps = ({
   products: { products } = {},
   funnels,
   loading: globelLoading,
-  user: { user: { subDomain: subdomain } }
-}) => ({ products, subdomain, globelLoading, funnels });
+  settings: {
+    generalModel: {
+      subDomain: subdomain,
+      domains = []
+    } = {}
+  } = {}
+}) => ({ products, subdomain, domains, globelLoading, funnels });
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);
