@@ -1138,8 +1138,8 @@ div.ant-select-sm .ant-select-selection--single {
 }
 
 .margin-v-20 {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .margin-left-20 {
@@ -1185,3 +1185,18 @@ div.ant-select-sm .ant-select-selection--single {
 .line-though {
     text-decoration: line-through;
 }
+
+
+.df-h-between {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .margin-t-20 {
+    margin-top: 20px;
+  }
+  
+  .margin-h-20 {
+    margin-left: 20px;
+    margin-right: 20px;
+  }

@@ -1,0 +1,19 @@
+.domains-setting-block .box-container{
+    padding-bottom: 20px ;
+}
+table.domain-table{
+    min-width: 500px;
+    padding-left: 30px;
+}
+tr.domain-table-row{
+    height: 30px;
+}
+
+.domain-delete-btn{
+    border:unset;
+    color:rgba(255, 99, 71, 0.52);
+    transition: color .4s ease-in-out;
+  }
+  .domain-delete-btn:hover{
+    color:tomato
+  }

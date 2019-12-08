@@ -80,9 +80,9 @@ const Products = ({
     delete product.token;
 
 
-    if (payment.type === 'Onetime' && payment.recurringPeriod) 
-      delete payment.recurringPeriod
-    
+    if (payment.type === 'Onetime' && payment.recurringPeriod)
+      delete payment.recurringPeriod;
+
 
     if (product.category === 'upsell') product.payment = { type: payment.type };
     else product.payment = payment;
@@ -128,7 +128,7 @@ const Products = ({
   return (
     <Page>
       <PageHeader>
-        <div className='margin-v-20 flex-container fb-aligned-center'>
+        <div className='margin-h-20 flex-container fb-aligned-center'>
           <InputRow.TextField
             // className='products-search-field'
             onChange={onSearch}

@@ -9,9 +9,18 @@ import {
   UPDATE_MARKETPLACE_SETTINGS,
   UPDATE_MARKETPLACE_SETTINGS_SUCCESS,
   UPDATE_MARKETPLACE_SETTINGS_FAILED,
-  UPDATE_MARKETPLACE_DOMAINS,
-  UPDATE_MARKETPLACE_DOMAINS_SUCCESS,
-  UPDATE_MARKETPLACE_DOMAINS_FAILED,
+  CONNECT_MARKETPLACE_DOMAIN,
+  CONNECT_MARKETPLACE_DOMAIN_SUCCESS,
+  CONNECT_MARKETPLACE_DOMAIN_FAILED,
+  VERIFY_MARKETPLACE_DOMAIN,
+  VERIFY_MARKETPLACE_DOMAIN_SUCCESS,
+  VERIFY_MARKETPLACE_DOMAIN_FAILED,
+  TOGGLE_MARKETPLACE_DOMAIN_CONNECTION,
+  TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_SUCCESS,
+  TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_FAILED,
+  DELETE_MARKETPLACE_DOMAIN,
+  DELETE_MARKETPLACE_DOMAIN_SUCCESS,
+  DELETE_MARKETPLACE_DOMAIN_FAILED,
 } from 'constantsTypes';
 
 export const updateMarketPlaceSettings = (settings, meta) => ({
@@ -65,16 +74,59 @@ export const connectWithPaypalFailed = (message) => ({
   payload: message
 });
 
-export const updateMarketPlaceDomains = (domains, meta) => ({
-  type: UPDATE_MARKETPLACE_DOMAINS,
-  payload: domains,
+
+export const connectMarketPlaceDomain = (domain, meta) => ({
+  type: CONNECT_MARKETPLACE_DOMAIN,
+  payload: domain,
   meta
 });
-export const updateMarketPlaceDomainsSuccess = (domains) => ({
-  type: UPDATE_MARKETPLACE_DOMAINS_SUCCESS,
-  payload: domains
+export const connectMarketPlaceDomainSuccess = (domain) => ({
+  type: CONNECT_MARKETPLACE_DOMAIN_SUCCESS,
+  payload: domain
 });
-export const updateMarketPlaceDomainsFailed = (message) => ({
-  type: UPDATE_MARKETPLACE_DOMAINS_FAILED,
+export const connectMarketPlaceDomainFailed = (message) => ({
+  type: CONNECT_MARKETPLACE_DOMAIN_FAILED,
+  payload: message
+});
+
+export const verifyMarketPlaceDomain = (domain, meta) => ({
+  type: VERIFY_MARKETPLACE_DOMAIN,
+  payload: domain,
+  meta
+});
+export const verifyMarketPlaceDomainSuccess = (records) => ({
+  type: VERIFY_MARKETPLACE_DOMAIN_SUCCESS,
+  payload: records
+});
+export const verifyMarketPlaceDomainFailed = (message) => ({
+  type: VERIFY_MARKETPLACE_DOMAIN_FAILED,
+  payload: message
+});
+
+export const toggleMarketPlaceDomainConnection = (domain, meta) => ({
+  type: TOGGLE_MARKETPLACE_DOMAIN_CONNECTION,
+  payload: domain,
+  meta
+});
+export const toggleMarketPlaceDomainConnectionSuccess = (domain) => ({
+  type: TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_SUCCESS,
+  payload: domain
+});
+export const toggleMarketPlaceDomainConnectionFailed = (message) => ({
+  type: TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_FAILED,
+  payload: message
+});
+
+export const deleteMarketPlaceDomain = (domain, meta) => ({
+  type: DELETE_MARKETPLACE_DOMAIN,
+  payload: domain,
+  meta
+});
+export const deleteMarketPlaceDomainSuccess = (domain) => ({
+  type: DELETE_MARKETPLACE_DOMAIN_SUCCESS,
+  payload: domain
+});
+export const deleteMarketPlaceDomainFailed = (message) => ({
+  type: DELETE_MARKETPLACE_DOMAIN_FAILED,
   payload: message
 });

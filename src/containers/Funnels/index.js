@@ -156,7 +156,7 @@ const Funnels = ({
     <Fragment>
       <Page>
         <PageHeader>
-          <div className='margin-v-20 flex-container fb-aligned-center'>
+          <div className='margin-h-20 flex-container fb-aligned-center'>
             <MainTitle>Funnels</MainTitle>
           </div>
           <Button onClick={onCreate} className='primary-color'>
