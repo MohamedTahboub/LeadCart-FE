@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
@@ -15,7 +15,7 @@ const CopyIcon = ({ text }) => (
 );
 
 const {
-  InputRow, MainBlock, Button
+  InputRow, MainBlock, Button, MiniButton
 } = common;
 
 const VerificationProcess = ({
@@ -50,68 +50,78 @@ const VerificationProcess = ({
 const DomainConnectInstruction = () => (
   <div className='flex-container flex-start'>
     <p className='note general-note'>
-      To connect your domain, you need to log in to your Domain Name Provider Account(Domain.com, GoDaddy, Namecheap, ...etc)
-      <br />
-      And change your settings to match the Following:
+      Now Setup Your Domain Records to Match The Following:
       <br />
       <ul className='margin-top-20'>
         <li>
-          Point your CNAME (www) to
-          {' '}
+          Your CNAME(www) Points to
           <code>cart.leadcart.io</code>
           <CopyIcon text='cart.leadcart.io' />
-          {' '}
         </li>
         <li>
-          Point your A RECORD (@) to
-          {' '}
+          Your A RECORD (@) Points to
           <code>3.136.95.204</code>
           <CopyIcon text='3.136.95.204' />
-          {' '}
         </li>
       </ul>
-      <div className='note'>
-        If you just want to use a CNAME to Point to your market place make sure its pointing to
-        {' '}
-        <code>cart.leadcart.io</code>
-        <CopyIcon text='cart.leadcart.io' />
-      </div>
       <div>
         Follow the step-by-step instructions &nbsp;
         <a href='https://help.leadcart.io/domains/connect' target='_blank'>
           here
         </a>
-        &nbsp; if you have any problem.
+        &nbsp; if you have any issue.
       </div>
     </p>
   </div>
 );
 const DomainSetting = ({
-  updateMarketPlaceDomains,
+  connectMarketPlaceDomain,
   customDomain
 }) => {
   const [error, setError] = useState({});
-  const [domain, setDomain] = useState('');
   const [loading, setLoading] = useState(false);
-  const [connected, setConnected] = useState(false);
-  const [records, setRecords] = useState([]);
+  const [fields, setFields] = useState({ domain: customDomain, connected: !!customDomain });
 
   const onChange = ({ target: { value } }) => {
-    setDomain(value);
+    setFields({ domain: value });
     setError({});
-    setConnected(false);
   };
 
-  const onUpdate = () => {
+  const onConnect = () => {
     setLoading(true);
-    updateMarketPlaceDomains(
+    connectMarketPlaceDomain(
       {
-        domain
+        domain: fields.domain
       },
       {
         onSuccess: (data) => {
-          setRecords(data.records);
-          setConnected(true);
+          setFields({
+            domain: fields.domain,
+            connected: true
+          });
+          setLoading(false);
+        },
+        onFailed: (err) => {
+          let error = {};
+          if (typeof err === 'string') error.message = err;
+          else error = err;
+          setError(error);
+          setLoading(false);
+        }
+      }
+    );
+  };
+
+  const onVerify = () => {
+    setLoading(true);
+    connectMarketPlaceDomain(
+      {
+        domain: fields.domain
+      },
+      {
+        onSuccess: (data) => {
+          // setRecords(data.records);
+          // setConnected(true);
 
           setLoading(false);
         },
@@ -126,52 +136,99 @@ const DomainSetting = ({
     );
   };
 
-  useEffect(() => {
-    setDomain(customDomain);
-    return () => {
-      setError({});
-      setConnected();
-    };
-  }, [customDomain]);
+
+  const onDomainDelete = () => {
+
+  };
+
+  useEffect(() => () => {
+    setError({});
+    // setConnected();
+  },
+  [customDomain]);
 
   return (
     <MainBlock title='MarketPlace Domain Settings' className='domains-setting-block'>
-      <strong className='title '>
-        Connect Your Custom domain
-      </strong>
-      <DomainConnectInstruction />
-      <InputRow margin='20'>
-        <InputRow.Label
-          notes='Enter the domain you want to connect.'
-        >
-          Custom Domain Name:
-        </InputRow.Label>
-        <InputRow.TextField
-          name='customDomain'
-          onChange={onChange}
-          placeholder='e.g. example.com'
-          error={error.message}
-          value={domain}
-        />
-        <Button
-          disabled={loading}
-          onprogress={loading}
-          onClick={onUpdate}
-          className='margin-left-30 primary-color'
-        >
-          Verify & Connect
-        </Button>
-      </InputRow>
-      <VerificationProcess
+      {!fields.connected && (
+        <Fragment>
+          <strong className='title '>
+            Connect Your Custom domain
+          </strong>
+          <InputRow margin='20'>
+            <InputRow.Label
+              notes='Enter the domain you want to connect.'
+            >
+              Custom Domain Name:
+            </InputRow.Label>
+            <InputRow.TextField
+              name='customDomain'
+              onChange={onChange}
+              placeholder='e.g. example.com'
+              error={error.message}
+              value={fields.domain}
+            />
+            <Button
+              disabled={loading}
+              onprogress={loading}
+              onClick={onConnect}
+              className='margin-left-30 primary-color'
+            >
+              Connect
+            </Button>
+          </InputRow>
+        </Fragment>
+      )}
+
+      {fields.connected && (
+        <table className='domain-table'>
+          <tr className='domain-table-row'>
+            <th>Domain</th>
+            <th>Primary</th>
+            <th>Checks</th>
+            <th>Delete</th>
+          </tr>
+          <tr className='domain-table-row'>
+            <td>
+              <code>{fields.domain}</code>
+            </td>
+            <td>
+              <Button className='primary-color'>
+                {`${fields.connected ? 'Disconnect' : 'Connect'}`}
+              </Button>
+            </td>
+            <td>
+              <Button className='primary-color' disabled={fields.verified}>
+                {`${fields.verified ? 'verified' : 'verify'}`}
+              </Button>
+            </td>
+            <td>
+              <MiniButton
+                toolTip='Delete'
+                className='domain-delete-btn'
+                iconClass='fa-trash'
+                onClick={onDomainDelete}
+              />
+            </td>
+          </tr>
+        </table>
+      )}
+      <DomainConnectInstruction connected={fields.connected} />
+
+
+    </MainBlock>
+  );
+};
+//
+
+/*
+
+ <VerificationProcess
         verifying={loading}
         error={error.message}
         recorder={records}
         connected={connected}
       />
-    </MainBlock>
-  );
-};
-//
+*/
 
 DomainSetting.propTypes = {
 

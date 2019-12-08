@@ -10,7 +10,7 @@ import { marketPlaceSettingSchema } from 'libs/validation';
 import * as flashMessagesActions from 'actions/flashMessage';
 
 import {
-  DomainSettings
+  DomainsSettings
 } from './components'
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
@@ -197,7 +197,7 @@ const GeneralSettings = ({
           />
         </InputRow>
       </MainBlock>
-      <DomainSettings />
+      <DomainsSettings />
       <MainBlock title='Marketplace Page Settings'>
         <InputRow>
           <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>

@@ -1,2 +1,2 @@
-export { default as DomainSettings } from './DomainSetting';
+export { default as DomainsSettings } from './DomainsSetting';
 
