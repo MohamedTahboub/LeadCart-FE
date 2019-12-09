@@ -5,8 +5,8 @@ import {
 import {
   onChangeAccountDetailsSuccess,
   onChangeAccountDetailsFailed,
-  onChangeAccounPasswordSuccess,
-  onChangeAccounPasswordFailed
+  onChangeAccountPasswordSuccess,
+  onChangeAccountPasswordFailed
 } from 'actions/account';
 import { apiRequest } from 'actions/apiRequest';
 
@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
   const { payload, meta = {} } = action;
   const options = {
     method: 'put',
-    body: action.payload,
+    body: payload,
     contentType: 'json',
     uri: '/api/users/profile'
   };
@@ -33,11 +33,11 @@ export default ({ dispatch }) => (next) => (action) => {
       onSuccess: (args) => {
         if (meta.onSuccess) meta.onSuccess(args);
 
-        return onChangeAccounPasswordSuccess(args);
+        return onChangeAccountPasswordSuccess(args);
       },
       onFailed: (message) => {
         if (meta.onFailed) meta.onFailed(message);
-        return onChangeAccounPasswordFailed(message);
+        return onChangeAccountPasswordFailed(message);
       }
     };
   }

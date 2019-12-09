@@ -1,11 +1,16 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import avatarLink from 'assets/images/avatar.jpg';
 import { connect } from 'react-redux';
 import * as filesActions from 'actions/files';
 
 
 const Avatar = ({
-  image: initImage = avatarLink, className = '', files, uploadFile, name = 'avatar', onChange
+  image: initImage = avatarLink,
+  className = '',
+  files,
+  uploadFile,
+  name = 'avatar',
+  onChange
 }) => {
   const [state, setState] = useState({ image: initImage });
   let fileInput = '';

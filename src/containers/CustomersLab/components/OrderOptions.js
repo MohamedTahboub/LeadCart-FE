@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import common from '../../../components/common';
 import { connect } from 'react-redux'
 import * as customersActions from 'actions/customers'
@@ -23,7 +22,7 @@ const OrderOptions = ({
       subscriptionCanceled
     } = {},
     product: {
-      name:productName,
+      // name:productName,
       price: {
         amount: productPrice
       } = {},

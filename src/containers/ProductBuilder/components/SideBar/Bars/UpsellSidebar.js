@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 
 import {
   AppearanceIcon,
   conversionsBoostersIcon,
   fulfillmentIcon,
-  //   bumpOfferIcon,
-  //   couponIcon,
   pricingIcon,
   settingsIcon
 } from '../../Icons';
 
-// import '../style.css';
 
 const SideButton = ({
   className = '',

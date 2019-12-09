@@ -1,15 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import EditableField from './EditableField';
 import common from 'components/common';
 const {
-  List,
-  // InputRow,
-  // MainTitle,
-  // Button,
-  // ActivationSwitchInput,
-  // SubTabs,
-  // FlexBoxesContainer
   EditableField
 } = common;
 

@@ -9,7 +9,7 @@ import cashOnDeliveryImage from 'assets/images/cod.png';
 import './style.css';
 
 
-const { CycleStepTitle, RadioImageCard, FloatButton } = common;
+const { CycleStepTitle, RadioImageCard } = common;
 
 const PaymentSelectionDemo = ({ method }) => {
   let src;
@@ -29,12 +29,16 @@ const PaymentSelectionDemo = ({ method }) => {
   return (
     <img
       src={src}
-      alt='paypal Image'
+      alt='paypal brand'
       className={`template-payment-gateway-demo ${classes}`}
     />
   );
 };
-const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
+const PaymentMethods = ({
+  // onOptionSelected,
+  methods = [],
+  step = 2
+}) => {
   const [method, setMethod] = useState(0);
 
 
@@ -57,7 +61,7 @@ const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
         )}
         {methods.includes('Paypal') && (
           <RadioImageCard
-            title='Credit Cards'
+            title='PayPal'
             name='payment-type'
             image={paypalImage}
             onClick={() => setMethod(2)}

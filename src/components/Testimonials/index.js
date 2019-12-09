@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import avatarLink from 'assets/images/avatar.jpg';
 
 import Image from 'components/common/Image';
 import { EditableField } from 'components/common/Inputs';
 import './style.css';
-import ids from 'shortid';
 
 const TestimonialElement = ({
   author = 'Click to edit Author name',

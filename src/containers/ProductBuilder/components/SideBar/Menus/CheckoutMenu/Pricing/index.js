@@ -11,18 +11,13 @@ import {
   MenuItem,
   MenuTitle,
   MenuContent,
-  MenuFlexContent
 } from '../MenuElements';
 
-const {
-  Collapse, InputRow, MediumCard, Title
-} = common;
-// const { Panel } = Collapse;
+const { InputRow } = common;
 const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 
 const Settings = ({
   product: {
-    url,
     price = {},
     payment
   } = {},

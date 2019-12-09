@@ -325,7 +325,7 @@ export const CHANGE_FULFILLMENT_STATE_FAILED = Symbol('CHANGE_FULFILLMENT_STATE_
 /* Fulfillment Actions Ends */
 
 
-/* global action types */
+// global action types */
 export const TOGGLE_CREATE_PRODUCT_MODALE = Symbol('TOGGLE_CREATE_PRODUCT_MODALE');
 
 export const APP_INITIATION = Symbol('APP_INITIATION');

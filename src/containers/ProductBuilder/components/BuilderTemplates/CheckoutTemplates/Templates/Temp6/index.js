@@ -1,27 +1,21 @@
-import React, { Component } from 'react';
-import Image from 'components/common/Image';
-import defaultLogo from 'assets/images/new-product-icon.png';
+import React from 'react';
 import { MediaAsset } from '../../../../common'
 import QuillEditor from 'components/QuillEditor';
 
 import {
   Header,
-  AboutProduct,
   BillingDetails,
   CompleteOrderBtn,
   CouponActivation,
-  Features,
   GuaranteeMessage,
   OrderSummary,
   PaymentMethods,
   TermsAndConditionsBadge,
   ShippingDetails,
-  // MediaAsset,
   BumpOffer,
   Testimonials
 } from '../../components'
 
-// import './style.css'
 
 const Template = ({ className = '', product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
 

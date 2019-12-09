@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import currencies from 'data/currencies.json';
-import PaymentType from 'components/PaymentType';
-import PaymentGateway from 'components/PaymentGateways';
 
 import './style.css';
 
@@ -11,19 +8,17 @@ import {
   MenuItem,
   MenuTitle,
   MenuContent,
-  MenuFlexContent
 } from '../MenuElements';
 const languages = [
   { value: 'en', label: 'English' }
 ];
 const {
-  Collapse, InputRow, MediumCard, Title
+  Collapse,
+  InputRow
 } = common;
 const { Panel } = Collapse;
-const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 
 const Settings = ({
-  product: { url, price = {}, payment } = {},
   subdomain,
   onToggleDarkTheme,
   darkTheme,
@@ -43,7 +38,7 @@ const Settings = ({
               value={url}
             />
           </InputRow>
-          
+
           */}
           <InputRow className='sidebar-row'>
             <InputRow.Label className='sidebar-input-label'>Translation</InputRow.Label>
@@ -64,10 +59,10 @@ const Settings = ({
           <InputRow className='sidebar-row'>
             <InputRow.Label className='sidebar-input-label'>
               <abbr title='General Data Protection Regulation'>
-               GDPR
+                  GDPR
               </abbr>
-              &ensp;Compliance
-            :
+                &ensp;Compliance
+              :
 
             </InputRow.Label>
             <InputRow.SwitchInput

@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { CodeInputArea } from '../Inputs'
 import PropTypes from 'prop-types';
-import { iconsClassesReference, getSymbolsReferences } from 'libs'
+import { getSymbolsReferences } from 'libs'
 import './style.css';
 
 export const FlexBoxesContainer = ({ children, flex = '', className, ...props }) => (
@@ -11,7 +11,14 @@ export const FlexBoxesContainer = ({ children, flex = '', className, ...props })
 );
 
 export const MainBlock = ({
-  title, notes, children, className = '', containerClasses, blockHandel, blockActivabilityHandle = false, ...props
+  title,
+  notes,
+  children,
+  className = '',
+  containerClasses,
+  blockHandel,
+  blockActivabilityHandle = false,
+  ...props
 }) => (
     <div className={`main-block ${className}`}>
       <div className='main-title-container'>
@@ -34,13 +41,22 @@ export const Block = ({ children, ...props }) => (
     {children}
   </div>
 );
-export const SmallBox = ({ clickable = false, onClick, className = '', ...props }) => (
-  <div onClick={onClick} style={({ cursor: clickable ? 'pointer' : 'inherit' })} className={`small-box ${className}`}>
-    <div className='small-box-container'>
-      {props.children}
+export const SmallBox = ({
+  clickable = false,
+  onClick,
+  className = '',
+  ...props
+}) => (
+    <div
+      onClick={onClick}
+      style={({ cursor: clickable ? 'pointer' : 'inherit' })}
+      className={`small-box ${className}`}
+    >
+      <div className='small-box-container'>
+        {props.children}
+      </div>
     </div>
-  </div>
-);
+  );
 export const Box = ({
   header,
   contentClassName = '',

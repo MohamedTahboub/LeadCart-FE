@@ -8,6 +8,8 @@ export const extractProductsRelations = ({ products = [] }) => {
       const associatedWithProduct = products.find(({ elementId }) => elementId === relation.target);
 
       if (associatedWithProduct) proRel = { ...proRel, [relation.type]: associatedWithProduct.productId };
+
+      return undefined;
     });
 
     if (bulk[product.productId]) bulk[product.productId] = { ...bulk[product.productId], ...proRel };
@@ -19,6 +21,8 @@ export const extractProductsRelations = ({ products = [] }) => {
   const result = {};
   Object.keys(productsObj).map((key) => {
     if (Object.keys(productsObj[key]).length) result[key] = productsObj[key];
+
+    return undefined;
   });
 
   console.log('Products Relations Object: ==========>\n', result);

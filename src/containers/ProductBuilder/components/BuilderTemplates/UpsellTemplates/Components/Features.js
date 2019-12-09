@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import UpsellFeature from 'components/UpsellFeature';
-import ids from 'shortid';
 
 
 const AddIcon = ({ tooltip, ...props }) => (

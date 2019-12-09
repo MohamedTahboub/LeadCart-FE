@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Header,
   AboutProduct,
@@ -15,13 +15,30 @@ import {
   Testimonials
 } from '../../components'
 
-// import './style.css'
 
-const Template = ({ className = '', product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
+const Template = ({
+  className = '',
+  product: {
+    shippingDetails = {},
+    ...product
+  } = {},
+  onChange,
+  onOptionSelected
+}) => {
 
-  const { themeColor: color, features = {}, testimonials = {} } = product.pagePreferences || {}
-  const { coupons = {}, payment = {} } = product
+  const {
+    themeColor: color,
+    features = {},
+    testimonials = {}
+  } = product.pagePreferences || {}
+
+  const {
+    coupons = {},
+    payment = {}
+  } = product
+
   const showRightSide = features.enabled || testimonials.enabled || coupons.enabled;
+  
   return (
     <div id={product._id} className={`editable-product-form-container ${className}`}>
       <Header

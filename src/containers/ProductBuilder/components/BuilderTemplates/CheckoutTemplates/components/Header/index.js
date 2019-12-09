@@ -1,12 +1,10 @@
 import React from 'react';
 import defaultLogo from 'assets/images/logo.png';
 import { connect } from 'react-redux';
-import common from 'components/common';
 
 
 import './style.css';
 
-const { FloatButton } = common;
 
 const Header = ({
   companyName = 'LeadCart',

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import CreditCardInput from 'react-credit-card-input';
 
 import './style.css';
@@ -19,7 +19,7 @@ export default ({
         expiryMonth,
         expiryYear
       };
-    }else {
+    } else {
       fields = {
         ...credit,
         [name]: value

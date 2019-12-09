@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import config from 'config';
+// import config from 'config';
 import './style.css';
 
 import {
@@ -9,10 +9,9 @@ import {
 } from './components';
 
 
-const { USER_SUB_DOMAIN_URL } = config;
+// const { USER_SUB_DOMAIN_URL } = config;
 const {
   HeaderLogo,
-  Button,
   EditableField,
   ActivationSwitchInput
 } = common;

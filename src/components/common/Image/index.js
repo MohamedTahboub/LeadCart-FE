@@ -1,8 +1,7 @@
-import React, { useState, useEffect, Component } from 'react';
+import React from 'react';
 import avatarLink from 'assets/images/avatar.jpg';
 import { connect } from 'react-redux';
 import * as filesActions from 'actions/files';
-// import { bytesToSize } from 'libs';
 
 
 import './style.css';
@@ -10,7 +9,7 @@ import './style.css';
 export const Image = ({
   image: initImage = avatarLink,
   className = '',
-  files,
+  // files,
   uploadFile,
   name = 'imageHolder',
   onChange

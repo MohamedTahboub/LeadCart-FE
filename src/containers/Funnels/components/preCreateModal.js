@@ -15,7 +15,6 @@ import basicFunnelImage from 'assets/images/basicFunnelImage.png';
 import blankFunnelImage from 'assets/images/blankFunnelImage.png';
 
 const {
-  MainTitle,
   Button,
   InputRow
 } = common;

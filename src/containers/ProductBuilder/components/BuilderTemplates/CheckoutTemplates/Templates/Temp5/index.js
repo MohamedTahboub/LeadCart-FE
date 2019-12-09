@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import Image from 'components/common/Image';
-import defaultLogo from 'assets/images/new-product-icon.png';
+import React from 'react';
+
 import {
   Header,
   AboutProduct,
@@ -17,14 +16,21 @@ import {
   Testimonials
 } from '../../components'
 
-// import './style.css'
 
-const Template = ({ className='' ,product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
+const Template = ({
+  className = '',
+  product: {
+    shippingDetails = {},
+    ...product
+  } = {},
+  onChange,
+  onOptionSelected
+}) => {
 
   const color = product.pagePreferences && product.pagePreferences.themeColor
   const { features = {}, testimonials = {} } = product.pagePreferences || {}
-  const { coupons = {} ,payment ={}} = product
-  const showRightSide = testimonials.enabled || coupons.enabled;
+  const { coupons = {}, payment = {} } = product
+
   return (
     <div id={product._id} className={`editable-product-form-container ${className}`}>
       <Header
@@ -35,7 +41,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
       <section className="product-template-body">
         <section className="richening-components-section">
           <AboutProduct
-          {...product}
+            {...product}
             onChange={onChange}
             containerClassName='about-product-section-h'
             descriptionInnerClassName={'vertical-product-template-description'}
