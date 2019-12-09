@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as couponsActions from 'actions/coupon';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import common from 'components/common';
 import { couponSchema } from 'libs/validation';
 import { Modal } from 'components/Modals';

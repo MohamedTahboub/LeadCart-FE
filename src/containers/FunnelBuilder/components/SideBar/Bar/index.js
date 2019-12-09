@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 import nodesTemplates from './nodeTemplates';
 
 import {
-  upsellIcon,
-  checkoutProductIcon,
-  AppearanceIcon,
-  conversionsBoostersIcon,
-  fulfillmentIcon,
-  bumpOfferIcon,
-  couponIcon,
-  pricingIcon,
   settingsIcon
 } from '../../Icons';
 

@@ -3,15 +3,13 @@ import common from 'components/common';
 import './style.css';
 const {
   Page,
-  PageHeader,
   MainTitle
 } = common;
 const ImageFullPageContainer = ({
   image,
-  className,
+  // className,
   title,
   hideBox,
-  ...props
 }) => (
   <Page>
     {title && (

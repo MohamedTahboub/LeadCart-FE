@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import NewUrlRow from './NewUrlRow';
 import './style.css';
 import moment from 'moment';
-import ids from 'shortid'
 
 const SuccessUrls = ({
   list = [],
@@ -10,7 +9,7 @@ const SuccessUrls = ({
 }) => {
   const onChange = ({ target: { value, name } }, id) => {
     const newList = list.map((link, i) => {
-      if (i == id) return { ...link, [name]: value };
+      if (i === id) return { ...link, [name]: value };
       return link;
     });
 

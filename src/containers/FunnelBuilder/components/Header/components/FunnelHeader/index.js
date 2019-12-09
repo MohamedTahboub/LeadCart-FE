@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { DefaultHeader } from '..';
 import config from 'config';
 import ShareProductModal from 'components/ShareProductModal';
-import ScriptsModal from 'components/ScriptsModal';
 
 
 import common from 'components/common';
@@ -11,9 +9,7 @@ import common from 'components/common';
 
 const { USER_SUB_DOMAIN_URL } = config;
 const {
-  HeaderLogo,
   Button,
-  ActivationSwitchInput
 } = common;
 
 const getValidDomain = (domains = []) => {

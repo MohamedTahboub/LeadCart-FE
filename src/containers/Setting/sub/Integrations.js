@@ -17,12 +17,9 @@ const {
 } = config;
 
 const {
-  Button,
   MainTitle,
-  SmallBox,
   WarningMessage,
   Dialog,
-  FlexBoxesContainer,
   MediumCard,
   PayPalConnectContainer
 } = common;
@@ -62,7 +59,7 @@ const Integrations = ({
     const {
       activat_method,
       code,
-      scope,
+      // scope,
       error,
       error_description
     } = queryString.parse(history.location.search.replace('?', ''));

@@ -2,3 +2,19 @@
     margin-bottom: 40px;
 
 }
+
+.sub-account-modal .input-label-container{
+    width: 120px;
+}
+.modal-content.sub-account-modal {
+    min-width: 600px;
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+}
+.sub-account-form{
+    margin: 0 auto;
+}
+.sub-account-form .input-row{
+    align-items: center;
+}

@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 // import * as modalsActions from 'actions/modals';
 import * as funnelsActions from 'actions/funnels';
@@ -34,7 +34,7 @@ const {
 const getValidDomain = (domains = []) => {
   return domains.find(({ verified, connected }) => verified && connected)
 }
-const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
+// const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
 const Funnels = ({
   funnels,
@@ -47,6 +47,7 @@ const Funnels = ({
 
   console.log("domains=>",domains)
   const [showDelete, setShowDelete] = useState('');
+  // eslint-disable-next-line
   const [creatingFunnel, setCreateFunnel] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 

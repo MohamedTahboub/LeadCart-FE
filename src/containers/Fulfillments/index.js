@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as fulfillmentsActions from 'actions/fulfillments';

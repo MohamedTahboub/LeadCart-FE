@@ -1,11 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
 
 const {
   InputRow,
-  MainBlock,
   Button,
   FlexBoxesContainer,
   MainTitle

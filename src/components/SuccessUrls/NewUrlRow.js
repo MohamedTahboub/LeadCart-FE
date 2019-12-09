@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import common from 'components/common';
-import moment from 'moment';
+// import moment from 'moment';
 
-const todayDate = (Date.now() - (24 * 60 * 60 * 1000));
+// const todayDate = (Date.now() - (24 * 60 * 60 * 1000));
+
 const {
   InputRow,
   SelectBox

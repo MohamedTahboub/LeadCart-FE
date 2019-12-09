@@ -77,7 +77,7 @@ class SignUp extends Component {
           <span className='login-header-message'>
             free trial for 7 days on
             {' '}
-            <a href='https://leadcart.io' target='_blank'>
+            <a href='https://leadcart.io' target='_blank' rel="noopener noreferrer">
               leadcart
             </a>
           </span>

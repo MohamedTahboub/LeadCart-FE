@@ -8,20 +8,8 @@ import hardCodedMessages from 'assets/hardCodedMessages.json'
 import upsellSample from 'data/upsell.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux'
-import ids from 'shortid'
 import common from '../common'
 
-
-
-/*
-    "products":{
-        "defaults":{
-            "temp5":{
-                "description":"<h1>Product Name</h1><p><br></p><h1 class=\"ql-align-justify\"><span class=\"ql-size-small\">Get The Simple Script That Effortlessly Convinces Your Customers To Spend More Money With You...FOR FREE!</span></h1>",
-                "features":"<h2><strong>What You Get</strong></h2><p class=\"ql-align-center\"><br></p><p><strong style=\"color: rgb(68, 68, 68);\" class=\"ql-size-large\">👉 Ability to create any membership type</strong></p><p><strong style=\"color: rgb(68, 68, 68);\" class=\"ql-size-large\">👉 Ability to define membership access level</strong></p><p><strong style=\"color: rgb(68, 68, 68);\" class=\"ql-size-large\">👉 Ability to define customized membership requirements</strong></p><p><strong style=\"color: rgb(68, 68, 68);\" class=\"ql-size-large\">👉 Design templates editor in Control Panel</strong></p><p><strong style=\"color: rgb(68, 68, 68);\" class=\"ql-size-large\">👉 \"Bad words\" customization filter</strong></p><p><br></p><p><br></p>"
-            }
-
-*/
 import './style.css'
 
 const {
@@ -52,7 +40,7 @@ const NextPage = ({ page, ...props }) => {
 
 const ProductCategoryModal = ({ show, onClose, ...props }) => {
     const [next, setNext] = useState('categories')
-    const [progress, setProgress] = useState(false)
+    // const [progress, setProgress] = useState(false)
     const [category, setCategory] = useState('checkout');
 
     const onNext = (nextInterface, category) => () => {
@@ -86,18 +74,18 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
                 product.pagePreferences.features.title = defaultFeatures
             }
         }
-        setProgress(true)
+        // setProgress(true)
         props.createNewProduct(
             product,
             {
                 onSuccess: (product) => {
-                    setProgress(false)
+                    // setProgress(false)
                     setTimeout(() => {
                         props.history.push(`/${category}/${product.id}`)
                     }, 300);
                 },
                 onFailed: (message) => {
-                    setProgress(false)
+                    // setProgress(false)
 
                 }
             })

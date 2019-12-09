@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
 import config from '../../config';

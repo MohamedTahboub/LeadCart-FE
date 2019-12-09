@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import common from 'components/common';
+import React from 'react';
 import { getCurrencySymbol } from 'libs';
 import { RoundTow } from 'libs';
 import { ReceiptRow } from './common';
-import { OrderOptions } from '.';
 
 
 import ProductRow from './ProductRow';
-const { Button } = common;
 
 const PaymentTypeIcon = ({ type, className = '' }) => {
   const icon = {
@@ -26,14 +23,14 @@ const Order = ({
   onRefund,
   totalCharge,
   paymentMethod,
-  payment = {},
+  // payment = {},
   product = {},
   products = [],
 }) => {
 
   if (product.name && !products.length) products.push(product)
 
-  const [moreOptions, setMoreOptions] = useState(false);
+  // const [moreOptions, setMoreOptions] = useState(false);
   const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
 
   return (

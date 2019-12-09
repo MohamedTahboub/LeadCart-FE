@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { showIntercomIcon } from 'libs';
 import { EasyAnimate, SlidingAnimation } from '../common/Animation';
 
@@ -30,14 +30,14 @@ export default ({
             <i className='fas fa-times-circle' />
           </span>
           {header}
-                    </div>
+        </div>
         )}
         <div onClick={onContentClick} className={`slide-modal-body ${bodyClassName}`}>
           {children}
         </div>
         {footer && (<div className='slide-modal-footer'>
           {footer}
-                    </div>
+        </div>
         )}
       </SlidingAnimation>
     </EasyAnimate>

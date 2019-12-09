@@ -152,11 +152,11 @@ export const BumpOfferTemplateCard = ({ image, active }) => (
 );
 
 
-const Label = ({ children, ...props }) => (
-  <span className='simple-label'>
-    {children}
-  </span>
-);
+// const Label = ({ children, ...props }) => (
+//   <span className='simple-label'>
+//     {children}
+//   </span>
+// );
 
 
 export const UpsellCard = ({

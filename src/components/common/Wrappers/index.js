@@ -1,9 +1,17 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { SelectBox } from '../Inputs'
 
 import './style.css';
 
-export const DisableEnableWrapper = ({ enabled: init = false, id: featureId, children, className, onEnabled, onDisabled }) => {
+export const DisableEnableWrapper = ({
+  enabled: init = false,
+  id: featureId,
+  children,
+  className,
+  onEnabled,
+  onDisabled
+}) => {
+
   const [enabled, setEnable] = useState(init)
 
   const onToggle = () => {

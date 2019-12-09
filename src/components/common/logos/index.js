@@ -37,9 +37,9 @@ export const HeaderLogo = ({ onClick, fullWidth, ...props }) => {
       <div className='logo-position'>
         <Logo />
         <span className='business-name'>leadcart</span>
-        <div onClick={stopPropagation} className='feedy-widget'>
+        <div onClick={stopPropagation} className='feedy-widget' role='presentation'>
           <abbr title='Whats New?'>
-            <a href='https://leadcart.feedy.app/feedback/' target='_blank'>
+            <a href='https://leadcart.feedy.app/feedback/' target='_blank' rel='noopener noreferrer'>
               <i className='fas fa-bell' />
             </a>
           </abbr>

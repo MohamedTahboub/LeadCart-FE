@@ -1,8 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
-// import * as flashMessagesActions from 'actions/flashMessage';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import common from 'components/common';
@@ -38,7 +37,7 @@ const initialInstructions = (
       </ul>
       <div>
         Follow the step-by-step instructions &nbsp;
-        <a href='https://help.leadcart.io/domains/connect' target='_blank'>
+        <a href='https://help.leadcart.io/domains/connect' target='_blank' rel="noopener noreferrer">
           here
         </a>
         &nbsp; if you have any issue.

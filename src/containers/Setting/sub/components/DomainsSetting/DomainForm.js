@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 
 import { connect } from 'react-redux';

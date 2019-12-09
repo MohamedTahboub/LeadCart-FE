@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 // import pageFunnelImage from 'assets/images/funnels/page-funnel.png';
 // import checkoutPageImage from 'assets/images/funnels/checkout-page.png';
 // import upsellPageImage from 'assets/images/funnels/upsell_downsell.png';

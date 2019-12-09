@@ -1,8 +1,9 @@
 import React, {
-  useState, useEffect, Fragment, useRef
+  useState,
+  useEffect,
+  Fragment,
 } from 'react';
 import PropTypes from 'prop-types';
-import common from 'components/common';
 import { connect } from 'react-redux';
 import { ProductSchema } from 'libs/validation';
 import * as productActions from 'actions/product';
@@ -14,24 +15,13 @@ import hardCodedMessages from 'assets/hardCodedMessages.json';
 import {
   stopTabClosing, htmlToImage, slugify, getTextContentFromTextNode
 } from 'libs';
-// import  ProductEditableTemplate  from './';
 import { SideBar, Header, ProductEditableTemplate } from './components';
 import './style.css';
 
-const {
-  Page,
-  PageHeader,
-  PageContent,
-  // NewThingCard,
-  // MainTitle,
-  // Button
-} = common;
 
 const ProductBuilder = ({
   products, subdomain, globelLoading, ...props
 }) => {
-  const productRef = useRef(null);
-
   const [fields, setFields] = useState({});
   const [displayType, setDisplayType] = useState('desktop');
   // const [changesDetected, setChangesDetected] = useState(false)
