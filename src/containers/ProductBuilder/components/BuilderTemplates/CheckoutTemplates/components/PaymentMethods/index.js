@@ -34,7 +34,11 @@ const PaymentSelectionDemo = ({ method }) => {
     />
   );
 };
-const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
+const PaymentMethods = ({
+  // onOptionSelected,
+  methods = [],
+  step = 2
+}) => {
   const [method, setMethod] = useState(0);
 
 
@@ -57,7 +61,7 @@ const PaymentMethods = ({ onOptionSelected, methods = [], step = 2 }) => {
         )}
         {methods.includes('Paypal') && (
           <RadioImageCard
-            title='Credit Cards'
+            title='PayPal'
             name='payment-type'
             image={paypalImage}
             onClick={() => setMethod(2)}
