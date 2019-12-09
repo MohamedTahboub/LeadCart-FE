@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { SlidingAnimation } from 'components/common/Animation';
+// import PropTypes from 'prop-types';
+// import { SlidingAnimation } from 'components/common/Animation';
 import { showIntercomIcon } from 'libs';
 import { connect } from 'react-redux';
 import common from 'components/common';

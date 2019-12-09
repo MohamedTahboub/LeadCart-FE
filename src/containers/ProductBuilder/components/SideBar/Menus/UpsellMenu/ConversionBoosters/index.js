@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 
 import {
-  MenuItem, MenuTitle, MenuContent, MenuFlexContent
+  MenuItem, MenuTitle, MenuContent
 } from '../MenuElements';
 
 import './style.css';

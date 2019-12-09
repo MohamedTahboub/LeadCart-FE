@@ -93,7 +93,10 @@ class Agency extends Component {
   }
 
   render () {
-    const { errors, subAccounts = [] } = this.props;
+    const {
+      errors,
+      //  subAccounts = []
+    } = this.props;
 
     const { subAccountModel, deleteModal, isShowWarringDialog } = this.state;
     return (

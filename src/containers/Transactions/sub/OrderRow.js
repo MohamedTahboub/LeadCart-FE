@@ -1,22 +1,11 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
 import Table from 'components/common/Tables';
 import './style.css';
 import moment from 'moment';
 
-import { getCurrencySymbol, RoundTow } from 'libs';
-import common from 'components/common';
-import { spawn } from 'child_process';
+import { RoundTow } from 'libs';
 
-const { Avatar, SmallButton, MainTitle } = common;
-
-
-// const getCheckoutProduct = (products = []) => products.find(({ category }) => category === 'checkout') || {};
-// const getCurrency = (products) => {
-//   const product = products.find(({ payment: { price: { currency } = {} } = {} }) => currency);
-//   console.log(product.payment && product.payment.price);
-//   return product ? product.payment.price.currency : 'USD';
-// };
 
 const PaymentTypeIcon = ({ type }) => {
   const icon = {
@@ -36,17 +25,15 @@ const OrderRow = ({
     firstName,
     lastName,
     email,
-    phoneNumber
   } = {},
   products = [],
-  product = {}, // deprecated - for backward compatibility
   paymentMethod,
   createdAt,
   totalCharge = 0
 }) => {
   const productsCount = products.length;
   const [expand, setExpand] = useState(false);
-
+  // eslint-disable-next-line
   const onToggleExpand = () => {
     setExpand((expand) => !expand);
   };

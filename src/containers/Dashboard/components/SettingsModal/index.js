@@ -4,7 +4,6 @@ import common from '../../../../components/common';
 import { Modal } from 'components/Modals';
 import './style.css';
 import { connect } from 'react-redux';
-// import * as dashboardActions from 'actions/dashboard';
 import * as dashboardActions from '../../../../actions/dashboard';
 import * as flashMessagesActions from '../../../../actions/flashMessage';
 import dashboardSettings from 'data/dashboardSettings'
@@ -14,7 +13,7 @@ const { Button, InputRow } = common;;
 
 const OptionItem = ({
   label,
-  value,
+  // value,
   onToggle,
   show,
   disabled,
@@ -44,7 +43,6 @@ const SettingsModal = ({
 }) => {
   const [displayMainChart, setDisplayMainChart] = useState(settings.displayMainChart);
   const [options, setOptions] = useState(settings.defaultCardsSettings);
-  const [saving, setSaving] = useState(false);
 
   const onToggleOption = (option, type = 'sales') => () => {
     const newOption = { ...option, show: !option.show };
@@ -77,13 +75,11 @@ const SettingsModal = ({
     const { isValid, value: validSettings, errors } = await Schemas.dashboardChartsSettings(settings)
 
     if (isValid) {
-      setSaving(true);
       updateDashboardChartsSettings(
         validSettings
         ,
         {
           onSuccess: (arg) => {
-            setSaving(false);
             showFlashMessage({
               type: 'success',
               message: 'Dashboard Customization Settings Updated Successfully'
@@ -91,7 +87,6 @@ const SettingsModal = ({
             onClose()
           },
           onFailed: (message) => {
-            setSaving(false);
             showFlashMessage({
               type: 'failed',
               message: 'Failed to Save Dashboard Customization Settings'

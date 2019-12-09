@@ -11,6 +11,7 @@ export default ({ inner = [] }) => {
         if (!Errors[name[0]]) Errors[name[0]] = {};
         Errors[name[0]] = { ...Errors[name[0]], [name[1]]: er.message };
       }
+      return name;
     });
     return Errors;
   }

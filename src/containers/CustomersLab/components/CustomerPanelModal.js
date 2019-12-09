@@ -9,8 +9,6 @@ import { connect } from 'react-redux'
 
 const {
   MainTitle,
-  InputRow,
-  Title,
   Timeline
 } = common;
 

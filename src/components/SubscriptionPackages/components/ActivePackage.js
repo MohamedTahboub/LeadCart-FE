@@ -9,7 +9,6 @@ const {
   BigText,
   FlexBoxesContainer,
   Box,
-  SmallButton,
 } = common;
 
 
@@ -21,7 +20,7 @@ const ActivePackage = ({
     trialEndDate
   } = {},
   userSource,
-  className = '',
+  // className = '',
   isLoadingClass,
   lastTransaction = {}
 }) => (

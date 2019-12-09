@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import hardCodedMessages from 'assets/hardCodedMessages.json';
-import productSample from 'data/product.json';
+// import hardCodedMessages from 'assets/hardCodedMessages.json';
+// import productSample from 'data/product.json';
 
 import tempImage1 from 'assets/images/checkout_templates/temp_1.png';
 import tempImage2 from 'assets/images/checkout_templates/temp_2.png';

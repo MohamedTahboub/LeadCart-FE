@@ -1,17 +1,22 @@
-import React, { useState, useEffect, Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
-import Avatar from 'components/common/Avatar'
+import Avatar from 'components/common/Avatar';
 
 const UserAvatarPreview = ({
-  user: { profileImage, firstName = '', lastName = '' } = {},
-  updateUserProfileImage, onSettingClick
+  user: {
+    profileImage,
+    firstName = '',
+    lastName = ''
+  } = {},
+  updateUserProfileImage,
+  onSettingClick
 }) => {
-  const userName = `${firstName} ${lastName && lastName[0]}.`
+  const userName = `${firstName} ${lastName && lastName[0]}.`;
 
-  const onAvatarImageChange = ({ name, image }) => {
-    updateUserProfileImage(image)
-  }
+  const onAvatarImageChange = ({ image }) => {
+    updateUserProfileImage(image);
+  };
   return (
     <div className='profile-preview'>
       <div className='avatar-holder'>
@@ -27,7 +32,7 @@ const UserAvatarPreview = ({
       </div>
     </div>
   );
-}
+};
 
 
 const mapStateToProps = ({ user: { user } }) => ({

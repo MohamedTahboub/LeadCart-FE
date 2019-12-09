@@ -44,12 +44,12 @@ export const onChangeAccounPassword = (pwds, meta) => ({
   meta
 });
 
-export const onChangeAccounPasswordSuccess = (message) => ({
+export const onChangeAccountPasswordSuccess = (message) => ({
   type: CHANGE_ACCOUNT_PASSWORD_SUCCESS,
   payload: message
 });
 
-export const onChangeAccounPasswordFailed = (message) => ({
+export const onChangeAccountPasswordFailed = (message) => ({
   type: CHANGE_ACCOUNT_PASSWORD_FAILED,
   payload: message
 });

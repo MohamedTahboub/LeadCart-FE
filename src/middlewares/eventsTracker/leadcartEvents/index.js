@@ -11,7 +11,7 @@ function EventsRegister ({ source, events }) {
 
 
 function fireEvent (eventName, payload) {
-  try {
+  try { // eslint-disable-next-line
     Object.values(groups).map((eventsGroup) => {
       const func = eventsGroup[eventName];
       if (typeof func === 'function') func(payload);

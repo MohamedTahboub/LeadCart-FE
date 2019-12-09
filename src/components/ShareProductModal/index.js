@@ -5,11 +5,11 @@ import common from '../common';
 
 import './style.css'
 const {
-    ShareButton,
+    // ShareButton,
     MainTitle,
     Button,
     EmbededScripContainer,
-    ShareBtnContainer,
+    // ShareBtnContainer,
     SubTabs
 } = common;
 

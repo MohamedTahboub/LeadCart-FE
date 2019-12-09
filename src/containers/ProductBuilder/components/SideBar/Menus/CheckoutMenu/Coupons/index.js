@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import * as couponActions from 'actions/coupon';
 
@@ -11,7 +10,6 @@ import {
   MenuItem,
   MenuTitle,
   MenuContent,
-  MenuFlexContent
 } from '../MenuElements';
 
 const {
