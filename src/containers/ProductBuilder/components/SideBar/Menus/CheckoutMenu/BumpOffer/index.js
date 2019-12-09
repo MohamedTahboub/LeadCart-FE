@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import {
@@ -70,7 +70,7 @@ const BumpOffer = ({
         <Collapse defaultActiveKey={['1', '2', '3']}>
           <Panel header='Appearance' key='1'>
             <InputRow className='sidebar-row'>
-              <InputRow.Label className='sidebar-input-label' className='sidebar-input-label'>Show</InputRow.Label>
+              <InputRow.Label className='sidebar-input-label'>Show</InputRow.Label>
               <InputRow.SwitchInput
                 value={enabled}
                 onToggle={onToggleBumpOffer}
@@ -80,7 +80,10 @@ const BumpOffer = ({
           </Panel>
           <Panel header='Settings' key='2'>
             <InputRow className='sidebar-row'>
-              <InputRow.Label className='sidebar-input-label' description='This will appear on your cart page,this is just for presentation purpose'>
+              <InputRow.Label
+                className='sidebar-input-label'
+                description='This will appear on your cart page,this is just for presentation purpose'
+              >
                 Offer Name:
               </InputRow.Label>
               <InputRow.TextField

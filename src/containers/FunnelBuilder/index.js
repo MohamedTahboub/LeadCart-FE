@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import common from 'components/common';
+// import common from 'components/common';
 import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';

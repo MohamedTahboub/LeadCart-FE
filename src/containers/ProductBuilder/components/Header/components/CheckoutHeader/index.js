@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { DefaultHeader } from '..';
-import config from 'config';
+// import config from 'config';
 import ShareProductModal from 'components/ShareProductModal';
 import ScriptsModal from 'components/ScriptsModal';
 
@@ -9,11 +9,11 @@ import ScriptsModal from 'components/ScriptsModal';
 import common from 'components/common';
 
 
-const { USER_SUB_DOMAIN_URL } = config;
+// const { USER_SUB_DOMAIN_URL } = config;
 const {
-  HeaderLogo,
+  // HeaderLogo,
   Button,
-  ActivationSwitchInput
+  // ActivationSwitchInput
 } = common;
 
 const CheckoutHeader = ({
@@ -29,19 +29,10 @@ const CheckoutHeader = ({
 
   const [showModal, setShowModal] = useState({});
 
-  const onPreview = () => {
-    const { url } = product;
-    const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
-    window.open(productUrl, '_blank');
-  };
-
   const onShowScripts = () => {
     setShowModal({ scripts: true });
   };
 
-  const onShowShare = () => {
-    setShowModal({ share: true });
-  };
   const onCloseModal = () => {
     setShowModal({});
   };
@@ -88,13 +79,3 @@ CheckoutHeader.propTypes = {
 };
 
 export default CheckoutHeader;
-
-
-// <Button onClick={onShowShare} className='primary-btn '>
-// <i className='fas fa-share-square' />
-// Share
-// </Button>
-// <Button onClick={onPreview} className='primary-btn '>
-// <i className='fas fa-eye' />
-// Preview
-// </Button>

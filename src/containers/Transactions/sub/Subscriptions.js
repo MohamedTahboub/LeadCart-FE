@@ -4,7 +4,7 @@ import Table from 'components/common/Tables';
 import './style.css';
 import { getCurrencySymbol, RoundTow } from 'libs';
 import PropTypes from 'prop-types';
-const { Avatar, SmallButton, MainTitle } = common;
+const { Avatar } = common;
 
 
 const SubscriptionsList = ({ subscriptions }) => (

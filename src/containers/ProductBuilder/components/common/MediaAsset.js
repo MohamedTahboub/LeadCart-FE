@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import ReactPlayer from 'react-player';
@@ -23,7 +23,6 @@ Media.defaultProps = {
 
 const {
   InputRow,
-  Button,
 } = common;
 
 

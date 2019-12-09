@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import ids from 'shortid';
+// import ids from 'shortid';
 import defaultLogo from 'assets/images/new-product-icon.png';
 import castYupErrors from './castErrors';
 

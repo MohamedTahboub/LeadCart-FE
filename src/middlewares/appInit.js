@@ -14,7 +14,6 @@ import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
 import { updateMarketPlaceSettingsSuccess } from 'actions/settings';
 import { getDashboardDataSuccess } from 'actions/dashboard';
-import { filteringActivities, filterCustomers } from 'libs';
 import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
 
@@ -22,24 +21,16 @@ import { getUserPlanSuccess } from 'actions/billing';
 window.user = '';
 export default ({ dispatch, getState }) => (next) => (action) => {
   const {
-    products: { products = [] } = {},
     user: {
-      user: {
-        token,
-        ...user
-      },
       isLoggedIn
     }
   } = getState();
 
-  // setTimeout(() => {
-  //   consoleMessage();
-  // }, 2000);
   if (action.type !== APP_INIT) return next(action);
 
 
   if (!isLoggedIn) return next(action);
-  // /users/launch
+
   const { payload, meta = {} } = action;
   const onLunchSuccess = (data) => {
     dispatch(getMembersSuccess(data.members));
@@ -84,18 +75,17 @@ export default ({ dispatch, getState }) => (next) => (action) => {
       return appLaunchFailed(message);
     }
   }));
-  // const user = localStorage.user && JSON.parse(localStorage.user);
-
-  // if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
-
-  // restore the application stored data in the loaclStorage
 };
 
 function cleanUpTheConsole () {
   consoleMessage();
 }
 
+// const user = localStorage.user && JSON.parse(localStorage.user);
 
+// if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
+
+// restore the application stored data in the loaclStorage
 function consoleMessage () {
   const LeadCarttext = `%c
   ╔╗░░╔═══╦═══╦═══╦═══╦═══╦═══╦════╗

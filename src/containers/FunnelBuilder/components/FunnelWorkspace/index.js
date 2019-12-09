@@ -1,11 +1,11 @@
 import React, { useState, useRef, Fragment } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 import * as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
 import ids from 'shortid';
 
-import targetMouseIcon from 'assets/images/icons/targetIcon.png';
+// import targetMouseIcon from 'assets/images/icons/targetIcon.png';
 
 import { RelationsWorkSpace, NodeSettingModal } from './components';
 

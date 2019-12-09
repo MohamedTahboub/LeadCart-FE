@@ -5,30 +5,23 @@ import * as productsActions from 'actions/products';
 import * as productActions from 'actions/product';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-// import ProductModal from '../Product/ProductModal'
-import config from 'config';
-import ids from 'shortid';
 import PrecreateProductModals from 'components/PrecreateProductModals';
 
 
-// import productSample from 'data/product.json';
-
 import './style.css';
 
-const { USER_SUB_DOMAIN_URL } = config;
 const {
   ProductCard,
   Page,
   PageHeader,
   PageContent,
-  NewThingCard,
+  // NewThingCard,
   MainTitle,
   InputRow,
   Currency,
   Button
 } = common;
 
-// const { SearchInput, Checkbox } = InputRow;
 
 const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
@@ -41,14 +34,9 @@ const Products = ({
   ...props
 }) => {
   const [showDelete, setShowDelete] = useState('');
-  // const [showProductForm, setShowProductForm] = useState({});
   const [showCreateModal, setShowProductModal] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [filterKeys, setFilterKeys] = useState({ categories: ['checkout', 'upsell'] });
-  // const onProductPreview = ({category , _id }) => {
-  //   const productUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
-  //   window.open(productUrl, '_blank');
-  // };
 
   const onProductEdit = ({ category = '', _id }) => {
     props.history.push(`/${category.toLowerCase()}/${_id}`);
@@ -80,8 +68,7 @@ const Products = ({
     delete product.token;
 
 
-    if (payment.type === 'Onetime' && payment.recurringPeriod)
-      delete payment.recurringPeriod;
+    if (payment.type === 'Onetime' && payment.recurringPeriod) delete payment.recurringPeriod;
 
 
     if (product.category === 'upsell') product.payment = { type: payment.type };

@@ -81,7 +81,12 @@ class AddFieldComponent extends Component {
 
   render () {
     const {
-      color = 'primary-color', onClick, suffixIcon, children, notes, description, ...props
+      color = 'primary-color',
+      // onClick,
+      suffixIcon,
+      children,
+      notes,
+      description,
     } = this.props;
     return (
       <div>

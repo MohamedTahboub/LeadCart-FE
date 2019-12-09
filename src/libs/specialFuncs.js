@@ -1,4 +1,3 @@
-import ids from 'shortid';
 
 export const filterSubscriptions = (orders = []) => orders.filter(({ payment }) => payment.paymentType === 'Subscription');
 
@@ -14,6 +13,7 @@ export const filterCustomers = (orders = []) => {
   orders.map(({ customer, ...order }) => {
     if (!customers[customer.email]) customers[customer.email] = { ...customer, orders: [order] };
     else customers[customer.email].orders.push(order);
+    return customer;
   });
 
   return Object

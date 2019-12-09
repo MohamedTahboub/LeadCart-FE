@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { FormLogo } from 'components/common/logos';
 import * as loginActions from 'actions/login';

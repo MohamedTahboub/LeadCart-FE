@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import React from 'react';
 import { Modal } from '../Modals';
 import common from '../common';
 import PropTypes from 'prop-types'
@@ -7,13 +6,9 @@ import PropTypes from 'prop-types'
 import './style.css'
 import { InputRow } from '../common/Inputs';
 const {
-    ShareButton,
     MainTitle,
     Button,
-    EmbededScripContainer,
-    ShareBtnContainer,
     SubTabs,
-    CodeInputArea
 } = common;
 
 
@@ -26,27 +21,45 @@ const ProductsScripts = ({
 
 
     return (
-        <Modal onClose={onClose} isVisible={isVisible} affectIntercom={false} closeBtnClassName='scripts-modal-close-btn'>
-            <MainTitle bottomLine className='scripts-modal-title'>Embed Scripts</MainTitle>
+        <Modal
+            onClose={onClose}
+            isVisible={isVisible}
+            affectIntercom={false}
+            closeBtnClassName='scripts-modal-close-btn'
+        >
+            <MainTitle
+                bottomLine
+                className='scripts-modal-title'
+            >
+                Embed Scripts
+            </MainTitle>
             <SubTabs
-
                 defaultTab='Product Scripts'
                 tabs={{
                     'Product Scripts': (
-                        <div className="scripts-container" key='productPage-Scripts' >
-                            <div className='scripts-head-message'>These Scripts will be injected in your product page</div>
+                        <div
+                            key='productPage-Scripts'
+                            className="scripts-container"
+                        >
+                            <div className='scripts-head-message'>
+                                These Scripts will be injected in your product page
+                            </div>
                             <InputRow>
-                                <InputRow.Label className='scripts-labels'>Facebook Pixel Id :</InputRow.Label>
+                                <InputRow.Label className='scripts-labels'>
+                                    Facebook Pixel Id :
+                                </InputRow.Label>
                                 <InputRow.NormalInput
                                     name='scripts.fbPixelId'
                                     value={scripts.fbPixelId}
                                     onBlur={onChange}
                                 >
                                     25417913856****
-                                    </InputRow.NormalInput>
+                                </InputRow.NormalInput>
                             </InputRow>
                             <InputRow>
-                                <InputRow.Label className='scripts-labels' >Google Tag Manager Id :</InputRow.Label>
+                                <InputRow.Label className='scripts-labels' >
+                                    Google Tag Manager Id :
+                                </InputRow.Label>
                                 <InputRow.NormalInput
                                     name='scripts.googleTagManager'
                                     value={scripts.googleTagManager}
@@ -60,7 +73,9 @@ const ProductsScripts = ({
                                     OR
                                 </span>
                             </div>
-                            <div>Enter valid Script Tags so we can enable them on your product page</div>
+                            <div>
+                                Enter valid Script Tags so we can enable them on your product page
+                            </div>
                             <InputRow.CodeInputArea
                                 className='free-script-input-field'
                                 name='scripts.scriptTag'
@@ -72,20 +87,30 @@ const ProductsScripts = ({
                         </div>
                     ),
                     'Thank You Page Scripts': (
-                        <div className="scripts-container" key='thankYouPage-Scripts'>
-                            <div className='scripts-head-message' >These Scripts will be injected in your thank-you page after purchase complete or post access to the thank-you page resources(fulfillments resources)</div>
+                        <div
+                            key='thankYouPage-Scripts'
+                            className="scripts-container"
+                        >
+                            <div className='scripts-head-message' >
+                                These Scripts will be injected in your thank-you page after purchase
+                                 complete or post access to the thank-you page resources(fulfillments resources)
+                             </div>
                             <InputRow>
-                                <InputRow.Label className='scripts-labels' >Facebook Pixel Id :</InputRow.Label>
+                                <InputRow.Label className='scripts-labels' >
+                                    Facebook Pixel Id :
+                                </InputRow.Label>
                                 <InputRow.NormalInput
                                     name='scripts.t_fbPixelId'
                                     value={scripts.t_fbPixelId}
                                     onBlur={onChange}
                                 >
                                     25417913856****
-                                    </InputRow.NormalInput>
+                                </InputRow.NormalInput>
                             </InputRow>
                             <InputRow>
-                                <InputRow.Label className='scripts-labels' >Google Tag Manager Id :</InputRow.Label>
+                                <InputRow.Label className='scripts-labels' >
+                                    Google Tag Manager Id :
+                                </InputRow.Label>
                                 <InputRow.NormalInput
                                     name='scripts.t_googleTagManager'
                                     value={scripts.t_googleTagManager}
@@ -99,7 +124,9 @@ const ProductsScripts = ({
                                     OR
                                 </span>
                             </div>
-                            <div>Enter a valid Scripts Tags so we can enable them in your thank-you page</div>
+                            <div>
+                                Enter a valid Scripts Tags so we can enable them in your thank-you page
+                            </div>
                             <InputRow.CodeInputArea
                                 className='free-script-input-field'
                                 name='scripts.t_scriptTag'
@@ -112,11 +139,16 @@ const ProductsScripts = ({
                     )
                 }}
             />
-            <Button onClick={onClose} className='primary-color script-save-btn'>Save</Button>
+            <Button
+                onClick={onClose}
+                className='primary-color script-save-btn'
+            >
+                Save
+             </Button>
         </Modal>
     )
 }
-// <div className='scripts-footer-message' >Note: To save the changes here just edit them and save the product,if you close the product modal without saving you may lose your changes here</div>
+
 ProductsScripts.propTypes = {
     scripts: PropTypes.object.isRequired,
     isVisible: PropTypes.bool.isRequired,
@@ -125,13 +157,3 @@ ProductsScripts.propTypes = {
 }
 
 export default ProductsScripts
-    /*
-<ShareBtnContainer
-headNote='This is what the button you embed on your sales will look like'
->
-<ShareButton
-logo={logo}
-btnText={'Buy Now'}
-/>
-</ShareBtnContainer>
-*/
