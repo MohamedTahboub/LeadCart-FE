@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import common from 'components/common';
 import Table from 'components/common/Tables';
 import { Modal } from 'components/Modals';

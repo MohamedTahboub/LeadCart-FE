@@ -1,18 +1,14 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment'
-// Routing
-import { BrowserRouter, withRouter, Switch, Route } from 'react-router-dom';
-// import { createStore } from 'redux';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from 'store'
-// Config
 import 'config';
 
 
 //temp pages 
-import upsellsImage from 'assets/images/upsells_bg.svg'
 import affiliatesImage from 'assets/images/affiliates_bg.svg'
 import reportsImage from 'assets/images/reports_bg.svg'
 
@@ -21,13 +17,10 @@ import IntercomApp from './components/Intercom'
 
 
 // Components
-import Header from 'components/Header'
-// import Content from 'components/Content'effect
-// import ActiveContent from 'components/ActiveContent'
+// import Header from 'components/Header'
 import SideBar from 'components/SideBar'
 import ProtectedRoute from 'components/ProtectedRoute'
 import NotificationMessage from 'components/NotificationMessage'
-// import UnderDevelopment from 'components/UnderDevelopment'
 import LoadingBar from 'components/LoadingBar'
 import FourOFour from 'containers/FourOFour'
 import ErrorBoundary from 'containers/ErrorBoundary'
@@ -45,9 +38,7 @@ import ProductBuilder from 'containers/ProductBuilder';
 import FunnelBuilder from 'containers/FunnelBuilder';
 
 import Dashboard from 'containers/Dashboard'
-// import Guidelines from 'containers/Guidelines'
 import Products from 'containers/Products'
-// import Product from 'containers/Product'
 import Transactions from './containers/Transactions';
 import CustomersLab from './containers/CustomersLab';
 import Coupons from './containers/Coupons';
@@ -65,7 +56,6 @@ import 'semantic-ui-css/semantic.min.css'
 import { APP_INIT } from 'constantsTypes';
 import VerifyAccount from './containers/VerifyAccount';
 
-/* Temp page to represent the empty pages */
 
 
 window.onload = () => {

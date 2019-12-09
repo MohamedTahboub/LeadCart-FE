@@ -12,9 +12,7 @@ import { connect } from 'react-redux'
 
 import common from 'components/common'
 import { Page , PageContent, PageHeader } from '../../components/common/Layout';
-// import { Button } from '../../components/common/Buttons';
-const { TabsNavigator, Button, MainTitle, FlexBoxesContainer } = common
-/* temp component tp represent the empty tap */
+const { TabsNavigator,MainTitle } = common
 
 const newProductTabs = [
     { title: 'Brand Settings', sub: '/settings/brand' },
@@ -26,14 +24,7 @@ const newProductTabs = [
 ]
 
 class Setting extends Component {
-    // onChangesSave = () => {
-    //     const pageName = this.props.history.location.pathname.split('/')[2]
 
-    //     switch (pageName) {
-    //         case 'brand':
-    //             return this.props.saveUserGeneralSettings()
-    //     }
-    // }
 
     render() {
 

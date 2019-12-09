@@ -65,7 +65,7 @@ export default (state = initialState, { type, payload }) => {
         packageType: packageType(payload.level),
         level: payload.level,
       },
-      activatedPromoCodes: state.activatedPromoCodes && state.activatedPromoCodes + 1 || 0,
+      activatedPromoCodes: (state.activatedPromoCodes && state.activatedPromoCodes + 1) || 0,
       errors: {
         ...state.errors,
         code: ''

@@ -3,8 +3,8 @@ import { UPDATE_PRODUCT } from 'constantsTypes';
 import { productUpdatedSuccessfuly, productUpdatedFailed } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
-import * as modles from '../helpers/models';
-import modeler from '../helpers/modeler';
+// import * as modles from '../helpers/models';
+// import modeler from '../helpers/modeler';
 
 export default ({ dispatch, getState }) => (next) => (action) => {
   if (action.type !== UPDATE_PRODUCT) return next(action);

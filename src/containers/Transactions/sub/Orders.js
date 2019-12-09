@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import common from 'components/common';
+import React from 'react';
 import Table from 'components/common/Tables';
 import './style.css';
-import { getCurrencySymbol, RoundTow } from 'libs';
 import PropTypes from 'prop-types';
 import OrderRow from './OrderRow'
 
-const { Avatar, SmallButton, MainTitle } = common;
 
 
 

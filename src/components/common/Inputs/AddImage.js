@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as fileUploadingActions from 'actions/files';
-import { DeleteButton } from '../Buttons';
-import { BlankLink } from '../Links';
+// import { DeleteButton } from '../Buttons';
+// import { BlankLink } from '../Links';
 
 const AddImage = ({
   color = 'primary-color',
@@ -21,9 +21,8 @@ const AddImage = ({
   let imageFieldRef = '';
 
   useEffect(() => {
-    if (value !== image) 
-      setImage(value)
-    
+    if (value !== image)
+      setImage(value);
   }, [value]);
 
   const onAddImage = () => {

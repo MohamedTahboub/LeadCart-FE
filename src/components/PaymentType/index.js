@@ -1,14 +1,10 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import common from 'components/common';
 
 
 import './style.css';
 const { InputRow, Currency } = common;
 
-// const paymentTypesOptions = (type) => ({
-//   Split: { label: 'Number of Splits', name: 'splits', options: [3, 6, 9] },
-//   Subscription: { label: 'Recurring time', name: 'recurringPeriod', options: ['Monthly', 'Yearly'] }
-// }[type] || {});;
 
 const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
   <InputRow>

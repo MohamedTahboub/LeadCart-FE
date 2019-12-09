@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as customersActions from 'actions/customers';
+// import { connect } from 'react-redux';
+// import * as customersActions from 'actions/customers';
 import common from '../../../components/common';
 
 
-const { InputRow, Button } = common;
+const {  Button } = common;
 
 const Action = ({ label, onRefund, ...props }) => (
     <Button

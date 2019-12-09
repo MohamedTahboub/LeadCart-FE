@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 
 import {
@@ -8,7 +8,6 @@ import {
 } from './Templates';
 
 const UpsellTemplates = (props) => {
-
   const {
     product: {
       pagePreferences: {
@@ -18,9 +17,9 @@ const UpsellTemplates = (props) => {
   } = props;
 
   switch (template) {
-    case 'temp1': return <Template1 {...props} />;
-    case 'temp2': return <Template2 {...props} />;
-    default: return <Template2 {...props} />;
+  case 'temp1': return <Template1 {...props} />;
+  case 'temp2': return <Template2 {...props} />;
+  default: return <Template2 {...props} />;
   }
 };
 UpsellTemplates.propTypes = {

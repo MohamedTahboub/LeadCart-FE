@@ -4,7 +4,7 @@ import {
 } from 'constantsTypes';
 import {
   onChangeAccountDetailsFailed,
-  onChangeAccounPasswordFailed
+  onChangeAccountPasswordFailed
 } from 'actions/account';
 import { Rules, Vaidator } from '../helpers/validators';
 
@@ -26,7 +26,7 @@ export default ({ dispatch }) => (next) => (action) => {
       newPassword: [Rules.isRequired],
       newPasswordConfirmation: [Rules.isRequired]
     };
-    faildAction = onChangeAccounPasswordFailed;
+    faildAction = onChangeAccountPasswordFailed;
   }
 
   const isInvalid = Vaidator(action.payload, rules);

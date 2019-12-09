@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './style.css';
 
 export const BlankLink = ({
-  to, children, className = '', ...props
+  to,
+  children,
+  className = '',
+  ...props
 }) => (
   <a
     href={to}

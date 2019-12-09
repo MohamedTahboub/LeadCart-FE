@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
 import './style.css';
 
-const verifyingPath = '/api/users/verify';
+// const verifyingPath = '/api/users/verify';
 
 const Verify = ({ isLoggedIn, history, ...props }) => {
   const pathname = history.location.pathname.split('/');

@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import ApexCharts from 'react-apexcharts';
-import dummyData from 'data/chartData.js';
-import moment from 'moment';
+// import dummyData from 'data/chartData.js';
+// import moment from 'moment';
 import './chart.css';
 import PropTypes from 'prop-types';
-import { getDateValueReferences } from 'libs';
+// import { getDateValueReferences } from 'libs';
 import { getLabelByValue } from 'data/dashboardSettings';
 
-const LoadingIcon = ({
-  className,
-  show,
-  ...props
-}) => (show ? <div className={`loading spinner ${className}`}>Loading...</div> : null);
+// const LoadingIcon = ({
+//   className,
+//   show,
+//   ...props
+// }) => (show ? <div className={`loading spinner ${className}`}>Loading...</div> : null);
 
 
-const isPercentageRequires = (type) => {
-  console.log('type==>', type);
-};
+// const isPercentageRequires = (type) => {
+//   console.log('type==>', type);
+// };
 const AreaChart = ({
   data = [],
   activeTypeValue,
@@ -84,75 +84,6 @@ const AreaChart = ({
   };
 
 
-  // const updateData = (timeline) => {
-  //   switch (timeline) {
-  //   case 'today':
-  //     return {
-  //       min: moment().subtract(1, 'days').endOf('day'),
-  //       max: moment()
-  //     };
-  //   case 'yesterday ':
-  //     return {
-  //       min: moment().subtract(1, 'days'),
-  //       max: moment().format()
-  //     };
-  //   case 'weekToDate':
-  //     return {
-  //       min: moment().subtract(7, 'days').endOf('day'),
-  //       max: moment().format()
-  //     };
-  //   case 'lastWeek':
-  //     return {
-  //       min: moment().subtract(7, 'days'),
-  //       max: moment().format()
-  //     };
-  //   case 'monthToDate':
-  //     return {
-  //       min: moment().subtract(1, 'months').endOf('month'),
-  //       max: moment().format()
-  //     };
-  //   case 'lastMonth':
-  //     return {
-  //       min: moment().subtract(1, 'months'),
-  //       max: moment().format()
-  //     };
-  //   case 'last3Months':
-  //     return {
-  //       min: moment().subtract(3, 'months'),
-  //       max: moment().format()
-  //     };
-  //   case 'last6Months':
-  //     return {
-  //       min: moment().subtract(6, 'months'),
-  //       max: moment().format()
-  //     };
-  //   case 'yearToDate':
-  //     return {
-  //       min: moment().subtract(1, 'years').endOf('year'),
-  //       max: moment().format()
-  //     };
-  //   case 'lastYear':
-  //     return {
-  //       min: moment().subtract(1, 'years'),
-  //       max: moment().format()
-  //     };
-  //   case 'currentFinancialYear':
-  //     return {
-  //       min: moment().subtract(1, 'years').endOf('year'),
-  //       max: moment().format()
-  //     };
-  //   case 'previousFinancialYear':
-  //     return {
-  //       min: moment().subtract(2, 'years').endOf('year'),
-  //       max: moment().subtract(1, 'years').endOf('year')
-  //     };
-  //   default: return {
-  //     min: undefined,
-  //     max: undefined
-  //   };
-  //   }
-  // };
-
   useEffect(() => {
     // console.log('Charts Updates');
     // console.log(data);
@@ -192,53 +123,3 @@ AreaChart.defaultProps = {
 };
 
 export default AreaChart;
-/*
-      <LoadingIcon className='chart-loading' show />
-
-
- <div className='chart-toolbar '>
-          <button
-            onClick={() => this.updateData('one_month')}
-            id='one_month'
-            className={`chart-view-period-btn ${this.state.selection === 'one_month' ? 'active' : ''}`}
-          >
-            last month
-          </button>
-          <button
-            onClick={() => this.updateData('six_months')}
-            id='six_months'
-            className={`chart-view-period-btn ${this.state.selection === 'six_months' ? 'active' : ''}`}
-          >
-            last 6 months
-          </button>
-          <button
-            onClick={() => this.updateData('quarter ')}
-            id='quarter '
-            className={`chart-view-period-btn ${this.state.selection === 'quarter ' ? 'active' : ''}`}
-          >
-            This Quarter
-          </button>
-          <button
-            onClick={() => this.updateData('one_year')}
-            id='one_year'
-            className={`chart-view-period-btn ${this.state.selection === 'one_year' ? 'active' : ''}`}
-          >
-            last year
-          </button>
-          <button
-            onClick={() => this.updateData('ytd')}
-            id='ytd'
-            className={`chart-view-period-btn ${this.state.selection === 'ytd' ? 'active' : ''}`}
-          >
-            current year
-          </button>
-          <button
-            onClick={() => this.updateData('all')}
-            id='all'
-            className={`chart-view-period-btn ${this.state.selection === 'all' ? 'active' : ''}`}
-          >
-            All
-          </button>
-        </div>`
-
-*/

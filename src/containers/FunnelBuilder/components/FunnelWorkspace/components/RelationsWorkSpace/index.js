@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import NodeRelation from '../NodeRelation';
 
 import './style.css';
 
 const RelationsWorkSpace = ({
   nodes,
-  ...props
 }) => (
   <svg
     className='funnel-nodes-relactions-svg'

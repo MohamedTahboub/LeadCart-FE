@@ -16,13 +16,11 @@ import common from 'components/common';
 
 const {
   MainTitle,
-  Title,
   Page,
   PageHeader,
   PageContent,
   InputRow,
   InsightBadge,
-  SubTabs
 } = common;
 
 const Dashboard = ({
