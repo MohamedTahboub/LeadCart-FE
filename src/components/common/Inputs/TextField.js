@@ -11,6 +11,7 @@ const TextField = ({
   prefix,
   error,
   value,
+  id,
   defaultValue,
   ...props
 }) => (
@@ -25,6 +26,7 @@ const TextField = ({
       className={`text-input-filed ${error ? 'error' : ''}`}
       onChange={onChange}
       onBlur={onBlur}
+      id={id}
       {...props}
     />
   </div>

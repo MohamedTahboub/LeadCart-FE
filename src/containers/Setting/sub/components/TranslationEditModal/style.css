@@ -1,0 +1,64 @@
+.language-contexts{
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    padding-bottom: 30px;
+}
+.language-context-container .language-context-words{
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.language-context-title {
+    font-size: 17px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+.language-word-item{
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    flex-wrap: wrap;
+}
+.word-value{
+    display: flex;
+    align-items: center;
+}
+
+.word-value .word-input{
+    flex: 1;
+   display: flex;
+   justify-content: flex-end;
+   
+}
+.word-label{
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.word-subs{
+    margin: 10px 2px;
+    padding-left:20px;
+    border-left: 2px solid lightgray;
+}
+
+
+.position-right-10{
+    right: 10px;
+    left: unset;
+}
+.position-right-70{
+    right: 70px;
+    left: unset;
+}
+
+.uppercase-text{
+    text-transform: uppercase;
+}
+
+.words-search-field{
+    width: 80%;
+    margin: 15px 0;
+
+}
