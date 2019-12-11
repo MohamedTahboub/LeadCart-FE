@@ -27,6 +27,7 @@ import billing from './billing'
 import eventsTracker from './eventsTracker'
 import dashboard from './dashboard'
 import funnels from './funnels'
+import translations from './translations'
 
 export default [
     eventsTracker,
@@ -46,6 +47,7 @@ export default [
     ...account,
     ...coupon,
     ...billing,
+    ...translations,
     upadteUserImage,
     ...emails,
     ...customers,
