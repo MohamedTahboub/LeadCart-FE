@@ -1,0 +1,84 @@
+{
+    "name": "English",
+    "languageCode": "en-Us",
+    "type": "ltr",
+    "default": true,
+    "contexts": [
+        {
+            "title": "Checkout Product Translations",
+            "key": "checkout",
+            "words": [
+                {
+                    "key": "billingDetails",
+                    "value": "Billing Details"
+                },
+                {
+                    "key": "firstName",
+                    "value": "First Name"
+                },
+                {
+                    "key": "lastName",
+                    "value": "Last Name"
+                },
+                {
+                    "key": "email",
+                    "value": "Email"
+                },
+                {
+                    "key": "phoneNumber",
+                    "value": "Phone Number"
+                },
+                {
+                    "key": "shippingDetails",
+                    "value": "Shipping Address"
+                },
+                {
+                    "key": "streetAddress",
+                    "value": "Street Address"
+                },
+                {
+                    "key": "streetAddress2",
+                    "value": "Street Address #2"
+                },
+                {
+                    "key": "state",
+                    "value": "State/ Province"
+                },
+                {
+                    "key": "postal",
+                    "value": "Postal/ Zip Code"
+                },
+                {
+                    "key": "country",
+                    "value": "Country"
+                },
+                {
+                    "key": "paymentMethods",
+                    "value": "Payment Methods"
+                },
+                {
+                    "key": "orderSummary",
+                    "value": "Order Summary"
+                },
+                {
+                    "key": "total",
+                    "value": "Total"
+                },
+                {
+                    "key": "discount",
+                    "value": "Discount"
+                },
+                {
+                    "key": "termsAndConditions",
+                    "value": "By placing an order you are stating that you agree to the",
+                    "subs": [
+                        {
+                            "key": "link",
+                            "value": "Terms & Conditions"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
