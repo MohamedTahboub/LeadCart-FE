@@ -109,7 +109,7 @@ const TranslationEditModal = ({
   createTranslationLanguage,
   updateTranslationLanguage
 }) => {
-  const [language, setLanguage] = useState(languageData);
+  const [language, setLanguage] = useState({});
   const [searchKey, setSearchKey] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -155,9 +155,9 @@ const TranslationEditModal = ({
   };
 
   useEffect(() => {
-    setLanguage(languageData);
+    setLanguage(languageData)
     setError();
-    setSearchKey();
+    setSearchKey();    
   }, [languageData]);
 
   const onChange = ({
@@ -189,7 +189,6 @@ const TranslationEditModal = ({
   } = language;
 
   const filterLanguageContexts = (searchKey, contexts) => contexts.map((context) => {
-    console.log(searchKey);
     if (!searchKey) return context;
 
     const words = context.words.filter((word) => (
@@ -213,27 +212,55 @@ const TranslationEditModal = ({
   };
   const filteredLanguageContexts = filterLanguageContexts(searchKey, contexts);
 
+  const onToggleLanguageType = (type) => () => {
+    setLanguage({ ...language, type });
+  };
+
   return (
     <Modal
       className='language-edit-modal'
       isVisible={open}
       onClose={onClose}
     >
-      <EditableField
-        className='language-name-input title'
-        name='name'
-        onChange={onFieldChange}
-        value={name}
-        max={50}
-      />
+      <MainTitle className='underlined padding-bottom-10'>
+        Language Syntax
+      </MainTitle>
+      <InputRow>
+        <InputRow.Label>Language Name:</InputRow.Label>
+        <InputRow.TextField
+          className='language-name-input title'
+          name='name'
+          onChange={onFieldChange}
+          value={name}
+          placeholder='Language Name'
+          max={50}
+        />
+      </InputRow>
+      <InputRow>
+        <InputRow.Label>Type (language direction):</InputRow.Label>
+        <div>
+          <InputRow.Checkbox
+            className='margin-left-10'
+            onClick={onToggleLanguageType('ltr')}
+            checked={language.type === 'ltr'}
+          >
+            Left To Right
+          </InputRow.Checkbox>
+          <InputRow.Checkbox
+            className='margin-left-10'
+            onClick={onToggleLanguageType('rtl')}
+            checked={language.type === 'rtl'}
+          >
+            Right To left
+          </InputRow.Checkbox>
+        </div>
+      </InputRow>
       <InputRow.TextField
         className='words-search-field'
         prefix={<Currency value={<i className='fas fa-search' />} />}
         value={searchKey}
         placeholder='Search For Words'
         onChange={onSearch}
-      // name={keyValue}
-      // id={keyValue}
       />
       <div className='language-contexts'>
         {filteredLanguageContexts.map((context) => (

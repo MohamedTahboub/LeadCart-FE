@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as translationsActions from 'actions/translations';
@@ -13,13 +13,15 @@ import moment from 'moment';
 const {
   MainBlock,
   MiniButton,
+  Dialog,
   Button,
 } = common;
 
 
-const Translations = ({ languages = [] }) => {
+const Translations = ({ languages = [], deleteTranslationLanguage }) => {
 
   const [openModal, setOpenModal] = useState();
+  const [showDeleteModal, setShowDeleteModal] = useState();
   const [isEdit, setIsEdit] = useState();
 
   const onOpenModal = () => {
@@ -40,12 +42,24 @@ const Translations = ({ languages = [] }) => {
     setIsEdit()
   };
 
+  const onLanguageDelete = languageId => {
+    deleteTranslationLanguage({
+      languageId
+    }, {
+      onSuccess: () => {
+        setShowDeleteModal()
+      },
+      onFailed: () => {
+        setShowDeleteModal()
+      }
+    })
+  }
+
   const languagesRows = (
     <Table>
       <Table.Head>
         <Table.HeadCell>Name</Table.HeadCell>
         <Table.HeadCell>Type(Language Direction)</Table.HeadCell>
-        <Table.HeadCell>Language Code</Table.HeadCell>
         <Table.HeadCell>Last Update Date</Table.HeadCell>
         <Table.HeadCell />
       </Table.Head>
@@ -54,7 +68,6 @@ const Translations = ({ languages = [] }) => {
           _id: id,
           name = 'Untitled',
           default: defaultLanguage,
-          languageCode,
           updatedAt,
           type,
         }, orderInList) => (
@@ -65,23 +78,29 @@ const Translations = ({ languages = [] }) => {
             >
               <Table.Cell mainContent={name} />
               <Table.Cell className={'uppercase-text'} mainContent={type} />
-              <Table.Cell mainContent={languageCode} />
               <Table.Cell mainContent={moment(updatedAt).format('MMM DD YYYY')} />
               <Table.Cell className='flex-container'>
-                <MiniButton
-                  toolTip='Delete'
-                  className='table-row-delete-btn position-right-70'
-                  iconClass='fa-trash-alt'
-                  disabled={defaultLanguage}
-                // onClick={() => setShowDeleteModal(couponId)}
-                />
-                <MiniButton
-                  toolTip='Edit'
-                  className='table-row-edit-btn position-right-10'
-                  iconClass='fas fa-edit'
-                  disabled={defaultLanguage}
-                  onClick={() => onOpenEditModal(id)}
-                />
+                {!defaultLanguage ?
+                  (
+                    <Fragment>
+                      <MiniButton
+                        toolTip='Delete'
+                        className='table-row-delete-btn position-right-70'
+                        iconClass='fa-trash-alt'
+                        disabled={defaultLanguage}
+                        onClick={() => setShowDeleteModal(id)}
+                      />
+                      <MiniButton
+                        toolTip='Edit'
+                        className='table-row-edit-btn position-right-10'
+                        iconClass='fas fa-edit'
+                        disabled={defaultLanguage}
+                        onClick={() => onOpenEditModal(id)}
+                      />
+                    </Fragment>
+                  ) : (
+                    <div className="badge gray-badge">Default</div>
+                  )}
               </Table.Cell>
             </Table.Row>
           ))}
@@ -105,12 +124,26 @@ const Translations = ({ languages = [] }) => {
       />
       {languagesRows}
 
-      <EditModal
-        open={openModal}
-        onClose={onCloseModal}
-        isNew={!isEdit}
-        language={isEdit}
-      />
+      {openModal && (
+        <EditModal
+          open={openModal}
+          onClose={onCloseModal}
+          isNew={!isEdit}
+          language={isEdit}
+        />
+        )}
+
+      {showDeleteModal && (
+        <Dialog
+          title='Translation Deletion'
+          description='Are you sure,you want delete this translation?'
+          show={showDeleteModal}
+          onClose={() => setShowDeleteModal('')}
+          confirmBtnText='Delete'
+          onConfirm={() => onLanguageDelete(showDeleteModal)}
+        />
+      )}
+
     </div>
   );
 };

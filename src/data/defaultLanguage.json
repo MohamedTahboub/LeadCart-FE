@@ -49,6 +49,11 @@
                     "label": "Street Address #2"
                 },
                 {
+                    "key": "city",
+                    "value": "City",
+                    "label": "City"
+                },
+                {
                     "key": "state",
                     "value": "State/ Province",
                     "label": "State/ Province"
@@ -94,6 +99,11 @@
                             "value": "Terms & Conditions"
                         }
                     ]
+                },
+                {
+                    "key": "coupon",
+                    "value": "Coupon",
+                    "label": "Coupon"
                 }
             ]
         }
