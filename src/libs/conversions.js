@@ -24,3 +24,6 @@ export const getTextContentFromTextNode = (htmlText) => {
   return wrapper.textContent;
 };
 
+
+export const friendlyMessage = (msg) => msg;
+

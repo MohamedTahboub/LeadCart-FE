@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as translationsActions from 'actions/translations';
 import common from 'components/common';
 import Table from 'components/common/Tables';
-import { Modal } from 'components/Modals';
 import { injectDefaultLabels } from 'libs'
 import {
   TranslationEditModal as EditModal
@@ -12,25 +11,25 @@ import {
 import moment from 'moment';
 
 const {
-  SmallButton,
   MainBlock,
   MiniButton,
   Button,
-  InputRow,
-  MainTitle
 } = common;
 
 
 const Translations = ({ languages = [] }) => {
+
   const [openModal, setOpenModal] = useState();
   const [isEdit, setIsEdit] = useState();
 
   const onOpenModal = () => {
     setOpenModal(true);
+    setIsEdit()
   };
+
   const onOpenEditModal = (id) => {
-    const language = languages.find(language=>language._id === id)
-    if(!language) return;
+    const language = languages.find(language => language._id === id)
+    if (!language) return;
 
     setIsEdit(language)
     setOpenModal(true)
@@ -38,14 +37,14 @@ const Translations = ({ languages = [] }) => {
 
   const onCloseModal = () => {
     setOpenModal(false);
+    setIsEdit()
   };
-
 
   const languagesRows = (
     <Table>
       <Table.Head>
         <Table.HeadCell>Name</Table.HeadCell>
-        <Table.HeadCell>Type</Table.HeadCell>
+        <Table.HeadCell>Type(Language Direction)</Table.HeadCell>
         <Table.HeadCell>Language Code</Table.HeadCell>
         <Table.HeadCell>Last Update Date</Table.HeadCell>
         <Table.HeadCell />
@@ -54,7 +53,7 @@ const Translations = ({ languages = [] }) => {
         {languages.map(({
           _id: id,
           name = 'Untitled',
-          default:defaultLanguage,
+          default: defaultLanguage,
           languageCode,
           updatedAt,
           type,
@@ -74,9 +73,9 @@ const Translations = ({ languages = [] }) => {
                   className='table-row-delete-btn position-right-70'
                   iconClass='fa-trash-alt'
                   disabled={defaultLanguage}
-                  // onClick={() => setShowDeleteModal(couponId)}
-                  />
-                  <MiniButton
+                // onClick={() => setShowDeleteModal(couponId)}
+                />
+                <MiniButton
                   toolTip='Edit'
                   className='table-row-edit-btn position-right-10'
                   iconClass='fas fa-edit'

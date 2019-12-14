@@ -1209,3 +1209,8 @@ div.ant-select-sm .ant-select-selection--single {
     margin-left: 20px;
     margin-right: 20px;
   }
+
+  .underlined{
+    border: 0;
+    border-bottom: 1px solid #e3e3e3;
+  }

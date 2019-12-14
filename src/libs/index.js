@@ -1,6 +1,6 @@
 export { navigateTo, openNewWindow } from './navigations';
 export { showIntercomIcon } from './intercom';
-export { bytesToSize, getTextContentFromTextNode } from './conversions';
+export { bytesToSize, getTextContentFromTextNode ,friendlyMessage} from './conversions';
 export { getCurrencySymbol } from './currencies'
 export { default as stopTabClosing } from './stopTabClosing'
 export { default as property } from './propertiesReader'
