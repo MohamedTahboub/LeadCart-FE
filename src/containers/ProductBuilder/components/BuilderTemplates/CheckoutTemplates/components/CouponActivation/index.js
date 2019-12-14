@@ -6,7 +6,16 @@ import common from 'components/common';
 import './style.css';
 
 const { FloatButton } = common;
-const CouponActivation = ({ color: background, coupons, ...props }) => {
+const CouponActivation = ({
+  color: background,
+  language = {},
+  coupons,
+  ...props
+}) => {
+  const {
+    coupon: couponTitle,
+  } = language.checkout || {};
+
   const onDisable = () => {
     props.onChange({
       target: {
@@ -15,6 +24,7 @@ const CouponActivation = ({ color: background, coupons, ...props }) => {
       }
     });
   };
+
   return (
     coupons.enabled ? (
       <div className='product-template-coupon-container'>
@@ -23,7 +33,7 @@ const CouponActivation = ({ color: background, coupons, ...props }) => {
         </FloatButton>
         <div className='coupon-form-head'>
           <img src={scissorImage} alt='scissor icon' />
-          Coupon
+          {couponTitle}
         </div>
         <div className='coupon-activation-form'>
           <input

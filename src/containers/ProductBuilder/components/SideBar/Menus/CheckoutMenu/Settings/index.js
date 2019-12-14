@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
+import { connect } from 'react-redux';
 
 import './style.css';
 
@@ -21,7 +22,14 @@ const { Panel } = Collapse;
 const Settings = ({
   subdomain,
   onToggleDarkTheme,
+  translations,
   darkTheme,
+  product: {
+    settings: {
+      language = 'default'
+    } = {}
+  } = {},
+  onChange,
   ...props
 }) => (
   <MenuItem>
@@ -45,8 +53,11 @@ const Settings = ({
             <InputRow.SearchInput
               size='small'
               width={150}
-              options={languages}
-              defaultValue='en'
+              name='settings.language'
+              options={translations}
+              value={language}
+              defaultValue='English'
+              onChange={onChange}
             />
           </InputRow>
           <InputRow className='sidebar-row'>
@@ -60,11 +71,11 @@ const Settings = ({
             <InputRow.Label className='sidebar-input-label'>
               <abbr title='General Data Protection Regulation'>
                   GDPR
-              </abbr>
+                </abbr>
                 &ensp;Compliance
               :
 
-            </InputRow.Label>
+              </InputRow.Label>
             <InputRow.SwitchInput
               disabled
               className='sidebar-switch-input onoff-switch-label'
@@ -95,4 +106,10 @@ Settings.defaultProps = {
   product: {}
 };
 
-export default Settings;
+const mapStateToProps = ({ translations }) => ({
+  translations: translations.map((translation) => ({
+    label: translation.name,
+    value: translation._id || 'default'
+  }))
+});
+export default connect(mapStateToProps)(Settings);
