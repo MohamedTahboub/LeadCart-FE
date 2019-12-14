@@ -23,7 +23,7 @@ export default ({ dispatch }) => (next) => async (action) => {
     },
     onSuccess: (args) => {
       meta.onSuccess && meta.onSuccess(args);
-      return createTranslationLanguageSuccess(action.payload);
+      return createTranslationLanguageSuccess(args);
     },
     onFailed: (message) => {
       meta.onFailed && meta.onFailed(message);

@@ -27,3 +27,11 @@ export const getTextContentFromTextNode = (htmlText) => {
 
 export const friendlyMessage = (msg) => msg;
 
+export const formatLanguage = (language) => language.contexts.reduce((lang, context) => {
+  lang[context.key] = context.words.reduce((words, word) => {
+    words[word.key] = word.value;
+    return words;
+  }, {});
+  return lang;
+}, {});
+

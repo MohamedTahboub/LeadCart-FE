@@ -123,6 +123,9 @@ const ProductSchema = yup.object({
   shippingDetails: yup.object({
     enabled: yup.bool()
   }),
+  settings: yup.object({
+    language: yup.string()
+  }),
   scripts: yup.object({
     fbPixelId: yup
       .string()
