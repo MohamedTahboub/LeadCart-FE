@@ -17,37 +17,50 @@ import {
 } from '../../components'
 
 
-const Template = ({ className='' ,product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
+const Template = ({
+  className = '',
+  product: {
+    shippingDetails = {},
+    ...product
+  } = {},
+  language,
+  onChange,
+  onOptionSelected
+}) => {
 
   const color = product.pagePreferences && product.pagePreferences.themeColor
   const { features = {}, testimonials = {} } = product.pagePreferences || {}
-  const { coupons = {} , payment ={}} = product
-  
+  const { coupons = {}, payment = {} } = product
+
   return (
-    <div  id={product._id} className={`editable-product-form-container ${className}`}>
+    <div id={product._id} className={`editable-product-form-container ${className}`}>
       <Header
         onOptionSelected={onOptionSelected}
         color={color}
+        language={language}
       />
 
       <section className="product-template-body">
         <section className="billing-components-section">
 
 
-          <BillingDetails color={color} />
+          <BillingDetails
+            color={color}
+            language={language}
+          />
 
           <ShippingDetails
             data={shippingDetails}
             onChange={onChange}
             color={color}
+            language={language}
           />
 
           <PaymentMethods
             step={shippingDetails.enabled ? 3 : 2}
             onOptionSelected={onOptionSelected}
             methods={payment.methods}
-            onShowSetting
-            onFieldChange
+            language={language}
           />
           <BumpOffer
             onOptionSelected={onOptionSelected}
@@ -58,6 +71,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
             price={product.price}
             productName={product.name}
             payment={product.payment}
+            language={language}
           />
           <TermsAndConditionsBadge
             onChange={onChange}
@@ -81,14 +95,14 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
 
         <section className="richening-components-section">
           <AboutProduct
-          {...product}
+            {...product}
             onChange={onChange}
             descriptionInnerClassName={'vertical-product-template-description'}
             image={product.image}
             name={product.name}
             description={product.description}
           />
-    
+
           <Features
             onChange={onChange}
             features={features}
@@ -98,6 +112,7 @@ const Template = ({ className='' ,product: { shippingDetails = {}, ...product } 
             color={color}
             onChange={onChange}
             coupons={coupons}
+            language={language}
           />
         </section>
       </section>

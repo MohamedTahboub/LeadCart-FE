@@ -1,4 +1,6 @@
 
+import defaultLanguage from 'data/defaultLanguage.json';
+
 export const filterSubscriptions = (orders = []) => orders.filter(({ payment }) => payment.paymentType === 'Subscription');
 
 
@@ -45,3 +47,36 @@ function sortOrders (o1, o2) {
 
 
 export const RoundTow = (number) => Math.round(number * 100) / 100;
+
+
+export const injectDefaultLabels = (languages) => {
+  const injectLabelForLanguage = (language) => {
+    const contextsWithLabels = language.contexts.map((context) => {
+      const matchContext = defaultLanguage.contexts.find(({ key }) => key === context.key);
+      if (!matchContext) return context;
+
+      const words = context.words.map((word) => {
+        const matchedWord = matchContext.words.find(({ key }) => key === word.key);
+
+        if (!matchedWord) return word;
+
+        return { ...word, label: matchedWord.value };
+      });
+
+      return {
+        ...context,
+        words
+      };
+    });
+
+
+    return {
+      ...language,
+      contexts: contextsWithLabels
+    };
+  };
+  const labeledLanguages = languages.map(injectLabelForLanguage);
+  console.log(labeledLanguages);
+  return labeledLanguages;
+};
+

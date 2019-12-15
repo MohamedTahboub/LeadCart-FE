@@ -13,10 +13,7 @@
   margin: 10px 0px;
   color:black;
 }
-.underlined{
-  border: 0;
-  border-bottom: 1px solid #e3e3e3;
-}
+
 .product-template-image{
   border-radius: 10px;
   width: 225px;
