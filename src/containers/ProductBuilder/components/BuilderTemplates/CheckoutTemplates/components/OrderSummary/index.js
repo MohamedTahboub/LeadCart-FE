@@ -39,22 +39,37 @@ const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'month', 
   }
 };
 const OrderSummary = ({
-  payment, productName = '', price: { amount = 0, currency = 'USD' } = {}, vat = 0.1
+  payment,
+  productName = '',
+  price: {
+    amount = 0,
+    currency = 'USD'
+  } = {},
+  vat = 0.1,
+  language = {},
+
 }) => {
+  const {
+    orderSummary: orderSummaryLabel,
+    total: totalLabel,
+    // discount: discountLabel,
+  } = language.checkout || {};
+
   const { label, nextCharge } = getPaymentDetails(productName, payment);
+
   // const tax = amount * vat
   const total = Number.parseFloat(amount).toFixed(2);
   const currencySymbol = getCurrencySymbol(currency);
   return (
     <section className='product-template-order-summary'>
-      <h4>Order Summary</h4>
+      <h4>{orderSummaryLabel}</h4>
       <SummarySlice
         name={label}
         amount={`${currencySymbol} ${total}`}
       />
       <SummarySlice
         className='summary-total'
-        name='Total'
+        name={totalLabel}
         amount={`${currencySymbol} ${total}`}
       />
       {nextCharge && (

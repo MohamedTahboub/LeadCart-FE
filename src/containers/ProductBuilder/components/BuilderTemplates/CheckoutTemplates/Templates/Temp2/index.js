@@ -25,9 +25,10 @@ const Template = ({
     ...product
   } = {},
   onChange,
+  language,
   onOptionSelected
 }) => {
-  
+
 
   const color = product.pagePreferences && product.pagePreferences.themeColor
   const { features = {}, testimonials = {} } = product.pagePreferences || {}
@@ -38,6 +39,7 @@ const Template = ({
       <Header
         onOptionSelected={onOptionSelected}
         color={color}
+        language={language}
       />
       <AboutProduct
         {...product}
@@ -59,20 +61,23 @@ const Template = ({
             onChange={onChange}
             features={features}
           />
-          <BillingDetails color={color} />
+          <BillingDetails
+            color={color}
+            language={language}
+          />
 
           <ShippingDetails
             data={shippingDetails}
             onChange={onChange}
             color={color}
+            language={language}
           />
 
           <PaymentMethods
             step={shippingDetails.enabled ? 3 : 2}
             onOptionSelected={onOptionSelected}
             methods={payment.methods}
-            onShowSetting
-            onFieldChange
+            language={language}
           />
           <BumpOffer
             onOptionSelected={onOptionSelected}
@@ -83,11 +88,13 @@ const Template = ({
             price={product.price}
             productName={product.name}
             payment={product.payment}
+            language={language}
           />
           <TermsAndConditionsBadge
             onChange={onChange}
             onOptionSelected={onOptionSelected}
             terms={product.pagePreferences && product.pagePreferences.termsAndConditions}
+            language={language}
           />
 
           <CompleteOrderBtn
@@ -115,6 +122,7 @@ const Template = ({
               color={color}
               onChange={onChange}
               coupons={coupons}
+              language={language}
             />
           </section>
         )
