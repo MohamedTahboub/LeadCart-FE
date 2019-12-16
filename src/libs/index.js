@@ -1,6 +1,6 @@
 export { navigateTo, openNewWindow } from './navigations';
 export { showIntercomIcon } from './intercom';
-export { getCurrencySymbol } from './currencies'
+export { getCurrencySymbol, getPriceFormat } from './currencies'
 export { default as stopTabClosing } from './stopTabClosing'
 export { default as property } from './propertiesReader'
 export { default as htmlToImage } from './htmlToImage'
