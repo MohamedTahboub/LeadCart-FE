@@ -16,6 +16,7 @@ import { updateMarketPlaceSettingsSuccess } from 'actions/settings';
 import { getDashboardDataSuccess } from 'actions/dashboard';
 import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
+import { getTranslationsLanguages } from 'actions/translations';
 
 
 window.user = '';
@@ -45,6 +46,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
 
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
     dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
+    dispatch(getTranslationsLanguages(data.languages));
     dispatch(getEmailSettings(data.emailSettings));
 
     dispatch(getUserPlanSuccess({

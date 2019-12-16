@@ -43,11 +43,12 @@ export default class Table extends Component {
   static Cell = ({
     children,
     mainContent,
+    className = '',
     subContent,
     sideContent,
     ...props
   }) => (
-    <div className='table-cell'>
+    <div className={`table-cell ${className}`}>
       {mainContent && (
         !sideContent
           ? (
