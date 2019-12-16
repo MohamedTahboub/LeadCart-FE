@@ -21,6 +21,7 @@ import emails from './emails'
 import dashboard from './dashboard'
 import orders from  './orders'
 import funnels from  './funnels'
+import translations from  './translations'
 
 
 
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
     flashMessage,
     dashboard,
     funnels,
+    translations,
     validation
 })
 

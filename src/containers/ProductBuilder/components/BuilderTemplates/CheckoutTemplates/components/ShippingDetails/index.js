@@ -6,7 +6,11 @@ const { CycleStepTitle, CheckoutInput, FloatButton } = common;
 
 
 export default ({
-  data = {}, color, onOptionSelected, ...props
+  data = {},
+  color,
+  onOptionSelected,
+  language = {},
+  ...props
 }) => {
   const onDisable = () => {
     props.onChange({
@@ -16,6 +20,16 @@ export default ({
       }
     });
   };
+
+  const {
+    shippingDetails,
+    streetAddress,
+    streetAddress2,
+    city,
+    state,
+    postal,
+    country
+  } = language.checkout || {};
 
   if (!data.enabled) return null;
   return (
@@ -27,43 +41,39 @@ export default ({
       >
         <i className='fas fa-eye-slash' />
       </FloatButton>
-      <CycleStepTitle step='2'>Shipping Address</CycleStepTitle>
+      <CycleStepTitle step='2'>{shippingDetails}</CycleStepTitle>
       <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
-          name='address'
-          label='Street Address'
+          label={streetAddress}
         />
       </div>
       <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
-          name='sec_address'
-          label='Street Address Line 2'
+          label={streetAddress2}
         />
       </div>
       <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
-          name='city'
-          label='City'
+          label={city}
         />
         <CheckoutInput
           disabled
-          name='province'
-          label='State / Province'
+          label={state}
         />
       </div>
       <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
-          name='postal'
-          label='Postal / Zip Code'
+          // name='postal'
+          label={postal}
         />
         <CheckoutInput
           disabled
-          name='country'
-          label='Country'
+          // name='country'
+          label={country}
         />
       </div>
     </div>

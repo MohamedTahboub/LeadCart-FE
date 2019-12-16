@@ -30,7 +30,7 @@ const DomainForm = ({ domains, connectMarketPlaceDomain }) => {
     setLoading(true);
     connectMarketPlaceDomain(
       {
-        domain: value
+        domain: value && value.trim()
       },
       {
         onSuccess: (data) => {

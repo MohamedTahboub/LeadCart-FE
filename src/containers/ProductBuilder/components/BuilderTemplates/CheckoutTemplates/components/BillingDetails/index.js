@@ -5,35 +5,41 @@ import './style.css';
 const { CycleStepTitle, CheckoutInput } = common;
 
 
-const BillingDetails = ({ color, ...props }) => (
-  <div className='product-template-billing'>
+const BillingDetails = ({ color, language = {}, ...props }) => {
+  const {
+    billingDetails: title,
+    firstName,
+    lastName,
+    email,
+    phoneNumber
+  } = language.checkout || {};
 
-    <CycleStepTitle step='1'>Billing Details</CycleStepTitle>
-    <div style={{ color }} className='flex-row'>
-      <CheckoutInput
-        disabled
-        name='firstName'
-        label='First Name'
-      />
-      <CheckoutInput
-        disabled
-        name='lastName'
-        label='Last Name'
-      />
+  return (
+    <div className='product-template-billing'>
+
+      <CycleStepTitle step='1'>{title}</CycleStepTitle>
+      <div style={{ color }} className='flex-row'>
+        <CheckoutInput
+          disabled
+          label={firstName}
+        />
+        <CheckoutInput
+          disabled
+          label={lastName}
+        />
+      </div>
+      <div style={{ color }} className='flex-row'>
+        <CheckoutInput
+          disabled
+          label={email}
+        />
+        <CheckoutInput
+          disabled
+          label={phoneNumber}
+        />
+      </div>
     </div>
-    <div style={{ color }} className='flex-row'>
-      <CheckoutInput
-        disabled
-        name='email'
-        label='Email'
-      />
-      <CheckoutInput
-        disabled
-        name='phone'
-        label='Phone Number'
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 export default BillingDetails;

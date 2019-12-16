@@ -1,0 +1,88 @@
+.language-edit-modal{
+    width: 650px;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+}
+.language-contexts{
+    /* max-height: 75%; */
+    overflow-y: auto;
+    padding-bottom: 30px;
+    flex: 1;
+}
+.language-context-container .language-context-words{
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.language-context-title {
+    font-size: 17px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+.language-name-input{
+    max-height: 33px;
+    overflow: hidden;
+    width:300px;
+}
+.language-word-item{
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    flex-wrap: wrap;
+}
+.word-value{
+    display: flex;
+    align-items: center;
+}
+
+.word-value .word-input{
+    flex: 1;
+   display: flex;
+   justify-content: flex-end;
+   
+}
+.word-label{
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.word-subs{
+    margin: 10px 2px;
+    padding-left:20px;
+    border-left: 2px solid lightgray;
+}
+
+
+.position-right-10{
+    right: 10px;
+    left: unset;
+}
+.position-right-70{
+    right: 70px;
+    left: unset;
+}
+
+.uppercase-text{
+    text-transform: uppercase;
+}
+
+.words-search-field{
+    width: 100%;
+    margin: 15px 0;
+    display: flex;
+}
+.text-input-filed-container.words-search-field .currency-label + .text-input-filed{
+    padding-left: 10px ;
+}
+
+
+.words-search-field .currency-label {
+    right: 0px;
+    left: unset;  
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0px;
+}

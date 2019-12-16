@@ -17,7 +17,16 @@ import {
 } from '../../components'
 
 
-const Template = ({ className = '', product: { shippingDetails = {}, ...product } = {}, onChange, onOptionSelected }) => {
+const Template = ({
+  className = '',
+  product: {
+    shippingDetails = {},
+    ...product
+  } = {},
+  language,
+  onChange,
+  onOptionSelected
+}) => {
 
   const color = product.pagePreferences && product.pagePreferences.themeColor
   const { features = {}, testimonials = {} } = product.pagePreferences || {}
@@ -70,20 +79,20 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
               }}
             />
           </div>
-          <BillingDetails color={color} />
+          <BillingDetails color={color} language={language} />
 
           <ShippingDetails
             data={shippingDetails}
             onChange={onChange}
             color={color}
+            language={language}
           />
 
           <PaymentMethods
             step={shippingDetails.enabled ? 3 : 2}
             onOptionSelected={onOptionSelected}
             methods={payment.methods}
-            onShowSetting
-            onFieldChange
+            language={language}
           />
           <BumpOffer
             onOptionSelected={onOptionSelected}
@@ -94,6 +103,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
             price={product.price}
             productName={product.name}
             payment={product.payment}
+            language={language}
           />
           <TermsAndConditionsBadge
             onChange={onChange}
@@ -116,6 +126,7 @@ const Template = ({ className = '', product: { shippingDetails = {}, ...product 
               color={color}
               onChange={onChange}
               coupons={coupons}
+              language={language}
             />
           </section>
         )}

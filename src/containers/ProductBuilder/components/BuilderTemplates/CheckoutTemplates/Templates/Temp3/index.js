@@ -25,6 +25,7 @@ const Template = ({
     ...product
   } = {},
   onChange,
+  language,
   onOptionSelected
 }) => {
 
@@ -36,6 +37,7 @@ const Template = ({
       <Header
         onOptionSelected={onOptionSelected}
         color={color}
+        language={language}
       />
       <AboutProduct
         {...product}
@@ -48,20 +50,25 @@ const Template = ({
       />
       <section className="product-template-body">
         <section className="billing-components-section">
-          <BillingDetails color={color} />
+          <BillingDetails
+            color={color}
+            language={language}
+          />
 
           <ShippingDetails
             data={shippingDetails}
             onChange={onChange}
             color={color}
+            language={language}
           />
 
           <PaymentMethods
             step={shippingDetails.enabled ? 3 : 2}
             onOptionSelected={onOptionSelected}
             methods={payment.methods}
-            onShowSetting
-            onFieldChange
+            // onShowSetting
+            // onFieldChange
+            language={language}
           />
           <BumpOffer
             onOptionSelected={onOptionSelected}
@@ -72,6 +79,7 @@ const Template = ({
             price={product.price}
             productName={product.name}
             payment={product.payment}
+            language={language}
           />
           <TermsAndConditionsBadge
             onChange={onChange}
@@ -108,6 +116,7 @@ const Template = ({
             color={color}
             onChange={onChange}
             coupons={coupons}
+            language={language}
           />
         </section>
 

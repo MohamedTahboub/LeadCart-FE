@@ -11,7 +11,8 @@ import * as flashMessages from 'actions/flashMessage';
 import * as filesActions from 'actions/files';
 import { ProductBuilderSkelton } from 'components/Loaders';
 import hardCodedMessages from 'assets/hardCodedMessages.json';
-
+import defaultLanguage from 'data/defaultLanguage.json';
+import { formatLanguage } from 'libs';
 import {
   stopTabClosing, htmlToImage, slugify, getTextContentFromTextNode
 } from 'libs';
@@ -19,8 +20,26 @@ import { SideBar, Header, ProductEditableTemplate } from './components';
 import './style.css';
 
 
+const getLanguageLabel = (
+  languages = [],
+  {
+    language: langId
+  } = {}
+) => {
+  let language = languages.find((lang) => lang._id === langId);
+  if (!language)
+    language = defaultLanguage
+
+  return { ...formatLanguage(language), type: language.type }
+};
+
+
 const ProductBuilder = ({
-  products, subdomain, globelLoading, ...props
+  products,
+  subdomain,
+  globelLoading,
+  translations: languages,
+  ...props
 }) => {
   const [fields, setFields] = useState({});
   const [displayType, setDisplayType] = useState('desktop');
@@ -30,6 +49,7 @@ const ProductBuilder = ({
   const [templateChanging, setTemplateChanging] = useState(false);
   const [isSidebarOpened, setSidebarOpened] = useState(false);
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
+
 
   const [unblock, SetUnblock] = useState();
 
@@ -44,6 +64,7 @@ const ProductBuilder = ({
     typeof unblock === 'function' && unblock();
     stopTabClosing(false);
   };
+
   const onChange = ({ target: { name, value } }) => {
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
@@ -51,7 +72,9 @@ const ProductBuilder = ({
       name = key;
       value = { ...fields[key], ...nestedValue };
     }
-    console.log('Changes registered', name, value);
+
+
+    // console.log('Changes registered', name, value);
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -60,6 +83,7 @@ const ProductBuilder = ({
   const onToggleDarkTheme = () => {
     setEnableDarkTheme(!enableDarkTheme);
   };
+
   useEffect(() => {
     const { id } = props.match.params;
     const product = products.find(({ _id }) => _id === id) || {};
@@ -193,7 +217,10 @@ const ProductBuilder = ({
         description,
         template
       };
-    } else {
+    } else if (
+      (currentTemplate !== template)
+      && template === 'temp6'
+    ) {
       const {
         products: {
           defaults: {
@@ -213,13 +240,23 @@ const ProductBuilder = ({
         },
         template
       };
+    } else {
+      updatesObj.pagePreferences = {
+        ...pagePreferences,
+        description: pagePreferences.description,
+        template
+      };
     }
 
     setFields({ ...fields, ...updatesObj });
   };
 
+
+  const activeLanguage = getLanguageLabel(languages, fields.settings);
+
   const workSpaceStyles = {
-    backgroundColor: (fields.pagePreferences && fields.pagePreferences.backgroundColor) || '#eee'
+    backgroundColor: (fields.pagePreferences && fields.pagePreferences.backgroundColor) || '#eee',
+    direction: activeLanguage.type
   };
 
   return (
@@ -248,11 +285,15 @@ const ProductBuilder = ({
           toggleTemplateChangeEffect={toggleTemplateChangeEffect}
           onTemplateChange={onTemplateChange}
         />
-        <div style={workSpaceStyles} className={`product-workspace-container editor-workspace-wrapper ${isSidebarOpened ? 'side-opened' : ''}`}>
+        <div
+          style={workSpaceStyles}
+          className={`product-workspace-container editor-workspace-wrapper ${isSidebarOpened ? 'side-opened' : ''}`}
+        >
           <ProductEditableTemplate
             category={fields.category}
             className={`${displayType} ${templateChanging ? 'blur-effect' : ''}`}
             product={fields}
+            language={activeLanguage}
             onChange={onChange}
             errors={errors}
           />
@@ -272,9 +313,15 @@ ProductBuilder.defaultProps = {
 };
 
 const mapStateToProps = ({
+  translations,
   products: { products } = {},
   loading: globelLoading,
   user: { user: { subDomain: subdomain } }
-}) => ({ products, subdomain, globelLoading });
+}) => ({
+  translations,
+  products,
+  subdomain,
+  globelLoading
+});
 
 export default connect(mapStateToProps, { ...productActions, ...flashMessages, ...filesActions })(ProductBuilder);
