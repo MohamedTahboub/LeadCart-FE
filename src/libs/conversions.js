@@ -10,8 +10,8 @@ export const bytesToSize = (bytes) => {
 
 export const downloadCSV = (fileName, dataRows) => {
   const download = document.createElement('a');
-  const filehref = `data:text/csv;charset=utf-8,${encodeURIComponent(dataRows)}`;
-  download.setAttribute('href', filehref);
+  const fileHref = `data:text/csv;charset=utf-8,${encodeURIComponent(dataRows)}`;
+  download.setAttribute('href', fileHref);
   download.setAttribute('download', fileName);
   download.click();
 };
@@ -22,6 +22,12 @@ export const getTextContentFromTextNode = (htmlText) => {
   wrapper.innerHTML = htmlText;
 
   return wrapper.textContent;
+};
+
+export const capitalize = (s) => {
+  if (typeof s !== 'string') return '';
+  const str = s.toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 

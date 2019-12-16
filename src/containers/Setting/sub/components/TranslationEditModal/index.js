@@ -6,14 +6,11 @@ import common from 'components/common';
 import { connect } from 'react-redux';
 import * as translationsActions from 'actions/translations';
 import { languagesSchema } from 'libs/validation';
+
 import './style.css';
-// import { lang } from 'moment';
+
 import { friendlyMessage } from 'libs';
 const {
-  // SmallButton,
-  // MainBlock,
-  // MiniButton,
-  EditableField,
   Button,
   InputRow,
   MainTitle,
@@ -155,9 +152,9 @@ const TranslationEditModal = ({
   };
 
   useEffect(() => {
-    setLanguage(languageData)
+    setLanguage(languageData);
     setError();
-    setSearchKey();    
+    setSearchKey();
   }, [languageData]);
 
   const onChange = ({
