@@ -1,6 +1,10 @@
 import React from 'react';
 import moment from 'moment';
-import { getCurrencySymbol, getPriceFormat, capitalize } from 'libs';
+import {
+  // getCurrencySymbol,
+  getPriceFormat,
+  capitalize
+} from 'libs';
 
 import './style.css';
 
