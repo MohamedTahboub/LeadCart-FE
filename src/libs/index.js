@@ -10,6 +10,7 @@ export {
     bytesToSize,
     getTextContentFromTextNode,
     friendlyMessage,
+    capitalize,
     formatLanguage
 } from './conversions';
 export {

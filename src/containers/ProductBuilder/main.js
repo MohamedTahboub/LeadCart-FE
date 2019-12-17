@@ -26,9 +26,11 @@ const getLanguageLabel = (
     language: langId
   } = {}
 ) => {
-  const language = languages.find((lang) => lang._id === langId);
-  if (language) return formatLanguage(language);
-  return formatLanguage(defaultLanguage);
+  let language = languages.find((lang) => lang._id === langId);
+  if (!language)
+    language = defaultLanguage
+
+  return { ...formatLanguage(language), type: language.type }
 };
 
 
@@ -249,12 +251,13 @@ const ProductBuilder = ({
     setFields({ ...fields, ...updatesObj });
   };
 
-  const workSpaceStyles = {
-    backgroundColor: (fields.pagePreferences && fields.pagePreferences.backgroundColor) || '#eee'
-  };
-
 
   const activeLanguage = getLanguageLabel(languages, fields.settings);
+
+  const workSpaceStyles = {
+    backgroundColor: (fields.pagePreferences && fields.pagePreferences.backgroundColor) || '#eee',
+    direction: activeLanguage.type
+  };
 
   return (
     <Fragment>

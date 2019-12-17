@@ -1,14 +1,9 @@
 import React from 'react';
 import moment from 'moment';
-import { getCurrencySymbol, getPriceFormat } from 'libs';
+import { getCurrencySymbol, getPriceFormat, capitalize } from 'libs';
 
 import './style.css';
 
-const capitalize = (s) => {
-  if (typeof s !== 'string') return '';
-  const str = s.toLowerCase();
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
 
 const SummarySlice = ({ name, amount = 0, className = '' }) => (
   <div className={`template-summary-slice ${className}`}>
