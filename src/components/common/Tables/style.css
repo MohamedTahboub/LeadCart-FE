@@ -1,5 +1,5 @@
 
-.tabel-container{
+.table-container{
     width: 100%;
     margin: 20px 0px;
 }
@@ -147,3 +147,31 @@
   .row-aligned-center{
     justify-content: center;
   }
+
+
+
+.sub-table span.table-head {
+    color: #607D8B;
+}
+
+
+.table-container.sub-table {
+    /* background: #bad8f96e; */
+    padding: 5px;
+    margin: 10px;
+    border-top-right-radius: 7px;
+    width: 50%;
+    border-bottom-right-radius: 7px;
+    border-left: 2px solid #3c7fc76e;
+    margin-left: 70px;
+}
+
+
+.sub-table .table-row-container.row-aligned-center {
+    padding: 5px;
+    margin: 5px 0;
+    /* height: 20px; */
+    min-height: unset;
+    background: inherit;
+    min-width: unset;
+}

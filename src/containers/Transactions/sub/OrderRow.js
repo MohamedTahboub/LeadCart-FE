@@ -42,16 +42,27 @@ const OrderRow = ({
   return (
     <Table.Row
       orderInList={orderInList}
-      subRow={expand && products.map((product) => (
-        <Table.Row>
-          {product.name}
-        </Table.Row>
-      ))}
+      subRow={expand && (
+        <Table subTable>
+          <Table.Head>
+            <Table.HeadCell>Product Name</Table.HeadCell>
+            <Table.HeadCell>Price</Table.HeadCell>
+          </Table.Head>
+          <Table.Body>
+            {products.map((product) => (
+              <Table.Row>
+                <Table.Cell mainContent={product.name} />
+                <Table.Cell mainContent={product.price && product.price.amount} />
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      )}
     >
       <Table.Cell
         mainContent={`#LC-${orderNumber}`}
         sideContent={productsCount ? (
-          <span className='row-expand' role='presentation'>
+          <span onClick={onToggleExpand} className='row-expand' role='presentation'>
             <i className={`fas fa-caret-${expand ? 'up' : 'down'}`} />
           </span>
         ) : null}
