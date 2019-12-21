@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import Orders from './sub/Orders'
 import PropTypes from 'prop-types'
 import Subscriptions from './sub/Subscriptions'
-
+import {  exportOrdersToCsv } from 'libs'
 import './style.css'
 // import ProductDetailes from './sub/ProductDetails'
 
 import common from 'components/common'
+import moment from 'moment';
 
 
 const getSubscriptionsList = orders => {
@@ -19,30 +20,7 @@ const getSubscriptionsList = orders => {
     }, []);
 }
 
-const exportToCsv = (orders) => {
-    const titles = 'Name,Email Address,Phone Number,Product Name,Payment Processor,offer included,coupon used,coupon discount,total Charge,product payment Type\n';
 
-    const convertToCSVFormat = orders
-        .map(({
-            customer: {
-                firstName,
-                lastName,
-                email,
-                phoneNumber
-            },
-            product: {
-                name: productName,
-                offer: { name: offerName = 'No', price: offerPrice = 0 } = {},
-                coupon: { code = '- -', CouponDiscount = 0 } = {}
-            } = {},
-            payment: {
-                paymentType,
-                paymentMethod
-            },
-            totalCharge
-        }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${totalCharge},${paymentType}`).join('\n');
-    return titles + convertToCSVFormat
-};
 
 
 const {
@@ -50,7 +28,8 @@ const {
     Page,
     PageHeader,
     PageContent,
-    SubTabs
+    SubTabs,
+    Button
 } = common
 
 
@@ -59,10 +38,20 @@ const {
 
 const Transactions = ({ orders }) => {
     const [activeTab, setActiveTab] = useState('Orders');
+    const [downloading, setDownloading] = useState(false)
+
+    const orderedList = orders.sort((a, b) =>
+        (new Date(b.createdAt) - new Date(a.createdAt)))
+
+    const subscriptions = getSubscriptionsList(orderedList)
 
     const onExportToCSV = () => {
-        const dataRows = exportToCsv(activeTab === 'Orders' ? orders : subscriptions);
-        const fileName = `${activeTab}.csv`
+        const dataRows = exportOrdersToCsv(orders, {
+            paymentType: activeTab === 'Orders' && 'Subscription'
+        });
+
+        const fileName = `${activeTab}-${moment().format('MMM DD YYYY')}.csv`
+        console.log(dataRows)
         const download = document.createElement('a');
         const fileHref = `data:text/csv;charset=utf-8,${encodeURIComponent(dataRows)}`;
         download.setAttribute('href', fileHref);
@@ -70,23 +59,26 @@ const Transactions = ({ orders }) => {
         download.click();
     }
 
-    const orderedList = orders.sort(function (a, b) {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
-        return new Date(b.createdAt) - new Date(a.createdAt);
-    });
-    const subscriptions = getSubscriptionsList(orderedList)
-    console.log("subscriptions",subscriptions)
+    const onDownloadReport = () => {
+        setDownloading(true)
+        setTimeout(() => {
+            setDownloading(false)
+            onExportToCSV()
+        }, 1200);
+    }
+
     return (
         <Page className='products-details-page'>
             <PageHeader>
                 <MainTitle>Transactions</MainTitle>
-                <div
-                    onClick={onExportToCSV}
-                    className='btn primary-color'
+                <Button
+                    onprogress={downloading}
+                    disabled={downloading}
+                    onClick={onDownloadReport}
+                    className='primary-color'
                 >
                     Export csv
-                </div>
+                </Button>
             </PageHeader>
             <PageContent>
                 <SubTabs

@@ -11,6 +11,7 @@ export {
     getTextContentFromTextNode,
     friendlyMessage,
     capitalize,
+    exportOrdersToCsv,
     formatLanguage
 } from './conversions';
 export {
