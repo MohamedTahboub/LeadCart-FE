@@ -17,25 +17,21 @@ const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }))
 
 const formatOptions = [
   {
-    label: 'Amount (e.g. 1,134.65)',
+    label: '(1134.65)',
     value: 'amount'
   },
   {
-    label: 'Amount No Decimals (e.g. 1,135)',
+    label: '(1135)',
     value: 'amount_no_decimals'
   },
   {
-    label: 'Comma Separator (e.g. 1,134.65)',
+    label: '(1,134.65)',
     value: 'amount_with_comma_separator'
   },
   {
-    label: 'Comma Separator No Decimals(e.g. 1.135)',
-    value: 'amount_no_decimals_with_comma_separator'
-  },
-  {
-    label: 'Apostrophe Separator (e.g. 1\'134.65)',
-    value: 'amount_with_apostrophe_separator'
-  },
+    label: '(1,135)',
+    value: 'amount_with_comma_separator_no_decimals'
+  }
 ];
 const Settings = ({
   product: {
@@ -66,9 +62,10 @@ const Settings = ({
           size='small'
           width={350}
           options={formatOptions}
-          defaultValue={price.currency || 'USD'}
+          defaultValue={price.format || 'amount'}
           name='price.format'
           onChange={props.onChange}
+          // dropdownClassName='price-format-options'
         />
       </InputRow>
       <PaymentType

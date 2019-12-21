@@ -12,7 +12,7 @@ import './style.css';
 const SummarySlice = ({ name, amount = 0, className = '' }) => (
   <div className={`template-summary-slice ${className}`}>
     <span>{name}</span>
-    <span>{amount}</span>
+    <span className='no-text-wrap'>{amount}</span>
   </div>
 );
 
@@ -43,7 +43,8 @@ const OrderSummary = ({
   productName = '',
   price: {
     amount = 0,
-    currency = 'USD'
+    currency = 'USD',
+    format
   } = {},
   vat = 0.1,
   language = {},
@@ -58,7 +59,7 @@ const OrderSummary = ({
   const { label, nextCharge } = getPaymentDetails(productName, payment);
 
   // const tax = amount * vat
-  const total = getPriceFormat(amount, currency);
+  const total = getPriceFormat(amount, currency, format);
   // const currencySymbol = getCurrencySymbol(currency);
   return (
     <section className='product-template-order-summary'>

@@ -1,3 +1,9 @@
 .flex-horizontal{
     flex-direction: column;
 }
+.price-format-options ul.ant-select-dropdown-menu{
+    width: 300px !important;
+}
+/* .price-format-options option{
+    width: 350px;
+} */

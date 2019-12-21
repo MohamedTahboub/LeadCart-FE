@@ -98,7 +98,8 @@ const ProductSchema = yup.object({
   // url: yup.string().default(() => ids.generate()),
   price: yup.object({
     amount: yup.number().required(),
-    currency: yup.string().default('USD')
+    currency: yup.string().default('USD'),
+    format: yup.string().default('amount'),
   }).required(),
   payment: yup.object({
     methods: yup.array().of(yup.string()),
