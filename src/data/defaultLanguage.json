@@ -104,6 +104,11 @@
                     "key": "coupon",
                     "value": "Coupon",
                     "label": "Coupon"
+                },
+                {
+                    "key": "applyCoupon",
+                    "value": "Apply",
+                    "label": "Apply"
                 }
             ]
         }
