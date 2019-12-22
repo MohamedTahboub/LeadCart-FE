@@ -1,5 +1,4 @@
-
-.tabel-container{
+.table-container {
     width: 100%;
     margin: 20px 0px;
 }
@@ -12,14 +11,17 @@
     position: relative;
 }
 
-.table-head-cell{
+.table-head-cell {
+    flex: 1;
     min-width: 100px;
     display: flex;
     justify-content: center
 }
-.table-head-cell  span{
+
+.table-head-cell span {
     position: relative;
 }
+
 .table-head-cell span:after {
     position: absolute;
     content: '\25B2';
@@ -29,7 +31,7 @@
     font-size: 9px;
 }
 
-.table-row-container{
+.table-row-container {
     background: white;
     min-width: 860px;
     min-height: 70px;
@@ -39,6 +41,7 @@
     flex-direction: column;
     justify-content: start;
 }
+
 .table-row {
     display: flex;
     justify-content: space-around;
@@ -46,18 +49,20 @@
 }
 
 .table-cell {
+    flex: 1;
     min-width: 100px;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.tabel-row-controlls-container{
+
+.tabel-row-controlls-container {
     display: flex;
 }
+
 .mini-btn {
-    color:#C9D3DC;
+    color: #C9D3DC;
     margin: 0px 5px;
     display: block;
     height: 30px;
@@ -70,8 +75,9 @@
     align-items: center;
     cursor: pointer;
 }
+
 .small-btn {
-    color:white;
+    color: white;
     margin: 0px 5px;
     display: block;
     height: 30px;
@@ -93,6 +99,7 @@
     font-size: 12px;
     margin-left: 0px;
 }
+
 .wide-tabel-cell {
 
     right: 50px;
@@ -105,45 +112,82 @@
     border-color: #4DA1FF;
 }
 
-.small-table-cell .product-name-avatar{
-    height:40px;
-    width:40px;
+.small-table-cell .product-name-avatar {
+    height: 40px;
+    width: 40px;
 }
+
 .small-table-cell {
     width: 100px;
     display: flex;
     justify-content: center;
 }
+
 .row-controls {
     display: flex;
 }
 
 
 
-.table-row-delete-btn{
+.table-row-delete-btn {
     position: absolute;
-    right:0px;
-    border:unset;
-    color:rgba(255, 99, 71, 0.52);
-    top:20px;
+    right: 0px;
+    border: unset;
+    color: rgba(255, 99, 71, 0.52);
+    top: 20px;
     transition: color .4s ease-in-out;
-  }
-  .table-row-delete-btn:hover{
-    color:tomato
-  }
+}
 
-.table-row-edit-btn{
+.table-row-delete-btn:hover {
+    color: tomato
+}
+
+.table-row-edit-btn {
     position: absolute;
-    left:0px;
-    border:unset;
-    color:rgba(43, 165, 212, 0.52);
-    top:20px;
+    left: 0px;
+    border: unset;
+    color: rgba(43, 165, 212, 0.52);
+    top: 20px;
     transition: color .4s ease-in-out;
-  }
-  .table-row-edit-btn:hover{
-    color:rgba(43, 164, 212, 0.904)
-  }
+}
 
-  .row-aligned-center{
+.table-row-edit-btn:hover {
+    color: rgba(43, 164, 212, 0.904)
+}
+
+.row-aligned-center {
     justify-content: center;
-  }
+}
+
+
+
+.sub-table span.table-head {
+    color: #607D8B;
+    border-bottom: 1px solid #eee;
+}
+
+.sub-table span.table-head .table-head-cell span:after {
+    content: ""
+}
+
+
+.table-container.sub-table {
+    /* background: #bad8f96e; */
+    padding: 5px;
+    margin: 10px;
+    border-top-right-radius: 7px;
+    width: 50%;
+    border-bottom-right-radius: 7px;
+    border-left: 2px solid #3c7fc76e;
+    margin-left: 70px;
+}
+
+
+.sub-table .table-row-container.row-aligned-center {
+    padding: 5px;
+    margin: 5px 0;
+    /* height: 20px; */
+    min-height: unset;
+    background: inherit;
+    min-width: unset;
+}

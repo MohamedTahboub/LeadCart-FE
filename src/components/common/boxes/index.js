@@ -2,6 +2,8 @@ import React from 'react';
 import { CodeInputArea } from '../Inputs'
 import PropTypes from 'prop-types';
 import { getSymbolsReferences } from 'libs'
+import numeral from 'numeral'
+
 import './style.css';
 
 export const FlexBoxesContainer = ({ children, flex = '', className, ...props }) => (
@@ -90,10 +92,11 @@ export const EmbededScripContainer = ({ headNote, showCopied, script }) => (
 
 export const InsightBadge = ({
   title,
-  value,
+  value = 0,
   name,
   chart,
   description,
+  format: valueFormat = '0.00',
   show,
   icon
 }) => {
@@ -102,12 +105,15 @@ export const InsightBadge = ({
   const { prefixSymbol, suffixSymbol } = getSymbolsReferences(name)
 
   if (!show) return null;
+
+  const castedValue = typeof value === 'number' ? numeral(value).format(valueFormat) : value
+  console.log(`${name}(${valueFormat})}`, castedValue)
   return (
     <div className='insight-box'>
       <span className='insight-title'>{title}</span>
       <span className='insight-value'>
         {prefixSymbol}
-        {isNaN(+value) ? 0 : +value}
+        {castedValue}
         {suffixSymbol}
       </span>
       {chart && (

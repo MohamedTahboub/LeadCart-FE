@@ -17,6 +17,7 @@ export default ({
   error,
   defaultValue,
   onChange: onParentChange,
+  dropdownClassName,
   options = []
 }) => {
   const onChange = (value) => {
@@ -34,6 +35,7 @@ export default ({
       placeholder={placeholder || 'Select'}
       optionFilterProp='children'
       onChange={onChange}
+      dropdownClassName={dropdownClassName}
       filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
     >
       {options.map((o) => <Option key={ids.generate()} value={o.value}>{o.label}</Option>)}
