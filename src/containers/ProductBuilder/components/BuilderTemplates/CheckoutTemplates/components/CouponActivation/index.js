@@ -10,6 +10,7 @@ const CouponActivation = ({
   color: background,
   language = {},
   coupons,
+  applyCoupon = 'APPLY',
   ...props
 }) => {
   const {
@@ -44,7 +45,7 @@ const CouponActivation = ({
           <input
             style={{ background }}
             type='button'
-            value='APPLY'
+            value={applyCoupon}
             className='coupon-apply-btn'
           />
 
