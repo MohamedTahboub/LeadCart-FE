@@ -68,5 +68,5 @@
     "eslint-plugin-standard": "^4.0.0",
     "faker": "^4.1.0"
   },
-  "proxy": "https://test.leadcart.io/"
+  "proxy": "http://0.0.0.0:5001/"
 }
