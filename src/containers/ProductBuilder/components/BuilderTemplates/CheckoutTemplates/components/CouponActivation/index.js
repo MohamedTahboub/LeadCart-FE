@@ -10,11 +10,11 @@ const CouponActivation = ({
   color: background,
   language = {},
   coupons,
-  applyCoupon = 'APPLY',
   ...props
 }) => {
   const {
     coupon: couponTitle,
+    applyCoupon = 'APPLY'
   } = language.checkout || {};
 
   const onDisable = () => {
