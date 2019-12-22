@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import numeral from 'numeral';
 
 const ChartTypeCard = ({
   activeType,
@@ -10,11 +11,13 @@ const ChartTypeCard = ({
   suffix,
   data,
   onClick,
+  labelFormat = '0.00',
   name
 }) => {
   const onChange = () => onClick(name);
 
   const labelValue = (value || data[name]) || 0;
+  const castedValue = typeof labelValue === 'number' ? numeral(labelValue).format(labelFormat) : 0;
   return (
     <div
       onClick={onChange}
@@ -24,7 +27,7 @@ const ChartTypeCard = ({
       <div className='label'>{label}</div>
       <div className={`value ${warning ? 'warning' : ''}`}>
         {prefix}
-        {labelValue}
+        {castedValue}
         {suffix}
       </div>
     </div>

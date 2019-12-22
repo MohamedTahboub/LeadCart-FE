@@ -26,7 +26,6 @@ const Header = ({
           )}
     </div>
     <div className='support-component'>
-        Need Help?
       <a
         onClick={(e) => e.preventDefault()}
         href={`mailto:${supportEmail}`}

@@ -46,7 +46,7 @@ const Login = ({
         {errors.loginError && <span className='login-error-field'>{errors.loginError}</span>}
         <button type='submit' className='form-submit'>sign in now</button>
         <div className='account-refrance-links'>
-          <a className='forgetpwd-link' href='/password/forget'> forget password?</a>
+          <a className='forgetpwd-link' href='/password/forget'>Forgot your password?</a>
         </div>
       </form>
       <footer>

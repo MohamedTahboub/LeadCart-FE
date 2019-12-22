@@ -5,7 +5,7 @@ import './style.css';
 
 const { FloatButton } = common;
 
-const TermsAndConditionsBadge = ({ onChange, terms = {} }) => {
+const TermsAndConditionsBadge = ({ onChange, language = {}, terms = {} }) => {
   const onLinkClick = (e) => {
     e.preventDefault();
   };
@@ -18,6 +18,12 @@ const TermsAndConditionsBadge = ({ onChange, terms = {} }) => {
       }
     });
   };
+
+  const {
+    termsAndConditions: termsAndConditionsTitle
+  } = language.checkout || {};
+
+
   return (
     terms.enabled ? (
       <div className='template-terms-container'>
@@ -27,7 +33,7 @@ const TermsAndConditionsBadge = ({ onChange, terms = {} }) => {
         >
           <i className='fas fa-eye-slash' />
         </FloatButton>
-        By placing an order you are stating that you agree to the
+        {termsAndConditionsTitle}
         <a
           onClick={onLinkClick}
           href={terms.url}

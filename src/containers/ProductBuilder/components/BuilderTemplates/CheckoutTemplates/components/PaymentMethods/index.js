@@ -36,11 +36,14 @@ const PaymentSelectionDemo = ({ method }) => {
 };
 const PaymentMethods = ({
   // onOptionSelected,
+  language = {},
   methods = [],
   step = 2
 }) => {
   const [method, setMethod] = useState(0);
-
+  const {
+    paymentMethods: paymentMethodsTitle
+  } = language.checkout || {};
 
   return (
     <Fragment>
@@ -49,7 +52,7 @@ const PaymentMethods = ({
           step={step}
           className='underlined template-payment-method-title'
         >
-          Payment Methods
+          {paymentMethodsTitle}
         </CycleStepTitle>
         {methods.includes('Stripe') && (
           <RadioImageCard
