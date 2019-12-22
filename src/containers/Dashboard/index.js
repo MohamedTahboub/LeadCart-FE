@@ -163,6 +163,7 @@ const Dashboard = ({
                     name='views'
                     prefix={<i className='fas fa-eye' />}
                     onClick={setActiveType}
+                    labelFormat='0'
                   />
                   <ChartTypeCard
                     activeType={activeType}
@@ -170,6 +171,7 @@ const Dashboard = ({
                     data={chartsFeed.sums}
                     name='salesNumber'
                     onClick={setActiveType}
+                    labelFormat='0'
                   />
                   <ChartTypeCard
                     activeType={activeType}
@@ -186,6 +188,7 @@ const Dashboard = ({
                     name='conversionRate'
                     suffix='%'
                     onClick={setActiveType}
+                    labelFormat='0.0'
                   />
                   <ChartTypeCard
                     activeType={activeType}
@@ -193,6 +196,7 @@ const Dashboard = ({
                     data={chartsFeed.sums}
                     name='refundsNumber'
                     onClick={setActiveType}
+                    labelFormat='0'
                     warning
                   />
                   <ChartTypeCard
@@ -202,6 +206,7 @@ const Dashboard = ({
                     name='refundRate'
                     suffix='%'
                     onClick={setActiveType}
+                    labelFormat='0.0'
                     warning
                   />
 
@@ -210,6 +215,7 @@ const Dashboard = ({
                     label='Cart Abandonments'
                     data={chartsFeed.sums}
                     name='cartAbandonments'
+                    labelFormat='0'
                     onClick={setActiveType}
                   />
                   <ChartTypeCard
@@ -218,6 +224,7 @@ const Dashboard = ({
                     data={chartsFeed.sums}
                     name='abandonmentsRate'
                     suffix='%'
+                    labelFormat='0.0'
                     onClick={setActiveType}
                   />
                 </div>

@@ -1,3 +1,4 @@
+import {  getPriceFormat } from "./currencies";
 
 export const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -41,3 +42,36 @@ export const formatLanguage = (language) => language.contexts.reduce((lang, cont
   return lang;
 }, {});
 
+
+export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
+  const titles = 'Name,Email Address,Phone Number,Product Name,Payment Processor,Offer Included,Coupon Used,Coupon Discount,Total Charge,Product Payment Type\n';
+
+  const orderProducts = orders.reduce((products, { products: subProducts, ...order }) => {
+    const nestedProducts = filterPayment
+      ? subProducts.filter((product) => product.payment && product.payment.paymentType === filterPayment)
+      : subProducts;
+
+    return [...products, ...nestedProducts.map((product) => ({ product, ...order }))];
+  }, []);
+
+  const convertToCSVFormat = orderProducts
+    .map(({
+      customer: {
+        firstName,
+        lastName,
+        email,
+        phoneNumber
+      },
+      product: {
+        name: productName,
+        offer: { name: offerName = 'No', price: offerPrice = 0 } = {},
+        coupon: { code = '- -', CouponDiscount = 0 } = {},
+        price: { amount: chargeAmount, currency } = {},
+        payment: {
+          paymentType,
+          paymentMethod
+        } = {}
+      } = {},
+    }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(chargeAmount, currency)},${paymentType}`).join('\n');
+  return titles + convertToCSVFormat;
+};

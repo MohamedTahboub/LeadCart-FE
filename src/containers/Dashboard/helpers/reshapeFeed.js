@@ -16,8 +16,8 @@ const getDiffs = (baseList, subList) => baseList.map(([baseDate, baseValue]) => 
   let amount = baseValue;
 
   if (sameDayExist) amount -= (isNaN(sameDayExist[1]) ? 0 : sameDayExist[1]);
-  console.log('[baseDate, amount]', baseDate, amount, baseValue);
-  console.log('[baseDate, amount]', [baseDate, amount]);
+  // console.log('[baseDate, amount]', baseDate, amount, baseValue);
+  // console.log('[baseDate, amount]', [baseDate, amount]);
   return [baseDate, amount];
 });
 
@@ -87,11 +87,11 @@ export default (feeds = [], fromDate) => {
     const numberOfDays = moment().diff(fromDate.min, 'days');
     sums.dailyAvg = divided(sums.grossRevenue).by(numberOfDays);
     sums.conversionRate = divided(sums.salesNumber).by(sums.views, true);
-    sums.refundRate = divided(sums.refundsAmount).by(sums.grossRevenue, true);
+    sums.refundRate = divided(sums.refundsNumber).by(sums.salesNumber, true);
     sums.netRevenue = sums.grossRevenue - sums.refundsAmount;
     sums.transactions = sums.salesNumber;
     sums.cartAbandonments = sums.prospects;
-    sums.abandonmentsRate = divided(sums.prospects).by(sums.salesNumber, true);
+    sums.abandonmentsRate = divided(sums.prospects).by(sums.views, true);
 
     activities.refundsNumber = groupList(activities.refunds).for('date');
     activities.views = groupList(activities.views).for();
@@ -107,7 +107,7 @@ export default (feeds = [], fromDate) => {
 
     activities.netRevenue = getDiffs(activities.grossRevenue, activities.refundsAmount);
 
-    console.log('sums.refundsAmount' , sums.refundsAmount);
+    console.log('sums.refundsAmount', sums.refundsAmount);
     return {
       sums,
       activities

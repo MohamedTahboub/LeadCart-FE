@@ -1,13 +1,18 @@
 import React from 'react';
 import moment from 'moment';
-import { getCurrencySymbol, capitalize } from 'libs';
+import {
+  // getCurrencySymbol,
+  getPriceFormat,
+  capitalize
+} from 'libs';
+
 import './style.css';
 
 
 const SummarySlice = ({ name, amount = 0, className = '' }) => (
   <div className={`template-summary-slice ${className}`}>
     <span>{name}</span>
-    <span>{amount}</span>
+    <span className='no-text-wrap'>{amount}</span>
   </div>
 );
 
@@ -38,7 +43,8 @@ const OrderSummary = ({
   productName = '',
   price: {
     amount = 0,
-    currency = 'USD'
+    currency = 'USD',
+    format
   } = {},
   vat = 0.1,
   language = {},
@@ -53,19 +59,19 @@ const OrderSummary = ({
   const { label, nextCharge } = getPaymentDetails(productName, payment);
 
   // const tax = amount * vat
-  const total = Number.parseFloat(amount).toFixed(2);
-  const currencySymbol = getCurrencySymbol(currency);
+  const total = getPriceFormat(amount, currency, format);
+  // const currencySymbol = getCurrencySymbol(currency);
   return (
     <section className='product-template-order-summary'>
       <h4>{orderSummaryLabel}</h4>
       <SummarySlice
         name={label}
-        amount={`${currencySymbol} ${total}`}
+        amount={`${total}`}
       />
       <SummarySlice
         className='summary-total'
         name={totalLabel}
-        amount={`${currencySymbol} ${total}`}
+        amount={`${total}`}
       />
       {nextCharge && (
         <div className='purchases-charge-details'>

@@ -6,6 +6,7 @@ export default async (settings) => {
   const settingCardSchema = yup.object({
     label: yup.string(),
     value: yup.string(),
+    format: yup.string(),
     show: yup.boolean(),
     disabled: yup.boolean()
   });
