@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import clx from 'classnames';
 import './style.css';
 import { EasyAnimate } from '../Animation';
 
@@ -87,9 +87,17 @@ export default class Table extends Component {
   )
 
 
-  render = () => (
-    <div className='tabel-container'>
-      {this.props.children}
-    </div>
-  )
+  render = () => {
+    const { subTable, className } = this.props;
+
+    const classes = clx({
+      'sub-table': subTable,
+      className
+    });
+    return (
+      <div className={`table-container ${classes}`}>
+        {this.props.children}
+      </div>
+    );
+  }
 }
