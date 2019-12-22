@@ -69,7 +69,7 @@ const Products = ({
 
 
     if (payment.type === 'Onetime' && payment.recurringPeriod) delete payment.recurringPeriod;
-
+    // else if (!payment.recurringPeriod) payment.recurringPeriod = 'MONTH';
 
     if (product.category === 'upsell') product.payment = { type: payment.type };
     else product.payment = payment;

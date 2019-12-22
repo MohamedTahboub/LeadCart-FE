@@ -1,6 +1,11 @@
 import React from 'react';
 import moment from 'moment';
-import { getCurrencySymbol, capitalize } from 'libs';
+import {
+  // getCurrencySymbol,
+  getPriceFormat,
+  capitalize
+} from 'libs';
+
 import './style.css';
 
 
@@ -53,19 +58,19 @@ const OrderSummary = ({
   const { label, nextCharge } = getPaymentDetails(productName, payment);
 
   // const tax = amount * vat
-  const total = Number.parseFloat(amount).toFixed(2);
-  const currencySymbol = getCurrencySymbol(currency);
+  const total = getPriceFormat(amount, currency);
+  // const currencySymbol = getCurrencySymbol(currency);
   return (
     <section className='product-template-order-summary'>
       <h4>{orderSummaryLabel}</h4>
       <SummarySlice
         name={label}
-        amount={`${currencySymbol} ${total}`}
+        amount={`${total}`}
       />
       <SummarySlice
         className='summary-total'
         name={totalLabel}
-        amount={`${currencySymbol} ${total}`}
+        amount={`${total}`}
       />
       {nextCharge && (
         <div className='purchases-charge-details'>

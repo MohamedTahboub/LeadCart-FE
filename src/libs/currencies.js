@@ -6,3 +6,13 @@ export const getCurrencySymbol = (code = 'USD') => {
 
   return currency ? currency.symbol : code;
 };
+
+export const getPriceFormat = (price, currency = 'USD') => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  });
+
+  return formatter.format(price);
+};
+
