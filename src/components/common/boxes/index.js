@@ -107,7 +107,7 @@ export const InsightBadge = ({
   if (!show) return null;
 
   const castedValue = typeof value === 'number' ? numeral(value).format(valueFormat) : value
-  console.log(`${name}(${valueFormat})}`, castedValue)
+  
   return (
     <div className='insight-box'>
       <span className='insight-title'>{title}</span>

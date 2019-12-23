@@ -140,7 +140,6 @@ const Subscription = ({
 
     let promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined
 
-    // console.log(promoCode)
     const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode })
 
     if (!isValid)
