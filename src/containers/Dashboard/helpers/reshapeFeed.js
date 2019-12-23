@@ -16,8 +16,6 @@ const getDiffs = (baseList, subList) => baseList.map(([baseDate, baseValue]) => 
   let amount = baseValue;
 
   if (sameDayExist) amount -= (isNaN(sameDayExist[1]) ? 0 : sameDayExist[1]);
-  // console.log('[baseDate, amount]', baseDate, amount, baseValue);
-  // console.log('[baseDate, amount]', [baseDate, amount]);
   return [baseDate, amount];
 });
 
@@ -107,7 +105,6 @@ export default (feeds = [], fromDate) => {
 
     activities.netRevenue = getDiffs(activities.grossRevenue, activities.refundsAmount);
 
-    console.log('sums.refundsAmount', sums.refundsAmount);
     return {
       sums,
       activities
