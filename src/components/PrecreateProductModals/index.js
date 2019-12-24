@@ -9,6 +9,7 @@ import upsellSample from 'data/upsell.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux'
 import common from '../common'
+import { notification } from 'libs'
 
 import './style.css'
 
@@ -80,11 +81,15 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
             {
                 onSuccess: (product) => {
                     // setProgress(false)
+                    console.log('notification' , notification)
+    
+                    notification.success('Product Created')
                     setTimeout(() => {
                         props.history.push(`/${category}/${product.id}`)
                     }, 300);
                 },
                 onFailed: (message) => {
+                    notification.success(message)
                     // setProgress(false)
 
                 }

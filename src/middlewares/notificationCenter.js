@@ -1,4 +1,5 @@
-import { showFlashMessage } from 'actions/flashMessage';
+// import { showFlashMessage } from 'actions/flashMessage';
+import { notification } from 'libs';
 
 // import {
 //   PRODUCT_CREATED_SUCCESSFULLY,
@@ -41,70 +42,70 @@ import { showFlashMessage } from 'actions/flashMessage';
 
 import * as types from '../constantsTypes';
 
-export default ({ dispatch }) => (next) => (action) => {
-  const showSuccessMessage = (message) => dispatch(showFlashMessage({ type: 'success', message }));
-  const showFailureMessage = (message) => dispatch(showFlashMessage({ type: 'failed', message }));
+const showSuccessMessage = (message) => notification.success(message);
+const showFailureMessage = (message) => notification.failed(message);
 
+export default () => (next) => (action) => {
   switch (action.type) {
   case types.UPDATE_EMAIL_FOOTER_SUCCESS:
-    showSuccessMessage('Emails footer details successfully updated');
+    showSuccessMessage('Emails footer details updated');
     break;
   case types.VERIFY_SOURCE_EMAIL_SUCCESS:
     showSuccessMessage('An email sent to your account to be verified');
     break;
   case types.DELETE_COUPON_SUCCESS:
-    showSuccessMessage('Coupon Deleted Successfully');
+    showSuccessMessage('Coupon Deleted');
     break;
   case types.TEST_EMAIL_SUCCESS:
     showSuccessMessage('A test email was sent to your leadcart email');
     break;
   case types.CREATE_UPSELL_SUCCESS:
-    showSuccessMessage('Upsell Created Successfully');
+    showSuccessMessage('Upsell Created');
     break;
   case types.CONNECT_WITH_PAYPAL_SUCCESS:
-    showSuccessMessage('You have successfully integrated with payPal');
+    showSuccessMessage('You have integrated with payPal');
     break;
   case types.ACTIVATE_MEMBER_SUCCESS:
-    showSuccessMessage('You have successfully Changed member status');
+    showSuccessMessage('You have Changed member status');
     break;
   case types.DELETE_UPSELL_SUCCESS:
-    showSuccessMessage('Upsell Deleted Successfully');
+    showSuccessMessage('Upsell Deleted');
     break;
   case types.UPDATE_UPSELL_SUCCESS:
-    showSuccessMessage('Upsell Updated Successfully');
+    showSuccessMessage('Upsell Updated');
     break;
   case types.UPDATE_PRODUCT_SUCCESS:
-    showSuccessMessage('The Product Updated Successfully');
+    showSuccessMessage('The Product Updated');
     break;
   case types.SAVE_USER_GENERAL_SETTINGS_SUCCESS:
-    showSuccessMessage('Update General Setting Successfully');
+    showSuccessMessage('Update General Setting');
     break;
   case types.PRODUCT_CREATED_SUCCESSFULLY:
-    showSuccessMessage('The Product Created Successfully');
+    showSuccessMessage('The Product Created');
     break;
   case types.DELETE_USER_PRODUCT_SUCCESS:
-    showSuccessMessage('The Product Deleted Successfully');
+    showSuccessMessage('The Product Deleted');
     break;
   case types.UPLOAD_FILE_SUCCESS:
-    showSuccessMessage('Uploaded Successfully');
+    showSuccessMessage('Uploaded  ');
     break;
   case types.CHANGE_ACCOUNT_DETAILS_SUCCESS:
-    showSuccessMessage('Account Details Changes Successfully');
+    showSuccessMessage('Account Details Changes');
     break;
   case types.CHANGE_ACCOUNT_PASSWORD_SUCCESS:
-    showSuccessMessage('Account Password Changes Successfully');
+    showSuccessMessage('Account Password Changes');
     break;
   case types.CREATE_NEW_MEMBER_SUCCESS:
     showSuccessMessage('\'New Member Have Been');
     break;
   case types.CREATE_NEW_COUPON_SUCCESS:
-    showSuccessMessage('New Coupon Created Successfully');
+    showSuccessMessage('New Coupon Created');
     break;
   case types.CHANGE_COUPON_STATE_SUCCESS:
-    showSuccessMessage('Coupon status changed Successfully');
+    showSuccessMessage('Coupon status changed');
     break;
   case types.TOGGLE_PRODUCT_AVAILABILITY_SUCCESS:
-    showSuccessMessage('Product availability changed Successfully');
+    showSuccessMessage('Product availability changed');
     break;
   case types.CHANGE_ACCOUNT_DETAILS_FAILED:
     showFailureMessage('Account Details Changes Failed');
@@ -158,40 +159,40 @@ export default ({ dispatch }) => (next) => (action) => {
     showFailureMessage('Failed to Delete The Member');
     break;
   case types.DELETE_MEMBER_SUCCESS:
-    showSuccessMessage('Member has been deleted successfully');
+    showSuccessMessage('Member has been deleted  ');
     break;
   case types.EDIT_COUPON_SUCCESS:
-    showSuccessMessage('Coupon has been updated successfully');
+    showSuccessMessage('Coupon has been updated  ');
     break;
   case types.EDIT_COUPON_FAILED:
     showFailureMessage('Failed to update the coupon');
     break;
   case types.RESEND_RECEIPT_EMAIL_SUCCESS:
-    showSuccessMessage('Receipt email sent successfully');
+    showSuccessMessage('Receipt email sent  ');
     break;
   case types.RESEND_RECEIPT_EMAIL_FAILED:
     showFailureMessage('Failed to resend the receipt email');
     break;
   case types.RESEND_FULFILLMENT_EMAIL_SUCCESS:
-    showSuccessMessage('Fulfillment email sent successfully');
+    showSuccessMessage('Fulfillment email sent  ');
     break;
   case types.RESEND_FULFILLMENT_EMAIL_FAILED:
     showFailureMessage('Failed to resend the fulfillment email');
     break;
   case types.ORDER_REFUND_SUCCESS:
-    showSuccessMessage('Order have been refunded successfully');
+    showSuccessMessage('Order have been refunded  ');
     break;
   case types.UPGRADE_USER_PACKAGE_FAILED:
     showFailureMessage(action.payload, 'Failed to upgrade you current plan');
     break;
   case types.UPGRADE_USER_PACKAGE_SUCCESS:
-    showSuccessMessage('Your account have been upgraded successfully');
+    showSuccessMessage('Your account have been upgraded  ');
     break;
   case types.ORDER_REFUND_FAILED:
     showFailureMessage('Failed to refund order. Product/Offer may not Exist');
     break;
   case types.UPDATE_FULFILLMENT_SUCCESS:
-    showSuccessMessage('Fulfillment Updated Successfully successfully');
+    showSuccessMessage('Fulfillment Updated');
     break;
   case types.UPDATE_FULFILLMENT_FAILED:
     showFailureMessage('Failed to update fulfillment.');
