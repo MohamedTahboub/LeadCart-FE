@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment'
+import ReactNotification from 'react-notifications-component'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -20,7 +21,7 @@ import IntercomApp from './components/Intercom'
 // import Header from 'components/Header'
 import SideBar from 'components/SideBar'
 import ProtectedRoute from 'components/ProtectedRoute'
-import NotificationMessage from 'components/NotificationMessage'
+// import NotificationMessage from 'components/NotificationMessage'
 import LoadingBar from 'components/LoadingBar'
 import FourOFour from 'containers/FourOFour'
 import ErrorBoundary from 'containers/ErrorBoundary'
@@ -53,6 +54,7 @@ import registerServiceWorker from 'services/RegisterServiceWorker';
 // Styles
 import './index.css';
 import 'semantic-ui-css/semantic.min.css'
+import 'react-notifications-component/dist/theme.css'
 import { APP_INIT } from 'constantsTypes';
 import VerifyAccount from './containers/VerifyAccount';
 
@@ -114,8 +116,8 @@ ReactDOM.render(
                         />
                     </Switch>
                 </BrowserRouter>
+                <ReactNotification />
             </ErrorBoundary>
-            <NotificationMessage />
         </React.Fragment>
     </Provider>,
     document.getElementById('root')
