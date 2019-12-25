@@ -159,7 +159,7 @@ const Email = ({
           </InputRow.Label>
           <InputRow.Note
             content={(
-              <InputRow.SmallInput
+              <InputRow.TextField
                 error={errors.sourceEmail}
                 onChange={onSourceEmailChange}
                 value={sourceEmail}
@@ -174,7 +174,7 @@ const Email = ({
               Verify
             </SmallButton>
           </InputRow.Note>
-        </InputRow>
+                       </InputRow>
         )}
         {/* <InputRow margin='30'>
             <InputRow.Label
@@ -355,7 +355,7 @@ const Email = ({
           </InputRow.Note>
         </InputRow>
 
-      </MainBlock>
+                     </MainBlock>
       )}
     </Fragment>
   );

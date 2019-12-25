@@ -97,65 +97,57 @@ class Account extends Component {
 
             <InputRow className='account-form-input'>
               <InputRow.Label error={errors.firstName}>First Name</InputRow.Label>
-              <InputRow.SmallInput
+              <InputRow.TextField
                 name='firstName'
                 value={user.firstName}
                 onChange={this.onDetailsFieldsChange}
                 error={errors.firstName}
-
               />
             </InputRow>
             <InputRow className='account-form-input'>
               <InputRow.Label error={errors.lastName}>Last Name</InputRow.Label>
-              <InputRow.SmallInput
+              <InputRow.TextField
                 name='lastName'
                 value={user.lastName}
                 onChange={this.onDetailsFieldsChange}
                 error={errors.lastName}
-
               />
             </InputRow>
             <InputRow className='account-form-input'>
               <InputRow.Label error={errors.email}>Email</InputRow.Label>
-              <InputRow.SmallInput
+              <InputRow.TextField
                 disabled
                 name='email'
                 value={user.email}
-                // onChange={this.onDetailsFieldsChange}
-                // error={errors.email}
-
               />
             </InputRow>
           </SmallFormContainer>
           <SmallFormContainer onSubmit={this.onChangePassword} title='Password'>
             <InputRow className='account-form-input'>
               <InputRow.Label>Current Password</InputRow.Label>
-              <InputRow.SmallInput
+              <InputRow.TextField
                 type='password'
                 name='currentPassword'
                 onChange={this.onPasswordsFieldsChange}
                 error={errors.currentPassword}
-
               />
             </InputRow>
             <InputRow className='account-form-input'>
               <InputRow.Label>New Password</InputRow.Label>
-              <InputRow.SmallInput
+              <InputRow.TextField
                 error={errors.newPassword}
                 type='password'
                 name='newPassword'
                 onChange={this.onPasswordsFieldsChange}
-
               />
             </InputRow>
             <InputRow className='account-form-input'>
               <InputRow.Label>Confirm Password</InputRow.Label>
-              <InputRow.SmallInput
+              <InputRow.TextField
                 error={errors.newPasswordConfirmation}
                 type='password'
                 name='newPasswordConfirmation'
                 onChange={this.onPasswordsFieldsChange}
-
               />
             </InputRow>
             {PwdError && <div className='error-message'>{PwdError}</div>}
