@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
-import { FormLogo } from 'components/common/logos';
 import { connect } from 'react-redux';
 import * as signupActions from 'actions/signup';
+
+//Components
 import CustomInputField from 'components/CustomInputField';
+import { FormLogo } from 'components/common/logos';
+import SoftwareFeature from 'components/SoftwareFeature';
+
 import { freeTrailSignup } from 'libs/validation';
 import './styles.css';
+
+//Images
+import ClientApp from 'assets/images/Client-App.png';
+import LeadCartLogo from 'assets/images/brands/leadcart-white-color.png';
+import Star from 'assets/images/star.png';
+import DottedSquare from 'assets/images/dotted-square.png';
+import Snake from 'assets/images/snake.png';
+import Rectangle from 'assets/images/rectangle.png';
+import CircularSection from 'assets/images/circular-section.png';
+import SmallCircularSection from 'assets/images/small-circular-section.png';
+import StripedCircle from 'assets/images/striped-circle.png';
+import LeadcartSquare1 from 'assets/images/leadcart-square-1.png';
+import LeadcartSquare2 from 'assets/images/leadcart-square-2.png';
 
 class SignUp extends Component {
   state = { success: false, processing: false, errors: {} }
@@ -70,67 +87,102 @@ class SignUp extends Component {
       );
     }
     return (
-      <div className='wrapper'>
-        <div className='logo-header'>
-          <FormLogo />
-          <span className='login-header-title'>sign up</span>
-          <span className='login-header-message'>
-            free trial for 7 days on
-            {' '}
-            <a href='https://leadcart.io' target='_blank' rel="noopener noreferrer">
-              leadcart
-            </a>
-          </span>
-        </div>
-        <form className='form-container' onSubmit={this.onSubmit}>
-          <CustomInputField
-            name='firstName'
-            label='First Name'
-            placeholder='your first name'
-            onChange={this.onChange}
-            error={errors.firstName}
-          />
-          <CustomInputField
-            name='lastName'
-            label='Last Name'
-            placeholder='your last name'
-            onChange={this.onChange}
-            error={errors.lastName}
-          />
-          <CustomInputField
-            name='email'
-            label='Email address'
-            placeholder='Enter your email address'
-            onChange={this.onChange}
-            error={errors.email}
-          />
-          <CustomInputField
-            name='password'
-            label='Password'
-            type='password'
-            placeholder='Set a strong password'
-            onChange={this.onChange}
-            error={errors.password}
-          />
-          <CustomInputField
-            name='company'
-            label='Company Name'
-            placeholder='Set the Company Name'
-            onChange={this.onChange}
-            error={errors.company}
-          />
-          <div className='w subdomain'>
-            <input className='leadcart-user' name='subdomain' />
-            <span className='main-domain-suffix'>.leadcart.io</span>
-            {errors.subdomain && <span className='input-feild-error'>{errors.subdomain}</span>}
+      <React.Fragment>
+        <img src={LeadcartSquare1} className="leadcart-square-1" />
+        <img src={LeadcartSquare2} className="leadcart-square-2" />
+        <div className="signup-container">
+          <img src={LeadCartLogo} className="signup-leadcart-logo" />
+          <img src={Star} className="star star-1" />
+          <img src={Star} className="star star-2" />
+          <img src={DottedSquare} className="dotted-square" />
+          <img src={Snake} className="snake snake-1" />
+          <img src={Snake} className="snake snake-2" />
+          <img src={Rectangle} className="rectangle" />
+          <img src={CircularSection} className="circular-section" />
+          <img src={SmallCircularSection} className="small-circular-section" />
+          <img src={StripedCircle} className="striped-circle" />
+          <div>
+            <div className="free-trial">
+              Start your free trial
+            </div>
+            <div className="free-trial-desc">
+              Simple,Yet Powerful Cart Solution To Help You Convert More Sales & Maximize Profits.
+            </div>
+            <div className="software-features">
+              <SoftwareFeature text="+6 Checkout Templates." />
+              <SoftwareFeature text="Unlimited Products." />
+              <SoftwareFeature text="Built In Credit Card & PayPal processors." />
+              <SoftwareFeature text="Use Checkout Pages Everywhere." />
+              <SoftwareFeature text="One-Time Payments, Subscriptions, Trials, & Payment Plans." />
+              <SoftwareFeature text="Webhooks & Zapier." />
+              <SoftwareFeature text="1-Click Upsells." />
+              <SoftwareFeature text="Unlimited Funnels." />
+              <SoftwareFeature text="Priority Support." />
+            </div>
           </div>
-          {errors.message && <span className='signup-error-field'>{errors.message}</span>}
-          <button type='submit' disabled={processing} className={`form-submit ${processing ? 'spinner' : ''}`}> Sign Up</button>
-        </form>
-        <footer>
-          © LeadCart. All rights reserved 2019
-        </footer>
-      </div>
+          <div className="wrapper-box">
+            <img src={ClientApp} className="client-app-images" />
+            <div className='wrapper'>
+              <div className='logo-header'>
+                <FormLogo />
+                <span className='login-header-title'>sign up</span>
+                <span className='login-header-message'>
+                  free trial for 7 days
+                  {' '}
+                  <a href='https://leadcart.io' target='_blank' rel="noopener noreferrer">
+                    on leadcart
+                  </a>
+                </span>
+              </div>
+              <form className='form-container' onSubmit={this.onSubmit}>
+                <CustomInputField
+                  name='firstName'
+                  label='First Name'
+                  placeholder='your first name'
+                  onChange={this.onChange}
+                  error={errors.firstName}
+                />
+                <CustomInputField
+                  name='lastName'
+                  label='Last Name'
+                  placeholder='your last name'
+                  onChange={this.onChange}
+                  error={errors.lastName}
+                />
+                <CustomInputField
+                  name='email'
+                  label='Email address'
+                  placeholder='Enter your email address'
+                  onChange={this.onChange}
+                  error={errors.email}
+                />
+                <CustomInputField
+                  name='password'
+                  label='Password'
+                  type='password'
+                  placeholder='Set a strong password'
+                  onChange={this.onChange}
+                  error={errors.password}
+                />
+                <CustomInputField
+                  name='company'
+                  label='Company Name'
+                  placeholder='Set the Company Name'
+                  onChange={this.onChange}
+                  error={errors.company}
+                />
+                <div className='w subdomain'>
+                  <input className='leadcart-user' name='subdomain' />
+                  <span className='main-domain-suffix'>.leadcart.io</span>
+                  {errors.subdomain && <span className='input-feild-error'>{errors.subdomain}</span>}
+                </div>
+                {errors.message && <span className='signup-error-field'>{errors.message}</span>}
+                <button type='submit' disabled={processing} className={`form-submit ${processing ? 'spinner' : ''}`}> Sign Up</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }

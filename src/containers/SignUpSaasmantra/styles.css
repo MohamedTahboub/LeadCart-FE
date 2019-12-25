@@ -1,11 +1,131 @@
 
 .form-submit {
-    margin-top: 40px;
+    margin-top: 18px;
 }
 .form-submit:disabled {
     cursor: not-allowed;
     background: lightgray;
     pointer-events: none;
+}
+
+.signup-leadcart-logo {
+    top: -37px;
+    left: 0px;
+    width: 189px;
+    height: 51px;
+}
+
+.dotted-square {
+    width: 136px;
+    height: 123px;
+    right: -65px;
+    top: 520px;
+    z-index: 100;
+}
+
+.snake-1 {
+    width: 31px;
+    height: 24px;
+    left: 385px;
+    top: 97px;
+}
+
+.snake-2 {
+    width: 34px;
+    height: 28px;
+    left: calc(100% + 41px);
+    top: 416px;
+}
+
+.leadcart-square-1 {
+    width: 548px;
+    height: 459px;
+    top: -200.5px;
+    left: -47px;
+    position: absolute;
+    opacity: 0.05;
+}
+
+.leadcart-square-2 {
+    width: 415px;
+    height: 646px;
+    top: -407px;
+    left: 286px;
+    position: absolute;
+    opacity: 0.05;
+}
+
+.rectangle {
+    width: 33px;
+    height: 26px;
+    left: calc(100% + 62px);
+    top: 61px;
+}
+
+.circular-section {
+    width: 181px;
+    height: 146px;
+    left: calc(100% + 93.5px);
+    top: 626.5px;
+    opacity: 0.1;
+}
+
+.striped-circle {
+    width: 144px;
+    height: 144px;
+    right: 594px;
+    bottom: 322px;
+}
+
+.small-circular-section {
+    width: 40px;
+    height: 26px;
+    top: 109px;
+    right: 585px;
+    opacity: 0.3;
+}
+
+.star {
+    width: 22px;
+    height: 22px;
+}
+
+.star-1 {
+    top: 76px;
+    left: -48px;
+}
+
+.star-2 {
+    left: calc(100% + 107px);
+    top: 265px;
+}
+
+.signup-container > img {
+    position: absolute;
+}
+
+.signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 72px 249px 72px 141px;
+}
+
+.wrapper-box {
+    display: flex;
+    flex-flow: nowrap column;
+    align-items: center;
+}
+
+.client-app-images {
+    width: 387px;
+    height: 255px;
+}
+
+.small-check {
+    width: 14px;
+    height: 10px;
 }
 
 .form-input.name:before{
@@ -37,40 +157,83 @@
     top:22px;
 }
 
+.free-trial {
+    color: #ffffff;
+    font-size: 37px;
+    font-weight: 500;
+    letter-spacing: 0.37px;
+    text-transform: uppercase;
+    height: 45px;
+}
+.free-trial-desc {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.18px;
+    line-height: 30px;
+    margin-top: 8px;
+}
 
+.software-features {
+    margin-top: 37px;
+}
+
+.software-features div {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.18px;
+    line-height: 26px;
+    margin-bottom: 18px;;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.software-features div img {
+    margin-right: 14px;
+}
 
 .subdomain {
     position: relative;
     display:flex;
-    width: 80%;
+    width: 383px;
     align-items: center;
-
+    background-color: #f6f6ff;
+    border: 1px solid #dddddd;
+    margin: 18px 0px;
+    height: 49px;
+    border-radius: 5px;
+    justify-content: space-between;
 }
+
 .main-domain-suffix {
-    background: #4DA1FF;
+    background-color: #007aff;
     color: white;
-    padding: 0px 37px;
+    width: 128px;
     display: flex;
-    font-size: 13px;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.18px;
+    line-height: 26px;
     height: 100%;
-    height: 38px;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 }
 
 .leadcart-user{
     border-bottom:1px solid #BCC9D6;
     padding: 14px 14px;
-    margin: 18px 0px;
     outline: none;
-    background: transparent;
-    height: 38px;
     min-width: 250px;
-    width: 80%;
-    position: relative;
-    background: rgba(188, 201, 214, 0.1);
-    border: 0.5px solid #C9D3DC;
+    flex: 1;
+    height: 100%;
     box-sizing: border-box;
+    background-color: #f6f6ff;
+    border: 0px;
+    min-width: 0px;
+    font-size: 1.5em;
 } 
 
 .input-feild-error {

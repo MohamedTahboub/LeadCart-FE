@@ -103,9 +103,6 @@ class SignUp extends Component {
           {errors.message && <span className='signup-error-field'>{errors.message}</span>}
           <button type='submit' className='form-submit'>Sign Up</button>
         </form>
-        <footer>
-          © LeadCart. All rights reserved 2019
-        </footer>
       </div>
     );
   }

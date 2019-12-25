@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins',sans-serif;
+  font-family: 'Roboto','Poppins',sans-serif;
 }
 
 
@@ -15,24 +15,29 @@ div#root {
   bottom: 0px;
   right: 0px;
   z-index: 100;
+  background-color: #007aff;
 }
+
 .wrapper{
+  margin-top: -87px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 505px;
-  margin: 0 auto;
-  height: 100%;
+  width: 623px;
+  height: 768px;
   padding-top: 20px;
   box-sizing: border-box;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.16);
+  z-index: 1000;
 }
+
 .logo-container{
   display: flex;
   -ms-flex-direction: column;
-  margin-bottom: 5px;
   flex-direction: column;
-  margin-bottom: 20px;
   position: relative;
 }
 .logo-header{
@@ -42,22 +47,27 @@ div#root {
   margin-bottom: 20px;
 }
 .login-header-title{
-  font-size:20px;
+  font-size:30px;
   text-transform: uppercase;
-  color: #2B3748;
+  color: #0b2475;
   align-content: center;
   justify-content: center;
-  font-weight: bold;
-  padding-bottom: 4px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 40px;
+  height: 51px;
+  margin-top: -11px
 }
 .login-header-message{
-  font-size:14px;
+  font-size: 18px;
   text-transform: uppercase;
-  color: #2B3748;
+  color: #007aff;
   align-content: center;
   justify-content: center;
-  font-weight: bold;
-  padding-bottom: 4px;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: 0.18px;
+  color: #686e82;
 }
 .login-header-message a{
   text-decoration: none;
@@ -128,33 +138,31 @@ div#root {
   top:20px;
 }
 .form-submit {
-    background: #FFF;
-    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.05);
     border: none;
-    border-radius: 3px;
     padding: 8px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 45px;
     cursor: pointer;
-    font-weight: bold;
     outline: none;
     color: #FFF;
-    background: #4DA1FF;
+    background-color: #007aff;
     box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.05);
-    border-radius: 3px;
     transition: all 350ms ease-in-out;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.16px;
+    border-radius: 3px;
 }
+
 .form-submit:hover{
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
 }
 
 .form-input input::placeholder{
   font-size: 13px;
-}
-
-.form-submit:after{
-  content: '\2192';
-  color:#FFF;
-  font-size:20px;
-  padding-left: 10px;
 }
 
 footer {

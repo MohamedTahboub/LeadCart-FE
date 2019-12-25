@@ -37,9 +37,8 @@
 .subdomain {
     position: relative;
     display:flex;
-    width: 80%;
+    width: 383px;
     align-items: center;
-
 }
 .main-domain-suffix {
     background: #4DA1FF;

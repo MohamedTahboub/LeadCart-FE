@@ -1,3 +1,8 @@
+.form-logo-image {
+  width: 88px !important;
+  height: 89px !important;
+}
+
 .logo-position .logo-container {
   position: relative;
   margin: auto;

@@ -1,2 +1,2 @@
-export { default as Chart } from './Chart';
+export { default as Chart } from './chart';
 export { default as MiniChart } from './MiniChart'; 

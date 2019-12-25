@@ -4,7 +4,7 @@
     flex-flow: column-reverse;
     margin-bottom: 1em;
     position: relative;
-    width:300px;
+    width:383px;
   }
   /**
   * Add a transition to the label and input.
@@ -40,7 +40,11 @@
   
   .custom-input-field label {
     text-transform: capitalize;
-    letter-spacing: 0.05em;
+    color: #686e82;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.18px;
+    line-height: 26px;
   }
   /**
   * Translate down and scale the label up to cover the placeholder,

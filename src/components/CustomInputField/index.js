@@ -18,7 +18,6 @@ export default ({
       name={name}
       onChange={onChange}
       id={name}
-      placeholder={placeholder}
     />
     <label htmlFor={name}>{label}</label>
   </div>
