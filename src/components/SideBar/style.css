@@ -139,16 +139,17 @@
     margin: 6px 0px;
     cursor: pointer;
     transition: all 350ms ease-in-out;
+    flex: 1;
 }
 
-.menu-item:hover {
+/* .menu-item:hover {
     color: #2B3748;
 }
 
 .active-menu-item {
     color: #2B3748;
     position: relative;
-}
+} */
 
 /* .active-menu-item:before{
     position: absolute;
@@ -242,8 +243,8 @@ svg.sideBar-icon path {
     stroke: #2B3748;
 }
 
-.sideBar-item:hover svg.sideBar-icon,
-.sideBar-item.active svg.sideBar-icon {
+.sideBar-item:hover:not(.locked-feature) svg.sideBar-icon,
+.sideBar-item.active:not(.locked-feature) svg.sideBar-icon {
     transform: scale(1.5);
     fill: #4DA1FF;
     stroke: #4DA1FF;
