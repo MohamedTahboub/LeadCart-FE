@@ -13,7 +13,7 @@ import * as modalsActions from 'actions/modals';
 import './style.css';
 import { appInit } from 'actions/appInit';
 
-import * as Icons from './icons'
+import Icons from './icons'
 
 const { Button, InputRow } = common;
 
@@ -31,7 +31,7 @@ const BrandSelect = ({ value }) => (
 )
 const currentTab = 'products5' // history.location.pathname
 
-const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[0]) ? ['active-menu-item'] : []
+const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []
 
 console.log(Icons)
 const SideBar = ({
@@ -47,18 +47,18 @@ const SideBar = ({
 
   const onTabChange = (tab) => setActiveTab(tab)
 
-  const Link = ({ to: page, className, children, icon, external }) => {
-    // const Icon = icons[icon];
-    
+  const Link = ({ to: page, className = '', children, icon, external }) => {
+    const Icon = Icons[icon] || null;
+
     return (
-      <div className="flex-container fb-space-between">
-      <Icons.Products className="svg-icon sideBar-icon" />
+      <div className={`flex-container fb-space-between sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}>
+        <Icon className="svg-icon sideBar-icon" />
         <PureLink
           to={{ history, page }}
           external={external}
-          className={className}
+          // className={className}
           onTabChange={onTabChange}
-          active={activeTab === page}
+          // active={activeTab === page}
         >
           {children}
         </PureLink>
