@@ -199,3 +199,10 @@
     font-size: 11px;
     color:gray;
 }
+
+
+.sideBar-icon{
+    height: 15px;
+    width: 15px;
+    object-fit: contain;
+}
