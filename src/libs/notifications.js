@@ -1,5 +1,21 @@
+
 import { store } from 'react-notifications-component';
+import { NotificationContainer } from 'components/NotificationMessage';
+import React from 'react';
 import { showIntercomIcon } from './intercom';
+
+// const NotificationContainer = ({
+//   title = 'Title',
+//   message = 'Message',
+//   ...props
+// }) => (
+//   <div className='notification-message-container'>
+//     {title && (<h4>{title}</h4>)}
+//     <p className='notification-message'>
+//       {message}
+//     </p>
+//   </div>
+// );
 
 const defaultOptions = {
   // title: "Wonderful!",
@@ -9,6 +25,7 @@ const defaultOptions = {
   container: 'bottom-right',
   animationIn: ['animated', 'fadeIn'],
   animationOut: ['animated', 'fadeOut'],
+  width: 300,
   dismiss: {
     duration: 5000,
     onScreen: true
@@ -20,6 +37,7 @@ const commonNotification = (title, message, options = {}) => {
   store.addNotification({
     title,
     message,
+    // content: NotificationContainer,
     ...defaultOptions,
     onRemoval: () => {
       showIntercomIcon(true);
@@ -40,7 +58,7 @@ export const warning = (message, options = {}) => {
 };
 
 export const failed = (message, options = {}) => {
-  const type = 'failed';
+  const type = 'danger';
   commonNotification('Failed', message, { ...options, type });
 };
 
