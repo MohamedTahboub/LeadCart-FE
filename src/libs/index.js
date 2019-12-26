@@ -1,3 +1,5 @@
+import * as notification from './notifications'
+
 export { navigateTo, openNewWindow } from './navigations';
 export { showIntercomIcon } from './intercom';
 export { getCurrencySymbol, getPriceFormat } from './currencies'
@@ -6,6 +8,7 @@ export { default as property } from './propertiesReader'
 export { default as htmlToImage } from './htmlToImage'
 export { default as slugify } from './slugify'
 export * from './references'
+
 export {
     bytesToSize,
     getTextContentFromTextNode,
@@ -20,3 +23,4 @@ export {
     RoundTow,
     injectDefaultLabels
 } from './specialFuncs';
+export { notification };

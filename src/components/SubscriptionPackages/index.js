@@ -122,7 +122,7 @@ const Subscription = ({
           onFailed: (message) => {
             setLoading({ ...loading, promoCode: false });
             setErrors({ promoCode: message })
-            onUpdatePromoCode({})
+            // onUpdatePromoCode({})
           }
         }
       );
@@ -234,16 +234,14 @@ const Subscription = ({
             Do You have a Promo Code ?
           </InputRow.Label>
           <div className='subscription-promocode-section'>
-            <InputRow.SmallInput
+            <InputRow.TextField
               error={errors.promoCode}
               name='promoCode'
-              className={fields.promoCode.applied ? 'valid' : ''}
+              className={`promo-code-input ${fields.promoCode.applied ? 'valid' : ''}`}
               onChange={onChangePromoCode}
               Value={fields.promoCode.code}
-            >
-              PROMO CODE
-
-            </InputRow.SmallInput>
+              placeholder='e.g. PROMO_CODE_XHRNE3'
+            />
             <SmallButton
               disabled={loading.promoCode}
               className={loading.promoCode ? 'primary-color spinner' : 'primary-color'}

@@ -13,7 +13,7 @@ const {
     SubTabs
 } = common;
 
-const CopyScriptButton = ({ embededText }) => {
+const CopyScriptButton = ({ embeddedText }) => {
     const [showCopied, setShowCopied] = useState(false)
 
     const onCopy = () => {
@@ -24,7 +24,7 @@ const CopyScriptButton = ({ embededText }) => {
     }
 
     return (
-        <CopyToClipboard text={embededText}>
+        <CopyToClipboard text={embeddedText}>
             <Button
                 onClick={onCopy}
                 className={`primary-color ${showCopied ? 'gray-color' : ''}`}
@@ -49,6 +49,7 @@ const formatEmbedScript = ({ subdomain, productUrl }) =>
     }
     prepareFrame();
 </script>`;
+
 const ButtonFormatEmbedScript = ({ subdomain, productUrl }) =>
     `<a
     href="https://${subdomain}.leadcart.io/${productUrl}"
@@ -86,10 +87,7 @@ const ShareProductModal = ({
                     <span>
                         {productExternalLink}
                     </span>
-                    <CopyScriptButton
-                        embededText={productExternalLink}
-                        onCopy={this.onCopy}
-                    />
+                    <CopyScriptButton embeddedText={productExternalLink}/>
                 </pre>
             </div>
             <SubTabs
@@ -101,7 +99,7 @@ const ShareProductModal = ({
                                 headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
                                 script={script}
                             />
-                            <CopyScriptButton embededText={script} />
+                            <CopyScriptButton embeddedText={script} />
                         </Fragment>
                     ),
                     'Buy Now Button Script': (
@@ -110,7 +108,7 @@ const ShareProductModal = ({
                                 headNote="This Element is basic and you are free to customize it the way it suits your requirement."
                                 script={buttonScript}
                             />
-                            <CopyScriptButton embededText={buttonScript} />
+                            <CopyScriptButton embeddedText={buttonScript} />
                         </Fragment>
                     )
                 }}

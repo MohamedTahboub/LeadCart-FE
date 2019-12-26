@@ -99,7 +99,7 @@ padding:0px 10px;
 }
 .form-row{
     display: flex;
-    width: 80%;z
+    width: 80%;
     flex-direction: row;
 }
 .signup-btn {

@@ -808,6 +808,7 @@ span.add-input-field {
 
 } */
 /* Add input Field ends*/
+.text-input-filed.valid,
 .input-field.valid {
     padding-right: 21px !important;
     background: url(../../../assets/images/check-img.png) no-repeat right;

@@ -1,4 +1,4 @@
-.side-bar{
+.side-bar {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -13,10 +13,11 @@
 
 
 /* avatar preview component*/
-.avatar-preview{
-    display:flex;
+.avatar-preview {
+    display: flex;
     flex-direction: column;
 }
+
 .avatar-holder {
     display: flex;
     flex-direction: column;
@@ -24,20 +25,22 @@
     align-items: center;
     margin: 25px;
     margin-bottom: 0px;
-} 
+}
 
-.change-avatar-layer{
+.change-avatar-layer {
     position: relative;
     height: 70px;
     width: 70px;
     border-radius: 50%;
     cursor: pointer;
 }
-.user-avatar{
-    height:100%;
+
+.user-avatar {
+    height: 100%;
     width: 100%;
     border-radius: 50%;
 }
+
 .change-avatar-image {
     height: 100%;
     display: block;
@@ -51,17 +54,19 @@
     align-items: center;
     transition: all 350ms ease-in-out;
 }
- .change-avatar-image:hover{
-     opacity: 1;
-    background: rgba(0,0,0,0.3)
+
+.change-avatar-image:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.3)
 }
 
-.user-name{
+.user-name {
     font-weight: bold;
     line-height: 35px;
     font-size: 15px;
     text-transform: capitalize;
 }
+
 .setting-short {
     padding: 6px 10px;
     background: white;
@@ -73,7 +78,8 @@
     z-index: 100;
     transition: all 350ms ease-in-out;
 }
-.setting-short:hover{
+
+.setting-short:hover {
     box-shadow: 0px 0px 5px 0px #00000040;
 }
 
@@ -81,7 +87,7 @@
 
 
 /* new product button  */
-.btn{
+.btn {
     text-transform: capitalize;
     font-size: smaller;
     border-radius: 3px;
@@ -92,24 +98,27 @@
     font-weight: bold;
     user-select: none;
     cursor: pointer;
-    transition:all .25s ease-in-out;
+    transition: all .25s ease-in-out;
 }
-.btn:hover{
+
+.btn:hover {
     /* box-shadow: 0px 0px 5px 0px #00000040; */
     box-shadow: 0px 0px 2px 2px var(--shadow-color);
     background: var(--btn-focus-bg);
 }
-.btn.warning-color:hover{
+
+.btn.warning-color:hover {
     background: rgb(247, 121, 142);
 }
-.new-product-btn{
+
+.new-product-btn {
     background: #FF7B7F;
 }
 
 
 
 /* menu section */
-.menu-container{
+.menu-container {
     margin: 50px 0 20px 40px;
     margin-bottom: 40px;
     padding: 0px;
@@ -119,9 +128,10 @@
     user-select: none;
     /* align-items: center; */
 }
-.menu-item{
+
+.menu-item {
     position: relative;
-    font-weight: bold; 
+    font-weight: bold;
     /* line-height: 20px; */
     line-height: 16px;
     font-size: small;
@@ -129,15 +139,19 @@
     margin: 6px 0px;
     cursor: pointer;
     transition: all 350ms ease-in-out;
+    flex: 1;
 }
-.menu-item:hover{
+
+/* .menu-item:hover {
     color: #2B3748;
 }
-.active-menu-item{
+
+.active-menu-item {
     color: #2B3748;
     position: relative;
-}
-.active-menu-item:before{
+} */
+
+/* .active-menu-item:before{
     position: absolute;
     height: 12px;
     width: 12px;
@@ -148,10 +162,6 @@
     background: rgba(77, 160, 255, 0.507);
     border: 1px solid rgb(255, 255, 255);
     transition: all .4s ease-in-out;
-    /* font-family: "Font Awesome 5 Free";
-    font-weight: 400;
-    content: "\f111";
-    color: #4DA1FF; */
 }
 .menu-item:hover::before{
     content: '';
@@ -164,38 +174,86 @@
     background: white;
     border: 1px solid #4DA1FF;
     transition: all .4s ease-in-out;
-}
+} */
 
 
 /* */
-.locked-feature{
+.locked-feature {
     position: relative;
     color: #C9D3DC;
+    opacity: .6;
+    pointer-events: all;
 }
-.locked-feature:before{
+
+/* .locked-feature:before{
     position: absolute;
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
     content: "\f09c";
     left: -30px;
     color: #ff6347b5;
-}
+} */
 
 .logout-btn.btn {
     padding: 5px 10px;
 }
+
 .logout-btn {
     background: #c9d3dc;
     font-size: 12px;
     margin-top: -13px;
     margin-left: -24px;
 }
-.logout-btn.btn:hover{
+
+.logout-btn.btn:hover {
     /* background: rgb(154, 158, 161); */
     background: #afb7bd;
 }
 
-.tiny-text{
+.tiny-text {
     font-size: 11px;
-    color:gray;
+    color: gray;
+}
+
+
+/* .sideBar-item{
+    cursor: pointer;
+} */
+
+.locked-feature.sideBar-item svg.sideBar-icon rect,
+.locked-feature.sideBar-item svg.sideBar-icon path,
+.locked-feature.sideBar-item svg.sideBar-icon {
+    fill: #C9D3DC;
+    stroke: #C9D3DC;
+}
+
+svg.sideBar-icon {
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+    object-fit: contain;
+    fill: #2B3748;
+    stroke: #2B3748;
+    transition: transform .3s ease-in-out;
+}
+
+svg.sideBar-icon rect,
+svg.sideBar-icon path {
+    fill: #2B3748;
+    stroke: #2B3748;
+}
+
+.sideBar-item:hover:not(.locked-feature) svg.sideBar-icon,
+.sideBar-item.active:not(.locked-feature) svg.sideBar-icon {
+    transform: scale(1.5);
+    fill: #4DA1FF;
+    stroke: #4DA1FF;
+}
+
+.sideBar-item:hover svg.sideBar-icon rect,
+.sideBar-item.active svg.sideBar-icon rect,
+.sideBar-item:hover svg.sideBar-icon path,
+.sideBar-item.active svg.sideBar-icon path{
+    fill: #4DA1FF;
+    stroke: #4DA1FF;
 }

@@ -103,13 +103,12 @@ const GeneralSettings = ({
       >
         <InputRow>
           <InputRow.Label error={errors.name}>Company Name:</InputRow.Label>
-          <InputRow.NormalInput
+          <InputRow.TextField
             error={errors.name}
             name='name'
             value={fields.name}
             onChange={onChange}
-          >
-          </InputRow.NormalInput>
+          />
         </InputRow>
         <InputRow>
           <InputRow.Label
@@ -162,15 +161,13 @@ const GeneralSettings = ({
         </InputRow>
         <InputRow margin='20'>
           <InputRow.Label error={errors.supportEmail}>Support Contact:</InputRow.Label>
-          <InputRow.SmallInput
+          <InputRow.TextField
             name='supportEmail'
             onChange={onChange}
             error={errors.supportEmail}
             value={fields.supportEmail}
-          >
-            Ex. support@leadcart.io
-
-          </InputRow.SmallInput>
+            placeholder='e.g. support@leadcart.io'
+          />
         </InputRow>
         <InputRow margin='20'>
           <InputRow.Label error={errors.currency}>Currency:</InputRow.Label>
@@ -201,13 +198,12 @@ const GeneralSettings = ({
       <MainBlock title='Marketplace Page Settings'>
         <InputRow>
           <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>
-          <InputRow.NormalInput
+          <InputRow.TextField
             error={errors.layout && errors.layout.name}
             name='layout.name'
             value={fields.layout.name}
             onChange={onChange}
-          >
-          </InputRow.NormalInput>
+          />
         </InputRow>
         <InputRow margin='40'>
           <InputRow.Label
@@ -230,15 +226,14 @@ const GeneralSettings = ({
         </InputRow>
         <InputRow>
           <InputRow.Label error={errors.support}>Contact Link:</InputRow.Label>
-          <InputRow.NormalInput
+          <InputRow.TextField
             name='supportEmail'
             notes='This will be shown in the marketplace navbar'
+            placeholder='e.g. example.com/contact'
           // onChange={()=>{}}
           // error={errors.support}
           // value={supportEmail}
-          >
-            https://maydomain.com/contact
-          </InputRow.NormalInput>
+          />
         </InputRow>
 
       </MainBlock>
