@@ -4,6 +4,7 @@ import * as signupActions from 'actions/signup';
 
 //Components
 import CustomInputField from 'components/CustomInputField';
+import { LeadcartSquare, BackgroundImagesPart1, BackgroundImagesPart2 } from './Components/index';
 import { FormLogo } from 'components/common/logos';
 import SoftwareFeature from 'components/SoftwareFeature';
 
@@ -13,15 +14,6 @@ import './styles.css';
 //Images
 import ClientApp from 'assets/images/Client-App.png';
 import LeadCartLogo from 'assets/images/brands/leadcart-white-color.png';
-import Star from 'assets/images/star.png';
-import DottedSquare from 'assets/images/dotted-square.png';
-import Snake from 'assets/images/snake.png';
-import Rectangle from 'assets/images/rectangle.png';
-import CircularSection from 'assets/images/circular-section.png';
-import SmallCircularSection from 'assets/images/small-circular-section.png';
-import StripedCircle from 'assets/images/striped-circle.png';
-import LeadcartSquare1 from 'assets/images/leadcart-square-1.png';
-import LeadcartSquare2 from 'assets/images/leadcart-square-2.png';
 
 class SignUp extends Component {
   state = { success: false, processing: false, errors: {} }
@@ -62,10 +54,14 @@ class SignUp extends Component {
     }
   }
 
-  onChange = ({ target: { name } }) => {
+  onChange = ({ target }, { current }) => {
     this.setState({
-      errors: { ...this.state.errors, [name]: '', message: '' }
+      errors: { ...this.state.errors, [target.name]: '', message: '' }
     });
+
+    if (target.value != "") current.style.display = "none";
+    else if (document.activeElement == target) current.style.display = "block";
+    else current.style.display = "";
   }
 
   render () {
@@ -88,20 +84,11 @@ class SignUp extends Component {
     }
     return (
       <React.Fragment>
-        <img src={LeadcartSquare1} className="leadcart-square-1" />
-        <img src={LeadcartSquare2} className="leadcart-square-2" />
+        <LeadcartSquare />
         <div className="signup-container">
           <img src={LeadCartLogo} className="signup-leadcart-logo" />
-          <img src={Star} className="star star-1" />
-          <img src={Star} className="star star-2" />
-          <img src={DottedSquare} className="dotted-square" />
-          <img src={Snake} className="snake snake-1" />
-          <img src={Snake} className="snake snake-2" />
-          <img src={Rectangle} className="rectangle" />
-          <img src={CircularSection} className="circular-section" />
-          <img src={SmallCircularSection} className="small-circular-section" />
-          <img src={StripedCircle} className="striped-circle" />
-          <div>
+          <BackgroundImagesPart1 />
+          <div className="leadcart-desc">
             <div className="free-trial">
               Start your free trial
             </div>
@@ -122,6 +109,7 @@ class SignUp extends Component {
           </div>
           <div className="wrapper-box">
             <img src={ClientApp} className="client-app-images" />
+            <BackgroundImagesPart2 />
             <div className='wrapper'>
               <div className='logo-header'>
                 <FormLogo />
@@ -138,14 +126,14 @@ class SignUp extends Component {
                 <CustomInputField
                   name='firstName'
                   label='First Name'
-                  placeholder='your first name'
+                  placeholder='Type your first name'
                   onChange={this.onChange}
                   error={errors.firstName}
                 />
                 <CustomInputField
                   name='lastName'
                   label='Last Name'
-                  placeholder='your last name'
+                  placeholder='Type your last name'
                   onChange={this.onChange}
                   error={errors.lastName}
                 />

@@ -13,6 +13,11 @@
     left: 0px;
     width: 189px;
     height: 51px;
+    position: absolute;
+}
+
+.leadcart-desc {
+    margin-right: 57px
 }
 
 .dotted-square {
@@ -100,7 +105,15 @@
     top: 265px;
 }
 
-.signup-container > img {
+.absolute-images {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.absolute-images > img {
     position: absolute;
 }
 
@@ -116,6 +129,7 @@
     display: flex;
     flex-flow: nowrap column;
     align-items: center;
+    position: relative;
 }
 
 .client-app-images {
@@ -163,7 +177,8 @@
     font-weight: 500;
     letter-spacing: 0.37px;
     text-transform: uppercase;
-    height: 45px;
+    min-height: 45px;
+    line-height: normal;
 }
 .free-trial-desc {
     color: #ffffff;

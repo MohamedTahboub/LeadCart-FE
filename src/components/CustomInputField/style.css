@@ -1,5 +1,5 @@
  
-.custom-input-field {
+  .custom-input-field {
     display: flex;
     flex-flow: column-reverse;
     margin-bottom: 1em;
@@ -12,10 +12,10 @@
   * inputs, but hey, it's new and cool and could remove the 
   * pesky delay.
   */
-.custom-input-field input {
+  .custom-input-field input {
     width: 100%;
 
-}
+  }
   .custom-input-field label,
   .custom-input-field input {
     transition: all 0.2s;
@@ -32,7 +32,19 @@
     padding: 3px;
     cursor: text;
   }
-  
+
+  .input-placeholder {
+    cursor: text;
+    display: none;
+    opacity: 0;
+    transition: opacity 150ms linear;
+    position: absolute;
+    bottom: 5px;
+    color: #888;
+    font-size: 16px;
+    left: 6px;
+  }
+
   .custom-input-field input:focus {
     outline: 0;
     border-bottom: 1px solid #666;
@@ -45,42 +57,12 @@
     font-weight: 400;
     letter-spacing: 0.18px;
     line-height: 26px;
-  }
-  /**
-  * Translate down and scale the label up to cover the placeholder,
-  * when following an input (with placeholder-shown support).
-  * Also make sure the label is only on one row, at max 2/3rds of the
-  * field—to make sure it scales properly and doesn't wrap.
-  */
-  .custom-input-field input:placeholder-shown + label {
-    cursor: text;
+    position: relative;
+    transform-origin: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transform-origin: left bottom;
-    transform: translate(0, 2rem) scale(1.5);
-  }
-  /**
-  * By default, the placeholder should be transparent. Also, it should 
-  * inherit the transition.
-  */
-  .custom-input-field input::-webkit-input-placeholder {
-    opacity: 0;
-    transition: inherit;
-  }
-  /**
-  * Show the placeholder when the input is focused.
-  */
-  .custom-input-field input:focus::-webkit-input-placeholder {
-    opacity: 1;
-  }
-  /**
-  * When the element is focused, remove the label transform.
-  * Also, do this when the placeholder is _not_ shown, i.e. when 
-  * there's something in the input at all.
-  */
-  .custom-input-field input:not(:placeholder-shown) +  label,
-  .custom-input-field input:focus + label {
-    transform: translate(0, 0) scale(1);
-    cursor: pointer;
+    transform: scale(1.5);
+    top: 23px;
+    cursor: text;
   }
