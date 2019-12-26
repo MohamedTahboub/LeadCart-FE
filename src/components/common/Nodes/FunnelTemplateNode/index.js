@@ -37,9 +37,6 @@ const FunnelNode = ({
   const elementRef = useRef(null);
 
   const onDrag = (e) => {
-    // e.preventDefault();
-    // e.dataTransfer.setData("text/plain", "This sssss may be dragged");
-    // console.log(`template-${id} have been draged`);
     e.dataTransfer.setData('dropedElement', JSON.stringify({ product, category, elementId: id }));
     const {
       left,

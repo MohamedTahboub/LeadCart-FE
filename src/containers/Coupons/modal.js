@@ -51,7 +51,6 @@ const CouponModal = ({
       name = key;
       value = { ...coupon[key], ...nestedValue };
     }
-    console.log('coupon', name, value);
     setCoupon({ ...coupon, [name]: value });
     setErrors({});
   };
@@ -77,9 +76,7 @@ const CouponModal = ({
   const onValidate = async (coupon) => {
     try {
       const { isValid, value, errors } = await couponSchema(coupon);
-      console.log('TCL: onValidate ->  isValid, value, errors', isValid, value, errors);
 
-      console.log(coupon);
       if (!isValid) {
         setErrors(errors);
         return false;
@@ -112,9 +109,6 @@ const CouponModal = ({
 
   const onUpdate = async () => {
     const validCoupon = await onValidate(coupon);
-    console.log('TCL: onUpdate -> coupon', coupon);
-    console.log('TCL: onUpdate -> validCoupon', validCoupon);
-
     if (validCoupon) {
       props.editCoupon(
         {

@@ -95,7 +95,6 @@ const Funnels = ({
   const onPreview = (funnelUrl) => {
     const domain = getValidDomain(domains)
 
-    console.log(domains, domain)
     let url;
     if (domain && domain.domain)
       url = `https://${domain.domain}/${funnelUrl}`;

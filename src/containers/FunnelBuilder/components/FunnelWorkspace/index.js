@@ -23,9 +23,7 @@ const FunnelWorkSpace = ({
   showFlashMessage,
   ...props
 }) => {
-  // const [nodes, setNodes] = useState([]);
-  console.log(nodes)
-  // const [relations, setRelations] = useState([]);
+
   const [connecting, setConnecting] = useState(false);
   const [showNodeOptions, setShowNodeOptions] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false)
