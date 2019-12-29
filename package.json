@@ -51,6 +51,7 @@
     "build": "./node_modules/.bin/env-cmd -f ./.env  react-scripts build",
     "staging:build": "./node_modules/.bin/env-cmd -f ./staging.env react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "clean:up":"rm -fr .git && rm -R *",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
