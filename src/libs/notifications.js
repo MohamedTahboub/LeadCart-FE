@@ -1,7 +1,7 @@
 
-import { store } from 'react-notifications-component';
-import { NotificationContainer } from 'components/NotificationMessage';
 import React from 'react';
+import { store } from 'react-notifications-component';
+import * as Skins from 'components/Notifications';
 import { showIntercomIcon } from './intercom';
 
 // const NotificationContainer = ({
@@ -26,10 +26,9 @@ const defaultOptions = {
   animationIn: ['animated', 'fadeIn'],
   animationOut: ['animated', 'fadeOut'],
   width: 300,
-  dismiss: {
-    duration: 5000,
-    onScreen: true
-  }
+  // dismiss: {
+  //   duration: 5000
+  // }
 };
 
 const commonNotification = (title, message, options = {}) => {
@@ -37,28 +36,40 @@ const commonNotification = (title, message, options = {}) => {
   store.addNotification({
     title,
     message,
-    // content: NotificationContainer,
     ...defaultOptions,
+    type: 'custom',
+    content: <Skins.Custom
+      message={message}
+      // title={title}
+      icon={options.withIcon}
+      type={options.type}
+    />,
     onRemoval: () => {
-      showIntercomIcon(true);
+      // showIntercomIcon(true);
     },
     showIcon: true,
-    ...options
+    // ...options
   });
 };
 
-
+const withIcon = true;
 export const success = (message, options = {}) => {
-  commonNotification('Success', message, options);
+  const type = 'success';
+  commonNotification('Success', message, { ...options, withIcon, type });
 };
 
 export const warning = (message, options = {}) => {
   const type = 'warning';
-  commonNotification('Warning', message, { ...options, type });
+  commonNotification('Warning', message, { ...options, type, withIcon });
 };
 
 export const failed = (message, options = {}) => {
   const type = 'danger';
-  commonNotification('Failed', message, { ...options, type });
+  commonNotification('Failed', message, { ...options, type, withIcon });
+};
+
+export const lightInfo = (message, options = {}) => {
+  const type = 'info';
+  commonNotification('Failed', message, { ...options, type, withIcon });
 };
 
