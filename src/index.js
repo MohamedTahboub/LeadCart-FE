@@ -4,7 +4,6 @@ import moment from 'moment';
 import ReactNotification from 'react-notifications-component';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 
 import store from 'store';
 import 'config';
@@ -117,7 +116,6 @@ ReactDOM.render(
           </Switch>
         </BrowserRouter>
         <ReactNotification />
-        <ReactTooltip />
       </ErrorBoundary>
     </React.Fragment>
   </Provider>,

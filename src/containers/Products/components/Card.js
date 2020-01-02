@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
+import { getPriceFormat, trimExtraText } from 'libs';
+
+import ReactTooltip from 'react-tooltip';
 
 const { Card } = common;
 
@@ -13,16 +16,15 @@ const ProductCard = ({
   onDelete,
   onDuplicate,
   pagePreferences,
+  name,
+  category,
+  price: { amount, currency, format } = {},
   onEdit,
-  active,
+  available: active,
   ...props
 }) => {
   const productImage = getProductImage(pagePreferences);
 
-  const {
-    name,
-    price: { amount: price } = {}
-  } = pagePreferences;
 
   const coverImageStyle = {
     backgroundImage: ` linear-gradient(
@@ -35,6 +37,9 @@ const ProductCard = ({
     backgroundRepeat: 'no-repeat',
   };
 
+
+  const price = getPriceFormat(amount, currency, format);
+
   return (
     <Card className='product-card'>
       <div
@@ -44,24 +49,64 @@ const ProductCard = ({
         <div className='head'>
           <span
             data-tip={`${active ? 'active' : 'inactive'}  product`}
+            data-type='info'
             className={`status ${active ? 'active' : ''}`}
           />
           <span
             data-tip='Duplicate'
+            data-type='info'
             className='duplicate-btn'
+            onClick={onDuplicate}
+            role='presentation'
           >
-            <i className='fas fa-copy scale-12' />
+            <i className='fas fa-copy scale-12 duplicate-icon' />
           </span>
+        </div>
+        <div className='product-category'>
+          {category === 'checkout' ? (
+            <i
+              data-tip='Checkout Product'
+              data-type='info'
+              role='presentation'
+              className='fas fa-shopping-cart'
+            />
+          ) : (
+            <i
+              data-tip='Upsell Product'
+              data-type='info'
+              className='fas fa-chart-line'
+              role='presentation'
+            />
+          )}
         </div>
       </div>
       <div className='product-content'>
-        <div className='title-text'>Name</div>
-        <div className='price-text'>$33.3</div>
+        <div className='title-text'>
+          <span data-tip={trimExtraText(name, 70)} data-type='info' data-multiline>
+            {name}
+          </span>
+        </div>
+        <div className='price-text text-center'>
+          {price}
+        </div>
       </div>
       <div className='footer'>
-        <i className='fas fa-edit' />
-        <i className='fas fa-trash-alt' />
+        <i
+          data-tip='Edit'
+          data-type='info'
+          onClick={onEdit}
+          className='fas fa-edit'
+          role='presentation'
+        />
+        <i
+          data-tip='Delete'
+          data-type='error'
+          onClick={onDelete}
+          className='fas fa-trash-alt'
+          role='presentation'
+        />
       </div>
+      <ReactTooltip />
     </Card>
   );
 };
