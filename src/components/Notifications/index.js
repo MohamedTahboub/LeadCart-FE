@@ -10,7 +10,7 @@ import infoIcon from '../../assets/images/icons/info.png';
 
 const icons = {
   success: successIcon,
-  error: errorIcon,
+  danger: errorIcon,
   warning: warningIcon,
   info: infoIcon,
 };
