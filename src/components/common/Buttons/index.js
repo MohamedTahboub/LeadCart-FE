@@ -17,18 +17,18 @@ export const MiniButton = ({
   className = '',
   tooltip,
   onClick,
-  toolTip,
+  // toolTip,
   ...props
 }) => (
-  <span onClick={onClick} className={`mini-btn  ${className}`}>
+  <span
+    data-tip={tooltip}
+    onClick={onClick}
+    className={`mini-btn  ${className}`}
+  >
     {iconClass && (
-      tooltip ? (
-        <span data-tooltip={tooltip} data-position='left center'>
-          <i className={`fas ${iconClass} scale-12`} />
-        </span>
-      ) : (
-        <i className={`fas ${iconClass} scale-12`} />
-      )
+      <i
+        className={`fas ${iconClass} scale-12`}
+      />
     )}
     {children}
   </span>
