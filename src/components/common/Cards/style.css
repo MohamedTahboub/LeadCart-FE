@@ -123,6 +123,7 @@ span.medium-card-headline {
     transition:all .3 ease-in-out;
     box-shadow: 1px 1px 10px -5px rgba(0,0,0,.2);
 }
+
 .product-card-container:hover{
     box-shadow: 1px 1px 10px -2px rgba(0,0,0,.2);
 }
@@ -814,3 +815,15 @@ span.medium-card-headline {
     border:1.5px solid #e1e1e1;
   }
 /* UPSELL STYLES HERE ENDS */
+
+
+
+.card-container{
+    background: white;
+    border-radius: 4px;
+    transition:all .3 ease-in-out;
+    box-shadow: 1px 1px 10px -5px rgba(0,0,0,.2);
+}
+.card-container:hover{
+    box-shadow: 1px 1px 10px -2px rgba(0,0,0,.2);
+}
