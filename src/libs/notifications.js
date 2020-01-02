@@ -26,9 +26,9 @@ const defaultOptions = {
   animationIn: ['animated', 'fadeIn'],
   animationOut: ['animated', 'fadeOut'],
   width: 300,
-  // dismiss: {
-  //   duration: 5000
-  // }
+  dismiss: {
+    duration: 5000
+  }
 };
 
 const commonNotification = (title, message, options = {}) => {

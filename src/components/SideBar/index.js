@@ -8,12 +8,12 @@ import common from 'components/common';
 // import { ReactComponent as ProductsIcon } from '../../assets/images/icons/products.svg';
 
 import * as logout from 'actions/logout';
-import CreateProductModal from '../CreateProductModal';
 import * as modalsActions from 'actions/modals';
 import './style.css';
 import { appInit } from 'actions/appInit';
+import CreateProductModal from '../CreateProductModal';
 
-import Icons from './icons'
+import Icons from './icons';
 
 const { Button, InputRow } = common;
 
@@ -28,12 +28,12 @@ const BrandSelect = ({ value }) => (
       value={value}
     />
   </Fragment>
-)
-const currentTab = 'products5' // history.location.pathname
+);
+const currentTab = 'products5'; // history.location.pathname
 
-const isActiveTab = tabName => tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []
+const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
 
-console.log(Icons)
+// console.log(Icons)
 const SideBar = ({
   history,
   user,
@@ -42,17 +42,18 @@ const SideBar = ({
   toggleCreateProductModal,
   ...props
 }) => {
+  const [activeTab, setActiveTab] = useState(history.location.pathname);
 
-  const [activeTab, setActiveTab] = useState(history.location.pathname)
+  const onTabChange = (tab) => setActiveTab(tab);
 
-  const onTabChange = (tab) => setActiveTab(tab)
-
-  const Link = ({ to: page, className = '', children, icon, external }) => {
+  const Link = ({
+ to: page, className = '', children, icon, external 
+}) => {
     const Icon = Icons[icon] || null;
 
     return (
       <div className={`flex-container fb-space-between sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}>
-        <Icon className="svg-icon sideBar-icon" />
+        <Icon className='svg-icon sideBar-icon' />
         <PureLink
           to={{ history, page }}
           external={external}
@@ -63,9 +64,8 @@ const SideBar = ({
           {children}
         </PureLink>
       </div>
-    )
-  }
-
+    );
+  };
 
 
   return (
@@ -75,8 +75,8 @@ const SideBar = ({
       <BrandSelect value={user.subDomain} />
       <Menu>
         <Link icon='products' to='/products' className={isActiveTab('products')}>Products</Link>
-        <Link icon='funnels' to='/funnels' >Funnels</Link>
-        <Link icon='fulfillment' to='/fulfillment' >Fulfillment</Link>
+        <Link icon='funnels' to='/funnels'>Funnels</Link>
+        <Link icon='fulfillment' to='/fulfillment'>Fulfillment</Link>
         <Link icon='coupons' to='/coupons'>Coupons</Link>
         <Link icon='transactions' to='/transactions'>Transactions</Link>
         <Link icon='customers' to='/customers'>Customers</Link>
@@ -87,10 +87,10 @@ const SideBar = ({
             to='/sub-accounts'
           >
             Sub-Accounts
-            </Link>
+          </Link>
         )}
         <Link icon='settings' to='/settings/brand'>Settings</Link>
-        <Link icon='help' to='https://help.leadcart.io' external >Help</Link>
+        <Link icon='help' to='https://help.leadcart.io' external>Help</Link>
       </Menu>
 
       <Button onClick={logout} className='logout-btn'>
@@ -110,4 +110,5 @@ export default connect(
     ...logout,
     ...modalsActions,
     appInit
-  })(SideBar);
+  }
+)(SideBar);

@@ -189,7 +189,7 @@ const DomainsTable = ({
         setLoading({ delete: false });
       },
       onFailed: (error) => {
-        console.log(error);
+        // console.log(error);
         setLoading({ delete: false });
       }
     });
