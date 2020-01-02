@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
-import { extractProductsRelations, getStartPointProduct } from 'libs/funnels'
+import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
 import { ProductBuilderSkelton } from 'components/Loaders';
 import { SideBar, Header, FunnelWorkspace } from './components';
 
@@ -45,7 +45,6 @@ const FunnelBuilder = ({
   const [productsNodeDetails, setProductsNodeDetails] = useState({});
 
 
-
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
     SetUnblock(unblock);
@@ -58,7 +57,7 @@ const FunnelBuilder = ({
   };
 
   const onChange = ({ name, value }) => {
-    console.log(name, value)
+    // console.log(name, value)
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -84,12 +83,11 @@ const FunnelBuilder = ({
         obj[product._id] = {
           image: product.thumbnail,
           name: product.name
-        }
-        return obj
-      }, {})
+        };
+        return obj;
+      }, {});
 
-    if (Object.keys(productsDetails).length)
-      setProductsNodeDetails(productsDetails)
+    if (Object.keys(productsDetails).length) setProductsNodeDetails(productsDetails);
 
     return () => {
       // setFields({});
@@ -115,21 +113,20 @@ const FunnelBuilder = ({
     if (!isValid) {
       props.showFlashMessage({
         type: 'failed',
-        message: `Check the funnel Fields And Try a gain`
+        message: 'Check the funnel Fields And Try a gain'
       });
       return setErrors(errors);
     }
 
 
-
     const action = isNew ? props.createFunnel : props.updateFunnel;
     const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
 
-    const startPoint = getStartPointProduct(funnel)
-    if (startPoint) {
+    const startPoint = getStartPointProduct(funnel);
+    if (startPoint) 
       payload.funnel.startPoint = startPoint
-    }
-    payload.productsUpdates = extractProductsRelations(funnel)
+    
+    payload.productsUpdates = extractProductsRelations(funnel);
 
     action(
       payload,
@@ -220,5 +217,7 @@ const mapStateToProps = ({
       domains = []
     } = {}
   } = {}
-}) => ({ products, subdomain, domains, globelLoading, funnels });
+}) => ({
+ products, subdomain, domains, globelLoading, funnels 
+});
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);
