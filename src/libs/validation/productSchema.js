@@ -104,12 +104,7 @@ const ProductSchema = yup.object({
   payment: yup.object({
     methods: yup.array().of(yup.string()),
     type: yup.string().default('Onetime'),
-    recurringPeriod: yup.string().when('type',
-      {
-        is: 'Subscription',
-        then: yup.string().default('MONTH'),
-        otherwise: yup.string().transform(() => undefined)
-      }),
+    recurringPeriod: yup.string().when('type', (type, schema) => (type === 'Onetime' ? schema.transform(() => undefined) : schema.default('MONTH'))),
     splits: yup.string().when('type',
       {
         is: 'Split',

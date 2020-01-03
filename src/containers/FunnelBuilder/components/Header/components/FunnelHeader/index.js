@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { DefaultHeader } from '..';
 import config from 'config';
 import ShareProductModal from 'components/ShareProductModal';
 
 
 import common from 'components/common';
+import { DefaultHeader } from '..';
 
 
 const { USER_SUB_DOMAIN_URL } = config;
@@ -12,9 +12,7 @@ const {
   Button,
 } = common;
 
-const getValidDomain = (domains = []) => {
-  return domains.find(({ verified, connected }) => verified && connected)
-}
+const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
 
 const CheckoutHeader = ({
   funnel,
@@ -26,20 +24,17 @@ const CheckoutHeader = ({
   history,
   ...props
 }) => {
-
   const [showModal, setShowModal] = useState({});
 
   const onPreview = () => {
-    const { url:funnelUrl } = funnel;
+    const { url: funnelUrl } = funnel;
 
-    const domain = getValidDomain(domains)
+    const domain = getValidDomain(domains);
 
-    console.log(domains, domain)
+    // console.log(domains, domain)
     let url;
-    if (domain && domain.domain)
-      url = `https://${domain.domain}/${funnelUrl}`;
-    else
-      url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
+    if (domain && domain.domain) url = `https://${domain.domain}/${funnelUrl}`;
+    else url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
 
     // const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
     window.open(url, '_blank');
@@ -88,7 +83,7 @@ const CheckoutHeader = ({
       />
     </DefaultHeader>
   );
-}
+};
 
 CheckoutHeader.propTypes = {
 

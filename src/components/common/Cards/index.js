@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { openNewWindow } from 'libs';
+import { openNewWindow, getCurrencySymbol, property } from 'libs';
 import './style.css';
 import { Modal } from 'components/Modals';
 import ids from 'shortid';
-import { getCurrencySymbol } from 'libs';
-import { property } from 'libs';
+import PropTypes from 'prop-types';
+
 import defaultFunnelThumbnail from 'assets/images/funnelCardThumbnail.png';
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
@@ -75,7 +75,10 @@ export const Avatar = ({
 
 export const ProductCard = ({
   name,
-  image: productImage,
+  image,
+  pagePreferences: {
+    image: productImage = image
+  } = {},
   // pagePreferences:{}={}
   currancy,
   orderInlist = 0,
@@ -89,7 +92,10 @@ export const ProductCard = ({
   onDuplicate,
   ...props
 }) => (
-  <EasyAnimate delay={orderInlist * 100} className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}>
+  <EasyAnimate
+    delay={orderInlist * 100}
+    className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}
+  >
 
     <MiniButton
       iconClass='fa-copy'
@@ -517,3 +523,24 @@ export const FunnelCard = ({
     </EasyAnimate>
   );
 };
+
+
+export const Card = ({
+  children,
+  className,
+  ...props
+}) => (
+  <div className={`card-container ${className}`} {...props}>
+    {children}
+  </div>
+);
+
+Card.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.oneOf([PropTypes.node, HTMLBaseElement, null]).isRequired
+};
+Card.defaultProps = {
+  className: '',
+
+};
+

@@ -1,30 +1,30 @@
 /* overwrit */
-#intercom-container{
+/* #intercom-container{
     z-index:  2147483644 !important;
-}
+} */
 
 .notification-message-container{
     background: white;
-    position: fixed;
-    bottom: 20px;
+    /* position: fixed; */
+    /* bottom: 20px;
     right:  20px;
     min-width: 200px;
     max-width: 400px;
-    min-height: 70px;
-    display: flex;
+    min-height: 70px; */
+    /* display: flex; */
     align-items: center;
     box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.1);
-    transition: transform .5s ease-in-out;
-    transform: translateX(450px);
-    z-index:  2147483647;
+    /* transition: transform .5s ease-in-out;
+    transform: translateX(450px);*/
+    /* z-index:  2147483647;  */
+    
 }
 
 .show-notification-message{
     transform: translateX(0px);
 }
 
-.notification-success-message::before,
-.notification-failure-message::before{
+.notification-message-container::before{
     content: 'LEADCART';
     position: absolute;
     color: white;
@@ -38,12 +38,14 @@
     left: -15px;
     height: 100%;
     width: 20px;
+}
+.notification-message-container.success::before{
     background: #007AFF;
 }
-.notification-failure-message::before{
+.notification-message-container.failed::before{
     background: tomato;
 }
-
+/* 
 .notification-close-btn{
     position: absolute;
     top: 5px;
@@ -64,4 +66,4 @@
     color:gray;
     white-space: pre-line;
     user-select: none;
-}
+} */

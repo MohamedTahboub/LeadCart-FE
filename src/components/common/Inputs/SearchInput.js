@@ -4,7 +4,7 @@ import Select from 'antd/lib/select';
 import 'antd/dist/antd.css';
 import ids from 'shortid';
 
-const Option = Select.Option;
+const {Option} = Select;
 
 export default ({
   className = '',

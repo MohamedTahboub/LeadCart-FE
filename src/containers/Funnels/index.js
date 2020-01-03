@@ -6,7 +6,6 @@ import * as productsActions from 'actions/products';
 import * as flashMessages from 'actions/flashMessage';
 
 
-
 import config from 'config';
 
 
@@ -31,9 +30,7 @@ const {
 
 // const { SearchInput, Checkbox } = InputRow;
 
-const getValidDomain = (domains = []) => {
-  return domains.find(({ verified, connected }) => verified && connected)
-}
+const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
 // const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
 const Funnels = ({
@@ -44,8 +41,7 @@ const Funnels = ({
   domains,
   ...props
 }) => {
-
-  console.log("domains=>",domains)
+  // console.log("domains=>",domains)
   const [showDelete, setShowDelete] = useState('');
   // eslint-disable-next-line
   const [creatingFunnel, setCreateFunnel] = useState(false);
@@ -54,7 +50,6 @@ const Funnels = ({
   const onFunnelEdit = (url) => {
     props.history.push(`/funnels/${url}`);
   };
-
 
 
   const onShowDeleteDialogue = (id) => setShowDelete(id);
@@ -67,9 +62,9 @@ const Funnels = ({
         onSuccess: () => {
           props.showFlashMessage({
             type: 'success',
-            message: `Funnel Deleted Successfully`
+            message: 'Funnel Deleted Successfully'
           });
-          onHideDeleteDialogue()
+          onHideDeleteDialogue();
         },
         onFailed: (msg) => {
           props.showFlashMessage({
@@ -91,19 +86,16 @@ const Funnels = ({
   };
 
 
-
   const onPreview = (funnelUrl) => {
-    const domain = getValidDomain(domains)
+    const domain = getValidDomain(domains);
 
     let url;
-    if (domain && domain.domain)
-      url = `https://${domain.domain}/${funnelUrl}`;
-    else
-      url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
+    if (domain && domain.domain) url = `https://${domain.domain}/${funnelUrl}`;
+    else url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
 
     // const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
     window.open(url, '_blank');
-  }
+  };
 
   // useEffect(() => {
 
@@ -169,14 +161,13 @@ const Funnels = ({
 };
 
 
-
 const mapStateToProps = ({
   loading,
   funnels,
   products,
   settings: {
     generalModel: {
-      subDomain :subdomain,
+      subDomain: subdomain,
       domains = []
     } = {}
   } = {}
