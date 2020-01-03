@@ -179,7 +179,7 @@ module.exports = {
     "react/jsx-pascal-case": 2,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 2,
-    "react/jsx-filename-extension":0
-
+    "react/jsx-filename-extension":0,
+    "import/no-unresolved": "off"
   }
 }

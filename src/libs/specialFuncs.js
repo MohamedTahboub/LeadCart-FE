@@ -76,7 +76,14 @@ export const injectDefaultLabels = (languages) => {
     };
   };
   const labeledLanguages = languages.map(injectLabelForLanguage);
-  console.log(labeledLanguages);
+  // console.log(labeledLanguages);
   return labeledLanguages;
+};
+
+
+export const trimExtraText = (text, maxLength) => {
+  if (text.length > maxLength) return `${text.slice(0, maxLength)} . . .`;
+
+  return text;
 };
 

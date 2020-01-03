@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import * as translationsActions from 'actions/translations';
 import common from 'components/common';
 import Table from 'components/common/Tables';
-import { injectDefaultLabels } from 'libs'
+import { injectDefaultLabels } from 'libs';
+import moment from 'moment';
 import {
   TranslationEditModal as EditModal
 } from './components';
-import moment from 'moment';
 
 const {
   MainBlock,
@@ -19,41 +19,40 @@ const {
 
 
 const Translations = ({ languages = [], deleteTranslationLanguage }) => {
-
   const [openModal, setOpenModal] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
   const [isEdit, setIsEdit] = useState();
 
   const onOpenModal = () => {
     setOpenModal(true);
-    setIsEdit()
+    setIsEdit();
   };
 
   const onOpenEditModal = (id) => {
-    const language = languages.find(language => language._id === id)
+    const language = languages.find((language) => language._id === id);
     if (!language) return;
 
-    setIsEdit(language)
-    setOpenModal(true)
+    setIsEdit(language);
+    setOpenModal(true);
   };
 
   const onCloseModal = () => {
     setOpenModal(false);
-    setIsEdit()
+    setIsEdit();
   };
 
-  const onLanguageDelete = languageId => {
+  const onLanguageDelete = (languageId) => {
     deleteTranslationLanguage({
       languageId
     }, {
       onSuccess: () => {
-        setShowDeleteModal()
+        setShowDeleteModal();
       },
       onFailed: () => {
-        setShowDeleteModal()
+        setShowDeleteModal();
       }
-    })
-  }
+    });
+  };
 
   const languagesRows = (
     <Table>
@@ -71,39 +70,39 @@ const Translations = ({ languages = [], deleteTranslationLanguage }) => {
           updatedAt,
           type,
         }, orderInList) => (
-            <Table.Row
-              key={id}
-              orderInList={orderInList}
-              className='member-table-row'
-            >
-              <Table.Cell mainContent={name} />
-              <Table.Cell className={'uppercase-text'} mainContent={type} />
-              <Table.Cell mainContent={moment(updatedAt).format('MMM DD YYYY')} />
-              <Table.Cell className='flex-container'>
-                {!defaultLanguage ?
-                  (
-                    <Fragment>
-                      <MiniButton
-                        toolTip='Delete'
-                        className='table-row-delete-btn position-right-70'
-                        iconClass='fa-trash-alt'
-                        disabled={defaultLanguage}
-                        onClick={() => setShowDeleteModal(id)}
-                      />
-                      <MiniButton
-                        toolTip='Edit'
-                        className='table-row-edit-btn position-right-10'
-                        iconClass='fas fa-edit'
-                        disabled={defaultLanguage}
-                        onClick={() => onOpenEditModal(id)}
-                      />
-                    </Fragment>
-                  ) : (
-                    <div className="badge gray-badge">Default</div>
-                  )}
-              </Table.Cell>
-            </Table.Row>
-          ))}
+          <Table.Row
+            key={id}
+            orderInList={orderInList}
+            className='member-table-row'
+          >
+            <Table.Cell mainContent={name} />
+            <Table.Cell className='uppercase-text' mainContent={type} />
+            <Table.Cell mainContent={moment(updatedAt).format('MMM DD YYYY')} />
+            <Table.Cell className='flex-container'>
+              {!defaultLanguage
+                ? (
+                  <Fragment>
+                    <MiniButton
+                      toolTip='Delete'
+                      className='table-row-delete-btn position-right-70'
+                      iconClass='fa-trash-alt'
+                      disabled={defaultLanguage}
+                      onClick={() => setShowDeleteModal(id)}
+                    />
+                    <MiniButton
+                      toolTip='Edit'
+                      className='table-row-edit-btn position-right-10'
+                      iconClass='fas fa-edit'
+                      disabled={defaultLanguage}
+                      onClick={() => onOpenEditModal(id)}
+                    />
+                  </Fragment>
+                ) : (
+                  <div className='badge gray-badge'>Default</div>
+                )}
+            </Table.Cell>
+          </Table.Row>
+        ))}
       </Table.Body>
     </Table>
   );
@@ -131,7 +130,7 @@ const Translations = ({ languages = [], deleteTranslationLanguage }) => {
           isNew={!isEdit}
           language={isEdit}
         />
-        )}
+      )}
 
       {showDeleteModal && (
         <Dialog

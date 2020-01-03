@@ -7,16 +7,6 @@ import PropTypes from 'prop-types';
 // import { getDateValueReferences } from 'libs';
 import { getLabelByValue } from 'data/dashboardSettings';
 
-// const LoadingIcon = ({
-//   className,
-//   show,
-//   ...props
-// }) => (show ? <div className={`loading spinner ${className}`}>Loading...</div> : null);
-
-
-// const isPercentageRequires = (type) => {
-//   console.log('type==>', type);
-// };
 const AreaChart = ({
   data = [],
   activeTypeValue,
@@ -24,7 +14,6 @@ const AreaChart = ({
   timelineFilter,
 }) => {
   const initialState = {
-    // timeline: getDateValueReferences(timelineFilter) || {},
     series: [
       {
         name: activeTypeValue,
@@ -85,10 +74,7 @@ const AreaChart = ({
 
 
   useEffect(() => {
-    // console.log('Charts Updates');
-    // console.log(data);
     setState({
-      // timeline: getDateValueReferences(timelineFilter) || {},
       series: [
         {
           name: getLabelByValue(activeTypeValue),

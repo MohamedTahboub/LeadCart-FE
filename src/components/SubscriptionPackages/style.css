@@ -88,3 +88,7 @@
     filter: blur(5px);
     opacity: .6;
 }
+.promo-code-input input{
+    margin-right: 20px;
+    min-width: 250px;
+}

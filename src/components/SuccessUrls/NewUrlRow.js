@@ -42,10 +42,7 @@ const TimeInterval = ({
 
 
     const activeDuration = newFields.isInfinite ? 'infinite' : `${newFields.value},${newFields.interval}`;
-    console.log({
-      name: 'activeDuration',
-      value: activeDuration
-    });
+
     props.onChange({
       target: {
         name: 'activeDuration',

@@ -96,8 +96,6 @@ const SettingsModal = ({
       );
 
     } else {
-      console.log("isValid" , isValid)
-      console.log("errors" , errors)
       showFlashMessage({
         type: 'failed',
         message: 'Failed to Save Dashboard Customization Settings'

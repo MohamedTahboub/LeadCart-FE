@@ -37,7 +37,7 @@ const initialInstructions = (
       </ul>
       <div>
         Follow the step-by-step instructions &nbsp;
-        <a href='https://help.leadcart.io/domains/connect' target='_blank' rel="noopener noreferrer">
+        <a href='https://help.leadcart.io/domains/connect' target='_blank' rel='noopener noreferrer'>
           here
         </a>
         &nbsp; if you have any issue.
@@ -162,7 +162,6 @@ const DomainsTable = ({
           message,
           ...error
         });
-        console.log(error);
         setLoading({ verify: false });
       }
     });
@@ -177,7 +176,6 @@ const DomainsTable = ({
         setLoading({ connect: false });
       },
       onFailed: (error) => {
-        console.log(error);
         setLoading({ connect: false });
       }
     });
@@ -191,7 +189,7 @@ const DomainsTable = ({
         setLoading({ delete: false });
       },
       onFailed: (error) => {
-        console.log(error);
+        // console.log(error);
         setLoading({ delete: false });
       }
     });
