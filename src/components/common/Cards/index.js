@@ -512,10 +512,10 @@ export const FunnelCard = ({
           <span className='funnel-name-holder'>{name}</span>
         </div>
         <div className='card-controlls-container'>
-          <span data-tooltip='Edit Fulfillment'>
+          <span data-tooltip='Edit Funnel'>
             <i onClick={onEdit} className='fas fa-edit' />
           </span>
-          <span data-tooltip='Delete Fulfillment'>
+          <span data-tooltip='Delete Funnel'>
             <i onClick={onDelete} className='fas fa-trash-alt' />
           </span>
         </div>
