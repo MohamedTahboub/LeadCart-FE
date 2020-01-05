@@ -1,0 +1,29 @@
+
+
+.layout-options{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.integrations-container{
+    background: white;
+    padding: 10px 20px;
+}
+
+.integrations-modal{
+    top: 30vh;
+    left: 0;  
+}
+
+
+
+img.integrations-service-brand {
+    height: 40px;
+    width: 139px;
+    /* max-width: 60px; */
+    object-fit: contain;
+}
+.relative-element{
+    position: relative;
+}
