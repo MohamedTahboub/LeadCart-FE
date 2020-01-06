@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://test.leadcart.io/api/:splat"
+
+ status = 200
