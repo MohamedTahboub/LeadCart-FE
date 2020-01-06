@@ -29,7 +29,7 @@ const IntegrationsTable = ({ list }) => (
         <Table.Row
           key={key}
           orderInList={orderInList}
-          // className='member-table-row'
+          className='member-table-row'
         >
 
           <Table.Cell mainContent={label} />
@@ -44,7 +44,7 @@ const IntegrationsTable = ({ list }) => (
             <img src={brandLogo} className='integrations-service-brand' alt={`${name} brand`} />
           )}
           />
-          <Table.Cell className='flex-container relative-element'>
+          <Table.Cell>
             <Fragment>
               <MiniButton
                 toolTip='Delete'

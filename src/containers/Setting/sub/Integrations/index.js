@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import { SlideModal } from 'components/Modals';
+
 import servicesList from './components/servicesList';
 
 import {
   LayoutSwitch,
   IntegrationsGrid,
   IntegrationsTable,
-  LayoutOptions
+  LayoutOptions,
+  ConnectModal
 } from './components';
 
 
@@ -48,24 +49,18 @@ const Integrations = ({ integrations, ...props }) => {
           onClick={() => setOpenModal(true)}
           className='primary-color'
         >
-                    New Integration
+          New Integration
         </Button>
       </div>
       <ActiveIntegrationLayout
         layout={activeLayout}
         list={integrations}
       />
-      <SlideModal
-        contentClassName='integrations-modal'
-        type='vertical'
-        isVisible={openModal}
-        onClose={() => setOpenModal(false)}
-      >
-        <div className='header'>
-          <MainTitle>connect new integrations</MainTitle>
-        </div>
+      <ConnectModal
+        open={openModal}
+        onToggle={() => setOpenModal(false)}
+      />
 
-      </SlideModal>
     </div>
   );
 };

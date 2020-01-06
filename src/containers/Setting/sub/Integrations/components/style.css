@@ -2,11 +2,10 @@
 
 .layout-options{
     display: flex;
-    flex: 1;
-    justify-content: center;
 }
 
 .integrations-container{
+    margin-top: 20px;
     background: white;
     padding: 10px 20px;
 }
@@ -15,7 +14,10 @@
     top: 30vh;
     left: 0;  
 }
-
+.flex-space-center{
+    flex: 1;
+    justify-content: center;
+}
 
 
 img.integrations-service-brand {
