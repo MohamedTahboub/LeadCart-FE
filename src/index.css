@@ -1,7 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
 }
 
 
@@ -88,13 +89,6 @@ div#root {
   margin-top: -40px;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
 
 .form-input {
   margin: 10px 5px;
@@ -358,4 +352,14 @@ footer {
 .notification-container-top-right {
   position: fixed;
   z-index: 118035 !important;
+}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.large-text{
+  font-size: 16px;
 }

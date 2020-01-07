@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-import { FormLogo } from 'components/common/logos';
 import { connect } from 'react-redux';
 import * as signupActions from 'actions/signup';
 import CustomInputField from 'components/CustomInputField';
 import { freeTrailSignup } from 'libs/validation';
+
+import config from 'config';
+import common from 'components/common';
+
 import './styles.css';
 
+// import { FormLogo } from 'components/common/logos';
+// import { Feature } from 'components/common/Custom';
+// import { FlexBox } from 'components/common/boxes';
+import { VerificationPage } from './components';
+
+
+const { packagesPlans } = config;
+const {
+  FormLogo,
+  Feature,
+  FlexBox,
+  Button
+} = common;
 class SignUp extends Component {
   state = { success: false, processing: false, errors: {} }
 
@@ -55,78 +71,90 @@ class SignUp extends Component {
     // const { validationError: errors, signupError } = this.props;
     const { success, errors = {}, processing } = this.state;
 
-    if (success) {
-      return (
-        <div className='account-verify-page'>
-          <div className='verified-message-container'>
-            <i className='fas fa-check-circle' />
-            <span className='verified-label'>
-              You Have signed up successfully,
-              <br />
-              please check your inbox to verify your account .
-            </span>
-          </div>
-        </div>
-      );
-    }
+    if (success) return <VerificationPage />;
+
+
     return (
-      <div className='wrapper'>
-        <div className='logo-header'>
-          <FormLogo />
-          <span className='login-header-title'>sign up</span>
-          <span className='login-header-message'>
-            free trial for 7 days on
-            {' '}
-            <a href='https://leadcart.io' target='_blank' rel="noopener noreferrer">
-              leadcart
-            </a>
-          </span>
-        </div>
-        <form className='form-container' onSubmit={this.onSubmit}>
-          <CustomInputField
-            name='firstName'
-            label='First Name'
-            placeholder='your first name'
-            onChange={this.onChange}
-            error={errors.firstName}
-          />
-          <CustomInputField
-            name='lastName'
-            label='Last Name'
-            placeholder='your last name'
-            onChange={this.onChange}
-            error={errors.lastName}
-          />
-          <CustomInputField
-            name='email'
-            label='Email address'
-            placeholder='Enter your email address'
-            onChange={this.onChange}
-            error={errors.email}
-          />
-          <CustomInputField
-            name='password'
-            label='Password'
-            type='password'
-            placeholder='Set a strong password'
-            onChange={this.onChange}
-            error={errors.password}
-          />
-          <CustomInputField
-            name='company'
-            label='Company Name'
-            placeholder='Set the Company Name'
-            onChange={this.onChange}
-            error={errors.company}
-          />
-          <div className='w subdomain'>
-            <input className='leadcart-user' name='subdomain' />
-            <span className='main-domain-suffix'>.leadcart.io</span>
-            {errors.subdomain && <span className='input-feild-error'>{errors.subdomain}</span>}
-          </div>
-          {errors.message && <span className='signup-error-field'>{errors.message}</span>}
-          <button type='submit' disabled={processing} className={`form-submit ${processing ? 'spinner' : ''}`}> Sign Up</button>
-        </form>
+      <div className='full-page background-image-elements'>
+
+        <FlexBox spaceBetween className='form-content' flex>
+
+          <FlexBox column>
+            <div className='title-text uppercase-text'>Start your free Trial</div>
+            <div>
+              Simple, Yet Powerful Cart Solution To Help You Convert More Sales & Maximize Profits.
+            </div>
+            <FlexBox column>
+              {packagesPlans.pro.features.map((feature) => <Feature>{feature}</Feature>)}
+            </FlexBox>
+          </FlexBox>
+
+          <form className='form-container' onSubmit={this.onSubmit}>
+            <div className='logo-header'>
+              <FormLogo />
+              <span className='login-header-title'>sign up</span>
+              <span className='login-header-message'>
+                free trial for 7 days on
+                <a href='https://leadcart.io' target='_blank' rel='noopener noreferrer'>
+                  leadcart
+                </a>
+              </span>
+            </div>
+            <FlexBox column center>
+              <CustomInputField
+                name='firstName'
+                label='First Name'
+                placeholder='your first name'
+                onChange={this.onChange}
+                error={errors.firstName}
+              />
+              <CustomInputField
+                name='lastName'
+                label='Last Name'
+                placeholder='your last name'
+                onChange={this.onChange}
+                error={errors.lastName}
+              />
+              <CustomInputField
+                name='email'
+                label='Email address'
+                placeholder='Enter your email address'
+                onChange={this.onChange}
+                error={errors.email}
+              />
+              <CustomInputField
+                name='password'
+                label='Password'
+                type='password'
+                placeholder='Set a strong password'
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <CustomInputField
+                name='company'
+                label='Company Name'
+                placeholder='Set the Company Name'
+                onChange={this.onChange}
+                error={errors.company}
+              />
+            </FlexBox>
+            <div className='w subdomain'>
+              <input className='leadcart-user' name='subdomain' />
+              <span className='main-domain-suffix'>.leadcart.io</span>
+              {errors.subdomain && <span className='input-feild-error'>{errors.subdomain}</span>}
+            </div>
+            {errors.message && <span className='signup-error-field'>{errors.message}</span>}
+            <Button
+              type='submit'
+              className='primary-color large-text arrow-icon'
+              disabled={processing}
+              onProgress={processing}
+            >
+              Sign Up
+            </Button>
+          </form>
+        </FlexBox>
+
         <footer>
           © LeadCart. All rights reserved 2019
         </footer>
