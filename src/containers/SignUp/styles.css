@@ -67,7 +67,9 @@
   padding-left: 10px;
 }
 
-.access-btn {}
+.access-btn {
+  margin-top:15px;
+}
 
 .subdomain-field {
   margin: 15px 0;
@@ -116,4 +118,16 @@
 
 .margin-top-50{
   margin-top: 50px;
+}
+
+
+.signup-error-field {
+  font-size: small;
+  color: #ff5722cf;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.min-width-300{
+  min-width: 300px;
 }

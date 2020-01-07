@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as signupActions from 'actions/signup';
 import CustomInputField from 'components/CustomInputField';
 import { freeTrailSignup } from 'libs/validation';
-import whiteBrandLogo from 'assets/images/leadcart-white-brand.png'
+import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 
 import config from 'config';
 import common from 'components/common';
@@ -56,7 +56,9 @@ class SignUp extends Component {
             this.setState({ success: true, processing: false });
           },
           onFailed: (error) => {
-            this.setState({ success: false, errors: { message: error }, processing: false });
+            const message = typeof error !== 'string' ? error.message : error;
+
+            this.setState({ success: false, errors: { message }, processing: false });
           }
         }
       );
@@ -72,7 +74,7 @@ class SignUp extends Component {
     });
   }
 
-  render() {
+  render () {
     // const { validationError: errors, signupError } = this.props;
     const { success, errors = {}, processing } = this.state;
 
@@ -81,14 +83,16 @@ class SignUp extends Component {
 
     return (
       <div className='full-page background-image-elements'>
-        <header className='header-logo-container'>
-          <div>
-            <img src={whiteBrandLogo} alt="leadcart brand" className='lc-white-logo' />
-          </div>
-        </header>
-        <FlexBox spaceBetween className='form-content' flex wrappable >
+        <FlexBox className='header-logo-container' wrappable>
+          <FlexBox className='min-width-300' flex center>
+            <img src={whiteBrandLogo} alt='leadcart brand' className='lc-white-logo' />
+          </FlexBox>
+          <FlexBox flex className='min-width-300' />
+          <FlexBox flex className='min-width-300' />
+        </FlexBox>
+        <FlexBox spaceBetween className='form-content' flex wrappable>
 
-          <FlexBox column className='white-text margin-top-50' flex >
+          <FlexBox column className='white-text margin-top-50' flex>
             <div className='larger-text uppercase-text'>
               Start your free Trial
             </div>
@@ -103,7 +107,7 @@ class SignUp extends Component {
           </FlexBox>
 
           <form className='form-container' onSubmit={this.onSubmit}>
-            <div className="pages-demo-hate"></div>
+            <div className='pages-demo-hate' />
             <div className='logo-header'>
               <FormLogo />
               <span className='login-header-title'>sign up</span>
