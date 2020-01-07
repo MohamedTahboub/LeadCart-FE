@@ -242,3 +242,11 @@ span.insight-chart {
     left:20px;
 } */
 /* insights box section style ends */
+
+
+
+.cards-container-element {
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+}

@@ -20,11 +20,13 @@ import * as messages from './Messages';
 import Dialog from './Dialog';
 import * as Nodes from './Nodes';
 import Badge from './Badge';
+import Step from './Step';
 
 
 export default {
   Table,
   Badge,
+  Step,
   ...boxes,
   ...buttons,
   ...inputs,
@@ -45,5 +47,5 @@ export default {
   ...Collapsable,
   ...Nodes,
   Dialog
-}
-;
+};
+
