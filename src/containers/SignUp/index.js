@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as signupActions from 'actions/signup';
 import CustomInputField from 'components/CustomInputField';
 import { freeTrailSignup } from 'libs/validation';
+import whiteBrandLogo from 'assets/images/leadcart-white-brand.png'
 
 import config from 'config';
 import common from 'components/common';
@@ -71,7 +72,7 @@ class SignUp extends Component {
     });
   }
 
-  render () {
+  render() {
     // const { validationError: errors, signupError } = this.props;
     const { success, errors = {}, processing } = this.state;
 
@@ -80,10 +81,14 @@ class SignUp extends Component {
 
     return (
       <div className='full-page background-image-elements'>
+        <header className='header-logo-container'>
+          <div>
+            <img src={whiteBrandLogo} alt="leadcart brand" className='lc-white-logo' />
+          </div>
+        </header>
+        <FlexBox spaceBetween className='form-content' flex wrappable >
 
-        <FlexBox spaceBetween className='form-content' flex>
-
-          <FlexBox column className='white-text'>
+          <FlexBox column className='white-text margin-top-50' flex >
             <div className='larger-text uppercase-text'>
               Start your free Trial
             </div>
@@ -166,7 +171,7 @@ class SignUp extends Component {
           </form>
         </FlexBox>
 
-        <footer>
+        <footer className='copyright-text'>
           © LeadCart. All rights reserved 2019
         </footer>
       </div>
