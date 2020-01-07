@@ -1,3 +1,17 @@
+.logo-container {
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 20px 0;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.form-logo-image {
+  height: 35px;
+  width: 35px;
+}
+
 .logo-position .logo-container {
   position: relative;
   margin: auto;

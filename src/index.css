@@ -1,7 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
 }
 
 
@@ -29,14 +30,7 @@ div#root {
   box-sizing: border-box;
 }
 
-.logo-container {
-  display: flex;
-  -ms-flex-direction: column;
-  margin-bottom: 5px;
-  flex-direction: column;
-  margin-bottom: 20px;
-  position: relative;
-}
+
 
 .logo-header {
   display: flex;
@@ -79,22 +73,12 @@ div#root {
   margin: 0 auto;
 }
 
-.form-logo-image {
-  height: 56px;
-  width: 56px;
-}
+
 
 .form-logo-shadow {
-  margin-top: -40px;
+  margin-top: -26px;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
 
 .form-input {
   margin: 10px 5px;
@@ -172,18 +156,11 @@ div#root {
   padding-left: 10px;
 }
 
-footer {
-  position: absolute;
-  bottom: 0px;
+.copyright-text {
   user-select: none;
-  width: 100%;
-  text-align: center;
-  justify-self: center;
-  font-size: 13px;
   color: #C9D3DC;
-  display: -ms-flexbox;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  font-size: 13px;
 }
 
 .df-warp {
@@ -358,4 +335,20 @@ footer {
 .notification-container-top-right {
   position: fixed;
   z-index: 118035 !important;
+}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.large-text{
+  font-size: 16px;
+}
+.larger-text{
+  font-size: 22px;
+}
+.white-text{
+  color: white;
 }
