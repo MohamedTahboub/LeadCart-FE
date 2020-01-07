@@ -1,0 +1,41 @@
+.integration-connect-section{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.integration-service-card{
+    /* background: ; */
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80px;
+    width: 150px;
+    cursor: pointer;
+    position: relative;
+}
+
+.service-name{
+    color: gray;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0px 5px;
+    background: #4DA1FF;
+    color: white;
+    font-size: 12px;
+    border-bottom-right-radius: 5px;
+}
+.integrations-steps{
+    display: flex;
+    align-items: center;
+}
+.integration-services-search{
+    /* margin: 0 auto; */
+    width: 400px;
+}
+.integrations-steps-content{
+    padding-left:30px ;
+
+}

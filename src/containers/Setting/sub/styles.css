@@ -166,14 +166,6 @@ div.ever-lesson-logo {
     background-size: 50% !important;
 }
 
-/* Cards Container Styles*/
-.crads-container-element {
-    display: flex;
-    /* justify-content: space-between; */
-    flex-wrap: wrap;
-}
-
-/* Cards Container Styles Ends*/
 
 
 
