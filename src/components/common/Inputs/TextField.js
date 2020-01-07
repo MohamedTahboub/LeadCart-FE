@@ -9,6 +9,7 @@ const TextField = ({
   onBlur,
   name,
   prefix,
+  suffix,
   error,
   value,
   id,
@@ -29,6 +30,7 @@ const TextField = ({
       id={id}
       {...props}
     />
+    {suffix && suffix}
   </div>
 );
 

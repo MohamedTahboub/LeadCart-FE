@@ -1,32 +1,60 @@
 .background-image-elements {
-    background-color: #0074f2;
-    background-image: url(../../assets/images/access-background-elements.svg);
-    background-position: 0% -300px;
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-color: #0074f2;
+  background-image: url(../../assets/images/access-background-elements.svg);
+  background-position: 0% -300px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.form-container{
-    background: white;
-    border-radius: 7px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.form-container {
+  background: white;
+  border-radius: 7px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
 }
-.form-content{
-  margin: 40px 100px;  
+
+.pages-demo-hate{
+  position: absolute;
+  content: " ";
+  top: calc(0% - 120px);
+  left: calc(50% - 120px);
+}
+
+.pages-demo-hate::after{
+  position: absolute;
+  height: 200px;
+  width: 250px;
+  content: " ";
+  background-image: url(../../assets/images/pages-demo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+.form-content {
+  margin: 40px 80px;
   align-items: center;
 }
-.full-page{
+
+.full-page {
   position: absolute;
-  top:0px;
+  top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
+
+.form-content .feature-item,
+.form-content .title-text{
+  color: white;
+}
+
 
 .arrow-icon:after {
   content: '\2192';
@@ -34,6 +62,35 @@
   font-size: 20px;
   padding-left: 10px;
 }
-.access-btn{
-  
+
+.access-btn {}
+
+.subdomain-field {
+  margin: 15px 0;
+}
+
+.subdomain-field .text-input-filed {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.main-domain-suffix {
+  background: #4DA1FF;
+  color: white;
+  padding: 0px 15px;
+  display: flex;
+  font-size: 13px;
+  height: 100%;
+  height: 38px;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.input-feild-error {
+  position: absolute;
+  bottom: -20px;
+  font-size: 11px;
+  color: #d66854;
 }

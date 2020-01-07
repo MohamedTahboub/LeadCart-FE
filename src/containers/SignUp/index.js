@@ -20,8 +20,12 @@ const {
   FormLogo,
   Feature,
   FlexBox,
-  Button
+  Button,
+  InputRow
 } = common;
+
+const { TextField } = InputRow;
+
 class SignUp extends Component {
   state = { success: false, processing: false, errors: {} }
 
@@ -79,10 +83,14 @@ class SignUp extends Component {
 
         <FlexBox spaceBetween className='form-content' flex>
 
-          <FlexBox column>
-            <div className='title-text uppercase-text'>Start your free Trial</div>
-            <div>
-              Simple, Yet Powerful Cart Solution To Help You Convert More Sales & Maximize Profits.
+          <FlexBox column className='white-text'>
+            <div className='larger-text uppercase-text'>
+              Start your free Trial
+            </div>
+            <div className='margin-v-20'>
+              Simple, Yet Powerful Cart Solution To Help You Convert More Sales
+              <br />
+              & Maximize Profits.
             </div>
             <FlexBox column>
               {packagesPlans.pro.features.map((feature) => <Feature>{feature}</Feature>)}
@@ -90,6 +98,7 @@ class SignUp extends Component {
           </FlexBox>
 
           <form className='form-container' onSubmit={this.onSubmit}>
+            <div className="pages-demo-hate"></div>
             <div className='logo-header'>
               <FormLogo />
               <span className='login-header-title'>sign up</span>
@@ -138,11 +147,13 @@ class SignUp extends Component {
                 error={errors.company}
               />
             </FlexBox>
-            <div className='w subdomain'>
-              <input className='leadcart-user' name='subdomain' />
-              <span className='main-domain-suffix'>.leadcart.io</span>
-              {errors.subdomain && <span className='input-feild-error'>{errors.subdomain}</span>}
-            </div>
+            <TextField
+              name='subdomain'
+              className='subdomain-field'
+              placeholder='e.g. companyname'
+              suffix={<span className='main-domain-suffix'>.leadcart.io</span>}
+              error={errors.subdomain}
+            />
             {errors.message && <span className='signup-error-field'>{errors.message}</span>}
             <Button
               type='submit'

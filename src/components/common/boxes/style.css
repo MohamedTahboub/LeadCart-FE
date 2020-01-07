@@ -259,8 +259,8 @@ span.insight-chart {
     flex: 1;
 }
 .flex-box.center{
-    justify-content: center;
+    align-items: center;
 }
 .flex-box.column.center{
-  align-items: center;
+    justify-content: center;
 }
