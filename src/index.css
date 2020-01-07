@@ -352,3 +352,7 @@ div#root {
 .white-text{
   color: white;
 }
+
+.relative-element{
+  position: relative;
+}

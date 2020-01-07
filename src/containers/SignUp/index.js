@@ -4,9 +4,9 @@ import * as signupActions from 'actions/signup';
 import CustomInputField from 'components/CustomInputField';
 import { freeTrailSignup } from 'libs/validation';
 import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
-
 import config from 'config';
 import common from 'components/common';
+import formHateImage from '../../assets/images/pages-demo.png';
 
 import './styles.css';
 
@@ -82,7 +82,7 @@ class SignUp extends Component {
 
 
     return (
-      <div className='full-page background-image-elements'>
+      <div className='full-page signup-page background-image-elements'>
         <FlexBox className='header-logo-container' wrappable>
           <FlexBox className='min-width-300' flex center>
             <img src={whiteBrandLogo} alt='leadcart brand' className='lc-white-logo' />
@@ -106,73 +106,78 @@ class SignUp extends Component {
             </FlexBox>
           </FlexBox>
 
-          <form className='form-container' onSubmit={this.onSubmit}>
-            <div className='pages-demo-hate' />
-            <div className='logo-header'>
-              <FormLogo />
-              <span className='login-header-title'>sign up</span>
-              <span className='login-header-message'>
-                free trial for 7 days on
-                <a href='https://leadcart.io' target='_blank' rel='noopener noreferrer'>
-                  leadcart
-                </a>
-              </span>
-            </div>
-            <FlexBox column center>
-              <CustomInputField
-                name='firstName'
-                label='First Name'
-                placeholder='your first name'
-                onChange={this.onChange}
-                error={errors.firstName}
+          <div className='relative-element margin-top-70px margin-top-120px-on-900'>
+            <img src={formHateImage} alt='leadcart demo pages' className='pages-demo-hate' />
+            <form className='form-container' onSubmit={this.onSubmit}>
+
+
+              <div className='logo-header'>
+                <FormLogo />
+                <span className='login-header-title'>sign up</span>
+                <span className='login-header-message'>
+                  free trial for 7 days on
+                  <a href='https://leadcart.io' target='_blank' rel='noopener noreferrer'>
+                    leadcart
+                  </a>
+                </span>
+              </div>
+              <FlexBox column center>
+                <CustomInputField
+                  name='firstName'
+                  label='First Name'
+                  placeholder='your first name'
+                  onChange={this.onChange}
+                  error={errors.firstName}
+                />
+                <CustomInputField
+                  name='lastName'
+                  label='Last Name'
+                  placeholder='your last name'
+                  onChange={this.onChange}
+                  error={errors.lastName}
+                />
+                <CustomInputField
+                  name='email'
+                  label='Email address'
+                  placeholder='Enter your email address'
+                  onChange={this.onChange}
+                  error={errors.email}
+                />
+                <CustomInputField
+                  name='password'
+                  label='Password'
+                  type='password'
+                  placeholder='Set a strong password'
+                  onChange={this.onChange}
+                  error={errors.password}
+                />
+                <CustomInputField
+                  name='company'
+                  label='Company Name'
+                  placeholder='Set the Company Name'
+                  onChange={this.onChange}
+                  error={errors.company}
+                />
+              </FlexBox>
+              <TextField
+                name='subdomain'
+                className='subdomain-field'
+                placeholder='e.g. companyname'
+                suffix={<span className='main-domain-suffix'>.leadcart.io</span>}
+                error={errors.subdomain}
               />
-              <CustomInputField
-                name='lastName'
-                label='Last Name'
-                placeholder='your last name'
-                onChange={this.onChange}
-                error={errors.lastName}
-              />
-              <CustomInputField
-                name='email'
-                label='Email address'
-                placeholder='Enter your email address'
-                onChange={this.onChange}
-                error={errors.email}
-              />
-              <CustomInputField
-                name='password'
-                label='Password'
-                type='password'
-                placeholder='Set a strong password'
-                onChange={this.onChange}
-                error={errors.password}
-              />
-              <CustomInputField
-                name='company'
-                label='Company Name'
-                placeholder='Set the Company Name'
-                onChange={this.onChange}
-                error={errors.company}
-              />
-            </FlexBox>
-            <TextField
-              name='subdomain'
-              className='subdomain-field'
-              placeholder='e.g. companyname'
-              suffix={<span className='main-domain-suffix'>.leadcart.io</span>}
-              error={errors.subdomain}
-            />
-            {errors.message && <span className='signup-error-field'>{errors.message}</span>}
-            <Button
-              type='submit'
-              className='primary-color large-text arrow-icon'
-              disabled={processing}
-              onProgress={processing}
-            >
-              Sign Up
-            </Button>
-          </form>
+              {errors.message && <span className='signup-error-field'>{errors.message}</span>}
+              <Button
+                type='submit'
+                className='primary-color large-text arrow-icon'
+                disabled={processing}
+                onProgress={processing}
+              >
+                Sign Up
+              </Button>
+            </form>
+          </div>
+
         </FlexBox>
 
         <footer className='copyright-text'>
