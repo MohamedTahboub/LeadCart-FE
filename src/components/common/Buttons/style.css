@@ -1,4 +1,31 @@
 
+.btn {
+  text-transform: capitalize;
+  font-size: smaller;
+  border-radius: 3px;
+  text-decoration: none;
+  /* padding: 8px 15px; */
+  padding: 5px 13px;
+  color: white;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+  transition: all .25s ease-in-out;
+  border: none;
+}
+
+.btn:hover {
+  /* box-shadow: 0px 0px 5px 0px #00000040; */
+  box-shadow: 0px 0px 2px 2px var(--shadow-color);
+  background: var(--btn-focus-bg);
+}
+.btn:active{
+  opacity: .85;
+}
+
+.btn.warning-color:hover {
+  background: rgb(247, 121, 142);
+}
 
 .float-btn{
   position: absolute;
@@ -37,7 +64,7 @@
 
 .warning-btn{
   background: tomato;
-  color:white
+  color:white.
 }
 
 .btn.spinner::after{
