@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   /* font-family: 'Poppins', sans-serif; */
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 
@@ -41,15 +41,13 @@ div#root {
 
 .login-header-title {
   font-size: 20px;
-  text-transform: uppercase;
-  color: #2B3748;
-  align-content: center;
-  justify-content: center;
-  font-weight: bold;
-  padding-bottom: 4px;
+  /* text-transform: capitalize; */
+  color: #333333;
+  opacity: .75;
+  font-weight: 600;
 }
 
-.login-header-message {
+/* .login-header-message {
   font-size: 14px;
   text-transform: uppercase;
   color: #2B3748;
@@ -57,13 +55,13 @@ div#root {
   justify-content: center;
   font-weight: bold;
   padding-bottom: 4px;
-}
+} */
 
-.login-header-message a {
+/* .login-header-message a {
   text-decoration: none;
   color: #4DA1FF;
   cursor: pointer;
-}
+} */
 
 .logo-description {
   font-size: 12px;
@@ -90,18 +88,17 @@ div#root {
   justify-content: flex-end;
 }
 
-.form-input input {
+/* .form-input input {
   border: none;
   box-sizing: border-box;
   border-bottom: 1px solid #BCC9D6;
   padding: 8px 10px;
-  /* margin: 14px 0px; */
   outline: none;
   background: transparent;
   width: 100%;
 
-}
-
+} */
+/* 
 .form-input.email:before {
   content: 'email';
   position: absolute;
@@ -110,10 +107,9 @@ div#root {
   margin-left: 15px;
   text-transform: capitalize;
   color: #717C8A;
-  /* top:22px; */
   top: 20px;
-}
-
+} */
+/* 
 .form-input.password:before {
   content: 'password';
   position: absolute;
@@ -121,11 +117,10 @@ div#root {
   text-transform: capitalize;
   margin-left: 15px;
   color: #717C8A;
-  /* top:22px; */
   top: 20px;
-}
+} */
 
-.form-submit {
+/* .form-submit {
   background: #FFF;
   box-shadow: 0 2px 9px rgba(0, 0, 0, 0.05);
   border: none;
@@ -139,7 +134,7 @@ div#root {
   box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.05);
   border-radius: 3px;
   transition: all 350ms ease-in-out;
-}
+} */
 
 .form-submit:hover {
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
@@ -343,16 +338,73 @@ div#root {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.large-text{
+
+.large-text {
   font-size: 16px;
 }
-.larger-text{
+
+.larger-text {
   font-size: 22px;
 }
-.white-text{
+
+.white-text {
   color: white;
 }
 
-.relative-element{
+.relative-element {
   position: relative;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.margin-bottom-30 {
+  margin-bottom: 30px;
+}
+
+.margin-top-20 {
+  margin: 20px 0px;
+}
+
+.padding-bottom-30 {
+  padding-bottom: 30px;
+}
+
+.padding-bottom-40 {
+  padding-bottom: 40px;
+}
+
+.not-underlined{
+  text-decoration: none;
+}
+.bold-text{
+  font-weight: bold;
+}
+.animate{
+  transition: all .3s ease-in-out;
+}
+.gray-text {
+  color: #33333354;
+}
+.small-text{
+  font-size: 12px;
+}
+
+.gray-text:hover {
+  color: #333333;
+}
+
+.underlined-text {
+  padding-bottom: 3px;
+  border-bottom: 2px solid #33333354;
+}
+
+.underlined-text:hover {
+  border-bottom: 2px solid #333333;
+}
+.error-text{
+  color: #f82b60;
+  font-weight: 500;
+  font-size: 12px;
 }

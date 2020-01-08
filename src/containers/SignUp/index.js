@@ -22,7 +22,8 @@ const {
   Feature,
   FlexBox,
   Button,
-  InputRow
+  InputRow,
+  InputGroup
 } = common;
 
 const { TextField } = InputRow;
@@ -106,55 +107,49 @@ class SignUp extends Component {
             </FlexBox>
           </FlexBox>
 
-          <div className='relative-element margin-top-70px margin-top-120px-on-900'>
-            <img src={formHateImage} alt='leadcart demo pages' className='pages-demo-hate' />
+          <div className='relative-element margin-top-20px-on-900'>
             <form className='form-container' onSubmit={this.onSubmit}>
 
 
-              <div className='logo-header'>
-                <FormLogo />
-                <span className='login-header-title'>sign up</span>
-                <span className='login-header-message'>
-                  free trial for 7 days on
-                  <a href='https://leadcart.io' target='_blank' rel='noopener noreferrer'>
-                    leadcart
-                  </a>
-                </span>
-              </div>
+              <FlexBox flex spaceBetween className='full-width margin-bottom-30' center>
+                <span className='login-header-title'>Sign up</span>
+                <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='https://leadcart.io/pricing'>
+                  Check Our Plans
+                </a>
+              </FlexBox>
               <FlexBox column center>
-                <CustomInputField
-                  name='firstName'
-                  label='First Name'
-                  placeholder='your first name'
-                  onChange={this.onChange}
-                  error={errors.firstName}
-                />
-                <CustomInputField
-                  name='lastName'
-                  label='Last Name'
-                  placeholder='your last name'
-                  onChange={this.onChange}
-                  error={errors.lastName}
-                />
-                <CustomInputField
+
+                <FlexBox className='full-width' center>
+                  <InputGroup
+                    name='firstName'
+                    label='First Name'
+                    onChange={this.onChange}
+                    error={errors.firstName}
+                    className='margin-right-20'
+                  />
+                  <InputGroup
+                    name='lastName'
+                    label='Last Name'
+                    onChange={this.onChange}
+                    error={errors.lastName}
+                  />
+                </FlexBox>
+                <InputGroup
                   name='email'
                   label='Email address'
-                  placeholder='Enter your email address'
                   onChange={this.onChange}
                   error={errors.email}
                 />
-                <CustomInputField
+                <InputGroup
                   name='password'
                   label='Password'
                   type='password'
-                  placeholder='Set a strong password'
                   onChange={this.onChange}
                   error={errors.password}
                 />
-                <CustomInputField
+                <InputGroup
                   name='company'
                   label='Company Name'
-                  placeholder='Set the Company Name'
                   onChange={this.onChange}
                   error={errors.company}
                 />
