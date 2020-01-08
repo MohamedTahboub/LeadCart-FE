@@ -154,7 +154,7 @@ class SignUp extends Component {
               </FlexBox>
               <InputGroup
                 name='subdomain'
-                label='Sub Domain'
+                label='Sub-Domain'
                 className='subdomain-field'
                 placeholder='e.g. companyname'
                 suffix={<span className='main-domain-suffix'>.leadcart.io</span>}
@@ -168,7 +168,7 @@ class SignUp extends Component {
                 onProgress={processing}
               >
                 Sign Up
-                </Button>
+              </Button>
             </form>
           </div>
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
 import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 import * as yup from 'yup';
-import { IoMdSend } from 'react-icons/io';
+import { IoMdSend, IoMdCheckmarkCircle } from 'react-icons/io';
 import './styles.css';
 
 
@@ -65,8 +65,12 @@ const ForgetPassword = (props) => {
       <FlexBox flex center='v-center'>
         <FlexBox spaceBetween className='form-container padding-bottom-40' wrappable>
           <FlexBox flex spaceBetween className='full-width margin-bottom-30' center='v-center'>
-            <span className='login-header-title'>Recover Your Password</span>
-            <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='/login'>Sign in instead</a>
+            <span className='login-header-title'>
+            {`${!success ? 'Recover Your Password':'Please check your email.'}`}
+            </span>
+            <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='/login'>
+              Back to sign in
+            </a>
           </FlexBox>
 
 
@@ -101,9 +105,11 @@ const ForgetPassword = (props) => {
             </Fragment>
           )
             : (
-              <div className='gray-text'>
-                Please check your inbox and follow the instructions, to reset your password
-              </div>
+              <FlexBox center='h-center' className='full-width gray-text large-text margin-bottom-30 bold-text'>
+                We sent an email to your Inbox, which contains
+                <br />
+                a link to reset your LeadCart password.
+              </FlexBox>
             )}
         </FlexBox>
       </FlexBox>

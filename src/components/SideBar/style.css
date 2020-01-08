@@ -173,14 +173,14 @@
 } */
 
 .logout-btn.btn {
-    padding: 5px 10px;
+    padding: 6px 10px;
 }
 
 .logout-btn {
     background: #c9d3dc;
     font-size: 12px;
     margin-top: -13px;
-    margin-left: -24px;
+    /* margin-left: -24px; */
 }
 
 .logout-btn.btn:hover {
