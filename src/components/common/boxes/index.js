@@ -163,7 +163,7 @@ export const FlexBox = ({
     spaceBetween,
     wrappable,
     flex,
-    center
+    [center]: center
   });
 
   return (

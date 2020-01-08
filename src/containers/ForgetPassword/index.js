@@ -2,10 +2,22 @@ import React, { Fragment, useState } from 'react';
 import CustomInputField from 'components/CustomInputField';
 import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
-import { FormLogo } from 'components/common/logos';
+import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 import * as yup from 'yup';
-
+import { IoMdSend } from 'react-icons/io';
 import './styles.css';
+
+
+import common from 'components/common';
+const {
+  FormLogo,
+  Feature,
+  FlexBox,
+  Button,
+  InputRow,
+  InputGroup
+} = common;
+
 
 const ForgetPassword = (props) => {
   const [error, setError] = useState('');
@@ -42,43 +54,63 @@ const ForgetPassword = (props) => {
   };
 
   return (
-    <div className='wrapper'>
-      <FormLogo />
-      <div className='logo-header'>
-        <span className='login-header-title'>recovery password</span>
-      </div>
+    <FlexBox className='full-page background-image-elements' center='h-center v-center' column>
+      <FlexBox className='header-logo-container' wrappable>
+        <FlexBox className='min-width-300' flex center='v-center'>
+          <img src={whiteBrandLogo} alt='leadcart brand' className='lc-white-logo' />
+        </FlexBox>
+        <FlexBox flex className='min-width-300' />
+        <FlexBox flex className='min-width-300' />
+      </FlexBox>
+      <FlexBox flex center='v-center'>
+        <FlexBox spaceBetween className='form-container padding-bottom-40' wrappable>
+          <FlexBox flex spaceBetween className='full-width margin-bottom-30' center='v-center'>
+            <span className='login-header-title'>Recover Your Password</span>
+            <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='/login'>Sign in instead</a>
+          </FlexBox>
 
-      {!success ? (
-        <Fragment>
-          <div className='logo-description'>
-            If you forget or lost your password,receive recovery link on email
-          </div>
-          <form onSubmit={onSubmit} className='form-container'>
-            <CustomInputField
-              name='email'
-              label='Email'
-              // type='email'
-              placeholder='Email Address'
-              error={error}
-              onChange={onChange}
-            />
-            <button disabled={processing} type='submit' className='form-submit'>send</button>
 
-          </form>
-        </Fragment>
-      )
-        : (
-          <div className='logo-description'>
-            Please check your inbox and follow the instructions, to reset your password
-          </div>
-        )}
-      <div className='account-refrance-links'>
-        <a className='singup-page-link' href='/login'>Try to login</a>
-      </div>
-      <footer>
-        © LeadCart. All rights reserved 2019
+          {!success ? (
+            <Fragment>
+              <div className='full-width gray-text large-text margin-bottom-30 bold-text'>
+                Enter your email address and we’ll send you a link to
+                <br />
+                reset your password.
+              </div>
+              <form onSubmit={onSubmit} className='full-width'>
+                <InputGroup
+                  name='email'
+                  label='Email'
+                  type='email'
+                  // placeholder='Email Address'
+                  error={error}
+                  onChange={onChange}
+                />
+
+                <Button
+                  disabled={processing}
+                  type='submit'
+                  className='primary-color large-text access-btn'
+                >
+                  <FlexBox center='h-center' className='full-width'>
+                    Send
+                    <IoMdSend className='white-text margin-left-20' />
+                  </FlexBox>
+                </Button>
+              </form>
+            </Fragment>
+          )
+            : (
+              <div className='gray-text'>
+                Please check your inbox and follow the instructions, to reset your password
+              </div>
+            )}
+        </FlexBox>
+      </FlexBox>
+      <footer className='copyright-text'>
+        © LeadCart. All rights reserved 2020
       </footer>
-    </div>
+    </FlexBox>
   );
 };
 
