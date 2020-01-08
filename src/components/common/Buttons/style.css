@@ -19,6 +19,9 @@
   box-shadow: 0px 0px 2px 2px var(--shadow-color);
   background: var(--btn-focus-bg);
 }
+.btn:active{
+  opacity: .85;
+}
 
 .btn.warning-color:hover {
   background: rgb(247, 121, 142);
