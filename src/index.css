@@ -391,7 +391,7 @@ div#root {
   font-size: 12px;
 }
 
-.gray-text:hover {
+.animate.gray-text:hover {
   color: #333333;
 }
 

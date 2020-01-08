@@ -75,7 +75,7 @@ class SignUp extends Component {
     });
   }
 
-  render () {
+  render() {
     // const { validationError: errors, signupError } = this.props;
     const { success, errors = {}, processing } = this.state;
 
@@ -83,43 +83,41 @@ class SignUp extends Component {
 
 
     return (
-      <div className='full-page signup-page background-image-elements'>
+      <FlexBox column className='full-page signup-page background-image-elements'>
         <FlexBox className='header-logo-container' wrappable>
-          <FlexBox className='min-width-300' flex center>
+          <FlexBox className='min-width-300' flex center='v-center'>
             <img src={whiteBrandLogo} alt='leadcart brand' className='lc-white-logo' />
           </FlexBox>
           <FlexBox flex className='min-width-300' />
           <FlexBox flex className='min-width-300' />
         </FlexBox>
-        <FlexBox spaceBetween className='form-content' flex wrappable>
+        <FlexBox spaceBetween className='form-content' flex wrappable center='v-center'>
 
           <FlexBox column className='white-text margin-top-50' flex>
             <div className='larger-text uppercase-text'>
               Start your free Trial
-            </div>
+              </div>
             <div className='margin-v-20'>
               Simple, Yet Powerful Cart Solution To Help You Convert More Sales
-              <br />
+                <br />
               & Maximize Profits.
-            </div>
+              </div>
             <FlexBox column>
               {packagesPlans.pro.features.map((feature) => <Feature>{feature}</Feature>)}
             </FlexBox>
           </FlexBox>
 
-          <div className='relative-element margin-top-20px-on-900'>
+          <div className='margin-top-20px-on-900'>
             <form className='form-container' onSubmit={this.onSubmit}>
-
-
-              <FlexBox flex spaceBetween className='full-width margin-bottom-30' center>
+              <FlexBox flex spaceBetween className='full-width margin-bottom-30' center='v-center'>
                 <span className='login-header-title'>Sign up</span>
                 <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='https://leadcart.io/pricing'>
                   Check Our Plans
-                </a>
+                  </a>
               </FlexBox>
-              <FlexBox column center>
+              <FlexBox column center='v-center'>
 
-                <FlexBox className='full-width' center>
+                <FlexBox className='full-width' center='v-center'>
                   <InputGroup
                     name='firstName'
                     label='First Name'
@@ -154,14 +152,15 @@ class SignUp extends Component {
                   error={errors.company}
                 />
               </FlexBox>
-              <TextField
+              <InputGroup
                 name='subdomain'
+                label='Sub Domain'
                 className='subdomain-field'
                 placeholder='e.g. companyname'
                 suffix={<span className='main-domain-suffix'>.leadcart.io</span>}
                 error={errors.subdomain}
               />
-              {errors.message && <span className='signup-error-field'>{errors.message}</span>}
+              {errors.message && <span className='error-text'>{errors.message}</span>}
               <Button
                 type='submit'
                 className='primary-color large-text arrow-icon'
@@ -169,16 +168,15 @@ class SignUp extends Component {
                 onProgress={processing}
               >
                 Sign Up
-              </Button>
+                </Button>
             </form>
           </div>
 
         </FlexBox>
-
         <footer className='copyright-text'>
-          © LeadCart. All rights reserved 2019
+          © LeadCart. All rights reserved 2020
         </footer>
-      </div>
+      </FlexBox>
     );
   }
 }
