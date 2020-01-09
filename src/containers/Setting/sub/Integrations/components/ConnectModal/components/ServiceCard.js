@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clx from 'classnames'
+import clx from 'classnames';
 
 import common from 'components/common';
 const {
@@ -8,10 +8,10 @@ const {
 } = common;
 
 const ServiceCard = ({
-  onSelect,
   brandLogo,
   name,
   disabled,
+  onClick,
   className,
   ...props
 }) => {
@@ -25,11 +25,11 @@ const ServiceCard = ({
   const classes = clx({
     [className]: className,
     disabled
-  })
+  });
 
   return (
     <Card
-      onClick={onSelect}
+      onClick={onClick}
       style={coverImageStyle}
       className={`integration-service-card ${classes}`}
     >

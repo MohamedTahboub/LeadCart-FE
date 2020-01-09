@@ -18,13 +18,11 @@ const {
   Step
 } = common;
 
-const ServiceSelect = (props) => {
-  const [activeLayout, setActiveLayout] = useState('list');
-  const onSelect = () => {
-  };
+const ServiceSelect = ({ onSelect, ...props }) => 
+  // const [activeLayout, setActiveLayout] = useState('list');
 
 
-  return (
+   (
     <div className='integration-connect-section'>
       <div>
         <InputRow.TextField
@@ -37,13 +35,17 @@ const ServiceSelect = (props) => {
         />
         <CardsContainer>
           {servicesList.map((service) => (
-            <ServiceCard key={service.key} {...service} />
+            <ServiceCard
+              key={service.key}
+              onClick={onSelect(service)}
+              {...service}
+            />
           ))}
         </CardsContainer>
       </div>
     </div>
-  );
-};
+  )
+;
 
 
 export default ServiceSelect;

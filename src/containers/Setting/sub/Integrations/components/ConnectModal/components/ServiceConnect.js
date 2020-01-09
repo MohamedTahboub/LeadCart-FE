@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import ServiceCard from './ServiceCard';
@@ -43,8 +43,8 @@ const ConnectClient = ({ name, ...props }) => (
           name='clientId'
         />)
       }
-      // spaceBetween
-      // flex
+    // spaceBetween
+    // flex
     />
     <Statement
       label='Client Secret'
@@ -53,8 +53,8 @@ const ConnectClient = ({ name, ...props }) => (
           name='secret'
         />
       )}
-      // spaceBetween
-      // flex
+    // spaceBetween
+    // flex
     />
 
 
@@ -101,28 +101,47 @@ const Statement = ({ label, value, ...props }) => (
   </FlexBox>
 );
 
-const ServiceConnect = (props) => (
-  <FlexBox column className='margin-top-20'>
-    <FlexBox>
-      <FlexBox column className='margin-right-30 border-left-text'>
-        <Statement
-          label='Service Name:'
-          value='Stripe'
-        />
-        <Statement
-          label='Support'
-          value={<Badge color='secondary'>Supported</Badge>}
-        />
-      </FlexBox>
+const ServiceConnect = ({ data = {}, ...props }) => {
+  const [service, setService] = useState(data);
+  const [supported, setSupported] = useState(data);
+  const [onprogress, setOnprogress] = useState(data);
+
+  useEffect(() => {
+    if (service.key !== data.key) setService(data);
+    // props.checkServiceSupport(
+    //   {
+    //     key : service.key
+    //   },
+    //   {
+    //     onSuccess:()=>{},
+    //     onFailed:()=>{}
+    //   }
+    // )
+  }, [data]);
+
+  return (
+    <FlexBox column className='margin-top-20'>
       <FlexBox>
-        <ServiceCard {...servicesList[0]} disabled />
+        <FlexBox column className='margin-right-30 border-left-text'>
+          <Statement
+            label='Service Name:'
+            value={service.name}
+          />
+          <Statement
+            label='Support'
+            value={<Badge type='success'>Supported</Badge>}
+          />
+        </FlexBox>
+        <FlexBox>
+          <ServiceCard {...service} disabled />
+        </FlexBox>
       </FlexBox>
+
+      <ConnectIntegration />
+
     </FlexBox>
-
-    <ConnectIntegration />
-
-  </FlexBox>
-);
+  );
+};
 
 ServiceConnect.propTypes = {
 

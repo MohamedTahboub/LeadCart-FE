@@ -1,14 +1,18 @@
 .badge-container {
     padding: 2px 8px;
-    background: white;
+    background: #eee;
     font-size: 12px;
     border-radius: 5px;
     font-weight: 700;
+}
+.badge-container.success{
+    background: rgb(96, 154, 10);
+    color: white;
 }
 .badge-container.primary{
     background: #4DA1FF;
     color: white;
 }
 .badge-container.secondary{
-    background: lightgray;
+    background: #eee;
 }

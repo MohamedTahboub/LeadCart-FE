@@ -30,8 +30,13 @@ const ConnectModal = ({
   open,
   onToggle
 }) => {
-  const [stage, setStage] = useState(2);
+  const [stage, setStage] = useState(1);
+  const [service, setService] = useState();
 
+  const onSelect = (service) => () => {
+    setStage(2);
+    setService(service);
+  };
 
   return (
     <SlideModal
@@ -58,8 +63,8 @@ const ConnectModal = ({
         </Step>
       </div>
       <LayoutSwitch active={stage} className='integrations-steps-content'>
-        <ServiceSelect id={1} />
-        <ServiceConnect id={2} />
+        <ServiceSelect id={1} onSelect={onSelect} />
+        <ServiceConnect id={2} data={service} />
       </LayoutSwitch>
     </SlideModal>
   );
