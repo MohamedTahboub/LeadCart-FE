@@ -76,15 +76,15 @@
   border: 2px solid rgb(62, 89, 240);
   border-top-color: #fefefe;
 }
-span.primary-btn{
+.primary-btn{
   background: #4DA1FF;
   background: var(--btn-bg);
   font-weight: inherit;
-  padding: 3px 5px;
+  padding: 5px 5px;
   padding-right: 8px;
   margin: 0 5px;
   font-size: 12px;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 
