@@ -41,14 +41,14 @@ const ConnectModal = ({
       onClose={onToggle}
     >
       <div className='header'>
-        <MainTitle>connect new integrations</MainTitle>
+        <MainTitle>Connect New Integrations</MainTitle>
       </div>
       <div className='integrations-steps'>
         <Step
           value={stage}
           id={1}
         >
-          Select a service to connect...
+          Select a Service to Connect
         </Step>
         <Step
           value={stage}

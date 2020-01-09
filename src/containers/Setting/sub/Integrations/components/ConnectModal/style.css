@@ -15,6 +15,11 @@
     cursor: pointer;
     position: relative;
 }
+.integration-service-card.disabled{
+    pointer-events: none;
+    opacity: .9;
+    border:1px solid lightgray;
+}
 
 .service-name{
     color: gray;

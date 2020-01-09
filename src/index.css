@@ -363,6 +363,9 @@ div#root {
   margin-bottom: 30px;
 }
 
+.margin-top-10 {
+  margin: 10px 0px;
+}
 .margin-top-20 {
   margin: 20px 0px;
 }
@@ -375,19 +378,23 @@ div#root {
   padding-bottom: 40px;
 }
 
-.not-underlined{
+.not-underlined {
   text-decoration: none;
 }
-.bold-text{
+
+.bold-text {
   font-weight: bold;
 }
-.animate{
+
+.animate {
   transition: all .3s ease-in-out;
 }
+
 .gray-text {
   color: #33333354;
 }
-.small-text{
+
+.small-text {
   font-size: 12px;
 }
 
@@ -403,11 +410,19 @@ div#root {
 .underlined-text:hover {
   border-bottom: 2px solid #333333;
 }
-.error-text{
+
+.error-text {
   color: #f82b60;
   font-weight: 500;
   font-size: 12px;
 }
-.success-text{
+
+.success-text {
   color: #20c934b9;
+}
+
+
+.border-left-text {
+  padding-left: 10px;
+  border-left: 2px solid lightgray;
 }
