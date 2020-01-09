@@ -1,11 +1,24 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { FormLogo } from 'components/common/logos';
+// import { FormLogo } from 'components/common/logos';
 import * as loginActions from 'actions/login';
 import CustomInputField from 'components/CustomInputField';
 import './styles.css';
 
+import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
+
+import common from 'components/common';
+const {
+  FormLogo,
+  Feature,
+  FlexBox,
+  Button,
+  InputRow,
+  InputGroup
+} = common;
+
+// const { InputGroup } = InputRow;
 
 const Login = ({
   isLoggedIn, history, login, errors
@@ -21,38 +34,49 @@ const Login = ({
 
 
   return (
-    <div className='wrapper'>
-      <FormLogo />
-      <div className='logo-header'>
-        <span className='login-header-title'>sign in</span>
-        <div className='logo-description'>
-          Hello there! Sign in and start managing your products
-        </div>
-      </div>
-      <form onSubmit={onLogin} className='form-container'>
-        <CustomInputField
-          name='email'
-          label='Email address'
-          placeholder='Enter your email adderss'
-          error={errors.email}
-        />
-        <CustomInputField
-          name='password'
-          label='Password'
-          type='password'
-          placeholder='Enter your password'
-          error={errors.password}
-        />
-        {errors.loginError && <span className='login-error-field'>{errors.loginError}</span>}
-        <button type='submit' className='form-submit'>sign in now</button>
-        <div className='account-refrance-links'>
-          <a className='forgetpwd-link' href='/password/forget'>Forgot your password?</a>
-        </div>
-      </form>
-      <footer>
-        © LeadCart. All rights reserved 2019
+    <FlexBox className='full-page background-image-elements' center='h-center v-center' column>
+      <FlexBox className='header-logo-container' wrappable>
+        <FlexBox className='min-width-300' flex center>
+          <img src={whiteBrandLogo} alt='leadcart brand' className='lc-white-logo' />
+        </FlexBox>
+        <FlexBox flex className='min-width-300' />
+        <FlexBox flex className='min-width-300' />
+      </FlexBox>
+      <FlexBox flex center='v-center'>
+        <FlexBox spaceBetween className='form-container padding-bottom-40' wrappable>
+          <FlexBox flex spaceBetween className='full-width margin-bottom-30' center>
+            <span className='login-header-title'>Sign in</span>
+            <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='/password/forgot'>Forgot Password?</a>
+          </FlexBox>
+
+          <form onSubmit={onLogin} className='login-form'>
+            <InputGroup
+              name='email'
+              label='Email address'
+              error={errors.email}
+              autocomplete='off'
+            />
+            <InputGroup
+              name='password'
+              label='Password'
+              type='password'
+              autocomplete='off'
+              error={errors.password}
+            />
+            {errors.loginError && <span className='error-text'>{errors.loginError}</span>}
+            <Button
+              type='submit'
+              className='primary-color large-text access-btn arrow-icon'
+            >
+              Sign in
+            </Button>
+          </form>
+        </FlexBox>
+      </FlexBox>
+      <footer className='copyright-text'>
+        © LeadCart. All rights reserved 2020
       </footer>
-    </div>
+    </FlexBox>
   );
 };
 

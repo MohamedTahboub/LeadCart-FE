@@ -104,7 +104,7 @@ class SignUp extends Component {
           <button type='submit' className='form-submit'>Sign Up</button>
         </form>
         <footer>
-          © LeadCart. All rights reserved 2019
+          © LeadCart. All rights reserved 2020
         </footer>
       </div>
     );

@@ -20,7 +20,7 @@ class PromoCodeActivation extends Component {
           <button onClick={() => this.props.activatePromoCode()} type='submit' className='form-submit signup-btn'>sign up</button>
         </div>
         <footer>
-          © LeadCart. All rights reserved 2019
+          © LeadCart. All rights reserved 2020
         </footer>
       </div>
     );

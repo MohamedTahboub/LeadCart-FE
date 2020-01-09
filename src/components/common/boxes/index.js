@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getSymbolsReferences } from 'libs'
-import numeral from 'numeral'
-import { CodeInputArea } from '../Inputs'
+import { getSymbolsReferences } from 'libs';
+import numeral from 'numeral';
+import classNames from 'classnames';
+import { CodeInputArea } from '../Inputs';
 
 import './style.css';
 
 export const FlexBoxesContainer = ({
- children, flex = '', className, ...props 
+  children, flex = '', className, ...props
 }) => (
   <div className={`flex-boxes-container ${className || ''} ${flex}`}>
     {children}
@@ -26,7 +27,9 @@ export const MainBlock = ({
 }) => (
   <div className={`main-block ${className}`}>
     <div className='main-title-container'>
-      <span className='main-title'>{title}</span>
+      <span className='main-title'>
+        {title}
+      </span>
       {notes && <span className='main-title-note'>{notes}</span>}
       {blockHandel && blockHandel}
     </div>
@@ -152,3 +155,29 @@ export const CardsContainer = ({ className = '', children }) => (
     {children}
   </div>
 );
+
+export const FlexBox = ({
+  className,
+  column,
+  spaceBetween,
+  wrappable,
+  flex,
+  center,
+  children
+}) => {
+  const classes = classNames({
+    [className]: true,
+    column,
+    spaceBetween,
+    wrappable,
+    flex,
+    [center]: center
+  });
+
+  return (
+    <div className={`flex-box ${classes}`}>
+      {children}
+    </div>
+  );
+};
+

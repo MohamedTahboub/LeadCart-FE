@@ -21,6 +21,7 @@ import Dialog from './Dialog';
 import * as Nodes from './Nodes';
 import Badge from './Badge';
 import Step from './Step';
+import * as Customs from './Custom';
 
 
 export default {
@@ -46,6 +47,7 @@ export default {
   ...messages,
   ...Collapsable,
   ...Nodes,
+  ...Customs,
   Dialog
 };
 

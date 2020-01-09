@@ -83,7 +83,7 @@ ReactDOM.render(
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/password/forget' component={ForgetPassword} />
+            <Route exact path='/password/forgot' component={ForgetPassword} />
             <Route exact path='/password/reset/:hash' component={PasswordRest} />
             <Route exact path='/promocode' component={PromoCodeActivation} />
             <Route exact path='/saasmantra' component={SignUpSaasmantra} />

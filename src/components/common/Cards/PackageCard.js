@@ -1,14 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-
-
-const Feature = ({ children, plus }) => (
-  <div
-    className={`package-card-feature ${plus ? 'plus' : ''}`}
-  >
-    {children}
-  </div>
-);
+import Feature from '../Custom/Feature';
 
 
 const Price = ({
