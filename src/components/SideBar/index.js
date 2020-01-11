@@ -15,7 +15,7 @@ import CreateProductModal from '../CreateProductModal';
 
 import Icons from './icons';
 
-const { Button, InputRow } = common;
+const { Button, InputRow, FlexBox } = common;
 
 const BrandSelect = ({ value }) => (
   <Fragment>
@@ -52,7 +52,11 @@ const SideBar = ({
     const Icon = Icons[icon] || null;
 
     return (
-      <div className={`flex-container fb-space-between sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}>
+      <FlexBox
+        center='v-center'
+        spaceBetween
+        className={`sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}
+      >
         <Icon className='svg-icon sideBar-icon' />
         <PureLink
           to={{ history, page }}
@@ -63,7 +67,7 @@ const SideBar = ({
         >
           {children}
         </PureLink>
-      </div>
+      </FlexBox>
     );
   };
 

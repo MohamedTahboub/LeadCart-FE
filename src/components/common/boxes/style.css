@@ -287,6 +287,16 @@ span.insight-chart {
     align-items: flex-start;
 }
 
+.flex-box.flexEnd{
+    justify-content: flex-end;
+}
+.flex-box.column.flexEnd{
+    align-items: flex-end;
+}
+.flex-box.baseline{
+    align-content: baseline;
+}
+
 /* 
 
 

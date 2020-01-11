@@ -213,16 +213,15 @@
 }
 
 .select-input-field {
-    /* -webkit-appearance:none; */
     position: relative;
-    height: 32px;
-    min-width: 192.8px;
+    height: 28px;
     background: white;
     border: 1px solid #C9D3DC;
     color: #2B3748;
     font-size: 15px;
     letter-spacing: .1px;
     outline-color: lightgray;
+    border-radius: 3px;
     text-indent: 5px;
 }
 
@@ -1226,6 +1225,10 @@ div.ant-select-sm .ant-select-selection--single {
     margin-top: 20px;
 }
 
+.margin-h-10 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 .margin-h-20 {
     margin-left: 20px;
     margin-right: 20px;

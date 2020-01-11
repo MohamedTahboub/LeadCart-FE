@@ -163,15 +163,19 @@ export const FlexBox = ({
   wrappable,
   flex,
   center,
+  flexEnd,
+  baseline,
   children
 }) => {
   const classes = classNames({
     [className]: true,
+    [center]: center,
     column,
     spaceBetween,
     wrappable,
     flex,
-    [center]: center
+    baseline,
+    flexEnd,
   });
 
   return (

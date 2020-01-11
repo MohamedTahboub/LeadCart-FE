@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 
 const {
-  // MainTitle,
-  // WarningMessage,
-  // Dialog,
+  FlexBox,
   MediumCard,
+  Badge
   // PayPalConnectContainer
 } = common;
 
@@ -14,7 +13,7 @@ const {
 const CardHandler = ({ children }) => <div className='card-handler'>{children}</div>;
 
 const IntegrationsGrid = ({ list }) => (
-  <div className='flex-container'>
+  <FlexBox wrappable baseline>
     {list.map((service) => (
       <MediumCard
         key={service.key}
@@ -23,11 +22,17 @@ const IntegrationsGrid = ({ list }) => (
         isActive={service.active}
         // error={errors.stripe}
         imgSrc={service.brandLogo}
-        headline={<CardHandler>{service.label}</CardHandler>}
+        headline={(
+          <Badge type={service.connected ? 'primary' : 'secondary'} className='uppercase-text'>
+            {service.active ? (
+              service.connected ? 'Connected' : 'Disconnected'
+            ) : 'connect'}
+          </Badge>
+        )}
       // isLoading={onProgress.stripe}
       />
     ))}
-  </div>
+  </FlexBox>
 );
 
 IntegrationsGrid.propTypes = {

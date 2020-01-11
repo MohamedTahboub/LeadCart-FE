@@ -13,16 +13,16 @@ const IntegrationsTable = ({ list }) => (
     <Table.Head>
       <Table.HeadCell>Label</Table.HeadCell>
       <Table.HeadCell>Service Name</Table.HeadCell>
+      <Table.HeadCell />
+      <Table.HeadCell />
       <Table.HeadCell>Status</Table.HeadCell>
-      <Table.HeadCell />
-      <Table.HeadCell />
     </Table.Head>
     <Table.Body>
       {list.map(({
         key,
         name = 'Untitled',
         label = name,
-        status,
+        connected,
         brandLogo,
         active
       }, orderInList) => (
@@ -34,25 +34,13 @@ const IntegrationsTable = ({ list }) => (
 
           <Table.Cell mainContent={label} />
           <Table.Cell mainContent={name} />
-          <Table.Cell mainContent={(
-            <Badge type={active ? 'primary' : 'secondary'} className='uppercase-text'>
-              {active ? 'Connected' : 'Disconnected'}
-            </Badge>
-          )}
-          />
+
           <Table.Cell mainContent={(
             <img src={brandLogo} className='integrations-service-brand' alt={`${name} brand`} />
           )}
           />
           <Table.Cell>
             <Fragment>
-              <MiniButton
-                toolTip='Delete'
-                className='table-row-delete-btn position-right-70'
-                iconClass='fa-trash-alt'
-                // disabled={defaultLanguage}
-                // onClick={() => setShowDeleteModal(id)}
-              />
               <MiniButton
                 toolTip='Edit'
                 className='table-row-edit-btn position-right-10'
@@ -62,6 +50,12 @@ const IntegrationsTable = ({ list }) => (
               />
             </Fragment>
           </Table.Cell>
+          <Table.Cell mainContent={(
+            <Badge type={active ? 'primary' : 'secondary'} className='uppercase-text'>
+              {active ? connected ? 'Connected' : 'Disconnected' : 'connect'}
+            </Badge>
+          )}
+          />
         </Table.Row>
       ))}
     </Table.Body>
