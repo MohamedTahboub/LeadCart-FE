@@ -39,6 +39,7 @@ import FunnelBuilder from 'containers/FunnelBuilder';
 
 import Dashboard from 'containers/Dashboard';
 import Products from 'containers/Products';
+import Integrations from 'containers/Integrations';
 import registerServiceWorker from 'services/RegisterServiceWorker';
 import Transactions from './containers/Transactions';
 import CustomersLab from './containers/CustomersLab';
@@ -101,7 +102,7 @@ ReactDOM.render(
                   <Route path='/transactions' component={Transactions} />
                   <Route path='/customers' component={CustomersLab} />
                   <Route exact path='/coupons' component={Coupons} />
-                  <Route exact path='/fulfillment' component={Fulfillments} />
+                  <Route exact path='/integrations' component={Integrations} />
                   <Route exact path='/funnels' component={Funnels} />
                   <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
                   <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />

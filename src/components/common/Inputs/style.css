@@ -1180,8 +1180,8 @@ div.ant-select-sm .ant-select-selection--single {
 
 .flex-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
 }
 
 .flex-start {

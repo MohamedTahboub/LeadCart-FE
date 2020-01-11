@@ -47,8 +47,8 @@ const SideBar = ({
   const onTabChange = (tab) => setActiveTab(tab);
 
   const Link = ({
- to: page, className = '', children, icon, external 
-}) => {
+    to: page, className = '', children, icon, external
+  }) => {
     const Icon = Icons[icon] || null;
 
     return (
@@ -59,7 +59,7 @@ const SideBar = ({
           external={external}
           // className={className}
           onTabChange={onTabChange}
-          // active={activeTab === page}
+        // active={activeTab === page}
         >
           {children}
         </PureLink>
@@ -74,9 +74,10 @@ const SideBar = ({
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandSelect value={user.subDomain} />
       <Menu>
-        <Link icon='products' to='/products' className={isActiveTab('products')}>Products</Link>
+        <Link icon='dashboard' to='/'>Dashboard</Link>
+        <Link icon='products' to='/products'>Products</Link>
         <Link icon='funnels' to='/funnels'>Funnels</Link>
-        <Link icon='fulfillment' to='/fulfillment'>Fulfillment</Link>
+        <Link icon='integrations' to='/integrations'>Integrations</Link>
         <Link icon='coupons' to='/coupons'>Coupons</Link>
         <Link icon='transactions' to='/transactions'>Transactions</Link>
         <Link icon='customers' to='/customers'>Customers</Link>

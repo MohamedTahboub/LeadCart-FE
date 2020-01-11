@@ -1,6 +1,8 @@
 
+import { ReactComponent as Dashboard } from 'assets/images/icons/dashboard.svg';
 import { ReactComponent as Products } from 'assets/images/icons/products.svg';
 import { ReactComponent as Funnels } from 'assets/images/icons/funnels.svg';
+import { ReactComponent as Integrations } from 'assets/images/icons/integrations.svg';
 import { ReactComponent as Fulfillment } from 'assets/images/icons/fulfillments.svg';
 import { ReactComponent as Coupons } from 'assets/images/icons/coupon.svg';
 import { ReactComponent as Transactions } from 'assets/images/icons/transactions.svg';
@@ -12,8 +14,10 @@ import { ReactComponent as Help } from 'assets/images/icons/help.svg';
 
 
 export default {
+  dashboard: Dashboard,
   products: Products,
   funnels: Funnels,
+  integrations: Integrations,
   fulfillment: Fulfillment,
   coupons: Coupons,
   transactions: Transactions,
