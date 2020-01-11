@@ -37,7 +37,7 @@ const Integrations = ({ integrations, ...props }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const onLayoutChange = (value) => () => {
-    // setActiveLayout(value);
+    setActiveLayout(value);
   };
 
 
@@ -52,7 +52,7 @@ const Integrations = ({ integrations, ...props }) => {
             active={activeLayout}
           />
           <Button
-            onClick={() => setOpenModal(true)}
+            // onClick={() => setOpenModal(true)}
             className='primary-color'
           >
             New Integration
