@@ -15,7 +15,7 @@ import CreateProductModal from '../CreateProductModal';
 
 import Icons from './icons';
 
-const { Button, InputRow } = common;
+const { Button, InputRow, FlexBox } = common;
 
 const BrandSelect = ({ value }) => (
   <Fragment>
@@ -47,23 +47,27 @@ const SideBar = ({
   const onTabChange = (tab) => setActiveTab(tab);
 
   const Link = ({
- to: page, className = '', children, icon, external 
-}) => {
+    to: page, className = '', children, icon, external
+  }) => {
     const Icon = Icons[icon] || null;
 
     return (
-      <div className={`flex-container fb-space-between sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}>
+      <FlexBox
+        center='v-center'
+        spaceBetween
+        className={`sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}
+      >
         <Icon className='svg-icon sideBar-icon' />
         <PureLink
           to={{ history, page }}
           external={external}
           // className={className}
           onTabChange={onTabChange}
-          // active={activeTab === page}
+        // active={activeTab === page}
         >
           {children}
         </PureLink>
-      </div>
+      </FlexBox>
     );
   };
 
@@ -74,9 +78,10 @@ const SideBar = ({
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandSelect value={user.subDomain} />
       <Menu>
-        <Link icon='products' to='/products' className={isActiveTab('products')}>Products</Link>
+        <Link icon='dashboard' to='/'>Dashboard</Link>
+        <Link icon='products' to='/products'>Products</Link>
         <Link icon='funnels' to='/funnels'>Funnels</Link>
-        <Link icon='fulfillment' to='/fulfillment'>Fulfillment</Link>
+        <Link icon='integrations' to='/integrations'>Integrations</Link>
         <Link icon='coupons' to='/coupons'>Coupons</Link>
         <Link icon='transactions' to='/transactions'>Transactions</Link>
         <Link icon='customers' to='/customers'>Customers</Link>

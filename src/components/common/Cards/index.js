@@ -527,10 +527,18 @@ export const FunnelCard = ({
 
 export const Card = ({
   children,
+  style,
   className,
+  onClick,
   ...props
 }) => (
-  <div className={`card-container ${className}`} {...props}>
+  <div
+    onClick={onClick}
+    style={style}
+    className={`card-container ${className}`}
+    role='presentation'
+    {...props}
+  >
     {children}
   </div>
 );

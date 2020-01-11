@@ -213,16 +213,15 @@
 }
 
 .select-input-field {
-    /* -webkit-appearance:none; */
     position: relative;
-    height: 32px;
-    min-width: 192.8px;
+    height: 28px;
     background: white;
     border: 1px solid #C9D3DC;
     color: #2B3748;
     font-size: 15px;
     letter-spacing: .1px;
     outline-color: lightgray;
+    border-radius: 3px;
     text-indent: 5px;
 }
 
@@ -1091,6 +1090,8 @@ input.checkout-input-field:valid+label.checkout-input-label {
 /* TEXT FIELD STYLES START  */
 .text-input-filed-container {
     position: relative;
+    display: flex;
+    
 }
 
 input.text-input-filed {
@@ -1153,6 +1154,9 @@ div.ant-select-sm .ant-select-selection--single {
     margin-left: 20px;
 }
 
+.margin-right-10 {
+    margin-right: 10px;
+}
 .margin-right-20 {
     margin-right: 20px;
 }
@@ -1175,8 +1179,8 @@ div.ant-select-sm .ant-select-selection--single {
 
 .flex-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
 }
 
 .flex-start {
@@ -1221,9 +1225,17 @@ div.ant-select-sm .ant-select-selection--single {
     margin-top: 20px;
 }
 
+.margin-h-10 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 .margin-h-20 {
     margin-left: 20px;
     margin-right: 20px;
+}
+.margin-v-20 {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .underlined {
@@ -1247,3 +1259,65 @@ div.ant-select-sm .ant-select-selection--single {
 .no-text-wrap{
     white-space: nowrap;
 }
+
+
+
+
+/* Input Group Styles */
+
+.input-group{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-family: 'GTEestiDisplay-Regular',-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+    width: 100%;
+}
+.input-group .group-label{
+    font-size: 13px;
+    color : #333333;
+    opacity: .75;
+    font-weight: 600;
+}
+
+.input-group input.text-input-filed{
+    color : #333333;
+    opacity: .85;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: .5rem;
+    border: 2px solid transparent;
+    border-color: rgba(0,0,0,0);
+    background: #0000000d;
+    /* width: 100%; */
+}
+
+.input-group .text-input-filed-container{
+    width: 100%;
+}
+
+.input-group input.text-input-filed:focus{
+    border: 2px solid rgba(0,0,0,0.25);
+    background-color: hsla(0,0%,0%,0.05);
+    box-shadow:unset;
+}
+
+.input-group.error[error-data]{
+    position: relative;
+}
+.input-group.error[error-data]::after{
+    position: absolute;
+    bottom: -20px;
+    left: 2px;
+    content: attr(error-data);
+    font-size: 11px;
+    color: #f82b60;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+

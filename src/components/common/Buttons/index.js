@@ -5,11 +5,20 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 export const Button = ({
-  className = '', children, onClick, onprogress, disabled, ...props
+  className = '',
+  children,
+  onClick,
+  onprogress,
+  disabled,
+  ...props
 }) => (
-  <span onClick={onClick} className={`btn  ${className || ''}  ${disabled ? 'btn-disabled' : ''} ${onprogress ? 'spinner' : ''}`}>
+  <button
+    onClick={onClick}
+    className={`btn  ${className || ''}  ${disabled ? 'btn-disabled' : ''} ${onprogress ? 'spinner' : ''}`}
+    {...props}
+  >
     {children}
-  </span>
+  </button>
 );
 export const MiniButton = ({
   iconClass,
@@ -17,13 +26,14 @@ export const MiniButton = ({
   className = '',
   tooltip,
   onClick,
+  active,
   // toolTip,
   ...props
 }) => (
   <span
     data-tip={tooltip}
     onClick={onClick}
-    className={`mini-btn  ${className}`}
+    className={`mini-btn  ${className} ${active ? 'active' : ''}`}
   >
     {iconClass && (
       <i

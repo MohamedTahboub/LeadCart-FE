@@ -1,0 +1,32 @@
+/* Feature Style */
+
+
+.feature-item {
+    position: relative;
+    padding-left: 20px;
+    margin: 5px 0;
+    color: #2B3748;
+    font-size: 15px;
+}
+
+.feature-item.plus::after,
+.feature-item::after {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-size: 13px;
+    content: "\F00C";
+    top: 1px;
+    left: 0px;
+    color: #4da0fc;
+}
+
+.feature-item.plus {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.feature-item.plus::after {
+    font-size: 14px;
+    content: "\F067";
+}

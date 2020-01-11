@@ -1,0 +1,30 @@
+.step-container{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin: 10px 0;
+    margin-right: 10px;
+}
+.step-container .step-val{
+    font-size: 14px;
+    background: #eee;
+    color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 19px;
+    width: 19px;
+    border-radius: 50%;
+    margin: 0 5px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+    font-weight: bold;
+}
+.step-container.active .step-val{
+    background: #4DA1FF;
+    color: white;
+}
+.step-container.active .step-content{
+    border-bottom: 2px solid lightgray;
+    padding: 3px;
+}
+
