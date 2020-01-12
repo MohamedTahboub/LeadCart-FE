@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import { connect } from 'react-redux'
-import * as integrationsActions from 'actions/integrations'
+import { connect } from 'react-redux';
+import * as integrationsActions from 'actions/integrations';
 import { notification } from 'libs';
 import servicesList from 'data/integrationsServices';
 
@@ -24,6 +24,7 @@ const {
   Page,
   PageHeader,
   // Select,
+  Currency,
   PageContent,
   Dialog,
   WarningMessage
@@ -112,64 +113,59 @@ const Integrations = ({ integrations, ...props }) => {
   };
 
   const onConfirmDisconnect = (service) => {
-
     props.disconnectIntegrationService({
       integrationKey: activeService.key
     }, {
       onSuccess: () => {
-        notification.success(`You have Connected ${activeService.name} Successfuly`)
+        notification.success(`You have Connected ${activeService.name} Successfuly`);
         setActiveService({});
-        onCloseDisconnectDialog()
+        onCloseDisconnectDialog();
       },
       onFailed: (message) => {
         setActiveService({});
-        onCloseDisconnectDialog()
-        notification.failed(message)
+        onCloseDisconnectDialog();
+        notification.failed(message);
       }
-    })
+    });
     // setOpenModal(true);
   };
 
   return (
     <Page>
       <PageHeader className='space-between-elements'>
-        <FlexBox center='v-center' flex>
-          <MainTitle>Integrations</MainTitle>
+        <MainTitle>Integrations</MainTitle>
+      </PageHeader>
+      <PageContent dflex>
+        <FlexBox flexStart>
           <TextField
             name='search'
-            placeholder='Search'
-            className='margin-h-10'
+            prefix={<Currency value={<i className='fas fa-search' />} />}
+            className='margin-h-10 integrations-search-input'
             onChange={onSearch}
+            placeholder='Search Service/Categories'
+            autoComplete='off'
+            value={searchKey}
           />
-          <SelectOption
-            value={showConnected}
-            className='margin-h-10'
-            onChange={onChangeConnectFilter}
-            options={[
-              { value: 'all', label: 'all' },
-              { value: 'disconnected', label: 'Disconnected' },
-              { value: 'connected', label: 'Connected' },
-            ]}
-          />
+          <FlexBox center='v-center'>
+            <div className='label'>Services Status:</div>
+            <SelectOption
+              value={showConnected}
+              className='margin-h-10'
+              onChange={onChangeConnectFilter}
+              options={[
+                { value: 'all', label: 'all' },
+                { value: 'disconnected', label: 'Disconnected' },
+                { value: 'connected', label: 'Connected' },
+              ]}
+            />
+          </FlexBox>
           <LayoutOptions
             onChange={onLayoutChange}
             active={activeLayout}
             className='margin-h-10'
           />
-          {/*
-        <FlexBox flex flexEnd>
-        <Button
-        // onClick={() => setOpenModal(true)}
-        className='primary-color'
-        >
-        New Integration
-        </Button>
-        </FlexBox>
-      */}
         </FlexBox>
 
-      </PageHeader>
-      <PageContent dflex>
         <FlexBox column flex>
           <ActiveIntegrationLayout
             layout={activeLayout}
@@ -216,4 +212,4 @@ Integrations.defaultProps = {
   integrations: servicesList
 };
 
-export default connect(null,integrationsActions)(Integrations);
+export default connect(null, integrationsActions)(Integrations);

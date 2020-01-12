@@ -293,6 +293,12 @@ span.insight-chart {
 .flex-box.column.flexEnd{
     align-items: flex-end;
 }
+.flex-box.flexStart{
+    align-items: flex-start;
+}
+.flex-box.column.flexStart{
+    justify-content: flex-start;
+}
 .flex-box.baseline{
     align-content: baseline;
 }

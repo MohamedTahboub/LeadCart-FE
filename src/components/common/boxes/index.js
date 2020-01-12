@@ -164,6 +164,7 @@ export const FlexBox = ({
   flex,
   center,
   flexEnd,
+  flexStart,
   baseline,
   children
 }) => {
@@ -176,6 +177,7 @@ export const FlexBox = ({
     flex,
     baseline,
     flexEnd,
+    flexStart
   });
 
   return (
