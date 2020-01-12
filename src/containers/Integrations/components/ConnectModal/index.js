@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { SlideModal } from 'components/Modals';
+import { Modal } from 'components/Modals';
 import common from 'components/common';
 import './style.css';
 
@@ -28,27 +28,51 @@ const {
 
 const ConnectModal = ({
   open,
+  onConnect,
+  onConnectClosed,
+  service,
   onToggle
-}) => {
-  const [stage, setStage] = useState(1);
-  const [service, setService] = useState();
+}) =>
+// const [stage, setStage] = useState(1);
+// const [service, setService] = useState();
 
-  const onSelect = (service) => () => {
-    setStage(2);
-    setService(service);
-  };
+// const onSelect = (service) => () => {
+//   setStage(2);
+//   setService(service);
+// };
 
-  return (
-    <SlideModal
+  (
+    <Modal
       contentClassName='integrations-modal'
-      type='vertical'
+      // type='vertical'
       isVisible={open}
-      onClose={onToggle}
+      onClose={onConnectClosed}
     >
       <div className='header'>
-        <MainTitle>Connect New Integrations</MainTitle>
+        <MainTitle>
+          Connect with
+          {' '}
+          {service.name}
+        </MainTitle>
       </div>
-      <div className='integrations-steps'>
+      <ServiceConnect data={service} />
+    </Modal>
+  );
+ConnectModal.propTypes = {
+
+};
+
+export default ConnectModal;
+
+
+/*
+
+      <LayoutSwitch active={stage} className='integrations-steps-content'>
+        <ServiceSelect id={1} onSelect={onSelect} />
+      </LayoutSwitch>
+
+
+<div className='integrations-steps'>
         <Step
           value={stage}
           id={1}
@@ -62,16 +86,4 @@ const ConnectModal = ({
           Service Authentication
         </Step>
       </div>
-      <LayoutSwitch active={stage} className='integrations-steps-content'>
-        <ServiceSelect id={1} onSelect={onSelect} />
-        <ServiceConnect id={2} data={service} />
-      </LayoutSwitch>
-    </SlideModal>
-  );
-};
-
-ConnectModal.propTypes = {
-
-};
-
-export default ConnectModal;
+*/

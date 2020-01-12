@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 
@@ -40,17 +40,32 @@ const filtersIntegrations = (list, key, connected) => list.filter((integration) 
   });
 
 
-const ActiveIntegrationLayout = ({ layout, ...props }) => (
-  <LayoutSwitch active={layout}>
-    <IntegrationsGrid id='grid' {...props} />
-    <IntegrationsTable id='list' {...props} />
-  </LayoutSwitch>
-);
+const ActiveIntegrationLayout = ({ layout, ...props }) => {
+  const categories = props.list.reduce((cat, service) => {
+    if (Array.isArray(cat[service.category])) cat[service.category].push(service);
+    else cat[service.category] = [service];
+    return cat;
+  }, {});
+
+  return Object.keys(categories).map((key, index) => {
+    const list = categories[key];
+    return (
+      <Fragment>
+        <MainTitle>{key.toUpperCase()}</MainTitle>
+        <LayoutSwitch active={layout}>
+          <IntegrationsGrid id='grid' {...props} list={list} />
+          <IntegrationsTable id='list' {...props} list={list} showHeader={!index} />
+        </LayoutSwitch>
+      </Fragment>
+    );
+  });
+};
 
 
 const Integrations = ({ integrations, ...props }) => {
   const [activeLayout, setActiveLayout] = useState('list');
   const [openModal, setOpenModal] = useState(false);
+  const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
   const [showConnected, setShowConnected] = useState('all');
 
@@ -69,6 +84,22 @@ const Integrations = ({ integrations, ...props }) => {
   };
 
   const filteredList = filtersIntegrations(integrations, searchKey, showConnected);
+
+  const onConnect = (service) => {
+    setActiveService(service);
+    setOpenModal(true);
+    alert(service.name);
+  };
+  const onConnectClosed = () => {
+    setActiveService();
+    setOpenModal(false);
+  };
+
+
+  const onDisconnect = (service) => {
+    setActiveService(service);
+    setOpenModal(true);
+  };
 
   return (
     <Page>
@@ -110,13 +141,21 @@ const Integrations = ({ integrations, ...props }) => {
 
       </PageHeader>
       <PageContent dflex>
-        <ActiveIntegrationLayout
-          layout={activeLayout}
-          list={filteredList}
-        />
+        <FlexBox column flex>
+          <ActiveIntegrationLayout
+            layout={activeLayout}
+            list={filteredList}
+            onConnect={onConnect}
+            onDisconnect={onDisconnect}
+          />
+        </FlexBox>
         <ConnectModal
           open={openModal}
-          onToggle={() => setOpenModal(false)}
+          // onToggle={() => setOpenModal(false)}
+          onConnectClosed={onConnectClosed}
+          onConnect={onConnect}
+          onDisconnect={onDisconnect}
+          service={activeService}
         />
       </PageContent>
 

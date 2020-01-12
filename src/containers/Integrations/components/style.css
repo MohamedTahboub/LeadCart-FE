@@ -1,20 +1,19 @@
-
-
-.layout-options{
+.layout-options {
     display: flex;
 }
 
-.integrations-container{
+.integrations-container {
     margin-top: 20px;
     background: white;
     padding: 10px 20px;
 }
 
-.integrations-modal{
+.integrations-modal {
     top: 30vh;
-    left: 0;  
+    left: 0;
 }
-.flex-space-center{
+
+.flex-space-center {
     flex: 1;
     justify-content: center;
 }
@@ -26,6 +25,54 @@ img.integrations-service-brand {
     /* max-width: 60px; */
     object-fit: contain;
 }
-.relative-element{
+
+.relative-element {
     position: relative;
+}
+
+.integration-table-row {
+    min-height: 60px;
+    margin: 0;
+    padding: 10px 30px;
+    border-bottom: .5px solid #eee;
+}
+
+.integration-service-description {
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.integration-head-cell {
+    min-width: 185px;
+    padding: 5px 30px;
+}
+
+.btn.integration-toggle-btn {
+    position: relative;
+}
+
+.btn.integration-toggle-btn::before {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: attr(fallback-data);
+    justify-content: center;
+    /* display: flex; */
+    align-items: center;
+    text-transform: uppercase;
+    border-radius: 3px;
+    font-size: 12px;
+    background: tomato;
+}
+.btn.integration-toggle-btn::hover {
+    /* opacity: 0; */
+    background: tomato;
+}
+.btn.integration-toggle-btn::hover::before {
+    display: flex;
 }

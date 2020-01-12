@@ -1,3 +1,6 @@
+.integrations-modal{
+    border-radius: 6px;
+}
 .integration-connect-section{
     display: flex;
     flex-wrap: wrap;
