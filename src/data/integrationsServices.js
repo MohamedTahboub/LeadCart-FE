@@ -3,7 +3,7 @@ import * as brandsLogos from './importBrands';
 export default [
   {
     name: 'Stripe',
-    key: 'LC_STRIPE',
+    key: 'LC_stripe',
     brandLogo: brandsLogos.stripeImage,
     category: 'Payment Gateways',
     active: true,
@@ -12,7 +12,7 @@ export default [
   },
   {
     name: 'Paypal',
-    key: 'LC_PAYPAL',
+    key: 'LC_paypal',
     brandLogo: brandsLogos.paypalImage,
     category: 'Payment Gateways',
     active: true,
@@ -64,7 +64,7 @@ export default [
     supported: false,
   },
   {
-    key: 'LC-AWEBER',
+    key: 'LC-AWeber',
     name: 'AWeber',
     brandLogo: brandsLogos.aweber,
     category: 'Auto Responders',
@@ -73,7 +73,7 @@ export default [
     supported: false,
   },
   {
-    key: 'LC-MAILCHIMP',
+    key: 'LC-mailChimp',
     name: 'MailChimp',
     brandLogo: brandsLogos.mailChimp,
     category: 'Auto Responders',
@@ -82,7 +82,7 @@ export default [
     supported: false,
   },
   {
-    key: 'LC-ACTIVECAMPAIGN',
+    key: 'LC-activeCampaign',
     name: 'ActiveCampaign',
     brandLogo: brandsLogos.activeCampaign,
     category: 'Auto Responders',

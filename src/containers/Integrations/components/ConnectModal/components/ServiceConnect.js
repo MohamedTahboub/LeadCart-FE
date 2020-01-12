@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
+import { message } from 'antd';
+import { openNewWindow } from 'libs';
 import ServiceCard from './ServiceCard';
 
 import {
@@ -18,19 +20,25 @@ const {
 } = common;
 const { TextField } = InputRow;
 
-const ConnectOAuth = ({ name = 'Stripe', ...props }) => (
+const LoadingIcon = () => (
+  <div>checking Support</div>
+);
+
+const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) => (
   <FlexBox>
     <Statement
-      label={`Login into your account in ${name} to give us access to your data:`}
+      label={`Login into your account in ${name} to give us access to your data`}
       value={(
-        <FlexBox center='h-center' className='full-width'>
-          <Button className='primary-color'>
+        <FlexBox center='h-center' className='full-width margin-top-20'>
+          <Button onClick={() => openNewWindow(auth_url)} className='primary-color'>
             Connect with
             {' '}
             {name}
           </Button>
         </FlexBox>
       )}
+      column
+      center='h-center'
     />
   </FlexBox>
 );
@@ -88,10 +96,10 @@ const ConnectApiKey = ({ name, ...props }) => (
   </FlexBox>
 );
 
-const ConnectIntegration = (props) => (
-  <LayoutSwitch active='client'>
-    <ConnectOAuth id='auth' {...props} />
-    <ConnectClient id='client' {...props} />
+const ConnectIntegration = ({ authType, ...props }) => (
+  <LayoutSwitch active={authType}>
+    <ConnectOAuth id='OAuth' {...props} />
+    <ConnectClient id='client_credentials' {...props} />
     <ConnectApiKey id='apiKey' {...props} />
   </LayoutSwitch>
 );
@@ -109,27 +117,33 @@ const ServiceConnect = ({ data = {}, ...props }) => {
 
   const [supported, setSupported] = useState(false);
   const [onprogress, setOnprogress] = useState(true);
+  const [error, setError] = useState();
 
   useEffect(() => {
     // if (service.key !== data.key) {
-      setOnprogress(true)
-      setService(data);
-      props.checkIntegrationService(
-        {
-          integrationKey: service.key
+    setOnprogress(true);
+    setService(data);
+    props.checkIntegrationService(
+      {
+        integrationKey: service.key
+      },
+      {
+        onSuccess: (data) => {
+          setOnprogress(false);
+          setSupported(true);
+          setService({
+            ...service,
+            authType: data.authType,
+            data
+          });
         },
-        {
-          onSuccess: () => { 
-            setOnprogress(false)
-            setSupported(true)
-          },
-          onFailed: () => { 
-            setOnprogress(false)
-            setSupported(true)
-            
-          }
+        onFailed: (message) => {
+          setOnprogress(false);
+          setSupported(false);
+          setError(message);
         }
-      )
+      }
+    );
     // };
   }, []);
 
@@ -145,12 +159,14 @@ const ServiceConnect = ({ data = {}, ...props }) => {
             <ConnectIntegration
               {...service}
             />
-          ):(
-            onprogress ? (
-              <span>...checking support</span>
-              ):(
-                <span>not supported</span>
-              )
+          ) : (
+            <FlexBox flex column center='v-center h-center'>
+              {onprogress ? (
+                <LoadingIcon />
+              ) : (
+                <span className='error-text'>{error}</span>
+              )}
+            </FlexBox>
           )}
         </FlexBox>
         <FlexBox>

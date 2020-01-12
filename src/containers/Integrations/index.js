@@ -1,7 +1,9 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-
+import { connect } from 'react-redux'
+import * as integrationsActions from 'actions/integrations'
+import { notification } from 'libs';
 import servicesList from 'data/integrationsServices';
 
 import {
@@ -9,7 +11,7 @@ import {
   IntegrationsGrid,
   IntegrationsTable,
   LayoutOptions,
-  ConnectModal
+  ConnectModal,
 } from './components';
 
 
@@ -22,7 +24,9 @@ const {
   Page,
   PageHeader,
   // Select,
-  PageContent
+  PageContent,
+  Dialog,
+  WarningMessage
 } = common;
 
 const { TextField, SelectOption } = InputRow;
@@ -68,6 +72,7 @@ const Integrations = ({ integrations, ...props }) => {
   const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
   const [showConnected, setShowConnected] = useState('all');
+  const [disconnectedDialog, setDisconnectDialog] = useState(false);
 
 
   const onLayoutChange = (value) => () => {
@@ -96,10 +101,33 @@ const Integrations = ({ integrations, ...props }) => {
     setOpenModal(false);
   };
 
-
-  const onDisconnect = (service) => {
+  const onShowDisconnectDialog = (service) => {
+    setDisconnectDialog(true);
     setActiveService(service);
-    setOpenModal(true);
+  };
+
+  const onCloseDisconnectDialog = () => {
+    setDisconnectDialog(false);
+    setActiveService({});
+  };
+
+  const onConfirmDisconnect = (service) => {
+
+    props.disconnectIntegrationService({
+      integrationKey: activeService.key
+    }, {
+      onSuccess: () => {
+        notification.success(`You have Connected ${activeService.name} Successfuly`)
+        setActiveService({});
+        onCloseDisconnectDialog()
+      },
+      onFailed: (message) => {
+        setActiveService({});
+        onCloseDisconnectDialog()
+        notification.failed(message)
+      }
+    })
+    // setOpenModal(true);
   };
 
   return (
@@ -147,7 +175,7 @@ const Integrations = ({ integrations, ...props }) => {
             layout={activeLayout}
             list={filteredList}
             onConnect={onConnect}
-            onDisconnect={onDisconnect}
+            onDisconnect={onShowDisconnectDialog}
           />
         </FlexBox>
         {openModal && (
@@ -156,8 +184,23 @@ const Integrations = ({ integrations, ...props }) => {
             // onToggle={() => setOpenModal(false)}
             onConnectClosed={onConnectClosed}
             onConnect={onConnect}
-            onDisconnect={onDisconnect}
+            onDisconnect={onShowDisconnectDialog}
             service={activeService}
+          />
+        )}
+        {disconnectedDialog && (
+          <Dialog
+            onClose={onCloseDisconnectDialog}
+            show={disconnectedDialog}
+            confirmBtnText='Continue'
+            confirmBtnIcon={null}
+            title={`Disconnect ${activeService.name}?`}
+            description={(
+              <WarningMessage>
+                Your connection Data will be deleted permanently from Leadcart, However you can reconnect it on the future at any time.
+              </WarningMessage>
+            )}
+            onConfirm={onConfirmDisconnect}
           />
         )}
       </PageContent>
@@ -173,4 +216,4 @@ Integrations.defaultProps = {
   integrations: servicesList
 };
 
-export default Integrations;
+export default connect(null,integrationsActions)(Integrations);
