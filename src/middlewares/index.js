@@ -28,6 +28,7 @@ import eventsTracker from './eventsTracker'
 import dashboard from './dashboard'
 import funnels from './funnels'
 import translations from './translations'
+import integrations from './integrations'
 
 export default [
     eventsTracker,
@@ -55,6 +56,7 @@ export default [
     agencyCodeActivation,
     ...subAccounts,
     ...dashboard,
+    ...integrations,
     flashMessage,
     apiRequest,
     uploadingFiles,

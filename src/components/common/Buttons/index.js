@@ -11,7 +11,7 @@ export const Button = ({
   onClick,
   onprogress,
   disabled,
-  onHoverProps,
+  onHoverProps = {},
   ...props
 }) => {
   const [customProps, setProps] = useState({});

@@ -8,13 +8,14 @@ import clx from 'classnames';
 const {
   Badge,
   MiniButton,
-  onConnect,
-  onDisconnect,
+  // onConnect,
   Button
 } = common;
 
 const IntegrationsTable = ({
   list,
+  onConnect,
+  onDisconnect,
   showHeader
 }) => {
   const [toggleBtn, setToggleBtn] = useState(false);
@@ -40,14 +41,16 @@ const IntegrationsTable = ({
         </Table.Head>
       )}
       <Table.Body>
-        {list.map(({
-          key,
-          name = 'Untitled',
-          // label = name,
-          connected,
-          brandLogo,
-          active
-        }, orderInList) => {
+        {list.map((service, orderInList) => {
+          const {
+            key,
+            name = 'Untitled',
+            // label = name,
+            connected,
+            brandLogo,
+            active
+          } = service;
+
           const connectLabel = active ? connected ? 'connected' : 'disconnected' : 'connect';
           const connectAction = active ? connected ? onDisconnect : undefined : onConnect;
 
@@ -93,7 +96,7 @@ const IntegrationsTable = ({
                     fallback-data='Disconnect'
                     // type={active ? 'primary' : 'secondary'}
                     className={connectBtnClasses}
-                    onClick={connectAction}
+                    onClick={() => connectAction(service)}
                     onHoverProps={connected ? {
                       children: 'Disconnect',
                       className: `${connectBtnClasses} danger-btn`

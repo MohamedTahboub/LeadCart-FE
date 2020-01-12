@@ -1,5 +1,8 @@
+
+
 .integrations-modal{
     border-radius: 6px;
+    min-height: 320px;
 }
 .integration-connect-section{
     display: flex;

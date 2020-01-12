@@ -43,7 +43,8 @@ const ConnectModal = ({
 
   (
     <Modal
-      contentClassName='integrations-modal'
+      className='integrations-modal'
+      // contentClassName='integrations-modal'
       // type='vertical'
       isVisible={open}
       onClose={onConnectClosed}

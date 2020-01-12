@@ -78,8 +78,9 @@ const Integrations = ({ integrations, ...props }) => {
     setSearchKey(value);
   };
 
-  const onChangeConnectFilter = ({ target: { name, value } }) => {
-    console.log(name, value);
+  const onChangeConnectFilter = ({ target: { value } }) => {
+    // console.log(name, value);
+
     setShowConnected(value);
   };
 
@@ -88,7 +89,7 @@ const Integrations = ({ integrations, ...props }) => {
   const onConnect = (service) => {
     setActiveService(service);
     setOpenModal(true);
-    alert(service.name);
+    // alert(service.name);
   };
   const onConnectClosed = () => {
     setActiveService();
@@ -149,14 +150,16 @@ const Integrations = ({ integrations, ...props }) => {
             onDisconnect={onDisconnect}
           />
         </FlexBox>
-        <ConnectModal
-          open={openModal}
-          // onToggle={() => setOpenModal(false)}
-          onConnectClosed={onConnectClosed}
-          onConnect={onConnect}
-          onDisconnect={onDisconnect}
-          service={activeService}
-        />
+        {openModal && (
+          <ConnectModal
+            open={openModal}
+            // onToggle={() => setOpenModal(false)}
+            onConnectClosed={onConnectClosed}
+            onConnect={onConnect}
+            onDisconnect={onDisconnect}
+            service={activeService}
+          />
+        )}
       </PageContent>
 
     </Page>
