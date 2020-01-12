@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ids from 'shortid';
 import PropTypes from 'prop-types';
+import clx from 'classnames';
 
 import './style.css';
 
@@ -10,16 +11,37 @@ export const Button = ({
   onClick,
   onprogress,
   disabled,
+  onHoverProps,
   ...props
-}) => (
-  <button
-    onClick={onClick}
-    className={`btn  ${className || ''}  ${disabled ? 'btn-disabled' : ''} ${onprogress ? 'spinner' : ''}`}
-    {...props}
-  >
-    {children}
-  </button>
-);
+}) => {
+  const [customProps, setProps] = useState({});
+
+  const onMouseOver = () => {
+    setProps(onHoverProps);
+  };
+  const onMouseLeave = () => {
+    setProps({});
+  };
+  const classNames = clx({
+    'btn': true,
+    [className]: className,
+    [customProps.className]: customProps.className,
+    'btn-disabled': disabled,
+    'spinner': onprogress
+  });
+  return (
+    <button
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+      {...props}
+      {...customProps}
+      className={classNames}
+    >
+      {customProps.children ? customProps.children : children}
+    </button>
+  );
+};
 export const MiniButton = ({
   iconClass,
   children,
