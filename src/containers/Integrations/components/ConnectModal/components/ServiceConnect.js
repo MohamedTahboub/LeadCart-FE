@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import { connect } from 'react-redux'
-import * as integrationsActions from 'actions/integrations'
+import { connect } from 'react-redux';
+import * as integrationsActions from 'actions/integrations';
+import { message } from 'antd';
+import { openNewWindow } from 'libs';
 import ServiceCard from './ServiceCard';
 
 import {
@@ -18,35 +20,41 @@ const {
 } = common;
 const { TextField } = InputRow;
 
-const ConnectOAuth = ({ name = 'Stripe', ...props }) => (
-  <FlexBox className='margin-top-20'>
+const LoadingIcon = () => (
+  <div>checking Support</div>
+);
+
+const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) => (
+  <FlexBox>
     <Statement
-      label={`Authorize LeadCart to access your ${name} data:`}
+      label={`Login into your account in ${name} to give us access to your data`}
       value={(
-        <Button className='primary-color'>
-          Connect with
-          {' '}
-          {name}
-        </Button>
+        <FlexBox center='h-center' className='full-width margin-top-20'>
+          <Button onClick={() => openNewWindow(auth_url)} className='primary-color'>
+            Connect with
+            {' '}
+            {name}
+          </Button>
+        </FlexBox>
       )}
+      column
+      center='h-center'
     />
   </FlexBox>
 );
 
 const ConnectClient = ({ name, ...props }) => (
-  <FlexBox column center='v-left' className='margin-top-20'>
+  <FlexBox column center='v-left' flex>
     <Statement
-      label={`Authorize LeadCart to Access your ${name} data:`}
-    />
-    <Statement
-      label='Client ID'
+      label='Client Id'
       value={(
         <TextField
           name='clientId'
-        />)
-      }
-    // spaceBetween
-    // flex
+        />
+      )}
+      flex
+      spaceBetween
+      className='full-width'
     />
     <Statement
       label='Client Secret'
@@ -55,24 +63,23 @@ const ConnectClient = ({ name, ...props }) => (
           name='secret'
         />
       )}
-    // spaceBetween
+      flex
+      spaceBetween
+      className='full-width'
     // flex
     />
 
-
-    <Button className='primary-color'>
-      Authorize
-    </Button>
+    <FlexBox flexEnd className='full-width'>
+      <Button className='primary-color'>
+        Authorize
+      </Button>
+    </FlexBox>
   </FlexBox>
 );
 
 
 const ConnectApiKey = ({ name, ...props }) => (
-  <FlexBox column className='margin-top-20'>
-    <Statement
-      label={`Authorize LeadCart to Access your ${name} data:`}
-    />
-
+  <FlexBox column>
     <Statement
       label='API KEY'
       value={(
@@ -81,17 +88,19 @@ const ConnectApiKey = ({ name, ...props }) => (
         />
       )}
     />
-    <Button className='primary-color'>
-      Authorize
-    </Button>
+    <FlexBox flexEnd className='full-width'>
+      <Button className='primary-color'>
+        Authorize
+      </Button>
+    </FlexBox>
   </FlexBox>
 );
 
-const ConnectIntegration = (props) => (
-  <LayoutSwitch active='client'>
-    <ConnectOAuth id='auth' />
-    <ConnectClient id='client' />
-    <ConnectApiKey id='apiKey' />
+const ConnectIntegration = ({ authType, ...props }) => (
+  <LayoutSwitch active={authType}>
+    <ConnectOAuth id='OAuth' {...props} />
+    <ConnectClient id='client_credentials' {...props} />
+    <ConnectApiKey id='apiKey' {...props} />
   </LayoutSwitch>
 );
 
@@ -105,42 +114,65 @@ const Statement = ({ label, value, ...props }) => (
 
 const ServiceConnect = ({ data = {}, ...props }) => {
   const [service, setService] = useState(data);
-  const [supported, setSupported] = useState(data);
-  const [onprogress, setOnprogress] = useState(data);
+
+  const [supported, setSupported] = useState(false);
+  const [onprogress, setOnprogress] = useState(true);
+  const [error, setError] = useState();
 
   useEffect(() => {
-    if (service.key !== data.key) setService(data);
+    // if (service.key !== data.key) {
+    setOnprogress(true);
+    setService(data);
     props.checkIntegrationService(
       {
-        key: service.key
+        integrationKey: service.key
       },
       {
-        onSuccess: () => {},
-        onFailed: () => {}
+        onSuccess: (data) => {
+          setOnprogress(false);
+          setSupported(true);
+          setService({
+            ...service,
+            authType: data.authType,
+            data
+          });
+        },
+        onFailed: (message) => {
+          setOnprogress(false);
+          setSupported(false);
+          setError(message);
+        }
       }
     );
-  }, [data]);
+    // };
+  }, []);
+
 
   return (
     <FlexBox column className='margin-top-20'>
       <FlexBox>
-        <FlexBox column className='margin-right-30 border-left-text'>
+        <FlexBox column className='margin-right-30'>
           <Statement
-            label='Service Name:'
-            value={service.name}
+            label={`Authorize LeadCart to Access your ${service.name} data:`}
           />
-          <Statement
-            label='Support'
-            value={<Badge type='success'>Supported</Badge>}
-          />
+          {supported ? (
+            <ConnectIntegration
+              {...service}
+            />
+          ) : (
+            <FlexBox flex column center='v-center h-center'>
+              {onprogress ? (
+                <LoadingIcon />
+              ) : (
+                <span className='error-text'>{error}</span>
+              )}
+            </FlexBox>
+          )}
         </FlexBox>
         <FlexBox>
           <ServiceCard {...service} disabled />
         </FlexBox>
       </FlexBox>
-
-      <ConnectIntegration />
-
     </FlexBox>
   );
 };

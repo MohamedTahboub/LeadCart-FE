@@ -1046,6 +1046,12 @@ input.checkout-input-field:valid+label.checkout-input-label {
 /*  Editable Field Styles Ends*/
 
 
+.btn.danger-btn {
+    background: #e02b49b0;
+}
+.btn.danger-btn:hover {
+    background: #e02b4ad6;
+}
 .danger-color {
     color: tomato;
 }

@@ -15,8 +15,13 @@ export default class Table extends Component {
     <div className='tabel-body'>{children}</div>
   )
 
-  static HeadCell = ({ children, ...props }) => (
-    <div className='table-head-cell'>
+  static HeadCell = ({
+    children,
+    flex = true,
+    className = '',
+    ...props
+  }) => (
+    <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
       {children && (
         <span>
           {children}
@@ -44,11 +49,12 @@ export default class Table extends Component {
     children,
     mainContent,
     className = '',
+    flex = true,
     subContent,
     sideContent,
     ...props
   }) => (
-    <div className={`table-cell ${className}`}>
+    <div className={`table-cell ${className} ${flex ? 'flex' : ''}`}>
       {mainContent && (
         !sideContent
           ? (
