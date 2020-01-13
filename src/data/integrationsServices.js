@@ -1,6 +1,6 @@
 import * as brandsLogos from './importBrands';
 
-export default [
+const services = [
   {
     name: 'Stripe',
     key: 'LC_stripe',
@@ -8,7 +8,7 @@ export default [
     category: 'Payment Gateways',
     active: true,
     connected: true,
-    supported: false,
+    supported: true,
   },
   {
     name: 'Paypal',
@@ -17,7 +17,7 @@ export default [
     category: 'Payment Gateways',
     active: true,
     connected: true,
-    supported: false,
+    supported: true,
   }, {
     key: 'LC-RAZOR_PAY',
     name: 'RazorPay',
@@ -38,7 +38,7 @@ export default [
   },
   {
     key: 'LC-checkoutLogo',
-    name: 'Checkout',
+    name: 'Checkout.com',
     brandLogo: brandsLogos.checkoutLogo,
     category: 'Payment Gateways',
     active: false,
@@ -56,7 +56,7 @@ export default [
   },
   {
     key: 'LC-towCheckoutLogo',
-    name: 'TowCheckout',
+    name: '2Checkout',
     brandLogo: brandsLogos.towCheckoutLogo,
     category: 'Payment Gateways',
     active: false,
@@ -70,7 +70,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-mailChimp',
@@ -79,7 +79,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-activeCampaign',
@@ -88,7 +88,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-getresponse',
@@ -97,7 +97,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-drip',
@@ -106,7 +106,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-ontraport',
@@ -115,7 +115,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-convertkit',
@@ -124,7 +124,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-infusionSoft',
@@ -133,7 +133,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-mooSend',
@@ -142,7 +142,7 @@ export default [
     category: 'Auto Responders',
     active: false,
     connected: false,
-    supported: false,
+    supported: true,
   },
   {
     key: 'LC-Kajabi',
@@ -325,4 +325,7 @@ export default [
     supported: false,
   },
 ];
+
+
+export default services.filter((service) => service.supported);
 
