@@ -54,7 +54,7 @@ export default class Table extends Component {
     sideContent,
     ...props
   }) => (
-    <div className={`table-cell ${className} ${flex ? 'flex' : ''}`}>
+    <div className={`table-cell ${className} ${flex ? 'flex' : ''}`} {...props}>
       {mainContent && (
         !sideContent
           ? (
@@ -98,7 +98,7 @@ export default class Table extends Component {
 
     const classes = clx({
       'sub-table': subTable,
-      className
+      [className]: className
     });
     return (
       <div className={`table-container ${classes}`}>

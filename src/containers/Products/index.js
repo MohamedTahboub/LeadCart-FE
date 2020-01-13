@@ -10,8 +10,8 @@ import PrecreateProductModals from 'components/PrecreateProductModals';
 
 import './style.css';
 import {
-  ProductCard 
-} from './components'
+  ProductCard
+} from './components';
 
 const {
   // ProductCard,
@@ -23,7 +23,7 @@ const {
   InputRow,
   Currency,
   Button
-} = common;;
+} = common;
 
 const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 

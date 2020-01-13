@@ -40,7 +40,7 @@ const filtersIntegrations = (list, key, connected) => list.filter((integration) 
   .filter((int) => {
     const values = [int.name, int.category];
     if (!key) return true;
-    const hasMatched = values.find((v) => v.toLowerCase().includes(key));
+    const hasMatched = values.find((v) => v.toLowerCase().includes(key.toLowerCase()));
     return hasMatched;
   });
 
@@ -56,7 +56,7 @@ const ActiveIntegrationLayout = ({ layout, ...props }) => {
     const list = categories[key];
     return (
       <Fragment>
-        <MainTitle>{key.toUpperCase()}</MainTitle>
+        <MainTitle className='integration-category-title capitalized-text'>{key}</MainTitle>
         <LayoutSwitch active={layout}>
           <IntegrationsGrid id='grid' {...props} list={list} />
           <IntegrationsTable id='list' {...props} list={list} showHeader={!index} />
@@ -136,43 +136,44 @@ const Integrations = ({ integrations, ...props }) => {
         <MainTitle>Integrations</MainTitle>
       </PageHeader>
       <PageContent dflex>
-        <FlexBox flexStart>
-          <TextField
-            name='search'
-            prefix={<Currency value={<i className='fas fa-search' />} />}
-            className='margin-h-10 integrations-search-input'
-            onChange={onSearch}
-            placeholder='Search Service/Categories'
-            autoComplete='off'
-            value={searchKey}
-          />
-          <FlexBox center='v-center'>
-            <div className='label'>Services Status:</div>
-            <SelectOption
-              value={showConnected}
+        <FlexBox column flex>
+          <FlexBox flexStart>
+            <TextField
+              name='search'
+              prefix={<Currency value={<i className='fas fa-search' />} />}
+              className='margin-h-10 integrations-search-input'
+              onChange={onSearch}
+              placeholder='Search Service/Categories'
+              autoComplete='off'
+              value={searchKey}
+            />
+            <FlexBox center='v-center'>
+              <div className='label'>Services Status:</div>
+              <SelectOption
+                value={showConnected}
+                className='margin-h-10'
+                onChange={onChangeConnectFilter}
+                options={[
+                  { value: 'all', label: 'all' },
+                  { value: 'disconnected', label: 'Disconnected' },
+                  { value: 'connected', label: 'Connected' },
+                ]}
+              />
+            </FlexBox>
+            <LayoutOptions
+              onChange={onLayoutChange}
+              active={activeLayout}
               className='margin-h-10'
-              onChange={onChangeConnectFilter}
-              options={[
-                { value: 'all', label: 'all' },
-                { value: 'disconnected', label: 'Disconnected' },
-                { value: 'connected', label: 'Connected' },
-              ]}
             />
           </FlexBox>
-          <LayoutOptions
-            onChange={onLayoutChange}
-            active={activeLayout}
-            className='margin-h-10'
-          />
-        </FlexBox>
-
-        <FlexBox column flex>
-          <ActiveIntegrationLayout
-            layout={activeLayout}
-            list={filteredList}
-            onConnect={onConnect}
-            onDisconnect={onShowDisconnectDialog}
-          />
+          <FlexBox column flex>
+            <ActiveIntegrationLayout
+              layout={activeLayout}
+              list={filteredList}
+              onConnect={onConnect}
+              onDisconnect={onShowDisconnectDialog}
+            />
+          </FlexBox>
         </FlexBox>
         {openModal && (
           <ConnectModal

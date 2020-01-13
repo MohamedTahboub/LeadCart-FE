@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Table from 'components/common/Tables';
 // import { spawn } from 'child_process';
 import clx from 'classnames';
+import ReactTip from 'react-tooltip';
 
 const {
   Badge,
@@ -22,24 +23,7 @@ const IntegrationsTable = ({
 
 
   return (
-    <Table>
-      {showHeader && (
-        <Table.Head>
-          <Table.HeadCell
-            className='integration-head-cell'
-            flex={false}
-          >
-            Service Name
-          </Table.HeadCell>
-          <Table.HeadCell flex />
-          <Table.HeadCell
-            className='integration-head-cell'
-            flex={false}
-          >
-            Status
-          </Table.HeadCell>
-        </Table.Head>
-      )}
+    <Table className='integration-list-table'>
       <Table.Body>
         {list.map((service, orderInList) => {
           const {
@@ -66,16 +50,18 @@ const IntegrationsTable = ({
             <Table.Row
 
               key={key}
-              orderInList={orderInList}
+              // orderInList={orderInList}
               className='integration-table-row'
             >
               <Table.Cell
                 flex={false}
-
+                data-tip={name}
+                data-type='light'
+                data-delay-show={300}
                 mainContent={(
                   <img src={brandLogo} className='integrations-service-brand' alt={`${name} brand`} />
                 )}
-                subContent={name}
+                // subContent={name}
               />
 
               <Table.Cell
@@ -110,11 +96,31 @@ const IntegrationsTable = ({
             </Table.Row>
           );
         })}
+        <ReactTip />
       </Table.Body>
     </Table>
   );
 };
+/*
+{showHeader && (
+  <Table.Head>
+    <Table.HeadCell
+      className='integration-head-cell'
+      flex={false}
+    >
+      Service Name
+    </Table.HeadCell>
+    <Table.HeadCell flex />
+    <Table.HeadCell
+      className='integration-head-cell'
+      flex={false}
+    >
+      Status
+    </Table.HeadCell>
+  </Table.Head>
+)}
 
+*/
 IntegrationsTable.propTypes = {
   list: PropTypes.arrayOf(PropTypes.object)
 };

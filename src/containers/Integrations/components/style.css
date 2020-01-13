@@ -78,3 +78,10 @@ img.integrations-service-brand {
 .integrations-search-input{
     width: 350px;
 }
+
+.integration-category-title{
+    margin: 20px 0 0 0;
+}
+.integration-list-table{
+    margin: 5px 0 0 0;
+}

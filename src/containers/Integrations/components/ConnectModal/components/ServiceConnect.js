@@ -153,7 +153,7 @@ const ServiceConnect = ({ data = {}, ...props }) => {
       <FlexBox>
         <FlexBox column className='margin-right-30'>
           <Statement
-            label={`Authorize LeadCart to Access your ${service.name} data:`}
+            label={`Authorize LeadCart to Access Your ${service.name} Account:`}
           />
           {supported ? (
             <ConnectIntegration

@@ -271,8 +271,8 @@ export default [
     supported: false,
   },
   {
-    key: 'LC-zapierBrand',
-    name: 'ZapierBrand',
+    key: 'LC-zapier',
+    name: 'Zapier',
     brandLogo: brandsLogos.zapierBrand,
     category: 'Misc Integrations',
     active: false,
