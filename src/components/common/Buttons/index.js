@@ -10,6 +10,7 @@ export const Button = ({
   children,
   onClick,
   onprogress,
+  circle,
   disabled,
   onHoverProps = {},
   ...props
@@ -19,16 +20,20 @@ export const Button = ({
   const onMouseOver = () => {
     setProps(onHoverProps);
   };
+
   const onMouseLeave = () => {
     setProps({});
   };
+
   const classNames = clx({
     'btn': true,
     [className]: className,
     [customProps.className]: customProps.className,
     'btn-disabled': disabled,
-    'spinner': onprogress
+    'spinner': onprogress,
+    circle,
   });
+
   return (
     <button
       onMouseEnter={onMouseOver}

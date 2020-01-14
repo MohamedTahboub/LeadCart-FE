@@ -1,22 +1,24 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
-// import common from 'components/common';
+import common from 'components/common';
 import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
 import { ProductBuilderSkelton } from 'components/Loaders';
-import { SideBar, Header, FunnelWorkspace } from './components';
+import {
+  SideBar,
+  Header,
+  FunnelWorkspace as Workspace
+} from './components';
 
 import './style.css';
 
-// const {
-//   Page,
-//   PageHeader,
-//   PageContent,
-
-// } = common;
+const {
+  Page,
+  FlexBox
+} = common;
 
 const FunnelBuilder = ({
   funnels,
@@ -123,9 +125,8 @@ const FunnelBuilder = ({
     const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
 
     const startPoint = getStartPointProduct(funnel);
-    if (startPoint) 
-      payload.funnel.startPoint = startPoint
-    
+    if (startPoint) payload.funnel.startPoint = startPoint;
+
     payload.productsUpdates = extractProductsRelations(funnel);
 
     action(
@@ -158,7 +159,43 @@ const FunnelBuilder = ({
     }, 350);
   };
 
+  const headerProps = {
+    onChange,
+    subdomain,
+    domains,
+    funnel: fields,
+    onSave,
+    isNew,
+    history: props.history
+  };
+
+  const sidebarProps = {
+    onChange,
+    funnel: fields,
+    onSidebarChange: postSideChanging,
+    onToggleDarkTheme,
+    darkTheme: enableDarkTheme,
+    toggleTemplateChangeEffect,
+  };
+  const workSpaceProps = {
+    className: `${templateChanging ? 'blur-effect' : ''}`,
+    funnel: fields,
+    onChange,
+    productsNodeDetails,
+    errors,
+  };
+
   return (
+    <Page fullSize>
+      <Header {...headerProps} />
+      <FlexBox flex>
+        <SideBar {...sidebarProps} />
+        <Workspace {...workSpaceProps} />
+      </FlexBox>
+    </Page>
+  );
+  /*
+        <RightSidebar />
     <Fragment>
       {loading.funnel && (
         <ProductBuilderSkelton />
@@ -195,6 +232,7 @@ const FunnelBuilder = ({
       </div>
     </Fragment>
   );
+  */
 };
 
 FunnelBuilder.propTypes = {
@@ -218,6 +256,6 @@ const mapStateToProps = ({
     } = {}
   } = {}
 }) => ({
- products, subdomain, domains, globelLoading, funnels 
+  products, subdomain, domains, globelLoading, funnels
 });
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);
