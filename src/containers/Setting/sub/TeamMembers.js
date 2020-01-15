@@ -99,7 +99,7 @@ const TeamMembers = ({ members = [], ...props }) => {
                   <Table.Cell>
                     <SmallButton
                       onClick={() => onMemberActivationChange(memberId, active)}
-                      className={active ? 'green-color' : 'gray-color'}
+                      className={active ? 'green-color' : 'gray-bg'}
                     >
                       {active ? 'Active' : 'Inactive'}
                     </SmallButton>
