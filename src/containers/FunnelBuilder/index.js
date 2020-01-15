@@ -188,7 +188,7 @@ const FunnelBuilder = ({
   return (
     <Page fullSize>
       <Header {...headerProps} />
-      <FlexBox flex>
+      <FlexBox flex className='relative-element'>
         <SideBar {...sidebarProps} />
         <Workspace {...workSpaceProps} />
       </FlexBox>

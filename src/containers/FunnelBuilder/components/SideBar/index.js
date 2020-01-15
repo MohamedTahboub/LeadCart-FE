@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
+import common from 'components/common';
 
 import './style.css';
-import Sidebars from './Bar';
-import SettingMenu from './Menus';
-
+// import Sidebars from './Bar';
+import {
+  GrabbableBlock,
+  // SettingMenu
+} from './components';
+import SettingMenu from './Menu';
+const {
+  SideMenu,
+  Tabs,
+  Tab
+} = common;
 
 const SideBar = (props) => {
   const [activeMenuItem, setActiveMenuItem] = useState('');
@@ -35,24 +44,42 @@ const SideBar = (props) => {
     setActiveMenuItem(item);
   };
   return (
-    <div className='checkout-nav-sidebar funnel-nav-bar'>
+    <SideMenu>
+      <Tabs>
+        <Tab id='funnelBlocks' title='Funnel Blocks'>
+          <GrabbableBlock
+            demo
+            title
+            description
+          />
+        </Tab>
+        <Tab id='funnelSettings' title='Settings'>
+          <SettingMenu
+            {...props}
+          />
+        </Tab>
+      </Tabs>
+    </SideMenu>
 
-      <Sidebars
-        {...props}
-        active={activeMenuItem}
-        onClick={onActivateMenuItem}
-      />
 
-      <div className={`side-menu-container ${open ? 'open' : ''}`}>
-        <SettingMenu
-          // activeMenu={activeMenuItem}
-          {...props}
-        />
-      </div>
-    </div>
   );
 };
+/*
+    <Sidebars
+      {...props}
+      active={activeMenuItem}
+      onClick={onActivateMenuItem}
+    />
 
+    <div className={`side-menu-container ${open ? 'open' : ''}`}>
+      <SettingMenu
+        // activeMenu={activeMenuItem}
+        {...props}
+      />
+    </div>
+    </div >
+
+*/
 SideBar.propTypes = {
 
 };

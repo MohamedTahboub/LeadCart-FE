@@ -11,7 +11,7 @@ import { RelationsWorkSpace, NodeSettingModal } from './components';
 
 import './style.css';
 
-const { FunnelNode } = common;
+const { FunnelNode, FlexBox } = common;
 
 const FunnelWorkSpace = ({
   category = 'checkout',
@@ -84,19 +84,18 @@ const FunnelWorkSpace = ({
         const updatedList = nodes.map((n) => {
           if (n.elementId === node.elementId) {
             // console.log({ ...n, coordinates })
-            return { ...n, coordinates }
-          } 
-            if (Array.isArray(n.relations)) {
-              const nodeRelations = n.relations
-                .map(relation => {
-                  if (relation.target === node.elementId)
-                    relation.coordinates = coordinates
-                  return relation
-                })
+            return { ...n, coordinates };
+          }
+          if (Array.isArray(n.relations)) {
+            const nodeRelations = n.relations
+              .map((relation) => {
+                if (relation.target === node.elementId) relation.coordinates = coordinates;
+                return relation;
+              });
               // n.relations = nodeRelations
-              return { ...n, relations: nodeRelations }
-            }
-          
+            return { ...n, relations: nodeRelations };
+          }
+
           return n;
         });
         return onChange({
@@ -237,9 +236,8 @@ const FunnelWorkSpace = ({
 
   const onNodeSettingChange = (id, productId) => {
     const updatedList = nodes.map((node) => {
-      if (node.elementId === id) 
-        return { ...node, productId: node.productId === productId ? '' : productId }
-      
+      if (node.elementId === id) return { ...node, productId: node.productId === productId ? '' : productId };
+
       return node;
     });
     onChange({
@@ -249,7 +247,7 @@ const FunnelWorkSpace = ({
   };
 
   return (
-    <Fragment>
+    <FlexBox className='relative-element' flex>
       <RelationsWorkSpace nodes={nodes} />
       <div
         onDragOver={onDragOver}
@@ -285,7 +283,7 @@ const FunnelWorkSpace = ({
         />
 
       </div>
-    </Fragment>
+    </FlexBox>
   );
 };
 
@@ -303,8 +301,8 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
     pageY
   } = event;
   const {
- shiftX, shiftY, height, width 
-} = originalMouseOffset;
+    shiftX, shiftY, height, width
+  } = originalMouseOffset;
 
   // console.log("=====================");
   // console.log("clientX , clientY , pageX , pageY , shiftX, shiftY");
