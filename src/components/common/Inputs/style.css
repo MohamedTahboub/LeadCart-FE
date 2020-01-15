@@ -178,12 +178,16 @@
 .purple-color {
     background: #B892E9;
 }
-
 .gray-color {
+    color: #C9D3DC;
+}
+
+.gray-bg {
     background: #C9D3DC;
 }
 
-.btn.gray-color:hover {
+
+.btn.gray-bg:hover {
     /* background: rgb(154, 158, 161); */
     background: #afb7bd;
 }
@@ -1209,62 +1213,6 @@ div.ant-select-sm .ant-select-selection--single {
     flex: 1;
 }
 
-.note-text {
-    color: #9E9E9E;
-    font-size: 13px;
-    margin: 30px 0 0 0;
-}
-
-
-/* Line Through Text  */
-.line-though {
-    text-decoration: line-through;
-}
-
-
-.df-h-between {
-    display: flex;
-    justify-content: space-around;
-}
-
-.margin-t-20 {
-    margin-top: 20px;
-}
-
-.margin-h-10 {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.margin-h-20 {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.margin-v-20 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.underlined {
-    border: 0;
-    border-bottom: 1px solid #e3e3e3;
-}
-
-.badge {
-    padding: 2px 10px;
-    border-radius: 4px;
-}
-
-.gray-badge {
-    background: lightgray;
-    color: white;
-}
-
-.width-300{
-    width: 300px;
-}
-.no-text-wrap{
-    white-space: nowrap;
-}
 
 
 
