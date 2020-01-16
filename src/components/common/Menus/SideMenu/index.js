@@ -26,7 +26,7 @@ const SideMenu = ({
     setOpen(props.open);
   }, [props.open]);
 
-  const defaultClasses = 'side-bar-menu white-bg bordered lightgray-border-color soft-edges';
+  const defaultClasses = 'side-bar-menu white-bg soft-edges soft-shadow';
   const classes = clx({
     [defaultClasses]: true,
     [className]: className,
