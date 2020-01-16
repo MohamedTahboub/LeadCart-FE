@@ -279,3 +279,7 @@
 .width-percent-60{
   width: 60%;
 }
+.small-image{
+  width: 45px;
+  height: 70px;
+}

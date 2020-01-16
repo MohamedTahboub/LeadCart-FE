@@ -21,7 +21,7 @@ const RuleCard = ({
   triggerGroups,
   ...props
 }) => (
-  <Card className='width-percent-60 padding-h-20 padding-v-20'>
+  <Card className='width-percent-60 padding-h-20 padding-v-20 margin-v-10'>
     <FlexBox column>
       <FlexBox center='v-center'>
         <span className='small-text gray-color'>When</span>

@@ -83,21 +83,21 @@ const SideBar = (props) => {
           <GrabbableBlock
             demoImage={checkoutPageImage}
             title='Checkout Page'
-            description='Funnel Step that will hold a one page Funnel product'
+            description='Funnel Step that will hold Checkout product'
             draggable
             onDragStart={(elementRef, e) => onDrag(funnelNodes.checkoutPage, elementRef, e)}
           />
           <GrabbableBlock
             demoImage={upsellPageImage}
             title='Upsell/Downsell Page'
-            description='Funnel Step that will hold a one page Funnel product'
+            description='Funnel Step that will hold a Upsell/Downsell product'
             draggable
             onDragStart={(elementRef, e) => onDrag(funnelNodes.upsellPage, elementRef, e)}
           />
           <GrabbableBlock
             demoImage={thankyouPageImage}
             title='Thankyou Page'
-            description='Funnel Step that will hold a one page Funnel product'
+            description='Funnel Step that will hold Thankyou Page'
             draggable
             onDragStart={(elementRef, e) => onDrag(funnelNodes.thankYouPage, elementRef, e)}
           />

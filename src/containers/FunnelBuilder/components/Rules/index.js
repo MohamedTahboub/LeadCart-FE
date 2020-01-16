@@ -6,11 +6,13 @@ import { connect } from 'react-redux';
 import { mapListToObject } from 'libs';
 import { RuleCard } from './components';
 
+import './style.css'
+
 const {
   FlexBox
 } = common;
 const Rules = ({ rules, productsMap, ...props }) => (
-  <FlexBox column center='v-center' className='full-width padding-v-20'>
+  <FlexBox column center='v-center' className='full-width padding-v-20 rules-container'>
     {rules.map((rule) => (
       <RuleCard
         key={rule.trigger}

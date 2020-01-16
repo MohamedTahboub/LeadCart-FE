@@ -10,7 +10,9 @@ const {
   Badge
 } = common;
 
-const ProductThumbnail = () => null;
+const ProductThumbnail = ({ thumbnail, name }) => (
+    <img src={thumbnail} alt={name} className='small-image' />
+);
 const GroupAction = ({ serviceName, serviceAction }) => (
   <Badge className='margin-left-10'>
     {`${serviceName} (${serviceAction})`}
@@ -25,15 +27,21 @@ const TriggerGroup = ({
     {products.map((product) => (
       <FlexBox>
         <Badge
-        //   data-for={product.name}
+          //   data-for={product.name}
+          data-tip
           key={product._id}
           data-for={`rule-product-demo-${product._id}`}
           className='margin-h-5'
         >
           {product.name}
         </Badge>
-        <ReactToolTip id={`rule-product-demo-${product._id}`} type='light' delayShow={300}>
-          <ProductThumbnail src={product.thumbnail} />
+        <ReactToolTip
+          id={`rule-product-demo-${product._id}`}
+          //   type='light'
+          delayShow={300}
+          className='soft-edges'
+        >
+          <ProductThumbnail {...product} />
         </ReactToolTip>
       </FlexBox>
     ))}
@@ -48,5 +56,6 @@ const TriggerGroup = ({
 TriggerGroup.propTypes = {
 
 };
+//
 
 export default TriggerGroup;
