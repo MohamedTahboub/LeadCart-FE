@@ -11,6 +11,7 @@ export const Button = ({
   onClick,
   onprogress,
   circle,
+  active,
   disabled,
   onHoverProps = {},
   ...props
@@ -32,6 +33,7 @@ export const Button = ({
     'btn-disabled': disabled,
     'spinner': onprogress,
     circle,
+    active
   });
 
   return (

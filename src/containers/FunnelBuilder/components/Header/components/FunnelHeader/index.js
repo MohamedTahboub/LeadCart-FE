@@ -55,11 +55,14 @@ const CheckoutHeader = ({
     setShowModal({});
   };
 
+  const goToFunnels = () => {
+    history.push('/funnels');
+  };
   return (
     <FlexBox className='white-bg padding-v-5 gray-border-top' center='v-center' spaceBetween>
 
       <FlexBox center='v-center'>
-        <Button circle className='light-btn icon-btn margin-left-20'>
+        <Button onClick={goToFunnels} className='light-btn icon-btn margin-left-20'>
           <IoIosArrowRoundBack />
         </Button>
         <Title>Back To Funnels</Title>
@@ -87,9 +90,9 @@ const CheckoutHeader = ({
           <Button
             disabled={isNew}
             onClick={onShowShare}
-            className='light-btn solid-right-border'
+            className='light-btn solid-right-border '
           >
-            <i className='fas fa-share-square' />
+            <i className='fas fa-share-square font-size-11' />
             Share
           </Button>
           <Button
@@ -97,11 +100,11 @@ const CheckoutHeader = ({
             onClick={onPreview}
             className='light-btn solid-right-border solid-left-border'
           >
-            <i className='fas fa-eye' />
+            <i className='fas fa-eye font-size-11' />
             Preview
           </Button>
           <Button onClick={onSave} className='light-btn solid-left-border'>
-            <i className='fas fa-save' />
+            <i className='fas fa-save font-size-11' />
             {isNew ? 'Create' : 'Save'}
           </Button>
         </div>

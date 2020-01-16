@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import clx from 'classnames'
 import { FlexBox } from '../boxes';
-
 import './style.css';
 
 
@@ -15,7 +15,7 @@ const getTabsTitles = (children, activeTab) => (
     : (children ? children.props : null)
 );
 
-export const Tabs = ({ children, ...props }) => {
+export const Tabs = ({ children, className, ...props }) => {
   const [activeTab, setActiveTab] = useState(props.active);
 
   const tabContent = getActiveContent(children, activeTab);
@@ -30,8 +30,13 @@ export const Tabs = ({ children, ...props }) => {
   const onTabChange = (tabId) => () => {
     setActiveTab(tabId);
   };
+
+  const classes = clx({
+    [className]: className
+  });
+
   return (
-    <FlexBox column className='tabs-container'>
+    <FlexBox column className={`tabs-container ${classes}`}>
       <FlexBox className='tabs-header'>
         {tabsTitles.map((tab) => (
           <Tab

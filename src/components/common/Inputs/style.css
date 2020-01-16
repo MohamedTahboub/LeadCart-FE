@@ -178,8 +178,12 @@
 .purple-color {
     background: #B892E9;
 }
+.darkgray-color{
+    color: #393C44;
+}
 .gray-color {
-    color: #C9D3DC;
+    /* color: #C9D3DC; */
+    color: #808292;
 }
 
 .gray-bg {
@@ -1155,10 +1159,10 @@ div.ant-select-sm .ant-select-selection--single {
     padding-bottom: 10px;
 }
 
-.margin-v-20 {
+/* .margin-v-20 {
     margin-top: 20px;
     margin-bottom: 20px;
-}
+} */
 
 .margin-left-20 {
     margin-left: 20px;
