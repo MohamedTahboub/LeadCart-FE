@@ -71,6 +71,7 @@ const FunnelWorkSpace = ({
     const omo = event.dataTransfer.getData('shift');
     let node = {};
 
+    console.log(data);
     node = JSON.parse(data);
     const originalMouseOffset = JSON.parse(omo);
     // /?! Validate the droped Node

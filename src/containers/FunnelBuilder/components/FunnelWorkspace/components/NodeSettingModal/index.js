@@ -3,14 +3,33 @@ import { IoMdClose } from 'react-icons/io';
 import { showIntercomIcon } from 'libs';
 import { connect } from 'react-redux';
 import common from 'components/common';
-
+import { includesIgnoreCase } from 'libs';
+// import Select from 'react-select'
+import newProductImage from 'assets/images/new-product-icon.png';
 
 import './style.css';
 
 const {
   FlexBox,
-  FunnelTemplateNode
+  FunnelTemplateNode,
+  Tabs,
+  Tab,
+  InputRow
 } = common;
+const { TextField } = InputRow;
+
+
+const getMatchedProducts = (products, nodes, activeNodeId) => {
+  const activeNode = nodes.find((node) => node.elementId === activeNodeId);
+
+  if (!activeNode) return [];
+
+  const { category } = activeNode || {};
+
+  return products
+    .filter((p) => includesIgnoreCase(p.category, category.toLowerCase()))
+    .map((p) => (p._id === activeNode.productId ? { ...p, active: true } : p));
+};
 
 const NodeSettingModal = ({
   show: isVisible,
@@ -20,29 +39,20 @@ const NodeSettingModal = ({
   onClose,
   ...props
 }) => {
-  const [matchProducts, setMatchedProducts] = useState([]);
+  const nodeProducts = getMatchedProducts(products, nodes, isVisible);
+
+  const [filtered, setFilteredProducts] = useState(nodeProducts);
 
   useEffect(() => {
-    const node = nodes.find((node) => node.elementId === isVisible);
+    setFilteredProducts(nodeProducts);
+  }, [products, isVisible]);
 
+  const onSearch = ({ target: { value } }) => {
+    if (!value) return setFilteredProducts(nodeProducts);
 
-    if (node) {
-      const { category } = node || {};
-      showIntercomIcon(!isVisible);
-
-      const matched = products
-        .filter((p) => (p.category && (p.category.toLowerCase() === category.toLowerCase())))
-        .map((p) => (p._id === node.productId ? { ...p, active: true } : p));
-
-      setMatchedProducts(matched);
-    }
-
-    return () => {
-      setMatchedProducts([]);
-    };
-  }, [isVisible, products, nodes]);
-
-
+    const matched = nodeProducts.filter((product) => includesIgnoreCase(product.name, value));
+    setFilteredProducts(matched);
+  };
   const stopPropagation = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -61,29 +71,53 @@ const NodeSettingModal = ({
     >
       <FlexBox center='v-center' className='padding-v-10'>
         <FlexBox flex className='title margin-h-20'>
-          Product Setting:
+          Funnel Step Settings:
         </FlexBox>
         <IoMdClose onClick={onClose} className='gray-text animate margin-h-20 item-clickable' />
       </FlexBox>
 
-      <FlexBox flex flexStart wrappable>
-        {
-          matchProducts.map((product) => (
+      <Tabs active='targetProduct' className='padding-v-10 padding-h-10'>
+        <Tab id='targetProduct' title='Target Product'>
+          <TextField
+            name='search'
+            onChange={onSearch}
+            placeholder='Search'
+            className='full-width'
+          />
+          <FlexBox flex flexStart wrappable>
+            {
+              filtered.map((product) => (
+                <FunnelTemplateNode
+                  className='side-bar-nodes'
+                  key={product._id}
+                  onClick={onSelect(isVisible, product._id)}
+                  active={product.active}
+                  product={{
+                    image: product.thumbnail || product.pagePreferences.image,
+                    name: product.name
+                  }
+                  }
+                  {...product}
+                />
+              ))
+            }
             <FunnelTemplateNode
               className='side-bar-nodes'
-              key={product._id}
-              onClick={onSelect(isVisible, product._id)}
-              active={product.active}
+              // onClick={onCreatenewProduct}
+              // active={product.active}
               product={{
-                image: product.thumbnail || product.pagePreferences.image,
-                name: product.name
+                image: newProductImage,
+                name: 'New Product'
               }
               }
-              {...product}
             />
-          ))
-        }
-      </FlexBox>
+          </FlexBox>
+        </Tab>
+        <Tab id='stepFilters' title='Filters'>
+          <div>Step Filters</div>
+        </Tab>
+      </Tabs>
+
     </FlexBox>
   );
 };
