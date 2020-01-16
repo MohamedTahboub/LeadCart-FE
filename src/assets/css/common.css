@@ -36,6 +36,9 @@
 .margin-top-20 {
   margin: 20px 0px;
 }
+.margin-left-10{
+  margin-left: 10px;
+}
 .margin-left-20{
   margin-left: 20px;
 }
@@ -46,6 +49,10 @@
 .padding-v-10{
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.padding-v-20{
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .padding-h-10{
   padding-left:10px;
@@ -192,6 +199,11 @@
   margin-top: 20px;
 }
 
+.margin-h-5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .margin-h-10 {
   margin-left: 10px;
   margin-right: 10px;
@@ -199,6 +211,10 @@
 .margin-h-20 {
   margin-left: 20px;
   margin-right: 20px;
+}
+.margin-v-5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .margin-v-10 {
   margin-top: 10px;
@@ -259,4 +275,7 @@
 }
 .item-grabbable{
   cursor: grab;
+}
+.width-percent-60{
+  width: 60%;
 }
