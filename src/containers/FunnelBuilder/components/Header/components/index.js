@@ -1,3 +1,3 @@
 export { default as MainHeader } from './MainHeader';
-export { default as FunnelHeader } from './FunnelHeader'
-;
+export { default as FunnelHeader } from './FunnelHeader';
+

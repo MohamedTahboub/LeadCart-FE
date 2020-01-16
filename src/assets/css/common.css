@@ -228,15 +228,13 @@
 .dashed-text{
   border-bottom: 1px dashed #eee;
 }
-.lightgray-border-color{
-  border-color:lightgray;
+.lightgray-border{
+  border: 1px solid lightgray ;
 }
 .aligned-center-text{
   text-align: center;
 }
-.bordered{
-  border: 1px solid inherit;
-}
+
 .soft-edges{
   border-radius: 3px;
 }
@@ -246,4 +244,7 @@
 
 .rotate-180{
   transform: rotate(180deg);
+}
+.soft-shadow{
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
 }

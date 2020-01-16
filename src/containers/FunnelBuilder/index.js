@@ -12,14 +12,16 @@ import { ProductBuilderSkelton } from 'components/Loaders';
 import {
   SideBar,
   Header,
-  FunnelWorkspace as Workspace
+  FunnelWorkspace as Workspace,
+  Rules
 } from './components';
 
 import './style.css';
 
 const {
   Page,
-  FlexBox
+  FlexBox,
+  LayoutSwitch
 } = common;
 
 const FunnelBuilder = ({
@@ -38,16 +40,16 @@ const FunnelBuilder = ({
 
   const [loading, setLoading] = useState({ product: true });
 
-  const [templateChanging, setTemplateChanging] = useState(false);
+  // const [templateChanging, setTemplateChanging] = useState(false);
 
-  const [isSidebarOpened, setSidebarOpened] = useState(false);
+  // const [isSidebarOpened, setSidebarOpened] = useState(false);
 
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
 
   const [unblock, SetUnblock] = useState();
 
   const [productsNodeDetails, setProductsNodeDetails] = useState({});
-
+  const [activePage, setActivePage] = useState('blocks');
 
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
@@ -151,18 +153,24 @@ const FunnelBuilder = ({
       }
     );
   };
-  const postSideChanging = (state) => {
-    setSidebarOpened(state);
-  };
-  const toggleTemplateChangeEffect = () => {
-    setTemplateChanging(!templateChanging);
-    setTimeout(() => {
-      setTemplateChanging((state) => !state);
-    }, 350);
+  // const postSideChanging = (state) => {
+  //   setSidebarOpened(state);
+  // };
+  // const toggleTemplateChangeEffect = () => {
+  //   setTemplateChanging(!templateChanging);
+  //   setTimeout(() => {
+  //     setTemplateChanging((state) => !state);
+  //   }, 350);
+  // };
+
+  const onPageChange = (page) => () => {
+    setActivePage(page);
   };
 
   const headerProps = {
     onChange,
+    onPageChange,
+    activePage,
     subdomain,
     domains,
     funnel: fields,
@@ -174,13 +182,13 @@ const FunnelBuilder = ({
   const sidebarProps = {
     onChange,
     funnel: fields,
-    onSidebarChange: postSideChanging,
+    // onSidebarChange: postSideChanging,
     onToggleDarkTheme,
     darkTheme: enableDarkTheme,
-    toggleTemplateChangeEffect,
+    // toggleTemplateChangeEffect,
   };
   const workSpaceProps = {
-    className: `${templateChanging ? 'blur-effect' : ''}`,
+    // className: `${templateChanging ? 'blur-effect' : ''}`,
     funnel: fields,
     onChange,
     productsNodeDetails,
@@ -190,10 +198,13 @@ const FunnelBuilder = ({
   return (
     <Page fullSize className='flex-container flex-column'>
       <Header {...headerProps} />
-      <FlexBox flex className='relative-element'>
-        <SideBar {...sidebarProps} />
-        <Workspace {...workSpaceProps} />
-      </FlexBox>
+      <LayoutSwitch active={activePage}>
+        <FlexBox id='blocks' flex className='relative-element'>
+          <SideBar {...sidebarProps} />
+          <Workspace {...workSpaceProps} />
+        </FlexBox>
+        <Rules id='rules' />
+      </LayoutSwitch>
     </Page>
   );
 

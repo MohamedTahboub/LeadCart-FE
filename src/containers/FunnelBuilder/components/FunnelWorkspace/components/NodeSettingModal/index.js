@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
-// import { SlidingAnimation } from 'components/common/Animation';
+import { IoMdClose } from 'react-icons/io';
 import { showIntercomIcon } from 'libs';
 import { connect } from 'react-redux';
 import common from 'components/common';
@@ -8,7 +7,10 @@ import common from 'components/common';
 
 import './style.css';
 
-const { FunnelTemplateNode } = common;
+const {
+  FlexBox,
+  FunnelTemplateNode
+} = common;
 
 const NodeSettingModal = ({
   show: isVisible,
@@ -51,20 +53,20 @@ const NodeSettingModal = ({
   };
 
   return (
-    <div
+    <FlexBox
+      column
       onClick={stopPropagation}
       className={`node-setting-modal ${isVisible ? 'open' : ''}`}
       role='presentation'
     >
-      <div className='node-setting-header'>
-        <span onClick={onClose} className='close-btn' role='presentation'>
-          <i className='fas fa-times-circle' />
-        </span>
-        <span className='title'>
+      <FlexBox center='v-center' className='padding-v-10'>
+        <FlexBox flex className='title margin-h-20'>
           Product Setting:
-        </span>
-      </div>
-      <div className='node-products-list-container'>
+        </FlexBox>
+        <IoMdClose onClick={onClose} className='gray-text animate margin-h-20 item-clickable' />
+      </FlexBox>
+
+      <FlexBox flex flexStart wrappable>
         {
           matchProducts.map((product) => (
             <FunnelTemplateNode
@@ -81,8 +83,8 @@ const NodeSettingModal = ({
             />
           ))
         }
-      </div>
-    </div>
+      </FlexBox>
+    </FlexBox>
   );
 };
 

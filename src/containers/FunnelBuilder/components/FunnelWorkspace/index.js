@@ -7,7 +7,10 @@ import ids from 'shortid';
 
 // import targetMouseIcon from 'assets/images/icons/targetIcon.png';
 
-import { RelationsWorkSpace, NodeSettingModal } from './components';
+import {
+  RelationsWorkSpace,
+  NodeSettingModal
+} from './components';
 
 import './style.css';
 
@@ -92,7 +95,7 @@ const FunnelWorkSpace = ({
                 if (relation.target === node.elementId) relation.coordinates = coordinates;
                 return relation;
               });
-              // n.relations = nodeRelations
+            // n.relations = nodeRelations
             return { ...n, relations: nodeRelations };
           }
 
@@ -318,9 +321,6 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
     height,
     width
   };
-
-  console.log(c);
-
   return c;
 }
 

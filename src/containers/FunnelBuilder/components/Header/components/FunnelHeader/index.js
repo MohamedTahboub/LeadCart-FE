@@ -22,6 +22,8 @@ const CheckoutHeader = ({
   onChange,
   subdomain,
   domains,
+  onPageChange,
+  activePage,
   onSave,
   history,
   ...props
@@ -55,19 +57,27 @@ const CheckoutHeader = ({
 
   return (
     <FlexBox className='white-bg padding-v-5 gray-border-top' center='v-center' spaceBetween>
-    
+
       <FlexBox center='v-center'>
         <Button circle className='light-btn icon-btn margin-left-20'>
           <IoIosArrowRoundBack />
         </Button>
         <Title>Back To Funnels</Title>
       </FlexBox>
-      
+
       <FlexBox flex center='h-center'>
-        <Button className='light-btn solid-right-border'>
+        <Button
+          onClick={onPageChange('blocks')}
+          active={activePage === 'blocks'}
+          className='light-btn solid-right-border'
+        >
           Funnel Steps
         </Button>
-        <Button className='light-btn solid-left-border'>
+        <Button
+          onClick={onPageChange('rules')}
+          active={activePage === 'rules'}
+          className='light-btn solid-left-border'
+        >
           Funnel Rules
         </Button>
       </FlexBox>
