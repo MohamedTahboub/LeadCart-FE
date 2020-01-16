@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import clx from 'classnames'
+import clx from 'classnames';
 import { FlexBox } from '../boxes';
 import './style.css';
 
 
-const getActiveContent = (children, active) => (Array.isArray(children)
-  ? children.find(({ props = {} }) => props.id === active)
-  : children);
+const getActiveContent = (children, active) => {
+  const contentElement = (Array.isArray(children)
+    ? children.find(({ props = {} }) => props.id === active)
+    : children);
+  return contentElement
+    ? (contentElement.props && contentElement.props.children)
+    : null;
+};
 
 const getTabsTitles = (children, activeTab) => (
   Array.isArray(children)
@@ -47,7 +52,7 @@ export const Tabs = ({ children, className, ...props }) => {
         ))}
       </FlexBox>
       <FlexBox column className='tabs-content'>
-        {tabContent.props.children}
+        {tabContent}
       </FlexBox>
     </FlexBox>
   );

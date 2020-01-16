@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { MdKeyboardArrowLeft } from 'react-icons/md';
+import { FaAngleDoubleLeft } from 'react-icons/fa';
 import clx from 'classnames';
 
 import './style.css';
@@ -46,7 +46,7 @@ const SideMenu = ({
         className='menu-close-btn gray-color white-bg item-clickable'
         role='presentation'
       >
-        <MdKeyboardArrowLeft className={iconRotateClass} />
+        <FaAngleDoubleLeft className={iconRotateClass} />
       </div>
       {children}
     </div>
