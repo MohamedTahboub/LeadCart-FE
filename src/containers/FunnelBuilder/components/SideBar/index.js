@@ -45,7 +45,7 @@ const SideBar = (props) => {
   };
   return (
     <SideMenu>
-      <Tabs>
+      <Tabs active='funnelBlocks'>
         <Tab id='funnelBlocks' title='Funnel Blocks'>
           <GrabbableBlock
             demo

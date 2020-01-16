@@ -235,11 +235,15 @@
   text-align: center;
 }
 .bordered{
-  border: 1px solid;
+  border: 1px solid inherit;
 }
 .soft-edges{
   border-radius: 3px;
 }
 .item-clickable {
   cursor: pointer;
+}
+
+.rotate-180{
+  transform: rotate(180deg);
 }

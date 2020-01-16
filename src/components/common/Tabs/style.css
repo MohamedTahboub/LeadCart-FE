@@ -1,0 +1,19 @@
+.tabs-header {
+    /* padding-bottom: 5px; */
+    border-bottom: 2px solid #eee;
+}
+
+.tab-item {
+    color: rgb(32, 47, 88);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 10px;
+    cursor: pointer;
+    padding-bottom: 6px;
+}
+
+.tab-item.active {
+    border-bottom: 2px solid rgb(32, 47, 88);
+    font-weight: 700;
+
+}

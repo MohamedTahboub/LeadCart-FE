@@ -34,10 +34,19 @@ const SideMenu = ({
     open,
   });
 
+  const iconRotateClass = clx({
+    'animate': true,
+    'rotate-180': !open
+  });
+
   return (
     <div className={classes}>
-      <div onClick={onToggle} className='menu-close-btn gray-bg item-clickable'>
-        <MdKeyboardArrowLeft />
+      <div
+        onClick={onToggle}
+        className='menu-close-btn gray-color white-bg item-clickable'
+        role='presentation'
+      >
+        <MdKeyboardArrowLeft className={iconRotateClass} />
       </div>
       {children}
     </div>

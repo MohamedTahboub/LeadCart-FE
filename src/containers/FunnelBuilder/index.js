@@ -6,7 +6,9 @@ import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
+
 import { ProductBuilderSkelton } from 'components/Loaders';
+
 import {
   SideBar,
   Header,
@@ -186,7 +188,7 @@ const FunnelBuilder = ({
   };
 
   return (
-    <Page fullSize>
+    <Page fullSize className='flex-container flex-column'>
       <Header {...headerProps} />
       <FlexBox flex className='relative-element'>
         <SideBar {...sidebarProps} />
@@ -194,45 +196,46 @@ const FunnelBuilder = ({
       </FlexBox>
     </Page>
   );
-  /*
-        <RightSidebar />
-    <Fragment>
-      {loading.funnel && (
-        <ProductBuilderSkelton />
-      )}
-      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
-        <Header
-          // onDisplayChange={onDisplayChange}
-          onChange={onChange}
-          subdomain={subdomain}
-          domains={domains}
-          funnel={fields}
-          onSave={onSave}
-          isNew={isNew}
-          history={props.history}
-        />
-        <SideBar
-          onChange={onChange}
-          funnel={fields}
-          onSidebarChange={postSideChanging}
-          onToggleDarkTheme={onToggleDarkTheme}
-          darkTheme={enableDarkTheme}
-          toggleTemplateChangeEffect={toggleTemplateChangeEffect}
-        />
-        <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
-          <FunnelWorkspace
-            className={`${templateChanging ? 'blur-effect' : ''}`}
-            funnel={fields}
-            onChange={onChange}
-            productsNodeDetails={productsNodeDetails}
-            errors={errors}
-          />
-        </div>
 
-      </div>
-    </Fragment>
-  );
-  */
+  /*
+  <RightSidebar />
+<Fragment>
+{loading.funnel && (
+  <ProductBuilderSkelton />
+)}
+<div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
+  <Header
+    // onDisplayChange={onDisplayChange}
+    onChange={onChange}
+    subdomain={subdomain}
+    domains={domains}
+    funnel={fields}
+    onSave={onSave}
+    isNew={isNew}
+    history={props.history}
+  />
+  <SideBar
+    onChange={onChange}
+    funnel={fields}
+    onSidebarChange={postSideChanging}
+    onToggleDarkTheme={onToggleDarkTheme}
+    darkTheme={enableDarkTheme}
+    toggleTemplateChangeEffect={toggleTemplateChangeEffect}
+  />
+  <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
+    <FunnelWorkspace
+      className={`${templateChanging ? 'blur-effect' : ''}`}
+      funnel={fields}
+      onChange={onChange}
+      productsNodeDetails={productsNodeDetails}
+      errors={errors}
+    />
+  </div>
+
+</div>
+</Fragment>
+);
+*/
 };
 
 FunnelBuilder.propTypes = {
