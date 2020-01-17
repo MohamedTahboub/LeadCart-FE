@@ -2,7 +2,8 @@ import {
   GET_FUNNELS,
   DELETE_FUNNEL_SUCCESS,
   UPDATE_FUNNEL_SUCCESS,
-  CREATE_FUNNEL_SUCCESS
+  CREATE_FUNNEL_SUCCESS,
+  CREATE_FUNNEL_RULE_SUCCESS
 } from '../constantsTypes';
 
 
@@ -24,6 +25,13 @@ export default (state = initialState, { type, payload }) => {
   case DELETE_FUNNEL_SUCCESS:
     return state.filter((funnel) => funnel._id !== payload.funnelId);
 
+  case CREATE_FUNNEL_RULE_SUCCESS:
+    return state.map((funnel) => {
+      const rules = funnel.rules ? [...funnel.rules, payload.rule] : [payload.rule];
+      if (funnel._id === payload.funnelId) return { ...funnel, rules };
+
+      return funnel;
+    });
   default: return state;
   }
 };

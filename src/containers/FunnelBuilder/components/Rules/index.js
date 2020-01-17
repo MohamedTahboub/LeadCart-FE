@@ -22,6 +22,7 @@ const Rules = ({
   productsMap,
   openRuleModal,
   onToggleRuleModal,
+  funnelId,
   products,
   ...props
 }) => (
@@ -33,7 +34,7 @@ const Rules = ({
         productsMap={productsMap}
       />
     ))}
-    <FlexBox className='line-up-10'>
+    <FlexBox className={rules.length ? 'line-up-10' : ''}>
       <IoIosAdd
         onClick={onToggleRuleModal}
         data-tip='create new rule'
@@ -46,6 +47,7 @@ const Rules = ({
         onClose={onToggleRuleModal}
         products={products}
         productsMap={productsMap}
+        funnelId={funnelId}
       />
     )}
     <ReactToolTip delayShow='400' />
@@ -56,7 +58,7 @@ Rules.propTypes = {
 
 };
 Rules.defaultProps = {
-  rules: sampleRules,
+  rules: [],
   productsMap: {}
 };
 

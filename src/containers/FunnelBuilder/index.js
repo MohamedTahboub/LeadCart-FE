@@ -80,6 +80,7 @@ const FunnelBuilder = ({
 
     const funnel = funnels.find(({ url }) => url === funnelUrl) || {};
     if (funnel.url !== fields.url) setFields(funnel);
+    if ((funnel.rules && funnel.rules.length) !== (fields.rules && fields.rules.length)) setFields(funnel);
 
     if (funnel._id) setLoading({ funnel: false });
 
@@ -202,7 +203,9 @@ const FunnelBuilder = ({
 
   const rulesProps = {
     openRuleModal,
-    onToggleRuleModal
+    onToggleRuleModal,
+    funnelId: fields._id,
+    rules: fields.rules
   };
   return (
     <Page fullSize className='flex-container flex-column'>

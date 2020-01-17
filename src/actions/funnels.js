@@ -8,7 +8,10 @@ import {
   DELETE_FUNNEL,
   DELETE_FUNNEL_SUCCESS,
   DELETE_FUNNEL_FAILED,
-  GET_FUNNELS
+  GET_FUNNELS,
+  CREATE_FUNNEL_RULE,
+  CREATE_FUNNEL_RULE_SUCCESS,
+  CREATE_FUNNEL_RULE_FAILED,
 } from '../constantsTypes';
 
 
@@ -61,5 +64,22 @@ export const deleteFunnelSuccess = (funnelId) => ({
 
 export const deleteFunnelFailed = (message) => ({
   type: DELETE_FUNNEL_FAILED,
+  payload: message
+});
+
+
+export const createFunnelRule = (rule, meta) => ({
+  type: CREATE_FUNNEL_RULE,
+  payload: rule,
+  meta
+});
+
+export const createFunnelRuleSuccess = (rule) => ({
+  type: CREATE_FUNNEL_RULE_SUCCESS,
+  payload: rule
+});
+
+export const createFunnelRuleFailed = (message) => ({
+  type: CREATE_FUNNEL_RULE_FAILED,
   payload: message
 });
