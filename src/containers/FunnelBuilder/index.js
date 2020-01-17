@@ -39,6 +39,7 @@ const FunnelBuilder = ({
   const [errors, setErrors] = useState({});
 
   const [loading, setLoading] = useState({ product: true });
+  const [openRuleModal, setOpenRuleModal] = useState(false);
 
   // const [templateChanging, setTemplateChanging] = useState(false);
 
@@ -163,6 +164,9 @@ const FunnelBuilder = ({
   //   }, 350);
   // };
 
+  const onToggleRuleModal = () => {
+    setOpenRuleModal((open) => !open);
+  };
   const onPageChange = (page) => () => {
     setActivePage(page);
   };
@@ -176,6 +180,7 @@ const FunnelBuilder = ({
     funnel: fields,
     onSave,
     isNew,
+    onToggleRuleModal,
     history: props.history
   };
 
@@ -195,6 +200,10 @@ const FunnelBuilder = ({
     errors,
   };
 
+  const rulesProps = {
+    openRuleModal,
+    onToggleRuleModal
+  };
   return (
     <Page fullSize className='flex-container flex-column'>
       <Header {...headerProps} />
@@ -203,7 +212,7 @@ const FunnelBuilder = ({
           <SideBar {...sidebarProps} />
           <Workspace {...workSpaceProps} />
         </FlexBox>
-        <Rules id='rules' />
+        <Rules id='rules' {...rulesProps} />
       </LayoutSwitch>
     </Page>
   );

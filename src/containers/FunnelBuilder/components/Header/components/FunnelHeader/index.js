@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import config from 'config';
 import ShareProductModal from 'components/ShareProductModal';
-import { IoIosArrowRoundBack } from 'react-icons/io';
+import { IoIosArrowRoundBack, IoIosAdd } from 'react-icons/io';
 
 import common from 'components/common';
 import { DefaultHeader } from '..';
@@ -22,8 +22,10 @@ const CheckoutHeader = ({
   onChange,
   subdomain,
   domains,
-  onPageChange,
   activePage,
+  onPageChange,
+  onToggleRuleModal,
+  // activePage,
   onSave,
   history,
   ...props
@@ -85,29 +87,43 @@ const CheckoutHeader = ({
         </Button>
       </FlexBox>
 
-      <FlexBox>
-        <div className='header-buttons'>
+      <FlexBox center='v-center' className='margin-right-20'>
+        {activePage === 'rules' ? (
           <Button
-            disabled={isNew}
-            onClick={onShowShare}
-            className='light-btn solid-right-border '
+            // disabled={isNew}
+            onClick={onToggleRuleModal}
+            className='light-btn '
           >
-            <i className='fas fa-share-square font-size-11' />
-            Share
+            <FlexBox center='v-center'>
+
+              <IoIosAdd />
+              New Rule
+            </FlexBox>
           </Button>
-          <Button
-            disabled={isNew}
-            onClick={onPreview}
-            className='light-btn solid-right-border solid-left-border'
-          >
-            <i className='fas fa-eye font-size-11' />
-            Preview
-          </Button>
-          <Button onClick={onSave} className='light-btn solid-left-border'>
-            <i className='fas fa-save font-size-11' />
-            {isNew ? 'Create' : 'Save'}
-          </Button>
-        </div>
+        ) : (
+          <Fragment>
+            <Button
+              disabled={isNew}
+              onClick={onShowShare}
+              className='light-btn solid-right-border '
+            >
+              <i className='fas fa-share-square font-size-11' />
+                Share
+            </Button>
+            <Button
+              disabled={isNew}
+              onClick={onPreview}
+              className='light-btn solid-right-border solid-left-border'
+            >
+              <i className='fas fa-eye font-size-11' />
+                Preview
+            </Button>
+            <Button onClick={onSave} className='light-btn solid-left-border'>
+              <i className='fas fa-save font-size-11' />
+              {isNew ? 'Create' : 'Save'}
+            </Button>
+          </Fragment>
+        )}
         <ShareProductModal
           isVisible={showModal.share}
           onClose={onCloseModal}

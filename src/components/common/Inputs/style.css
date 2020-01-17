@@ -159,42 +159,6 @@
     font-size: xx-small;
 }
 
-.primary-color {
-    background: #4DA1FF;
-}
-
-.orange-color {
-    background: rgb(195, 152, 71);
-}
-
-.warning-color {
-    background: rgb(219, 40, 70);
-}
-
-.green-color {
-    background: #17C671;
-}
-
-.purple-color {
-    background: #B892E9;
-}
-.darkgray-color{
-    color: #393C44;
-}
-.gray-color {
-    /* color: #C9D3DC; */
-    color: #808292;
-}
-
-.gray-bg {
-    background: #C9D3DC;
-}
-
-
-.btn.gray-bg:hover {
-    /* background: rgb(154, 158, 161); */
-    background: #afb7bd;
-}
 
 .add-element-notes {
     position: absolute;
