@@ -22,7 +22,8 @@ import * as Nodes from './Nodes';
 import Badge from './Badge';
 import Step from './Step';
 import * as Customs from './Custom';
-
+import * as Tabs from './Tabs';
+import * as Menus from './Menus';
 
 export default {
   Table,
@@ -48,6 +49,8 @@ export default {
   ...Collapsable,
   ...Nodes,
   ...Customs,
+  ...Tabs,
+  ...Menus,
   Dialog
 };
 

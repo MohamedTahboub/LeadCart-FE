@@ -1,16 +1,5 @@
-.ql-bubble .ql-tooltip {
-    /* background-color: #eee;
-    border-radius: 4px;
-    color: rgba(0, 0, 0,1);
-    border: 1px solid  rgba(0, 0, 0,.6);
-    background: #fff;
-    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-    font-size: 14px;
-    line-height: 1.4285em;
-    color: rgba(0,0,0,.87); */
-    /* position: relative; */
-}
-/* position: absolute; */
+
+
 .ql-tooltip{
     z-index: 10000 !important;
     /* position:fixed; */

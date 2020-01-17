@@ -22,6 +22,8 @@ export {
   filterCustomers,
   RoundTow,
   injectDefaultLabels,
-  trimExtraText
+  trimExtraText,
+  includesIgnoreCase,
+  mapListToObject
 } from './specialFuncs';
 export { notification };

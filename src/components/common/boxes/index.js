@@ -166,7 +166,8 @@ export const FlexBox = ({
   flexEnd,
   flexStart,
   baseline,
-  children
+  children,
+  ...props
 }) => {
   const classes = classNames({
     [className]: true,
@@ -181,7 +182,7 @@ export const FlexBox = ({
   });
 
   return (
-    <div className={`flex-box ${classes}`}>
+    <div className={`flex-box ${classes}`} {...props}>
       {children}
     </div>
   );

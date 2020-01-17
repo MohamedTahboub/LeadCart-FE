@@ -87,3 +87,20 @@ export const trimExtraText = (text, maxLength) => {
   return text;
 };
 
+export const includesIgnoreCase = (parent = '', child = '') => parent.toLowerCase().includes(child.toLowerCase());
+
+
+export const mapListToObject = (list = [], fieldKey) => list.reduce((map, item, index) => {
+  // eslint-disable-next-line
+  const mapIndex = fieldKey
+    ? typeof item === 'object'
+      ? item[fieldKey]
+      : index
+    : index;
+
+  if (map[mapIndex]) map[mapIndex] = { ...map[mapIndex], ...item };
+  else map[mapIndex] = item;
+
+  return map;
+}, {});
+

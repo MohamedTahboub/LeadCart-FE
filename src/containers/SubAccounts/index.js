@@ -155,7 +155,7 @@ const Agency = ({
                   <Table.Cell>
                     <SmallButton
                       onClick={onUpdateSubAccountStatus(id, !active)}
-                      className={active ? 'green-color' : 'gray-color'}
+                      className={active ? 'green-color' : 'gray-bg'}
                     >
                       {active ? 'Active' : 'Inactive'}
                     </SmallButton>

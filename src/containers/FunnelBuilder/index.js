@@ -1,22 +1,28 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
-// import common from 'components/common';
+import common from 'components/common';
 import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
+
 import { ProductBuilderSkelton } from 'components/Loaders';
-import { SideBar, Header, FunnelWorkspace } from './components';
+
+import {
+  SideBar,
+  Header,
+  FunnelWorkspace as Workspace,
+  Rules
+} from './components';
 
 import './style.css';
 
-// const {
-//   Page,
-//   PageHeader,
-//   PageContent,
-
-// } = common;
+const {
+  Page,
+  FlexBox,
+  LayoutSwitch
+} = common;
 
 const FunnelBuilder = ({
   funnels,
@@ -33,17 +39,18 @@ const FunnelBuilder = ({
   const [errors, setErrors] = useState({});
 
   const [loading, setLoading] = useState({ product: true });
+  const [openRuleModal, setOpenRuleModal] = useState(false);
 
-  const [templateChanging, setTemplateChanging] = useState(false);
+  // const [templateChanging, setTemplateChanging] = useState(false);
 
-  const [isSidebarOpened, setSidebarOpened] = useState(false);
+  // const [isSidebarOpened, setSidebarOpened] = useState(false);
 
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
 
   const [unblock, SetUnblock] = useState();
 
   const [productsNodeDetails, setProductsNodeDetails] = useState({});
-
+  const [activePage, setActivePage] = useState('blocks');
 
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
@@ -73,6 +80,7 @@ const FunnelBuilder = ({
 
     const funnel = funnels.find(({ url }) => url === funnelUrl) || {};
     if (funnel.url !== fields.url) setFields(funnel);
+    if ((funnel.rules && funnel.rules.length) !== (fields.rules && fields.rules.length)) setFields(funnel);
 
     if (funnel._id) setLoading({ funnel: false });
 
@@ -123,9 +131,8 @@ const FunnelBuilder = ({
     const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
 
     const startPoint = getStartPointProduct(funnel);
-    if (startPoint) 
-      payload.funnel.startPoint = startPoint
-    
+    if (startPoint) payload.funnel.startPoint = startPoint;
+
     payload.productsUpdates = extractProductsRelations(funnel);
 
     action(
@@ -148,53 +155,110 @@ const FunnelBuilder = ({
       }
     );
   };
-  const postSideChanging = (state) => {
-    setSidebarOpened(state);
+  // const postSideChanging = (state) => {
+  //   setSidebarOpened(state);
+  // };
+  // const toggleTemplateChangeEffect = () => {
+  //   setTemplateChanging(!templateChanging);
+  //   setTimeout(() => {
+  //     setTemplateChanging((state) => !state);
+  //   }, 350);
+  // };
+
+  const onToggleRuleModal = () => {
+    setOpenRuleModal((open) => !open);
   };
-  const toggleTemplateChangeEffect = () => {
-    setTemplateChanging(!templateChanging);
-    setTimeout(() => {
-      setTemplateChanging((state) => !state);
-    }, 350);
+  const onPageChange = (page) => () => {
+    setActivePage(page);
   };
 
+  const headerProps = {
+    onChange,
+    onPageChange,
+    activePage,
+    subdomain,
+    domains,
+    funnel: fields,
+    onSave,
+    isNew,
+    onToggleRuleModal,
+    history: props.history
+  };
+
+  const sidebarProps = {
+    onChange,
+    funnel: fields,
+    // onSidebarChange: postSideChanging,
+    onToggleDarkTheme,
+    darkTheme: enableDarkTheme,
+    // toggleTemplateChangeEffect,
+  };
+  const workSpaceProps = {
+    // className: `${templateChanging ? 'blur-effect' : ''}`,
+    funnel: fields,
+    onChange,
+    productsNodeDetails,
+    errors,
+  };
+
+  const rulesProps = {
+    openRuleModal,
+    onToggleRuleModal,
+    funnelId: fields._id,
+    rules: fields.rules
+  };
   return (
-    <Fragment>
-      {loading.funnel && (
-        <ProductBuilderSkelton />
-      )}
-      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
-        <Header
-          // onDisplayChange={onDisplayChange}
-          onChange={onChange}
-          subdomain={subdomain}
-          domains={domains}
-          funnel={fields}
-          onSave={onSave}
-          isNew={isNew}
-          history={props.history}
-        />
-        <SideBar
-          onChange={onChange}
-          funnel={fields}
-          onSidebarChange={postSideChanging}
-          onToggleDarkTheme={onToggleDarkTheme}
-          darkTheme={enableDarkTheme}
-          toggleTemplateChangeEffect={toggleTemplateChangeEffect}
-        />
-        <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
-          <FunnelWorkspace
-            className={`${templateChanging ? 'blur-effect' : ''}`}
-            funnel={fields}
-            onChange={onChange}
-            productsNodeDetails={productsNodeDetails}
-            errors={errors}
-          />
-        </div>
-
-      </div>
-    </Fragment>
+    <Page fullSize className='flex-container flex-column'>
+      <Header {...headerProps} />
+      <LayoutSwitch active={activePage}>
+        <FlexBox id='blocks' flex className='relative-element'>
+          <SideBar {...sidebarProps} />
+          <Workspace {...workSpaceProps} />
+        </FlexBox>
+        <Rules id='rules' {...rulesProps} />
+      </LayoutSwitch>
+    </Page>
   );
+
+  /*
+  <RightSidebar />
+<Fragment>
+{loading.funnel && (
+  <ProductBuilderSkelton />
+)}
+<div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
+  <Header
+    // onDisplayChange={onDisplayChange}
+    onChange={onChange}
+    subdomain={subdomain}
+    domains={domains}
+    funnel={fields}
+    onSave={onSave}
+    isNew={isNew}
+    history={props.history}
+  />
+  <SideBar
+    onChange={onChange}
+    funnel={fields}
+    onSidebarChange={postSideChanging}
+    onToggleDarkTheme={onToggleDarkTheme}
+    darkTheme={enableDarkTheme}
+    toggleTemplateChangeEffect={toggleTemplateChangeEffect}
+  />
+  <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
+    <FunnelWorkspace
+      className={`${templateChanging ? 'blur-effect' : ''}`}
+      funnel={fields}
+      onChange={onChange}
+      productsNodeDetails={productsNodeDetails}
+      errors={errors}
+    />
+  </div>
+
+</div>
+</Fragment>
+);
+*/
 };
 
 FunnelBuilder.propTypes = {
@@ -218,6 +282,6 @@ const mapStateToProps = ({
     } = {}
   } = {}
 }) => ({
- products, subdomain, domains, globelLoading, funnels 
+  products, subdomain, domains, globelLoading, funnels
 });
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);
