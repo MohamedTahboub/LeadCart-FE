@@ -33,6 +33,7 @@ const RuleCard = ({
         <FlexBox column className='margin-left-20'>
           {triggerGroups.map((group) => (
             <TriggerGroup
+              className='margin-left-20'
               key={group.id}
               {...group}
               products={getSubProducts(productsMap, group.products)}

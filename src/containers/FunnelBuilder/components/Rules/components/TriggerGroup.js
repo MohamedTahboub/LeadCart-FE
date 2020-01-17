@@ -11,7 +11,7 @@ const {
 } = common;
 
 const ProductThumbnail = ({ thumbnail, name }) => (
-    <img src={thumbnail} alt={name} className='small-image' />
+  <img src={thumbnail} alt={name} className='small-image' />
 );
 const GroupAction = ({ serviceName, serviceAction }) => (
   <Badge className='margin-left-10'>
@@ -20,10 +20,14 @@ const GroupAction = ({ serviceName, serviceAction }) => (
 );
 
 const TriggerGroup = ({
+  className,
   products,
   action
 }) => (
-  <FlexBox center='v-center' className='margin-left-20 margin-v-5'>
+  <FlexBox
+    center='v-center'
+    className={`margin-v-5 ${className}`}
+  >
     {products.map((product) => (
       <FlexBox>
         <Badge
