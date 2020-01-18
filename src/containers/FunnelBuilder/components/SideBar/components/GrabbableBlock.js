@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { ReactComponent as GrabMeIcon } from 'assets/images/icons/grapme.svg';
@@ -14,16 +14,28 @@ const GrabbableBlock = ({
   title,
   description,
   onDragStart,
+  data,
   ...props
 }) => {
   const elementRef = useRef(null);
+
+
+  const onDrag = (event) => {
+    onDragStart({
+      data,
+      event,
+      ref: elementRef,
+      demoImage
+    });
+  };
   return (
     <FlexBox
       center='v-center'
       className='item-grabbable margin-v-10'
-      ref={elementRef}
-      onDragStart={(e) => onDragStart(elementRef, e)}
+      onDragStart={onDrag}
+      draggable
       {...props}
+      elementRef={elementRef}
     >
       <FlexBox flexStart>
         <GrabMeIcon />

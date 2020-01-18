@@ -50,20 +50,28 @@ const SideBar = (props) => {
   //   setActiveMenuItem(item);
   // };
 
-  const onDrag = (node, elementRef, e) => {
-    node.id = ids.generate();
-    e.dataTransfer.setData('dropedElement', JSON.stringify(node));
+  const onDrag = ({
+    data = {},
+    ref,
+    event,
+    demoImage
+  }) => {
+    data.id = ids.generate();
+    event.dataTransfer.setData('dropedElement', JSON.stringify(data));
+    const img = document.createElement('img');
+    img.src = demoImage;
+    event.dataTransfer.setDragImage(img, 100, 70);
 
     const {
       left,
       top,
       width,
       height
-    } = elementRef.current.getBoundingClientRect();
+    } = ref.current.getBoundingClientRect();
 
-    const shiftX = e.clientX - left;
-    const shiftY = e.clientY - top;
-    e.dataTransfer.setData('shift', JSON.stringify({
+    const shiftX = event.clientX - left;
+    const shiftY = event.clientY - top;
+    event.dataTransfer.setData('shift', JSON.stringify({
       shiftX, shiftY, width, height
     }));
   };
@@ -78,28 +86,29 @@ const SideBar = (props) => {
             title='Funnel Page'
             description='Funnel Step that will hold a one page Funnel product'
             draggable={false}
-            onDragStart={(elementRef, e) => onDrag(funnelNodes.onePageFunnel, elementRef, e)}
+            onDragStart={onDrag}
+            data={funnelNodes.onePageFunnel}
           />
           <GrabbableBlock
             demoImage={checkoutPageImage}
             title='Checkout Page'
             description='Funnel Step that will hold Checkout product'
-            draggable
-            onDragStart={(elementRef, e) => onDrag(funnelNodes.checkoutPage, elementRef, e)}
+            onDragStart={onDrag}
+            data={funnelNodes.checkoutPage}
           />
           <GrabbableBlock
             demoImage={upsellPageImage}
             title='Upsell/Downsell Page'
             description='Funnel Step that will hold a Upsell/Downsell product'
-            draggable
-            onDragStart={(elementRef, e) => onDrag(funnelNodes.upsellPage, elementRef, e)}
+            onDragStart={onDrag}
+            data={funnelNodes.upsellPage}
           />
           <GrabbableBlock
             demoImage={thankyouPageImage}
             title='Thankyou Page'
             description='Funnel Step that will hold Thankyou Page'
-            draggable
-            onDragStart={(elementRef, e) => onDrag(funnelNodes.thankYouPage, elementRef, e)}
+            onDragStart={onDrag}
+            data={funnelNodes.thankYouPage}
           />
         </Tab>
         <Tab id='funnelSettings' title='Settings'>
@@ -112,24 +121,7 @@ const SideBar = (props) => {
 
 
   );
-}
-  ;
-/*
-    <Sidebars
-      {...props}
-      active={activeMenuItem}
-      onClick={onActivateMenuItem}
-    />
-
-    <div className={`side-menu-container ${open ? 'open' : ''}`}>
-      <SettingMenu
-        // activeMenu={activeMenuItem}
-        {...props}
-      />
-    </div>
-    </div >
-
-*/
+};
 SideBar.propTypes = {
 
 };
