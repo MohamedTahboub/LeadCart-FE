@@ -270,6 +270,11 @@
 .item-clickable {
   cursor: pointer;
 }
+.item-disabled{
+  opacity: .8;
+  filter: grayscale(.5);
+  cursor: not-allowed;
+}
 
 .rotate-180{
   transform: rotate(180deg);

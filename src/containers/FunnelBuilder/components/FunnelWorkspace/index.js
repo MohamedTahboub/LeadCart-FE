@@ -4,7 +4,7 @@ import common from 'components/common';
 import * as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
 import ids from 'shortid';
-
+import { notification } from 'libs';
 // import targetMouseIcon from 'assets/images/icons/targetIcon.png';
 
 import {
@@ -110,13 +110,10 @@ const FunnelWorkSpace = ({
       }
     }
     if (node.category === 'checkout' || node.category === 'thankyouPage') {
-      if (nodes.find(({ category }) => node.category === category)) {
-        // err
-        return showFlashMessage({
-          type: 'failed',
-          message: `The funnel accepts one ${category.toUpperCase()} product`
-        });
-      }
+      if (nodes.find(({ category }) => node.category === category)) 
+    
+        notification.failed(`The funnel accepts one ${category.toUpperCase()} product`);
+      
     }
     // const newNodes = nodes.filter((n) => n.id !== node.id);
     // newNodes.push(node);
