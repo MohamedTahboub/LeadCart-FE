@@ -6,8 +6,11 @@ import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
+import { notification } from 'libs';
+// import { ProductBuilderSkelton } from 'components/Loaders';
 
-import { ProductBuilderSkelton } from 'components/Loaders';
+
+import './style.css';
 
 import {
   SideBar,
@@ -15,8 +18,6 @@ import {
   FunnelWorkspace as Workspace,
   Rules
 } from './components';
-
-import './style.css';
 
 const {
   Page,
@@ -123,6 +124,7 @@ const FunnelBuilder = ({
         type: 'failed',
         message: 'Check the funnel Fields And Try a gain'
       });
+      notification.failed('There is few invalid fields,check & try to save');
       return setErrors(errors);
     }
 
@@ -139,18 +141,12 @@ const FunnelBuilder = ({
       payload,
       {
         onSuccess: (msg) => {
-          props.showFlashMessage({
-            type: 'success',
-            message: 'Your Changes Saved Successfully'
-          });
+          notification.success('Funnel Saved Successfully');
           changesSaved();
           updateUrlOnChange(fields.url);
         },
         onFailed: (message) => {
-          props.showFlashMessage({
-            type: 'failed',
-            message: `Check the Fields And Try a gain\n${message}`
-          });
+          notification.failed(message);
         }
       }
     );

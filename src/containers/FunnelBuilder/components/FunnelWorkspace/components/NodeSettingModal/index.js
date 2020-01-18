@@ -44,8 +44,8 @@ const NodeSettingModal = ({
   const [filtered, setFilteredProducts] = useState(nodeProducts);
 
   useEffect(() => {
-    setFilteredProducts(nodeProducts);
-  }, [products, isVisible]);
+    setFilteredProducts(getMatchedProducts(products, nodes, isVisible));
+  }, [products, isVisible, nodes]);
 
   const onSearch = ({ target: { value } }) => {
     if (!value) return setFilteredProducts(nodeProducts);
@@ -85,6 +85,16 @@ const NodeSettingModal = ({
             className='full-width'
           />
           <FlexBox flex flexStart wrappable>
+            <FunnelTemplateNode
+              className='side-bar-nodes'
+              // onClick={onCreatenewProduct}
+              // active={product.active}
+              product={{
+                image: newProductImage,
+                name: 'New Product'
+              }
+              }
+            />
             {
               filtered.map((product) => (
                 <FunnelTemplateNode
@@ -101,16 +111,6 @@ const NodeSettingModal = ({
                 />
               ))
             }
-            <FunnelTemplateNode
-              className='side-bar-nodes'
-              // onClick={onCreatenewProduct}
-              // active={product.active}
-              product={{
-                image: newProductImage,
-                name: 'New Product'
-              }
-              }
-            />
           </FlexBox>
         </Tab>
         <Tab id='stepFilters' title='Filters'>

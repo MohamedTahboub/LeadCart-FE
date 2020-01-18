@@ -56,11 +56,11 @@ const SideBar = (props) => {
     event,
     demoImage
   }) => {
-    data.id = ids.generate();
-    event.dataTransfer.setData('dropedElement', JSON.stringify(data));
+    const payload = { category: data.category, elementId: ids.generate() };
+    event.dataTransfer.setData('dropedElement', JSON.stringify(payload));
     const img = document.createElement('img');
     img.src = demoImage;
-    event.dataTransfer.setDragImage(img, 100, 70);
+    event.dataTransfer.setDragImage(img, 140, 100);
 
     const {
       left,
@@ -85,6 +85,7 @@ const SideBar = (props) => {
             demoImage={pageFunnelImage}
             title='Funnel Page'
             description='Funnel Step that will hold a one page Funnel product'
+            disabled
             draggable={false}
             onDragStart={onDrag}
             data={funnelNodes.onePageFunnel}

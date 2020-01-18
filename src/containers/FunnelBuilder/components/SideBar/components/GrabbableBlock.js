@@ -12,6 +12,7 @@ const {
 const GrabbableBlock = ({
   demoImage,
   title,
+  disabled,
   description,
   onDragStart,
   data,
@@ -31,7 +32,7 @@ const GrabbableBlock = ({
   return (
     <FlexBox
       center='v-center'
-      className='item-grabbable margin-v-10'
+      className={`margin-v-10 ${disabled ? 'item-disabled' : 'item-grabbable'}`}
       onDragStart={onDrag}
       draggable
       {...props}
