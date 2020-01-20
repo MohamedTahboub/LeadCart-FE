@@ -219,6 +219,10 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+.margin-h-auto{
+  margin-left: auto;
+  margin-right: auto;
+}
 .margin-v-5 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -358,4 +362,7 @@
 }
 .flex-item{
   flex: 1;
+}
+.min-width-250{
+  min-width: 250px;
 }

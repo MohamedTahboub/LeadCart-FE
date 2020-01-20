@@ -17,10 +17,16 @@ import SettingMenu from './Menu';
 const {
   SideMenu,
   Tabs,
-  Tab
+  EditableField,
+  FlexBox,
+  Tab,
 } = common;
 
-const SideBar = (props) => {
+const SideBar = ({
+  funnel,
+  onChange,
+  ...props
+}) => {
   // const elementRef = useRef(null);
   // const [activeMenuItem, setActiveMenuItem] = useState('');
   // const [open, setOpen] = useState(false);
@@ -76,9 +82,22 @@ const SideBar = (props) => {
     }));
   };
 
+  const onNameChange = ({ target: { name, value } }) => {
+    onChange({ name, value });
+  };
 
   return (
     <SideMenu open>
+      <FlexBox className='margin-top-20 margin-v-10'>
+        <EditableField
+          className='large-text dashed-text aligned-center-text lightgray-border-color'
+          name='name'
+          defaultValue='Funnel Name'
+          onChange={onNameChange}
+          value={funnel.name}
+          max={50}
+        />
+      </FlexBox>
       <Tabs active='funnelBlocks' className='padding-v-10 padding-h-10'>
         <Tab id='funnelBlocks' title='Funnel Blocks'>
           <GrabbableBlock
