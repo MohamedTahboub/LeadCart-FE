@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import common from 'components/common'
+import common from 'components/common';
 
 import {
   MainHeader,
@@ -9,11 +9,10 @@ import {
 
 const {
   FlexBox
-} = common
+} = common;
 
 const Header = (props) => (
   <FlexBox column>
-    <MainHeader {...props} />
     <FunnelHeader {...props} />
   </FlexBox>
 );

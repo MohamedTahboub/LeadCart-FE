@@ -61,9 +61,9 @@ const CheckoutHeader = ({
     history.push('/funnels');
   };
   return (
-    <FlexBox className='white-bg padding-v-5 gray-border-top' center='v-center' spaceBetween>
+    <FlexBox className='white-bg padding-v-5 gray-border-top' center='v-center' spaceBetween wrappable>
 
-      <FlexBox center='v-center'>
+      <FlexBox center='v-center' className='min-width-250 '>
         <Button onClick={goToFunnels} className='light-btn icon-btn margin-left-20'>
           <IoIosArrowRoundBack />
         </Button>
@@ -87,7 +87,7 @@ const CheckoutHeader = ({
         </Button>
       </FlexBox>
 
-      <FlexBox center='v-center' className='margin-right-20'>
+      <FlexBox center='v-center' className='min-width-250 padding-right-20' flexEnd>
         {activePage === 'rules' ? (
           <Button
             // disabled={isNew}
