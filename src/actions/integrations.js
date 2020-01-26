@@ -8,6 +8,9 @@ import {
   DISCONNECT_INTEGRATION_SERVICE,
   DISCONNECT_INTEGRATION_SERVICE_SUCCESS,
   DISCONNECT_INTEGRATION_SERVICE_FAILED,
+  GET_INTEGRATION_ACTION_REQUIREMENT,
+  GET_INTEGRATION_ACTION_REQUIREMENT_SUCCESS,
+  GET_INTEGRATION_ACTION_REQUIREMENT_FAILED,
 } from 'constantsTypes';
 
 export const checkIntegrationService = (service, meta) => ({
@@ -49,6 +52,21 @@ export const disconnectIntegrationServiceSuccess = (service) => ({
 });
 export const disconnectIntegrationServiceFailed = (message) => ({
   type: DISCONNECT_INTEGRATION_SERVICE_FAILED,
+  payload: message
+});
+
+
+export const getIntegrationActionRequirement = (service, meta) => ({
+  type: GET_INTEGRATION_ACTION_REQUIREMENT,
+  payload: service,
+  meta
+});
+export const getIntegrationActionRequirementSuccess = (service) => ({
+  type: GET_INTEGRATION_ACTION_REQUIREMENT_SUCCESS,
+  payload: service
+});
+export const getIntegrationActionRequirementFailed = (message) => ({
+  type: GET_INTEGRATION_ACTION_REQUIREMENT_FAILED,
   payload: message
 });
 

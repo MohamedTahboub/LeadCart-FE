@@ -26,15 +26,19 @@ const {
 const getSubProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
 
 const RuleModal = ({
+  isNew,
+  ruleData,
   open,
   onClose,
   products,
   funnelId,
   productsMap,
+  funnelProducts,
   ...props
 }) => {
   const [fields, setFields] = useState({ triggerGroups: [] });
-  const productsOptions = products.map(({ _id: value, name: label }) => ({ label, value }));
+  const [saving, setSaving] = useState(false);
+  const productsOptions = getSubProducts(productsMap, funnelProducts).map(({ _id: value, name: label }) => ({ label, value }));
 
   const onTriggerGroupAdded = (group) => {
     setFields({
@@ -51,20 +55,33 @@ const RuleModal = ({
   };
 
   const onSubmit = () => {
-    props.createFunnelRule(
-      {
-        rule: fields,
-        funnelId
-      }, {
-        onSuccess: () => {
-          notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been created`);
-          onClose();
-        },
-        onFailed: () => { },
-      }
-    );
+    setSaving(true);
+    if (!isNew) {
+      props.createFunnelRule(
+        {
+          rule: fields,
+          funnelId
+        }, {
+          onSuccess: () => {
+            notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been created`);
+            setSaving(false);
+            onClose();
+          },
+          onFailed: (errMsg) => {
+            setSaving(false);
+            notification.failed(errMsg);
+          },
+        }
+      );
+    }
   };
 
+  useEffect(() => {
+    if (isNew) setFields(ruleData);
+    return () => {
+      setFields({ triggerGroups: [] });
+    };
+  }, [isNew, open]);
   return (
     <Modal
       isVisible={open}
@@ -106,7 +123,13 @@ const RuleModal = ({
         />
       </FlexBox>
       <FlexBox flex flexEnd>
-        <Button onClick={onSubmit} className='primary-color'>Submit</Button>
+        <Button
+          onClick={onSubmit}
+          className='primary-color'
+          onprogress={saving}
+        >
+        Submit
+        </Button>
       </FlexBox>
     </Modal>
   );
