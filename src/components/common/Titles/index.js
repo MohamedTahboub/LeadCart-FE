@@ -42,7 +42,7 @@ export const BigText = ({ children, className = '', ...props }) => (
 );
 
 export const Title = ({ children, className, ...props }) => (
-  <div className='title-container'>
+  <div className={`title-container ${className}`}>
     {children}
   </div>
 );

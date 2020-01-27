@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import common from '../../../../components/common';
 import { Modal } from 'components/Modals';
 import './style.css';
 import { connect } from 'react-redux';
+import dashboardSettings from 'data/dashboardSettings';
+import * as Schemas from 'libs/validation';
 import * as dashboardActions from '../../../../actions/dashboard';
 import * as flashMessagesActions from '../../../../actions/flashMessage';
-import dashboardSettings from 'data/dashboardSettings'
-import * as Schemas  from 'libs/validation'
+import common from '../../../../components/common';
 
-const { Button, InputRow } = common;;
+const { Button, InputRow } = common;
 
 const OptionItem = ({
   label,
@@ -50,8 +50,8 @@ const SettingsModal = ({
     setOptions({ ...options, [type]: newOptions });
   };
   const onToggleDisplayMainCharts = () => {
-    setDisplayMainChart(v => !v)
-  }
+    setDisplayMainChart((v) => !v);
+  };
 
   const onResetToDefault = () => {
     setOptions(dashboardSettings.defaultCardsSettings);
@@ -59,9 +59,8 @@ const SettingsModal = ({
   };
 
   useEffect(() => {
-    setDisplayMainChart(settings.displayMainChart)
-    setOptions(settings.defaultCardsSettings)
-
+    setDisplayMainChart(settings.displayMainChart);
+    setOptions(settings.defaultCardsSettings);
   }, [show, settings]);
 
   const onSave = async () => {
@@ -72,19 +71,18 @@ const SettingsModal = ({
       }
     };
 
-    const { isValid, value: validSettings, errors } = await Schemas.dashboardChartsSettings(settings)
+    const { isValid, value: validSettings, errors } = await Schemas.dashboardChartsSettings(settings);
 
     if (isValid) {
       updateDashboardChartsSettings(
-        validSettings
-        ,
+        validSettings,
         {
           onSuccess: (arg) => {
             showFlashMessage({
               type: 'success',
               message: 'Dashboard Customization Settings Updated Successfully'
             });
-            onClose()
+            onClose();
           },
           onFailed: (message) => {
             showFlashMessage({
@@ -94,7 +92,6 @@ const SettingsModal = ({
           }
         }
       );
-
     } else {
       showFlashMessage({
         type: 'failed',
@@ -162,10 +159,10 @@ const SettingsModal = ({
         </div>
         <InputRow className='main-charts-settings-container'>
           <div className='section-title'>Main Chart</div>
-          <div className='charts-settings-switch-container' >
+          <div className='charts-settings-switch-container'>
             <div className='charts-settings-switch-label'>
               Show / Hide
-          </div>
+            </div>
             <InputRow.SwitchInput
               value={displayMainChart}
               onToggle={onToggleDisplayMainCharts}
@@ -176,10 +173,10 @@ const SettingsModal = ({
       </div>
       <div className='charts-settings-footer'>
         <div>
-          <Button onClick={onResetToDefault} className='gray-color reset-btn'>Reset To Default</Button>
+          <Button onClick={onResetToDefault} className='gray-bg reset-btn'>Reset To Default</Button>
         </div>
         <div className='chart-modal-btns'>
-          <Button onClick={onClose} className='gray-color'>Cancel</Button>
+          <Button onClick={onClose} className='gray-bg'>Cancel</Button>
           <Button onClick={onSave} className='primary-color'>Save</Button>
         </div>
       </div>
@@ -210,6 +207,7 @@ const mapStateToProps = ({
 
 export default connect(
   mapStateToProps, {
-  ...flashMessagesActions,
-  ...dashboardActions
-})(SettingsModal);
+    ...flashMessagesActions,
+    ...dashboardActions
+  }
+)(SettingsModal);

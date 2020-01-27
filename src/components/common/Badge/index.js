@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import classes from 'classnames';
 
 import './style.css';
-const Badge = ({ children, type, className }) => {
+const Badge = ({
+  children,
+  type,
+  className,
+  ...props
+}) => {
   const classNames = classes({
     [type]: true,
     [className]: true
   });
 
   return (
-    <div className={`badge-container ${classNames}`}>
+    <div className={`badge-container ${classNames}`} {...props}>
       {children}
     </div>
   );

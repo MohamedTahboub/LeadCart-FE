@@ -4,14 +4,15 @@ import common from 'components/common';
 // import config from 'config';
 import './style.css';
 
-import {
-  DisplayModeButtons
-} from './components';
+// import {
+//   DisplayModeButtons
+// } from './components';
 
 // const { USER_SUB_DOMAIN_URL } = config;
 const {
   HeaderLogo,
   EditableField,
+  FlexBox,
   // Button,
   ActivationSwitchInput
 } = common;
@@ -33,39 +34,53 @@ const Header = ({
     history.goBack();
   };
 
-  const onToggleAvailability = () => {
-    // onChange({
-    //   target: {
-    //     name: 'available',
-    //     value: !funnel.available
-    //   }
-    // });
-  };
+  // const onToggleAvailability = () => {
+  //   // onChange({
+  //   //   target: {
+  //   //     name: 'available',
+  //   //     value: !funnel.available
+  //   //   }
+  //   // });
+  // };
   const onNameChange = ({ target: { name, value } }) => {
     onChange({ name, value });
   };
   return (
-    <div className='checkout-header funnel-header'>
-      <HeaderLogo
-        onClick={navigateToHome}
-      />
-      <div className='flex-container fb-space-between flex'>
+    <FlexBox className='white-bg' center='v-center'>
+      <FlexBox flex flexStart>
+        <HeaderLogo
+          onClick={navigateToHome}
+        />
+      </FlexBox>
+      <FlexBox center='h-center v-center'>
         <EditableField
-          className='product-name'
+          className='large-text dashed-text aligned-center-text lightgray-border-color'
           name='name'
           defaultValue=' '
           onChange={onNameChange}
           value={funnel.name}
           max={50}
         />
-        {showSandBoxSwitch && <ActivationSwitchInput active={funnel.available} onToggle={onToggleAvailability} />}
-        {showDisplayModes && <DisplayModeButtons onChange={onDisplayChange} type={displayType} />}
-        {props.children}
-      </div>
-    </div>
+      </FlexBox>
+
+      <FlexBox flex />
+      {props.children}
+    </FlexBox>
   );
 };
+/*
+      <EditableField
+        className='product-name'
+        name='name'
+        defaultValue=' '
+        onChange={onNameChange}
+        value={funnel.name}
+        max={50}
+      />
+*/
 
+//  {showSandBoxSwitch && <ActivationSwitchInput active={funnel.available} onToggle={onToggleAvailability} />}
+//        {showDisplayModes && <DisplayModeButtons onChange={onDisplayChange} type={displayType} />}
 Header.propTypes = {
   onDisplayChange: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,

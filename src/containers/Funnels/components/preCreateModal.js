@@ -134,7 +134,7 @@ const PreCreateModal = ({
           />
         </div>
       </div>
-      <Button onClick={onClose} className='gray-color margin-with-float-left'>
+      <Button onClick={onClose} className='gray-bg margin-with-float-left'>
                 Cancel
       </Button>
       <Button onClick={onCreate} className='primary-color  margin-with-float-right'>

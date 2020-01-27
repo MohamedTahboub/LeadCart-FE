@@ -4,14 +4,17 @@ import common from 'components/common';
 import * as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
 import ids from 'shortid';
-
+import { notification } from 'libs';
 // import targetMouseIcon from 'assets/images/icons/targetIcon.png';
 
-import { RelationsWorkSpace, NodeSettingModal } from './components';
+import {
+  RelationsWorkSpace,
+  NodeSettingModal
+} from './components';
 
 import './style.css';
 
-const { FunnelNode } = common;
+const { FunnelNode, FlexBox } = common;
 
 const FunnelWorkSpace = ({
   category = 'checkout',
@@ -68,6 +71,7 @@ const FunnelWorkSpace = ({
     const omo = event.dataTransfer.getData('shift');
     let node = {};
 
+    console.log(data);
     node = JSON.parse(data);
     const originalMouseOffset = JSON.parse(omo);
     // /?! Validate the droped Node
@@ -84,19 +88,18 @@ const FunnelWorkSpace = ({
         const updatedList = nodes.map((n) => {
           if (n.elementId === node.elementId) {
             // console.log({ ...n, coordinates })
-            return { ...n, coordinates }
-          } 
-            if (Array.isArray(n.relations)) {
-              const nodeRelations = n.relations
-                .map(relation => {
-                  if (relation.target === node.elementId)
-                    relation.coordinates = coordinates
-                  return relation
-                })
-              // n.relations = nodeRelations
-              return { ...n, relations: nodeRelations }
-            }
-          
+            return { ...n, coordinates };
+          }
+          if (Array.isArray(n.relations)) {
+            const nodeRelations = n.relations
+              .map((relation) => {
+                if (relation.target === node.elementId) relation.coordinates = coordinates;
+                return relation;
+              });
+            // n.relations = nodeRelations
+            return { ...n, relations: nodeRelations };
+          }
+
           return n;
         });
         return onChange({
@@ -107,13 +110,9 @@ const FunnelWorkSpace = ({
       }
     }
     if (node.category === 'checkout' || node.category === 'thankyouPage') {
-      if (nodes.find(({ category }) => node.category === category)) {
-        // err
-        return showFlashMessage({
-          type: 'failed',
-          message: `The funnel accepts one ${category.toUpperCase()} product`
-        });
-      }
+      if (nodes.find(({ category }) => node.category === category))
+
+        notification.failed(`The funnel accepts one ${category.toUpperCase()} product`);
     }
     // const newNodes = nodes.filter((n) => n.id !== node.id);
     // newNodes.push(node);
@@ -237,9 +236,8 @@ const FunnelWorkSpace = ({
 
   const onNodeSettingChange = (id, productId) => {
     const updatedList = nodes.map((node) => {
-      if (node.elementId === id) 
-        return { ...node, productId: node.productId === productId ? '' : productId }
-      
+      if (node.elementId === id) return { ...node, productId: node.productId === productId ? '' : productId };
+
       return node;
     });
     onChange({
@@ -249,7 +247,7 @@ const FunnelWorkSpace = ({
   };
 
   return (
-    <Fragment>
+    <FlexBox className='relative-element' flex>
       <RelationsWorkSpace nodes={nodes} />
       <div
         onDragOver={onDragOver}
@@ -285,7 +283,7 @@ const FunnelWorkSpace = ({
         />
 
       </div>
-    </Fragment>
+    </FlexBox>
   );
 };
 
@@ -303,8 +301,8 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
     pageY
   } = event;
   const {
- shiftX, shiftY, height, width 
-} = originalMouseOffset;
+    shiftX, shiftY, height, width
+  } = originalMouseOffset;
 
   // console.log("=====================");
   // console.log("clientX , clientY , pageX , pageY , shiftX, shiftY");
@@ -320,9 +318,6 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
     height,
     width
   };
-
-  console.log(c);
-
   return c;
 }
 

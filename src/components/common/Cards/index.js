@@ -460,7 +460,7 @@ export const CouponRowCard = ({
     </div>
     <SmallButton
       onClick={() => onToggleStatus({ couponId: id, active: !active })}
-      className={active ? 'green-color' : 'gray-color'}
+      className={active ? 'green-color' : 'gray-bg'}
     >
       {`${active ? 'Active' : 'Inactive'}`}
     </SmallButton>

@@ -23,9 +23,6 @@ img.integrations-service-brand {
     object-fit: contain;
 }
 
-.relative-element {
-    position: relative;
-}
 
 .integration-table-row {
     min-height: 60px;

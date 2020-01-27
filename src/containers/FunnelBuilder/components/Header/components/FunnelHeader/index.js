@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import config from 'config';
 import ShareProductModal from 'components/ShareProductModal';
-
+import { IoIosArrowRoundBack, IoIosAdd } from 'react-icons/io';
 
 import common from 'components/common';
 import { DefaultHeader } from '..';
@@ -10,6 +10,8 @@ import { DefaultHeader } from '..';
 const { USER_SUB_DOMAIN_URL } = config;
 const {
   Button,
+  FlexBox,
+  Title
 } = common;
 
 const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
@@ -20,6 +22,10 @@ const CheckoutHeader = ({
   onChange,
   subdomain,
   domains,
+  activePage,
+  onPageChange,
+  onToggleRuleModal,
+  // activePage,
   onSave,
   history,
   ...props
@@ -51,37 +57,81 @@ const CheckoutHeader = ({
     setShowModal({});
   };
 
+  const goToFunnels = () => {
+    history.push('/funnels');
+  };
   return (
-    <DefaultHeader
-      // showSandBoxSwitch
-      // showDisplayModes
-      onChange={onChange}
-      // onDisplayChange={onDisplayChange}
-      // displayType={displayType}
-      history={history}
-      funnel={funnel}
-    >
-      <div className='header-buttons'>
-        <Button disabled={isNew} onClick={onShowShare} className='primary-btn '>
-          <i className='fas fa-share-square' />
-          Share
+    <FlexBox className='white-bg padding-v-5 gray-border-top' center='v-center' spaceBetween wrappable>
+
+      <FlexBox center='v-center' className='min-width-250 '>
+        <Button onClick={goToFunnels} className='light-btn icon-btn margin-left-20'>
+          <IoIosArrowRoundBack />
         </Button>
-        <Button disabled={isNew} onClick={onPreview} className='primary-btn '>
-          <i className='fas fa-eye' />
-          Preview
+        <Title>Back To Funnels</Title>
+      </FlexBox>
+
+      <FlexBox flex center='h-center'>
+        <Button
+          onClick={onPageChange('blocks')}
+          active={activePage === 'blocks'}
+          className='light-btn solid-right-border'
+        >
+          Funnel Steps
         </Button>
-        <Button onClick={onSave} className='primary-btn '>
-          <i className='fas fa-save' />
-          {isNew ? 'Create' : 'Save'}
+        <Button
+          onClick={onPageChange('rules')}
+          active={activePage === 'rules'}
+          className='light-btn solid-left-border'
+        >
+          Funnel Rules
         </Button>
-      </div>
-      <ShareProductModal
-        isVisible={showModal.share}
-        onClose={onCloseModal}
-        subdomain={subdomain}
-        productUrl={funnel.url}
-      />
-    </DefaultHeader>
+      </FlexBox>
+
+      <FlexBox center='v-center' className='min-width-250 padding-right-20' flexEnd>
+        {activePage === 'rules' ? (
+          <Button
+            // disabled={isNew}
+            onClick={onToggleRuleModal}
+            className='light-btn '
+          >
+            <FlexBox center='v-center'>
+
+              <IoIosAdd />
+              New Rule
+            </FlexBox>
+          </Button>
+        ) : (
+          <Fragment>
+            <Button
+              disabled={isNew}
+              onClick={onShowShare}
+              className='light-btn solid-right-border '
+            >
+              <i className='fas fa-share-square font-size-11' />
+                Share
+            </Button>
+            <Button
+              disabled={isNew}
+              onClick={onPreview}
+              className='light-btn solid-right-border solid-left-border'
+            >
+              <i className='fas fa-eye font-size-11' />
+                Preview
+            </Button>
+            <Button onClick={onSave} className='light-btn solid-left-border'>
+              <i className='fas fa-save font-size-11' />
+              {isNew ? 'Create' : 'Save'}
+            </Button>
+          </Fragment>
+        )}
+        <ShareProductModal
+          isVisible={showModal.share}
+          onClose={onCloseModal}
+          subdomain={subdomain}
+          productUrl={funnel.url}
+        />
+      </FlexBox>
+    </FlexBox>
   );
 };
 
