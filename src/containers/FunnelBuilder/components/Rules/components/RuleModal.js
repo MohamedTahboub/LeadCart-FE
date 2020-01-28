@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
@@ -56,7 +56,7 @@ const RuleModal = ({
 
   const onSubmit = () => {
     setSaving(true);
-    if (!isNew) {
+    if (isNew) {
       props.createFunnelRule(
         {
           rule: fields,
@@ -77,7 +77,7 @@ const RuleModal = ({
   };
 
   useEffect(() => {
-    if (isNew) setFields(ruleData);
+    if (isNew && ruleData) setFields(ruleData);
     return () => {
       setFields({ triggerGroups: [] });
     };
@@ -128,7 +128,7 @@ const RuleModal = ({
           className='primary-color'
           onprogress={saving}
         >
-        Submit
+          Submit
         </Button>
       </FlexBox>
     </Modal>

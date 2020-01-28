@@ -1,4 +1,4 @@
-import React, { useState, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import sampleRules from 'data/sampleRules';
 import common from 'components/common';
@@ -20,8 +20,8 @@ const {
 const Rules = ({
   rules,
   productsMap,
-  openRuleModal,
-  onToggleRuleModal,
+  // openRuleModal,
+  // onToggleRuleModal,
   funnelId,
   funnelProducts,
   products,

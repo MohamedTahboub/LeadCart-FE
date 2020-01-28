@@ -19,6 +19,7 @@ const RuleCard = ({
   productsMap,
   trigger,
   triggerGroups,
+  onEdit,
   ...props
 }) => (
   <Card className='width-percent-60 padding-h-20 padding-v-20 margin-v-10'>
@@ -42,7 +43,7 @@ const RuleCard = ({
         </FlexBox>
       </FlexBox>
       <FlexBox flexEnd>
-        <FaRegEdit className='gray-text animate item-clickable' />
+        <FaRegEdit onClick={onEdit} className='gray-text animate item-clickable' />
       </FlexBox>
     </FlexBox>
     <ReactToolTip delayShow={300} />

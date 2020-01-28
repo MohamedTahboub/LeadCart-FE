@@ -81,7 +81,7 @@ const FunnelBuilder = ({
     if (funnel.url !== fields.url) setFields(funnel);
     if ((funnel.rules && funnel.rules.length) !== (fields.rules && fields.rules.length)) setFields(funnel);
 
-    if (funnel._id) setLoading({ funnel: false });
+    // if (funnel._id) setLoading({ funnel: false });
 
 
     const productsDetails = products
