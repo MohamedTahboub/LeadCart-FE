@@ -56,6 +56,7 @@
     "start": "./node_modules/.bin/env-cmd -f ./dev.env react-scripts start",
     "build": "./node_modules/.bin/env-cmd -f ./.env  react-scripts build",
     "staging:build": "./node_modules/.bin/env-cmd -f ./staging.env react-scripts build && cp _redirects build",
+    "dev:build": "./node_modules/.bin/env-cmd -f ./dev.env react-scripts build && cp _redirects build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
