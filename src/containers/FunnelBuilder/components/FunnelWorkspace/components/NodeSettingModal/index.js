@@ -62,6 +62,11 @@ const NodeSettingModal = ({
     onNodeSettingChange(nodeId, productId);
   };
 
+  const onProductEdit = (productId = 'new') => () => {
+    const { history, funnelUrl } = props;
+    history.push(`${funnelUrl}/products/${productId}`);
+  };
+
   return (
     <FlexBox
       column
@@ -89,6 +94,7 @@ const NodeSettingModal = ({
               className='side-bar-nodes'
               // onClick={onCreatenewProduct}
               // active={product.active}
+              onEditExplore={onProductEdit()}
               product={{
                 image: newProductImage,
                 name: 'New Product'
@@ -102,6 +108,7 @@ const NodeSettingModal = ({
                   key={product._id}
                   onClick={onSelect(isVisible, product._id)}
                   active={product.active}
+                  onEditExplore={onProductEdit(product._id)}
                   product={{
                     image: product.thumbnail || product.pagePreferences.image,
                     name: product.name

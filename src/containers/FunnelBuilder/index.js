@@ -190,6 +190,7 @@ const FunnelBuilder = ({
     onChange,
     productsNodeDetails,
     errors,
+    history: props.history
   };
 
   const rulesProps = {
