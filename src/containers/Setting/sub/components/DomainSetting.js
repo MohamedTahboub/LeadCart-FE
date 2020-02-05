@@ -52,18 +52,36 @@ const DomainConnectInstruction = () => (
     <p className='note general-note'>
       Now Setup Your Domain Records to Match The Following:
       <br />
-      <ul className='margin-top-20'>
+      <ul>
         <li>
-          Your CNAME(www) Points to
-          <code>cart.leadcart.io</code>
-          <CopyIcon text='cart.leadcart.io' />
+          If you are connecting a root domain (example.com) Please follow add those records:
+          <ul className='margin-top-20'>
+            <li>
+              <br />
+              Your CNAME(www) Points to
+              <code>cart.leadcart.io</code>
+              <CopyIcon text='cart.leadcart.io' />
+            </li>
+            <li>
+              Your A RECORD (@) Points to
+              <code>3.136.95.204</code>
+              <CopyIcon text='3.136.95.204' />
+            </li>
+          </ul>
         </li>
         <li>
-          Your A RECORD (@) Points to
-          <code>3.136.95.204</code>
-          <CopyIcon text='3.136.95.204' />
+          If you are connecting a sub-domain domain (pay.example.com) Please follow add those records:
+          <ul className='margin-top-20'>
+            <li>
+              <br />
+              Your CNAME(www) Points to
+              <code>cart.leadcart.io</code>
+              <CopyIcon text='cart.leadcart.io' />
+            </li>
+          </ul>
         </li>
       </ul>
+
       <div>
         Follow the step-by-step instructions &nbsp;
         <a href='https://help.leadcart.io/domains/connect' target='_blank'>
