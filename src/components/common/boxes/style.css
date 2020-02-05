@@ -304,6 +304,12 @@ span.insight-chart {
 .flex-box.baseline{
     align-content: baseline;
 }
+.flex-box.overflow-y{
+   overflow-y: auto;
+}
+.flex-box.overflow-x{
+   overflow-x: auto;
+}
 
 /* 
 

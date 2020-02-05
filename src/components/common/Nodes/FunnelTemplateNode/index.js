@@ -30,6 +30,7 @@ const FunnelNode = ({
   coordinates = {},
   active,
   onClick,
+  onEditExplore,
   id,
   children,
   ...props
@@ -86,6 +87,11 @@ const FunnelNode = ({
       {active && (
         <div className='active-mark'>
           <i className='fas fa-check-circle' />
+        </div>
+      )}
+      {onEditExplore && (
+        <div onClick={onEditExplore} className='explore-edit-btn'>
+        Edit
         </div>
       )}
     </div>
