@@ -1,0 +1,8 @@
+.product-template-billing{
+  position: relative;
+}
+.flex-row{
+  margin: 12px 0px;
+  display: flex;
+  flex-wrap: wrap;
+}

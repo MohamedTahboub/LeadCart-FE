@@ -1,6 +1,6 @@
 
 .product-workspace-container{
-    max-height: 80vh;
+    min-height: 70vh;
     overflow-y: auto;
 }
 .product-workspace{
@@ -10,4 +10,11 @@
     border-top-right-radius: 16px;
     background: #fff;
     padding: 20px;
+}
+.drop-area-image {
+    width: 81%;
+    height: 120px;
+    object-fit: contain;
+    margin: 20px;
+    filter: grayscale(1);
 }
