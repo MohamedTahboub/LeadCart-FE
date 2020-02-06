@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
+import './style.css';
+
 const {
   Button,
   FlexBox,
@@ -15,14 +17,16 @@ const Workspace = ({
   ...props
 }) => {
   const workspaceClasses = clx({
-    'product-work-space': true,
+    'product-workspace': true,
     [className]: className,
     [monitorSize]: monitorSize,
 
   });
   return (
-    <FlexBox flex center='h-center' className={workspaceClasses}>
-      Workspace
+    <FlexBox flex center='h-center' className='product-workspace-container'>
+      <FlexBox className={workspaceClasses}>
+        workspace
+      </FlexBox>
     </FlexBox>
   );
 };

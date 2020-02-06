@@ -380,6 +380,8 @@
   -o-transform: matrix(-1, 0, 0, 1, 0, 0);
   transform: matrix(-1, 0, 0, 1, 0, 0);
 }
+.outline-style-none:active,
+.outline-style-none:focus,
 .outline-style-none{
   outline-style: none;
 }

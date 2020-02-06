@@ -1,4 +1,4 @@
-.product-workspace-container {
+/* .product-workspace-container {
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -8,7 +8,7 @@
     padding-left: 100px;
     padding-top: 0px;
     transition:all .3s ease-in-out;
-}
+} */
 .product-workspace-container.side-opened {
     padding-left: 400px;
 }

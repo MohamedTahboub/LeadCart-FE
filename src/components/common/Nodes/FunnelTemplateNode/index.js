@@ -5,6 +5,7 @@ import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
 import './style.css';
+import { FlexBox} from '../../boxes';
 
 
 const categoriesImages = {
@@ -90,9 +91,11 @@ const FunnelNode = ({
         </div>
       )}
       {onEditExplore && (
-        <div onClick={onEditExplore} className='explore-edit-btn'>
-        Edit
-        </div>
+        <FlexBox flex flexStart>
+          <div onClick={onEditExplore} className='explore-edit-btn'>
+            Edit
+          </div>
+        </FlexBox>
       )}
     </div>
   );

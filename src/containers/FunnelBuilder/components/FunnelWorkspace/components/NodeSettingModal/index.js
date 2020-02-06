@@ -120,8 +120,8 @@ const NodeSettingModal = ({
             }
           </FlexBox>
         </Tab>
-        <Tab id='stepFilters' title='Filters'>
-          <div>Step Filters</div>
+        <Tab id='filter' title='Filters'>
+            Filters
         </Tab>
       </Tabs>
 

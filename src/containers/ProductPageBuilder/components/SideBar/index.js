@@ -99,7 +99,33 @@ const SideBar = (props) => (
 
       </Tab>
       <Tab id='widgets' title='Widgets'>
-        Widgets
+        <FlexBox
+          wrappable
+          overflow='y'
+          center='v-center'
+          className='max-height-75vh'
+        >
+          <BaseCard
+            draggable
+            name='Text'
+            className='guarantee-bg widget-card'
+            data-tip='Progress Bar'
+          />
+
+          <BaseCard
+            draggable
+            name='Text'
+            className='features-bg widget-card'
+            data-tip='CountDown timer'
+          />
+
+          <BaseCard
+            draggable
+            name='Text'
+            className='termsAndConditions-bg widget-card'
+            data-tip='Badge'
+          />
+        </FlexBox>
       </Tab>
     </Tabs>
     <ReactTooltip delayShow={400} />
