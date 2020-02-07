@@ -33,8 +33,9 @@ import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 import PasswordRest from 'containers/PasswordRest';
 import Funnels from 'containers/Funnels';
-import Fulfillments from 'containers/Fulfillments';
-import ProductBuilder from 'containers/ProductBuilder';
+// import Fulfillments from 'containers/Fulfillments';
+// import ProductBuilder from 'containers/ProductBuilder';
+import ProductBuilder from 'containers/ProductPageBuilder';
 import FunnelBuilder from 'containers/FunnelBuilder';
 
 import Dashboard from 'containers/Dashboard';
@@ -53,7 +54,7 @@ import Help from './containers/Help';
 
 // Styles
 import './index.css';
-import 'semantic-ui-css/semantic.min.css';
+// import 'semantic-ui-css/semantic.min.css';
 import 'react-notifications-component/dist/theme.css';
 import { APP_INIT } from 'constantsTypes';
 import IntercomApp from './components/Intercom';
@@ -92,6 +93,7 @@ ReactDOM.render(
 
             <ProtectedRoute exact path='/checkout/:id' component={ProductBuilder} />
             <ProtectedRoute exact path='/upsell/:id' component={ProductBuilder} />
+            <ProtectedRoute exact path='/funnels/:funnelId/products/:productId' component={ProductBuilder} />
             <ProtectedRoute exact path='/funnels/:url' component={FunnelBuilder} />
             <ProtectedRoute component={() => (
               <Fragment>

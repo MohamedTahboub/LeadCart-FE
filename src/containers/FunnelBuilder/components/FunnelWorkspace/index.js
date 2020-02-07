@@ -21,6 +21,7 @@ const FunnelWorkSpace = ({
   onChange,
   funnel: {
     products: nodes = [],
+    url: funnelUrl
   },
   productsNodeDetails,
   showFlashMessage,
@@ -109,11 +110,8 @@ const FunnelWorkSpace = ({
         // return setNodes(updatedList);
       }
     }
-    if (node.category === 'checkout' || node.category === 'thankyouPage') {
-      if (nodes.find(({ category }) => node.category === category))
+    if (node.category === 'checkout' || node.category === 'thankyouPage') if (nodes.find(({ category }) => node.category === category)) notification.failed(`The funnel accepts one ${category.toUpperCase()} product`);
 
-        notification.failed(`The funnel accepts one ${category.toUpperCase()} product`);
-    }
     // const newNodes = nodes.filter((n) => n.id !== node.id);
     // newNodes.push(node);
     const updatedList = [
@@ -280,6 +278,8 @@ const FunnelWorkSpace = ({
           nodes={nodes}
           onNodeSettingChange={onNodeSettingChange}
           onClose={() => onNodeSetting()}
+          funnelUrl={funnelUrl}
+          history={props.history}
         />
 
       </div>

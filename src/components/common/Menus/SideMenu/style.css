@@ -18,6 +18,7 @@
 
 .side-bar-menu.right-position {
     right: 0;
+    transform: translateX(260px);
     left: unset;
 }
 
@@ -34,6 +35,9 @@
 .side-bar-menu.open {
     transform: translateX(0);
 }
+ .side-bar-menu.open {
+    transform: translateX(-260);
+}
 
 .menu-close-btn {
     position: absolute;
@@ -41,6 +45,14 @@
     top: 0;
     width: 40px;
     padding: 9px;
+}
+.right-position .menu-close-btn {
+    left: -35px;
+    /* transform: rotate(180deg); */
+    /* line-height: 20px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

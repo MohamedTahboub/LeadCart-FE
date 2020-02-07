@@ -10,6 +10,7 @@ const SideMenu = ({
   position,
   children,
   onChange,
+  withCloseBtn = true,
   ...props
 }) => {
   const [open, setOpen] = useState(true);
@@ -41,13 +42,16 @@ const SideMenu = ({
 
   return (
     <div className={classes}>
-      <div
-        onClick={onToggle}
-        className='menu-close-btn gray-color white-bg item-clickable'
-        role='presentation'
-      >
-        <FaAngleDoubleLeft className={iconRotateClass} />
-      </div>
+      {withCloseBtn && (
+        <div
+          onClick={onToggle}
+          className='menu-close-btn gray-color white-bg item-clickable'
+          role='presentation'
+        >
+          <FaAngleDoubleLeft className={iconRotateClass} />
+        </div>
+      )
+      }
       {children}
     </div>
   );

@@ -1,0 +1,26 @@
+
+
+
+.template-summary-slice{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eaeaea;
+  font-size: 15px;
+  padding: 8px;
+}
+
+.summary-total{
+  margin: 8px 0px;
+  color:black;
+}
+
+.product-template-order-summary{
+
+}
+
+.purchases-charge-details{
+  color: rgba(0,0,0,.4);
+  font-size: 13px;
+  margin-bottom: 10px;
+}

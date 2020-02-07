@@ -5,6 +5,7 @@ import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
 import './style.css';
+import { FlexBox } from '../../boxes';
 
 
 const categoriesImages = {
@@ -30,6 +31,7 @@ const FunnelNode = ({
   coordinates = {},
   active,
   onClick,
+  onEditExplore,
   id,
   children,
   ...props
@@ -87,6 +89,13 @@ const FunnelNode = ({
         <div className='active-mark'>
           <i className='fas fa-check-circle' />
         </div>
+      )}
+      {onEditExplore && (
+        <FlexBox column flexStart baseline>
+          <div onClick={onEditExplore} className='explore-edit-btn'>
+            Edit
+          </div>
+        </FlexBox>
       )}
     </div>
   );

@@ -27,10 +27,9 @@ const getLanguageLabel = (
   } = {}
 ) => {
   let language = languages.find((lang) => lang._id === langId);
-  if (!language)
-    language = defaultLanguage
+  if (!language) language = defaultLanguage;
 
-  return { ...formatLanguage(language), type: language.type }
+  return { ...formatLanguage(language), type: language.type };
 };
 
 

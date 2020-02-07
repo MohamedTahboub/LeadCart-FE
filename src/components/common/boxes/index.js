@@ -167,6 +167,7 @@ export const FlexBox = ({
   flexStart,
   baseline,
   children,
+  overflow,
   elementRef,
   ...props
 }) => {
@@ -179,6 +180,7 @@ export const FlexBox = ({
     flex,
     baseline,
     flexEnd,
+    [`overflow-${overflow}`]: overflow,
     flexStart
   });
 
