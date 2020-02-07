@@ -70,6 +70,7 @@
 }
 
 
+
 .base-element-card.features-bg{
     background-image: url(https://i.imgur.com/vIlArx5.png);
 }
@@ -109,4 +110,18 @@
 }
 .base-element-card.coupons-bg{
     background-image: url(https://i.imgur.com/86mMJjC.png);
+}
+
+
+.base-element-card.guarantee-badge-bg{
+    background-image: url(../../../../../assets/images/icons/gray-guarantee-badge.png);
+}
+.base-element-card.guarantee-badge-bg:hover{
+    background-image: url(../../../../../assets/images/icons/colored-guarantee-badge.png);
+}
+.base-element-card.countdown-bg{
+    background-image: url(../../../../../assets/images/icons/gray-countdown.png);
+}
+.base-element-card.countdown-bg:hover{
+    background-image: url(../../../../../assets/images/icons/colored-countdown.png);
 }

@@ -108,14 +108,14 @@ const SideBar = (props) => (
           <BaseCard
             draggable
             name='Text'
-            className='guarantee-bg widget-card'
+            className='guarantee-badge-bg widget-card'
             data-tip='Progress Bar'
           />
 
           <BaseCard
             draggable
             name='Text'
-            className='features-bg widget-card'
+            className='countdown-bg widget-card'
             data-tip='CountDown timer'
           />
 
@@ -123,7 +123,7 @@ const SideBar = (props) => (
             draggable
             name='Text'
             className='termsAndConditions-bg widget-card'
-            data-tip='Badge'
+            data-tip='Badge Widget'
           />
         </FlexBox>
       </Tab>
