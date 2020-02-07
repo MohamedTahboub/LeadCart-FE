@@ -75,25 +75,12 @@ const SideBar = (props) => (
             className='testimonials-bg section-card'
             data-tip='Testimonial Section'
           />
-          <BaseCard
-            draggable
-            name='Text'
-            className='guarantee-bg section-card'
-            data-tip='Guarantee Badges'
-          />
 
           <BaseCard
             draggable
             name='Text'
             className='features-bg section-card'
             data-tip='Features List Section'
-          />
-
-          <BaseCard
-            draggable
-            name='Text'
-            className='termsAndConditions-bg section-card'
-            data-tip='Terms And Conditions Section'
           />
         </FlexBox>
 
@@ -109,21 +96,27 @@ const SideBar = (props) => (
             draggable
             name='Text'
             className='guarantee-badge-bg widget-card'
-            data-tip='Progress Bar'
+            data-tip='Guarantee Widget'
           />
 
           <BaseCard
             draggable
             name='Text'
             className='countdown-bg widget-card'
-            data-tip='CountDown timer'
+            data-tip='CountDown Timer'
           />
 
           <BaseCard
             draggable
             name='Text'
-            className='termsAndConditions-bg widget-card'
-            data-tip='Badge Widget'
+            className='progressbar-bg widget-card'
+            data-tip='Progress Bar'
+          />
+          <BaseCard
+            draggable
+            name='Text'
+            className='bookmark-badge-bg widget-card'
+            data-tip='Page Badge '
           />
         </FlexBox>
       </Tab>

@@ -125,3 +125,16 @@
 .base-element-card.countdown-bg:hover{
     background-image: url(../../../../../assets/images/icons/colored-countdown.png);
 }
+
+.base-element-card.progressbar-bg{
+    background-image: url(../../../../../assets/images/icons/gray-progressbar.png);
+}
+.base-element-card.progressbar-bg:hover{
+    background-image: url(../../../../../assets/images/icons/colored-progressbar.png);
+}
+.base-element-card.bookmark-badge-bg{
+    background-image: url(../../../../../assets/images/icons/gray-bookmark-badge.png);
+}
+.base-element-card.bookmark-badge-bg:hover{
+    background-image: url(../../../../../assets/images/icons/colored-bookmark-badge.png);
+}
