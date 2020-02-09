@@ -7,7 +7,7 @@ import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
-
+import sampleProductData from '../sampleProductData.js';
 import {
   BillingDetails,
   CompleteOrderBtn,
