@@ -82,26 +82,25 @@ const Workspace = ({
   const activeLanguage = getLanguageLabel(translations);
 
 
-  const { sections = [] } = sampleProductData.sections;
+  const { sections = [] } = sampleProductData;
 
   const hasSections = sections.length;
-
   const onSectionSettings = () => {
 
   };
 
+  const sortedSections = sections.sort((a, b) => a.order > b.order);
+
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
-
         {!hasSections && (
           <FlexBox center='h-center'>
             <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
           </FlexBox>
         )}
-
         {
-          sections.map((section) => (
+          sortedSections.map((section) => (
             <Section key={section.id} {...section} onSetting={onSectionSettings} />
           ))
         }

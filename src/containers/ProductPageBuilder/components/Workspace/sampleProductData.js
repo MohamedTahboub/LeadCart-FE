@@ -5,12 +5,12 @@ export default {
       hidden: false, // for referencing elements for the layout sections
       type: 'text',
       content: {
-        value: '',
+        value: 'Last Content',
         children: [],
       },
       children: [],
-      style: '',
-      order: 1
+      style: {},
+      order: 3
     },
     {
       id: '3fsdfsdf',
@@ -20,8 +20,8 @@ export default {
         value: '',
         children: [],
       },
-      style: '',
-      order: 1
+      style: {},
+      order: 2
     },
     {
       id: 'sss',
@@ -31,7 +31,7 @@ export default {
         value: 'https://via.placeholder.com/200',
         children: [],
       },
-      style: '',
+      style: {},
       order: 1
     }
   ]
