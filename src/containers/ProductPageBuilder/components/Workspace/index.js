@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
@@ -7,12 +7,15 @@ import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
-import sampleProductData from '../sampleProductData.js';
+import sampleProductData from './sampleProductData.js';
+
+
 import {
   BillingDetails,
   CompleteOrderBtn,
   OrderSummary,
   PaymentMethods,
+  Section,
 } from './components';
 
 const {
@@ -22,6 +25,34 @@ const {
   EditableField
 } = common;
 
+const CommonStaticPart = ({ language }) => (
+  <Fragment>
+    <BillingDetails
+      // color={color}
+      language={language}
+    />
+    <PaymentMethods
+      step={2}
+      // onOptionSelected={onOptionSelected}
+      methods={['Paypal', 'Stripe']}
+      // onShowSetting
+      // onFieldChange
+      language={language}
+    />
+    <OrderSummary
+      price={32}
+      productName='Growth hacking'
+      // payment={product.payment}
+      language={language}
+    />
+    <CompleteOrderBtn
+      // text={product.pagePreferences && product.pagePreferences.orderButtonText}
+      // color={color}
+      // onChange={onChange}
+      language={language}
+    />
+  </Fragment>
+);
 const getLanguageLabel = (
   languages = [],
   {
@@ -51,36 +82,30 @@ const Workspace = ({
   const activeLanguage = getLanguageLabel(translations);
 
 
+  const { sections = [] } = sampleProductData.sections;
+
+  const hasSections = sections.length;
+
+  const onSectionSettings = () => {
+
+  };
+
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
-        <FlexBox center='h-center'>
-          <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
-        </FlexBox>
-        <BillingDetails
-          // color={color}
-          language={activeLanguage}
-        />
-        <PaymentMethods
-          step={2}
-          // onOptionSelected={onOptionSelected}
-          methods={['Paypal', 'Stripe']}
-          // onShowSetting
-          // onFieldChange
-          language={activeLanguage}
-        />
-        <OrderSummary
-          price={32}
-          productName='Growth hacking'
-          // payment={product.payment}
-          language={activeLanguage}
-        />
-        <CompleteOrderBtn
-          // text={product.pagePreferences && product.pagePreferences.orderButtonText}
-          // color={color}
-          // onChange={onChange}
-          language={activeLanguage}
-        />
+
+        {!hasSections && (
+          <FlexBox center='h-center'>
+            <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
+          </FlexBox>
+        )}
+
+        {
+          sections.map((section) => (
+            <Section key={section.id} {...section} onSetting={onSectionSettings} />
+          ))
+        }
+        <CommonStaticPart language={activeLanguage} />
       </FlexBox>
     </FlexBox>
   );
