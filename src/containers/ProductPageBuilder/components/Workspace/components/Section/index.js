@@ -6,29 +6,45 @@ import clx from 'classnames';
 
 import './style.css';
 import {
-  SectionContent
+  SectionContent,
+  SettingsHandles
 } from './components';
 
 
 const Section = ({
+  id,
   className,
   hidden,
   type,
   content,
   style,
+  order,
+  maxOrder,
+  active,
+  onSetting,
+  onSectionOrderChange,
+  ...props
 }) => {
   if (hidden) return null;
 
 
   const classes = clx({
     'product-section': true,
+    active,
     [className]: className
   });
 
+
   return (
     <div className={classes} style={style}>
+      <SettingsHandles
+        onOrderChange={onSectionOrderChange}
+        onSettings={onSetting}
+        order={order}
+        id={id}
+        maxOrder={maxOrder}
+      />
       <SectionContent type={type} {...content} />
-
     </div>
   );
 };

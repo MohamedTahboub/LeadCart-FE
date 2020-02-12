@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
@@ -72,6 +72,9 @@ const Workspace = ({
   monitorSize = 'disktop',
   ...props
 }) => {
+  const [fields, setFields] = useState(sampleProductData);
+  const [activeSection, setActiveSection] = useState();
+
   const workspaceClasses = clx({
     'product-workspace': true,
     [className]: className,
@@ -82,26 +85,45 @@ const Workspace = ({
   const activeLanguage = getLanguageLabel(translations);
 
 
-  const { sections = [] } = sampleProductData;
+  // const { sections = [] } = fields;
 
-  const hasSections = sections.length;
-  const onSectionSettings = () => {
-
+  // const hasSections = sections.length;
+  const onSectionSettings = (id) => {
+    setActiveSection(id);
   };
 
-  const sortedSections = sections.sort((a, b) => a.order > b.order);
+  const onSectionOrderChange = (id, newOrder) => {
+    setFields({
+      ...fields,
+      sections: fields.sections.map((section) => {
+        // console.log('section.id === id', section.id === id);
+        if (section.id === id) return { ...section, order: newOrder };
+        return section;
+      })
+    });
+  };
 
+  const sortedSections = fields.sections.sort((a, b) => (a.order > b.order ? 1 : -1));
+
+  const maxSectionOrder = Math.max(...fields.sections.map(({ order }) => order));
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
-        {!hasSections && (
+        {!fields.sections.length && (
           <FlexBox center='h-center'>
             <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
           </FlexBox>
         )}
         {
           sortedSections.map((section) => (
-            <Section key={section.id} {...section} onSetting={onSectionSettings} />
+            <Section
+              key={`${section.id}_${section.order}`}
+              {...section}
+              onSetting={onSectionSettings}
+              onSectionOrderChange={onSectionOrderChange}
+              maxOrder={maxSectionOrder}
+              active={activeSection === section.id}
+            />
           ))
         }
         <CommonStaticPart language={activeLanguage} />
