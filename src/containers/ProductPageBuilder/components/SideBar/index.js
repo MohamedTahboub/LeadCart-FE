@@ -20,25 +20,25 @@ const SideBar = (props) => (
         <FlexBox wrappable overflow='y' className='max-height-75vh'>
           <BaseCard
             draggable
-            name='Text'
+            type='text'
             className='text-bg element-card'
-            data-tip='Add Text Element'
+            data-tip='Add text Element'
           />
           <BaseCard
             draggable
-            name='Text'
+            type='image'
             className='image-bg element-card'
             data-tip='Add Image Element'
           />
           <BaseCard
             draggable
-            name='Text'
+            type='video'
             className='video-bg element-card'
             data-tip='Add Video Element'
           />
           <BaseCard
             draggable
-            name='Text'
+            type='layout'
             className='layout-bg element-card'
             data-tip='Add Layout Section'
           />
@@ -53,32 +53,32 @@ const SideBar = (props) => (
         >
           <BaseCard
             draggable
-            name='Text'
+            type='bumpOffer'
             className='bump-offer-bg section-card'
             data-tip='Bump Offer Section'
           />
           <BaseCard
             draggable
-            name='Text'
+            type='shippingDetails'
             className='shipping-bg section-card'
             data-tip='Shipping Form'
           />
           <BaseCard
             draggable
-            name='Text'
+            type='couponSection'
             className='coupons-bg section-card'
             data-tip='Coupon Section'
           />
           <BaseCard
             draggable
-            name='Text'
+            type='testimonialsSection'
             className='testimonials-bg section-card'
             data-tip='Testimonial Section'
           />
 
           <BaseCard
             draggable
-            name='Text'
+            type='featuresSection'
             className='features-bg section-card'
             data-tip='Features List Section'
           />
@@ -94,27 +94,27 @@ const SideBar = (props) => (
         >
           <BaseCard
             draggable
-            name='Text'
+            type='guaranteeWidget'
             className='guarantee-badge-bg widget-card'
             data-tip='Guarantee Widget'
           />
 
           <BaseCard
             draggable
-            name='Text'
+            type='countDownWidget'
             className='countdown-bg widget-card'
             data-tip='CountDown Timer'
           />
 
           <BaseCard
             draggable
-            name='Text'
+            type='progressbarWidget'
             className='progressbar-bg widget-card'
             data-tip='Progress Bar'
           />
           <BaseCard
             draggable
-            name='Text'
+            type='bookmarkWidget'
             className='bookmark-badge-bg widget-card'
             data-tip='Page Badge '
           />

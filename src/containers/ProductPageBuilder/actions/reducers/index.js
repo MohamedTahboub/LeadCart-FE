@@ -22,6 +22,14 @@ export default (state = initialState, { type, payload }) => {
       }
     };
 
+  case types.ADD_NEW_SECTION:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        sections: [...state.product.sections, payload]
+      }
+    };
   default: return state;
   }
 };

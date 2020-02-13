@@ -11,9 +11,16 @@ const ElementCard = ({
     'base-element-card': true,
     [className]: className
   });
+  const onDragStart = (e) => {
+    e.dataTransfer.setData('section-item', props.type);
+  };
 
   return (
-    <div className={classNames} {...props} />
+    <div
+      className={classNames}
+      {...props}
+      onDragStart={onDragStart}
+    />
   );
 };
 

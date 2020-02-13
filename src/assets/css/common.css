@@ -185,6 +185,9 @@
 .lightgray-border-top{
   border-top:.8px solid rgba(238, 238, 238, 0.726);
 }
+.lightgray-border-bottom{
+  border-bottom:.8px solid rgba(238, 238, 238, 0.726);
+}
 .btn.icon-btn{
   padding: .5rem .6rem;
 }

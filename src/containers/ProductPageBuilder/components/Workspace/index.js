@@ -16,6 +16,7 @@ import {
   OrderSummary,
   PaymentMethods,
   Section,
+  DropZone
 } from './components';
 
 const {
@@ -79,12 +80,14 @@ const Workspace = ({
       modals: {
         sectionSettings: activeSection
       } = {},
-      product = {}
+      product: {
+        sections = [],
+        maxSectionsOrder
+      } = {}
     },
     actions
   } = useContext();
 
-  const [fields, setFields] = useState(sampleProductData);
 
   const workspaceClasses = clx({
     'product-workspace': true,
@@ -96,45 +99,42 @@ const Workspace = ({
   const activeLanguage = getLanguageLabel(translations);
 
 
-  // const { sections = [] } = fields;
-
-  // const hasSections = sections.length;
   const onSectionSettings = (id) => {
     actions.toggleSectionSettingModal(id);
   };
 
   const onSectionOrderChange = (id, newOrder) => {
-    const newSections = product.sections.map((section) => {
+    const newSections = sections.map((section) => {
       // console.log('section.id === id', section.id === id);
       if (section.id === id) return { ...section, order: newOrder };
       return section;
-    });
+    }).sort((a, b) => (a.order > b.order ? 1 : -1));
     actions.onProductFieldChange({ sections: newSections });
   };
 
-  const sortedSections = product.sections.sort((a, b) => (a.order > b.order ? 1 : -1));
 
-  const maxSectionOrder = Math.max(...product.sections.map(({ order }) => order));
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
-        {!product.sections.length && (
-          <FlexBox center='h-center'>
-            <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
-          </FlexBox>
-        )}
-        {
-          sortedSections.map((section, index) => (
-            <Section
-              key={`${section.id}_${index}`}
-              {...section}
-              onSetting={onSectionSettings}
-              onSectionOrderChange={onSectionOrderChange}
-              maxOrder={maxSectionOrder}
-              active={activeSection === section.id}
-            />
-          ))
-        }
+        <DropZone>
+          {!sections.length && (
+            <FlexBox center='h-center'>
+              <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
+            </FlexBox>
+          )}
+          {
+            sections.map((section, index) => (
+              <Section
+                key={`${section.id}_${index}`}
+                {...section}
+                onSetting={onSectionSettings}
+                onSectionOrderChange={onSectionOrderChange}
+                maxOrder={maxSectionsOrder}
+                active={activeSection === section.id}
+              />
+            ))
+          }
+        </DropZone>
         <CommonStaticPart language={activeLanguage} />
       </FlexBox>
     </FlexBox>

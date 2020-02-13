@@ -8,7 +8,6 @@ export default {
         value: 'Last Content',
         children: [],
       },
-      children: [],
       style: {},
       order: 3
     },

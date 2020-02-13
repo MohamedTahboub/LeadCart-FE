@@ -1,5 +1,6 @@
+import sectionsTemplates from 'data/productSectionsTemplates';
+import ids from 'shortid';
 import * as types from './actionsTypes';
-
 
 export const onProductFieldChange = ({ state = {}, dispatch }) => (payload) => {
   dispatch({
@@ -34,5 +35,19 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (sectionId) =>
   dispatch({
     type: types.TOGGLE_SECTION_SETTINGS_SIDEBAR,
     payload: toggledSection
+  });
+};
+
+
+export const addNewSection = ({ state, dispatch }) => (sectionType) => {
+  const section = sectionsTemplates[sectionType];
+
+  section.id = ids.generate();
+  section.order = state.product.sections.length;
+
+  console.log(section);
+  dispatch({
+    type: types.ADD_NEW_SECTION,
+    payload: section
   });
 };
