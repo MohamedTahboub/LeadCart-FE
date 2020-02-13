@@ -54,7 +54,6 @@ const Dashboard = ({
     //   if (window.userpilot) window.userpilot.reload();
     // });
 
-    console.log('Settings', settings)
   }, [activities, settings]);
 
   const onChange = ({ target: { name, value } }) => {

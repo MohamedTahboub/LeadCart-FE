@@ -1,0 +1,77 @@
+.product-section{
+    margin: 10px 0;
+    padding: 5px;
+    border: 1.5px dashed transparent;
+    position: relative;
+    overflow: unset;
+}
+.product-section:hover{
+    border: 1.5px dashed lightgray;
+    border-radius: 4px;
+}
+.product-section.active:hover,
+.product-section.active{
+    border: 1.5px dashed #4DA1FF;
+    border-radius: 4px;
+}
+
+/* Settings handle Style */
+.product-section-settings-handle{
+    opacity: 0;
+    position: absolute;
+    right: -1.5px;
+    top: -1.5px;
+    display: flex;
+}
+.product-section:hover .product-section-settings-handle{
+    opacity: 1;
+}
+.product-section-settings-handle .item-handle{
+    color: #000;
+    width: 25px;
+    font-size: 14px;
+    padding: 2px 0;
+    display: flex;
+    justify-content: center;
+    background: lightgray;
+    cursor: pointer;
+}
+
+.item-handle:first-child{
+    border-bottom-left-radius: 4px;
+    padding-left: 4px;
+}
+
+.item-handle:last-child{
+    border-top-right-radius: 4px;
+    padding-right: 4px;
+}
+.product-section-settings-handle .item-handle:hover{
+    color: lightgray;
+    background: #000;
+}
+
+
+
+
+/* Image Section Styles */
+.image-section{
+    min-height: 100px;
+    width: 100%;
+}
+
+
+/* Layout Section Styles */
+.layout-section{
+    min-height: 120px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.layout-section .item{
+    flex: 1;
+    border: .8px solid lightgray;
+    border-radius: 3px;
+    margin: 3px;
+}

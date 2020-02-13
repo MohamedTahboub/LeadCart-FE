@@ -1,5 +1,5 @@
 import React from 'react';
-import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 // import ImageUploader from 'quill-image-uploader';
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ import { formats, modules } from './config';
 
 const Editor = ({
   value: htmlValue,
+  theme = 'bubble',
   onEdit,
   // uploadFile
 }) =>
@@ -42,8 +43,8 @@ const Editor = ({
 // modules.imageUploader.upload = onUploadImage;
 
   (
-     <ReactQuill
-      theme='bubble'
+    <ReactQuill
+      theme={theme}
       scrollingContainer='body'
       onChange={onEdit}
       value={htmlValue}

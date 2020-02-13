@@ -52,7 +52,7 @@ const Header = ({ history, props }) => {
         </FlexBox>
       </FlexBox>
 
-      <FlexBox className='white-bg padding-v-5 lightgray-border-top' center='v-center' spaceBetween wrappable>
+      <FlexBox className='white-bg padding-v-5 lightgray-border-top lightgray-border-bottom' center='v-center' spaceBetween wrappable>
         <FlexBox center='v-center' className='min-width-250 ' />
         <FlexBox>
           <EditableField
