@@ -115,9 +115,9 @@ const Workspace = ({
           </FlexBox>
         )}
         {
-          sortedSections.map((section) => (
+          sortedSections.map((section, index) => (
             <Section
-              key={`${section.id}_${section.order}`}
+              key={`${section.id}_${index}`}
               {...section}
               onSetting={onSectionSettings}
               onSectionOrderChange={onSectionOrderChange}
