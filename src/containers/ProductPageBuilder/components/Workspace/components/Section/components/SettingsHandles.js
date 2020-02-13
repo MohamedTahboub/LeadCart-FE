@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IoMdSettings, IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import {
+  IoMdSettings,
+  IoIosArrowDown,
+  IoIosArrowUp,
+  IoIosMove
+} from 'react-icons/io';
 
 const SettingsHandles = ({
   id,
@@ -25,9 +30,10 @@ const SettingsHandles = ({
 
   return (
     <div className='product-section-settings-handle'>
+      <IoIosMove className='item-handle' />
       <IoIosArrowDown onClick={orderUp} className='item-handle' />
       <IoIosArrowUp onClick={orderDown} className='item-handle' />
-      <IoMdSettings onClick={onSettingsClick} className='item-handle' />
+      <IoMdSettings draggable onClick={onSettingsClick} className='item-handle' />
     </div>
   );
 };

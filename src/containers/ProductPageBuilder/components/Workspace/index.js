@@ -78,7 +78,7 @@ const Workspace = ({
   const {
     state: {
       modals: {
-        sectionSettings: activeSection
+        sectionSetting: activeSection
       } = {},
       product: {
         sections = [],
@@ -109,6 +109,7 @@ const Workspace = ({
       if (section.id === id) return { ...section, order: newOrder };
       return section;
     }).sort((a, b) => (a.order > b.order ? 1 : -1));
+
     actions.onProductFieldChange({ sections: newSections });
   };
 

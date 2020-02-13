@@ -42,6 +42,8 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (sectionId) =>
 export const addNewSection = ({ state, dispatch }) => (sectionType) => {
   const section = sectionsTemplates[sectionType];
 
+  if (!section) return;
+
   section.id = ids.generate();
   section.order = state.product.sections.length;
 
