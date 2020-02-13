@@ -5,7 +5,7 @@ import {
   reducers,
   connectActions,
   productActions,
-  store as ProductContext
+  ProductContext
 } from './actions';
 
 
@@ -27,7 +27,7 @@ const ProductBuilder = (props) => {
 
   const actions = connectActions(productActions, { state, dispatch });
   return (
-    <ProductContext value={{ state, actions }}>
+    <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
         <Header />
         <FlexBox id='blocks' flex className='relative-element'>
@@ -36,7 +36,7 @@ const ProductBuilder = (props) => {
           <ComponentSettingSideBar />
         </FlexBox>
       </Page>
-    </ProductContext>
+    </ProductContext.Provider>
   );
 };
 

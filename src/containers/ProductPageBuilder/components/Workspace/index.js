@@ -8,7 +8,7 @@ import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import sampleProductData from './sampleProductData.js';
-
+import { useContext } from '../../actions';
 
 import {
   BillingDetails,
@@ -53,6 +53,8 @@ const CommonStaticPart = ({ language }) => (
     />
   </Fragment>
 );
+
+
 const getLanguageLabel = (
   languages = [],
   {
@@ -72,8 +74,17 @@ const Workspace = ({
   monitorSize = 'disktop',
   ...props
 }) => {
+  const {
+    state: {
+      modals: {
+        sectionSettings: activeSection
+      } = {},
+      product = {}
+    },
+    actions
+  } = useContext();
+
   const [fields, setFields] = useState(sampleProductData);
-  const [activeSection, setActiveSection] = useState();
 
   const workspaceClasses = clx({
     'product-workspace': true,
@@ -89,27 +100,25 @@ const Workspace = ({
 
   // const hasSections = sections.length;
   const onSectionSettings = (id) => {
-    setActiveSection(id);
+    actions.toggleSectionSettingModal(id);
   };
 
   const onSectionOrderChange = (id, newOrder) => {
-    setFields({
-      ...fields,
-      sections: fields.sections.map((section) => {
-        // console.log('section.id === id', section.id === id);
-        if (section.id === id) return { ...section, order: newOrder };
-        return section;
-      })
+    const newSections = product.sections.map((section) => {
+      // console.log('section.id === id', section.id === id);
+      if (section.id === id) return { ...section, order: newOrder };
+      return section;
     });
+    actions.onProductFieldChange({ sections: newSections });
   };
 
-  const sortedSections = fields.sections.sort((a, b) => (a.order > b.order ? 1 : -1));
+  const sortedSections = product.sections.sort((a, b) => (a.order > b.order ? 1 : -1));
 
-  const maxSectionOrder = Math.max(...fields.sections.map(({ order }) => order));
+  const maxSectionOrder = Math.max(...product.sections.map(({ order }) => order));
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
-        {!fields.sections.length && (
+        {!product.sections.length && (
           <FlexBox center='h-center'>
             <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
           </FlexBox>
