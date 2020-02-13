@@ -23,7 +23,7 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'video',
     content: {
-      value: 'https://via.placeholder.com/200',
+      value: 'https://fast.wistia.com/embed/m6b92iiggl',
       children: [],
     },
     style: {},

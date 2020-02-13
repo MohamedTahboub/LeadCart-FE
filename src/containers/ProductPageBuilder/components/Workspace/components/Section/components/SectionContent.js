@@ -8,12 +8,12 @@ import {
   LayoutContent,
 } from '.';
 
-const SectionContent = ({ type, content }) => {
+const SectionContent = ({ type, ...props }) => {
   switch (type) {
-  case 'text': return <TextContent {...content} />;
-  case 'image': return <ImageContent {...content} />;
-  case 'video': return <VideoContent {...content} />;
-  case 'layout': return <LayoutContent {...content} />;
+  case 'text': return <TextContent {...props} />;
+  case 'image': return <ImageContent {...props} />;
+  case 'video': return <VideoContent {...props} />;
+  case 'layout': return <LayoutContent {...props} />;
   default: return null;
   }
 };

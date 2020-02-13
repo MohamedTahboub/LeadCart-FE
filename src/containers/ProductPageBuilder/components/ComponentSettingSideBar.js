@@ -28,7 +28,7 @@ const ComponentSettingSideBar = (props) => {
     >
       <FlexBox spaceBetween center='v-center' className='padding-h-10 padding-v-10'>
         <div className='title-text'>
-          Element Title
+          Section Properties
         </div>
         <IoIosClose
           className='gray-text larger-text item-clickable animate '

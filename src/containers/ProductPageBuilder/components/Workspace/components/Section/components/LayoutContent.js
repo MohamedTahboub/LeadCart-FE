@@ -1,11 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clx from 'classnames';
 
-const LayoutContent = (props) => (
-  <div>
-        Layout Content
-  </div>
-);
+const LayoutContent = ({
+  className,
+}) => {
+  const classNames = clx({
+    'layout-section': true,
+    [className]: className,
+  });
+
+  return (
+    <div className={classNames}>
+      <div className='item' />
+      <div className='item' />
+    </div>
+  );
+};
 
 LayoutContent.propTypes = {
 
