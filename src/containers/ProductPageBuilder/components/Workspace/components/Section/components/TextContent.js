@@ -10,6 +10,7 @@ const TextContent = (props) => (
     <QuillEditor
       value='Edit Text Here'
       theme='snow'
+
     />
   </div>
 );

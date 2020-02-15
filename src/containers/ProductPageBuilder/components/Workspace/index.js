@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
+import update from 'immutability-helper';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
@@ -78,11 +79,11 @@ const Workspace = ({
   const {
     state: {
       modals: {
-        sectionSetting: activeSection
+        sectionSetting: activeSection = {}
       } = {},
       product: {
         sections = [],
-        maxSectionsOrder
+        // maxSectionsOrder
       } = {}
     },
     actions
@@ -108,16 +109,45 @@ const Workspace = ({
       // console.log('section.id === id', section.id === id);
       if (section.id === id) return { ...section, order: newOrder };
       return section;
-    }).sort((a, b) => (a.order > b.order ? 1 : -1));
+    });
+    // .sort((a, b) => (a.order > b.order ? 1 : -1));
 
-    actions.onProductFieldChange({ sections: newSections });
+    actions.onProductFieldChange({
+      name: 'sections',
+      value: newSections
+    });
   };
 
+  const findCard = (id) => {
+    const section = sections.filter((c) => `${c.id}` === id)[0];
+    return {
+      section,
+      index: sections.indexOf(section),
+    };
+  };
+
+  const moveCard = (id, atIndex) => {
+    const { section, index } = findCard(id);
+    const newSections = update(sections, {
+      $splice: [
+        [index, 1],
+        [atIndex, 0, section],
+      ],
+    });
+    actions.onProductFieldChange({
+      name: 'sections',
+      value: newSections
+    });
+  };
+
+  const onSectionDropped = (section) => {
+    actions.addNewSection(section.sectionType);
+  };
 
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
-        <DropZone>
+        <DropZone onDrop={onSectionDropped}>
           {!sections.length && (
             <FlexBox center='h-center'>
               <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
@@ -127,11 +157,15 @@ const Workspace = ({
             sections.map((section, index) => (
               <Section
                 key={`${section.id}_${index}`}
+                id={`${section.id}`}
                 {...section}
+                section={section}
                 onSetting={onSectionSettings}
                 onSectionOrderChange={onSectionOrderChange}
-                maxOrder={maxSectionsOrder}
-                active={activeSection === section.id}
+                // maxOrder={maxSectionsOrder}
+                active={activeSection.id === section.id}
+                moveCard={moveCard}
+                findCard={findCard}
               />
             ))
           }
