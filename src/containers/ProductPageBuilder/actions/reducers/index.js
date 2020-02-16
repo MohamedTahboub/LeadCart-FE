@@ -11,6 +11,11 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+  case types.PRODUCT_FIELD_CHANGE:
+    return {
+      ...state,
+      product: payload
+    };
   case types.SECTION_SETTING:
     return state;
   case types.TOGGLE_SECTION_SETTINGS_SIDEBAR:

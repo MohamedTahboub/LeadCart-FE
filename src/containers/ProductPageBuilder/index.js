@@ -2,6 +2,9 @@ import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import sampleProductData from 'data/newProductSampleData';
+import { DndProvider } from 'react-dnd';
+import Backend from 'react-dnd-html5-backend';
+
 import {
   reducers,
   connectActions,
@@ -32,9 +35,11 @@ const ProductBuilder = (props) => {
       <Page fullSize className='flex-container flex-column'>
         <Header />
         <FlexBox id='blocks' flex className='relative-element'>
-          <SideBar />
-          <Workspace />
-          <ComponentSettingSideBar />
+          <DndProvider backend={Backend}>
+            <SideBar />
+            <Workspace />
+            <ComponentSettingSideBar />
+          </DndProvider>
         </FlexBox>
       </Page>
     </ProductContext.Provider>
