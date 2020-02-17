@@ -4,6 +4,8 @@ import common from 'components/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { AiOutlineMobile, AiOutlineHistory } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
+import { useContext } from '../../actions';
+
 
 const {
   Button,
@@ -26,8 +28,24 @@ const ResponsiveSizesOptions = () => {
 
 
 const Header = ({ history, props }) => {
+  const {
+    state: {
+      standAlone,
+      product: {
+        sections = [],
+        // maxSectionsOrder
+      } = {},
+      funnel: {
+        url: funnelUrl,
+        name: funnelName
+      } = {}
+    },
+    actions
+  } = useContext();
+
   const goToProducts = () => {
-    // history.push('/products')
+    if (standAlone) history.push('/products');
+    else history.push(`/funnels/${funnelUrl}`);
   };
 
   return (
@@ -41,10 +59,18 @@ const Header = ({ history, props }) => {
           >
             <IoIosArrowRoundBack />
           </Button>
-          <Title>Back To Products</Title>
+          <Title>{`Back To ${standAlone ? 'Products' : 'Funnel'}`}</Title>
         </FlexBox>
         <FlexBox center='h-center'>
-          <Title>Explored Through Funnel(X)</Title>
+          {
+            !standAlone && (
+              <Title>
+                Explored Through Funnel(
+                {funnelName}
+)
+              </Title>
+            )
+          }
         </FlexBox>
 
         <FlexBox center='v-center' flexEnd className='margin-right-20 min-width-250 '>
@@ -83,7 +109,7 @@ const Header = ({ history, props }) => {
             className='light-btn'
           >
             <i className='fas fa-save font-size-11' />
-            Save and Back to Funnel
+            {`Save ${standAlone ? '' : 'and Back to Funnel'}`}
           </Button>
         </FlexBox>
       </FlexBox>

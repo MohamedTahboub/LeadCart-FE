@@ -6,7 +6,8 @@ const initialState = {
   modals: {
     sectionSetting: false
   },
-  product: sampleProductData
+  product: sampleProductData,
+  standAlone: true,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -37,7 +38,10 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       product: {
         ...state.product,
-        sections: [...state.product.sections, payload]
+        sections: [
+          ...state.product.sections,
+          payload
+        ]
       }
     };
   default: return state;
