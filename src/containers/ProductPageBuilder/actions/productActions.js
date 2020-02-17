@@ -2,6 +2,14 @@ import sectionsTemplates from 'data/productSectionsTemplates';
 import ids from 'shortid';
 import * as types from './actionsTypes';
 
+
+export const updateState = ({ state = {}, dispatch }) => (subState) => {
+  dispatch({
+    type: types.UPDATE_STATE,
+    payload: subState
+  });
+};
+
 export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
   dispatch({
     type: types.PRODUCT_FIELD_CHANGE,
@@ -11,6 +19,7 @@ export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
     }
   });
 };
+
 export const onSectionSetting = ({ state = {}, dispatch }) => (section) => {
   dispatch({
     type: types.SECTION_SETTING,
@@ -49,3 +58,4 @@ export const addNewSection = ({ state, dispatch }) => (sectionType) => {
     payload: section
   });
 };
+

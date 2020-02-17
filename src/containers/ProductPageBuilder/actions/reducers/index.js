@@ -11,6 +11,11 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+  case types.UPDATE_STATE:
+    return {
+      ...state,
+      ...payload
+    };
   case types.PRODUCT_FIELD_CHANGE:
     return {
       ...state,
