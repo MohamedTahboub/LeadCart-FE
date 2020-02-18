@@ -59,3 +59,10 @@ export const addNewSection = ({ state, dispatch }) => (sectionType) => {
   });
 };
 
+
+export const updateDisplayMode = ({ state = {}, dispatch }) => (mode) => {
+  dispatch({
+    type: types.UPDATE_DISPLAY_MODE,
+    payload: mode
+  });
+};

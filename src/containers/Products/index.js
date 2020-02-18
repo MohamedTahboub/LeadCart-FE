@@ -41,7 +41,7 @@ const Products = ({
   const [filterKeys, setFilterKeys] = useState({ categories: ['checkout', 'upsell'] });
 
   const onProductEdit = ({ category = '', _id }) => {
-    props.history.push(`/${category.toLowerCase()}/${_id}`);
+    props.history.push(`/products/${_id}`);
   };
 
   useEffect(() => {

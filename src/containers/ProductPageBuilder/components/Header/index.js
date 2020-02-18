@@ -14,14 +14,26 @@ const {
   EditableField
 } = common;
 
-const ResponsiveSizesOptions = () => {
+const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
   const commonClasses = 'margin-h-5 large-text gray-text animate item-clickable';
+
+
+  const isActive = (mode) => `${mode === activeDisplay ? 'active' : ''}`;
 
   return (
     <FlexBox>
-      <MdDesktopWindows className={`${commonClasses} active`} />
-      <MdTabletMac className={commonClasses} />
-      <AiOutlineMobile className={commonClasses} />
+      <MdDesktopWindows
+        className={`${commonClasses} ${isActive('desktop')}`}
+        onClick={onChange('desktop')}
+      />
+      <MdTabletMac
+        onClick={onChange('tablet')}
+        className={`${commonClasses} ${isActive('tablet')}`}
+      />
+      <AiOutlineMobile
+        onClick={onChange('mobile')}
+        className={`${commonClasses} ${isActive('mobile')}`}
+      />
     </FlexBox>
   );
 };
@@ -30,8 +42,10 @@ const ResponsiveSizesOptions = () => {
 const Header = ({ history, props }) => {
   const {
     state: {
+      displayMode,
       standAlone,
       product: {
+        name: productName,
         sections = [],
         // maxSectionsOrder
       } = {},
@@ -48,6 +62,9 @@ const Header = ({ history, props }) => {
     else history.push(`/funnels/${funnelUrl}`);
   };
 
+  const onDisplayModeChange = (displayMode) => () => {
+    actions.updateDisplayMode(displayMode);
+  };
   return (
     <FlexBox column>
 
@@ -67,14 +84,17 @@ const Header = ({ history, props }) => {
               <Title>
                 Explored Through Funnel(
                 {funnelName}
-)
+                )
               </Title>
             )
           }
         </FlexBox>
 
         <FlexBox center='v-center' flexEnd className='margin-right-20 min-width-250 '>
-          <ResponsiveSizesOptions />
+          <ResponsiveSizesOptions
+            onChange={onDisplayModeChange}
+            activeDisplay={displayMode}
+          />
         </FlexBox>
       </FlexBox>
 
@@ -86,7 +106,7 @@ const Header = ({ history, props }) => {
             name='name'
             defaultValue='Product Name'
             // onChange={onNameChange}
-            // value={funnel.name}
+            value={productName}
             max={50}
           />
         </FlexBox>

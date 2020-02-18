@@ -11,6 +11,7 @@ const initialState = {
 };
 
 export default (state = initialState, { type, payload }) => {
+  console.log(type, payload);
   switch (type) {
   case types.UPDATE_STATE:
     return {
@@ -43,6 +44,12 @@ export default (state = initialState, { type, payload }) => {
           payload
         ]
       }
+    };
+
+  case types.UPDATE_DISPLAY_MODE:
+    return {
+      ...state,
+      displayMode: payload
     };
   default: return state;
   }

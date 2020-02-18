@@ -34,7 +34,7 @@ const ProductBuilder = ({
   productsMap,
   ...props
 }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
@@ -45,11 +45,22 @@ const ProductBuilder = ({
   useEffect(() => {
     const { params: { productId, funnelId } = {} } = props.match;
 
+    if (!funnelId && productId) {
+      const product = productsMap[productId];
+      if (product) {
+        actions.updateState({
+          standAlone: true,
+          product,
+          // funnel: isFunnelExist
+        });
+        return toggleLoading();
+      }
+    }
     const isFunnelExist = funnelsMap[funnelId];
     if (isFunnelExist && productId === 'new') {
       console.log('creating new Funnel Product', funnelId);
 
-      toggleLoading();
+      return toggleLoading();
     }
 
     // return props.createNewProduct({
@@ -69,11 +80,12 @@ const ProductBuilder = ({
           funnel: isFunnelExist
         });
       }
-      toggleLoading();
+      return toggleLoading();
     }
   }, [funnelsMap, productsMap]);
 
   if (loading) return <ProductBuilderSkelton />;
+
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
