@@ -75,7 +75,7 @@ const Section = ({
   const classes = clx({
     'product-section': true,
     'isDragging': isDragging,
-    // 'active': !isDragging,
+    'active': active,
     [className]: className
   });
 
@@ -91,6 +91,7 @@ const Section = ({
       <SettingsHandles
         onOrderChange={onSectionOrderChange}
         onSettings={onSetting}
+        section={section}
         order={order}
         id={id}
         maxOrder={maxOrder}

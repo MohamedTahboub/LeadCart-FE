@@ -1,8 +1,7 @@
+.product-workspace-container {}
 
-.product-workspace-container{
-}
-.product-workspace{
-    width: 750px; 
+.product-workspace {
+    width: 750px;
     padding-bottom: 100px;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -11,10 +10,20 @@
     max-height: 87vh;
     overflow-y: auto;
 }
+
 .drop-area-image {
     width: 81%;
     height: 120px;
     object-fit: contain;
     margin: 20px;
     filter: grayscale(1);
+}
+
+.product-workspace.tablet {
+    width: 500px;
+    /* min-height: 667px; */
+}
+.product-workspace.mobile {
+    width: 375px;
+    min-height: 667px;
 }

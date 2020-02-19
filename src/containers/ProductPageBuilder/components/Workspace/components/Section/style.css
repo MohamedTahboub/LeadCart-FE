@@ -4,6 +4,7 @@
     border: 1.5px dashed transparent;
     position: relative;
     overflow: unset;
+    transform: translateY(0);
 }
 .product-section:hover{
     border: 1.5px dashed lightgray;
@@ -74,4 +75,10 @@
     border: .8px solid lightgray;
     border-radius: 3px;
     margin: 3px;
+}
+
+.video-section{
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
 }

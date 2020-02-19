@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import clx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
+
+import DraggingPreview from '../../DraggingPreview';
 
 const ItemTypes = {
   CARD: 'card',
@@ -17,7 +19,7 @@ const ElementCard = ({
 }) => {
   // const originalIndex = findCard(id).index;
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, previewConnect] = useDrag({
     item: { type: 'card', sectionType: type },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -37,12 +39,15 @@ const ElementCard = ({
 
 
   return (
-    <div
-      className={classNames}
-      {...props}
-      ref={(node) => drag(node)}
-    // onDragStart={onDragStart}
-    />
+    <Fragment>
+      <DraggingPreview type={type} connect={previewConnect} />
+      <div
+        className={classNames}
+        {...props}
+        ref={(node) => drag(node)}
+        // onDragStart={onDragStart}
+      />
+    </Fragment>
   );
 };
 

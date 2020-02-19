@@ -21,7 +21,7 @@ import {
   Header,
   SideBar,
   Workspace,
-  ComponentSettingSideBar
+  SettingSideBar
 } from './components';
 
 const {
@@ -34,7 +34,7 @@ const ProductBuilder = ({
   productsMap,
   ...props
 }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
@@ -53,14 +53,14 @@ const ProductBuilder = ({
           product,
           // funnel: isFunnelExist
         });
-        return toggleLoading();
+        return setLoading(false);
       }
     }
     const isFunnelExist = funnelsMap[funnelId];
     if (isFunnelExist && productId === 'new') {
       console.log('creating new Funnel Product', funnelId);
 
-      return toggleLoading();
+      return setLoading(false);
     }
 
     // return props.createNewProduct({
@@ -80,7 +80,7 @@ const ProductBuilder = ({
           funnel: isFunnelExist
         });
       }
-      return toggleLoading();
+      return setLoading(false);
     }
   }, [funnelsMap, productsMap]);
 
@@ -94,7 +94,7 @@ const ProductBuilder = ({
           <DndProvider backend={Backend}>
             <SideBar />
             <Workspace />
-            <ComponentSettingSideBar />
+            <SettingSideBar />
           </DndProvider>
         </FlexBox>
       </Page>

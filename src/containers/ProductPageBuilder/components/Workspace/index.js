@@ -73,11 +73,11 @@ const getLanguageLabel = (
 const Workspace = ({
   className,
   translations,
-  monitorSize = 'disktop',
   ...props
 }) => {
   const {
     state: {
+      displayMode,
       modals: {
         sectionSetting: activeSection = {}
       } = {},
@@ -93,15 +93,15 @@ const Workspace = ({
   const workspaceClasses = clx({
     'product-workspace': true,
     [className]: className,
-    [monitorSize]: monitorSize,
+    [displayMode]: displayMode,
 
   });
 
   const activeLanguage = getLanguageLabel(translations);
 
 
-  const onSectionSettings = (id) => {
-    actions.toggleSectionSettingModal(id);
+  const onSectionSettings = (section) => {
+    actions.toggleSectionSettingModal(section);
   };
 
   const onSectionOrderChange = (id, newOrder) => {

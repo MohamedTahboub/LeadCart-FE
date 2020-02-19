@@ -4,8 +4,8 @@ import common from 'components/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { AiOutlineMobile, AiOutlineHistory } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
+import ReactToolTip from 'react-tooltip';
 import { useContext } from '../../actions';
-
 
 const {
   Button,
@@ -25,14 +25,17 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
       <MdDesktopWindows
         className={`${commonClasses} ${isActive('desktop')}`}
         onClick={onChange('desktop')}
+        data-tip='Preview on Desktop Mode'
       />
       <MdTabletMac
         onClick={onChange('tablet')}
         className={`${commonClasses} ${isActive('tablet')}`}
+        data-tip='Preview on Tablet Size Mode'
       />
       <AiOutlineMobile
         onClick={onChange('mobile')}
         className={`${commonClasses} ${isActive('mobile')}`}
+        data-tip='Preview on Mobile Mode'
       />
     </FlexBox>
   );
@@ -82,7 +85,7 @@ const Header = ({ history, props }) => {
           {
             !standAlone && (
               <Title>
-                Explored Through Funnel(
+                Funnel(
                 {funnelName}
                 )
               </Title>
@@ -114,12 +117,14 @@ const Header = ({ history, props }) => {
         <FlexBox center='v-center' className='min-width-250 padding-right-20' flexEnd>
           <Button
             // onClick={onSave}
+            data-tip='Undo'
             className='light-btn'
           >
             <AiOutlineHistory className='mirror' />
           </Button>
           <Button
             // onClick={onSave}
+            data-tip='ReDo'
             className='light-btn margin-h-5'
           >
             <AiOutlineHistory />
@@ -133,7 +138,7 @@ const Header = ({ history, props }) => {
           </Button>
         </FlexBox>
       </FlexBox>
-
+      <ReactToolTip delayShow={400} />
     </FlexBox>
   );
 };

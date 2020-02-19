@@ -39,9 +39,9 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       product: {
         ...state.product,
-        sections: [
-          ...state.product.sections,
-          payload
+        sections: !state.product.sections ? [payload] : [
+          payload,
+          ...state.product.sections
         ]
       }
     };

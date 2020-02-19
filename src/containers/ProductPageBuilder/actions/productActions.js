@@ -28,19 +28,26 @@ export const onSectionSetting = ({ state = {}, dispatch }) => (section) => {
 };
 
 
-export const toggleSectionSettingModal = ({ state, dispatch }) => (sectionId) => {
-  const { modals: { sectionSetting: currentSectionId } = {} } = state;
+export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
+  const { modals: { sectionSetting } = {} } = state;
 
+  let open = !!sectionSetting;
+
+
+  if (!section) open = !sectionSetting;
+
+  if ((sectionSetting && sectionSetting.id) === (section && section.id)) open = false;
+  else open = section;
   // eslint-disable-next-line
-  const toggledSection = currentSectionId
-    ? currentSectionId === sectionId
-      ? undefined
-      : sectionId
-    : sectionId;
+  // const toggledSection = sectionSetting.id
+  //   ? sectionSetting.id === section.id
+  //     ? undefined
+  //     : section
+  //   : section;
 
   dispatch({
     type: types.TOGGLE_SECTION_SETTINGS_SIDEBAR,
-    payload: toggledSection
+    payload: open
   });
 };
 
@@ -51,7 +58,8 @@ export const addNewSection = ({ state, dispatch }) => (sectionType) => {
   if (!section) return;
 
   section.id = ids.generate();
-  section.order = state.product.sections.length;
+  if (!state.product.sections) section.order = 0;
+  else section.order = state.product.sections.length;
 
   dispatch({
     type: types.ADD_NEW_SECTION,

@@ -12,6 +12,7 @@ const SettingsHandles = ({
   order,
   maxOrder,
   onOrderChange,
+  section,
   onSettings
 }) => {
   const orderDown = () => {
@@ -25,7 +26,7 @@ const SettingsHandles = ({
   };
 
   const onSettingsClick = () => {
-    onSettings(id);
+    onSettings(section);
   };
 
   return (
