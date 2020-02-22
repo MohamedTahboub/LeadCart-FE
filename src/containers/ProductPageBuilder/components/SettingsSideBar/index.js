@@ -30,7 +30,7 @@ const SettingSideBar = (props) => {
       withCloseBtn={false}
     >
       <FlexBox spaceBetween center='v-center' className='padding-h-10 padding-v-10'>
-        <div className='title-text uppercase-text'>
+        <div className='title-text capitalized-text'>
                     Section Properties
         </div>
         <IoIosClose

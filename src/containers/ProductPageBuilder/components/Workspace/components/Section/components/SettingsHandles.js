@@ -6,6 +6,9 @@ import {
   IoIosArrowUp,
   IoIosMove
 } from 'react-icons/io';
+import {
+  FiTrash2
+} from 'react-icons/fi';
 
 const SettingsHandles = ({
   id,
@@ -31,9 +34,7 @@ const SettingsHandles = ({
 
   return (
     <div className='product-section-settings-handle'>
-      <IoIosMove className='item-handle' />
-      <IoIosArrowDown onClick={orderUp} className='item-handle' />
-      <IoIosArrowUp onClick={orderDown} className='item-handle' />
+      <FiTrash2 className='item-handle danger-color' />
       <IoMdSettings draggable onClick={onSettingsClick} className='item-handle' />
     </div>
   );
