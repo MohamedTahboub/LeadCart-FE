@@ -80,6 +80,14 @@ export default (state = initialState, { type, payload }) => {
 
       }
     };
+  case types.DELETE_PRODUCT_SECTION:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        sections: state.product.sections.filter((sec) => sec.id !== payload)
+      }
+    };
   default: return state;
   }
 };

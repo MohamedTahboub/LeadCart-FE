@@ -98,6 +98,7 @@ const Section = ({
       />
       <SectionContent
         type={type}
+        section={section}
         {...content}
       />
     </div>

@@ -4,18 +4,18 @@ import common from 'components/common';
 import { useContext } from '../../../actions';
 
 const {
-  SideMenu,
+  // SideMenu,
   Tabs,
-  EditableField,
+  // EditableField,
   InputRow,
-  MiniTwitterPicker,
+  // MiniTwitterPicker,
   FlexBox,
   Tab,
 } = common;
 
-const { TextField, SelectOption, AddImage } = InputRow;
+const { TextField } = InputRow;
 
-const Image = (props) => {
+const Video = (props) => {
   const {
     state: {
       modals: {
@@ -38,30 +38,20 @@ const Image = (props) => {
     });
   };
 
-  const onImageChange = (image) => {
-    actions.onSectionSettingChange({
-      section: sectionSetting,
-      field: {
-        name: 'content.value',
-        value: image
-      }
-    });
-  };
 
   return (
     <div>
       <Tabs active='styles' className='padding-v-10 padding-h-10'>
         <Tab id='styles' title='styles'>
-          <div className='large-text border-left-text'>Image</div>
+          <div className='large-text border-left-text'>Video</div>
           <div className='padding-left-20'>
-            <FlexBox center='v-center' spaceBetween>
-              <span className='gray-text'>Upload Image</span>
-              <AddImage
+            <FlexBox column center='v-center' spaceBetween>
+              <span className='gray-text'>Video URL</span>
+              <TextField
+                name='content.value'
                 value={content.value}
-                subLabel='Logo'
-                source='product_image'
-                name='logo'
-                onUploaded={onImageChange}
+                onChange={onChange}
+                className='width-70'
               />
             </FlexBox>
           </div>
@@ -123,4 +113,4 @@ Text.propTypes = {
 
 };
 
-export default Image;
+export default Video;

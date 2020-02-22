@@ -52,7 +52,7 @@ const Text = (props) => {
               />
             </FlexBox>
             <FlexBox column center='v-center' flexStart>
-              <span className='gray-text'>Font Family Color</span>
+              <span className='gray-text'>Font Family</span>
               <SelectOption
                 name='styles.fontFamily'
                 value={styles.fontFamily}
@@ -90,8 +90,8 @@ const Text = (props) => {
             <FlexBox center='v-center' spaceBetween>
               <span className='gray-text'>Text Color</span>
               <MiniTwitterPicker
-                name='styles.textColor'
-                value={styles.textColor}
+                name='styles.color'
+                value={styles.color}
                 onChange={onChange}
               />
             </FlexBox>

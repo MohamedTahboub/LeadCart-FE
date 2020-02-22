@@ -17,7 +17,7 @@ const getActiveContent = (children, active) => {
 const getTabsTitles = (children, activeTab) => (
   Array.isArray(children)
     ? children.map(({ props = {} }) => ({ ...props, active: props.id === activeTab }))
-    : (children ? children.props : null)
+    : [(children ? children.props : null)]
 );
 
 export const Tabs = ({ children, className, ...props }) => {

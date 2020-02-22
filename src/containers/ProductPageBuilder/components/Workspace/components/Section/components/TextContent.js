@@ -5,13 +5,12 @@ import { useContext } from '../../../../../actions';
 // value={pagePreferences.description}
 // onEdit={onEdit}
 
-const TextContent = ({ value, section, ...props }) => {
-  const {
-    product: {
-      sections: []
-    } = {},
-    actions
-  } = useContext();
+const TextContent = ({
+  value,
+  section = { styles: {} },
+  ...props
+}) => {
+  const { actions } = useContext();
   // const
 
   const onChange = (value) => {
@@ -25,8 +24,15 @@ const TextContent = ({ value, section, ...props }) => {
     actions.updateProductSection(updatedSection);
   };
 
+  if (!section.styles) section.styles = {};
+  const style = {
+    ...section.styles,
+    paddingTop: `${section.styles.paddingTop}px`,
+    paddingBottom: `${section.styles.paddingBottom}px`,
+    fontSize: `${section.styles.fontSize}px`
+  };
   return (
-    <div {...props}>
+    <div {...props} style={style}>
       <QuillEditor
         value={value}
         onEdit={onChange}

@@ -9,6 +9,7 @@ import {
 import {
   FiTrash2
 } from 'react-icons/fi';
+import { useContext } from '../../../../../actions';
 
 const SettingsHandles = ({
   id,
@@ -18,6 +19,8 @@ const SettingsHandles = ({
   section,
   onSettings
 }) => {
+  const { actions } = useContext();
+
   const orderDown = () => {
     const newOrder = (order - 1) <= 0 ? 0 : (order - 1);
     onOrderChange(id, newOrder);
@@ -32,9 +35,12 @@ const SettingsHandles = ({
     onSettings(section);
   };
 
+  const onDelete = () => {
+    actions.onSectionDelete(id);
+  };
   return (
     <div className='product-section-settings-handle'>
-      <FiTrash2 className='item-handle delete-handle' />
+      <FiTrash2 onClick={onDelete} className='item-handle delete-handle' />
       <IoMdSettings draggable onClick={onSettingsClick} className='item-handle' />
     </div>
   );

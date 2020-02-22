@@ -47,13 +47,16 @@ const ProductBuilder = ({
 
     if (!funnelId && productId) {
       const product = productsMap[productId];
-      if (product) {
-        actions.updateState({
-          standAlone: true,
-          product,
+
+      if (state.product._id !== productId) {
+        if (product) {
+          actions.updateState({
+            standAlone: true,
+            product,
           // funnel: isFunnelExist
-        });
-        return setLoading(false);
+          });
+          return setLoading(false);
+        }
       }
     }
     const isFunnelExist = funnelsMap[funnelId];

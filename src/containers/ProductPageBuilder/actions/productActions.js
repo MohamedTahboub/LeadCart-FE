@@ -26,6 +26,12 @@ export const onSectionSetting = ({ state = {}, dispatch }) => (section) => {
     payload: section
   });
 };
+export const onSectionDelete = ({ state = {}, dispatch }) => (sectionId) => {
+  dispatch({
+    type: types.DELETE_PRODUCT_SECTION,
+    payload: sectionId
+  });
+};
 
 
 export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
@@ -60,6 +66,7 @@ export const addNewSection = ({ state, dispatch }) => (sectionType) => {
   section.id = ids.generate();
   if (!state.product.sections) section.order = 0;
   else section.order = state.product.sections.length;
+
 
   dispatch({
     type: types.ADD_NEW_SECTION,
