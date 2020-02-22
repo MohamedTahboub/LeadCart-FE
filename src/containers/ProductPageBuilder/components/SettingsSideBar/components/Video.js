@@ -45,21 +45,21 @@ const Video = (props) => {
         <Tab id='styles' title='styles'>
           <div className='large-text border-left-text'>Video</div>
           <div className='padding-left-20'>
-            <FlexBox column center='v-center' spaceBetween>
+            <FlexBox column center='v-center' flexStart>
               <span className='gray-text'>Video URL</span>
               <TextField
                 name='content.value'
                 value={content.value}
                 onChange={onChange}
-                className='width-70'
+                // className='width-70'
               />
             </FlexBox>
           </div>
 
           <div className='large-text border-left-text margin-top-20'>Size</div>
           <div className='padding-left-20'>
-            <FlexBox center='v-center ' spaceBetween>
-              <span className='gray-text'>Image Height:</span>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Video Height:</span>
               <TextField
                 name='styles.height'
                 type='number'
@@ -68,8 +68,8 @@ const Video = (props) => {
                 className='width-70'
               />
             </FlexBox>
-            <FlexBox center='v-center' spaceBetween>
-              <span className='gray-text'>Image Width:</span>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Video Width:</span>
               <TextField
                 type='number'
                 name='styles.width'
@@ -82,7 +82,7 @@ const Video = (props) => {
 
           <div className='large-text border-left-text margin-top-20'>Paddings</div>
           <div className='padding-left-20'>
-            <FlexBox center='v-center ' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding Top:</span>
               <TextField
                 name='styles.paddingTop'
@@ -92,7 +92,7 @@ const Video = (props) => {
                 className='width-70'
               />
             </FlexBox>
-            <FlexBox center='v-center' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding bottom:</span>
               <TextField
                 type='number'

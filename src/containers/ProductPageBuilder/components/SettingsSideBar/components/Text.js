@@ -79,7 +79,7 @@ const Text = (props) => {
 
           <div className='large-text border-left-text margin-top-20'>Colors</div>
           <div className='padding-left-20'>
-            <FlexBox center='v-center' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>BackGround Color</span>
               <MiniTwitterPicker
                 name='styles.backgroundColor'
@@ -87,7 +87,7 @@ const Text = (props) => {
                 onChange={onChange}
               />
             </FlexBox>
-            <FlexBox center='v-center' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Text Color</span>
               <MiniTwitterPicker
                 name='styles.color'
@@ -100,7 +100,7 @@ const Text = (props) => {
 
           <div className='large-text border-left-text margin-top-20'>Paddings</div>
           <div className='padding-left-20'>
-            <FlexBox center='v-center ' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding Top:</span>
               <TextField
                 name='styles.paddingTop'
@@ -110,7 +110,7 @@ const Text = (props) => {
                 className='width-70'
               />
             </FlexBox>
-            <FlexBox center='v-center' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding bottom:</span>
               <TextField
                 type='number'

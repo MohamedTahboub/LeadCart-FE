@@ -68,7 +68,7 @@ const Image = (props) => {
 
           <div className='large-text border-left-text margin-top-20'>Size</div>
           <div className='padding-left-20'>
-            <FlexBox center='v-center ' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Image Height:</span>
               <TextField
                 name='styles.height'
@@ -78,7 +78,7 @@ const Image = (props) => {
                 className='width-70'
               />
             </FlexBox>
-            <FlexBox center='v-center' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Image Width:</span>
               <TextField
                 type='number'
@@ -92,7 +92,7 @@ const Image = (props) => {
 
           <div className='large-text border-left-text margin-top-20'>Paddings</div>
           <div className='padding-left-20'>
-            <FlexBox center='v-center ' spaceBetween>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding Top:</span>
               <TextField
                 name='styles.paddingTop'
@@ -102,8 +102,8 @@ const Image = (props) => {
                 className='width-70'
               />
             </FlexBox>
-            <FlexBox center='v-center' spaceBetween>
-              <span className='gray-text'>Padding bottom:</span>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text '>Padding bottom:</span>
               <TextField
                 type='number'
                 name='styles.paddingBottom'
