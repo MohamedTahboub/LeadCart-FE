@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import common from 'components/common';
 import './style.css';
 import clx from 'classnames';
+import { useDrop } from 'react-dnd';
 import { useContext } from '../../../../actions';
+
 const {
   Button,
   FlexBox,
@@ -11,34 +13,38 @@ const {
 
 export default ({
   children,
-  onSectionDropped
+  onDrop,
+  ...props
 }) => {
-  const [dragOver, setDragOver] = useState(false);
-  const { state: { modals = {} }, actions } = useContext();
+  const [collectedProps, drop] = useDrop({
+    accept: 'card',
+    drop: onDrop
+  });
 
 
-  const onDragOver = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-  };
+  // const onDragOver = (event) => {
+  //   event.stopPropagation();
+  //   event.preventDefault();
+  // };
 
-  const onDrop = (e) => {
-    e.preventDefault();
-    const sectionType = e.dataTransfer.getData('section-item');
-    // e.currentTarget.style.background = 'lightyellow';
-    actions.addNewSection(sectionType);
-  };
+  // const onDrop = (e) => {
+  //   e.preventDefault();
+  //   const sectionType = e.dataTransfer.getData('section-item');
+  //   // e.currentTarget.style.background = 'lightyellow';
+  //   actions.addNewSection(sectionType);
+  // };
 
   const className = clx({
     'product-drop-zone': true,
-    'drag-over': dragOver
+    // 'drag-over': dragOver
   });
 
   return (
     <div
       className={className}
-      onDragOver={onDragOver}
-      onDrop={onDrop}
+      // onDragOver={onDragOver}
+      // onDrop={onDrop}
+      ref={drop}
     >
       {children}
     </div>

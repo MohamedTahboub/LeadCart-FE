@@ -90,9 +90,7 @@ ReactDOM.render(
             <Route exact path='/promocode' component={PromoCodeActivation} />
             <Route exact path='/saasmantra' component={SignUpSaasmantra} />
             <Route path='/verify' component={VerifyAccount} />
-
-            <ProtectedRoute exact path='/checkout/:id' component={ProductBuilder} />
-            <ProtectedRoute exact path='/upsell/:id' component={ProductBuilder} />
+            <ProtectedRoute exact path='/products/:productId' component={ProductBuilder} />
             <ProtectedRoute exact path='/funnels/:funnelId/products/:productId' component={ProductBuilder} />
             <ProtectedRoute exact path='/funnels/:url' component={FunnelBuilder} />
             <ProtectedRoute component={() => (

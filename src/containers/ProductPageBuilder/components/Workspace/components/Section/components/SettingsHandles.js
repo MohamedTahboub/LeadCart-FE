@@ -6,14 +6,21 @@ import {
   IoIosArrowUp,
   IoIosMove
 } from 'react-icons/io';
+import {
+  FiTrash2
+} from 'react-icons/fi';
+import { useContext } from '../../../../../actions';
 
 const SettingsHandles = ({
   id,
   order,
   maxOrder,
   onOrderChange,
+  section,
   onSettings
 }) => {
+  const { actions } = useContext();
+
   const orderDown = () => {
     const newOrder = (order - 1) <= 0 ? 0 : (order - 1);
     onOrderChange(id, newOrder);
@@ -25,14 +32,15 @@ const SettingsHandles = ({
   };
 
   const onSettingsClick = () => {
-    onSettings(id);
+    onSettings(section);
   };
 
+  const onDelete = () => {
+    actions.onSectionDelete(id);
+  };
   return (
     <div className='product-section-settings-handle'>
-      <IoIosMove className='item-handle' />
-      <IoIosArrowDown onClick={orderUp} className='item-handle' />
-      <IoIosArrowUp onClick={orderDown} className='item-handle' />
+      <FiTrash2 onClick={onDelete} className='item-handle delete-handle' />
       <IoMdSettings draggable onClick={onSettingsClick} className='item-handle' />
     </div>
   );

@@ -4,6 +4,7 @@
     border: 1.5px dashed transparent;
     position: relative;
     overflow: unset;
+    transform: translateY(0);
 }
 .product-section:hover{
     border: 1.5px dashed lightgray;
@@ -22,10 +23,12 @@
     right: -1.5px;
     top: -1.5px;
     display: flex;
+    z-index: 1000;
 }
 .product-section:hover .product-section-settings-handle{
     opacity: 1;
 }
+
 .product-section-settings-handle .item-handle{
     color: #000;
     width: 25px;
@@ -36,7 +39,9 @@
     background: lightgray;
     cursor: pointer;
 }
-
+.product-section-settings-handle .delete-handle{
+    color: tomato;
+}
 .item-handle:first-child{
     border-bottom-left-radius: 4px;
     padding-left: 4px;
@@ -74,4 +79,10 @@
     border: .8px solid lightgray;
     border-radius: 3px;
     margin: 3px;
+}
+
+.video-section{
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
 }

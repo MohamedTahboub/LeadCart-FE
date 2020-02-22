@@ -4,6 +4,8 @@ import common from 'components/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { AiOutlineMobile, AiOutlineHistory } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
+import ReactToolTip from 'react-tooltip';
+import { useContext } from '../../actions';
 
 const {
   Button,
@@ -12,24 +14,60 @@ const {
   EditableField
 } = common;
 
-const ResponsiveSizesOptions = () => {
+const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
   const commonClasses = 'margin-h-5 large-text gray-text animate item-clickable';
+
+
+  const isActive = (mode) => `${mode === activeDisplay ? 'active' : ''}`;
 
   return (
     <FlexBox>
-      <MdDesktopWindows className={`${commonClasses} active`} />
-      <MdTabletMac className={commonClasses} />
-      <AiOutlineMobile className={commonClasses} />
+      <MdDesktopWindows
+        className={`${commonClasses} ${isActive('desktop')}`}
+        onClick={onChange('desktop')}
+        data-tip='Preview on Desktop Mode'
+      />
+      <MdTabletMac
+        onClick={onChange('tablet')}
+        className={`${commonClasses} ${isActive('tablet')}`}
+        data-tip='Preview on Tablet Size Mode'
+      />
+      <AiOutlineMobile
+        onClick={onChange('mobile')}
+        className={`${commonClasses} ${isActive('mobile')}`}
+        data-tip='Preview on Mobile Mode'
+      />
     </FlexBox>
   );
 };
 
 
 const Header = ({ history, props }) => {
+  const {
+    state: {
+      displayMode,
+      standAlone,
+      product: {
+        name: productName,
+        sections = [],
+        // maxSectionsOrder
+      } = {},
+      funnel: {
+        url: funnelUrl,
+        name: funnelName
+      } = {}
+    },
+    actions
+  } = useContext();
+
   const goToProducts = () => {
-    // history.push('/products')
+    if (standAlone) history.push('/products');
+    else history.push(`/funnels/${funnelUrl}`);
   };
 
+  const onDisplayModeChange = (displayMode) => () => {
+    actions.updateDisplayMode(displayMode);
+  };
   return (
     <FlexBox column>
 
@@ -41,14 +79,25 @@ const Header = ({ history, props }) => {
           >
             <IoIosArrowRoundBack />
           </Button>
-          <Title>Back To Products</Title>
+          <Title>{`Back To ${standAlone ? 'Products' : 'Funnel'}`}</Title>
         </FlexBox>
         <FlexBox center='h-center'>
-          <Title>Explored Through Funnel(X)</Title>
+          {
+            !standAlone && (
+              <Title>
+                Funnel(
+                {funnelName}
+                )
+              </Title>
+            )
+          }
         </FlexBox>
 
         <FlexBox center='v-center' flexEnd className='margin-right-20 min-width-250 '>
-          <ResponsiveSizesOptions />
+          <ResponsiveSizesOptions
+            onChange={onDisplayModeChange}
+            activeDisplay={displayMode}
+          />
         </FlexBox>
       </FlexBox>
 
@@ -60,7 +109,7 @@ const Header = ({ history, props }) => {
             name='name'
             defaultValue='Product Name'
             // onChange={onNameChange}
-            // value={funnel.name}
+            value={productName}
             max={50}
           />
         </FlexBox>
@@ -68,12 +117,14 @@ const Header = ({ history, props }) => {
         <FlexBox center='v-center' className='min-width-250 padding-right-20' flexEnd>
           <Button
             // onClick={onSave}
+            data-tip='Undo'
             className='light-btn'
           >
             <AiOutlineHistory className='mirror' />
           </Button>
           <Button
             // onClick={onSave}
+            data-tip='ReDo'
             className='light-btn margin-h-5'
           >
             <AiOutlineHistory />
@@ -83,11 +134,11 @@ const Header = ({ history, props }) => {
             className='light-btn'
           >
             <i className='fas fa-save font-size-11' />
-            Save and Back to Funnel
+            {`Save ${standAlone ? '' : 'and Back to Funnel'}`}
           </Button>
         </FlexBox>
       </FlexBox>
-
+      <ReactToolTip delayShow={400} />
     </FlexBox>
   );
 };
