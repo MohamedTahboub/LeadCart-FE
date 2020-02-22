@@ -23,10 +23,12 @@
     right: -1.5px;
     top: -1.5px;
     display: flex;
+    z-index: 1000;
 }
 .product-section:hover .product-section-settings-handle{
     opacity: 1;
 }
+
 .product-section-settings-handle .item-handle{
     color: #000;
     width: 25px;
@@ -37,7 +39,9 @@
     background: lightgray;
     cursor: pointer;
 }
-
+.product-section-settings-handle .delete-handle{
+    color: tomato;
+}
 .item-handle:first-child{
     border-bottom-left-radius: 4px;
     padding-left: 4px;

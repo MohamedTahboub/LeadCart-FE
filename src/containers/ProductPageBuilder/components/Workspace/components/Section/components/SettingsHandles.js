@@ -34,7 +34,7 @@ const SettingsHandles = ({
 
   return (
     <div className='product-section-settings-handle'>
-      <FiTrash2 className='item-handle danger-color' />
+      <FiTrash2 className='item-handle delete-handle' />
       <IoMdSettings draggable onClick={onSettingsClick} className='item-handle' />
     </div>
   );
