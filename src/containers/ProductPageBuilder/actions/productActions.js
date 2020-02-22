@@ -74,3 +74,31 @@ export const updateDisplayMode = ({ state = {}, dispatch }) => (mode) => {
     payload: mode
   });
 };
+
+
+export const onSectionSettingChange = ({ state = {}, dispatch }) => ({ section, field: { name, value } = {} }) => {
+  if (name.includes('.')) {
+    const [key, nestedKey] = name.split('.');
+    const nestedValue = { [nestedKey]: value };
+    name = key;
+    value = { ...section[key], ...nestedValue };
+  }
+
+  const newSection = {
+    ...section,
+    [name]: value
+  };
+
+  dispatch({
+    type: types.UPDATE_SECTION_SETTINGS,
+    payload: newSection
+  });
+};
+
+
+export const updateProductSection = ({ state = {}, dispatch }) => (section) => {
+  dispatch({
+    type: types.UPDATE_PRODUCT_SECTION,
+    payload: section
+  });
+};

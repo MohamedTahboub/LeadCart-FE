@@ -19,19 +19,19 @@ const Text = (props) => {
   const {
     state: {
       modals: {
-        sectionSetting: {
-          styles = {},
-          actions: sectionActions = {}
-        } = {}
+        sectionSetting = {}
       } = {}
     },
     actions
   } = useContext();
 
+  const { styles = {}, actions: sectionActions = {} } = sectionSetting;
 
-  const onChange = ({ target: { value, name } }) => {
-    console.log(name, value);
-    // actions.onSectionSettingChange();
+  const onChange = ({ target }) => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: target
+    });
   };
 
 
@@ -57,7 +57,7 @@ const Text = (props) => {
                 name='styles.fontFamily'
                 value={styles.fontFamily}
                 onChange={onChange}
-                className='margin-h-10'
+                // className='margin-h-10'
                 options={[
                   { label: 'Cairo', value: '\'Open Sans\', sans-serif' },
                   { label: 'Calibri', value: 'Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif' },
@@ -129,7 +129,7 @@ const Text = (props) => {
               name='actions.onClick'
               value={sectionActions.onClick}
               onChange={onChange}
-              // className='width-70'
+            // className='width-70'
             />
           </div>
         </Tab>

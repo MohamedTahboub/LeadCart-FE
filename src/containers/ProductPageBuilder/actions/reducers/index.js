@@ -51,6 +51,35 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       displayMode: payload
     };
+
+  case types.UPDATE_SECTION_SETTINGS:
+    return {
+      ...state,
+      modals: {
+        ...state.modals,
+        sectionSetting: payload
+      },
+      product: {
+        ...state.product,
+        sections: state.product.sections.map((sec) => {
+          if (sec.id === payload.id) return payload;
+          return sec;
+        })
+
+      }
+    };
+  case types.UPDATE_PRODUCT_SECTION:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        sections: state.product.sections.map((sec) => {
+          if (sec.id === payload.id) return payload;
+          return sec;
+        })
+
+      }
+    };
   default: return state;
   }
 };
