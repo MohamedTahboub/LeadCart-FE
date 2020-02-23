@@ -3,7 +3,8 @@ import common from 'components/common';
 import './style.css';
 import clx from 'classnames';
 import { useDrop } from 'react-dnd';
-import { useContext } from '../../../../actions';
+// import { useContext } from '../../../../actions';
+import * as dropTypes from '../dropTypes';
 
 const {
   Button,
@@ -17,7 +18,7 @@ export default ({
   ...props
 }) => {
   const [collectedProps, drop] = useDrop({
-    accept: 'card',
+    accept: dropTypes.SECTION,
     drop: onDrop
   });
 

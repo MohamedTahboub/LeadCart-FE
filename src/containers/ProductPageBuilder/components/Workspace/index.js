@@ -156,7 +156,7 @@ const Workspace = ({
           {
             sections.map((section, index) => (
               <Section
-                key={`${section.id}_${index}`}
+                key={`${section.id}_${section.order}`}
                 id={`${section.id}`}
                 {...section}
                 section={section}
