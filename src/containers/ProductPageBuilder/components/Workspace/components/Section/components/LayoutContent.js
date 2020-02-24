@@ -4,25 +4,44 @@ import clx from 'classnames';
 // import Section from '../index';
 import { useDrag, useDrop } from 'react-dnd';
 import { array } from 'yup';
+import update from 'immutability-helper';
 import * as dropTypes from '../../dropTypes';
+import { useContext } from '../../../../../actions';
+import SectionContent from './SectionContent';
 
-const NestedSection = (props) => {
+const NestedSection = ({
+  className,
+  onReorder,
+  findCard,
+  section = {},
+  ...props
+}) => {
   const [{ isDragging }, dragConnect] = useDrag({
     item: {
-      type: dropTypes.SECTION,
+      type: dropTypes.NESTED_SECTION,
+      section,
+      id: section.id
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    end: (dropResult, monitor) => {
-      const { id: droppedId, originalIndex } = monitor.getItem();
-      const didDrop = monitor.didDrop();
-      // if (!didDrop) moveCard(droppedId, originalIndex);
-    },
+
+    // if (!didDrop) moveCard(droppedId, originalIndex);
+
   });
 
-  const [, drop] = useDrop({
-    type: dropTypes.SECTION,
+  const [{ isOver }, drop] = useDrop({
+    accept: [dropTypes.NESTED_SECTION, dropTypes.SECTION],
+    collect: (monitor) => ({
+      isOver: monitor.isOver()
+    }),
+    drop: ({ id }) => {
+      // const { id: droppedId, originalIndex } = monitor.getItem();
+      // const didDrop = monitor.didDrop();
+      // if (didDrop)
+      const { index: atIndex } = findCard(section.id);
+      onReorder(id, atIndex);
+    }
     // canDrop: () => false,
     // hover: ({ id: draggedId }, monitor) => {
     //   const item = monitor.getItem();
@@ -42,11 +61,24 @@ const NestedSection = (props) => {
     // },
   });
 
+  const opacity = (isOver || isDragging) ? 0.3 : 1;
+  const classNames = clx({
+    'nested-section': true,
+    [className]: className,
+  });
+
   return (
     <div
-      ref={dragConnect}
-      className='nested-section'
-    />
+      ref={(ref) => drop(dragConnect(ref))}
+      className={classNames}
+      style={{ opacity }}
+    >
+      <SectionContent
+        type={section.type}
+        section={section}
+        {...section.content}
+      />
+    </div>
   );
 };
 
@@ -55,9 +87,20 @@ const nestedSectionTemplate = {
 };
 const LayoutContent = ({
   className,
+  content: {
+
+  } = {},
   section = {}
 }) => {
-  let { styles, structure: { columns = 2 } = {} } = section;
+  const { actions } = useContext();
+
+  let {
+    styles,
+    structure: { columns = 2 } = {},
+    content: {
+      sections: NestedSections = [],
+    }
+  } = section;
 
   if (!styles) styles = {};
   const sectionStyle = {
@@ -80,11 +123,42 @@ const LayoutContent = ({
     [className]: className,
   });
 
-  const columnsList = Array(columns).fill(nestedSectionTemplate);
-  console.log("columnsList" , columnsList)
+
+  const findCard = (id) => {
+    const section = NestedSections.filter((c) => `${c.id}` === id)[0];
+    return {
+      section,
+      index: NestedSections.indexOf(section),
+    };
+  };
+
+  const onNestedSectionReorder = (id, atIndex) => {
+    const { section: nestedSection, index } = findCard(id);
+    const newNestedSections = update(NestedSections, {
+      $splice: [
+        [index, 1],
+        [atIndex, 0, nestedSection],
+      ],
+    });
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name: 'content.sections',
+        value: newNestedSections
+      }
+    });
+  };
+
   return (
     <div className={classNames} style={sectionStyle}>
-      {columnsList.map((item) => <div key={item} className='item' />)}
+      {NestedSections.map((section, id) => (
+        <NestedSection
+          key={section.id}
+          onReorder={onNestedSectionReorder}
+          className='item'
+          findCard={findCard}
+          section={section}
+        />))}
     </div>
   );
 };

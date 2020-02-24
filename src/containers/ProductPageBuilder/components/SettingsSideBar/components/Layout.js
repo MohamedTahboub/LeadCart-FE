@@ -56,6 +56,8 @@ const Layout = (props) => {
                 name='structure.columns'
                 type='number'
                 value={structure.columns}
+                min={1}
+                max={4}
                 onChange={onChange}
                 className='width-70'
               />

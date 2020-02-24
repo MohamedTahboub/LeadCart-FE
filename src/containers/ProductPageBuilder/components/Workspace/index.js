@@ -142,7 +142,7 @@ const Workspace = ({
 
   const onSectionDropped = (section = {}) => {
     const { section: { type } = {} } = section;
-    actions.addNewSection(type);
+    if (section.new) actions.addNewSection(type);
   };
 
   return (

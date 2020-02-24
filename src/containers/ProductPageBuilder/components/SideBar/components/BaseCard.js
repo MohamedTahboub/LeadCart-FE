@@ -21,7 +21,8 @@ const ElementCard = ({
       type: dropTypes.SECTION,
       section: {
         type
-      }
+      },
+      new: true
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),

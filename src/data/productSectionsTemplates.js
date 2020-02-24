@@ -34,6 +34,28 @@ export default {
     content: {
       value: 'Layout Content',
       children: [],
+      sections: [
+        {
+          id: 'abc',
+          hidden: false, // for referencing elements for the layout sections
+          type: 'text',
+          content: {
+            value: 'Text Content',
+            children: [],
+          },
+          style: {},
+        },
+        {
+          id: 'abcd',
+          hidden: false, // for referencing elements for the layout sections
+          type: 'image',
+          content: {
+            value: 'https://via.placeholder.com/200',
+            children: [],
+          },
+          style: {}
+        }
+      ]
     },
     style: {},
   },

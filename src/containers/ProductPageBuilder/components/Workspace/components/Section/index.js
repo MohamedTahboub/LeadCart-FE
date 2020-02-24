@@ -37,34 +37,42 @@ const Section = ({
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    end: (dropResult, monitor) => {
-      const { id: droppedId, originalIndex } = monitor.getItem();
-      const didDrop = monitor.didDrop();
-      if (!didDrop) moveCard(droppedId, originalIndex);
-    },
+    // end: (dropResult, monitor) => {
+    //   const { id: droppedId, originalIndex } = monitor.getItem();
+    //   const didDrop = monitor.didDrop();
+    //   if (!didDrop) moveCard(droppedId, originalIndex);
+    // },
   });
 
-  const [, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
-    canDrop: () => false,
-    hover: ({ id: draggedId }, monitor) => {
-      const item = monitor.getItem();
-      console.log('item==> ', item, monitor.canDrop());
-      if (item.type === dropTypes.SECTION && item.id) {
-        const { index: overIndex } = findCard(item.id);
-        return moveCard(draggedId, overIndex);
-      }
+    // canDrop: () => false,
+    // hover: ({ id: draggedId }, monitor) => {
+    //   const item = monitor.getItem();
+    //   console.log('item==> ', item, monitor.canDrop());
+    //   if (item.type === dropTypes.SECTION && item.id) {
+    //     const { index: overIndex } = findCard(item.id);
+    //     return moveCard(draggedId, overIndex);
+    //   }
 
-      if (item.type === dropTypes.SECTION && !item.id) {
+    // if (item.type === dropTypes.SECTION && !item.id) {
 
-        // add new temp item
-      }
-      // console.log('draggedId', id, draggedId);
-      // if (draggedId !== id) {
-      //   const { index: overIndex } = findCard(id);
-      //   moveCard(draggedId, overIndex);
-      // }
-    },
+    // add new temp item
+    // }
+    // console.log('draggedId', id, draggedId);
+    // if (draggedId !== id) {
+    //   const { index: overIndex } = findCard(id);
+    //   moveCard(draggedId, overIndex);
+    // }
+    // },
+    collect: (monitor) => ({
+      isOver: monitor.isOver()
+    }),
+    drop: ({ new: newItem, section: { id: droppedItemId } = {} }) => {
+      if (newItem) return;
+      const { index: overIndex } = findCard(id);
+      return moveCard(droppedItemId, overIndex);
+    }
   });
 
 
@@ -80,7 +88,7 @@ const Section = ({
       className={classes}
       style={{
         ...style,
-        opacity: isDragging ? 0.3 : 1
+        opacity: (isDragging || isOver) ? 0.3 : 1
       }}
       ref={(node) => drop(drag(node))}
     >
