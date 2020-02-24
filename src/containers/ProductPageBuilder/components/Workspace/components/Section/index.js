@@ -33,12 +33,11 @@ const Section = ({
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: dropTypes.SECTION, ...section, originalIndex },
+    item: { type: dropTypes.SECTION, section, originalIndex },
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
     end: (dropResult, monitor) => {
-      console.log('dropResult', dropResult);
       const { id: droppedId, originalIndex } = monitor.getItem();
       const didDrop = monitor.didDrop();
       if (!didDrop) moveCard(droppedId, originalIndex);
@@ -47,7 +46,7 @@ const Section = ({
 
   const [, drop] = useDrop({
     accept: dropTypes.SECTION,
-    // canDrop: () => false,
+    canDrop: () => false,
     hover: ({ id: draggedId }, monitor) => {
       const item = monitor.getItem();
       console.log('item==> ', item, monitor.canDrop());

@@ -140,8 +140,9 @@ const Workspace = ({
     });
   };
 
-  const onSectionDropped = (section) => {
-    actions.addNewSection(section.sectionType);
+  const onSectionDropped = (section = {}) => {
+    const { section: { type } = {} } = section;
+    actions.addNewSection(type);
   };
 
   return (

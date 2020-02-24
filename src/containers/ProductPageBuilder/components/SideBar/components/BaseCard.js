@@ -17,7 +17,12 @@ const ElementCard = ({
   // const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag, previewConnect] = useDrag({
-    item: { type: dropTypes.SECTION, sectionType: type },
+    item: {
+      type: dropTypes.SECTION,
+      section: {
+        type
+      }
+    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -42,7 +47,7 @@ const ElementCard = ({
         className={classNames}
         {...props}
         ref={(node) => drag(node)}
-        // onDragStart={onDragStart}
+      // onDragStart={onDragStart}
       />
     </Fragment>
   );
