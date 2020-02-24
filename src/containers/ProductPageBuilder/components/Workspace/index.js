@@ -140,8 +140,9 @@ const Workspace = ({
     });
   };
 
-  const onSectionDropped = (section) => {
-    actions.addNewSection(section.sectionType);
+  const onSectionDropped = (section = {}) => {
+    const { section: { type } = {} } = section;
+    if (section.new) actions.addNewSection(type);
   };
 
   return (
@@ -156,7 +157,7 @@ const Workspace = ({
           {
             sections.map((section, index) => (
               <Section
-                key={`${section.id}_${index}`}
+                key={`${section.id}_${section.order}`}
                 id={`${section.id}`}
                 {...section}
                 section={section}

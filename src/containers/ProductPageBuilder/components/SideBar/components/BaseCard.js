@@ -4,10 +4,7 @@ import clx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 
 import DraggingPreview from '../../DraggingPreview';
-
-const ItemTypes = {
-  CARD: 'card',
-};
+import * as dropTypes from '../../Workspace/components/dropTypes';
 
 const ElementCard = ({
   type,
@@ -20,7 +17,13 @@ const ElementCard = ({
   // const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag, previewConnect] = useDrag({
-    item: { type: 'card', sectionType: type },
+    item: {
+      type: dropTypes.SECTION,
+      section: {
+        type
+      },
+      new: true
+    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -45,7 +48,7 @@ const ElementCard = ({
         className={classNames}
         {...props}
         ref={(node) => drag(node)}
-        // onDragStart={onDragStart}
+      // onDragStart={onDragStart}
       />
     </Fragment>
   );

@@ -3,17 +3,13 @@ import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import common from 'components/common';
 import { useDrag, useDrop } from 'react-dnd';
-
+import * as dropTypes from '../dropTypes';
 
 import './style.css';
 import {
   SectionContent,
   SettingsHandles
 } from './components';
-const ItemTypes = {
-  CARD: 'card',
-};
-
 
 const Section = ({
   id,
@@ -37,38 +33,46 @@ const Section = ({
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: 'card', ...section, originalIndex },
+    item: { type: dropTypes.SECTION, section, originalIndex },
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    end: (dropResult, monitor) => {
-      const { id: droppedId, originalIndex } = monitor.getItem();
-      const didDrop = monitor.didDrop();
-      if (!didDrop) moveCard(droppedId, originalIndex);
-    },
+    // end: (dropResult, monitor) => {
+    //   const { id: droppedId, originalIndex } = monitor.getItem();
+    //   const didDrop = monitor.didDrop();
+    //   if (!didDrop) moveCard(droppedId, originalIndex);
+    // },
   });
 
-  const [, drop] = useDrop({
-    accept: 'card',
+  const [{ isOver }, drop] = useDrop({
+    accept: dropTypes.SECTION,
     // canDrop: () => false,
-    hover: ({ id: draggedId }, monitor) => {
-      const item = monitor.getItem();
-      console.log('item==> ', item, monitor.canDrop());
-      if (item.type === 'card' && item.id) {
-        const { index: overIndex } = findCard(item.id);
-        return moveCard(draggedId, overIndex);
-      }
+    // hover: ({ id: draggedId }, monitor) => {
+    //   const item = monitor.getItem();
+    //   console.log('item==> ', item, monitor.canDrop());
+    //   if (item.type === dropTypes.SECTION && item.id) {
+    //     const { index: overIndex } = findCard(item.id);
+    //     return moveCard(draggedId, overIndex);
+    //   }
 
-      if (item.type === 'card' && !item.id) {
+    // if (item.type === dropTypes.SECTION && !item.id) {
 
-        // add new temp item
-      }
-      // console.log('draggedId', id, draggedId);
-      // if (draggedId !== id) {
-      //   const { index: overIndex } = findCard(id);
-      //   moveCard(draggedId, overIndex);
-      // }
-    },
+    // add new temp item
+    // }
+    // console.log('draggedId', id, draggedId);
+    // if (draggedId !== id) {
+    //   const { index: overIndex } = findCard(id);
+    //   moveCard(draggedId, overIndex);
+    // }
+    // },
+    collect: (monitor) => ({
+      isOver: monitor.isOver()
+    }),
+    drop: ({ new: newItem, section: { id: droppedItemId } = {} }) => {
+      if (newItem) return;
+      const { index: overIndex } = findCard(id);
+      return moveCard(droppedItemId, overIndex);
+    }
   });
 
 
@@ -84,9 +88,9 @@ const Section = ({
       className={classes}
       style={{
         ...style,
-        opacity: isDragging ? 0.3 : 1
+        opacity: (isDragging || isOver) ? 0.3 : 1
       }}
-      ref={(node) => drag(drop(node))}
+      ref={(node) => drop(drag(node))}
     >
       <SettingsHandles
         onOrderChange={onSectionOrderChange}

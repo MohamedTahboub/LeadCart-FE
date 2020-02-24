@@ -64,7 +64,9 @@
     min-height: 100px;
     width: 100%;
 }
-
+.item .image-section{
+    height: 100%;
+}
 
 /* Layout Section Styles */
 .layout-section{

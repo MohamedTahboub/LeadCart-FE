@@ -20,7 +20,12 @@ const getTabsTitles = (children, activeTab) => (
     : [(children ? children.props : null)]
 );
 
-export const Tabs = ({ children, className, ...props }) => {
+export const Tabs = ({
+  children,
+  className,
+  tabsContentClassName,
+  ...props
+}) => {
   const [activeTab, setActiveTab] = useState(props.active);
 
   const tabContent = getActiveContent(children, activeTab);
@@ -51,7 +56,7 @@ export const Tabs = ({ children, className, ...props }) => {
           />
         ))}
       </FlexBox>
-      <FlexBox column className='tabs-content'>
+      <FlexBox column className={`tabs-content ${tabsContentClassName}`}>
         {tabContent}
       </FlexBox>
     </FlexBox>
@@ -60,6 +65,10 @@ export const Tabs = ({ children, className, ...props }) => {
 
 Tabs.propTypes = {
 
+};
+Tabs.defaultProps = {
+  className: '',
+  tabsContentClassName: ''
 };
 
 export const Tab = ({
