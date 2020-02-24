@@ -13,6 +13,7 @@ const NestedSection = ({
   className,
   onReorder,
   findCard,
+  addNewNestedSectionAt,
   section = {},
   ...props
 }) => {
@@ -31,16 +32,24 @@ const NestedSection = ({
   });
 
   const [{ isOver }, drop] = useDrop({
-    accept: [dropTypes.NESTED_SECTION, dropTypes.SECTION],
+    accept: dropTypes.NESTED_SECTION,
     collect: (monitor) => ({
       isOver: monitor.isOver()
     }),
-    drop: ({ id }) => {
+    drop: ({ new: isNew, id, section: droppedSection }) => {
       // const { id: droppedId, originalIndex } = monitor.getItem();
       // const didDrop = monitor.didDrop();
       // if (didDrop)
-      const { index: atIndex } = findCard(section.id);
-      onReorder(id, atIndex);
+
+
+      if (isNew) {
+        // add new sections
+        const { index: atIndex } = findCard(section.id);
+        addNewNestedSectionAt(droppedSection, atIndex);
+      } else {
+        const { index: atIndex } = findCard(section.id);
+        onReorder(id, atIndex);
+      }
     }
     // canDrop: () => false,
     // hover: ({ id: draggedId }, monitor) => {
@@ -149,12 +158,28 @@ const LayoutContent = ({
     });
   };
 
+  const addNewNestedSectionAt = (section, atIndex) => {
+    const newNestedSections = update(NestedSections, {
+      $splice: [
+        [0, 0],
+        [atIndex, 0, section],
+      ],
+    });
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name: 'content.sections',
+        value: newNestedSections
+      }
+    });
+  };
   return (
     <div className={classNames} style={sectionStyle}>
       {NestedSections.map((section, id) => (
         <NestedSection
           key={section.id}
           onReorder={onNestedSectionReorder}
+          addNewNestedSectionAt={addNewNestedSectionAt}
           className='item'
           findCard={findCard}
           section={section}

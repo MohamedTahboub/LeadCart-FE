@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import ReactTooltip from 'react-tooltip';
+import sectionsTemplate from 'data/productSectionsTemplates';
+import ids from 'shortid';
 import { useContext } from '../../../actions';
+
+const nestedSectionTemplate = sectionsTemplate.text;
 
 const {
   SideMenu,
@@ -12,6 +16,7 @@ const {
   MiniTwitterPicker,
   FlexBox,
   Tab,
+  Button
 } = common;
 
 const { TextField, SelectOption } = InputRow;
@@ -29,6 +34,9 @@ const Layout = (props) => {
   const {
     structure = {},
     styles = {},
+    content: {
+      sections: nestedSection = []
+    } = {}
   } = sectionSetting;
 
   const onChange = ({ target }) => {
@@ -38,7 +46,18 @@ const Layout = (props) => {
     });
   };
 
-
+  const addNewColumn = () => {
+    if (nestedSection.length <= 4) {
+      nestedSectionTemplate.id = ids.generate();
+      actions.onSectionSettingChange({
+        section: sectionSetting,
+        field: {
+          name: 'content.sections',
+          value: [...nestedSection, nestedSectionTemplate]
+        }
+      });
+    }
+  };
   return (
     <div>
       <Tabs active='structure' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -50,17 +69,17 @@ const Layout = (props) => {
                 data-tip='number of nested sections'
                 className='gray-text'
               >
-                Columns:
+                Current Section:
+                {nestedSection.length}
               </span>
-              <TextField
-                name='structure.columns'
-                type='number'
-                value={structure.columns}
-                min={1}
-                max={4}
-                onChange={onChange}
-                className='width-70'
-              />
+              <Button
+                data-tip={(nestedSection.length >= 4) ? 'you can add more than 4 nested sections' : ''}
+                disabled={nestedSection.length >= 4}
+                className='primary-btn'
+                onClick={addNewColumn}
+              >
+                Add New Section
+              </Button>
             </FlexBox>
           </div>
         </Tab>
