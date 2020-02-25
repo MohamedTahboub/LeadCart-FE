@@ -4,3 +4,8 @@ export { default as VideoContent } from './VideoContent';
 export { default as LayoutContent } from './LayoutContent';
 export { default as SectionContent } from './SectionContent';
 export { default as SettingsHandles } from './SettingsHandles';
+export { default as BumpOffer } from './BumpOffer';
+export { default as ShippingDetails } from './ShippingDetails';
+export { default as CouponSection } from './CouponSection';
+export { default as TestimonialsSection } from './TestimonialsSection';
+export { default as FeaturesListSection } from './FeaturesListSection';

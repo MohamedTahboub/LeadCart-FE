@@ -6,6 +6,11 @@ import {
   ImageContent,
   VideoContent,
   LayoutContent,
+  BumpOffer,
+  ShippingDetails,
+  CouponSection,
+  TestimonialsSection,
+  FeaturesListSection
 } from '.';
 
 const SectionContent = ({ type, ...props }) => {
@@ -14,6 +19,11 @@ const SectionContent = ({ type, ...props }) => {
   case 'image': return <ImageContent {...props} />;
   case 'video': return <VideoContent {...props} />;
   case 'layout': return <LayoutContent {...props} />;
+  case 'bumpOffer': return <BumpOffer {...props} />;
+  case 'shippingDetails': return <ShippingDetails {...props} />;
+  case 'couponSection': return <CouponSection {...props} />;
+  case 'testimonialsSection': return <TestimonialsSection {...props} />;
+  case 'featuresSection': return <FeaturesListSection {...props} />;
   default: return null;
   }
 };
