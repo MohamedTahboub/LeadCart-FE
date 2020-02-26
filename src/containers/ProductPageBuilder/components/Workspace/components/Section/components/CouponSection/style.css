@@ -1,0 +1,53 @@
+.product-template-coupon-container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 3px dashed #eaeaea;
+  /* align-items: center; */
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.coupon-form-head{
+  text-align: center;
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+
+}
+
+.coupon-form-head img{
+  margin: 0px 3px;
+  width: 25px;
+  vertical-align: bottom;
+}
+
+.coupon-activation-form{
+  display: flex;
+
+}
+.coupon-activation-input{
+  /* width: 150px; */
+}
+input.coupon-activation-input {
+  width: 100%;
+}
+
+.coupon-activation-input,
+.coupon-activation-form input{
+  min-height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 5px;
+  outline-style: none;
+
+}
+.coupon-apply-btn{
+  padding: 0px 3px;
+  color:white;
+  cursor: pointer;
+  background: rgb(142, 209, 252);
+}
