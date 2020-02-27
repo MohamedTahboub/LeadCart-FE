@@ -103,6 +103,7 @@ const Section = ({
       <SectionContent
         type={type}
         section={section}
+        language={props.language}
         {...content}
       />
     </div>

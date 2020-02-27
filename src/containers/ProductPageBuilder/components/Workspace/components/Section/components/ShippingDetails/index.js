@@ -10,21 +10,12 @@ const {
 
 
 export default ({
-  data = {},
-  color,
-  onOptionSelected,
+  section = {},
   language = {},
   ...props
 }) => {
-  const onDisable = () => {
-    // props.onChange({
-    //   target: {
-    //     name: 'shippingDetails.enabled',
-    //     value: false
-    //   }
-    // });
-  };
-
+  const { styles = {} } = section;
+  const { themeColor } = styles;
   const {
     shippingDetails,
     streetAddress,
@@ -35,29 +26,34 @@ export default ({
     country
   } = language.checkout || {};
 
+  const style = {
+    ...styles,
+    marginTop: `${styles.marginTop}px`,
+    marginBottom: `${styles.marginBottom}px`,
+    marginLeft: `${styles.marginLeft}px`,
+    marginRight: `${styles.marginRight}px`,
+    paddingTop: `${styles.paddingTop}px`,
+    paddingBottom: `${styles.paddingBottom}px`,
+    paddingLeft: `${styles.paddingLeft}px`,
+    paddingRight: `${styles.paddingRight}px`,
+  };
+
   return (
-    <div className='product-template-billing'>
-      <FloatButton
-        className='payment-setting-btn'
-        onClick={onDisable}
-        position={{ left: -27, top: -2 }}
-      >
-        <i className='fas fa-eye-slash' />
-      </FloatButton>
+    <div className='product-template-billing' style={style}>
       <CycleStepTitle step='2'>{shippingDetails}</CycleStepTitle>
-      <div style={{ color }} className='flex-row'>
+      <div style={{ color: themeColor }} className='flex-row'>
         <CheckoutInput
           disabled
           label={streetAddress}
         />
       </div>
-      <div style={{ color }} className='flex-row'>
+      <div style={{ color: themeColor }} className='flex-row'>
         <CheckoutInput
           disabled
           label={streetAddress2}
         />
       </div>
-      <div style={{ color }} className='flex-row'>
+      <div style={{ color: themeColor }} className='flex-row'>
         <CheckoutInput
           disabled
           label={city}
@@ -67,7 +63,7 @@ export default ({
           label={state}
         />
       </div>
-      <div style={{ color }} className='flex-row'>
+      <div style={{ color: themeColor }} className='flex-row'>
         <CheckoutInput
           disabled
           // name='postal'

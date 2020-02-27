@@ -1,41 +1,44 @@
 import React from 'react';
 import common from 'components/common';
-
+import { useContext } from '../../../../../../actions';
 import './style.css';
 
 const { EditableField, FloatButton } = common;
 
 const BumpOffer = ({
-  onOptionSelected,
-  offer: { style = {}, ...offer } = {},
-  onChange
+  // onOptionSelected,
+  section = {},
+  // offer: { style = {}, ...offer } = {},
 }) => {
-  const onDisable = () => {
-    onChange({
-      target: {
-        name: 'offer.enabled',
-        value: false
-      }
+  const {
+    styles = {},
+    content = {}
+  } = section;
+  const { actions } = useContext();
+
+  const onChange = ({ target }) => {
+    actions.onSectionSettingChange({
+      section,
+      field: target
     });
   };
+
+
   const containerStyle = {
-    background: style.containerBackground,
-    color: style.containerTextColor,
-    border: `${style.borderWidth || 0}px ${style.borderStyle || 'solid'} ${style.borderColor}`,
-    borderRadius: `${style.borderRadius}px`
+    background: styles.containerBackground,
+    color: styles.containerTextColor,
+    border: `${styles.borderWidth || 0}px ${styles.borderStyle || 'solid'} ${styles.borderColor}`,
+    borderRadius: `${styles.borderRadius}px`
   };
   const headerStyle = {
-    background: style.headerBackground,
-    color: style.headerTextColor,
-    border: `${style.borderWidth || 0}px ${style.borderStyle || 'solid'} ${style.borderColor}`,
-    borderRadius: `${style.borderRadius}px`
+    background: styles.headerBackground,
+    color: styles.headerTextColor,
+    border: `${styles.borderWidth || 0}px ${styles.borderStyle || 'solid'} ${styles.borderColor}`,
+    borderRadius: `${styles.borderRadius}px`
   };
   return (
 
     <section style={containerStyle} className='product-template-bump-offer'>
-      <FloatButton onClick={onDisable} position={{ left: 0 }}>
-        <i className='fas fa-eye-slash' />
-      </FloatButton>
       <div style={headerStyle} className='template-bump-offer-title'>
         <input
           type='checkbox'
@@ -44,9 +47,9 @@ const BumpOffer = ({
         />
         <label id='bump-offer-checkbox-label' htmlFor='bump-offer-checkbox'>
           <EditableField
-            name='offer.title'
+            name='content.title'
             // color={headerStyle.color}
-            value={offer.title}
+            value={content.title}
             defaultValue='Offer Title Goes Here'
             onChange={onChange}
             className='template-bump-offer-title-input'
@@ -55,16 +58,16 @@ const BumpOffer = ({
       </div>
       <div style={{ color: containerStyle.color }} className='template-bump-offer-description'>
         <EditableField
-          name='offer.introText'
+          name='content.introText'
           defaultValue='Offer intro statement'
-          value={offer.introText}
+          value={content.introText}
           onChange={onChange}
           className='template-bump-offer-description-title'
         />
         <EditableField
-          name='offer.bodyText'
+          name='content.bodyText'
           defaultValue='Offer Description goes here,lorem'
-          value={offer.bodyText}
+          value={content.bodyText}
           onChange={onChange}
           textarea
           className='template-bump-offer-description-content'

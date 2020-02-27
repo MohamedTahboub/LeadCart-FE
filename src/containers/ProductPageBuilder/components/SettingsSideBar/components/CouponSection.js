@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { useContext } from '../../../actions';
-import { SettingBox } from './common';
+
+import {
+  SettingBox
+} from './common';
+
+
 const {
   SideMenu,
   Tabs,
@@ -13,9 +18,9 @@ const {
   Tab,
 } = common;
 
-const { TextField, SelectOption, AddImage } = InputRow;
+const { TextField, SelectOption } = InputRow;
 
-const Image = (props) => {
+const CouponSection = (props) => {
   const {
     state: {
       modals: {
@@ -25,11 +30,7 @@ const Image = (props) => {
     actions
   } = useContext();
 
-  const {
-    styles = {},
-    content = {},
-    // actions: sectionActions = {}
-  } = sectionSetting;
+  const { styles = {} } = sectionSetting;
 
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
@@ -38,57 +39,43 @@ const Image = (props) => {
     });
   };
 
-  const onImageChange = (image) => {
-    actions.onSectionSettingChange({
-      section: sectionSetting,
-      field: {
-        name: 'content.value',
-        value: image
-      }
-    });
-  };
 
   return (
     <div>
       <Tabs active='styles' className='padding-v-10 padding-h-10'>
         <Tab id='styles' title='styles'>
-          <SettingBox title='Image'>
-            <FlexBox center='v-center' spaceBetween>
-              <span className='gray-text'>Upload Image</span>
-              <AddImage
-                value={content.value}
-                subLabel='Logo'
-                source='product_image'
-                name='logo'
-                onUploaded={onImageChange}
+          <SettingBox title='Colors'>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Theme Color:</span>
+              <MiniTwitterPicker
+                name='styles.themeColor'
+                value={styles.themeColor}
+                onChange={onChange}
               />
             </FlexBox>
           </SettingBox>
-
-
-          <SettingBox title='Size'>
+          <SettingBox title='Margins'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Image Height:</span>
+              <span className='gray-text'>Margin Top:</span>
               <TextField
-                name='styles.height'
+                name='styles.marginTop'
                 type='number'
-                value={styles.height}
+                value={styles.marginTop}
                 onChange={onChange}
                 className='width-70'
               />
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Image Width:</span>
+              <span className='gray-text'>Margin bottom:</span>
               <TextField
                 type='number'
-                name='styles.width'
-                value={styles.width}
+                name='styles.marginBottom'
+                value={styles.marginBottom}
                 onChange={onChange}
                 className='width-70'
               />
             </FlexBox>
           </SettingBox>
-
           <SettingBox title='Paddings'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding Top:</span>
@@ -101,7 +88,7 @@ const Image = (props) => {
               />
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text '>Padding bottom:</span>
+              <span className='gray-text'>Padding bottom:</span>
               <TextField
                 type='number'
                 name='styles.paddingBottom'
@@ -117,8 +104,8 @@ const Image = (props) => {
   );
 };
 
-Text.propTypes = {
+CouponSection.propTypes = {
 
 };
 
-export default Image;
+export default CouponSection;

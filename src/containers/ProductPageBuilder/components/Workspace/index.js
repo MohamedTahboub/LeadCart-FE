@@ -167,6 +167,7 @@ const Workspace = ({
                 active={activeSection.id === section.id}
                 moveCard={moveCard}
                 findCard={findCard}
+                language={activeLanguage}
               />
             ))
           }

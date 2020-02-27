@@ -4,8 +4,8 @@
   border: 2px dashed #20274F;
   border-radius: 15px;
   background-color: white;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  /* margin-top: 20px; */
+  /* margin-bottom: 30px; */
   display: flex;
   flex-direction: column;
   justify-content: center;

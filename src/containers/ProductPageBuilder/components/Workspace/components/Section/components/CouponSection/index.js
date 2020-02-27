@@ -1,36 +1,35 @@
 import React from 'react';
 import scissorImage from 'assets/images/scissors.png';
-import common from 'components/common';
 
 
 import './style.css';
 
-const { FloatButton } = common;
 const CouponActivation = ({
-  color: background,
   language = {},
-  coupons,
+  section = {},
   ...props
 }) => {
+  const { styles = {} } = section;
   const {
     coupon: couponTitle,
     applyCoupon = 'APPLY'
   } = language.checkout || {};
 
-  const onDisable = () => {
-    props.onChange({
-      target: {
-        name: 'coupons',
-        value: { enabled: !coupons.enabled }
-      }
-    });
+
+  const style = {
+    ...styles,
+    marginTop: `${styles.marginTop}px`,
+    marginBottom: `${styles.marginBottom}px`,
+    marginLeft: `${styles.marginLeft}px`,
+    marginRight: `${styles.marginRight}px`,
+    paddingTop: `${styles.paddingTop}px`,
+    paddingBottom: `${styles.paddingBottom}px`,
+    paddingLeft: `${styles.paddingLeft}px`,
+    paddingRight: `${styles.paddingRight}px`,
   };
 
   return (
-    <div className='product-template-coupon-container'>
-      <FloatButton onClick={onDisable} position={{ left: 0 }}>
-        <i className='fas fa-eye-slash' />
-      </FloatButton>
+    <div className='product-template-coupon-container' style={style}>
       <div className='coupon-form-head'>
         <img src={scissorImage} alt='scissor icon' />
         {couponTitle}
@@ -42,7 +41,7 @@ const CouponActivation = ({
           type='text'
         />
         <input
-          style={{ background }}
+          style={{ background: styles.themeColor }}
           type='button'
           value={applyCoupon}
           className='coupon-apply-btn'
