@@ -1,92 +1,99 @@
 import React, { Fragment } from 'react';
 import { Testi as Testimonial } from 'components/Testimonials';
-
 import common from 'components/common';
+import { useContext } from '../../../../../../actions';
+
 
 import './style.css';
 
-const { EditableField, FloatButton } = common;
-const Wrapper = ({ className, children, ...props }) => (className ? <div className={className}>{children}</div> : <Fragment>{children}</Fragment>);
+const {
+  EditableField,
+  FlexBox
+} = common;
+
+// const Wrapper = ({ className, children, ...props }) => (className ? <div className={className}>{children}</div> : <Fragment>{children}</Fragment>);
 
 const Testimonials = ({
-  testimonialsWrapperClassName,
-  testimonialClassName,
-  titleClassName = '',
-  testimonials = {},
+  section = {},
   ...props
 }) => {
-  const { enabled, list = [], title = 'Testimonials' } = testimonials;
+  const { styles = {}, content = {} } = section;
+  const { actions } = useContext();
 
-  const onChange = (name, value) => {
-    const newTestimonials = { ...testimonials, [name]: value };
-    // props.onChange({
-    //   target: {
-    //     name: 'pagePreferences.testimonials',
-    //     value: newTestimonials
-    //   }
-    // });
+
+  const onChange = ({ target }) => {
+    actions.onSectionSettingChange({
+      section,
+      field: target
+    });
   };
 
   const onTestimonialChange = ({ target: { name, value } }) => {
     const updateMatched = (t, id) => (id === name ? value : t);
-    const newList = list.map(updateMatched);
-    onChange('list', newList);
+    const newList = content.list.map(updateMatched);
+    onChange({
+      target: {
+        name: 'list',
+        value: newList
+      }
+    });
   };
 
   const onDelete = (i) => {
-    const newList = list.filter((f, id) => id !== +(i));
-    onChange('list', newList);
+    const newList = content.list.filter((f, id) => id !== +(i));
+    onChange({
+      target: {
+        name: 'list',
+        value: newList
+      }
+    });
   };
 
-  const onAdd = () => {
-    const newList = [...list, { author: 'edit author name!', content: 'click on text to edit content' }];
-    onChange('list', newList);
+  // const onAdd = () => {
+  //   const newList = [...list, { author: 'edit author name!', content: 'click on text to edit content' }];
+  //   onChange('list', newList);
+  // };
+
+  // const onDisable = () => {
+  //   onChange('enabled', false);
+  // };
+
+  // const onTitleChange = ({ target: { value } }) => {
+  //   onChange('title', value);
+  // };
+
+  const style = {
+    ...styles,
+    paddingTop: `${styles.paddingTop}px`,
+    paddingBottom: `${styles.paddingBottom}px`,
+    fontSize: `${styles.fontSize}px`
   };
 
-  const onDisable = () => {
-    onChange('enabled', false);
-  };
-
-  const onTitleChange = ({ target: { value } }) => {
-    onChange('title', value);
-  };
   return (
-    <div className='product-template-testimonials-container'>
-      <h3 className={titleClassName}>
+    <div
+      className='product-template-testimonials-container'
+      style={style}
+    >
+      <h3>
         <EditableField
-          name='testimonials'
+          name='content.title'
           defaultValue='Testimonials'
-          onChange={onTitleChange}
-          value={title}
+          onChange={onChange}
+          value={content.title}
         />
-        <FloatButton onClick={onDisable} position={{ left: 0 }}>
-          <i className='fas fa-eye-slash' />
-        </FloatButton>
-        <FloatButton
-          onClick={onAdd}
-          position={{
-            right: -5,
-            left: 'unset',
-            top: '0',
-            background: 'transparent',
-            color: '#4DA1FF'
-          }}
-        >
-          <i className='fas fa-plus-circle' />
-        </FloatButton>
       </h3>
-      <Wrapper className={testimonialsWrapperClassName}>
-        {list.map((i, id) => (
+      <FlexBox>
+        {Array.isArray(content.list) && content.list.map((i, id) => (
           <Testimonial
             key={id}
             id={id}
             {...i}
-            className={testimonialClassName}
+            // className={testimonialClassName}
             onDelete={onDelete}
             onChange={onTestimonialChange}
           />
         ))}
-      </Wrapper>
+      </FlexBox>
     </div>
   );
 };

@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
+import ids from 'shortid';
 import { useContext } from '../../../actions';
-
 import {
   SettingBox
 } from './common';
 
+
+const emptyTestimonial = {
+  author: 'edit author name!',
+  content: 'click on text to edit content',
+};
 
 const {
   SideMenu,
@@ -14,6 +19,7 @@ const {
   EditableField,
   InputRow,
   MiniTwitterPicker,
+  Button,
   FlexBox,
   Tab,
 } = common;
@@ -30,7 +36,13 @@ const TestimonialsSection = (props) => {
     actions
   } = useContext();
 
-  const { styles = {}, actions: sectionActions = {} } = sectionSetting;
+  const {
+    styles = {},
+    actions: sectionActions = {},
+    content: {
+      list = []
+    } = {}
+  } = sectionSetting;
 
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
@@ -39,10 +51,44 @@ const TestimonialsSection = (props) => {
     });
   };
 
+  const addNewColumn = () => {
+    if (list.length <= 4) {
+      list.id = ids.generate();
+      actions.onSectionSettingChange({
+        section: sectionSetting,
+        field: {
+          name: 'content.list',
+          value: [...list, emptyTestimonial]
+        }
+      });
+    }
+  };
 
   return (
     <div>
-      <Tabs active='styles' className='padding-v-10 padding-h-10'>
+      <Tabs active='settings' className='padding-v-10 padding-h-10'>
+        <Tab id='settings' title='settings'>
+          <div className='large-text border-left-text margin-top-20'>Testimonials</div>
+          <div className='padding-left-20'>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span
+                data-tip='number of nested sections'
+                className='gray-text'
+              >
+                Current Testimonials:
+                {list.length}
+              </span>
+              <Button
+                data-tip={(list.length >= 4) ? 'you can\'t add more than 4 testimonials' : ''}
+                disabled={list.length >= 4}
+                className='primary-btn'
+                onClick={addNewColumn}
+              >
+                Add New Section
+              </Button>
+            </FlexBox>
+          </div>
+        </Tab>
         <Tab id='styles' title='styles'>
 
           <SettingBox title='Margins'>
