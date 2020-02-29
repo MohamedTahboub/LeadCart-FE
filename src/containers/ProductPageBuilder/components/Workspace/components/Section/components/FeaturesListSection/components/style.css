@@ -1,0 +1,47 @@
+.section-feature-item {
+    position: relative;
+    margin: 5px 0px;
+    display: flex;
+    font-size: 15px;
+    padding: 0px 20px;
+}
+
+.feature-item-input {
+    white-space: pre-line;
+    width: unset;
+    display: inline-block;
+    color: #A2A2A2;
+}
+
+.feature-item-delete-btn {
+    position: absolute;
+    opacity: 0;
+    right: -20px;
+    bottom: 2px;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    color: lightcoral;
+    display: -ms-flexbox;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    transition:all .3s ease-in-out;
+  }
+  .feature-item:hover .feature-item-delete-btn {
+    opacity: 1;
+  }
+  .feature-item-point {
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    color: white;
+    background-color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

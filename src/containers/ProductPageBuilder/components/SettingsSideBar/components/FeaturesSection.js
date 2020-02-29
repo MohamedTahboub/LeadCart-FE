@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
+import ids from 'shortid';
 import { useContext } from '../../../actions';
 
 import {
@@ -8,17 +9,16 @@ import {
 } from './common';
 
 
+const emptyFeature = { text: 'Feature Content' };
 const {
-  SideMenu,
   Tabs,
-  EditableField,
   InputRow,
-  MiniTwitterPicker,
+  Button,
   FlexBox,
   Tab,
 } = common;
 
-const { TextField, SelectOption } = InputRow;
+const { TextField } = InputRow;
 
 const FeaturesSection = (props) => {
   const {
@@ -30,7 +30,12 @@ const FeaturesSection = (props) => {
     actions
   } = useContext();
 
-  const { styles = {}, actions: sectionActions = {} } = sectionSetting;
+  const {
+    styles = {},
+    content: {
+      list = []
+    } = {}
+  } = sectionSetting;
 
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
@@ -39,12 +44,45 @@ const FeaturesSection = (props) => {
     });
   };
 
+  const onAddNewFeature = () => {
+    if (list.length <= 10) {
+      list.id = ids.generate();
+      actions.onSectionSettingChange({
+        section: sectionSetting,
+        field: {
+          name: 'content.list',
+          value: [...list, emptyFeature]
+        }
+      });
+    }
+  };
 
   return (
     <div>
-      <Tabs active='styles' className='padding-v-10 padding-h-10'>
+      <Tabs active='settings' className='padding-v-10 padding-h-10'>
+        <Tab id='settings' title='settings'>
+          <div className='large-text border-left-text margin-top-20'>Features:</div>
+          <div className='padding-left-20'>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span
+                data-tip='number of nested sections'
+                className='gray-text'
+              >
+                Current Features:
+                {list.length}
+              </span>
+              <Button
+                data-tip={(list.length >= 10) ? 'you can\'t add more than 10 Features' : ''}
+                disabled={list.length >= 10}
+                className='primary-btn'
+                onClick={onAddNewFeature}
+              >
+                Add New Feature
+              </Button>
+            </FlexBox>
+          </div>
+        </Tab>
         <Tab id='styles' title='styles'>
-
           <SettingBox title='Margins'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Margin Top:</span>

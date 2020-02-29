@@ -182,8 +182,12 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'featuresSection',
     content: {
-      value: 'features Section Content',
-      children: [],
+      title: 'Features List Title',
+      list: [
+        { text: 'First Feature' },
+        { text: 'Second Feature' },
+        { text: 'Third Feature' },
+      ]
     },
     styles: {
       marginTop: 0,
@@ -198,7 +202,6 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'guaranteeWidget',
     content: {
-      value: 'guarantee Widget Section Content',
       children: [],
     },
     styles: {

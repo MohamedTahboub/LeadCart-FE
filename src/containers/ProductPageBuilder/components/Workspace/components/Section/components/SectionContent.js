@@ -10,7 +10,8 @@ import {
   ShippingDetails,
   CouponSection,
   TestimonialsSection,
-  FeaturesListSection
+  FeaturesListSection,
+  GuaranteeSection
 } from '.';
 
 const SectionContent = ({ type, ...props }) => {
@@ -24,6 +25,7 @@ const SectionContent = ({ type, ...props }) => {
   case 'couponSection': return <CouponSection {...props} />;
   case 'testimonialsSection': return <TestimonialsSection {...props} />;
   case 'featuresSection': return <FeaturesListSection {...props} />;
+  case 'guaranteeWidget': return <GuaranteeSection {...props} />;
   default: return null;
   }
 };

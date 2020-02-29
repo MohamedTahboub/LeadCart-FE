@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css';
 
 import Text from './Text';
 import Image from './Image';
@@ -9,6 +10,7 @@ import ShippingAddress from './ShippingAddress';
 import CouponSection from './CouponSection';
 import TestimonialsSection from './TestimonialsSection';
 import FeaturesSection from './FeaturesSection';
+import GuaranteeWidget from './GuaranteeWidget';
 
 export default ({ type, ...props }) => {
   switch (type) {
@@ -21,6 +23,7 @@ export default ({ type, ...props }) => {
   case 'couponSection': return <CouponSection {...props} />;
   case 'testimonialsSection': return <TestimonialsSection {...props} />;
   case 'featuresSection': return <FeaturesSection {...props} />;
+  case 'guaranteeWidget': return <GuaranteeWidget {...props} />;
   default: return null;
   }
 };

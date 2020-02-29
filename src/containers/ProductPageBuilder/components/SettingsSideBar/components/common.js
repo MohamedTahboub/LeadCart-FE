@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import clx from 'classnames';
 
 export const SettingBox = ({
   title,
@@ -22,3 +23,35 @@ SettingBox.propTypes = {
 SettingBox.default = {
   className: '',
 };
+
+export const ImageOption = ({
+  value,
+  active,
+  onClick,
+  className = '',
+  ...props
+}) => {
+  const classNames = clx({
+    'image-badge-option': true,
+    [className]: className,
+    active,
+  });
+
+  return (
+    <img
+      onClick={onClick(value)}
+      className={classNames}
+      src={value}
+      alt='guarantee Badge'
+    />
+  );
+};
+
+SettingBox.propTypes = {
+  title: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+};
+SettingBox.default = {
+  className: '',
+};
+

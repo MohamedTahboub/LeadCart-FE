@@ -1,106 +1,93 @@
 import React from 'react';
 import common from 'components/common';
-
+import { useContext } from '../../../../../../actions';
 import './style.css';
+import {
+  Feature
+} from './components';
 
-const { EditableField, FloatButton } = common;
-
-const Feature = ({
-  className,
-  color = 'rgb(142, 209, 252)',
-  id,
-  onChange,
-  onDelete,
-  text
-}) => (
-  <div className='template-feature-item-container'>
-    <span style={{ background: color }} className='template-feature-order'>{id + 1}</span>
-    <EditableField
-      className='template-feature-item'
-      name={id}
-      defaultValue='Feature description'
-      onChange={onChange}
-      value={text}
-      textarea
-    />
-    <span
-      onClick={() => onDelete(id)}
-      className='template-feature-delete'
-      role='presentation'
-    >
-      <i className='fas fa-trash-alt' />
-    </span>
-  </div>
-);
+const { EditableField } = common;
 
 
 const Features = ({
-  features = {},
-  color,
+  section = {},
   ...props
 }) => {
-  const { title = 'Features list', enabled, list = [] } = features;
+  const { actions } = useContext();
+
+  const {
+    styles,
+    content: {
+      list = [],
+      title
+    } = {}
+  } = section;
+
 
   const onChange = (name, value) => {
-    const newFeatures = { ...features, [name]: value };
-    // props.onChange({
-    //   target: {
-    //     name: 'pagePreferences.features',
-    //     value: newFeatures
-    //   }
-    // });
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name,
+        value
+      }
+    });
   };
+
+
+  // const addNewTestimonial = () => {
+  //   if (list.length <= 4) {
+  //     list.id = ids.generate();
+  //     actions.onSectionSettingChange({
+  //       section: sectionSetting,
+  //       field: {
+  //         name: 'content.list',
+  //         value: [...list, emptyTestimonial]
+  //       }
+  //     });
+  //   }
+  // };
+
+
   const onFeatureChange = ({ target: { value, name } }) => {
     const newList = list.map((f, id) => {
       if (id === +(name)) f.text = value;
       return f;
     });
-    onChange('list', newList);
+    onChange('content.list', newList);
   };
 
 
   const onFeatureDelete = (i) => {
     const newList = list.filter((f, id) => id !== +(i));
-    onChange('list', newList);
+    onChange('content.list', newList);
   };
 
-  const onAddNewFeature = () => {
-    const newList = [...list, { text: 'edit feature content!' }];
-    onChange('list', newList);
-  };
+  // const onAddNewFeature = () => {
+  //   const newList = [...list, { text: 'edit feature content!' }];
+  //   onChange('list', newList);
+  // };
 
-  const onDisable = () => {
-    onChange('enabled', false);
-  };
 
   const onTitleChange = ({ target: { value } }) => {
-    onChange('title', value);
+    onChange('content.title', value);
   };
 
+  const style = {
+    ...styles,
+    marginTop: `${styles.marginTop}px`,
+    marginBottom: `${styles.marginBottom}px`,
+    paddingTop: `${styles.paddingTop}px`,
+    paddingBottom: `${styles.paddingBottom}px`,
+    fontSize: `${styles.fontSize}px`
+  };
 
   return (
 
-    <div className='product-template-features'>
-
-      <FloatButton onClick={onDisable} position={{ left: 0 }}>
-        <i className='fas fa-eye-slash' />
-      </FloatButton>
-      <FloatButton
-        onClick={onAddNewFeature}
-        position={{
-          right: -5,
-          left: 'unset',
-          top: '0',
-          background: 'transparent',
-          color: '#4DA1FF'
-        }}
-      >
-        <i className='fas fa-plus-circle' />
-      </FloatButton>
-
+    <div className='features-list-container' style={style}>
       <EditableField
-        className='template-features-title'
-        name='pagePreferences.featuresTitle'
+        className='features-list-title'
+        // name='pagePreferences.featuresTitle'
         defaultValue='Features List'
         onChange={onTitleChange}
         value={title}
@@ -112,7 +99,7 @@ const Features = ({
           text={text}
           onChange={onFeatureChange}
           onDelete={onFeatureDelete}
-          color={color}
+          color={styles.themeColor}
         />
       ))}
     </div>

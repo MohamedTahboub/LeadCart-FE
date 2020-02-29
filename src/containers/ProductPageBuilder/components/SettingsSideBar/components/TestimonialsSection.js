@@ -84,7 +84,7 @@ const TestimonialsSection = (props) => {
                 className='primary-btn'
                 onClick={addNewColumn}
               >
-                Add New Section
+                Add New Testimonial
               </Button>
             </FlexBox>
           </div>

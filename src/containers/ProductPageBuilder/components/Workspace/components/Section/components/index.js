@@ -9,3 +9,4 @@ export { default as ShippingDetails } from './ShippingDetails';
 export { default as CouponSection } from './CouponSection';
 export { default as TestimonialsSection } from './TestimonialsSection';
 export { default as FeaturesListSection } from './FeaturesListSection';
+export { default as GuaranteeSection } from './GuaranteeSection';
