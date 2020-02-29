@@ -262,6 +262,12 @@ span.insight-chart {
 .flex-box.spaceBetween {
     justify-content: space-between;
 }
+.flex-box.spaceAround {
+    justify-content: space-around;
+}
+.flex-box.spaceEvenly {
+    justify-content: space-evenly;
+}
 
 .flex-box.wrappable {
     flex-wrap: wrap;

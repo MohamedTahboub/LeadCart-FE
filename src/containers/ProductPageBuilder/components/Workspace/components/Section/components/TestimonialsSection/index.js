@@ -49,19 +49,6 @@ const Testimonials = ({
     });
   };
 
-  // const onAdd = () => {
-  //   const newList = [...list, { author: 'edit author name!', content: 'click on text to edit content' }];
-  //   onChange('list', newList);
-  // };
-
-  // const onDisable = () => {
-  //   onChange('enabled', false);
-  // };
-
-  // const onTitleChange = ({ target: { value } }) => {
-  //   onChange('title', value);
-  // };
-
   const style = {
     ...styles,
     paddingTop: `${styles.paddingTop}px`,
@@ -70,8 +57,10 @@ const Testimonials = ({
   };
 
   return (
-    <div
-      className='product-template-testimonials-container'
+    <FlexBox
+      center='h-center'
+      // className='product-template-testimonials-container'
+      column
       style={style}
     >
       <h3>
@@ -82,7 +71,7 @@ const Testimonials = ({
           value={content.title}
         />
       </h3>
-      <FlexBox>
+      <FlexBox flex spaceAround wrappable={content.list && content.list.length > 2}>
         {Array.isArray(content.list) && content.list.map((i, id) => (
           <Testimonial
             key={id}
@@ -94,7 +83,7 @@ const Testimonials = ({
           />
         ))}
       </FlexBox>
-    </div>
+    </FlexBox>
   );
 };
 
