@@ -217,7 +217,10 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'countDownWidget',
     content: {
-      value: 'countDown Widget Section Content',
+      valueType: 'fixedTime',
+      value: {
+        date: Date.now() + 100000
+      },
       children: [],
     },
     styles: {

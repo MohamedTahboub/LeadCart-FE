@@ -11,7 +11,8 @@ import {
   CouponSection,
   TestimonialsSection,
   FeaturesListSection,
-  GuaranteeSection
+  GuaranteeSection,
+  CountDownTimer
 } from '.';
 
 const SectionContent = ({ type, ...props }) => {
@@ -26,6 +27,7 @@ const SectionContent = ({ type, ...props }) => {
   case 'testimonialsSection': return <TestimonialsSection {...props} />;
   case 'featuresSection': return <FeaturesListSection {...props} />;
   case 'guaranteeWidget': return <GuaranteeSection {...props} />;
+  case 'countDownWidget': return <CountDownTimer {...props} />;
   default: return null;
   }
 };

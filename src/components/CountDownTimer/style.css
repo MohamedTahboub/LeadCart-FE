@@ -1,0 +1,14 @@
+.counter-box {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007aff;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+}
+.counter-label {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #686e82;
+    text-transform: capitalize;
+}

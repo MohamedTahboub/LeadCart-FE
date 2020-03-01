@@ -11,6 +11,7 @@ import CouponSection from './CouponSection';
 import TestimonialsSection from './TestimonialsSection';
 import FeaturesSection from './FeaturesSection';
 import GuaranteeWidget from './GuaranteeWidget';
+import CountDowTimerWidget from './CountDowTimerWidget';
 
 export default ({ type, ...props }) => {
   switch (type) {
@@ -24,6 +25,7 @@ export default ({ type, ...props }) => {
   case 'testimonialsSection': return <TestimonialsSection {...props} />;
   case 'featuresSection': return <FeaturesSection {...props} />;
   case 'guaranteeWidget': return <GuaranteeWidget {...props} />;
+  case 'countDownWidget': return <CountDowTimerWidget {...props} />;
   default: return null;
   }
 };
