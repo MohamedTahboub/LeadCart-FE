@@ -21,11 +21,11 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'image',
     content: {
-      value: 'https://via.placeholder.com/200',
+      // value: 'https://via.placeholder.com/200',
       children: [],
     },
     styles: {
-      height: 400,
+      height: 267,
       width: 688,
       marginTop: 0,
       marginBottom: 0,
@@ -138,6 +138,7 @@ export default {
       marginRight: 0,
       paddingTop: 0,
       paddingBottom: 0,
+      themeColor: 'rgb(142, 209, 252)'
     },
   },
   couponSection: {

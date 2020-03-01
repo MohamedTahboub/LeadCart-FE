@@ -73,7 +73,11 @@ const CountDowTimerWidget = (props) => {
     onChange({
       target: {
         name: 'content.value',
-        value: { ...timerValue, [name]: value }
+        value: {
+          ...timerValue,
+          valueType: 'sessionTime',
+          [name]: value
+        }
       }
     });
   };
@@ -82,7 +86,11 @@ const CountDowTimerWidget = (props) => {
     onChange({
       target: {
         name: 'content.value',
-        value: { ...timerValue, date }
+        value: {
+          ...timerValue,
+          date: date.format(),
+          valueType: 'fixedTime'
+        }
       }
     });
   };
@@ -92,7 +100,7 @@ const CountDowTimerWidget = (props) => {
       <Tabs active='settings' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
         <Tab id='settings' title='Settings'>
           <SettingBox title='Setup'>
-            <FlexBox column center='v-center margin-v-5' spaceBetween>
+            <FlexBox column className='margin-v-5' flexStart>
               <span className='gray-text'>Timer Clock Type:</span>
               <SelectOption
                 value={content.valueType}
@@ -108,10 +116,9 @@ const CountDowTimerWidget = (props) => {
           </SettingBox>
           {content.valueType === 'fixedTime' ? (
             <SettingBox title='Fixed Session Timer Values'>
-              <FlexBox center='v-center margin-v-5' spaceBetween>
+              <FlexBox column className='margin-v-5' flexStart>
                 <span className='gray-text'>Date:</span>
                 <DatePicker
-                  name='content.date'
                   type='date'
                   disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
                   placeholder='Timer End Date'
@@ -144,7 +151,7 @@ const CountDowTimerWidget = (props) => {
                 />
               </FlexBox>
               <FlexBox center='v-center margin-v-5' spaceBetween>
-                <span className='gray-text'>Seconds:</span>
+                <span className='gray-text'>Minutes:</span>
                 <TextField
                   type='number'
                   name='minutes'

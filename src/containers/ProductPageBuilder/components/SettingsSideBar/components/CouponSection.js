@@ -46,10 +46,18 @@ const CouponSection = (props) => {
         <Tab id='styles' title='styles'>
           <SettingBox title='Colors'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Theme Color:</span>
+              <span className='gray-text'>Border Color:</span>
               <MiniTwitterPicker
-                name='styles.themeColor'
-                value={styles.themeColor}
+                name='styles.borderColor'
+                value={styles.borderColor}
+                onChange={onChange}
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Button Color:</span>
+              <MiniTwitterPicker
+                name='styles.btnColor'
+                value={styles.btnColor}
                 onChange={onChange}
               />
             </FlexBox>

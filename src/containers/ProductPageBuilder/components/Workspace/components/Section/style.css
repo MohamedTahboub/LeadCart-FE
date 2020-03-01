@@ -3,7 +3,7 @@
     padding: 5px;
     border: 1.5px dashed transparent;
     position: relative;
-    overflow: unset;
+    overflow: hidden;
     transform: translateY(0);
 }
 .product-section:hover{
@@ -63,6 +63,7 @@
 .image-section{
     min-height: 100px;
     width: 100%;
+    object-fit: contain;
 }
 .item .image-section{
     height: 100%;

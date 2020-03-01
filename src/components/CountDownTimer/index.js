@@ -22,24 +22,17 @@ const counterInitialState = {
   minutes: 0,
   seconds: 0
 };
-const CountDownTimer = ({ value, valueType, styleType }) => {
+const CountDownTimer = ({ options, ...props }) => {
+  const { valueType, styleType, ...value } = options;
   const [state, setState] = useState(counterInitialState);
 
 
   useEffect(() => {
-    let timerInstance;
-    timerInstance = countDownTimerClock({ ...value, type: valueType });
-    // if (valueType === 'fixedTime') {
-    // } else if (valueType === 'sessionTime') {
-    //     const fixedValue = moment(value).valueOf()
-    //     timerInstance = countDownTimerClock(value);
-    // } else {
-    //     timerInstance = countDownTimerClock(value);
-    // }
+    const timerInstance = countDownTimerClock({ ...value, type: valueType });
     timerInstance.tick(setState);
 
     return timerInstance.tick;
-  }, [value]);
+  }, [options]);
 
   return (
     <div>
@@ -55,6 +48,9 @@ const CountDownTimer = ({ value, valueType, styleType }) => {
 
 CountDownTimer.propTypes = {
 
+};
+CountDownTimer.defaultProps = {
+  options: {}
 };
 
 export default CountDownTimer;

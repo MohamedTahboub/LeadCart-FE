@@ -17,7 +17,7 @@ const GuaranteeSection = ({
     styles = {},
     content: {
       valueType,
-      value = Date.now() + 10000,
+      value,
     } = {}
   } = section;
 
@@ -37,10 +37,6 @@ const GuaranteeSection = ({
   const style = {
     height: `${styles.height}px`,
     width: `${styles.width}px`
-    // backgroundImage: `url(${imageSrc})`,
-    // backgroundPosition: 'center',
-    // backgroundSize: '100% 100%',
-    // backgroundRepeat: 'no-repeat'
   };
 
   return (
@@ -50,8 +46,8 @@ const GuaranteeSection = ({
       style={{ ...sectionStyle }}
     >
       <CountDownTimer
-        type={valueType}
-        value={value}
+        // type={valueType}
+        options={value}
       />
     </FlexBox>
   );

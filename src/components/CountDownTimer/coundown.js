@@ -8,7 +8,11 @@ const SEC_IN_MSEC = (1000);
 const isFunction = (fn) => typeof fn === 'function';
 
 const getTargetDate = ({
-  type, date, days = 0, hours = 0, minutes = 0
+  type,
+  date,
+  days = 0,
+  hours = 0,
+  minutes = 0
 }) => {
   if (type === 'fixedTime') return moment(date).valueOf();
 
@@ -16,7 +20,7 @@ const getTargetDate = ({
   time.add(days, 'days');
   time.add(hours, 'hours');
   time.add(minutes, 'minutes');
-  console.log(time.format());
+
   return time.valueOf();
 };
 export default (target, finishedCb) => {

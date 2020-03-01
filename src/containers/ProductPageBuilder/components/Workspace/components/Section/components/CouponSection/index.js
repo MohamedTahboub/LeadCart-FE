@@ -28,20 +28,21 @@ const CouponActivation = ({
     paddingRight: `${styles.paddingRight}px`,
   };
 
+  const { borderColor, btnColor } = styles;
   return (
     <div className='product-template-coupon-container' style={style}>
       <div className='coupon-form-head'>
         <img src={scissorImage} alt='scissor icon' />
         {couponTitle}
       </div>
-      <div className='coupon-activation-form'>
+      <div className='coupon-activation-form' style={{ borderColor }}>
         <input
           className='coupon-activation-input'
           name='coupon'
           type='text'
         />
         <input
-          style={{ background: styles.themeColor }}
+          style={{ background: btnColor }}
           type='button'
           value={applyCoupon}
           className='coupon-apply-btn'
