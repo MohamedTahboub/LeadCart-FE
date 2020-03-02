@@ -17,6 +17,7 @@ const Editor = ({
   value: htmlValue,
   theme = 'bubble',
   onEdit,
+  onBlur
   // uploadFile
 }) =>
 // const [html, setHtml] = useState('');
@@ -48,6 +49,7 @@ const Editor = ({
       theme={theme}
       scrollingContainer='body'
       onChange={onEdit}
+      onBlur={onBlur}
       value={htmlValue}
       modules={modules}
       formats={formats}
@@ -57,7 +59,8 @@ const Editor = ({
   );
 Editor.propTypes = {
   value: PropTypes.string,
-  onEdit: PropTypes.func
+  onEdit: PropTypes.func,
+  onBlur: PropTypes.func
 };
 Editor.defaultProps = {
   value: 'Add Your Description Here',

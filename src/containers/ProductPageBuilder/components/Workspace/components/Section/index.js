@@ -24,8 +24,9 @@ const Section = ({
   findCard,
   section,
   active,
+  onSectionDuplicate,
   onSetting,
-  onSectionOrderChange,
+  // onSectionOrderChange,
   ...props
 }) => {
   // if (hidden) return null;
@@ -83,6 +84,9 @@ const Section = ({
     [className]: className
   });
 
+  const onDuplicate = (fromId) => () => {
+    onSectionDuplicate(fromId);
+  };
   return (
     <div
       className={classes}
@@ -93,8 +97,9 @@ const Section = ({
       ref={(node) => drop(drag(node))}
     >
       <SettingsHandles
-        onOrderChange={onSectionOrderChange}
+        // onOrderChange={onSectionOrderChange}
         onSettings={onSetting}
+        onDuplicate={onDuplicate}
         section={section}
         order={order}
         id={id}

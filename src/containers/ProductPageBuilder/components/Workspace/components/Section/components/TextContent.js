@@ -21,6 +21,8 @@ const TextContent = ({
         value
       }
     };
+    if (props.onChange) return props.onChange(updatedSection);
+
     actions.updateProductSection(updatedSection);
   };
 

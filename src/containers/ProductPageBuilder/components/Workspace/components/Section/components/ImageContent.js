@@ -32,6 +32,7 @@ const ImageContent = ({
   };
 
   const onImageChange = (image) => {
+    // if (props.onChange) return props.onChange(updatedSection);
     actions.onSectionSettingChange({
       section,
       field: {
@@ -42,7 +43,7 @@ const ImageContent = ({
   };
 
   const onUpload = () => {
-    inputRef.current.click();
+    if (imageSrc === defaultDropImage) inputRef.current.click();
   };
 
   return (

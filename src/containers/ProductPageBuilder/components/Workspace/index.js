@@ -7,6 +7,7 @@ import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import update from 'immutability-helper';
+import ids from 'shortid';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
@@ -144,6 +145,16 @@ const Workspace = ({
     const { section: { type } = {} } = section;
     if (section.new) actions.addNewSection(type);
   };
+  const onSectionDuplicate = (id) => {
+    const copySection = sections.find((section) => section.id === id);
+    // .sort((a, b) => (a.order > b.order ? 1 : -1));
+    copySection.id = ids.generate();
+    const newSections = [copySection, ...sections];
+    actions.onProductFieldChange({
+      name: 'sections',
+      value: newSections
+    });
+  };
 
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
@@ -166,6 +177,7 @@ const Workspace = ({
                 // maxOrder={maxSectionsOrder}
                 active={activeSection.id === section.id}
                 moveCard={moveCard}
+                onSectionDuplicate={onSectionDuplicate}
                 findCard={findCard}
                 language={activeLanguage}
               />
