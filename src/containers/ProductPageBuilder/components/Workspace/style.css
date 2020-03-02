@@ -1,4 +1,6 @@
-.product-workspace-container {}
+.product-workspace-container {
+    position: relative;
+}
 
 .product-workspace {
     width: 750px;

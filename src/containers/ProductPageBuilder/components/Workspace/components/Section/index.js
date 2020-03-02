@@ -24,8 +24,9 @@ const Section = ({
   findCard,
   section,
   active,
+  onSectionDuplicate,
   onSetting,
-  onSectionOrderChange,
+  // onSectionOrderChange,
   ...props
 }) => {
   // if (hidden) return null;
@@ -80,11 +81,16 @@ const Section = ({
     'product-section': true,
     'isDragging': isDragging,
     'active': active,
-    [className]: className
+    [className]: className,
+    [content.position]: content.position
   });
 
+  const onDuplicate = (fromId) => () => {
+    onSectionDuplicate(fromId);
+  };
   return (
     <div
+      id={id}
       className={classes}
       style={{
         ...style,
@@ -93,8 +99,9 @@ const Section = ({
       ref={(node) => drop(drag(node))}
     >
       <SettingsHandles
-        onOrderChange={onSectionOrderChange}
+        // onOrderChange={onSectionOrderChange}
         onSettings={onSetting}
+        onDuplicate={onDuplicate}
         section={section}
         order={order}
         id={id}
@@ -103,6 +110,7 @@ const Section = ({
       <SectionContent
         type={type}
         section={section}
+        language={props.language}
         {...content}
       />
     </div>

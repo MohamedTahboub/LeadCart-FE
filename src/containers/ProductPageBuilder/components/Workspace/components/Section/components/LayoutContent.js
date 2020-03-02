@@ -13,6 +13,7 @@ const NestedSection = ({
   className,
   onReorder,
   findCard,
+  onChange,
   addNewNestedSectionAt,
   section = {},
   ...props
@@ -85,6 +86,7 @@ const NestedSection = ({
       <SectionContent
         type={section.type}
         section={section}
+        onChange={onChange}
         {...section.content}
       />
     </div>
@@ -173,6 +175,20 @@ const LayoutContent = ({
       }
     });
   };
+  const onNestedSectionChange = (changedSection) => {
+    const newSections = NestedSections.map((section) => {
+      if (section.id === changedSection.id) return changedSection;
+      return section;
+    });
+
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name: 'content.sections',
+        value: newSections
+      }
+    });
+  };
   return (
     <div className={classNames} style={sectionStyle}>
       {NestedSections.map((section, id) => (
@@ -180,6 +196,7 @@ const LayoutContent = ({
           key={section.id}
           onReorder={onNestedSectionReorder}
           addNewNestedSectionAt={addNewNestedSectionAt}
+          onChange={onNestedSectionChange}
           className='item'
           findCard={findCard}
           section={section}

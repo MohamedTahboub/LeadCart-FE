@@ -73,7 +73,7 @@ const Layout = (props) => {
                 {nestedSection.length}
               </span>
               <Button
-                data-tip={(nestedSection.length >= 4) ? 'you can add more than 4 nested sections' : ''}
+                data-tip={(nestedSection.length >= 4) ? 'you can\'t add more than 4 nested sections' : ''}
                 disabled={nestedSection.length >= 4}
                 className='primary-btn'
                 onClick={addNewColumn}

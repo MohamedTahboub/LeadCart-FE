@@ -498,7 +498,7 @@ input:checked~.slider-input:before {
 }
 
 .hiden-element {
-    display: none;
+    display: none !important;
 }
 
 .charging-method-item {

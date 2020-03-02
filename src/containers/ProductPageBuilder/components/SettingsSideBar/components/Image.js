@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { useContext } from '../../../actions';
-
+import { SettingBox } from './common';
 const {
   SideMenu,
   Tabs,
@@ -52,8 +52,7 @@ const Image = (props) => {
     <div>
       <Tabs active='styles' className='padding-v-10 padding-h-10'>
         <Tab id='styles' title='styles'>
-          <div className='large-text border-left-text'>Image</div>
-          <div className='padding-left-20'>
+          <SettingBox title='Image'>
             <FlexBox center='v-center' spaceBetween>
               <span className='gray-text'>Upload Image</span>
               <AddImage
@@ -64,10 +63,10 @@ const Image = (props) => {
                 onUploaded={onImageChange}
               />
             </FlexBox>
-          </div>
+          </SettingBox>
 
-          <div className='large-text border-left-text margin-top-20'>Size</div>
-          <div className='padding-left-20'>
+
+          <SettingBox title='Size'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Image Height:</span>
               <TextField
@@ -88,10 +87,9 @@ const Image = (props) => {
                 className='width-70'
               />
             </FlexBox>
-          </div>
+          </SettingBox>
 
-          <div className='large-text border-left-text margin-top-20'>Paddings</div>
-          <div className='padding-left-20'>
+          <SettingBox title='Paddings'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding Top:</span>
               <TextField
@@ -112,7 +110,7 @@ const Image = (props) => {
                 className='width-70'
               />
             </FlexBox>
-          </div>
+          </SettingBox>
         </Tab>
       </Tabs>
     </div>

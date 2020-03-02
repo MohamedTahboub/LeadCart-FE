@@ -1,17 +1,23 @@
 import React from 'react';
 import { DragPreviewImage } from 'react-dnd';
-import textImage from 'assets/images/previews/text-section.png';
-import imageSectionImage from 'assets/images/previews/image-section.png';
-import videoImage from 'assets/images/previews/video-section.png';
-import layersImage from 'assets/images/previews/layers-section.png';
 
-const defaultImage = textImage;
+import * as previewImages from './dragingImages';
+const defaultImage = previewImages.textImage;
 
 const images = {
-  text: textImage,
-  image: imageSectionImage,
-  video: videoImage,
-  layout: layersImage,
+  text: previewImages.textImage,
+  image: previewImages.imageSectionImage,
+  video: previewImages.videoImage,
+  layout: previewImages.layoutImage,
+  bumpOffer: previewImages.bumpOfferImage,
+  shippingDetails: previewImages.shippingDetailsImage,
+  couponSection: previewImages.couponImage,
+  testimonialsSection: previewImages.testimonialsImage,
+  featuresSection: previewImages.featuresImage,
+  guaranteeWidget: previewImages.guaranteeImage,
+  countDownWidget: previewImages.countdownImage,
+  progressbarWidget: previewImages.progressbarImage,
+  productMarkWidget: previewImages.pageBadgeImage,
 };
 
 export default ({ connect, type }) => {

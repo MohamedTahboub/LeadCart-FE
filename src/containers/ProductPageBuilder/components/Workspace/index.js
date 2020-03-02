@@ -7,6 +7,7 @@ import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import update from 'immutability-helper';
+import ids from 'shortid';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
@@ -127,7 +128,10 @@ const Workspace = ({
   };
 
   const moveCard = (id, atIndex) => {
+    // const newSections = [...sections];
     const { section, index } = findCard(id);
+    // newSections.splice(atIndex, 0, section);
+
     const newSections = update(sections, {
       $splice: [
         [index, 1],
@@ -144,6 +148,14 @@ const Workspace = ({
     const { section: { type } = {} } = section;
     if (section.new) actions.addNewSection(type);
   };
+  const onSectionDuplicate = (id) => {
+    const copySection = sections.find((section) => section.id === id);
+    const newSections = [{ ...copySection, id: ids.generate() }, ...sections];
+    actions.onProductFieldChange({
+      name: 'sections',
+      value: newSections
+    });
+  };
 
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
@@ -157,7 +169,7 @@ const Workspace = ({
           {
             sections.map((section, index) => (
               <Section
-                key={`${section.id}_${section.order}`}
+                key={`${section.id}`}
                 id={`${section.id}`}
                 {...section}
                 section={section}
@@ -166,7 +178,9 @@ const Workspace = ({
                 // maxOrder={maxSectionsOrder}
                 active={activeSection.id === section.id}
                 moveCard={moveCard}
+                onSectionDuplicate={onSectionDuplicate}
                 findCard={findCard}
+                language={activeLanguage}
               />
             ))
           }
