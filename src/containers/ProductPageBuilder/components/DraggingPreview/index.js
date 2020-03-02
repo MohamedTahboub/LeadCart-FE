@@ -17,7 +17,7 @@ const images = {
   guaranteeWidget: previewImages.guaranteeImage,
   countDownWidget: previewImages.countdownImage,
   progressbarWidget: previewImages.progressbarImage,
-  bookmarkWidget: previewImages.pageBadgeImage,
+  productMarkWidget: previewImages.pageBadgeImage,
 };
 
 export default ({ connect, type }) => {

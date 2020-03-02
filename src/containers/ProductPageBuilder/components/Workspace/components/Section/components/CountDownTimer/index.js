@@ -18,16 +18,16 @@ const GuaranteeSection = ({
     content: {
       valueType,
       value,
-    } = {}
+    } = {},
+    options
   } = section;
 
   const classNames = clx({
-    'image-section': true,
     [className]: className,
   });
 
   const sectionStyle = {
-    ...styles,
+    // ...styles,
     marginTop: `${styles.marginTop}px`,
     marginBottom: `${styles.marginBottom}px`,
     paddingTop: `${styles.paddingTop}px`,
@@ -39,6 +39,13 @@ const GuaranteeSection = ({
     width: `${styles.width}px`
   };
 
+  const countDownStyles = {
+    format: styles.clockFormat,
+    color: styles.clockColor,
+    // fontSize: styles.fontSize,
+    shape: styles.shape,
+    backgroundColor: styles.backgroundColor,
+  };
   return (
     <FlexBox
       center='h-center'
@@ -46,6 +53,7 @@ const GuaranteeSection = ({
       style={{ ...sectionStyle }}
     >
       <CountDownTimer
+        styles={countDownStyles}
         // type={valueType}
         options={value}
       />

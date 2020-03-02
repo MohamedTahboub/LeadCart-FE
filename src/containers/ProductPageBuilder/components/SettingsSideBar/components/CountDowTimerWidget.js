@@ -163,11 +163,51 @@ const CountDowTimerWidget = (props) => {
             </SettingBox>
           )}
         </Tab>
-
-        <Tab id='themes' title='Themes'>
-          CountDown Themes
-        </Tab>
         <Tab id='styles' title='Styles'>
+          <SettingBox title='Clock Style'>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Clock Format:</span>
+              <SelectOption
+                value={styles.clockFormat}
+                name='styles.clockFormat'
+                onChange={onChange}
+                className='bump-offer-style-dropdown'
+                options={[
+                  { label: 'Normal Format', value: 'normal' },
+                  { label: 'Digital Format', value: 'digital' },
+                ]}
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Clock Shape:</span>
+              <SelectOption
+                value={styles.shape}
+                name='styles.shape'
+                onChange={onChange}
+                className='bump-offer-style-dropdown'
+                options={[
+                  { label: 'Rectangles', value: 'rectangle' },
+                  { label: 'Circles', value: 'circle' },
+                ]}
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Clock Color:</span>
+              <MiniTwitterPicker
+                name='styles.clockColor'
+                value={styles.clockColor}
+                onChange={onChange}
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Background Color:</span>
+              <MiniTwitterPicker
+                name='styles.backgroundColor'
+                value={styles.backgroundColor}
+                onChange={onChange}
+              />
+            </FlexBox>
+          </SettingBox>
           <SettingBox title='Margin'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Margin Top:</span>

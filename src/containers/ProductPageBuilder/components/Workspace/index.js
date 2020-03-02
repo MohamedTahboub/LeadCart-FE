@@ -128,7 +128,10 @@ const Workspace = ({
   };
 
   const moveCard = (id, atIndex) => {
+    // const newSections = [...sections];
     const { section, index } = findCard(id);
+    // newSections.splice(atIndex, 0, section);
+
     const newSections = update(sections, {
       $splice: [
         [index, 1],
@@ -147,9 +150,7 @@ const Workspace = ({
   };
   const onSectionDuplicate = (id) => {
     const copySection = sections.find((section) => section.id === id);
-    // .sort((a, b) => (a.order > b.order ? 1 : -1));
-    copySection.id = ids.generate();
-    const newSections = [copySection, ...sections];
+    const newSections = [{ ...copySection, id: ids.generate() }, ...sections];
     actions.onProductFieldChange({
       name: 'sections',
       value: newSections
@@ -168,7 +169,7 @@ const Workspace = ({
           {
             sections.map((section, index) => (
               <Section
-                key={`${section.id}_${section.order}`}
+                key={`${section.id}`}
                 id={`${section.id}`}
                 {...section}
                 section={section}

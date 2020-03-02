@@ -114,7 +114,7 @@ const SideBar = (props) => (
           />
           <BaseCard
             // draggable
-            type='bookmarkWidget'
+            type='productMarkWidget'
             className='bookmark-badge-bg widget-card'
             data-tip='Page Badge '
           />

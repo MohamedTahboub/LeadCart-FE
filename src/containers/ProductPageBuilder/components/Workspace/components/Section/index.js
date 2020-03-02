@@ -81,7 +81,8 @@ const Section = ({
     'product-section': true,
     'isDragging': isDragging,
     'active': active,
-    [className]: className
+    [className]: className,
+    [content.position]: content.position
   });
 
   const onDuplicate = (fromId) => () => {
@@ -89,6 +90,7 @@ const Section = ({
   };
   return (
     <div
+      id={id}
       className={classes}
       style={{
         ...style,

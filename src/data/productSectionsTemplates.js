@@ -237,7 +237,7 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'progressbarWidget',
     content: {
-      value: 'progressbar Widget Section Content',
+      value: 93,
       children: [],
     },
     styles: {
@@ -249,11 +249,11 @@ export default {
       paddingBottom: 0,
     },
   },
-  bookmarkWidget: {
+  productMarkWidget: {
     hidden: false, // for referencing elements for the layout sections
-    type: 'bookmarkWidget',
+    type: 'productMarkWidget',
     content: {
-      value: 'bookmark Widget Section Content',
+      // value: 'bookmark Widget Section Content',
       children: [],
     },
     styles: {

@@ -151,7 +151,6 @@ const LayoutContent = ({
         [atIndex, 0, nestedSection],
       ],
     });
-    console.log(section, newNestedSections);
     actions.onSectionSettingChange({
       section,
       field: {

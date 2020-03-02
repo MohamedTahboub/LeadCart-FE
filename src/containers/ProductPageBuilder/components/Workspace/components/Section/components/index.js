@@ -11,3 +11,5 @@ export { default as TestimonialsSection } from './TestimonialsSection';
 export { default as FeaturesListSection } from './FeaturesListSection';
 export { default as GuaranteeSection } from './GuaranteeSection';
 export { default as CountDownTimer } from './CountDownTimer';
+export { default as ProgressBar } from './ProgressBar';
+export { default as ProductMarkWidget } from './ProductMarkWidget';

@@ -12,10 +12,13 @@ import {
   TestimonialsSection,
   FeaturesListSection,
   GuaranteeSection,
-  CountDownTimer
+  CountDownTimer,
+  ProgressBar,
+  ProductMarkWidget
 } from '.';
 
 const SectionContent = ({ type, ...props }) => {
+  console.log(type);
   switch (type) {
   case 'text': return <TextContent {...props} />;
   case 'image': return <ImageContent {...props} />;
@@ -28,6 +31,8 @@ const SectionContent = ({ type, ...props }) => {
   case 'featuresSection': return <FeaturesListSection {...props} />;
   case 'guaranteeWidget': return <GuaranteeSection {...props} />;
   case 'countDownWidget': return <CountDownTimer {...props} />;
+  case 'progressbarWidget': return <ProgressBar {...props} />;
+  case 'productMarkWidget': return <ProductMarkWidget {...props} />;
   default: return null;
   }
 };
