@@ -7,10 +7,7 @@ import SubSettings from './components';
 
 const {
   SideMenu,
-  Tabs,
-  EditableField,
   FlexBox,
-  Tab,
 } = common;
 
 const SettingSideBar = (props) => {
@@ -18,7 +15,6 @@ const SettingSideBar = (props) => {
 
 
   const toggleMenu = () => {
-    console.log('What');
     actions.toggleSectionSettingModal(sectionSetting);
   };
 

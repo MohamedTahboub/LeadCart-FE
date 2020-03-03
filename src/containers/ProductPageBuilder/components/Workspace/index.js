@@ -13,10 +13,11 @@ import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
 
 import {
-  BillingDetails,
-  CompleteOrderBtn,
-  OrderSummary,
-  PaymentMethods,
+  // BillingDetails,
+  // CompleteOrderBtn,
+  // OrderSummary,
+  // PaymentMethods,
+  StaticSections,
   Section,
   DropZone
 } from './components';
@@ -28,34 +29,34 @@ const {
   EditableField
 } = common;
 
-const CommonStaticPart = ({ language }) => (
-  <Fragment>
-    <BillingDetails
-      // color={color}
-      language={language}
-    />
-    <PaymentMethods
-      step={2}
-      // onOptionSelected={onOptionSelected}
-      methods={['Paypal', 'Stripe']}
-      // onShowSetting
-      // onFieldChange
-      language={language}
-    />
-    <OrderSummary
-      price={32}
-      productName='Growth hacking'
-      // payment={product.payment}
-      language={language}
-    />
-    <CompleteOrderBtn
-      // text={product.pagePreferences && product.pagePreferences.orderButtonText}
-      // color={color}
-      // onChange={onChange}
-      language={language}
-    />
-  </Fragment>
-);
+// const StaticSections = ({ language }) => (
+//   <Fragment>
+//     <BillingDetails
+//       // color={color}
+//       language={language}
+//     />
+//     <PaymentMethods
+//       step={2}
+//       // onOptionSelected={onOptionSelected}
+//       methods={['Paypal', 'Stripe']}
+//       // onShowSetting
+//       // onFieldChange
+//       language={language}
+//     />
+//     <OrderSummary
+//       price={32}
+//       productName='Growth hacking'
+//       // payment={product.payment}
+//       language={language}
+//     />
+//     <CompleteOrderBtn
+//       // text={product.pagePreferences && product.pagePreferences.orderButtonText}
+//       // color={color}
+//       // onChange={onChange}
+//       language={language}
+//     />
+//   </Fragment>
+// );
 
 
 const getLanguageLabel = (
@@ -84,6 +85,7 @@ const Workspace = ({
       } = {},
       product: {
         sections = [],
+        staticSections = []
         // maxSectionsOrder
       } = {}
     },
@@ -149,8 +151,13 @@ const Workspace = ({
     if (section.new) actions.addNewSection(type);
   };
   const onSectionDuplicate = (id) => {
-    const copySection = sections.find((section) => section.id === id);
-    const newSections = [{ ...copySection, id: ids.generate() }, ...sections];
+    const { section: copySection, index } = findCard(id);
+    const newSections = update(sections, {
+      $splice: [
+        [index, 0],
+        [(index + 1), 0, copySection],
+      ],
+    });
     actions.onProductFieldChange({
       name: 'sections',
       value: newSections
@@ -169,7 +176,7 @@ const Workspace = ({
           {
             sections.map((section, index) => (
               <Section
-                key={`${section.id}`}
+                key={`${section.id}${index}`}
                 id={`${section.id}`}
                 {...section}
                 section={section}
@@ -177,6 +184,7 @@ const Workspace = ({
                 onSectionOrderChange={onSectionOrderChange}
                 // maxOrder={maxSectionsOrder}
                 active={activeSection.id === section.id}
+                activeSection={activeSection}
                 moveCard={moveCard}
                 onSectionDuplicate={onSectionDuplicate}
                 findCard={findCard}
@@ -185,7 +193,11 @@ const Workspace = ({
             ))
           }
         </DropZone>
-        <CommonStaticPart language={activeLanguage} />
+        <StaticSections
+          language={activeLanguage}
+          onSetting={onSectionSettings}
+          sections={staticSections}
+        />
       </FlexBox>
     </FlexBox>
   );

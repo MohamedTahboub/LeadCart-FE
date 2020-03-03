@@ -14,6 +14,8 @@ import GuaranteeWidget from './GuaranteeWidget';
 import CountDowTimerWidget from './CountDowTimerWidget';
 import ProgressBar from './ProgressBar';
 import ProductBadgeWidget from './ProductBadgeWidget';
+import PageSettings from './PageSettings';
+import CheckoutSettings from './CheckoutSettings';
 
 export default ({ type, ...props }) => {
   switch (type) {
@@ -30,6 +32,8 @@ export default ({ type, ...props }) => {
   case 'countDownWidget': return <CountDowTimerWidget {...props} />;
   case 'progressbarWidget': return <ProgressBar {...props} />;
   case 'productMarkWidget': return <ProductBadgeWidget {...props} />;
+  case 'pageSettings': return <PageSettings {...props} />;
+  case 'checkoutSettings': return <CheckoutSettings {...props} />;
   default: return null;
   }
 };

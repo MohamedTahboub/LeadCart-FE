@@ -24,6 +24,7 @@ const Section = ({
   findCard,
   section,
   active,
+  activeSection = {},
   onSectionDuplicate,
   onSetting,
   // onSectionOrderChange,
@@ -80,7 +81,7 @@ const Section = ({
   const classes = clx({
     'product-section': true,
     'isDragging': isDragging,
-    'active': active,
+    'active': activeSection.id === id,
     [className]: className,
     [content.position]: content.position
   });
