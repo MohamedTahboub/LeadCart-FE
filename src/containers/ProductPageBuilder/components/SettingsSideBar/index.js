@@ -10,6 +10,8 @@ const {
   FlexBox,
 } = common;
 
+const defaultTitle = 'Section Properties';
+
 const SettingSideBar = (props) => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
 
@@ -18,7 +20,7 @@ const SettingSideBar = (props) => {
     actions.toggleSectionSettingModal(sectionSetting);
   };
 
-
+  const menuTitle = (sectionSetting && sectionSetting.menuTitle) ? sectionSetting.menuTitle : defaultTitle;
   return (
     <SideMenu
       open={sectionSetting && sectionSetting.type}
@@ -27,7 +29,7 @@ const SettingSideBar = (props) => {
     >
       <FlexBox spaceBetween center='v-center' className='padding-h-10 padding-v-10'>
         <div className='title-text capitalized-text'>
-                    Section Properties
+          {menuTitle}
         </div>
         <IoIosClose
           onClick={toggleMenu}
