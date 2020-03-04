@@ -7,10 +7,11 @@ import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import update from 'immutability-helper';
-import ids from 'shortid';
+// import ids from 'shortid';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
-import sampleProductData from './sampleProductData.js';
+// import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
+import { SettingsHandle } from './components/common';
 
 import {
   // BillingDetails,
@@ -23,40 +24,11 @@ import {
 } from './components';
 
 const {
-  Button,
+  // Button,
   FlexBox,
-  Title,
-  EditableField
+  // Title,
+  // EditableField
 } = common;
-
-// const StaticSections = ({ language }) => (
-//   <Fragment>
-//     <BillingDetails
-//       // color={color}
-//       language={language}
-//     />
-//     <PaymentMethods
-//       step={2}
-//       // onOptionSelected={onOptionSelected}
-//       methods={['Paypal', 'Stripe']}
-//       // onShowSetting
-//       // onFieldChange
-//       language={language}
-//     />
-//     <OrderSummary
-//       price={32}
-//       productName='Growth hacking'
-//       // payment={product.payment}
-//       language={language}
-//     />
-//     <CompleteOrderBtn
-//       // text={product.pagePreferences && product.pagePreferences.orderButtonText}
-//       // color={color}
-//       // onChange={onChange}
-//       language={language}
-//     />
-//   </Fragment>
-// );
 
 
 const getLanguageLabel = (
@@ -70,7 +42,6 @@ const getLanguageLabel = (
 
   return { ...formatLanguage(language), type: language.type };
 };
-
 
 const Workspace = ({
   className,
@@ -95,6 +66,7 @@ const Workspace = ({
 
   const workspaceClasses = clx({
     'product-workspace': true,
+    'relative-element': true,
     [className]: className,
     [displayMode]: displayMode,
 
@@ -164,9 +136,18 @@ const Workspace = ({
     });
   };
 
+  const onProductSettings = () => {
+    const meta = {
+      type: 'pageSettings',
+      menuTitle: 'Page Settings'
+    };
+    onSectionSettings(meta);
+  };
+
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
+        <SettingsHandle onClick={onProductSettings} />
         <DropZone onDrop={onSectionDropped}>
           {!sections.length && (
             <FlexBox center='h-center'>
@@ -182,7 +163,6 @@ const Workspace = ({
                 section={section}
                 onSetting={onSectionSettings}
                 onSectionOrderChange={onSectionOrderChange}
-                // maxOrder={maxSectionsOrder}
                 active={activeSection.id === section.id}
                 activeSection={activeSection}
                 moveCard={moveCard}
