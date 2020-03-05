@@ -36,20 +36,23 @@ export const onSectionDelete = ({ state = {}, dispatch }) => (sectionId) => {
 
 export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
   const { modals: { sectionSetting } = {} } = state;
-
   let open = !!sectionSetting;
 
+  // modify this to more readable script -_-
+  if (section && (
+    section.type === 'staticSectionSettings'
+    || section.type === 'pageSettings'
+  )) {
+    if (!open) open = section;
+    else open = false;
+  } else if (
+    (sectionSetting && sectionSetting.id) === (section && section.id)
+  ) {
+    open = false;
+  } else {
+    open = section;
+  }
 
-  if (!section) open = !sectionSetting;
-
-  if ((sectionSetting && sectionSetting.id) === (section && section.id)) open = false;
-  else open = section;
-  // eslint-disable-next-line
-  // const toggledSection = sectionSetting.id
-  //   ? sectionSetting.id === section.id
-  //     ? undefined
-  //     : section
-  //   : section;
 
   dispatch({
     type: types.TOGGLE_SECTION_SETTINGS_SIDEBAR,

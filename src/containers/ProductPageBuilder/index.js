@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { mapListToObject } from 'libs';
 import * as productGeneralActions from 'actions/product';
 import { ProductBuilderSkelton } from 'components/Loaders';
-
+import ReactToolTip from 'react-tooltip';
 import {
   reducers,
   connectActions,
@@ -101,6 +101,7 @@ const ProductBuilder = ({
           </DndProvider>
         </FlexBox>
       </Page>
+      <ReactToolTip delayShow={400} />
     </ProductContext.Provider>
   );
 };
