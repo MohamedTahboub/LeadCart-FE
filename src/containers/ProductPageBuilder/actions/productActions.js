@@ -11,11 +11,20 @@ export const updateState = ({ state = {}, dispatch }) => (subState) => {
 };
 
 export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
+  let { name, value } = filed || {};
+
+  if (name.includes('.')) {
+    const [key, nestedKey] = name.split('.');
+    const nestedValue = { [nestedKey]: value };
+    name = key;
+    value = { ...state.product[key], ...nestedValue };
+  }
+
   dispatch({
     type: types.PRODUCT_FIELD_CHANGE,
     payload: {
       ...state.product,
-      [filed.name]: filed.value
+      [name]: value
     }
   });
 };
@@ -36,20 +45,23 @@ export const onSectionDelete = ({ state = {}, dispatch }) => (sectionId) => {
 
 export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
   const { modals: { sectionSetting } = {} } = state;
-
   let open = !!sectionSetting;
 
+  // modify this to more readable script -_-
+  if (section && (
+    section.type === 'staticSectionSetting'
+    || section.type === 'pageSetting'
+  )) {
+    if (!open) open = section;
+    else open = false;
+  } else if (
+    (sectionSetting && sectionSetting.id) === (section && section.id)
+  ) {
+    open = false;
+  } else {
+    open = section;
+  }
 
-  if (!section) open = !sectionSetting;
-
-  if ((sectionSetting && sectionSetting.id) === (section && section.id)) open = false;
-  else open = section;
-  // eslint-disable-next-line
-  // const toggledSection = sectionSetting.id
-  //   ? sectionSetting.id === section.id
-  //     ? undefined
-  //     : section
-  //   : section;
 
   dispatch({
     type: types.TOGGLE_SECTION_SETTINGS_SIDEBAR,

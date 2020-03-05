@@ -4,7 +4,7 @@ import common from 'components/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { AiOutlineMobile, AiOutlineHistory } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
-import ReactToolTip from 'react-tooltip';
+
 import { useContext } from '../../actions';
 
 const {
@@ -138,7 +138,6 @@ const Header = ({ history, props }) => {
           </Button>
         </FlexBox>
       </FlexBox>
-      <ReactToolTip delayShow={400} />
     </FlexBox>
   );
 };

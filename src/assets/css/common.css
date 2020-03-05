@@ -397,6 +397,16 @@
 .max-height-percent-100{
   max-height: 100%;
 }
+.scrolling-72vh{
+  max-height: 72vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.scrolling-47vh{
+  max-height: 47vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 .scrolling-70vh{
   max-height: 70vh;
   overflow-x: hidden;

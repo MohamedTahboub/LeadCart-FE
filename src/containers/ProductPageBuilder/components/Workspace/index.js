@@ -7,55 +7,28 @@ import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import update from 'immutability-helper';
-import ids from 'shortid';
+// import ids from 'shortid';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
-import sampleProductData from './sampleProductData.js';
+// import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
+import { SettingsHandle } from './components/common';
 
 import {
-  BillingDetails,
-  CompleteOrderBtn,
-  OrderSummary,
-  PaymentMethods,
+  // BillingDetails,
+  // CompleteOrderBtn,
+  // OrderSummary,
+  // PaymentMethods,
+  StaticSections,
   Section,
   DropZone
 } from './components';
 
 const {
-  Button,
+  // Button,
   FlexBox,
-  Title,
-  EditableField
+  // Title,
+  // EditableField
 } = common;
-
-const CommonStaticPart = ({ language }) => (
-  <Fragment>
-    <BillingDetails
-      // color={color}
-      language={language}
-    />
-    <PaymentMethods
-      step={2}
-      // onOptionSelected={onOptionSelected}
-      methods={['Paypal', 'Stripe']}
-      // onShowSetting
-      // onFieldChange
-      language={language}
-    />
-    <OrderSummary
-      price={32}
-      productName='Growth hacking'
-      // payment={product.payment}
-      language={language}
-    />
-    <CompleteOrderBtn
-      // text={product.pagePreferences && product.pagePreferences.orderButtonText}
-      // color={color}
-      // onChange={onChange}
-      language={language}
-    />
-  </Fragment>
-);
 
 
 const getLanguageLabel = (
@@ -70,7 +43,6 @@ const getLanguageLabel = (
   return { ...formatLanguage(language), type: language.type };
 };
 
-
 const Workspace = ({
   className,
   translations,
@@ -84,6 +56,7 @@ const Workspace = ({
       } = {},
       product: {
         sections = [],
+        staticSections = []
         // maxSectionsOrder
       } = {}
     },
@@ -93,6 +66,7 @@ const Workspace = ({
 
   const workspaceClasses = clx({
     'product-workspace': true,
+    'relative-element': true,
     [className]: className,
     [displayMode]: displayMode,
 
@@ -149,17 +123,31 @@ const Workspace = ({
     if (section.new) actions.addNewSection(type);
   };
   const onSectionDuplicate = (id) => {
-    const copySection = sections.find((section) => section.id === id);
-    const newSections = [{ ...copySection, id: ids.generate() }, ...sections];
+    const { section: copySection, index } = findCard(id);
+    const newSections = update(sections, {
+      $splice: [
+        [index, 0],
+        [(index + 1), 0, copySection],
+      ],
+    });
     actions.onProductFieldChange({
       name: 'sections',
       value: newSections
     });
   };
 
+  const onProductSettings = () => {
+    const meta = {
+      type: 'pageSetting',
+      menuTitle: 'Page Settings'
+    };
+    onSectionSettings(meta);
+  };
+
   return (
     <FlexBox flex center='h-center' className='product-workspace-container'>
       <FlexBox column className={workspaceClasses}>
+        <SettingsHandle onClick={onProductSettings} />
         <DropZone onDrop={onSectionDropped}>
           {!sections.length && (
             <FlexBox center='h-center'>
@@ -169,14 +157,14 @@ const Workspace = ({
           {
             sections.map((section, index) => (
               <Section
-                key={`${section.id}`}
+                key={`${section.id}${index}`}
                 id={`${section.id}`}
                 {...section}
                 section={section}
                 onSetting={onSectionSettings}
                 onSectionOrderChange={onSectionOrderChange}
-                // maxOrder={maxSectionsOrder}
                 active={activeSection.id === section.id}
+                activeSection={activeSection}
                 moveCard={moveCard}
                 onSectionDuplicate={onSectionDuplicate}
                 findCard={findCard}
@@ -185,7 +173,11 @@ const Workspace = ({
             ))
           }
         </DropZone>
-        <CommonStaticPart language={activeLanguage} />
+        <StaticSections
+          language={activeLanguage}
+          onSetting={onSectionSettings}
+          sections={staticSections}
+        />
       </FlexBox>
     </FlexBox>
   );

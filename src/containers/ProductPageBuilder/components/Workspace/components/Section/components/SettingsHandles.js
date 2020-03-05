@@ -23,9 +23,22 @@ const SettingsHandles = ({
   };
   return (
     <div className='product-section-settings-handle'>
-      <FiTrash2 onClick={onDelete} className='item-handle delete-handle' />
-      <MdContentCopy onClick={onDuplicate(id)} className='item-handle' />
-      <IoMdSettings draggable onClick={onSettingsClick} className='item-handle' />
+      <FiTrash2
+        onClick={onDelete}
+        className='item-handle delete-handle'
+        data-tip='delete this section'
+      />
+      <MdContentCopy
+        onClick={onDuplicate(id)}
+        className='item-handle'
+        data-tip='duplicate this section'
+      />
+      <IoMdSettings
+        draggable
+        onClick={onSettingsClick}
+        className='item-handle'
+        data-tip='section-settings'
+      />
     </div>
   );
 };
