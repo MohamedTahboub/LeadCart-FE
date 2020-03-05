@@ -101,11 +101,6 @@ const SideBar = (props) => {
               data-tip='Bump Offer Section'
             />
             <BaseCard
-              type='shippingDetails'
-              className='shipping-bg section-card'
-              data-tip='Shipping Form'
-            />
-            <BaseCard
               type='couponSection'
               className='coupons-bg section-card'
               data-tip='Coupon Section'
@@ -128,6 +123,11 @@ const SideBar = (props) => {
   );
 };
 
+// <BaseCard
+// type='shippingDetails'
+// className='shipping-bg section-card'
+// data-tip='Shipping Form'
+// />
 SideBar.propTypes = {
 
 };

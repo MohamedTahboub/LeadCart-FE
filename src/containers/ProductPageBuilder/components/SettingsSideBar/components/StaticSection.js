@@ -2,12 +2,16 @@ import React, { Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import common from 'components/common';
 // import { connect } from 'react-redux';
+import currencies from 'data/currencies.json';
+import PaymentType from 'components/PaymentType';
+import PaymentGateway from 'components/PaymentGateways';
 import { useContext } from '../../../actions';
 
 import {
-  SettingBox
+  SettingBox,
 } from './common';
 
+const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 const {
   Collapse,
   MiniTwitterPicker,
@@ -15,202 +19,127 @@ const {
   Currency,
   Tabs,
   Tab,
-  InputRow
+  InputRow,
+  FlexBox
+
 } = common;
 
 const { Panel } = Collapse;
 
+const formatOptions = [
+  {
+    label: '(1134.65)',
+    value: 'amount'
+  },
+  {
+    label: '(1135)',
+    value: 'amount_no_decimals'
+  },
+  {
+    label: '(1,134.65)',
+    value: 'amount_with_comma_separator'
+  },
+  {
+    label: '(1,135)',
+    value: 'amount_with_comma_separator_no_decimals'
+  }
+];
 const currency = 'USD';
 const {
   Label,
-  SwitchInput,
-  TextField,
-  SelectOption
+  // SwitchInput,
+  // TextField,
+  SearchInput,
+  // SelectOption
 } = InputRow;
 
-const BumpOffer = ({
+const StaticSection = ({
   ...props
 }) => {
   const {
     state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
+      product = {},
+      styles = {}
     },
     actions
   } = useContext();
 
   const {
-    styles = {},
-    content = {},
-    actions: sectionActions = {}
-  } = sectionSetting;
+    price = {},
+    payment = {}
+  } = product;
+
 
   const onChange = ({ target }) => {
-    actions.onSectionSettingChange({
-      section: sectionSetting,
-      field: target
-    });
+    actions.onProductFieldChange(target);
   };
 
   return (
-    <Tabs active='settings' className='padding-v-10 padding-h-10'>
-      <Tab id='settings' title='settings'>
+    <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+      <Tab id='pricing' title='Pricing'>
         <InputRow className='sidebar-row'>
           <Label
             className='sidebar-input-label'
             description='This will appear on your cart page,this is just for presentation purpose'
           >
-            Offer Name:
+            Currency:
           </Label>
-          <TextField
-            className='default-pricing-field-length'
-            name='content.name'
-            onBlur={onChange}
-            defaultValue={content.name}
+          <SearchInput
+            size='small'
+            width={350}
+            options={currenciesList}
+            defaultValue={price.currency || 'USD'}
+            name='price.currency'
+            onChange={onChange}
           />
         </InputRow>
         <InputRow className='sidebar-row'>
           <Label className='sidebar-input-label'>
-            Offer Price:
+            Price Format:
           </Label>
-          <TextField
-            className='default-pricing-field-length'
-            name='content.price'
-            onBlur={onChange}
-            prefix={<Currency value={currency} />}
-            defaultValue={content.price}
-            currency='$'
+          <SearchInput
+            size='small'
+            width={350}
+            options={formatOptions}
+            defaultValue={price.format || 'amount'}
+            name='price.format'
+            onChange={onChange}
+          // dropdownClassName='price-format-options'
           />
         </InputRow>
-      </Tab>
-
-      <Tab id='styles' title='styles'>
+        <PaymentType
+          payment={payment}
+          onChange={onChange}
+          price={price}
+        />
         <SettingBox
-          title='Colors'
+          title='Payment Methods'
         >
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Background:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.containerBackground'
-              value={styles.containerBackground}
-              onChange={onChange}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Container text:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.containerTextColor'
-              value={styles.containerTextColor}
-              onChange={onChange}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Header Background:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.headerBackground'
-              value={styles.headerBackground}
-              onChange={onChange}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Header text:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.headerTextColor'
-              value={styles.headerTextColor}
-              onChange={onChange}
-            />
-          </InputRow>
+          <PaymentGateway
+            onChange={onChange}
+            payment={payment}
+          />
         </SettingBox>
-
-        <SettingBox title='Border Style'>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Color:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.borderColor'
-              value={styles.borderColor}
-              onChange={onChange}
-            />
-
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Style:
-            </Label>
-            <SelectOption
-              value={styles.borderStyle}
-              name='styles.borderStyle'
-              onChange={onChange}
-              className='bump-offer-style-dropdown'
-              options={[
-                { label: 'Solid', value: 'solid' },
-                { label: 'Dashed', value: 'dashed' }
-              ]}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Width:
-            </Label>
-            <SelectOption
-              value={styles.borderWidth}
-              name='styles.borderWidth'
-              onChange={onChange}
-              className='bump-offer-style-dropdown'
-              options={[
-                { label: '0 px', value: '0' },
-                { label: '1 px', value: '1' },
-                { label: '2 px', value: '2' },
-                { label: '3 px', value: '3' },
-                { label: '4 px', value: '4' }
-              ]}
-            />
-          </InputRow>
-
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Radius:
-            </Label>
-            <SelectOption
-              value={styles.borderRadius}
-              name='styles.borderRadius'
-              onChange={onChange}
-              className='bump-offer-style-dropdown'
-              options={[
-                { label: '0 px', value: '0' },
-                { label: '1 px', value: '1' },
-                { label: '2 px', value: '2' },
-                { label: '3 px', value: '3' },
-                { label: '4 px', value: '4' },
-                { label: '5 px', value: '5' },
-                { label: '6 px', value: '6' },
-                { label: '7 px', value: '7' },
-              ]}
-            />
-          </InputRow>
-        </SettingBox>
-
       </Tab>
 
-      <Tab id='actions' title='actions'>
-        Not Defined Yet
+      <Tab id='styles' title='Styles'>
+        <FlexBox center='v-center margin-v-5' spaceBetween>
+          <Label className='sidebar-input-label'>
+            Theme Color:
+          </Label>
+          <MiniTwitterPicker
+            name='styles.themeColor'
+            value={styles.themeColor}
+            onChange={onChange}
+          />
+        </FlexBox>
       </Tab>
     </Tabs>
   );
 };
-BumpOffer.propTypes = {
+StaticSection.propTypes = {
 
 };
 
 
-export default BumpOffer;
+export default StaticSection;

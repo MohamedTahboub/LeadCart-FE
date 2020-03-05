@@ -40,7 +40,7 @@ const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'month', 
 };
 const OrderSummary = ({
   payment,
-  productName = '',
+  productName = 'Not Set',
   price: {
     amount = 0,
     currency = 'USD',

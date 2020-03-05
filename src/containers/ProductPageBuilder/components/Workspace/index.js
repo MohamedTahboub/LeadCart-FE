@@ -138,7 +138,7 @@ const Workspace = ({
 
   const onProductSettings = () => {
     const meta = {
-      type: 'pageSettings',
+      type: 'pageSetting',
       menuTitle: 'Page Settings'
     };
     onSectionSettings(meta);

@@ -11,11 +11,20 @@ export const updateState = ({ state = {}, dispatch }) => (subState) => {
 };
 
 export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
+  let { name, value } = filed || {};
+
+  if (name.includes('.')) {
+    const [key, nestedKey] = name.split('.');
+    const nestedValue = { [nestedKey]: value };
+    name = key;
+    value = { ...state.product[key], ...nestedValue };
+  }
+
   dispatch({
     type: types.PRODUCT_FIELD_CHANGE,
     payload: {
       ...state.product,
-      [filed.name]: filed.value
+      [name]: value
     }
   });
 };
@@ -40,8 +49,8 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
 
   // modify this to more readable script -_-
   if (section && (
-    section.type === 'staticSectionSettings'
-    || section.type === 'pageSettings'
+    section.type === 'staticSectionSetting'
+    || section.type === 'pageSetting'
   )) {
     if (!open) open = section;
     else open = false;
