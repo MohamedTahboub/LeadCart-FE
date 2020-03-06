@@ -56,7 +56,8 @@ const Workspace = ({
       } = {},
       product: {
         sections = [],
-        staticSections = []
+        staticSections = [],
+        pageStyles = {}
         // maxSectionsOrder
       } = {}
     },
@@ -144,9 +145,22 @@ const Workspace = ({
     onSectionSettings(meta);
   };
 
+  const screenStyles = {
+    backgroundColor: pageStyles.screenBackground
+  };
+  const productStyles = {
+    backgroundColor: pageStyles.productBackground,
+    borderRadius: `${pageStyles.borderRadius}px`
+  };
+
   return (
-    <FlexBox flex center='h-center' className='product-workspace-container'>
-      <FlexBox column className={workspaceClasses}>
+    <FlexBox
+      flex
+      center='h-center'
+      className='product-workspace-container'
+      style={screenStyles}
+    >
+      <FlexBox column className={workspaceClasses} style={productStyles}>
         <SettingsHandle onClick={onProductSettings} />
         <DropZone onDrop={onSectionDropped}>
           {!sections.length && (

@@ -139,6 +139,9 @@ const PageSettings = ({
                 { label: '5 px', value: '5' },
                 { label: '6 px', value: '6' },
                 { label: '7 px', value: '7' },
+                { label: '8 px', value: '8' },
+                { label: '9 px', value: '9' },
+                { label: '10 px', value: '10' },
               ]}
             />
           </InputRow>
