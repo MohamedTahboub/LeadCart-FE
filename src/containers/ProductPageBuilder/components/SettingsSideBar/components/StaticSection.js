@@ -47,8 +47,7 @@ const formatOptions = [
 const currency = 'USD';
 const {
   Label,
-  // SwitchInput,
-  // TextField,
+  SwitchInput,
   SearchInput,
   // SelectOption
 } = InputRow;
@@ -66,7 +65,8 @@ const StaticSection = ({
 
   const {
     price = {},
-    payment = {}
+    payment = {},
+    addOns = {}
   } = product;
 
 
@@ -74,6 +74,14 @@ const StaticSection = ({
     actions.onProductFieldChange(target);
   };
 
+  const onShippingDetailsToggle = () => {
+    onChange({
+      target: {
+        name: 'addOns.shippingDetails',
+        value: !addOns.shippingDetails
+      }
+    });
+  };
   return (
     <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='pricing' title='Pricing'>
@@ -122,6 +130,19 @@ const StaticSection = ({
         </SettingBox>
       </Tab>
 
+      <Tab id='addOne' title='Add-on'>
+        <InputRow className='sidebar-row'>
+          <Label className='sidebar-input-label'>
+            Show Shipping Form
+          </Label>
+          <SwitchInput
+            value={addOns.shippingDetails}
+            name='addOns.shippingDetails'
+            onToggle={onShippingDetailsToggle}
+            className='sidebar-switch-input'
+          />
+        </InputRow>
+      </Tab>
       <Tab id='styles' title='Styles'>
         <FlexBox center='v-center margin-v-5' spaceBetween>
           <Label className='sidebar-input-label'>

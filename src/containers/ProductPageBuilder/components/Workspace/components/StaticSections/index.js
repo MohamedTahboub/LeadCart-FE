@@ -10,6 +10,7 @@ import {
   CompleteOrderBtn,
   OrderSummary,
   PaymentMethods,
+  ShippingDetails
 } from '../../components';
 
 const { FlexBox } = common;
@@ -21,9 +22,13 @@ const StaticSections = ({ onSetting, language }) => {
       product: {
         name,
         price = {},
-        payment = { methods: ['Paypal', 'Stripe'] }
+        payment = { methods: ['Paypal', 'Stripe'] },
+        addOns = {},
+        styles = {},
+        orderButtonText = 'Complete Order'
       } = {},
-    }
+    },
+    actions
   } = useContext();
 
   const onSectionSettings = () => {
@@ -34,15 +39,25 @@ const StaticSections = ({ onSetting, language }) => {
     onSetting(meta);
   };
 
+  const onChange = ({ target }) => {
+    actions.onProductFieldChange(target);
+  };
+
   return (
     <FlexBox column className='relative-element'>
       <SettingsHandle onClick={onSectionSettings} />
       <BillingDetails
-        // color={color}
+        color={styles.themeColor}
         language={language}
       />
+      {addOns.shippingDetails && (
+        <ShippingDetails
+          color={styles.themeColor}
+          language={language}
+        />
+      )}
       <PaymentMethods
-        step={2}
+        step={addOns.shippingDetails ? 3 : 2}
         // onOptionSelected={onOptionSelected}
         methods={payment.methods}
         // onShowSetting
@@ -57,9 +72,10 @@ const StaticSections = ({ onSetting, language }) => {
         language={language}
       />
       <CompleteOrderBtn
-        // text={product.pagePreferences && product.pagePreferences.orderButtonText}
-        // color={color}
-        // onChange={onChange}
+        name='orderButtonText'
+        text={orderButtonText}
+        color={styles.themeColor}
+        onChange={onChange}
         language={language}
       />
     </FlexBox>
