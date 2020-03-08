@@ -13,7 +13,7 @@ const {
   Tab,
 } = common;
 
-const { TextField, SelectOption } = InputRow;
+const { TextField, SelectOption, Slider } = InputRow;
 
 const Text = (props) => {
   const {
@@ -102,13 +102,18 @@ const Text = (props) => {
           <div className='padding-left-20'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding Top:</span>
-              <TextField
+              <Slider
+                min={0}
+                max={200}
                 name='styles.paddingTop'
-                type='number'
-                value={styles.paddingTop}
-                onChange={onChange}
-                className='width-70'
+                // value={styles.paddingTop}
+                defaultValue={20}
+                className='width-100'
+                onChange={(va) => {
+                  console.log(va);
+                }}
               />
+
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Padding bottom:</span>

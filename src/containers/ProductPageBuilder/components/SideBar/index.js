@@ -17,20 +17,20 @@ const {
 const { Panel } = Collapse;
 
 const SideBar = (props) => {
-  const [collapsesState, setCollapsesState] = useState(['1', '2']);
+  // const [collapsesState, setCollapsesState] = useState(['1', '2']);
 
-  const onChange = (openedKeys) => {
-    let opens = openedKeys;
+  // const onChange = (openedKeys) => {
+  //   let opens = openedKeys;
 
-    if (openedKeys.length === 3) opens = openedKeys.filter((key) => key !== openedKeys[1]);
+  //   if (openedKeys.length === 3) opens = openedKeys.filter((key) => key !== openedKeys[1]);
 
-    setCollapsesState(opens);
-  };
+  //   setCollapsesState(opens);
+  // };
 
-  const isLastCollapseOpened = collapsesState.length === 1 && collapsesState.includes('3');
+  // const isLastCollapseOpened = collapsesState.length === 1 && collapsesState.includes('3');
   return (
     <SideMenu open>
-      <Collapse activeKey={collapsesState} onChange={onChange}>
+      <Collapse activeKey={['1', '2', '3']} >
         <Panel header='Native Sections' key='1'>
           <FlexBox wrappable overflow='y' className='max-height-75vh'>
             <BaseCard
@@ -92,8 +92,8 @@ const SideBar = (props) => {
           <FlexBox
             wrappable
             overflow='y'
-            center='v-center h-center'
-            className={`padding-v-10 ${isLastCollapseOpened ? 'scrolling-72vh' : 'scrolling-47vh'}`}
+            center='v-center'
+            className='max-height-75vh'
           >
             <BaseCard
               type='bumpOffer'
