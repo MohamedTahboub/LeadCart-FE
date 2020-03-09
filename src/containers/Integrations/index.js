@@ -1,10 +1,11 @@
-import React, { useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
 import { notification } from 'libs';
 import servicesList from 'data/integrationsServices';
+import queryString from 'querystring';
 
 import {
   LayoutSwitch,
@@ -12,6 +13,7 @@ import {
   IntegrationsTable,
   LayoutOptions,
   ConnectModal,
+  ConnectingModal
 } from './components';
 
 
@@ -67,14 +69,22 @@ const ActiveIntegrationLayout = ({ layout, ...props }) => {
 };
 
 
-const Integrations = ({ integrations, ...props }) => {
+const checkConnecting = (searchUrl = '') => {
+  console.log('searchUrl==> ', searchUrl);
+  const details = queryString.parse(searchUrl.replace('?', ''));
+  console.log('details==> ', details);
+  return details;
+};
+
+
+const Integrations = ({ integrations, history, ...props }) => {
   const [activeLayout, setActiveLayout] = useState('list');
   const [openModal, setOpenModal] = useState(false);
   const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
   const [showConnected, setShowConnected] = useState('all');
   const [disconnectedDialog, setDisconnectDialog] = useState(false);
-
+  const [connectStatus, setConnectStatus] = useState();
 
   const onLayoutChange = (value) => () => {
     setActiveLayout(value);
@@ -117,7 +127,7 @@ const Integrations = ({ integrations, ...props }) => {
       integrationKey: activeService.key
     }, {
       onSuccess: () => {
-        notification.success(`You have Connected ${activeService.name} Successfuly`);
+        notification.success(`You have Connected ${activeService.name} Successfully`);
         setActiveService({});
         onCloseDisconnectDialog();
       },
@@ -129,6 +139,20 @@ const Integrations = ({ integrations, ...props }) => {
     });
     // setOpenModal(true);
   };
+
+  const onConnectOnProgress = (details) => {
+    setConnectStatus(details);
+  };
+  const onConnectingStop = () => {
+    setConnectStatus();
+  };
+  useEffect(() => {
+    console.log('history', history);
+    console.log('history.location.search', history.location.search);
+    const isConnecting = checkConnecting(history.location.search);
+
+    if (isConnecting) onConnectOnProgress(isConnecting);
+  }, [history.location.search]);
 
   return (
     <Page>
@@ -185,6 +209,15 @@ const Integrations = ({ integrations, ...props }) => {
             service={activeService}
           />
         )}
+        {(connectStatus && connectStatus.activation) && (
+          <ConnectingModal
+            open={connectStatus}
+            data={connectStatus}
+            onClose={onConnectingStop}
+            history={history}
+          />
+        )
+        }
         {disconnectedDialog && (
           <Dialog
             onClose={onCloseDisconnectDialog}
