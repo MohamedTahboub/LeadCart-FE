@@ -9,6 +9,7 @@ import SearchInput from './SearchInput';
 import TextField from './TextField';
 import TextAreaInput from './TextAreaInput';
 import EditableTagGroup from './EditableTagGroup';
+import Slider from './Slider';
 
 export class InputRow extends Component {
   static Label = ({
@@ -145,6 +146,8 @@ export class InputRow extends Component {
   static EditableTagGroup = EditableTagGroup
 
   static TextField = TextField
+
+  static Slider = Slider
 
   static Checkbox = Checkbox
 
