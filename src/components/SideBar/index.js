@@ -16,19 +16,35 @@ import CreateProductModal from '../CreateProductModal';
 import Icons from './icons';
 
 const { Button, InputRow, FlexBox } = common;
-
-const BrandSelect = ({ value }) => (
+const { SelectOption } = InputRow;
+const defaultBrandsList = [
+  {
+    label: 'company x',
+    value: 1
+  },
+  {
+    label: 'company a',
+    value: 2
+  },
+  {
+    label: 'company b',
+    value: 3
+  }
+];
+const BrandSelect = ({ brands, value, onChange }) => (
   <Fragment>
     <span className='tiny-text'>Active Brand:</span>
-    <InputRow.SearchInput
-      width={120}
-      disabled
-      size='small'
-      options={[{ label: value, value }]}
+    <SelectOption
       value={value}
+      name='activeBrand'
+      onChange={onChange}
+      options={brands}
     />
   </Fragment>
 );
+BrandSelect.defaultProps = {
+  brands: defaultBrandsList
+};
 const currentTab = 'products5'; // history.location.pathname
 
 const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
@@ -71,12 +87,17 @@ const SideBar = ({
     );
   };
 
-
+  const onActiveBrandChange = ({ target: { value, name } }) => {
+    console.log('brandName', value);
+  };
   return (
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
-      <BrandSelect value={user.subDomain} />
+      <BrandSelect
+        onChange={onActiveBrandChange}
+        value={user.activeBrand}
+      />
       <Menu>
         <Link icon='dashboard' to='/'>Dashboard</Link>
         <Link icon='products' to='/products'>Products</Link>
@@ -94,7 +115,8 @@ const SideBar = ({
             Sub-Accounts
           </Link>
         )}
-        <Link icon='settings' to='/settings/brand'>Settings</Link>
+        <Link icon='settings' to='/settings/brand'>Brand Settings</Link>
+        <Link icon='settings' to='/settings/account'>Account</Link>
         <Link icon='help' to='https://help.leadcart.io' external>Help</Link>
       </Menu>
 

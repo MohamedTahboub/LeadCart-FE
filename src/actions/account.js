@@ -38,7 +38,7 @@ export const onChangeAccountDetailsFailed = (message) => ({
 });
 
 
-export const onChangeAccounPassword = (pwds, meta) => ({
+export const onChangeAccountPassword = (pwds, meta) => ({
   type: CHANGE_ACCOUNT_PASSWORD,
   payload: pwds,
   meta
