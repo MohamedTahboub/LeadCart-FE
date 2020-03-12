@@ -79,7 +79,7 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
 
           // notification.success('Product Created')
           setTimeout(() => {
-            props.history.push(`/${category}/${product.id}`);
+            props.history.push(`/products/${product.id}`);
           }, 300);
         },
         onFailed: (message) => {

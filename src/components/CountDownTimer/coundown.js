@@ -1,11 +1,11 @@
 import moment from 'moment';
+import { isFunction } from 'libs/checks';
 
 const DAY_IN_MSEC = (1000 * 60 * 60 * 24);
 const HOUR_IN_MSEC = (1000 * 60 * 60);
 const MINUTE_IN_MSEC = (1000 * 60);
 const SEC_IN_MSEC = (1000);
 
-const isFunction = (fn) => typeof fn === 'function';
 
 const getTargetDate = ({
   type,
