@@ -3,20 +3,20 @@ import * as brandsLogos from './importBrands';
 const services = [
   {
     name: 'Stripe',
-    key: 'LC_stripe',
+    key: 'LC-stripe',
     brandLogo: brandsLogos.stripeImage,
     category: 'Payment Gateways',
-    active: true,
-    connected: true,
+    active: false,
+    connected: false,
     supported: true,
   },
   {
     name: 'Paypal',
-    key: 'LC_paypal',
+    key: 'LC-PayPal',
     brandLogo: brandsLogos.paypalImage,
     category: 'Payment Gateways',
-    active: true,
-    connected: true,
+    active: false,
+    connected: false,
     supported: true,
   }, {
     key: 'LC-RAZOR_PAY',
