@@ -31,19 +31,23 @@ const defaultBrandsList = [
     value: 3
   }
 ];
-const BrandSelect = ({ brands, value, onChange }) => (
-  <Fragment>
-    <span className='tiny-text'>Active Brand:</span>
-    <SelectOption
-      value={value}
-      name='activeBrand'
-      onChange={onChange}
-      options={brands}
-    />
-  </Fragment>
-);
+const BrandSelect = ({ brands, value, onChange }) => {
+  const options = brands.map(({ name: label, _id: value }) => ({ label, value }));
+  return (
+    <Fragment>
+      <span className='tiny-text'>Active Brand:</span>
+      <SelectOption
+        value={value}
+        name='activeBrand'
+        onChange={onChange}
+        options={options}
+        disabled={!options.length}
+      />
+    </Fragment>
+  );
+};
 BrandSelect.defaultProps = {
-  brands: defaultBrandsList
+  brands: []
 };
 const currentTab = 'products5'; // history.location.pathname
 
@@ -56,6 +60,7 @@ const SideBar = ({
   appInit,
   logout,
   toggleCreateProductModal,
+  brands,
   ...props
 }) => {
   const [activeTab, setActiveTab] = useState(history.location.pathname);
@@ -97,6 +102,7 @@ const SideBar = ({
       <BrandSelect
         onChange={onActiveBrandChange}
         value={user.activeBrand}
+        brands={brands}
       />
       <Menu>
         <Link icon='dashboard' to='/'>Dashboard</Link>
@@ -129,7 +135,7 @@ const SideBar = ({
     </div>
   );
 };
-const mapStateToProps = ({ user: { user } }) => ({ user });
+const mapStateToProps = ({ brands, user: { user } }) => ({ user, brands });
 
 export default connect(
   mapStateToProps,

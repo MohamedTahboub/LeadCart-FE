@@ -18,7 +18,8 @@ const {
 
 const Account = ({
   onChangeAccountPassword,
-  onChangeAccountDetails
+  onChangeAccountDetails,
+  brands
 }) => (
   <Page>
     <PageHeader>
@@ -30,15 +31,20 @@ const Account = ({
           <AccountDetails onUpdate={onChangeAccountDetails} />
           <PasswordBox onUpdate={onChangeAccountPassword} />
         </FlexBox>
-        <Brands />
+        <Brands list={brands} />
       </FlexBox>
     </PageContent>
   </Page>
 );
 
-const mapStateToProps = ({ account, user: { user } }) => ({
+Account.defaultProps = {
+  brands: []
+};
+
+const mapStateToProps = ({ account, brands, user: { user } }) => ({
   user,
   passwordsModel: account.passwordsModel || {},
-  detailsModel: account.detailsModel || {}
+  detailsModel: account.detailsModel || {},
+  brands
 });
 export default connect(mapStateToProps, accountActions)(Account);

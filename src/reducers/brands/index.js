@@ -1,5 +1,5 @@
 import {
-  GET_BRANDS,
+  GET_USER_BRANDS,
   CREATE_BRAND_SUCCESS,
   DELETE_BRAND_SUCCESS,
   UPDATE_ACTIVE_BRAND_SUCCESS
@@ -11,7 +11,7 @@ const initialState = [];
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case GET_BRANDS:
+  case GET_USER_BRANDS:
     return payload;
   case CREATE_BRAND_SUCCESS:
     return [...state, payload];

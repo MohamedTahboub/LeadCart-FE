@@ -743,12 +743,14 @@ img.uploaded-thumbnail::after {
     font-size: 12px;
 }
 
+.disabled,
 .disabled-element {
     color: gray !important;
     background: #9e9e9e96;
     display: flow-root;
     user-select: none;
     pointer-events: none;
+    cursor: not-allowed;
 }
 
 .disabled-element i.fas {

@@ -8,9 +8,14 @@ import {
   UPDATE_ACTIVE_BRAND,
   UPDATE_ACTIVE_BRAND_SUCCESS,
   UPDATE_ACTIVE_BRAND_FAILED,
+  GET_USER_BRANDS,
 } from '../constantsTypes';
 
 
+export const getUserBrands = (brands) => ({
+  type: GET_USER_BRANDS,
+  payload: brands
+});
 export const createBrand = (brand, meta) => ({
   type: CREATE_BRAND,
   payload: brand,

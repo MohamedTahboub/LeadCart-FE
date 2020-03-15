@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import sampleBrandsList from 'data/brandsList';
+// import sampleBrandsList from 'data/brandsList';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 import { connect } from 'react-redux';
@@ -20,7 +20,7 @@ const {
   //   FlexBoxesContainer
 } = common;
 
-const Brands = ({ brands, ...props }) => {
+const Brands = ({ list: brandsList, ...props }) => {
   const [openModal, setOpenModal] = useState(false);
   const onCreate = (brand, cb) => {
     console.log('Create New');
@@ -57,7 +57,7 @@ const Brands = ({ brands, ...props }) => {
           <Table.HeadCell />
         </Table.Head>
         <Table.Body>
-          {brands.map((brand) => (
+          {brandsList.map((brand) => (
 
             <Table.Row>
               <Table.Cell mainContent={brand.name} />
@@ -97,8 +97,8 @@ Brands.propTypes = {
 
 };
 Brands.defaultProps = {
-  brands: sampleBrandsList
+  list: []
 };
 
-const propifyState = ({ brands }) => ({ brands });
-export default connect(propifyState, brandsActions)(Brands);
+// const propifyState = ({ brands }) => ({ brands });
+export default connect(null, brandsActions)(Brands);
