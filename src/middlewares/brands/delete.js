@@ -13,9 +13,9 @@ export default ({ dispatch }) => (next) => (action) => {
 
   dispatch(apiRequest({
     options: {
-      method: 'put',
+      method: 'delete',
       body: payload,
-      uri: '/api/brands/active',
+      uri: '/api/brands',
       contentType: 'json'
     },
     onSuccess: (args) => {

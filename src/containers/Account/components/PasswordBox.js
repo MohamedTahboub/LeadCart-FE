@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { notification } from 'libs';
+import { notEmptyObj } from 'libs/checks';
 import common from 'components/common';
 const {
   //   MainTitle,
@@ -19,22 +20,27 @@ const { Label, TextField } = InputRow;
 const PasswordBox = ({ onUpdate, ...props }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const [progress, onProgress] = useState(false);
 
   const onChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
+    if (notEmptyObj(errors)) setErrors({});
   };
   const onSubmit = () => {
+    onProgress(true);
     onUpdate(
       values,
       {
         onSuccess: () => {
           notification.success('Password Changed Successfully');
-          // onClose();
+          setValues({});
+          onProgress(false);
         },
         onFailed: (message) => {
           notification.failed(message);
           setErrors({ message });
-          // onClose();
+          onProgress(false);
+          // setValues({});
         }
       }
     );
@@ -47,42 +53,50 @@ const PasswordBox = ({ onUpdate, ...props }) => {
       </FlexBox>
       <FlexBox column spaceBetween>
         <FlexBox spaceBetween className='margin-v-10'>
-          <Label error={errors.password}>
-                        Current Password
+          <Label error={errors.currentPassword}>
+            Current Password
           </Label>
           <TextField
-            name='password'
-            value={values.password}
+            name='currentPassword'
+            value={values.currentPassword}
             onChange={onChange}
-            error={errors.password}
+            type='password'
+            error={errors.currentPassword}
           />
         </FlexBox>
         <FlexBox spaceBetween className='margin-v-10'>
           <Label error={errors.newPassword}>
-                        New Password
+            New Password
           </Label>
           <TextField
             name='newPassword'
+            type='password'
             value={values.newPassword}
             onChange={onChange}
             error={errors.newPassword}
           />
         </FlexBox>
         <FlexBox spaceBetween className='margin-v-10'>
-          <Label error={errors.confirmedPassword}>
-                        Confirm Password
+          <Label error={errors.newPasswordConfirmation}>
+            Confirm Password
           </Label>
           <TextField
-            name='confirmedPassword'
-            value={values.confirmedPassword}
+            name='newPasswordConfirmation'
+            type='password'
+            value={values.newPasswordConfirmation}
             onChange={onChange}
-            error={errors.confirmedPassword}
+            error={errors.newPasswordConfirmation}
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox flexEnd>
-        <Button onClick={onSubmit} className='primary-color'>
-                    Update
+      <FlexBox flexEnd={!errors.message} spaceBetween={errors.message}>
+        {errors.message && <div className='error-text'>{errors.message}</div>}
+        <Button
+          onprogress={progress}
+          disabled={progress}
+          onClick={onSubmit} className='primary-color'
+        >
+          Update
         </Button>
       </FlexBox>
     </FlexBox>

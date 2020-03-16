@@ -29,6 +29,7 @@ import dashboard from './dashboard';
 import funnels from './funnels';
 import translations from './translations';
 import integrations from './integrations';
+import brands from './brands';
 
 export default [
   eventsTracker,
@@ -57,6 +58,7 @@ export default [
   ...subAccounts,
   ...dashboard,
   ...integrations,
+  ...brands,
   flashMessage,
   apiRequest,
   uploadingFiles,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { notification } from 'libs';
 import common from 'components/common';
@@ -16,30 +16,41 @@ const {
 
 const { Label, TextField } = InputRow;
 
-const AccountDetails = ({ onUpdate, ...porps }) => {
-  const [values, setValues] = useState({});
+const AccountDetails = ({ onUpdate, user, ...porps }) => {
+  const [values, setValues] = useState(user);
   const [errors, setErrors] = useState({});
+  const [progress, onProgress] = useState(false);
 
   const onChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
   };
   const onSubmit = () => {
+    const userDetails = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+    };
+    onProgress(true);
     onUpdate(
-      values,
+      userDetails,
       {
         onSuccess: () => {
-          notification.success('Password Changed Successfully');
-        //   onClose();
+          notification.success('Your Details Changes Successfully');
+          onProgress(false);
+          //   onClose();
         },
         onFailed: (message) => {
-          notification.failed(message);
+          onProgress(false);
           setErrors({ message });
-        //   onClose();
+          notification.failed(message);
+          //   onClose();
         }
       }
     );
   };
 
+  useEffect(() => {
+    setValues(user);
+  }, [user]);
   return (
     <FlexBox column className='white-bg soft-edges padding-20 margin-10'>
       <FlexBox>
@@ -48,7 +59,7 @@ const AccountDetails = ({ onUpdate, ...porps }) => {
       <FlexBox column spaceBetween>
         <FlexBox spaceBetween className='margin-v-10'>
           <Label error={errors.lastName}>
-                        First Name
+            First Name
           </Label>
           <TextField
             name='firstName'
@@ -59,7 +70,7 @@ const AccountDetails = ({ onUpdate, ...porps }) => {
         </FlexBox>
         <FlexBox spaceBetween className='margin-v-10'>
           <Label error={errors.lastName}>
-                        Last Name
+            Last Name
           </Label>
           <TextField
             name='lastName'
@@ -70,7 +81,7 @@ const AccountDetails = ({ onUpdate, ...porps }) => {
         </FlexBox>
         <FlexBox spaceBetween className='margin-v-10'>
           <Label error={errors.email}>
-                        Email
+            Email
           </Label>
           <TextField
             name='email'
@@ -79,9 +90,15 @@ const AccountDetails = ({ onUpdate, ...porps }) => {
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox flexEnd>
-        <Button onClick={onSubmit} className='primary-color'>
-                    Update
+      <FlexBox flexEnd={!errors.message} spaceBetween={errors.message}>
+        {errors.message && <div className='error-text'>{errors.message}</div>}
+        <Button
+          onClick={onSubmit}
+          className='primary-color'
+          onprogress={progress}
+          disabled={progress}
+        >
+          Update
         </Button>
       </FlexBox>
     </FlexBox>
@@ -90,6 +107,9 @@ const AccountDetails = ({ onUpdate, ...porps }) => {
 
 AccountDetails.propTypes = {
 
+};
+AccountDetails.default = {
+  user: {}
 };
 
 export default AccountDetails;

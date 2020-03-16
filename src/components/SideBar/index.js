@@ -4,6 +4,7 @@ import { Menu, Link as PureLink } from 'components/common/MainMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { connect } from 'react-redux';
 import common from 'components/common';
+import * as brandsAction from 'actions/brands';
 
 // import { ReactComponent as ProductsIcon } from '../../assets/images/icons/products.svg';
 
@@ -32,7 +33,7 @@ const defaultBrandsList = [
   }
 ];
 const BrandSelect = ({ brands, value, onChange }) => {
-  const options = brands.map(({ name: label, _id: value }) => ({ label, value }));
+  const options = brands.map(({ name: label, id: value }) => ({ label, value }));
   return (
     <Fragment>
       <span className='tiny-text'>Active Brand:</span>
@@ -40,8 +41,10 @@ const BrandSelect = ({ brands, value, onChange }) => {
         value={value}
         name='activeBrand'
         onChange={onChange}
-        options={options}
+        // options={options}
+        options={[...defaultBrandsList, ...options]}
         disabled={!options.length}
+        className='min-width-100'
       />
     </Fragment>
   );
@@ -49,9 +52,9 @@ const BrandSelect = ({ brands, value, onChange }) => {
 BrandSelect.defaultProps = {
   brands: []
 };
-const currentTab = 'products5'; // history.location.pathname
+// const currentTab = 'products5'; // history.location.pathname
 
-const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
+// const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
 
 // console.log(Icons)
 const SideBar = ({
@@ -59,7 +62,7 @@ const SideBar = ({
   user,
   appInit,
   logout,
-  toggleCreateProductModal,
+  updateActiveBrand,
   brands,
   ...props
 }) => {
@@ -92,8 +95,8 @@ const SideBar = ({
     );
   };
 
-  const onActiveBrandChange = ({ target: { value, name } }) => {
-    console.log('brandName', value);
+  const onActiveBrandChange = ({ target: { value: activeBrand } }) => {
+    updateActiveBrand({ activeBrand });
   };
   return (
     <div className='side-bar'>
@@ -142,6 +145,7 @@ export default connect(
   {
     ...logout,
     ...modalsActions,
+    ...brandsAction,
     appInit
   }
 )(SideBar);

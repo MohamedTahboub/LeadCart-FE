@@ -19,7 +19,8 @@ const {
 const Account = ({
   onChangeAccountPassword,
   onChangeAccountDetails,
-  brands
+  brands,
+  user
 }) => (
   <Page>
     <PageHeader>
@@ -28,7 +29,7 @@ const Account = ({
     <PageContent>
       <FlexBox column>
         <FlexBox wrappable flexStart spaceBetween>
-          <AccountDetails onUpdate={onChangeAccountDetails} />
+          <AccountDetails onUpdate={onChangeAccountDetails} user={user} />
           <PasswordBox onUpdate={onChangeAccountPassword} />
         </FlexBox>
         <Brands list={brands} />
@@ -41,8 +42,12 @@ Account.defaultProps = {
   brands: []
 };
 
-const mapStateToProps = ({ account, brands, user: { user } }) => ({
-  user,
+const mapStateToProps = ({ account, brands, user: { user = {} } }) => ({
+  user: {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+  },
   passwordsModel: account.passwordsModel || {},
   detailsModel: account.detailsModel || {},
   brands
