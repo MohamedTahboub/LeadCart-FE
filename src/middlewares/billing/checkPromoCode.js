@@ -2,8 +2,8 @@
 import { CHECK_PROMO_CODE } from '../../constantsTypes';
 import { apiRequest } from '../../actions/apiRequest';
 import {
-    checkPromoCodeSuccess,
-    checkPromoCodeFailed,
+  checkPromoCodeSuccess,
+  checkPromoCodeFailed,
 } from '../../actions/promoCode';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/promo-code/check',
+      uri: '/api/brands/promo-code/check',
       contentType: 'json'
     },
     onSuccess: (arg) => {

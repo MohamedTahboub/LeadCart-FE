@@ -10,7 +10,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'put',
       body: action.payload,
-      uri: '/api/products/checkout',
+      uri: '/api/brands/products/checkout',
       contentType: 'json'
     },
     onSuccess: updateProductCheckoutDesignSuccess,

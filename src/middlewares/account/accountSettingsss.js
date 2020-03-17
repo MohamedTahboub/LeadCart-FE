@@ -22,10 +22,7 @@ export default ({ dispatch }) => (next) => (action) => {
     uri: '/api/users/profile'
   };
 
-  let behaviors = {
-    onSuccess: onChangeAccountDetailsSuccess,
-    onFailed: onChangeAccountDetailsFailed
-  };
+  let behaviors = {};
 
   if (action.type === CHANGE_ACCOUNT_PASSWORD) {
     options.uri = '/api/users/password';
@@ -38,6 +35,19 @@ export default ({ dispatch }) => (next) => (action) => {
       onFailed: (message) => {
         if (meta.onFailed) meta.onFailed(message);
         return onChangeAccountPasswordFailed(message);
+      }
+    };
+  }
+  if (action.type === CHANGE_ACCOUNT_DETAILS) {
+    behaviors = {
+      onSuccess: (args) => {
+        if (meta.onSuccess) meta.onSuccess(args);
+
+        return onChangeAccountDetailsSuccess(args);
+      },
+      onFailed: (message) => {
+        if (meta.onFailed) meta.onFailed(message);
+        return onChangeAccountDetailsFailed(message);
       }
     };
   }

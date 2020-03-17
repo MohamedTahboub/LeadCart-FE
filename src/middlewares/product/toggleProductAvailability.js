@@ -15,7 +15,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     options: {
       method: 'put',
       body: payload,
-      uri: '/api/products/availability',
+      uri: '/api/brands/products/availability',
       contentType: 'json'
     },
     onSuccess: toggleProductAvailabilitySuccess.bind(this, { productId, available }),

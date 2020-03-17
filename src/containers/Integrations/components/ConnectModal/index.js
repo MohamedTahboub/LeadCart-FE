@@ -56,7 +56,7 @@ const ConnectModal = ({
           {service.name}
         </MainTitle>
       </div>
-      <ServiceConnect data={service} />
+      <ServiceConnect data={service} onModalToggle={onToggle}/>
     </Modal>
   );
 ConnectModal.propTypes = {

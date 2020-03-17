@@ -9,6 +9,7 @@ import SearchInput from './SearchInput';
 import TextField from './TextField';
 import TextAreaInput from './TextAreaInput';
 import EditableTagGroup from './EditableTagGroup';
+import Slider from './Slider';
 
 export class InputRow extends Component {
   static Label = ({
@@ -18,7 +19,7 @@ export class InputRow extends Component {
       <span className='input-label '>{props.children}</span>
       {error && (
         <span className='label-validation-error'>
-          *
+            *
           {error}
         </span>
       )}
@@ -146,6 +147,8 @@ export class InputRow extends Component {
 
   static TextField = TextField
 
+  static Slider = Slider
+
   static Checkbox = Checkbox
 
   static SelectOption = ({
@@ -155,11 +158,18 @@ export class InputRow extends Component {
     name,
     value,
     leftLabel,
+    disabled,
     ...props
   }) => (
     <React.Fragment>
       {leftLabel && <span className='input-left-label'>{leftLabel}</span>}
-      <select onChange={onChange} value={value} name={name} className={`select-input-field ${className || ''}`}>
+      <select
+        onChange={onChange}
+        value={value}
+        name={name}
+        className={`select-input-field ${className || ''}`}
+        disabled={disabled}
+      >
         {options.map(({ label, value: v }) => <option key={ids.generate()} className='select-option' value={v}>{label}</option>)}
       </select>
     </React.Fragment>
@@ -314,7 +324,7 @@ export class InputRow extends Component {
         htmlFor='charge-method-el-1'
         className='charging-method-item'
       >
-%
+          %
 
       </label>
       <input
@@ -330,7 +340,7 @@ export class InputRow extends Component {
         className='charging-method-item'
 
       >
-$
+          $
 
       </label>
       {note && <span className='charging-method-picker-notes'>{note}</span>}

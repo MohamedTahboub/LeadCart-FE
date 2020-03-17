@@ -4,6 +4,7 @@ import { Menu, Link as PureLink } from 'components/common/MainMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { connect } from 'react-redux';
 import common from 'components/common';
+import * as brandsAction from 'actions/brands';
 
 // import { ReactComponent as ProductsIcon } from '../../assets/images/icons/products.svg';
 
@@ -16,22 +17,44 @@ import CreateProductModal from '../CreateProductModal';
 import Icons from './icons';
 
 const { Button, InputRow, FlexBox } = common;
+const { SelectOption } = InputRow;
+const defaultBrandsList = [
+  {
+    label: 'company x',
+    value: 1
+  },
+  {
+    label: 'company a',
+    value: 2
+  },
+  {
+    label: 'company b',
+    value: 3
+  }
+];
+const BrandSelect = ({ brands, value, onChange }) => {
+  const options = brands.map(({ name: label, id: value }) => ({ label, value }));
+  return (
+    <Fragment>
+      <span className='tiny-text'>Active Brand:</span>
+      <SelectOption
+        value={value}
+        name='activeBrand'
+        onChange={onChange}
+        // options={options}
+        options={[...defaultBrandsList, ...options]}
+        disabled={!options.length}
+        className='min-width-100'
+      />
+    </Fragment>
+  );
+};
+BrandSelect.defaultProps = {
+  brands: []
+};
+// const currentTab = 'products5'; // history.location.pathname
 
-const BrandSelect = ({ value }) => (
-  <Fragment>
-    <span className='tiny-text'>Active Brand:</span>
-    <InputRow.SearchInput
-      width={120}
-      disabled
-      size='small'
-      options={[{ label: value, value }]}
-      value={value}
-    />
-  </Fragment>
-);
-const currentTab = 'products5'; // history.location.pathname
-
-const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
+// const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
 
 // console.log(Icons)
 const SideBar = ({
@@ -39,7 +62,8 @@ const SideBar = ({
   user,
   appInit,
   logout,
-  toggleCreateProductModal,
+  updateActiveBrand,
+  brands,
   ...props
 }) => {
   const [activeTab, setActiveTab] = useState(history.location.pathname);
@@ -71,12 +95,18 @@ const SideBar = ({
     );
   };
 
-
+  const onActiveBrandChange = ({ target: { value: activeBrand } }) => {
+    updateActiveBrand({ activeBrand });
+  };
   return (
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
-      <BrandSelect value={user.subDomain} />
+      <BrandSelect
+        onChange={onActiveBrandChange}
+        value={user.activeBrand}
+        brands={brands}
+      />
       <Menu>
         <Link icon='dashboard' to='/'>Dashboard</Link>
         <Link icon='products' to='/products'>Products</Link>
@@ -94,7 +124,8 @@ const SideBar = ({
             Sub-Accounts
           </Link>
         )}
-        <Link icon='settings' to='/settings/brand'>Settings</Link>
+        <Link icon='settings' to='/settings/brand'>Brand Settings</Link>
+        <Link icon='settings' to='/settings/account'>Account</Link>
         <Link icon='help' to='https://help.leadcart.io' external>Help</Link>
       </Menu>
 
@@ -107,13 +138,14 @@ const SideBar = ({
     </div>
   );
 };
-const mapStateToProps = ({ user: { user } }) => ({ user });
+const mapStateToProps = ({ brands, user: { user } }) => ({ user, brands });
 
 export default connect(
   mapStateToProps,
   {
     ...logout,
     ...modalsActions,
+    ...brandsAction,
     appInit
   }
 )(SideBar);

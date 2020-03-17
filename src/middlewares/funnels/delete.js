@@ -12,7 +12,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'DELETE',
       body: payload,
-      uri: '/api/funnels',
+      uri: '/api/brands/funnels',
       contentType: 'json'
     },
     onSuccess: (args) => {

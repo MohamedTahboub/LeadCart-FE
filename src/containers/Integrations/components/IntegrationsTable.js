@@ -7,12 +7,15 @@ import clx from 'classnames';
 import ReactTip from 'react-tooltip';
 
 const {
-  Badge,
-  MiniButton,
+  // Badge,
+  // MiniButton,
+  // FlexBox,
   // onConnect,
   Button
 } = common;
 
+
+const defaultDescription = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste accusamus maiores quam reiciendis!';
 const IntegrationsTable = ({
   list,
   onConnect,
@@ -32,11 +35,12 @@ const IntegrationsTable = ({
             // label = name,
             connected,
             brandLogo,
-            active
+            active,
+            description = defaultDescription
           } = service;
 
           const connectLabel = active ? connected ? 'connected' : 'disconnected' : 'connect';
-          const connectAction = active ? connected ? onDisconnect : undefined : onConnect;
+          const connectAction = connected ? onDisconnect : onConnect;
 
           const connectBtnClasses = clx({
             'integration-toggle-btn': true,
@@ -66,10 +70,12 @@ const IntegrationsTable = ({
 
               <Table.Cell
                 flex
+                flexStart
+                className='padding-h-20'
                 mainContent={
                   (
-                    <span className='integration-service-description'>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste accusamus maiores quam reiciendis!
+                    <span className='integration-service-description truncate'>
+                      {description}
                     </span>
                   )
                 }

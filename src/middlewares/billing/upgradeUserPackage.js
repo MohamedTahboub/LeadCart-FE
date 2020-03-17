@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/users/upgrade',
+      uri: '/api/brands/upgrade',
       contentType: 'json'
     },
     onSuccess: (arg) => {

@@ -12,7 +12,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'post',
       body: payload,
-      uri: '/api/funnels/rules',
+      uri: '/api/brands/funnels/rules',
       contentType: 'json'
     },
     onSuccess: (args) => {

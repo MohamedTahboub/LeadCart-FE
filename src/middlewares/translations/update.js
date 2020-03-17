@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => async (action) => {
   dispatch(apiRequest({
     options: {
       method: 'PUT',
-      uri: '/api/languages',
+      uri: '/api/brands/languages',
       body: payload,
       contentType: 'json'
     },

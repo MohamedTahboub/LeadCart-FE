@@ -3,7 +3,6 @@ import clx from 'classnames';
 import './style.css';
 import { EasyAnimate } from '../Animation';
 
-
 export default class Table extends Component {
   static Head = ({ children, ...props }) => (
     <span className='table-head'>
@@ -50,37 +49,47 @@ export default class Table extends Component {
     mainContent,
     className = '',
     flex = true,
+    flexStart,
     subContent,
     sideContent,
     ...props
-  }) => (
-    <div className={`table-cell ${className} ${flex ? 'flex' : ''}`} {...props}>
-      {mainContent && (
-        !sideContent
-          ? (
-            <span className='cell-main-content'>
-              {mainContent}
-            </span>
-          )
-          : (
-            <div>
+  }) => {
+    const classNames = clx({
+      'table-cell': true,
+      [className]: className,
+      flex,
+      flexStart
+    });
+
+    return (
+      <div className={classNames} {...props}>
+        {mainContent && (
+          !sideContent
+            ? (
               <span className='cell-main-content'>
                 {mainContent}
               </span>
-              <span className='cell-main-content'>
-                {sideContent}
-              </span>
-            </div>
-          )
-      )
-      }
-      {typeof subContent !== 'object'
-        ? <span className='cell-sub-content'>{subContent}</span>
-        : <span className={`cell-sub-content ${subContent && subContent.className}`}>{subContent && subContent.content}</span>
-      }
-      {children}
-    </div>
-  )
+            )
+            : (
+              <div>
+                <span className='cell-main-content'>
+                  {mainContent}
+                </span>
+                <span className='cell-main-content'>
+                  {sideContent}
+                </span>
+              </div>
+            )
+        )
+        }
+        {typeof subContent !== 'object'
+          ? <span className='cell-sub-content'>{subContent}</span>
+          : <span className={`cell-sub-content ${subContent && subContent.className}`}>{subContent && subContent.content}</span>
+        }
+        {children}
+      </div>
+    );
+  }
 
   static SmallCell = ({ children, ...props }) => (
     <div className='small-table-cell'>{children}</div>

@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'PUT',
       body: payload,
-      uri: '/api/coupon',
+      uri: '/api/brands/coupon',
       contentType: 'json'
     },
     onSuccess: (args) => {

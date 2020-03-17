@@ -1,4 +1,5 @@
 import {
+  GET_USER_INTEGRATION,
   CHECK_INTEGRATION_SUPPORT,
   CHECK_INTEGRATION_SUPPORT_SUCCESS,
   CHECK_INTEGRATION_SUPPORT_FAILED,
@@ -11,8 +12,12 @@ import {
   GET_INTEGRATION_ACTION_REQUIREMENT,
   GET_INTEGRATION_ACTION_REQUIREMENT_SUCCESS,
   GET_INTEGRATION_ACTION_REQUIREMENT_FAILED,
-} from 'constantsTypes';
+} from '../constantsTypes';
 
+export const getUserIntegration = (integrations) => ({
+  type: GET_USER_INTEGRATION,
+  payload: integrations
+});
 export const checkIntegrationService = (service, meta) => ({
   type: CHECK_INTEGRATION_SUPPORT,
   payload: service,

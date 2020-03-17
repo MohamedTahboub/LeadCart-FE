@@ -48,6 +48,7 @@ import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
 import SubAccounts from './containers/SubAccounts';
 import Help from './containers/Help';
+import Account from './containers/Account';
 
 
 // services
@@ -107,6 +108,7 @@ ReactDOM.render(
                   <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
                   <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
                   <Route exact path='/sub-accounts' component={SubAccounts} />
+                  <Route exact path='/settings/account' component={Account} />
                   <Route path='/settings' component={Setting} />
                   <Route exact path='/help' component={Help} />
                   <Route exact path='*' component={FourOFour} />

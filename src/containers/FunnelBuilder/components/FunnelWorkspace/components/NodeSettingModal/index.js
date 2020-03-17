@@ -14,7 +14,8 @@ const {
   FunnelTemplateNode,
   Tabs,
   Tab,
-  InputRow
+  InputRow,
+  Button
 } = common;
 const { TextField } = InputRow;
 
@@ -89,18 +90,18 @@ const NodeSettingModal = ({
             placeholder='Search'
             className='full-width'
           />
+
+          <FlexBox column flex center='h-center' className='margin-v-10 '>
+            <Button
+              // className='side-bar-nodes'
+              onClick={onProductEdit()}
+              className='primary-btn'
+            >
+            New Product
+            </Button>
+            <div className='title-text text-align-center margin-v-5'>Or</div>
+          </FlexBox>
           <FlexBox flex flexStart wrappable>
-            <FunnelTemplateNode
-              className='side-bar-nodes'
-              // onClick={onCreatenewProduct}
-              // active={product.active}
-              onEditExplore={onProductEdit()}
-              product={{
-                image: newProductImage,
-                name: 'New Product'
-              }
-              }
-            />
             {
               filtered.map((product) => (
                 <FunnelTemplateNode
@@ -121,7 +122,7 @@ const NodeSettingModal = ({
           </FlexBox>
         </Tab>
         <Tab id='filter' title='Filters'>
-            Filters
+          Filters
         </Tab>
       </Tabs>
 

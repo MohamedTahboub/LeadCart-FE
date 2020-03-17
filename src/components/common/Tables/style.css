@@ -64,6 +64,10 @@
 .table-cell.flex{
     flex:1;
 }
+.table-cell.flex.flexStart{
+    flex-direction: row;
+    justify-content: flex-start;
+}
 
 .tabel-row-controlls-container {
     display: flex;

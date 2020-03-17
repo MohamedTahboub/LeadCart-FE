@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
-import { message } from 'antd';
-import { openNewWindow } from 'libs';
+import { openNewWindow, notification } from 'libs';
+// import { useForm } from 'libs/hooks';
 import ServiceCard from './ServiceCard';
 
 import {
@@ -43,66 +43,109 @@ const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) =>
   </FlexBox>
 );
 
-const ConnectClient = ({ name, ...props }) => (
-  <FlexBox column center='v-left' flex>
-    <Statement
-      label='Client Id'
-      value={(
-        <TextField
-          name='clientId'
-        />
-      )}
-      flex
-      spaceBetween
-      className='full-width'
-    />
-    <Statement
-      label='Client Secret'
-      value={(
-        <TextField
-          name='secret'
-        />
-      )}
-      flex
-      spaceBetween
-      className='full-width'
-    // flex
-    />
+const ConnectClient = ({
+  name, onChange, onSubmit, ...props
+}) => (
+    <FlexBox column center='v-left' flex>
+      <Statement
+        label='Client Id'
+        value={(
+          <TextField
+            name='client_id'
+            onChange={onChange}
+          />
+        )}
+        flex
+        spaceBetween
+        className='full-width'
+      />
+      <Statement
+        label='Client Secret'
+        value={(
+          <TextField
+            name='client_secret'
+            onChange={onChange}
+          />
+        )}
+        flex
+        spaceBetween
+        className='full-width'
+      // flex
+      />
 
-    <FlexBox flexEnd className='full-width'>
-      <Button className='primary-color'>
-        Authorize
+      <FlexBox flexEnd className='full-width'>
+        <Button onClick={onSubmit} className='primary-color'>
+          Authorize
       </Button>
+      </FlexBox>
     </FlexBox>
-  </FlexBox>
-);
+  );
 
 
-const ConnectApiKey = ({ name, ...props }) => (
-  <FlexBox column>
-    <Statement
-      label='API KEY'
-      value={(
-        <TextField
-          name='apiKey'
-        />
-      )}
-    />
-    <FlexBox flexEnd className='full-width'>
-      <Button className='primary-color'>
-        Authorize
+const ConnectApiKey = ({
+  name, onChange, onSubmit, ...props
+}) => (
+    <FlexBox column>
+      <Statement
+        label='API KEY'
+        value={(
+          <TextField
+            name='apiKey'
+            onChange={onChange}
+          // value={values.apiKey}
+          />
+        )}
+      />
+      <FlexBox flexEnd className='full-width'>
+        <Button onClick={onSubmit} className='primary-color'>
+          Authorize
       </Button>
+      </FlexBox>
     </FlexBox>
-  </FlexBox>
-);
+  );
 
-const ConnectIntegration = ({ authType, ...props }) => (
-  <LayoutSwitch active={authType}>
-    <ConnectOAuth id='OAuth' {...props} />
-    <ConnectClient id='client_credentials' {...props} />
-    <ConnectApiKey id='apiKey' {...props} />
-  </LayoutSwitch>
-);
+const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) => {
+  const [values, setValues] = useState({});
+  const [onprogress, setProgress] = useState(false);
+
+  const onChange = ({ target: { name, value } }) => {
+    setValues({ ...values, [name]: value });
+  };
+
+  const onSubmit = () => {
+    setProgress(true);
+    onConnect(values, {
+      onSuccess: () => {
+        notification.success(`${props.name} Connected Successfully`);
+        setValues({});
+        setProgress(false);
+        onModalToggle()
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+        setProgress(false);
+      }
+    });
+  };
+
+  useEffect(() => {
+    setValues({});
+  }, [authType]);
+
+  const customProps = {
+    onprogress,
+    onChange,
+    onSubmit
+  };
+
+  return (
+    <LayoutSwitch active={authType}>
+      <ConnectOAuth id='OAuth' {...props} />
+      <ConnectClient id='client_credentials' {...props} {...customProps} />
+      <ConnectApiKey id='apiKey' {...props} {...customProps} />
+    </LayoutSwitch>
+  );
+};
 
 
 const Statement = ({ label, value, ...props }) => (
@@ -147,7 +190,22 @@ const ServiceConnect = ({ data = {}, ...props }) => {
     // };
   }, []);
 
-
+  const onConnect = ({
+    name,
+    category,
+    key,
+    authType
+  }) => (authDetails, onExecute) => {
+    const serviceDetails = {
+      integration: name,
+      category,
+      integrationKey: key,
+      authDetails,
+      authType
+    };
+    console.log('serviceDetails', serviceDetails);
+    props.connectIntegrationService(serviceDetails, onExecute);
+  };
   return (
     <FlexBox column className='margin-top-20'>
       <FlexBox>
@@ -158,16 +216,18 @@ const ServiceConnect = ({ data = {}, ...props }) => {
           {supported ? (
             <ConnectIntegration
               {...service}
+              onConnect={onConnect(service)}
+              onModalToggle={props.onModalToggle}
             />
           ) : (
-            <FlexBox flex column center='v-center h-center'>
-              {onprogress ? (
-                <LoadingIcon />
-              ) : (
-                <span className='error-text'>{error}</span>
-              )}
-            </FlexBox>
-          )}
+              <FlexBox flex column center='v-center h-center'>
+                {onprogress ? (
+                  <LoadingIcon />
+                ) : (
+                    <span className='error-text'>{error}</span>
+                  )}
+              </FlexBox>
+            )}
         </FlexBox>
         <FlexBox>
           <ServiceCard {...service} disabled />

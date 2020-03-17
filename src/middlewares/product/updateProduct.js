@@ -15,7 +15,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     options: {
       method: 'put',
       body: action.payload,
-      uri: '/api/products',
+      uri: '/api/brands/products',
       contentType: 'json'
     },
     onSuccess: (data) => {

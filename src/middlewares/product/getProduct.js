@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
   dispatch(apiRequest({
     options: {
       method: 'get',
-      uri: '/api/products',
+      uri: '/api/brands/products',
       contentType: 'json'
     },
     onSuccess: getSuccess,

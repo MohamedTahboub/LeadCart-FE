@@ -1,10 +1,11 @@
-import React, { useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
 import { notification } from 'libs';
 import servicesList from 'data/integrationsServices';
+import queryString from 'querystring';
 
 import {
   LayoutSwitch,
@@ -12,6 +13,7 @@ import {
   IntegrationsTable,
   LayoutOptions,
   ConnectModal,
+  ConnectingModal
 } from './components';
 
 
@@ -67,14 +69,20 @@ const ActiveIntegrationLayout = ({ layout, ...props }) => {
 };
 
 
-const Integrations = ({ integrations, ...props }) => {
+const checkConnecting = (searchUrl = '') => {
+  const details = queryString.parse(searchUrl.replace('?', ''));
+  return details;
+};
+
+
+const Integrations = ({ integrations, history, ...props }) => {
   const [activeLayout, setActiveLayout] = useState('list');
   const [openModal, setOpenModal] = useState(false);
   const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
   const [showConnected, setShowConnected] = useState('all');
   const [disconnectedDialog, setDisconnectDialog] = useState(false);
-
+  const [connectStatus, setConnectStatus] = useState();
 
   const onLayoutChange = (value) => () => {
     setActiveLayout(value);
@@ -114,10 +122,11 @@ const Integrations = ({ integrations, ...props }) => {
 
   const onConfirmDisconnect = (service) => {
     props.disconnectIntegrationService({
-      integrationKey: activeService.key
+      integrationId: activeService._id,
+      remove: true,
     }, {
       onSuccess: () => {
-        notification.success(`You have Connected ${activeService.name} Successfuly`);
+        notification.success(`You have Connected ${activeService.name} Successfully`);
         setActiveService({});
         onCloseDisconnectDialog();
       },
@@ -129,6 +138,18 @@ const Integrations = ({ integrations, ...props }) => {
     });
     // setOpenModal(true);
   };
+
+  const onConnectOnProgress = (details) => {
+    setConnectStatus(details);
+  };
+  const onConnectingStop = () => {
+    setConnectStatus();
+  };
+  useEffect(() => {
+    const isConnecting = checkConnecting(history.location.search);
+
+    if (isConnecting) onConnectOnProgress(isConnecting);
+  }, [history.location.search]);
 
   return (
     <Page>
@@ -147,19 +168,6 @@ const Integrations = ({ integrations, ...props }) => {
               autoComplete='off'
               value={searchKey}
             />
-            <FlexBox center='v-center'>
-              <div className='label'>Services Status:</div>
-              <SelectOption
-                value={showConnected}
-                className='margin-h-10'
-                onChange={onChangeConnectFilter}
-                options={[
-                  { value: 'all', label: 'all' },
-                  { value: 'disconnected', label: 'Disconnected' },
-                  { value: 'connected', label: 'Connected' },
-                ]}
-              />
-            </FlexBox>
             <LayoutOptions
               onChange={onLayoutChange}
               active={activeLayout}
@@ -185,6 +193,15 @@ const Integrations = ({ integrations, ...props }) => {
             service={activeService}
           />
         )}
+        {(connectStatus && connectStatus.activation) && (
+          <ConnectingModal
+            open={connectStatus}
+            data={connectStatus}
+            onClose={onConnectingStop}
+            history={history}
+          />
+        )
+        }
         {disconnectedDialog && (
           <Dialog
             onClose={onCloseDisconnectDialog}
@@ -210,7 +227,15 @@ Integrations.propTypes = {
 
 };
 Integrations.defaultProps = {
-  integrations: servicesList
+  integrations: []
 };
+const mapStateToProps = ({ integrations = [] }) => {
+  const integrationsServices = servicesList.map((service) => {
+    const integrationExist = integrations.find((integration) => integration && (integration.key === service.key));
+    if (integrationExist) return { ...service, ...integrationExist, active: true };
+    return service;
+  });
 
-export default connect(null, integrationsActions)(Integrations);
+  return { integrations: integrationsServices };
+};
+export default connect(mapStateToProps, integrationsActions)(Integrations);
