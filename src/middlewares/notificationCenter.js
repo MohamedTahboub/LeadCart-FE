@@ -42,9 +42,9 @@ export default () => (next) => (action) => {
   case types.SAVE_USER_GENERAL_SETTINGS_SUCCESS:
     showSuccessMessage('Update General Setting');
     break;
-  case types.PRODUCT_CREATED_SUCCESSFULLY:
-    showSuccessMessage('The Product Created');
-    break;
+  // case types.PRODUCT_CREATED_SUCCESSFULLY:
+  //   showSuccessMessage('The Product Created');
+  //   break;
   case types.DELETE_USER_PRODUCT_SUCCESS:
     showSuccessMessage('The Product Deleted');
     break;

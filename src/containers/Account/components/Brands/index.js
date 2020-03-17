@@ -23,7 +23,7 @@ const {
 const Brands = ({ list: brandsList, ...props }) => {
   const [openModal, setOpenModal] = useState(false);
   const onCreate = (brand, cb) => {
-    console.log('Create New');
+    // console.log('Create New');
 
     //     name
     // packageType
@@ -34,7 +34,7 @@ const Brands = ({ list: brandsList, ...props }) => {
   };
 
   const onDelete = (brandId) => () => {
-    console.log(brandId);
+    // console.log(brandId);
   };
 
   const toggleCreateModal = () => {
@@ -63,8 +63,9 @@ const Brands = ({ list: brandsList, ...props }) => {
               <Table.Cell mainContent={brand.name} />
               <Table.Cell mainContent={(
                 <Badge type='primary' className='uppercase-text relative-element'>
-                  {brand.package}
+                  {(brand.package || 'Basic')}
                   {brand.trail && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
+                  {typeof brand.trail === 'undefined' && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
                 </Badge>
               )}
               />
@@ -73,7 +74,7 @@ const Brands = ({ list: brandsList, ...props }) => {
                 <FlexBox>
                   <AiOutlineDelete
                     onClick={onDelete(brand.id)}
-                    className='margin-h-10 danger-color animate item-clickable'
+                    className='margin-h-10 danger-color animate item-clickable '
                   />
                 </FlexBox>
               )}
