@@ -15,12 +15,12 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/integrations/disconnect',
+      uri: '/api/brands/integrations/disconnect',
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return disconnectIntegrationServiceSuccess(args);
+      return disconnectIntegrationServiceSuccess(payload);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);

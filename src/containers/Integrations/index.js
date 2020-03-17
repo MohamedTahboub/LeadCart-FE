@@ -70,9 +70,7 @@ const ActiveIntegrationLayout = ({ layout, ...props }) => {
 
 
 const checkConnecting = (searchUrl = '') => {
-  console.log('searchUrl==> ', searchUrl);
   const details = queryString.parse(searchUrl.replace('?', ''));
-  console.log('details==> ', details);
   return details;
 };
 
@@ -124,7 +122,8 @@ const Integrations = ({ integrations, history, ...props }) => {
 
   const onConfirmDisconnect = (service) => {
     props.disconnectIntegrationService({
-      integrationKey: activeService.key
+      integrationId: activeService._id,
+      remove: true,
     }, {
       onSuccess: () => {
         notification.success(`You have Connected ${activeService.name} Successfully`);
@@ -147,8 +146,6 @@ const Integrations = ({ integrations, history, ...props }) => {
     setConnectStatus();
   };
   useEffect(() => {
-    console.log('history', history);
-    console.log('history.location.search', history.location.search);
     const isConnecting = checkConnecting(history.location.search);
 
     if (isConnecting) onConnectOnProgress(isConnecting);
@@ -171,19 +168,6 @@ const Integrations = ({ integrations, history, ...props }) => {
               autoComplete='off'
               value={searchKey}
             />
-            <FlexBox center='v-center'>
-              <div className='label'>Services Status:</div>
-              <SelectOption
-                value={showConnected}
-                className='margin-h-10'
-                onChange={onChangeConnectFilter}
-                options={[
-                  { value: 'all', label: 'all' },
-                  { value: 'disconnected', label: 'Disconnected' },
-                  { value: 'connected', label: 'Connected' },
-                ]}
-              />
-            </FlexBox>
             <LayoutOptions
               onChange={onLayoutChange}
               active={activeLayout}
@@ -243,7 +227,15 @@ Integrations.propTypes = {
 
 };
 Integrations.defaultProps = {
-  integrations: servicesList
+  integrations: []
 };
+const mapStateToProps = ({ integrations = [] }) => {
+  const integrationsServices = servicesList.map((service) => {
+    const integrationExist = integrations.find((integration) => integration && (integration.key === service.key));
+    if (integrationExist) return { ...service, ...integrationExist, active: true };
+    return service;
+  });
 
-export default connect(null, integrationsActions)(Integrations);
+  return { integrations: integrationsServices };
+};
+export default connect(mapStateToProps, integrationsActions)(Integrations);

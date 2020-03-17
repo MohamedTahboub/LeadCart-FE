@@ -14,7 +14,12 @@ export default (state = initialState, { type, payload }) => {
   case GET_USER_INTEGRATION:
     return payload;
   case CONNECT_INTEGRATION_SERVICE_SUCCESS:
-    return [...state, payload];
+    return [...state, { ...payload, connected: true }];
+  case DISCONNECT_INTEGRATION_SERVICE_SUCCESS:
+    return state.map((integration) => {
+      if (integration.id === payload.integrationId) return { ...integration, connected: false };
+      return integration;
+    });
   default: return state;
   }
 };

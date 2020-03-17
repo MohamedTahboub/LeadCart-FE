@@ -36,6 +36,7 @@ img.integrations-service-brand {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    justify-content: flex-start;;
 }
 
 .integration-head-cell {
