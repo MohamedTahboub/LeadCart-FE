@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/orders/fulfillment',
+      uri: '/api/brands/orders/fulfillment',
       contentType: 'json'
     },
     onSuccess: (data) => {

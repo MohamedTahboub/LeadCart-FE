@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
 import integrationsServices from 'data/integrationsServices';
 
-
+import './style.css';
+import ServiceConnectAnimation from './ServiceConnectAnimation';
 const {
   FlexBox,
   MainTitle,
@@ -21,12 +22,15 @@ const getServiceDetails = (key = '') => {
 };
 
 const ConnectingModal = ({
+  history,
   open,
   onClose,
   connectIntegrationService,
   data = {}
 }) => {
   const [progress, setProgress] = useState(true);
+  const [serviceImage, setServiceImage] = useState();
+
   const [error, setError] = useState(data.error);
   const {
     activation,
@@ -36,7 +40,7 @@ const ConnectingModal = ({
   useEffect(() => {
     if (code && !error) {
       const service = getServiceDetails(activation);
-
+      setServiceImage(service.brandLogo);
       onConnect({
         ...service,
         authDetails: {
@@ -68,12 +72,14 @@ const ConnectingModal = ({
           setProgress(false);
           notification.success(`You have Connected ${activation} Successfully`);
           onClose();
+          history.push('/integrations');
         },
         onFailed: (errMessage) => {
           setError(errMessage);
           setProgress(false);
           notification.failed(errMessage);
           setTimeout(() => {
+            history.push('/integrations');
             onClose();
           }, 4000);
         }
@@ -82,7 +88,7 @@ const ConnectingModal = ({
   };
   return (
     <Modal
-      className='integrations-modal min-width-300'
+      className='integrations-modal min-width-600'
       isVisible={open}
       onClose={onClose}
     >
@@ -94,12 +100,12 @@ const ConnectingModal = ({
         </MainTitle>
       </div>
       <FlexBox center='h-center' className='aligned-center-text' column>
-        <div>
-          {`${progress && 'Connecting'} to ${activation} ...`}
-        </div>
+        {progress && (
+          <ServiceConnectAnimation image={serviceImage} />
+        )}
         {
           (error && !progress) && (
-            <div className='error-text'>
+            <div className='error-text max-width-300 text-align-center'>
               {error}
             </div>
           )

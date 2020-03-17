@@ -18,7 +18,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/emails/verify',
+      uri: '/api/brands/emails/verify',
       contentType: 'json'
     },
     onSuccess: (data) => {
