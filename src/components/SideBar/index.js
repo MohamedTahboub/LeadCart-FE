@@ -18,20 +18,7 @@ import Icons from './icons';
 
 const { Button, InputRow, FlexBox } = common;
 const { SelectOption } = InputRow;
-const defaultBrandsList = [
-  {
-    label: 'company x',
-    value: 1
-  },
-  {
-    label: 'company a',
-    value: 2
-  },
-  {
-    label: 'company b',
-    value: 3
-  }
-];
+
 const BrandSelect = ({ brands, value, onChange }) => {
   const options = brands.map(({ name: label, id: value }) => ({ label, value }));
   return (
@@ -42,7 +29,7 @@ const BrandSelect = ({ brands, value, onChange }) => {
         name='activeBrand'
         onChange={onChange}
         // options={options}
-        options={[...defaultBrandsList, ...options]}
+        options={options}
         disabled={!options.length}
         className='min-width-100'
       />

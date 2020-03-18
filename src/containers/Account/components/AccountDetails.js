@@ -66,6 +66,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
             value={values.firstName}
             onChange={onChange}
             error={errors.firstName}
+            autoComplete='off'
           />
         </FlexBox>
         <FlexBox spaceBetween className='margin-v-10'>
@@ -77,6 +78,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
             value={values.lastName}
             onChange={onChange}
             error={errors.lastName}
+            autoComplete='off'
           />
         </FlexBox>
         <FlexBox spaceBetween className='margin-v-10'>
@@ -90,7 +92,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox flexEnd={!errors.message} spaceBetween={errors.message}>
+      <FlexBox flexEnd={!errors.message} spaceBetween={errors.message} center='v-center'>
         {errors.message && <div className='error-text'>{errors.message}</div>}
         <Button
           onClick={onSubmit}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 // import sampleBrandsList from 'data/brandsList';
 import { AiOutlineDelete } from 'react-icons/ai';
-
+import { notification } from 'libs';
 import { connect } from 'react-redux';
 import * as brandsActions from 'actions/brands';
 import {
@@ -28,9 +28,18 @@ const Brands = ({ list: brandsList, ...props }) => {
     //     name
     // packageType
     // subDomain
-    props.createBrand(brand);
+    const actions = {
+      onSuccess: () => {
+        notification.success(`${brand} Brand Created`);
+        cb();
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+        cb();
+      }
+    };
+    props.createBrand(brand, actions);
     // setOpenModal(true);
-    cb();
   };
 
   const onDelete = (brandId) => () => {
@@ -45,7 +54,7 @@ const Brands = ({ list: brandsList, ...props }) => {
     <FlexBox column className='white-bg soft-edges padding-20 margin-10'>
       <FlexBox spaceBetween center='v-center'>
         <div className='title-text'>Brands Management</div>
-        <Button onClick={onCreate} className='primary-btn'>
+        <Button onClick={toggleCreateModal} className='primary-btn'>
           New Brand
         </Button>
       </FlexBox>

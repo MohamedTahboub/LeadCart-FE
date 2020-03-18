@@ -23,15 +23,19 @@ const CreateModal = ({
 
   const onChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
+    setErrors({});
   };
 
   const onSubmit = () => {
     onCreate(values, () => {
       onClose();
+      setValues({});
+      setErrors({});
     });
   };
+
   return (
-    <Modal isVisible onClose={onClose}>
+    <Modal isVisible onClose={onClose} key='brand-form'>
       <div className='title-text'>Create New Brand</div>
       <FlexBox column spaceBetween>
         <FlexBox spaceBetween className='margin-v-10'>
@@ -50,7 +54,7 @@ const CreateModal = ({
             subdomain
           </Label>
           <TextField
-            name='subdomain'
+            name='subDomain'
             value={values.subdomain}
             onChange={onChange}
             error={errors.subdomain}
@@ -75,17 +79,6 @@ const CreateModal = ({
               }
             ]}
             error={errors.package}
-          />
-        </FlexBox>
-        <FlexBox spaceBetween className='margin-v-10'>
-          <Label error={errors.supportEmail}>
-            Support Email
-          </Label>
-          <TextField
-            name='supportEmail'
-            value={values.supportEmail}
-            onChange={onChange}
-            error={errors.supportEmail}
           />
         </FlexBox>
       </FlexBox>
