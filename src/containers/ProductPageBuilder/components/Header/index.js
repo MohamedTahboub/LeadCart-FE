@@ -42,7 +42,9 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 };
 
 
-const Header = ({ history, props }) => {
+const Header = ({
+  history, props, onSave, saving
+}) => {
   const {
     state: {
       displayMode,
@@ -130,8 +132,10 @@ const Header = ({ history, props }) => {
             <AiOutlineHistory />
           </Button>
           <Button
-            // onClick={onSave}
+            onClick={onSave}
             className='light-btn'
+            disabled={saving}
+            onprogress={saving}
           >
             <i className='fas fa-save font-size-11' />
             {`Save ${standAlone ? '' : 'and Back to Funnel'}`}

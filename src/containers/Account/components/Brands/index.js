@@ -30,7 +30,7 @@ const Brands = ({ list: brandsList, ...props }) => {
     // subDomain
     const actions = {
       onSuccess: () => {
-        notification.success(`${brand} Brand Created`);
+        notification.success(`${brand.name} Brand Created`);
         cb();
       },
       onFailed: (message) => {
@@ -61,35 +61,46 @@ const Brands = ({ list: brandsList, ...props }) => {
       <Table>
         <Table.Head>
           <Table.HeadCell>Name</Table.HeadCell>
-          <Table.HeadCell>Status</Table.HeadCell>
-          <Table.HeadCell>Support Email</Table.HeadCell>
+          <Table.HeadCell>Package</Table.HeadCell>
+          <Table.HeadCell>SubDomain</Table.HeadCell>
           <Table.HeadCell />
         </Table.Head>
         <Table.Body>
-          {brandsList.map((brand) => (
+          {brandsList.map((brand) => {
+            const {
+              id,
+              name,
+              trial,
+              subDomain,
+              activePackage: {
+                type: packageType = 'Basic'
+              } = {}
+            } = brand;
 
-            <Table.Row>
-              <Table.Cell mainContent={brand.name} />
-              <Table.Cell mainContent={(
-                <Badge type='primary' className='uppercase-text relative-element'>
-                  {(brand.package || 'Basic')}
-                  {brand.trail && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
-                  {typeof brand.trail === 'undefined' && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
-                </Badge>
-              )}
-              />
-              <Table.Cell mainContent={brand.supportEmail} />
-              <Table.Cell mainContent={(
-                <FlexBox>
-                  <AiOutlineDelete
-                    onClick={onDelete(brand.id)}
-                    className='margin-h-10 danger-color animate item-clickable '
-                  />
-                </FlexBox>
-              )}
-              />
-            </Table.Row>
-          ))}
+            return (
+              <Table.Row>
+                <Table.Cell mainContent={name} />
+                <Table.Cell mainContent={(
+                  <Badge type='primary' className='uppercase-text relative-element'>
+                    {packageType }
+                    {trial && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
+                    {typeof trial === 'undefined' && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
+                  </Badge>
+                )}
+                />
+                <Table.Cell mainContent={subDomain} />
+                <Table.Cell mainContent={(
+                  <FlexBox className='hide-element'>
+                    <AiOutlineDelete
+                      onClick={onDelete(id)}
+                      className='margin-h-10 danger-color animate item-clickable '
+                    />
+                  </FlexBox>
+                )}
+                />
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table>
       {openModal && (

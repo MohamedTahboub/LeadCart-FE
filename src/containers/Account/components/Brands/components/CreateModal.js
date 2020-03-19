@@ -18,7 +18,7 @@ const { Label, TextField, SelectOption } = InputRow;
 const CreateModal = ({
   onClose, onCreate, open, ...props
 }) => {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({ packageType: 'Pro', period: 'Monthly' });
   const [errors, setErrors] = useState({});
 
   const onChange = ({ target: { name, value } }) => {
@@ -65,9 +65,9 @@ const CreateModal = ({
             Package
           </Label>
           <SelectOption
-            name='package'
+            name='packageType'
             className='flex-box flex'
-            value={values.package}
+            value={values.packageType}
             onChange={onChange}
             options={[
               {
@@ -78,7 +78,7 @@ const CreateModal = ({
                 label: 'Basic', value: 'Basic',
               }
             ]}
-            error={errors.package}
+            error={errors.packageType}
           />
         </FlexBox>
       </FlexBox>

@@ -88,10 +88,12 @@ const offerSchema = yup.object({
   })
 }).required();
 
+const sectionSchema = yup.mixed();
+
 const ProductSchema = yup.object({
   available: yup.boolean().default(false),
-  pagePreferences: pagePreferencesSchema,
-  offer: offerSchema,
+  // pagePreferences: yup.object().transform((val) => undefined),
+  // offer: offerSchema,
   name: yup.string().default('Product-Name'),
   internalName: yup.string(),
   thumbnail: yup.string(),
@@ -122,6 +124,7 @@ const ProductSchema = yup.object({
   settings: yup.object({
     language: yup.string()
   }),
+  sections: yup.array().of(sectionSchema),
   scripts: yup.object({
     fbPixelId: yup
       .string()

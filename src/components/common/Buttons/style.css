@@ -81,6 +81,15 @@
   border: 2px solid rgb(62, 89, 240);
   border-top-color: #fefefe;
 }
+.btn.light-btn.spinner::after{
+  border: 2px solid #000;
+  border-top-color: #eee;
+  left: calc(50% - 4.5px);
+  width: 10px;
+  height: 10px;
+  top: calc(50% - 4.5px);
+}
+
 .primary-btn{
   background: #4DA1FF;
   background: var(--btn-bg);
