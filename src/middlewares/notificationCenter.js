@@ -77,9 +77,9 @@ export default () => (next) => (action) => {
   case types.CREATE_SUB_ACCOUNT_FAILED:
     showFailureMessage('Failed to Create A Sub Account!');
     break;
-  case types.PRODUCT_CREATION_FAILED:
-    showFailureMessage('Failed to Create The product');
-    break;
+  // case types.PRODUCT_CREATION_FAILED:
+  //   showFailureMessage('Failed to Create The product');
+  //   break;
   case types.CHANGE_COUPON_STATE_FAILED:
     showFailureMessage('Failed to Change coupon status');
     break;

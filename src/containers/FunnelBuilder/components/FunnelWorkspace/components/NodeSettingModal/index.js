@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { showIntercomIcon } from 'libs';
+import productSample from 'data/product.json';
+import * as productActions from 'actions/product';
 import { connect } from 'react-redux';
 import common from 'components/common';
-import { includesIgnoreCase } from 'libs';
-// import Select from 'react-select'
-import newProductImage from 'assets/images/new-product-icon.png';
-
+import { includesIgnoreCase, notification } from 'libs';
 import './style.css';
 
 const {
@@ -43,6 +41,7 @@ const NodeSettingModal = ({
   const nodeProducts = getMatchedProducts(products, nodes, isVisible);
 
   const [filtered, setFilteredProducts] = useState(nodeProducts);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setFilteredProducts(getMatchedProducts(products, nodes, isVisible));
@@ -66,6 +65,30 @@ const NodeSettingModal = ({
   const onProductEdit = (productId = 'new') => () => {
     const { history, funnelUrl } = props;
     history.push(`${funnelUrl}/products/${productId}`);
+  };
+
+  const onNewProduct = (nodeId) => () => {
+    const activeNode = nodes.find((node) => node.elementId === nodeId);
+
+    const { category: productCategory } = activeNode;
+    productSample.category = productCategory;
+    const { history, funnelUrl } = props;
+
+    setLoading(true);
+    props.createNewProduct(
+      productSample,
+      {
+        onSuccess: (product) => {
+          setLoading(false);
+          history.push(`${funnelUrl}/products/${product.id}`);
+          notification.success('Product Created ');
+        },
+        onFailed: (message) => {
+          setLoading(false);
+          notification.failed(message);
+        }
+      }
+    );
   };
 
   return (
@@ -94,10 +117,12 @@ const NodeSettingModal = ({
           <FlexBox column flex center='h-center' className='margin-v-10 '>
             <Button
               // className='side-bar-nodes'
-              onClick={onProductEdit()}
-              className='primary-btn'
+              onClick={onNewProduct(isVisible)}
+              className='light-btn'
+              disabled={loading}
+              onprogress={loading}
             >
-            New Product
+              New Product
             </Button>
             <div className='title-text text-align-center margin-v-5'>Or</div>
           </FlexBox>
@@ -143,4 +168,4 @@ NodeSettingModal.defaultProps = {
 
 const mapStateToProps = ({ products: { products = [] } = {} }) => ({ products });
 
-export default connect(mapStateToProps)(NodeSettingModal);
+export default connect(mapStateToProps, productActions)(NodeSettingModal);

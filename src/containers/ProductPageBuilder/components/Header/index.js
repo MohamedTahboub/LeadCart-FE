@@ -138,7 +138,7 @@ const Header = ({
             onprogress={saving}
           >
             <i className='fas fa-save font-size-11' />
-            {`Save ${standAlone ? '' : 'and Back to Funnel'}`}
+            Save
           </Button>
         </FlexBox>
       </FlexBox>

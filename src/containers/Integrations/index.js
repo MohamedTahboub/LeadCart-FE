@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
-import { notification } from 'libs';
+import { notification, includesIgnoreCase } from 'libs';
 import servicesList from 'data/integrationsServices';
 import queryString from 'querystring';
 
@@ -42,7 +42,7 @@ const filtersIntegrations = (list, key, connected) => list.filter((integration) 
   .filter((int) => {
     const values = [int.name, int.category];
     if (!key) return true;
-    const hasMatched = values.find((v) => v.toLowerCase().includes(key.toLowerCase()));
+    const hasMatched = values.find((v) => includesIgnoreCase(v, key));
     return hasMatched;
   });
 
