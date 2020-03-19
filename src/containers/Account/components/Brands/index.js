@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 // import sampleBrandsList from 'data/brandsList';
 import { AiOutlineDelete } from 'react-icons/ai';
-
+import { notification } from 'libs';
 import { connect } from 'react-redux';
 import * as brandsActions from 'actions/brands';
 import {
@@ -28,9 +28,18 @@ const Brands = ({ list: brandsList, ...props }) => {
     //     name
     // packageType
     // subDomain
-    props.createBrand(brand);
+    const actions = {
+      onSuccess: () => {
+        notification.success(`${brand.name} Brand Created`);
+        cb();
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+        cb();
+      }
+    };
+    props.createBrand(brand, actions);
     // setOpenModal(true);
-    cb();
   };
 
   const onDelete = (brandId) => () => {
@@ -45,42 +54,53 @@ const Brands = ({ list: brandsList, ...props }) => {
     <FlexBox column className='white-bg soft-edges padding-20 margin-10'>
       <FlexBox spaceBetween center='v-center'>
         <div className='title-text'>Brands Management</div>
-        <Button onClick={onCreate} className='primary-btn'>
+        <Button onClick={toggleCreateModal} className='primary-btn'>
           New Brand
         </Button>
       </FlexBox>
       <Table>
         <Table.Head>
           <Table.HeadCell>Name</Table.HeadCell>
-          <Table.HeadCell>Status</Table.HeadCell>
-          <Table.HeadCell>Support Email</Table.HeadCell>
+          <Table.HeadCell>Package</Table.HeadCell>
+          <Table.HeadCell>SubDomain</Table.HeadCell>
           <Table.HeadCell />
         </Table.Head>
         <Table.Body>
-          {brandsList.map((brand) => (
+          {brandsList.map((brand) => {
+            const {
+              id,
+              name,
+              trial,
+              subDomain,
+              activePackage: {
+                type: packageType = 'Basic'
+              } = {}
+            } = brand;
 
-            <Table.Row>
-              <Table.Cell mainContent={brand.name} />
-              <Table.Cell mainContent={(
-                <Badge type='primary' className='uppercase-text relative-element'>
-                  {(brand.package || 'Basic')}
-                  {brand.trail && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
-                  {typeof brand.trail === 'undefined' && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
-                </Badge>
-              )}
-              />
-              <Table.Cell mainContent={brand.supportEmail} />
-              <Table.Cell mainContent={(
-                <FlexBox>
-                  <AiOutlineDelete
-                    onClick={onDelete(brand.id)}
-                    className='margin-h-10 danger-color animate item-clickable '
-                  />
-                </FlexBox>
-              )}
-              />
-            </Table.Row>
-          ))}
+            return (
+              <Table.Row>
+                <Table.Cell mainContent={name} />
+                <Table.Cell mainContent={(
+                  <Badge type='primary' className='uppercase-text relative-element'>
+                    {packageType }
+                    {trial && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
+                    {typeof trial === 'undefined' && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
+                  </Badge>
+                )}
+                />
+                <Table.Cell mainContent={subDomain} />
+                <Table.Cell mainContent={(
+                  <FlexBox className='hide-element'>
+                    <AiOutlineDelete
+                      onClick={onDelete(id)}
+                      className='margin-h-10 danger-color animate item-clickable '
+                    />
+                  </FlexBox>
+                )}
+                />
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table>
       {openModal && (

@@ -36,9 +36,9 @@ export default () => (next) => (action) => {
   case types.UPDATE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Updated');
     break;
-  case types.UPDATE_PRODUCT_SUCCESS:
-    showSuccessMessage('The Product Updated');
-    break;
+  // case types.UPDATE_PRODUCT_SUCCESS:
+  //   showSuccessMessage('The Product Updated');
+  //   break;
   case types.SAVE_USER_GENERAL_SETTINGS_SUCCESS:
     showSuccessMessage('Update General Setting');
     break;
@@ -71,15 +71,15 @@ export default () => (next) => (action) => {
   case types.SAVE_USER_GENERAL_SETTINGS_FAILED:
     showFailureMessage('Failed to save the setting, fields maybe not valid');
     break;
-  case types.UPDATE_PRODUCT_FAILED:
-    showFailureMessage('Failed to Update The Product');
-    break;
+  // case types.UPDATE_PRODUCT_FAILED:
+  //   showFailureMessage('Failed to Update The Product');
+  //   break;
   case types.CREATE_SUB_ACCOUNT_FAILED:
     showFailureMessage('Failed to Create A Sub Account!');
     break;
-  case types.PRODUCT_CREATION_FAILED:
-    showFailureMessage('Failed to Create The product');
-    break;
+  // case types.PRODUCT_CREATION_FAILED:
+  //   showFailureMessage('Failed to Create The product');
+  //   break;
   case types.CHANGE_COUPON_STATE_FAILED:
     showFailureMessage('Failed to Change coupon status');
     break;

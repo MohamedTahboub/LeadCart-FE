@@ -5,11 +5,11 @@
   },
   {
     "label": "Order Completed",
-    "value": "orderCompleted"
+    "value": "ORDER_COMPLETE"
   },
   {
     "label": "Product Purchased",
-    "value": "productPurchased"
+    "value": "PRODUCT_PURCHASED"
   },
   {
     "label": "Product Refunded",

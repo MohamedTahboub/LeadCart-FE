@@ -23,7 +23,7 @@ const {
   MainTitle,
   Button
 } = common;
-const getSubProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
+const getSubProducts = (productsMap = {}, products = []) => products.map(({ productId }) => productsMap[productId] || {});
 
 const RuleModal = ({
   isNew,
@@ -60,7 +60,7 @@ const RuleModal = ({
       props.createFunnelRule(
         {
           rule: fields,
-          funnelId
+          funnel: funnelId
         }, {
           onSuccess: () => {
             notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been created`);
@@ -82,6 +82,8 @@ const RuleModal = ({
       setFields({ triggerGroups: [] });
     };
   }, [isNew, open]);
+
+
   return (
     <Modal
       isVisible={open}
@@ -125,10 +127,11 @@ const RuleModal = ({
       <FlexBox flex flexEnd>
         <Button
           onClick={onSubmit}
-          className='primary-color'
+          className='light-btn'
           onprogress={saving}
+          disabled={saving}
         >
-          Submit
+          Create Rule
         </Button>
       </FlexBox>
     </Modal>

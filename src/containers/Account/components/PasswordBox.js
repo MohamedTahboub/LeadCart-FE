@@ -89,7 +89,7 @@ const PasswordBox = ({ onUpdate, ...props }) => {
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox flexEnd={!errors.message} spaceBetween={errors.message}>
+      <FlexBox flexEnd={!errors.message} spaceBetween={errors.message} center='v-center'>
         {errors.message && <div className='error-text'>{errors.message}</div>}
         <Button
           onprogress={progress}

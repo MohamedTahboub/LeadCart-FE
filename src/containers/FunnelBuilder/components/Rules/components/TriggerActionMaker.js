@@ -6,13 +6,14 @@ import common from 'components/common';
 import { GoInfo } from 'react-icons/go';
 import { IoIosAdd } from 'react-icons/io';
 import ReactToolTip from 'react-tooltip';
-
+import { includesIgnoreCase } from 'libs';
+import { connect } from 'react-redux';
 const animatedComponents = makeAnimated();
 
 
-const integrationsLabel = [
-  { label: 'Aweber', value: 'aweber' }
-];
+// const integrationsLabel = [
+//   { label: 'Aweber', value: 'aweber' }
+// ];
 const selectedIntegrationActions = [
   { label: 'Add to List', value: 'addToList' }
 ];
@@ -25,6 +26,7 @@ const {
 const TriggerActionMaker = ({
   products,
   hasGroups,
+  integrations: integrationsLabels,
   ...props
 }) => {
   const [group, setGroup] = useState({});
@@ -82,7 +84,7 @@ const TriggerActionMaker = ({
       </FlexBox>
       <FlexBox center='v-center margin-v-10'>
         <FlexBox center='v-center' className='label margin-right-10'>
-                    Execute
+          Execute
           <GoInfo
             data-tip='Integration service that you are connected to'
             className='gray-text animate margin-left-3 font-size-10'
@@ -92,11 +94,11 @@ const TriggerActionMaker = ({
         <Select
           className='flex-item margin-h-10'
           defaultValue='IntegrationsService'
-          options={integrationsLabel}
+          options={integrationsLabels}
           onChange={onIntegrationSelected}
         />
         <FlexBox center='v-center' className='label margin-right-10'>
-                    Action
+          Action
           <GoInfo
             data-tip='An action is the functionality available in an Integration you are connected to.'
             className='gray-text animate margin-left-3 font-size-11'
@@ -110,11 +112,11 @@ const TriggerActionMaker = ({
         />
       </FlexBox>
       <FlexBox flexEnd flex className='margin-top-10'>
-        <Button onClick={onAdd} className='primary-color'>
+        <Button onClick={onAdd} className='light-btn'>
           <FlexBox center='v-center'>
             <IoIosAdd />
             <span>
-                            Add
+              Add
             </span>
           </FlexBox>
         </Button>
@@ -126,7 +128,7 @@ const TriggerActionMaker = ({
       <FlexBox center='v-center h-center padding-v-5'>
         <IoIosAdd />
         <span>
-                        Add New Trigger Group
+            Add New Trigger Group
         </span>
       </FlexBox>
     </Button>
@@ -135,5 +137,9 @@ const TriggerActionMaker = ({
 TriggerActionMaker.propTypes = {
 
 };
-
-export default TriggerActionMaker;
+const mapStateToProps = ({ integrations }) => ({
+  integrations: integrations
+    .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))
+    .map((integration) => ({ label: integration.name, value: integration.key }))
+});
+export default connect(mapStateToProps)(TriggerActionMaker);

@@ -49,11 +49,6 @@ const Dashboard = ({
 
     setChartsFeed(reshapeFeed(activities, getDateValueReferences(filterKeys.date)));
 
-    // userPilot routes listener
-    // const unlisten = props.history.listen((location, action) => {
-    //   if (window.userpilot) window.userpilot.reload();
-    // });
-
   }, [activities, settings]);
 
   const onChange = ({ target: { name, value } }) => {
@@ -311,25 +306,3 @@ const mapStateToProps = ({
 
 
 export default connect(mapStateToProps, dashboardActions)(Dashboard);
-/*
-
-                  <span className='chart-total-profite'>
-                    <span className='chart-profit-value'>
-                      $102 387.00
-                    </span>
-                    <span className='stock-up'>17.4%</span>
-                  </span>
-
-      <div className='dashboard-temp-data-message'>
-        Note: This is dummy data. It will be updated once you have live transactions.
-      </div>
-  <div className='chart-head-child'>
-                  <div className='chart-preview-options'>
-                    <span className='chart-option'>day</span>
-                    <span className='chart-option'>week</span>
-                    <span className='chart-option'>month</span>
-                    <span className='chart-option'>year</span>
-                  </div>
-                </div>
-
-*/

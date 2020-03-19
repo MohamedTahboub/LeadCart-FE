@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import sampleProductData from 'data/newProductSampleData';
+import sampleProductData from 'data/product';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import { connect } from 'react-redux';
@@ -9,6 +9,9 @@ import { mapListToObject } from 'libs';
 import * as productGeneralActions from 'actions/product';
 import { ProductBuilderSkelton } from 'components/Loaders';
 import ReactToolTip from 'react-tooltip';
+import { notification } from 'libs';
+import { ProductSchema } from 'libs/validation';
+
 import {
   reducers,
   connectActions,
@@ -35,6 +38,7 @@ const ProductBuilder = ({
   ...props
 }) => {
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
@@ -53,7 +57,7 @@ const ProductBuilder = ({
           actions.updateState({
             standAlone: true,
             product,
-          // funnel: isFunnelExist
+            // funnel: isFunnelExist
           });
           return setLoading(false);
         }
@@ -87,12 +91,39 @@ const ProductBuilder = ({
     }
   }, [funnelsMap, productsMap]);
 
+  const onSaveProduct = async () => {
+    const { product: productData } = state;
+    setSaving(true);
+    const { isValid, errors, value: product } = await ProductSchema(productData);
+
+    if (!isValid) {
+      console.log('Product errors', errors);
+      return notification.failed('Can\'t save, Validation Error');
+    }
+
+    props.updateProduct(
+      {
+        productId: productData._id,
+        details: product
+      },
+      {
+        onSuccess: (msg) => {
+          setSaving(false);
+          notification.success('Changes Saved');
+        },
+        onFailed: (message) => {
+          setSaving(false);
+          notification.failed(message);
+        }
+      }
+    );
+  };
   if (loading) return <ProductBuilderSkelton />;
 
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
-        <Header history={props.history} />
+        <Header history={props.history} onSave={onSaveProduct} saving={saving} />
         <FlexBox id='blocks' flex className='relative-element'>
           <DndProvider backend={Backend}>
             <SideBar />

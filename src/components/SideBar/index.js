@@ -12,26 +12,14 @@ import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
 import './style.css';
 import { appInit } from 'actions/appInit';
+import { notification } from 'libs';
 import CreateProductModal from '../CreateProductModal';
 
 import Icons from './icons';
 
 const { Button, InputRow, FlexBox } = common;
 const { SelectOption } = InputRow;
-const defaultBrandsList = [
-  {
-    label: 'company x',
-    value: 1
-  },
-  {
-    label: 'company a',
-    value: 2
-  },
-  {
-    label: 'company b',
-    value: 3
-  }
-];
+
 const BrandSelect = ({ brands, value, onChange }) => {
   const options = brands.map(({ name: label, id: value }) => ({ label, value }));
   return (
@@ -42,7 +30,7 @@ const BrandSelect = ({ brands, value, onChange }) => {
         name='activeBrand'
         onChange={onChange}
         // options={options}
-        options={[...defaultBrandsList, ...options]}
+        options={options}
         disabled={!options.length}
         className='min-width-100'
       />
@@ -96,7 +84,22 @@ const SideBar = ({
   };
 
   const onActiveBrandChange = ({ target: { value: activeBrand } }) => {
-    updateActiveBrand({ activeBrand });
+    updateActiveBrand({ activeBrand }, {
+      onSuccess: () => {
+        appInit({}, {
+          onSuccess: () => {
+            const brand = brands.find(({ id }) => id === activeBrand) || {};
+            notification.success(`You Now On the ${brand.name}`);
+          },
+          onFailed: (message) => {
+            notification.failed(message);
+          }
+        });
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+      }
+    });
   };
   return (
     <div className='side-bar'>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import productSample from 'data/product.json';
-import hardCodedMessages from 'assets/hardCodedMessages.json';
-import upsellSample from 'data/upsell.json';
+// import hardCodedMessages from 'assets/hardCodedMessages.json';
+// import upsellSample from 'data/upsell.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux';
 import { notification } from 'libs';
@@ -40,39 +40,12 @@ const NextPage = ({ page, ...props }) => {
 
 
 const ProductCategoryModal = ({ show, onClose, ...props }) => {
-  // const [next, setNext] = useState('categories');
-  // const [progress, setProgress] = useState(false)
-  const [category, setCategory] = useState('checkout');
-
-  // const onNext = (nextInterface, category) => () => {
-  //   if (category) setCategory(category);
-
-  //   setNext(nextInterface);
-  // };
-
-  // useEffect(() => () => {
-  //   setNext('categories');
-  // }, [show]);
+  // const [category, setCategory] = useState('checkout');
 
   const onSubmit = (category) => () => {
     const product = productSample;
     product.category = category;
 
-    // product.pagePreferences.template = template;
-    // product.pagePreferences.themeColor = getTemplateColor(template);
-    // product.url = ids.generate()
-    // product.category = category
-
-    // if (template === 'temp6') {
-    //   const {
-    //     description: defaultDescription,
-    //     features: defaultFeatures
-    //   } = hardCodedMessages.products.defaults.temp6;
-
-    //   product.pagePreferences.description = defaultDescription;
-    //   if (product.pagePreferences.features && product.pagePreferences.features.title) product.pagePreferences.features.title = defaultFeatures;
-    // }
-    // setProgress(true)
     props.createNewProduct(
       product,
       {

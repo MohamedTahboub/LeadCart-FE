@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-import { notification } from 'libs';
+import { notification, includesIgnoreCase } from 'libs';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
 import integrationsServices from 'data/integrationsServices';
@@ -16,7 +16,7 @@ const {
 } = common;
 
 const getServiceDetails = (key = '') => {
-  const integration = integrationsServices.find(({ key: intKey = '' }) => intKey.toLowerCase().includes(key.toLowerCase()));
+  const integration = integrationsServices.find(({ key: intKey = '' }) => includesIgnoreCase(intKey, key));
 
   return integration || {};
 };

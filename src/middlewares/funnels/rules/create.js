@@ -20,10 +20,9 @@ export default ({ dispatch }) => (next) => (action) => {
       return createFunnelRuleSuccess(args);
     },
     onFailed: (message) => {
-      if (meta.onFailed) meta.onSuccess(message);
+      if (meta.onFailed) meta.onFailed(message);
 
-      //   return createFunnelRuleFailed(message);
-      return createFunnelRuleSuccess(payload);
+      return createFunnelRuleFailed(payload);
     }
   }));
 };

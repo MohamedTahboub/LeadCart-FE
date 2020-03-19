@@ -3,19 +3,20 @@
     justify-content:flex-start;
     flex-wrap: wrap;
 }
-
 .empty-product-shadowbox {
-    height: 260px;
-    width: 330px;
+    height: 250px;
+    width: 200px;
     margin: 10px 20px 20px 0px;
+    border-radius: 10px;
 }
+
 
 @keyframes placeHolderShimmer{
     0%{
-        background-position: -468px 0
+        background-position: -200px 0
     }
     100%{
-        background-position: 468px 0
+        background-position: 200px 0
     }
 }
 

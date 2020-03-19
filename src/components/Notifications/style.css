@@ -29,6 +29,8 @@
   .notification-icon{
       height: 25px;
       width: 25px;
+      min-width: 25px;
+      object-fit: contain;
   }
 
   .notification-container-bottom-right{
