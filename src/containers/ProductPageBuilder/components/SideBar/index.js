@@ -16,21 +16,21 @@ const {
 
 const { Panel } = Collapse;
 
-const SideBar = (props) => {
-  // const [collapsesState, setCollapsesState] = useState(['1', '2']);
+const SideBar = (props) =>
+// const [collapsesState, setCollapsesState] = useState(['1', '2']);
 
-  // const onChange = (openedKeys) => {
-  //   let opens = openedKeys;
+// const onChange = (openedKeys) => {
+//   let opens = openedKeys;
 
-  //   if (openedKeys.length === 3) opens = openedKeys.filter((key) => key !== openedKeys[1]);
+//   if (openedKeys.length === 3) opens = openedKeys.filter((key) => key !== openedKeys[1]);
 
-  //   setCollapsesState(opens);
-  // };
+//   setCollapsesState(opens);
+// };
 
   // const isLastCollapseOpened = collapsesState.length === 1 && collapsesState.includes('3');
-  return (
+  (
     <SideMenu open>
-      <Collapse activeKey={['1', '2', '3']} >
+      <Collapse activeKey={['1', '2', '3']}>
         <Panel header='Native Sections' key='1'>
           <FlexBox wrappable overflow='y' className='max-height-75vh'>
             <BaseCard
@@ -80,11 +80,6 @@ const SideBar = (props) => {
               className='progressbar-bg widget-card'
               data-tip='Progress Bar'
             />
-            <BaseCard
-              type='productMarkWidget'
-              className='bookmark-badge-bg widget-card'
-              data-tip='Page Badge '
-            />
           </FlexBox>
         </Panel>
 
@@ -120,8 +115,8 @@ const SideBar = (props) => {
 
       </Collapse>
     </SideMenu>
-  );
-};
+  )
+;
 
 // <BaseCard
 // type='shippingDetails'

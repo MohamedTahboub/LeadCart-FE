@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import sampleRules from 'data/sampleRules';
+// import sampleRules from 'data/sampleRules';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import { mapListToObject } from 'libs';
@@ -32,17 +32,15 @@ const Rules = ({
 
   const onToggleRuleModal = () => {
     setOpenRuleModal((open) => {
-      if (activeRule && open) {
-        setActiveRule()
-      }
-      return !open
-    });
+      if (activeRule && open) setActiveRule();
 
+      return !open;
+    });
   };
   const onRuleEdit = (rule) => () => {
-    setActiveRule(rule)
-    onToggleRuleModal()
-  }
+    setActiveRule(rule);
+    onToggleRuleModal();
+  };
 
   return (
     <FlexBox column center='v-center' className='full-width padding-v-20 rules-container'>
@@ -75,7 +73,7 @@ const Rules = ({
       )}
       <ReactToolTip delayShow='400' />
     </FlexBox>
-  )
+  );
 };
 
 Rules.propTypes = {

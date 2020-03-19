@@ -6,7 +6,7 @@ import * as productActions from 'actions/product';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import PrecreateProductModals from 'components/PrecreateProductModals';
-
+import { ProductCardSkelton } from 'components/Loaders';
 
 import './style.css';
 import {
@@ -159,7 +159,7 @@ const Products = ({
           // onPreview={() => onProductPreview(product.url)}
           />
         ))
-          : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
+          : (loadingProducts) ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
         }
         {!!showCreateModal && (
           <PrecreateProductModals

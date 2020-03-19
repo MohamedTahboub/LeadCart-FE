@@ -136,7 +136,7 @@ const NodeSettingModal = ({
                   active={product.active}
                   onEditExplore={onProductEdit(product._id)}
                   product={{
-                    image: product.thumbnail || product.pagePreferences.image,
+                    image: product.thumbnail,
                     name: product.name
                   }
                   }
