@@ -4,7 +4,8 @@ import common from 'components/common';
 import ids from 'shortid';
 import { useContext } from '../../../actions';
 import {
-  SettingBox
+  SettingBox,
+  ImageOption
 } from './common';
 
 
@@ -12,6 +13,18 @@ const emptyTestimonial = {
   author: 'edit author name!',
   content: 'click on text to edit content',
 };
+
+
+const themesOptions = [
+  {
+    theme: 'classic',
+    src: 'https://i.imgur.com/KrpUDcY.png'
+  },
+  {
+    theme: 'modern',
+    src: 'https://i.imgur.com/loxwoC8.png'
+  }
+];
 
 const {
   SideMenu,
@@ -63,78 +76,28 @@ const TestimonialsSection = (props) => {
       });
     }
   };
-
+  const onThemeChange = (theme) => (src) => () => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: 'styles.theme',
+        value: theme
+      }
+    });
+  };
   return (
     <div>
-      <Tabs active='settings' className='padding-v-10 padding-h-10'>
-        <Tab id='settings' title='settings'>
-          <div className='large-text border-left-text margin-top-20'>Testimonials</div>
-          <div className='padding-left-20'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span
-                data-tip='number of nested sections'
-                className='gray-text'
-              >
-                Current Testimonials:
-                {list.length}
-              </span>
-              <Button
-                data-tip={(list.length >= 4) ? 'you can\'t add more than 4 testimonials' : ''}
-                disabled={list.length >= 4}
-                className='primary-btn'
-                onClick={addNewColumn}
-              >
-                Add New Testimonial
-              </Button>
-            </FlexBox>
-          </div>
-        </Tab>
-        <Tab id='styles' title='styles'>
-
-          <SettingBox title='Margins'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Margin Top:</span>
-              <TextField
-                name='styles.marginTop'
-                type='number'
-                value={styles.marginTop}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Margin bottom:</span>
-              <TextField
-                type='number'
-                name='styles.marginBottom'
-                value={styles.marginBottom}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-          </SettingBox>
-          <SettingBox title='Paddings'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding Top:</span>
-              <TextField
-                name='styles.paddingTop'
-                type='number'
-                value={styles.paddingTop}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding bottom:</span>
-              <TextField
-                type='number'
-                name='styles.paddingBottom'
-                value={styles.paddingBottom}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-          </SettingBox>
+      <Tabs active='themes' className='padding-v-10 padding-h-10'>
+        <Tab id='themes' title='Themes'>
+          {themesOptions.map(({ theme, src }) => (
+            <ImageOption
+              className='guarantee-theme-demo'
+              value={src}
+              key={theme}
+              onClick={onThemeChange(theme)}
+              active={styles.theme === theme}
+            />
+          ))}
         </Tab>
       </Tabs>
     </div>

@@ -60,7 +60,7 @@ const SideBar = (props) =>
             />
             <BaseCard
               type='spacer'
-              className='layout-bg element-card'
+              className='spacer-bg element-card'
               data-tip='Spacer'
             />
           </FlexBox>

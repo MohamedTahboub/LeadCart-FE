@@ -5,11 +5,13 @@ import * as previewImages from './dragingImages';
 const defaultImage = previewImages.textImage;
 
 const images = {
+  heading: previewImages.headingImage,
   text: previewImages.textImage,
   image: previewImages.imageSectionImage,
+  spacer: previewImages.spacerImage,
   video: previewImages.videoImage,
   button: previewImages.buttonImage,
-  layout: previewImages.layoutImage,
+  // layout: previewImages.layoutImage,
   bumpOffer: previewImages.bumpOfferImage,
   shippingDetails: previewImages.shippingDetailsImage,
   couponSection: previewImages.couponImage,

@@ -158,7 +158,7 @@ const StaticSection = ({
       </Tab>
       <Tab id='addOns' title='Add-ons' />
       <Tab id='styles' title='Styles'>
-        <FlexBox center='v-center margin-v-5' spaceBetween>
+        <FlexBox center='margin-v-5 min-height-400' spaceBetween>
           <Label className='sidebar-input-label'>
             Theme Color:
           </Label>
