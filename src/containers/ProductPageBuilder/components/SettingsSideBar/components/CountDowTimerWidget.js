@@ -3,26 +3,9 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import moment from 'moment';
 
-import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
-import guaranteeBadge2 from 'assets/images/guaranteeBadges/gur-2.svg';
-import guaranteeBadge3 from 'assets/images/guaranteeBadges/gur-3.svg';
-import guaranteeBadge4 from 'assets/images/guaranteeBadges/gur-4.png';
-import guaranteeBadge5 from 'assets/images/guaranteeBadges/gur-5.jpg';
-import guaranteeBadge6 from 'assets/images/guaranteeBadges/gur-6.png';
-
 
 import { SettingBox, ImageOption } from './common';
 import { useContext } from '../../../actions';
-
-const badgesImages = [
-  guaranteeBadge1,
-  guaranteeBadge2,
-  guaranteeBadge3,
-  guaranteeBadge4,
-  guaranteeBadge5,
-  guaranteeBadge6,
-];
-
 
 const {
   Tabs,
@@ -32,6 +15,24 @@ const {
   Tab,
 } = common;
 
+const themesOptions = [
+  {
+    theme: 'formal-rectangle',
+    src: 'https://i.imgur.com/gwXUspZ.png'
+  },
+  {
+    theme: 'digital-rectangle',
+    src: 'https://i.imgur.com/KgdDBYk.png'
+  },
+  {
+    theme: 'formal-circle',
+    src: 'https://i.imgur.com/qw2kuTT.png'
+  },
+  {
+    theme: 'digital-circle',
+    src: 'https://i.imgur.com/8cPU4ku.png'
+  }
+];
 const { TextField, SelectOption, DatePicker } = InputRow;
 
 const CountDowTimerWidget = (props) => {
@@ -59,16 +60,6 @@ const CountDowTimerWidget = (props) => {
     });
   };
 
-  // const onBadgeSelect = (image) => () => {
-  //   actions.onSectionSettingChange({
-  //     section: sectionSetting,
-  //     field: {
-  //       name: 'content.value',
-  //       value: image
-  //     }
-  //   });
-  // };
-
   const onTimerValueChange = ({ target: { value, name } }) => {
     onChange({
       target: {
@@ -94,10 +85,49 @@ const CountDowTimerWidget = (props) => {
       }
     });
   };
-
+  const onThemeChange = ({ theme }) => (src) => () => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: 'styles.theme',
+        value: theme
+      }
+    });
+  };
   return (
     <div>
-      <Tabs active='settings' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+      <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+        <Tab id='themes' title='Themes'>
+          {themesOptions.map((theme) => (
+            <ImageOption
+              className='guarantee-theme-demo'
+              value={theme.src}
+              key={theme.theme}
+              onClick={onThemeChange(theme)}
+              active={styles.theme === theme.theme}
+            />
+          ))}
+        </Tab>
+        <Tab id='colors' title='Colors'>
+          <FlexBox column flex className='min-height-400'>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Clock Color:</span>
+              <MiniTwitterPicker
+                name='styles.clockColor'
+                value={styles.clockColor}
+                onChange={onChange}
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Background Color:</span>
+              <MiniTwitterPicker
+                name='styles.backgroundColor'
+                value={styles.backgroundColor}
+                onChange={onChange}
+              />
+            </FlexBox>
+          </FlexBox>
+        </Tab>
         <Tab id='settings' title='Settings'>
           <SettingBox title='Setup'>
             <FlexBox column className='margin-v-5' flexStart>
@@ -162,97 +192,6 @@ const CountDowTimerWidget = (props) => {
               </FlexBox>
             </SettingBox>
           )}
-        </Tab>
-        <Tab id='styles' title='Styles'>
-          <SettingBox title='Clock Style'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Clock Format:</span>
-              <SelectOption
-                value={styles.clockFormat}
-                name='styles.clockFormat'
-                onChange={onChange}
-                className='bump-offer-style-dropdown'
-                options={[
-                  { label: 'Normal Format', value: 'normal' },
-                  { label: 'Digital Format', value: 'digital' },
-                ]}
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Clock Shape:</span>
-              <SelectOption
-                value={styles.shape}
-                name='styles.shape'
-                onChange={onChange}
-                className='bump-offer-style-dropdown'
-                options={[
-                  { label: 'Rectangles', value: 'rectangle' },
-                  { label: 'Circles', value: 'circle' },
-                ]}
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Clock Color:</span>
-              <MiniTwitterPicker
-                name='styles.clockColor'
-                value={styles.clockColor}
-                onChange={onChange}
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Background Color:</span>
-              <MiniTwitterPicker
-                name='styles.backgroundColor'
-                value={styles.backgroundColor}
-                onChange={onChange}
-              />
-            </FlexBox>
-          </SettingBox>
-          <SettingBox title='Margin'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Margin Top:</span>
-              <TextField
-                name='styles.marginTop'
-                type='number'
-                value={styles.marginTop}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Margin Bottom:</span>
-              <TextField
-                type='number'
-                name='styles.marginBottom'
-                value={styles.marginBottom}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-          </SettingBox>
-
-          <SettingBox title='Paddings'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding Top:</span>
-              <TextField
-                name='styles.paddingTop'
-                type='number'
-                value={styles.paddingTop}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text '>Padding bottom:</span>
-              <TextField
-                type='number'
-                name='styles.paddingBottom'
-                value={styles.paddingBottom}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-          </SettingBox>
         </Tab>
       </Tabs>
     </div>

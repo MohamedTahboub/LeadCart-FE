@@ -264,17 +264,12 @@ export default {
     content: {
       valueType: 'fixedTime',
       value: {
-        date: Date.now() + 100000
+        date: Date.now() + 1000000
       },
       children: [],
     },
     styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
+      theme: 'formal-circles'
     },
   },
   progressbarWidget: {

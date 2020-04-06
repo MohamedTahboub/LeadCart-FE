@@ -10,7 +10,7 @@ const {
   FlexBox
 } = common;
 
-const CountDownFrame = ({ label, value, style }) => {
+const CountDownFrame = ({ titleStyle , label, value, style }) => {
   const className = clx({
     'clock-item margin-v-20 margin-h-20': true,
     [style.format]: style.format,
@@ -20,7 +20,7 @@ const CountDownFrame = ({ label, value, style }) => {
   return (
     <FlexBox column center='v-center h-center' className={className}>
       <div style={style} className='counter-box'>{strValue}</div>
-      <div style={{ color: style.color }} className='counter-label'>{label}</div>
+      <div style={titleStyle} className='counter-label'>{label}</div>
     </FlexBox>
   );
 };
@@ -31,7 +31,7 @@ const counterInitialState = {
   minutes: 0,
   seconds: 0
 };
-const CountDownTimer = ({ options, styles = {}, ...props }) => {
+const CountDownTimer = ({ titlesStyle, options, styles = {}, ...props }) => {
   const { valueType, styleType, ...value } = options;
   const [state, setState] = useState(counterInitialState);
 
@@ -50,21 +50,25 @@ const CountDownTimer = ({ options, styles = {}, ...props }) => {
           value={state.days}
           label='Days'
           style={styles}
+          titleStyle={titlesStyle}
         />
         <CountDownFrame
           value={state.minutes}
           label='Hours'
           style={styles}
+          titleStyle={titlesStyle}
         />
         <CountDownFrame
           value={state.minutes}
           label='Minutes'
           style={styles}
+          titleStyle={titlesStyle}
         />
         <CountDownFrame
           value={state.seconds}
           label='Seconds'
           style={styles}
+          titleStyle={titlesStyle}
         />
       </FlexBox>
     </div>

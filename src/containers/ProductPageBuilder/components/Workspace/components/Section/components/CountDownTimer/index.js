@@ -14,7 +14,7 @@ const GuaranteeSection = ({
   section = {},
 }) => {
   const {
-    styles = {},
+    styles = { theme: 'formal-circles' },
     content: {
       valueType,
       value,
@@ -39,11 +39,12 @@ const GuaranteeSection = ({
     width: `${styles.width}px`
   };
 
+  const [format, shape] = styles.theme.split('-');
   const countDownStyles = {
-    format: styles.clockFormat,
+    format,
     color: styles.clockColor,
     // fontSize: styles.fontSize,
-    shape: styles.shape,
+    shape,
     backgroundColor: styles.backgroundColor,
   };
   return (
@@ -56,6 +57,7 @@ const GuaranteeSection = ({
         styles={countDownStyles}
         // type={valueType}
         options={value}
+        titlesStyle={{ color: styles.backgroundColor }}
       />
     </FlexBox>
   );

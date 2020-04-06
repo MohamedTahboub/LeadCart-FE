@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react';
-import { Testi as Testimonial } from 'components/Testimonials';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 
 
 import './style.css';
+import {
+  ClassicTestimonial,
+  ModernTestimonial
+} from './components';
 
 const {
   EditableField,
@@ -73,7 +76,7 @@ const Testimonials = ({
       </h3>
       <FlexBox flex spaceAround wrappable={content.list && content.list.length > 2}>
         {Array.isArray(content.list) && content.list.map((i, id) => (
-          <Testimonial
+          <ModernTestimonial
             key={id}
             id={id}
             {...i}
