@@ -16,7 +16,7 @@ export default ({ dispatch }) => (next) => async (action) => {
   dispatch(apiRequest({
     options: {
       method: 'PUT',
-      uri: '/api/users/marketplace',
+      uri: '/api/brands/marketplace',
       body: payload,
       contentType: 'json'
     },

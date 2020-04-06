@@ -1,47 +1,90 @@
 .section-feature-item {
-    position: relative;
-    margin: 5px 0px;
-    display: flex;
-    font-size: 15px;
-    padding: 0px 20px;
+  position: relative;
+  margin: 5px 0px;
+  display: flex;
+  font-size: 15px;
+  padding: 0px 20px;
+  width: 100%;
 }
 
 .feature-item-input {
-    white-space: pre-line;
-    width: unset;
-    display: inline-block;
-    color: #A2A2A2;
+  white-space: pre-line;
+  width: 100%;
+  display: inline-block;
+  color: #A2A2A2;
 }
 
 .feature-item-delete-btn {
-    position: absolute;
-    opacity: 0;
-    right: -20px;
-    bottom: 2px;
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    color: lightcoral;
-    display: -ms-flexbox;
-    display: flex;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    transition:all .3s ease-in-out;
-  }
-  .feature-item:hover .feature-item-delete-btn {
-    opacity: 1;
-  }
-  .feature-item-point {
-    position: absolute;
-    left: 0px;
-    top: 2px;
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    color: white;
-    background-color: inherit;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  position: absolute;
+  opacity: 0;
+  right: -20px;
+  bottom: 2px;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  color: lightcoral;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-in-out;
+}
+
+.feature-item:hover .feature-item-delete-btn {
+  opacity: 1;
+}
+
+.feature-item-point {
+  position: absolute;
+  left: 0px;
+  top: 4px;
+  height: 18px;
+  width: 18px;
+  color: white;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.point-unordered-circles,
+.point-ordered-circles {
+  border-radius: 50%;
+}
+
+.point-unordered-circles:not(.check-marks),
+.point-unordered-bullets:not(.check-marks){
+  height: 12px;
+  width: 12px;
+  top: 7px;
+}
+.point-unordered-circles .order,
+.point-unordered-bullets .order {
+  display: none;
+}
+
+.feature-item-point.check-marks {
+  display: flex;
+}
+
+.point-unordered-circles.check-marks,
+.point-unordered-bullets.check-marks {
+  /* position: relative; */
+  /* display: none; */
+  justify-content: center;
+  align-items: center;
+}
+
+.check-marks::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  font-size: 11px;
+  content: "\f00c";
+  color: white;
+}
+
+.point-unordered-image {
+  an: tex;
+}

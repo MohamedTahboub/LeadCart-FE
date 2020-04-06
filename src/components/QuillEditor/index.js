@@ -8,69 +8,47 @@ import { connect } from 'react-redux';
 import './style.css';
 // import { ImageResize } from 'quill-image-resize-module';
 import * as filesActions from 'actions/files';
-import { formats, modules } from './config';
-
-// Quill.register('modules/imageResize', ImageResize);
-// Quill.register('modules/imageUploader', ImageUploader);
+import {
+  formats,
+  modules,
+  headingFormats,
+  headingModules
+} from './config';
 
 const Editor = ({
   value: htmlValue,
   theme = 'bubble',
+  headingMode,
   onEdit,
   onBlur
   // uploadFile
-}) =>
-// const [html, setHtml] = useState('');
-
-// const onChange = (value) => {
-//   setHtml(value);
-//   setTimeout(() => {
-//     // onEdit(value);
-//   }, 200);
-// };
-
-// useEffect(() => {
-//   if (htmlValue !== html) setHtml(htmlValue);
-// }, [htmlValue]);
-// const onUploadImage = (file) => new Promise((resolve, reject) => {
-//   uploadFile({
-//     file,
-//     type: 'products',
-//     source: 'quill.editor'
-//   }, {
-//     onSuccess: resolve,
-//     onFailed: reject
-//   });
-// });
-// modules.imageUploader.upload = onUploadImage;
-
-  (
+}) => {
+  const editorProps = {
+    modules: headingMode ? headingModules : modules,
+    formats: headingMode ? headingFormats : formats
+  };
+  return (
     <ReactQuill
       theme={theme}
       scrollingContainer='body'
       onChange={onEdit}
       onBlur={onBlur}
       value={htmlValue}
-      modules={modules}
-      formats={formats}
+      {...editorProps}
     // bounds='.app'
     //   placeholder={props.placeholder}
     />
   );
+};
 Editor.propTypes = {
   value: PropTypes.string,
   onEdit: PropTypes.func,
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func.isRequired,
+  headingMode: PropTypes.bool
 };
 Editor.defaultProps = {
   value: 'Add Your Description Here',
-  onEdit: () => { }
+  onEdit: () => { },
+  headingMode: false
 };
 export default connect(null, filesActions)(Editor);
-
-
-// export default (props) => (
-//   <Suspense fallback={<span>Loading</span>}>
-//     {lazy.apply(() => <EditorComponent {...props} />)}
-//   </Suspense>
-// );

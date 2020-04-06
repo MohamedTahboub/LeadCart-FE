@@ -19,7 +19,12 @@ export default ({
 }) => {
   const [collectedProps, drop] = useDrop({
     accept: dropTypes.SECTION,
-    drop: onDrop
+    drop: (item, monitor) => {
+      const didDrop = monitor.didDrop();
+      if (didDrop) return;
+
+      onDrop(item);
+    }
   });
 
 

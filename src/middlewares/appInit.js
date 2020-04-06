@@ -60,7 +60,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getOrders(data.orders));
     dispatch(getCustomers(data.customers));
 
-    return appLaunchSuccess('THE APPLICATION LUNCHED');
+    return appLaunchSuccess(data);
   };
 
   cleanUpTheConsole();

@@ -6,10 +6,12 @@ import { IoMdSettings } from 'react-icons/io';
 import { useContext } from '../../../../../actions';
 
 
+const settingLessTypes = ['heading', 'text', 'image', 'video'];
+
 const SettingsHandles = ({
   id,
   onDuplicate,
-  section,
+  section = {},
   onSettings
 }) => {
   const { actions } = useContext();
@@ -21,6 +23,9 @@ const SettingsHandles = ({
   const onDelete = () => {
     actions.onSectionDelete(id);
   };
+
+
+  const withSettingSide = !settingLessTypes.includes(section.type);
   return (
     <div className='product-section-settings-handle'>
       <FiTrash2
@@ -33,12 +38,14 @@ const SettingsHandles = ({
         className='item-handle'
         data-tip='duplicate this section'
       />
-      <IoMdSettings
-        draggable
-        onClick={onSettingsClick}
-        className='item-handle'
-        data-tip='section-settings'
-      />
+      {withSettingSide && (
+        <IoMdSettings
+          draggable
+          onClick={onSettingsClick}
+          className='item-handle'
+          data-tip='section-settings'
+        />
+      )}
     </div>
   );
 };

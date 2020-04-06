@@ -6,7 +6,7 @@ import {
   Feature
 } from './components';
 
-const { EditableField } = common;
+const { EditableField, FlexBox } = common;
 
 
 const Features = ({
@@ -35,20 +35,6 @@ const Features = ({
   };
 
 
-  // const addNewTestimonial = () => {
-  //   if (list.length <= 4) {
-  //     list.id = ids.generate();
-  //     actions.onSectionSettingChange({
-  //       section: sectionSetting,
-  //       field: {
-  //         name: 'content.list',
-  //         value: [...list, emptyTestimonial]
-  //       }
-  //     });
-  //   }
-  // };
-
-
   const onFeatureChange = ({ target: { value, name } }) => {
     const newList = list.map((f, id) => {
       if (id === +(name)) f.text = value;
@@ -63,35 +49,24 @@ const Features = ({
     onChange('content.list', newList);
   };
 
-  // const onAddNewFeature = () => {
-  //   const newList = [...list, { text: 'edit feature content!' }];
-  //   onChange('list', newList);
-  // };
-
 
   const onTitleChange = ({ target: { value } }) => {
     onChange('content.title', value);
   };
 
-  const style = {
-    ...styles,
-    marginTop: `${styles.marginTop}px`,
-    marginBottom: `${styles.marginBottom}px`,
-    paddingTop: `${styles.paddingTop}px`,
-    paddingBottom: `${styles.paddingBottom}px`,
-    fontSize: `${styles.fontSize}px`
-  };
 
   return (
 
-    <div className='features-list-container' style={style}>
-      <EditableField
-        className='features-list-title'
-        // name='pagePreferences.featuresTitle'
-        defaultValue='Features List'
-        onChange={onTitleChange}
-        value={title}
-      />
+    <div className='features-list-container'>
+      <FlexBox flex>
+        <EditableField
+          className='features-list-title'
+          // name='pagePreferences.featuresTitle'
+          defaultValue='Features List'
+          onChange={onTitleChange}
+          value={title}
+        />
+      </FlexBox>
       {list.map(({ text }, id) => (
         <Feature
           key={id}
@@ -99,9 +74,11 @@ const Features = ({
           text={text}
           onChange={onFeatureChange}
           onDelete={onFeatureDelete}
-          color={styles.themeColor}
+          color={styles.bulletColor}
+          theme={styles.theme}
         />
       ))}
+
     </div>
   );
 };

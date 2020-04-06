@@ -10,7 +10,8 @@ import {
   GET_ACTIVATED_AGENCY_CODES_NUMBERS,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
   UPGRADE_USER_PACKAGE_SUCCESS,
-  GET_USER_PLAN
+  GET_USER_PLAN,
+  APP_LAUNCH_SUCCESS
 } from 'constantsTypes';
 import moment from 'moment';
 
@@ -101,6 +102,14 @@ export default (state = initialState, { type, payload }) => {
         trial: false,
         activePackage: payload.activePackage,
         transactions: [...state.user.transactions, payload.transaction]
+      }
+    };
+  case APP_LAUNCH_SUCCESS:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        activeBrand: payload.activeBrand
       }
     };
   default: return state;

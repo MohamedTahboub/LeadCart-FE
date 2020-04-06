@@ -1,18 +1,29 @@
 import React, { Fragment } from 'react';
-import { Testi as Testimonial } from 'components/Testimonials';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 
 
 import './style.css';
+import {
+  ClassicTestimonial,
+  ModernTestimonial
+} from './components';
 
 const {
   EditableField,
-  FlexBox
+  FlexBox,
+  LayoutSwitch
 } = common;
 
 // const Wrapper = ({ className, children, ...props }) => (className ? <div className={className}>{children}</div> : <Fragment>{children}</Fragment>);
 
+
+const Testimonial = ({ theme = 'classic', ...props }) => (
+  <LayoutSwitch active={theme}>
+    <ClassicTestimonial id='classic' {...props} />
+    <ModernTestimonial id='modern' {...props} />
+  </LayoutSwitch>
+);
 const Testimonials = ({
   section = {},
   ...props
@@ -49,19 +60,19 @@ const Testimonials = ({
     });
   };
 
-  const style = {
-    ...styles,
-    paddingTop: `${styles.paddingTop}px`,
-    paddingBottom: `${styles.paddingBottom}px`,
-    fontSize: `${styles.fontSize}px`
-  };
+  // const style = {
+  //   ...styles,
+  //   paddingTop: `${styles.paddingTop}px`,
+  //   paddingBottom: `${styles.paddingBottom}px`,
+  //   fontSize: `${styles.fontSize}px`
+  // };
 
   return (
     <FlexBox
       center='h-center'
       // className='product-template-testimonials-container'
       column
-      style={style}
+      // style={style}
     >
       <h3>
         <EditableField
@@ -75,11 +86,12 @@ const Testimonials = ({
         {Array.isArray(content.list) && content.list.map((i, id) => (
           <Testimonial
             key={id}
-            id={id}
+            orderId={id}
             {...i}
             // className={testimonialClassName}
             onDelete={onDelete}
             onChange={onTestimonialChange}
+            theme={styles.theme}
           />
         ))}
       </FlexBox>

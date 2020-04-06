@@ -1,0 +1,21 @@
+*:hover > .spacer-resize-btn{
+    opacity: 1;
+}
+.spacer-resize-btn{
+    opacity: 0;
+    color: lightgray;
+    position: absolute;
+    left: 50%;
+    transition: transform .3s ease-in-out;
+    cursor: ns-resize;
+}
+.spacer-resize-btn:hover{
+    transform: scale(1.2);
+}
+.resize-up{
+    top: -10px;
+}
+.resize-down{
+    bottom: -10px;
+    /* cursor: nw-resize */
+}

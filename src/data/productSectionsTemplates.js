@@ -1,3 +1,5 @@
+import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
+
 export default {
 
 
@@ -15,6 +17,51 @@ export default {
       marginRight: 0,
       paddingTop: 0,
       paddingBottom: 0,
+    },
+  },
+  heading: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'heading',
+    content: {
+      value: '<h2>Heading Content</h2>',
+      children: [],
+    },
+    styles: {
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+  },
+  button: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'button',
+    content: {
+      value: 'Click Here',
+      children: [],
+    },
+    styles: {
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+  },
+  spacer: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'spacer',
+    content: {
+      value: 'Click Here',
+      children: [],
+    },
+    styles: {
+      height: '20px',
+      width: '100%',
+      padding: '10px'
     },
   },
   image: {
@@ -164,20 +211,18 @@ export default {
       title: 'Testimonials List',
       list: [
         {
-          author: 'John Doe',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam eligendi veritatis aliquid, explicabo exercitationem atque eveniet eos nobis.',
-          authorAvatar: 'https://via.placeholder/100'
-        },
-        {
-          author: 'Jane Doe',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam eligendi veritatis aliquid, explicabo exercitationem atque eveniet eos nobis.',
-          authorAvatar: 'https://via.placeholder/100'
+          author: 'Michael C.',
+          content: `"We've been able to increase our conversion rate to about 27% which I think is pretty
+          solid."`,
+          authorAvatar: 'https://leadcart.io/assets/images/testimonial-4.png'
         }
       ],
       value: 'testimonials Section Content',
       children: [],
     },
-    styles: {},
+    styles: {
+      theme: 'modern'
+    },
   },
   featuresSection: {
     hidden: false, // for referencing elements for the layout sections
@@ -203,15 +248,12 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'guaranteeWidget',
     content: {
-      children: [],
+      badge: guaranteeBadge1,
+      title: 'Your Satisfaction',
+      description: 'Customer satisfaction our top priority and our products are results-driven & designed to ensure customers\' needs fulfilling'
     },
     styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
+      theme: 'right-theme',
     },
   },
   countDownWidget: {
@@ -220,17 +262,12 @@ export default {
     content: {
       valueType: 'fixedTime',
       value: {
-        date: Date.now() + 100000
+        date: Date.now() + 1000000
       },
       children: [],
     },
     styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
+      theme: 'formal-circles'
     },
   },
   progressbarWidget: {
