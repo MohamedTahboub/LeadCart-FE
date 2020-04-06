@@ -11,11 +11,19 @@ import {
 
 const {
   EditableField,
-  FlexBox
+  FlexBox,
+  LayoutSwitch
 } = common;
 
 // const Wrapper = ({ className, children, ...props }) => (className ? <div className={className}>{children}</div> : <Fragment>{children}</Fragment>);
 
+
+const Testimonial = ({ theme = 'classic', ...props }) => (
+  <LayoutSwitch active={theme}>
+    <ClassicTestimonial id='classic' {...props} />
+    <ModernTestimonial id='modern' {...props} />
+  </LayoutSwitch>
+);
 const Testimonials = ({
   section = {},
   ...props
@@ -52,19 +60,19 @@ const Testimonials = ({
     });
   };
 
-  const style = {
-    ...styles,
-    paddingTop: `${styles.paddingTop}px`,
-    paddingBottom: `${styles.paddingBottom}px`,
-    fontSize: `${styles.fontSize}px`
-  };
+  // const style = {
+  //   ...styles,
+  //   paddingTop: `${styles.paddingTop}px`,
+  //   paddingBottom: `${styles.paddingBottom}px`,
+  //   fontSize: `${styles.fontSize}px`
+  // };
 
   return (
     <FlexBox
       center='h-center'
       // className='product-template-testimonials-container'
       column
-      style={style}
+      // style={style}
     >
       <h3>
         <EditableField
@@ -76,13 +84,14 @@ const Testimonials = ({
       </h3>
       <FlexBox flex spaceAround wrappable={content.list && content.list.length > 2}>
         {Array.isArray(content.list) && content.list.map((i, id) => (
-          <ModernTestimonial
+          <Testimonial
             key={id}
-            id={id}
+            orderId={id}
             {...i}
             // className={testimonialClassName}
             onDelete={onDelete}
             onChange={onTestimonialChange}
+            theme={styles.theme}
           />
         ))}
       </FlexBox>

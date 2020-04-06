@@ -10,7 +10,7 @@ const ClassicTestimonial = ({
   content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   className,
-  id,
+  orderId: id,
   onDelete,
   ...props
 }) => {

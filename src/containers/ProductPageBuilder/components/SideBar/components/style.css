@@ -71,6 +71,13 @@
 .base-element-card.video-bg:hover{
     background-image: url(../../../../../assets/images/icons/colored-video.png);
 }
+.base-element-card.spacer-bg{
+    background-image: url(../../../../../assets/images/icons/gray-SpacerIcon.png);
+    background-size: 90% 60%;
+}
+.base-element-card.spacer-bg:hover{
+    background-image: url(../../../../../assets/images/icons/gray-SpacerIcon.png);
+}
 .base-element-card.layers-bg{
     background-image: url(../../../../../assets/images/icons/gray-layers.png);
 }

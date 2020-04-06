@@ -211,20 +211,18 @@ export default {
       title: 'Testimonials List',
       list: [
         {
-          author: 'John Doe',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam eligendi veritatis aliquid, explicabo exercitationem atque eveniet eos nobis.',
-          authorAvatar: 'https://via.placeholder/100'
-        },
-        {
-          author: 'Jane Doe',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam eligendi veritatis aliquid, explicabo exercitationem atque eveniet eos nobis.',
-          authorAvatar: 'https://via.placeholder/100'
+          author: 'Michael C.',
+          content: `"We've been able to increase our conversion rate to about 27% which I think is pretty
+          solid."`,
+          authorAvatar: 'https://leadcart.io/assets/images/testimonial-4.png'
         }
       ],
       value: 'testimonials Section Content',
       children: [],
     },
-    styles: {},
+    styles: {
+      theme: 'modern'
+    },
   },
   featuresSection: {
     hidden: false, // for referencing elements for the layout sections
