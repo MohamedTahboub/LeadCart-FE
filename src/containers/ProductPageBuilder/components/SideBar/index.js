@@ -34,9 +34,19 @@ const SideBar = (props) =>
         <Panel header='Native Sections' key='1'>
           <FlexBox wrappable overflow='y' className='max-height-75vh'>
             <BaseCard
+              type='heading'
+              className='heading-bg element-card'
+              data-tip='Add Heading'
+            />
+            <BaseCard
               type='text'
               className='text-bg element-card'
               data-tip='Add text Element'
+            />
+            <BaseCard
+              type='button'
+              className='button-bg element-card'
+              data-tip='Button Element'
             />
             <BaseCard
               type='image'
@@ -49,9 +59,9 @@ const SideBar = (props) =>
               data-tip='Add Video Element'
             />
             <BaseCard
-              type='layout'
+              type='spacer'
               className='layout-bg element-card'
-              data-tip='Add Layout Section'
+              data-tip='Spacer'
             />
           </FlexBox>
         </Panel>
@@ -112,11 +122,11 @@ const SideBar = (props) =>
             />
           </FlexBox>
         </Panel>
-
+        <ReactTooltip delayShow={200} />
       </Collapse>
     </SideMenu>
   )
-;
+  ;
 
 // <BaseCard
 // type='shippingDetails'

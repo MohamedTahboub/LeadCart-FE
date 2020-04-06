@@ -24,3 +24,14 @@
     content: "\F058";
     color: rgba(48,224,48,.71);
 }
+
+.feature-theme-demo{
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+}
+.guarantee-theme-demo{
+    height: auto;
+    width: 100%;
+    object-fit: contain;
+}

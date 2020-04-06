@@ -10,7 +10,8 @@ import {
   CompleteOrderBtn,
   OrderSummary,
   PaymentMethods,
-  ShippingDetails
+  ShippingDetails,
+  CouponSection
 } from '../../components';
 
 const { FlexBox } = common;
@@ -25,6 +26,7 @@ const StaticSections = ({ onSetting, language }) => {
         payment = { methods: ['Paypal', 'Stripe'] },
         addOns = {},
         styles = {},
+        custom = {},
         orderButtonText = 'Complete Order'
       } = {},
     },
@@ -50,7 +52,7 @@ const StaticSections = ({ onSetting, language }) => {
         color={styles.themeColor}
         language={language}
       />
-      {addOns.shippingDetails && (
+      {custom.shippingDetails && (
         <ShippingDetails
           color={styles.themeColor}
           language={language}
@@ -64,6 +66,12 @@ const StaticSections = ({ onSetting, language }) => {
         // onFieldChange
         language={language}
       />
+      {custom.couponSection && (
+        <CouponSection
+          color={styles.themeColor}
+          language={language}
+        />
+      )}
       <OrderSummary
         price={price}
         // productName='Growth hacking'

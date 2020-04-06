@@ -14,13 +14,19 @@ import {
   GuaranteeSection,
   CountDownTimer,
   ProgressBar,
-  ProductMarkWidget
+  ProductMarkWidget,
+  HeadingText,
+  Button,
+  Spacer
 } from '.';
 
 const SectionContent = ({ type, ...props }) => {
-  console.log(type);
+  console.log('SectionContent', type);
   switch (type) {
+  case 'heading': return <HeadingText {...props} />;
   case 'text': return <TextContent {...props} />;
+  case 'button': return <Button {...props} />;
+  case 'spacer': return <Spacer {...props} />;
   case 'image': return <ImageContent {...props} />;
   case 'video': return <VideoContent {...props} />;
   case 'layout': return <LayoutContent {...props} />;

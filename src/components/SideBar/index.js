@@ -20,16 +20,15 @@ import Icons from './icons';
 const { Button, InputRow, FlexBox } = common;
 const { SelectOption } = InputRow;
 
-const BrandSelect = ({ brands, value, onChange }) => {
+const BrandSelect = ({ brands, value: activeBrand, onChange }) => {
   const options = brands.map(({ name: label, id: value }) => ({ label, value }));
   return (
     <Fragment>
       <span className='tiny-text'>Active Brand:</span>
       <SelectOption
-        value={value}
+        value={activeBrand}
         name='activeBrand'
         onChange={onChange}
-        // options={options}
         options={options}
         disabled={!options.length}
         className='min-width-100'

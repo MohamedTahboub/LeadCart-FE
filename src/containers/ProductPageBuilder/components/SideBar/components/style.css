@@ -45,6 +45,20 @@
 .base-element-card.text-bg:hover{
     background-image: url(../../../../../assets/images/icons/colored-text.png);
 }
+.base-element-card.button-bg{
+    filter: grayscale(10);
+    background-image: url(../../../../../assets/images/icons/colored-button.png);
+}
+.base-element-card.button-bg:hover{
+    filter: grayscale(0);
+    background-image: url(../../../../../assets/images/icons/colored-button.png);
+}
+.base-element-card.heading-bg{
+    background-image: url(../../../../../assets/images/icons/gray-heading.png);
+}
+.base-element-card.heading-bg:hover{
+    background-image: url(../../../../../assets/images/icons/colored-heading.png);
+}
 .base-element-card.image-bg{
     background-image: url(../../../../../assets/images/icons/gray-image.png);
 }

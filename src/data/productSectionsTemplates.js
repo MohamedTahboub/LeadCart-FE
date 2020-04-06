@@ -1,3 +1,5 @@
+import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
+
 export default {
 
 
@@ -15,6 +17,51 @@ export default {
       marginRight: 0,
       paddingTop: 0,
       paddingBottom: 0,
+    },
+  },
+  heading: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'heading',
+    content: {
+      value: '<h2>Heading Content</h2>',
+      children: [],
+    },
+    styles: {
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+  },
+  button: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'button',
+    content: {
+      value: 'Click Here',
+      children: [],
+    },
+    styles: {
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+  },
+  spacer: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'spacer',
+    content: {
+      value: 'Click Here',
+      children: [],
+    },
+    styles: {
+      height: '20px',
+      width: '100%',
+      padding: '10px'
     },
   },
   image: {
@@ -203,15 +250,12 @@ export default {
     hidden: false, // for referencing elements for the layout sections
     type: 'guaranteeWidget',
     content: {
-      children: [],
+      badge: guaranteeBadge1,
+      title: 'Your Satisfaction',
+      description: 'Customer satisfaction our top priority and our products are results-driven & designed to ensure customers\' needs fulfilling'
     },
     styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
+      theme: 'right-theme',
     },
   },
   countDownWidget: {

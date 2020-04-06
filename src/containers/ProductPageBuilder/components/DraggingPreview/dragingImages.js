@@ -8,6 +8,7 @@ export { default as countdownImage } from 'assets/images/icons/colored-countdown
 export { default as progressbarImage } from 'assets/images/icons/colored-progressbar.png';
 export { default as pageBadgeImage } from 'assets/images/icons/colored-bookmark-badge.png';
 
+export const buttonImage = 'https://i.imgur.com/WY4HYyM.png';
 export const bumpOfferImage = 'https://i.imgur.com/69VvHEV.png';
 export const shippingDetailsImage = 'https://i.imgur.com/24FugB7.png';
 export const couponImage = 'https://i.imgur.com/86mMJjC.png';

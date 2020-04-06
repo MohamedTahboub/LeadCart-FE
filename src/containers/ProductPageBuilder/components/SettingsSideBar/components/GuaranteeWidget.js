@@ -22,6 +22,23 @@ const badgesImages = [
   guaranteeBadge5,
   guaranteeBadge6,
 ];
+const themesOptions = [
+  {
+    src: 'https://i.imgur.com/RypH2Aw.png',
+    theme: 'left-theme',
+    badge: guaranteeBadge5
+  },
+  {
+    src: 'https://i.imgur.com/v0HFpo7.png',
+    theme: 'right-theme',
+    badge: guaranteeBadge2
+  },
+  {
+    src: 'https://i.imgur.com/ZQdvWU8.png',
+    theme: 'center-theme',
+    badge: guaranteeBadge3
+  }
+];
 
 
 const {
@@ -63,76 +80,49 @@ const GuaranteeWidget = (props) => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: {
-        name: 'content.value',
+        name: 'content.badge',
         value: image
       }
     });
   };
+  const onThemeChange = ({ theme, badge }) => (src) => () => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: 'styles.theme',
+        value: theme
+      }
+    });
+  };
+
 
   return (
     <div>
-      <Tabs active='styles' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
-        <Tab id='settings' title='Settings'>
-          <SettingBox title='Options'>
-            <FlexBox column>
-              {badgesImages.map((badge) => (
-                <ImageOption
-                  value={badge}
-                  key={badge}
-                  onClick={onBadgeSelect}
-                  active={badgeImage}
-                />
-              ))}
-            </FlexBox>
-          </SettingBox>
+      <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+        <Tab id='themes' title='Themes'>
+          <FlexBox column>
+            {themesOptions.map((theme) => (
+              <ImageOption
+                className='guarantee-theme-demo'
+                value={theme.src}
+                key={theme.theme}
+                onClick={onThemeChange(theme)}
+                active={styles.theme === theme.theme}
+              />
+            ))}
+          </FlexBox>
         </Tab>
-
-        <Tab id='styles' title='Styles'>
-          <SettingBox title='Size'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Image Height:</span>
-              <TextField
-                name='styles.height'
-                type='number'
-                value={styles.height}
-                onChange={onChange}
-                className='width-70'
+        <Tab id='guaranteeBadges' title='Guarantee Badges'>
+          <FlexBox column>
+            {badgesImages.map((badge) => (
+              <ImageOption
+                value={badge}
+                key={badge}
+                onClick={onBadgeSelect}
+                active={badgeImage}
               />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Image Width:</span>
-              <TextField
-                type='number'
-                name='styles.width'
-                value={styles.width}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-          </SettingBox>
-
-          <SettingBox title='Paddings'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding Top:</span>
-              <TextField
-                name='styles.paddingTop'
-                type='number'
-                value={styles.paddingTop}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text '>Padding bottom:</span>
-              <TextField
-                type='number'
-                name='styles.paddingBottom'
-                value={styles.paddingBottom}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-          </SettingBox>
+            ))}
+          </FlexBox>
         </Tab>
       </Tabs>
     </div>

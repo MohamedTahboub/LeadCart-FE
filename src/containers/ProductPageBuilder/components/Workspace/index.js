@@ -136,6 +136,11 @@ const Workspace = ({
       value: newSections
     });
   };
+  const addNewAndMove = ({ id, type, atIndex }) => {
+    actions.addNewSection(type, () => {
+      moveCard(id, atIndex);
+    });
+  };
 
   const onProductSettings = () => {
     const meta = {
@@ -183,6 +188,7 @@ const Workspace = ({
                 onSectionDuplicate={onSectionDuplicate}
                 findCard={findCard}
                 language={activeLanguage}
+                addNewAndMove={addNewAndMove}
               />
             ))
           }

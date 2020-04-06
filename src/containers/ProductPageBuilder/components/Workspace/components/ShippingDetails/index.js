@@ -8,7 +8,7 @@ const { CycleStepTitle, CheckoutInput, FloatButton } = common;
 export default ({
   data = {},
   color,
-  onOptionSelected,
+  // onOptionSelected,
   language = {},
   ...props
 }) => {
@@ -31,16 +31,9 @@ export default ({
     country
   } = language.checkout || {};
 
-  if (!data.enabled) return null;
   return (
     <div className='product-template-billing'>
-      <FloatButton
-        className='payment-setting-btn'
-        onClick={onDisable}
-        position={{ left: -27, top: -2 }}
-      >
-        <i className='fas fa-eye-slash' />
-      </FloatButton>
+
       <CycleStepTitle step='2'>{shippingDetails}</CycleStepTitle>
       <div style={{ color }} className='flex-row'>
         <CheckoutInput
@@ -72,10 +65,16 @@ export default ({
         />
         <CheckoutInput
           disabled
-          // name='country'
           label={country}
         />
       </div>
     </div>
   );
 };
+// <FloatButton
+// className='payment-setting-btn'
+// onClick={onDisable}
+// position={{ left: -27, top: -2 }}
+// >
+// <i className='fas fa-eye-slash' />
+// </FloatButton>

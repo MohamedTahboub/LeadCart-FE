@@ -4,60 +4,86 @@ import clx from 'classnames';
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
 import './style.css';
 import common from 'components/common';
+import { useContext } from '../../../../../../actions';
 
 const {
-  FlexBox
+  FlexBox,
+  EditableField
 } = common;
 const GuaranteeSection = ({
   className,
   section = {},
 }) => {
+  const { actions } = useContext();
+
   const {
     styles = {},
     content: {
-      themeColor,
-      value: imageSrc = guaranteeBadge1
+      badge: imageSrc = guaranteeBadge1,
+      title,
+      description
     } = {}
   } = section;
+
+  const { theme = 'right-theme' } = styles;
 
   const classNames = clx({
     'image-section': true,
     [className]: className,
   });
 
-  const sectionStyle = {
-    ...styles,
-    paddingTop: `${styles.paddingTop}px`,
-    paddingBottom: `${styles.paddingBottom}px`,
-  };
+  const guaranteeTextClasses = clx({
+    'text-center': theme === 'center-theme',
+  });
 
-  const style = {
-    height: `${styles.height}px`,
-    width: `${styles.width}px`
-    // backgroundImage: `url(${imageSrc})`,
-    // backgroundPosition: 'center',
-    // backgroundSize: '100% 100%',
-    // backgroundRepeat: 'no-repeat'
+
+  const onChange = ({ target: { name, value } }) => {
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name,
+        value
+      }
+    });
   };
 
   return (
     <FlexBox
-      center='h-center'
+      center='h-center v-center'
       className={classNames}
-      style={{ ...sectionStyle }}
+      column={theme === 'center-theme'}
+      reverse={theme === 'right-theme'}
     >
       <img
         src={imageSrc}
-        style={style}
         className='section-guarantee-image'
         alt='guarantee badge'
       />
+      <FlexBox column className={guaranteeTextClasses}>
+        <EditableField
+          name='content.title'
+          // defaultValue='Product Name'
+          onChange={onChange}
+          className='larger-text'
+          value={title}
+        />
+        <EditableField
+          name='content.description'
+          onChange={onChange}
+          textarea
+          value={description}
+          className='large-text'
+        />
+
+      </FlexBox>
     </FlexBox>
   );
 };
 
 GuaranteeSection.propTypes = {
 
+};
+GuaranteeSection.defaultProps = {
 };
 
 export default GuaranteeSection;

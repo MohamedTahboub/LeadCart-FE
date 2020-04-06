@@ -48,6 +48,9 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
   let open = !!sectionSetting;
 
   // modify this to more readable script -_-
+  if (section.type === 'heading') return;
+  if (section.type === 'text') return;
+
   if (section && (
     section.type === 'staticSectionSetting'
     || section.type === 'pageSetting'

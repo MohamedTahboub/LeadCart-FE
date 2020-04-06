@@ -66,19 +66,21 @@ const StaticSection = ({
   const {
     price = {},
     payment = {},
-    addOns = {}
+    addOns = {},
+    custom = {}
   } = product;
 
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
+    console.log('target', target);
   };
 
-  const onShippingDetailsToggle = () => {
+  const onToggleCustom = ({ target: { name } }) => {
     onChange({
       target: {
-        name: 'addOns.shippingDetails',
-        value: !addOns.shippingDetails
+        name: `custom.${name}`,
+        value: !custom[name]
       }
     });
   };
@@ -130,19 +132,31 @@ const StaticSection = ({
         </SettingBox>
       </Tab>
 
-      <Tab id='addOne' title='Add-on'>
+      <Tab id='customs' title='Custom'>
         <InputRow className='sidebar-row'>
           <Label className='sidebar-input-label'>
             Show Shipping Form
           </Label>
           <SwitchInput
-            value={addOns.shippingDetails}
-            name='addOns.shippingDetails'
-            onToggle={onShippingDetailsToggle}
+            value={custom.shippingDetails}
+            name='shippingDetails'
+            onToggle={onToggleCustom}
+            className='sidebar-switch-input'
+          />
+        </InputRow>
+        <InputRow className='sidebar-row'>
+          <Label className='sidebar-input-label'>
+            Show Coupon Section
+          </Label>
+          <SwitchInput
+            value={custom.couponSection}
+            name='couponSection'
+            onToggle={onToggleCustom}
             className='sidebar-switch-input'
           />
         </InputRow>
       </Tab>
+      <Tab id='addOns' title='Add-ons' />
       <Tab id='styles' title='Styles'>
         <FlexBox center='v-center margin-v-5' spaceBetween>
           <Label className='sidebar-input-label'>

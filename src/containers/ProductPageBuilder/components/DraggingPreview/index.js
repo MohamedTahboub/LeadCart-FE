@@ -8,6 +8,7 @@ const images = {
   text: previewImages.textImage,
   image: previewImages.imageSectionImage,
   video: previewImages.videoImage,
+  button: previewImages.buttonImage,
   layout: previewImages.layoutImage,
   bumpOffer: previewImages.bumpOfferImage,
   shippingDetails: previewImages.shippingDetailsImage,

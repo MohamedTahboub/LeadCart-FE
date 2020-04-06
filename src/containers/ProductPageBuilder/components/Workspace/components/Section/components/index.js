@@ -1,6 +1,9 @@
+export { default as HeadingText } from './HeadingText';
 export { default as TextContent } from './TextContent';
+export { default as Button } from './Button';
+export { default as Spacer } from './Spacer';
 export { default as ImageContent } from './ImageContent';
-export { default as VideoContent } from './VideoContent';
+export { default as VideoContent } from './VideoSection';
 export { default as LayoutContent } from './LayoutContent';
 export { default as SectionContent } from './SectionContent';
 export { default as SettingsHandles } from './SettingsHandles';

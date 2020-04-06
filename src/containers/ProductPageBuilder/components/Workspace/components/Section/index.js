@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import common from 'components/common';
 import { useDrag, useDrop } from 'react-dnd';
+import ids from 'shortid';
 import * as dropTypes from '../dropTypes';
 
 import './style.css';
@@ -26,12 +27,13 @@ const Section = ({
   active,
   activeSection = {},
   onSectionDuplicate,
+  addNewAndMove,
   onSetting,
   // onSectionOrderChange,
   ...props
 }) => {
   // if (hidden) return null;
-  const sectionRef = useRef(null);
+  // const sectionRef = useRef(null);
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
@@ -39,41 +41,32 @@ const Section = ({
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    // end: (dropResult, monitor) => {
-    //   const { id: droppedId, originalIndex } = monitor.getItem();
-    //   const didDrop = monitor.didDrop();
-    //   if (!didDrop) moveCard(droppedId, originalIndex);
-    // },
   });
 
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
-    // canDrop: () => false,
-    // hover: ({ id: draggedId }, monitor) => {
-    //   const item = monitor.getItem();
-    //   console.log('item==> ', item, monitor.canDrop());
-    //   if (item.type === dropTypes.SECTION && item.id) {
-    //     const { index: overIndex } = findCard(item.id);
-    //     return moveCard(draggedId, overIndex);
-    //   }
-
-    // if (item.type === dropTypes.SECTION && !item.id) {
-
-    // add new temp item
-    // }
-    // console.log('draggedId', id, draggedId);
-    // if (draggedId !== id) {
-    //   const { index: overIndex } = findCard(id);
-    //   moveCard(draggedId, overIndex);
-    // }
-    // },
     collect: (monitor) => ({
       isOver: monitor.isOver()
     }),
-    drop: ({ new: newItem, section: { id: droppedItemId } = {} }) => {
-      if (newItem) return;
+    canDrop: (e) => console.log('Can Drop', e),
+    drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }, monitor) => {
+      // const didDrop = monitor.didDrop();
+      // if (didDrop) return;
+
+
+      if (newItem) {
+        const newId = ids.generate();
+        console.log('Over Section Type', type, newId);
+        addNewAndMove({
+          atIndex: id,
+          type,
+          id: newId
+        });
+        return { isHandled: true };
+      }
       const { index: overIndex } = findCard(id);
-      return moveCard(droppedItemId, overIndex);
+      moveCard(droppedItemId, overIndex);
+      return { isHandled: true };
     }
   });
 
@@ -89,6 +82,7 @@ const Section = ({
   const onDuplicate = (fromId) => () => {
     onSectionDuplicate(fromId);
   };
+
   return (
     <div
       id={id}
