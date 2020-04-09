@@ -8,6 +8,7 @@ import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import update from 'immutability-helper';
 // import ids from 'shortid';
+import sectionsTemplates from 'data/productSectionsTemplates';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 // import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
@@ -106,7 +107,6 @@ const Workspace = ({
     // const newSections = [...sections];
     const { section, index } = findCard(id);
     // newSections.splice(atIndex, 0, section);
-
     const newSections = update(sections, {
       $splice: [
         [index, 1],
@@ -123,6 +123,7 @@ const Workspace = ({
     const { section: { type } = {} } = section;
     if (section.new) actions.addNewSection(type);
   };
+
   const onSectionDuplicate = (id) => {
     const { section: copySection, index } = findCard(id);
     const newSections = update(sections, {
@@ -136,9 +137,24 @@ const Workspace = ({
       value: newSections
     });
   };
+
   const addNewAndMove = ({ id, type, atIndex }) => {
-    actions.addNewSection(type, () => {
-      moveCard(id, atIndex);
+    const section = sectionsTemplates[type];
+
+    if (!section) return;
+
+    section.id = id;
+
+    const newSections = update(sections, {
+      $splice: [
+        [(atIndex), 0, section],
+        [(atIndex + 1), 0],
+      ],
+    });
+
+    actions.onProductFieldChange({
+      name: 'sections',
+      value: newSections
     });
   };
 
@@ -189,6 +205,7 @@ const Workspace = ({
                 findCard={findCard}
                 language={activeLanguage}
                 addNewAndMove={addNewAndMove}
+                index={index}
               />
             ))
           }
