@@ -15,32 +15,22 @@ export default ({
   section = {},
   ...props
 }) => {
-  const { styles = {}, content = {} } = section;
+  const {
+    styles = {},
+    content = {}
+  } = section;
 
 
-  const style = {
-    // ...styles,
-    marginTop: `${styles.marginTop}px`,
-    marginBottom: `${styles.marginBottom}px`,
-    marginLeft: `${styles.marginLeft}px`,
-    marginRight: `${styles.marginRight}px`,
-    paddingTop: `${styles.paddingTop}px`,
-    paddingBottom: `${styles.paddingBottom}px`,
-    paddingLeft: `${styles.paddingLeft}px`,
-    paddingRight: `${styles.paddingRight}px`,
-  };
-
-  const progressBarStyles = {
-    barBackground: styles.barBackground,
-    barColor: styles.barBackGround
+  const styleColors = {
+    borderColor: styles.borderColor,
+    barColor: styles.barColor,
+    textColor: styles.textColor,
   };
   return (
-    <div className='product-template-billing' style={style}>
-      <ProgressBar
-        type={content.type}
-        value={content.value}
-        styles={progressBarStyles}
-      />
-    </div>
+    <ProgressBar
+      value={content.value}
+      theme={styles.theme}
+      colors={styleColors}
+    />
   );
 };

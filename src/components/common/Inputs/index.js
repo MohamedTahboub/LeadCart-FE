@@ -440,7 +440,8 @@ export const EditableField = ({
   defaultValue = 'edit text',
   textarea,
   error,
-  childElement
+  childElement,
+  style: inheritedStyles
 }) => {
   const value = val || children || defaultValue;
   const [editable, setEditable] = useState(false);
@@ -462,7 +463,7 @@ export const EditableField = ({
   };
 
   const Element = (props) => (textarea ? <textarea {...props} /> : <input {...props} />);
-  const style = { color, backgroundColor };
+  const style = { color, backgroundColor, ...inheritedStyles };
   return (
     <div style={style} onClick={onEditable} className={`editable-field ${className}`}>
       {
@@ -501,4 +502,5 @@ export const EditableField = ({
 export { default as EditableInputField } from './EditableInputField';
 export { default as EditableTextField } from './EditableTextField';
 export { default as InputGroup } from './InputGroup';
+export { default as ResizableInput } from './ResizableInput';
 

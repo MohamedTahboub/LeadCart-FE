@@ -1,32 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import common from 'components/common';
 
 import './style.css';
 
-const getTypeStyles = (type, styles) => styles;
+import {
+  EdgyProgressBar,
+  ProgressBar,
+  AnimatedProgressBar
+} from './components';
+
+const {
+  ResizableInput,
+  FlexBox,
+  LayoutSwitch
+} = common;
 
 
-const ProgressBar = ({
-  type,
+const ProgressBarSection = ({
   value = 70,
-  styles = {}
+  colors = {},
+  theme = ''
 }) => {
-  const typeStyles = getTypeStyles(type, styles);
+  const barProps = {
+    striped: theme.includes('striped'),
+    animated: theme.includes('animated'),
+    rectangle: theme.includes('rectangle'),
+    colors,
+    value
+  };
 
   return (
-    <div className='progress-bar-body'>
-      <div style={{ width: `${value}%` }} className='progress-value'>
-        <span className='value'>
-          {value}
-                    %
-        </span>
-      </div>
-    </div>
+    <ProgressBar {...barProps}>
+      <ResizableInput value='Completed' />
+    </ProgressBar>
   );
 };
 
-ProgressBar.propTypes = {
+ProgressBarSection.propTypes = {
 
 };
 
-export default ProgressBar;
+export default ProgressBarSection;
