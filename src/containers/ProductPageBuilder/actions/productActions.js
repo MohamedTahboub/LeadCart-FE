@@ -1,7 +1,7 @@
 import sectionsTemplates from 'data/productSectionsTemplates';
 import ids from 'shortid';
+import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
-
 
 export const updateState = ({ state = {}, dispatch }) => (subState) => {
   dispatch({
@@ -73,7 +73,7 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
 };
 
 
-export const addNewSection = ({ state, dispatch }) => (sectionType) => {
+export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) => {
   const section = sectionsTemplates[sectionType];
 
   if (!section) return;
@@ -87,6 +87,9 @@ export const addNewSection = ({ state, dispatch }) => (sectionType) => {
     type: types.ADD_NEW_SECTION,
     payload: section
   });
+  setTimeout(() => {
+    if (isFunction(postEffect)) postEffect(section);
+  }, 100);
 };
 
 

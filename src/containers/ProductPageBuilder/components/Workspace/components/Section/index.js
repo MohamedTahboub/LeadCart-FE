@@ -29,6 +29,7 @@ const Section = ({
   onSectionDuplicate,
   addNewAndMove,
   onSetting,
+  index,
   // onSectionOrderChange,
   ...props
 }) => {
@@ -48,17 +49,15 @@ const Section = ({
     collect: (monitor) => ({
       isOver: monitor.isOver()
     }),
-    canDrop: (e) => console.log('Can Drop', e),
+    // canDrop: (e) => console.log('Can Drop', e),
     drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }, monitor) => {
       // const didDrop = monitor.didDrop();
       // if (didDrop) return;
 
-
       if (newItem) {
         const newId = ids.generate();
-        console.log('Over Section Type', type, newId);
         addNewAndMove({
-          atIndex: id,
+          atIndex: index,
           type,
           id: newId
         });
