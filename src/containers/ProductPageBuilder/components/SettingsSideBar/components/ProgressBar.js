@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
+import progressAnimatedRect from 'assets/images/gifs/animated-progressbar-rect.gif';
+import progressAnimated from 'assets/images/gifs/animated-progressbar.gif';
 import { useContext } from '../../../actions';
 
 import {
-  SettingBox
+  SettingBox,
+  ImageOption
 } from './common';
 
 
@@ -22,6 +25,34 @@ const {
   TextField,
   // SelectOption
 } = InputRow;
+
+
+const themesOptions = [
+  {
+    theme: 'default',
+    src: 'https://i.imgur.com/DsJ9H0o.png'
+  },
+  {
+    theme: 'striped',
+    src: 'https://i.imgur.com/p5mKqsm.png'
+  },
+  {
+    theme: 'striped animated',
+    src: progressAnimated
+  },
+  {
+    theme: 'rectangle',
+    src: 'https://i.imgur.com/or6mMuy.png'
+  },
+  {
+    theme: 'rectangle striped',
+    src: 'https://i.imgur.com/8flEJcl.png'
+  },
+  {
+    theme: 'rectangle striped animated',
+    src: progressAnimatedRect
+  }
+];
 
 const ProgressBar = (props) => {
   const {
@@ -41,11 +72,30 @@ const ProgressBar = (props) => {
       field: target
     });
   };
-
+  const onThemeChange = ({ theme }) => (src) => () => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: 'styles.theme',
+        value: theme
+      }
+    });
+  };
 
   return (
     <div>
-      <Tabs active='settings' className='padding-v-10 padding-h-10'>
+      <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+        <Tab id='themes' title='Themes'>
+          {themesOptions.map((theme) => (
+            <ImageOption
+              className='guarantee-theme-demo'
+              value={theme.src}
+              key={theme.theme}
+              onClick={onThemeChange(theme)}
+              active={styles.theme === theme.theme}
+            />
+          ))}
+        </Tab>
         <Tab id='settings' title='Settings'>
           <FlexBox center='v-center margin-v-5' spaceBetween>
             <span className='gray-text'>Progress Value:</span>
@@ -59,11 +109,9 @@ const ProgressBar = (props) => {
               className='width-70'
             />
           </FlexBox>
-        </Tab>
-        <Tab id='styles' title='styles'>
           <SettingBox title='Colors'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Bar Colors:</span>
+              <span className='gray-text'>Bar Color:</span>
               <MiniTwitterPicker
                 name='styles.barColor'
                 value={styles.barColor}
@@ -71,57 +119,22 @@ const ProgressBar = (props) => {
               />
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Bar Background Colors:</span>
+              <span className='gray-text'>Text Color:</span>
               <MiniTwitterPicker
-                name='styles.barBackground'
-                value={styles.barBackground}
+                name='styles.textColor'
+                value={styles.textColor}
                 onChange={onChange}
-              />
-            </FlexBox>
-          </SettingBox>
-          <SettingBox title='Margins'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Margin Top:</span>
-              <TextField
-                name='styles.marginTop'
-                type='number'
-                value={styles.marginTop}
-                onChange={onChange}
-                className='width-70'
               />
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Margin bottom:</span>
-              <TextField
-                type='number'
-                name='styles.marginBottom'
-                value={styles.marginBottom}
+              <span className='gray-text'>Bar Border Color:</span>
+              <MiniTwitterPicker
+                name='styles.borderColor'
+                value={styles.borderColor}
                 onChange={onChange}
-                className='width-70'
               />
             </FlexBox>
-          </SettingBox>
-          <SettingBox title='Paddings'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding Top:</span>
-              <TextField
-                name='styles.paddingTop'
-                type='number'
-                value={styles.paddingTop}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding bottom:</span>
-              <TextField
-                type='number'
-                name='styles.paddingBottom'
-                value={styles.paddingBottom}
-                onChange={onChange}
-                className='width-70'
-              />
-            </FlexBox>
+
           </SettingBox>
         </Tab>
       </Tabs>

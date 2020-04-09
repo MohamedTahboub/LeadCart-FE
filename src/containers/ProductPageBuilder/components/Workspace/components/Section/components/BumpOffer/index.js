@@ -27,6 +27,7 @@ const BumpOffer = ({
   const containerStyle = {
     background: styles.containerBackground,
     color: styles.containerTextColor,
+    headlineColor: styles.contentHeadlineTextColor,
     border: `${styles.borderWidth || 0}px ${styles.borderStyle || 'solid'} ${styles.borderColor}`,
     borderRadius: `${styles.borderRadius}px`
   };
@@ -63,6 +64,7 @@ const BumpOffer = ({
           value={content.introText}
           onChange={onChange}
           className='template-bump-offer-description-title'
+          style={{ color: containerStyle.headlineColor }}
         />
         <EditableField
           name='content.bodyText'

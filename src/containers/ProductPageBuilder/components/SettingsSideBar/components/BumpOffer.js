@@ -5,12 +5,14 @@ import common from 'components/common';
 import { useContext } from '../../../actions';
 
 import {
-  SettingBox
+  SettingBox,
+  ImageOption
 } from './common';
 
 const {
   Collapse,
   MiniTwitterPicker,
+
   FulfillmentRowCard,
   Currency,
   Tabs,
@@ -19,6 +21,49 @@ const {
 } = common;
 
 const { Panel } = Collapse;
+
+
+const themesOptions = [
+  {
+    src: 'https://i.imgur.com/g7ZKw0i.png',
+    styles: {
+      containerBackground: '#fff',
+      containerTextColor: '#000',
+      headerBackground: 'rgb(142, 209, 252)',
+      borderColor: 'rgb(142, 209, 252)',
+      borderStyle: 'dashed',
+      borderWidth: 2,
+      borderRadius: 5,
+    }
+  },
+  {
+    src: 'https://i.imgur.com/kPvXDwq.png',
+    styles: {
+      containerBackground: '#fff',
+      containerTextColor: '#FCB900',
+      headerTextColor: '#000',
+      headerBackground: '#fff',
+      borderColor: '#00D084',
+      borderStyle: 'dashed',
+      borderWidth: 2,
+      borderRadius: 5,
+    }
+  },
+  {
+    src: 'https://i.imgur.com/LmsFKCt.png',
+    styles: {
+      containerBackground: '#fff',
+      containerTextColor: '#000',
+      contentHeadlineTextColor: '#EB144C',
+      headerBackground: '#FCB900',
+      borderColor: '#EB144C',
+      borderStyle: 'dashed',
+      borderWidth: 3,
+      borderRadius: 1,
+    }
+  },
+
+];
 
 const currency = 'USD';
 const {
@@ -53,8 +98,29 @@ const BumpOffer = ({
     });
   };
 
+  const onStylesChange = (styles) => (src) => () => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: 'styles',
+        value: styles
+      }
+    });
+  };
+
   return (
-    <Tabs active='settings' className='padding-v-10 padding-h-10'>
+    <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+      <Tab id='themes' title='Themes'>
+        {themesOptions.map((theme) => (
+          <ImageOption
+            className='guarantee-theme-demo'
+            value={theme.src}
+            key={theme.src}
+            onClick={onStylesChange(theme.styles)}
+            active={styles.theme === theme.theme}
+          />
+        ))}
+      </Tab>
       <Tab id='settings' title='settings'>
         <InputRow className='sidebar-row'>
           <Label
@@ -85,7 +151,7 @@ const BumpOffer = ({
         </InputRow>
       </Tab>
 
-      <Tab id='styles' title='styles'>
+      <Tab id='advance' title='Advance'>
         <SettingBox
           title='Colors'
         >
@@ -126,6 +192,16 @@ const BumpOffer = ({
             <MiniTwitterPicker
               name='styles.headerTextColor'
               value={styles.headerTextColor}
+              onChange={onChange}
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Content Headline Color:
+            </Label>
+            <MiniTwitterPicker
+              name='styles.contentHeadlineTextColor'
+              value={styles.contentHeadlineTextColor}
               onChange={onChange}
             />
           </InputRow>
@@ -200,10 +276,6 @@ const BumpOffer = ({
           </InputRow>
         </SettingBox>
 
-      </Tab>
-
-      <Tab id='actions' title='actions'>
-        Not Defined Yet
       </Tab>
     </Tabs>
   );
