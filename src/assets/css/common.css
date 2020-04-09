@@ -465,3 +465,7 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+.transparent-background{
+  background: transparent;
+}

@@ -106,11 +106,6 @@ const SideBar = (props) =>
               data-tip='Bump Offer Section'
             />
             <BaseCard
-              type='couponSection'
-              className='coupons-bg section-card'
-              data-tip='Coupon Section'
-            />
-            <BaseCard
               type='testimonialsSection'
               className='testimonials-bg section-card'
               data-tip='Testimonial Section'
