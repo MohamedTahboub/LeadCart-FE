@@ -231,8 +231,17 @@ Integrations.defaultProps = {
 };
 const mapStateToProps = ({ integrations = [] }) => {
   const integrationsServices = servicesList.map((service) => {
-    const integrationExist = integrations.find((integration) => integration && (integration.key === service.key));
-    if (integrationExist) return { ...service, ...integrationExist, active: true };
+    const integrationExist = integrations.find((integration) => integration && (
+      integration.key === service.key
+      || integration.integrationKey === service.key
+    ));
+    if (integrationExist) {
+      return {
+        ...service,
+        ...integrationExist,
+        active: true
+      };
+    }
     return service;
   });
 

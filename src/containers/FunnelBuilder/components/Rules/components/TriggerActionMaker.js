@@ -8,6 +8,7 @@ import { IoIosAdd } from 'react-icons/io';
 import ReactToolTip from 'react-tooltip';
 import { includesIgnoreCase } from 'libs';
 import { connect } from 'react-redux';
+import { mapListToObject } from 'libs';
 const animatedComponents = makeAnimated();
 
 
@@ -17,6 +18,17 @@ const animatedComponents = makeAnimated();
 const selectedIntegrationActions = [
   { label: 'Add to List', value: 'addToList' }
 ];
+
+const getActionsOptions = ({ action: { serviceName } = {} }, actionsMap) => {
+  console.log('actionMap[serviceName]', actionsMap[serviceName]);
+  if (actionsMap[serviceName]) {
+    return actionsMap[serviceName].actions.map((action) => ({
+      label: action.label,
+      value: action.name
+    }));
+  }
+  return [];
+};
 const {
   FlexBox,
   MainTitle,
@@ -27,6 +39,7 @@ const TriggerActionMaker = ({
   products,
   hasGroups,
   integrations: integrationsLabels,
+  actionsMap,
   ...props
 }) => {
   const [group, setGroup] = useState({});
@@ -68,6 +81,8 @@ const TriggerActionMaker = ({
     setGroup({});
   }, [expand]);
 
+  const actionsOptions = getActionsOptions(group, actionsMap);
+
   return expand ? (
     <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges'>
       <div className='large-text'>Make New Trigger Group:</div>
@@ -107,7 +122,7 @@ const TriggerActionMaker = ({
         <Select
           className='flex-item'
           defaultValue='IntegrationsAction'
-          options={selectedIntegrationActions}
+          options={actionsOptions}
           onChange={onIntegrationActionSelected}
         />
       </FlexBox>
@@ -137,9 +152,16 @@ const TriggerActionMaker = ({
 TriggerActionMaker.propTypes = {
 
 };
-const mapStateToProps = ({ integrations }) => ({
-  integrations: integrations
+const mapStateToProps = ({ integrations }) => {
+  const integrationsList = integrations
     .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))
-    .map((integration) => ({ label: integration.name, value: integration.key }))
-});
+    .map((integration) => ({ label: integration.name, value: integration.key, actions: integration.actions }));
+
+  const actionsMap = mapListToObject(integrationsList, 'value');
+
+  return {
+    integrations: integrationsList,
+    actionsMap
+  };
+};
 export default connect(mapStateToProps)(TriggerActionMaker);

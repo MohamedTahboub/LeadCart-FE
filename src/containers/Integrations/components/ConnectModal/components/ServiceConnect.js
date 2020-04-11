@@ -46,65 +46,67 @@ const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) =>
 const ConnectClient = ({
   name, onChange, onSubmit, ...props
 }) => (
-    <FlexBox column center='v-left' flex>
-      <Statement
-        label='Client Id'
-        value={(
-          <TextField
-            name='client_id'
-            onChange={onChange}
-          />
-        )}
-        flex
-        spaceBetween
-        className='full-width'
-      />
-      <Statement
-        label='Client Secret'
-        value={(
-          <TextField
-            name='client_secret'
-            onChange={onChange}
-          />
-        )}
-        flex
-        spaceBetween
-        className='full-width'
+  <FlexBox column center='v-left' flex>
+    <Statement
+      label='Client Id'
+      value={(
+        <TextField
+          name='client_id'
+          onChange={onChange}
+        />
+      )}
+      flex
+      spaceBetween
+      className='full-width'
+    />
+    <Statement
+      label='Client Secret'
+      value={(
+        <TextField
+          name='client_secret'
+          onChange={onChange}
+        />
+      )}
+      flex
+      spaceBetween
+      className='full-width'
       // flex
-      />
+    />
 
-      <FlexBox flexEnd className='full-width'>
-        <Button onClick={onSubmit} className='primary-color'>
+    <FlexBox flexEnd className='full-width'>
+      <Button onClick={onSubmit} className='primary-color'>
           Authorize
       </Button>
-      </FlexBox>
     </FlexBox>
-  );
+  </FlexBox>
+);
 
 
 const ConnectApiKey = ({
   name, onChange, onSubmit, ...props
 }) => (
-    <FlexBox column>
-      <Statement
-        label='API KEY'
-        value={(
-          <TextField
-            name='apiKey'
-            onChange={onChange}
+  <FlexBox column>
+    <Statement
+      label='API KEY'
+      value={(
+        <TextField
+          name='apiKey'
+          onChange={onChange}
           // value={values.apiKey}
-          />
-        )}
-      />
-      <FlexBox flexEnd className='full-width'>
-        <Button onClick={onSubmit} className='primary-color'>
+        />
+      )}
+    />
+    <FlexBox flexEnd className='full-width'>
+      <Button onClick={onSubmit} className='primary-color'>
           Authorize
       </Button>
-      </FlexBox>
     </FlexBox>
-  );
+  </FlexBox>
+);
 
-const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) => {
+const ConnectIntegration = ({
+  authType, onConnect, onModalToggle, ...props
+}) => {
   const [values, setValues] = useState({});
   const [onprogress, setProgress] = useState(false);
 
@@ -119,7 +121,7 @@ const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) =>
         notification.success(`${props.name} Connected Successfully`);
         setValues({});
         setProgress(false);
-        onModalToggle()
+        onModalToggle();
       },
       onFailed: (message) => {
         notification.failed(message);
@@ -197,7 +199,7 @@ const ServiceConnect = ({ data = {}, ...props }) => {
     authType
   }) => (authDetails, onExecute) => {
     const serviceDetails = {
-      integration: name,
+      integrationName: name,
       category,
       integrationKey: key,
       authDetails,
@@ -220,14 +222,14 @@ const ServiceConnect = ({ data = {}, ...props }) => {
               onModalToggle={props.onModalToggle}
             />
           ) : (
-              <FlexBox flex column center='v-center h-center'>
-                {onprogress ? (
-                  <LoadingIcon />
-                ) : (
-                    <span className='error-text'>{error}</span>
-                  )}
-              </FlexBox>
-            )}
+            <FlexBox flex column center='v-center h-center'>
+              {onprogress ? (
+                <LoadingIcon />
+              ) : (
+                <span className='error-text'>{error}</span>
+              )}
+            </FlexBox>
+          )}
         </FlexBox>
         <FlexBox>
           <ServiceCard {...service} disabled />

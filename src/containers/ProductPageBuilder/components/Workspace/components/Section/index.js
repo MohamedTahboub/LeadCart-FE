@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import common from 'components/common';
@@ -33,8 +33,8 @@ const Section = ({
   // onSectionOrderChange,
   ...props
 }) => {
-  // if (hidden) return null;
-  // const sectionRef = useRef(null);
+  const [isDraggable, setIsDraggable] = useState(true);
+
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
@@ -42,6 +42,7 @@ const Section = ({
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
+    canDrag: () => isDraggable
   });
 
   const [{ isOver }, drop] = useDrop({
@@ -82,6 +83,9 @@ const Section = ({
     onSectionDuplicate(fromId);
   };
 
+  const onUpdateDragging = (state) => {
+    setIsDraggable(state);
+  };
   return (
     <div
       id={id}
@@ -93,7 +97,7 @@ const Section = ({
       ref={(node) => drop(drag(node))}
     >
       <SettingsHandles
-        // onOrderChange={onSectionOrderChange}
+      // onOrderChange={onSectionOrderChange}
         onSettings={onSetting}
         onDuplicate={onDuplicate}
         section={section}
@@ -102,6 +106,7 @@ const Section = ({
         maxOrder={maxOrder}
       />
       <SectionContent
+        onUpdateDragging={onUpdateDragging}
         type={type}
         section={section}
         language={props.language}
