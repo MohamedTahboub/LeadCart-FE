@@ -59,7 +59,7 @@ const ConnectingModal = ({
     authDetails
   }) => {
     const serviceDetails = {
-      integration: name,
+      integrationName: name,
       category,
       integrationKey: key,
       authDetails,

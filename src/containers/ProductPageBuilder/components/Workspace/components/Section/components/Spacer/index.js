@@ -21,6 +21,7 @@ const {
 
 const Spacer = ({
   value,
+  onUpdateDragging,
   section = {},
   ...props
 }) => {
@@ -71,18 +72,20 @@ const Spacer = ({
   // };
 
   const onResize = (e, direction, ref, delta, position) => {
-    console.log('Resizing ', ref.style);
+    onUpdateDragging(false);
     setSize({
-      width: ref.style.width,
       height: ref.style.height
     });
+  };
+  const onStopResizing = () => {
+    onUpdateDragging(true);
   };
   return (
     <Flexible
       // className='banner-item-container'
       size={size}
       // position={state.position}
-      // onDragStop={onMove}
+      onDragStop={onStopResizing}
       onResizeStop={onResize}
       // enableUserSelectHack={false}
       // style={style}

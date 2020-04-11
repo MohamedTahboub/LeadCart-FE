@@ -3,7 +3,7 @@ import * as brandsLogos from './importBrands';
 const services = [
   {
     name: 'Stripe',
-    key: 'LC-stripe',
+    key: 'lc_stripe',
     brandLogo: brandsLogos.stripeImage,
     category: 'Payment Gateways',
     description: 'Online payment processing for internet businesses',
@@ -13,7 +13,7 @@ const services = [
   },
   {
     name: 'Paypal',
-    key: 'LC-PayPal',
+    key: 'lc_paypal',
     brandLogo: brandsLogos.paypalImage,
     category: 'Payment Gateways',
     description: 'an online financial service that allows you to pay for items using a secure internet account',
@@ -21,7 +21,7 @@ const services = [
     connected: false,
     supported: true,
   }, {
-    key: 'LC-RAZOR_PAY',
+    key: 'lc_razor_pay',
     name: 'RazorPay',
     brandLogo: brandsLogos.razorpayLogo,
     category: 'Payment Gateways',
@@ -30,7 +30,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-authorizeNetLogo',
+    key: 'lc_authorizenetlogo',
     name: 'Authorize.Net',
     brandLogo: brandsLogos.authorizeNetLogo,
     category: 'Payment Gateways',
@@ -39,7 +39,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-checkoutLogo',
+    key: 'lc_checkoutlogo',
     name: 'Checkout.com',
     brandLogo: brandsLogos.checkoutLogo,
     category: 'Payment Gateways',
@@ -48,7 +48,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-braintreeLogo',
+    key: 'lc_braintreelogo',
     name: 'Braintree',
     brandLogo: brandsLogos.braintreeLogo,
     category: 'Payment Gateways',
@@ -57,7 +57,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-towCheckoutLogo',
+    key: 'lc_towcheckoutlogo',
     name: '2Checkout',
     brandLogo: brandsLogos.towCheckoutLogo,
     category: 'Payment Gateways',
@@ -66,7 +66,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-AWeber',
+    key: 'lc_aweber',
     name: 'AWeber',
     brandLogo: brandsLogos.aweber,
     category: 'Auto Responders',
@@ -76,7 +76,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-mailChimp',
+    key: 'lc_mailchimp',
     name: 'MailChimp',
     brandLogo: brandsLogos.mailChimp,
     category: 'Auto Responders',
@@ -86,7 +86,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-activeCampaign',
+    key: 'lc_activecampaign',
     name: 'ActiveCampaign',
     brandLogo: brandsLogos.activeCampaign,
     category: 'Auto Responders',
@@ -96,7 +96,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-getresponse',
+    key: 'lc_getresponse',
     name: 'Getresponse',
     brandLogo: brandsLogos.getresponse,
     category: 'Auto Responders',
@@ -106,7 +106,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-drip',
+    key: 'lc_drip',
     name: 'Drip',
     brandLogo: brandsLogos.drip,
     category: 'Auto Responders',
@@ -116,7 +116,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-ontraport',
+    key: 'lc_ontraport',
     name: 'OntraPort',
     brandLogo: brandsLogos.ontraport,
     category: 'Auto Responders',
@@ -126,7 +126,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-convertkit',
+    key: 'lc_convertkit',
     name: 'Convertkit',
     brandLogo: brandsLogos.convertkit,
     category: 'Auto Responders',
@@ -136,7 +136,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-infusionSoft',
+    key: 'lc_infusionsoft',
     name: 'InfusionSoft',
     brandLogo: brandsLogos.infusionSoft,
     category: 'Auto Responders',
@@ -146,7 +146,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-mooSend',
+    key: 'lc_moosend',
     name: 'MooSend',
     brandLogo: brandsLogos.mooSend,
     category: 'Auto Responders',
@@ -156,7 +156,7 @@ const services = [
     supported: true,
   },
   {
-    key: 'LC-Kajabi',
+    key: 'lc_kajabi',
     name: 'Kajabi',
     brandLogo: brandsLogos.Kajabi,
     category: 'Membership Platforms',
@@ -165,7 +165,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-Thinkific',
+    key: 'lc_thinkific',
     name: 'Thinkific',
     brandLogo: brandsLogos.Thinkific,
     category: 'Membership Platforms',
@@ -174,7 +174,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-teachable',
+    key: 'lc_teachable',
     name: 'Teachable',
     brandLogo: brandsLogos.teachable,
     category: 'Membership Platforms',
@@ -183,7 +183,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-wishListMember',
+    key: 'lc_wishlistmember',
     name: 'WishListMember',
     brandLogo: brandsLogos.wishListMember,
     category: 'Membership Platforms',
@@ -192,7 +192,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-memberMouse',
+    key: 'lc_membermouse',
     name: 'MemberMouse',
     brandLogo: brandsLogos.memberMouse,
     category: 'Membership Platforms',
@@ -201,7 +201,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-everlesson',
+    key: 'lc_everlesson',
     name: 'EverLesson',
     brandLogo: brandsLogos.everlesson,
     category: 'Membership Platforms',
@@ -210,7 +210,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-Memberful',
+    key: 'lc_memberful',
     name: 'Memberful',
     brandLogo: brandsLogos.Memberful,
     category: 'Membership Platforms',
@@ -219,7 +219,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-Demio',
+    key: 'lc_demio',
     name: 'Demio',
     brandLogo: brandsLogos.Demio,
     category: 'Webinar Platforms',
@@ -228,7 +228,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-everWebinar',
+    key: 'lc_everwebinar',
     name: 'EverWebinar',
     brandLogo: brandsLogos.everWebinar,
     category: 'Webinar Platforms',
@@ -237,7 +237,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-webinarJam',
+    key: 'lc_webinarjam',
     name: 'WebinarJam',
     brandLogo: brandsLogos.webinarJam,
     category: 'Webinar Platforms',
@@ -246,7 +246,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-goToWebinar',
+    key: 'lc_gotowebinar',
     name: 'GoToWebinar',
     brandLogo: brandsLogos.goToWebinar,
     category: 'Webinar Platforms',
@@ -255,7 +255,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-BigMarker',
+    key: 'lc_bigmarker',
     name: 'BigMarker',
     brandLogo: brandsLogos.BigMarker,
     category: 'Webinar Platforms',
@@ -264,7 +264,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-dropified',
+    key: 'lc_dropified',
     name: 'Dropified',
     brandLogo: brandsLogos.dropified,
     category: 'Dropshipping/Shipping',
@@ -273,7 +273,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-BigMarker',
+    key: 'lc_bigmarker',
     name: 'ShipStation',
     brandLogo: brandsLogos.shipStation,
     category: 'Dropshipping/Shipping',
@@ -282,7 +282,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-zapier',
+    key: 'lc_zapier',
     name: 'Zapier',
     brandLogo: brandsLogos.zapierBrand,
     category: 'Misc Integrations',
@@ -291,7 +291,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-twillio',
+    key: 'lc_twillio',
     name: 'Twillio',
     brandLogo: brandsLogos.twillio,
     category: 'Misc Integrations',
@@ -300,7 +300,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-wordpress',
+    key: 'lc_wordpress',
     name: 'Wordpress',
     brandLogo: brandsLogos.wordpress,
     category: 'Misc Integrations',
@@ -309,7 +309,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-wooCommerce',
+    key: 'lc_woocommerce',
     name: 'WooCommerce',
     brandLogo: brandsLogos.wooCommerce,
     category: 'Misc Integrations',
@@ -318,7 +318,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-shopify',
+    key: 'lc_shopify',
     name: 'Shopify',
     brandLogo: brandsLogos.shopify,
     category: 'Misc Integrations',
@@ -327,7 +327,7 @@ const services = [
     supported: false,
   },
   {
-    key: 'LC-taxamo',
+    key: 'lc_taxamo',
     name: 'Taxamo',
     brandLogo: brandsLogos.taxamo,
     category: 'Misc Integrations',

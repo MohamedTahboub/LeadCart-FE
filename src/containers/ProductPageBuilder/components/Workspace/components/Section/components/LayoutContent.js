@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import Section from '../index';
 import { useDrag, useDrop } from 'react-dnd';
-import { array } from 'yup';
 import update from 'immutability-helper';
 import * as dropTypes from '../../dropTypes';
 import { useContext } from '../../../../../actions';
