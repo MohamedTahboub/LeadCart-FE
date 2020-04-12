@@ -1251,3 +1251,8 @@ div.ant-select-sm .ant-select-selection--single {
 }
 
 
+
+.auto-resize-textarea-input{
+    border: none;
+    resize: none;
+}

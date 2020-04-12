@@ -20,7 +20,9 @@ const {
 const ProgressBarSection = ({
   value = 70,
   colors = {},
-  theme = ''
+  theme = '',
+  text = 'Complete',
+  ...props
 }) => {
   const barProps = {
     striped: theme.includes('striped'),
@@ -32,7 +34,10 @@ const ProgressBarSection = ({
 
   return (
     <ProgressBar {...barProps}>
-      <ResizableInput value='Completed' />
+      <ResizableInput
+        value={text}
+        {...props}
+      />
     </ProgressBar>
   );
 };
