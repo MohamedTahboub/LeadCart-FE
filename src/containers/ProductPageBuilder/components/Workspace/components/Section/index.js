@@ -1,6 +1,4 @@
-import React, {
-  useRef, useEffect, useState, useCallback
-} from 'react';
+import React, { useRef, useEffect, useState  , useCallback } from 'react';
 import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import common from 'components/common';
@@ -38,13 +36,13 @@ const Section = ({
 
   const originalIndex = findCard(id).index;
 
-  const [{ isDragging }, drag] = useCallback(useDrag({
+  const [{ isDragging }, drag] = useDrag({
     item: { type: dropTypes.SECTION, section, originalIndex },
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    canDrag: () => isDraggable
-  }), [isDraggable]);
+    canDrag: isDraggable
+  } , [isDraggable]);
 
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
@@ -98,7 +96,7 @@ const Section = ({
       ref={(node) => drop(drag(node))}
     >
       <SettingsHandles
-        // onOrderChange={onSectionOrderChange}
+      // onOrderChange={onSectionOrderChange}
         onSettings={onSetting}
         onDuplicate={onDuplicate}
         section={section}

@@ -60,6 +60,7 @@ const Spacer = ({
       }}
       onResize={onSizeChange}
       onResizeStart={onResizeStart}
+      showOnParentHover
       onResizeStop={onResizeStop}
     />
   );
