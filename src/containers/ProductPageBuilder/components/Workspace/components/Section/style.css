@@ -4,7 +4,7 @@
     border: 1.5px dashed transparent;
     position: relative;
     /* overflow: hidden; */
-    transform: translateY(0);
+    /* transform: translateY(0); */
 }
 .product-section:hover{
     border: 1.5px dashed lightgray;

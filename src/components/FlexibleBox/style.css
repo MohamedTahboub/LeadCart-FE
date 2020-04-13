@@ -1,5 +1,5 @@
 .resizable-flexibleBox {
-    min-height: 100px;
+    min-height: 20px;
     /* border: 1px solid; */
     position: relative;
 }
