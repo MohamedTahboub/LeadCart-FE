@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AutosizeInput from 'react-input-autosize';
 import { isFunction } from 'libs/checks';
+import clx from 'classnames';
 
-const ResizableInput = ({ style, ...props }) => {
-  const [value, setValue] = useState(props.value);
+const ResizableInput = ({
+  style,
+  defaultValue,
+  className,
+  ...props
+}) => {
+  const [value, setValue] = useState(props.value || defaultValue);
 
 
   useEffect(() => {
@@ -15,22 +21,32 @@ const ResizableInput = ({ style, ...props }) => {
   }, [props.value]);
 
   const onChange = ({ target: { value } }) => {
-    console.log('Value', value);
+    if ((value && !value.trim()) || !value) return setValue(defaultValue);
+
     setValue(value);
   };
-  const onBlue = (e) => {
-    if (isFunction(props.onBlue)) return props.onBlue(e);
-
+  const onBlur = (e) => {
+    if (isFunction(props.onBlur)) return props.onBlue(e);
     if (isFunction(props.onChange)) return props.onChange(e);
   };
 
+  const classNames = clx({
+    'transparent-background': true,
+    [className]: className
+  });
+  const styles = {
+    border: 'none',
+    outlineStyle: 'none',
+    background: 'transparent',
+    ...style
+  };
   return (
     <AutosizeInput
       {...props}
-      className='transparent-background'
-      inputStyle={style}
+      className={classNames}
+      inputStyle={styles}
       onChange={onChange}
-      onBlue={onBlue}
+      onBlur={onBlur}
       value={value}
     />
   );

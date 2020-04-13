@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import * as brandsAction from 'actions/brands';
 
-// import { ReactComponent as ProductsIcon } from '../../assets/images/icons/products.svg';
 
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
@@ -20,18 +19,24 @@ import Icons from './icons';
 const { Button, InputRow, FlexBox } = common;
 const { SelectOption } = InputRow;
 
-const BrandSelect = ({ brands, value: activeBrand, onChange }) => {
+const BrandSelect = ({
+  brands,
+  value: activeBrand,
+  onChange
+}) => {
   const options = brands.map(({ name: label, id: value }) => ({ label, value }));
   return (
     <Fragment>
-      <span className='tiny-text'>Active Brand:</span>
+      <span className='tiny-text'>
+        Active Brand:
+      </span>
       <SelectOption
         value={activeBrand}
         name='activeBrand'
         onChange={onChange}
         options={options}
         disabled={!options.length}
-        className='min-width-100'
+        className='min-width-100 max-width-200'
       />
     </Fragment>
   );
@@ -39,11 +44,7 @@ const BrandSelect = ({ brands, value: activeBrand, onChange }) => {
 BrandSelect.defaultProps = {
   brands: []
 };
-// const currentTab = 'products5'; // history.location.pathname
 
-// const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
-
-// console.log(Icons)
 const SideBar = ({
   history,
   user,
@@ -58,7 +59,11 @@ const SideBar = ({
   const onTabChange = (tab) => setActiveTab(tab);
 
   const Link = ({
-    to: page, className = '', children, icon, external
+    to: page,
+    className = '',
+    children,
+    icon,
+    external
   }) => {
     const Icon = Icons[icon] || null;
 
@@ -72,9 +77,7 @@ const SideBar = ({
         <PureLink
           to={{ history, page }}
           external={external}
-          // className={className}
           onTabChange={onTabChange}
-        // active={activeTab === page}
         >
           {children}
         </PureLink>

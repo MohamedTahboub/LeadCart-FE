@@ -6,18 +6,24 @@ import './style.css';
 const StarsRanking = ({
   color = '#fac917',
   max = 5,
+  name,
+  rank,
+  onChange,
   ...props
 }) => {
-  const [rank, setRank] = useState(props.rank);
-
-  useEffect(() => {
-    setRank(props.rank);
-  }, [props.rank]);
-
-  const onIncrement = () => {
-    if (rank < max) setRank(rank + 1);
-    else setRank(0);
+  const onUpdate = (rank) => {
+    onChange({
+      target: {
+        name,
+        value: rank
+      }
+    });
   };
+  const onIncrement = () => {
+    if (rank < max) onUpdate(rank + 1);
+    else onUpdate(0);
+  };
+
   return (
     <span className='stars-icons'>
       {

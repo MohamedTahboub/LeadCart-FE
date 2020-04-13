@@ -44,7 +44,7 @@ const Testimonials = ({
     const newList = content.list.map(updateMatched);
     onChange({
       target: {
-        name: 'list',
+        name: 'content.list',
         value: newList
       }
     });
@@ -54,18 +54,12 @@ const Testimonials = ({
     const newList = content.list.filter((f, id) => id !== +(i));
     onChange({
       target: {
-        name: 'list',
+        name: 'content.list',
         value: newList
       }
     });
   };
 
-  // const style = {
-  //   ...styles,
-  //   paddingTop: `${styles.paddingTop}px`,
-  //   paddingBottom: `${styles.paddingBottom}px`,
-  //   fontSize: `${styles.fontSize}px`
-  // };
 
   return (
     <FlexBox

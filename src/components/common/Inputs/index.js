@@ -503,4 +503,5 @@ export { default as EditableInputField } from './EditableInputField';
 export { default as EditableTextField } from './EditableTextField';
 export { default as InputGroup } from './InputGroup';
 export { default as ResizableInput } from './ResizableInput';
+export { default as ResizableTextarea } from './ResizableTextarea';
 

@@ -1,0 +1,31 @@
+.resizable-flexibleBox {
+    min-height: 20px;
+    /* border: 1px solid; */
+    position: relative;
+}
+
+.resizable-flexibleBox .expander {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background-color: #eee;
+    cursor: ns-resize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.expander-icon {
+    font-size: 30px;
+}
+
+.show-on-parent-hove .expander {
+    display: none;
+}
+
+.show-on-parent-hove:hover .expander {
+    display: flex;
+}

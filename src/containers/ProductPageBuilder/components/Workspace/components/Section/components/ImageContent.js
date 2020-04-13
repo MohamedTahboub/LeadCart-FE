@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import clx from 'classnames';
 import defaultDropImage from 'assets/images/image-drop-area.png';
 import common from 'components/common';
+import FlexibleBox from 'components/FlexibleBox';
 import { useContext } from '../../../../../actions';
 const { InputRow: { AddImage } } = common;
-
 
 const ImageContent = ({
   className,
   section = {},
+  onUpdateDragging,
   value: imageSrc = defaultDropImage
 }) => {
   const inputRef = useRef(null);
@@ -43,20 +44,44 @@ const ImageContent = ({
   };
 
   const onUpload = () => {
-    if (imageSrc === defaultDropImage) inputRef.current.click();
+    inputRef.current.click();
+  };
+
+
+  const onResizeStart = () => {
+    onUpdateDragging(true);
+  };
+  const onResizeStop = () => {
+    onUpdateDragging(false);
+  };
+
+
+  const onSizeChange = (size) => {
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name: 'styles.height',
+        value: size.height
+      }
+    });
   };
 
   return (
-    <div
+    <FlexibleBox
+      size={{
+        height: styles.height
+      }}
       className={classNames}
-      style={sectionStyle}
+      onResize={onSizeChange}
+      onResizeStart={onResizeStart}
+      onResizeStop={onResizeStop}
+      showOnParentHover
     >
       <img
         src={imageSrc}
-        style={imageStyles}
         alt='product asset'
         className='image-section'
-        onClick={onUpload}
+        onDoubleClick={onUpload}
         role='presentation'
       />
       <AddImage
@@ -67,7 +92,7 @@ const ImageContent = ({
         name='logo'
         onUploaded={onImageChange}
       />
-    </div>
+    </FlexibleBox>
   );
 };
 

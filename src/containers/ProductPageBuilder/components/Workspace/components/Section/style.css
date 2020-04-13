@@ -4,7 +4,7 @@
     border: 1.5px dashed transparent;
     position: relative;
     /* overflow: hidden; */
-    transform: translateY(0);
+    /* transform: translateY(0); */
 }
 .product-section:hover{
     border: 1.5px dashed lightgray;
@@ -61,7 +61,7 @@
 
 /* Image Section Styles */
 .image-section{
-    min-height: 100px;
+    height: inherit;
     width: 100%;
     object-fit: contain;
 }

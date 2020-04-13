@@ -59,7 +59,7 @@ export default {
       children: [],
     },
     styles: {
-      height: '20px',
+      height: 30,
       width: '100%',
       padding: '10px'
     },

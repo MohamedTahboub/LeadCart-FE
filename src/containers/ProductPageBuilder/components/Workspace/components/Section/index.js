@@ -1,11 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState  , useCallback } from 'react';
 import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import common from 'components/common';
 import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
 import * as dropTypes from '../dropTypes';
-
 import './style.css';
 import {
   SectionContent,
@@ -42,8 +41,8 @@ const Section = ({
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    canDrag: () => isDraggable
-  });
+    canDrag: isDraggable
+  } , [isDraggable]);
 
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
