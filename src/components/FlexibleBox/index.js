@@ -34,7 +34,10 @@ export default ({
     if (isFunction(onResize)) onResize(size);
   };
 
-  const getRect = () => expanderRef.current.getBoundingClientRect();
+  const getRect = () => {
+    const element = document.getElementById('resizable-box-element');
+    return element.getBoundingClientRect();
+  };
 
   const tracking = (e) => {
     const { y } = getRect();
@@ -54,6 +57,7 @@ export default ({
 
   return (
     <div
+      id='resizable-box-element'
       ref={expanderRef}
       style={{
         height: size.height,
