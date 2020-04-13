@@ -5,7 +5,6 @@ import clx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
 import * as dropTypes from '../dropTypes';
-
 import './style.css';
 import {
   SectionContent,
@@ -42,7 +41,7 @@ const Section = ({
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    canDrag: () => isDraggable
+    canDrag: false
   });
 
   const [{ isOver }, drop] = useDrop({
