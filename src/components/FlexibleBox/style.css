@@ -16,8 +16,11 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+    transition: height .3s ease-in-out;
 }
-
+.resizable-flexibleBox .expander:hover{
+    height: 22px;
+}
 .expander-icon {
     font-size: 30px;
 }

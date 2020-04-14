@@ -24,6 +24,7 @@ export {
   injectDefaultLabels,
   trimExtraText,
   includesIgnoreCase,
-  mapListToObject
+  mapListToObject,
+  throttle
 } from './specialFuncs';
 export { notification };
