@@ -58,15 +58,6 @@ const Features = ({
   return (
 
     <div className='features-list-container'>
-      <FlexBox flex>
-        <EditableField
-          className='features-list-title'
-          // name='pagePreferences.featuresTitle'
-          defaultValue='Features List'
-          onChange={onTitleChange}
-          value={title}
-        />
-      </FlexBox>
       {list.map(({ text }, id) => (
         <Feature
           key={id}
@@ -78,7 +69,6 @@ const Features = ({
           theme={styles.theme}
         />
       ))}
-
     </div>
   );
 };
