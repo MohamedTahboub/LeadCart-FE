@@ -7,35 +7,23 @@ import './style.css';
 
 const ClassicTestimonial = ({
   author = 'Click to edit Author name',
-  content = 'click to edit , Write the testimonial content,what the author want to say about your product',
+  value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   className,
   orderId: id,
-  onDelete,
+  onChange,
   ...props
 }) => {
-  const onChange = ({ target: { value, name } }) => {
-    props.onChange({
-      target: {
-        name: id,
-        value: {
-          author, content, image, [name]: value
-        }
-      }
-    });
-  };
-
-
   const onImageChange = ({ value, ...res }) => {
     props.onChange({
       target: {
-        name: id,
-        value: { author, content, image: value }
+        name: 'content.image',
+        value
       }
     });
   };
   return (
-    <div className={`testimonial-item ${className}`}>
+    <div className={`testimonial-item margin-h-10 ${className}`}>
       <Image
         className='testimonial-author-image'
         image={image}
@@ -44,7 +32,7 @@ const ClassicTestimonial = ({
       />
       <EditableField
         onChange={onChange}
-        name='author'
+        name='content.author'
         defaultValue='Author Name'
         value={author}
         className='testimonial-author light-input'
@@ -52,14 +40,11 @@ const ClassicTestimonial = ({
       <EditableField
         textarea
         onChange={onChange}
-        name='content'
+        name='content.value'
         defaultValue='testimonial content'
         value={content}
         className='testimonial-content-input'
       />
-      <span onClick={() => onDelete(id)} className='template-testimonial-delete'>
-        <i className='fas fa-trash-alt' />
-      </span>
     </div>
   );
 };

@@ -33,64 +33,51 @@ const Testimonials = ({
 
 
   const onChange = ({ target }) => {
+    console.log(target.name, target.value);
     actions.onSectionSettingChange({
       section,
       field: target
     });
   };
 
-  const onTestimonialChange = ({ target: { name, value } }) => {
-    const updateMatched = (t, id) => (id === name ? value : t);
-    const newList = content.list.map(updateMatched);
-    onChange({
-      target: {
-        name: 'content.list',
-        value: newList
-      }
-    });
-  };
-
-  const onDelete = (i) => {
-    const newList = content.list.filter((f, id) => id !== +(i));
-    onChange({
-      target: {
-        name: 'content.list',
-        value: newList
-      }
-    });
-  };
+  // const onDelete = (i) => {
+  //   const newList = content.list.filter((f, id) => id !== +(i));
+  //   onChange({
+  //     target: {
+  //       name: 'content.list',
+  //       value: newList
+  //     }
+  //   });
+  // };
 
 
   return (
-    <FlexBox
-      center='h-center'
-      // className='product-template-testimonials-container'
-      column
-      // style={style}
-    >
-      <h3>
-        <EditableField
-          name='content.title'
-          defaultValue='Testimonials'
-          onChange={onChange}
-          value={content.title}
-        />
-      </h3>
-      <FlexBox flex spaceAround wrappable={content.list && content.list.length > 2}>
-        {Array.isArray(content.list) && content.list.map((i, id) => (
-          <Testimonial
-            key={id}
-            orderId={id}
-            {...i}
-            // className={testimonialClassName}
-            onDelete={onDelete}
-            onChange={onTestimonialChange}
-            theme={styles.theme}
-          />
-        ))}
-      </FlexBox>
-    </FlexBox>
+    <Testimonial
+      {...content}
+      onChange={onChange}
+      theme={styles.theme}
+    />
   );
 };
 
+// <FlexBox
+// center='h-center'
+// // className='product-template-testimonials-container'
+// column
+// // style={style}
+// >
+// <FlexBox flex spaceAround wrappable={content.list && content.list.length > 2}>
+//   {Array.isArray(content.list) && content.list.map((i, id) => (
+//     <Testimonial
+//       key={id}
+//       orderId={id}
+//       {...i}
+//       // className={testimonialClassName}
+//       onDelete={onDelete}
+//       onChange={onTestimonialChange}
+//       theme={styles.theme}
+//     />
+//   ))}
+// </FlexBox>
+// </FlexBox>
 export default Testimonials;
