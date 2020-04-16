@@ -1,4 +1,5 @@
 
+import * as immutable from 'object-path-immutable';
 import defaultLanguage from 'data/defaultLanguage.json';
 
 export const filterSubscriptions = (orders = []) => orders.filter(({ payment }) => payment.paymentType === 'Subscription');
@@ -104,3 +105,24 @@ export const mapListToObject = (list = [], fieldKey) => list.reduce((map, item, 
   return map;
 }, {});
 
+
+export const throttle = (execute, initialWatchedValue, interval) => {
+  const previous = initialWatchedValue;
+  let instants = 0;
+
+
+  return {
+    on: (data) => {
+      if (previous !== data) {
+        instants += 1;
+        setTimeout(() => {
+          execute(data);
+        },
+        interval * instants);
+      }
+    }
+  };
+};
+
+
+export const nestedKeyValue = (obj, propertyPath) => immutable.get(obj, propertyPath, false);

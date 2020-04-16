@@ -40,12 +40,12 @@ const Spacer = ({
     });
   };
 
-  const onResizeStart = () => {
-    onUpdateDragging(true);
-  };
-  const onResizeStop = () => {
-    onUpdateDragging(false);
-  };
+  // const onResizeStart = () => {
+  //   onUpdateDragging(true);
+  // };
+  // const onResizeStop = () => {
+  //   onUpdateDragging(false);
+  // };
 
 
   const onSizeChange = (size) => {
@@ -59,9 +59,9 @@ const Spacer = ({
         height: styles.height
       }}
       onResize={onSizeChange}
-      onResizeStart={onResizeStart}
+      // onResizeStart={onResizeStart}
       showOnParentHover
-      onResizeStop={onResizeStop}
+      // onResizeStop={onResizeStop}
     />
   );
 };

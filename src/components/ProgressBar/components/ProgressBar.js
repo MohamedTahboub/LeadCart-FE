@@ -42,9 +42,6 @@ const ProgressBar = ({
       >
         <FlexBox center='v-center' style={{ color: colors.textColor }}>
           {children}
-          <span>
-            {`${value}%`}
-          </span>
         </FlexBox>
       </div>
     </div>

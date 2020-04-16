@@ -8,7 +8,8 @@ import { useContext } from '../../../../../../actions';
 
 const {
   FlexBox,
-  EditableField
+  ResizableTextarea,
+  ResizableInput
 } = common;
 const GuaranteeSection = ({
   className,
@@ -33,7 +34,8 @@ const GuaranteeSection = ({
   });
 
   const guaranteeTextClasses = clx({
-    'text-center': theme === 'center-theme',
+    'margin-h-20': true,
+    'text-center full-width': theme === 'center-theme',
   });
 
 
@@ -59,19 +61,20 @@ const GuaranteeSection = ({
         className='section-guarantee-image'
         alt='guarantee badge'
       />
-      <FlexBox column className={guaranteeTextClasses}>
-        <EditableField
+      <FlexBox flex column className={guaranteeTextClasses}>
+        <ResizableInput
           name='content.title'
           // defaultValue='Product Name'
           onChange={onChange}
           className='larger-text'
           value={title}
         />
-        <EditableField
+        <ResizableTextarea
           name='content.description'
           onChange={onChange}
           textarea
           value={description}
+          // style={{minWidth:'400px'}}
           className='large-text'
         />
 

@@ -2,7 +2,7 @@ import React from 'react';
 import common from 'components/common';
 import clx from 'classnames';
 
-const { EditableField } = common;
+const { ResizableTextarea } = common;
 
 const featureThemes = {
   orderedCircles: 'point-ordered-circles',
@@ -41,7 +41,7 @@ const Feature = ({
           {id + 1}
         </span>
       </span>
-      <EditableField
+      <ResizableTextarea
         className='feature-item-input'
         name={id}
         defaultValue='Feature description'

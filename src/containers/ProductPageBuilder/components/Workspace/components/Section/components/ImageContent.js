@@ -22,15 +22,15 @@ const ImageContent = ({
     [className]: className,
   });
 
-  const sectionStyle = {
-    paddingTop: `${styles.paddingTop}px`,
-    paddingBottom: `${styles.paddingBottom}px`,
-  };
+  // const sectionStyle = {
+  //   paddingTop: `${styles.paddingTop}px`,
+  //   paddingBottom: `${styles.paddingBottom}px`,
+  // };
 
-  const imageStyles = {
-    height: `${styles.height}px`,
-    width: `${styles.width}px`
-  };
+  // const imageStyles = {
+  //   height: `${styles.height}px`,
+  //   width: `${styles.width}px`
+  // };
 
   const onImageChange = (image) => {
     // if (props.onChange) return props.onChange(updatedSection);
