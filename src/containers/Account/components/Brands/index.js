@@ -83,8 +83,7 @@ const Brands = ({ list: brandsList, ...props }) => {
                 <Table.Cell mainContent={(
                   <Badge type='primary' className='uppercase-text relative-element'>
                     {packageType }
-                    {trial && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
-                    {typeof trial === 'undefined' && <Badge type='secondary' className='trial-badge'>Trail</Badge>}
+                    {trial && <Badge type='secondary' className='trial-badge'>Trial</Badge>}
                   </Badge>
                 )}
                 />

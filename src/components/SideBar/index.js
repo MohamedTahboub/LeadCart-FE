@@ -36,7 +36,7 @@ const BrandSelect = ({
         onChange={onChange}
         options={options}
         disabled={!options.length}
-        className='min-width-100 max-width-200'
+        className='min-width-100 max-width-150'
       />
     </Fragment>
   );
