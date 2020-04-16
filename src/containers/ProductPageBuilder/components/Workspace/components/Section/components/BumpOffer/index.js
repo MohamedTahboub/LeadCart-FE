@@ -2,9 +2,9 @@ import React from 'react';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import './style.css';
-
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 const { EditableField, FloatButton } = common;
-
 const BumpOffer = ({
   // onOptionSelected,
   section = {},
@@ -41,11 +41,21 @@ const BumpOffer = ({
 
     <section style={containerStyle} className='product-template-bump-offer'>
       <div style={headerStyle} className='template-bump-offer-title'>
-        <input
-          type='checkbox'
-          id='bump-offer-checkbox'
-          disabled
-        />
+        {styles.toggleInput
+          ? (
+            <Toggle
+              className='margin-right-10'
+              checked={content.checked}
+            />
+
+          ) : (
+            <input
+              type='checkbox'
+              id='bump-offer-checkbox'
+              checked={content.checked}
+              disabled
+            />
+          )}
         <label id='bump-offer-checkbox-label' htmlFor='bump-offer-checkbox'>
           <EditableField
             name='content.title'

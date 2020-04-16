@@ -14,14 +14,12 @@ import {
   GuaranteeSection,
   CountDownTimer,
   ProgressBar,
-  ProductMarkWidget,
   HeadingText,
   Button,
   Spacer
 } from '.';
 
 const SectionContent = ({ type, ...props }) => {
-  console.log('SectionContent', type);
   switch (type) {
   case 'heading': return <HeadingText {...props} />;
   case 'text': return <TextContent {...props} />;
@@ -38,7 +36,6 @@ const SectionContent = ({ type, ...props }) => {
   case 'guaranteeWidget': return <GuaranteeSection {...props} />;
   case 'countDownWidget': return <CountDownTimer {...props} />;
   case 'progressbarWidget': return <ProgressBar {...props} />;
-  case 'productMarkWidget': return <ProductMarkWidget {...props} />;
   default: return null;
   }
 };

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import common from 'components/common';
 // import { connect } from 'react-redux';
+import { nestedKeyValue } from 'libs';
 import { useContext } from '../../../actions';
 
 import {
@@ -13,7 +14,7 @@ const {
   Collapse,
   MiniTwitterPicker,
 
-  FulfillmentRowCard,
+  // FulfillmentRowCard,
   Currency,
   Tabs,
   Tab,
@@ -107,7 +108,14 @@ const BumpOffer = ({
       }
     });
   };
-
+  const onToggleChange = ({ target: { name } }) => {
+    onChange({
+      target: {
+        name,
+        value: !nestedKeyValue(sectionSetting, name)
+      }
+    });
+  };
   return (
     <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='themes' title='Themes'>
@@ -149,9 +157,35 @@ const BumpOffer = ({
             currency='$'
           />
         </InputRow>
+        <InputRow className='sidebar-row'>
+          <Label className='sidebar-input-label'>
+            Force opt-out:
+          </Label>
+          <SwitchInput
+            value={content.checked}
+            name='content.checked'
+            onToggle={onToggleChange}
+            className='sidebar-switch-input'
+          />
+        </InputRow>
       </Tab>
 
       <Tab id='advance' title='Advance'>
+        <SettingBox
+          title='Options'
+        >
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Toggle Style:
+            </Label>
+            <SwitchInput
+              value={styles.toggleInput}
+              name='styles.toggleInput'
+              onToggle={onToggleChange}
+              className='sidebar-switch-input'
+            />
+          </InputRow>
+        </SettingBox>
         <SettingBox
           title='Colors'
         >

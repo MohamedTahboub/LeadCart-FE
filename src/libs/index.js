@@ -25,6 +25,7 @@ export {
   trimExtraText,
   includesIgnoreCase,
   mapListToObject,
-  throttle
+  throttle,
+  nestedKeyValue
 } from './specialFuncs';
 export { notification };
