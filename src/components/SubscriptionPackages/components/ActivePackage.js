@@ -11,6 +11,7 @@ const {
   Box,
 } = common;
 
+const getExpirationDate = (date) => (moment(date).isAfter() ? moment(date).fromNow() : 'Expired');
 
 const ActivePackage = ({
   type: packageType,
@@ -37,7 +38,7 @@ const ActivePackage = ({
               <span className='trial-package-expiration'>
                   Ends :
                 {' '}
-                {moment(trialEndDate).fromNow()}
+                {getExpirationDate(trialEndDate)}
               </span>
             </Fragment>
           )}
@@ -70,11 +71,17 @@ const ActivePackage = ({
 
 ActivePackage.propTypes = {
   type: PropTypes.string.isRequired,
-  trail: PropTypes.objectOf({}).isRequired,
+  period: PropTypes.string,
+  isLoadingClass: PropTypes.string,
+  userSource: PropTypes.string,
+  trial: PropTypes.objectOf(PropTypes.object).isRequired,
   lastTransaction: PropTypes.objectOf({})
 };
 ActivePackage.defaultProps = {
-  lastTransaction: {}
+  lastTransaction: {},
+  period: 'Monthly',
+  isLoadingClass: '',
+  userSource: ''
 };
 
 export default ActivePackage;

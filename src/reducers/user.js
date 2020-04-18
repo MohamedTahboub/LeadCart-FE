@@ -51,6 +51,7 @@ export default (state = initialState, { type, payload }) => {
     ...state,
     user: {
       packageType: packageType(payload.level),
+      transactions: [],
       ...payload
     },
     isLoggedIn: true
