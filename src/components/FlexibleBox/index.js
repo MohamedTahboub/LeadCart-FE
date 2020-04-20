@@ -22,6 +22,7 @@ export default ({
   const throttledUpdates = throttle((height) => {
     onResize({ height });
   }, size.height, 1000 / 60);
+
   const startResizing = (e) => {
     setResizing(true);
     if (isFunction(onResizeStart)) onResizeStart(e);
@@ -51,8 +52,9 @@ export default ({
   };
 
   useEffect(() => {
-    if (isFunction(onResize)) throttledUpdates.on(size.height);
-  }, [size]);
+    const { height } = size;
+    if (isFunction(onResize)) throttledUpdates.on(height);
+  }, [size.height]);
 
   const classNames = clx({
     [className]: className,

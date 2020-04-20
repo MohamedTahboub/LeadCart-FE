@@ -30,11 +30,14 @@ const CountDownFrame = ({
 const counterInitialState = {
   days: 0,
   minutes: 0,
-  minutes: 0,
+  hours: 0,
   seconds: 0
 };
 const CountDownTimer = ({
-  titlesStyle, options, styles = {}, ...props
+  titlesStyle,
+  options,
+  styles = {},
+  ...props
 }) => {
   const { valueType, styleType, ...value } = options;
   const [state, setState] = useState(counterInitialState);

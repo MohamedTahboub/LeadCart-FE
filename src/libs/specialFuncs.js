@@ -107,7 +107,7 @@ export const mapListToObject = (list = [], fieldKey) => list.reduce((map, item, 
 
 
 export const throttle = (execute, initialWatchedValue, interval) => {
-  const previous = initialWatchedValue;
+  let previous = 0;
   let instants = 0;
 
 
@@ -115,6 +115,7 @@ export const throttle = (execute, initialWatchedValue, interval) => {
     on: (data) => {
       if (previous !== data) {
         instants += 1;
+        previous = data;
         setTimeout(() => {
           execute(data);
         },

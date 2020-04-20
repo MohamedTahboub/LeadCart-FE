@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 
 import Text from './Text';
-import Image from './Image';
+// import Image from './Image';
 import Video from './Video';
 import Button from './Button';
 import BumpOffer from './BumpOffer';
@@ -20,7 +20,7 @@ import StaticSection from './StaticSection';
 export default ({ type, ...props }) => {
   switch (type) {
   case 'text': return <Text {...props} />;
-  case 'image': return <Image {...props} />;
+  // case 'image': return <Image {...props} />;
   case 'video': return <Video {...props} />;
   case 'button': return <Button {...props} />;
   case 'bumpOffer': return <BumpOffer {...props} />;
