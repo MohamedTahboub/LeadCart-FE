@@ -9,6 +9,8 @@ import defaultLanguage from 'data/defaultLanguage.json';
 import update from 'immutability-helper';
 // import ids from 'shortid';
 import sectionsTemplates from 'data/productSectionsTemplates';
+import ids from 'shortid';
+import shortid from 'shortid';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 // import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
@@ -129,7 +131,10 @@ const Workspace = ({
     const newSections = update(sections, {
       $splice: [
         [index, 0],
-        [(index + 1), 0, copySection],
+        [(index + 1), 0, {
+          ...copySection,
+          id: ids.generate()
+        }],
       ],
     });
     actions.onProductFieldChange({

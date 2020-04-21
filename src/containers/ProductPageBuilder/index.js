@@ -64,11 +64,8 @@ const ProductBuilder = ({
       }
     }
     const isFunnelExist = funnelsMap[funnelId];
-    if (isFunnelExist && productId === 'new') {
-      console.log('creating new Funnel Product', funnelId);
+    if (isFunnelExist && productId === 'new') return setLoading(false);
 
-      return setLoading(false);
-    }
 
     // return props.createNewProduct({
     // funnelId,
@@ -94,10 +91,14 @@ const ProductBuilder = ({
   const onSaveProduct = async () => {
     const { product: productData } = state;
     setSaving(true);
-    const { isValid, errors, value: product } = await ProductSchema(productData);
+    const {
+      isValid,
+      // errors,
+      value: product
+    } = await ProductSchema(productData);
 
     if (!isValid) {
-      console.log('Product errors', errors);
+      // console.log('Product errors', errors);
       return notification.failed('Can\'t save, Validation Error');
     }
 

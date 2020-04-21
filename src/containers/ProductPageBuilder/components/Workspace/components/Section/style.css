@@ -58,6 +58,17 @@
 
 
 
+.drop-before-line{
+    opacity: 0;
+    background: #4DA1FF;
+    border-radius: 5px;
+    transition: all .3 ease-in-out;
+}
+.drop-before-line.show{
+    opacity: 1;
+    height: 10px;
+    margin: 15px 0;
+}
 
 /* Image Section Styles */
 .image-section{
