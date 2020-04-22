@@ -12,7 +12,9 @@ const DropBeforeLine = ({
     show
   });
   return (
-    <div className={classes} />
+    <div className={classes}>
+      Drop Here
+    </div>
   );
 };
 
