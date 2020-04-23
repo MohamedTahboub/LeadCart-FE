@@ -61,7 +61,7 @@ const BumpOffer = ({
             name='content.title'
             // color={headerStyle.color}
             value={content.title}
-            defaultValue='Offer Title Goes Here'
+            // defaultValue='Offer Title Goes Here'
             onChange={onChange}
             className='template-bump-offer-title-input'
           />
@@ -70,7 +70,7 @@ const BumpOffer = ({
       <div style={{ color: containerStyle.color }} className='template-bump-offer-description'>
         <EditableField
           name='content.introText'
-          defaultValue='Offer intro statement'
+          // defaultValue='Offer intro statement'
           value={content.introText}
           onChange={onChange}
           className='template-bump-offer-description-title'
@@ -78,7 +78,7 @@ const BumpOffer = ({
         />
         <EditableField
           name='content.bodyText'
-          defaultValue='Offer Description goes here,lorem'
+          // defaultValue='Offer Description goes here,lorem'
           value={content.bodyText}
           onChange={onChange}
           textarea

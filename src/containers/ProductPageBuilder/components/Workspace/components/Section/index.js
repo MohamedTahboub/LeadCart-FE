@@ -1,5 +1,10 @@
-import React, { useRef, useEffect, useState  , useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, {
+  // useRef,
+  // useEffect,
+  useState,
+  Fragment
+} from 'react';
+// import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import common from 'components/common';
 import { useDrag, useDrop } from 'react-dnd';
@@ -8,7 +13,8 @@ import * as dropTypes from '../dropTypes';
 import './style.css';
 import {
   SectionContent,
-  SettingsHandles
+  SettingsHandles,
+  DropBeforeLine
 } from './components';
 
 const Section = ({
@@ -42,7 +48,7 @@ const Section = ({
       isDragging: monitor.isDragging()
     }),
     canDrag: isDraggable
-  } , [isDraggable]);
+  }, [isDraggable]);
 
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
@@ -74,6 +80,7 @@ const Section = ({
     'product-section': true,
     'isDragging': isDragging,
     'active': activeSection.id === id,
+    'new-dorp-space-line': isOver,
     [className]: className,
     [content.position]: content.position
   });
@@ -87,30 +94,33 @@ const Section = ({
   };
   return (
     <div
-      id={id}
-      className={classes}
-      style={{
-        ...style,
-        opacity: (isDragging || isOver) ? 0.3 : 1
-      }}
       ref={(node) => drop(drag(node))}
     >
-      <SettingsHandles
-      // onOrderChange={onSectionOrderChange}
-        onSettings={onSetting}
-        onDuplicate={onDuplicate}
-        section={section}
-        order={order}
+      <DropBeforeLine show={isOver} />
+
+      <div
         id={id}
-        maxOrder={maxOrder}
-      />
-      <SectionContent
-        onUpdateDragging={onUpdateDragging}
-        type={type}
-        section={section}
-        language={props.language}
-        {...content}
-      />
+        className={classes}
+        style={style}
+      >
+        <SettingsHandles
+          // onOrderChange={onSectionOrderChange}
+          onSettings={onSetting}
+          onDuplicate={onDuplicate}
+          section={section}
+          order={order}
+          id={id}
+          maxOrder={maxOrder}
+        />
+        <SectionContent
+          onUpdateDragging={onUpdateDragging}
+          type={type}
+          section={section}
+          language={props.language}
+          {...content}
+        />
+
+      </div>
     </div>
   );
 };

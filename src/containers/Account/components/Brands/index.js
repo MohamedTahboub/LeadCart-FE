@@ -20,14 +20,12 @@ const {
   //   FlexBoxesContainer
 } = common;
 
-const Brands = ({ list: brandsList, ...props }) => {
+const Brands = ({
+  list: brandsList,
+  ...props
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const onCreate = (brand, cb) => {
-    // console.log('Create New');
-
-    //     name
-    // packageType
-    // subDomain
     const actions = {
       onSuccess: () => {
         notification.success(`${brand.name} Brand Created`);
@@ -39,7 +37,6 @@ const Brands = ({ list: brandsList, ...props }) => {
       }
     };
     props.createBrand(brand, actions);
-    // setOpenModal(true);
   };
 
   const onDelete = (brandId) => () => {
@@ -74,7 +71,8 @@ const Brands = ({ list: brandsList, ...props }) => {
               subDomain,
               activePackage: {
                 type: packageType = 'Basic'
-              } = {}
+              } = {},
+              ...rest
             } = brand;
 
             return (
@@ -82,7 +80,7 @@ const Brands = ({ list: brandsList, ...props }) => {
                 <Table.Cell mainContent={name} />
                 <Table.Cell mainContent={(
                   <Badge type='primary' className='uppercase-text relative-element'>
-                    {packageType }
+                    {packageType}
                     {trial && <Badge type='secondary' className='trial-badge'>Trial</Badge>}
                   </Badge>
                 )}

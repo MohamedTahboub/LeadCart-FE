@@ -36,6 +36,7 @@ export const onSectionSetting = ({ state = {}, dispatch }) => (section) => {
   });
 };
 export const onSectionDelete = ({ state = {}, dispatch }) => (sectionId) => {
+  console.log('sectionId', sectionId);
   dispatch({
     type: types.DELETE_PRODUCT_SECTION,
     payload: sectionId

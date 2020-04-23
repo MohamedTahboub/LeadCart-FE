@@ -28,7 +28,7 @@ const Account = ({
     </PageHeader>
     <PageContent>
       <FlexBox column>
-        <FlexBox wrappable flexStart spaceBetween>
+        <FlexBox wrappable flexStart>
           <AccountDetails onUpdate={onChangeAccountDetails} user={user} />
           <PasswordBox onUpdate={onChangeAccountPassword} />
         </FlexBox>

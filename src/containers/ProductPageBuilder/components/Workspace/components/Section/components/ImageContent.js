@@ -33,7 +33,6 @@ const ImageContent = ({
   // };
 
   const onImageChange = (image) => {
-    // if (props.onChange) return props.onChange(updatedSection);
     actions.onSectionSettingChange({
       section,
       field: {
@@ -57,6 +56,7 @@ const ImageContent = ({
 
 
   const onSizeChange = (size) => {
+    console.log(size);
     actions.onSectionSettingChange({
       section,
       field: {
@@ -80,6 +80,8 @@ const ImageContent = ({
       <img
         src={imageSrc}
         alt='product asset'
+        data-tip='Double Click to Upload'
+        data-delay-show={1000}
         className='image-section'
         onDoubleClick={onUpload}
         role='presentation'
