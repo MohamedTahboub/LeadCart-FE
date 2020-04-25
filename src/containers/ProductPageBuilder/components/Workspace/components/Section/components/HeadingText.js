@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import QuillEditor from 'components/QuillEditor';
 import { useContext } from '../../../../../actions';
 // value={pagePreferences.description}
@@ -39,13 +38,12 @@ const HeadingText = ({
         value={value}
         onEdit={onChange}
         headingMode
+        bounds='#product-builder-window'
       />
     </div>
   );
 };
 
-HeadingText.propTypes = {
-
-};
+HeadingText.propTypes = {};
 
 export default HeadingText;
