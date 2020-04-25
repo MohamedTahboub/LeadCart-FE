@@ -38,13 +38,12 @@ const TextContent = ({
       <QuillEditor
         value={value}
         onEdit={onChange}
+        bounds='#product-builder-window'
       />
     </div>
   );
 };
 
-TextContent.propTypes = {
-
-};
+TextContent.propTypes = {};
 
 export default TextContent;

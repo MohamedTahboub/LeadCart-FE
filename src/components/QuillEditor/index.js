@@ -30,7 +30,6 @@ const Editor = ({
       onBlur={onBlur}
       value={htmlValue}
       {...editorProps}
-      // bounds='#product-builder-window'
     />
   );
 };

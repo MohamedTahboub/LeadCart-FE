@@ -38,6 +38,7 @@ const HeadingText = ({
         value={value}
         onEdit={onChange}
         headingMode
+        bounds='#product-builder-window'
       />
     </div>
   );
