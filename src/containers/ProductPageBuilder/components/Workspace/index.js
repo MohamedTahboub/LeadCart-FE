@@ -73,7 +73,6 @@ const Workspace = ({
     'relative-element': true,
     [className]: className,
     [displayMode]: displayMode,
-
   });
 
   const activeLanguage = getLanguageLabel(translations);
@@ -186,7 +185,7 @@ const Workspace = ({
       className='product-workspace-container'
       style={screenStyles}
     >
-      <FlexBox column className={workspaceClasses} style={productStyles}>
+      <FlexBox id='product-builder-window' column className={workspaceClasses} style={productStyles}>
         <SettingsHandle onClick={onProductSettings} />
         <DropZone onDrop={onSectionDropped}>
           {!sections.length && (

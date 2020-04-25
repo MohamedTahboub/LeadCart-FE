@@ -1,18 +1,13 @@
 import React from 'react';
-// import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import ReactQuill from 'react-quill';
-// import ImageUploader from 'quill-image-uploader';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
 import './style.css';
-// import { ImageResize } from 'quill-image-resize-module';
-// import * as filesActions from 'actions/files';
 import {
   formats,
-  modules,
   headingFormats,
-  headingModules
+  headingModules,
+  modules
 } from './config';
 
 const Editor = ({
@@ -35,8 +30,7 @@ const Editor = ({
       onBlur={onBlur}
       value={htmlValue}
       {...editorProps}
-    // bounds='.app'
-    //   placeholder={props.placeholder}
+      // bounds='#product-builder-window'
     />
   );
 };
