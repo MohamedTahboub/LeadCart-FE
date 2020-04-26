@@ -15,7 +15,8 @@ const Editor = ({
   theme = 'bubble',
   headingMode,
   onEdit,
-  onBlur
+  onBlur,
+  bounds
   // uploadFile
 }) => {
   const editorProps = {
@@ -29,6 +30,7 @@ const Editor = ({
       onChange={onEdit}
       onBlur={onBlur}
       value={htmlValue}
+      bounds={bounds}
       {...editorProps}
     />
   );
