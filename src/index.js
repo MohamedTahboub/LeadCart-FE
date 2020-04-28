@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import ReactNotification from 'react-notifications-component';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from 'store';
@@ -55,6 +55,7 @@ import Account from './containers/Account';
 
 // Styles
 import './index.css';
+import 'antd/dist/antd.css';
 // import 'semantic-ui-css/semantic.min.css';
 import 'react-notifications-component/dist/theme.css';
 import { APP_INIT } from 'constantsTypes';

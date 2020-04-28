@@ -1,10 +1,13 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { HeaderLogo } from 'components/common/logos';
-import { Menu, Link as PureLink } from 'components/common/MainMenu';
+import { Link as PureLink } from 'components/common/MainMenu';
+import BrandsMenu from 'components/BrandsMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
+import { FillerButton } from 'components/Buttons';
 import { connect } from 'react-redux';
 import common from 'components/common';
 import * as brandsAction from 'actions/brands';
+import classNames from 'classnames';
 
 
 import * as logout from 'actions/logout';
@@ -12,11 +15,17 @@ import * as modalsActions from 'actions/modals';
 import './style.css';
 import { appInit } from 'actions/appInit';
 import { notification } from 'libs';
+import { Button, Menu } from 'antd';
+import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+
 import CreateProductModal from '../CreateProductModal';
 
+import { accountSettingsMenus, main as sidebarMenus } from './menus';
 import Icons from './icons';
 
-const { Button, InputRow, FlexBox } = common;
+const { SubMenu } = Menu;
+
+const { InputRow, FlexBox } = common;
 const { SelectOption } = InputRow;
 
 const BrandSelect = ({
@@ -41,9 +50,7 @@ const BrandSelect = ({
     </Fragment>
   );
 };
-BrandSelect.defaultProps = {
-  brands: []
-};
+BrandSelect.defaultProps = { brands: [] };
 
 const SideBar = ({
   history,
@@ -55,8 +62,11 @@ const SideBar = ({
   ...props
 }) => {
   const [activeTab, setActiveTab] = useState(history.location.pathname);
+  const [isBrandsOpen, setBrandsOpen] = useState(false);
 
   const onTabChange = (tab) => setActiveTab(tab);
+  const menus = sidebarMenus({ brands });
+  console.log({ brands });
 
   const Link = ({
     to: page,
@@ -85,7 +95,7 @@ const SideBar = ({
     );
   };
 
-  const onActiveBrandChange = ({ target: { value: activeBrand } }) => {
+  const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
         appInit({}, {
@@ -103,42 +113,58 @@ const SideBar = ({
       }
     });
   };
+
+  const onMenuOpen = () => setBrandsOpen(!isBrandsOpen);
+
+  const mapMenuItems = (menuItems) => {
+    return menuItems.map((menu) => {
+      if (menu.sub) {
+        const { sub, ...rest } = menu;
+        return (
+          <SubMenu key={rest.key} {...rest}>
+            {mapMenuItems(sub)}
+          </SubMenu>
+        );
+      } else if (menu.divider) {
+        return <Menu.Divider key={Math.random()} />;
+      } else {
+        const { title, ...rest } = menu;
+        return (
+          <Menu.Item key={rest.key} {...rest}>{title}</Menu.Item>
+        );
+      }
+    });
+  };
+
+  const onNavigate = (menuItem) => {
+    console.log({ menuItem });
+    history.push(menuItem.item.props.link);
+  };
+  console.log({ maps: mapMenuItems(menus) });
   return (
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
-      <BrandSelect
-        onChange={onActiveBrandChange}
-        value={user.activeBrand}
-        brands={brands}
-      />
-      <Menu>
-        <Link icon='dashboard' to='/'>Dashboard</Link>
-        <Link icon='products' to='/products'>Products</Link>
-        <Link icon='funnels' to='/funnels'>Funnels</Link>
-        <Link icon='integrations' to='/integrations'>Integrations</Link>
-        <Link icon='coupons' to='/coupons'>Coupons</Link>
-        <Link icon='transactions' to='/transactions'>Transactions</Link>
-        <Link icon='customers' to='/customers'>Customers</Link>
-        <Link icon='affiliates' to='/affiliates' className='locked-feature'>Affiliates</Link>
-        {user.packageType === 'Agency' && (
-          <Link
-            icon='subAccounts'
-            to='/sub-accounts'
-          >
-            Sub-Accounts
-          </Link>
-        )}
-        <Link icon='settings' to='/settings/brand'>Brand Settings</Link>
-        <Link icon='settings' to='/settings/account'>Account</Link>
-        <Link icon='help' to='https://help.leadcart.io' external>Help</Link>
+      <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} onMenuOpen={onMenuOpen} />
+      <Menu
+        className='side-bar-navigation'
+        mode='inline'
+        selectedKeys={[user.activeBrand]}
+        defaultOpenKeys={menus.map(({ key }) => key)}
+        onClick={onNavigate}
+      >
+        {mapMenuItems(menus)}
       </Menu>
-
-      <Button onClick={logout} className='logout-btn'>
-        <i className='fas fa-sign-out-alt' />
-        {' '}
-        logout
-      </Button>
+      <div className='tail-actions'>
+        <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate}>
+          {mapMenuItems(accountSettingsMenus())}
+        </Menu>
+        <FillerButton onClick={logout} className='logout-btn' type='primary'>
+          <i className='fas fa-sign-out-alt' />
+          {' '}
+          logout
+        </FillerButton>
+      </div>
       <CreateProductModal history={history} />
     </div>
   );

@@ -1,7 +1,6 @@
 
 import React from 'react';
 import Select from 'antd/lib/select';
-import 'antd/dist/antd.css';
 import ids from 'shortid';
 
 const { Option } = Select;

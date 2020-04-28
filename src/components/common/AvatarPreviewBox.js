@@ -20,14 +20,6 @@ const UserAvatarPreview = ({
   return (
     <div className='profile-preview'>
       <div className='avatar-holder'>
-        <Avatar
-          image={profileImage}
-          name='user_profile_image'
-          onChange={onAvatarImageChange}
-        />
-        <span onClick={onSettingClick} className='setting-short'>
-          <i className='fas fa-cog' />
-        </span>
         <span className='user-name'>{userName}</span>
       </div>
     </div>
@@ -35,7 +27,5 @@ const UserAvatarPreview = ({
 };
 
 
-const mapStateToProps = ({ user: { user } }) => ({
-  user
-});
+const mapStateToProps = ({ user: { user } }) => ({ user });
 export default connect(mapStateToProps, { ...accountActions })(UserAvatarPreview);
