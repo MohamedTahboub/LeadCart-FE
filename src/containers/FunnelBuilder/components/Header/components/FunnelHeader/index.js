@@ -1,7 +1,7 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import config from 'config';
 import ShareProductModal from 'components/ShareProductModal';
-import { IoIosArrowRoundBack, IoIosAdd } from 'react-icons/io';
+import { IoIosAdd, IoIosArrowRoundBack } from 'react-icons/io';
 
 import common from 'components/common';
 import { DefaultHeader } from '..';
@@ -25,7 +25,6 @@ const CheckoutHeader = ({
   activePage,
   onPageChange,
   onToggleRuleModal,
-  // activePage,
   onSave,
   history,
   ...props
@@ -37,12 +36,10 @@ const CheckoutHeader = ({
 
     const domain = getValidDomain(domains);
 
-    // console.log(domains, domain)
     let url;
     if (domain && domain.domain) url = `https://${domain.domain}/${funnelUrl}`;
     else url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
 
-    // const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
     window.open(url, '_blank');
   };
 
@@ -135,9 +132,7 @@ const CheckoutHeader = ({
   );
 };
 
-CheckoutHeader.propTypes = {
-
-};
+CheckoutHeader.propTypes = {};
 
 export default CheckoutHeader;
 

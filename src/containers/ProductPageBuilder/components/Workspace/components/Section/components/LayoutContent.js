@@ -62,7 +62,7 @@ const NestedSection = ({
     //   if (item.type === 'card' && !item.id) {
 
     //   }
-    // console.log('draggedId', id, draggedId);
+    
     // if (draggedId !== id) {
     //   const { index: overIndex } = findCard(id);
     //   moveCard(draggedId, overIndex);

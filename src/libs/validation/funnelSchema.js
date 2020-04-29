@@ -46,11 +46,9 @@ export default async (funnel) => {
       value: casted
     };
   } catch (err) {
-    console.log(err);
     return {
       isValid: false,
       errors: castYupErrors(err)
     };
   }
 };
-

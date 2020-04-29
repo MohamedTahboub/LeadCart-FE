@@ -13,10 +13,10 @@ import tempImage6 from 'assets/images/checkout_templates/temp_6.png';
 
 import './style.css';
 import {
-  MenuItem,
-  MenuTitle,
   MenuContent,
-  MenuFlexContent
+  MenuFlexContent,
+  MenuItem,
+  MenuTitle
 } from '../MenuElements';
 
 const { Collapse, TwitterPicker } = common;
@@ -57,7 +57,7 @@ const TemplateThumbnail = ({
 const Appearance = ({
   product: {
     pagePreferences: {
-      template,
+      template
       // themeColor = '#4da1ff',
       // backgroundColor = '#eee',
       // description,
@@ -75,7 +75,6 @@ const Appearance = ({
     });
   };
   // const updateSideEffectTemplates = (current, next, cb) => {
-  //   console.log(current, next);
   //   if (
   //     (current !== next)
   //     && current === 'temp6'
@@ -160,11 +159,9 @@ const Appearance = ({
 Appearance.propTypes = {
   product: PropTypes.objectOf({}),
   onChange: PropTypes.func.isRequired,
-  toggleTemplateChangeEffect: PropTypes.func.isRequired,
+  toggleTemplateChangeEffect: PropTypes.func.isRequired
 };
 
-Appearance.defaultProps = {
-  product: {}
-};
+Appearance.defaultProps = { product: {} };
 
 export default Appearance;

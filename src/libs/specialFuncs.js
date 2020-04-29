@@ -77,7 +77,7 @@ export const injectDefaultLabels = (languages) => {
     };
   };
   const labeledLanguages = languages.map(injectLabelForLanguage);
-  // console.log(labeledLanguages);
+  
   return labeledLanguages;
 };
 

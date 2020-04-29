@@ -1,19 +1,19 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
-import { notification, includesIgnoreCase } from 'libs';
+import { includesIgnoreCase, notification } from 'libs';
 import servicesList from 'data/integrationsServices';
 import queryString from 'querystring';
 
 import {
-  LayoutSwitch,
+  ConnectModal,
+  ConnectingModal,
   IntegrationsGrid,
   IntegrationsTable,
   LayoutOptions,
-  ConnectModal,
-  ConnectingModal
+  LayoutSwitch
 } from './components';
 
 
@@ -93,7 +93,6 @@ const Integrations = ({ integrations, history, ...props }) => {
   };
 
   const onChangeConnectFilter = ({ target: { value } }) => {
-    // console.log(name, value);
 
     setShowConnected(value);
   };
@@ -123,7 +122,7 @@ const Integrations = ({ integrations, history, ...props }) => {
   const onConfirmDisconnect = (service) => {
     props.disconnectIntegrationService({
       integrationId: activeService._id,
-      remove: true,
+      remove: true
     }, {
       onSuccess: () => {
         notification.success(`You have Connected ${activeService.name} Successfully`);
@@ -223,12 +222,8 @@ const Integrations = ({ integrations, history, ...props }) => {
   );
 };
 
-Integrations.propTypes = {
-
-};
-Integrations.defaultProps = {
-  integrations: []
-};
+Integrations.propTypes = {};
+Integrations.defaultProps = { integrations: [] };
 const mapStateToProps = ({ integrations = [] }) => {
   const integrationsServices = servicesList.map((service) => {
     const integrationExist = integrations.find((integration) => integration && (

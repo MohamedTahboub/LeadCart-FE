@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as accountActions from 'actions/account';
-import Avatar from 'components/common/Avatar';
+import { Anchor } from 'antd';
+import { Modal } from 'components/Modals';
+import Onboarding from 'components/Onboarding';
+
+const { Link } = Anchor;
 
 const UserAvatarPreview = ({
   user: {
@@ -12,16 +16,26 @@ const UserAvatarPreview = ({
   updateUserProfileImage,
   onSettingClick
 }) => {
+  const [isOnboardingModalOpen, setOnboardingModalOpen] = useState(false);
+  const toggleOnboardingModalOpen = () => setOnboardingModalOpen(!isOnboardingModalOpen);
+
   const userName = `${firstName} ${lastName && lastName[0]}.`;
 
   const onAvatarImageChange = ({ image }) => {
     updateUserProfileImage(image);
   };
+
   return (
-    <div className='profile-preview'>
+    <div className='center-content profile-preview d-col'>
+      <div>
+        <span className='ant-anchor-link-title' onClick={toggleOnboardingModalOpen}>Onboarding</span>
+      </div>
       <div className='avatar-holder'>
         <span className='user-name'>{userName}</span>
       </div>
+      <Modal isVisible={isOnboardingModalOpen} onClose={toggleOnboardingModalOpen}>
+        <Onboarding />
+      </Modal>
     </div>
   );
 };

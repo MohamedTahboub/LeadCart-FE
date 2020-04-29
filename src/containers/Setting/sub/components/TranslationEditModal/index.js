@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'components/Modals';
 import defaultLanguage from 'data/defaultLanguage.json';
@@ -117,7 +117,6 @@ const TranslationEditModal = ({
 
   const onSave = async () => {
     const { isValid, errors, value } = await languagesSchema(language);
-    console.log(isValid, errors, value);
     if (!isValid) return; // setErrors(errors)
 
 
@@ -136,19 +135,17 @@ const TranslationEditModal = ({
     }
 
     setLoading(true);
-    action(
-      payload, {
-        onSuccess: () => {
-          setLoading(false);
-          onClose();
-        },
-        onFailed: (error) => {
-          setLoading(false);
-          const message = friendlyMessage(error);
-          setError(message);
-        }
+    action(payload, {
+      onSuccess: () => {
+        setLoading(false);
+        onClose();
+      },
+      onFailed: (error) => {
+        setLoading(false);
+        const message = friendlyMessage(error);
+        setError(message);
       }
-    );
+    });
   };
 
   useEffect(() => {
@@ -162,7 +159,7 @@ const TranslationEditModal = ({
     wordKey,
     value
   }) => {
-    // console.log(contextKey, wordKey, value);
+
     const newContexts = [...language.contexts];
 
     const updatedContexts = newContexts.map((context) => {
@@ -290,7 +287,5 @@ TranslationEditModal.propTypes = {
   isNew: PropTypes.bool.isRequired,
   language: PropTypes.objectOf(PropTypes.object)
 };
-TranslationEditModal.defaultProps = {
-  language: defaultLanguage
-};
+TranslationEditModal.defaultProps = { language: defaultLanguage };
 export default connect(null, translationsActions)(TranslationEditModal);

@@ -11,6 +11,8 @@ import { ReactComponent as Affiliates } from 'assets/images/icons/affiliates.svg
 import { ReactComponent as SubAccounts } from 'assets/images/icons/subAccounts.svg';
 import { ReactComponent as Settings } from 'assets/images/icons/settings.svg';
 import { ReactComponent as Help } from 'assets/images/icons/help.svg';
+import { ReactComponent as Analytics } from 'assets/images/icons/comparative.svg';
+import { ReactComponent as Sales } from 'assets/images/icons/commerce-and-shopping.svg';
 
 
 export default {
@@ -25,6 +27,7 @@ export default {
   affiliates: Affiliates,
   subAccounts: SubAccounts,
   settings: Settings,
-  help: Help
+  help: Help,
+  analytics: Analytics,
+  sales: Sales
 };
-

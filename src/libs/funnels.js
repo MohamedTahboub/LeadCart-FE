@@ -25,7 +25,6 @@ export const extractProductsRelations = ({ products = [] }) => {
     return undefined;
   });
 
-  console.log('Products Relations Object: ==========>\n', result);
 
   return result;
 };

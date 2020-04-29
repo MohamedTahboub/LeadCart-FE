@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 // import * as modalsActions from 'actions/modals';
 import * as funnelsActions from 'actions/funnels';
@@ -12,9 +12,7 @@ import config from 'config';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 
-import {
-  PreCreateModal
-} from './components';
+import { PreCreateModal } from './components';
 
 import './style.css';
 
@@ -41,7 +39,6 @@ const Funnels = ({
   domains,
   ...props
 }) => {
-  // console.log("domains=>",domains)
   const [showDelete, setShowDelete] = useState('');
   // eslint-disable-next-line
   const [creatingFunnel, setCreateFunnel] = useState(false);
@@ -183,8 +180,6 @@ const mapStateToProps = ({
   ]
 });
 
-Funnels.defaultProps = {
-  funnels: []
-};
+Funnels.defaultProps = { funnels: [] };
 
 export default connect(mapStateToProps, { ...productsActions, ...funnelsActions, ...flashMessages })(Funnels);

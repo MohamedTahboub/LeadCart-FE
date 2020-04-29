@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { ProductSettings, ProductEditableTemplate } from './components'
-import common from 'components/common'
+import { ProductEditableTemplate, ProductSettings } from './components';
+import common from 'components/common';
 import { ProductSchema } from 'libs/validation';
-import *  as productActions from 'actions/product';
-import *  as flashMessages from 'actions/flashMessage';
+import * as productActions from 'actions/product';
+import * as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
-import { showIntercomIcon } from 'libs'
+import { showIntercomIcon } from 'libs';
 import { SlideModal } from '../../../components/Modals';
 
 import './style.css';
@@ -28,7 +28,6 @@ class Product extends Component {
       name = key;
       value = { ...product[key], ...nestedValue };
     }
-    // console.log(name,value)
     this.setState({ product: { ...product, [name]: value } });
   }
 
@@ -58,8 +57,10 @@ class Product extends Component {
 
   componentDidUpdate (prev) {
     showIntercomIcon(false);
-    if (typeof prev.product !== 'string') {if (prev.product._id !== this.props.product._id)
-        this.setState({ product: this.props.product._id })};
+    if (typeof prev.product !== 'string') {
+      if (prev.product._id !== this.props.product._id)
+        this.setState({ product: this.props.product._id });
+    }
   }
 
   componentWillUnmount () {
@@ -68,9 +69,7 @@ class Product extends Component {
 
   onSave = async () => {
     const { product: newProduct } = this.state;
-    const {
- isNew, createNewProduct, updateProduct, postCreate 
-} = this.props;
+    const { isNew, createNewProduct, updateProduct, postCreate } = this.props;
 
     const { isValid, errors, value: product } = await ProductSchema(newProduct);
 
@@ -95,12 +94,8 @@ class Product extends Component {
 
   render () {
     const {
-      state: {
-        activeOption, activeTab, hiddenElements, product
-      },
-      props: {
-        isVisible, onClose, isNew
-      }
+      state: { activeOption, activeTab, hiddenElements, product },
+      props: { isVisible, onClose, isNew }
     } = this;
     return (
       <SlideModal

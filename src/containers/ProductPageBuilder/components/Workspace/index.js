@@ -84,7 +84,7 @@ const Workspace = ({
 
   const onSectionOrderChange = (id, newOrder) => {
     const newSections = sections.map((section) => {
-      // console.log('section.id === id', section.id === id);
+      
       if (section.id === id) return { ...section, order: newOrder };
       return section;
     });

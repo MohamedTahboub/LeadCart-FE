@@ -33,7 +33,6 @@ const Testimonials = ({
 
 
   const onChange = ({ target }) => {
-    console.log(target.name, target.value);
     actions.onSectionSettingChange({
       section,
       field: target
