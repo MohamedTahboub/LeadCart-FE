@@ -21,7 +21,7 @@ export const main = () => [
       {
         title: 'Analytics',
         key: 'analytics',
-        link: '/analytics',
+        link: '/',
         icon: <LineChartOutlined />
       }, {
         title: 'Transactions',
