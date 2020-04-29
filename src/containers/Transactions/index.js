@@ -43,7 +43,7 @@ const Transactions = ({ orders }) => {
     });
 
     const fileName = `${activeTab}-${moment().format('MMM DD YYYY')}.csv`;
-    // console.log(dataRows)
+    
     const download = document.createElement('a');
     const fileHref = `data:text/csv;charset=utf-8,${encodeURIComponent(dataRows)}`;
     download.setAttribute('href', fileHref);

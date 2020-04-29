@@ -12,9 +12,9 @@ import ids from 'shortid';
 import * as dropTypes from '../dropTypes';
 import './style.css';
 import {
+  DropBeforeLine,
   SectionContent,
-  SettingsHandles,
-  DropBeforeLine
+  SettingsHandles
 } from './components';
 
 const Section = ({
@@ -44,18 +44,13 @@ const Section = ({
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: dropTypes.SECTION, section, originalIndex },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging()
-    }),
+    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
     canDrag: isDraggable
   }, [isDraggable]);
 
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
-    collect: (monitor) => ({
-      isOver: monitor.isOver()
-    }),
-    // canDrop: (e) => console.log('Can Drop', e),
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
     drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }, monitor) => {
       // const didDrop = monitor.didDrop();
       // if (didDrop) return;
@@ -125,8 +120,6 @@ const Section = ({
   );
 };
 
-Section.propTypes = {
-
-};
+Section.propTypes = {};
 
 export default Section;

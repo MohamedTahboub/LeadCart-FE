@@ -45,7 +45,6 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
   };
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
-  console.log({ brands });
   return (
     <div>
       <Menu

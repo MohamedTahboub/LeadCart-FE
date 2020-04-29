@@ -1,11 +1,9 @@
 import React from 'react';
 import { Avatar, Tag } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import './index.css';
 
 const BrandAvatar = ({ brand, className }) => {
-  console.log('brand', brand);
   const subscriptionShort = brand.activePackage.type === 'Free' ? 'FREE'
     : brand.activePackage.type === 'Premium' ? 'PREMIUM'
       : brand.activePackage.type === 'Pro' ? 'PRO'

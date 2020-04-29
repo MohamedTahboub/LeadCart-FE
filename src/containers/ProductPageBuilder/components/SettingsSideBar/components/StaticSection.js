@@ -7,9 +7,7 @@ import PaymentType from 'components/PaymentType';
 import PaymentGateway from 'components/PaymentGateways';
 import { useContext } from '../../../actions';
 
-import {
-  SettingBox,
-} from './common';
+import { SettingBox } from './common';
 
 const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 const {
@@ -48,13 +46,11 @@ const currency = 'USD';
 const {
   Label,
   SwitchInput,
-  SearchInput,
+  SearchInput
   // SelectOption
 } = InputRow;
 
-const StaticSection = ({
-  ...props
-}) => {
+const StaticSection = ({ ...props }) => {
   const {
     state: {
       product = {},
@@ -73,7 +69,6 @@ const StaticSection = ({
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
-    console.log('target', target);
   };
 
   const onToggleCustom = ({ target: { name } }) => {
@@ -172,9 +167,7 @@ const StaticSection = ({
     </Tabs>
   );
 };
-StaticSection.propTypes = {
-
-};
+StaticSection.propTypes = {};
 
 
 export default StaticSection;

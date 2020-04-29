@@ -304,6 +304,17 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
   background: #E6F7FF;
 }
 
+.compress-modal {
+  overflow-y: scroll;
+  max-height: 750px;
+}
+
+.ant-anchor-link-title:hover {
+  cursor: pointer;
+  color: #40a9ff;
+}
+
+
 /* Spacing */
 .m-0 { margin: 0 !important }
 .m-1 { margin: .25rem !important }
@@ -372,4 +383,18 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+}
+
+.d-col {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.align-center-left {
+  align-items: center !important;
+  justify-content: flex-start !important;
 }

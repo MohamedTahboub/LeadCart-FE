@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
-import { openNewWindow, notification } from 'libs';
+import { notification, openNewWindow } from 'libs';
 // import { useForm } from 'libs/hooks';
 import ServiceCard from './ServiceCard';
 
@@ -43,9 +43,7 @@ const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) =>
   </FlexBox>
 );
 
-const ConnectClient = ({
-  name, onChange, onSubmit, ...props
-}) => (
+const ConnectClient = ({ name, onChange, onSubmit, ...props }) => (
   <FlexBox column center='v-left' flex>
     <Statement
       label='Client Id'
@@ -82,9 +80,7 @@ const ConnectClient = ({
 );
 
 
-const ConnectApiKey = ({
-  name, onChange, onSubmit, ...props
-}) => (
+const ConnectApiKey = ({ name, onChange, onSubmit, ...props }) => (
   <FlexBox column>
     <Statement
       label='API KEY'
@@ -104,9 +100,7 @@ const ConnectApiKey = ({
   </FlexBox>
 );
 
-const ConnectIntegration = ({
-  authType, onConnect, onModalToggle, ...props
-}) => {
+const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) => {
   const [values, setValues] = useState({});
   const [onprogress, setProgress] = useState(false);
 
@@ -169,9 +163,7 @@ const ServiceConnect = ({ data = {}, ...props }) => {
     setOnprogress(true);
     setService(data);
     props.checkIntegrationService(
-      {
-        integrationKey: service.key
-      },
+      { integrationKey: service.key },
       {
         onSuccess: (data) => {
           setOnprogress(false);
@@ -190,7 +182,7 @@ const ServiceConnect = ({ data = {}, ...props }) => {
       }
     );
     // };
-  }, []);
+  }, [data, props, service]);
 
   const onConnect = ({
     name,
@@ -205,7 +197,6 @@ const ServiceConnect = ({ data = {}, ...props }) => {
       authDetails,
       authType
     };
-    console.log('serviceDetails', serviceDetails);
     props.connectIntegrationService(serviceDetails, onExecute);
   };
   return (
@@ -239,8 +230,6 @@ const ServiceConnect = ({ data = {}, ...props }) => {
   );
 };
 
-ServiceConnect.propTypes = {
-
-};
+ServiceConnect.propTypes = {};
 
 export default connect(null, integrationsActions)(ServiceConnect);

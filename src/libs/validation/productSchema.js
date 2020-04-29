@@ -10,7 +10,7 @@ const featuresSchema = yup.object({
   title: yup.string().default('Features List'),
   list: yup.array().of(yup.object({
     title: yup.string().default('Feature Title'),
-    text: yup.string().default('Feature Description'),
+    text: yup.string().default('Feature Description')
   }))
 });
 const termsAndConditionsSchema = yup.object({
@@ -50,7 +50,7 @@ const pagePreferencesSchema = yup.object({
       type: yup.string(),
       value: yup.number().default(60),
       color: yup.string(),
-      label: yup.string(),
+      label: yup.string()
     })
   }),
   image: yup.string(),
@@ -101,29 +101,25 @@ const ProductSchema = yup.object({
   price: yup.object({
     amount: yup.number().required(),
     currency: yup.string().default('USD'),
-    format: yup.string().default('amount'),
+    format: yup.string().default('amount')
   }).required(),
   payment: yup.object({
     methods: yup.array().of(yup.string()),
     type: yup.string().default('Onetime'),
     recurringPeriod: yup.string().when('type', (type, schema) => (type === 'Onetime' ? schema.transform(() => undefined) : schema.default('MONTH'))),
-    splits: yup.string().when('type',
+    splits: yup.string().when(
+      'type',
       {
         is: 'Split',
         then: yup.string().default('3'),
-        otherwise: yup.string().transform(() => undefined),
-      })
+        otherwise: yup.string().transform(() => undefined)
+      }
+    )
   }),
   fulfillment: yup.string(),
-  coupons: yup.object({
-    enabled: yup.bool().transform((val) => !!val),
-  }),
-  shippingDetails: yup.object({
-    enabled: yup.bool()
-  }),
-  settings: yup.object({
-    language: yup.string()
-  }),
+  coupons: yup.object({ enabled: yup.bool().transform((val) => !!val) }),
+  shippingDetails: yup.object({ enabled: yup.bool() }),
+  settings: yup.object({ language: yup.string() }),
   sections: yup.array().of(sectionSchema),
   scripts: yup.object({
     fbPixelId: yup
@@ -140,7 +136,7 @@ const ProductSchema = yup.object({
     t_googleTagManager: yup
       .string(),
     t_scriptTag: yup
-      .string(),
+      .string()
   })
 });
 
@@ -153,11 +149,9 @@ export default async (product) => {
       value: castedProduct
     };
   } catch (err) {
-    console.log(err);
     return {
       isValid: false,
       errors: castYupErrors(err)
     };
   }
 };
-

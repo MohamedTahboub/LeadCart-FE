@@ -22,11 +22,7 @@ import { getUserBrands } from 'actions/brands';
 
 window.user = '';
 export default ({ dispatch, getState }) => (next) => (action) => {
-  const {
-    user: {
-      isLoggedIn
-    }
-  } = getState();
+  const { user: { isLoggedIn } } = getState();
 
   if (action.type !== APP_INIT) return next(action);
 

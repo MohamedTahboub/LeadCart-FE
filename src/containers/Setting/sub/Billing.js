@@ -18,11 +18,11 @@ const Billing = ({
   trialEndDate,
   ...props
 }) => (
-    <Fragment>
-      <SubscriptionPackages />
-      <TransactionsTable list={transactions} />
-    </Fragment>
-  );
+  <Fragment>
+    <SubscriptionPackages />
+    <TransactionsTable list={transactions} />
+  </Fragment>
+);
 
 const mapStateToProps = ({
   user: {

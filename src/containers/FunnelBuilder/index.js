@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
@@ -13,10 +13,10 @@ import { notification } from 'libs';
 import './style.css';
 
 import {
-  SideBar,
   Header,
-  FunnelWorkspace as Workspace,
-  Rules
+  Rules,
+  SideBar,
+  FunnelWorkspace as Workspace
 } from './components';
 
 const {
@@ -63,7 +63,6 @@ const FunnelBuilder = ({
   };
 
   const onChange = ({ name, value }) => {
-    // console.log(name, value)
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -99,7 +98,7 @@ const FunnelBuilder = ({
     return () => {
       // setFields({});
     };
-  }, [funnels, globelLoading]);
+  }, [fields.rules, fields.url, funnels, globelLoading, products, props.match.params]);
 
   // const onDisplayChange = (type) => {
   //   setDisplayType(type);
@@ -181,7 +180,7 @@ const FunnelBuilder = ({
     funnel: fields,
     // onSidebarChange: postSideChanging,
     onToggleDarkTheme,
-    darkTheme: enableDarkTheme,
+    darkTheme: enableDarkTheme
     // toggleTemplateChangeEffect,
   };
   const workSpaceProps = {
@@ -196,7 +195,7 @@ const FunnelBuilder = ({
   const rulesProps = {
     funnelId: fields._id,
     rules: fields.rules,
-    funnelProducts: fields.products,
+    funnelProducts: fields.products
   };
   return (
     <Page fullSize className='flex-container flex-column'>
@@ -252,9 +251,7 @@ const FunnelBuilder = ({
 */
 };
 
-FunnelBuilder.propTypes = {
-  history: PropTypes.objectOf({})
-};
+FunnelBuilder.propTypes = { history: PropTypes.objectOf({}) };
 
 FunnelBuilder.defaultProps = {
   products: [],
@@ -272,7 +269,5 @@ const mapStateToProps = ({
       domains = []
     } = {}
   } = {}
-}) => ({
-  products, subdomain, domains, globelLoading, funnels
-});
+}) => ({ products, subdomain, domains, globelLoading, funnels });
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);

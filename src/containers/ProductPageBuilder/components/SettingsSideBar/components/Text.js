@@ -10,18 +10,14 @@ const {
   InputRow,
   MiniTwitterPicker,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
 const { TextField, SelectOption, Slider } = InputRow;
 
 const Text = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
@@ -70,7 +66,7 @@ const Text = (props) => {
                   { value: 'Helvetica', label: 'Helvetica' },
                   { value: 'Arial Black', label: 'Arial Black' },
                   { value: 'Lucida Sans Unicode', label: 'Lucida Sans Unicode' },
-                  { value: 'Times New Roman', label: 'Times New Roman' },
+                  { value: 'Times New Roman', label: 'Times New Roman' }
                 ]}
               />
             </FlexBox>
@@ -110,7 +106,6 @@ const Text = (props) => {
                 defaultValue={20}
                 className='width-100'
                 onChange={(va) => {
-                  console.log(va);
                 }}
               />
 
@@ -143,8 +138,6 @@ const Text = (props) => {
   );
 };
 
-Text.propTypes = {
-
-};
+Text.propTypes = {};
 
 export default Text;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -20,7 +20,6 @@ const selectedIntegrationActions = [
 ];
 
 const getActionsOptions = ({ action: { serviceName } = {} }, actionsMap) => {
-  console.log('actionMap[serviceName]', actionsMap[serviceName]);
   if (actionsMap[serviceName]) {
     return actionsMap[serviceName].actions.map((action) => ({
       label: action.label,
@@ -32,7 +31,7 @@ const getActionsOptions = ({ action: { serviceName } = {} }, actionsMap) => {
 const {
   FlexBox,
   MainTitle,
-  Button,
+  Button
 } = common;
 
 const TriggerActionMaker = ({
@@ -63,9 +62,7 @@ const TriggerActionMaker = ({
   const onIntegrationSelected = ({ value }) => {
     setGroup({
       ...group,
-      action: {
-        serviceName: value,
-      }
+      action: { serviceName: value }
     });
   };
   const onIntegrationActionSelected = ({ value }) => {
@@ -73,7 +70,7 @@ const TriggerActionMaker = ({
       ...group,
       action: {
         ...group.action,
-        serviceAction: value,
+        serviceAction: value
       }
     });
   };
@@ -149,9 +146,7 @@ const TriggerActionMaker = ({
     </Button>
   );
 };
-TriggerActionMaker.propTypes = {
-
-};
+TriggerActionMaker.propTypes = {};
 const mapStateToProps = ({ integrations }) => {
   const integrationsList = integrations
     .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))

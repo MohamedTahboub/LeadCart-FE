@@ -3,7 +3,6 @@ import { showIntercomIcon } from 'libs';
 import { EasyAnimate, SlidingAnimation } from '../common/Animation';
 import './style.css';
 
-
 export default ({
   children,
   onClose,
@@ -15,28 +14,13 @@ export default ({
   affectIntercom = true,
   ...props
 }) => {
-  // if (affectIntercom) showIntercomIcon(!isVisible);
-
   useEffect(() => {
     showIntercomIcon(!isVisible);
     return () => {
       showIntercomIcon(isVisible);
     };
   }, [isVisible]);
-  // const onClose = (e) => {
-  //   if (e.key === 'Escape' && isVisible) props.onClose();
 
-
-  //   if (!e.key) props.onClose();
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener('keydown', onClose, false);
-
-  //   return () => {
-  //     window.removeEventListener('keydown', onClose, false);
-  //   };
-  // }, []);
   return (
     isVisible ? (
       <EasyAnimate className='modal-container'>

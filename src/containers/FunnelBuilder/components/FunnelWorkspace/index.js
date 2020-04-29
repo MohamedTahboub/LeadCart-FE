@@ -1,11 +1,9 @@
 import React, { Fragment, useRef, useState } from 'react';
-// import PropTypes from 'prop-types';
 import common from 'components/common';
 import * as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
 import ids from 'shortid';
 import { notification } from 'libs';
-// import targetMouseIcon from 'assets/images/icons/targetIcon.png';
 
 import {
   NodeSettingModal,
@@ -31,7 +29,6 @@ const FunnelWorkSpace = ({
   const [showNodeOptions, setShowNodeOptions] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false);
 
-  // const [currentNodeRelation, setCurrentNodeRelation] = useState({})
 
   const elementRef = useRef(null);
 
@@ -41,31 +38,6 @@ const FunnelWorkSpace = ({
   };
 
 
-  // function updateNodesPosition(nodeId, event, originalMouseOffset) {
-  //   const { shiftX, width } = originalMouseOffset;
-
-  //   const { pageX: x, pageY: y } = event;
-
-  //   const updatedRelations = relations.map(relation => {
-  //     if (relation.currentId === nodeId) {
-  //       relation.from = {
-  //         x1: x + (width - shiftX),
-  //         y1: y
-  //       }
-  //     }
-
-  //     if (relation.targetId === nodeId) {
-  //       relation.to = {
-  //         x2: x - shiftX - 15,
-  //         y2: y
-  //       }
-  //     }
-
-  //     return relation
-  //   })
-  //   setRelations(updatedRelations)
-  // }
-
   const onDrop = (event) => {
     event.preventDefault();
     const data = event.dataTransfer.getData('dropedElement');
@@ -74,9 +46,6 @@ const FunnelWorkSpace = ({
 
     node = JSON.parse(data);
     const originalMouseOffset = JSON.parse(omo);
-    // /?! Validate the droped Node
-    // if (node && node.id && node.src) {
-    // eslint-disable-next-line
     const coordinates = getElementPosition(
       event,
       originalMouseOffset,
@@ -86,17 +55,15 @@ const FunnelWorkSpace = ({
       const isExist = nodes.find((n) => n.elementId === node.elementId);
       if (isExist) {
         const updatedList = nodes.map((n) => {
-          if (n.elementId === node.elementId) {
-            // console.log({ ...n, coordinates })
+          if (n.elementId === node.elementId)
             return { ...n, coordinates };
-          }
+
           if (Array.isArray(n.relations)) {
             const nodeRelations = n.relations
               .map((relation) => {
                 if (relation.target === node.elementId) relation.coordinates = coordinates;
                 return relation;
               });
-            // n.relations = nodeRelations
             return { ...n, relations: nodeRelations };
           }
 
@@ -106,13 +73,10 @@ const FunnelWorkSpace = ({
           name: 'products',
           value: updatedList
         });
-        // return setNodes(updatedList);
       }
     }
     if (node.category === 'checkout' || node.category === 'thankyouPage') if (nodes.find(({ category }) => node.category === category)) notification.failed(`The funnel accepts one ${category.toUpperCase()} product`);
 
-    // const newNodes = nodes.filter((n) => n.id !== node.id);
-    // newNodes.push(node);
     const updatedList = [
       ...nodes,
       {
@@ -121,34 +85,18 @@ const FunnelWorkSpace = ({
         coordinates
       }];
 
-    // setNodes(updatedList);
     onChange({
       name: 'products',
       value: updatedList
     });
-    // }
-    // /?! update the state with the Node
   };
 
 
   const onConnectNode = (currentId, type) => {
-    //
     setConnecting({ currentId, type });
-    // setCurrentNodeRelation({
-    //   currentId,
-    //   from: {
-    //     x1: e.pageX,
-    //     y1: e.pageY,
-    //   }
-    // })
 
-    // docume
-    // document.body.cursor = `url(${targetMouseIcon})`;
   };
 
-  // const iselationExist = (currentId, targetId) => {
-  //   return relations.find(relation => (relation.currentId === currentId && relation.targetId === targetId))
-  // }
 
   const onNodeConnected = (targetId) => {
     const { currentId, type } = connecting;
@@ -184,29 +132,17 @@ const FunnelWorkSpace = ({
       return node;
     });
 
-    // const updatedRelations = [
-    //   ...relations,
-    //   {
-    //     ...currentNodeRelation,
-    //     currentId: connecting,
-    //     targetId,
-    //   }
-    // ];
 
-    // setRelations(updatedRelations);
     onChange({
       name: 'products',
       value: updatedList
     });
-    // setCurrentNodeRelation({})
-    // document.body.cursor = 'inherit';
   };
 
 
   const cleanUpWorkSpace = () => {
     setConnecting(false);
     setShowNodeOptions(false);
-    // onNodeSetting()
   };
 
   const onShowNodeOptions = (id) => {
@@ -292,21 +228,11 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
     top: parentTop
   } = parentRef.current.getBoundingClientRect();
 
-  // event.preventDefault();
   const {
-    // clientX,
-    // clientY,
     pageX,
     pageY
   } = event;
   const { shiftX, shiftY, height, width } = originalMouseOffset;
-
-  // console.log("=====================");
-  // console.log("clientX , clientY , pageX , pageY , shiftX, shiftY");
-  // console.log(shiftX, shiftY);
-
-
-  // 15 & 5 are the margin offsets of the start element
   const c = {
     x: pageX - shiftX - parentLeft - 15,
     y: pageY - shiftY - parentTop - 5,

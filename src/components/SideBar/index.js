@@ -1,22 +1,23 @@
 import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
+
+import { SubscriptionPackages } from 'components/SubscriptionPackages';
 import { HeaderLogo } from 'components/common/logos';
 import { Link as PureLink } from 'components/common/MainMenu';
 import BrandsMenu from 'components/BrandsMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { FillerButton } from 'components/Buttons';
-import { connect } from 'react-redux';
 import common from 'components/common';
+import { Modal } from 'components/Modals';
+
 import * as brandsAction from 'actions/brands';
-import classNames from 'classnames';
-
-
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
-import './style.css';
 import { appInit } from 'actions/appInit';
+import './style.css';
 import { notification } from 'libs';
-import { Button, Menu } from 'antd';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 
 import CreateProductModal from '../CreateProductModal';
 
@@ -63,6 +64,7 @@ const SideBar = ({
 }) => {
   const [activeTab, setActiveTab] = useState(history.location.pathname);
   const [isBrandsOpen, setBrandsOpen] = useState(false);
+  const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
   const onTabChange = (tab) => setActiveTab(tab);
   const menus = sidebarMenus({ brands });
@@ -115,12 +117,21 @@ const SideBar = ({
 
   const onMenuOpen = () => setBrandsOpen(!isBrandsOpen);
 
+  const toggleUpgradeModalOpen = () => {
+    setUpgradeModalOpen(!isUpgradeModalOpen);
+  };
+
   const mapMenuItems = (menuItems) => {
     return menuItems.map((menu) => {
       if (menu.sub) {
         const { sub, title, icon, ...rest } = menu;
+        const Icon = Icons[icon] || Fragment;
         return (
-          <SubMenu key={rest.key} title={<Fragment>{icon}{title}</Fragment>} {...rest}>
+          <SubMenu
+            key={rest.key}
+            title={<div className='d-flex align-center-left'><Icon className='svg-icon sideBar-icon' />{title}</div>}
+            {...rest}
+          >
             {mapMenuItems(sub)}
           </SubMenu>
         );
@@ -128,8 +139,15 @@ const SideBar = ({
         return <Menu.Divider key={Math.random()} />;
       } else {
         const { title, icon, ...rest } = menu;
+        const Icon = Icons[icon] || Fragment;
         return (
-          <Menu.Item key={rest.key} {...rest}>{icon}{title}</Menu.Item>
+          <Menu.Item
+            key={rest.key}
+            className='d-flex align-center-left'
+            {...rest}
+          >
+            <Icon className='svg-icon sideBar-icon' />{title}
+          </Menu.Item>
         );
       }
     });
@@ -156,13 +174,14 @@ const SideBar = ({
         <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate}>
           {mapMenuItems(accountSettingsMenus())}
         </Menu>
-        <FillerButton onClick={logout} className='logout-btn' type='primary'>
-          <i className='fas fa-sign-out-alt' />
-          {' '}
-          logout
+        <FillerButton onClick={toggleUpgradeModalOpen} className='logout-btn' type='primary'>
+          UPGRADE
         </FillerButton>
       </div>
       <CreateProductModal history={history} />
+      <Modal isVisible={isUpgradeModalOpen} className='compress-modal' onClose={toggleUpgradeModalOpen}>
+        <SubscriptionPackages />
+      </Modal>
     </div>
   );
 };

@@ -5,8 +5,8 @@ import ids from 'shortid';
 import { useContext } from '../../../actions';
 
 import {
-  SettingBox,
   ImageOption,
+  SettingBox
 } from './common';
 
 
@@ -34,7 +34,7 @@ const featuresThemesImages = [
   {
     src: 'https://i.imgur.com/wrZDZ0s.png',
     theme: 'unorderedCheckMarkRectangles'
-  },
+  }
 ];
 
 
@@ -53,19 +53,13 @@ const { TextField } = InputRow;
 
 const FeaturesSection = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content: {
-      list = []
-    } = {}
+    content: { list = [] } = {}
   } = sectionSetting;
 
   const onChange = ({ target }) => {
@@ -89,7 +83,6 @@ const FeaturesSection = (props) => {
   };
 
   const onThemeChange = (theme) => () => () => {
-    console.log('theme', theme);
     onChange({
       target: {
         name: 'styles.theme',
@@ -129,8 +122,6 @@ const FeaturesSection = (props) => {
   );
 };
 
-FeaturesSection.propTypes = {
-
-};
+FeaturesSection.propTypes = {};
 
 export default FeaturesSection;

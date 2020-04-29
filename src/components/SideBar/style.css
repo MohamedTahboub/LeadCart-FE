@@ -8,7 +8,7 @@
   z-index: 1000;
   display: grid;
   grid-template-columns: 200px;
-  grid-template-rows: 41px 68px fit-content(0) auto fit-content(0);
+  grid-template-rows: 41px 46px fit-content(0) auto fit-content(0);
   grid-template-areas:
     "logo"
     "avatar-box"
@@ -52,7 +52,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 25px;
     margin-bottom: 0px;
 }
 
@@ -97,7 +96,6 @@
     max-width: 150px;
     flex-wrap: wrap;
     text-align: center;
-    margin-bottom: 15px;
 }
 
 .setting-short {
@@ -212,7 +210,7 @@ svg.sideBar-icon path {
 }
 .brands-navigation, .side-bar-navigation {
   /* 158 + 41 + 41 */
-  max-height: calc(100vh - 153px);
+  max-height: calc(100vh - 343px);
   overflow-y: scroll;
   overflow-x: hidden;
   align-self: flex-start;

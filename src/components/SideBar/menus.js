@@ -1,90 +1,82 @@
-import React from 'react';
-import {
-  AppstoreAddOutlined,
-  BarcodeOutlined,
-  DollarOutlined,
-  LineChartOutlined,
-  NotificationOutlined,
-  SettingOutlined,
-  ShoppingCartOutlined,
-  ShoppingOutlined,
-  TeamOutlined,
-  UpSquareOutlined
-} from '@ant-design/icons';
-
 export const main = () => [
   {
     title: 'Sales',
     key: 'sales',
-    icon: <ShoppingOutlined />,
+    icon: 'sales',
     sub: [
       {
         title: 'Analytics',
         key: 'analytics',
         link: '/',
-        icon: <LineChartOutlined />
+        icon: 'analytics'
       }, {
         title: 'Transactions',
         key: 'transactions',
         link: '/transactions',
-        icon: <DollarOutlined />
+        icon: 'transactions'
       }, {
         title: 'Customers',
         key: 'customers',
         link: '/customers',
-        icon: <TeamOutlined />
+        icon: 'customers'
       }
     ]
   }, { divider: true }, {
     title: 'Producs',
     key: 'products',
-    icon: <ShoppingCartOutlined />,
+    icon: 'products',
     sub: [
       {
         title: 'Funnels',
         key: 'funnels',
         link: '/funnels',
-        icon: <UpSquareOutlined />
+        icon: 'funnels'
       }, {
         title: 'Coupons',
         key: 'coupons',
         link: '/coupons',
-        icon: <BarcodeOutlined />
+        icon: 'coupons'
       }, {
         title: 'Integrations',
         key: 'integrations',
         link: '/integrations',
-        icon: <AppstoreAddOutlined />
+        icon: 'integrations'
       }, {
         title: 'Affiliates',
         key: 'affiliates',
         link: '/affiliates',
-        icon: <NotificationOutlined />
+        icon: 'affiliates'
       }
     ]
   }, { divider: true }, {
     title: 'Brand Settings',
     key: 'brandSettings',
     link: '/settings/brand',
-    icon: <SettingOutlined />
+    icon: 'settings'
+  }, { divider: true }, {
+    title: 'Help',
+    key: 'help',
+    link: '/help',
+    icon: 'help'
+
   }, { divider: true }
 ];
 
 export const accountSettingsMenus = () => [{
   title: 'Account Settings',
   key: 'accountSettings',
-  icon: <SettingOutlined />,
+  icon: 'settings',
   sub: [
     {
       title: 'Personal',
       key: 'personalSettings',
       link: '/account',
-      icon: <SettingOutlined />
+      icon: 'settings'
     }, {
       title: 'Sub-Accounts',
       key: 'subaccountsSettings',
       link: '/sub-accounts',
-      icon: <SettingOutlined />
+      icon: 'subAccounts'
     }
   ]
 }];

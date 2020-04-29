@@ -19,7 +19,7 @@ const ImageContent = ({
   const { styles = {} } = section;
   const classNames = clx({
     'image-section': true,
-    [className]: className,
+    [className]: className
   });
 
   // const sectionStyle = {
@@ -56,7 +56,6 @@ const ImageContent = ({
 
 
   const onSizeChange = (size) => {
-    console.log(size);
     actions.onSectionSettingChange({
       section,
       field: {
@@ -68,9 +67,7 @@ const ImageContent = ({
 
   return (
     <FlexibleBox
-      size={{
-        height: styles.height
-      }}
+      size={{ height: styles.height }}
       className={classNames}
       onResize={onSizeChange}
       onResizeStart={onResizeStart}
@@ -98,8 +95,6 @@ const ImageContent = ({
   );
 };
 
-ImageContent.propTypes = {
-
-};
+ImageContent.propTypes = {};
 
 export default ImageContent;

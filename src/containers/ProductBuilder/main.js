@@ -73,7 +73,7 @@ const ProductBuilder = ({
     }
 
 
-    // console.log('Changes registered', name, value);
+    
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
