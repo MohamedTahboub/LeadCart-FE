@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.1.0",
     "antd": "^3.10.7",
     "apexcharts": "^3.6.12",
     "babel-plugin-module-resolver": "^4.0.0",

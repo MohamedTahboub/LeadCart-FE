@@ -10,6 +10,7 @@ import { notification } from 'libs';
 import { connect } from 'react-redux';
 import * as brandsActions from '../../actions/brands';
 import { v4 as uuid } from 'uuid';
+import BrandAvatar from './BrandAvatar';
 
 import { brandsTypes } from '../../propTypes';
 
@@ -21,12 +22,10 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
   const [brandsFilter, filterBrands] = useState('');
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
   const [isBrandsOpen, setBrandsOpen] = useState(false);
-  console.log(isBrandsOpen);
 
   const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
   const _filterBrands = (event) => filterBrands(event.target.value);
-  const _onChange = ({ key }) => console.log({ key, CREATE_NEW_BRAND }) || (key === CREATE_NEW_BRAND) ? toggleCreateModalOpen() : onChange(key);
-  console.log({ isCreateBrandModalOpen });
+  const _onChange = ({ key }) => (key === CREATE_NEW_BRAND) ? toggleCreateModalOpen() : onChange(key);
   const onOpenChange = (openKeys) => {
     setBrandsOpen(openKeys.find((key) => key === 'brands'));
     onMenuOpen(isBrandsOpen);
@@ -46,6 +45,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
   };
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
+  console.log({ brands });
   return (
     <div>
       <Menu
@@ -53,7 +53,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
         mode='inline'
         selectedKeys={[activeBrand]}
         defaultOpenKeys={[isBrandsOpen && 'brands']}
-        inlineIndent={12}
+        inlineIndent={6}
         onOpenChange={onOpenChange}
         onClick={_onChange}
       >
@@ -63,6 +63,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
             brands.filter(({ name }) => insensitiveSearch(brandsFilter, name))
               .map((brand) => (
                 <MenuItem key={brand.id}>
+                  <BrandAvatar brand={brand} className='mr-3'/>
                   {brand.name}
                 </MenuItem>
               ))

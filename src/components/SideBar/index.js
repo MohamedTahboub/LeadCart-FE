@@ -66,7 +66,6 @@ const SideBar = ({
 
   const onTabChange = (tab) => setActiveTab(tab);
   const menus = sidebarMenus({ brands });
-  console.log({ brands });
 
   const Link = ({
     to: page,
@@ -119,28 +118,26 @@ const SideBar = ({
   const mapMenuItems = (menuItems) => {
     return menuItems.map((menu) => {
       if (menu.sub) {
-        const { sub, ...rest } = menu;
+        const { sub, title, icon, ...rest } = menu;
         return (
-          <SubMenu key={rest.key} {...rest}>
+          <SubMenu key={rest.key} title={<Fragment>{icon}{title}</Fragment>} {...rest}>
             {mapMenuItems(sub)}
           </SubMenu>
         );
       } else if (menu.divider) {
         return <Menu.Divider key={Math.random()} />;
       } else {
-        const { title, ...rest } = menu;
+        const { title, icon, ...rest } = menu;
         return (
-          <Menu.Item key={rest.key} {...rest}>{title}</Menu.Item>
+          <Menu.Item key={rest.key} {...rest}>{icon}{title}</Menu.Item>
         );
       }
     });
   };
 
   const onNavigate = (menuItem) => {
-    console.log({ menuItem });
     history.push(menuItem.item.props.link);
   };
-  console.log({ maps: mapMenuItems(menus) });
   return (
     <div className='side-bar'>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />

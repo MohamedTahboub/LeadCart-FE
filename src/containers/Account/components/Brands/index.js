@@ -38,7 +38,6 @@ const Brands = ({
   };
 
   const onDelete = (brandId) => () => {
-    // console.log(brandId);
   };
 
   const toggleCreateModal = () => {

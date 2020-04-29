@@ -1,0 +1,16 @@
+.brand-avatar-wrapper {
+  position: relative;
+}
+
+.brand-avatar-image {
+}
+
+.brand-avatar-subscription {
+  position: absolute;
+  left: 14px;
+  bottom: -12px;
+  font-size: .5rem !important;
+  padding: 0 !important;
+  height: 16px !important;
+  line-height: 14px !important;
+}
