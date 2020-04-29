@@ -389,3 +389,12 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
   display: flex !important;
   flex-direction: column;
 }
+
+.d-flex {
+  display: flex !important;
+}
+
+.align-center-left {
+  align-items: center !important;
+  justify-content: flex-start !important;
+}

@@ -127,7 +127,11 @@ const SideBar = ({
         const { sub, title, icon, ...rest } = menu;
         const Icon = Icons[icon] || Fragment;
         return (
-          <SubMenu key={rest.key} title={<Fragment><Icon className='svg-icon sideBar-icon' />{title}</Fragment>} {...rest}>
+          <SubMenu
+            key={rest.key}
+            title={<div className='d-flex align-center-left'><Icon className='svg-icon sideBar-icon' />{title}</div>}
+            {...rest}
+          >
             {mapMenuItems(sub)}
           </SubMenu>
         );
@@ -137,7 +141,13 @@ const SideBar = ({
         const { title, icon, ...rest } = menu;
         const Icon = Icons[icon] || Fragment;
         return (
-          <Menu.Item key={rest.key} {...rest}><Icon className='svg-icon sideBar-icon' />{title}</Menu.Item>
+          <Menu.Item
+            key={rest.key}
+            className='d-flex align-center-left'
+            {...rest}
+          >
+            <Icon className='svg-icon sideBar-icon' />{title}
+          </Menu.Item>
         );
       }
     });
