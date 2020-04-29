@@ -6,9 +6,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { notification } from 'libs';
 import { connect } from 'react-redux';
 import * as brandsActions from 'actions/brands';
-import {
-  CreateModal
-} from './components';
+import { CreateModal } from './components';
 
 const {
 
@@ -16,7 +14,7 @@ const {
   FlexBox,
   Badge,
   Table,
-  Button,
+  Button
   //   FlexBoxesContainer
 } = common;
 
@@ -40,7 +38,6 @@ const Brands = ({
   };
 
   const onDelete = (brandId) => () => {
-    // console.log(brandId);
   };
 
   const toggleCreateModal = () => {
@@ -69,9 +66,7 @@ const Brands = ({
               name,
               trial,
               subDomain,
-              activePackage: {
-                type: packageType = 'Basic'
-              } = {},
+              activePackage: { type: packageType = 'Basic' } = {},
               ...rest
             } = brand;
 
@@ -111,12 +106,8 @@ const Brands = ({
   );
 };
 
-Brands.propTypes = {
-
-};
-Brands.defaultProps = {
-  list: []
-};
+Brands.propTypes = {};
+Brands.defaultProps = { list: [] };
 
 // const propifyState = ({ brands }) => ({ brands });
 export default connect(null, brandsActions)(Brands);

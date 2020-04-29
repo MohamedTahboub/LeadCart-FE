@@ -129,7 +129,7 @@ function maintainConnections (startPosition, relations) {
 
   const startCircle = {
     x: startPosition.x + shiftX + 15,
-    y: startPosition.y + shiftY,
+    y: startPosition.y + shiftY
   };
 
 
@@ -214,7 +214,6 @@ function getPathCoords ({
 }
 
 // function calcCoordinates({ currentId, targetId }) {
-//   console.log(targetId, currentId);
 //   const left = document.getElementById(currentId);
 //   const right = document.getElementById(targetId);
 
@@ -244,4 +243,3 @@ function getPathCoords ({
 //     svgHeight: height
 //   };
 // }
-

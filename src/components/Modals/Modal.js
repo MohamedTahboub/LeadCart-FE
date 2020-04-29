@@ -37,7 +37,6 @@ export default ({
   //     window.removeEventListener('keydown', onClose, false);
   //   };
   // }, []);
-
   return (
     isVisible ? (
       <EasyAnimate className='modal-container'>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 import common from 'components/common';
 import * as flashMessages from 'actions/flashMessage';
@@ -8,8 +8,8 @@ import { notification } from 'libs';
 // import targetMouseIcon from 'assets/images/icons/targetIcon.png';
 
 import {
-  RelationsWorkSpace,
-  NodeSettingModal
+  NodeSettingModal,
+  RelationsWorkSpace
 } from './components';
 
 import './style.css';
@@ -72,7 +72,6 @@ const FunnelWorkSpace = ({
     const omo = event.dataTransfer.getData('shift');
     let node = {};
 
-    console.log(data);
     node = JSON.parse(data);
     const originalMouseOffset = JSON.parse(omo);
     // /?! Validate the droped Node
@@ -119,7 +118,7 @@ const FunnelWorkSpace = ({
       {
         elementId: ids.generate(),
         ...node,
-        coordinates,
+        coordinates
       }];
 
     // setNodes(updatedList);
@@ -290,7 +289,7 @@ const FunnelWorkSpace = ({
 function getElementPosition (event, originalMouseOffset, parentRef) {
   const {
     left: parentLeft,
-    top: parentTop,
+    top: parentTop
   } = parentRef.current.getBoundingClientRect();
 
   // event.preventDefault();
@@ -300,9 +299,7 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
     pageX,
     pageY
   } = event;
-  const {
-    shiftX, shiftY, height, width
-  } = originalMouseOffset;
+  const { shiftX, shiftY, height, width } = originalMouseOffset;
 
   // console.log("=====================");
   // console.log("clientX , clientY , pageX , pageY , shiftX, shiftY");
@@ -323,4 +320,3 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
 
 
 export default connect(null, flashMessages)(FunnelWorkSpace);
-
