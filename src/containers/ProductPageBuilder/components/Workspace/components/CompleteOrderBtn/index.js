@@ -5,7 +5,7 @@ import './style.css';
 
 const { EditableField } = common;
 
-const CompleteOrderBtn = ({ text, color: background, onChange }) => {
+const CompleteOrderBtn = ({ text, color: background = '#4da1ff', onChange }) => {
   const style = { background };
   return (
     <div style={style} className='template-complete-order'>

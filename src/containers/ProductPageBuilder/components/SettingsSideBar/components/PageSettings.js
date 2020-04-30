@@ -7,9 +7,7 @@ import PaymentType from 'components/PaymentType';
 import PaymentGateway from 'components/PaymentGateways';
 import { useContext } from '../../../actions';
 
-import {
-  SettingBox,
-} from './common';
+import { SettingBox } from './common';
 
 const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 const {
@@ -53,13 +51,9 @@ const {
   SelectOption
 } = InputRow;
 
-const PageSettings = ({
-  ...props
-}) => {
+const PageSettings = ({ ...props }) => {
   const {
-    state: {
-      product = {},
-    },
+    state: { product = {} },
     actions
   } = useContext();
 
@@ -70,6 +64,7 @@ const PageSettings = ({
 
 
   const onChange = ({ target }) => {
+    console.log(target.name, target.value);
     actions.onProductFieldChange(target);
   };
 
@@ -141,7 +136,7 @@ const PageSettings = ({
                 { label: '7 px', value: '7' },
                 { label: '8 px', value: '8' },
                 { label: '9 px', value: '9' },
-                { label: '10 px', value: '10' },
+                { label: '10 px', value: '10' }
               ]}
             />
           </InputRow>
@@ -151,9 +146,7 @@ const PageSettings = ({
     </Tabs>
   );
 };
-PageSettings.propTypes = {
-
-};
+PageSettings.propTypes = {};
 
 
 export default PageSettings;
