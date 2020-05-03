@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { SubscriptionPackages } from 'components/SubscriptionPackages';
 import { HeaderLogo } from 'components/common/logos';
 import { Link as PureLink } from 'components/common/MainMenu';
 import BrandsMenu from 'components/BrandsMenu';
@@ -64,7 +63,7 @@ const SideBar = ({
 }) => {
   const [activeTab, setActiveTab] = useState(history.location.pathname);
   const [isBrandsOpen, setBrandsOpen] = useState(false);
-  const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
   const onTabChange = (tab) => setActiveTab(tab);
   const menus = sidebarMenus({ brands });
@@ -117,9 +116,6 @@ const SideBar = ({
 
   const onMenuOpen = () => setBrandsOpen(!isBrandsOpen);
 
-  const toggleUpgradeModalOpen = () => {
-    setUpgradeModalOpen(!isUpgradeModalOpen);
-  };
 
   const mapMenuItems = (menuItems) => {
     return menuItems.map((menu) => {
@@ -156,8 +152,11 @@ const SideBar = ({
   const onNavigate = (menuItem) => {
     history.push(menuItem.item.props.link);
   };
+  const onAccountSettingsOpen = (openKeys) => {
+    setAccountSettingsOpen(openKeys.includes('accountSettings'));
+  };
   return (
-    <div className='side-bar'>
+    <div className={classNames('side-bar justify-space-between d-col', { 'settings-open': isAccountSettingsOpen && !isBrandsOpen })}>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} onMenuOpen={onMenuOpen} />
@@ -171,17 +170,17 @@ const SideBar = ({
         {mapMenuItems(menus)}
       </Menu>
       <div className='tail-actions'>
-        <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate}>
+        <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate} onOpenChange={onAccountSettingsOpen}>
           {mapMenuItems(accountSettingsMenus())}
         </Menu>
-        <FillerButton onClick={toggleUpgradeModalOpen} className='logout-btn' type='primary'>
-          UPGRADE
-        </FillerButton>
+        <div className='upgrade'>
+          <FillerButton onClick={logout} className='upgrade-btn' type='primary'>
+            Logout
+          </FillerButton>
+
+        </div>
       </div>
       <CreateProductModal history={history} />
-      <Modal isVisible={isUpgradeModalOpen} className='compress-modal' onClose={toggleUpgradeModalOpen}>
-        <SubscriptionPackages />
-      </Modal>
     </div>
   );
 };
