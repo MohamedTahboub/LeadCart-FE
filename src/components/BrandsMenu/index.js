@@ -46,7 +46,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
   return (
-    <div>
+    <div className='brands-menu'>
       <Menu
         className={classNames('brands-navigation', { 'is-open': isBrandsOpen })}
         mode='inline'

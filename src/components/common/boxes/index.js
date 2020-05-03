@@ -7,9 +7,7 @@ import { CodeInputArea } from '../Inputs';
 
 import './style.css';
 
-export const FlexBoxesContainer = ({
-  children, flex = '', className, ...props
-}) => (
+export const FlexBoxesContainer = ({ children, flex = '', className, ...props }) => (
   <div className={`flex-boxes-container ${className || ''} ${flex}`}>
     {children}
   </div>
@@ -70,9 +68,10 @@ export const Box = ({
   className = '',
   content,
   footer,
+  lessNormal,
   ...props
 }) => (
-  <div className={`normal-box ${className}`}>
+  <div className={classNames({ 'normal-box': !lessNormal }, className)}>
     {header && <div className='box-header'>{header}</div>}
     {content && <div className={`box-content ${contentClassName}`}>{content}</div>}
     {footer && <div className='box-footer'>{footer}</div>}
@@ -141,7 +140,7 @@ InsightBadge.propTypes = {
   title: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   chart: PropTypes.instanceOf(HTMLElement),
-  icon: PropTypes.instanceOf(HTMLElement),
+  icon: PropTypes.instanceOf(HTMLElement)
 };
 
 InsightBadge.defaultProps = {
@@ -196,4 +195,3 @@ export const FlexBox = ({
     </div>
   );
 };
-

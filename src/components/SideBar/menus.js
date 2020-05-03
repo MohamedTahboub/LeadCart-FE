@@ -54,11 +54,10 @@ export const main = () => [
     link: '/settings/brand',
     icon: 'settings'
   }, { divider: true }, {
-    title: 'Help',
+    title: 'Help & Tutorials',
     key: 'help',
-    link: '/help',
-    icon: 'help'
-
+    icon: 'help',
+    link: '/help'
   }, { divider: true }
 ];
 

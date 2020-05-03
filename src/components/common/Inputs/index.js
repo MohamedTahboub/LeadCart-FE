@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import './style.css';
 import DatePicker from 'antd/lib/date-picker';
 import Checkbox from 'antd/lib/checkbox';
@@ -10,11 +10,10 @@ import TextField from './TextField';
 import TextAreaInput from './TextAreaInput';
 import EditableTagGroup from './EditableTagGroup';
 import Slider from './Slider';
+import uuid from 'uuid/v4';
 
 export class InputRow extends Component {
-  static Label = ({
-    notes, error, className = '', ...props
-  }) => (
+  static Label = ({ notes, error, className = '', ...props }) => (
     <div className={`input-label-container ${className}`}>
       <span className='input-label '>{props.children}</span>
       {error && (
@@ -102,9 +101,7 @@ export class InputRow extends Component {
     />
   )
 
-  static UrlSuffixInput = ({
-    onChange, name, subdomain, value, error, ...props
-  }) => (
+  static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
     <div className='url-suffix-input'>
       <span className='suffix-value'>
           https://
@@ -272,7 +269,9 @@ export class InputRow extends Component {
     onToggle,
     ...props
   }) => (
-    <label className={`switch-slider-input ${className}`}>
+    <Fragment>
+      <div />
+      <label className={`switch-slider-input ${className}`} />
       <input
         onChange={onToggle}
         name={name}
@@ -282,7 +281,7 @@ export class InputRow extends Component {
         {...props}
       />
       <span className='slider-input slider-round' />
-    </label>
+    </Fragment>
   )
 
   static CodeInputArea = ({
@@ -308,9 +307,7 @@ export class InputRow extends Component {
     </div>
   )
 
-  static FlatSelect = ({
-    note, onSelect, value = 'Percent', ...props
-  }) => (
+  static FlatSelect = ({ note, onSelect, value = 'Percent', ...props }) => (
     <div className='charging-method-picker'>
       <input
         id='charge-method-el-1'
@@ -365,9 +362,7 @@ export class InputRow extends Component {
   }
 }
 
-export const CodeInputArea = ({
-  value, flixable, onChange, onBlur, name, disabled, ...props
-}) => (
+export const CodeInputArea = ({ value, flixable, onChange, onBlur, name, disabled, ...props }) => (
   <div className={`code-area-container ${flixable ? 'flixable-code-area-container' : ''}`}>
     <textarea
       onChange={onChange}
@@ -409,9 +404,7 @@ export const SelectBox = ({
   );
 };
 
-export const CheckoutInput = ({
-  className = '', disabled, name, type = 'text', label
-}) => (
+export const CheckoutInput = ({ className = '', disabled, name, type = 'text', label }) => (
   <div className='checkout-input-field-container'>
     <input
       className='checkout-input-field'
@@ -504,4 +497,3 @@ export { default as EditableTextField } from './EditableTextField';
 export { default as InputGroup } from './InputGroup';
 export { default as ResizableInput } from './ResizableInput';
 export { default as ResizableTextarea } from './ResizableTextarea';
-
