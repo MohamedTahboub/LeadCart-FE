@@ -162,13 +162,8 @@
   width: 100%;
 }
 
-.upgrade-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-}
-
-.upgrade-btn:hover {
-    background: #afb7bd;
+.upgrade-btn:not(:hover) {
+    background: #C9D3DC !important;
 }
 
 .tiny-text {
