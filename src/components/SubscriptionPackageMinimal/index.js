@@ -17,14 +17,10 @@ const getLastItem = (list) => list[list.length - 1];
 const {
   InputRow,
   HeadLine,
-  // BigText,
   FlexBoxesContainer,
-  // MainBlock,
-  // MainTitle,
   PackageCard,
   Box,
   SmallButton,
-  // SpcialAnnouncement,
   ActivationSwitchInput
 } = common;
 
@@ -34,6 +30,7 @@ const Subscription = ({
   trial,
   globalLoading,
   transactions,
+  nextPackage,
   ...props
 }) => {
   const [errors, setErrors] = useState({});
@@ -67,6 +64,7 @@ const Subscription = ({
   const togglePeriod = () => {
     const { promoCode, recurringPeriod, packageType: pkg } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
+    console.log({ recurringPeriod });
     setFields({
       ...fields,
       recurringPeriod: recurringPeriod === 'Monthly' ? 'Yearly' : 'Monthly',
@@ -165,6 +163,7 @@ const Subscription = ({
   const lastTransaction = getLastItem(transactions);
   return (
     <Box
+      lessNormal
       header={(
         <Fragment>
           <HeadLine className='subscription-head-line'>
@@ -178,45 +177,18 @@ const Subscription = ({
       contentClassName='subscription-box-content'
       content={(
         <Fragment>
-          {activePackage.type && (
-            <ActivePackage
-              {...activePackage}
-              trial={trial}
-              lastTransaction={lastTransaction}
-              isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
-            />
-          )}
           <ActivationSwitchInput
             active={fields.recurringPeriod === 'Monthly'}
             className={`subscription-toggle-input ${fields.recurringPeriod}`}
             onToggle={togglePeriod}
           />
+          {console.log('fields', fields)}
           <FlexBoxesContainer className='packages-container'>
             <PackageCard
-              name='Basic'
-              package={packagesPlans.basic}
-              onSelect={onPackageTypeChange}
+              name={nextPackage}
+              package={packagesPlans[nextPackage.toLowerCase()]}
               activePackage={fields.packageType}
               interval={fields.recurringPeriod}
-              code={fields.promoCode}
-              lastTransaction={lastTransaction}
-            />
-            <PackageCard
-              name='Pro'
-              package={packagesPlans.pro}
-              onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
-              interval={fields.recurringPeriod}
-              code={fields.promoCode}
-              lastTransaction={lastTransaction}
-            />
-            <PackageCard
-              name='Premium'
-              package={packagesPlans.premium}
-              onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
-              interval={fields.recurringPeriod}
-              plus
               code={fields.promoCode}
               lastTransaction={lastTransaction}
             />
@@ -225,7 +197,6 @@ const Subscription = ({
       )}
       footer={(
         <Fragment>
-
           <InputRow.Label
             notes='If you have a promo code, please enter it below'
             className='subscription-promo-code-label'
@@ -285,7 +256,7 @@ const mapStateToProps = ({
   loading: globalLoading,
   user: {
     user: {
-      activePackage = {},
+      activePackage,
       trial,
       level,
       trialEndDate,
@@ -293,7 +264,8 @@ const mapStateToProps = ({
     } = {}
   } = {}
 }) => {
-
+  activePackage = activePackage || {};
+  console.log({ activePackage });
   if (trial) {
     activePackage.type = activePackage.type || 'Pro';
     activePackage.period = activePackage.period || 'Monthly';
@@ -309,7 +281,7 @@ const mapStateToProps = ({
   };
 };
 
-export const SubscriptionPackages = connect(
+export const SubscriptionPackageMinimal = connect(
   mapStateToProps,
   {
     ...billingActions,

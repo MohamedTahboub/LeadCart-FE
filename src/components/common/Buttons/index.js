@@ -72,9 +72,7 @@ export const MiniButton = ({
     {children}
   </span>
 );
-export const SmallButton = ({
-  iconClass, children, className = '', disabled, onClick, ...props
-}) => (
+export const SmallButton = ({ iconClass, children, className = '', disabled, onClick, ...props }) => (
   <span onClick={onClick} className={`small-btn  ${className} ${disabled ? ' btn-disabled' : ''}`}>
     {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
@@ -95,7 +93,8 @@ export const ActivationSwitchInput = ({
   onToggle,
   ...props
 }) => {
-  const id = ids.generate();
+  // const id = ids.generate();
+  const [id] = useState(ids.generate());
   return (
     <div className='activations-switch-input'>
       <label htmlFor={id} className={`switch-slider-input ${className}`}>
@@ -107,9 +106,7 @@ export const ActivationSwitchInput = ({
   );
 };
 
-export const EditButton = ({
-  className = '', onClick, children, ...props
-}) => (
+export const EditButton = ({ className = '', onClick, children, ...props }) => (
   <span onClick={onClick} className={`edit-btn ${className}`} role='presentation'>
     <i className='fas fa-edit' />
     {children}
@@ -150,6 +147,4 @@ RefreshButton.propTypes = {
   loading: PropTypes.bool,
   onClick: PropTypes.func.isRequired
 };
-RefreshButton.defaultProps = {
-  loading: false,
-};
+RefreshButton.defaultProps = { loading: false };

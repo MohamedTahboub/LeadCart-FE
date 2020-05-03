@@ -8,13 +8,17 @@
   z-index: 1000;
   display: grid;
   grid-template-columns: 200px;
-  grid-template-rows: 41px 46px fit-content(0) auto fit-content(0);
+  grid-template-rows: 41px 80px fit-content(0) auto fit-content(0);
   grid-template-areas:
     "logo"
     "avatar-box"
     "brands"
     "menu-navigation"
-    "tail-actions"
+    "tail-actions";
+}
+
+.side-bar.settings-open {
+  grid-template-rows: 41px 80px fit-content(0) auto 170px;
 }
 
 .header-logo {
@@ -31,12 +35,13 @@
 
 .side-bar-navigation {
   grid-area: menu-navigation;
+  height: 100%;
   border-bottom: 1px solid #E8E8E8;
 }
 
 .tail-actions {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   flex-direction: column;
 }
@@ -152,18 +157,13 @@
     pointer-events: all;
 }
 
-.logout-btn.btn {
-    padding: 6px 10px;
+.upgrade {
+  height: 42px;
+  width: 100%;
 }
 
-.logout-btn {
-    background: #c9d3dc;
-    font-size: 12px;
-    height: 40px !important;
-}
-
-.logout-btn.btn:hover {
-    background: #afb7bd;
+.upgrade-btn:not(:hover) {
+    background: #C9D3DC !important;
 }
 
 .tiny-text {
@@ -209,15 +209,13 @@ svg.sideBar-icon path {
     stroke: #4DA1FF;
 }
 .brands-navigation, .side-bar-navigation {
-  /* 158 + 41 + 41 */
-  max-height: calc(100vh - 343px);
   overflow-y: scroll;
   overflow-x: hidden;
   align-self: flex-start;
 }
 
 .brands-navigation.is-open {
-  min-height: calc(100vh - 153px);
+  min-height: calc(100vh - 166px);
   animation: resize-to .3s forwards ease-in;
 }
 
@@ -225,12 +223,16 @@ svg.sideBar-icon path {
   animation: resize-from .1s forwards ease-in;
 }
 
+.sidebar-topper {
+  max-height: calc(100% - 42px);
+}
+
 @keyframes resize-to {
   from {min-height: 49px}
-  to {min-height: calc(100vh - 153px)}
+  to {min-height: calc(100vh - 166px)}
 }
 
 @keyframes resize-from {
-  from {min-height: calc(100vh - 153px)}
+  from {min-height: calc(100vh - 166px)}
   to {min-height: 49px}
 }

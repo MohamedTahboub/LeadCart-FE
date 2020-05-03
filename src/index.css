@@ -311,8 +311,21 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 
 .ant-anchor-link-title:hover {
   cursor: pointer;
-  color: #40a9ff;
 }
+
+.side-bar .side-bar-navigation .ant-menu-sub.ant-menu-inline > .ant-menu-item, .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+  height: 30px !important;
+}
+
+.side-bar .side-bar-navigation .ant-menu-vertical .ant-menu-item, .ant-menu-vertical-left .ant-menu-item, .ant-menu-vertical-right .ant-menu-item, .ant-menu-inline .ant-menu-item, .ant-menu-vertical .ant-menu-submenu-title, .ant-menu-vertical-left .ant-menu-submenu-title, .ant-menu-vertical-right .ant-menu-submenu-title, .ant-menu-inline .ant-menu-submenu-title {
+  margin-top: 0 !important;
+}
+
+.side-bar .side-bar-navigation .ant-menu-vertical .ant-menu-item:not(:last-child), .ant-menu-vertical-left .ant-menu-item:not(:last-child), .ant-menu-vertical-right .ant-menu-item:not(:last-child), .ant-menu-inline .ant-menu-item:not(:last-child) {
+  margin-bottom: 0px !important;
+}
+
+.brands-menu .ant-input-affix-wrapper .ant-input:not(:last-child) { padding-right: 0 !important; }
 
 
 /* Spacing */
@@ -386,13 +399,20 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 }
 
 .d-col {
-  display: flex !important;
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 .d-flex {
   display: flex !important;
 }
+
+.align-start { align-items: flex-start; }
+.align-end { align-items: flex-end; }
+.align-center { align-items: center; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-space-between { justify-content: space-between; }
 
 .align-center-left {
   align-items: center !important;
