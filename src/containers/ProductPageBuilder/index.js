@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import sampleProductData from 'data/product';
@@ -13,18 +13,18 @@ import { notification } from 'libs';
 import { ProductSchema } from 'libs/validation';
 
 import {
-  reducers,
+  ProductContext,
   connectActions,
   productActions,
-  ProductContext
+  reducers
 } from './actions';
 
 
 import {
   Header,
+  SettingSideBar,
   SideBar,
-  Workspace,
-  SettingSideBar
+  Workspace
 } from './components';
 
 const {
@@ -56,7 +56,7 @@ const ProductBuilder = ({
         if (product) {
           actions.updateState({
             standAlone: true,
-            product,
+            product
             // funnel: isFunnelExist
           });
           return setLoading(false);
@@ -77,7 +77,7 @@ const ProductBuilder = ({
       const product = productsMap[productId];
       // const isProductFunnel = isFunnelExist.products.find((product) => product.productId === productId);
 
-      if (product) {
+      if (product && state.product._id !== productId) {
         actions.updateState({
           standAlone: false,
           product,
@@ -86,6 +86,7 @@ const ProductBuilder = ({
       }
       return setLoading(false);
     }
+    //eslint-disable-next-line
   }, [funnelsMap, productsMap]);
 
   const onSaveProduct = async () => {
@@ -97,10 +98,10 @@ const ProductBuilder = ({
       value: product
     } = await ProductSchema(productData);
 
-    if (!isValid) {
+    if (!isValid)
 
-      return notification.failed('Can\'t save, Validation Error');
-    }
+      return notification.failed('Can\'t save, validation Error');
+
 
     props.updateProduct(
       {
@@ -138,9 +139,7 @@ const ProductBuilder = ({
   );
 };
 
-ProductBuilder.propTypes = {
-
-};
+ProductBuilder.propTypes = {};
 
 const propifyState = ({ funnels = [], products: { products = [] } = {} }) => ({
   funnelsMap: mapListToObject(funnels, 'url'),
