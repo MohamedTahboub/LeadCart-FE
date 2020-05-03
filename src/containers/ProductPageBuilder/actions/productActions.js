@@ -1,5 +1,6 @@
 import sectionsTemplates from 'data/productSectionsTemplates';
 import ids from 'shortid';
+import * as immutable from 'object-path-immutable';
 import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
 
@@ -102,21 +103,10 @@ export const updateDisplayMode = ({ state = {}, dispatch }) => (mode) => {
 
 
 export const onSectionSettingChange = ({ state = {}, dispatch }) => ({ section, field: { name, value } = {} }) => {
-  if (name.includes('.')) {
-    const [key, nestedKey] = name.split('.');
-    const nestedValue = { [nestedKey]: value };
-    name = key;
-    value = { ...section[key], ...nestedValue };
-  }
-
-  const newSection = {
-    ...section,
-    [name]: value
-  };
-
+  const sectionUpdated = immutable.set(section, name, value);
   dispatch({
-    type: types.UPDATE_SECTION_SETTINGS,
-    payload: newSection
+    type: types.UPDATE_PRODUCT_SECTION,
+    payload: sectionUpdated
   });
 };
 
