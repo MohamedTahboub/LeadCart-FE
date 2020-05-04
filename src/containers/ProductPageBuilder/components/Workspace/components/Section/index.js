@@ -38,15 +38,13 @@ const Section = ({
   // onSectionOrderChange,
   ...props
 }) => {
-  const [isDraggable, setIsDraggable] = useState(true);
 
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: dropTypes.SECTION, section, originalIndex },
-    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
-    canDrag: isDraggable
-  }, [isDraggable]);
+    collect: (monitor) => ({ isDragging: monitor.isDragging() })
+  });
 
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
@@ -84,9 +82,6 @@ const Section = ({
     onSectionDuplicate(fromId);
   };
 
-  const onUpdateDragging = (state) => {
-    setIsDraggable(state);
-  };
   return (
     <div
       ref={(node) => drop(drag(node))}
@@ -99,7 +94,6 @@ const Section = ({
         style={style}
       >
         <SettingsHandles
-          // onOrderChange={onSectionOrderChange}
           onSettings={onSetting}
           onDuplicate={onDuplicate}
           section={section}
@@ -108,7 +102,6 @@ const Section = ({
           maxOrder={maxOrder}
         />
         <SectionContent
-          onUpdateDragging={onUpdateDragging}
           type={type}
           section={section}
           language={props.language}

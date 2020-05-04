@@ -38,7 +38,7 @@ const Editor = ({
 Editor.propTypes = {
   value: PropTypes.string,
   onEdit: PropTypes.func,
-  onBlur: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
   headingMode: PropTypes.bool
 };
 Editor.defaultProps = {

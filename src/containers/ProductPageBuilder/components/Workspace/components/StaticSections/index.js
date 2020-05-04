@@ -8,10 +8,10 @@ import './style.css';
 import {
   BillingDetails,
   CompleteOrderBtn,
+  CouponSection,
   OrderSummary,
   PaymentMethods,
-  ShippingDetails,
-  CouponSection
+  ShippingDetails
 } from '../../components';
 
 const { FlexBox } = common;
@@ -28,7 +28,7 @@ const StaticSections = ({ onSetting, language }) => {
         styles = {},
         custom = {},
         orderButtonText = 'Complete Order'
-      } = {},
+      } = {}
     },
     actions
   } = useContext();
@@ -41,8 +41,8 @@ const StaticSections = ({ onSetting, language }) => {
     onSetting(meta);
   };
 
-  const onChange = ({ target }) => {
-    actions.onProductFieldChange(target);
+  const onChange = ({ target: { name, value } }) => {
+    actions.onProductFieldChange({ name, value });
   };
 
   return (
@@ -90,8 +90,6 @@ const StaticSections = ({ onSetting, language }) => {
   );
 };
 
-StaticSections.propTypes = {
-
-};
+StaticSections.propTypes = {};
 
 export default StaticSections;
