@@ -158,7 +158,7 @@ const SideBar = ({
   return (
     <div className={classNames('side-bar justify-space-between d-col', { 'settings-open': isAccountSettingsOpen && !isBrandsOpen })}>
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
-      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
+      <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} onMenuOpen={onMenuOpen} />
       <Menu
         className='side-bar-navigation'

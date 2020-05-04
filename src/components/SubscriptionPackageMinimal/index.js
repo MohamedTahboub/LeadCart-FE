@@ -2,15 +2,16 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import CreditCardInputs from 'components/CreditCardInputs';
+import { Card } from 'antd';
 import config from 'config';
 import './style.css';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
 import ActivePackage from './components/ActivePackage';
 import { upgradeUserSchema } from '../../libs/validation';
 const { packagesPlans = {} } = config;
-
 
 const getLastItem = (list) => list[list.length - 1];
 
@@ -25,12 +26,16 @@ const {
 } = common;
 
 
-const Subscription = ({
+const SubscriptionMinimal = ({
   activePackage = {},
   trial,
   globalLoading,
   transactions,
   nextPackage,
+  history,
+  closeModal,
+  user,
+  brands,
   ...props
 }) => {
   const [errors, setErrors] = useState({});
@@ -42,14 +47,7 @@ const Subscription = ({
     promoCode: {},
     credit: {}
   });
-
-  useEffect(() => {
-    setFields({
-      ...fields,
-      packageType: activePackage.type,
-      recurringPeriod: activePackage.period
-    });
-  }, [activePackage, fields]);
+  const activeBrand = brands.find(({ id }) => user.activeBrand) || {};
 
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
@@ -64,7 +62,6 @@ const Subscription = ({
   const togglePeriod = () => {
     const { promoCode, recurringPeriod, packageType: pkg } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
-    console.log({ recurringPeriod });
     setFields({
       ...fields,
       recurringPeriod: recurringPeriod === 'Monthly' ? 'Yearly' : 'Monthly',
@@ -159,86 +156,80 @@ const Subscription = ({
       }
     );
   };
+  const onLearnMore = () => {
+    history.push('/settings/billing');
+    closeModal();
+  };
 
   const lastTransaction = getLastItem(transactions);
   return (
     <Box
       lessNormal
+      className='minimal-package-plan'
       header={(
         <Fragment>
           <HeadLine className='subscription-head-line'>
-            Your Subscription
+            Upgrade your account to {nextPackage} plan
           </HeadLine>
           <div className='subscription-head-description'>
-            Here you can change and review you subscription plans
+            {nextPackage} gives you all the needed features to become a power seller. Many awesome edge cutting features are in this plan to help you sell and convert more.
           </div>
         </Fragment>
       )}
       contentClassName='subscription-box-content'
       content={(
         <Fragment>
-          <ActivationSwitchInput
-            active={fields.recurringPeriod === 'Monthly'}
-            className={`subscription-toggle-input ${fields.recurringPeriod}`}
-            onToggle={togglePeriod}
-          />
-          {console.log('fields', fields)}
-          <FlexBoxesContainer className='packages-container'>
-            <PackageCard
-              name={nextPackage}
-              package={packagesPlans[nextPackage.toLowerCase()]}
-              activePackage={fields.packageType}
-              interval={fields.recurringPeriod}
-              code={fields.promoCode}
-              lastTransaction={lastTransaction}
-            />
-          </FlexBoxesContainer>
+          <div className='mb-2'>
+            <h3>What's included:</h3>
+            <ul>
+              {
+                packagesPlans[nextPackage.toLowerCase()].features.map((feature) => <li key={feature}>{feature}</li>)
+              }
+            </ul>
+          </div>
+          <div className='mb-2'>
+            <h3>Example use cases:</h3>
+            <ul>
+              {
+                packagesPlans[nextPackage.toLowerCase()].exampleUseCases.map((useCase) => <li key={useCase}>{useCase}</li>)
+              }
+            </ul>
+          </div>
+          <div className='mb-2'>
+            You can always stay on the Pro plan if you only need the Pro functionality. <a onClick={onLearnMore}>Learn more about Pro and Premium plans.</a>
+          </div>
+          <div className='d-flex sub-minimal-brand mb-2'>
+            <div className='mr-4'>
+              <img src={user.profileImage} alt='profileimage' />
+            </div>
+            <div className='d-flex d-col align-center justify-space-between'>
+              <span>Upgrade this brand:</span>
+              <span>{activeBrand.name}</span>
+            </div>
+          </div>
         </Fragment>
       )}
       footer={(
         <Fragment>
-          <InputRow.Label
-            notes='If you have a promo code, please enter it below'
-            className='subscription-promo-code-label'
-          >
-            Do You have a Promo Code ?
-          </InputRow.Label>
-          <div className='subscription-promocode-section'>
-            <InputRow.TextField
-              error={errors.promoCode}
-              name='promoCode'
-              className={`promo-code-input ${fields.promoCode.applied ? 'valid' : ''}`}
-              onChange={onChangePromoCode}
-              value={fields.promoCode.code}
-              placeholder='e.g. PROMO_CODE_XHRNE3'
-            />
-            <SmallButton
-              disabled={loading.promoCode}
-              className={loading.promoCode ? 'primary-color spinner' : 'primary-color'}
-              onClick={onPromoCodeCheck}
-            >
-              Apply Promo Code
-            </SmallButton>
-            {errors.promoCode && (
-              <div className='error-message redeem-box-error'>
-                {errors.promoCode}
-              </div>)
-            }
-          </div>
-          <InputRow.Label className='margin-top-20'>
+          <div className='d-flex d-col'>
+            <InputRow.Label>
             Fill Your Card Details
-          </InputRow.Label>
-          <CreditCardInputs onChange={onChange} />
-          <div className='error-message redeem-box-error'>
-            {errors.message}
-          </div>
-          <SmallButton
-            disabled={loading.upgrade}
-            className={loading.upgrade ? ' update-subscription-plan-btn primary-color spinner' : 'update-subscription-plan-btn primary-color'}
-            onClick={onSubmit}
-          >
+            </InputRow.Label>
+            <CreditCardInputs onChange={onChange} />
+            <div className='error-message redeem-box-error'>
+              {errors.message}
+            </div>
+            <SmallButton
+              disabled={loading.upgrade}
+              className={classNames('update-subscription-plan-btn primary-color mb-2', { spinner: loading.upgrade })}
+              onClick={onSubmit}
+            >
             Update My Package
-          </SmallButton>
+            </SmallButton>
+            <div>
+              <span>To manage your subscription, or cancel it in the future, please head to Settings then Personal and manage your billing from there.</span>
+            </div>
+          </div>
         </Fragment>
       )}
     />
@@ -246,7 +237,7 @@ const Subscription = ({
 };
 
 
-Subscription.propTypes = {
+SubscriptionMinimal.propTypes = {
   checkPromoCode: PropTypes.func.isRequired,
   upgradeUserPackage: PropTypes.func.isRequired
 };
@@ -265,7 +256,6 @@ const mapStateToProps = ({
   } = {}
 }) => {
   activePackage = activePackage || {};
-  console.log({ activePackage });
   if (trial) {
     activePackage.type = activePackage.type || 'Pro';
     activePackage.period = activePackage.period || 'Monthly';
@@ -287,6 +277,4 @@ export const SubscriptionPackageMinimal = connect(
     ...billingActions,
     ...promoCodeActions
   }
-)(Subscription);
-
-export { default as TransactionsTable } from './components/Transactions';
+)(SubscriptionMinimal);
