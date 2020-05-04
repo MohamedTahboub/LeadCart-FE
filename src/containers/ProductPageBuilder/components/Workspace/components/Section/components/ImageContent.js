@@ -9,28 +9,16 @@ const { InputRow: { AddImage } } = common;
 
 const ImageContent = ({
   className,
-  section = {},
-  onUpdateDragging,
-  value: imageSrc = defaultDropImage
+  section = {}
 }) => {
   const inputRef = useRef(null);
 
   const { actions } = useContext();
-  const { styles = {} } = section;
+  const { styles = {}, content = {} } = section;
   const classNames = clx({
     'image-section': true,
     [className]: className
   });
-
-  // const sectionStyle = {
-  //   paddingTop: `${styles.paddingTop}px`,
-  //   paddingBottom: `${styles.paddingBottom}px`,
-  // };
-
-  // const imageStyles = {
-  //   height: `${styles.height}px`,
-  //   width: `${styles.width}px`
-  // };
 
   const onImageChange = (image) => {
     actions.onSectionSettingChange({
@@ -44,14 +32,6 @@ const ImageContent = ({
 
   const onUpload = () => {
     inputRef.current.click();
-  };
-
-
-  const onResizeStart = () => {
-    onUpdateDragging(true);
-  };
-  const onResizeStop = () => {
-    onUpdateDragging(false);
   };
 
 
@@ -70,12 +50,10 @@ const ImageContent = ({
       size={{ height: styles.height }}
       className={classNames}
       onResize={onSizeChange}
-      onResizeStart={onResizeStart}
-      onResizeStop={onResizeStop}
       showOnParentHover
     >
       <img
-        src={imageSrc}
+        src={content.value || defaultDropImage}
         alt='product asset'
         data-tip='Double Click to Upload'
         data-delay-show={1000}

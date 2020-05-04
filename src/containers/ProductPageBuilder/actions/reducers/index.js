@@ -3,15 +3,12 @@ import * as types from '../actionsTypes';
 
 
 const initialState = {
-  modals: {
-    sectionSetting: false
-  },
+  modals: { sectionSetting: false },
   product: sampleProductData,
-  standAlone: true,
+  standAlone: true
 };
 
 export default (state = initialState, { type, payload }) => {
-  
   switch (type) {
   case types.UPDATE_STATE:
     return {
@@ -69,12 +66,16 @@ export default (state = initialState, { type, payload }) => {
       }
     };
   case types.UPDATE_PRODUCT_SECTION:
+
     return {
       ...state,
       product: {
         ...state.product,
         sections: state.product.sections.map((sec) => {
-          if (sec.id === payload.id) return payload;
+          if (sec.id === payload.id) {
+            const newSection = { ...payload };
+            return newSection;
+          }
           return sec;
         })
 

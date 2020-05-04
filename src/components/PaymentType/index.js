@@ -17,7 +17,7 @@ const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
       options={[
         { label: 'One Time Price', value: 'Onetime' },
         { label: 'Subscription', value: 'Subscription' },
-        { label: 'Split Payments', value: 'Split' },
+        { label: 'Split Payments', value: 'Split' }
       ]}
     />
   </InputRow>
@@ -38,11 +38,7 @@ export default ({
       value = { ...payload[key], ...nestedValue };
     }
 
-    onChange({
-      target: {
-        name, value
-      }
-    });
+    onChange({ target: { name, value } });
   };
   const paymentType = payment.type;
   const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split Amount (Each)' : 'Price';
@@ -55,6 +51,7 @@ export default ({
           className='default-pricing-field-length'
           // currency={getCurrencySymbol(price.currency)}
           name='price.amount'
+          type='number'
           defaultValue={price.amount}
           prefix={<Currency value={price.currency} />}
         />
@@ -71,7 +68,7 @@ export default ({
               value={payment.recurringPeriod}
               options={[
                 { label: 'Monthly', value: 'MONTH' },
-                { label: 'Yearly', value: 'YEAR' },
+                { label: 'Yearly', value: 'YEAR' }
               ]}
             />
           </InputRow>
@@ -89,7 +86,7 @@ export default ({
                 { label: 3, value: 3 },
                 { label: 6, value: 6 },
                 { label: 9, value: 9 },
-                { label: 12, value: 12 },
+                { label: 12, value: 12 }
               ]}
             />
           </InputRow>
