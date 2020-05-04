@@ -10,19 +10,23 @@ import { SubscriptionPackageMinimal } from 'components/SubscriptionPackageMinima
 const { Link } = Anchor;
 
 const UserAvatarPreview = ({
-  user: {
-    profileImage,
-    firstName = '',
-    lastName = '',
-    packageType
-  } = {},
+  user,
   updateUserProfileImage,
-  onSettingClick
+  onSettingClick,
+  history,
+  brands,
+  ...rest
 }) => {
   const [isOnboardingModalOpen, setOnboardingModalOpen] = useState(false);
   const toggleOnboardingModalOpen = () => setOnboardingModalOpen(!isOnboardingModalOpen);
   const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
+  const {
+    profileImage,
+    firstName = '',
+    lastName = '',
+    packageType
+  } = user || {};
   const userName = `${firstName} ${lastName && lastName[0]}.`;
 
   const onAvatarImageChange = ({ image }) => {
@@ -52,12 +56,12 @@ const UserAvatarPreview = ({
         packageType !== 'Premium' && (
           <Fragment>
             <div>
-              <Tooltip title={`Upgrade to ${packageType === 'Basic' ? 'Pro' : 'Premium'}`}>
-                <Tag className='ant-anchor-link-title' onClick={toggleUpgradeModalOpen} color='#1890FF'>UPGRADE</Tag>
-              </Tooltip>
+              <Tag className='ant-anchor-link-title' onClick={toggleUpgradeModalOpen} color='#1890FF'>UPGRADE TO {packageType === 'Basic' ? 'PRO' : 'PREMIUM'}</Tag>
             </div>
             <Modal isVisible={isUpgradeModalOpen} className='compress-modal' onClose={toggleUpgradeModalOpen}>
-              <SubscriptionPackageMinimal nextPackage={packageType === 'Basic' ? 'Pro' : 'Premium'} />
+              <SubscriptionPackageMinimal brands={brands} user={user} history={history} nextPackage={packageType === 'Basic' ? 'Pro' : 'Premium'}
+                closeModal={toggleUpgradeModalOpen}
+              />
             </Modal>
           </Fragment>
         )
@@ -67,5 +71,8 @@ const UserAvatarPreview = ({
 };
 
 
-const mapStateToProps = ({ user: { user } }) => ({ user });
+const mapStateToProps = (state) => {
+  const { user: { user } } = state;
+  return ({ user });
+};
 export default connect(mapStateToProps, { ...accountActions })(UserAvatarPreview);

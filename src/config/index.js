@@ -32,7 +32,8 @@ export default {
           'Prospects (Cart Abandonment).',
           '1-Click Upsells.',
           'Unlimited Funnels.'
-        ]
+        ],
+        exampleUseCases: []
       },
       pro: {
         price: {
@@ -51,7 +52,8 @@ export default {
           '1-Click Upsells.',
           'Unlimited Funnels.',
           'Priority Support.'
-        ]
+        ],
+        exampleUseCases: []
       },
       premium: {
         price: {
@@ -60,10 +62,26 @@ export default {
         },
         features: [
           'Everything in Pro Plus:',
-          'The Subscription Saver (Dunning).',
-          'The Affiliate Center.',
-          'Email Builder & Customizations.',
-          'Dedicated Training & Support.'
+          'The Subscription Saver (Dunning) via Rules.',
+          'The Affiliate Center (Coming Soon).',
+          'Email Builder & Customizations (Coming Soon).',
+          'Dedicated Training & Support.',
+          'Cart Abandonment Recovery via Rules.',
+          'Unlimited Team Members (AppSumo Exclusive)',
+          'Assign Roles & Permissions To Team Members (Coming Soon).',
+          'Custom Domains (CNAME).',
+          'Checkout & Funnels',
+          'Emails',
+          'Affiliate Center',
+          'LeadCart Branding Removal.',
+          'Automatic Tax Calculations.',
+          '....And Much More.'
+        ],
+        exampleUseCases: [
+          'Sell all sorts of Digital, Physical Products...etc',
+          'Recruit your own affiliate army to sell your products.',
+          'Add your products to LeadCart Affiliate Marketplace (Coming Soon) so that other sellers and their affiliates can promote them.',
+          'Use for clients or other companies you run with 100% premium support anytime needed.'
         ]
       }
     },
@@ -190,4 +208,3 @@ export default {
     logRocketId: 'olwrix/leadcart'
   }
 }[process.env.REACT_APP_ENV || 'development'];
-

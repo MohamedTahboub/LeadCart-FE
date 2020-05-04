@@ -92,3 +92,23 @@
     margin-right: 20px;
     min-width: 250px;
 }
+
+.minimal-package-plan {
+  max-width: 500px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.sub-minimal-brand {
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  width: 280px;
+  padding: 14px;
+  align-items: center;
+  align-self: center;
+}
+
+.sub-minimal-brand > div > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
