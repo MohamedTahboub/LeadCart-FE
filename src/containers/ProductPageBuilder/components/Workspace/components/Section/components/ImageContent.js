@@ -21,7 +21,6 @@ const ImageContent = ({
   });
 
   const onImageChange = (image) => {
-    console.log(image, section);
     actions.onSectionSettingChange({
       section,
       field: {

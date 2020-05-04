@@ -64,7 +64,6 @@ const PageSettings = ({ ...props }) => {
 
 
   const onChange = ({ target }) => {
-    console.log(target.name, target.value);
     actions.onProductFieldChange(target);
   };
 
