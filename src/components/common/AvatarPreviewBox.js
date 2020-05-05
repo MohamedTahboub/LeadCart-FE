@@ -58,7 +58,7 @@ const UserAvatarPreview = ({
             <div>
               <Tag className='ant-anchor-link-title' onClick={toggleUpgradeModalOpen} color='#1890FF'>UPGRADE TO {packageType === 'Basic' ? 'PRO' : 'PREMIUM'}</Tag>
             </div>
-            <Modal isVisible={isUpgradeModalOpen} className='compress-modal' onClose={toggleUpgradeModalOpen}>
+            <Modal isVisible={isUpgradeModalOpen} className='compress-modal minimal-subscription-modal' onClose={toggleUpgradeModalOpen}>
               <SubscriptionPackageMinimal brands={brands} user={user} history={history} nextPackage={packageType === 'Basic' ? 'Pro' : 'Premium'}
                 closeModal={toggleUpgradeModalOpen}
               />

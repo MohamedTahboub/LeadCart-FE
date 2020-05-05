@@ -162,6 +162,22 @@ const SubscriptionMinimal = ({
   };
 
   const lastTransaction = getLastItem(transactions);
+
+  const mapItem = (listOrKey) => {
+    const { list, key = listOrKey } = listOrKey;
+    if (list) {
+      return (
+        <li>
+          {key}
+          <ul>
+            {list.map(mapItem)}
+          </ul>
+        </li>
+      );
+    } else {
+      return <li key={key}>{key}</li>;
+    }
+  };
   return (
     <Box
       lessNormal
@@ -183,7 +199,7 @@ const SubscriptionMinimal = ({
             <h3>What's included:</h3>
             <ul>
               {
-                packagesPlans[nextPackage.toLowerCase()].features.map((feature) => <li key={feature}>{feature}</li>)
+                packagesPlans[nextPackage.toLowerCase()].features.map(mapItem)
               }
             </ul>
           </div>
@@ -191,20 +207,20 @@ const SubscriptionMinimal = ({
             <h3>Example use cases:</h3>
             <ul>
               {
-                packagesPlans[nextPackage.toLowerCase()].exampleUseCases.map((useCase) => <li key={useCase}>{useCase}</li>)
+                packagesPlans[nextPackage.toLowerCase()].exampleUseCases.map(mapItem)
               }
             </ul>
           </div>
           <div className='mb-2'>
             You can always stay on the Pro plan if you only need the Pro functionality. <a onClick={onLearnMore}>Learn more about Pro and Premium plans.</a>
           </div>
+          <div className='upgrade-text'>Upgrade this brand:</div>
           <div className='d-flex sub-minimal-brand mb-2'>
             <div className='mr-4'>
               <img src={user.profileImage} alt='profileimage' />
             </div>
             <div className='d-flex d-col align-center justify-space-between'>
-              <span>Upgrade this brand:</span>
-              <span>{activeBrand.name}</span>
+              <span><strong>{activeBrand.name}</strong></span>
             </div>
           </div>
         </Fragment>

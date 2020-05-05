@@ -25,11 +25,14 @@ export default ({
     isVisible ? (
       <EasyAnimate className='modal-container'>
         <SlidingAnimation className={`modal-content ${className}`}>
-          {!hideCloseBtn
-            && (<span onClick={onClose} className={`modal-close-btn ${closeBtnClassName}`} role='presentation'>
-              <i className='fas fa-times' />
-            </span>
-            )}
+          {
+            !hideCloseBtn
+            && (
+              <span onClick={onClose} className={`modal-close-btn ${closeBtnClassName}`} role='presentation'>
+                <i className='fas fa-times' />
+              </span>
+            )
+          }
           {children}
         </SlidingAnimation>
         {footer && footer}

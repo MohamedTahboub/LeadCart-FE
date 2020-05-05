@@ -68,10 +68,14 @@ export default {
           'Dedicated Training & Support.',
           'Cart Abandonment Recovery via Rules.',
           'Unlimited Team Members (AppSumo Exclusive)',
-          'Assign Roles & Permissions To Team Members (Coming Soon).',
-          'Custom Domains (CNAME).',
-          'Checkout & Funnels',
-          'Emails',
+          {
+            key:  'Assign Roles & Permissions To Team Members (Coming Soon).',
+            list: [
+              'Custom Domains (CNAME).',
+              'Checkout & Funnels',
+              'Emails'
+            ]
+          },
           'Affiliate Center',
           'LeadCart Branding Removal.',
           'Automatic Tax Calculations.',
@@ -109,7 +113,8 @@ export default {
           'Prospects (Cart Abandonment).',
           '1-Click Upsells.',
           'Unlimited Funnels.'
-        ]
+        ],
+        exampleUseCases: []
       },
       pro: {
         price: {
@@ -141,7 +146,8 @@ export default {
           'The Affiliate Center.',
           'Email Builder & Customizations.',
           'Dedicated Training & Support.'
-        ]
+        ],
+        exampleUseCases: []
       }
     },
     mixPanelId: '6f1e8d2fe9734115de1fdcac460bd8ba',
