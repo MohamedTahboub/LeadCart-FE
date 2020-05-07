@@ -97,7 +97,7 @@ export const ActivationSwitchInput = ({
   const [id] = useState(ids.generate());
   return (
     <div className='activations-switch-input'>
-      <label htmlFor={id} className={`switch-slider-input ${className}`}>
+      <label htmlFor={id} className={`custom-switch-input ${className}`}>
         <input id={id} type='checkbox' onChange={onToggle} checked={active} />
         <span className='slider-input slider-round' />
       </label>
