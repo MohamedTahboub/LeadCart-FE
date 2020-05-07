@@ -5,7 +5,6 @@ import common from 'components/common';
 import './style.css';
 
 const {
-  Collapse,
   InputRow,
   FlexBox
 } = common;
@@ -13,9 +12,9 @@ const {
 
 const Settings = ({
   funnel: { url } = {},
-  subdomain,
   onToggleDarkTheme,
   darkTheme,
+  onChange,
   ...props
 }) => (
   <FlexBox column className='margin-top-10'>
@@ -24,7 +23,7 @@ const Settings = ({
       <InputRow.TextField
         className='full-width'
         name='url'
-        onChange={({ target }) => props.onChange(target)}
+        onChange={({ target }) => onChange(target)}
         value={url}
       />
     </FlexBox>
@@ -33,7 +32,7 @@ const Settings = ({
       <InputRow.SwitchInput
         value={darkTheme}
         onToggle={onToggleDarkTheme}
-        className='sidebar-switch-input onoff-switch-label'
+        className='onoff-switch-label'
       />
     </FlexBox>
   </FlexBox>
@@ -41,11 +40,9 @@ const Settings = ({
 
 Settings.propTypes = {
   product: PropTypes.objectOf({}),
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
-Settings.defaultProps = {
-  product: {}
-};
+Settings.defaultProps = { product: {} };
 
 export default Settings;
