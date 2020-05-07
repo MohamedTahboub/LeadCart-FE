@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
@@ -7,7 +7,6 @@ import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
 import { notification } from 'libs';
-// import { ProductBuilderSkelton } from 'components/Loaders';
 
 
 import './style.css';
@@ -35,21 +34,14 @@ const FunnelBuilder = ({
 }) => {
   const [isNew, setIsNew] = useState(true);
   const [fields, setFields] = useState({});
-  // const [displayType, setDisplayType] = useState('desktop');
-  // const [changesDetected, setChangesDetected] = useState(false)
   const [errors, setErrors] = useState({});
-
-
-  // const [templateChanging, setTemplateChanging] = useState(false);
-
-  // const [isSidebarOpened, setSidebarOpened] = useState(false);
-
+  const [activePage, setActivePage] = useState('blocks');
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
+
+  const [productsNodeDetails, setProductsNodeDetails] = useState({});
 
   const [unblock, SetUnblock] = useState();
 
-  const [productsNodeDetails, setProductsNodeDetails] = useState({});
-  const [activePage, setActivePage] = useState('blocks');
 
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
@@ -63,10 +55,13 @@ const FunnelBuilder = ({
   };
 
   const onChange = ({ name, value }) => {
+    console.log(name, value);
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
   };
+
+  console.log('FUnnel', fields);
 
   const onToggleDarkTheme = () => {
     setEnableDarkTheme(!enableDarkTheme);
@@ -135,7 +130,7 @@ const FunnelBuilder = ({
     payload.productsUpdates = extractProductsRelations(funnel);
 
     action(
-      payload,
+      { ...payload, iss: 'Www' },
       {
         onSuccess: (msg) => {
           notification.success('Funnel Saved Successfully');
@@ -148,15 +143,6 @@ const FunnelBuilder = ({
       }
     );
   };
-  // const postSideChanging = (state) => {
-  //   setSidebarOpened(state);
-  // };
-  // const toggleTemplateChangeEffect = () => {
-  //   setTemplateChanging(!templateChanging);
-  //   setTimeout(() => {
-  //     setTemplateChanging((state) => !state);
-  //   }, 350);
-  // };
 
 
   const onPageChange = (page) => () => {
@@ -178,13 +164,10 @@ const FunnelBuilder = ({
   const sidebarProps = {
     onChange,
     funnel: fields,
-    // onSidebarChange: postSideChanging,
     onToggleDarkTheme,
     darkTheme: enableDarkTheme
-    // toggleTemplateChangeEffect,
   };
   const workSpaceProps = {
-    // className: `${templateChanging ? 'blur-effect' : ''}`,
     funnel: fields,
     onChange,
     productsNodeDetails,
@@ -209,46 +192,6 @@ const FunnelBuilder = ({
       </LayoutSwitch>
     </Page>
   );
-
-  /*
-  <RightSidebar />
-<Fragment>
-{loading.funnel && (
-  <ProductBuilderSkelton />
-)}
-<div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
-  <Header
-    // onDisplayChange={onDisplayChange}
-    onChange={onChange}
-    subdomain={subdomain}
-    domains={domains}
-    funnel={fields}
-    onSave={onSave}
-    isNew={isNew}
-    history={props.history}
-  />
-  <SideBar
-    onChange={onChange}
-    funnel={fields}
-    onSidebarChange={postSideChanging}
-    onToggleDarkTheme={onToggleDarkTheme}
-    darkTheme={enableDarkTheme}
-    toggleTemplateChangeEffect={toggleTemplateChangeEffect}
-  />
-  <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
-    <FunnelWorkspace
-      className={`${templateChanging ? 'blur-effect' : ''}`}
-      funnel={fields}
-      onChange={onChange}
-      productsNodeDetails={productsNodeDetails}
-      errors={errors}
-    />
-  </div>
-
-</div>
-</Fragment>
-);
-*/
 };
 
 FunnelBuilder.propTypes = { history: PropTypes.objectOf({}) };

@@ -27,35 +27,6 @@ const SideBar = ({
   onChange,
   ...props
 }) => {
-  // const elementRef = useRef(null);
-  // const [activeMenuItem, setActiveMenuItem] = useState('');
-  // const [open, setOpen] = useState(false);
-
-
-  // const onOpen = () => {
-  //   setOpen(true);
-  //   if (props.onSidebarChange) props.onSidebarChange(true);
-  // };
-  // const onClose = () => {
-  //   setOpen(false);
-  //   if (props.onSidebarChange) props.onSidebarChange(false);
-  // };
-
-  // const onActivateMenuItem = (item) => {
-  //   if (item === activeMenuItem) {
-  //     if (open) {
-  //       onClose();
-  //       return setActiveMenuItem('');
-  //     }
-
-  //     onOpen();
-  //   } else {
-  //     onOpen();
-  //   }
-
-  //   setActiveMenuItem(item);
-  // };
-
   const onDrag = ({
     data = {},
     ref,
@@ -131,9 +102,9 @@ const SideBar = ({
         </Tab>
         <Tab id='funnelSettings' title='Settings'>
           <SettingMenu
-            onChange={onChange}
-            funnel={funnel}
             {...props}
+            onChange={onNameChange}
+            funnel={funnel}
           />
         </Tab>
       </Tabs>

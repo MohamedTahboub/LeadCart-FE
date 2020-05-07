@@ -31,7 +31,7 @@ const envsVars = {
 };
 
 const activeEnvironment = {
-  ...envsVars[APP_ENV],
-  ...commonVars
+  ...commonVars,
+  ...envsVars[APP_ENV]
 };
 export default activeEnvironment;
