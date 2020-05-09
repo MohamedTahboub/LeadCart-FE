@@ -22,15 +22,16 @@ const StaticSections = ({ onSetting, language }) => {
     state: {
       product: {
         name,
-        type: productType = 'checkout',
+        category: productCategory = 'checkout',
         price = {},
         payment = { methods: ['Paypal', 'Stripe'] },
         addOns = {},
         styles = {},
-        content = {},
         custom = {},
-        orderButtonText = 'Complete Order',
-        declineBtnText = 'No Thanks'
+        content: {
+          orderButtonText = 'Complete Order',
+          declineBtnText = 'No Thanks'
+        } = {}
       } = {}
     },
     actions
@@ -51,7 +52,7 @@ const StaticSections = ({ onSetting, language }) => {
   return (
     <FlexBox column className='relative-element'>
       <SettingsHandle onClick={onSectionSettings} />
-      <LayoutSwitch active={productType}>
+      <LayoutSwitch active={productCategory}>
         <Fragment id='checkout'>
           <BillingDetails
             color={styles.themeColor}
@@ -65,10 +66,7 @@ const StaticSections = ({ onSetting, language }) => {
           )}
           <PaymentMethods
             step={addOns.shippingDetails ? 3 : 2}
-            // onOptionSelected={onOptionSelected}
             methods={payment.methods}
-            // onShowSetting
-            // onFieldChange
             language={language}
           />
           {custom.couponSection && (
@@ -79,7 +77,6 @@ const StaticSections = ({ onSetting, language }) => {
           )}
           <OrderSummary
             price={price}
-            // productName='Growth hacking'
             productName={name}
             payment={payment}
             language={language}

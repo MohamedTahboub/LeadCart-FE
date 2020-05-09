@@ -24,12 +24,13 @@ const PageSettings = (props) => {
   } = useContext();
 
   const {
-    type,
+    category,
     pageStyles = {}
   } = product;
 
 
   const onChange = ({ target }) => {
+    console.log(target.name, target.value);
     actions.onProductFieldChange(target);
   };
 
@@ -41,8 +42,8 @@ const PageSettings = (props) => {
             Product Type:
           </Label>
           <SelectOption
-            value={type}
-            name='type'
+            value={category}
+            name='category'
             onChange={onChange}
             options={[
               { label: 'Checkout Product', value: 'checkout' },
