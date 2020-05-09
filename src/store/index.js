@@ -8,7 +8,7 @@ import LogRocket from 'logrocket';
 const env = process.env.NODE_ENV;
 
 const applicationMiddleware = env !== 'production'
-  ? applyMiddleware(logger, ...middlewares)
+  ? applyMiddleware(/*logger,*/ ...middlewares)
   : applyMiddleware(...middlewares, LogRocket.reduxMiddleware());
 
 

@@ -1,0 +1,26 @@
+.help-iframe-container {
+  border: none;
+  height: calc(100% + 6px);
+  width: calc(100% + 40px);
+  margin:-10px -20px 0px -20px;
+}
+
+.help-item {
+  margin: 10px;
+}
+/* justify-content: center;
+align-items: center;
+display: flex; */
+
+/* TEMP */
+#help-item-image {
+  width: 200px;
+  height: 200px;
+  background: #F0F0F0;
+}
+
+.save-button {
+  position: fixed !important;
+  bottom: 20px;
+  right: 100px;
+}

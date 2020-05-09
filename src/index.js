@@ -48,6 +48,7 @@ import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
 import SubAccounts from './containers/SubAccounts';
 import Help from './containers/Help';
+import PersonalSettings from './containers/PersonalSettings';
 import Account from './containers/Account';
 
 
@@ -112,6 +113,7 @@ ReactDOM.render(
                   <Route exact path='/settings/account' component={Account} />
                   <Route path='/settings' component={Setting} />
                   <Route exact path='/help' component={Help} />
+                  <Route exact path='/account' component={PersonalSettings} />
                   <Route exact path='*' component={FourOFour} />
                 </Switch>
               </Fragment>
