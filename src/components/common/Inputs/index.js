@@ -146,12 +146,12 @@ export class InputRow extends Component {
       {leftLabel && <span className='input-left-label'>{leftLabel}</span>}
       <select
         onChange={onChange}
-        value={value}
+        defaultValue={value}
         name={name}
         className={`select-input-field ${className || ''}`}
         disabled={disabled}
       >
-        {options.map(({ label, value: v }) => <option key={ids.generate()} className='select-option' value={v}>{label}</option>)}
+        {options.map(({ label, value: v }) => <option key={v} className='select-option' value={v}>{label}</option>)}
       </select>
     </React.Fragment>
   )
