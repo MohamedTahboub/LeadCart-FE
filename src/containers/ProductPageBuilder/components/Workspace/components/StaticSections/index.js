@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { SettingsHandle } from '../common';
@@ -115,6 +115,9 @@ const StaticSections = ({ onSetting, language }) => {
   );
 };
 
-StaticSections.propTypes = {};
+StaticSections.propTypes = {
+  language: PropTypes.objectOf(PropTypes.object).isRequired,
+  onSetting: PropTypes.func.isRequired
+};
 
 export default StaticSections;

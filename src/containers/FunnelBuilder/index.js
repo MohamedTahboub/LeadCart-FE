@@ -130,7 +130,7 @@ const FunnelBuilder = ({
     payload.productsUpdates = extractProductsRelations(funnel);
 
     action(
-      { ...payload, iss: 'Www' },
+      payload,
       {
         onSuccess: (msg) => {
           notification.success('Funnel Saved Successfully');

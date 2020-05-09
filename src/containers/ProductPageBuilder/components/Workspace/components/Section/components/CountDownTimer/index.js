@@ -6,46 +6,36 @@ import './style.css';
 import common from 'components/common';
 import CountDownTimer from 'components/CountDownTimer';
 
-const {
-  FlexBox,
-} = common;
-const GuaranteeSection = ({
+const { FlexBox } = common;
+const Timer = ({
   className,
-  section = {},
+  section = {}
 }) => {
   const {
     styles = { theme: 'formal-circles' },
     content: {
       valueType,
-      value,
+      value
     } = {},
     options
   } = section;
 
-  const classNames = clx({
-    [className]: className,
-  });
+  const classNames = clx({ [className]: className });
 
   const sectionStyle = {
-    // ...styles,
     marginTop: `${styles.marginTop}px`,
     marginBottom: `${styles.marginBottom}px`,
     paddingTop: `${styles.paddingTop}px`,
-    paddingBottom: `${styles.paddingBottom}px`,
+    paddingBottom: `${styles.paddingBottom}px`
   };
 
-  const style = {
-    height: `${styles.height}px`,
-    width: `${styles.width}px`
-  };
-
-  const [format, shape] = styles.theme.split('-');
+  const [format, shape] = styles.theme ? styles.theme.split('-') : [];
   const countDownStyles = {
     format,
     color: styles.clockColor,
     // fontSize: styles.fontSize,
     shape,
-    backgroundColor: styles.backgroundColor,
+    backgroundColor: styles.backgroundColor
   };
   return (
     <FlexBox
@@ -63,8 +53,6 @@ const GuaranteeSection = ({
   );
 };
 
-GuaranteeSection.propTypes = {
+Timer.propTypes = {};
 
-};
-
-export default GuaranteeSection;
+export default Timer;
