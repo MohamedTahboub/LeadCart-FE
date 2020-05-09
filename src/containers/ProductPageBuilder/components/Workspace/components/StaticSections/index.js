@@ -53,7 +53,7 @@ const StaticSections = ({ onSetting, language }) => {
     <FlexBox column className='relative-element'>
       <SettingsHandle onClick={onSectionSettings} />
       <LayoutSwitch active={productCategory}>
-        <Fragment id='checkout'>
+        <FlexBox column id='checkout'>
           <BillingDetails
             color={styles.themeColor}
             language={language}
@@ -86,7 +86,7 @@ const StaticSections = ({ onSetting, language }) => {
             color={styles.themeColor}
             onChange={onChange}
           />
-        </Fragment>
+        </FlexBox>
         <FlexBox
           id='upsell'
           className='pt-4'
@@ -102,8 +102,12 @@ const StaticSections = ({ onSetting, language }) => {
             onChange={onChange}
             name='content.declineBtnText'
             value={declineBtnText}
-            style={{ minWidth: '400px', outlineStyle: 'none' }}
-            className='medium-text blush-gray max-w-500 margin-v-20 underlined-text aligned-center'
+            style={{
+              minWidth: '400px',
+              outlineStyle: 'none',
+              textDecoration: 'underline'
+            }}
+            className='medium-text blush-gray max-w-500 margin-v-20 aligned-center'
           />
         </FlexBox>
       </LayoutSwitch>

@@ -1,3 +1,5 @@
+import leadcartBrandLogo from 'assets/images/logo.png';
+
 export default {
   packagesPlans: {
     basic: {
@@ -71,5 +73,10 @@ export default {
         'Use for clients or other companies you run with 100% premium support anytime needed.'
       ]
     }
+  },
+  brandsDefaults: {
+    defaultSupportEmail: 'supprot@leadcart.io',
+    defaultName: 'Leadcart',
+    defaultLogo: leadcartBrandLogo
   }
 };

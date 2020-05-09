@@ -15,6 +15,7 @@ import { SettingsHandle } from './components/common';
 
 import {
   DropZone,
+  ProductHead,
   Section,
   StaticSections
 } from './components';
@@ -170,6 +171,7 @@ const Workspace = ({
     >
       <FlexBox id='product-builder-window' column className={workspaceClasses} style={productStyles}>
         <SettingsHandle onClick={onProductSettings} />
+        <ProductHead />
         <DropZone onDrop={onSectionDropped}>
           {!sections.length && (
             <FlexBox center='h-center'>
