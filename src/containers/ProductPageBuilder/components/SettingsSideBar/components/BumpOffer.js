@@ -6,12 +6,11 @@ import { nestedKeyValue } from 'libs';
 import { useContext } from '../../../actions';
 
 import {
-  SettingBox,
-  ImageOption
+  ImageOption,
+  SettingBox
 } from './common';
 
 const {
-  Collapse,
   MiniTwitterPicker,
 
   // FulfillmentRowCard,
@@ -20,8 +19,6 @@ const {
   Tab,
   InputRow
 } = common;
-
-const { Panel } = Collapse;
 
 
 const themesOptions = [
@@ -34,7 +31,7 @@ const themesOptions = [
       borderColor: 'rgb(142, 209, 252)',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5,
+      borderRadius: 5
     }
   },
   {
@@ -47,7 +44,7 @@ const themesOptions = [
       borderColor: '#00D084',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5,
+      borderRadius: 5
     }
   },
   {
@@ -60,9 +57,9 @@ const themesOptions = [
       borderColor: '#EB144C',
       borderStyle: 'dashed',
       borderWidth: 3,
-      borderRadius: 1,
+      borderRadius: 1
     }
-  },
+  }
 
 ];
 
@@ -70,29 +67,25 @@ const currency = 'USD';
 const {
   Label,
   SwitchInput,
+  Toggle,
   TextField,
   SelectOption
 } = InputRow;
 
-const BumpOffer = ({
-  ...props
-}) => {
+const BumpOffer = ({ ...props }) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content = {},
-    actions: sectionActions = {}
+    content = {}
+    // actions: sectionActions = {}
   } = sectionSetting;
 
   const onChange = ({ target }) => {
+    console.log('Offer', target.name, target.value);
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: target
@@ -161,11 +154,10 @@ const BumpOffer = ({
           <Label className='sidebar-input-label'>
             Force opt-out:
           </Label>
-          <SwitchInput
+          <Toggle
             value={content.checked}
             name='content.checked'
             onToggle={onToggleChange}
-            className='sidebar-switch-input'
           />
         </InputRow>
       </Tab>
@@ -176,13 +168,16 @@ const BumpOffer = ({
         >
           <InputRow className='sidebar-row'>
             <Label className='sidebar-input-label'>
-              Toggle Style:
+              Toggle Input Theme:
             </Label>
-            <SwitchInput
+            <SelectOption
               value={styles.toggleInput}
               name='styles.toggleInput'
-              onToggle={onToggleChange}
-              className='sidebar-switch-input'
+              onChange={onChange}
+              options={[
+                { label: 'Classic', value: 'classic' },
+                { label: 'Modern', value: 'modern' }
+              ]}
             />
           </InputRow>
         </SettingBox>
@@ -304,7 +299,7 @@ const BumpOffer = ({
                 { label: '4 px', value: '4' },
                 { label: '5 px', value: '5' },
                 { label: '6 px', value: '6' },
-                { label: '7 px', value: '7' },
+                { label: '7 px', value: '7' }
               ]}
             />
           </InputRow>
@@ -314,9 +309,7 @@ const BumpOffer = ({
     </Tabs>
   );
 };
-BumpOffer.propTypes = {
-
-};
+BumpOffer.propTypes = {};
 
 
 export default BumpOffer;
