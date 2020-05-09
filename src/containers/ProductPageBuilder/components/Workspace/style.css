@@ -13,7 +13,10 @@
     overflow-y: auto;
     overflow-x: visible;
 }
-
+.product-workspace.wide{
+    width: 950px;
+    min-width: 70%;
+}
 .drop-area-image {
     width: 81%;
     height: 120px;

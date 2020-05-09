@@ -12,9 +12,9 @@ import {
   OrderSummary,
   PaymentMethods,
   ShippingDetails
-} from '../../components';
+} from './components';
 
-const { FlexBox } = common;
+const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
 
 
 const StaticSections = ({ onSetting, language }) => {
@@ -22,12 +22,15 @@ const StaticSections = ({ onSetting, language }) => {
     state: {
       product: {
         name,
+        type: productType = 'checkout',
         price = {},
         payment = { methods: ['Paypal', 'Stripe'] },
         addOns = {},
         styles = {},
+        content = {},
         custom = {},
-        orderButtonText = 'Complete Order'
+        orderButtonText = 'Complete Order',
+        declineBtnText = 'No Thanks'
       } = {}
     },
     actions
@@ -48,44 +51,65 @@ const StaticSections = ({ onSetting, language }) => {
   return (
     <FlexBox column className='relative-element'>
       <SettingsHandle onClick={onSectionSettings} />
-      <BillingDetails
-        color={styles.themeColor}
-        language={language}
-      />
-      {custom.shippingDetails && (
-        <ShippingDetails
-          color={styles.themeColor}
-          language={language}
-        />
-      )}
-      <PaymentMethods
-        step={addOns.shippingDetails ? 3 : 2}
-        // onOptionSelected={onOptionSelected}
-        methods={payment.methods}
-        // onShowSetting
-        // onFieldChange
-        language={language}
-      />
-      {custom.couponSection && (
-        <CouponSection
-          color={styles.themeColor}
-          language={language}
-        />
-      )}
-      <OrderSummary
-        price={price}
-        // productName='Growth hacking'
-        productName={name}
-        payment={payment}
-        language={language}
-      />
-      <CompleteOrderBtn
-        name='orderButtonText'
-        text={orderButtonText}
-        color={styles.themeColor}
-        onChange={onChange}
-        language={language}
-      />
+      <LayoutSwitch active={productType}>
+        <Fragment id='checkout'>
+          <BillingDetails
+            color={styles.themeColor}
+            language={language}
+          />
+          {custom.shippingDetails && (
+            <ShippingDetails
+              color={styles.themeColor}
+              language={language}
+            />
+          )}
+          <PaymentMethods
+            step={addOns.shippingDetails ? 3 : 2}
+            // onOptionSelected={onOptionSelected}
+            methods={payment.methods}
+            // onShowSetting
+            // onFieldChange
+            language={language}
+          />
+          {custom.couponSection && (
+            <CouponSection
+              color={styles.themeColor}
+              language={language}
+            />
+          )}
+          <OrderSummary
+            price={price}
+            // productName='Growth hacking'
+            productName={name}
+            payment={payment}
+            language={language}
+          />
+          <CompleteOrderBtn
+            text={orderButtonText}
+            color={styles.themeColor}
+            onChange={onChange}
+          />
+        </Fragment>
+        <FlexBox
+          id='upsell'
+          className='pt-4'
+          column
+          center='h-center'
+        >
+          <CompleteOrderBtn
+            text={orderButtonText}
+            color={styles.themeColor}
+            onChange={onChange}
+          />
+          <ResizableTextarea
+            onChange={onChange}
+            name='content.declineBtnText'
+            value={declineBtnText}
+            style={{ minWidth: '400px', outlineStyle: 'none' }}
+            className='medium-text blush-gray max-w-500 margin-v-20 underlined-text aligned-center'
+          />
+        </FlexBox>
+      </LayoutSwitch>
     </FlexBox>
   );
 };

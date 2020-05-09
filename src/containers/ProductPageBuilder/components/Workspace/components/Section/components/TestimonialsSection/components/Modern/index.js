@@ -8,7 +8,6 @@ import Image from 'components/common/Image';
 import './style.css';
 const {
   FlexBox,
-  EditableField,
   ResizableInput,
   ResizableTextarea
 } = common;
@@ -76,9 +75,7 @@ const ModernTestimonial = ({
             name='content.author'
             defaultValue='Author Name'
             value={author}
-            style={{
-              fontWeight: 'bold'
-            }}
+            style={{ fontWeight: 'bold' }}
           />
         </FlexBox>
       </FlexBox>
@@ -86,8 +83,6 @@ const ModernTestimonial = ({
   );
 };
 
-ModernTestimonial.propTypes = {
-
-};
+ModernTestimonial.propTypes = {};
 
 export default ModernTestimonial;

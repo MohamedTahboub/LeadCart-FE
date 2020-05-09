@@ -7,38 +7,24 @@ import './style.css';
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
 import update from 'immutability-helper';
-// import ids from 'shortid';
 import sectionsTemplates from 'data/productSectionsTemplates';
 import ids from 'shortid';
-import shortid from 'shortid';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
-// import sampleProductData from './sampleProductData.js';
 import { useContext } from '../../actions';
 import { SettingsHandle } from './components/common';
 
 import {
-  // BillingDetails,
-  // CompleteOrderBtn,
-  // OrderSummary,
-  // PaymentMethods,
-  StaticSections,
+  DropZone,
   Section,
-  DropZone
+  StaticSections
 } from './components';
 
-const {
-  // Button,
-  FlexBox,
-  // Title,
-  // EditableField
-} = common;
+const { FlexBox } = common;
 
 
 const getLanguageLabel = (
   languages = [],
-  {
-    language: langId
-  } = {}
+  { language: langId } = {}
 ) => {
   let language = languages.find((lang) => lang._id === langId);
   if (!language) language = defaultLanguage;
@@ -54,9 +40,7 @@ const Workspace = ({
   const {
     state: {
       displayMode,
-      modals: {
-        sectionSetting: activeSection = {}
-      } = {},
+      modals: { sectionSetting: activeSection = {} } = {},
       product: {
         sections = [],
         staticSections = [],
@@ -68,12 +52,13 @@ const Workspace = ({
   } = useContext();
 
 
-  const workspaceClasses = clx({
-    'product-workspace': true,
-    'relative-element': true,
-    [className]: className,
-    [displayMode]: displayMode,
-  });
+  const workspaceClasses = clx(
+    'product-workspace',
+    'relative-element',
+    pageStyles.widthMode,
+    className,
+    displayMode
+  );
 
   const activeLanguage = getLanguageLabel(translations);
 
@@ -84,7 +69,7 @@ const Workspace = ({
 
   const onSectionOrderChange = (id, newOrder) => {
     const newSections = sections.map((section) => {
-      
+
       if (section.id === id) return { ...section, order: newOrder };
       return section;
     });
@@ -100,7 +85,7 @@ const Workspace = ({
     const section = sections.filter((c) => `${c.id}` === id)[0];
     return {
       section,
-      index: sections.indexOf(section),
+      index: sections.indexOf(section)
     };
   };
 
@@ -111,8 +96,8 @@ const Workspace = ({
     const newSections = update(sections, {
       $splice: [
         [index, 1],
-        [atIndex, 0, section],
-      ],
+        [atIndex, 0, section]
+      ]
     });
     actions.onProductFieldChange({
       name: 'sections',
@@ -133,8 +118,8 @@ const Workspace = ({
         [(index + 1), 0, {
           ...copySection,
           id: ids.generate()
-        }],
-      ],
+        }]
+      ]
     });
     actions.onProductFieldChange({
       name: 'sections',
@@ -152,8 +137,8 @@ const Workspace = ({
     const newSections = update(sections, {
       $splice: [
         [(atIndex), 0, section],
-        [(atIndex + 1), 0],
-      ],
+        [(atIndex + 1), 0]
+      ]
     });
 
     actions.onProductFieldChange({
@@ -170,9 +155,7 @@ const Workspace = ({
     onSectionSettings(meta);
   };
 
-  const screenStyles = {
-    backgroundColor: pageStyles.screenBackground
-  };
+  const screenStyles = { backgroundColor: pageStyles.screenBackground };
   const productStyles = {
     backgroundColor: pageStyles.productBackground,
     borderRadius: `${pageStyles.borderRadius}px`
@@ -225,14 +208,8 @@ const Workspace = ({
 };
 
 
-const mapStateToProps = ({
-  translations,
-}) => ({
-  translations,
-});
+const mapStateToProps = ({ translations }) => ({ translations });
 
-Workspace.propTypes = {
-
-};
+Workspace.propTypes = {};
 
 export default connect(mapStateToProps)(Workspace);

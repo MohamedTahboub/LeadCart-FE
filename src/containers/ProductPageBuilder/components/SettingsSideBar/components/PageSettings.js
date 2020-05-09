@@ -1,57 +1,23 @@
-import React, { Fragment } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
-// import { connect } from 'react-redux';
-import currencies from 'data/currencies.json';
-import PaymentType from 'components/PaymentType';
-import PaymentGateway from 'components/PaymentGateways';
 import { useContext } from '../../../actions';
 
 import { SettingBox } from './common';
 
-const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 const {
-  Collapse,
   MiniTwitterPicker,
-  FulfillmentRowCard,
-  Currency,
   Tabs,
   Tab,
-  InputRow,
-  FlexBox
-
+  InputRow
 } = common;
 
-const { Panel } = Collapse;
 
-const formatOptions = [
-  {
-    label: '(1134.65)',
-    value: 'amount'
-  },
-  {
-    label: '(1135)',
-    value: 'amount_no_decimals'
-  },
-  {
-    label: '(1,134.65)',
-    value: 'amount_with_comma_separator'
-  },
-  {
-    label: '(1,135)',
-    value: 'amount_with_comma_separator_no_decimals'
-  }
-];
-const currency = 'USD';
 const {
   Label,
-  SwitchInput,
-  TextField,
-  SearchInput,
   SelectOption
 } = InputRow;
 
-const PageSettings = ({ ...props }) => {
+const PageSettings = (props) => {
   const {
     state: { product = {} },
     actions
@@ -68,7 +34,7 @@ const PageSettings = ({ ...props }) => {
   };
 
   return (
-    <Tabs active='settings' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+    <Tabs active='settings' className='p-2 flex' tabsContentClassName='scrolling-70vh flex'>
       <Tab id='settings' title='Settings'>
         <InputRow className='sidebar-row'>
           <Label className='sidebar-input-label'>
@@ -78,17 +44,34 @@ const PageSettings = ({ ...props }) => {
             value={type}
             name='type'
             onChange={onChange}
-            className='bump-offer-style-dropdown'
             options={[
-              { label: 'Checkout Product', value: 'checkoutProduct' },
-              { label: 'Upsell/Downsell Product', value: 'upsellProduct' },
-              { label: 'ThankYou Product', value: 'thankyouPage' }
+              { label: 'Checkout Product', value: 'checkout' },
+              { label: 'Upsell/Downsell Product', value: 'upsell' }
+              // { label: 'ThankYou Product', value: 'thankyouPage' }
             ]}
           />
         </InputRow>
       </Tab>
 
-      <Tab id='styles' title='styles'>
+      <Tab id='styles' title='styles' >
+        <SettingBox
+          title='Size'
+        >
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Product Width:
+            </Label>
+            <SelectOption
+              value={pageStyles.widthMode}
+              name='pageStyles.widthMode'
+              onChange={onChange}
+              options={[
+                { label: 'Normal', value: 'normal' },
+                { label: 'Wide', value: 'wide' }
+              ]}
+            />
+          </InputRow>
+        </SettingBox>
         <SettingBox
           title='Colors'
         >
@@ -123,7 +106,6 @@ const PageSettings = ({ ...props }) => {
               value={pageStyles.borderRadius}
               name='pageStyles.borderRadius'
               onChange={onChange}
-              className='bump-offer-style-dropdown'
               options={[
                 { label: '0 px', value: '0' },
                 { label: '1 px', value: '1' },
