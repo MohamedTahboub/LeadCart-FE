@@ -2,18 +2,17 @@
 
 .product-node{
     position: relative;
-    margin: 5px 15px;
-    
+    margin: 5px 15px;    
     height: 140px;
     width: 100px;
-    /* background: white; */
     border-radius: 6px;
     box-shadow: 0 0 2px 0px rgba(0,0,0,0.03);
     cursor: pointer;
     transition: box-shadow .3s ease-in-out;
     display: flex;
     flex-direction: column;
-
+    
+    /* align-items: center; */
 }
 
 .product-node.disabled{
@@ -53,17 +52,19 @@
 }
 .active-mark{
     position: absolute;
-    bottom: 5px;
-    left: 5px;
-    color: lightgreen;
-    font-size: 13px;
+    top: 15px;
+    right: 8px;
+    /* color: lightgreen; */
+    color: #0782fb;
+    font-size: 20px;
 }   
 
 
-.explore-edit-btn {
-    font-size: 12px;
-    padding: 5px 10px;
+.node-footer-btn {
+    flex: 1;
+    height: 27px;
+    font-size: 11px !important;
     background: #0782fb;
     color: white;
-    border-top-right-radius: 10px;
+    border-radius: 0 !important;
 }

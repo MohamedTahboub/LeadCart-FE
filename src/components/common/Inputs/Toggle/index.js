@@ -10,19 +10,25 @@ const Toggle = ({
   beforeLabel,
   afterLabel,
   value,
+  name,
   ...props
 }) => {
   const classNames = clx('classic-toggle', className);
+
+  const _onToggle = () => {
+    onToggle({ name });
+  };
   return (
     <div className={classNames}>
       <input
         type='checkbox'
         defaultChecked={defaultValue}
         checked={value}
+        name={name}
         {...props}
       />
       <div
-        onClick={onToggle}
+        onClick={_onToggle}
         data-before-bar={beforeLabel}
         data-after-bar={afterLabel}
         className='toggle-bar'

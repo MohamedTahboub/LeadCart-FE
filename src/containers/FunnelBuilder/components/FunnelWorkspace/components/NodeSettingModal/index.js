@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import productSample from 'data/product.json';
 import * as productActions from 'actions/product';
@@ -79,9 +79,12 @@ const NodeSettingModal = ({
       productSample,
       {
         onSuccess: (product) => {
-          setLoading(false);
-          history.push(`${funnelUrl}/products/${product.id}`);
-          notification.success('Product Created ');
+          onSelect(nodeId, product.id);
+          setTimeout(() => {
+            setLoading(false);
+            history.push(`${funnelUrl}/products/${product.id}`);
+            notification.success('Product Created ');
+          }, 300);
         },
         onFailed: (message) => {
           setLoading(false);
@@ -134,6 +137,7 @@ const NodeSettingModal = ({
                   key={product._id}
                   onClick={onSelect(isVisible, product._id)}
                   active={product.active}
+                  draggable={false}
                   onEditExplore={onProductEdit(product._id)}
                   product={{
                     image: product.thumbnail,
@@ -155,9 +159,7 @@ const NodeSettingModal = ({
   );
 };
 
-NodeSettingModal.propTypes = {
-
-};
+NodeSettingModal.propTypes = {};
 
 NodeSettingModal.defaultProps = {
   show: false,

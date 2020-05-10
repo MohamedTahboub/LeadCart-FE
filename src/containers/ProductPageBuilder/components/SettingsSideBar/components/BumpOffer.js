@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 import common from 'components/common';
 // import { connect } from 'react-redux';
@@ -12,12 +12,11 @@ import {
 
 const {
   MiniTwitterPicker,
-
-  // FulfillmentRowCard,
   Currency,
   Tabs,
   Tab,
-  InputRow
+  InputRow,
+  FlexBox
 } = common;
 
 
@@ -101,7 +100,8 @@ const BumpOffer = ({ ...props }) => {
       }
     });
   };
-  const onToggleChange = ({ target: { name } }) => {
+  const onToggleChange = ({ name }) => {
+    console.log(name);
     onChange({
       target: {
         name,
@@ -114,11 +114,11 @@ const BumpOffer = ({ ...props }) => {
       <Tab id='themes' title='Themes'>
         {themesOptions.map((theme) => (
           <ImageOption
-            className='guarantee-theme-demo'
-            value={theme.src}
             key={theme.src}
+            value={theme.src}
             onClick={onStylesChange(theme.styles)}
             active={styles.theme === theme.theme}
+            className='guarantee-theme-demo'
           />
         ))}
       </Tab>
@@ -150,24 +150,26 @@ const BumpOffer = ({ ...props }) => {
             currency='$'
           />
         </InputRow>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
+        <FlexBox flex spaceBetween center='v-center'>
+          <FlexBox flex>
             Force opt-out:
-          </Label>
-          <Toggle
-            value={content.checked}
-            name='content.checked'
-            onToggle={onToggleChange}
-          />
-        </InputRow>
+          </FlexBox>
+          <FlexBox flex>
+            <Toggle
+              value={content.checked}
+              name='content.checked'
+              onToggle={onToggleChange}
+            />
+          </FlexBox>
+        </FlexBox>
       </Tab>
 
       <Tab id='advance' title='Advance'>
         <SettingBox
           title='Options'
         >
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
+          <FlexBox flex spaceBetween center='v-center'>
+            <Label>
               Toggle Input Theme:
             </Label>
             <SelectOption
@@ -179,7 +181,7 @@ const BumpOffer = ({ ...props }) => {
                 { label: 'Modern', value: 'modern' }
               ]}
             />
-          </InputRow>
+          </FlexBox>
         </SettingBox>
         <SettingBox
           title='Colors'
