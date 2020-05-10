@@ -68,12 +68,12 @@ const ConnectClient = ({ name, onChange, onSubmit, ...props }) => (
       flex
       spaceBetween
       className='full-width'
-      // flex
+    // flex
     />
 
     <FlexBox flexEnd className='full-width'>
       <Button onClick={onSubmit} className='primary-color'>
-          Authorize
+        Authorize
       </Button>
     </FlexBox>
   </FlexBox>
@@ -88,13 +88,13 @@ const ConnectApiKey = ({ name, onChange, onSubmit, ...props }) => (
         <TextField
           name='apiKey'
           onChange={onChange}
-          // value={values.apiKey}
+        // value={values.apiKey}
         />
       )}
     />
     <FlexBox flexEnd className='full-width'>
       <Button onClick={onSubmit} className='primary-color'>
-          Authorize
+        Authorize
       </Button>
     </FlexBox>
   </FlexBox>
@@ -159,29 +159,33 @@ const ServiceConnect = ({ data = {}, ...props }) => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    // if (service.key !== data.key) {
-    setOnprogress(true);
-    setService(data);
-    props.checkIntegrationService(
-      { integrationKey: service.key },
-      {
-        onSuccess: (data) => {
-          setOnprogress(false);
-          setSupported(true);
-          setService({
-            ...service,
-            authType: data.authType,
-            data
-          });
-        },
-        onFailed: (message) => {
-          setOnprogress(false);
-          setSupported(false);
-          setError(message);
+    console.log('data, service', data, service);
+    if (!service.data) {
+      setOnprogress(true);
+      setService(data);
+      props.checkIntegrationService(
+        { integrationKey: service.key },
+        {
+          onSuccess: (data) => {
+            setOnprogress(false);
+            setSupported(true);
+            setService({
+              ...service,
+              authType: data.authType,
+              data
+            });
+          },
+          onFailed: (message) => {
+            setOnprogress(false);
+            setSupported(false);
+            setError(message);
+          }
         }
-      }
-    );
-    // };
+      );
+    } else {
+      setOnprogress(false);
+      setSupported(true);
+    }
   }, [data, props, service]);
 
   const onConnect = ({
