@@ -7,6 +7,7 @@ const sectionSchema = yup.mixed();
 const ProductSchema = yup.object({
   available: yup.boolean().default(false),
   name: yup.string().default('Product-Name'),
+  category: yup.string().default('checkout'),
   internalName: yup.string(),
   thumbnail: yup.string(),
   price: yup.object({

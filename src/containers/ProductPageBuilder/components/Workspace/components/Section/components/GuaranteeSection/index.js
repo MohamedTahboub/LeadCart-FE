@@ -13,7 +13,7 @@ const {
 } = common;
 const GuaranteeSection = ({
   className,
-  section = {},
+  section = {}
 }) => {
   const { actions } = useContext();
 
@@ -30,12 +30,12 @@ const GuaranteeSection = ({
 
   const classNames = clx({
     'image-section': true,
-    [className]: className,
+    [className]: className
   });
 
   const guaranteeTextClasses = clx({
     'margin-h-20': true,
-    'text-center full-width': theme === 'center-theme',
+    'text-center full-width': theme === 'center-theme'
   });
 
 
@@ -64,17 +64,15 @@ const GuaranteeSection = ({
       <FlexBox flex column className={guaranteeTextClasses}>
         <ResizableInput
           name='content.title'
-          // defaultValue='Product Name'
-          onChange={onChange}
+          // onChange={onChange}
           className='larger-text'
           value={title}
         />
         <ResizableTextarea
           name='content.description'
-          onChange={onChange}
+          // onChange={onChange}
           textarea
           value={description}
-          // style={{minWidth:'400px'}}
           className='large-text'
         />
 
@@ -83,10 +81,7 @@ const GuaranteeSection = ({
   );
 };
 
-GuaranteeSection.propTypes = {
-
-};
-GuaranteeSection.defaultProps = {
-};
+GuaranteeSection.propTypes = {};
+GuaranteeSection.defaultProps = {};
 
 export default GuaranteeSection;

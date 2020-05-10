@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 import common from 'components/common';
 // import { connect } from 'react-redux';
@@ -6,22 +6,18 @@ import { nestedKeyValue } from 'libs';
 import { useContext } from '../../../actions';
 
 import {
-  SettingBox,
-  ImageOption
+  ImageOption,
+  SettingBox
 } from './common';
 
 const {
-  Collapse,
   MiniTwitterPicker,
-
-  // FulfillmentRowCard,
   Currency,
   Tabs,
   Tab,
-  InputRow
+  InputRow,
+  FlexBox
 } = common;
-
-const { Panel } = Collapse;
 
 
 const themesOptions = [
@@ -34,7 +30,7 @@ const themesOptions = [
       borderColor: 'rgb(142, 209, 252)',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5,
+      borderRadius: 5
     }
   },
   {
@@ -47,7 +43,7 @@ const themesOptions = [
       borderColor: '#00D084',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5,
+      borderRadius: 5
     }
   },
   {
@@ -60,9 +56,9 @@ const themesOptions = [
       borderColor: '#EB144C',
       borderStyle: 'dashed',
       borderWidth: 3,
-      borderRadius: 1,
+      borderRadius: 1
     }
-  },
+  }
 
 ];
 
@@ -70,29 +66,25 @@ const currency = 'USD';
 const {
   Label,
   SwitchInput,
+  Toggle,
   TextField,
   SelectOption
 } = InputRow;
 
-const BumpOffer = ({
-  ...props
-}) => {
+const BumpOffer = ({ ...props }) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content = {},
-    actions: sectionActions = {}
+    content = {}
+    // actions: sectionActions = {}
   } = sectionSetting;
 
   const onChange = ({ target }) => {
+    console.log('Offer', target.name, target.value);
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: target
@@ -108,7 +100,8 @@ const BumpOffer = ({
       }
     });
   };
-  const onToggleChange = ({ target: { name } }) => {
+  const onToggleChange = ({ name }) => {
+    console.log(name);
     onChange({
       target: {
         name,
@@ -121,11 +114,11 @@ const BumpOffer = ({
       <Tab id='themes' title='Themes'>
         {themesOptions.map((theme) => (
           <ImageOption
-            className='guarantee-theme-demo'
-            value={theme.src}
             key={theme.src}
+            value={theme.src}
             onClick={onStylesChange(theme.styles)}
             active={styles.theme === theme.theme}
+            className='guarantee-theme-demo'
           />
         ))}
       </Tab>
@@ -157,34 +150,38 @@ const BumpOffer = ({
             currency='$'
           />
         </InputRow>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
+        <FlexBox flex spaceBetween center='v-center'>
+          <FlexBox flex>
             Force opt-out:
-          </Label>
-          <SwitchInput
-            value={content.checked}
-            name='content.checked'
-            onToggle={onToggleChange}
-            className='sidebar-switch-input'
-          />
-        </InputRow>
+          </FlexBox>
+          <FlexBox flex>
+            <Toggle
+              value={content.checked}
+              name='content.checked'
+              onToggle={onToggleChange}
+            />
+          </FlexBox>
+        </FlexBox>
       </Tab>
 
       <Tab id='advance' title='Advance'>
         <SettingBox
           title='Options'
         >
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Toggle Style:
+          <FlexBox flex spaceBetween center='v-center'>
+            <Label>
+              Toggle Input Theme:
             </Label>
-            <SwitchInput
+            <SelectOption
               value={styles.toggleInput}
               name='styles.toggleInput'
-              onToggle={onToggleChange}
-              className='sidebar-switch-input'
+              onChange={onChange}
+              options={[
+                { label: 'Classic', value: 'classic' },
+                { label: 'Modern', value: 'modern' }
+              ]}
             />
-          </InputRow>
+          </FlexBox>
         </SettingBox>
         <SettingBox
           title='Colors'
@@ -304,7 +301,7 @@ const BumpOffer = ({
                 { label: '4 px', value: '4' },
                 { label: '5 px', value: '5' },
                 { label: '6 px', value: '6' },
-                { label: '7 px', value: '7' },
+                { label: '7 px', value: '7' }
               ]}
             />
           </InputRow>
@@ -314,9 +311,7 @@ const BumpOffer = ({
     </Tabs>
   );
 };
-BumpOffer.propTypes = {
-
-};
+BumpOffer.propTypes = {};
 
 
 export default BumpOffer;

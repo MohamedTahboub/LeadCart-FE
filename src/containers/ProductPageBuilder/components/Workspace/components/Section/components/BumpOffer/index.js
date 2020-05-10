@@ -4,10 +4,10 @@ import { useContext } from '../../../../../../actions';
 import './style.css';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
-const { EditableField, FloatButton } = common;
+const { EditableField, LayoutSwitch } = common;
 const BumpOffer = ({
   // onOptionSelected,
-  section = {},
+  section = {}
   // offer: { style = {}, ...offer } = {},
 }) => {
   const {
@@ -16,6 +16,7 @@ const BumpOffer = ({
   } = section;
   const { actions } = useContext();
 
+  const { toggleInput = 'classic' } = styles;
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
       section,
@@ -41,21 +42,21 @@ const BumpOffer = ({
 
     <section style={containerStyle} className='product-template-bump-offer'>
       <div style={headerStyle} className='template-bump-offer-title'>
-        {styles.toggleInput
-          ? (
-            <Toggle
-              className='margin-right-10'
-              checked={content.checked}
-            />
-
-          ) : (
+        <LayoutSwitch active={toggleInput}>
+          <Toggle
+            id='modern'
+            className='margin-right-10'
+            checked={content.checked}
+          />
+          <span id='classic'>
             <input
               type='checkbox'
               id='bump-offer-checkbox'
               checked={content.checked}
               disabled
             />
-          )}
+          </span>
+        </LayoutSwitch>
         <label id='bump-offer-checkbox-label' htmlFor='bump-offer-checkbox'>
           <EditableField
             name='content.title'

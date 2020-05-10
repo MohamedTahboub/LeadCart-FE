@@ -10,7 +10,7 @@ import funnelNodes from 'data/funnelBasicSteps';
 // import Sidebars from './Bar';
 import ids from 'shortid';
 import {
-  GrabbableBlock,
+  GrabbableBlock
   // SettingMenu
 } from './components';
 import SettingMenu from './Menu';
@@ -19,7 +19,7 @@ const {
   Tabs,
   EditableField,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
 const SideBar = ({
@@ -27,35 +27,6 @@ const SideBar = ({
   onChange,
   ...props
 }) => {
-  // const elementRef = useRef(null);
-  // const [activeMenuItem, setActiveMenuItem] = useState('');
-  // const [open, setOpen] = useState(false);
-
-
-  // const onOpen = () => {
-  //   setOpen(true);
-  //   if (props.onSidebarChange) props.onSidebarChange(true);
-  // };
-  // const onClose = () => {
-  //   setOpen(false);
-  //   if (props.onSidebarChange) props.onSidebarChange(false);
-  // };
-
-  // const onActivateMenuItem = (item) => {
-  //   if (item === activeMenuItem) {
-  //     if (open) {
-  //       onClose();
-  //       return setActiveMenuItem('');
-  //     }
-
-  //     onOpen();
-  //   } else {
-  //     onOpen();
-  //   }
-
-  //   setActiveMenuItem(item);
-  // };
-
   const onDrag = ({
     data = {},
     ref,
@@ -77,9 +48,7 @@ const SideBar = ({
 
     const shiftX = event.clientX - left;
     const shiftY = event.clientY - top;
-    event.dataTransfer.setData('shift', JSON.stringify({
-      shiftX, shiftY, width, height
-    }));
+    event.dataTransfer.setData('shift', JSON.stringify({ shiftX, shiftY, width, height }));
   };
 
   const onNameChange = ({ target: { name, value } }) => {
@@ -134,6 +103,8 @@ const SideBar = ({
         <Tab id='funnelSettings' title='Settings'>
           <SettingMenu
             {...props}
+            onChange={onNameChange}
+            funnel={funnel}
           />
         </Tab>
       </Tabs>
@@ -142,8 +113,6 @@ const SideBar = ({
 
   );
 };
-SideBar.propTypes = {
-
-};
+SideBar.propTypes = {};
 
 export default SideBar;

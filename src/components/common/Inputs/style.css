@@ -351,7 +351,7 @@ input[type="radio"] {
 
 /* Switch slider input*/
 
-.switch-slider-input {
+.custom-switch-input {
     position: relative;
     display: inline-block;
     width: 30px;
@@ -359,7 +359,7 @@ input[type="radio"] {
     margin: 10px 80px;
 }
 
-.switch-slider-input:before {
+.custom-switch-input:before {
     content: 'on';
     right: -48px;
     position: absolute;
@@ -370,7 +370,7 @@ input[type="radio"] {
     text-transform: uppercase;
 }
 
-.switch-slider-input:after {
+.custom-switch-input:after {
     content: 'off';
     left: -35px;
     position: absolute;
@@ -391,13 +391,15 @@ input[type="radio"] {
     left: -63px;
 }
 
-.switch-slider-input input {
+.custom-switch-input-container input {
     display: none;
 }
 
 
-
-.slider-input {
+.custom-switch-input-container{
+    position: relative;
+}
+.custom-switch-input-container .slider-input {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -409,7 +411,7 @@ input[type="radio"] {
     transition: .4s;
 }
 
-.slider-input:before {
+.custom-switch-input-container .slider-input:before {
     position: absolute;
     content: "";
     height: 14px;

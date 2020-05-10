@@ -44,7 +44,7 @@ const ProductBuilder = ({
   const actions = connectActions(productActions, { state, dispatch });
 
 
-  const toggleLoading = () => setLoading((loading) => !loading);
+  // const toggleLoading = () => setLoading((loading) => !loading);
 
   useEffect(() => {
     const { params: { productId, funnelId } = {} } = props.match;

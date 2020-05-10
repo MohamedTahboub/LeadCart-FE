@@ -6,6 +6,7 @@ import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
 import './style.css';
 import { FlexBox } from '../../boxes';
+import { Button } from '../../Buttons';
 
 
 const categoriesImages = {
@@ -26,12 +27,13 @@ const categoriesNames = {
 const FunnelNode = ({
   product,
   category,
-  className = '',
+  className,
   disabled,
   coordinates = {},
   active,
   onClick,
   onEditExplore,
+  draggable,
   id,
   children,
   ...props
@@ -49,9 +51,7 @@ const FunnelNode = ({
 
     const shiftX = e.clientX - left;
     const shiftY = e.clientY - top;
-    e.dataTransfer.setData('shift', JSON.stringify({
-      shiftX, shiftY, width, height
-    }));
+    e.dataTransfer.setData('shift', JSON.stringify({ shiftX, shiftY, width, height }));
   };
 
 
@@ -68,9 +68,8 @@ const FunnelNode = ({
 
   return (
     <div
-      draggable={!disabled}
-      // onDragStart="event.dataTransfer.setData('text/plain', 'This text may be dragged')"
-      onClick={onClick}
+      draggable={draggable && !disabled}
+      onClick={!onEditExplore && onClick}
       ref={elementRef}
       style={{
         left: coordinates.x,
@@ -91,23 +90,34 @@ const FunnelNode = ({
         </div>
       )}
       {onEditExplore && (
-        <FlexBox column flexStart baseline>
-          <div onClick={onEditExplore} className='explore-edit-btn'>
-            Edit
-          </div>
+        <FlexBox column center='h-center'>
+          <FlexBox spaceBetween>
+            <Button
+              onClick={onClick}
+              className='light-btn node-footer-btn'
+            >
+              {`${active ? 'Unselect' : 'Select'}`}
+            </Button>
+            <Button
+              onClick={onEditExplore}
+              className='light-btn node-footer-btn'
+            >
+              Edit
+            </Button>
+          </FlexBox>
         </FlexBox>
       )}
     </div>
   );
 };
 
-FunnelNode.propTypes = {
-
-};
+FunnelNode.propTypes = {};
 FunnelNode.defaultProps = {
+  className: '',
   product: {},
   position: {},
-  category: 'checkout'
+  category: 'checkout',
+  draggable: true
 };
 
 export default FunnelNode;
