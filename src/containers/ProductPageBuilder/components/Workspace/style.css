@@ -19,7 +19,7 @@
 }
 .drop-area-image {
     width: 81%;
-    height: 120px;
+    height: 100px;
     object-fit: contain;
     margin: 20px;
     filter: grayscale(1);
@@ -32,4 +32,10 @@
 .product-workspace.mobile {
     width: 375px;
     min-height: 667px;
+}
+.builder-drop-area{
+    border: 2px dashed lightgray;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px 0;
 }

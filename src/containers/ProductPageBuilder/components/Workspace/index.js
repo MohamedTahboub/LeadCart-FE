@@ -174,8 +174,11 @@ const Workspace = ({
         <ProductHead />
         <DropZone onDrop={onSectionDropped}>
           {!sections.length && (
-            <FlexBox center='h-center'>
+            <FlexBox column center='h-center v-center' className='builder-drop-area'>
               <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
+              <span className='gray-text'>
+                Drop your sections here
+              </span>
             </FlexBox>
           )}
           {
