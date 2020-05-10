@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { SettingsHandle } from '../common';
@@ -12,9 +12,9 @@ import {
   OrderSummary,
   PaymentMethods,
   ShippingDetails
-} from '../../components';
+} from './components';
 
-const { FlexBox } = common;
+const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
 
 
 const StaticSections = ({ onSetting, language }) => {
@@ -22,12 +22,16 @@ const StaticSections = ({ onSetting, language }) => {
     state: {
       product: {
         name,
+        category: productCategory = 'checkout',
         price = {},
         payment = { methods: ['Paypal', 'Stripe'] },
         addOns = {},
         styles = {},
         custom = {},
-        orderButtonText = 'Complete Order'
+        content: {
+          orderButtonText = 'Complete Order',
+          declineBtnText = 'No Thanks'
+        } = {}
       } = {}
     },
     actions
@@ -48,48 +52,72 @@ const StaticSections = ({ onSetting, language }) => {
   return (
     <FlexBox column className='relative-element'>
       <SettingsHandle onClick={onSectionSettings} />
-      <BillingDetails
-        color={styles.themeColor}
-        language={language}
-      />
-      {custom.shippingDetails && (
-        <ShippingDetails
-          color={styles.themeColor}
-          language={language}
-        />
-      )}
-      <PaymentMethods
-        step={addOns.shippingDetails ? 3 : 2}
-        // onOptionSelected={onOptionSelected}
-        methods={payment.methods}
-        // onShowSetting
-        // onFieldChange
-        language={language}
-      />
-      {custom.couponSection && (
-        <CouponSection
-          color={styles.themeColor}
-          language={language}
-        />
-      )}
-      <OrderSummary
-        price={price}
-        // productName='Growth hacking'
-        productName={name}
-        payment={payment}
-        language={language}
-      />
-      <CompleteOrderBtn
-        name='orderButtonText'
-        text={orderButtonText}
-        color={styles.themeColor}
-        onChange={onChange}
-        language={language}
-      />
+      <LayoutSwitch active={productCategory}>
+        <FlexBox column id='checkout'>
+          <BillingDetails
+            color={styles.themeColor}
+            language={language}
+          />
+          {custom.shippingDetails && (
+            <ShippingDetails
+              color={styles.themeColor}
+              language={language}
+            />
+          )}
+          <PaymentMethods
+            step={addOns.shippingDetails ? 3 : 2}
+            methods={payment.methods}
+            language={language}
+          />
+          {custom.couponSection && (
+            <CouponSection
+              color={styles.themeColor}
+              language={language}
+            />
+          )}
+          <OrderSummary
+            price={price}
+            productName={name}
+            payment={payment}
+            language={language}
+          />
+          <CompleteOrderBtn
+            text={orderButtonText}
+            color={styles.themeColor}
+            onChange={onChange}
+          />
+        </FlexBox>
+        <FlexBox
+          id='upsell'
+          className='pt-4'
+          column
+          center='h-center'
+        >
+          <CompleteOrderBtn
+            text={orderButtonText}
+            color={styles.themeColor}
+            onChange={onChange}
+          />
+          <ResizableTextarea
+            onChange={onChange}
+            name='content.declineBtnText'
+            value={declineBtnText}
+            style={{
+              minWidth: '400px',
+              outlineStyle: 'none',
+              textDecoration: 'underline'
+            }}
+            className='medium-text blush-gray max-w-500 margin-v-20 aligned-center'
+          />
+        </FlexBox>
+      </LayoutSwitch>
     </FlexBox>
   );
 };
 
-StaticSections.propTypes = {};
+StaticSections.propTypes = {
+  language: PropTypes.objectOf(PropTypes.object).isRequired,
+  onSetting: PropTypes.func.isRequired
+};
 
 export default StaticSections;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
-import { AiOutlineMobile, AiOutlineHistory } from 'react-icons/ai';
+import { AiOutlineHistory, AiOutlineMobile } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
 
 import { useContext } from '../../actions';
@@ -43,17 +43,16 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 
 
 const Header = ({
-  history, props, onSave, saving
+  history,
+  onSave,
+  saving,
+  ...props
 }) => {
   const {
     state: {
       displayMode,
       standAlone,
-      product: {
-        name: productName,
-        sections = [],
-        // maxSectionsOrder
-      } = {},
+      product: { name: productName } = {},
       funnel: {
         url: funnelUrl,
         name: funnelName
@@ -70,6 +69,11 @@ const Header = ({
   const onDisplayModeChange = (displayMode) => () => {
     actions.updateDisplayMode(displayMode);
   };
+
+  const onChange = ({ target }) => {
+    actions.onProductFieldChange(target);
+  };
+
   return (
     <FlexBox column>
 
@@ -110,7 +114,7 @@ const Header = ({
             className='large-text dashed-text aligned-center-text lightgray-border-color outline-style-none'
             name='name'
             defaultValue='Product Name'
-            // onChange={onNameChange}
+            onChange={onChange}
             value={productName}
             max={50}
           />
@@ -146,8 +150,6 @@ const Header = ({
   );
 };
 
-Header.propTypes = {
-
-};
+Header.propTypes = {};
 
 export default Header;

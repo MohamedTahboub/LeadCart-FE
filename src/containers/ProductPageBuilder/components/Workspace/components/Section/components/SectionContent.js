@@ -1,22 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import {
-  TextContent,
-  ImageContent,
-  VideoContent,
-  LayoutContent,
   BumpOffer,
-  ShippingDetails,
+  Button,
+  CountDownTimer,
   CouponSection,
-  TestimonialsSection,
   FeaturesListSection,
   GuaranteeSection,
-  CountDownTimer,
-  ProgressBar,
   HeadingText,
-  Button,
-  Spacer
+  ImageContent,
+  LayoutContent,
+  ProgressBar,
+  ShippingDetails,
+  Spacer,
+  TestimonialsSection,
+  TextContent,
+  VideoContent
 } from '.';
 
 const SectionContent = ({ type, ...props }) => {
@@ -40,8 +40,6 @@ const SectionContent = ({ type, ...props }) => {
   }
 };
 
-SectionContent.propTypes = {
-
-};
+SectionContent.propTypes = {};
 
 export default SectionContent;
