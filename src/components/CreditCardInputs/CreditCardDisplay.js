@@ -10,7 +10,7 @@ const CreditCardDisplay = ({ value }) => (
     cardNumberInputRenderer={({ props }) => (
       <input
         {...props}
-        value={value.insertAt('4n', ' ')}
+        value={value.substring(0, 14).replace(/\d/g, '*').concat(value.substring(14)).insertAt('4n', ' ')}
         autoComplete='cc-number'
         disabled
         className={classNames(props.className, 'transparent-bg')}

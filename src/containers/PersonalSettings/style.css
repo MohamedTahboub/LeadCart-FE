@@ -24,3 +24,10 @@ display: flex; */
   bottom: 20px;
   right: 100px;
 }
+
+.personal-settings-wrapper {
+  background: #FFF;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px #999999b3;
+}

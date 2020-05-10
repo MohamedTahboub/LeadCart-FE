@@ -1,52 +1,44 @@
-import React, { useState } from 'react';
-import { Avatar, Button, Col, Row, Tag } from 'antd';
-import { Modal } from 'components/Modals/';
+import React from 'react';
+import { Avatar, Table } from 'antd';
 import config from '../../config';
 
 import './style.css';
 
-const ACTIVE_TAG_COLOR = '#2db7f5';
-const INACTIVE_TAG_COLOR = '#108ee9';
-
 const BrandsSection = ({ brands }) => {
-  const FILTERS = ['All', 'Active', 'Disabled'];
-  const [activeBrandSubEdit, setActiveBrandSubEdit] = useState(null);
-  const [activeFilter, setActiveFilter] = useState(FILTERS[0]);
-  const resetActiveBrandSubEdit = () => setActiveBrandSubEdit(null);
-  return (
-    <div>
-      {
-        FILTERS.map((filter) => (
-          <Tag
-            color={filter === activeFilter ? ACTIVE_TAG_COLOR : INACTIVE_TAG_COLOR}
-            onClick={() => setActiveFilter(filter)}
-          >{filter}</Tag>
-        ))
+  console.log({ brands });
+  const columns = [
+    {
+      title: '',
+      dataIndex: 'logo',
+      key: 'brandAvatar',
+      width: 52,
+      render: (text, record) => {
+        if (record.logo) return <Avatar src={record.logo}/>;
+        else return <Avatar>{record.name[0]}</Avatar>;
       }
-      {
-        brands && brands.map((brand) => {
-          const packagePlanPrice = config.packagesPlans[brand.activePackage.type.toLowerCase()].price[brand.activePackage.period];
-          return (
-            <Row className='d-flex align-center my-2'>
-              <Col span={1}>
-                <Avatar>B</Avatar>
-              </Col>
-              <Col span={14}>
-                <span>{brand.activePackage.type}</span>
-              </Col>
-              <Col span={5}>
-                <span>{packagePlanPrice}$/{brand.activePackage.period === 'Monthly' ? 'mo' : 'ye'}</span>
-              </Col>
-              <Col span={4}>
-                <Button onClick={() => setActiveBrandSubEdit(brand)}>Edit subscription</Button>
-              </Col>
-            </Row>
-          );
-        })
+    },
+    {
+      title: 'Brand name',
+      dataIndex: 'name',
+      key: 'brandName'
+    },
+    {
+      title: 'Subscription',
+      dataIndex: null,
+      key: 'subscription',
+      render: (text, record) => <span>{record.activePackage.type}</span>
+    },
+    {
+      title: 'Price',
+      dataIndex: null,
+      key: 'price',
+      render: (text, record) => {
+        const packagePlanPrice = config.packagesPlans[record.activePackage.type.toLowerCase()].price[record.activePackage.period];
+        return <span>{packagePlanPrice}$/{record.activePackage.period === 'Monthly' ? 'mo' : 'ye'}</span>;
       }
-      <Modal isVisible={activeBrandSubEdit} onClose={resetActiveBrandSubEdit} />
-    </div>
-  );
+    }
+  ];
+  return <Table size='small' columns={columns} dataSource={brands} pagination={false} />;
 };
 
 export default BrandsSection;
