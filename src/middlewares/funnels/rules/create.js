@@ -1,6 +1,6 @@
 
 import { apiRequest } from 'actions/apiRequest';
-import { createFunnelRuleSuccess, createFunnelRuleFailed } from '../../../actions/funnels';
+import { createFunnelRuleFailed, createFunnelRuleSuccess } from '../../../actions/funnels';
 import { CREATE_FUNNEL_RULE } from '../../../constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -15,9 +15,12 @@ export default ({ dispatch }) => (next) => (action) => {
       uri: '/api/brands/funnels/rules',
       contentType: 'json'
     },
-    onSuccess: (args) => {
-      if (meta.onSuccess) meta.onSuccess(args);
-      return createFunnelRuleSuccess(args);
+    onSuccess: ({ rule }) => {
+      if (meta.onSuccess) meta.onSuccess(rule);
+      return createFunnelRuleSuccess({
+        funnelId: payload.funnel,
+        rule
+      });
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);

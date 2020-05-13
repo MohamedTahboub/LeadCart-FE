@@ -7,3 +7,10 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+.rule-control{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}

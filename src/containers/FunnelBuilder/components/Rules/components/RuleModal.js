@@ -73,11 +73,34 @@ const RuleModal = ({
           notification.failed(errMsg);
         }
       });
+    } else {
+      const { _id: ruleId, ...rule } = fields;
+      if (Array.isArray(rule.triggerGroups)) {
+        rule.triggerGroups = rule.triggerGroups.map(({ actions, products }) => ({
+          products,
+          actions
+        }));
+      }
+      props.updateFunnelRule({
+        ruleId,
+        rule,
+        funnel: funnelId
+      }, {
+        onSuccess: () => {
+          notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been updated`);
+          setSaving(false);
+          onClose();
+        },
+        onFailed: (errMsg) => {
+          setSaving(false);
+          notification.failed(errMsg);
+        }
+      });
     }
   };
 
   useEffect(() => {
-    if (isNew && ruleData) setFields(ruleData);
+    if (!isNew && ruleData) setFields(ruleData);
     return () => {
       setFields({ triggerGroups: [] });
     };
@@ -131,7 +154,7 @@ const RuleModal = ({
           onprogress={saving}
           disabled={saving}
         >
-          Create Rule
+          {`${!isNew ? 'Update' : 'Create'} Rule`}
         </Button>
       </FlexBox>
     </Modal>

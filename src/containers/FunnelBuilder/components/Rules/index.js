@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 // import sampleRules from 'data/sampleRules';
 import common from 'components/common';
 import { connect } from 'react-redux';
-import { mapListToObject } from 'libs';
+import { mapListToObject, notification } from 'libs';
 import { IoIosAdd } from 'react-icons/io';
-import ReactToolTip from 'react-tooltip';
-
+// import ReactToolTip from 'react-tooltip';
+import * as funnelRulesActions from 'actions/funnels';
 import {
   RuleCard,
   RuleModal
@@ -40,8 +40,18 @@ const Rules = ({
     onToggleRuleModal();
   };
 
-  const onRuleDelete = (rule) => {
-    console.log('delete Rule', rule);
+  const onRuleDelete = (rule) => () => {
+    props.deleteFunnelRule({
+      funnel: funnelId,
+      ruleId: rule._id
+    }, {
+      onSuccess: () => {
+        notification.success('Deleted Successfully');
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+      }
+    });
   };
   return (
     <FlexBox column center='v-center' className='full-width padding-v-20 rules-container'>
@@ -89,4 +99,4 @@ const propifyState = ({ products: { products = [] } = {} }) => ({
   // products
 });
 
-export default connect(propifyState)(Rules);
+export default connect(propifyState, funnelRulesActions)(Rules);
