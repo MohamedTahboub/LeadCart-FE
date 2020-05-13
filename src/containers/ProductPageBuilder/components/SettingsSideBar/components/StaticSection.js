@@ -41,9 +41,7 @@ const {
 
 const StaticSection = ({ ...props }) => {
   const {
-    state: {
-      product = {},
-    },
+    state: { product = {} },
     actions
   } = useContext();
 
@@ -51,9 +49,7 @@ const StaticSection = ({ ...props }) => {
     price = {},
     payment = {},
     // addOns = {},
-    pageStyles:{
-      themeColor
-    }={}
+    pageStyles: { themeColor } = {},
     custom = {}
   } = product;
 
