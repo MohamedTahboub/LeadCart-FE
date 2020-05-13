@@ -165,48 +165,51 @@ const Workspace = ({
   return (
     <FlexBox
       flex
-      center='h-center'
+      column
+      center='v-center'
       className='product-workspace-container'
       style={screenStyles}
     >
-      <FlexBox id='product-builder-window' column className={workspaceClasses} style={productStyles}>
-        <SettingsHandle onClick={onProductSettings} />
+      <FlexBox id='product-builder-window' column className={workspaceClasses} >
         <ProductHead />
-        <DropZone onDrop={onSectionDropped}>
-          {!sections.length && (
-            <FlexBox column center='h-center v-center' className='builder-drop-area'>
-              <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
-              <span className='gray-text'>
-                Drop your sections here
-              </span>
-            </FlexBox>
-          )}
-          {
-            sections.map((section, index) => (
-              <Section
-                key={`${section.id}${index}`}
-                id={`${section.id}`}
-                {...section}
-                section={section}
-                onSetting={onSectionSettings}
-                onSectionOrderChange={onSectionOrderChange}
-                active={activeSection.id === section.id}
-                activeSection={activeSection}
-                moveCard={moveCard}
-                onSectionDuplicate={onSectionDuplicate}
-                findCard={findCard}
-                language={activeLanguage}
-                addNewAndMove={addNewAndMove}
-                index={index}
-              />
-            ))
-          }
-        </DropZone>
-        <StaticSections
-          language={activeLanguage}
-          onSetting={onSectionSettings}
-          sections={staticSections}
-        />
+        <FlexBox className='relative-element product-page-content' column style={productStyles}>
+          <SettingsHandle onClick={onProductSettings} />
+          <DropZone onDrop={onSectionDropped}>
+            {!sections.length && (
+              <FlexBox column center='h-center v-center' className='builder-drop-area'>
+                <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
+                <span className='gray-text'>
+                  Drop your sections here
+                </span>
+              </FlexBox>
+            )}
+            {
+              sections.map((section, index) => (
+                <Section
+                  key={`${section.id}${index}`}
+                  id={`${section.id}`}
+                  {...section}
+                  section={section}
+                  onSetting={onSectionSettings}
+                  onSectionOrderChange={onSectionOrderChange}
+                  active={activeSection.id === section.id}
+                  activeSection={activeSection}
+                  moveCard={moveCard}
+                  onSectionDuplicate={onSectionDuplicate}
+                  findCard={findCard}
+                  language={activeLanguage}
+                  addNewAndMove={addNewAndMove}
+                  index={index}
+                />
+              ))
+            }
+          </DropZone>
+          <StaticSections
+            language={activeLanguage}
+            onSetting={onSectionSettings}
+            sections={staticSections}
+          />
+        </FlexBox>
       </FlexBox>
     </FlexBox>
   );

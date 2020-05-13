@@ -1,20 +1,11 @@
 import React, { Fragment } from 'react';
-// import PropTypes from 'prop-types';
 import common from 'components/common';
-// import { connect } from 'react-redux';
-import currencies from 'data/currencies.json';
 import PaymentType from 'components/PaymentType';
-import PaymentGateway from 'components/PaymentGateways';
 import { useContext } from '../../../actions';
 
-import { SettingBox } from './common';
 
-const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 const {
-  Collapse,
   MiniTwitterPicker,
-  FulfillmentRowCard,
-  Currency,
   Tabs,
   Tab,
   InputRow,
@@ -22,7 +13,6 @@ const {
 
 } = common;
 
-const { Panel } = Collapse;
 
 const formatOptions = [
   {
@@ -42,19 +32,17 @@ const formatOptions = [
     value: 'amount_with_comma_separator_no_decimals'
   }
 ];
-const currency = 'USD';
+
 const {
   Label,
-  SwitchInput,
-  SearchInput
-  // SelectOption
+  SearchInput,
+  Toggle
 } = InputRow;
 
 const StaticSection = ({ ...props }) => {
   const {
     state: {
       product = {},
-      styles = {}
     },
     actions
   } = useContext();
@@ -62,7 +50,10 @@ const StaticSection = ({ ...props }) => {
   const {
     price = {},
     payment = {},
-    addOns = {},
+    // addOns = {},
+    pageStyles:{
+      themeColor
+    }={}
     custom = {}
   } = product;
 
@@ -82,24 +73,8 @@ const StaticSection = ({ ...props }) => {
   return (
     <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='pricing' title='Pricing'>
-        <InputRow className='sidebar-row'>
-          <Label
-            className='sidebar-input-label'
-            description='This will appear on your cart page,this is just for presentation purpose'
-          >
-            Currency:
-          </Label>
-          <SearchInput
-            size='small'
-            width={350}
-            options={currenciesList}
-            defaultValue={price.currency || 'USD'}
-            name='price.currency'
-            onChange={onChange}
-          />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
+        <InputRow>
+          <Label>
             Price Format:
           </Label>
           <SearchInput
@@ -117,14 +92,6 @@ const StaticSection = ({ ...props }) => {
           onChange={onChange}
           price={price}
         />
-        <SettingBox
-          title='Payment Methods'
-        >
-          <PaymentGateway
-            onChange={onChange}
-            payment={payment}
-          />
-        </SettingBox>
       </Tab>
 
       <Tab id='customs' title='Custom'>
@@ -132,22 +99,20 @@ const StaticSection = ({ ...props }) => {
           <Label className='sidebar-input-label'>
             Show Shipping Form
           </Label>
-          <SwitchInput
+          <Toggle
             value={custom.shippingDetails}
             name='shippingDetails'
             onToggle={onToggleCustom}
-            className='sidebar-switch-input'
           />
         </InputRow>
         <InputRow className='sidebar-row'>
           <Label className='sidebar-input-label'>
             Show Coupon Section
           </Label>
-          <SwitchInput
+          <Toggle
             value={custom.couponSection}
             name='couponSection'
             onToggle={onToggleCustom}
-            className='sidebar-switch-input'
           />
         </InputRow>
       </Tab>
@@ -158,8 +123,8 @@ const StaticSection = ({ ...props }) => {
             Theme Color:
           </Label>
           <MiniTwitterPicker
-            name='styles.themeColor'
-            value={styles.themeColor}
+            name='pageStyles.themeColor'
+            value={themeColor}
             onChange={onChange}
           />
         </FlexBox>

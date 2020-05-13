@@ -1,90 +1,37 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import './style.css';
 
-import {
-  LayoutSwitch,
-} from '..';
+import { ServiceConnect } from './components';
 
-
-import {
-  // ServiceCard,
-  ServiceConnect,
-  ServiceSelect
-} from './components';
-
-const {
-  MainTitle,
-  // Button,
-  // InputRow,
-  // Currency,
-  // Tabs,
-  // Card,
-  Step
-} = common;
+const { MainTitle } = common;
 
 
 const ConnectModal = ({
   open,
-  onConnect,
   onConnectClosed,
   service,
   onToggle
-}) =>
-// const [stage, setStage] = useState(1);
-// const [service, setService] = useState();
-
-// const onSelect = (service) => () => {
-//   setStage(2);
-//   setService(service);
-// };
-
-  (
-    <Modal
-      className='integrations-modal'
-      // contentClassName='integrations-modal'
-      // type='vertical'
-      isVisible={open}
-      onClose={onConnectClosed}
-    >
-      <div className='header'>
-        <MainTitle>
+}) => (
+  <Modal
+    className='integrations-modal'
+    // contentClassName='integrations-modal'
+    // type='vertical'
+    isVisible={open}
+    onClose={onConnectClosed}
+  >
+    <div className='header'>
+      <MainTitle>
           Connect with
-          {' '}
-          {service.name}
-        </MainTitle>
-      </div>
-      <ServiceConnect data={service} onModalToggle={onToggle}/>
-    </Modal>
-  );
-ConnectModal.propTypes = {
-
-};
+        {' '}
+        {service.name}
+      </MainTitle>
+    </div>
+    <ServiceConnect data={service} onModalToggle={onToggle}/>
+  </Modal>
+);
+ConnectModal.propTypes = {};
 
 export default ConnectModal;
-
-
-/*
-
-      <LayoutSwitch active={stage} className='integrations-steps-content'>
-        <ServiceSelect id={1} onSelect={onSelect} />
-      </LayoutSwitch>
-
-
-<div className='integrations-steps'>
-        <Step
-          value={stage}
-          id={1}
-        >
-          Select a Service to Connect
-        </Step>
-        <Step
-          value={stage}
-          id={2}
-        >
-          Service Authentication
-        </Step>
-      </div>
-*/
