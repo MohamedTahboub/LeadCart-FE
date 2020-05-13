@@ -1,4 +1,5 @@
 import * as brandsLogos from './importBrands';
+import { mapListToObject } from 'libs';
 
 const services = [
   {
@@ -9,7 +10,7 @@ const services = [
     description: 'Online payment processing for internet businesses',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     name: 'Paypal',
@@ -19,7 +20,7 @@ const services = [
     description: 'an online financial service that allows you to pay for items using a secure internet account',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   }, {
     key: 'lc_razor_pay',
     name: 'RazorPay',
@@ -27,7 +28,7 @@ const services = [
     category: 'Payment Gateways',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_authorizenetlogo',
@@ -36,7 +37,7 @@ const services = [
     category: 'Payment Gateways',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_checkoutlogo',
@@ -45,7 +46,7 @@ const services = [
     category: 'Payment Gateways',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_braintreelogo',
@@ -54,7 +55,7 @@ const services = [
     category: 'Payment Gateways',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_towcheckoutlogo',
@@ -63,7 +64,7 @@ const services = [
     category: 'Payment Gateways',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_aweber',
@@ -73,7 +74,7 @@ const services = [
     description: 'Email marketing software, Build your email lists, send emails, and connect with your audience.',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_mailchimp',
@@ -83,7 +84,7 @@ const services = [
     description: 'Marketing automation platform and an email marketing service.',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_activecampaign',
@@ -93,7 +94,7 @@ const services = [
     description: 'Email marketing, marketing automation, sales automation, and CRM software platform',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_getresponse',
@@ -103,7 +104,7 @@ const services = [
     description: 'Email marketing platform that enables entrepreneurs develop relationships with clients.',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_drip',
@@ -113,7 +114,7 @@ const services = [
     description: 'Personalized marketing to current and prospective customers through a marketing automation platform.',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_ontraport',
@@ -123,7 +124,7 @@ const services = [
     description: 'Business automation software for entrepreneurs, solopreneurs and small businesses',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_convertkit',
@@ -133,7 +134,7 @@ const services = [
     description: 'Email marketing software for creators',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_infusionsoft',
@@ -143,7 +144,7 @@ const services = [
     description: 'Email marketing platform that provides automation, marketing & sales tools',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_moosend',
@@ -153,7 +154,7 @@ const services = [
     description: 'Email marketing & marketing automation platform, with newsletter templates, list segmentation.',
     active: false,
     connected: false,
-    supported: true,
+    supported: true
   },
   {
     key: 'lc_kajabi',
@@ -162,7 +163,7 @@ const services = [
     category: 'Membership Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_thinkific',
@@ -171,7 +172,7 @@ const services = [
     category: 'Membership Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_teachable',
@@ -180,7 +181,7 @@ const services = [
     category: 'Membership Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_wishlistmember',
@@ -189,7 +190,7 @@ const services = [
     category: 'Membership Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_membermouse',
@@ -198,7 +199,7 @@ const services = [
     category: 'Membership Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_everlesson',
@@ -207,7 +208,7 @@ const services = [
     category: 'Membership Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_memberful',
@@ -216,7 +217,7 @@ const services = [
     category: 'Membership Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_demio',
@@ -225,7 +226,7 @@ const services = [
     category: 'Webinar Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_everwebinar',
@@ -234,7 +235,7 @@ const services = [
     category: 'Webinar Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_webinarjam',
@@ -243,7 +244,7 @@ const services = [
     category: 'Webinar Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_gotowebinar',
@@ -252,7 +253,7 @@ const services = [
     category: 'Webinar Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_bigmarker',
@@ -261,7 +262,7 @@ const services = [
     category: 'Webinar Platforms',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_dropified',
@@ -270,7 +271,7 @@ const services = [
     category: 'Dropshipping/Shipping',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_bigmarker',
@@ -279,7 +280,7 @@ const services = [
     category: 'Dropshipping/Shipping',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_zapier',
@@ -288,7 +289,7 @@ const services = [
     category: 'Misc Integrations',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_twillio',
@@ -297,7 +298,7 @@ const services = [
     category: 'Misc Integrations',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_wordpress',
@@ -306,7 +307,7 @@ const services = [
     category: 'Misc Integrations',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_woocommerce',
@@ -315,7 +316,7 @@ const services = [
     category: 'Misc Integrations',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_shopify',
@@ -324,7 +325,7 @@ const services = [
     category: 'Misc Integrations',
     active: false,
     connected: false,
-    supported: false,
+    supported: false
   },
   {
     key: 'lc_taxamo',
@@ -333,10 +334,15 @@ const services = [
     category: 'Misc Integrations',
     active: false,
     connected: false,
-    supported: false,
-  },
+    supported: false
+  }
 ];
 
 
-export default services.filter((service) => service.supported);
+export const servicesMap = mapListToObject(services, 'key');
 
+export const getServiceBrand = (key) => {
+  return servicesMap[key] ? servicesMap[key].brandLogo : undefined;
+};
+
+export default services.filter((service) => service.supported);

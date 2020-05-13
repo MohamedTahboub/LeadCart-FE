@@ -6,7 +6,11 @@ import { funnelSchema } from 'libs/validation';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
-import { notification } from 'libs';
+import {
+  isObjectsEquivalent,
+  mapListToObject,
+  notification
+} from 'libs';
 
 
 import './style.css';
@@ -26,19 +30,20 @@ const {
 
 const FunnelBuilder = ({
   funnels,
-  products,
+  productsMap,
   subdomain,
   domains,
-  globelLoading,
+  // globelLoading,
   ...props
 }) => {
-  const [isNew, setIsNew] = useState(true);
+  const { url: funnelUrl } = props.match.params;
+
   const [fields, setFields] = useState({});
   const [errors, setErrors] = useState({});
   const [activePage, setActivePage] = useState('blocks');
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
 
-  const [productsNodeDetails, setProductsNodeDetails] = useState({});
+  const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
 
   const [unblock, SetUnblock] = useState();
 
@@ -55,49 +60,36 @@ const FunnelBuilder = ({
   };
 
   const onChange = ({ name, value }) => {
-    console.log(name, value);
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
   };
 
-  console.log('FUnnel', fields);
 
   const onToggleDarkTheme = () => {
     setEnableDarkTheme(!enableDarkTheme);
   };
+
+  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
+
   useEffect(() => {
-    const { url: funnelUrl } = props.match.params;
+    // this is fucked up looking for funnel update,
+    // needs to be sync and independent on funnel updates
+    const funnel = getFunnelByUrl(funnelUrl);
 
-    if (funnelUrl !== 'new') setIsNew(false);
+    if (!funnel) return;
 
-    const funnel = funnels.find(({ url }) => url === funnelUrl) || {};
-    if (funnel.url !== fields.url) setFields(funnel);
-    if ((funnel.rules && funnel.rules.length) !== (fields.rules && fields.rules.length)) setFields(funnel);
+    if (!isObjectsEquivalent(funnel, fields)) {
+      console.log('Funnel Updated $$$');
+      setFields(funnel);
 
-    // if (funnel._id) setLoading({ funnel: false });
+    }
 
+    if (!isObjectsEquivalent(productsNodeDetails, productsMap))
+      setProductsNodeDetails(productsMap);
 
-    const productsDetails = products
-      .filter(({ thumbnail }) => thumbnail)
-      .reduce((obj, product) => {
-        obj[product._id] = {
-          image: product.thumbnail,
-          name: product.name
-        };
-        return obj;
-      }, {});
-
-    if (Object.keys(productsDetails).length) setProductsNodeDetails(productsDetails);
-
-    return () => {
-      // setFields({});
-    };
-  }, [fields.rules, fields.url, funnels, globelLoading, products, props.match.params]);
-
-  // const onDisplayChange = (type) => {
-  //   setDisplayType(type);
-  // };
+    //eslint-disable-next-line
+  }, [funnels, productsMap]);
 
   const updateUrlOnChange = (currentUrl) => {
     const { url } = props.match.params;
@@ -112,27 +104,27 @@ const FunnelBuilder = ({
     } = await funnelSchema(fields);
 
     if (!isValid) {
-      props.showFlashMessage({
-        type: 'failed',
-        message: 'Check the funnel Fields And Try a gain'
-      });
       notification.failed('There is few invalid fields,check & try to save');
       return setErrors(errors);
     }
 
-
-    const action = isNew ? props.createFunnel : props.updateFunnel;
-    const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
-
     const startPoint = getStartPointProduct(funnel);
-    if (startPoint) payload.funnel.startPoint = startPoint;
+    if (startPoint) funnel.startPoint = startPoint;
 
-    payload.productsUpdates = extractProductsRelations(funnel);
+    const productsUpdates = extractProductsRelations(funnel);
 
-    action(
+    const payload = {
+      funnel: {
+        ...funnel,
+        funnelId: fields._id
+      },
+      productsUpdates
+    };
+
+    props.updateFunnel(
       payload,
       {
-        onSuccess: (msg) => {
+        onSuccess: () => {
           notification.success('Funnel Saved Successfully');
           changesSaved();
           updateUrlOnChange(fields.url);
@@ -157,7 +149,6 @@ const FunnelBuilder = ({
     domains,
     funnel: fields,
     onSave,
-    isNew,
     history: props.history
   };
 
@@ -197,10 +188,12 @@ const FunnelBuilder = ({
 FunnelBuilder.propTypes = { history: PropTypes.objectOf({}) };
 
 FunnelBuilder.defaultProps = {
-  products: [],
+  productsMap: {},
   funnels: [],
   history: {}
 };
+
+const nodeProjectProjection = { thumbnail: 'image', name: 'name' };
 
 const mapStateToProps = ({
   products: { products } = {},
@@ -212,5 +205,15 @@ const mapStateToProps = ({
       domains = []
     } = {}
   } = {}
-}) => ({ products, subdomain, domains, globelLoading, funnels });
+}) => {
+
+  const productsMap = mapListToObject(products, '_id', nodeProjectProjection);
+  return ({
+    productsMap,
+    subdomain,
+    domains,
+    globelLoading,
+    funnels
+  });
+};
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);

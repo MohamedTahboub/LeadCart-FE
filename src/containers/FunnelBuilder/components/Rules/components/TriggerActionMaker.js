@@ -6,18 +6,10 @@ import common from 'components/common';
 import { GoInfo } from 'react-icons/go';
 import { IoIosAdd } from 'react-icons/io';
 import ReactToolTip from 'react-tooltip';
-import { includesIgnoreCase } from 'libs';
+import { includesIgnoreCase, mapListToObject } from 'libs';
 import { connect } from 'react-redux';
-import { mapListToObject } from 'libs';
 const animatedComponents = makeAnimated();
 
-
-// const integrationsLabel = [
-//   { label: 'Aweber', value: 'aweber' }
-// ];
-const selectedIntegrationActions = [
-  { label: 'Add to List', value: 'addToList' }
-];
 
 const getActionsOptions = ({ action: { serviceName } = {} }, actionsMap) => {
   if (actionsMap[serviceName]) {

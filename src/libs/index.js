@@ -26,6 +26,7 @@ export {
   includesIgnoreCase,
   mapListToObject,
   throttle,
+  isObjectsEquivalent,
   nestedKeyValue
 } from './specialFuncs';
 export { notification };
