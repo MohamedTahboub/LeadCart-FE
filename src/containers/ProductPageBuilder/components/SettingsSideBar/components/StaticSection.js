@@ -1,18 +1,11 @@
 import React, { Fragment } from 'react';
-// import PropTypes from 'prop-types';
 import common from 'components/common';
-// import { connect } from 'react-redux';
 import PaymentType from 'components/PaymentType';
-import PaymentGateway from 'components/PaymentGateways';
 import { useContext } from '../../../actions';
 
-import { SettingBox } from './common';
 
 const {
-  Collapse,
   MiniTwitterPicker,
-  FulfillmentRowCard,
-  Currency,
   Tabs,
   Tab,
   InputRow,
@@ -20,7 +13,6 @@ const {
 
 } = common;
 
-const { Panel } = Collapse;
 
 const formatOptions = [
   {
@@ -43,7 +35,6 @@ const formatOptions = [
 
 const {
   Label,
-  SwitchInput,
   SearchInput,
   Toggle
 } = InputRow;
@@ -52,7 +43,6 @@ const StaticSection = ({ ...props }) => {
   const {
     state: {
       product = {},
-      styles = {}
     },
     actions
   } = useContext();
@@ -60,7 +50,10 @@ const StaticSection = ({ ...props }) => {
   const {
     price = {},
     payment = {},
-    addOns = {},
+    // addOns = {},
+    pageStyles:{
+      themeColor
+    }={}
     custom = {}
   } = product;
 
@@ -80,8 +73,8 @@ const StaticSection = ({ ...props }) => {
   return (
     <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='pricing' title='Pricing'>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
+        <InputRow>
+          <Label>
             Price Format:
           </Label>
           <SearchInput
@@ -130,8 +123,8 @@ const StaticSection = ({ ...props }) => {
             Theme Color:
           </Label>
           <MiniTwitterPicker
-            name='styles.themeColor'
-            value={styles.themeColor}
+            name='pageStyles.themeColor'
+            value={themeColor}
             onChange={onChange}
           />
         </FlexBox>

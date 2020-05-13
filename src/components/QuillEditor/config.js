@@ -1,6 +1,8 @@
 /*
  * Quill modules to attach to editor
  * See https://quilljs.com/docs/modules/ for complete options
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
  */
 const modules = {
   toolbar: [
@@ -56,8 +58,8 @@ const modules = {
     [
       { align: ['', 'right', 'center', 'justify'] },
       { list: 'ordered' },
-      { list: 'bullet' },
-    ],
+      { list: 'bullet' }
+    ]
     // [
     //   'code',
     //   'link',
@@ -68,7 +70,7 @@ const modules = {
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: true
-  },
+  }
   // imageResize: {
   //   displayStyles: {
   //     backgroundColor: 'black',
@@ -78,10 +80,7 @@ const modules = {
   //   }
   // }
 };
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
+
 const formats = [
   // 'header',
   'font',
@@ -93,8 +92,8 @@ const formats = [
   'blockquote',
   'list',
   'bullet',
-  // 'color',
-  'align',
+  'color',
+  'align'
   // 'link',
   // 'image',
   // 'video',
@@ -147,12 +146,12 @@ const headingModules = {
           '#3d1466',
           'custom-color'
         ]
-      },
+      }
     ],
     [
       { align: ['', 'right', 'center', 'justify'] }
-    ],
-  ],
+    ]
+  ]
 };
 const headingFormats = [
   'font',
@@ -168,6 +167,6 @@ export {
   formats,
   modules,
   headingFormats,
-  headingModules,
+  headingModules
 };
 

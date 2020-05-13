@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
+import { isFunction } from 'libs/checks';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
@@ -11,6 +12,7 @@ import {
   mapListToObject,
   notification
 } from 'libs';
+// import isEqualObjects from 'react-fast-compare';
 
 
 import './style.css';
@@ -55,7 +57,8 @@ const FunnelBuilder = ({
   };
 
   const changesSaved = () => {
-    typeof unblock === 'function' && unblock();
+    if (isFunction(unblock))
+      unblock();
     // stopTabClosing(false);
   };
 

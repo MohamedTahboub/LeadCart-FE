@@ -16,14 +16,12 @@ const {
 
 const Header = ({
   supportEmail,
-  logo,
-  themeColor: background
+  logo
 }) => (
   <FlexBox
     spaceBetween
-    className='p-3'
+    className='p-2'
     center='v-center'
-    style={{ background }}
   >
     <img alt='product' src={logo} className='builder-brand-logo' />
     <a
@@ -31,7 +29,7 @@ const Header = ({
       href={`mailto:${supportEmail}`}
       target='_blank'
       rel='noopener noreferrer'
-      className='not-underlined white-text bold-text large-text'
+      className='not-underlined bold-text large-text support-link'
     >
       {supportEmail}
     </a>
@@ -41,8 +39,8 @@ const Header = ({
 Header.defaultProps = {
   companyName: defaultName,
   supportEmail: defaultSupportEmail,
-  logo: defaultLogo,
-  themeColor: 'rgb(142, 209, 252)'
+  logo: defaultLogo
+  // themeColor: 'rgb(142, 209, 252)'
 };
 
 const mapStateToProps = ({
