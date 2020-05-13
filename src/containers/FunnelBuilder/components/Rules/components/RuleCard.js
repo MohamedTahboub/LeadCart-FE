@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { FaRegEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import ReactToolTip from 'react-tooltip';
 
 
 import TriggerGroup from './TriggerGroup';
 
-const getSubProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
+const getSubProducts = (productsMap = {}, products = []) => products.filter((productId) => productsMap[productId]);
 
 const {
   Card,
@@ -19,6 +20,7 @@ const RuleCard = ({
   productsMap,
   trigger,
   triggerGroups,
+  onDelete,
   onEdit,
   ...props
 }) => (
@@ -36,22 +38,21 @@ const RuleCard = ({
             <TriggerGroup
               className='margin-left-20'
               key={group.id}
-              {...group}
               products={getSubProducts(productsMap, group.products)}
+              {...group}
             />
           ))}
         </FlexBox>
       </FlexBox>
       <FlexBox flexEnd>
         <FaRegEdit onClick={onEdit} className='gray-text animate item-clickable' />
+        <MdDelete onClick={onDelete} className='danger-text animate item-clickable' />
       </FlexBox>
     </FlexBox>
     <ReactToolTip delayShow={300} />
   </Card>
 );
 
-RuleCard.propTypes = {
-
-};
+RuleCard.propTypes = {};
 
 export default RuleCard;

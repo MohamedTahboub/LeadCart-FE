@@ -14,9 +14,7 @@ import {
 
 import './style.css';
 
-const {
-  FlexBox
-} = common;
+const { FlexBox } = common;
 const Rules = ({
   rules,
   productsMap,
@@ -24,7 +22,7 @@ const Rules = ({
   // onToggleRuleModal,
   funnelId,
   funnelProducts,
-  products,
+  // products,
   ...props
 }) => {
   const [openRuleModal, setOpenRuleModal] = useState(false);
@@ -42,6 +40,9 @@ const Rules = ({
     onToggleRuleModal();
   };
 
+  const onRuleDelete = (rule) => {
+    console.log('delete Rule', rule);
+  };
   return (
     <FlexBox column center='v-center' className='full-width padding-v-20 rules-container'>
       {rules.map((rule) => (
@@ -50,6 +51,7 @@ const Rules = ({
           {...rule}
           productsMap={productsMap}
           onEdit={onRuleEdit(rule)}
+          onDelete={onRuleDelete(rule)}
         />
       ))}
       <FlexBox className={rules.length ? 'line-up-10' : ''}>
@@ -63,7 +65,7 @@ const Rules = ({
         <RuleModal
           open={openRuleModal}
           onClose={onToggleRuleModal}
-          products={products}
+          // products={products}
           productsMap={productsMap}
           funnelProducts={funnelProducts}
           funnelId={funnelId}
@@ -71,26 +73,20 @@ const Rules = ({
           isNew={!activeRule}
         />
       )}
-      <ReactToolTip delayShow='400' />
     </FlexBox>
   );
 };
 
-Rules.propTypes = {
-
-};
+// <ReactToolTip delayShow='400' />
+Rules.propTypes = {};
 Rules.defaultProps = {
   rules: [],
   productsMap: {}
 };
 
-const propifyState = ({
-  products: {
-    products = []
-  } = {}
-}) => ({
-  productsMap: mapListToObject(products, '_id'),
-  products
+const propifyState = ({ products: { products = [] } = {} }) => ({
+  productsMap: mapListToObject(products, '_id')
+  // products
 });
 
 export default connect(propifyState)(Rules);

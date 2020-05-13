@@ -11,9 +11,10 @@ import { connect } from 'react-redux';
 const animatedComponents = makeAnimated();
 
 
-const getActionsOptions = ({ action: { serviceName } = {} }, actionsMap) => {
-  if (actionsMap[serviceName]) {
-    return actionsMap[serviceName].actions.map((action) => ({
+const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
+  console.log(integrationKey, actionsMap);
+  if (actionsMap[integrationKey]) {
+    return actionsMap[integrationKey].actions.map((action) => ({
       label: action.label,
       value: action.name
     }));
@@ -22,7 +23,6 @@ const getActionsOptions = ({ action: { serviceName } = {} }, actionsMap) => {
 };
 const {
   FlexBox,
-  MainTitle,
   Button
 } = common;
 
@@ -54,7 +54,7 @@ const TriggerActionMaker = ({
   const onIntegrationSelected = ({ value }) => {
     setGroup({
       ...group,
-      action: { serviceName: value }
+      action: { integrationKey: value }
     });
   };
   const onIntegrationActionSelected = ({ value }) => {
@@ -62,10 +62,11 @@ const TriggerActionMaker = ({
       ...group,
       action: {
         ...group.action,
-        serviceAction: value
+        type: value
       }
     });
   };
+
   useEffect(() => {
     setGroup({});
   }, [expand]);
@@ -90,7 +91,7 @@ const TriggerActionMaker = ({
         <FlexBox center='v-center' className='label margin-right-10'>
           Execute
           <GoInfo
-            data-tip='Integration service that you are connected to'
+            data-tip='Integration Services()'
             className='gray-text animate margin-left-3 font-size-10'
           />
 
