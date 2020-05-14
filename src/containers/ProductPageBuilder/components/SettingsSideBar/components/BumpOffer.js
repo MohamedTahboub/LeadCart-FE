@@ -84,7 +84,6 @@ const BumpOffer = ({ ...props }) => {
   } = sectionSetting;
 
   const onChange = ({ target }) => {
-    console.log('Offer', target.name, target.value);
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: target
@@ -101,7 +100,6 @@ const BumpOffer = ({ ...props }) => {
     });
   };
   const onToggleChange = ({ name }) => {
-    console.log(name);
     onChange({
       target: {
         name,
@@ -145,6 +143,7 @@ const BumpOffer = ({ ...props }) => {
             className='default-pricing-field-length'
             name='content.price'
             onBlur={onChange}
+            type='number'
             prefix={<Currency value={currency} />}
             defaultValue={content.price}
             currency='$'

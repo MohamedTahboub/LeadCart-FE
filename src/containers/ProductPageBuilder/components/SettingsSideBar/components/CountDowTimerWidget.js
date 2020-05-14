@@ -4,7 +4,7 @@ import common from 'components/common';
 import moment from 'moment';
 
 
-import { SettingBox, ImageOption } from './common';
+import { ImageOption, SettingBox } from './common';
 import { useContext } from '../../../actions';
 
 const {
@@ -12,7 +12,7 @@ const {
   InputRow,
   MiniTwitterPicker,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
 const themesOptions = [
@@ -37,17 +37,13 @@ const { TextField, SelectOption, DatePicker } = InputRow;
 
 const CountDowTimerWidget = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content = {},
+    content = {}
     // actions: sectionActions = {}
   } = sectionSetting;
 
@@ -94,6 +90,7 @@ const CountDowTimerWidget = (props) => {
       }
     });
   };
+  console.log('Styels_CountDownRimer(styles)', styles);
   return (
     <div>
       <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -139,7 +136,7 @@ const CountDowTimerWidget = (props) => {
                 className='bump-offer-style-dropdown'
                 options={[
                   { label: 'Exact Date/Time', value: 'fixedTime' },
-                  { label: 'Time For Each Session', value: 'sessionTime' },
+                  { label: 'Time For Each Session', value: 'sessionTime' }
                 ]}
               />
             </FlexBox>
@@ -198,8 +195,6 @@ const CountDowTimerWidget = (props) => {
   );
 };
 
-CountDowTimerWidget.propTypes = {
-
-};
+CountDowTimerWidget.propTypes = {};
 
 export default CountDowTimerWidget;
