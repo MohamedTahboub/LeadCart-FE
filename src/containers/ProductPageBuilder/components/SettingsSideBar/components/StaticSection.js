@@ -58,7 +58,7 @@ const StaticSection = ({ ...props }) => {
     actions.onProductFieldChange(target);
   };
 
-  const onToggleCustom = ({ target: { name } }) => {
+  const onToggleCustom = ({ name }) => {
     onChange({
       target: {
         name: `custom.${name}`,
