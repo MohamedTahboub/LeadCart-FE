@@ -39,7 +39,7 @@ const Avatar = ({
   } : {};
 
   return (
-    <span className={`change-avatar-layer ${className}`} style={{ ...style }}>
+    <div className={`change-avatar-layer ${className}`} style={{ ...style }}>
       <span onClick={uploadUserImage} className='change-avatar-image'>
         <i className='fas fa-camera' />
       </span>
@@ -50,7 +50,7 @@ const Avatar = ({
         style={{ display: 'none' }} ref={(ref) => fileInput = ref} type='file'
         accept='image/x-png,image/gif,image/jpeg'
       />
-    </span>
+    </div>
   );
 };
 

@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 import './style.css';
 
-const Card = ({ title, children, footer, className }) => (
-  <div className={classNames(className, 'leadcart-card')}>
+const Card = ({ title, children, footer, className, style }) => (
+  <div className={classNames(className, 'leadcart-card')} style={style}>
     {
       title && (
         <div className='card-header'>{title}</div>

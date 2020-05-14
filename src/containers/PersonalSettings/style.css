@@ -26,8 +26,81 @@ display: flex; */
 }
 
 .personal-settings-wrapper {
+  display: flex;
   background: #FFF;
-  padding: 15px;
+  padding: 25px 15px;
   border-radius: 5px;
   box-shadow: 0 1px 3px #999999b3;
+}
+
+.personal-settings-wrapper > .sider {
+  border-right: 1px solid #C9D3DC;
+}
+
+.personal-settings-wrapper > .content {
+  width: 100%
+}
+
+.section-header {
+  color: #6E6E6E;
+}
+
+.number-highlighter {
+  border: 5px solid #D5E3F142;
+  border-radius: 5px;
+  padding: 5px 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.number-highlighter-title {
+  text-align: left;
+  width: 140px;
+  font-size: 14px;
+}
+
+.number-highlighter-number {
+  text-align: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: -15px;
+}
+
+.brands-table {
+  width: 100%;
+}
+
+.brands-search-input {
+  width: 250px;
+  margin-left: auto;
+}
+
+.delete-credit-card {
+  color: #e3e3e3 !important;
+  transition: color .3s;
+}
+
+.delete-credit-card:hover {
+  color: inherit !important;
+  transition: color .3s;
+}
+
+.credit-card-card {
+  width: 180px;
+  transition: border .3s;
+  cursor: pointer;
+}
+.credit-card-card:hover {
+  border: 1px solid #1890ff;
+  transition: border .3s;
+}
+
+.add-credit-card-button-wrapper {
+  align-self: flex-start;
+}
+
+.credit-cards-wrapper {
+  flex-wrap: wrap;
 }

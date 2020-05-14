@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import common from 'components/common';
-import { Button, Col, Row } from 'antd';
+import { Menu } from 'antd';
 import GeneralSettings from './GeneralSettings';
 import PaymentSettings from './PaymentSettings';
 import BrandsSection from './BrandsSection';
 import SubaccountsSection from './SubaccountsSection';
+import RedemptionSettings from './RedemptionSettings';
 
 import './style.css';
 
@@ -16,21 +17,54 @@ const {
   PageContent
 } = common;
 
+const sideMenuOptions = [
+  { title: 'General' },
+  { title: 'Redemption' },
+  { title: 'Brands Management' },
+  { title: 'Payments' },
+  { title: 'Manage Account' }
+].map((_, ix) => ({ ..._, key: ix.toString() }));
+
 // TEMP: temp variable
-const creditCards = ['4242424242424242', '5555555555554444', '4111111111111111'];
-const subaccounts = [];
+const creditCards = [{ cardNumber: '4242424242424242', isDefault: true },
+  { cardNumber: '5555555555554444', default: false },
+  { cardNumber: '4111111111111111', default: false }]
+    ;
+let subaccounts = [{
+  owner: 'Nour S.',
+  email: 'noureldean.sead@gmail.com',
+  mainBrand: '5ea02a2338a9780023c7057c',
+  package: { type: 'Premium' },
+  status: 'active'
+}];
+Array(3).fill(0).forEach(() => (subaccounts = subaccounts.concat(subaccounts)));
+console.log({ subaccounts });
+const redemptionCodes = [{ code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
+  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
+  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
+  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
+  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
+  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
+  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() }]
+  .map((code) => ({ ...code, code: Array(16).fill(0).reduce((str) => str + String.fromCharCode(parseInt(Math.random() * (122 - 48) + 48)), '') }));
+const credits = 19;
+console.log({ redemptionCodes });
+const PersonalSettings = ({ brands, user }) => {
+  const [activeTab, setActiveTab] = useState(sideMenuOptions[4].key);
+  const setTab = ({ selectedKeys }) => {
+    const [activeTab] = selectedKeys;
+    setActiveTab(activeTab);
+  };
+  const Route = () => {
+    switch (activeTab) {
+    case '0': return <GeneralSettings user={user}/>;
+    case '1': return <RedemptionSettings redemptionCodes={redemptionCodes} credits={credits}/>;
+    case '2': return <BrandsSection brands={brands}/>;
+    case '3': return <PaymentSettings creditCards={creditCards}/>;
+    default: return <SubaccountsSection subaccounts={subaccounts} brands={brands}/>;
+    }
+  };
 
-const Section = ({ title, children, className }) => (
-  <div>
-    <h3>{title}</h3>
-    <div className={className}>
-      {children}
-    </div>
-    <div className='divider my-2' />
-  </div>
-);
-
-const PersonalSettings = ({ brands }) => {
   return (
     <Page>
       <PageHeader>
@@ -38,18 +72,12 @@ const PersonalSettings = ({ brands }) => {
       </PageHeader>
       <PageContent>
         <div className='personal-settings-wrapper'>
-          <Section title='General settings'>
-            <GeneralSettings/>
-          </Section>
-          <Section title='Payment'>
-            <PaymentSettings creditCards={creditCards}/>
-          </Section>
-          <Section title='Active brands'>
-            <BrandsSection brands={brands}/>
-          </Section>
-          <Section title='Sub-accounts'>
-            <SubaccountsSection subaccounts={subaccounts}/>
-          </Section>
+          <Menu className='sider mr-3' onSelect={setTab} selectedKeys={[activeTab]}>
+            {sideMenuOptions.map((option) => <Menu.Item key={option.key}>{option.title}</Menu.Item>)}
+          </Menu>
+          <div className='content'>
+            <Route />
+          </div>
         </div>
       </PageContent>
     </Page>

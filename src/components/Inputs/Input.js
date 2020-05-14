@@ -1,3 +1,5 @@
+import React from 'react';
 import { Input } from 'antd';
+import classNames from 'classnames';
 
-export default Input;
+export default ({ className, ...props }) => <Input {...props} className={classNames(className)} />;

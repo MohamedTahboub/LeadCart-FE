@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'components/Inputs';
+import { Search } from 'components/Inputs';
 import { Menu } from 'antd';
 import classNames from 'classnames';
 import { insensitiveSearch } from 'helpers/common';
@@ -57,7 +57,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
         onClick={_onChange}
       >
         <SubMenu className='always-active' title={<span>{activeBrand.name}</span>} key='brands'>
-          <Input.Search placeholder='Search brands...' onChange={_filterBrands} className='minimal-input'/>
+          <Search placeholder='Search brands...' onChange={_filterBrands} className='minimal-input'/>
           {
             brands.filter(({ name }) => insensitiveSearch(brandsFilter, name))
               .map((brand) => (
