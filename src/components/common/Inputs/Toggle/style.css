@@ -1,18 +1,19 @@
-.classic-toggle .toggle-bar {
+.toggle-bar {
+    display: flex;
     --bar-width: 30px;
     --bar-height: 12px;
     width: var(--bar-width);
     height: var(--bar-height);
-    margin: 10px 80px;
     background-color: lightgray;
     position: relative;
     border-radius: 30px;
     padding: 1.5px;
     cursor: pointer;
+    margin: 10px 25px;
 }
 
-.classic-toggle .toggle-bar:before,
-.classic-toggle .toggle-bar:after {
+.toggle-bar:before,
+.toggle-bar:after {
     position: absolute;
     /* before is the default  */
     content: attr(data-before-bar);
@@ -24,24 +25,24 @@
     font-size: 10px;
     color: gray;
 }
-.classic-toggle .toggle-bar:after {
+
+.toggle-bar:after {
     right: -30px;
     left: unset;
     content: attr(data-after-bar);
+    font-weight: bold;
 }
-.classic-toggle input:checked~.toggle-bar:before{
+
+.toggle-bar.active:before {
     font-weight: bold;
     color: #2196f3;
 }
-.classic-toggle input:not(:checked)~.toggle-bar:after{
-    font-weight: bold;
+
+.toggle-bar.active:after {
+    font-weight: unset;
 }
 
-.classic-toggle input {
-    display: none;
-}
-
-.classic-toggle .toggle-bar .circle {
+.toggle-bar .circle {
     margin: auto 0;
     cursor: pointer;
     height: calc(var(--bar-height) - 2px);
@@ -50,17 +51,13 @@
     transition: all 0.3s ease-in-out;
     border-radius: 50%;
     border: 1px solid #eee;
+    transform: translateX(0px);
 }
-
-/* when opend */
-.classic-toggle input:checked~.toggle-bar .circle {
-    transform: translateX(calc(var(--bar-width) - 130%));
-}
-
-.classic-toggle input:checked~.toggle-bar {
+.toggle-bar.active {
     background-color: #2196f3;
 }
 
-.classic-toggle input:focus+.toggle-bar .circle {
-    box-shadow: 0 0 1px #2196f3;
+/* when opend */
+.toggle-bar.active .circle {
+    transform: translateX(calc(var(--bar-width) - 20px));
 }
