@@ -2,9 +2,7 @@ import React from 'react';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import './style.css';
-import {
-  Feature
-} from './components';
+import { Feature } from './components';
 
 const { EditableField, FlexBox } = common;
 
@@ -37,7 +35,7 @@ const Features = ({
 
   const onFeatureChange = ({ target: { value, name } }) => {
     const newList = list.map((f, id) => {
-      if (id === +(name)) f.text = value;
+      if (id == (name)) f.text = value;
       return f;
     });
     onChange('content.list', newList);
@@ -46,14 +44,12 @@ const Features = ({
 
   const onFeatureDelete = (i) => {
     const newList = list.filter((f, id) => id !== +(i));
+
     onChange('content.list', newList);
+    if (!newList.length)
+      actions.onSectionDelete(section.id);
+
   };
-
-
-  const onTitleChange = ({ target: { value } }) => {
-    onChange('content.title', value);
-  };
-
 
   return (
 

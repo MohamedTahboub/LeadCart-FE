@@ -2,7 +2,6 @@ import React from 'react';
 import clx from 'classnames';
 
 import './style.css';
-
 const Toggle = ({
   className,
   onToggle,
@@ -13,28 +12,19 @@ const Toggle = ({
   name,
   ...props
 }) => {
-  const classNames = clx('classic-toggle', className);
+  const classNames = clx('toggle-bar', className, { active: value });
 
   const _onToggle = () => {
     onToggle({ name });
   };
   return (
-    <div className={classNames}>
-      <input
-        type='checkbox'
-        defaultChecked={defaultValue}
-        checked={value}
-        name={name}
-        {...props}
-      />
-      <div
-        onClick={_onToggle}
-        data-before-bar={beforeLabel}
-        data-after-bar={afterLabel}
-        className='toggle-bar'
-      >
-        <div className='circle' />
-      </div>
+    <div
+      onClick={_onToggle}
+      data-before-bar={beforeLabel}
+      data-after-bar={afterLabel}
+      className={classNames}
+    >
+      <div className='circle' />
     </div>
   );
 };

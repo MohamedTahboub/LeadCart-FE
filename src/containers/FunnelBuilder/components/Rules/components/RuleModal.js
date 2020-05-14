@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
@@ -23,6 +23,8 @@ const {
   MainTitle,
   Button
 } = common;
+const getCrossedProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
+
 const getSubProducts = (productsMap = {}, products = []) => products.map(({ productId }) => productsMap[productId] || {});
 
 const RuleModal = ({
@@ -30,7 +32,7 @@ const RuleModal = ({
   ruleData,
   open,
   onClose,
-  products,
+  // products,
   funnelId,
   productsMap,
   funnelProducts,
@@ -57,31 +59,52 @@ const RuleModal = ({
   const onSubmit = () => {
     setSaving(true);
     if (isNew) {
-      props.createFunnelRule(
-        {
-          rule: fields,
-          funnel: funnelId
-        }, {
-          onSuccess: () => {
-            notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been created`);
-            setSaving(false);
-            onClose();
-          },
-          onFailed: (errMsg) => {
-            setSaving(false);
-            notification.failed(errMsg);
-          },
+      props.createFunnelRule({
+        rule: fields,
+        funnel: funnelId
+      }, {
+        onSuccess: () => {
+          notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been created`);
+          setSaving(false);
+          onClose();
+        },
+        onFailed: (errMsg) => {
+          setSaving(false);
+          notification.failed(errMsg);
         }
-      );
+      });
+    } else {
+      const { _id: ruleId, ...rule } = fields;
+      if (Array.isArray(rule.triggerGroups)) {
+        rule.triggerGroups = rule.triggerGroups.map(({ actions, products }) => ({
+          products,
+          actions
+        }));
+      }
+      props.updateFunnelRule({
+        ruleId,
+        rule,
+        funnel: funnelId
+      }, {
+        onSuccess: () => {
+          notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been updated`);
+          setSaving(false);
+          onClose();
+        },
+        onFailed: (errMsg) => {
+          setSaving(false);
+          notification.failed(errMsg);
+        }
+      });
     }
   };
 
   useEffect(() => {
-    if (isNew && ruleData) setFields(ruleData);
+    if (!isNew && ruleData) setFields(ruleData);
     return () => {
       setFields({ triggerGroups: [] });
     };
-  }, [isNew, open]);
+  }, [isNew, open, ruleData]);
 
 
   return (
@@ -114,7 +137,7 @@ const RuleModal = ({
               className='white-bg soft-edges margin-v-5 padding-v-10 padding-h-5'
               key={group.id}
               {...group}
-              products={getSubProducts(productsMap, group.products)}
+              products={getCrossedProducts(productsMap, group.products)}
             />
           ))
         }
@@ -131,15 +154,13 @@ const RuleModal = ({
           onprogress={saving}
           disabled={saving}
         >
-          Create Rule
+          {`${!isNew ? 'Update' : 'Create'} Rule`}
         </Button>
       </FlexBox>
     </Modal>
   );
 };
 
-RuleModal.propTypes = {
-
-};
+RuleModal.propTypes = {};
 
 export default connect(null, funnelsActions)(RuleModal);

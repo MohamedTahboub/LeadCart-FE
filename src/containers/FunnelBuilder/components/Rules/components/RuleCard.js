@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { FaRegEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import ReactToolTip from 'react-tooltip';
 
 
@@ -19,18 +20,19 @@ const RuleCard = ({
   productsMap,
   trigger,
   triggerGroups,
+  onDelete,
   onEdit,
   ...props
 }) => (
-  <Card className='width-percent-60 padding-h-20 padding-v-20 margin-v-10'>
+  <Card className='width-percent-60 padding-h-20 padding-v-20 margin-v-10 relative-element'>
     <FlexBox column>
       <FlexBox center='v-center'>
-        <span className='small-text gray-color'>When</span>
+        <span className='small-text gray-color bold-text'>When</span>
         <Badge data-tip='rule trigger event' className='margin-h-10'>{trigger}</Badge>
-        <span className='small-text gray-color'>Occur</span>
+        <span className='small-text gray-color bold-text'>Occur</span>
       </FlexBox>
-      <FlexBox flexStart>
-        <span className='small-text gray-color'>For</span>
+      <FlexBox center='v-center'>
+        <span className='small-text gray-color bold-text'>For</span>
         <FlexBox column className='margin-left-20'>
           {triggerGroups.map((group) => (
             <TriggerGroup
@@ -42,16 +44,23 @@ const RuleCard = ({
           ))}
         </FlexBox>
       </FlexBox>
-      <FlexBox flexEnd>
-        <FaRegEdit onClick={onEdit} className='gray-text animate item-clickable' />
+      <FlexBox column spaceBetween className='rule-control'>
+        <FaRegEdit
+          data-tip='Edit this rule'
+          onClick={onEdit}
+          className='gray-text animate item-clickable'
+        />
+        <MdDelete
+          data-tip='Delete this rule'
+          onClick={onDelete}
+          className='gray-text animate item-clickable'
+        />
       </FlexBox>
     </FlexBox>
     <ReactToolTip delayShow={300} />
   </Card>
 );
 
-RuleCard.propTypes = {
-
-};
+RuleCard.propTypes = {};
 
 export default RuleCard;
