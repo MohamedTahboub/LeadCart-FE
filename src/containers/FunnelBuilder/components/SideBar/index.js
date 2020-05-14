@@ -103,7 +103,7 @@ const SideBar = ({
         <Tab id='funnelSettings' title='Settings'>
           <SettingMenu
             {...props}
-            onChange={onNameChange}
+            onChange={onChange}
             funnel={funnel}
           />
         </Tab>

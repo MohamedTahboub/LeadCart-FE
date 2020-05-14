@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clx from 'classnames';
 
 import './style.css';
 
 export const MenuItem = ({
-  className = '',
-  children,
-  ...props
+  className,
+  children
 }) => (
-  <div className={`sidebar-menu-item ${className}`}>
+  <div className={clx`sidebar-menu-item ${className}`}>
     {children}
   </div>
 );
@@ -18,33 +18,34 @@ MenuItem.propTypes = {
   children: PropTypes.objectOf({}).isRequired
 };
 
-MenuItem.defaultProps = {
-  className: ''
-};
+MenuItem.defaultProps = { className: '' };
 
 
 export const MenuTitle = ({
   className,
-  children,
-  ...props
+  children
 }) => (
-  <div className='sidebar-menu-title'>{children}</div>
+  <div className={clx`sidebar-menu-title ${className}`}>
+    {children}
+  </div>
 );
 
 export const MenuContent = ({
-  className = ';',
-  children,
-  ...props
+  className,
+  children
 }) => (
-  <div className={`sidebar-menu-content ${className}`}>{children}</div>
+  <div className={clx`sidebar-menu-content ${className}`}>
+    {children}
+  </div>
 );
 
 
 export const MenuFlexContent = ({
   className,
-  children,
-  ...props
+  children
 }) => (
-  <div className='sidebar-menu-flex-content'>{children}</div>
+  <div className={clx`sidebar-menu-flex-content ${className}`}>
+    {children}
+  </div>
 );
 

@@ -18,7 +18,6 @@ const getValidDomain = (domains = []) => domains.find(({ verified, connected }) 
 
 const CheckoutHeader = ({
   funnel,
-  isNew,
   onChange,
   subdomain,
   domains,
@@ -87,7 +86,6 @@ const CheckoutHeader = ({
       <FlexBox center='v-center' className='min-width-250 padding-right-20' flexEnd>
         {activePage === 'rules' ? (
           <Button
-            // disabled={isNew}
             onClick={onToggleRuleModal}
             className='light-btn '
           >
@@ -100,7 +98,6 @@ const CheckoutHeader = ({
         ) : (
           <Fragment>
             <Button
-              disabled={isNew}
               onClick={onShowShare}
               className='light-btn solid-right-border '
             >
@@ -108,7 +105,6 @@ const CheckoutHeader = ({
                 Share
             </Button>
             <Button
-              disabled={isNew}
               onClick={onPreview}
               className='light-btn solid-right-border solid-left-border'
             >
@@ -117,7 +113,7 @@ const CheckoutHeader = ({
             </Button>
             <Button onClick={onSave} className='light-btn solid-left-border'>
               <i className='fas fa-save font-size-11' />
-              {isNew ? 'Create' : 'Save'}
+              Save
             </Button>
           </Fragment>
         )}
