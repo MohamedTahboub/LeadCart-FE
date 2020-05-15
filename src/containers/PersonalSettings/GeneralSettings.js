@@ -13,10 +13,13 @@ const GeneralSettings = ({ user }) => {
     <div className='d-flex'>
       <div>
         <Section title='Account Details'>
-          <div className='mb-2'><strong>Owner Details:</strong></div>
-          <div className='d-col justify-start ml-2'>
+          <div className='mb-2'><strong>Used Credit Card:</strong></div>
+          <div className='ml-2'>
             <InputField label='First name:' placeholder='John'/>
             <InputField label='Last name:' placeholder='Doe' />
+            <div className='d-flex justify-end'>
+              <Button type='primary'>Update</Button>
+            </div>
           </div>
         </Section>
         <Section title='Emails'>
@@ -27,7 +30,9 @@ const GeneralSettings = ({ user }) => {
           <InputField label='Old Password:' placeholder='Old password' />
           <InputField label='New Password:' placeholder='6+ alphanumeric' />
           <InputField label='Confirm Password:' placeholder='Same password goes here' />
-          <Button className='float-right' type='primary'>Update</Button>
+          <div className='d-flex justify-end'>
+            <Button type='primary'>Update</Button>
+          </div>
         </Section>
       </div>
       <div className='m-5'>

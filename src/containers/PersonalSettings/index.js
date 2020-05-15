@@ -50,7 +50,7 @@ const redemptionCodes = [{ code: '', type: 'Stacking', value: 1, redemptionDate:
 const credits = 19;
 console.log({ redemptionCodes });
 const PersonalSettings = ({ brands, user }) => {
-  const [activeTab, setActiveTab] = useState(sideMenuOptions[4].key);
+  const [activeTab, setActiveTab] = useState(sideMenuOptions[0].key);
   const setTab = ({ selectedKeys }) => {
     const [activeTab] = selectedKeys;
     setActiveTab(activeTab);
