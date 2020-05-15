@@ -16,6 +16,7 @@
     position: relative;
     padding: 40px;
     background: white;
+    border-radius: 5px;
 }
 .modal-close-btn{
     color:gray;

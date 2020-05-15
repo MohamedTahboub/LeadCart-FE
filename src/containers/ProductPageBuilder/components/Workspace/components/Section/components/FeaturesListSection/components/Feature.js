@@ -10,7 +10,7 @@ const featureThemes = {
   unorderedCheckMarkCircles: 'point-unordered-circles check-marks',
   orderedRectangles: 'point-ordered-bullets',
   unorderedRectangles: 'point-unordered-bullets',
-  unorderedCheckMarkRectangles: 'point-unordered-bullets check-marks',
+  unorderedCheckMarkRectangles: 'point-unordered-bullets check-marks'
 };
 const Feature = ({
   className,
@@ -23,7 +23,7 @@ const Feature = ({
 }) => {
   const classes = clx({
     'section-feature-item': true,
-    'with-points': theme === 'with-points',
+    'with-points': theme === 'with-points'
   });
 
   const pointClasses = clx({
@@ -49,12 +49,12 @@ const Feature = ({
         value={text}
         textarea
       />
-      <span
-        onClick={() => onDelete(id)}
-        className='feature-item-delete-btn'
-        role='presentation'
-      >
-        <i className='fas fa-trash-alt' />
+      <span className='feature-item-delete-btn'>
+        <i
+          role='presentation'
+          onClick={() => onDelete(id)}
+          className='fas fa-trash-alt'
+        />
       </span>
     </div>
   );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import ids from 'shortid';
 import { useContext } from '../../../actions';
-
+import { MdAddCircleOutline } from 'react-icons/md';
 import {
   ImageOption,
   SettingBox
@@ -49,7 +49,7 @@ const {
 
 } = common;
 
-const { TextField } = InputRow;
+const { Label } = InputRow;
 
 const FeaturesSection = (props) => {
   const {
@@ -97,7 +97,16 @@ const FeaturesSection = (props) => {
         <Tab id='settings' title='settings'>
           <FlexBox column center='h-center'>
             <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
-              <span className='gray-text'>Points Color</span>
+              <Label>Add more:</Label>
+              <FlexBox center='v-center' onClick={onAddNewFeature}>
+                <MdAddCircleOutline className='gray-text mx-2 item-clickable' />
+                <span>
+                  {list.length}
+                </span>
+              </FlexBox>
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
+              <Label>Points Color</Label>
               <MiniTwitterPicker
                 name='styles.bulletColor'
                 value={styles.bulletColor}

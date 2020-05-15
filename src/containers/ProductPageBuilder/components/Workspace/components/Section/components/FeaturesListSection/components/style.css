@@ -17,10 +17,16 @@
 .feature-item-delete-btn {
   position: absolute;
   opacity: 0;
-  right: -20px;
-  bottom: 2px;
-  height: 18px;
-  width: 18px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: -15px;
+  /* bottom: 2px; */
+  /* height: 18px;
+  width: 18px; */
+  font-size: 12px;
   border-radius: 50%;
   color: lightcoral;
   display: -ms-flexbox;
@@ -31,7 +37,7 @@
   transition: all .3s ease-in-out;
 }
 
-.feature-item:hover .feature-item-delete-btn {
+.section-feature-item:hover .feature-item-delete-btn {
   opacity: 1;
 }
 

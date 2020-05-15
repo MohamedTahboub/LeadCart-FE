@@ -104,8 +104,9 @@ export const updateDisplayMode = ({ state = {}, dispatch }) => (mode) => {
 
 export const onSectionSettingChange = ({ state = {}, dispatch }) => ({ section, field: { name, value } = {} }) => {
   const sectionUpdated = immutable.set(section, name, value);
+
   dispatch({
-    type: types.UPDATE_PRODUCT_SECTION,
+    type: types.UPDATE_SECTION_SETTINGS,
     payload: sectionUpdated
   });
 };

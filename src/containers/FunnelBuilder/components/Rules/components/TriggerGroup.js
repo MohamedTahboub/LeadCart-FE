@@ -13,11 +13,14 @@ const {
 const ProductThumbnail = ({ thumbnail, name }) => (
   <img src={thumbnail} alt={name} className='small-image' />
 );
-const GroupAction = ({ serviceName, serviceAction }) => (
+const GroupAction = ({ integrationKey: serviceName, type: serviceAction }) => (
   <Badge className='margin-left-10'>
-    {`${serviceName} (${serviceAction})`}
+    {serviceAction ? `${serviceName} (${serviceAction})` : serviceName}
   </Badge>
 );
+
+const Label = ({ children, ...props }) => <span className='mx-2 gray-text bold-text' {...props}>{children}</span>;
+
 
 const TriggerGroup = ({
   className,
@@ -28,7 +31,8 @@ const TriggerGroup = ({
     center='v-center'
     className={`margin-v-5 ${className}`}
   >
-    {products.map((product) => (
+    <Label>On the following</Label>
+    {products.map((product, index) => (
       <FlexBox>
         <Badge
           //   data-for={product.name}
@@ -39,27 +43,32 @@ const TriggerGroup = ({
         >
           {product.name}
         </Badge>
-        <ReactToolTip
-          id={`rule-product-demo-${product._id}`}
-          //   type='light'
-          delayShow={300}
-          className='soft-edges'
-        >
-          <ProductThumbnail {...product} />
-        </ReactToolTip>
+        {product.thumbnail && (
+          <ReactToolTip
+            id={`rule-product-demo-${product._id}`}
+            //   type='light'
+            delayShow={300}
+            className='soft-edges'
+          >
+            <ProductThumbnail {...product} />
+          </ReactToolTip>
+        )}
+        {
+          index !== (products.length - 1) && (
+            <Label>&&</Label>
+          )
+        }
       </FlexBox>
     ))}
     <FlexBox className='gray-text' center='v-center'>
-      <span className='margin-h-10'>Do</span>
+      <Label>Do</Label>
       <FaLongArrowAltRight />
       <GroupAction {...action} />
     </FlexBox>
   </FlexBox>
 );
 
-TriggerGroup.propTypes = {
-
-};
+TriggerGroup.propTypes = {};
 //
 
 export default TriggerGroup;
