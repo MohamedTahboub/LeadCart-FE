@@ -8,3 +8,7 @@
 #credit-card-box .kJnpoy {
   border: .8px solid rgba(0, 0, 0, 0.2) !important;
 }
+
+.unwanted-pregnancy > div > label:nth-child(n+3) {
+  display: none;
+}

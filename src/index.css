@@ -399,6 +399,7 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 }
 
 .d-col {
+  display: flex !important;
   flex-direction: column !important;
 }
 
@@ -413,8 +414,17 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .justify-end { justify-content: flex-end; }
 .justify-center { justify-content: center; }
 .justify-space-between { justify-content: space-between; }
-
 .align-center-left {
   align-items: center !important;
   justify-content: flex-start !important;
+}
+.float-left { float: left !important; }
+.float-right { float: right !important; }
+.transparent-bg { background: transparent; }
+.btn-soft { cursor: pointer; }
+
+/* Declarations */
+.divider {
+  border: 1px solid #c5c5c5;
+  margin: 1.5rem 0;
 }
