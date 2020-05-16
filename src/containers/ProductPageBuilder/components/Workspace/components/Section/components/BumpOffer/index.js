@@ -4,7 +4,12 @@ import { useContext } from '../../../../../../actions';
 import './style.css';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
-const { EditableField, LayoutSwitch } = common;
+const {
+  EditableField,
+  LayoutSwitch,
+  ResizableTextarea,
+  ResizableInput
+} = common;
 const BumpOffer = ({
   // onOptionSelected,
   section = {}
@@ -58,7 +63,7 @@ const BumpOffer = ({
           </span>
         </LayoutSwitch>
         <label id='bump-offer-checkbox-label' htmlFor='bump-offer-checkbox'>
-          <EditableField
+          <ResizableInput
             name='content.title'
             // color={headerStyle.color}
             value={content.title}
@@ -69,20 +74,29 @@ const BumpOffer = ({
         </label>
       </div>
       <div style={{ color: containerStyle.color }} className='template-bump-offer-description'>
-        <EditableField
+        <ResizableInput
           name='content.introText'
           // defaultValue='Offer intro statement'
           value={content.introText}
           onChange={onChange}
-          className='template-bump-offer-description-title'
-          style={{ color: containerStyle.headlineColor }}
+          className='template-bump-offer-description-title truncate'
+          style={{
+            color: containerStyle.headlineColor,
+            textDecoration: 'underline',
+            fontWeight: 'bold',
+            width: '100%'
+          }}
         />
-        <EditableField
+        <ResizableTextarea
           name='content.bodyText'
           // defaultValue='Offer Description goes here,lorem'
           value={content.bodyText}
           onChange={onChange}
-          textarea
+          // style={{
+          //   outlineStyle: 'dashed',
+          //   outlineColor: '#8ed1fc',
+          //   outlineWidth: '1px'
+          // }}
           className='template-bump-offer-description-content'
         />
       </div>
