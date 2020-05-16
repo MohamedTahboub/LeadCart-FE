@@ -5,7 +5,6 @@ import './style.css';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 const {
-  EditableField,
   LayoutSwitch,
   ResizableTextarea,
   ResizableInput

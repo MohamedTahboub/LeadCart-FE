@@ -1,18 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import QuillEditor from 'components/QuillEditor';
 import common from 'components/common';
 import clx from 'classnames';
 import { useContext } from '../../../../../actions';
 
 const {
   Button,
-  EditableField,
+  ResizableInput,
   FlexBox
 } = common;
-
-// value={pagePreferences.description}
-// onEdit={onEdit}
 
 const ButtonSection = ({
   value,
@@ -20,9 +15,8 @@ const ButtonSection = ({
   ...props
 }) => {
   const { actions = {} } = useContext();
-  const { content = {}, styles = {} } = section;
+  const { content = {}, styles = {}, actions: buttonActions } = section;
   const { position } = styles;
-  // const
 
   const onChange = ({ target: { value } }) => {
     const updatedSection = {
@@ -37,32 +31,33 @@ const ButtonSection = ({
     actions.updateProductSection(updatedSection);
   };
 
-  const style = {
-    backgroundColor: styles.backgroundColor,
+  const buttonStyle = {
+    display: 'flex',
+    backgroundColor: styles.backgroundColor
   };
-  const containerClasses = clx({
-    [`align-${position}`]: position,
-  });
+  const buttonTextStyle = {
+    backgroundColor: 'transparent',
+    fontWeight: 'bold',
+    fontSize: '16px'
+  };
+  const containerClasses = clx(`align-${position}`, 'truncate');
   const buttonClasses = clx({
     'primary-color': true,
     'justified': position === 'justified'
   });
   return (
     <FlexBox {...props} className={containerClasses}>
-      <Button className={buttonClasses} style={style}>
-        <EditableField
+      <Button className={buttonClasses} style={buttonStyle}>
+        <ResizableInput
           onChange={onChange}
           value={content.value}
-          textarea
-          style={style}
+          style={buttonTextStyle}
         />
       </Button>
     </FlexBox>
   );
 };
 
-ButtonSection.propTypes = {
-
-};
+ButtonSection.propTypes = {};
 
 export default ButtonSection;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { useContext } from '../../../actions';
@@ -10,18 +10,14 @@ const {
   InputRow,
   MiniTwitterPicker,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
 const { TextField, SelectOption, Slider } = InputRow;
 
 const ButtonSection = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
@@ -48,7 +44,7 @@ const ButtonSection = (props) => {
               { label: 'Left', value: 'left' },
               { label: 'Center', value: 'center' },
               { label: 'Right', value: 'right' },
-              { label: 'Justified', value: 'justified' },
+              { label: 'Justified', value: 'justified' }
             ]}
           />
         </FlexBox>
@@ -64,23 +60,41 @@ const ButtonSection = (props) => {
       </Tab>
 
       <Tab id='actions' title='actions'>
-        <div className='border-left-text margin-top-20'>On Button Click Open:</div>
-        <div className='padding-left-20'>
-          <TextField
-            name='actions.onClick'
-            value={sectionActions.onClick}
+        <FlexBox center='v-center px-2' spaceBetween>
+          <span className='gray-text bold-text'>Go To:</span>
+          <SelectOption
+            name='actions.type'
+            value={sectionActions.type}
             onChange={onChange}
-          // className='width-70'
+            options={[
+              { label: 'Payment Form', value: 'paymentForm' },
+              { label: 'External Link', value: 'external' }
+            ]}
           />
-        </div>
+        </FlexBox>
+        {sectionActions.type === 'external' ? (
+          <div className='px-2'>
+            <span className='gray-text bold-text mb-2'>On Click Open:</span>
+            <div className='padding-left-20'>
+              <TextField
+                name='actions.value'
+                value={sectionActions.value}
+                onChange={onChange}
+              />
+            </div>
+          </div>
+        ) : (sectionActions.type && (
+          <span className='gray-text aligned-center mt-3'>
+              When this Button clicked it will take the customer to the payment form section
+          </span>
+        ))}
       </Tab>
+
 
     </Tabs>
   );
 };
 
-ButtonSection.propTypes = {
-
-};
+ButtonSection.propTypes = {};
 
 export default ButtonSection;
