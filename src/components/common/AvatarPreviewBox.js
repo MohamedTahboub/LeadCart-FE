@@ -36,7 +36,7 @@ const UserAvatarPreview = ({
     setUpgradeModalOpen(!isUpgradeModalOpen);
   };
   return (
-    <div className='center-content profile-preview d-col'>
+    <div className='center-content profile-preview d-col mt-2'>
       <div className='d-flex mb-2'>
         <Avatar
           size={32}
@@ -49,9 +49,6 @@ const UserAvatarPreview = ({
           <span className='user-name'>{userName}</span>
         </div>
       </div>
-      {/*<Modal isVisible={isOnboardingModalOpen} onClose={toggleOnboardingModalOpen}>
-        <Onboarding />
-      </Modal>*/}
       {
         packageType !== 'Premium' && (
           <Fragment>

@@ -50,6 +50,7 @@ import SubAccounts from './containers/SubAccounts';
 import Help from './containers/Help';
 import PersonalSettings from './containers/PersonalSettings';
 import Account from './containers/Account';
+import SubaccountsSection from './containers/PersonalSettings/SubaccountsSection';
 
 
 // services
@@ -109,11 +110,11 @@ ReactDOM.render(
                   <Route exact path='/funnels' component={Funnels} />
                   <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
                   <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
-                  <Route exact path='/sub-accounts' component={SubAccounts} />
                   <Route exact path='/settings/account' component={Account} />
                   <Route path='/settings' component={Setting} />
                   <Route exact path='/help' component={Help} />
                   <Route exact path='/account' component={PersonalSettings} />
+                  <Route exact path='/sub-accounts' component={SubaccountsSection} />
                   <Route exact path='*' component={FourOFour} />
                 </Switch>
               </Fragment>

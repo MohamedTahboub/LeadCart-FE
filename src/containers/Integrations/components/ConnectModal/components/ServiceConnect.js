@@ -159,7 +159,6 @@ const ServiceConnect = ({ data = {}, ...props }) => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    console.log('data, service', data, service);
     if (!service.data) {
       setOnprogress(true);
       setService(data);

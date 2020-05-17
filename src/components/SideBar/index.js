@@ -177,7 +177,6 @@ const SideBar = ({
           <FillerButton onClick={logout} className='upgrade-btn' type='primary'>
             Logout
           </FillerButton>
-
         </div>
       </div>
       <CreateProductModal history={history} />

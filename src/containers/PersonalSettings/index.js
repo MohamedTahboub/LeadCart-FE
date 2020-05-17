@@ -19,26 +19,18 @@ const {
 
 const sideMenuOptions = [
   { title: 'General' },
-  { title: 'Redemption' },
   { title: 'Brands Management' },
-  { title: 'Payments' },
+  { title: 'Payment Methods' },
+  { title: 'Code Redemption' },
   { title: 'Manage Account' }
-].map((_, ix) => ({ ..._, key: ix.toString() }));
+].map((_) => ({ ..._, key: _.title.toLowerCase().replace(/\s/g, '_') }));
 
 // TEMP: temp variable
 const creditCards = [{ cardNumber: '4242424242424242', isDefault: true },
   { cardNumber: '5555555555554444', default: false },
   { cardNumber: '4111111111111111', default: false }]
     ;
-let subaccounts = [{
-  owner: 'Nour S.',
-  email: 'noureldean.sead@gmail.com',
-  mainBrand: '5ea02a2338a9780023c7057c',
-  package: { type: 'Premium' },
-  status: 'active'
-}];
-Array(3).fill(0).forEach(() => (subaccounts = subaccounts.concat(subaccounts)));
-console.log({ subaccounts });
+
 const redemptionCodes = [{ code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
   { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
   { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
@@ -48,7 +40,6 @@ const redemptionCodes = [{ code: '', type: 'Stacking', value: 1, redemptionDate:
   { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() }]
   .map((code) => ({ ...code, code: Array(16).fill(0).reduce((str) => str + String.fromCharCode(parseInt(Math.random() * (122 - 48) + 48)), '') }));
 const credits = 19;
-console.log({ redemptionCodes });
 const PersonalSettings = ({ brands, user }) => {
   const [activeTab, setActiveTab] = useState(sideMenuOptions[0].key);
   const setTab = ({ selectedKeys }) => {
@@ -57,11 +48,13 @@ const PersonalSettings = ({ brands, user }) => {
   };
   const Route = () => {
     switch (activeTab) {
-    case '0': return <GeneralSettings user={user}/>;
-    case '1': return <RedemptionSettings redemptionCodes={redemptionCodes} credits={credits}/>;
-    case '2': return <BrandsSection brands={brands}/>;
-    case '3': return <PaymentSettings creditCards={creditCards}/>;
-    default: return <SubaccountsSection subaccounts={subaccounts} brands={brands}/>;
+    case 'general': return <GeneralSettings user={user}/>;
+    case 'code_redemption': return <RedemptionSettings redemptionCodes={redemptionCodes} credits={credits}/>;
+    case 'brands_management': return <BrandsSection brands={brands}/>;
+    case 'payment_methods': return <PaymentSettings creditCards={creditCards}/>;
+    default:
+      return <div/>;
+    // return <SubaccountsSection subaccounts={subaccounts} brands={brands}/>;
     }
   };
 
