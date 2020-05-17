@@ -9,11 +9,7 @@ const {
   ResizableTextarea,
   ResizableInput
 } = common;
-const BumpOffer = ({
-  // onOptionSelected,
-  section = {}
-  // offer: { style = {}, ...offer } = {},
-}) => {
+const BumpOffer = ({ section = {} }) => {
   const {
     styles = {},
     content = {}
@@ -64,9 +60,7 @@ const BumpOffer = ({
         <label id='bump-offer-checkbox-label' htmlFor='bump-offer-checkbox'>
           <ResizableInput
             name='content.title'
-            // color={headerStyle.color}
             value={content.title}
-            // defaultValue='Offer Title Goes Here'
             onChange={onChange}
             className='template-bump-offer-title-input'
           />
@@ -75,7 +69,6 @@ const BumpOffer = ({
       <div style={{ color: containerStyle.color }} className='template-bump-offer-description'>
         <ResizableInput
           name='content.introText'
-          // defaultValue='Offer intro statement'
           value={content.introText}
           onChange={onChange}
           className='template-bump-offer-description-title truncate'
@@ -88,14 +81,8 @@ const BumpOffer = ({
         />
         <ResizableTextarea
           name='content.bodyText'
-          // defaultValue='Offer Description goes here,lorem'
           value={content.bodyText}
           onChange={onChange}
-          // style={{
-          //   outlineStyle: 'dashed',
-          //   outlineColor: '#8ed1fc',
-          //   outlineWidth: '1px'
-          // }}
           className='template-bump-offer-description-content'
         />
       </div>
