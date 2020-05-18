@@ -61,12 +61,12 @@ const SideBar = (props) => (
           center='v-center'
           className='max-height-75vh'
         >
+
           <BaseCard
             type='guaranteeWidget'
             className='guarantee-badge-bg widget-card'
             data-tip='Guarantee Widget'
           />
-
           <BaseCard
             type='countDownWidget'
             className='countdown-bg widget-card'
@@ -88,6 +88,11 @@ const SideBar = (props) => (
           center='v-center'
           className='max-height-75vh'
         >
+          <BaseCard
+            type='figure'
+            className='guarantee-badge-bg widget-card'
+            data-tip='Figure Widget'
+          />
           <BaseCard
             type='bumpOffer'
             className='bump-offer-bg section-card'
