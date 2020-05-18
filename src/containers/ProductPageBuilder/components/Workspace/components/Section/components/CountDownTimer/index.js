@@ -37,6 +37,12 @@ const Timer = ({
     shape,
     backgroundColor: styles.backgroundColor
   };
+  const showElements = {
+    days: styles.showDays,
+    hours: styles.showHours,
+    minutes: styles.showMinutes,
+    seconds: styles.showSeconds
+  };
   return (
     <FlexBox
       center='h-center'
@@ -48,6 +54,7 @@ const Timer = ({
         // type={valueType}
         options={value}
         titlesStyle={{ color: styles.backgroundColor }}
+        display={showElements}
       />
     </FlexBox>
   );

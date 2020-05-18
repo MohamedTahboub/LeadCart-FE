@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
@@ -6,18 +6,18 @@ import clx from 'classnames';
 import './style.css';
 import countDownTimerClock from './coundown';
 
-const {
-  FlexBox
-} = common;
+const { FlexBox } = common;
 
-const CountDownFrame = ({
-  titleStyle, label, value, style
-}) => {
+const CountDownFrame = ({ titleStyle, label, value, style, show }) => {
+
+  if (!show) return null;
+
   const className = clx({
     'clock-item margin-v-20 margin-h-20': true,
     [style.format]: style.format,
-    [style.shape]: style.shape,
+    [style.shape]: style.shape
   });
+
   const strValue = String(value).padStart(2, '0');
   return (
     <FlexBox column center='v-center h-center' className={className}>
@@ -37,6 +37,7 @@ const CountDownTimer = ({
   titlesStyle,
   options,
   styles = {},
+  display = {},
   ...props
 }) => {
   const { valueType, styleType, ...value } = options;
@@ -48,45 +49,45 @@ const CountDownTimer = ({
     timerInstance.tick(setState);
 
     return timerInstance.tick;
-  }, [options]);
+  }, [options, value, valueType]);
 
   return (
     <div>
-      <FlexBox>
+      <FlexBox center='h-center'>
         <CountDownFrame
           value={state.days}
           label='Days'
           style={styles}
           titleStyle={titlesStyle}
+          show={display.days}
         />
         <CountDownFrame
           value={state.hours}
           label='Hours'
           style={styles}
           titleStyle={titlesStyle}
+          show={display.hours}
         />
         <CountDownFrame
           value={state.minutes}
           label='Minutes'
           style={styles}
           titleStyle={titlesStyle}
+          show={display.minutes}
         />
         <CountDownFrame
           value={state.seconds}
           label='Seconds'
           style={styles}
           titleStyle={titlesStyle}
+          show={display.seconds}
         />
       </FlexBox>
     </div>
   );
 };
 
-CountDownTimer.propTypes = {
-
-};
-CountDownTimer.defaultProps = {
-  options: {}
-};
+CountDownTimer.propTypes = {};
+CountDownTimer.defaultProps = { options: {} };
 
 export default CountDownTimer;

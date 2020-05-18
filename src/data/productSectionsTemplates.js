@@ -272,7 +272,12 @@ export default {
       value: { date: Date.now() + 1000000 },
       children: []
     },
-    styles: {}
+    styles: {
+      showDays: true,
+      showHours: true,
+      showMinutes: true,
+      showSeconds: true
+    }
   },
   progressbarWidget: {
     hidden: false, // for referencing elements for the layout sections
