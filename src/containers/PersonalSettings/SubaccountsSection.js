@@ -5,10 +5,27 @@ import Section from './Section';
 import { PlusOutlined } from '@ant-design/icons';
 import { Search } from 'components/Inputs';
 import { Button } from 'components/Buttons';
+import common from 'components/common';
 
 import './style.css';
 
-const SubaccountsSection = ({ brands, subaccounts, dataLoading }) => {
+const {
+  MainTitle,
+  Page,
+  PageHeader,
+  PageContent
+} = common;
+
+let _subaccounts = [{
+  owner: 'Nour S.',
+  email: 'noureldean.sead@gmail.com',
+  mainBrand: '5ea02a2338a9780023c7057c',
+  package: { type: 'Premium' },
+  status: 'active'
+}];
+Array(3).fill(0).forEach(() => (_subaccounts = _subaccounts.concat(_subaccounts)));
+
+const SubaccountsSection = ({ brands, subaccounts = _subaccounts, dataLoading }) => {
   const [filter, setFilter] = useState('');
   const [dataSource, setDataSource] = useState(subaccounts);
 
@@ -56,23 +73,29 @@ const SubaccountsSection = ({ brands, subaccounts, dataLoading }) => {
     }
   ];
   return (
-    <Section title='Sub Accounts'>
-      <div className='d-flex justify-space-between mb-2'>
-        <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch}/>
-        <Button type='primary' onClick={() => {}}><PlusOutlined /> New brand</Button>
-      </div>
-      <Table
-        loading={dataLoading}
-        columns={columns}
-        dataSource={dataSource}
-        pagination={false}
-      />
-    </Section>
+    <Page>
+      <PageHeader>Sub Accounts</PageHeader>
+      <PageContent>
+        <Section title=''>
+          <div className='d-flex justify-space-between mb-2'>
+            <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch}/>
+            <Button type='primary' onClick={() => {}}><PlusOutlined /> New Sub Account</Button>
+          </div>
+          <Table
+            loading={dataLoading}
+            columns={columns}
+            dataSource={dataSource}
+            pagination={false}
+          />
+        </Section>
+      </PageContent>
+    </Page>
   );
+
 };
 
-const mapStateToProps = ({ loading }) => {
-  return { dataLoading: loading };
+const mapStateToProps = ({ loading, brands }) => {
+  return { dataLoading: loading, brands };
 };
 
 export default connect(mapStateToProps, {})(SubaccountsSection);

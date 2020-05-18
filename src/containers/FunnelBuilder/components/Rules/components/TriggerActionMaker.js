@@ -12,7 +12,6 @@ const animatedComponents = makeAnimated();
 
 
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
-  console.log(integrationKey, actionsMap);
   if (actionsMap[integrationKey]) {
     return actionsMap[integrationKey].actions.map((action) => ({
       label: action.label,

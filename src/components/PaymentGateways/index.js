@@ -93,8 +93,6 @@ const mapStateToProps = ({ integrations }) => {
     .filter((integration) => includesIgnoreCase(integration.category, 'payment'))
     .map((integration) => ({ logo: getServiceBrand(integration.key), ...integration }));
 
-  console.log({ integrationsList });
   return { paymentsIntegrations: integrationsList };
 };
 export default connect(mapStateToProps)(PaymentMethods);
-

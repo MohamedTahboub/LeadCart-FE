@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Button } from 'antd';
+import React from 'react';
+import { Button, Table } from 'antd';
 import Card from 'components/Card';
-import { CreditCardDisplay } from 'components/CreditCardInputs';
 import Section from './Section';
 import { CheckCircleTwoTone, DeleteOutlined } from '@ant-design/icons';
 import { GetCardType } from 'helpers/common';
@@ -16,6 +15,39 @@ import CreditCardDefault from 'assets/images/icons/credit-card-default.png';
 
 import './style.css';
 
+const columns = [{
+  title: 'Item Type',
+  dataIndex: 'itemType',
+  key: 'itemType'
+}, {
+  title: 'Description',
+  dataIndex: 'description',
+  key: 'description'
+}, {
+  title: 'Quantity',
+  dataIndex: 'quantity',
+  key: 'quantity'
+}, {
+  title: 'Unit Price',
+  dataIndex: 'unitPrice',
+  key: 'unitPrice',
+  render: (text) => `$${text}`
+}, {
+  title: 'Amount',
+  dataIndex: 'amount',
+  key: 'amount',
+  render: (text, record) => `$${record.unitPrice * record.quantity}`
+}];
+
+const _dataSource = [
+  {
+    itemType: 'Package',
+    description: 'Lifetime Premium Package',
+    quantity: 1,
+    unitPrice: 299.99
+  }
+];
+
 const CreditCardRenderer = ({ type, ...props }) => {
   switch (type) {
   case 'visa': return <img alt='' src={CreditCardVisa} {...props} />;
@@ -29,40 +61,44 @@ const CreditCardRenderer = ({ type, ...props }) => {
   }
 };
 
-const PaymentSettings = ({ creditCards }) => {
+
+const PaymentSettings = ({ creditCards, dataSource = _dataSource }) => {
 
   return (
-    <Section title='Payments'>
-      <div className='mb-2'><strong>Owner Details:</strong></div>
-      <div className='d-col justify-start ml-2'>
-        <div className='d-flex mb-2 credit-cards-wrapper'>
-          {
-            creditCards && creditCards.map(({ cardNumber, isDefault }) => console.log('GetCardType(cardNumber)', GetCardType(cardNumber)) || (
-              <Card className='mr-3 mb-2 credit-card-card'>
-                <div className='d-col mb-2'>
-                  <div className='d-flex justify-space-between align-center mb-2'>
-                    {console.log('cardNumber', cardNumber)}
-                    <CreditCardRenderer type={GetCardType(cardNumber)} style={{ height: 42 }}/>
-                    {
-                      isDefault ?
-                        <CheckCircleTwoTone twoToneColor='#52c41a' style={{ fontSize: 20 }} /> :
-                        <DeleteOutlined className='btn-soft delete-credit-card' style={{ fontSize: 18 }}/>
+    <React.Fragment>
+      <Section title='Payment Methods'>
+        <div className='d-col justify-start'>
+          <div className='d-flex mb-2 credit-cards-wrapper'>
+            {
+              creditCards && creditCards.map(({ cardNumber, isDefault }) => (
+                <Card className='mr-3 mb-2 credit-card-card'>
+                  <div className='d-col mb-2'>
+                    <div className='d-flex justify-space-between align-center mb-2'>
+                      <CreditCardRenderer type={GetCardType(cardNumber)} style={{ height: 42 }}/>
+                      {
+                        isDefault ?
+                          <CheckCircleTwoTone twoToneColor='#52c41a' style={{ fontSize: 20 }} /> :
+                          <DeleteOutlined className='btn-soft delete-credit-card' style={{ fontSize: 18 }}/>
 
-                    }
-                  </div>
-                  <h3 className='pr-5 m-0'>
+                      }
+                    </div>
+                    <h3 className='pr-5 m-0'>
                       ***{cardNumber.slice(-4)}
-                  </h3>
-                </div>
-              </Card>
-            ))
-          }
+                    </h3>
+                  </div>
+                </Card>
+              ))
+            }
+          </div>
+          <div className='add-credit-card-button-wrapper'>
+            <Button block type='primary'>Add payment method</Button>
+          </div>
         </div>
-        <div className='add-credit-card-button-wrapper'>
-          <Button block type='primary'>Add credit card</Button>
-        </div>
-      </div>
-    </Section>
+      </Section>
+      <Section title='Invoices'>
+        <Table pagination={false} dataSource={dataSource} columns={columns} />
+      </Section>
+    </React.Fragment>
   );
 };
 

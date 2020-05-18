@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
 import ActivePackage from './components/ActivePackage';
+import PaymentSummary from 'components/PaymentSummary';
 import { upgradeUserSchema } from '../../libs/validation';
 const { packagesPlans = {} } = config;
 
@@ -227,9 +228,10 @@ const SubscriptionMinimal = ({
       )}
       footer={(
         <Fragment>
-          <div className='d-flex d-col'>
+          <div className='d-col'>
+            <PaymentSummary />
             <InputRow.Label>
-            Fill Your Card Details
+              Pay With Your Credit Card
             </InputRow.Label>
             <CreditCardInputs onChange={onChange} />
             <div className='error-message redeem-box-error'>

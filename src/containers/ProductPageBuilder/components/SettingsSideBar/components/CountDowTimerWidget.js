@@ -90,7 +90,6 @@ const CountDowTimerWidget = (props) => {
       }
     });
   };
-  console.log('Styels_CountDownRimer(styles)', styles);
   return (
     <div>
       <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
