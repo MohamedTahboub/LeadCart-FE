@@ -57,7 +57,6 @@ const Figure = ({
     });
   };
 
-  console.log('textContent', textContent);
   return (
     <FlexBox
       center='h-center'

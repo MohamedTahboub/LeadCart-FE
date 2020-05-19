@@ -49,7 +49,7 @@ const ImageContent = ({
     <FlexibleBox
       size={{ height: styles.height }}
       className={classNames}
-      onResize={onSizeChange}
+      onResizeStop={onSizeChange}
       showOnParentHover
     >
       <img
