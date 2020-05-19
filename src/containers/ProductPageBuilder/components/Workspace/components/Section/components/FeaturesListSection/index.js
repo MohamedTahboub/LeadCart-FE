@@ -1,24 +1,15 @@
 import React from 'react';
-import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import './style.css';
 import { Feature } from './components';
 
-const { EditableField, FlexBox } = common;
 
-
-const Features = ({
-  section = {},
-  ...props
-}) => {
+const Features = ({ section }) => {
   const { actions } = useContext();
 
   const {
     styles,
-    content: {
-      list = [],
-      title
-    } = {}
+    content: { list = [] } = {}
   } = section;
 
 
@@ -35,7 +26,12 @@ const Features = ({
 
   const onFeatureChange = ({ target: { value, name } }) => {
     const newList = list.map((f, id) => {
-      if (id == (name)) f.text = value;
+      if (`${id}` === `${name}`) {
+        return {
+          ...f,
+          text: value
+        };
+      }
       return f;
     });
     onChange('content.list', newList);
@@ -68,5 +64,5 @@ const Features = ({
     </div>
   );
 };
-
+Feature.defaultProps = { section: {} };
 export default Features;

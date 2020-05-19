@@ -64,13 +64,13 @@ const GuaranteeSection = ({
       <FlexBox flex column className={guaranteeTextClasses}>
         <ResizableInput
           name='content.title'
-          // onChange={onChange}
+          onChange={onChange}
           className='larger-text'
           value={title}
         />
         <ResizableTextarea
           name='content.description'
-          // onChange={onChange}
+          onChange={onChange}
           textarea
           value={description}
           className='large-text'

@@ -15,7 +15,7 @@ const Toggle = ({
   const classNames = clx('toggle-bar', className, { active: value });
 
   const _onToggle = () => {
-    onToggle({ name });
+    onToggle({ name, value: !value });
   };
   return (
     <div

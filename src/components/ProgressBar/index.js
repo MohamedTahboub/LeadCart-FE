@@ -4,17 +4,9 @@ import common from 'components/common';
 
 import './style.css';
 
-import {
-  EdgyProgressBar,
-  ProgressBar,
-  AnimatedProgressBar
-} from './components';
+import { ProgressBar } from './components';
 
-const {
-  ResizableInput,
-  FlexBox,
-  LayoutSwitch
-} = common;
+const { ResizableInput } = common;
 
 
 const ProgressBarSection = ({
@@ -36,14 +28,14 @@ const ProgressBarSection = ({
     <ProgressBar {...barProps}>
       <ResizableInput
         value={text}
+        autocomplete='off'
+        style={{ backgroundColor: 'transparent' }}
         {...props}
       />
     </ProgressBar>
   );
 };
 
-ProgressBarSection.propTypes = {
-
-};
+ProgressBarSection.propTypes = {};
 
 export default ProgressBarSection;

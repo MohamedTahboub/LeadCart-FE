@@ -20,7 +20,6 @@ import {
 const Section = ({
   id,
   className,
-  hidden,
   type,
   content,
   style = {},
@@ -49,9 +48,7 @@ const Section = ({
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
     collect: (monitor) => ({ isOver: monitor.isOver() }),
-    drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }, monitor) => {
-      // const didDrop = monitor.didDrop();
-      // if (didDrop) return;
+    drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }) => {
 
       if (newItem) {
         const newId = ids.generate();
@@ -85,11 +82,11 @@ const Section = ({
   return (
     <div
       ref={(node) => drop(drag(node))}
+      id={id}
     >
       <DropBeforeLine show={isOver} />
 
       <div
-        id={id}
         className={classes}
         style={style}
       >

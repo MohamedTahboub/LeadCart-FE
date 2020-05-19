@@ -50,22 +50,16 @@ const modules = {
           'custom-color'
         ]
       },
-      // "strike",
       'blockquote'
     ],
+    [{ size: [] }],
     [{ font: [] }],
-    // [{ size: [] }],
     [
       { align: ['', 'right', 'center', 'justify'] },
       { list: 'ordered' },
       { list: 'bullet' }
-    ]
-    // [
-    //   'code',
-    //   'link',
-    //   'image'
-    // ]
-    // ["quill-emoji"],
+    ],
+    ['quill-emoji']
   ],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
@@ -82,7 +76,6 @@ const modules = {
 };
 
 const formats = [
-  // 'header',
   'font',
   'size',
   'bold',
@@ -93,16 +86,13 @@ const formats = [
   'list',
   'bullet',
   'color',
-  'align'
-  // 'link',
-  // 'image',
-  // 'video',
-  // 'code'
+  'align',
+  'link'
 ];
 const headingModules = {
   toolbar: [
-    [{ header: '1' }, { header: '2' }],
-    // [{ size: ['16px', '18px', '20px', '22px', '24px', '26px', '28px', '30px', '32px', '34px', '36px', '38px'] }],
+    [{ header: 1 }, { header: 2 }],
+    [{ size: [] }],
     [
       'bold',
       'italic',
@@ -155,6 +145,7 @@ const headingModules = {
 };
 const headingFormats = [
   'font',
+  'size',
   'header',
   'bold',
   'italic',

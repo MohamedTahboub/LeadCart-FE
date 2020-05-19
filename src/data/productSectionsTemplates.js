@@ -245,6 +245,15 @@ export default {
       paddingBottom: 0
     }
   },
+  figure: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'figure',
+    content: {
+      image: 'https://i.imgur.com/7cXlr4v.png',
+      text: '<p><strong class="ql-size-huge">Language</strong></p><p><br></p><p><span class="ql-size-large">Retarget visitors who speak your language. Remove visitors who don’t speak that language from your retargeting list. Never again advertise to visitors who don’t speak the right language.</span></p>'
+    },
+    styles: { theme: 'right-theme' }
+  },
   guaranteeWidget: {
     hidden: false, // for referencing elements for the layout sections
     type: 'guaranteeWidget',
@@ -263,7 +272,12 @@ export default {
       value: { date: Date.now() + 1000000 },
       children: []
     },
-    styles: {}
+    styles: {
+      showDays: true,
+      showHours: true,
+      showMinutes: true,
+      showSeconds: true
+    }
   },
   progressbarWidget: {
     hidden: false, // for referencing elements for the layout sections

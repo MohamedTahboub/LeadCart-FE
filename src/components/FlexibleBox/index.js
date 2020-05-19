@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-// import ReactDOM from "react-dom";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineSmallDash } from 'react-icons/ai';
 import './style.css';
 import { isFunction } from 'libs/checks';
@@ -19,41 +18,50 @@ export default ({
   const [resizing, setResizing] = useState(false);
   const expanderRef = useRef(null);
 
-  const throttledUpdates = throttle((height) => {
+  const throttleResizing = useCallback(throttle((height) => {
     onResize({ height });
-  }, size.height, 1000 / 60);
+  }, size.height, 1000 / 60), [initialSize.height]);
+
+  const getRect = useCallback(() => {
+    if (expanderRef)
+      return expanderRef.current.getBoundingClientRect();
+    else return {};
+    //eslint-disable-next-line
+  }, [initialSize.height]);
+
+  const getCurrentHeight = (e) => {
+    const { y } = getRect();
+    const height = e.pageY - y;
+    return { height };
+  };
 
   const startResizing = (e) => {
-    setResizing(true);
-    if (isFunction(onResizeStart)) onResizeStart(e);
-    window.document.addEventListener('mousemove', tracking, true);
-    window.document.addEventListener('mouseup', stopResizing, true);
     e.preventDefault();
     e.stopPropagation();
+
+    setResizing(true);
+    if (isFunction(onResizeStart)) onResizeStart(getCurrentHeight(e), e);
+    window.document.addEventListener('mousemove', tracking, true);
+    window.document.addEventListener('mouseup', stopResizing, true);
   };
 
   const stopResizing = (e) => {
     setResizing(false);
     window.document.removeEventListener('mousemove', tracking, true);
     window.document.removeEventListener('mouseup', stopResizing, true);
-    if (isFunction(onResizeStop)) onResizeStop(e);
-    // if (isFunction(onResize)) onResize(size);
+
+    if (isFunction(onResizeStop)) onResizeStop(getCurrentHeight(e), e);
   };
 
-  const getRect = () => {
-    const element = document.getElementById('resizable-box-element');
-    return element.getBoundingClientRect();
-  };
 
   const tracking = (e) => {
-    const { y } = getRect();
-    const height = e.pageY - y;
-    setSize({ height });
+    setSize(getCurrentHeight(e));
   };
 
   useEffect(() => {
     const { height } = size;
-    if (isFunction(onResize)) throttledUpdates.on(height);
+    if (isFunction(onResize)) throttleResizing.on(height);
+    // eslint-disable-next-line
   }, [size.height]);
 
   const classNames = clx({

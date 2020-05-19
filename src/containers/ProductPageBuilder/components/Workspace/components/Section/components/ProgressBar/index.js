@@ -1,15 +1,8 @@
 import React from 'react';
-import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 
 import './style.css';
 import ProgressBar from 'components/ProgressBar';
-
-const {
-  CycleStepTitle,
-  CheckoutInput,
-  FloatButton
-} = common;
 
 
 export default ({
@@ -36,7 +29,7 @@ export default ({
   const styleColors = {
     borderColor: styles.borderColor,
     barColor: styles.barColor,
-    textColor: styles.textColor,
+    textColor: styles.textColor
   };
   const onChange = (event) => {
     const { target: { name, value } } = event;

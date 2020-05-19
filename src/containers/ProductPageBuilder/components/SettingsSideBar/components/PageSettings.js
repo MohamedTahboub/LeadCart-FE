@@ -35,25 +35,8 @@ const PageSettings = (props) => {
 
   return (
     <Tabs active='settings' className='p-2 flex' tabsContentClassName='scrolling-70vh flex'>
-      <Tab id='settings' title='Settings'>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Product Type:
-          </Label>
-          <SelectOption
-            value={category}
-            name='category'
-            onChange={onChange}
-            options={[
-              { label: 'Checkout Product', value: 'checkout' },
-              { label: 'Upsell/Downsell Product', value: 'upsell' }
-              // { label: 'ThankYou Product', value: 'thankyouPage' }
-            ]}
-          />
-        </InputRow>
-      </Tab>
 
-      <Tab id='styles' title='styles' >
+      <Tab id='styles' title='Styles' >
         <SettingBox
           title='Size'
         >
@@ -92,6 +75,16 @@ const PageSettings = (props) => {
             <MiniTwitterPicker
               name='pageStyles.productBackground'
               value={pageStyles.productBackground}
+              onChange={onChange}
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Theme Color:
+            </Label>
+            <MiniTwitterPicker
+              name='pageStyles.themeColor'
+              value={pageStyles.themeColor}
               onChange={onChange}
             />
           </InputRow>

@@ -33,7 +33,7 @@ const themesOptions = [
     src: 'https://i.imgur.com/8cPU4ku.png'
   }
 ];
-const { TextField, SelectOption, DatePicker } = InputRow;
+const { TextField, SelectOption, DatePicker, Toggle } = InputRow;
 
 const CountDowTimerWidget = (props) => {
   const {
@@ -49,47 +49,41 @@ const CountDowTimerWidget = (props) => {
 
   const { value: timerValue } = content;
 
-  const onChange = ({ target }) => {
+  const onChange = (field) => {
     actions.onSectionSettingChange({
       section: sectionSetting,
-      field: target
+      field
     });
   };
 
   const onTimerValueChange = ({ target: { value, name } }) => {
     onChange({
-      target: {
-        name: 'content.value',
-        value: {
-          ...timerValue,
-          valueType: 'sessionTime',
-          [name]: value
-        }
+      name: 'content.value',
+      value: {
+        ...timerValue,
+        valueType: 'sessionTime',
+        [name]: value
       }
     });
   };
 
   const onFixedTimeChange = (date) => {
     onChange({
-      target: {
-        name: 'content.value',
-        value: {
-          ...timerValue,
-          date: date.format(),
-          valueType: 'fixedTime'
-        }
+      name: 'content.value',
+      value: {
+        ...timerValue,
+        date: date.format(),
+        valueType: 'fixedTime'
       }
     });
   };
   const onThemeChange = ({ theme }) => (src) => () => {
-    actions.onSectionSettingChange({
-      section: sectionSetting,
-      field: {
-        name: 'styles.theme',
-        value: theme
-      }
+    onChange({
+      name: 'styles.theme',
+      value: theme
     });
   };
+
   return (
     <div>
       <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -188,6 +182,52 @@ const CountDowTimerWidget = (props) => {
               </FlexBox>
             </SettingBox>
           )}
+          <SettingBox title='Appearance'>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Days</span>
+              <Toggle
+                name='styles.showDays'
+                value={styles.showDays}
+                onToggle={onChange}
+                className='mr-2'
+                beforeLabel='show'
+                afterLabel='hide'
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Hours</span>
+              <Toggle
+                name='styles.showHours'
+                value={styles.showHours}
+                onToggle={onChange}
+                className='mr-2'
+                beforeLabel='show'
+                afterLabel='hide'
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Minutes</span>
+              <Toggle
+                name='styles.showMinutes'
+                value={styles.showMinutes}
+                onToggle={onChange}
+                className='mr-2'
+                beforeLabel='show'
+                afterLabel='hide'
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Seconds</span>
+              <Toggle
+                name='styles.showSeconds'
+                value={styles.showSeconds}
+                onToggle={onChange}
+                className='mr-2'
+                beforeLabel='show'
+                afterLabel='hide'
+              />
+            </FlexBox>
+          </SettingBox>
         </Tab>
       </Tabs>
     </div>

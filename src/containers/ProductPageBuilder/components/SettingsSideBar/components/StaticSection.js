@@ -113,18 +113,6 @@ const StaticSection = ({ ...props }) => {
         </InputRow>
       </Tab>
       <Tab id='addOns' title='Add-ons' />
-      <Tab id='styles' title='Styles'>
-        <FlexBox center='margin-v-5 min-height-400' spaceBetween>
-          <Label className='sidebar-input-label'>
-            Theme Color:
-          </Label>
-          <MiniTwitterPicker
-            name='pageStyles.themeColor'
-            value={themeColor}
-            onChange={onChange}
-          />
-        </FlexBox>
-      </Tab>
     </Tabs>
   );
 };

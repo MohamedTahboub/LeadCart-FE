@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 
 
@@ -11,7 +10,7 @@ import guaranteeBadge5 from 'assets/images/guaranteeBadges/gur-5.jpg';
 import guaranteeBadge6 from 'assets/images/guaranteeBadges/gur-6.png';
 
 
-import { SettingBox, ImageOption } from './common';
+import { ImageOption } from './common';
 import { useContext } from '../../../actions';
 
 const badgesImages = [
@@ -20,7 +19,7 @@ const badgesImages = [
   guaranteeBadge3,
   guaranteeBadge4,
   guaranteeBadge5,
-  guaranteeBadge6,
+  guaranteeBadge6
 ];
 const themesOptions = [
   {
@@ -43,55 +42,40 @@ const themesOptions = [
 
 const {
   Tabs,
-  InputRow,
-  MiniTwitterPicker,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
-const { TextField, SelectOption, AddImage } = InputRow;
 
 const GuaranteeWidget = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content: {
-      value: badgeImage
-    } = {},
+    content: { value: badgeImage } = {}
     // actions: sectionActions = {}
   } = sectionSetting;
 
-  const onChange = ({ target }) => {
+  const onChange = ({ field }) => {
     actions.onSectionSettingChange({
       section: sectionSetting,
-      field: target
+      field
     });
   };
 
   const onBadgeSelect = (image) => () => {
-    actions.onSectionSettingChange({
-      section: sectionSetting,
-      field: {
-        name: 'content.badge',
-        value: image
-      }
+    onChange({
+      name: 'content.badge',
+      value: image
     });
   };
   const onThemeChange = ({ theme, badge }) => (src) => () => {
-    actions.onSectionSettingChange({
-      section: sectionSetting,
-      field: {
-        name: 'styles.theme',
-        value: theme
-      }
+    onChange({
+      name: 'styles.theme',
+      value: theme
     });
   };
 
@@ -129,8 +113,6 @@ const GuaranteeWidget = (props) => {
   );
 };
 
-GuaranteeWidget.propTypes = {
-
-};
+GuaranteeWidget.propTypes = {};
 
 export default GuaranteeWidget;
