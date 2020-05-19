@@ -82,11 +82,9 @@ const FunnelBuilder = ({
 
     if (!funnel) return;
 
-    if (!isObjectsEquivalent(funnel, fields)) {
-      console.log('Funnel Updated $$$');
+    if (!isObjectsEquivalent(funnel, fields))
       setFields(funnel);
 
-    }
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);

@@ -37,7 +37,6 @@ const Settings = ({
 }) => {
 
   const onFiledChange = ({ target: { name, value } }) => {
-    console.log(name, value);
     onChange({ name, value });
   };
 

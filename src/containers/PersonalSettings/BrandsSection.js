@@ -67,7 +67,6 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
   };
 
   useEffect(() => {
-    console.log({ filter });
     setDataSource(brands.filter((brand) => brand.name.toLowerCase().includes(filter.toLowerCase())));
   }, [brands, filter]);
 
