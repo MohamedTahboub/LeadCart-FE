@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 import clx from 'classnames';
-import defaultDropImage from 'assets/images/image-drop-area.png';
+import defaultDropImage from 'assets/images/upload-image.png';
 import common from 'components/common';
 import FlexibleBox from 'components/FlexibleBox';
 import { useContext } from '../../../../../actions';
