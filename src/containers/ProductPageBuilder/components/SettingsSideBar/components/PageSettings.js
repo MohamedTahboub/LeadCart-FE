@@ -79,6 +79,16 @@ const PageSettings = (props) => {
               onChange={onChange}
             />
           </InputRow>
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Theme Color:
+            </Label>
+            <MiniTwitterPicker
+              name='pageStyles.themeColor'
+              value={pageStyles.themeColor}
+              onChange={onChange}
+            />
+          </InputRow>
         </SettingBox>
 
         <SettingBox title='Border Style'>

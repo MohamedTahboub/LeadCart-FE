@@ -16,6 +16,7 @@ import ProgressBar from './ProgressBar';
 import ProductBadgeWidget from './ProductBadgeWidget';
 import PageSettings from './PageSettings';
 import StaticSection from './StaticSection';
+import FigureSection from './FigureSection';
 
 export default ({ type, ...props }) => {
   switch (type) {
@@ -33,6 +34,7 @@ export default ({ type, ...props }) => {
   case 'progressbarWidget': return <ProgressBar {...props} />;
   case 'productMarkWidget': return <ProductBadgeWidget {...props} />;
   case 'staticSectionSetting': return <StaticSection {...props} />;
+  case 'figure': return <FigureSection {...props} />;
   case 'pageSetting': return <PageSettings {...props} />;
   default: return null;
   }
