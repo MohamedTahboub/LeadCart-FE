@@ -50,7 +50,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
       <Menu
         className={classNames('brands-navigation', { 'is-open': isBrandsOpen })}
         mode='inline'
-        selectedKeys={[activeBrand]}
+        selectedKeys={[activeBrand.id]}
         defaultOpenKeys={[isBrandsOpen && 'brands']}
         inlineIndent={6}
         onOpenChange={onOpenChange}
@@ -61,7 +61,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
           {
             brands.filter(({ name }) => insensitiveSearch(brandsFilter, name))
               .map((brand) => (
-                <MenuItem key={brand.id}>
+                <MenuItem key={brand.id} className={classNames({ active: brand.id === activeBrandId })}>
                   <BrandAvatar brand={brand} className='mr-3'/>
                   {brand.name}
                 </MenuItem>
