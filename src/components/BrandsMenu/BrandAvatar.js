@@ -11,7 +11,7 @@ const BrandAvatar = ({ brand, className }) => {
           : 'Sub';
   return (
     <span className={classNames('brand-avatar-wrapper', className)}>
-      <Avatar size={32} className='mr-2 brand-avatar-image'>B</Avatar>
+      <Avatar size={32} className='mr-2 brand-avatar-image' src={brand.logo}>{brand.name[0]}</Avatar>
       <Tag className='brand-avatar-subscription'>{subscriptionShort}</Tag>
     </span>
   );

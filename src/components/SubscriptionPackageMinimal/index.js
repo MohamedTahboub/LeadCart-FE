@@ -218,7 +218,7 @@ const SubscriptionMinimal = ({
           <div className='upgrade-text'>Upgrade this brand:</div>
           <div className='d-flex sub-minimal-brand mb-2'>
             <div className='mr-4'>
-              <img src={user.profileImage} alt='profileimage' />
+              <img src={activeBrand.logo} alt='profileimage' />
             </div>
             <div className='d-flex d-col align-center justify-space-between'>
               <span><strong>{activeBrand.name}</strong></span>
