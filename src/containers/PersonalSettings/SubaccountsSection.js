@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Table, Tag } from 'antd';
-import Section from './Section';
 import { PlusOutlined } from '@ant-design/icons';
 import { Search } from 'components/Inputs';
 import { Button } from 'components/Buttons';
@@ -10,7 +9,7 @@ import common from 'components/common';
 import './style.css';
 
 const {
-  MainTitle,
+  FlexBox,
   Page,
   PageHeader,
   PageContent
@@ -76,7 +75,7 @@ const SubaccountsSection = ({ brands, subaccounts = _subaccounts, dataLoading })
     <Page>
       <PageHeader>Sub Accounts</PageHeader>
       <PageContent>
-        <Section title=''>
+        <FlexBox column className='white-bg p-3 soft-edges'>
           <div className='d-flex justify-space-between mb-2'>
             <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch}/>
             <Button type='primary' onClick={() => {}}><PlusOutlined /> New Sub Account</Button>
@@ -87,7 +86,7 @@ const SubaccountsSection = ({ brands, subaccounts = _subaccounts, dataLoading })
             dataSource={dataSource}
             pagination={false}
           />
-        </Section>
+        </FlexBox>
       </PageContent>
     </Page>
   );
