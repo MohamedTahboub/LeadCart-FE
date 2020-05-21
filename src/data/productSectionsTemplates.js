@@ -264,6 +264,11 @@ export default {
     },
     styles: { theme: 'right-theme' }
   },
+  code: {
+    hidden: false, // for referencing elements for the layout sections
+    type: 'code',
+    content: { value: '<h1>Hello World!</h1>' }
+  },
   countDownWidget: {
     hidden: false, // for referencing elements for the layout sections
     type: 'countDownWidget',

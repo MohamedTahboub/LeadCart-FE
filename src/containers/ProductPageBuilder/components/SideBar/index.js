@@ -108,6 +108,11 @@ const SideBar = (props) => (
             className='features-bg section-card'
             data-tip='Features List Section'
           />
+          <BaseCard
+            type='code'
+            className='guarantee-badge-bg widget-card'
+            data-tip='Code Section'
+          />
         </FlexBox>
       </Panel>
     </Collapse>

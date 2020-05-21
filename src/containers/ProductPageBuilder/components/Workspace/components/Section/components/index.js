@@ -17,3 +17,4 @@ export { default as CountDownTimer } from './CountDownTimer';
 export { default as ProgressBar } from './ProgressBar';
 export { default as DropBeforeLine } from './DropBeforeLine';
 export { default as FigureSection } from './FigureSection';
+export { default as CodeSection } from './CodeSection';
