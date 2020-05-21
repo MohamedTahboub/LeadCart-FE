@@ -1,14 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { openNewWindow, getCurrencySymbol, property } from 'libs';
+import React, { Fragment, useEffect, useState } from 'react';
+import { getCurrencySymbol, openNewWindow, property } from 'libs';
 import './style.css';
 import { Modal } from 'components/Modals';
 import ids from 'shortid';
 import PropTypes from 'prop-types';
 
-import defaultFunnelThumbnail from 'assets/images/funnelCardThumbnail.png';
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
-import { Button, SmallButton, MiniButton } from '../Buttons';
+import { Button, MiniButton, SmallButton } from '../Buttons';
 import { WarningMessage } from '../Messages';
 import Dialog from '../Dialog';
 import EasyAnimate from '../Animation/EasyAnimate';
@@ -59,9 +58,7 @@ export const MediumCard = ({
   );
 };
 
-export const Avatar = ({
-  className: classname, style = {}, imageSrc, name = ''
-}) => {
+export const Avatar = ({ className: classname, style = {}, imageSrc, name = '' }) => {
   const className = classname ? `product-name-avatar ${classname}` : 'product-name-avatar';
   const [firstWord = '', secondeWord = ''] = name.trim().split(' ');
   const words = (`${firstWord[0]}${secondeWord[0]}`).toUpperCase();
@@ -76,12 +73,10 @@ export const Avatar = ({
 export const ProductCard = ({
   name,
   image,
-  pagePreferences: {
-    image: productImage = image
-  } = {},
+  pagePreferences: { image: productImage = image } = {},
   // pagePreferences:{}={}
   currancy,
-  orderInlist = 0,
+  orderInList = 0,
   monthlyProfite = 0,
   price = {},
   available,
@@ -93,7 +88,7 @@ export const ProductCard = ({
   ...props
 }) => (
   <EasyAnimate
-    delay={orderInlist * 100}
+    delay={orderInList * 100}
     className={`product-card-container ${available ? 'active-product' : 'inactive-product'}`}
   >
 
@@ -165,10 +160,8 @@ export const BumpOfferTemplateCard = ({ image, active }) => (
 // );
 
 
-export const UpsellCard = ({
-  name, orderInlist, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props
-}) => (
-  <EasyAnimate delay={orderInlist * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
+export const UpsellCard = ({ name, orderInList, id, active, price: { amount: price } = {}, onEdit, onPreview, onDelete, linkedProduct: { productName, productLink } = {}, ...props }) => (
+  <EasyAnimate delay={orderInList * 100} className={`upsell-card-container ${active ? 'active-product' : 'inactive-product'}`}>
     <div className='card-main-content product-avatar-holder'>
       <Avatar name={name} />
       <span className='product-name-holder'>{name}</span>
@@ -223,15 +216,13 @@ export const PayPalConnectContainer = ({
       setSubmitting(false);
       setCredits({});
     };
-  }, [showForm]);
+  }, [props.active, showForm]);
 
   const onSubmit = async () => {
     if (credits.clientId && credits.clientSecret) {
       setSubmitting(true);
       await onConnect(
-        {
-          cred: credits
-        },
+        { cred: credits },
         {
           onSuccess: () => {
             setSubmitting(false);
@@ -245,9 +236,7 @@ export const PayPalConnectContainer = ({
         }
       );
     } else {
-      setErrors({
-        message: 'Fields are not valid'
-      });
+      setErrors({ message: 'Fields are not valid' });
     }
   };
 
@@ -368,7 +357,7 @@ export const RadioImageCard = ({
 
 export const FulfillmentCard = ({
   name,
-  orderInlist,
+  orderInList,
   id,
   onEdit,
   onPreview,
@@ -377,7 +366,7 @@ export const FulfillmentCard = ({
   ...props
 }) => (
   <EasyAnimate
-    delay={orderInlist * 100}
+    delay={orderInList * 100}
     className='upsell-card-container'
   >
     <div className='card-main-content product-avatar-holder'>
@@ -441,7 +430,7 @@ export const CouponRowCard = ({
     percent
   } = {},
   onToggleStatus,
-  active,
+  active
 }) => (
   <div
     className='sidebar-fulfillment-card sidebar-custom-coupons-card'
@@ -471,60 +460,6 @@ export const CouponRowCard = ({
 export { default as PackageCard } from './PackageCard';
 
 
-export const FunnelCard = ({
-  name,
-  orderInlist,
-  id,
-  onEdit,
-  onPreview,
-  thumbnail = defaultFunnelThumbnail,
-  onDelete,
-  ...props
-}) => {
-  const coverImageStyle = {
-    backgroundImage: ` linear-gradient(
-          to bottom,
-          rgba(0,0,0, 0),
-          rgba(0,0,0, .1)
-        ),url(${thumbnail})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  };
-
-  return (
-    <EasyAnimate
-      delay={orderInlist * 100}
-      className='funnel-card-container'
-    >
-      <div style={coverImageStyle} className='funnel-cover-image' />
-      <MiniButton
-        iconClass='fa-copy'
-        // onClick={onDuplicate}
-        tooltip='Duplicate'
-        className='product-duplicate-btn funnel-duplicate-btn'
-      />
-      <div className='funnel-card-content'>
-        <div className='name-holder'>
-          <span data-tooltip='Open in new Tap'>
-            <i onClick={onPreview} className='fas fa-link' />
-          </span>
-          <span className='funnel-name-holder'>{name}</span>
-        </div>
-        <div className='card-controlls-container'>
-          <span data-tooltip='Edit Funnel'>
-            <i onClick={onEdit} className='fas fa-edit' />
-          </span>
-          <span data-tooltip='Delete Funnel'>
-            <i onClick={onDelete} className='fas fa-trash-alt' />
-          </span>
-        </div>
-      </div>
-    </EasyAnimate>
-  );
-};
-
-
 export const Card = ({
   children,
   style,
@@ -547,8 +482,5 @@ Card.propTypes = {
   className: PropTypes.string,
   children: PropTypes.oneOf([PropTypes.node, HTMLBaseElement, null]).isRequired
 };
-Card.defaultProps = {
-  className: '',
-
-};
+Card.defaultProps = { className: '' };
 

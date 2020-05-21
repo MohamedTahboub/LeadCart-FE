@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import productSample from 'data/product.json';
 import * as productActions from 'actions/product';
@@ -6,16 +6,7 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { includesIgnoreCase, notification } from 'libs';
 import './style.css';
-
-const {
-  FlexBox,
-  FunnelTemplateNode,
-  Tabs,
-  Tab,
-  InputRow,
-  Button
-} = common;
-const { TextField } = InputRow;
+import { Product } from './components';
 
 
 const getMatchedProducts = (products, nodes, activeNodeId) => {
@@ -30,6 +21,17 @@ const getMatchedProducts = (products, nodes, activeNodeId) => {
     .map((p) => (p._id === activeNode.productId ? { ...p, active: true } : p));
 };
 
+const {
+  FlexBox,
+  FunnelTemplateNode,
+  Tabs,
+  Tab,
+  InputRow,
+  Button
+} = common;
+const { TextField } = InputRow;
+
+
 const NodeSettingModal = ({
   show: isVisible,
   products,
@@ -38,14 +40,19 @@ const NodeSettingModal = ({
   onClose,
   ...props
 }) => {
-  const nodeProducts = getMatchedProducts(products, nodes, isVisible);
+
+  const nodeProducts = useCallback(
+    () =>
+      getMatchedProducts(products, nodes, isVisible),
+    [products, nodes, isVisible]
+  );
 
   const [filtered, setFilteredProducts] = useState(nodeProducts);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setFilteredProducts(getMatchedProducts(products, nodes, isVisible));
-  }, [products, isVisible, nodes]);
+    setFilteredProducts(nodeProducts);
+  }, [nodeProducts]);
 
   const onSearch = ({ target: { value } }) => {
     if (!value) return setFilteredProducts(nodeProducts);
@@ -53,6 +60,7 @@ const NodeSettingModal = ({
     const matched = nodeProducts.filter((product) => includesIgnoreCase(product.name, value));
     setFilteredProducts(matched);
   };
+
   const stopPropagation = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -129,16 +137,15 @@ const NodeSettingModal = ({
             </Button>
             <div className='title-text text-align-center margin-v-5'>Or</div>
           </FlexBox>
-          <FlexBox flex flexStart wrappable>
+          <FlexBox flex flexStart wrappable center='h-center'>
             {
               filtered.map((product) => (
-                <FunnelTemplateNode
-                  className='side-bar-nodes'
+                <Product
+                  // className='side-bar-nodes'
                   key={product._id}
-                  onClick={onSelect(isVisible, product._id)}
+                  onSelect={onSelect(isVisible, product._id)}
                   active={product.active}
-                  draggable={false}
-                  onEditExplore={onProductEdit(product._id)}
+                  // onEditExplore={onProductEdit(product._id)}
                   product={{
                     image: product.thumbnail,
                     name: product.name

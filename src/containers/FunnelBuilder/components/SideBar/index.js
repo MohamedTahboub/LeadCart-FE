@@ -34,7 +34,7 @@ const SideBar = ({
     demoImage
   }) => {
     const payload = { category: data.category, elementId: ids.generate() };
-    event.dataTransfer.setData('dropedElement', JSON.stringify(payload));
+    event.dataTransfer.setData('droppedElement', JSON.stringify(payload));
     const img = document.createElement('img');
     img.src = demoImage;
     event.dataTransfer.setDragImage(img, 140, 100);
