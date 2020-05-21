@@ -25,30 +25,28 @@ const CodeEditor = ({
     ...style
   };
 
-  const codeText = withIndent ? dedent(value) : value;
-  return useMemo(() => {
+  const onValueChange = (value) => {
+    onChange({
+      target: {
+        name,
+        value
+      }
+    });
+  };
 
-    const onValueChange = (value) => {
-      onChange({
-        target: {
-          name,
-          value
-        }
-      });
-    };
+  return (
+    <Editor
+      className='code-editor'
+      value={value}
+      onValueChange={onValueChange}
+      highlight={(code) => highlight(code, languages.jsx)}
+      padding={10}
+      draggable={false}
+      style={styes}
+      {...props}
+    />
+  );
 
-    return (
-      <Editor
-        className='code-editor'
-        value={codeText}
-        onValueChange={onValueChange}
-        highlight={(code) => highlight(code, languages.markup)}
-        padding={10}
-        style={styes}
-        {...props}
-      />
-    );
-  }, [codeText, name, onChange, props, styes]);
 };
 
 CodeEditor.propTypes = {
