@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Table, Tag } from 'antd';
-import Section from './Section';
 import { PlusOutlined } from '@ant-design/icons';
 import { Search } from 'components/Inputs';
 import { Button } from 'components/Buttons';
