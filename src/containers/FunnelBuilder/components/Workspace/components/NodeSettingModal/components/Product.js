@@ -3,9 +3,20 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import clx from 'classnames';
+import { IoMdCheckmark } from 'react-icons/io';
 import { TiWarning } from 'react-icons/ti';
 const { FlexBox } = common;
 
+
+const ActiveBadge = ({ show }) => {
+
+
+  return show ? (
+    <FlexBox center='h-center' className='active-product-badge'>
+      <IoMdCheckmark className='white-text active-check' />
+    </FlexBox>
+  ) : null;
+};
 
 const OverrideSelect = ({ show, onClick }) => {
 
@@ -16,13 +27,13 @@ const OverrideSelect = ({ show, onClick }) => {
     <FlexBox onClick={onClick} column center='v-center h-center' className='product-override-select'>
       <TiWarning className='larger-text yellowish-color' />
       <div className='tiny-text aligned-center'>
-                Product Already Used in another funnel
+        Product Already Used in another funnel
       </div>
       <div>
 
         <FlexBox flex center='h-center' className={selectBtnClasses}>
           <span>
-                        Select & Override
+            Select & Override
           </span>
         </FlexBox>
       </div>
@@ -37,7 +48,7 @@ const Product = ({
   onSelect,
   id: productId,
   nodeId,
-  isConnected = true
+  isConnected
 }) => {
 
 
@@ -68,6 +79,7 @@ const Product = ({
       className={classes}
       onClick={onProductSelect}
     >
+      <ActiveBadge show={active} />
       <div className='tiny-text gray-text bold-text truncate p-2'>
         {name}
       </div>

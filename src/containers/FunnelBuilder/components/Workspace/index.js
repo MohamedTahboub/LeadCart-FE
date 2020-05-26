@@ -8,14 +8,15 @@ import { notification } from 'libs';
 import {
   Node,
   NodeSettingModal,
-  RelationsWorkSpace
+  RelationsWorkSpace,
+  ShadowBackground
 } from './components';
 
 import './style.css';
 
 const { FlexBox } = common;
 
-const FunnelWorkSpace = ({
+const WorkSpace = ({
   category = 'checkout',
   onChange,
   funnel: {
@@ -196,6 +197,7 @@ const FunnelWorkSpace = ({
     toggleOptions: onToggleNodeSettings,
     onEdit: onProductEdit,
     onConnectNode,
+    activeNode: showNodeSettingModal,
     onNodeDelete
   };
 
@@ -229,6 +231,7 @@ const FunnelWorkSpace = ({
             product={productsNodeDetails[node.productId]}
           />
         ))}
+        <ShadowBackground show={showNodeSettingModal} />
         <NodeSettingModal
           show={showNodeSettingModal}
           nodes={nodes}
@@ -266,4 +269,4 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
 }
 
 
-export default connect(null, flashMessages)(FunnelWorkSpace);
+export default connect(null, flashMessages)(WorkSpace);

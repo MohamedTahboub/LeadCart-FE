@@ -21,7 +21,7 @@ import {
   Header,
   Rules,
   SideBar,
-  FunnelWorkspace as Workspace
+  Workspace
 } from './components';
 
 const {

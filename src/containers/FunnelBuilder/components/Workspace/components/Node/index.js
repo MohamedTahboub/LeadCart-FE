@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
-
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
@@ -30,20 +30,24 @@ const { FlexBox } = common;
 
 const stringifyObj = (obj) => JSON.stringify(obj);
 const Node = ({
-  highlighted,
   elementId,
   product = {},
-  onShowNodeOptions,
+  // onShowNodeOptions,
   category = 'checkout',
   productId,
   onEdit,
   toggleOptions,
-  coordinates = {},
-  props
+  activeNode,
+  coordinates = {}
+  // ...props
 }) => {
   const elementRef = useRef(null);
-
-  const classes = clx('card-style', 'funnel-node-card', { highlighted });
+  const highlighted = activeNode === elementId;
+  const classes = clx(
+    'card-style',
+    'funnel-node-card',
+    { highlighted }
+  );
 
   const nodePosition = {
     left: coordinates.x,
@@ -92,15 +96,19 @@ const Node = ({
 
   return (
     <FlexBox column className={classes} style={nodeStyle} {...cardProps}>
-      <div className='tiny-text gray-text bold-text truncate p-2'>
+      <div className='node-title tiny-text  gray-text bold-text truncate p-2'>
         {name}
       </div>
       <FlexBox column style={style} className='content soft-edges'>
         <NodeStatusHat />
-
         <EditButton onClick={_onEdit} />
-
       </FlexBox>
+      {highlighted && (
+        <IoIosCloseCircleOutline
+          onClick={cardProps.onClick}
+          className='close-node-setting'
+        />
+      )}
     </FlexBox>
   );
 };
