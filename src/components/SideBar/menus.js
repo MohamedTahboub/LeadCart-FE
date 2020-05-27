@@ -51,7 +51,7 @@ export const main = () => [
   }, { divider: true }, {
     title: 'Brand Settings',
     key: 'brandSettings',
-    link: '/settings/brand',
+    link: '/settings/general',
     icon: 'settings'
   }, { divider: true }, {
     title: 'Help & Tutorials',
