@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FaCircle } from 'react-icons/fa';
 import statusBg from 'assets/images/shapes/curves.svg';
 
-const NodeStatus = ({ active }) => {
+const NodeStatus = ({ active, note }) => {
   const style = { backgroundImage: `url(${statusBg})` };
   return (
     <div
@@ -11,15 +11,18 @@ const NodeStatus = ({ active }) => {
       style={style}
     >
       <FaCircle
-        data-tip='status'
+        data-tip={active ? note : 'Not connected to any product'}
         className='tiny-text gray-text status-circle'
-        color={active ? 'lightgreen' : 'gray'}
+        color={active ? 'lightgreen' : 'orange'}
       />
     </div>
   );
 };
 
-NodeStatus.propTypes = { active: PropTypes.bool };
-NodeStatus.defaultProps = { active: true };
+NodeStatus.propTypes = {
+  active: PropTypes.bool,
+  note: PropTypes.string
+};
+
 
 export default NodeStatus;

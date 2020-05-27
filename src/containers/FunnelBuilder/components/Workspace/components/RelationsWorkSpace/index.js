@@ -1,23 +1,21 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
-import NodeRelation from '../NodeRelation';
+import React, { useMemo } from 'react';
+import { NodeRelation } from './components';
 
 import './style.css';
 
-const RelationsWorkSpace = ({
-  nodes,
-}) => (
-  <svg
-    className='funnel-nodes-relactions-svg'
-    width='100%'
-    height='100%'
-  >
-    {nodes.map((node) => <NodeRelation {...node} />)}
-  </svg>
+const RelationsWorkSpace = ({ nodes }) => useMemo(
+  () => (
+    <svg
+      className='funnel-nodes-relations-svg'
+      width='100%'
+      height='100%'
+    >
+      {nodes.map((node) => <NodeRelation {...node} />)}
+    </svg>
+  ),
+  [nodes]
 );
 
-RelationsWorkSpace.propTypes = {
-
-};
+RelationsWorkSpace.propTypes = {};
 
 export default RelationsWorkSpace;

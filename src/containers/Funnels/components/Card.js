@@ -9,7 +9,7 @@ import common from 'components/common';
 const { FlexBox } = common;
 
 
-const StatusFeed = ({ active = true, ...props }) => {
+const StatusFeed = ({ active }) => {
   const style = { backgroundImage: `url(${statusBg})` };
   return (
     <div
@@ -24,6 +24,8 @@ const StatusFeed = ({ active = true, ...props }) => {
     </div>
   );
 };
+
+StatusFeed.defaultProps = { active: true };
 
 export default ({
   name,
@@ -72,28 +74,3 @@ export default ({
     </EasyAnimate>
   );
 };
-
-
-// <div style={coverImageStyle} className='funnel-cover-image' />
-// <MiniButton
-//   iconClass='fa-copy'
-//   // onClick={onDuplicate}
-//   tooltip='Duplicate'
-//   className='product-duplicate-btn funnel-duplicate-btn'
-// />
-// <div className='funnel-card-content'>
-//   <div className='name-holder'>
-//     <span data-tooltip='Open in new Tap'>
-//       <i onClick={onPreview} className='fas fa-link' />
-//     </span>
-//     <span className='funnel-name-holder'>{name}</span>
-//   </div>
-//   <div className='card-controlls-container'>
-//     <span data-tooltip='Edit Funnel'>
-//       <i onClick={onEdit} className='fas fa-edit' />
-//     </span>
-//     <span data-tooltip='Delete Funnel'>
-//       <i onClick={onDelete} className='fas fa-trash-alt' />
-//     </span>
-//   </div>
-// </div>

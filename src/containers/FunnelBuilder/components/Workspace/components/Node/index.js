@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
@@ -100,13 +101,21 @@ const Node = ({
         {name}
       </div>
       <FlexBox column style={style} className='content soft-edges'>
-        <NodeStatusHat />
+        <NodeStatusHat
+          active={productId}
+          note={name}
+        />
         <EditButton onClick={_onEdit} />
       </FlexBox>
-      {highlighted && (
+      {highlighted ? (
         <IoIosCloseCircleOutline
           onClick={cardProps.onClick}
           className='close-node-setting'
+        />
+      ) : (
+        <AiOutlinePlusCircle
+          data-tip='connect'
+          className='connect-node-btn'
         />
       )}
     </FlexBox>

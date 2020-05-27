@@ -32,10 +32,24 @@
     color: lightgray;
 }
 
-.close-node-setting{
+.connect-node-btn,
+.close-node-setting {
     position: absolute;
     top: -20px;
     right: -30px;
     color: white;
     font-size: 25px;
+}
+
+.connect-node-btn {
+    display: none;
+    top: 0;
+    bottom: 0;
+    right: -30px;
+    margin: auto 0;
+    font-weight:bold ;
+}
+
+.funnel-node-card:hover .connect-node-btn {
+    display: inline;
 }
