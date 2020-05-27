@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import clx from 'classnames';
 import { FlexBox } from '../boxes';
 import './style.css';
@@ -24,9 +23,11 @@ export const Tabs = ({
   children,
   className,
   tabsContentClassName,
-  ...props
+  vertical,
+  active,
+  onChange
 }) => {
-  const [activeTab, setActiveTab] = useState(props.active);
+  const [activeTab, setActiveTab] = useState(active);
 
   const tabContent = getActiveContent(children, activeTab);
 
@@ -34,20 +35,17 @@ export const Tabs = ({
 
 
   useEffect(() => {
-    setActiveTab(props.active);
-  }, [props.active]);
+    setActiveTab(active);
+  }, [active]);
 
   const onTabChange = (tabId) => () => {
     setActiveTab(tabId);
+    if (onChange) onChange(tabId);
   };
 
-  const classes = clx({
-    [className]: className
-  });
-
   return (
-    <FlexBox column className={`tabs-container ${classes}`}>
-      <FlexBox className='tabs-header'>
+    <FlexBox column={!vertical} className={clx('tabs-container', { [className]: className, vertical })}>
+      <FlexBox className='tabs-header' column={vertical}>
         {tabsTitles.map((tab) => (
           <Tab
             {...tab}
@@ -56,19 +54,19 @@ export const Tabs = ({
           />
         ))}
       </FlexBox>
-      <FlexBox column className={`tabs-content ${tabsContentClassName}`}>
+      <FlexBox column fullWidth={vertical} className={`tabs-content ${tabsContentClassName}`}>
         {tabContent}
       </FlexBox>
     </FlexBox>
   );
 };
 
-Tabs.propTypes = {
+Tabs.propTypes = {};
 
-};
 Tabs.defaultProps = {
   className: '',
-  tabsContentClassName: ''
+  tabsContentClassName: '',
+  vertical: false
 };
 
 export const Tab = ({
@@ -85,4 +83,3 @@ export const Tab = ({
     {title}
   </div>
 );
-

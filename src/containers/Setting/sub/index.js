@@ -5,4 +5,4 @@ export { default as TeamMembers } from './TeamMembers';
 export { default as Account } from './Account';
 export { default as Billing } from './Billing';
 export { default as Translations } from './Translations';
-
+export { default as Marketplace } from './MarketplaceSettings';

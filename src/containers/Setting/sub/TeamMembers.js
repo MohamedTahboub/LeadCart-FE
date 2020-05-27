@@ -87,31 +87,28 @@ const TeamMembers = ({ members = [], ...props }) => {
               <Table.HeadCell>status</Table.HeadCell>
             </Table.Head>
             <Table.Body>
-              {members.map(({
-                member: {
-                  firstName, lastName, email, _id: memberId
-                } = {}, active
-              }, orderInList) => (
-                <Table.Row key={memberId} orderInList={orderInList} className='member-table-row'>
-                  <Table.Cell mainContent={firstName || 'Not Set'} />
-                  <Table.Cell mainContent={lastName || 'Not Set'} />
-                  <Table.Cell mainContent={email} />
-                  <Table.Cell>
-                    <SmallButton
-                      onClick={() => onMemberActivationChange(memberId, active)}
-                      className={active ? 'green-color' : 'gray-bg'}
-                    >
-                      {active ? 'Active' : 'Inactive'}
-                    </SmallButton>
-                  </Table.Cell>
-                  <MiniButton
-                    toolTip='Delete'
-                    className='table-row-delete-btn'
-                    iconClass='fa-trash-alt'
-                    onClick={() => setShowDeleteModal(memberId)}
-                  />
-                </Table.Row>
-              ))}
+              {
+                members.map(({ member: { firstName, lastName, email, _id: memberId } = {}, active }, orderInList) => (
+                  <Table.Row key={memberId} orderInList={orderInList} className='member-table-row'>
+                    <Table.Cell mainContent={firstName || 'Not Set'} />
+                    <Table.Cell mainContent={lastName || 'Not Set'} />
+                    <Table.Cell mainContent={email} />
+                    <Table.Cell>
+                      <SmallButton
+                        onClick={() => onMemberActivationChange(memberId, active)}
+                        className={active ? 'green-color' : 'gray-bg'}
+                      >
+                        {active ? 'Active' : 'Inactive'}
+                      </SmallButton>
+                    </Table.Cell>
+                    <MiniButton
+                      toolTip='Delete'
+                      className='table-row-delete-btn'
+                      iconClass='fa-trash-alt'
+                      onClick={() => setShowDeleteModal(memberId)}
+                    />
+                  </Table.Row>
+                ))}
             </Table.Body>
             {showDeleteModal && (
               <Dialog
