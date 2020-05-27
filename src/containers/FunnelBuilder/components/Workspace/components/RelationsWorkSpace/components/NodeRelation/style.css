@@ -11,4 +11,6 @@
   .node-link-svg circle.end:hover {
     r: 7px;
   }
-  
+  circle.start-circle:hover{
+    filter: scale(1.2);
+  }
