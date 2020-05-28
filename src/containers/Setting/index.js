@@ -62,7 +62,6 @@ const Setting = ({ history }) => {
         <MainTitle fluid>
           <div className='d-flex justify-space-between'>
             <span>Settings</span>
-            {console.log({ activeTab })}
             {
               ['general', 'marketplace'].includes(activeTab) && (
                 <SmallButton className='btn refresh-btn primary-color' onClick={saveFunction.onSave}>

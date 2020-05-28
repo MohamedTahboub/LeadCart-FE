@@ -1,7 +1,6 @@
 .table-container {
     width: 100%;
-    padding: 20px 0px;
-    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    margin: 20px 0px;
 }
 
 .table-head {
@@ -37,7 +36,7 @@
 }
 
 .table-row-container.blue {
-  background: #E6F7FE;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
 .table-row-container {
     background: white;

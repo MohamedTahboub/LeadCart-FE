@@ -11,14 +11,15 @@ const {
   MiniButton,
   Button,
   InputRow,
-  MainTitle
+  MainTitle,
+  MainBlock
 } = common;
 
 const AddNewButton = ({ onClick }) => (
-  <Button onClick={onClick} className='primary-color medium-add-btn extra-margin-top'>
+  <Button onClick={onClick} className='primary-color'>
     <i className='fas fa-plus' />
     {' '}
-    Add new member
+    New Collaborators
   </Button>
 );
 
@@ -76,9 +77,10 @@ const TeamMembers = ({ members = [], ...props }) => {
   };
 
   return (
-    <div className='d-col align-end'>
-      <AddNewButton onClick={toggleModal} />
-      {members.length !== 0
+    <MainBlock title='Collaborators'>
+      <div className='d-col align-end'>
+        <AddNewButton onClick={toggleModal} />
+        {members.length !== 0
         && (
           <Table>
             <Table.Head>
@@ -123,44 +125,45 @@ const TeamMembers = ({ members = [], ...props }) => {
             )}
           </Table>
         )
-      }
-      <Modal onClose={toggleModal} isVisible={showCreateModal}>
-        <MainTitle>Create New Team member</MainTitle>
-        <InputRow>
-          <InputRow.Label error={errors.firstName}>First Name:</InputRow.Label>
-          <InputRow.SmallInput
-            name='firstName'
-            onChange={onFieldChange}
-            error={errors.firstName}
-            className='margin-left-30 reset-font-size'
-          />
-        </InputRow>
-        <InputRow>
-          <InputRow.Label error={errors.lastName}>Last Name:</InputRow.Label>
-          <InputRow.SmallInput
-            name='lastName'
-            onChange={onFieldChange}
-            error={errors.lastName}
-            className='margin-left-30 reset-font-size'
-          />
-        </InputRow>
-        <InputRow>
-          <InputRow.Label error={errors.email}>Email Address:</InputRow.Label>
-          <InputRow.SmallInput
-            name='email'
-            onChange={onFieldChange}
-            error={errors.lastName}
-            className='margin-left-30 reset-font-size'
-          />
-        </InputRow>
-        {errors.modal && <span className='error-message'>{errors.modal}</span>}
-        <Button onClick={createNewMember} className='primary-color margin-with-float-right'>
-          <i className='fas fa-plus' />
-          {' '}
+        }
+        <Modal onClose={toggleModal} isVisible={showCreateModal}>
+          <MainTitle>Create New Team member</MainTitle>
+          <InputRow>
+            <InputRow.Label error={errors.firstName}>First Name:</InputRow.Label>
+            <InputRow.SmallInput
+              name='firstName'
+              onChange={onFieldChange}
+              error={errors.firstName}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+          <InputRow>
+            <InputRow.Label error={errors.lastName}>Last Name:</InputRow.Label>
+            <InputRow.SmallInput
+              name='lastName'
+              onChange={onFieldChange}
+              error={errors.lastName}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+          <InputRow>
+            <InputRow.Label error={errors.email}>Email Address:</InputRow.Label>
+            <InputRow.SmallInput
+              name='email'
+              onChange={onFieldChange}
+              error={errors.lastName}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+          {errors.modal && <span className='error-message'>{errors.modal}</span>}
+          <Button onClick={createNewMember} className='primary-color margin-with-float-right'>
+            <i className='fas fa-plus' />
+            {' '}
           Create
-        </Button>
-      </Modal>
-    </div>
+          </Button>
+        </Modal>
+      </div>
+    </MainBlock>
   );
 };
 

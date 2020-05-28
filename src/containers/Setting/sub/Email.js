@@ -41,6 +41,8 @@ const Email = ({
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(_sourceEmail);
   const [errors, setErrors] = useState({});
+  const [isNewOrder, setNewOrder] = useState(false);
+  const [isFailedCharge, setFailedCharge] = useState(false);
   const [versifying, setVersifying] = useState(false);
   const onToggleFooterModal = () => {
     setFooterModal(!showFooterModal);
@@ -49,6 +51,13 @@ const Email = ({
   const onSourceEmailChange = ({ target: { value } }) => {
     setSourceEmail(value);
     setErrors({ sourceEmail: '' });
+  };
+  const handleToggleChange = ({ name, value }) => {
+    switch (name) {
+    case 'newOrder': setNewOrder(value); break;
+    case 'failedCharge': setFailedCharge(value); break;
+    default:
+    }
   };
 
 
@@ -182,7 +191,7 @@ const Email = ({
               <InputRow.Note
                 content='This email is sent every time a customer buys a product.'
               >
-                <InputRow.SwitchInput checked />
+                <InputRow.Toggle value={isNewOrder} onToggle={handleToggleChange} name='newOrder' />
               </InputRow.Note>
             </InputRow>
             <InputRow>
@@ -190,7 +199,7 @@ const Email = ({
               <InputRow.Note
                 content="This email is sent each time a customer's subscription payment fails to charge."
               >
-                <InputRow.SwitchInput checked />
+                <InputRow.Toggle value={isFailedCharge} onToggle={handleToggleChange} name='failedCharge' />
               </InputRow.Note>
             </InputRow>
           </MainBlock>
