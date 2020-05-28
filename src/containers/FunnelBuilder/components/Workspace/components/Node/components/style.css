@@ -54,3 +54,9 @@
     bottom: 0;
     z-index: 10;
 }
+.grab-handle{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-color: greenyellow;
+}

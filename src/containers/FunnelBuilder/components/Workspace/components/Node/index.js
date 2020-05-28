@@ -105,7 +105,10 @@ const Node = ({
 
   return (
     <div className='funnel-node-container'>
-      <ConnectingMode connecting={connecting} />
+      <ConnectingMode
+        coords={coordinates}
+        connecting={connecting}
+      />
       <FlexBox column className={classes} style={nodeStyle} {...cardProps}>
         <div className='node-title tiny-text  gray-text bold-text truncate p-2'>
           {name}
