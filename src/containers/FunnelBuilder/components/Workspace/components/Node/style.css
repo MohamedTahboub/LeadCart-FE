@@ -28,11 +28,15 @@
     z-index: 100;
 }
 
+.funnel-node-card.connecting {
+    z-index: 100;
+}
+
 .funnel-node-card.highlighted .node-title {
     color: lightgray;
 }
 
-.connect-node-btn,
+.connect-btn-container,
 .close-node-setting {
     position: absolute;
     top: -20px;
@@ -41,15 +45,29 @@
     font-size: 25px;
 }
 
-.connect-node-btn {
-    display: none;
+/* .connect-node-assets */
+
+.connect-btn-container {
     top: 0;
     bottom: 0;
-    right: -30px;
-    margin: auto 0;
-    font-weight:bold ;
+    left: 50%;
+    right: -40px;
+    align-items: flex-end;
+    transform: translateX(-60px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: -1;
+    transition: transform .2s ease-in-out;
 }
 
-.funnel-node-card:hover .connect-node-btn {
-    display: inline;
+.connect-node-btn {
+    color: white;
+    font-size: 25px;
+}
+
+
+.funnel-node-card:hover .connect-btn-container {
+    transform: translateX(0px);
+    z-index: inherit;
 }

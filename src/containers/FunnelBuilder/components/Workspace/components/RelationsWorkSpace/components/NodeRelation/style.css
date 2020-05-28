@@ -12,5 +12,5 @@
     r: 7px;
   }
   circle.start-circle:hover{
-    filter: scale(1.2);
+    filter: scale(1.2px);
   }

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
@@ -9,7 +9,7 @@ import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
 
-import { EditButton, NodeStatusHat } from './components';
+import { ConnectingMode, EditButton, NodeStatusHat } from './components';
 import './style.css';
 
 const categoriesImages = {
@@ -43,11 +43,12 @@ const Node = ({
   // ...props
 }) => {
   const elementRef = useRef(null);
+  const [connecting, setConnecting] = useState();
   const highlighted = activeNode === elementId;
   const classes = clx(
     'card-style',
     'funnel-node-card',
-    { highlighted }
+    { highlighted, connecting }
   );
 
   const nodePosition = {
@@ -78,8 +79,14 @@ const Node = ({
     dataTransfer.setData('shift', stringifyObj({ shiftX, shiftY, width, height }));
   };
 
+  const onConnectStart = (e) => {
+    e.stopPropagation();
+    setConnecting((conn) => !conn);
+  };
+
   const bgImage = product.image ? product.image : categoriesImages[category.toLowerCase()];
   const name = product.name ? product.name : categoriesNames[category.toLowerCase()];
+
 
   const style = {
     backgroundImage: `linear-gradient(to bottom, #fff 5%, transparent 95%), url(${bgImage})`,
@@ -95,30 +102,38 @@ const Node = ({
     onClick: () => toggleOptions(elementId)
   };
 
+
   return (
-    <FlexBox column className={classes} style={nodeStyle} {...cardProps}>
-      <div className='node-title tiny-text  gray-text bold-text truncate p-2'>
-        {name}
-      </div>
-      <FlexBox column style={style} className='content soft-edges'>
-        <NodeStatusHat
-          active={productId}
-          note={name}
-        />
-        <EditButton onClick={_onEdit} />
+    <div className='funnel-node-container'>
+      <ConnectingMode connecting={connecting} />
+      <FlexBox column className={classes} style={nodeStyle} {...cardProps}>
+        <div className='node-title tiny-text  gray-text bold-text truncate p-2'>
+          {name}
+        </div>
+        <FlexBox column style={style} className='content soft-edges'>
+          <NodeStatusHat
+            active={productId}
+            note={name}
+          />
+          <EditButton onClick={_onEdit} />
+        </FlexBox>
+        {highlighted ? (
+          <IoIosCloseCircleOutline
+            onClick={cardProps.onClick}
+            className='close-node-setting'
+          />
+        ) : (
+          <div className='connect-btn-container'>
+            <AiOutlinePlusCircle
+              data-tip='connect'
+              className='connect-node-btn'
+              onClick={onConnectStart}
+            />
+          </div>
+        )}
       </FlexBox>
-      {highlighted ? (
-        <IoIosCloseCircleOutline
-          onClick={cardProps.onClick}
-          className='close-node-setting'
-        />
-      ) : (
-        <AiOutlinePlusCircle
-          data-tip='connect'
-          className='connect-node-btn'
-        />
-      )}
-    </FlexBox>
+    </div>
+
   );
 };
 

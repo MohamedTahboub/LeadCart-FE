@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import { getPathCoords, getStartCircleCoords } from './helpers';
 
-const StartCircle = ({ x, y, color = '#4DA1FF' }) => {
+export const StartCircle = ({ x, y, color = '#4DA1FF' }) => {
   return (
     <circle
       className='start-circle'
@@ -14,7 +14,7 @@ const StartCircle = ({ x, y, color = '#4DA1FF' }) => {
   );
 };
 
-const ThreadPath = ({ start, relation }) => {
+export const ThreadPath = ({ start, relation }) => {
 
   const { path: pathString, id } = getPathCoords(relation, start);
 
@@ -30,15 +30,18 @@ const ThreadPath = ({ start, relation }) => {
   );
 };
 
-const Marker = ({ id }) => {
+export const Marker = ({ id }) => {
   return (
     <defs>
       <marker
         key={id}
-        id={`arrowHead_${id}`} viewBox='0 0 10 10'
-        refX='1' refY='5'
+        id={`arrowHead_${id}`}
+        viewBox='0 0 10 10'
+        refX='1'
+        refY='5'
         markerUnits='strokeWidth'
-        markerWidth='10' markerHeight='10'
+        markerWidth='10'
+        markerHeight='10'
         orient='auto'
       >
         <path d='M 0 0 L 10 5 L 0 10 z' fill='#4DA1FF' strokeWidth='1' />
@@ -46,6 +49,7 @@ const Marker = ({ id }) => {
     </defs>
   );
 };
+
 const Wire = ({ id, position, relation }) => {
 
   const startPoint = getStartCircleCoords(position);
