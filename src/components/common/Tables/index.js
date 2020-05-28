@@ -4,21 +4,20 @@ import './style.css';
 import { EasyAnimate } from '../Animation';
 
 export default class Table extends Component {
-  static Head = ({ children, ...props }) => (
+  static Head = ({ children }) => (
     <span className='table-head'>
       {children}
     </span>
   )
 
-  static Body = ({ children, ...props }) => (
+  static Body = ({ children }) => (
     <div className='tabel-body'>{children}</div>
   )
 
   static HeadCell = ({
     children,
     flex = true,
-    className = '',
-    ...props
+    className = ''
   }) => (
     <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
       {children && (
@@ -33,8 +32,7 @@ export default class Table extends Component {
     children,
     orderInList = 0,
     subRow,
-    className = '',
-    ...props
+    className = ''
   }) => (
     <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
       <div className='table-row'>
@@ -91,11 +89,11 @@ export default class Table extends Component {
     );
   }
 
-  static SmallCell = ({ children, ...props }) => (
+  static SmallCell = ({ children }) => (
     <div className='small-table-cell'>{children}</div>
   )
 
-  static RowControlls = ({ children, ...props }) => (
+  static RowControlls = ({ children }) => (
     <div className='row-controls'>
       {children}
     </div>
@@ -103,7 +101,7 @@ export default class Table extends Component {
 
 
   render = () => {
-    const { subTable, className } = this.props;
+    const { subTable, className, children } = this.props;
 
     const classes = clx({
       'sub-table': subTable,
@@ -111,7 +109,7 @@ export default class Table extends Component {
     });
     return (
       <div className={`table-container ${classes}`}>
-        {this.props.children}
+        {children}
       </div>
     );
   }

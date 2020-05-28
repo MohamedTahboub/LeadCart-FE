@@ -6,6 +6,7 @@ import * as search from './search';
 import * as titles from './Titles';
 import * as cards from './Cards';
 import List from './List';
+import LCTabs from './LCTabs';
 import * as navigators from './Navigators';
 import * as wrappers from './Wrappers';
 import * as Layout from './Layout';
@@ -41,6 +42,7 @@ export default {
   ...Notes,
   ...Links,
   List,
+  LCTabs,
   ...titles,
   ...cards,
   ...navigators,
@@ -53,4 +55,3 @@ export default {
   ...Menus,
   Dialog
 };
-

@@ -12,11 +12,17 @@
     justify-content: space-between;
     align-items: center;
 }
+.main-title-container.full {
+  width: 100%;
+}
 
 .main-title {
     text-transform: capitalize;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
+}
+.full .main-title {
+  width: 100%;
 }
 
 .main-title-note {
@@ -233,7 +239,7 @@ span.insight-chart {
     opacity: .9;
 }
 
-/* 
+/*
 .insight-box:nth-last-child(-n+3) .insight-box-info-tip::after{
     left:-100px;
 }
@@ -322,8 +328,11 @@ span.insight-chart {
 .flex-box.overflow-x{
    overflow-x: auto;
 }
+.flex-box.fullWidth {
+  width: 100%;
+}
 
-/* 
+/*
 
 
 .flex-box.center:not(.column){

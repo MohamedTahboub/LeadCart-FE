@@ -35,6 +35,9 @@
     font-size: 9px;
 }
 
+.table-row-container.blue {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
 .table-row-container {
     background: white;
     min-width: 860px;
@@ -88,7 +91,7 @@
     cursor: pointer;
 }
 .mini-btn.active{
-    color: rgb(89, 162, 226); 
+    color: rgb(89, 162, 226);
 }
 .small-btn {
     color: white;

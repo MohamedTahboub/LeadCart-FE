@@ -5,22 +5,21 @@ import './styles.css';
 import {
   SubscriptionPackages,
   TransactionsTable
-} from '../../../components/SubscriptionPackages';
+} from 'components/SubscriptionPackages';
+import common from 'components/common';
 
-const Billing = ({
-  packageType,
-  activateAgencyCode,
-  codesUsed,
-  loading,
-  errors = {},
-  transactions = [],
-  trial,
-  trialEndDate,
-  ...props
-}) => (
+const { Tab, Tabs } = common;
+
+const Billing = ({ transactions = [] }) => (
   <Fragment>
-    <SubscriptionPackages />
-    <TransactionsTable list={transactions} />
+    <Tabs active='subscription'>
+      <Tab id='subscription' title='Your Subscription'>
+        <SubscriptionPackages />
+      </Tab>
+      <Tab id='transation-history' title='Transaction History'>
+        <TransactionsTable list={transactions} />
+      </Tab>
+    </Tabs>
   </Fragment>
 );
 
