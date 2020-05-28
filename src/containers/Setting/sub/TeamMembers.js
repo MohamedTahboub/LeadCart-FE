@@ -15,7 +15,7 @@ const {
 } = common;
 
 const AddNewButton = ({ onClick }) => (
-  <Button onClick={onClick} className='primary-color medium-add-btn explort-csv-btn extra-margin-top'>
+  <Button onClick={onClick} className='primary-color medium-add-btn extra-margin-top'>
     <i className='fas fa-plus' />
     {' '}
     Add new member
@@ -76,7 +76,8 @@ const TeamMembers = ({ members = [], ...props }) => {
   };
 
   return (
-    <React.Fragment>
+    <div className='d-col align-end'>
+      <AddNewButton onClick={toggleModal} />
       {members.length !== 0
         && (
           <Table>
@@ -89,7 +90,7 @@ const TeamMembers = ({ members = [], ...props }) => {
             <Table.Body>
               {
                 members.map(({ member: { firstName, lastName, email, _id: memberId } = {}, active }, orderInList) => (
-                  <Table.Row key={memberId} orderInList={orderInList} className='member-table-row'>
+                  <Table.Row key={memberId} orderInList={orderInList} className='member-table-row blue'>
                     <Table.Cell mainContent={firstName || 'Not Set'} />
                     <Table.Cell mainContent={lastName || 'Not Set'} />
                     <Table.Cell mainContent={email} />
@@ -123,7 +124,6 @@ const TeamMembers = ({ members = [], ...props }) => {
           </Table>
         )
       }
-      <AddNewButton onClick={toggleModal} />
       <Modal onClose={toggleModal} isVisible={showCreateModal}>
         <MainTitle>Create New Team member</MainTitle>
         <InputRow>
@@ -160,7 +160,7 @@ const TeamMembers = ({ members = [], ...props }) => {
           Create
         </Button>
       </Modal>
-    </React.Fragment>
+    </div>
   );
 };
 

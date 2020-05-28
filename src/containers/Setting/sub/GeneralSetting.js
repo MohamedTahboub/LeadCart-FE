@@ -11,7 +11,7 @@ import * as flashMessagesActions from 'actions/flashMessage';
 
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
-const { InputRow, MainBlock, Button } = common;
+const { InputRow, MainBlock } = common;
 
 const currenciesList = currencies.map((c) => ({ value: c.code, label: `${c.symbol} - ${c.name}` }));
 const countries = countriesList.map(({ name: label, code: value }) => ({ label, value }));
@@ -22,6 +22,7 @@ const defaultCountry = countries.find(({ value }) => value === 'US').value;
 
 const GeneralSettings = ({
   marketPlace,
+  getSave,
   ...props
 }) => {
   const [fields, setFields] = useState({ ...marketPlace });
@@ -85,16 +86,10 @@ const GeneralSettings = ({
       setErrors({ message });
     }
   };
+  getSave({ onSave });
 
   return (
-    <MainBlock
-      title='General Brand Settings'
-      blockHandel={(
-        <Button onClick={onSave} className=' primary-color'>
-            Save Changes
-        </Button>
-      )}
-    >
+    <MainBlock title='General Brand Settings'>
       <InputRow>
         <InputRow.Label error={errors.name}>Company Name:</InputRow.Label>
         <InputRow.TextField

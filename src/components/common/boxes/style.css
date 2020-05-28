@@ -12,11 +12,17 @@
     justify-content: space-between;
     align-items: center;
 }
+.main-title-container.full {
+  width: 100%;
+}
 
 .main-title {
     text-transform: capitalize;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
+}
+.full .main-title {
+  width: 100%;
 }
 
 .main-title-note {

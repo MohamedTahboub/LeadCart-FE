@@ -3,10 +3,8 @@ import React from 'react';
 import './style.css';
 
 
-export const MainTitle = ({
-  handle, className, style, children, bottomLine, props
-}) => (
-  <div style={{ ...style }} className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''}`}>
+export const MainTitle = ({ handle, className, style, children, bottomLine, props, fluid }) => (
+  <div style={{ ...style }} className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''} ${fluid ? 'full' : ''}`}>
     {handle && (
       <span className='main-title-handle'>
         <i className={`fas ${handle.iconClass}`} />
@@ -22,9 +20,7 @@ export const HeadLine = ({ children, className = '', ...props }) => (
     {children}
   </div>
 );
-export const TabTitle = ({
-  children, className, error, ...props
-}) => (
+export const TabTitle = ({ children, className, error, ...props }) => (
   <div className={error ? 'tab-title-container tab-title-container-error' : 'tab-title-container'}>
     {children}
   </div>
@@ -53,4 +49,3 @@ export const CycleStepTitle = ({ children, className = '', step }) => (
     {children}
   </div>
 );
-

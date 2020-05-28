@@ -10,10 +10,11 @@ import * as flashMessagesActions from 'actions/flashMessage';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 
-const { InputRow, MainBlock, Button } = common;
+const { InputRow, MainBlock } = common;
 
 const MarketplaceSettings = ({
   marketPlace,
+  getSave,
   ...props
 }) => {
   const [fields, setFields] = useState({ ...marketPlace });
@@ -77,16 +78,11 @@ const MarketplaceSettings = ({
       setErrors({ message });
     }
   };
+  getSave({ onSave });
+
   return (
     <Fragment>
-      <MainBlock
-        title='Marketplace Page Settings'
-        blockHandel={(
-          <Button onClick={onSave} className=' primary-color'>
-            Save Changes
-          </Button>
-        )}
-      >
+      <MainBlock title='Marketplace Page Settings'>
         <InputRow>
           <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>
           <InputRow.TextField

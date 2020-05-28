@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 
 import * as settingsActions from 'actions/settings';
@@ -14,59 +14,77 @@ import {
   Translations
 } from './sub';
 import { Page, PageContent, PageHeader } from '../../components/common/Layout';
-const { MainTitle, Tab, Tabs } = common;
+import { SmallButton } from 'components/common/Buttons';
+const { MainTitle, LCTabs } = common;
 
 const Setting = ({ history }) => {
+  const [saveFunction, setSaveFunction] = useState({});
   const tabs = [
     {
-      id: 'general',
-      title: 'General',
+      key: 'general',
+      tab: 'General',
       link: '/settings/general',
-      component: <GeneralSetting />
+      component: <GeneralSetting getSave={setSaveFunction} />
     }, {
-      id: 'marketplace',
-      title: 'Marketplace',
+      key: 'marketplace',
+      tab: 'Marketplace',
       link: '/settings/marketplace',
-      component: <Marketplace />
+      component: <Marketplace getSave={setSaveFunction} />
     }, {
-      id: 'emailing',
-      title: 'Emailing',
+      key: 'emailing',
+      tab: 'Emailing',
       link: '/settings/emailing',
       component: <Email />
     }, {
-      id: 'translations',
-      title: 'Translations',
+      key: 'translations',
+      tab: 'Translations',
       link: '/settings/translations',
       component: <Translations />
     }, {
-      id: 'collaborators',
-      title: 'Collaborators',
+      key: 'collaborators',
+      tab: 'Collaborators',
       link: '/settings/collaborators',
       component: <TeamMembers />
     }, {
-      id: 'billing',
-      title: 'Billing',
+      key: 'billing',
+      tab: 'Billing',
       link: '/settings/billing',
       component: <Billing />
     }
   ];
   const { location: { pathname } } = history;
-  const { id: activeTab } = tabs.find(({ link }) => link.toLowerCase() === pathname) || {};
-  const onTabChange = (tabId) => {
-    return history.push(`/settings/${tabId}`);
-  };
+  const { key: activeTab } = tabs.find(({ link }) => link.toLowerCase() === pathname) || {};
+  const onTabChange = (tabId) => history.push(`/settings/${tabId}`);
 
   return (
     <Page key='settings' className='setting-details-page'>
       <PageHeader>
-        <MainTitle>Settings</MainTitle>
+        <MainTitle fluid>
+          <div className='d-flex justify-space-between'>
+            <span>Settings</span>
+            {console.log({ activeTab })}
+            {
+              ['general', 'marketplace'].includes(activeTab) && (
+                <SmallButton className='btn refresh-btn primary-color' onClick={saveFunction.onSave}>
+                  Save Changes
+                </SmallButton>
+              )
+            }
+          </div>
+        </MainTitle>
       </PageHeader>
       <PageContent>
-        <Tabs fitPaneContent vertical active={activeTab} onChange={onTabChange}>
+        <LCTabs
+          className='p-3'
+          fitPaneContent
+          vertical
+          activeKey={activeTab}
+          onChange={onTabChange}
+        >
           {
-            tabs.map(({ component, ...tab }) => <Tab {...tab}>{component}</Tab>)
+            tabs.map(({ component, ...tab }) => <LCTabs.TabPane {...tab}>{component}</LCTabs.TabPane>)
           }
-        </Tabs>
+        </LCTabs>
       </PageContent>
     </Page>
   );

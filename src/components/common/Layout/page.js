@@ -89,13 +89,13 @@ Header.propTypes = {
   withRefreshBtn: PropTypes.bool,
   flexColumn: PropTypes.bool,
   showFlashMessage: PropTypes.func.isRequired,
-  appInit: PropTypes.func.isRequired,
+  appInit: PropTypes.func.isRequired
 };
 Header.defaultProps = {
   className: '',
   dflex: false,
   withRefreshBtn: false,
-  flexColumn: false,
+  flexColumn: false
 };
 
 
@@ -112,4 +112,3 @@ export const PageContent = ({
     {children}
   </div>
 );
-
