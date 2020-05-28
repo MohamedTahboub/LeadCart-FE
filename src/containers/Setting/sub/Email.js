@@ -53,6 +53,7 @@ const Email = ({
     setErrors({ sourceEmail: '' });
   };
   const handleToggleChange = ({ name, value }) => {
+    // TODO: Send change to server?
     switch (name) {
     case 'newOrder': setNewOrder(value); break;
     case 'failedCharge': setFailedCharge(value); break;
