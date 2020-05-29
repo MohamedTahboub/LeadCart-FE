@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 // import * as modalsActions from 'actions/modals';
 import * as funnelsActions from 'actions/funnels';
 import * as productsActions from 'actions/products';
-import * as flashMessages from 'actions/flashMessage';
-
+import { notification } from 'libs';
 import config from 'config';
 
 
@@ -51,17 +50,11 @@ const Funnels = ({
       { funnelId: showDelete },
       {
         onSuccess: () => {
-          props.showFlashMessage({
-            type: 'success',
-            message: 'Funnel Deleted Successfully'
-          });
+          notification.success('Funnel Deleted Successfully');
           onHideDeleteDialogue();
         },
-        onFailed: (msg) => {
-          props.showFlashMessage({
-            type: 'failed',
-            message: msg
-          });
+        onFailed: (message) => {
+          notification.failed(message);
         }
       }
 
@@ -164,4 +157,4 @@ const mapStateToProps = ({
 
 Funnels.defaultProps = { funnels: [] };
 
-export default connect(mapStateToProps, { ...productsActions, ...funnelsActions, ...flashMessages })(Funnels);
+export default connect(mapStateToProps, { ...productsActions, ...funnelsActions })(Funnels);

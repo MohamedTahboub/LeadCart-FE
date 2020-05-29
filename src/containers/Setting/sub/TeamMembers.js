@@ -5,7 +5,7 @@ import { Modal } from 'components/Modals';
 import * as teamMembersActions from 'actions/teamMembers';
 import { connect } from 'react-redux';
 import Dialog from 'components/common/Dialog';
-import * as flashMessages from 'actions/flashMessage';
+import { notification } from 'libs';
 const {
   SmallButton,
   MiniButton,
@@ -61,12 +61,9 @@ const TeamMembers = ({ members = [], ...props }) => {
         onSuccess: () => {
           setShowDeleteModal(false);
         },
-        onFailed: (err) => {
+        onFailed: (message) => {
           setShowDeleteModal(false);
-          props.showFlashMessage({
-            type: 'failed',
-            message: err
-          });
+          notification.failed(message);
         }
       }
     );
@@ -171,4 +168,4 @@ const mapStateToProps = ({ teamMembers: { members, errors } }) => ({
   members: members || [],
   errors: errors || {}
 });
-export default connect(mapStateToProps, { ...teamMembersActions, ...flashMessages })(TeamMembers);
+export default connect(mapStateToProps, teamMembersActions)(TeamMembers);

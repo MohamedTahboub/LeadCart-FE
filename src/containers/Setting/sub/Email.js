@@ -4,9 +4,8 @@ import EmailFooterModal from 'components/EmailFooterModal';
 import { connect } from 'react-redux';
 import { testEmailTypes } from 'constantsTypes';
 import * as emailsActions from 'actions/emails';
-import * as flashMessagesActions from 'actions/flashMessage';
 import * as yup from 'yup';
-
+import { notification } from 'libs';
 const { InputRow, MainBlock, SmallButton, EditButton, Tabs, Tab } = common;
 
 
@@ -99,16 +98,10 @@ const Email = ({
   const updateEmailLogo = (emailLogo) => {
     props.updateEmailFooter({ emailLogo }, {
       onSuccess: () => {
-        props.showFlashMessage({
-          type: 'success',
-          message: 'Brand logo on Email Header Successfully Updated'
-        });
+        notification.success('Brand logo on Email Header Successfully Updated');
       },
-      onFailed: () => {
-        props.showFlashMessage({
-          type: 'failed',
-          message: 'Failed To Update the Brand Email Header Logo'
-        });
+      onFailed: (message) => {
+        notification.failed(message);
       }
     });
   };
@@ -389,4 +382,4 @@ const mapStatToProps = ({
     emailVerificationStatus
   };
 };
-export default connect(mapStatToProps, { ...emailsActions, ...flashMessagesActions })(Email);
+export default connect(mapStatToProps, emailsActions)(Email);
