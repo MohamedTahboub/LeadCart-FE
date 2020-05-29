@@ -23,32 +23,32 @@ const SideBar = (props) => (
         <FlexBox wrappable overflow='y' className='max-height-75vh'>
           <BaseCard
             type='heading'
-            className='heading-bg element-card'
+            className='heading-bg'
             data-tip='Add Heading'
           />
           <BaseCard
             type='text'
-            className='text-bg element-card'
+            className='text-bg'
             data-tip='Add text Element'
           />
           <BaseCard
             type='button'
-            className='button-bg element-card'
+            className='button-bg'
             data-tip='Button Element'
           />
           <BaseCard
             type='image'
-            className='image-bg element-card'
+            className='image-bg'
             data-tip='Add Image Element'
           />
           <BaseCard
             type='video'
-            className='video-bg element-card'
+            className='video-bg'
             data-tip='Add Video Element'
           />
           <BaseCard
             type='spacer'
-            className='spacer-bg element-card'
+            className='spacer-bg'
             data-tip='Spacer'
           />
         </FlexBox>
@@ -64,18 +64,18 @@ const SideBar = (props) => (
 
           <BaseCard
             type='guaranteeWidget'
-            className='guarantee-badge-bg widget-card'
+            className='guarantee-badge-bg'
             data-tip='Guarantee Widget'
           />
           <BaseCard
             type='countDownWidget'
-            className='countdown-bg widget-card'
+            className='countdown-bg'
             data-tip='CountDown Timer'
           />
 
           <BaseCard
             type='progressbarWidget'
-            className='progressbar-bg widget-card'
+            className='progressbar-bg'
             data-tip='Progress Bar'
           />
         </FlexBox>
@@ -90,27 +90,27 @@ const SideBar = (props) => (
         >
           <BaseCard
             type='figure'
-            className='guarantee-badge-bg widget-card'
+            className='figure-section-bg'
             data-tip='Figure Widget'
           />
           <BaseCard
             type='bumpOffer'
-            className='bump-offer-bg section-card'
+            className='bump-offer-bg'
             data-tip='Bump Offer Section'
           />
           <BaseCard
             type='testimonialsSection'
-            className='testimonials-bg section-card'
+            className='testimonials-bg'
             data-tip='Testimonial Section'
           />
           <BaseCard
             type='featuresSection'
-            className='features-bg section-card'
+            className='features-bg'
             data-tip='Features List Section'
           />
           <BaseCard
             type='code'
-            className='guarantee-badge-bg widget-card'
+            className='code-section-bg'
             data-tip='Code Section'
           />
         </FlexBox>
@@ -122,7 +122,7 @@ const SideBar = (props) => (
 
 // <BaseCard
 // type='shippingDetails'
-// className='shipping-bg section-card'
+// className='shipping-bg'
 // data-tip='Shipping Form'
 // />
 SideBar.propTypes = {};
