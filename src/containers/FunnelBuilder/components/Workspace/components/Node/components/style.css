@@ -1,0 +1,74 @@
+.node-edit-button {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(77, 160, 255, 0.5);
+    bottom: 0;
+    right: 0;
+    transform: translate(80px, 80px);
+    opacity: 0;
+    transition: transform .3s ease-in-out,
+        opacity .6s ease-in-out;
+
+}
+
+.funnel-node-card:hover .node-edit-button {
+    opacity: 1;
+    transform: translate(20px, 20px)
+}
+
+.funnel-node-status-hat {
+    position: absolute;
+    left: -33px;
+    top: 50px;
+    transform: rotate(90deg);
+    height: 29px;
+    width: 67px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+}
+
+
+.funnel-node-status-hat .status-circle{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 4px auto;
+    font-size: 8px;
+}
+
+.node-dynamic-relation-space{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+}
+.grab-handle{
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #4DA1FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-50px);
+    transition: transform .3s ease-in-out,
+    opacity .6s ease-in-out;
+    z-index: 11;
+}
+
+.funnel-node-container:hover .grab-handle{
+    transform: translateX(0px);
+}

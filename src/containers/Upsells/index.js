@@ -82,7 +82,7 @@ class Upsells extends Component {
           {upsells.map((upsell, id) => (
             <UpsellCard
               key={ids.generate()}
-              orderInlist={id}
+              orderInList={id}
               upsell={upsell}
               onEdit={this.showUpsellEditForm.bind(this, upsell._id)}
               linkedProduct={this.getProductById(upsell.linkedProduct)}
