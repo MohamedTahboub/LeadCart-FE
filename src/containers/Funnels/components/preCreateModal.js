@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as funnelActions from 'actions/funnels';
-import * as flashMessageActions from 'actions/flashMessage';
+import { notification } from 'libs';
 
 import { Modal } from 'components/Modals';
 
-import {
-  basic as sampleBasicFunnel,
-} from 'data/sampleFunnel';
+import { basic as sampleBasicFunnel } from 'data/sampleFunnel';
 
 import basicFunnelImage from 'assets/images/basicFunnelImage.png';
 import blankFunnelImage from 'assets/images/blankFunnelImage.png';
@@ -44,7 +42,7 @@ TemplateImage.propTypes = {
   value: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
-  onSelect: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
 
@@ -68,18 +66,12 @@ const PreCreateModal = ({
   const onSuccess = (funnel) => {
     props.history.push(`/funnels/${funnel.url}`);
     setTimeout(() => {
-      props.showFlashMessage({
-        type: 'success',
-        message: `${funnel.name} Funnel Created Successfully`
-      });
+      notification.success(`${funnel.name} funnel created successfully`);
     }, 400);
   };
 
   const onFailed = (message) => {
-    props.showFlashMessage({
-      type: 'failed',
-      message
-    });
+    notification.failed(message);
   };
 
   const onCreate = () => {
@@ -149,7 +141,7 @@ PreCreateModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   history: PropTypes.objectOf.isRequired,
   showFlashMessage: PropTypes.func.isRequired,
-  createFunnel: PropTypes.func.isRequired,
+  createFunnel: PropTypes.func.isRequired
 };
 
-export default connect(null, { ...funnelActions, ...flashMessageActions })(PreCreateModal);
+export default connect(null, funnelActions)(PreCreateModal);

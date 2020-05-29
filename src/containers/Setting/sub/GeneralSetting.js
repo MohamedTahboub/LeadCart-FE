@@ -7,8 +7,7 @@ import timeZonesList from 'data/timeZones';
 import currencies from 'data/currencies.json';
 import PropTypes from 'prop-types';
 import { marketPlaceSettingSchema } from 'libs/validation';
-import * as flashMessagesActions from 'actions/flashMessage';
-
+import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock } = common;
@@ -53,10 +52,7 @@ const GeneralSettings = ({
       const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
       if (!isValid) {
         const invalidFields = Object.keys(fieldsErrors).join(', ');
-        props.showFlashMessage({
-          type: 'failed',
-          message: `Invalid Fields ${invalidFields}`
-        });
+        notification.failed(`Invalid Fields ${invalidFields}`);
         return setErrors({ ...fieldsErrors });
       }
 
@@ -64,25 +60,16 @@ const GeneralSettings = ({
         payload,
         {
           onSuccess: () => {
-            props.showFlashMessage({
-              type: 'success',
-              message: 'Your Changes Saved Successfully'
-            });
+            notification.success('Your Changes Saved Successfully');
           },
           onFailed: (message) => {
             setErrors({ message });
-            props.showFlashMessage({
-              type: 'failed',
-              message
-            });
+            notification.failed(message);
           }
         }
       );
     } catch ({ message, ...err }) {
-      props.showFlashMessage({
-        type: 'failed',
-        message
-      });
+      notification.failed(message);
       setErrors({ message });
     }
   };
@@ -205,8 +192,5 @@ GeneralSettings.propTypes = {
 GeneralSettings.defaultProps = { marketPlace: { layout: { coverImage: defaultCoverImage } } };
 export default connect(
   mapStateToProps,
-  {
-    ...settingsActions,
-    ...flashMessagesActions
-  }
+  settingsActions
 )(GeneralSettings);
