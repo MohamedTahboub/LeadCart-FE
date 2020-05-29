@@ -6,7 +6,7 @@ import { marketPlaceSettingSchema } from 'libs/validation';
 import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
-import * as flashMessagesActions from 'actions/flashMessage';
+import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 
@@ -45,10 +45,7 @@ const MarketplaceSettings = ({
       const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
       if (!isValid) {
         const invalidFields = Object.keys(fieldsErrors).join(', ');
-        props.showFlashMessage({
-          type: 'failed',
-          message: `Invalid Fields ${invalidFields}`
-        });
+        notification.failed(`Invalid Fields ${invalidFields}`);
         return setErrors({ ...fieldsErrors });
       }
 
@@ -56,25 +53,16 @@ const MarketplaceSettings = ({
         payload,
         {
           onSuccess: () => {
-            props.showFlashMessage({
-              type: 'success',
-              message: 'Your Changes Saved Successfully'
-            });
+            notification.success('Your Changes Saved Successfully');
           },
           onFailed: (message) => {
             setErrors({ message });
-            props.showFlashMessage({
-              type: 'failed',
-              message
-            });
+            notification.failed(message);
           }
         }
       );
     } catch ({ message, ...err }) {
-      props.showFlashMessage({
-        type: 'failed',
-        message
-      });
+      notification.failed(message);
       setErrors({ message });
     }
   };
@@ -146,8 +134,5 @@ MarketplaceSettings.propTypes = {
 MarketplaceSettings.defaultProps = { marketPlace: { layout: { coverImage: defaultCoverImage } } };
 export default connect(
   mapStateToProps,
-  {
-    ...settingsActions,
-    ...flashMessagesActions
-  }
+  settingsActions
 )(MarketplaceSettings);
