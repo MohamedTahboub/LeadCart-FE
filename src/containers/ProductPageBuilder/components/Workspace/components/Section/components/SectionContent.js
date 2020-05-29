@@ -4,6 +4,7 @@ import React from 'react';
 import {
   BumpOffer,
   Button,
+  CodeSection,
   CountDownTimer,
   CouponSection,
   FeaturesListSection,
@@ -35,6 +36,7 @@ const SectionContent = ({ type, ...props }) => {
   case 'testimonialsSection': return <TestimonialsSection {...props} />;
   case 'featuresSection': return <FeaturesListSection {...props} />;
   case 'figure': return <FigureSection {...props} />;
+  case 'code': return <CodeSection {...props} />;
   case 'guaranteeWidget': return <GuaranteeSection {...props} />;
   case 'countDownWidget': return <CountDownTimer {...props} />;
   case 'progressbarWidget': return <ProgressBar {...props} />;

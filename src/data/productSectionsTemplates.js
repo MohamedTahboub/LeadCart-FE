@@ -1,10 +1,8 @@
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
 
 export default {
-
-
   text: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'text',
     content: {
       value: 'Text Content',
@@ -20,7 +18,7 @@ export default {
     }
   },
   heading: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'heading',
     content: {
       value: '<h2>Heading Content</h2>',
@@ -36,7 +34,7 @@ export default {
     }
   },
   button: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'button',
     content: {
       value: 'Click Here',
@@ -52,7 +50,7 @@ export default {
     }
   },
   spacer: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'spacer',
     content: {
       value: 'Click Here',
@@ -65,12 +63,9 @@ export default {
     }
   },
   image: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'image',
-    content: {
-      // value: 'https://via.placeholder.com/200',
-      children: []
-    },
+    content: { children: [] },
     styles: {
       height: 267,
       width: 688,
@@ -83,7 +78,7 @@ export default {
     }
   },
   video: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'video',
     content: {
       value: 'https://fast.wistia.com/embed/m6b92iiggl',
@@ -99,7 +94,7 @@ export default {
     }
   },
   layout: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'layout',
     content: {
       value: 'Layout Content',
@@ -107,7 +102,7 @@ export default {
       sections: [
         {
           id: 'abc',
-          hidden: false, // for referencing elements for the layout sections
+          hidden: false,
           type: 'text',
           content: {
             value: 'Text Content',
@@ -124,7 +119,7 @@ export default {
         },
         {
           id: 'abcd',
-          hidden: false, // for referencing elements for the layout sections
+          hidden: false,
           type: 'image',
           content: {
             value: 'https://via.placeholder.com/200',
@@ -151,7 +146,7 @@ export default {
     }
   },
   bumpOffer: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'bumpOffer',
     content: {
       title: 'Yes! I want the discount',
@@ -175,7 +170,7 @@ export default {
     }
   },
   shippingDetails: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'shippingDetails',
     content: {
       value: 'shipping Details Content',
@@ -192,7 +187,7 @@ export default {
     }
   },
   couponSection: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'couponSection',
     content: {
       value: 'couponSection Content',
@@ -208,7 +203,7 @@ export default {
     }
   },
   testimonialsSection: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'testimonialsSection',
     content: {
       title: 'Testimonials List',
@@ -226,7 +221,7 @@ export default {
     styles: { theme: 'modern' }
   },
   featuresSection: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'featuresSection',
     content: {
       title: 'Features List Title',
@@ -246,7 +241,7 @@ export default {
     }
   },
   figure: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'figure',
     content: {
       image: 'https://i.imgur.com/7cXlr4v.png',
@@ -255,7 +250,7 @@ export default {
     styles: { theme: 'right-theme' }
   },
   guaranteeWidget: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'guaranteeWidget',
     content: {
       badge: guaranteeBadge1,
@@ -264,8 +259,14 @@ export default {
     },
     styles: { theme: 'right-theme' }
   },
+  code: {
+    hidden: false,
+    type: 'code',
+    content: { value: '<h1>Hello World!</h1>' },
+    styles: { height: 400 }
+  },
   countDownWidget: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'countDownWidget',
     content: {
       valueType: 'fixedTime',
@@ -280,7 +281,7 @@ export default {
     }
   },
   progressbarWidget: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'progressbarWidget',
     content: {
       value: 93,
@@ -296,12 +297,9 @@ export default {
     }
   },
   productMarkWidget: {
-    hidden: false, // for referencing elements for the layout sections
+    hidden: false,
     type: 'productMarkWidget',
-    content: {
-      // value: 'bookmark Widget Section Content',
-      children: []
-    },
+    content: { children: [] },
     styles: {
       marginTop: 0,
       marginBottom: 0,

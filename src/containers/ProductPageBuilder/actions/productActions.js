@@ -4,6 +4,17 @@ import * as immutable from 'object-path-immutable';
 import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
 
+const sectionThatHaveSettings = [
+  'button',
+  'bumpOffer',
+  'testimonialsSection',
+  'featuresSection',
+  'guaranteeWidget',
+  'countDownWidget',
+  'progressbarWidget',
+  'figure',
+  'pageSetting'
+];
 export const updateState = ({ state = {}, dispatch }) => (subState) => {
   dispatch({
     type: types.UPDATE_STATE,
@@ -52,6 +63,8 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
   if (section.type === 'heading') return;
   if (section.type === 'text') return;
 
+  if (!sectionThatHaveSettings.includes(section.type))
+    return;
   if (section && (
     section.type === 'staticSectionSetting'
     || section.type === 'pageSetting'
@@ -64,6 +77,7 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
     open = false;
   } else {
     open = section;
+
   }
 
 
