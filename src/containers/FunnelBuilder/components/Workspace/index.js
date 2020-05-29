@@ -97,7 +97,6 @@ const WorkSpace = ({
 
   const onConnectNode = (currentId, type) => {
     setConnecting({ currentId, type });
-
   };
 
 
@@ -220,11 +219,11 @@ const WorkSpace = ({
             // id={node.elementId}
             // onShowNodeOptions={onShowNodeOptions}
             // activeNodeOptions={showNodeOptions}
-            // onConnect={onConnectNode}
-            // connectingMode={connecting}
+            onConnect={onConnectNode}
+            connectingMode={connecting}
+            onConnected={onNodeConnected}
+            onDelete={onNodeDelete}
             // onNodeSetting={onNodeSetting}
-            // onNodeDelete={onNodeDelete}
-            // onConnected={onNodeConnected}
             // activeSetting={showNodeSettingModal}
             {...node}
             {...nodeProps}

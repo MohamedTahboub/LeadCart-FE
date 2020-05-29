@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ThreadPath } from '../../RelationsWorkSpace/components/NodeRelation/Wire';
+import { FiPlus } from 'react-icons/fi';
 
 const cardShape = {
   height: 180,
@@ -13,10 +14,84 @@ const cardShape = {
 
 
 const ConnectingMode = ({ connecting, coords = {} }) => {
-  if (!connecting) return null;
+  const elementRef = useRef(null);
+  const [position, setPosition] = useState({});
 
-  const xOffset = cardShape.width + cardShape.marginRight;
-  const yOffset = cardShape.height / 2 + cardShape.marginTop;
+  const onStartConnecting = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    window.document.addEventListener('mousemove', tracking, true);
+    window.document.addEventListener('mouseup', onStopMoving, true);
+  };
+
+  const onStopMoving = (e) => {
+    window.document.removeEventListener('mousemove', tracking, true);
+    window.document.removeEventListener('mouseup', onStopMoving, true);
+  };
+
+  const getCurrentPosition = (e) => {
+    const details = getRect();
+    const { pageX: x, pageY: y } = e;
+    console.log(x, y, { details });
+    return { x, y: y - 50 };
+  };
+  const tracking = (e) => {
+    setPosition(getCurrentPosition(e));
+  };
+
+  const getRect = useCallback(() => {
+    if (elementRef)
+      return elementRef.current.getBoundingClientRect();
+    else return {};
+    //eslint-disable-next-line
+  }, [coords]);
+
+
+  const { pathStart, pathEnd } = getPointsCoords(coords);
+
+  return (
+    <div className='connect-node-assets' draggable>
+      {connecting && (
+        <svg
+          className='node-dynamic-relation-space'
+          width='100%'
+          height='100%'
+        >
+          <ThreadPath
+            start={pathStart}
+            end={position}
+            withoutShift
+          />
+        </svg>
+      )
+      }
+      <div
+        style={{
+          left: pathStart.x,
+          top: pathStart.y,
+          zIndex: 101
+        }}
+        className='grab-handle'
+        draggable
+        onMouseDown={onStartConnecting}
+        ref={elementRef}
+      >
+        <FiPlus className='white-text larger-text' />
+      </div>
+    </div>
+  );
+};
+
+ConnectingMode.propTypes = {};
+
+export default ConnectingMode;
+
+
+function getPointsCoords (coords) {
+
+  const xOffset = cardShape.width + 5;
+  const yOffset = cardShape.height / 2 - cardShape.marginTop;
   const { x, y } = coords;
 
   const pathStart = { x: x + xOffset, y: y + yOffset };
@@ -26,32 +101,8 @@ const ConnectingMode = ({ connecting, coords = {} }) => {
       y: pathStart.y
     }
   };
-
-  //   const onToggleConnecting = () => useConnecting((connect) => !connect);
-  return (
-    <div className='connect-node-assets'>
-      <div
-        style={{
-          left: pathStart.x,
-          top: pathStart.y
-        }}
-        className='grab-handle'
-        draggable
-      />
-      <svg
-        className='node-dynamic-relation-space'
-        width='100%'
-        height='100%'
-      >
-        <ThreadPath
-          start={pathStart}
-          relation={pathEnd}
-        />
-      </svg>
-    </div>
-  );
-};
-
-ConnectingMode.propTypes = {};
-
-export default ConnectingMode;
+  return {
+    pathStart,
+    pathEnd
+  };
+}

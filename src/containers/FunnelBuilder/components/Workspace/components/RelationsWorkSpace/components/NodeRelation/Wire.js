@@ -14,9 +14,9 @@ export const StartCircle = ({ x, y, color = '#4DA1FF' }) => {
   );
 };
 
-export const ThreadPath = ({ start, relation }) => {
+export const ThreadPath = ({ id, start, end, withoutShift }) => {
 
-  const { path: pathString, id } = getPathCoords(relation, start);
+  const pathString = getPathCoords(start, end, withoutShift);
 
   return (
     <path
@@ -57,7 +57,7 @@ const Wire = ({ id, position, relation }) => {
   return (
     <Fragment>
       <Marker id={id} />
-      <ThreadPath id={id} relation={relation} start={startPoint} />
+      <ThreadPath id={id} end={relation.coordinates} start={startPoint} />
       <StartCircle {...startPoint} />
     </Fragment>
   );

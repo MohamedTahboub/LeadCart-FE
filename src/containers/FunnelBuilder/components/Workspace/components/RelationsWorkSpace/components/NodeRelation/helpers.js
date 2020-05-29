@@ -14,31 +14,31 @@ export function getStartCircleCoords ({ x, y }) {
     y: y + cardShape.height / 2 + cardShape.marginTop
   };
 }
-export function getPathCoords ({
-  target: targetId,
-  type,
-  coordinates: {
-    x: endX,
-    y: endY
-  } = {},
-  tension = 0.15
-}, {
-  x: startX,
-  y: startY
-}) {
-  const y1 = type !== 'upsell' ? startY : startY + 20;
-  const delta = (endX - startX) * tension;
-  const hx1 = startX + delta;
-  const hy1 = y1;
-  const hx2 = endX - delta;
-  const hy2 = endY;
+export function getPathCoords (start = {}, end = {}, withoutShift, curved = true) {
+  const tension = 0.3;
+
+  const { x: startX, y: startY } = start;
+  const { x: endX, y: endY } = end;
+
+  if (withoutShift)
+    return `M ${startX} ${startY} ${endX} ${endY}`;
+
 
   const pathEndX = startX < endX ? (endX - cardShape.marginLeft) : (endX + cardShape.width + cardShape.marginRight);
-  const pathEndY = endY + cardShape.width / 2;
+  const pathEndY = endY + (cardShape.height / 2 + cardShape.marginTop);
 
-  const curveTension = startX < endX ? `${hx1} ${hy1} ${hx2} ${hy2}` : `${hx2} ${hy1} ${hx1} ${hy2}`;
-  const path = `M ${startX} ${y1} C ${curveTension} ${pathEndX} ${pathEndY}`;
+  if (curved) {
+    const delta = (pathEndX - startX) * tension;
+    const hx1 = startX + delta;
+    const hy1 = startY;
+    const hx2 = pathEndX - delta;
+    const hy2 = pathEndY;
+    const path = `M${startX},${startY} C${hx1},${hy1} ${hx2},${hy2} ${pathEndX},${pathEndY}`;
 
-  return { path, id: targetId };
+    return path;
+  }
+
+  const path = `M ${startX} ${startY} ${pathEndX} ${pathEndY}`;
+  return path ;
 }
 

@@ -71,7 +71,7 @@ const SideBar = ({
         <Tab id='funnelBlocks' title='Funnel Blocks'>
           <GrabbableBlock
             demoImage={pageFunnelImage}
-            title='Funnel Page'
+            title='Opt-in Page'
             description='Funnel Step that will hold a one page Funnel product'
             disabled
             draggable={false}

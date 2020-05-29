@@ -4,11 +4,13 @@ import common from 'components/common';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { GoPlug } from 'react-icons/go';
+import { MdDelete } from 'react-icons/md';
 import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
-
+import ReactToolTip from 'react-tooltip';
 import { ConnectingMode, EditButton, NodeStatusHat } from './components';
 import './style.css';
 
@@ -32,6 +34,7 @@ const { FlexBox } = common;
 const stringifyObj = (obj) => JSON.stringify(obj);
 const Node = ({
   elementId,
+  type: nodeType,
   product = {},
   // onShowNodeOptions,
   category = 'checkout',
@@ -39,7 +42,11 @@ const Node = ({
   onEdit,
   toggleOptions,
   activeNode,
-  coordinates = {}
+  coordinates = {},
+  onConnect,
+  connectingMode,
+  onConnected,
+  onDelete
   // ...props
 }) => {
   const elementRef = useRef(null);
@@ -81,8 +88,17 @@ const Node = ({
 
   const onConnectStart = (e) => {
     e.stopPropagation();
-    setConnecting((conn) => !conn);
+    onConnect(elementId, nodeType);
   };
+  const onConnectNode = (e) => {
+    e.stopPropagation();
+    onConnected(elementId);
+  };
+  const onNodeDelete = (e) => {
+    e.stopPropagation();
+    onDelete(elementId);
+  };
+
 
   const bgImage = product.image ? product.image : categoriesImages[category.toLowerCase()];
   const name = product.name ? product.name : categoriesNames[category.toLowerCase()];
@@ -105,10 +121,6 @@ const Node = ({
 
   return (
     <div className='funnel-node-container'>
-      <ConnectingMode
-        coords={coordinates}
-        connecting={connecting}
-      />
       <FlexBox column className={classes} style={nodeStyle} {...cardProps}>
         <div className='node-title tiny-text  gray-text bold-text truncate p-2'>
           {name}
@@ -125,16 +137,30 @@ const Node = ({
             onClick={cardProps.onClick}
             className='close-node-setting'
           />
-        ) : (
+        ) : !connectingMode && (
           <div className='connect-btn-container'>
             <AiOutlinePlusCircle
-              data-tip='connect'
+              data-tip='connect with other products'
               className='connect-node-btn'
               onClick={onConnectStart}
             />
           </div>
         )}
+        {connectingMode && (
+          <div onClick={onConnectNode} className='node-connect-tail'>
+            <GoPlug className='white-text large-text' />
+          </div>
+        )}
+        {!connectingMode && (
+          <div onClick={onNodeDelete} className='delete-btn-container'>
+            <MdDelete
+              data-tip='delete this node'
+              className='danger-color larger-text'
+            />
+          </div>)
+        }
       </FlexBox>
+      <ReactToolTip delayShow={300} theme='light' />
     </div>
 
   );
