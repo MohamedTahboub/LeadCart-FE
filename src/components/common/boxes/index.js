@@ -7,7 +7,7 @@ import { CodeInputArea } from '../Inputs';
 
 import './style.css';
 
-export const FlexBoxesContainer = ({ children, flex = '', className, ...props }) => (
+export const FlexBoxesContainer = ({ children, flex = '', className }) => (
   <div className={`flex-boxes-container ${className || ''} ${flex}`}>
     {children}
   </div>
@@ -19,9 +19,7 @@ export const MainBlock = ({
   children,
   className = '',
   containerClasses,
-  blockHandel,
-  blockActivabilityHandle = false,
-  ...props
+  blockHandel
 }) => (
   <div className={`main-block ${className}`}>
     <div className='main-title-container'>
@@ -41,7 +39,7 @@ export const MainBlock = ({
 );
 
 
-export const Block = ({ children, ...props }) => (
+export const Block = ({ children }) => (
   <div className='block-container'>
     {children}
   </div>
@@ -50,7 +48,7 @@ export const SmallBox = ({
   clickable = false,
   onClick,
   className = '',
-  ...props
+  children
 }) => (
   <div
     onClick={onClick}
@@ -58,7 +56,7 @@ export const SmallBox = ({
     className={`small-box ${className}`}
   >
     <div className='small-box-container'>
-      {props.children}
+      {children}
     </div>
   </div>
 );
@@ -68,8 +66,7 @@ export const Box = ({
   className = '',
   content,
   footer,
-  lessNormal,
-  ...props
+  lessNormal
 }) => (
   <div className={classNames({ 'normal-box': !lessNormal }, className)}>
     {header && <div className='box-header'>{header}</div>}
@@ -101,10 +98,8 @@ export const InsightBadge = ({
   chart,
   description,
   format: valueFormat = '0.00',
-  show,
-  icon
+  show
 }) => {
-  // const iconClassName = iconsClassesReference(name)
   const { prefixSymbol, suffixSymbol } = getSymbolsReferences(name);
 
   if (!show) return null;
@@ -171,6 +166,7 @@ export const FlexBox = ({
   reverse,
   overflow,
   elementRef,
+  fullWidth,
   ...props
 }) => {
   const classes = classNames({
@@ -186,7 +182,8 @@ export const FlexBox = ({
     flexEnd,
     reverse,
     [`overflow-${overflow}`]: overflow,
-    flexStart
+    flexStart,
+    fullWidth
   });
 
   return (

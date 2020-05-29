@@ -1,0 +1,33 @@
+.funnel-product-card {
+    height: 140px;
+    width: 100px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.product-override-select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border-radius: inherit;
+}
+
+.active-product-badge {
+    background-color: #2196F3;
+    position: absolute;
+    bottom: -35px;
+    right: -35px;
+    height: 70px;
+    width: 70px;
+    transform: rotate(-45deg);
+}
+
+.active-product-badge .active-check{
+    font-size: 18px;
+    margin: 5px 0;
+    transform: rotate(45deg);
+}

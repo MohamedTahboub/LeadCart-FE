@@ -34,7 +34,7 @@ const SideBar = ({
     demoImage
   }) => {
     const payload = { category: data.category, elementId: ids.generate() };
-    event.dataTransfer.setData('dropedElement', JSON.stringify(payload));
+    event.dataTransfer.setData('droppedElement', JSON.stringify(payload));
     const img = document.createElement('img');
     img.src = demoImage;
     event.dataTransfer.setDragImage(img, 140, 100);
@@ -71,7 +71,7 @@ const SideBar = ({
         <Tab id='funnelBlocks' title='Funnel Blocks'>
           <GrabbableBlock
             demoImage={pageFunnelImage}
-            title='Funnel Page'
+            title='Opt-in Page'
             description='Funnel Step that will hold a one page Funnel product'
             disabled
             draggable={false}

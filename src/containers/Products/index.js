@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import * as modalsActions from 'actions/modals';
 import * as productsActions from 'actions/products';
@@ -9,9 +9,7 @@ import PrecreateProductModals from 'components/PrecreateProductModals';
 import { ProductCardSkelton } from 'components/Loaders';
 
 import './style.css';
-import {
-  ProductCard
-} from './components';
+import { ProductCard } from './components';
 
 const {
   // ProductCard,
@@ -151,7 +149,7 @@ const Products = ({
         {filteredProducts.length ? filteredProducts.map((product, id) => (
           <ProductCard
             key={`${product._id}-${id}`}
-            orderInlist={id}
+            orderInList={id}
             {...product}
             onDelete={() => onShowDeleteDialogue(product._id)}
             onDuplicate={() => onProductDuplicate(product)}
@@ -178,7 +176,7 @@ const Products = ({
             {' '}
             Cancel
           </Button>
-          <Button onClick={onProductDelete} className='warning-color margin-with-float-right'>
+          <Button onClick={onProductDelete} className='warning-bg margin-with-float-right'>
             <i className='fas fa-trash-alt' />
             {' '}
             Delete

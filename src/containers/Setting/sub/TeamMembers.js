@@ -11,14 +11,15 @@ const {
   MiniButton,
   Button,
   InputRow,
-  MainTitle
+  MainTitle,
+  MainBlock
 } = common;
 
 const AddNewButton = ({ onClick }) => (
-  <Button onClick={onClick} className='primary-color medium-add-btn explort-csv-btn extra-margin-top'>
+  <Button onClick={onClick} className='primary-color'>
     <i className='fas fa-plus' />
     {' '}
-    Add new member
+    New Collaborators
   </Button>
 );
 
@@ -76,8 +77,10 @@ const TeamMembers = ({ members = [], ...props }) => {
   };
 
   return (
-    <React.Fragment>
-      {members.length !== 0
+    <MainBlock title='Collaborators'>
+      <div className='d-col align-end'>
+        <AddNewButton onClick={toggleModal} />
+        {members.length !== 0
         && (
           <Table>
             <Table.Head>
@@ -87,31 +90,28 @@ const TeamMembers = ({ members = [], ...props }) => {
               <Table.HeadCell>status</Table.HeadCell>
             </Table.Head>
             <Table.Body>
-              {members.map(({
-                member: {
-                  firstName, lastName, email, _id: memberId
-                } = {}, active
-              }, orderInList) => (
-                <Table.Row key={memberId} orderInList={orderInList} className='member-table-row'>
-                  <Table.Cell mainContent={firstName || 'Not Set'} />
-                  <Table.Cell mainContent={lastName || 'Not Set'} />
-                  <Table.Cell mainContent={email} />
-                  <Table.Cell>
-                    <SmallButton
-                      onClick={() => onMemberActivationChange(memberId, active)}
-                      className={active ? 'green-color' : 'gray-bg'}
-                    >
-                      {active ? 'Active' : 'Inactive'}
-                    </SmallButton>
-                  </Table.Cell>
-                  <MiniButton
-                    toolTip='Delete'
-                    className='table-row-delete-btn'
-                    iconClass='fa-trash-alt'
-                    onClick={() => setShowDeleteModal(memberId)}
-                  />
-                </Table.Row>
-              ))}
+              {
+                members.map(({ member: { firstName, lastName, email, _id: memberId } = {}, active }, orderInList) => (
+                  <Table.Row key={memberId} orderInList={orderInList} className='member-table-row blue'>
+                    <Table.Cell mainContent={firstName || 'Not Set'} />
+                    <Table.Cell mainContent={lastName || 'Not Set'} />
+                    <Table.Cell mainContent={email} />
+                    <Table.Cell>
+                      <SmallButton
+                        onClick={() => onMemberActivationChange(memberId, active)}
+                        className={active ? 'green-color' : 'gray-bg'}
+                      >
+                        {active ? 'Active' : 'Inactive'}
+                      </SmallButton>
+                    </Table.Cell>
+                    <MiniButton
+                      toolTip='Delete'
+                      className='table-row-delete-btn'
+                      iconClass='fa-trash-alt'
+                      onClick={() => setShowDeleteModal(memberId)}
+                    />
+                  </Table.Row>
+                ))}
             </Table.Body>
             {showDeleteModal && (
               <Dialog
@@ -125,45 +125,45 @@ const TeamMembers = ({ members = [], ...props }) => {
             )}
           </Table>
         )
-      }
-      <AddNewButton onClick={toggleModal} />
-      <Modal onClose={toggleModal} isVisible={showCreateModal}>
-        <MainTitle>Create New Team member</MainTitle>
-        <InputRow>
-          <InputRow.Label error={errors.firstName}>First Name:</InputRow.Label>
-          <InputRow.SmallInput
-            name='firstName'
-            onChange={onFieldChange}
-            error={errors.firstName}
-            className='margin-left-30 reset-font-size'
-          />
-        </InputRow>
-        <InputRow>
-          <InputRow.Label error={errors.lastName}>Last Name:</InputRow.Label>
-          <InputRow.SmallInput
-            name='lastName'
-            onChange={onFieldChange}
-            error={errors.lastName}
-            className='margin-left-30 reset-font-size'
-          />
-        </InputRow>
-        <InputRow>
-          <InputRow.Label error={errors.email}>Email Address:</InputRow.Label>
-          <InputRow.SmallInput
-            name='email'
-            onChange={onFieldChange}
-            error={errors.lastName}
-            className='margin-left-30 reset-font-size'
-          />
-        </InputRow>
-        {errors.modal && <span className='error-message'>{errors.modal}</span>}
-        <Button onClick={createNewMember} className='primary-color margin-with-float-right'>
-          <i className='fas fa-plus' />
-          {' '}
+        }
+        <Modal onClose={toggleModal} isVisible={showCreateModal}>
+          <MainTitle>Create New Team member</MainTitle>
+          <InputRow>
+            <InputRow.Label error={errors.firstName}>First Name:</InputRow.Label>
+            <InputRow.SmallInput
+              name='firstName'
+              onChange={onFieldChange}
+              error={errors.firstName}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+          <InputRow>
+            <InputRow.Label error={errors.lastName}>Last Name:</InputRow.Label>
+            <InputRow.SmallInput
+              name='lastName'
+              onChange={onFieldChange}
+              error={errors.lastName}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+          <InputRow>
+            <InputRow.Label error={errors.email}>Email Address:</InputRow.Label>
+            <InputRow.SmallInput
+              name='email'
+              onChange={onFieldChange}
+              error={errors.lastName}
+              className='margin-left-30 reset-font-size'
+            />
+          </InputRow>
+          {errors.modal && <span className='error-message'>{errors.modal}</span>}
+          <Button onClick={createNewMember} className='primary-color margin-with-float-right'>
+            <i className='fas fa-plus' />
+            {' '}
           Create
-        </Button>
-      </Modal>
-    </React.Fragment>
+          </Button>
+        </Modal>
+      </div>
+    </MainBlock>
   );
 };
 

@@ -1,7 +1,7 @@
 export default {
   onePageFunnel: {
     disabled: true,
-    category: 'onePageFunnel',
+    category: 'optIn',
     relations: [
       {
         target: '',
@@ -9,7 +9,7 @@ export default {
         end: ''
       }
     ],
-    product: '',
+    product: ''
 
   },
   checkoutPage: {
@@ -21,7 +21,7 @@ export default {
         end: ''
       }
     ],
-    product: '',
+    product: ''
 
   },
   upsellPage: {
@@ -33,7 +33,7 @@ export default {
         end: ''
       }
     ],
-    product: '',
+    product: ''
 
   },
   thankYouPage: {
@@ -45,7 +45,7 @@ export default {
         end: ''
       }
     ],
-    product: '',
+    product: ''
 
   }
 };

@@ -41,7 +41,7 @@ const FunnelNode = ({
   const elementRef = useRef(null);
 
   const onDrag = (e) => {
-    e.dataTransfer.setData('dropedElement', JSON.stringify({ product, category, elementId: id }));
+    e.dataTransfer.setData('droppedElement', JSON.stringify({ product, category, elementId: id }));
     const {
       left,
       top,
