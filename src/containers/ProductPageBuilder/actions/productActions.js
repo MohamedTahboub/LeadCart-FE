@@ -57,8 +57,6 @@ export const onSectionDelete = ({ state = {}, dispatch }) => (sectionId) => {
 
 
 export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {}) => {
-  // if opened and not the same section => update for the new section
-  // if opeded and toggled form the same section close;
   const { modals: { sectionSetting } = {} } = state;
 
   if (!sectionThatHaveSettings.includes(section.type)) return;
@@ -71,7 +69,7 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 
   const sameSection = section.id
     ? section.id === sectionSettingId
-    : section.type === sectionSettingType ;
+    : section.type === sectionSettingType;
 
 
   let newSettingsState;
