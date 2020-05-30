@@ -40,6 +40,7 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
       newSubaccountForm,
       {
         onSuccess: () => {
+          notification.success('Subaccount created');
           toggleSubaccountModal();
         },
         onFailed: (error) => notification.failed(error)

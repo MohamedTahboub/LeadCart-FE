@@ -3,14 +3,13 @@ import common from 'components/common';
 import Table from 'components/common/Tables';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
-// import { property } from 'libs';
+import { notification } from 'libs';
 import { connect } from 'react-redux';
 import './style.css';
 const {
   MainTitle,
   MiniButton,
   SmallButton,
-  // WarningMessage,
   Button,
   Dialog,
   InputRow,
@@ -18,13 +17,6 @@ const {
   PageHeader,
   PageContent
 } = common;
-
-// const AddNewButton = ({ onClick, ...props }) => (
-//   <Button onClick={onClick} className='primary-color'>
-//     <i className='fas fa-plus' />
-//     New Sub Account
-//   </Button>
-// );
 
 const Agency = ({
   packageType,
@@ -34,7 +26,6 @@ const Agency = ({
 }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  // const [showWarningModal, setShowWarningModal] = useState(false);
 
   const [account, setAccount] = useState({});
 
@@ -91,9 +82,11 @@ const Agency = ({
     // const { deleteModal } = this.state;
     props.deleteSubAccount({ id: showDeleteModal }, {
       onSuccess: () => {
+        notification.success('subaccount deleted successfully');
         setShowDeleteModal();
       },
       onFailed: (message) => {
+        notification.failed(message);
 
       }
     });
