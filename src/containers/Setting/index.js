@@ -17,8 +17,10 @@ import { Page, PageContent, PageHeader } from '../../components/common/Layout';
 import { SmallButton } from 'components/common/Buttons';
 const { MainTitle, LCTabs } = common;
 
-const Setting = ({ history }) => {
+const Setting = ({ history, brands, user }) => {
+  const { user: { activeBrand: activeBrandId } } = user;
   const [saveFunction, setSaveFunction] = useState({});
+  const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
   const tabs = [
     {
       key: 'general',
@@ -49,7 +51,7 @@ const Setting = ({ history }) => {
       key: 'billing',
       tab: 'Billing',
       link: '/settings/billing',
-      component: <Billing />
+      component: <Billing activeBrand={activeBrand} />
     }
   ];
   const { location: { pathname } } = history;
@@ -89,5 +91,6 @@ const Setting = ({ history }) => {
   );
 };
 
+const mapStateToProps = ({ brands, user }) => ({ brands, user });
 
-export default connect(null, settingsActions)(Setting);
+export default connect(mapStateToProps, settingsActions)(Setting);

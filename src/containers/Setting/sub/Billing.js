@@ -10,14 +10,14 @@ import common from 'components/common';
 
 const { Tab, Tabs } = common;
 
-const Billing = ({ transactions = [] }) => (
+const Billing = ({ transactions = [], activeBrand }) => (
   <Fragment>
     <Tabs active='subscription'>
       <Tab id='subscription' title='Your Subscription'>
         <SubscriptionPackages />
       </Tab>
       <Tab id='transation-history' title='Transaction History'>
-        <TransactionsTable list={transactions} />
+        <TransactionsTable list={activeBrand.transactions || []} />
       </Tab>
     </Tabs>
   </Fragment>

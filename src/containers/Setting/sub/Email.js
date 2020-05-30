@@ -112,9 +112,7 @@ const Email = ({
         <Tab id='settings' title='Settings'>
           <MainBlock title='Brand Emails'>
             <InputRow>
-              <InputRow.Label
-                notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
-              >
+              <InputRow.Label >
                 Brand Email Logo:
 
               </InputRow.Label>

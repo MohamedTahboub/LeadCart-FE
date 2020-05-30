@@ -89,7 +89,6 @@ const GeneralSettings = ({
       <InputRow>
         <InputRow.Label
           error={errors.logo}
-          notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
         >
             Default Logo:
 
@@ -108,7 +107,6 @@ const GeneralSettings = ({
       <InputRow margin='42'>
         <InputRow.Label
           error={errors.country}
-          notes='Select a country to be displayed as the default on your checkout pages. Your customers can always select a different country.'
         >
             Default Country:
 

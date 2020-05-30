@@ -2,8 +2,8 @@ import { CHANGE_ACCOUNT_DETAILS } from 'constantsTypes';
 import { apiRequest } from 'actions/apiRequest';
 
 import {
-  onChangeAccountDetailsSuccess,
   onChangeAccountDetailsFailed,
+  onChangeAccountDetailsSuccess
 } from 'actions/account';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -25,6 +25,5 @@ export default ({ dispatch }) => (next) => (action) => {
       if (meta.onFailed) meta.onFailed(arg);
       return onChangeAccountDetailsFailed(arg);
     }
-
   }));
 };

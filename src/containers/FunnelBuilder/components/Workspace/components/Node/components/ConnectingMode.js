@@ -33,7 +33,6 @@ const ConnectingMode = ({ connecting, coords = {} }) => {
   const getCurrentPosition = (e) => {
     const details = getRect();
     const { pageX: x, pageY: y } = e;
-    console.log(x, y, { details });
     return { x, y: y - 50 };
   };
   const tracking = (e) => {
