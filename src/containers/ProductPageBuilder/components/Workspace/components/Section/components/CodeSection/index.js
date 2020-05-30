@@ -43,8 +43,6 @@ const CodeSection = ({
   };
 
   const onEditorHeightChange = (height) => {
-    console.log('height , styles.height', height, styles.height);
-    console.log('height > styles.height', height > styles.height);
     if (height > styles.height)
       onSizeChange({ height });
   };
