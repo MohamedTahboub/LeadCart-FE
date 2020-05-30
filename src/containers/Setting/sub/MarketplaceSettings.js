@@ -105,6 +105,8 @@ const MarketplaceSettings = ({
             name='supportEmail'
             notes='This will be shown in the marketplace navbar'
             placeholder='e.g. example.com/contact'
+            onChange={onChange}
+            value={fields.supportEmail}
           />
         </InputRow>
       </MainBlock>

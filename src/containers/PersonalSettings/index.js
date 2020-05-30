@@ -5,8 +5,8 @@ import { Menu } from 'antd';
 import GeneralSettings from './GeneralSettings';
 import PaymentSettings from './PaymentSettings';
 import BrandsSection from './BrandsSection';
-import SubaccountsSection from './SubaccountsSection';
 import RedemptionSettings from './RedemptionSettings';
+import * as accountActions from 'actions/account';
 
 import './style.css';
 
@@ -25,12 +25,6 @@ const sideMenuOptions = [
   { title: 'Manage Account' }
 ].map((_) => ({ ..._, key: _.title.toLowerCase().replace(/\s/g, '_') }));
 
-// TEMP: temp variable
-const creditCards = [{ cardNumber: '4242424242424242', isDefault: true },
-  { cardNumber: '5555555555554444', default: false },
-  { cardNumber: '4111111111111111', default: false }]
-    ;
-
 const redemptionCodes = [{ code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
   { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
   { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
@@ -40,7 +34,8 @@ const redemptionCodes = [{ code: '', type: 'Stacking', value: 1, redemptionDate:
   { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() }]
   .map((code) => ({ ...code, code: Array(16).fill(0).reduce((str) => str + String.fromCharCode(parseInt(Math.random() * (122 - 48) + 48)), '') }));
 const credits = 19;
-const PersonalSettings = ({ brands, user }) => {
+
+const PersonalSettings = ({ brands, user, paymentMethods, onChangeAccountDetails, onChangeAccountPassword }) => {
   const [activeTab, setActiveTab] = useState(sideMenuOptions[0].key);
   const setTab = ({ selectedKeys }) => {
     const [activeTab] = selectedKeys;
@@ -48,13 +43,12 @@ const PersonalSettings = ({ brands, user }) => {
   };
   const Route = () => {
     switch (activeTab) {
-    case 'general': return <GeneralSettings user={user}/>;
+    case 'general': return <GeneralSettings user={user} onChangeAccountDetails={onChangeAccountDetails} onChangeAccountPassword={onChangeAccountPassword}/>;
     case 'code_redemption': return <RedemptionSettings redemptionCodes={redemptionCodes} credits={credits}/>;
     case 'brands_management': return <BrandsSection brands={brands}/>;
-    case 'payment_methods': return <PaymentSettings creditCards={creditCards}/>;
+    case 'payment_methods': return <PaymentSettings creditCards={paymentMethods}/>;
     default:
       return <div/>;
-    // return <SubaccountsSection subaccounts={subaccounts} brands={brands}/>;
     }
   };
 
@@ -78,6 +72,6 @@ const PersonalSettings = ({ brands, user }) => {
 };
 
 
-const mapStateToProps = ({ brands, user: { user } }) => ({ user, brands });
+const mapStateToProps = ({ brands, user: { user }, payments: { methods: paymentMethods } }) => ({ user, brands, paymentMethods });
 
-export default connect(mapStateToProps, {})(PersonalSettings);
+export default connect(mapStateToProps, accountActions)(PersonalSettings);
