@@ -26,14 +26,17 @@ const OverrideSelect = ({ show, onClick }) => {
   return (
     <FlexBox onClick={onClick} column center='v-center h-center' className='product-override-select'>
       <TiWarning className='larger-text yellowish-color' />
-      <div className='tiny-text aligned-center'>
+      <div
+        data-tip='this means any changes to the product from this funnel will overwrite the product'
+        className='tiny-text aligned-center'
+      >
         Product Already Used in another funnel
       </div>
       <div>
 
         <FlexBox flex center='h-center' className={selectBtnClasses}>
           <span>
-            Select & Override
+            Select & Ignore
           </span>
         </FlexBox>
       </div>
@@ -44,11 +47,10 @@ const Product = ({
   image = checkoutPageImage,
   active,
   name,
-  overrideWarring,
+  isUsed,
   onSelect,
   id: productId,
-  nodeId,
-  isConnected
+  nodeId
 }) => {
 
 
@@ -57,7 +59,7 @@ const Product = ({
     'funnel-product-card',
     'relative-element',
     {
-      overrideWarring,
+      overrideWarring: isUsed,
       active
     }
   );
@@ -83,7 +85,7 @@ const Product = ({
       <div className='tiny-text gray-text bold-text truncate p-2'>
         {name}
       </div>
-      <OverrideSelect onClick={onProductSelect} show={isConnected} />
+      <OverrideSelect onClick={onProductSelect} show={isUsed} />
     </FlexBox>
   );
 };
