@@ -93,7 +93,7 @@ const GeneralSettings = ({ user, onChangeAccountDetails, onChangeAccountPassword
           <InputField
             label='Confirm Password:'
             type='password'
-            placeholder='Same password goes here'
+            placeholder='Confirm New Password'
             name='newPasswordConfirmation'
             onChange={handlePasswordFormChange}
           />

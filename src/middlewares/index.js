@@ -1,4 +1,3 @@
-// importing the middlewares here
 import appInit from './appInit';
 import apiRequest from './apiRequest';
 import login from './login';
@@ -31,34 +30,35 @@ import translations from './translations';
 import integrations from './integrations';
 import brands from './brands';
 
+
 export default [
+  eventsTracker,
+  appInit,
   ...formsValidations,
   ...modelsShapers,
+  notificationCenter,
+  login,
+  signup,
   ...settings,
+  products,
   ...upsells,
   ...funnels,
   ...fulfillments,
+  payments,
   ...product,
   ...account,
   ...coupon,
   ...billing,
   ...translations,
+  updateUserImage,
   ...emails,
   ...customers,
+  teamMembers,
+  agencyCodeActivation,
   ...subAccounts,
   ...dashboard,
   ...integrations,
   ...brands,
-  eventsTracker,
-  appInit,
-  notificationCenter,
-  login,
-  signup,
-  products,
-  payments,
-  updateUserImage,
-  teamMembers,
-  agencyCodeActivation,
   flashMessage,
   apiRequest,
   uploadingFiles,
