@@ -13,7 +13,8 @@ const sectionThatHaveSettings = [
   'countDownWidget',
   'progressbarWidget',
   'figure',
-  'pageSetting'
+  'pageSetting',
+  'staticSectionSetting'
 ];
 export const updateState = ({ state = {}, dispatch }) => (subState) => {
   dispatch({
@@ -55,35 +56,33 @@ export const onSectionDelete = ({ state = {}, dispatch }) => (sectionId) => {
 };
 
 
-export const toggleSectionSettingModal = ({ state, dispatch }) => (section) => {
+export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {}) => {
+  // if opened and not the same section => update for the new section
+  // if opeded and toggled form the same section close;
   const { modals: { sectionSetting } = {} } = state;
-  let open = !!sectionSetting;
 
-  // modify this to more readable script -_-
-  if (section.type === 'heading') return;
-  if (section.type === 'text') return;
+  if (!sectionThatHaveSettings.includes(section.type)) return;
 
-  if (!sectionThatHaveSettings.includes(section.type))
-    return;
-  if (section && (
-    section.type === 'staticSectionSetting'
-    || section.type === 'pageSetting'
-  )) {
-    if (!open) open = section;
-    else open = false;
-  } else if (
-    (sectionSetting && sectionSetting.id) === (section && section.id)
-  ) {
-    open = false;
-  } else {
-    open = section;
+  const opened = !!sectionSetting;
+  const {
+    id: sectionSettingId,
+    type: sectionSettingType
+  } = sectionSetting || {};
 
-  }
+  const sameSection = section.id
+    ? section.id === sectionSettingId
+    : section.type === sectionSettingType ;
 
+
+  let newSettingsState;
+  if (opened && sameSection)
+    newSettingsState = false;
+  else
+    newSettingsState = section;
 
   dispatch({
     type: types.TOGGLE_SECTION_SETTINGS_SIDEBAR,
-    payload: open
+    payload: newSettingsState
   });
 };
 
