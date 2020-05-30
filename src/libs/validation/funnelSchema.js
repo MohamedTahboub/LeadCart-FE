@@ -20,7 +20,7 @@ const RelationsSchema = yup.object({
 });
 
 const ProductsSchema = yup.object({
-  productId: yup.string(),
+  productId: yup.string().transform((val) => (val && val.trim() ? val : undefined)),
   relations: yup.array().of(RelationsSchema).default([]),
   coordinates: coordinatesSchema,
   elementId: yup.string(),

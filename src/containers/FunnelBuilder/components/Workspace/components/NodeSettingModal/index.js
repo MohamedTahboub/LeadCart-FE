@@ -4,7 +4,7 @@ import productSample from 'data/product.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux';
 import common from 'components/common';
-import { includesIgnoreCase, notification } from 'libs';
+import { includesIgnoreCase, mapListToObject, notification } from 'libs';
 import './style.css';
 import { Product } from './components';
 
@@ -21,6 +21,16 @@ const getMatchedProducts = (products, nodes, activeNodeId) => {
     .map((p) => (p._id === activeNode.productId ? { ...p, active: true } : p));
 };
 
+const getConnectedProducts = (funnels = []) => {
+  const funnelsProducts = funnels.reduce((products, funnel) => {
+    const { products: funnelProducts = [] } = funnel;
+    const updated = [...funnelProducts.map((product) => ({ ...product, funnelId: funnel._id }))];
+    return [...products, ...updated];
+  }, []);
+
+  const neededProperties = { funnelId: 'funnelId', productId: 'productId' };
+  return mapListToObject(funnelsProducts, 'productId', neededProperties);
+};
 const {
   FlexBox,
   FunnelTemplateNode,
@@ -37,6 +47,7 @@ const NodeSettingModal = ({
   products,
   nodes,
   onNodeSettingChange,
+  connectedProductsMap,
   onClose,
   ...props
 }) => {
@@ -143,6 +154,7 @@ const NodeSettingModal = ({
                 <Product
                   // className='side-bar-nodes'
                   key={product._id}
+                  isUsed={connectedProductsMap[product._id]}
                   onSelect={onSelect(isVisible, product._id)}
                   active={product.active}
                   // onEditExplore={onProductEdit(product._id)}
@@ -175,6 +187,12 @@ NodeSettingModal.defaultProps = {
 };
 
 
-const mapStateToProps = ({ products: { products = [] } = {} }) => ({ products });
+const mapStateToProps = ({
+  funnels,
+  products: { products = [] } = {}
+}) => ({
+  products,
+  connectedProductsMap: getConnectedProducts(funnels)
+});
 
 export default connect(mapStateToProps, productActions)(NodeSettingModal);
