@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import common from 'components/common';
 import Table from 'components/common/Tables';
 import { Modal } from 'components/Modals';
@@ -16,7 +16,7 @@ const {
   InputRow,
   Page,
   PageHeader,
-  PageContent,
+  PageContent
 } = common;
 
 // const AddNewButton = ({ onClick, ...props }) => (
@@ -89,9 +89,7 @@ const Agency = ({
 
   const onDeleteSubAccount = () => {
     // const { deleteModal } = this.state;
-    props.deleteSubAccount({
-      id: showDeleteModal
-    }, {
+    props.deleteSubAccount({ id: showDeleteModal }, {
       onSuccess: () => {
         setShowDeleteModal();
       },
@@ -103,7 +101,7 @@ const Agency = ({
 
   useEffect(() => {
     if (packageType !== 'Agency') return history.push('/');
-  }, [subAccounts, packageType]);
+  }, [subAccounts, packageType, history]);
 
   // const toggleWarningModal = () => setShowWarningModal(show => !show)
 
@@ -272,9 +270,7 @@ description={(
 onConfirm={this.hideWarringDialog}
 />
 */
-Agency.defaultProps = {
-  subAccounts: []
-};
+Agency.defaultProps = { subAccounts: [] };
 
 const mapStateToProps = ({ user: { user: { packageType } }, agency: { subAccounts, errors } }) => ({
   packageType,
