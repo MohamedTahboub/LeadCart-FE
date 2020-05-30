@@ -130,7 +130,9 @@ const Node = ({
             active={productId}
             note={name}
           />
-          <EditButton onClick={_onEdit} />
+          {productId && (
+            <EditButton onClick={_onEdit} />
+          )}
         </FlexBox>
         {highlighted ? (
           <IoIosCloseCircleOutline
