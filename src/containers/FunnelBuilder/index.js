@@ -24,6 +24,14 @@ import {
   Workspace
 } from './components';
 
+const PaymentMethodNamesMap = (paymentName) => {
+  return {
+    Stripe: 'lc_stripe',
+    Paypal: 'lc_paypal'
+  }[paymentName] || undefined;
+};
+
+
 const {
   Page,
   FlexBox,
@@ -81,8 +89,12 @@ const FunnelBuilder = ({
     if (!funnel) return;
 
     if (funnel._id === fields._id) return;
-    if (!isObjectsEquivalent(funnel, fields))
-      setFields(funnel);
+    if (!isObjectsEquivalent(funnel, fields)) {
+      setFields({
+        ...funnel,
+        paymentMethods: PaymentMethodNamesMap(funnel.paymentMethods)
+      });
+    }
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);

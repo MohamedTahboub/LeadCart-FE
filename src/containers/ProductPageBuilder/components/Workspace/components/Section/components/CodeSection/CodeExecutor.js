@@ -1,15 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
+import React, { useRef } from 'react';
 
-const { FlexBox } = common;
 
 const defaultHeight = 400;
 
 const CodeExecutor = ({
   code,
-  parentHeight = defaultHeight,
-  ...props
+  parentHeight = defaultHeight
 }) => {
 
   const iframeRef = useRef(null);
