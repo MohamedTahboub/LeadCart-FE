@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
-import Subscriptions from './sub/Subscriptions'
-import {  exportOrdersToCsv } from 'libs'
-import './style.css'
-// import ProductDetailes from './sub/ProductDetails'
-
-import common from 'components/common'
+import PropTypes from 'prop-types';
+import Subscriptions from './sub/Subscriptions';
+import { exportOrdersToCsv } from 'libs';
+import './style.css';
+import { notification } from 'libs';
+import common from 'components/common';
 import moment from 'moment';
-import Orders from './sub/Orders'
+import Orders from './sub/Orders';
 
 
 const getSubscriptionsList = (orders) => orders.reduce((subs, { products = [], ...order }) => {
-        const subscriptionProducts = products
-            .filter(({ payment = {} }) => payment.paymentType === 'Subscription')
-            .map(product => ({ ...order, product }))
-        return [...subs, ...subscriptionProducts]
-    }, []);
+  const subscriptionProducts = products
+    .filter(({ payment = {} }) => payment.paymentType === 'Subscription')
+    .map((product) => ({ ...order, product }));
+  return [...subs, ...subscriptionProducts];
+}, []);
 
 
 const {
@@ -38,12 +37,10 @@ const Transactions = ({ orders }) => {
   const subscriptions = getSubscriptionsList(orderedList);
 
   const onExportToCSV = () => {
-    const dataRows = exportOrdersToCsv(orders, {
-      paymentType: activeTab === 'Orders' && 'Subscription'
-    });
+    const dataRows = exportOrdersToCsv(orders, { paymentType: activeTab === 'Orders' && 'Subscription' });
 
     const fileName = `${activeTab}-${moment().format('MMM DD YYYY')}.csv`;
-    
+
     const download = document.createElement('a');
     const fileHref = `data:text/csv;charset=utf-8,${encodeURIComponent(dataRows)}`;
     download.setAttribute('href', fileHref);
@@ -55,10 +52,13 @@ const Transactions = ({ orders }) => {
     setDownloading(true);
     setTimeout(() => {
       setDownloading(false);
-      onExportToCSV();
+      if (orders.length) {
+        onExportToCSV();
+        return notification.success('CSV report for transactions recorder downloaded');
+      }
+      notification.failed('There are not enough records to be downloaded');
     }, 1200);
   };
-
   return (
     <Page className='products-details-page'>
       <PageHeader>
@@ -69,7 +69,7 @@ const Transactions = ({ orders }) => {
           onClick={onDownloadReport}
           className='primary-color'
         >
-                    Export csv
+          Export csv
         </Button>
       </PageHeader>
       <PageContent>
@@ -78,7 +78,7 @@ const Transactions = ({ orders }) => {
           onTabChange={setActiveTab}
           tabs={{
             Orders: <Orders orders={orderedList} />,
-            Subscriptions: <Subscriptions subscriptions={subscriptions} />,
+            Subscriptions: <Subscriptions subscriptions={subscriptions} />
           }}
         />
       </PageContent>
@@ -87,9 +87,7 @@ const Transactions = ({ orders }) => {
 };
 
 
-const mapStateToProps = ({ orders = [] }) => ({
-  orders
-});
+const mapStateToProps = ({ orders = [] }) => ({ orders });
 Transactions.propTypes = {
   orders: PropTypes.array,
   subscriptions: PropTypes.array

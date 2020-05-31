@@ -76,7 +76,7 @@ const GeneralSettings = ({
   getSave({ onSave });
 
   return (
-    <MainBlock title='General Brand Settings'>
+    <MainBlock title='General Brand Settings' containerClasses='marketplace-settings-bg'>
       <InputRow>
         <InputRow.Label error={errors.name}>Company Name:</InputRow.Label>
         <InputRow.TextField
