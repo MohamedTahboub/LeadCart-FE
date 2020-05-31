@@ -46,14 +46,6 @@ const Subscription = ({
     credit: {}
   });
 
-  useEffect(() => {
-    setFields({
-      ...fields,
-      packageType: activePackage.type,
-      recurringPeriod: activePackage.period
-    });
-  }, [activePackage, fields]);
-
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];

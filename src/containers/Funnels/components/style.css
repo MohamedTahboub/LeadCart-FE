@@ -1,50 +1,58 @@
-
-.pre-create-funnel-modal{
+.pre-create-funnel-modal {
     padding: 30px 60px;
     border-radius: 2px;
     min-width: 600px;
 }
-.funnel-form-content{
+
+.funnel-form-content {
     border-left: 3px solid #eee;
     padding-left: 10px;
 
 }
 
-.funnel-name-input-row{
+.funnel-name-input-row {
     align-items: center;
     color: dimgray;
 
 }
-.funnel-name-input-label{
+
+.funnel-name-input-label {
     width: unset;
     margin-right: 20px;
 }
+
 .funnel-name-input-label .input-label {
     color: dimgray;
 }
-.funnel-modal-templates-title.big{
+
+.funnel-modal-templates-title.big {
     font-size: 20px;
     margin-bottom: 20px;
 }
-.funnel-modal-templates-title{
+
+.funnel-modal-templates-title {
     font-size: 17px;
     color: dimgray;
     padding-bottom: 10px;
 }
-.modal-template-image{
+
+.modal-template-image {
     cursor: pointer;
     margin: 10px 20px;
     border-radius: 5px;
     border: 1px solid #eee;
 }
-.modal-template-image img{
+
+.modal-template-image img {
     height: 100px;
     border-radius: 5px;
     width: 155px;
 }
-.modal-template-image.active{
+
+.modal-template-image.active {
     position: relative;
 }
+
 .modal-template-image.active:before {
     position: absolute;
     font-family: "Font Awesome 5 Free";
@@ -53,5 +61,37 @@
     font-size: 16px;
     top: 5px;
     right: 10px;
-    color:lightgreen;
+    color: lightgreen;
+}
+
+.funnel-card {
+    height: 230px;
+    width: 200px;
+    position: relative;
+    padding: 0;
+    margin: 10px;
+    background-color: white;
+    overflow: hidden;
+}
+
+.funnel-bg {
+    padding: 5px 10px;
+    background-size: 100% auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.funnel-status-hat {
+    position: absolute;
+    right: -5px;
+    top: 42px;
+    transform: rotate(175deg);
+    height: 23px;
+    width: 55px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
 }

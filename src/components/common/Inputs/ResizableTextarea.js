@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import TextArea from 'react-textarea-autosize';
 import clx from 'classnames';
 
-const ResizableTextarea = ({ style, className, ...props }) => {
+const ResizableTextarea = ({
+  style,
+  className,
+  ...props
+}) => {
   const styles = {
     border: 'none',
     resize: 'none',
@@ -23,12 +27,8 @@ const ResizableTextarea = ({ style, className, ...props }) => {
   );
 };
 
-ResizableTextarea.propTypes = {
-  style: PropTypes.objectOf(PropTypes.object)
-};
-ResizableTextarea.defaultProps = {
-  style: {}
-};
+ResizableTextarea.propTypes = { style: PropTypes.objectOf(PropTypes.object) };
+ResizableTextarea.defaultProps = { style: {} };
 
 
 export default ResizableTextarea;

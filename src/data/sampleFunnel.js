@@ -33,5 +33,5 @@ export const basic = {
     },
     relations: []
   }],
-  thumbnail: 'https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/funnelDemoFlow.png'
+  thumbnail: 'https://s3.us-east-2.amazonaws.com/assets.leadcart.io/5d3bd34e97d3ea503e8659af/products/funnelDemoFlow.png'
 };

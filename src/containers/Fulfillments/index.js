@@ -67,7 +67,7 @@ const Fulfillments = ({
         {fulfillments.map((fulfillment, id) => (
           <FulfillmentCard
             key={fulfillment._id}
-            orderInlist={id}
+            orderInList={id}
             name={fulfillment.name}
             type={fulfillmentsTypesLabels[fulfillment.type]}
             onEdit={onShowEditForm.bind(this, fulfillment)}

@@ -22,19 +22,7 @@ const ModernTestimonial = ({
   onChange,
   ...props
 }) => {
-  // const onChange = ({ target: { value, name } }) => {
-  //   props.onChange({
-  //     target: {
-  //       name: id,
-  //       value: {
-  //         author,
-  //         content,
-  //         image,
-  //         [name]: value
-  //       }
-  //     }
-  //   });
-  // };
+
 
   const onImageChange = ({ value, ...res }) => {
     onChange({

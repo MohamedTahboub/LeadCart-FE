@@ -1028,9 +1028,9 @@ input.checkout-input-field:valid+label.checkout-input-label {
 .btn.danger-btn:hover {
     background: #e02b4ad6;
 }
-.danger-color {
+/* .danger-color {
     color: tomato;
-}
+} */
 
 
 /* Tooltip Customization */

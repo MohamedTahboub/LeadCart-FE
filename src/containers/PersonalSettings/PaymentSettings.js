@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Table } from 'antd';
 import Card from 'components/Card';
 import { CheckCircleTwoTone, DeleteOutlined } from '@ant-design/icons';
 import { GetCardType } from 'helpers/common';
+import { Modal } from 'components/Modals';
 import CreditCardVisa from 'assets/images/icons/credit-card-visa.png';
 import CreditCardAMEX from 'assets/images/icons/credit-card-amex.png';
 import CreditCardJCB from 'assets/images/icons/credit-card-jcb.png';
@@ -66,6 +67,8 @@ const CreditCardRenderer = ({ type, ...props }) => {
 
 
 const PaymentSettings = ({ creditCards, dataSource = _dataSource }) => {
+  const [isAddPaymentMethodModalVisible, setAddPaymentMethodModalVisible] = useState(false);
+  const toggleAddPaymentMethodModalVisible = () => setAddPaymentMethodModalVisible(!isAddPaymentMethodModalVisible);
 
   return (
     <React.Fragment>
@@ -94,8 +97,9 @@ const PaymentSettings = ({ creditCards, dataSource = _dataSource }) => {
             }
           </div>
           <div className='add-credit-card-button-wrapper'>
-            <Button block type='primary'>Add payment method</Button>
+            <Button block type='primary' onClick={toggleAddPaymentMethodModalVisible}>Add payment method</Button>
           </div>
+          <Modal isVisible={isAddPaymentMethodModalVisible} onClose={toggleAddPaymentMethodModalVisible} />
         </div>
       </section>
       <section title='Invoices'>

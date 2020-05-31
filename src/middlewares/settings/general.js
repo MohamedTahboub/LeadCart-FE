@@ -1,9 +1,7 @@
+import { UPDATE_MARKETPLACE_SETTINGS } from 'constantsTypes';
 import {
-  UPDATE_MARKETPLACE_SETTINGS
-} from 'constantsTypes';
-import {
-  updateMarketPlaceSettingsSuccess,
   updateMarketPlaceSettingsFailed,
+  updateMarketPlaceSettingsSuccess
 } from 'actions/settings';
 
 import { apiRequest } from 'actions/apiRequest';

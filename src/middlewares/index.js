@@ -1,4 +1,3 @@
-// importing the middlewares here
 import appInit from './appInit';
 import apiRequest from './apiRequest';
 import login from './login';
@@ -30,6 +29,7 @@ import funnels from './funnels';
 import translations from './translations';
 import integrations from './integrations';
 import brands from './brands';
+
 
 export default [
   eventsTracker,

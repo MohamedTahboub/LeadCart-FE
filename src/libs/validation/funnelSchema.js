@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
-const funnelCoverDefaultImage = 'https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/funnelDemoFlow.png';
+const funnelCoverDefaultImage = 'https://s3.us-east-2.amazonaws.com/assets.leadcart.io/5d3bd34e97d3ea503e8659af/products/funnelDemoFlow.png';
 
 const coordinatesSchema = yup.object({
   x: yup.number(),
@@ -20,7 +20,7 @@ const RelationsSchema = yup.object({
 });
 
 const ProductsSchema = yup.object({
-  productId: yup.string(),
+  productId: yup.string().transform((val) => (val && val.trim() ? val : undefined)),
   relations: yup.array().of(RelationsSchema).default([]),
   coordinates: coordinatesSchema,
   elementId: yup.string(),

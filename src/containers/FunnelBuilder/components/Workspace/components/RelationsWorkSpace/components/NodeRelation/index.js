@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 // import findAbsolutePosition from '../helpers/findAbsolutePosition';
 
+import Wire from './Wire';
 
 import './style.css';
 
@@ -63,14 +64,15 @@ export default ({
   // const {
   //   x1, x2, y1, y2
   // } = calcCoordinates(props);
-  if (!relations.length) return null;
+  // if (!relations.length) return null;
 
 
-  const {
-    startPoints,
-    pathsCoords,
-    markers
-  } = maintainConnections(coordinates, [...relations]);
+  // const {
+  //   startPoints,
+  //   pathsCoords,
+  //   markers
+  // } = maintainConnections(coordinates, [...relations]);
+
   // const pathCoords = getPathCoords({
   //   x1,
   //   x2,
@@ -79,47 +81,55 @@ export default ({
   //   tension: 0.35
   // });
   return (
-    <Fragment key='nodes-connections-elements'>
-      {pathsCoords.map(({ path, id }) => (
-        <path
-          key={id}
-          d={path}
-          fill='none'
-          stroke='#03a9f4d4'
-          strokeWidth='1.5'
-          markerEnd={`url(#arrowHead_${id})`}
-        />
-      ))
-      }
-      {startPoints.map((point, id) => (
-        <circle
-          key={id}
-          className='start'
-          cx={point.x}
-          cy={point.y}
-          r='5'
-          fill={point.color}
-        />
-      ))
-      }
-      <defs>
-        {markers.map((id) => (
-          <marker
-            key={id}
-            id={`arrowHead_${id}`} viewBox='0 0 10 10'
-            refX='1' refY='5'
-            markerUnits='strokeWidth'
-            markerWidth='10' markerHeight='10'
-            orient='auto'
-          >
-            <path d='M 0 0 L 10 5 L 0 10 z' fill='#4DA1FF' strokeWidth='1' />
-          </marker>
-        ))
-        }
-      </defs>
-
-    </Fragment>
+    relations.map((relation, id) => (
+      <Wire
+        id={relation.target}
+        position={coordinates}
+        relation={relation}
+      />))
   );
+  // return (
+  //   <Fragment key='nodes-connections-elements'>
+  //     {startPoints.map((point, id) => (
+  //       <circle
+  //         key={id}
+  //         className='start'
+  //         cx={point.x}
+  //         cy={point.y}
+  //         r='5'
+  //         fill={point.color}
+  //       />
+  //     ))
+  //     }
+  //     {pathsCoords.map(({ path, id }) => (
+  //       <path
+  //         key={id}
+  //         d={path}
+  //         fill='none'
+  //         stroke='#03a9f4d4'
+  //         strokeWidth='1.5'
+  //         markerEnd={`url(#arrowHead_${id})`}
+  //       />
+  //     ))
+  //     }
+  //     <defs>
+  //       {markers.map((id) => (
+  //         <marker
+  //           key={id}
+  //           id={`arrowHead_${id}`} viewBox='0 0 10 10'
+  //           refX='1' refY='5'
+  //           markerUnits='strokeWidth'
+  //           markerWidth='10' markerHeight='10'
+  //           orient='auto'
+  //         >
+  //           <path d='M 0 0 L 10 5 L 0 10 z' fill='#4DA1FF' strokeWidth='1' />
+  //         </marker>
+  //       ))
+  //       }
+  //     </defs>
+
+  //   </Fragment>
+  // );
 };
 
 
@@ -178,7 +188,7 @@ function maintainConnections (startPosition, relations) {
     //   y: relation.coordinates.y + relation.coordinates.height / 2
     // };
     // eslint-disable-next-line
-    return getPathCoords({ ...relation, coordinates }, { ...start ,isUpsell});
+    return getPathCoords({ ...relation, coordinates }, { ...start, isUpsell });
   });
 
   const markersIds = relations.map(({ target }) => target);

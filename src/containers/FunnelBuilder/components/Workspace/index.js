@@ -6,15 +6,17 @@ import ids from 'shortid';
 import { notification } from 'libs';
 
 import {
+  Node,
   NodeSettingModal,
-  RelationsWorkSpace
+  RelationsWorkSpace,
+  ShadowBackground
 } from './components';
 
 import './style.css';
 
-const { FunnelNode, FlexBox } = common;
+const { FlexBox } = common;
 
-const FunnelWorkSpace = ({
+const WorkSpace = ({
   category = 'checkout',
   onChange,
   funnel: {
@@ -23,6 +25,7 @@ const FunnelWorkSpace = ({
   },
   productsNodeDetails,
   showFlashMessage,
+  history,
   ...props
 }) => {
   const [connecting, setConnecting] = useState(false);
@@ -40,7 +43,7 @@ const FunnelWorkSpace = ({
 
   const onDrop = (event) => {
     event.preventDefault();
-    const data = event.dataTransfer.getData('dropedElement');
+    const data = event.dataTransfer.getData('droppedElement');
     const omo = event.dataTransfer.getData('shift');
     let node = {};
 
@@ -94,7 +97,6 @@ const FunnelWorkSpace = ({
 
   const onConnectNode = (currentId, type) => {
     setConnecting({ currentId, type });
-
   };
 
 
@@ -166,6 +168,10 @@ const FunnelWorkSpace = ({
   const onNodeSetting = (id) => {
     setShowNodeSettingModal(id);
   };
+  const onToggleNodeSettings = (id) => {
+    const status = showNodeSettingModal !== id ? id : undefined;
+    setShowNodeSettingModal(status);
+  };
 
   const onNodeSettingChange = (id, productId) => {
     const updatedList = nodes.map((node) => {
@@ -178,6 +184,22 @@ const FunnelWorkSpace = ({
       value: updatedList
     });
   };
+
+
+  const onProductEdit = (productId) => {
+    if (!productId) return;
+    history.push(`${funnelUrl}/products/${productId}`);
+  };
+
+  const nodeProps = {
+    highlighted: showNodeSettingModal,
+    toggleOptions: onToggleNodeSettings,
+    onEdit: onProductEdit,
+    onConnectNode,
+    activeNode: showNodeSettingModal,
+    onNodeDelete
+  };
+
 
   return (
     <FlexBox className='relative-element' flex>
@@ -192,29 +214,30 @@ const FunnelWorkSpace = ({
         role='presentation'
       >
         {nodes.map((node) => (
-          <FunnelNode
-            className='fixable-product-node'
+          <Node
             key={node.elementId}
-            id={node.elementId}
-            onShowNodeOptions={onShowNodeOptions}
-            activeNodeOptions={showNodeOptions}
+            // id={node.elementId}
+            // onShowNodeOptions={onShowNodeOptions}
+            // activeNodeOptions={showNodeOptions}
             onConnect={onConnectNode}
             connectingMode={connecting}
-            onNodeSetting={onNodeSetting}
-            onNodeDelete={onNodeDelete}
             onConnected={onNodeConnected}
-            activeSetting={showNodeSettingModal}
-            product={productsNodeDetails[node.productId]}
+            onDelete={onNodeDelete}
+            // onNodeSetting={onNodeSetting}
+            // activeSetting={showNodeSettingModal}
             {...node}
+            {...nodeProps}
+            product={productsNodeDetails[node.productId]}
           />
         ))}
+        <ShadowBackground show={showNodeSettingModal} />
         <NodeSettingModal
           show={showNodeSettingModal}
           nodes={nodes}
           onNodeSettingChange={onNodeSettingChange}
           onClose={() => onNodeSetting()}
           funnelUrl={funnelUrl}
-          history={props.history}
+          history={history}
         />
 
       </div>
@@ -245,4 +268,4 @@ function getElementPosition (event, originalMouseOffset, parentRef) {
 }
 
 
-export default connect(null, flashMessages)(FunnelWorkSpace);
+export default connect(null, flashMessages)(WorkSpace);

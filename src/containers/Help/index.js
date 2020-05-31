@@ -1,9 +1,11 @@
 import React from 'react';
 import common from 'components/common';
 import { Button, Card } from 'antd';
+import TutorialsSVG from 'assets/images/Problem-solving-rafiki.svg';
+import HelpSVG from 'assets/images/Problem-solving-pana.svg';
+import BugsAndFeedbackSVG from 'assets/images/Work-chat-rafiki.svg';
 
 import './style.css';
-
 
 const {
   MainTitle,
@@ -12,9 +14,9 @@ const {
   PageContent
 } = common;
 
-const HelpItem = ({ title, description, footer }) => (
+const HelpItem = ({ title, description, footer, image }) => (
   <Card className='help-item m-2' title={<a>{title}</a>} bodyStyle={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <div id='help-item-image' className='mb-1' />
+    <div id='help-item-image' className='mb-1'><img src={image} alt='informative text'/></div>
     <div className='help-item-title mb-1'>{title}</div>
     <div className='help-item-desc mb-3'>{description}</div>
     {footer}
@@ -32,22 +34,27 @@ export default () => {
           <div className='d-flex justify-space-between mb-4'>
             <HelpItem
               title='Tutorials & Use Cases'
-              description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
               footer={(
                 <Button type='primary'>
                   Tutorials & Use Cases
                 </Button>
               )}
+              image={TutorialsSVG}
             />
             <HelpItem
               title='Help Center'
-              description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+              image={HelpSVG}
               footer={(
                 <div className='d-flex'>
-                  <Button type='primary' className='mr-1'>
+                  <Button type='primary' className='mr-1' onClick={() => window.open('https://help.leadcart.io', '_blank')}>
                     Help Center
                   </Button>
-                  <Button type='primary'>
+                  <Button type='primary' onClick={() => {
+                    const { Intercom } = window;
+                    if (!Intercom) return;
+                    Intercom('showNewMessage');
+                  }}
+                  >
                     Chat Support
                   </Button>
                 </div>
@@ -55,7 +62,7 @@ export default () => {
             />
             <HelpItem
               title='Bugs & Feedback'
-              description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+              image={BugsAndFeedbackSVG}
               footer={(
                 <Button type='primary'>
                   Report Bugs & Feedback

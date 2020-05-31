@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import productSample from 'data/product.json';
 import * as productActions from 'actions/product';
 import { connect } from 'react-redux';
 import common from 'components/common';
-import { includesIgnoreCase, notification } from 'libs';
+import { includesIgnoreCase, mapListToObject, notification } from 'libs';
 import './style.css';
-
-const {
-  FlexBox,
-  FunnelTemplateNode,
-  Tabs,
-  Tab,
-  InputRow,
-  Button
-} = common;
-const { TextField } = InputRow;
+import { Product } from './components';
 
 
 const getMatchedProducts = (products, nodes, activeNodeId) => {
@@ -30,22 +21,49 @@ const getMatchedProducts = (products, nodes, activeNodeId) => {
     .map((p) => (p._id === activeNode.productId ? { ...p, active: true } : p));
 };
 
+const getConnectedProducts = (funnels = []) => {
+  const funnelsProducts = funnels.reduce((products, funnel) => {
+    const { products: funnelProducts = [] } = funnel;
+    const updated = [...funnelProducts.map((product) => ({ ...product, funnelId: funnel._id }))];
+    return [...products, ...updated];
+  }, []);
+
+  const neededProperties = { funnelId: 'funnelId', productId: 'productId' };
+  return mapListToObject(funnelsProducts, 'productId', neededProperties);
+};
+const {
+  FlexBox,
+  FunnelTemplateNode,
+  Tabs,
+  Tab,
+  InputRow,
+  Button
+} = common;
+const { TextField } = InputRow;
+
+
 const NodeSettingModal = ({
   show: isVisible,
   products,
   nodes,
   onNodeSettingChange,
+  connectedProductsMap,
   onClose,
   ...props
 }) => {
-  const nodeProducts = getMatchedProducts(products, nodes, isVisible);
+
+  const nodeProducts = useCallback(
+    () =>
+      getMatchedProducts(products, nodes, isVisible),
+    [products, nodes, isVisible]
+  );
 
   const [filtered, setFilteredProducts] = useState(nodeProducts);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setFilteredProducts(getMatchedProducts(products, nodes, isVisible));
-  }, [products, isVisible, nodes]);
+    setFilteredProducts(nodeProducts);
+  }, [nodeProducts]);
 
   const onSearch = ({ target: { value } }) => {
     if (!value) return setFilteredProducts(nodeProducts);
@@ -53,6 +71,7 @@ const NodeSettingModal = ({
     const matched = nodeProducts.filter((product) => includesIgnoreCase(product.name, value));
     setFilteredProducts(matched);
   };
+
   const stopPropagation = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -129,16 +148,16 @@ const NodeSettingModal = ({
             </Button>
             <div className='title-text text-align-center margin-v-5'>Or</div>
           </FlexBox>
-          <FlexBox flex flexStart wrappable>
+          <FlexBox flex flexStart wrappable center='h-center'>
             {
               filtered.map((product) => (
-                <FunnelTemplateNode
-                  className='side-bar-nodes'
+                <Product
+                  // className='side-bar-nodes'
                   key={product._id}
-                  onClick={onSelect(isVisible, product._id)}
+                  isUsed={connectedProductsMap[product._id]}
+                  onSelect={onSelect(isVisible, product._id)}
                   active={product.active}
-                  draggable={false}
-                  onEditExplore={onProductEdit(product._id)}
+                  // onEditExplore={onProductEdit(product._id)}
                   product={{
                     image: product.thumbnail,
                     name: product.name
@@ -168,6 +187,12 @@ NodeSettingModal.defaultProps = {
 };
 
 
-const mapStateToProps = ({ products: { products = [] } = {} }) => ({ products });
+const mapStateToProps = ({
+  funnels,
+  products: { products = [] } = {}
+}) => ({
+  products,
+  connectedProductsMap: getConnectedProducts(funnels)
+});
 
 export default connect(mapStateToProps, productActions)(NodeSettingModal);

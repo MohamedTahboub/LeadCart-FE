@@ -10,6 +10,7 @@
     box-shadow: -1px 5px 10px 5px rgba(0, 0, 0, 0.01);
     transform:translateX(300px);
     transition: transform .4s ease-in-out;
+    z-index: 101;
 }
 .side-bar-nodes{
     height: 150px;

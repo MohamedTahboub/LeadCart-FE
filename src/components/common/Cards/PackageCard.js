@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import Feature from '../Custom/Feature';
 
 
@@ -66,9 +65,18 @@ const PackageCard = ({
 
     </div>
     <div className='package-card-features'>
-      {features.map((f, id) => (
-        <Feature key={f + id} plus={plus && id === 0}>{f}</Feature>
-      ))}
+      {features.map((f, id) => {
+        const { key, list } = f;
+        if (key && list) {
+          return (<Feature key={key + id} plus={plus && id === 0}>
+            {key}
+            {list.map((f) => <Feature key={f}>{f}</Feature>)}
+          </Feature>);
+        }
+        return (
+          <Feature key={f + id} plus={plus && id === 0}>{f}</Feature>
+        );
+      })}
     </div>
     <div className='package-card-footer'>
       <Price
@@ -82,8 +90,6 @@ const PackageCard = ({
   </div>
 );
 
-PackageCard.propTypes = {
-
-};
+PackageCard.propTypes = {};
 
 export default PackageCard;

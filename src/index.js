@@ -4,7 +4,7 @@ import moment from 'moment';
 import ReactNotification from 'react-notifications-component';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
+import ToolTip from 'react-tooltip';
 import store from 'store';
 import 'config';
 
@@ -46,7 +46,7 @@ import Transactions from './containers/Transactions';
 import CustomersLab from './containers/CustomersLab';
 import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
-import SubAccounts from './containers/SubAccounts';
+// import SubAccounts from './containers/SubAccounts';
 import Help from './containers/Help';
 import PersonalSettings from './containers/PersonalSettings';
 import Account from './containers/Account';
@@ -124,6 +124,7 @@ ReactDOM.render(
         </BrowserRouter>
         <ReactNotification />
       </ErrorBoundary>
+      <ToolTip />
     </React.Fragment>
   </Provider>,
   document.getElementById('root')
