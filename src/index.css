@@ -305,8 +305,9 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 }
 
 .compress-modal {
-  overflow-y: scroll;
-  max-height: 750px;
+  /* overflow-y: scroll; */
+  /* max-height: 750px; */
+  height: 90vh;
 }
 
 .ant-anchor-link-title:hover {
