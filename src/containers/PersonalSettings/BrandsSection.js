@@ -4,13 +4,15 @@ import { Avatar, Table } from 'antd';
 import { Search } from 'components/Inputs';
 import { Button } from 'components/Buttons';
 import { CreateModal } from 'containers/Account/components/Brands/components';
-import Section from './Section';
 import config from '../../config';
 import { notification } from 'libs';
 import * as brandsActions from 'actions/brands';
 import { PlusOutlined } from '@ant-design/icons';
 
 import './style.css';
+// I got an error when I imported the section component, also, I replaced the section component with section elements
+// import Section from 'Section';
+
 
 const BrandsSection = ({ brands, dataLoading, createBrand }) => {
   const [dataSource, setDataSource] = useState(brands);
@@ -23,7 +25,7 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
       key: 'brandAvatar',
       width: 52,
       render: (text, record) => {
-        if (record.logo) return <Avatar src={record.logo}/>;
+        if (record.logo) return <Avatar src={record.logo} />;
         else return <Avatar>{record.name[0]}</Avatar>;
       }
     }, {
@@ -71,9 +73,9 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
   }, [brands, filter]);
 
   return (
-    <Section title='Brands'>
+    <section title='Brands'>
       <div className='d-flex justify-space-between mb-2'>
-        <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch}/>
+        <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
         <Button type='primary' onClick={() => setCreateModalOpen(true)}><PlusOutlined /> New brand</Button>
       </div>
       <Table
@@ -88,7 +90,7 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
           <CreateModal onClose={toggleCreateModalOpen} onCreate={onCreateBrand} />
         )
       }
-    </Section>
+    </section>
   );
 };
 

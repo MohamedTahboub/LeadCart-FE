@@ -1,11 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
-import Section from './Section';
 import { Input } from 'components/Inputs';
 import { Button } from 'components/Buttons';
 import { Table } from 'components/Tables';
 
 import './style.css';
+
+// I got an error when I imported the section component, also, I replaced the section component with section elements
+// import Section from 'Section';
 
 const NumberHighlighter = ({ title, number, className }) => (
   <div className={classNames('number-highlighter', className)}>
@@ -22,25 +24,25 @@ const columns = [
 ];
 
 const RedemptionSettings = ({ credits, redemptionCodes }) => (
-  <Section title='Redemption'>
+  <section title='Redemption'>
     <div className='d-flex mb-3'>
-      <NumberHighlighter title='Credits' number={credits} className='mr-2'/>
-      <NumberHighlighter title='Stacked codes' number={redemptionCodes.length}/>
+      <NumberHighlighter title='Credits' number={credits} className='mr-2' />
+      <NumberHighlighter title='Stacked codes' number={redemptionCodes.length} />
     </div>
     <div className='mb-3'>
       <div className='mb-2'><strong>Redeem codes:</strong></div>
       <div className='d-flex ml-2'>
-        <Input placeholder='E.g. XpI3_13-3' className='mr-2'/>
+        <Input placeholder='E.g. XpI3_13-3' className='mr-2' />
         <Button type='dashed' primary>Redeem</Button>
       </div>
     </div>
     <div>
       <div className='mb-2'><strong>Redeemed codes:</strong></div>
       <div>
-        <Table dataSource={redemptionCodes} columns={columns} pagination={false}/>
+        <Table dataSource={redemptionCodes} columns={columns} pagination={false} />
       </div>
     </div>
-  </Section>
+  </section>
 );
 
 export default RedemptionSettings;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Table } from 'antd';
 import Card from 'components/Card';
-import Section from './Section';
 import { CheckCircleTwoTone, DeleteOutlined } from '@ant-design/icons';
 import { GetCardType } from 'helpers/common';
 import CreditCardVisa from 'assets/images/icons/credit-card-visa.png';
@@ -14,6 +13,10 @@ import CreditCardDinersClub from 'assets/images/icons/credit-card-diners-club-in
 import CreditCardDefault from 'assets/images/icons/credit-card-default.png';
 
 import './style.css';
+
+// I got an error when I imported the section component, also, I replaced the section component with section elements
+// import Section from 'Section';
+
 
 const columns = [{
   title: 'Item Type',
@@ -50,14 +53,14 @@ const _dataSource = [
 
 const CreditCardRenderer = ({ type, ...props }) => {
   switch (type) {
-  case 'visa': return <img alt='' src={CreditCardVisa} {...props} />;
-  case 'amex': return <img alt='' src={CreditCardAMEX} {...props} />;
-  case 'jcb': return <img alt='' src={CreditCardJCB} {...props} />;
-  case 'maestro': return <img alt='' src={CreditCardMaestro} {...props} />;
-  case 'discover': return <img alt='' src={CreditCardDiscover} {...props} />;
-  case 'mastercard': return <img alt='' src={CreditCardMasterCard} {...props} />;
-  case 'diners-club-international': return <img alt='' src={CreditCardDinersClub} {...props} />;
-  default: return <img alt='' src={CreditCardDefault} {...props} />;
+    case 'visa': return <img alt='' src={CreditCardVisa} {...props} />;
+    case 'amex': return <img alt='' src={CreditCardAMEX} {...props} />;
+    case 'jcb': return <img alt='' src={CreditCardJCB} {...props} />;
+    case 'maestro': return <img alt='' src={CreditCardMaestro} {...props} />;
+    case 'discover': return <img alt='' src={CreditCardDiscover} {...props} />;
+    case 'mastercard': return <img alt='' src={CreditCardMasterCard} {...props} />;
+    case 'diners-club-international': return <img alt='' src={CreditCardDinersClub} {...props} />;
+    default: return <img alt='' src={CreditCardDefault} {...props} />;
   }
 };
 
@@ -66,7 +69,7 @@ const PaymentSettings = ({ creditCards, dataSource = _dataSource }) => {
 
   return (
     <React.Fragment>
-      <Section title='Payment Methods'>
+      <section title='Payment Methods'>
         <div className='d-col justify-start'>
           <div className='d-flex mb-2 credit-cards-wrapper'>
             {
@@ -74,11 +77,11 @@ const PaymentSettings = ({ creditCards, dataSource = _dataSource }) => {
                 <Card className='mr-3 mb-2 credit-card-card'>
                   <div className='d-col mb-2'>
                     <div className='d-flex justify-space-between align-center mb-2'>
-                      <CreditCardRenderer type={GetCardType(cardNumber)} style={{ height: 42 }}/>
+                      <CreditCardRenderer type={GetCardType(cardNumber)} style={{ height: 42 }} />
                       {
                         isDefault ?
                           <CheckCircleTwoTone twoToneColor='#52c41a' style={{ fontSize: 20 }} /> :
-                          <DeleteOutlined className='btn-soft delete-credit-card' style={{ fontSize: 18 }}/>
+                          <DeleteOutlined className='btn-soft delete-credit-card' style={{ fontSize: 18 }} />
 
                       }
                     </div>
@@ -94,10 +97,10 @@ const PaymentSettings = ({ creditCards, dataSource = _dataSource }) => {
             <Button block type='primary'>Add payment method</Button>
           </div>
         </div>
-      </Section>
-      <Section title='Invoices'>
+      </section>
+      <section title='Invoices'>
         <Table pagination={false} dataSource={dataSource} columns={columns} />
-      </Section>
+      </section>
     </React.Fragment>
   );
 };
