@@ -1,13 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { ReactComponent as GrabMeIcon } from 'assets/images/icons/grapme.svg';
+import clx from 'classnames';
 
-
-const {
-  Title,
-  FlexBox
-} = common;
+const { FlexBox } = common;
 
 const GrabbableBlock = ({
   demoImage,
@@ -16,10 +13,10 @@ const GrabbableBlock = ({
   description,
   onDragStart,
   data,
+  className,
   ...props
 }) => {
   const elementRef = useRef(null);
-
 
   const onDrag = (event) => {
     onDragStart({
@@ -29,10 +26,13 @@ const GrabbableBlock = ({
       demoImage
     });
   };
+
+  const classNames = clx('my-3', disabled ? 'item-disabled' : 'item-grabbable', className);
+
   return (
     <FlexBox
       center='v-center'
-      className={`margin-v-10 ${disabled ? 'item-disabled' : 'item-grabbable'}`}
+      className={classNames}
       onDragStart={onDrag}
       draggable
       {...props}
@@ -53,7 +53,13 @@ const GrabbableBlock = ({
 };
 
 GrabbableBlock.propTypes = {
-
+  demoImage: PropTypes.string,
+  title: PropTypes.string,
+  disabled: PropTypes.bool,
+  description: PropTypes.string,
+  onDragStart: PropTypes.func,
+  data: PropTypes.objectOf(PropTypes.object),
+  className: PropTypes.string
 };
 
 export default GrabbableBlock;

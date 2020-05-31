@@ -44,8 +44,6 @@ const ProductBuilder = ({
   const actions = connectActions(productActions, { state, dispatch });
 
 
-  // const toggleLoading = () => setLoading((loading) => !loading);
-
   useEffect(() => {
     const { params: { productId, funnelId } = {} } = props.match;
 
@@ -65,12 +63,6 @@ const ProductBuilder = ({
     }
     const isFunnelExist = funnelsMap[funnelId];
     if (isFunnelExist && productId === 'new') return setLoading(false);
-
-
-    // return props.createNewProduct({
-    // funnelId,
-    // product: sampleSelectedProduct
-    // });
 
 
     if (isFunnelExist) {

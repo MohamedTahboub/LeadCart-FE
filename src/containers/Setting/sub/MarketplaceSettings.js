@@ -10,7 +10,7 @@ import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 
-const { InputRow, MainBlock } = common;
+const { InputRow, MainBlock, FlexBox } = common;
 
 const MarketplaceSettings = ({
   marketPlace,
@@ -69,8 +69,8 @@ const MarketplaceSettings = ({
   getSave({ onSave });
 
   return (
-    <Fragment>
-      <MainBlock title='Marketplace Page Settings'>
+    <FlexBox column className='marketplace-settings-bg'>
+      <MainBlock title='Marketplace Page Settings' containerClasses='transparent-bg'>
         <InputRow>
           <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>
           <InputRow.TextField
@@ -111,7 +111,7 @@ const MarketplaceSettings = ({
         </InputRow>
       </MainBlock>
       <DomainsSettings />
-    </Fragment>
+    </FlexBox>
   );
 };
 

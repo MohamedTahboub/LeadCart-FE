@@ -22,20 +22,12 @@
 }
 
 
-/* Small box container */
-
-/* .small-forms-container{
-    flex-wrap: wrap;
-    width: calc(100% - 300px);
-} */
 .account-form-input {
     justify-content: space-between;
 }
 
 .small-form-container {
     flex: 1;
-    /* max-width: 550px;
-    min-width: 500px; */
 }
 
 .small-form-container:nth-child(1) {
@@ -45,7 +37,6 @@
 
 .small-form-controlls {
     padding: 0 55px 10px 0;
-
     display: flex;
     justify-content: flex-end;
     background: white;
@@ -203,3 +194,15 @@ div.ever-lesson-logo {
     font-size: 13px;
     margin: 10px 0;
 }
+@media only screen and (min-width: 1150px) {
+    .emailing-setting-bg,
+    .marketplace-settings-bg{
+        background-image: url(../../../assets/images/illustration/marketplace-settings.svg);
+        background-size: 350px;
+        background-position: right center;
+        background-repeat: no-repeat;
+    }
+    .emailing-setting-bg{
+        background-image: url(../../../assets/images/illustration/emailing-settings.svg);
+    }
+  }

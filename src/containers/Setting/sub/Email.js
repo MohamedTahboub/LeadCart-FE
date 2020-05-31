@@ -108,9 +108,9 @@ const Email = ({
   const { testing, emailTestType } = testType;
   return (
     <Fragment>
-      <Tabs active='settings'>
+      <Tabs active='settings' className='emailing-setting-bg'>
         <Tab id='settings' title='Settings'>
-          <MainBlock title='Brand Emails'>
+          <MainBlock title='Brand Emails' containerClasses='transparent-bg'>
             <InputRow>
               <InputRow.Label >
                 Brand Email Logo:
@@ -177,7 +177,7 @@ const Email = ({
             </InputRow>
             )}
           </MainBlock>
-          <MainBlock title='System Emails'>
+          <MainBlock title='System Emails' containerClasses='transparent-bg'>
             <InputRow>
               <InputRow.Label>New Order</InputRow.Label>
               <InputRow.Note

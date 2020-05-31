@@ -662,7 +662,7 @@ input:checked~.slider-input:before {
 }
 
 .hide-element {
-    opacity: 0;
+    display: none !important;
 }
 
 .input-left-label {

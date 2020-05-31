@@ -31,7 +31,7 @@ export const MainBlock = ({
     </div>
     {children
         && (
-          <div className={`box-container ${containerClasses && containerClasses.join(' ')}`}>
+          <div className={classNames('box-container', containerClasses)}>
             {children}
           </div>
         )}

@@ -77,6 +77,7 @@ const SideBar = ({
             draggable={false}
             onDragStart={onDrag}
             data={funnelNodes.onePageFunnel}
+            className='hide-element'
           />
           <GrabbableBlock
             demoImage={checkoutPageImage}

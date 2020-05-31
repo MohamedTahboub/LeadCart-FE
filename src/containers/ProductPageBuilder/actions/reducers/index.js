@@ -9,6 +9,7 @@ const initialState = {
 };
 
 export default (state = initialState, { type, payload }) => {
+  console.log(type, payload);
   switch (type) {
   case types.UPDATE_STATE:
     return {
@@ -59,10 +60,9 @@ export default (state = initialState, { type, payload }) => {
       product: {
         ...state.product,
         sections: state.product.sections.map((sec) => {
-          if (sec.id === payload.id) return payload;
+          if (sec.id === (payload && payload.id)) return payload;
           return sec;
         })
-
       }
     };
   case types.UPDATE_PRODUCT_SECTION:

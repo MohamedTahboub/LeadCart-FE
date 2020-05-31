@@ -59,7 +59,7 @@ const GuaranteeWidget = (props) => {
     // actions: sectionActions = {}
   } = sectionSetting;
 
-  const onChange = ({ field }) => {
+  const onChange = (field) => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       field

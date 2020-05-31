@@ -16,7 +16,8 @@ const sectionThatHaveSettings = [
   'pageSetting',
   'staticSectionSetting'
 ];
-export const updateState = ({ state = {}, dispatch }) => (subState) => {
+
+export const updateState = ({ dispatch }) => (subState) => {
   dispatch({
     type: types.UPDATE_STATE,
     payload: subState
@@ -42,13 +43,13 @@ export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
   });
 };
 
-export const onSectionSetting = ({ state = {}, dispatch }) => (section) => {
+export const onSectionSetting = ({ dispatch }) => (section) => {
   dispatch({
     type: types.SECTION_SETTING,
     payload: section
   });
 };
-export const onSectionDelete = ({ state = {}, dispatch }) => (sectionId) => {
+export const onSectionDelete = ({ dispatch }) => (sectionId) => {
   dispatch({
     type: types.DELETE_PRODUCT_SECTION,
     payload: sectionId
@@ -105,7 +106,7 @@ export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) 
 };
 
 
-export const updateDisplayMode = ({ state = {}, dispatch }) => (mode) => {
+export const updateDisplayMode = ({ dispatch }) => (mode) => {
   dispatch({
     type: types.UPDATE_DISPLAY_MODE,
     payload: mode
@@ -113,9 +114,8 @@ export const updateDisplayMode = ({ state = {}, dispatch }) => (mode) => {
 };
 
 
-export const onSectionSettingChange = ({ state = {}, dispatch }) => ({ section, field: { name, value } = {} }) => {
+export const onSectionSettingChange = ({ dispatch }) => ({ section, field: { name, value } = {} }) => {
   const sectionUpdated = immutable.set(section, name, value);
-
   dispatch({
     type: types.UPDATE_SECTION_SETTINGS,
     payload: sectionUpdated
@@ -123,7 +123,7 @@ export const onSectionSettingChange = ({ state = {}, dispatch }) => ({ section, 
 };
 
 
-export const updateProductSection = ({ state = {}, dispatch }) => (section) => {
+export const updateProductSection = ({ dispatch }) => (section) => {
   dispatch({
     type: types.UPDATE_PRODUCT_SECTION,
     payload: section

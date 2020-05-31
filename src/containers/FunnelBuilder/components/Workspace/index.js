@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import common from 'components/common';
 import * as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
@@ -20,16 +20,17 @@ const WorkSpace = ({
   category = 'checkout',
   onChange,
   funnel: {
+    _id: funnelId,
     products: nodes = [],
     url: funnelUrl
   },
   productsNodeDetails,
-  showFlashMessage,
-  history,
-  ...props
+  // showFlashMessage,
+  history
+  // ...props
 }) => {
   const [connecting, setConnecting] = useState(false);
-  const [showNodeOptions, setShowNodeOptions] = useState(false);
+  // const [showNodeOptions, setShowNodeOptions] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false);
 
 
@@ -144,11 +145,7 @@ const WorkSpace = ({
 
   const cleanUpWorkSpace = () => {
     setConnecting(false);
-    setShowNodeOptions(false);
-  };
-
-  const onShowNodeOptions = (id) => {
-    setShowNodeOptions(id);
+    // setShowNodeOptions(false);
   };
 
   const onNodeDelete = (elementId) => {
@@ -210,21 +207,16 @@ const WorkSpace = ({
         ref={elementRef}
         onClick={cleanUpWorkSpace}
         id='funnel-workspace'
-        className={`funnel-work-space ${connecting ? 'node-connecting' : ''} ${connecting ? 'connecting-mode' : ''}`}
+        className={`funnel-work-space ${connecting ? 'connecting-mode' : ''}`}
         role='presentation'
       >
         {nodes.map((node) => (
           <Node
             key={node.elementId}
-            // id={node.elementId}
-            // onShowNodeOptions={onShowNodeOptions}
-            // activeNodeOptions={showNodeOptions}
             onConnect={onConnectNode}
             connectingMode={connecting}
             onConnected={onNodeConnected}
             onDelete={onNodeDelete}
-            // onNodeSetting={onNodeSetting}
-            // activeSetting={showNodeSettingModal}
             {...node}
             {...nodeProps}
             product={productsNodeDetails[node.productId]}
@@ -237,6 +229,7 @@ const WorkSpace = ({
           onNodeSettingChange={onNodeSettingChange}
           onClose={() => onNodeSetting()}
           funnelUrl={funnelUrl}
+          funnelId={funnelId}
           history={history}
         />
 

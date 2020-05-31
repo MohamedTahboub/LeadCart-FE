@@ -33,7 +33,7 @@ const FigureSection = (props) => {
 
   const { styles = {} } = sectionSetting;
 
-  const onThemeChange = ({ theme }) => (src) => () => {
+  const onThemeChange = (theme) => () => () => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: {
@@ -54,7 +54,7 @@ const FigureSection = (props) => {
                 className='figure-theme-demo'
                 value={theme.src}
                 key={theme.theme}
-                onClick={onThemeChange(theme)}
+                onClick={onThemeChange(theme.theme)}
                 active={styles.theme === theme.theme}
               />
             ))}
