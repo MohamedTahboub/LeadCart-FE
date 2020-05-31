@@ -31,9 +31,10 @@ const getConnectedProducts = (funnels = []) => {
   const neededProperties = { funnelId: 'funnelId', productId: 'productId' };
   return mapListToObject(funnelsProducts, 'productId', neededProperties);
 };
+
+
 const {
   FlexBox,
-  FunnelTemplateNode,
   Tabs,
   Tab,
   InputRow,
@@ -46,6 +47,7 @@ const NodeSettingModal = ({
   show: isVisible,
   products,
   nodes,
+  funnelId,
   onNodeSettingChange,
   connectedProductsMap,
   onClose,
@@ -81,10 +83,6 @@ const NodeSettingModal = ({
     onNodeSettingChange(nodeId, productId);
   };
 
-  const onProductEdit = (productId = 'new') => () => {
-    const { history, funnelUrl } = props;
-    history.push(`${funnelUrl}/products/${productId}`);
-  };
 
   const onNewProduct = (nodeId) => () => {
     const activeNode = nodes.find((node) => node.elementId === nodeId);
@@ -113,6 +111,12 @@ const NodeSettingModal = ({
     );
   };
 
+  const isProductUsedOnOtherFunnel = (productId) => {
+    const product = connectedProductsMap[productId];
+    const inTheSameFunnel = product ? product.funnelId === funnelId : false;
+    return !inTheSameFunnel;
+  };
+
   return (
     <FlexBox
       column
@@ -138,7 +142,6 @@ const NodeSettingModal = ({
 
           <FlexBox column flex center='h-center' className='margin-v-10 '>
             <Button
-              // className='side-bar-nodes'
               onClick={onNewProduct(isVisible)}
               className='light-btn'
               disabled={loading}
@@ -152,12 +155,10 @@ const NodeSettingModal = ({
             {
               filtered.map((product) => (
                 <Product
-                  // className='side-bar-nodes'
                   key={product._id}
-                  isUsed={connectedProductsMap[product._id]}
+                  isUsed={isProductUsedOnOtherFunnel(product._id)}
                   onSelect={onSelect(isVisible, product._id)}
                   active={product.active}
-                  // onEditExplore={onProductEdit(product._id)}
                   product={{
                     image: product.thumbnail,
                     name: product.name

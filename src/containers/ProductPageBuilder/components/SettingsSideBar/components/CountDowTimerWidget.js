@@ -44,7 +44,6 @@ const CountDowTimerWidget = (props) => {
   const {
     styles = {},
     content = {}
-    // actions: sectionActions = {}
   } = sectionSetting;
 
   const { value: timerValue } = content;
@@ -55,6 +54,8 @@ const CountDowTimerWidget = (props) => {
       field
     });
   };
+
+  const onFiledChange = ({ target: { name, value } }) => onChange({ name, value });
 
   const onTimerValueChange = ({ target: { value, name } }) => {
     onChange({
@@ -105,7 +106,7 @@ const CountDowTimerWidget = (props) => {
               <MiniTwitterPicker
                 name='styles.clockColor'
                 value={styles.clockColor}
-                onChange={onChange}
+                onChange={onFiledChange}
               />
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
@@ -113,7 +114,7 @@ const CountDowTimerWidget = (props) => {
               <MiniTwitterPicker
                 name='styles.backgroundColor'
                 value={styles.backgroundColor}
-                onChange={onChange}
+                onChange={onFiledChange}
               />
             </FlexBox>
           </FlexBox>
@@ -125,7 +126,7 @@ const CountDowTimerWidget = (props) => {
               <SelectOption
                 value={content.valueType}
                 name='content.valueType'
-                onChange={onChange}
+                onChange={onFiledChange}
                 className='bump-offer-style-dropdown'
                 options={[
                   { label: 'Exact Date/Time', value: 'fixedTime' },

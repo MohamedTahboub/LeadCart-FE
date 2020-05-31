@@ -76,15 +76,13 @@ const FunnelBuilder = ({
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
 
   useEffect(() => {
-    // this is fucked up looking for funnel update,
-    // needs to be sync and independent on funnel updates
     const funnel = getFunnelByUrl(funnelUrl);
 
     if (!funnel) return;
 
+    if (funnel._id === fields._id) return;
     if (!isObjectsEquivalent(funnel, fields))
       setFields(funnel);
-
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);
