@@ -428,6 +428,21 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .transparent-bg { background: transparent; }
 .btn-soft { cursor: pointer; }
 
+.overflow-x-hidden { overflow-x: hidden; }
+.overflow-x-scroll { overflow-x: scroll; }
+.overflow-y-hidden { overflow-y: hidden; }
+.overflow-y-scroll { overflow-y: scroll; }
+
+.d-none { display: none; }
+
+@media (max-width: 992px) {
+  .d-md-none {
+    display: none;
+  }
+}
+
+.fluid { width: 100%; }
+
 /* Declarations */
 .divider {
   border: 1px solid #c5c5c5;

@@ -10,8 +10,8 @@ export default class Table extends Component {
     </span>
   )
 
-  static Body = ({ children }) => (
-    <div className='tabel-body'>{children}</div>
+  static Body = ({ children, className }) => (
+    <div className={clx('tabel-body', className)}>{children}</div>
   )
 
   static HeadCell = ({

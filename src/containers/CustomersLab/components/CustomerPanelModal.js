@@ -5,11 +5,13 @@ import Order from './Order';
 import { DetailRow } from './common';
 import { RoundTow } from 'libs';
 import './style.css';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import clx from 'classnames';
 
 const {
   MainTitle,
-  Timeline
+  Timeline,
+  Button
 } = common;
 
 const CustomerPanelModal = ({
@@ -29,50 +31,51 @@ const CustomerPanelModal = ({
     orders: ordersIds = []
   } = customer;
 
-  const orders = ordersItems.filter(order => ordersIds.includes(order._id));
+  const orders = ordersItems.filter((order) => ordersIds.includes(order._id));
 
   return (
-    <SlideModal
+    <div
       isVisible={isVisible}
       onClose={onClose}
-      contentClassName='customer-modal-content'
-      header={(
-        <MainTitle className='upsell-modal-head'>
-          Customer Orders History
-        </MainTitle>
-      )}
+      className={clx('customer-modal-container', { visible: isVisible })}
     >
-      <DetailRow
-        label='Customer Name'
-        value={`${firstName} ${lastName}`}
-      />
-      <DetailRow
-        label='Customer Email'
-        value={email}
-      />
-      <DetailRow
-        label='Phone Number'
-        value={phoneNumber}
-      />
-      <DetailRow
-        label='life time charges'
-        value={`${RoundTow(lifeTimeCharges)} $`}
-      />
-      <div className='customer-history-title'>Orders History:</div>
-      <div className='customer-orders-history'>
-        <Timeline mode='alternate'>
-          {orders.map((order) => (
-            <Timeline.Item key={order._id}>
-              <Order {...order} onRefund={onOrderRefund} />
-            </Timeline.Item>
-          ))}
-        </Timeline>
+      <div className='customer-modal-content'>
+        <MainTitle className='upsell-modal-head' mainClassName='fluid'>
+          <span className='d-flex justify-content-between'>
+            <span>Customer Orders History</span>
+            <Button onClick={onClose} className='link-btn'>X</Button>
+          </span>
+        </MainTitle>
+        <DetailRow
+          label='Customer Name'
+          value={`${firstName} ${lastName}`}
+        />
+        <DetailRow
+          label='Customer Email'
+          value={email}
+        />
+        <DetailRow
+          label='Phone Number'
+          value={phoneNumber}
+        />
+        <DetailRow
+          label='life time charges'
+          value={`$${RoundTow(lifeTimeCharges)}`}
+        />
+        <div className='customer-history-title'>Orders History:</div>
+        <div className='customer-orders-history'>
+          <Timeline>
+            {orders.map((order) => console.log('order', order) || (
+              <Timeline.Item key={order._id}>
+                <Order {...order} onRefund={onOrderRefund} />
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        </div>
       </div>
-    </SlideModal>
+    </div>
   );
 };
-CustomerPanelModal.defaultProps = {
-  orders: []
-}
-const mapStateToProps = ({ orders }) => ({ ordersItems: orders })
+CustomerPanelModal.defaultProps = { orders: [] };
+const mapStateToProps = ({ orders }) => ({ ordersItems: orders });
 export default connect(mapStateToProps)(CustomerPanelModal);

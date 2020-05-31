@@ -25,7 +25,7 @@
 .btn.circle{
   padding: 10px;
   border-radius: 50%;
-  
+
 }
 
 .btn.danger-bg:hover {
@@ -39,7 +39,7 @@
   cursor: pointer;
   background: rgba(0,0,0,0.3);
   color:white;
-  padding: 5px; 
+  padding: 5px;
   transition: all .3 ease-in-out;
   z-index: 1;
 }
@@ -137,5 +137,11 @@
 .small-btn.refresh-btn i{
   font-size: 10px;
 }
-
-
+.link-btn {
+  background: transparent;
+  color: #1890FF;
+}
+.link-btn:hover {
+  box-shadow: 0 0 3px #1890FF;
+  background: transparent;
+}
