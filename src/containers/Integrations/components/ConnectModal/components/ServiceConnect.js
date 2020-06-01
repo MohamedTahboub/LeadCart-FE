@@ -137,7 +137,7 @@ const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) =>
   return (
     <LayoutSwitch active={authType}>
       <ConnectOAuth id='OAuth' {...props} />
-      <ConnectClient id='client_credentials' {...props} {...customProps} />
+      <ConnectClient id='clientCredentials' {...props} {...customProps} />
       <ConnectApiKey id='apiKey' {...props} {...customProps} />
     </LayoutSwitch>
   );
