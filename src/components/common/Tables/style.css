@@ -24,6 +24,7 @@
 }
 .table-head-cell span {
     position: relative;
+    white-space: nowrap;
 }
 
 .table-head-cell span:after {
@@ -46,6 +47,7 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
+    border-radius: 5px;
 }
 
 .table-row {

@@ -1,28 +1,32 @@
 .customer-modal-container {
     margin-right: -20px;
-    margin-left: 15px;
+    margin-left: 25px;
     position: relative;
-    right: -20px;
-    top: 50px;
+    right: 0;
+    top: 69px;
     width: 0;
     min-width: 0;
     height: calc(100vh - 82px);
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, .1);
     overflow: visible;
     transition: all .3s;
 }
 .customer-modal-container.visible {
   min-width: 600px;
+  right: 10px;
   transition: all .3s;
 }
+
+.customer-modal-container .fixed-content {
+  position: fixed;
+  border-radius: 10px;
+  background: #FFF;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, .1);
+}
+
 .customer-modal-content {
   width: 600px;
   padding: 20px;
   height: calc(100vh - 82px);
-  overflow-x: auto;
-  overflow-y: scroll;
 }
 
 .customer-history-title {
@@ -33,9 +37,10 @@
 }
 
 .customer-orders-history {
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
     padding: 20px 35px;
+    height: calc(100% - 220px);
 }
 
 

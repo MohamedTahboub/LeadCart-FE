@@ -58,7 +58,7 @@ const CustomersLab = ({ customers, orderRefund }) => {
         </MainTitle>
       </PageHeader>
       <PageContent className='d-flex overflow-x-hidden overflow-y-scroll py-0'>
-        <Table>
+        <Table className={clx('customer-lab-table', { 'widget-open': showPanel })}>
           <Table.Head>
             <Table.SmallCell />
             <Table.HeadCell>Customer Name</Table.HeadCell>
@@ -71,6 +71,36 @@ const CustomersLab = ({ customers, orderRefund }) => {
           <Table.Body className='customers-table-body'>
             {
               filteredCustomers
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
+                .concat(filteredCustomers)
                 .map((customer, orderInList) => {
                   const {
                     firstName,

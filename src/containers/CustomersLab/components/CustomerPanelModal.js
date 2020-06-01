@@ -39,38 +39,40 @@ const CustomerPanelModal = ({
       onClose={onClose}
       className={clx('customer-modal-container', { visible: isVisible })}
     >
-      <div className='customer-modal-content'>
-        <MainTitle className='upsell-modal-head' mainClassName='fluid'>
-          <span className='d-flex justify-content-between'>
-            <span>Customer Orders History</span>
-            <Button onClick={onClose} className='link-btn'>X</Button>
-          </span>
-        </MainTitle>
-        <DetailRow
-          label='Customer Name'
-          value={`${firstName} ${lastName}`}
-        />
-        <DetailRow
-          label='Customer Email'
-          value={email}
-        />
-        <DetailRow
-          label='Phone Number'
-          value={phoneNumber}
-        />
-        <DetailRow
-          label='life time charges'
-          value={`$${RoundTow(lifeTimeCharges)}`}
-        />
-        <div className='customer-history-title'>Orders History:</div>
-        <div className='customer-orders-history'>
-          <Timeline>
-            {orders.map((order) => console.log('order', order) || (
-              <Timeline.Item key={order._id}>
-                <Order {...order} onRefund={onOrderRefund} />
-              </Timeline.Item>
-            ))}
-          </Timeline>
+      <div className='fixed-content'>
+        <div className='customer-modal-content'>
+          <MainTitle className='upsell-modal-head' mainClassName='fluid'>
+            <span className='d-flex justify-content-between'>
+              <span>Customer Orders History</span>
+              <Button onClick={onClose} className='link-btn'>X</Button>
+            </span>
+          </MainTitle>
+          <DetailRow
+            label='Customer Name'
+            value={`${firstName} ${lastName}`}
+          />
+          <DetailRow
+            label='Customer Email'
+            value={email}
+          />
+          <DetailRow
+            label='Phone Number'
+            value={phoneNumber}
+          />
+          <DetailRow
+            label='life time charges'
+            value={`$${RoundTow(lifeTimeCharges)}`}
+          />
+          <div className='customer-history-title'>Orders History:</div>
+          <div className='customer-orders-history'>
+            <Timeline>
+              {orders.map((order) => console.log('order', order) || (
+                <Timeline.Item key={order._id}>
+                  <Order {...order} onRefund={onOrderRefund} />
+                </Timeline.Item>
+              ))}
+            </Timeline>
+          </div>
         </div>
       </div>
     </div>
