@@ -19,10 +19,10 @@ const {
 
 const sideMenuOptions = [
   { title: 'General' },
-  { title: 'Brands Management' },
-  { title: 'Payment Methods' },
-  { title: 'Code Redemption' },
-  { title: 'Manage Account' }
+  { title: 'Brands Management' }
+  // { title: 'Payment Methods' },
+  // { title: 'Code Redemption' },
+  // { title: 'Manage Account' }
 ].map((_) => ({ ..._, key: _.title.toLowerCase().replace(/\s/g, '_') }));
 
 const redemptionCodes = [{ code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
