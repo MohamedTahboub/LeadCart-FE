@@ -185,7 +185,8 @@ const ServiceConnect = ({ data = {}, ...props }) => {
       setOnprogress(false);
       setSupported(true);
     }
-  }, [data, props, service]);
+    //eslint-disable-next-line
+  }, [data]);
 
   const onConnect = ({
     name,
