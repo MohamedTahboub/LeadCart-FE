@@ -12,7 +12,6 @@ export const MainTitle = ({ handle, className, style, children, bottomLine, prop
         {handle.label}
       </span>
     )}
-    {console.log({ mainClassName })}
     <span className={clx('main-title', mainClassName)}>{children}</span>
   </div>
 );

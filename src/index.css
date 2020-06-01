@@ -391,6 +391,11 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .pr-5, .px-5 { padding-right: 3rem !important }
 .h-0 { height: 0 }
 
+/* Not reusable */
+.mt--28px {
+  margin-top: -28px;
+}
+
 /* Layout */
 .center-content {
   display: flex !important;

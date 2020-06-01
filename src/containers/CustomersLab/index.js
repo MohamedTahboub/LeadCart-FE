@@ -49,7 +49,7 @@ const CustomersLab = ({ customers, orderRefund }) => {
 
   return (
     <Page>
-      <PageHeader withRefreshBtn >
+      <PageHeader withRefreshBtn>
         <MainTitle>
           <div className='d-flex align-center justify-content-start'>
           Customers
@@ -57,16 +57,16 @@ const CustomersLab = ({ customers, orderRefund }) => {
           </div>
         </MainTitle>
       </PageHeader>
-      <PageContent className='d-flex overflow-x-hidden overflow-y-scroll py-0'>
+      <PageContent className='d-flex overflow-x-hidden overflow-y-scroll py-0 mt--28px'>
         <Table className={clx('customer-lab-table', { 'widget-open': showPanel })}>
           <Table.Head>
             <Table.SmallCell />
-            <Table.HeadCell>Customer Name</Table.HeadCell>
-            <Table.HeadCell className={clx('d-md-none', { 'd-none': showPanel })}>Email</Table.HeadCell>
-            <Table.HeadCell className={clx('d-md-none', { 'd-none': showPanel })}>Phone Number</Table.HeadCell>
-            <Table.HeadCell>Orders</Table.HeadCell>
-            <Table.HeadCell>Life Time Charges</Table.HeadCell>
-            <Table.HeadCell>History</Table.HeadCell>
+            <Table.HeadCell nowrap>Customer Name</Table.HeadCell>
+            <Table.HeadCell nowrap className={clx('d-md-none', { 'd-none': showPanel })}>Email</Table.HeadCell>
+            <Table.HeadCell nowrap className={clx('d-md-none', { 'd-none': showPanel })}>Phone Number</Table.HeadCell>
+            <Table.HeadCell nowrap>Orders</Table.HeadCell>
+            <Table.HeadCell nowrap>Life Time Charges</Table.HeadCell>
+            <Table.HeadCell nowrap>History</Table.HeadCell>
           </Table.Head>
           <Table.Body className='customers-table-body'>
             {
@@ -81,7 +81,7 @@ const CustomersLab = ({ customers, orderRefund }) => {
                     orders = []
                   } = customer;
                   return (
-                    <Table.Row key={email} orderInList={orderInList}>
+                    <Table.Row noMinWidth key={email} orderInList={orderInList}>
                       <Table.SmallCell>
                         <Avatar name={`${firstName} ${lastName}`} />
                       </Table.SmallCell>

@@ -66,7 +66,7 @@ const CustomerPanelModal = ({
           <div className='customer-history-title'>Orders History:</div>
           <div className='customer-orders-history'>
             <Timeline>
-              {orders.map((order) => console.log('order', order) || (
+              {orders.map((order) => (
                 <Timeline.Item key={order._id}>
                   <Order {...order} onRefund={onOrderRefund} />
                 </Timeline.Item>
