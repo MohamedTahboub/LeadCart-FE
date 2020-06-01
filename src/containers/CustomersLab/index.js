@@ -71,36 +71,6 @@ const CustomersLab = ({ customers, orderRefund }) => {
           <Table.Body className='customers-table-body'>
             {
               filteredCustomers
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
-                .concat(filteredCustomers)
                 .map((customer, orderInList) => {
                   const {
                     firstName,
