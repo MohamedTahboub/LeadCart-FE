@@ -1,12 +1,10 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getCurrencySymbol } from 'libs';
 import { ReceiptRow } from './common';
 // import { ActivationSwitchInput } from '../../../components/common/Buttons';
 
-import ProductActions from './ProductActions'
-
-
+import ProductActions from './ProductActions';
 
 
 const getSubRows = ({ offer, coupon }) => {
@@ -36,10 +34,8 @@ const ProductRow = ({
   _id,
   id: productId = _id,
   name,
-  price: {
-    amount,
-    currency
-  },
+  price: amount,
+  currency,
   offer,
   payment,
   coupon,
@@ -64,7 +60,7 @@ const ProductRow = ({
       orderId={orderId}
       productId={productId}
     />
-  )
+  );
 
   return (
     <ReceiptRow
@@ -94,8 +90,8 @@ const ProductRow = ({
           {renderOptions}
         </div>
       ) : (
-          <div className='receipt-sub-row '>{renderOptions}</div>
-        )
+        <div className='receipt-sub-row '>{renderOptions}</div>
+      )
       )}
     />
   );
@@ -105,13 +101,13 @@ ProductRow.propTypes = {
   price: PropTypes.objectOf(),
   name: PropTypes.string,
   offer: PropTypes.objectOf(),
-  coupon: PropTypes.objectOf(),
+  coupon: PropTypes.objectOf()
 };
 ProductRow.defaultProps = {
   price: {},
   name: 'Untitled Product',
   offer: {},
-  coupon: {},
+  coupon: {}
 };
 
 export default ProductRow;
