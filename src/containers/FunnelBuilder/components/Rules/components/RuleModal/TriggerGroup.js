@@ -19,7 +19,11 @@ const GroupAction = ({ integrationKey: serviceName, type: serviceAction }) => (
   </Badge>
 );
 
-const Label = ({ children, ...props }) => <span className='mx-2 gray-text bold-text' {...props}>{children}</span>;
+const Label = ({ children, ...props }) => (
+  <span className='mx-2 gray-text bold-text' {...props}>
+    {children}
+  </span>
+);
 
 
 const TriggerGroup = ({
@@ -31,7 +35,7 @@ const TriggerGroup = ({
     center='v-center'
     className={`margin-v-5 ${className}`}
   >
-    <Label>On the following</Label>
+    <Label>The products:</Label>
     {products.map((product, index) => (
       <FlexBox>
         <Badge

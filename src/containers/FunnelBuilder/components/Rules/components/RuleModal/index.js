@@ -10,28 +10,19 @@ import { notification } from 'libs';
 import TriggerGroup from './TriggerGroup';
 import TriggerActionMaker from './TriggerActionMaker';
 
-const getTriggerLabel = (val) => {
-  const [{ label = 'Does Not Exist Event' } = {}] = rulesEvents.filter((r) => r.value === val);
-  return label;
-};
+import {
+  constructProductsAndOffersLabels,
+  getIntersectedProducts,
+  getTriggerLabel
+} from '../helpers';
 
-const constructProductsLabels = (productsMap = {}, funnelProducts = []) => {
-  return funnelProducts.map(({ productId }) => productsMap[productId] || {})
-    .map((product) => product.sections
-      .filter((section) => section.type === 'bumpOffer')
-      .map((offer) => ({ ...offer, name: `${name}(offer)`, _id: offer.id })))
-    .flat()
-    .map(({ _id: value, name: label }) => ({ label, value }));
 
-};
 const {
   FlexBox,
   MainTitle,
   Button
 } = common;
-const getIntersectedProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
 
-// const getSubProducts = (productsMap = {}, products = []) => products.map(({ productId }) => productsMap[productId] || {});
 
 const RuleModal = ({
   isNew,
@@ -46,9 +37,10 @@ const RuleModal = ({
 }) => {
   const [fields, setFields] = useState({ triggerGroups: [] });
   const [saving, setSaving] = useState(false);
-  const productsOptions = useCallback(() => {
-    constructProductsLabels(productsMap, funnelProducts);
-  }, [productsMap, funnelProducts]);
+  const productsOptions = constructProductsAndOffersLabels(productsMap, funnelProducts);
+  // useCallback(() => {
+  //   return constructProductsLabels(productsMap, funnelProducts);
+  // }, [productsMap, funnelProducts]);
 
   const onTriggerGroupAdded = (group) => {
     setFields({
