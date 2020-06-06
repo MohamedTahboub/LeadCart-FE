@@ -9,9 +9,13 @@ const env = process.env.NODE_ENV;
 
 const applicationMiddleware = env !== 'production'
   ? applyMiddleware(
-    // logger,
-    ...middlewares)
-  : applyMiddleware(...middlewares, LogRocket.reduxMiddleware());
+    logger,
+    ...middlewares
+  )
+  : applyMiddleware(
+    ...middlewares,
+    LogRocket.reduxMiddleware()
+  );
 
 
 const store = createStore(rootReducer, applicationMiddleware);
