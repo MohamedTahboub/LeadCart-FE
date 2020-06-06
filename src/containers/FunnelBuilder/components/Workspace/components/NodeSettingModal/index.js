@@ -162,19 +162,14 @@ const NodeSettingModal = ({
                   product={{
                     image: product.thumbnail,
                     name: product.name
-                  }
-                  }
+                  }}
                   {...product}
                 />
               ))
             }
           </FlexBox>
         </Tab>
-        <Tab id='filter' title='Filters'>
-          Filters
-        </Tab>
       </Tabs>
-
     </FlexBox>
   );
 };
