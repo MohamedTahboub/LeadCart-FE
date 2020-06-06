@@ -14,9 +14,9 @@ export default ({ dispatch }) => (next) => (action) => {
   dispatch(apiRequest({
     options: {
       method: 'PUT',
-      uri: '/api/product-activity',
+      uri: '/api/brands/product-activity',
       body: payload,
-      contentType: 'json',
+      contentType: 'json'
     },
     onSuccess: (arg) => {
       if (meta.onSuccess) meta.onSuccess(arg);

@@ -52,7 +52,7 @@ const UserAvatarPreview = ({
       {
         packageType !== 'Premium' && (
           <Fragment>
-            <div>
+            <div className='hide-element'>
               <Tag className='ant-anchor-link-title' onClick={toggleUpgradeModalOpen} color='#1890FF'>UPGRADE TO {packageType === 'Basic' ? 'PRO' : 'PREMIUM'}</Tag>
             </div>
             <Modal isVisible={isUpgradeModalOpen} className='compress-modal minimal-subscription-modal' onClose={toggleUpgradeModalOpen}>

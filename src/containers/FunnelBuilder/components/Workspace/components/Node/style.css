@@ -69,7 +69,6 @@
 
 .funnel-node-card:hover .connect-btn-container {
     transform: translateX(0px);
-    z-index: inherit;
 }
 .delete-btn-container,
 .node-connect-tail{

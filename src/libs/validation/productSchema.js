@@ -2,14 +2,27 @@ import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
 
-const sectionSchema = yup.mixed();
+const sectionSchema = yup.mixed().transform((section = {}) => {
+  if (section._id) {
+    const { _id, ...sectionRemains } = section;
+    sectionRemains.id = _id;
+    return sectionRemains;
+  }
+  return section;
+});
 
 const ProductSchema = yup.object({
-  available: yup.boolean().default(false),
   name: yup.string().default('Product-Name'),
   category: yup.string().default('checkout'),
+  custom: yup.object({
+    declineButtonText: yup.string(),
+    orderButtonText: yup.string(),
+    shippingDetails: yup.boolean().default(false),
+    couponSection: yup.boolean().default(false)
+  }),
   internalName: yup.string(),
   thumbnail: yup.string(),
+  available: yup.boolean().default(false),
   price: yup.object({
     amount: yup.number().required(),
     currency: yup.string().default('USD'),
