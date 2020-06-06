@@ -10,7 +10,7 @@ const getProductsAndOffer = (productsMap, neededProductNodes) => {
         offers = product.sections
           .filter(({ type }) => type === 'bumpOffer')
           .filter((offer) => offer.content && offer.content.price)
-          .map(({ id, content = {} }) => ({ _id: id, name: `${content.name || 'Untitled'}(offer)` }));
+          .map(({ id, _id = id, content = {} }) => ({ _id, name: `${content.name || 'Untitled'}(offer)` }));
       }
 
       return [product, ...offers];
