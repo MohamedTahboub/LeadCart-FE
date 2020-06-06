@@ -1,16 +1,16 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
-import sampleProductData from 'data/product';
+// import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
-import { connect } from 'react-redux';
-import { mapListToObject } from 'libs';
-import * as productGeneralActions from 'actions/product';
-import { ProductBuilderSkelton } from 'components/Loaders';
 import ReactToolTip from 'react-tooltip';
-import { notification } from 'libs';
+import { connect } from 'react-redux';
+import common from 'components/common';
+import { ProductBuilderSkelton } from 'components/Loaders';
+import sampleProductData from 'data/product';
+import { mapListToObject, notification } from 'libs';
 import { ProductSchema } from 'libs/validation';
+import * as productGeneralActions from 'actions/product';
+
 
 import {
   ProductContext,
