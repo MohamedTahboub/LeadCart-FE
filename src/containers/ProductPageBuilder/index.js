@@ -32,6 +32,17 @@ const {
   FlexBox
 } = common;
 
+const matchProductSectionsIds = (product) => {
+  const sections = Array.isArray(product.sections) ?
+    product.sections.map((section) => ({ ...section, id: (section._id || section.id) }))
+    : [];
+
+  return {
+    ...product,
+    sections
+  };
+};
+
 const ProductBuilder = ({
   funnelsMap,
   productsMap,
@@ -54,7 +65,7 @@ const ProductBuilder = ({
         if (product) {
           actions.updateState({
             standAlone: true,
-            product
+            product: matchProductSectionsIds(product)
             // funnel: isFunnelExist
           });
           return setLoading(false);
