@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md';
 import ReactToolTip from 'react-tooltip';
 
 
-import TriggerGroup from './TriggerGroup';
+import TriggerGroup from './RuleModal/TriggerGroup';
 
 const getSubProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
 
