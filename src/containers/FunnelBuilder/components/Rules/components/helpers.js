@@ -10,7 +10,7 @@ const getProductsAndOffer = (productsMap, neededProductNodes) => {
         offers = product.sections
           .filter(({ type }) => type === 'bumpOffer')
           .filter((offer) => offer.content && offer.content.price)
-          .map(({ id, content = {} }) => ({ _id: id, name: `${content.name || 'Untitled'}(offer)` }));
+          .map(({ id, _id = id, content = {} }) => ({ _id, name: `${content.name || 'Untitled'}(offer)` }));
       }
 
       return [product, ...offers];
@@ -23,11 +23,9 @@ export const constructProductsAndOffersLabels = (productsMap = {}, funnelProduct
 };
 
 export const getIntersectedProducts = (productsMap = {}, products = []) => {
-  const res = getProductsAndOffer(productsMap, products.map((id) => ({ productId: id })));
-  console.log('Trigger products', products);
-  console.log('Trigger res', res);
-  console.log('Trigger productsMap', productsMap);
-  return res;
+  const matchedProducts = getProductsAndOffer(productsMap, products.map((id) => ({ productId: id })));
+
+  return matchedProducts.filter((product) => products.includes(product._id));
 
 };
 
