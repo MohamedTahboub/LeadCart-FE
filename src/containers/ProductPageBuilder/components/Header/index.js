@@ -124,20 +124,20 @@ const Header = ({
           <Button
             // onClick={onSave}
             data-tip='Undo'
-            className='light-btn'
+            className='light-btn hide-element'
           >
             <AiOutlineHistory className='mirror' />
           </Button>
           <Button
             // onClick={onSave}
             data-tip='ReDo'
-            className='light-btn margin-h-5'
+            className='light-btn margin-h-5 hide-element'
           >
             <AiOutlineHistory />
           </Button>
           <Button
             onClick={onSave}
-            className='light-btn'
+            className='light-btn px-3'
             disabled={saving}
             onprogress={saving}
           >

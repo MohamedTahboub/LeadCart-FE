@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import common from 'components/common';
@@ -8,8 +8,9 @@ import { IoIosAdd } from 'react-icons/io';
 import ReactToolTip from 'react-tooltip';
 import { includesIgnoreCase, mapListToObject } from 'libs';
 import { connect } from 'react-redux';
+import leadcartFulfillment from 'data/leadcartFulfillment';
+import ActionDependencies from './ActionDependencies';
 const animatedComponents = makeAnimated();
-
 
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
   if (actionsMap[integrationKey]) {
@@ -118,7 +119,7 @@ const TriggerActionMaker = ({
       <FlexBox flexEnd flex className='margin-top-10'>
         <Button onClick={onAdd} className='light-btn'>
           <FlexBox center='v-center'>
-            <IoIosAdd />
+            <IoIosAdd className='mx-1' />
             <span>
               Add
             </span>
@@ -126,6 +127,9 @@ const TriggerActionMaker = ({
         </Button>
         <ReactToolTip delayShow={300} />
       </FlexBox>
+      <ActionDependencies
+        {...group}
+      />
     </FlexBox>
   ) : (
     <Button onClick={toggleExpand} className='light-btn full-width'>
@@ -139,11 +143,13 @@ const TriggerActionMaker = ({
   );
 };
 TriggerActionMaker.propTypes = {};
+
 const mapStateToProps = ({ integrations }) => {
-  const integrationsList = integrations
+  const integrationsLabels = integrations
     .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))
     .map((integration) => ({ label: integration.name, value: integration.key, actions: integration.actions }));
 
+  const integrationsList = [leadcartFulfillment, ...integrationsLabels];
   const actionsMap = mapListToObject(integrationsList, 'value');
 
   return {

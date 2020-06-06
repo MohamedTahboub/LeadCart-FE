@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
+// import PropTypes from 'prop-types';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import Select from 'react-select';
-// import makeAnimated from 'react-select/animated';
 import rulesEvents from 'data/rulesEvents';
-// import sampleRules from 'data/sampleRules';
 import { connect } from 'react-redux';
 import * as funnelsActions from 'actions/funnels';
 import { notification } from 'libs';
 import TriggerGroup from './TriggerGroup';
 import TriggerActionMaker from './TriggerActionMaker';
-// const [{ triggerGroups: sampleTriggerGroups }] = sampleRules;
 
-const getTriggerLabel = (val) => {
-  const [{ label = 'Does Not Exist Event' } = {}] = rulesEvents.filter((r) => r.value === val);
-  return label;
-};
+import {
+  constructProductsAndOffersLabels,
+  getIntersectedProducts,
+  getTriggerLabel
+} from '../helpers';
+
 
 const {
   FlexBox,
   MainTitle,
   Button
 } = common;
-const getCrossedProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
 
-const getSubProducts = (productsMap = {}, products = []) => products.map(({ productId }) => productsMap[productId] || {});
 
 const RuleModal = ({
   isNew,
@@ -40,7 +37,10 @@ const RuleModal = ({
 }) => {
   const [fields, setFields] = useState({ triggerGroups: [] });
   const [saving, setSaving] = useState(false);
-  const productsOptions = getSubProducts(productsMap, funnelProducts).map(({ _id: value, name: label }) => ({ label, value }));
+  const productsOptions = constructProductsAndOffersLabels(productsMap, funnelProducts);
+  // useCallback(() => {
+  //   return constructProductsLabels(productsMap, funnelProducts);
+  // }, [productsMap, funnelProducts]);
 
   const onTriggerGroupAdded = (group) => {
     setFields({
@@ -101,6 +101,7 @@ const RuleModal = ({
 
   useEffect(() => {
     if (!isNew && ruleData) setFields(ruleData);
+
     return () => {
       setFields({ triggerGroups: [] });
     };
@@ -137,7 +138,7 @@ const RuleModal = ({
               className='white-bg soft-edges margin-v-5 padding-v-10 padding-h-5'
               key={group.id}
               {...group}
-              products={getCrossedProducts(productsMap, group.products)}
+              products={getIntersectedProducts(productsMap, group.products)}
             />
           ))
         }

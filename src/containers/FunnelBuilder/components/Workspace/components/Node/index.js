@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
@@ -10,8 +10,7 @@ import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
-import ReactToolTip from 'react-tooltip';
-import { ConnectingMode, EditButton, NodeStatusHat } from './components';
+import { EditButton, NodeStatusHat } from './components';
 import './style.css';
 
 const categoriesImages = {
@@ -36,7 +35,6 @@ const Node = ({
   elementId,
   type: nodeType,
   product = {},
-  // onShowNodeOptions,
   category = 'checkout',
   productId,
   onEdit,
@@ -47,7 +45,6 @@ const Node = ({
   connectingMode,
   onConnected,
   onDelete
-  // ...props
 }) => {
   const elementRef = useRef(null);
   const [connecting, setConnecting] = useState();
@@ -67,6 +64,7 @@ const Node = ({
 
   const _onEdit = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     return onEdit(productId);
   };
 
@@ -118,7 +116,7 @@ const Node = ({
     onClick: () => toggleOptions(elementId)
   };
 
-
+  const showStatusHate = category !== 'thankyoupage';
   return (
     <div className='funnel-node-container'>
       <FlexBox column className={classes} style={nodeStyle} {...cardProps}>
@@ -126,10 +124,12 @@ const Node = ({
           {name}
         </div>
         <FlexBox column style={style} className='content soft-edges'>
-          <NodeStatusHat
-            active={productId}
-            note={name}
-          />
+          {showStatusHate && (
+            <NodeStatusHat
+              active={productId}
+              note={name}
+            />
+          )}
           {productId && (
             <EditButton onClick={_onEdit} />
           )}
@@ -162,7 +162,6 @@ const Node = ({
           </div>)
         }
       </FlexBox>
-      <ReactToolTip delayShow={300} theme='light' />
     </div>
 
   );
