@@ -1,0 +1,23 @@
+.tabs-header {
+    /* padding-bottom: 5px; */
+    border-bottom: 1px solid #E8E8EF;
+    margin: 10px 0;
+}
+
+.tab-item {
+    color: #808292;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0 10px;
+    cursor: pointer;
+    padding-bottom: 6px;
+    transition: all .3s ease-in-out;
+}
+
+.tab-item.active,
+.tab-item:hover{
+    color: #393C44;
+}
+.tab-item.active{
+    border-bottom: 3px solid rgba(33, 123, 232, 0.767);
+}

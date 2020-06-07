@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import avatarLink from 'assets/images/avatar.jpg';
 import { connect } from 'react-redux';
 import * as filesActions from 'actions/files';
@@ -10,7 +10,8 @@ const Avatar = ({
   files,
   uploadFile,
   name = 'avatar',
-  onChange
+  onChange,
+  size
 }) => {
   const [state, setState] = useState({ image: initImage });
   let fileInput = '';
@@ -30,10 +31,15 @@ const Avatar = ({
       setState({ ...state, uploading: false, image: files[name] });
       onChange({ name, image: files[name] });
     }
-  });
+  }, [state, files, name, onChange]);
+
+  const style = size ? {
+    width: size,
+    height: size
+  } : {};
 
   return (
-    <span className={`change-avatar-layer ${className}`}>
+    <div className={`change-avatar-layer ${className}`} style={{ ...style }}>
       <span onClick={uploadUserImage} className='change-avatar-image'>
         <i className='fas fa-camera' />
       </span>
@@ -44,7 +50,7 @@ const Avatar = ({
         style={{ display: 'none' }} ref={(ref) => fileInput = ref} type='file'
         accept='image/x-png,image/gif,image/jpeg'
       />
-    </span>
+    </div>
   );
 };
 

@@ -20,9 +20,7 @@ export const MiniTwitterPicker = ({
     setShow(false);
   };
 
-  const style = {
-    background: value
-  };
+  const style = { background: value };
   return (
     <div className='color-picker-modal'>
       <div

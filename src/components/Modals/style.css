@@ -9,13 +9,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1001;
+    z-index: 2001;
 }
 
 .modal-content{
     position: relative;
     padding: 40px;
     background: white;
+    border-radius: 5px;
 }
 .modal-close-btn{
     color:gray;
@@ -41,11 +42,30 @@
     margin-right: 0px;
 }
 .margin-with-float-left{
-    margin-top: 15px; 
+    margin-top: 15px;
     float: left;
 }
 .margin-with-float-right{
-    margin-top: 15px; 
+    margin-top: 15px;
     float: right;
 }
 
+.minimal-subscription-modal.modal-content {
+  overflow: visible;
+}
+
+.minimal-subscription-modal .modal-close-btn {
+  right: -35px;
+  color: #4da1ff;
+  border: 1.5px solid #4da1ff;
+  background-color: #FFF;
+}
+.minimal-subscription-modal .minimal-package-plan {
+  max-height: 670px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.minimal-subscription-modal #credit-card-box > div {
+  width: 100%;
+}

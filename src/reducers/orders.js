@@ -18,8 +18,6 @@ export default (state = initState, { type, payload }) => {
           if (product.id === payload.productId) {
             if (payload.target !== 'offer') product.price.amount *= -1;
             else product.offer.price *= -1;
-
-            console.log('ORDER_REFUND_SUCCESS==>', product);
           }
           return { ...product };
         });

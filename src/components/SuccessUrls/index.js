@@ -4,6 +4,7 @@ import './style.css';
 import moment from 'moment';
 
 const SuccessUrls = ({
+  name,
   list = [],
   ...props
 }) => {
@@ -15,7 +16,7 @@ const SuccessUrls = ({
 
     props.onChange({
       target: {
-        name: 'successUrls',
+        name,
         value: newList
       }
     });
@@ -25,17 +26,17 @@ const SuccessUrls = ({
     const newList = list.filter((link, i) => id !== i);
     props.onChange({
       target: {
-        name: 'successUrls',
+        name,
         value: newList
       }
     });
   };
 
   const onAddNew = () => {
-    const newList = [...list, { url: '', expirationDate: moment() }];
+    const newList = [...list, { url: '', activeDuration: moment() }];
     props.onChange({
       target: {
-        name: 'successUrls',
+        name,
         value: newList
       }
     });

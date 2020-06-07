@@ -36,7 +36,7 @@ const AreaChart = ({
       enabled: false
     },
     markers: {
-      size: 3,
+      size: 2,
       style: 'hollow'
     },
     xaxis: {
@@ -45,7 +45,7 @@ const AreaChart = ({
       min: undefined,
       max: undefined,
 
-      tickAmount: 5
+      tickAmount: 1
     },
     // yaxis: {
     //   labels: {
@@ -65,8 +65,8 @@ const AreaChart = ({
       type: 'gradient',
       gradient: {
         shadeIntensity: 1,
-        opacityFrom: 0.7,
-        opacityTo: 0.9,
+        opacityFrom: 0.5,
+        opacityTo: 0,
         stops: [0, 100]
       }
     }

@@ -1,48 +1,61 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import common from 'components/common';
+import common from 'components/common';
 import { connect } from 'react-redux';
 import { funnelSchema } from 'libs/validation';
+import { isFunction } from 'libs/checks';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
-import { ProductBuilderSkelton } from 'components/Loaders';
-import { SideBar, Header, FunnelWorkspace } from './components';
+import {
+  isObjectsEquivalent,
+  mapListToObject,
+  notification
+} from 'libs';
+// import isEqualObjects from 'react-fast-compare';
+
 
 import './style.css';
 
-// const {
-//   Page,
-//   PageHeader,
-//   PageContent,
+import {
+  Header,
+  Rules,
+  SideBar,
+  Workspace
+} from './components';
 
-// } = common;
+const PaymentMethodNamesMap = (paymentName) => {
+  return {
+    Stripe: 'lc_stripe',
+    Paypal: 'lc_paypal'
+  }[paymentName] || undefined;
+};
+
+
+const {
+  Page,
+  FlexBox,
+  LayoutSwitch
+} = common;
 
 const FunnelBuilder = ({
   funnels,
-  products,
+  productsMap,
   subdomain,
   domains,
-  globelLoading,
+  // globelLoading,
   ...props
 }) => {
-  const [isNew, setIsNew] = useState(true);
+  const { url: funnelUrl } = props.match.params;
+
   const [fields, setFields] = useState({});
-  // const [displayType, setDisplayType] = useState('desktop');
-  // const [changesDetected, setChangesDetected] = useState(false)
   const [errors, setErrors] = useState({});
-
-  const [loading, setLoading] = useState({ product: true });
-
-  const [templateChanging, setTemplateChanging] = useState(false);
-
-  const [isSidebarOpened, setSidebarOpened] = useState(false);
-
+  const [activePage, setActivePage] = useState('blocks');
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
 
-  const [unblock, SetUnblock] = useState();
+  const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
 
-  const [productsNodeDetails, setProductsNodeDetails] = useState({});
+  const [unblock, SetUnblock] = useState();
 
 
   const changesDetected = () => {
@@ -52,51 +65,51 @@ const FunnelBuilder = ({
   };
 
   const changesSaved = () => {
-    typeof unblock === 'function' && unblock();
+    if (isFunction(unblock))
+      unblock();
     // stopTabClosing(false);
   };
 
   const onChange = ({ name, value }) => {
-    // console.log(name, value)
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
   };
 
+
   const onToggleDarkTheme = () => {
     setEnableDarkTheme(!enableDarkTheme);
   };
+
+  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
+
   useEffect(() => {
-    const { url: funnelUrl } = props.match.params;
+    const funnel = getFunnelByUrl(funnelUrl);
 
-    if (funnelUrl !== 'new') setIsNew(false);
+    if (!funnel) return;
 
-    const funnel = funnels.find(({ url }) => url === funnelUrl) || {};
-    if (funnel.url !== fields.url) setFields(funnel);
+    if (funnel._id === fields._id) {
+      if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules)) {
+        setFields({
+          ...funnel,
+          paymentMethods: PaymentMethodNamesMap(funnel.paymentMethods)
+        });
+      }
+      return;
+    }
 
-    if (funnel._id) setLoading({ funnel: false });
+    if (!isObjectsEquivalent(funnel, fields)) {
+      setFields({
+        ...funnel,
+        paymentMethods: PaymentMethodNamesMap(funnel.paymentMethods)
+      });
+    }
 
+    if (!isObjectsEquivalent(productsNodeDetails, productsMap))
+      setProductsNodeDetails(productsMap);
 
-    const productsDetails = products
-      .filter(({ thumbnail }) => thumbnail)
-      .reduce((obj, product) => {
-        obj[product._id] = {
-          image: product.thumbnail,
-          name: product.name
-        };
-        return obj;
-      }, {});
-
-    if (Object.keys(productsDetails).length) setProductsNodeDetails(productsDetails);
-
-    return () => {
-      // setFields({});
-    };
-  }, [funnels, globelLoading]);
-
-  // const onDisplayChange = (type) => {
-  //   setDisplayType(type);
-  // };
+    //eslint-disable-next-line
+  }, [funnels, productsMap]);
 
   const updateUrlOnChange = (currentUrl) => {
     const { url } = props.match.params;
@@ -111,101 +124,96 @@ const FunnelBuilder = ({
     } = await funnelSchema(fields);
 
     if (!isValid) {
-      props.showFlashMessage({
-        type: 'failed',
-        message: 'Check the funnel Fields And Try a gain'
-      });
+      notification.failed('There is few invalid fields,check & try to save');
       return setErrors(errors);
     }
 
-
-    const action = isNew ? props.createFunnel : props.updateFunnel;
-    const payload = isNew ? { funnel } : { funnel: { ...funnel, funnelId: fields._id } };
-
     const startPoint = getStartPointProduct(funnel);
-    if (startPoint) 
-      payload.funnel.startPoint = startPoint
-    
-    payload.productsUpdates = extractProductsRelations(funnel);
+    if (startPoint) funnel.startPoint = startPoint;
 
-    action(
+    const productsUpdates = extractProductsRelations(funnel);
+
+    const payload = {
+      funnel: {
+        ...funnel,
+        funnelId: fields._id
+      },
+      productsUpdates
+    };
+
+    props.updateFunnel(
       payload,
       {
-        onSuccess: (msg) => {
-          props.showFlashMessage({
-            type: 'success',
-            message: 'Your Changes Saved Successfully'
-          });
+        onSuccess: () => {
+          notification.success('Funnel Saved Successfully');
           changesSaved();
           updateUrlOnChange(fields.url);
         },
         onFailed: (message) => {
-          props.showFlashMessage({
-            type: 'failed',
-            message: `Check the Fields And Try a gain\n${message}`
-          });
+          notification.failed(message);
         }
       }
     );
   };
-  const postSideChanging = (state) => {
-    setSidebarOpened(state);
-  };
-  const toggleTemplateChangeEffect = () => {
-    setTemplateChanging(!templateChanging);
-    setTimeout(() => {
-      setTemplateChanging((state) => !state);
-    }, 350);
+
+
+  const onPageChange = (page) => () => {
+    setActivePage(page);
   };
 
+  const headerProps = {
+    onChange,
+    onPageChange,
+    activePage,
+    subdomain,
+    domains,
+    funnel: fields,
+    onSave,
+    history: props.history
+  };
+
+  const sidebarProps = {
+    onChange,
+    funnel: fields,
+    onToggleDarkTheme,
+    darkTheme: enableDarkTheme
+  };
+  const workSpaceProps = {
+    funnel: fields,
+    onChange,
+    productsNodeDetails,
+    errors,
+    history: props.history
+  };
+
+  const rulesProps = {
+    funnelId: fields._id,
+    rules: fields.rules,
+    funnelProducts: fields.products
+  };
   return (
-    <Fragment>
-      {loading.funnel && (
-        <ProductBuilderSkelton />
-      )}
-      <div className={`checkout-wizard-page ${enableDarkTheme ? 'dark-mode' : 'default-mode'} ${loading.funnel ? 'loading' : ''}`}>
-        <Header
-          // onDisplayChange={onDisplayChange}
-          onChange={onChange}
-          subdomain={subdomain}
-          domains={domains}
-          funnel={fields}
-          onSave={onSave}
-          isNew={isNew}
-          history={props.history}
-        />
-        <SideBar
-          onChange={onChange}
-          funnel={fields}
-          onSidebarChange={postSideChanging}
-          onToggleDarkTheme={onToggleDarkTheme}
-          darkTheme={enableDarkTheme}
-          toggleTemplateChangeEffect={toggleTemplateChangeEffect}
-        />
-        <div className={`product-workspace-container ${isSidebarOpened ? 'side-opened' : ''}`}>
-          <FunnelWorkspace
-            className={`${templateChanging ? 'blur-effect' : ''}`}
-            funnel={fields}
-            onChange={onChange}
-            productsNodeDetails={productsNodeDetails}
-            errors={errors}
-          />
-        </div>
-
-      </div>
-    </Fragment>
+    <Page fullSize className='flex-container flex-column'>
+      <Header {...headerProps} />
+      <LayoutSwitch active={activePage}>
+        <FlexBox id='blocks' flex className='relative-element'>
+          <SideBar {...sidebarProps} />
+          <Workspace {...workSpaceProps} />
+        </FlexBox>
+        <Rules id='rules' {...rulesProps} />
+      </LayoutSwitch>
+    </Page>
   );
 };
 
-FunnelBuilder.propTypes = {
-  history: PropTypes.objectOf({})
-};
+FunnelBuilder.propTypes = { history: PropTypes.objectOf({}) };
 
 FunnelBuilder.defaultProps = {
-  products: [],
+  productsMap: {},
   funnels: [],
   history: {}
 };
+
+const nodeProjectProjection = { thumbnail: 'image', name: 'name' };
 
 const mapStateToProps = ({
   products: { products } = {},
@@ -217,7 +225,15 @@ const mapStateToProps = ({
       domains = []
     } = {}
   } = {}
-}) => ({
- products, subdomain, domains, globelLoading, funnels 
-});
+}) => {
+
+  const productsMap = mapListToObject(products, '_id', nodeProjectProjection);
+  return ({
+    productsMap,
+    subdomain,
+    domains,
+    globelLoading,
+    funnels
+  });
+};
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ids from 'shortid';
 import PropTypes from 'prop-types';
+import clx from 'classnames';
 
 import './style.css';
 
@@ -9,30 +10,59 @@ export const Button = ({
   children,
   onClick,
   onprogress,
+  circle,
+  active,
   disabled,
+  onHoverProps = {},
   ...props
-}) => (
-  <button
-    onClick={onClick}
-    className={`btn  ${className || ''}  ${disabled ? 'btn-disabled' : ''} ${onprogress ? 'spinner' : ''}`}
-    {...props}
-  >
-    {children}
-  </button>
-);
+}) => {
+  const [customProps, setProps] = useState({});
+
+  const onMouseOver = () => {
+    setProps(onHoverProps);
+  };
+
+  const onMouseLeave = () => {
+    setProps({});
+  };
+
+  const classNames = clx({
+    'btn': true,
+    [className]: className,
+    [customProps.className]: customProps.className,
+    'btn-disabled': disabled,
+    'spinner': onprogress,
+    circle,
+    active
+  });
+
+  return (
+    <button
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+      {...props}
+      {...customProps}
+      className={classNames}
+    >
+      {customProps.children ? customProps.children : children}
+    </button>
+  );
+};
 export const MiniButton = ({
   iconClass,
   children,
   className = '',
   tooltip,
   onClick,
+  active,
   // toolTip,
   ...props
 }) => (
   <span
     data-tip={tooltip}
     onClick={onClick}
-    className={`mini-btn  ${className}`}
+    className={`mini-btn  ${className} ${active ? 'active' : ''}`}
   >
     {iconClass && (
       <i
@@ -42,9 +72,7 @@ export const MiniButton = ({
     {children}
   </span>
 );
-export const SmallButton = ({
-  iconClass, children, className = '', disabled, onClick, ...props
-}) => (
+export const SmallButton = ({ iconClass, children, className = '', disabled, onClick, ...props }) => (
   <span onClick={onClick} className={`small-btn  ${className} ${disabled ? ' btn-disabled' : ''}`}>
     {iconClass && <i className={`fas ${iconClass}`} />}
     {children}
@@ -65,10 +93,11 @@ export const ActivationSwitchInput = ({
   onToggle,
   ...props
 }) => {
-  const id = ids.generate();
+  // const id = ids.generate();
+  const [id] = useState(ids.generate());
   return (
     <div className='activations-switch-input'>
-      <label htmlFor={id} className={`switch-slider-input ${className}`}>
+      <label htmlFor={id} className={`custom-switch-input ${className}`}>
         <input id={id} type='checkbox' onChange={onToggle} checked={active} />
         <span className='slider-input slider-round' />
       </label>
@@ -77,9 +106,7 @@ export const ActivationSwitchInput = ({
   );
 };
 
-export const EditButton = ({
-  className = '', onClick, children, ...props
-}) => (
+export const EditButton = ({ className = '', onClick, children, ...props }) => (
   <span onClick={onClick} className={`edit-btn ${className}`} role='presentation'>
     <i className='fas fa-edit' />
     {children}
@@ -120,6 +147,4 @@ RefreshButton.propTypes = {
   loading: PropTypes.bool,
   onClick: PropTypes.func.isRequired
 };
-RefreshButton.defaultProps = {
-  loading: false,
-};
+RefreshButton.defaultProps = { loading: false };

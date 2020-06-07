@@ -12,7 +12,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: product,
-      uri: '/api/products',
+      uri: '/api/brands/products',
       contentType: 'json'
     },
     onSuccess: (data) => {

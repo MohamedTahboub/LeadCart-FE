@@ -1,8 +1,14 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
-const funnelCoverDefaultImage = 'https://s3.us-east-2.amazonaws.com/static.leadcart.io/5d3bd34e97d3ea503e8659af/products/funnelDemoFlow.png';
+const funnelCoverDefaultImage = 'https://s3.us-east-2.amazonaws.com/assets.leadcart.io/5d3bd34e97d3ea503e8659af/products/funnelDemoFlow.png';
 
+const PaymentMethodNamingMap = (key) => {
+  return {
+    lc_stripe: 'Stripe',
+    lc_paypal: 'Paypal'
+  }[key] || undefined;
+};
 const coordinatesSchema = yup.object({
   x: yup.number(),
   y: yup.number(),
@@ -20,7 +26,7 @@ const RelationsSchema = yup.object({
 });
 
 const ProductsSchema = yup.object({
-  productId: yup.string(),
+  productId: yup.string().transform((val) => (val && val.trim() ? val : undefined)),
   relations: yup.array().of(RelationsSchema).default([]),
   coordinates: coordinatesSchema,
   elementId: yup.string(),
@@ -30,6 +36,9 @@ const ProductsSchema = yup.object({
 const funnelSchema = yup.object({
   name: yup.string(),
   style: yup.string(),
+  currency: yup.string(),
+  paymentMethods: yup.array().of(yup.string()).default([])
+    .transform((val) => Array.isArray(val) ? val.map(PaymentMethodNamingMap) : []),
   thumbnail: yup.string().default(funnelCoverDefaultImage),
   startPoint: yup.string(),
   products: yup.array().of(ProductsSchema).default([]),
@@ -46,11 +55,9 @@ export default async (funnel) => {
       value: casted
     };
   } catch (err) {
-    console.log(err);
     return {
       isValid: false,
       errors: castYupErrors(err)
     };
   }
 };
-

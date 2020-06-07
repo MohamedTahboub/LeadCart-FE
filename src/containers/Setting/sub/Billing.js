@@ -5,24 +5,23 @@ import './styles.css';
 import {
   SubscriptionPackages,
   TransactionsTable
-} from '../../../components/SubscriptionPackages';
+} from 'components/SubscriptionPackages';
+import common from 'components/common';
 
-const Billing = ({
-  packageType,
-  activateAgencyCode,
-  codesUsed,
-  loading,
-  errors = {},
-  transactions = [],
-  trial,
-  trialEndDate,
-  ...props
-}) => (
-    <Fragment>
-      <SubscriptionPackages />
-      <TransactionsTable list={transactions} />
-    </Fragment>
-  );
+const { Tab, Tabs } = common;
+
+const Billing = ({ transactions = [], activeBrand }) => (
+  <Fragment>
+    <Tabs active='subscription'>
+      <Tab id='subscription' title='Your Subscription'>
+        <SubscriptionPackages />
+      </Tab>
+      <Tab id='transation-history' title='Transaction History'>
+        <TransactionsTable list={activeBrand.transactions || []} />
+      </Tab>
+    </Tabs>
+  </Fragment>
+);
 
 const mapStateToProps = ({
   user: {

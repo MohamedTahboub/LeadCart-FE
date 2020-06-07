@@ -1,69 +1,81 @@
-.react-tabs__tab-list{
+.react-tabs__tab-list {
     margin: 0px;
 }
+
 .guarantee-badge-image {
     width: 400px;
     height: auto;
     margin-top: 50px;
 }
 
-.features-list-container{
+.features-list-container {
     display: flex;
     flex-direction: column;
 }
+
 /* Editable features input styles*/
-.editable-field-container{
+.editable-field-container {
     margin: 5px 0px;
     display: flex;
     align-items: center;
-    min-width:150px;
+    min-width: 150px;
 }
-.editable-input-field{
-    border:none;
+
+.editable-input-field {
+    border: none;
     border-bottom: 1px solid lightgray;
-    outline-style:none;
+    outline-style: none;
     padding: 5px 2px;
     user-select: initial;
 }
-.editable-input-field:disabled{
-    border:none;
+
+.editable-input-field:disabled {
+    border: none;
     font-weight: bold;
     background: transparent;
     border-radius: 3px;
     user-select: none;
 }
-.editable-field-controls{
+
+.editable-field-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     display: none;
 }
-.editable-field-container:hover .editable-field-controls{
+
+.editable-field-container:hover .editable-field-controls {
     display: flex;
 }
-.editable-field-container .field-count{
+
+.editable-field-container .field-count {
     margin: 0px 5px;
     font-size: 16px;
 }
-.add-field-btn{
+
+.add-field-btn {
     font-size: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
+
 .editable-save-btn,
 .editable-edit-btn,
-.editable-delete-btn{
+.editable-delete-btn {
     margin: 0px 5px;
 }
-.editable-save-btn{
+
+.editable-save-btn {
     color: #5deb9d;
 }
-.editable-edit-btn{
+
+.editable-edit-btn {
     color: #72a5e7;
 }
-.editable-delete-btn{
+
+.editable-delete-btn {
     color: rgb(243, 146, 129);
 }
 
@@ -72,7 +84,7 @@
 
 /* Testimonail*/
 
-.product-testimonials-container{
+.product-testimonials-container {
     justify-content: center;
     align-items: center;
 }

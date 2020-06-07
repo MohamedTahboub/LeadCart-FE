@@ -17,7 +17,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/orders/refund',
+      uri: '/api/brands/orders/refund',
       contentType: 'json'
     },
     onSuccess: (data) => {

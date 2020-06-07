@@ -1,18 +1,13 @@
-import React, { useState, Fragment } from 'react';
-// import common from 'components/common';
-// import * as productActions from 'actions/product';
-import paypalImage from 'assets/images/paypal.png';
-import stripeImage from 'assets/images/stripe.png';
-import cashOnDeliveryImage from 'assets/images/cod.png';
-import { openNewWindow } from 'libs';
+import React, { Fragment, useState } from 'react';
+import { getServiceBrand } from 'data/integrationsServices';
+import { includesIgnoreCase, openNewWindow } from 'libs';
+
 import common from 'components/common';
 import { connect } from 'react-redux';
 
 import './style.css';
 
-const {
-  MediumCard, InputRow
-} = common;
+const { MediumCard, InputRow } = common;
 
 
 function Message ({ children }) {
@@ -25,24 +20,28 @@ function Message ({ children }) {
 
 
 const PaymentMethods = ({
-  payment: { methods = [] } = {},
-  userPaymentsMethods = [],
+  paymentsIntegrations = [],
+  selected = [],
+  name = 'paymentMethods',
   ...props
 }) => {
+
   const [error, setError] = useState('');
 
-  const isMethodExist = (method) => userPaymentsMethods.find(({ name }) => name === method);
+  const isMethodExist = (paymentKey) => paymentsIntegrations.find(({ key }) => includesIgnoreCase(key, paymentKey));
 
-  const onChange = (method) => {
-    if (!methods.includes(method) && methods.length >= 2) return setError('each product accepts two payment methods as max');
+  const onSelect = (key) => () => {
 
-    if (isMethodExist(method) || method === 'COD') {
+    if (!selected.includes(key) && selected.length >= 2)
+      return setError('each product accepts two payment methods as max');
+
+    if (isMethodExist(key)) {
       props.onChange({
         target: {
-          name: 'payment.methods',
-          value: methods.includes(method)
-            ? methods.filter((m) => m !== method)
-            : [...methods, method]
+          name,
+          value: selected.includes(key)
+            ? selected.filter((m) => !includesIgnoreCase(m, key))
+            : [...selected, key]
         }
       });
       setError('');
@@ -52,50 +51,32 @@ const PaymentMethods = ({
   return (
     <Fragment>
       <div className='payment-methods-cards-container'>
-        {isMethodExist('Stripe')
-          && (
-            <MediumCard
-              className='template-payment-card'
-              imgSrc={stripeImage}
-              isActive={methods.includes('Stripe')}
-              onClick={() => onChange('Stripe')}
-            />
-          )}
-        {isMethodExist('Paypal')
-          && (
-            <MediumCard
-              className='template-payment-card'
-              imgSrc={paypalImage}
-              isActive={methods.includes('Paypal')}
-              onClick={() => onChange('Paypal')}
-            />
-          )
-        }
-        <MediumCard
-          className='template-payment-card'
-          imgSrc={cashOnDeliveryImage}
-          isActive={methods.includes('COD')}
-          onClick={() => onChange('COD')}
-        />
+        {paymentsIntegrations.map((payment) => (
+          <MediumCard
+            key={payment.key}
+            className='template-payment-card'
+            imgSrc={payment.logo}
+            isActive={selected.includes(payment.key)}
+            onClick={onSelect(payment.key)}
+          />
+        ))}
       </div>
       {error && <div className='adding-payment-error'>{error}</div>}
       <br />
       <InputRow>
-        {userPaymentsMethods.length
+        {paymentsIntegrations.length
           ? (
             <Message>
-              you can add or remove the payment gateways from:
-              <span onClick={() => openNewWindow('/settings/integrations')}>
-                {' '}
+              you can add or remove the payment gateways integrations from:
+              <span onClick={() => openNewWindow('/integrations')} className='bold-text underlined-text'>
                 settings/integrations
               </span>
             </Message>
           )
           : (
             <Message>
-              You Don't Have Any Payment Method connected to Your Account,Add from
-              <span onClick={() => openNewWindow('/settings/integrations')}>
-                {' '}
+              You Don't Have Any Payment Integration connected to Your Account, Add from
+              <span onClick={() => openNewWindow('/settings/integrations')} className='bold-text underlined-text'>
                 settings/integrations
               </span>
             </Message>
@@ -105,13 +86,13 @@ const PaymentMethods = ({
   );
 };
 
-const mpaStateToProps = ({
-  payments: {
-    methods: userPaymentsMethods = {}
-  } = {}
-}) => ({
-  userPaymentsMethods
-});
 
-export default connect(mpaStateToProps)(PaymentMethods);
+const mapStateToProps = ({ integrations }) => {
 
+  const integrationsList = integrations
+    .filter((integration) => includesIgnoreCase(integration.category, 'payment'))
+    .map((integration) => ({ logo: getServiceBrand(integration.key), ...integration }));
+
+  return { paymentsIntegrations: integrationsList };
+};
+export default connect(mapStateToProps)(PaymentMethods);

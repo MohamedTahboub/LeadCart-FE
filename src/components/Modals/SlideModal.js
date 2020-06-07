@@ -12,7 +12,8 @@ export default ({
   header,
   footer,
   onContentClick,
-  isVisible
+  isVisible,
+  type = 'horizontal'
 }) => {
   useEffect(() => {
     showIntercomIcon(!isVisible);
@@ -21,25 +22,27 @@ export default ({
     };
   }, [isVisible]);
 
-  return (
+  return isVisible ? (
     <EasyAnimate className={`slide-modal-container ${className}`}>
       <div onClick={onClose} className='slide-modal-background' role='presentation' />
-      <SlidingAnimation open={isVisible} type='horizontal' units={300} className={`slide-modal-content ${contentClassName}`}>
-        {header && (<div className='slide-modal-header'>
-          <span onClick={onClose} className='slide-modal-close-btn' role='presentation'>
-            <i className='fas fa-times-circle' />
-          </span>
-          {header}
-        </div>
+      <SlidingAnimation open={isVisible} type={type} units={300} className={`slide-modal-content ${contentClassName}`}>
+        {header && (
+          <div className='slide-modal-header'>
+            <span onClick={onClose} className='slide-modal-close-btn' role='presentation'>
+              <i className='fas fa-times-circle' />
+            </span>
+            {header}
+          </div>
         )}
         <div onClick={onContentClick} className={`slide-modal-body ${bodyClassName}`}>
           {children}
         </div>
-        {footer && (<div className='slide-modal-footer'>
-          {footer}
-        </div>
+        {footer && (
+          <div className='slide-modal-footer'>
+            {footer}
+          </div>
         )}
       </SlidingAnimation>
     </EasyAnimate>
-  );
+  ) : null;
 };

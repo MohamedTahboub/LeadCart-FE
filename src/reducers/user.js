@@ -1,16 +1,17 @@
 import {
-  SIGN_UP_SUCCESS,
-  SIGN_UP_FAILED,
-  LOGIN_SUCCESS,
-  LOGIN_FAILED,
-  LOGOUT,
-  UPDATE_USER_PROFILE_IMAGE_SUCCESS,
-  ACTIVATE_AGENCY_CODE_SUCCESS,
   ACTIVATE_AGENCY_CODE_FAILED,
+  ACTIVATE_AGENCY_CODE_SUCCESS,
+  APP_LAUNCH_SUCCESS,
   GET_ACTIVATED_AGENCY_CODES_NUMBERS,
+  GET_USER_PLAN,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  LOGOUT,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
-  UPGRADE_USER_PACKAGE_SUCCESS,
-  GET_USER_PLAN
+  SIGN_UP_FAILED,
+  SIGN_UP_SUCCESS,
+  UPDATE_USER_PROFILE_IMAGE_SUCCESS,
+  UPGRADE_USER_PACKAGE_SUCCESS
 } from 'constantsTypes';
 import moment from 'moment';
 
@@ -50,6 +51,7 @@ export default (state = initialState, { type, payload }) => {
     ...state,
     user: {
       packageType: packageType(payload.level),
+      transactions: [],
       ...payload
     },
     isLoggedIn: true
@@ -63,7 +65,7 @@ export default (state = initialState, { type, payload }) => {
       user: {
         ...state.user,
         packageType: packageType(payload.level),
-        level: payload.level,
+        level: payload.level
       },
       activatedPromoCodes: (state.activatedPromoCodes && state.activatedPromoCodes + 1) || 0,
       errors: {
@@ -99,8 +101,15 @@ export default (state = initialState, { type, payload }) => {
       user: {
         ...state.user,
         trial: false,
-        activePackage: payload.activePackage,
-        transactions: [...state.user.transactions, payload.transaction]
+        activePackage: payload.activePackage
+      }
+    };
+  case APP_LAUNCH_SUCCESS:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        activeBrand: payload.activeBrand
       }
     };
   default: return state;

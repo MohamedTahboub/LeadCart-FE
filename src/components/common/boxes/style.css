@@ -12,11 +12,17 @@
     justify-content: space-between;
     align-items: center;
 }
+.main-title-container.full {
+  width: 100%;
+}
 
 .main-title {
     text-transform: capitalize;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
+}
+.full .main-title {
+  width: 100%;
 }
 
 .main-title-note {
@@ -140,7 +146,7 @@
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    margin: 7px 0;
+    margin: 12px;
     padding: 5px;
     padding-bottom: 20px;
     background: #FFFFFF;
@@ -233,7 +239,7 @@ span.insight-chart {
     opacity: .9;
 }
 
-/* 
+/*
 .insight-box:nth-last-child(-n+3) .insight-box-info-tip::after{
     left:-100px;
 }
@@ -243,28 +249,90 @@ span.insight-chart {
 } */
 /* insights box section style ends */
 
-.flex-box{
+
+
+.cards-container-element {
     display: flex;
-}
-.flex-box.column{
-    flex-direction: column;
-}
-.flex-box.spaceBetween{
-    justify-content: space-between;
-}
-.flex-box.wrappable{
+    /* justify-content: space-between; */
     flex-wrap: wrap;
 }
-.flex-box.flex{
+
+.flex-box {
+    display: flex;
+}
+
+.flex-box.column {
+    flex-direction: column;
+}
+.flex-box.column.reverse{
+    flex-direction: column-reverse;
+}
+.flex-box.reverse{
+    flex-direction:row-reverse;
+}
+
+.flex-box.spaceBetween {
+    justify-content: space-between;
+}
+.flex-box.spaceAround {
+    justify-content: space-around;
+}
+.flex-box.spaceEvenly {
+    justify-content: space-evenly;
+}
+
+.flex-box.wrappable {
+    flex-wrap: wrap;
+}
+
+.flex-box.flex {
     flex: 1;
 }
-.flex-box.v-center{
+
+.flex-box.v-center {
     align-items: center;
 }
-.flex-box.h-center{
+
+.flex-box.h-center {
     justify-content: center;
 }
-/* 
+
+.flex-box.h-left {
+    justify-content: flex-start;
+}
+
+.flex-box.v-left {
+    align-items: flex-start;
+}
+
+.flex-box.flexEnd{
+    justify-content: flex-end;
+}
+.flex-box.column.flexEnd{
+    align-items: flex-end;
+    align-content: flex-end;
+}
+.flex-box.flexStart{
+    align-items: flex-start;
+    align-content: flex-start;
+}
+.flex-box.column.flexStart{
+    justify-content: flex-start;
+}
+.flex-box.baseline{
+    align-content: baseline;
+}
+.flex-box.overflow-y{
+   overflow-y: auto;
+}
+.flex-box.overflow-x{
+   overflow-x: auto;
+}
+.flex-box.fullWidth {
+  width: 100%;
+}
+
+/*
 
 
 .flex-box.center:not(.column){

@@ -18,7 +18,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'PUT',
       body: payload,
-      uri: '/api/emails',
+      uri: '/api/brands/emails',
       contentType: 'json'
     },
     onSuccess: (data) => {

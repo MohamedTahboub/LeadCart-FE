@@ -1,114 +1,196 @@
-import React, { useState, Fragment } from 'react';
-import { HeaderLogo } from 'components/common/logos';
-import { Menu, Link as PureLink } from 'components/common/MainMenu';
-import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
+
+import { HeaderLogo } from 'components/common/logos';
+import { Link as PureLink } from 'components/common/MainMenu';
+import BrandsMenu from 'components/BrandsMenu';
+import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
+import { FillerButton } from 'components/Buttons';
 import common from 'components/common';
+import { Modal } from 'components/Modals';
 
-// import { ReactComponent as ProductsIcon } from '../../assets/images/icons/products.svg';
-
+import * as brandsAction from 'actions/brands';
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
-import './style.css';
 import { appInit } from 'actions/appInit';
+import './style.css';
+import { notification } from 'libs';
+import { Menu } from 'antd';
+
 import CreateProductModal from '../CreateProductModal';
 
+import { accountSettingsMenus, main as sidebarMenus } from './menus';
 import Icons from './icons';
 
-const { Button, InputRow } = common;
+const { SubMenu } = Menu;
 
-const BrandSelect = ({ value }) => (
-  <Fragment>
-    <span className='tiny-text'>Active Brand:</span>
-    <InputRow.SearchInput
-      width={120}
-      disabled
-      size='small'
-      options={[{ label: value, value }]}
-      value={value}
-    />
-  </Fragment>
-);
-const currentTab = 'products5'; // history.location.pathname
+const { InputRow, FlexBox } = common;
+const { SelectOption } = InputRow;
 
-const isActiveTab = (tabName) => (tabName === (currentTab && currentTab.split('#')[0]) ? ['active'] : []);
+const BrandSelect = ({
+  brands,
+  value: activeBrand,
+  onChange
+}) => {
+  const options = brands.map(({ name: label, id: value }) => ({ label, value }));
+  return (
+    <Fragment>
+      <span className='tiny-text'>
+        Active Brand:
+      </span>
+      <SelectOption
+        value={activeBrand}
+        name='activeBrand'
+        onChange={onChange}
+        options={options}
+        disabled={!options.length}
+        className='min-width-100 max-width-150'
+      />
+    </Fragment>
+  );
+};
+BrandSelect.defaultProps = { brands: [] };
 
-// console.log(Icons)
 const SideBar = ({
   history,
   user,
   appInit,
   logout,
-  toggleCreateProductModal,
+  updateActiveBrand,
+  brands,
   ...props
 }) => {
   const [activeTab, setActiveTab] = useState(history.location.pathname);
+  const [isBrandsOpen, setBrandsOpen] = useState(false);
+  const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
   const onTabChange = (tab) => setActiveTab(tab);
+  const menus = sidebarMenus({ brands });
 
   const Link = ({
- to: page, className = '', children, icon, external 
-}) => {
+    to: page,
+    className = '',
+    children,
+    icon,
+    external
+  }) => {
     const Icon = Icons[icon] || null;
 
     return (
-      <div className={`flex-container fb-space-between sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}>
+      <FlexBox
+        center='v-center'
+        spaceBetween
+        className={`sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}
+      >
         <Icon className='svg-icon sideBar-icon' />
         <PureLink
           to={{ history, page }}
           external={external}
-          // className={className}
           onTabChange={onTabChange}
-          // active={activeTab === page}
         >
           {children}
         </PureLink>
-      </div>
+      </FlexBox>
     );
   };
 
+  const onActiveBrandChange = (activeBrand) => {
+    updateActiveBrand({ activeBrand }, {
+      onSuccess: () => {
+        appInit({}, {
+          onSuccess: () => {
+            const brand = brands.find(({ id }) => id === activeBrand) || {};
+            notification.success(`You Now On the ${brand.name}`);
+          },
+          onFailed: (message) => {
+            notification.failed(message);
+          }
+        });
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+      }
+    });
+  };
 
-  return (
-    <div className='side-bar'>
-      <HeaderLogo onClick={() => history.push('/')} fullWidth />
-      <AvatarPreviewBox user={user} onSettingClick={() => history.push('/settings/brand')} />
-      <BrandSelect value={user.subDomain} />
-      <Menu>
-        <Link icon='products' to='/products' className={isActiveTab('products')}>Products</Link>
-        <Link icon='funnels' to='/funnels'>Funnels</Link>
-        <Link icon='fulfillment' to='/fulfillment'>Fulfillment</Link>
-        <Link icon='coupons' to='/coupons'>Coupons</Link>
-        <Link icon='transactions' to='/transactions'>Transactions</Link>
-        <Link icon='customers' to='/customers'>Customers</Link>
-        <Link icon='affiliates' to='/affiliates' className='locked-feature'>Affiliates</Link>
-        {user.packageType === 'Agency' && (
-          <Link
-            icon='subAccounts'
-            to='/sub-accounts'
+  const onMenuOpen = () => setBrandsOpen(!isBrandsOpen);
+
+
+  const mapMenuItems = (menuItems) => {
+    return menuItems.map((menu) => {
+      if (menu.sub) {
+        const { sub, title, icon, ...rest } = menu;
+        const Icon = Icons[icon] || Fragment;
+        return (
+          <SubMenu
+            key={rest.key}
+            title={<div className='d-flex align-center-left'><Icon className='svg-icon sideBar-icon' />{title}</div>}
+            {...rest}
           >
-            Sub-Accounts
-          </Link>
-        )}
-        <Link icon='settings' to='/settings/brand'>Settings</Link>
-        <Link icon='help' to='https://help.leadcart.io' external>Help</Link>
-      </Menu>
+            {mapMenuItems(sub)}
+          </SubMenu>
+        );
+      } else if (menu.divider) {
+        return <Menu.Divider key={Math.random()} />;
+      } else {
+        const { title, icon, ...rest } = menu;
+        const Icon = Icons[icon] || Fragment;
+        return (
+          <Menu.Item
+            key={rest.key}
+            className='d-flex align-center-left'
+            {...rest}
+          >
+            <Icon className='svg-icon sideBar-icon' />{title}
+          </Menu.Item>
+        );
+      }
+    });
+  };
 
-      <Button onClick={logout} className='logout-btn'>
-        <i className='fas fa-sign-out-alt' />
-        {' '}
-        logout
-      </Button>
+  const onNavigate = (menuItem) => {
+    history.push(menuItem.item.props.link);
+  };
+  const onAccountSettingsOpen = (openKeys) => {
+    setAccountSettingsOpen(openKeys.includes('accountSettings'));
+  };
+  return (
+    <div className={classNames('side-bar justify-space-between d-col', { 'settings-open': isAccountSettingsOpen && !isBrandsOpen })}>
+      <HeaderLogo onClick={() => history.push('/')} fullWidth />
+      <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
+      <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} onMenuOpen={onMenuOpen} />
+      <Menu
+        className='side-bar-navigation'
+        mode='inline'
+        selectedKeys={[user.activeBrand]}
+        defaultOpenKeys={menus.map(({ key }) => key)}
+        onClick={onNavigate}
+      >
+        {mapMenuItems(menus)}
+      </Menu>
+      <div className='tail-actions'>
+        <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate} onOpenChange={onAccountSettingsOpen}>
+          {mapMenuItems(accountSettingsMenus())}
+        </Menu>
+        <div className='upgrade'>
+          <FillerButton onClick={logout} className='upgrade-btn' type='primary'>
+            Logout
+          </FillerButton>
+        </div>
+      </div>
       <CreateProductModal history={history} />
     </div>
   );
 };
-const mapStateToProps = ({ user: { user } }) => ({ user });
+const mapStateToProps = ({ brands, user: { user } }) => ({ user, brands });
 
 export default connect(
   mapStateToProps,
   {
     ...logout,
     ...modalsActions,
+    ...brandsAction,
     appInit
   }
 )(SideBar);

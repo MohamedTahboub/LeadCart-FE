@@ -1,0 +1,36 @@
+.counter-box {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007aff;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+}
+
+.clock-item.circle .counter-box {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.clock-item.digital .counter-box {
+    padding-bottom: 15px;
+}
+
+.counter-label {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #686e82;
+    text-transform: capitalize;
+}
+
+@font-face {
+    font-family: 'digital-clock-font';
+    src: url('../../assets/fonts/digital-7.ttf');
+}
+
+.clock-item.digital {
+    font-family: 'digital-clock-font';
+}

@@ -1,5 +1,5 @@
 import { CREATE_SUB_ACCOUNT } from 'constantsTypes';
-import { onCreateSubAccountSuccess, onCreateSubAccountFailed } from 'actions/agency';
+import { onCreateSubAccountFailed, onCreateSubAccountSuccess } from 'actions/agency';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {

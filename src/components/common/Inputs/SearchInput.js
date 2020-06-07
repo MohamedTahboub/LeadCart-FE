@@ -1,10 +1,9 @@
 
 import React from 'react';
 import Select from 'antd/lib/select';
-import 'antd/dist/antd.css';
 import ids from 'shortid';
 
-const {Option} = Select;
+const { Option } = Select;
 
 export default ({
   className = '',
@@ -21,7 +20,7 @@ export default ({
   options = []
 }) => {
   const onChange = (value) => {
-    if (value) onParentChange({ target: { name, value } });
+    if (value && onParentChange) onParentChange({ target: { name, value } });
   };
   return (
     <Select

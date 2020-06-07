@@ -1,0 +1,120 @@
+.subscription-box-content{
+    align-items: unset;
+    flex-direction: column;
+}
+.subscription-box-content .activations-switch-input{
+    margin: 0 auto;
+}
+
+.subscription-toggle-input{
+    margin: 20px 80px;
+}
+.subscription-toggle-input::before,
+.subscription-toggle-input::after {
+        font-size:16px;
+        cursor: pointer;
+}
+.subscription-toggle-input::before {
+    content:'Yearly';
+    right: -55px;
+    position: absolute;
+    top: -5px;
+    font-size: 15px;
+    color:gray;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+.subscription-toggle-input::after {
+    content:'Monthly';
+    left: -81px;
+    position: absolute;
+    top: -5px;
+    font-size: 15px;
+    color:gray;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+.subscription-toggle-input.Monthly::after,
+.subscription-toggle-input.Yearly::before{
+    color:#4da0fc;
+    font-weight: bold;
+}
+
+.subscription-box-content input ~ .slider-input {
+    background-color: #2196F3;
+}
+
+.subscription-promo-code-label{
+    margin: 10px 5px;
+    margin-bottom: 25px;
+}
+.subscription-promocode-section{
+    margin: 10px 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.update-subscription-plan-btn{
+    float: right;
+}
+
+
+
+.transaction-table-row{
+    background: #eee;
+}
+
+.active-package-box {
+    border: 2px solid;
+    border-color: #03a9f45e;
+    border-radius: 5px;
+    background: #bad8f91f;
+}
+
+
+.redeem-box-error{
+   margin: 0 20px;
+   font-size: 11.5px;
+}
+
+.text-capitalize{
+    text-transform: capitalize;
+}
+
+.blur-effect{
+    transition: all .3s ease-in-out;
+    filter: blur(5px);
+    opacity: .6;
+}
+.promo-code-input input{
+    margin-right: 20px;
+    min-width: 250px;
+}
+
+.minimal-package-plan {
+  max-width: 500px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.sub-minimal-brand {
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  width: 200px;
+  padding: 14px 6px;
+  font-size: 18px;
+  align-items: center;
+  align-self: center;
+}
+
+.sub-minimal-brand > div > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.upgrade-text {
+  align-self: center;
+  font-weight: bold;
+}

@@ -1,0 +1,42 @@
+.product-workspace-container {
+    position: relative;
+}
+.product-workspace {
+    width: 750px;
+    max-height: 89vh;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+.product-page-content{
+    background: #fff;
+    padding: 20px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.1);
+}
+.product-workspace.wide{
+    width: 950px;
+    min-width: 70%;
+}
+.drop-area-image {
+    width: 81%;
+    height: 100px;
+    object-fit: contain;
+    margin: 20px;
+    filter: grayscale(1);
+}
+
+.product-workspace.tablet {
+    width: 500px;
+    /* min-height: 667px; */
+}
+.product-workspace.mobile {
+    width: 375px;
+    min-height: 667px;
+}
+.builder-drop-area{
+    border: 2px dashed lightgray;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px 0;
+}

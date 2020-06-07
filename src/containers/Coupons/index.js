@@ -112,7 +112,7 @@ const Coupons = ({
                     <Table.Cell>
                       <SmallButton
                         onClick={() => props.changeCouponState({ couponId, active: !active })}
-                        className={active ? 'green-color' : 'gray-color'}
+                        className={active ? 'green-color' : 'gray-bg'}
                       >
                         {`${active ? 'Active' : 'Inactive'}`}
                       </SmallButton>

@@ -1,9 +1,7 @@
+import { UPDATE_MARKETPLACE_SETTINGS } from 'constantsTypes';
 import {
-  UPDATE_MARKETPLACE_SETTINGS
-} from 'constantsTypes';
-import {
-  updateMarketPlaceSettingsSuccess,
   updateMarketPlaceSettingsFailed,
+  updateMarketPlaceSettingsSuccess
 } from 'actions/settings';
 
 import { apiRequest } from 'actions/apiRequest';
@@ -16,7 +14,7 @@ export default ({ dispatch }) => (next) => async (action) => {
   dispatch(apiRequest({
     options: {
       method: 'PUT',
-      uri: '/api/users/marketplace',
+      uri: '/api/brands/marketplace',
       body: payload,
       contentType: 'json'
     },

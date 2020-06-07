@@ -10,7 +10,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     options: {
       method: 'delete',
       body: { productId: action.payload },
-      uri: '/api/products',
+      uri: '/api/brands/products',
       contentType: 'json'
     },
     onSuccess: deleteProductSuccess.bind(this, action.payload),

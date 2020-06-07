@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import common from '../../../../components/common';
 import { Modal } from 'components/Modals';
 import './style.css';
 import { connect } from 'react-redux';
+import dashboardSettings from 'data/dashboardSettings';
+import * as Schemas from 'libs/validation';
 import * as dashboardActions from '../../../../actions/dashboard';
 import * as flashMessagesActions from '../../../../actions/flashMessage';
-import dashboardSettings from 'data/dashboardSettings'
-import * as Schemas  from 'libs/validation'
+import common from '../../../../components/common';
+import { notification } from 'libs';
 
-const { Button, InputRow } = common;;
+const { Button, InputRow } = common;
 
 const OptionItem = ({
   label,
-  // value,
   onToggle,
   show,
-  disabled,
+  disabled
 }) => {
   const classes = `${show ? 'displayed-item' : 'available-item'} ${disabled ? 'coming-soon disabled' : ''}`;
 
@@ -37,9 +37,8 @@ const OptionItem = ({
 const SettingsModal = ({
   show,
   updateDashboardChartsSettings,
-  showFlashMessage,
   settings,
-  onClose,
+  onClose
 }) => {
   const [displayMainChart, setDisplayMainChart] = useState(settings.displayMainChart);
   const [options, setOptions] = useState(settings.defaultCardsSettings);
@@ -50,8 +49,8 @@ const SettingsModal = ({
     setOptions({ ...options, [type]: newOptions });
   };
   const onToggleDisplayMainCharts = () => {
-    setDisplayMainChart(v => !v)
-  }
+    setDisplayMainChart((v) => !v);
+  };
 
   const onResetToDefault = () => {
     setOptions(dashboardSettings.defaultCardsSettings);
@@ -59,9 +58,8 @@ const SettingsModal = ({
   };
 
   useEffect(() => {
-    setDisplayMainChart(settings.displayMainChart)
-    setOptions(settings.defaultCardsSettings)
-
+    setDisplayMainChart(settings.displayMainChart);
+    setOptions(settings.defaultCardsSettings);
   }, [show, settings]);
 
   const onSave = async () => {
@@ -72,34 +70,23 @@ const SettingsModal = ({
       }
     };
 
-    const { isValid, value: validSettings, errors } = await Schemas.dashboardChartsSettings(settings)
+    const { isValid, value: validSettings, errors } = await Schemas.dashboardChartsSettings(settings);
 
     if (isValid) {
       updateDashboardChartsSettings(
-        validSettings
-        ,
+        validSettings,
         {
           onSuccess: (arg) => {
-            showFlashMessage({
-              type: 'success',
-              message: 'Dashboard Customization Settings Updated Successfully'
-            });
-            onClose()
+            notification.success('Dashboard settings updated');
+            onClose();
           },
           onFailed: (message) => {
-            showFlashMessage({
-              type: 'failed',
-              message: 'Failed to Save Dashboard Customization Settings'
-            });
+            notification.failed(message);
           }
         }
       );
-
     } else {
-      showFlashMessage({
-        type: 'failed',
-        message: 'Failed to Save Dashboard Customization Settings'
-      });
+      notification.failed('Failed to save dashboard settings');
     }
   };
 
@@ -161,25 +148,22 @@ const SettingsModal = ({
           </div>
         </div>
         <InputRow className='main-charts-settings-container'>
-          <div className='section-title'>Main Chart</div>
-          <div className='charts-settings-switch-container' >
-            <div className='charts-settings-switch-label'>
-              Show / Hide
-          </div>
-            <InputRow.SwitchInput
-              value={displayMainChart}
-              onToggle={onToggleDisplayMainCharts}
-              className='no-switch-input-labels'
-            />
-          </div>
+          <div className='section-title mr-3'>Main Chart</div>
+          <InputRow.Toggle
+            value={displayMainChart}
+            onToggle={onToggleDisplayMainCharts}
+            beforeLabel='Show'
+            afterLabel='Hide'
+
+          />
         </InputRow>
       </div>
       <div className='charts-settings-footer'>
         <div>
-          <Button onClick={onResetToDefault} className='gray-color reset-btn'>Reset To Default</Button>
+          <Button onClick={onResetToDefault} className='gray-bg reset-btn'>Reset To Default</Button>
         </div>
         <div className='chart-modal-btns'>
-          <Button onClick={onClose} className='gray-color'>Cancel</Button>
+          <Button onClick={onClose} className='gray-bg'>Cancel</Button>
           <Button onClick={onSave} className='primary-color'>Save</Button>
         </div>
       </div>
@@ -190,8 +174,7 @@ SettingsModal.propTypes = {
   show: PropTypes.bool,
   updateDashboardChartsSettings: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  showFlashMessage: PropTypes.func.isRequired,
-  settings: PropTypes.objectOf(),
+  settings: PropTypes.objectOf()
 };
 SettingsModal.defaultProps = {
   settings: dashboardSettings,
@@ -199,17 +182,7 @@ SettingsModal.defaultProps = {
 };
 
 
-const mapStateToProps = ({
-  dashboard: {
-    settings
-  } = {}
-}) => ({
-  settings
-});
-
-
-export default connect(
-  mapStateToProps, {
+export default connect(null, {
   ...flashMessagesActions,
   ...dashboardActions
 })(SettingsModal);

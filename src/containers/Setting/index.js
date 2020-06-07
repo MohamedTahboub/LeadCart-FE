@@ -1,72 +1,96 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import './style.css'
-
-import {
-    GeneralSetting,
-    Integrations,
-    Email,
-    TeamMembers,
-    Account,
-    Billing,
-    Translations
-} from './sub'
-
-// import GeneralSetting from './sub/GeneralSetting'
-// import Integrations from './sub/Integrations'
-// import Email from './sub/Email'
-// import TeamMembers from './sub/TeamMembers'
-// import Account from './sub/Account'
-// import Billing from './sub/Billing'
-// import Translations from './sub/Translations'
+import React, { useState } from 'react';
+import './style.css';
 
 import * as settingsActions from 'actions/settings';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import common from 'components/common'
+import common from 'components/common';
+import {
+  Billing,
+  Email,
+  GeneralSetting,
+  Marketplace,
+  TeamMembers,
+  Translations
+} from './sub';
 import { Page, PageContent, PageHeader } from '../../components/common/Layout';
-const { TabsNavigator, MainTitle } = common
+import { SmallButton } from 'components/common/Buttons';
+const { MainTitle, LCTabs } = common;
 
-const newProductTabs = [
-    { title: 'Brand Settings', sub: '/settings/brand' },
-    { title: 'Integrations', sub: '/settings/integrations' },
-    { title: 'Email', sub: '/settings/email' },
-    { title: 'Translations', sub: '/settings/translations' },
-    { title: 'Team Members', sub: '/settings/team' },
-    { title: 'Account', sub: '/settings/account' },
-    { title: 'Billing', sub: '/settings/billing' },
-]
-
-class Setting extends Component {
-
-
-    render() {
-
-        return (
-            <Page key='settings' className='setting-details-page'>
-                <PageHeader>
-                    <MainTitle >Settings</MainTitle>
-                </PageHeader>
-
-                <PageContent>
-                    <TabsNavigator
-                        tabs={newProductTabs}
-                        history={this.props.history} />
-                    <Switch>
-                        <Route path='/settings/integrations' component={Integrations} />
-                        <Route exact path='/settings/email' component={Email} />
-                        <Route exact path='/settings/translations' component={Translations} />
-                        <Route exact path='/settings/team' component={TeamMembers} />
-                        <Route exact path='/settings/account' component={Account} />
-                        <Route exact path='/settings/billing' component={Billing} />
-                        <Route path='/settings' component={GeneralSetting} />
-                    </Switch>
-
-                </PageContent>
-            </Page>
-        );
+const Setting = ({ history, brands, user }) => {
+  const { user: { activeBrand: activeBrandId } } = user;
+  const [saveFunction, setSaveFunction] = useState({});
+  const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
+  const tabs = [
+    {
+      key: 'general',
+      tab: 'General',
+      link: '/settings/general',
+      component: <GeneralSetting getSave={setSaveFunction} />
+    }, {
+      key: 'marketplace',
+      tab: 'Marketplace',
+      link: '/settings/marketplace',
+      component: <Marketplace getSave={setSaveFunction} />
+    }, {
+      key: 'emailing',
+      tab: 'Emailing',
+      link: '/settings/emailing',
+      component: <Email />
+    }, {
+      key: 'translations',
+      tab: 'Translations',
+      link: '/settings/translations',
+      component: <Translations />
+    }, {
+      key: 'collaborators',
+      tab: 'Collaborators',
+      link: '/settings/collaborators',
+      component: <TeamMembers />
+    }, {
+      key: 'billing',
+      tab: 'Billing',
+      link: '/settings/billing',
+      component: <Billing activeBrand={activeBrand} />
     }
-}
+  ];
+  const { location: { pathname } } = history;
+  const { key: activeTab } = tabs.find(({ link }) => link.toLowerCase() === pathname) || {};
+  const onTabChange = (tabId) => history.push(`/settings/${tabId}`);
 
+  return (
+    <Page key='settings' className='setting-details-page'>
+      <PageHeader>
+        <MainTitle fluid>
+          <div className='d-flex justify-space-between'>
+            <span>Settings</span>
+            {
+              ['general', 'marketplace'].includes(activeTab) && (
+                <SmallButton className='btn refresh-btn primary-color' onClick={saveFunction.onSave}>
+                  Save Changes
+                </SmallButton>
+              )
+            }
+          </div>
+        </MainTitle>
+      </PageHeader>
+      <PageContent>
+        <LCTabs
+          className='p-3'
+          fitPaneContent
+          vertical
+          activeKey={activeTab}
+          onChange={onTabChange}
+        >
+          {
+            tabs.map(({ component, ...tab }) => <LCTabs.TabPane {...tab}>{component}</LCTabs.TabPane>)
+          }
+        </LCTabs>
+      </PageContent>
+    </Page>
+  );
+};
 
-export default connect(null, settingsActions)(Setting);
+const mapStateToProps = ({ brands, user }) => ({ brands, user });
+
+export default connect(mapStateToProps, settingsActions)(Setting);

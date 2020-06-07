@@ -1,44 +1,6 @@
 // import { showFlashMessage } from 'actions/flashMessage';
 import { notification } from 'libs';
 
-// import {
-//   PRODUCT_CREATED_SUCCESSFULLY,
-//   UPDATE_PRODUCT_SUCCESS,
-//   DELETE_USER_PRODUCT_SUCCESS,
-//   UPLOAD_FILE_SUCCESS,
-//   CHANGE_ACCOUNT_DETAILS_SUCCESS,
-//   CHANGE_ACCOUNT_DETAILS_FAILED,
-//   CHANGE_ACCOUNT_PASSWORD_SUCCESS,
-//   CHANGE_ACCOUNT_PASSWORD_FAILED,
-//   CREATE_NEW_MEMBER_SUCCESS,
-//   CREATE_NEW_MEMBER_FAILED,
-//   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
-//   TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
-//   SAVE_USER_GENERAL_SETTINGS_FAILED,
-//   CREATE_SUB_ACCOUNT_FAILED,
-//   PRODUCT_CREATION_FAILED,
-//   UPDATE_PRODUCT_FAILED,
-//   CREATE_NEW_COUPON_SUCCESS,
-//   CHANGE_COUPON_STATE_SUCCESS,
-//   CHANGE_COUPON_STATE_FAILED,
-//   CREATE_NEW_COUPON_FAILED,
-//   UPLOAD_FILE_FAILED,
-//   UPDATE_UPSELL_SUCCESS,
-//   UPDATE_UPSELL_FAILED,
-//   CREATE_UPSELL_SUCCESS,
-//   DELETE_UPSELL_SUCCESS,
-//   DELETE_UPSELL_FAILED,
-//   CONNECT_WITH_PAYPAL_SUCCESS,
-//   CONNECT_WITH_PAYPAL_FAILED,
-//   ACTIVATE_MEMBER_SUCCESS,
-//   ACTIVATE_MEMBER_FAILED,
-//   CREATE_UPSELL_FAILED,
-//   UPDATE_EMAIL_FOOTER_SUCCESS,
-//   VERIFY_SOURCE_EMAIL_SUCCESS,
-//   TEST_EMAIL_SUCCESS,
-//   DELETE_COUPON_SUCCESS,
-//   DELETE_COUPON_FAILED
-// }
 
 import * as types from '../constantsTypes';
 
@@ -74,27 +36,22 @@ export default () => (next) => (action) => {
   case types.UPDATE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Updated');
     break;
-  case types.UPDATE_PRODUCT_SUCCESS:
-    showSuccessMessage('The Product Updated');
-    break;
+  // case types.UPDATE_PRODUCT_SUCCESS:
+  //   showSuccessMessage('The Product Updated');
+  //   break;
   case types.SAVE_USER_GENERAL_SETTINGS_SUCCESS:
     showSuccessMessage('Update General Setting');
     break;
-  case types.PRODUCT_CREATED_SUCCESSFULLY:
-    showSuccessMessage('The Product Created');
-    break;
+  // case types.PRODUCT_CREATED_SUCCESSFULLY:
+  //   showSuccessMessage('The Product Created');
+  //   break;
   case types.DELETE_USER_PRODUCT_SUCCESS:
     showSuccessMessage('The Product Deleted');
     break;
   case types.UPLOAD_FILE_SUCCESS:
     showSuccessMessage('Uploaded  ');
     break;
-  case types.CHANGE_ACCOUNT_DETAILS_SUCCESS:
-    showSuccessMessage('Account Details Changes');
-    break;
-  case types.CHANGE_ACCOUNT_PASSWORD_SUCCESS:
-    showSuccessMessage('Account Password Changes');
-    break;
+
   case types.CREATE_NEW_MEMBER_SUCCESS:
     showSuccessMessage('\'New Member Have Been');
     break;
@@ -107,27 +64,22 @@ export default () => (next) => (action) => {
   case types.TOGGLE_PRODUCT_AVAILABILITY_SUCCESS:
     showSuccessMessage('Product availability changed');
     break;
-  case types.CHANGE_ACCOUNT_DETAILS_FAILED:
-    showFailureMessage('Account Details Changes Failed');
-    break;
-  case types.CHANGE_ACCOUNT_PASSWORD_FAILED:
-    showFailureMessage('Account password Changes Failed');
-    break;
+
   case types.CREATE_NEW_MEMBER_FAILED:
     showFailureMessage('Failed to create New member');
     break;
   case types.SAVE_USER_GENERAL_SETTINGS_FAILED:
     showFailureMessage('Failed to save the setting, fields maybe not valid');
     break;
-  case types.UPDATE_PRODUCT_FAILED:
-    showFailureMessage('Failed to Update The Product');
-    break;
+  // case types.UPDATE_PRODUCT_FAILED:
+  //   showFailureMessage('Failed to Update The Product');
+  //   break;
   case types.CREATE_SUB_ACCOUNT_FAILED:
     showFailureMessage('Failed to Create A Sub Account!');
     break;
-  case types.PRODUCT_CREATION_FAILED:
-    showFailureMessage('Failed to Create The product');
-    break;
+  // case types.PRODUCT_CREATION_FAILED:
+  //   showFailureMessage('Failed to Create The product');
+  //   break;
   case types.CHANGE_COUPON_STATE_FAILED:
     showFailureMessage('Failed to Change coupon status');
     break;

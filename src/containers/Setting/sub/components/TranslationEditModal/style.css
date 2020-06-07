@@ -67,6 +67,9 @@
 .uppercase-text{
     text-transform: uppercase;
 }
+.capitalized-text{
+    text-transform:capitalize;
+}
 
 .words-search-field{
     width: 100%;

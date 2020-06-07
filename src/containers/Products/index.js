@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import * as modalsActions from 'actions/modals';
 import * as productsActions from 'actions/products';
@@ -6,12 +6,10 @@ import * as productActions from 'actions/product';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import PrecreateProductModals from 'components/PrecreateProductModals';
-
+import { ProductCardSkelton } from 'components/Loaders';
 
 import './style.css';
-import {
-  ProductCard 
-} from './components'
+import { ProductCard } from './components';
 
 const {
   // ProductCard,
@@ -23,7 +21,7 @@ const {
   InputRow,
   Currency,
   Button
-} = common;;
+} = common;
 
 const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
@@ -41,7 +39,7 @@ const Products = ({
   const [filterKeys, setFilterKeys] = useState({ categories: ['checkout', 'upsell'] });
 
   const onProductEdit = ({ category = '', _id }) => {
-    props.history.push(`/${category.toLowerCase()}/${_id}`);
+    props.history.push(`/products/${_id}`);
   };
 
   useEffect(() => {
@@ -151,7 +149,7 @@ const Products = ({
         {filteredProducts.length ? filteredProducts.map((product, id) => (
           <ProductCard
             key={`${product._id}-${id}`}
-            orderInlist={id}
+            orderInList={id}
             {...product}
             onDelete={() => onShowDeleteDialogue(product._id)}
             onDuplicate={() => onProductDuplicate(product)}
@@ -159,7 +157,7 @@ const Products = ({
           // onPreview={() => onProductPreview(product.url)}
           />
         ))
-          : loadingProducts ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
+          : (loadingProducts) ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
         }
         {!!showCreateModal && (
           <PrecreateProductModals
@@ -178,7 +176,7 @@ const Products = ({
             {' '}
             Cancel
           </Button>
-          <Button onClick={onProductDelete} className='warning-color margin-with-float-right'>
+          <Button onClick={onProductDelete} className='warning-bg margin-with-float-right'>
             <i className='fas fa-trash-alt' />
             {' '}
             Delete

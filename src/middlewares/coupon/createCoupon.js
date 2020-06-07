@@ -13,7 +13,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'POST',
       body: payload,
-      uri: '/api/coupon',
+      uri: '/api/brands/coupon',
       contentType: 'json'
     },
     onSuccess: (args) => {

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import CreditCardInput from 'react-credit-card-input';
+import CreditCardDisplay from './CreditCardDisplay';
 
 import './style.css';
+
+export { CreditCardDisplay };
 
 export default ({
   className = '',

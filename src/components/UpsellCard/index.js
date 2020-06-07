@@ -20,7 +20,7 @@ export const UpsellCard = (props) => {
 
   const {
     name,
-    orderInlist,
+    orderInList,
     _id : id,
     active,
     price: { amount: price } = {},
@@ -80,7 +80,7 @@ export const UpsellCard = (props) => {
 };
 UpsellCard.propTypes = {
   name: PropTypes.string,
-  orderInlist: PropTypes.number,
+  orderInList: PropTypes.number,
   active: PropTypes.bool
 };
 
