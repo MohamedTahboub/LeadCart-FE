@@ -38,9 +38,6 @@ const RuleModal = ({
   const [fields, setFields] = useState({ triggerGroups: [] });
   const [saving, setSaving] = useState(false);
   const productsOptions = constructProductsAndOffersLabels(productsMap, funnelProducts);
-  // useCallback(() => {
-  //   return constructProductsLabels(productsMap, funnelProducts);
-  // }, [productsMap, funnelProducts]);
 
   const onTriggerGroupAdded = (group) => {
     setFields({

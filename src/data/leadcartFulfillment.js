@@ -8,7 +8,7 @@ export default {
     },
     {
       label: 'Manual Fulfillment',
-      value: 'LEADCART_MANUAL'
+      value: 'MANUAL_FULFILLMENT'
     }
   ]
 };

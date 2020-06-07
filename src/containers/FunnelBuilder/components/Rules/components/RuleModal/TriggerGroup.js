@@ -37,7 +37,7 @@ const TriggerGroup = ({
   >
     <Label>The products:</Label>
     {products.map((product, index) => (
-      <FlexBox>
+      <FlexBox center='v-center'>
         <Badge
           //   data-for={product.name}
           data-tip
