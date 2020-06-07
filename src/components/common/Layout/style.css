@@ -7,8 +7,12 @@
   right:0px;
   bottom: 0px;
   background: #8080802e;
-  z-index: 100000;
-} 
+  z-index: 10;
+}
+.page-container.fullSize{
+  margin: 0;
+
+}
 .page-header{
   position: fixed;
   top: 0px;
@@ -31,7 +35,6 @@
   bottom: 0px;
   left: 200px;
   right: 0px;
-  /* background: #8080802e; */
   overflow: auto;
   padding: 10px 20px;
   z-index: 1000;

@@ -1,0 +1,16 @@
+.node-link-svg {
+    position: absolute;
+    /* left: 10px; */
+    /* background: #80808078; */
+    /* top: 100%; */
+  }
+  .node-link-svg circle.end {
+    transition: r 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  .node-link-svg circle.end:hover {
+    r: 7px;
+  }
+  circle.start-circle:hover{
+    filter: scale(1.2px);
+  }

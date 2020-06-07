@@ -1,0 +1,16 @@
+#[[redirects]]
+#  from = "/api"
+#  to = "https://test.leadcart.io/api"
+#  status = 200
+#  force = true # COMMENT: ensure that we always redirect
+
+
+#[[redirects]]
+#  from = "/api/*"
+#  to = "https://test.leadcart.io/api/:splat"
+
+#[[redirects]]
+#  from = "/*"
+#  to = "/index.html"
+
+#status = 200

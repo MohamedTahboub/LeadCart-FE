@@ -1,0 +1,6 @@
+img.section-guarantee-image {
+    height: 180px;
+    width: 180px;
+    object-fit: contain;
+    margin: 10px 20px;
+}

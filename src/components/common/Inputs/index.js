@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import './style.css';
 import DatePicker from 'antd/lib/date-picker';
 import Checkbox from 'antd/lib/checkbox';
@@ -9,11 +9,24 @@ import SearchInput from './SearchInput';
 import TextField from './TextField';
 import TextAreaInput from './TextAreaInput';
 import EditableTagGroup from './EditableTagGroup';
+import Slider from './Slider';
+import Toggle from './Toggle';
 
 export class InputRow extends Component {
-  static Label = ({
-    notes, error, className = '', ...props
-  }) => (
+
+  static TextAreaInput = TextAreaInput
+  static AddImage = AddImage
+  static AddComponentField = AddFieldComponent
+  static SearchInput = SearchInput
+  static DatePicker = DatePicker
+  static EditableTagGroup = EditableTagGroup
+  static TextField = TextField
+  static Slider = Slider
+  static Checkbox = Checkbox
+  static Toggle = Toggle
+
+
+  static Label = ({ notes, error, className = '', ...props }) => (
     <div className={`input-label-container ${className}`}>
       <span className='input-label '>{props.children}</span>
       {error && (
@@ -101,12 +114,10 @@ export class InputRow extends Component {
     />
   )
 
-  static UrlSuffixInput = ({
-    onChange, name, subdomain, value, error, ...props
-  }) => (
+  static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
     <div className='url-suffix-input'>
       <span className='suffix-value'>
-          https://
+        https://
         {subdomain}
           .leadcart.io/
       </span>
@@ -120,33 +131,6 @@ export class InputRow extends Component {
     </div>
   )
 
-  static TextAreaInput = TextAreaInput
-  //  ({ onChange, name, disabled, value, error, ...props }) => (
-  //   <div className='text-area-container'>
-  //     <textarea
-  //       onChange={onChange}
-  //       name={name}
-  //       value={value}
-  //       disabled={disabled}
-  //       className={'textarea-input-field ' + (error && 'invalid-field')}
-  //     />
-  //     <span className='text-area-small-note'>27/260</span>
-  //   </div>
-  // )
-
-  static AddImage = AddImage
-
-  static AddComponentField = AddFieldComponent
-
-  static SearchInput = SearchInput
-
-  static DatePicker = DatePicker
-
-  static EditableTagGroup = EditableTagGroup
-
-  static TextField = TextField
-
-  static Checkbox = Checkbox
 
   static SelectOption = ({
     options = [],
@@ -155,12 +139,19 @@ export class InputRow extends Component {
     name,
     value,
     leftLabel,
+    disabled,
     ...props
   }) => (
     <React.Fragment>
       {leftLabel && <span className='input-left-label'>{leftLabel}</span>}
-      <select onChange={onChange} value={value} name={name} className={`select-input-field ${className || ''}`}>
-        {options.map(({ label, value: v }) => <option key={ids.generate()} className='select-option' value={v}>{label}</option>)}
+      <select
+        onChange={onChange}
+        defaultValue={value}
+        name={name}
+        className={`select-input-field ${className || ''}`}
+        disabled={disabled}
+      >
+        {options.map(({ label, value: v }) => <option key={v} className='select-option' value={v}>{label}</option>)}
       </select>
     </React.Fragment>
   )
@@ -242,16 +233,6 @@ export class InputRow extends Component {
     </label>
   )
 
-  static ColorInlinePicker = (props) => (
-    <div className='inline-color-picker'>
-      <span className='color-label color-default'>default</span>
-      <span className='color-label color-monochrome'>MONOCHROME</span>
-      <span className='color-label color-blues-earthy'>BLUES EARTHY</span>
-      <span className='color-label color-crison'>CRIMSON</span>
-      <span className='color-label color-forest'>FOREST</span>
-    </div>
-  )
-
   static SwitchInput = ({
     onChange,
     className = '',
@@ -262,17 +243,20 @@ export class InputRow extends Component {
     onToggle,
     ...props
   }) => (
-    <label className={`switch-slider-input ${className}`}>
-      <input
-        onChange={onToggle}
-        name={name}
-        type='checkbox'
-        defaultChecked={defaultChecked}
-        checked={value}
-        {...props}
-      />
-      <span className='slider-input slider-round' />
-    </label>
+    <Fragment>
+      <div className='custom-switch-input-container'>
+        <label className={`custom-switch-input ${className}`} />
+        <input
+          onChange={onToggle}
+          name={name}
+          type='checkbox'
+          defaultChecked={defaultChecked}
+          checked={value}
+          {...props}
+        />
+        <span className='slider-input slider-round' />
+      </div>
+    </Fragment>
   )
 
   static CodeInputArea = ({
@@ -298,9 +282,7 @@ export class InputRow extends Component {
     </div>
   )
 
-  static FlatSelect = ({
-    note, onSelect, value = 'Percent', ...props
-  }) => (
+  static FlatSelect = ({ note, onSelect, value = 'Percent', ...props }) => (
     <div className='charging-method-picker'>
       <input
         id='charge-method-el-1'
@@ -314,7 +296,7 @@ export class InputRow extends Component {
         htmlFor='charge-method-el-1'
         className='charging-method-item'
       >
-%
+        %
 
       </label>
       <input
@@ -330,7 +312,7 @@ export class InputRow extends Component {
         className='charging-method-item'
 
       >
-$
+        $
 
       </label>
       {note && <span className='charging-method-picker-notes'>{note}</span>}
@@ -355,9 +337,7 @@ $
   }
 }
 
-export const CodeInputArea = ({
-  value, flixable, onChange, onBlur, name, disabled, ...props
-}) => (
+export const CodeInputArea = ({ value, flixable, onChange, onBlur, name, disabled, ...props }) => (
   <div className={`code-area-container ${flixable ? 'flixable-code-area-container' : ''}`}>
     <textarea
       onChange={onChange}
@@ -399,9 +379,7 @@ export const SelectBox = ({
   );
 };
 
-export const CheckoutInput = ({
-  className = '', disabled, name, type = 'text', label
-}) => (
+export const CheckoutInput = ({ className = '', disabled, name, type = 'text', label }) => (
   <div className='checkout-input-field-container'>
     <input
       className='checkout-input-field'
@@ -430,7 +408,8 @@ export const EditableField = ({
   defaultValue = 'edit text',
   textarea,
   error,
-  childElement
+  childElement,
+  style: inheritedStyles
 }) => {
   const value = val || children || defaultValue;
   const [editable, setEditable] = useState(false);
@@ -452,7 +431,7 @@ export const EditableField = ({
   };
 
   const Element = (props) => (textarea ? <textarea {...props} /> : <input {...props} />);
-  const style = { color, backgroundColor };
+  const style = { color, backgroundColor, ...inheritedStyles };
   return (
     <div style={style} onClick={onEditable} className={`editable-field ${className}`}>
       {
@@ -491,4 +470,5 @@ export const EditableField = ({
 export { default as EditableInputField } from './EditableInputField';
 export { default as EditableTextField } from './EditableTextField';
 export { default as InputGroup } from './InputGroup';
-
+export { default as ResizableInput } from './ResizableInput';
+export { default as ResizableTextarea } from './ResizableTextarea';

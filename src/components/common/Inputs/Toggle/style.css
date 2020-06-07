@@ -1,0 +1,63 @@
+.toggle-bar {
+    display: flex;
+    --bar-width: 30px;
+    --bar-height: 12px;
+    width: var(--bar-width);
+    height: var(--bar-height);
+    background-color: lightgray;
+    position: relative;
+    border-radius: 30px;
+    padding: 1.5px;
+    cursor: pointer;
+    margin: 8px 25px;
+}
+
+.toggle-bar:before,
+.toggle-bar:after {
+    position: absolute;
+    /* before is the default  */
+    content: attr(data-before-bar);
+    left: -30px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    color: gray;
+    transition: color 0.3s ease-in-out;
+}
+
+.toggle-bar:after {
+    right: -30px;
+    left: unset;
+    content: attr(data-after-bar);
+    font-weight: bold;
+}
+
+.toggle-bar.active:before {
+    font-weight: bold;
+    color: #2196f3;
+}
+
+.toggle-bar.active:after {
+    font-weight: unset;
+}
+
+.toggle-bar .circle {
+    margin: auto 0;
+    cursor: pointer;
+    height: calc(var(--bar-height) - 2px);
+    width: calc(var(--bar-height) - 2px);
+    background-color: #eee;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    transform: translateX(calc(var(--bar-width) - var(--bar-height) - 1px));
+}
+.toggle-bar.active {
+    background-color: #2196f3;
+}
+
+.toggle-bar.active .circle {
+    transform: translateX(0px);
+}

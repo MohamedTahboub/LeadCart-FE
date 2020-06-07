@@ -1,0 +1,16 @@
+.funnel-rules-modal{
+    width: 750px;
+}
+
+.modal-trigger-groups-list{
+    height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.rule-control{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}

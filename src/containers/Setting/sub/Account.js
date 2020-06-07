@@ -57,7 +57,7 @@ class Account extends Component {
 
   onChangePassword = () => {
     const { error, ...passwords } = this.state.passwordsModel;
-    this.props.onChangeAccounPassword(
+    this.props.onChangeAccountPassword(
       passwords,
       {
         onSuccess: () => {

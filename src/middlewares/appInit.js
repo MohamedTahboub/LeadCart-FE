@@ -8,7 +8,7 @@ import { getCustomers } from 'actions/customers';
 import { getOrders } from 'actions/orders';
 import { getUpsellsSuccess } from 'actions/upsells';
 import { getFunnels } from 'actions/funnels';
-import { getFulfillmentsSuccess } from 'actions/fulfillments';
+import { getUserIntegration } from 'actions/integrations';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
 import { appLaunchFailed, appLaunchSuccess } from 'actions/appInit';
 import { apiRequest } from 'actions/apiRequest';
@@ -17,15 +17,12 @@ import { getDashboardDataSuccess } from 'actions/dashboard';
 import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
 import { getTranslationsLanguages } from 'actions/translations';
+import { getUserBrands } from 'actions/brands';
 
 
 window.user = '';
 export default ({ dispatch, getState }) => (next) => (action) => {
-  const {
-    user: {
-      isLoggedIn
-    }
-  } = getState();
+  const { user: { isLoggedIn } } = getState();
 
   if (action.type !== APP_INIT) return next(action);
 
@@ -37,9 +34,9 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
     dispatch(getCouponsList(data.coupons));
-    dispatch(getUpsellsSuccess(data.upsells));
-    dispatch(getFulfillmentsSuccess(data.fulfillments));
-    dispatch(getUserPaymentMethods(data.paymentMethods));
+    // dispatch(getUpsellsSuccess(data.upsells));
+    // dispatch(getFulfillmentsSuccess(data.fulfillments));
+    // dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getDashboardDataSuccess(data.dashboard));
     dispatch(getFunnels(data.funnels || []));
     dispatch(getUserProductsSuccess({ products: data.products }));
@@ -48,6 +45,8 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
     dispatch(getTranslationsLanguages(data.languages));
     dispatch(getEmailSettings(data.emailSettings));
+    dispatch(getUserBrands(data.brands));
+    dispatch(getUserIntegration(data.integrations));
 
     dispatch(getUserPlanSuccess({
       activePackage: data.activePackage,
@@ -57,7 +56,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getOrders(data.orders));
     dispatch(getCustomers(data.customers));
 
-    return appLaunchSuccess('THE APPLICATION LUNCHED');
+    return appLaunchSuccess(data);
   };
 
   cleanUpTheConsole();

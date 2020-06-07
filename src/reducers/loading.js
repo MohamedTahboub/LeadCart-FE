@@ -1,6 +1,6 @@
 import {
-  START_LOADING,
-  END_LOADING
+  END_LOADING,
+  START_LOADING
 } from 'constantsTypes';
 
 

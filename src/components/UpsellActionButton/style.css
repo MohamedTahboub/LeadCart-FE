@@ -1,12 +1,12 @@
-.upsell-action-btn-container{
-    
-    flex:1;
+.upsell-action-btn-container {
+
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.action-btn{
+.action-btn {
     position: relative;
     min-width: 200px;
     min-height: 36px;
@@ -19,7 +19,8 @@
     font-weight: bold;
     cursor: pointer;
 }
-.action-btn::before{
+
+.action-btn::before {
     position: absolute;
     bottom: -30px;
     left: 0px;

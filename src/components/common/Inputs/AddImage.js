@@ -12,6 +12,7 @@ const AddImage = ({
   className = '',
   imageClassName = '',
   suffixIcon,
+  inputRef,
   children,
   notes,
   description,
@@ -21,8 +22,7 @@ const AddImage = ({
   let imageFieldRef = '';
 
   useEffect(() => {
-    if (value !== image)
-      setImage(value);
+    if (value !== image) setImage(value);
   }, [value]);
 
   const onAddImage = () => {
@@ -46,6 +46,7 @@ const AddImage = ({
   return (
     <div className={`add-input-field-holder ${className}`}>
       <div
+        ref={inputRef}
         onClick={onAddImage}
         className={`add-elements-container ${imageClassName}`}
         role='presentation'

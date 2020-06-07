@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as translationsActions from 'actions/translations';
@@ -6,15 +6,13 @@ import common from 'components/common';
 import Table from 'components/common/Tables';
 import { injectDefaultLabels } from 'libs';
 import moment from 'moment';
-import {
-  TranslationEditModal as EditModal
-} from './components';
+import { TranslationEditModal as EditModal } from './components';
 
 const {
   MainBlock,
   MiniButton,
   Dialog,
-  Button,
+  Button
 } = common;
 
 
@@ -42,9 +40,7 @@ const Translations = ({ languages = [], deleteTranslationLanguage }) => {
   };
 
   const onLanguageDelete = (languageId) => {
-    deleteTranslationLanguage({
-      languageId
-    }, {
+    deleteTranslationLanguage({ languageId }, {
       onSuccess: () => {
         setShowDeleteModal();
       },
@@ -68,12 +64,12 @@ const Translations = ({ languages = [], deleteTranslationLanguage }) => {
           name = 'Untitled',
           default: defaultLanguage,
           updatedAt,
-          type,
+          type
         }, orderInList) => (
           <Table.Row
             key={id}
             orderInList={orderInList}
-            className='member-table-row'
+            className='member-table-row blue'
           >
             <Table.Cell mainContent={name} />
             <Table.Cell className='uppercase-text' mainContent={type} />
@@ -148,12 +144,8 @@ const Translations = ({ languages = [], deleteTranslationLanguage }) => {
 };
 
 // {errors.modal && <span className='error-message'>{errors.modal}</span>}
-Translations.propTypes = {
-
-};
-Translations.defaultProps = {
-  languages: []
-};
+Translations.propTypes = {};
+Translations.defaultProps = { languages: [] };
 
 const mapStateToProps = ({ translations: languages }) => ({ languages: injectDefaultLabels(languages) });
 export default connect(mapStateToProps, translationsActions)(Translations);

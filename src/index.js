@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import ReactNotification from 'react-notifications-component';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
+import ToolTip from 'react-tooltip';
 import store from 'store';
 import 'config';
 
@@ -33,26 +33,32 @@ import PromoCodeActivation from 'containers/PromoCodeActivation';
 import ForgetPassword from 'containers/ForgetPassword';
 import PasswordRest from 'containers/PasswordRest';
 import Funnels from 'containers/Funnels';
-import Fulfillments from 'containers/Fulfillments';
-import ProductBuilder from 'containers/ProductBuilder';
+// import Fulfillments from 'containers/Fulfillments';
+// import ProductBuilder from 'containers/ProductBuilder';
+import ProductBuilder from 'containers/ProductPageBuilder';
 import FunnelBuilder from 'containers/FunnelBuilder';
 
 import Dashboard from 'containers/Dashboard';
 import Products from 'containers/Products';
+import Integrations from 'containers/Integrations';
 import registerServiceWorker from 'services/RegisterServiceWorker';
 import Transactions from './containers/Transactions';
 import CustomersLab from './containers/CustomersLab';
 import Coupons from './containers/Coupons';
 import Setting from './containers/Setting';
-import SubAccounts from './containers/SubAccounts';
+// import SubAccounts from './containers/SubAccounts';
 import Help from './containers/Help';
+import PersonalSettings from './containers/PersonalSettings';
+import Account from './containers/Account';
+import SubAccounts from './containers/PersonalSettings/SubaccountsSection';
 
 
 // services
 
 // Styles
 import './index.css';
-import 'semantic-ui-css/semantic.min.css';
+import 'antd/dist/antd.css';
+// import 'semantic-ui-css/semantic.min.css';
 import 'react-notifications-component/dist/theme.css';
 import { APP_INIT } from 'constantsTypes';
 import IntercomApp from './components/Intercom';
@@ -88,9 +94,8 @@ ReactDOM.render(
             <Route exact path='/promocode' component={PromoCodeActivation} />
             <Route exact path='/saasmantra' component={SignUpSaasmantra} />
             <Route path='/verify' component={VerifyAccount} />
-
-            <ProtectedRoute exact path='/checkout/:id' component={ProductBuilder} />
-            <ProtectedRoute exact path='/upsell/:id' component={ProductBuilder} />
+            <ProtectedRoute exact path='/products/:productId' component={ProductBuilder} />
+            <ProtectedRoute exact path='/funnels/:funnelUrl/products/:productId' component={ProductBuilder} />
             <ProtectedRoute exact path='/funnels/:url' component={FunnelBuilder} />
             <ProtectedRoute component={() => (
               <Fragment>
@@ -101,13 +106,15 @@ ReactDOM.render(
                   <Route path='/transactions' component={Transactions} />
                   <Route path='/customers' component={CustomersLab} />
                   <Route exact path='/coupons' component={Coupons} />
-                  <Route exact path='/fulfillment' component={Fulfillments} />
+                  <Route exact path='/integrations' component={Integrations} />
                   <Route exact path='/funnels' component={Funnels} />
                   <Route exact path='/reports' render={() => <ImagePageContainer title='REPORTS' image={reportsImage} />} />
                   <Route exact path='/affiliates' render={() => <ImagePageContainer title='AFFILIATES' image={affiliatesImage} />} />
-                  <Route exact path='/sub-accounts' component={SubAccounts} />
+                  <Route exact path='/settings/account' component={Account} />
                   <Route path='/settings' component={Setting} />
                   <Route exact path='/help' component={Help} />
+                  <Route exact path='/account' component={PersonalSettings} />
+                  <Route exact path='/sub-accounts' component={SubAccounts} />
                   <Route exact path='*' component={FourOFour} />
                 </Switch>
               </Fragment>
@@ -117,6 +124,7 @@ ReactDOM.render(
         </BrowserRouter>
         <ReactNotification />
       </ErrorBoundary>
+      <ToolTip />
     </React.Fragment>
   </Provider>,
   document.getElementById('root')

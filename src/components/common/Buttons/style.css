@@ -22,8 +22,13 @@
 .btn:active{
   opacity: .85;
 }
+.btn.circle{
+  padding: 10px;
+  border-radius: 50%;
+  
+}
 
-.btn.warning-color:hover {
+.btn.danger-bg:hover {
   background: rgb(247, 121, 142);
 }
 
@@ -76,6 +81,15 @@
   border: 2px solid rgb(62, 89, 240);
   border-top-color: #fefefe;
 }
+.btn.light-btn.spinner::after{
+  border: 2px solid #000;
+  border-top-color: #eee;
+  left: calc(50% - 4.5px);
+  width: 10px;
+  height: 10px;
+  top: calc(50% - 4.5px);
+}
+
 .primary-btn{
   background: #4DA1FF;
   background: var(--btn-bg);
@@ -85,6 +99,14 @@
   margin: 0 5px;
   font-size: 12px;
   border-radius: 5px;
+}
+.gray-btn{
+  color:rgb(105, 101, 101);
+  background: #eee;
+}
+.gray-btn:hover{
+  color:rgb(143, 136, 136);
+  background: lightgray;
 }
 
 

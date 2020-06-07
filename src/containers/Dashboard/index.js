@@ -3,12 +3,11 @@ import { Chart, MiniChart } from 'components/LeadCartCharts';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import dateOptions from 'data/dateOptions';
-// import chartsDummyData, { getChartsFeed } from 'data/dashboardChartsData.js';
 import { ChartTypeCard, ChartsSettingsModal } from './components';
 import { reshapeFeed } from './helpers';
-import * as dashboardActions from 'actions/dashboard'
-import dashboardSettings from 'data/dashboardSettings'
-import { getDateValueReferences, getChartPreviewCardDescription } from 'libs'
+import * as dashboardActions from 'actions/dashboard';
+import dashboardSettings from 'data/dashboardSettings';
+import { getChartPreviewCardDescription, getDateValueReferences } from 'libs';
 import './style.css';
 
 import common from 'components/common';
@@ -20,8 +19,11 @@ const {
   PageHeader,
   PageContent,
   InputRow,
-  InsightBadge,
+  InsightBadge
 } = common;
+
+
+const { SearchInput } = InputRow;
 
 const Dashboard = ({
   filtersLabels,
@@ -33,7 +35,7 @@ const Dashboard = ({
   const [filterKeys, setFilterKeys] = useState({ date: 'weekToDate' });
   const [activeType, setActiveType] = useState('views');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
-  const [updatingCharts, setUpdatingCharts] = useState(false)
+  const [updatingCharts, setUpdatingCharts] = useState(false);
 
   const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(false);
 
@@ -49,29 +51,23 @@ const Dashboard = ({
 
     setChartsFeed(reshapeFeed(activities, getDateValueReferences(filterKeys.date)));
 
-    // userPilot routes listener
-    // const unlisten = props.history.listen((location, action) => {
-    //   if (window.userpilot) window.userpilot.reload();
-    // });
-
-    console.log('Settings', settings)
-  }, [activities, settings]);
+  }, [activities, filterKeys.date, settings]);
 
   const onChange = ({ target: { name, value } }) => {
-    const filters = { ...filterKeys, [name]: value }
+    const filters = { ...filterKeys, [name]: value };
     setFilterKeys(filters);
 
-  
-    setUpdatingCharts(true)
+
+    setUpdatingCharts(true);
     getDashboardChartsData(
       constructFilters(filters),
       {
         onSuccess: (feed) => {
           setChartsFeed(reshapeFeed(feed));
-          setUpdatingCharts(false)
+          setUpdatingCharts(false);
         },
         onFailed: (message) => {
-          setUpdatingCharts(false)
+          setUpdatingCharts(false);
 
         }
       }
@@ -79,16 +75,16 @@ const Dashboard = ({
   };
 
   const constructFilters = (filters) => {
-    if (filters['product'] === 'all')
-      filters['product'] = undefined
-      
+    if (filters.product === 'all')
+      filters.product = undefined;
+
 
     return {
       productId: filters.product,
       category: filters.category,
-      date: getDateValueReferences(filters.date),
-    }
-  }
+      date: getDateValueReferences(filters.date)
+    };
+  };
   return (
     <Page>
       <PageHeader withRefreshBtn data={{ chartsFilters: constructFilters(filterKeys) }}>
@@ -100,7 +96,7 @@ const Dashboard = ({
             <div className='dashboard-content'>
               <div className='chart-preview section-box'>
                 <div className='chart-head'>
-                  <InputRow.SearchInput
+                  <SearchInput
                     className='chart-select-filter'
                     options={filtersLabels}
                     value={filterKeys.product}
@@ -110,12 +106,12 @@ const Dashboard = ({
                     disabled={updatingCharts}
                     onChange={onChange}
                   />
-                  <InputRow.SearchInput
-                    className='chart-select-filter product-categories'
+                  <SearchInput
+                    className='chart-select-filter product-categories mx-2'
                     options={[
                       { label: 'All Products Categories' },
                       { label: 'Checkout Products', value: 'checkout' },
-                      { label: 'Upsell/Downsell Products', value: 'upsell' },
+                      { label: 'Upsell/Downsell Products', value: 'upsell' }
                     ]}
                     value={filterKeys.category}
                     defaultValue='All Products Categories'
@@ -124,7 +120,7 @@ const Dashboard = ({
                     disabled={updatingCharts}
                     onChange={onChange}
                   />
-                  <InputRow.SearchInput
+                  <SearchInput
                     className='chart-select-filter'
                     options={dateOptions}
                     value={filterKeys.date}
@@ -134,7 +130,7 @@ const Dashboard = ({
                     disabled={updatingCharts}
                     onChange={onChange}
                   />
-                  {updatingCharts && <span className="spinner" />}
+                  {updatingCharts && <span className='spinner' />}
                   <i
                     role='presentation'
                     onClick={onOpenChartsSettingsModal}
@@ -142,7 +138,7 @@ const Dashboard = ({
                   />
                   <ChartsSettingsModal
                     show={showChartsSettingsModal}
-                    // settings={settings}
+                    settings={settings}
                     onClose={onCloseChartsSettingModal}
                   />
                 </div>
@@ -239,7 +235,7 @@ const Dashboard = ({
               </div>
               {/* overview insights section */}
               <div className='overview-insights-container'>
-                {settings.defaultCardsSettings.sales.map(card => (
+                {settings.defaultCardsSettings.sales.map((card) => (
                   <InsightBadge
                     key={card.value}
                     {...card}
@@ -254,7 +250,7 @@ const Dashboard = ({
                     )}
                   />
                 ))}
-                {settings.defaultCardsSettings.refunds.map(card => (
+                {settings.defaultCardsSettings.refunds.map((card) => (
                   <InsightBadge
                     key={card.value}
                     {...card}
@@ -299,38 +295,13 @@ const mapStateToProps = ({
   } = {}
 }) => {
 
-  if (settings.defaultCardsSettings && !settings.defaultCardsSettings.sales.length) {
-    settings = dashboardSettings;
-  }
-
+  const withDefaultSetting = !(settings.defaultCardsSettings && settings.defaultCardsSettings.sales.length);
   return {
     filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
     activities,
-    settings
-  }
+    settings: withDefaultSetting ? dashboardSettings : settings
+  };
 };
 
 
 export default connect(mapStateToProps, dashboardActions)(Dashboard);
-/*
-
-                  <span className='chart-total-profite'>
-                    <span className='chart-profit-value'>
-                      $102 387.00
-                    </span>
-                    <span className='stock-up'>17.4%</span>
-                  </span>
-
-      <div className='dashboard-temp-data-message'>
-        Note: This is dummy data. It will be updated once you have live transactions.
-      </div>
-  <div className='chart-head-child'>
-                  <div className='chart-preview-options'>
-                    <span className='chart-option'>day</span>
-                    <span className='chart-option'>week</span>
-                    <span className='chart-option'>month</span>
-                    <span className='chart-option'>year</span>
-                  </div>
-                </div>
-
-*/

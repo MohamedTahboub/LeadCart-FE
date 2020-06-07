@@ -1,39 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as signupActions from 'actions/signup';
-import CustomInputField from 'components/CustomInputField';
 import { freeTrailSignup } from 'libs/validation';
 import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 import config from 'config';
 import common from 'components/common';
-import formHateImage from '../../assets/images/pages-demo.png';
+import { VerificationPage } from './components';
 
 import './styles.css';
 
-// import { FormLogo } from 'components/common/logos';
-// import { Feature } from 'components/common/Custom';
-// import { FlexBox } from 'components/common/boxes';
-import { VerificationPage } from './components';
-
-
 const { packagesPlans } = config;
 const {
-  FormLogo,
   Feature,
   FlexBox,
   Button,
-  InputRow,
   InputGroup
 } = common;
 
-const { TextField } = InputRow;
 
-class SignUp extends Component {
-  state = { success: false, processing: false, errors: {} }
+const SignUp = (props) => {
+  props.isLoggedIn && props.history.push('/');
 
-  componentDidUpdate = () => this.props.isLoggedIn && this.props.history.push('/')
+  const [success, setSuccess] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
       const newUser = {
@@ -47,43 +39,42 @@ class SignUp extends Component {
 
       const { isValid, value, errors } = await freeTrailSignup(newUser);
 
-      if (!isValid) return this.setState({ errors });
-      this.setState({ processing: true });
-      this.props.signUp(
-        value,
-        {
-          trial: true,
-          onSuccess: (m) => {
-            this.setState({ success: true, processing: false });
-          },
-          onFailed: (error) => {
-            const message = typeof error !== 'string' ? error.message : error;
+      !isValid ? setErrors({ ...errors }) :
+        props.signUp(
+          value,
+          {
+            trial: true,
+            onSuccess: () => {
+              setSuccess(true);
+              setProcessing(false);
+            },
 
-            this.setState({ success: false, errors: { message }, processing: false });
+            onFailed: (error) => {
+              const message = typeof error !== 'string' ? error.message : error;
+              setSuccess(false);
+              setProcessing(false);
+              setErrors({ message });
+            }
           }
-        }
-      );
+        );
+
     } catch ({ message = '' }) {
-      // if (message.includes('Cannot read property')) message = 'Please check your fields and try again';
-      this.setState({ success: false, errors: { message }, processing: false });
+      setSuccess(false);
+      setProcessing(false);
+      setErrors({ message });
     }
-  }
-
-  onChange = ({ target: { name } }) => {
-    this.setState({
-      errors: { ...this.state.errors, [name]: '', message: '' }
-    });
-  }
-
-  render() {
-    // const { validationError: errors, signupError } = this.props;
-    const { success, errors = {}, processing } = this.state;
-
-    if (success) return <VerificationPage />;
+  };
 
 
-    return (
+  const onChange = ({ target: { name } }) => {
+    setErrors({ ...errors, [name]: '', message: '' });
+  };
+
+
+  return success ? <VerificationPage /> :
+    (
       <FlexBox column className='full-page signup-page background-image-elements'>
+
         <FlexBox className='header-logo-container' wrappable>
           <FlexBox className='min-width-300' flex center='v-center'>
             <img src={whiteBrandLogo} alt='leadcart brand' className='lc-white-logo' />
@@ -91,66 +82,77 @@ class SignUp extends Component {
           <FlexBox flex className='min-width-300' />
           <FlexBox flex className='min-width-300' />
         </FlexBox>
-        <FlexBox spaceBetween className='form-content' flex wrappable center='v-center'>
+
+        <FlexBox spaceBetween className='form-content' flex wrappable
+          center='v-center'
+        >
 
           <FlexBox column className='white-text margin-top-50' flex>
             <div className='larger-text uppercase-text'>
               Start your free Trial
-              </div>
+            </div>
+
             <div className='margin-v-20'>
               Simple, Yet Powerful Cart Solution To Help You Convert More Sales
-                <br />
-              & Maximize Profits.
-              </div>
+              <br />
+              &amp; Maximize Profits.
+            </div>
+
             <FlexBox column>
-              {packagesPlans.pro.features.map((feature) => <Feature>{feature}</Feature>)}
+              {packagesPlans.pro.features.map((feature, index) => <Feature key={index}>{feature}</Feature>)}
             </FlexBox>
           </FlexBox>
 
           <div className='margin-top-20px-on-900'>
-            <form className='form-container' onSubmit={this.onSubmit}>
+            <form className='form-container' onSubmit={onSubmit}>
+
               <FlexBox flex spaceBetween className='full-width margin-bottom-30' center='v-center'>
                 <span className='login-header-title'>Sign up</span>
                 <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='https://leadcart.io/pricing'>
                   Check Our Plans
-                  </a>
+                </a>
               </FlexBox>
-              <FlexBox column center='v-center'>
 
+              <FlexBox column center='v-center'>
                 <FlexBox className='full-width' center='v-center'>
                   <InputGroup
                     name='firstName'
                     label='First Name'
-                    onChange={this.onChange}
+                    onChange={onChange}
                     error={errors.firstName}
                     className='margin-right-20'
                   />
+
                   <InputGroup
                     name='lastName'
                     label='Last Name'
-                    onChange={this.onChange}
+                    onChange={onChange}
                     error={errors.lastName}
                   />
                 </FlexBox>
+
                 <InputGroup
                   name='email'
                   label='Email address'
-                  onChange={this.onChange}
+                  onChange={onChange}
                   error={errors.email}
                 />
+
                 <InputGroup
                   name='password'
                   label='Password'
                   type='password'
-                  onChange={this.onChange}
+                  onChange={onChange}
                   error={errors.password}
                 />
+
                 <InputGroup
                   name='company'
                   label='Company Name'
-                  onChange={this.onChange}
+                  onChange={onChange}
                   error={errors.company}
                 />
+
               </FlexBox>
               <InputGroup
                 name='subdomain'
@@ -160,12 +162,16 @@ class SignUp extends Component {
                 suffix={<span className='main-domain-suffix'>.leadcart.io</span>}
                 error={errors.subdomain}
               />
+
               {errors.message && <span className='error-text'>{errors.message}</span>}
+
               <Button
                 type='submit'
                 className='primary-color large-text arrow-icon'
                 disabled={processing}
-                onProgress={processing}
+                onProgress={() => {
+                  return processing;
+                }}
               >
                 Sign Up
               </Button>
@@ -174,15 +180,11 @@ class SignUp extends Component {
 
         </FlexBox>
         <footer className='copyright-text'>
-          © LeadCart. All rights reserved 2020
+          &copy; LeadCart. All rights reserved 2020
         </footer>
       </FlexBox>
     );
-  }
-}
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn
-});
+};
 
-
+const mapStateToProps = (state) => ({ isLoggedIn: state.user.isLoggedIn });
 export default connect(mapStateToProps, signupActions)(SignUp);

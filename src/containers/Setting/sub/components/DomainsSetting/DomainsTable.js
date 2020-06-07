@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
@@ -157,9 +157,7 @@ const DomainsTable = ({
 
   const onVerify = (domain) => () => {
     setLoading({ verify: true });
-    verifyMarketPlaceDomain({
-      domain
-    }, {
+    verifyMarketPlaceDomain({ domain }, {
       onSuccess: (data) => {
         setVerificationResult({
           success: true,
@@ -181,9 +179,7 @@ const DomainsTable = ({
 
   const onToggleState = (domain) => () => {
     setLoading({ connect: true });
-    toggleMarketPlaceDomainConnection({
-      domain
-    }, {
+    toggleMarketPlaceDomainConnection({ domain }, {
       onSuccess: () => {
         setLoading({ connect: false });
       },
@@ -194,14 +190,12 @@ const DomainsTable = ({
   };
   const onDelete = (domain) => () => {
     setLoading({ delete: true });
-    deleteMarketPlaceDomain({
-      domain
-    }, {
+    deleteMarketPlaceDomain({ domain }, {
       onSuccess: () => {
         setLoading({ delete: false });
       },
       onFailed: (error) => {
-        // console.log(error);
+
         setLoading({ delete: false });
       }
     });
@@ -236,7 +230,7 @@ const DomainsTable = ({
                 disabled={loading.connect}
                 onprogress={loading.connect}
                 onClick={onToggleState(domain)}
-                className={`${connected ? 'warning-color' : 'primary-color'}`}
+                className={`${connected ? 'danger-bg' : 'primary-color'}`}
               >
                 {`${connected ? 'Disconnect' : 'Connect'}`}
               </Button>
@@ -282,8 +276,6 @@ const DomainsTable = ({
   );
 };
 
-DomainsTable.propTypes = {
-
-};
+DomainsTable.propTypes = {};
 
 export default connect(null, settingsActions)(DomainsTable);

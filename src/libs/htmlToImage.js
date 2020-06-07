@@ -3,7 +3,10 @@ import html2canvas from 'html2canvas';
 export default async (elementId) => {
   const target = document.getElementById(elementId);
   if (!target) return;
-  const canvas = await html2canvas(target);
+  const canvas = await html2canvas(target, {
+    useCORS: true,
+    allowTaint: true
+  });
 
   const dataURL = canvas.toDataURL('image/jpeg', 0.05);
 

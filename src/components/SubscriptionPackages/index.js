@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import CreditCardInputs from 'components/CreditCardInputs';
@@ -7,12 +7,12 @@ import './style.css';
 import { connect } from 'react-redux';
 import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
-import ActivePackage from './components/ActivePackage'
-import { upgradeUserSchema } from '../../libs/validation'
+import ActivePackage from './components/ActivePackage';
+import { upgradeUserSchema } from '../../libs/validation';
 const { packagesPlans = {} } = config;
 
 
-const getLastItem = list => list[list.length - 1];
+const getLastItem = (list) => list[list.length - 1];
 
 const {
   InputRow,
@@ -46,17 +46,9 @@ const Subscription = ({
     credit: {}
   });
 
-  useEffect(() => {
-    setFields({
-      ...fields,
-      packageType: activePackage.type,
-      recurringPeriod: activePackage.period,
-    });
-  }, [activePackage]);
-
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
-    const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod]
+    const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
     setFields({
       ...fields,
       packageType: pkg,
@@ -65,8 +57,8 @@ const Subscription = ({
   };
 
   const togglePeriod = () => {
-    const { promoCode, recurringPeriod, packageType: pkg } = fields
-    const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod]
+    const { promoCode, recurringPeriod, packageType: pkg } = fields;
+    const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
     setFields({
       ...fields,
       recurringPeriod: recurringPeriod === 'Monthly' ? 'Yearly' : 'Monthly',
@@ -84,25 +76,23 @@ const Subscription = ({
         name: 'promoCode',
         value: promoCode
       }
-    })
-  }
+    });
+  };
   const onChangePromoCode = ({ target: { name, value } }) => {
     onChange({
       target: {
         name: 'promoCode',
         value: { ...fields.promoCode, code: value }
       }
-    })
-  }
+    });
+  };
   const onPromoCodeCheck = () => {
-    const { promoCode: { code } = {} } = fields
+    const { promoCode: { code } = {} } = fields;
 
     if (code) {
       setLoading({ ...loading, promoCode: true });
       props.checkPromoCode(
-        {
-          promoCode: code
-        },
+        { promoCode: code },
         {
           onSuccess: (promoCode) => {
             setLoading({ ...loading, promoCode: false });
@@ -115,13 +105,13 @@ const Subscription = ({
                 applied: true
               },
               packageType: promoCode.packageType,
-              recurringPeriod: promoCode.recurringPeriod,
-            })
-            setErrors({})
+              recurringPeriod: promoCode.recurringPeriod
+            });
+            setErrors({});
           },
           onFailed: (message) => {
             setLoading({ ...loading, promoCode: false });
-            setErrors({ promoCode: message })
+            setErrors({ promoCode: message });
             // onUpdatePromoCode({})
           }
         }
@@ -132,21 +122,22 @@ const Subscription = ({
   const cleanUp = () => {
     setFields({
       ...fields,
-      promoCode: { code: "" },
+      promoCode: { code: '' },
       credit: {}
     });
-  }
+  };
   const onSubmit = async () => {
 
-    let promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined
+    const promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined;
 
-    const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode })
+    const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode });
 
-    if (!isValid)
+    if (!isValid) {
       return setErrors({
         ...errors,
         message: ' please check your The Fields above'
-      })
+      });
+    }
 
     setLoading({ ...loading, upgrade: true });
     props.upgradeUserPackage(
@@ -154,7 +145,7 @@ const Subscription = ({
       {
         onSuccess: () => {
           setLoading({ ...loading, upgrade: false });
-          cleanUp()
+          cleanUp();
         },
         onFailed: () => {
           setLoading({ ...loading, upgrade: false });
@@ -163,7 +154,7 @@ const Subscription = ({
     );
   };
 
-  const lastTransaction = getLastItem(transactions)
+  const lastTransaction = getLastItem(transactions);
   return (
     <Box
       header={(
@@ -239,7 +230,7 @@ const Subscription = ({
               name='promoCode'
               className={`promo-code-input ${fields.promoCode.applied ? 'valid' : ''}`}
               onChange={onChangePromoCode}
-              Value={fields.promoCode.code}
+              value={fields.promoCode.code}
               placeholder='e.g. PROMO_CODE_XHRNE3'
             />
             <SmallButton
@@ -278,7 +269,7 @@ const Subscription = ({
 
 Subscription.propTypes = {
   checkPromoCode: PropTypes.func.isRequired,
-  upgradeUserPackage: PropTypes.func.isRequired,
+  upgradeUserPackage: PropTypes.func.isRequired
 };
 
 
@@ -296,11 +287,11 @@ const mapStateToProps = ({
 }) => {
 
   if (trial) {
-    activePackage.type = activePackage.type || 'Pro'
-    activePackage.period = activePackage.period || 'Monthly'
+    activePackage.type = activePackage.type || 'Pro';
+    activePackage.period = activePackage.period || 'Monthly';
   } else if (!activePackage.type && level) {
-    activePackage.type = level >= 4 ? 'Premium' : 'Pro'
-    activePackage.period = 'Monthly'
+    activePackage.type = level >= 4 ? 'Premium' : 'Pro';
+    activePackage.period = 'Monthly';
   }
   return {
     activePackage,
@@ -308,7 +299,7 @@ const mapStateToProps = ({
     globalLoading,
     transactions
   };
-}
+};
 
 export const SubscriptionPackages = connect(
   mapStateToProps,
@@ -318,4 +309,4 @@ export const SubscriptionPackages = connect(
   }
 )(Subscription);
 
-export { default as TransactionsTable } from './components/Transactions'
+export { default as TransactionsTable } from './components/Transactions';

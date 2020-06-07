@@ -1,0 +1,9 @@
+.trial-badge{
+    position: absolute;
+    left: 100%;
+    top: -40%;
+    font-size: 9px;
+    background: #adbed2 !important;
+    padding: 1px 5px;
+    text-transform: capitalize;
+}

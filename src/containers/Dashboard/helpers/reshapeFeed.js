@@ -42,7 +42,7 @@ export default (feeds = [], fromDate) => {
         refunds, // : getListOf(['date', 'amount']).from(refunds),
         views,
         prospects, // : getListOf(['date']).from(prospects),
-        sales, // getListOf(['date', 'amount']).from(sales),
+        sales // getListOf(['date', 'amount']).from(sales),
       }
     }));
 
@@ -50,37 +50,39 @@ export default (feeds = [], fromDate) => {
     const {
       sums,
       activities
-    } = activitiesSums.reduce((total, product) => {
-      total.sums.refundsAmount += product.sums.refundsAmount;
-      total.sums.refundsNumber += product.sums.refundsNumber;
-      total.sums.views += product.sums.views;
-      total.sums.prospects += product.sums.prospects;
-      total.sums.grossRevenue += product.sums.grossRevenue;
-      total.sums.salesNumber += product.sums.salesNumber;
+    } = activitiesSums.reduce(
+      (total, product) => {
+        total.sums.refundsAmount += product.sums.refundsAmount;
+        total.sums.refundsNumber += product.sums.refundsNumber;
+        total.sums.views += product.sums.views;
+        total.sums.prospects += product.sums.prospects;
+        total.sums.grossRevenue += product.sums.grossRevenue;
+        total.sums.salesNumber += product.sums.salesNumber;
 
-      total.activities.refunds = [...total.activities.refunds, ...product.activities.refunds];
-      total.activities.views = [...total.activities.views, ...product.activities.views];
-      total.activities.prospects = [...total.activities.prospects, ...product.activities.prospects];
-      total.activities.sales = [...total.activities.sales, ...product.activities.sales];
+        total.activities.refunds = [...total.activities.refunds, ...product.activities.refunds];
+        total.activities.views = [...total.activities.views, ...product.activities.views];
+        total.activities.prospects = [...total.activities.prospects, ...product.activities.prospects];
+        total.activities.sales = [...total.activities.sales, ...product.activities.sales];
 
-      return total;
-    },
-    {
-      sums: {
-        refundsAmount: 0,
-        refundsNumber: 0,
-        views: 0,
-        prospects: 0,
-        grossRevenue: 0,
-        salesNumber: 0
+        return total;
       },
-      activities: {
-        refunds: [],
-        views: [],
-        prospects: [],
-        sales: []
+      {
+        sums: {
+          refundsAmount: 0,
+          refundsNumber: 0,
+          views: 0,
+          prospects: 0,
+          grossRevenue: 0,
+          salesNumber: 0
+        },
+        activities: {
+          refunds: [],
+          views: [],
+          prospects: [],
+          sales: []
+        }
       }
-    });
+    );
 
     const numberOfDays = moment().diff(fromDate.min, 'days');
     sums.dailyAvg = divided(sums.grossRevenue).by(numberOfDays);
@@ -110,7 +112,6 @@ export default (feeds = [], fromDate) => {
       activities
     };
   } catch (error) {
-    console.log(error);
     return {
       sums: {},
       activities: {}
@@ -184,4 +185,3 @@ const groupList = (list) => ({
     return result;
   }
 });
-

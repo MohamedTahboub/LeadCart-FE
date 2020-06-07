@@ -7,9 +7,7 @@ import { CodeInputArea } from '../Inputs';
 
 import './style.css';
 
-export const FlexBoxesContainer = ({
-  children, flex = '', className, ...props
-}) => (
+export const FlexBoxesContainer = ({ children, flex = '', className }) => (
   <div className={`flex-boxes-container ${className || ''} ${flex}`}>
     {children}
   </div>
@@ -21,19 +19,19 @@ export const MainBlock = ({
   children,
   className = '',
   containerClasses,
-  blockHandel,
-  blockActivabilityHandle = false,
-  ...props
+  blockHandel
 }) => (
   <div className={`main-block ${className}`}>
     <div className='main-title-container'>
-      <span className='main-title'>{title}</span>
+      <span className='main-title'>
+        {title}
+      </span>
       {notes && <span className='main-title-note'>{notes}</span>}
       {blockHandel && blockHandel}
     </div>
     {children
         && (
-          <div className={`box-container ${containerClasses && containerClasses.join(' ')}`}>
+          <div className={classNames('box-container', containerClasses)}>
             {children}
           </div>
         )}
@@ -41,7 +39,7 @@ export const MainBlock = ({
 );
 
 
-export const Block = ({ children, ...props }) => (
+export const Block = ({ children }) => (
   <div className='block-container'>
     {children}
   </div>
@@ -50,7 +48,7 @@ export const SmallBox = ({
   clickable = false,
   onClick,
   className = '',
-  ...props
+  children
 }) => (
   <div
     onClick={onClick}
@@ -58,7 +56,7 @@ export const SmallBox = ({
     className={`small-box ${className}`}
   >
     <div className='small-box-container'>
-      {props.children}
+      {children}
     </div>
   </div>
 );
@@ -68,9 +66,9 @@ export const Box = ({
   className = '',
   content,
   footer,
-  ...props
+  lessNormal
 }) => (
-  <div className={`normal-box ${className}`}>
+  <div className={classNames({ 'normal-box': !lessNormal }, className)}>
     {header && <div className='box-header'>{header}</div>}
     {content && <div className={`box-content ${contentClassName}`}>{content}</div>}
     {footer && <div className='box-footer'>{footer}</div>}
@@ -100,10 +98,8 @@ export const InsightBadge = ({
   chart,
   description,
   format: valueFormat = '0.00',
-  show,
-  icon
+  show
 }) => {
-  // const iconClassName = iconsClassesReference(name)
   const { prefixSymbol, suffixSymbol } = getSymbolsReferences(name);
 
   if (!show) return null;
@@ -139,7 +135,7 @@ InsightBadge.propTypes = {
   title: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   chart: PropTypes.instanceOf(HTMLElement),
-  icon: PropTypes.instanceOf(HTMLElement),
+  icon: PropTypes.instanceOf(HTMLElement)
 };
 
 InsightBadge.defaultProps = {
@@ -148,28 +144,51 @@ InsightBadge.defaultProps = {
 };
 
 
+export const CardsContainer = ({ className = '', children }) => (
+  <div className={`cards-container-element ${className}`}>
+    {children}
+  </div>
+);
+
 export const FlexBox = ({
   className,
   column,
   spaceBetween,
+  spaceAround,
+  spaceEvenly,
   wrappable,
   flex,
   center,
-  children
+  flexEnd,
+  flexStart,
+  baseline,
+  children,
+  reverse,
+  overflow,
+  elementRef,
+  fullWidth,
+  ...props
 }) => {
   const classes = classNames({
     [className]: true,
+    [center]: center,
     column,
     spaceBetween,
+    spaceAround,
+    spaceEvenly,
     wrappable,
     flex,
-    [center]: center
+    baseline,
+    flexEnd,
+    reverse,
+    [`overflow-${overflow}`]: overflow,
+    flexStart,
+    fullWidth
   });
 
   return (
-    <div className={`flex-box ${classes}`}>
+    <div className={`flex-box ${classes}`} ref={elementRef} {...props}>
       {children}
     </div>
   );
 };
-

@@ -4,8 +4,8 @@ import { appInit } from 'actions/appInit';
 import * as flashMessages from 'actions/flashMessage';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import clx from 'classnames';
 import { RefreshButton } from '../Buttons';
-
 
 const classes = (flex, column) => `${flex ? 'display-flex' : ''} ${column ? 'flex-column' : ''}`;
 
@@ -14,12 +14,23 @@ export const Page = ({
   className = '',
   dflex,
   flexColumn,
+  fullSize,
   ...props
-}) => (
-  <div className={`page-container ${className} ${classes(dflex, flexColumn)}`}>
-    {children}
-  </div>
-);
+}) => {
+  const classNames = clx({
+    'page-container': true,
+    [className]: className,
+    fullSize,
+    'display-flex': dflex,
+    'flex-column': flexColumn
+  });
+  return (
+    <div className={classNames}>
+      {children}
+    </div>
+  );
+
+};
 
 
 const Header = ({
@@ -78,13 +89,13 @@ Header.propTypes = {
   withRefreshBtn: PropTypes.bool,
   flexColumn: PropTypes.bool,
   showFlashMessage: PropTypes.func.isRequired,
-  appInit: PropTypes.func.isRequired,
+  appInit: PropTypes.func.isRequired
 };
 Header.defaultProps = {
   className: '',
   dflex: false,
   withRefreshBtn: false,
-  flexColumn: false,
+  flexColumn: false
 };
 
 
@@ -101,4 +112,3 @@ export const PageContent = ({
     {children}
   </div>
 );
-

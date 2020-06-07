@@ -1,0 +1,6 @@
+.code-editor{
+    outline-style: none;
+}
+.code-editor textarea:focus{
+    outline-style: none;
+}

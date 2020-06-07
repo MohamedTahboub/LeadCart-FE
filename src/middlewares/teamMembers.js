@@ -28,7 +28,7 @@ export default ({ dispatch }) => (next) => (action) => {
       options: {
         method: 'POST',
         body: action.payload,
-        uri: '/api/users/member/',
+        uri: '/api/brands/member/',
         contentType: 'json'
       },
       onSuccess: (args) => {
@@ -47,7 +47,7 @@ export default ({ dispatch }) => (next) => (action) => {
       options: {
         method: 'put',
         body:  action.payload,
-        uri: '/api/users/member/active',
+        uri: '/api/brands/member/active',
         contentType: 'json'
       },
       onSuccess: activateMemberSuccess.bind(this, action.payload),
@@ -62,7 +62,7 @@ export default ({ dispatch }) => (next) => (action) => {
       options: {
         method: 'DELETE',
         body: payload,
-        uri: '/api/users/member',
+        uri: '/api/brands/member',
         contentType: 'json'
       },
       onSuccess: (args) => {

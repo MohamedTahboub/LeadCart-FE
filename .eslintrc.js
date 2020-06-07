@@ -1,43 +1,27 @@
 module.exports = {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "plugins": [
-    "react",
-    "import",
-    "jsx-a11y"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 6 ,
-    "sourceType": "module",
-    "experimentalObjectRestSpread": true,
-    "ecmaFeatures": {
-      "jsx": true
-        }
-  },
   "env": {
-    "node": true ,
     "es6": true,
-    "mocha": true,
-    "browser": true
+    "node": true
   },
-  "settings": {
-   "import/resolver": {
-     "babel-module": {},
-     "babel-namespace": {}
-   },
-   "import/cache": {
-     "lifetime": 0
-   }
- },
+  "extends": ["react-app", "eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
   "rules": {
+    "indent": ["error", 2, { "ignoredNodes": ["TemplateLiteral"] }],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "no-mixed-spaces-and-tabs": 0,
+    "react/jsx-closing-bracket-location": [2, "tag-aligned"],
+    "function-paren-newline": [2, "multiline"],
     "import/imports-first": 0,
     "import/newline-after-import": 0,
     "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-named-as-default": 0,
-    "import/no-unresolved": 2,
     "import/prefer-default-export": 0,
-    "comma-dangle": ["error", "only-multiline"],
+    "comma-dangle": ["error", "never"],
     "no-cond-assign": ["error", "always"],
     "no-control-regex": "error",
     "no-dupe-args": "error",
@@ -60,7 +44,6 @@ module.exports = {
     "use-isnan": "error",
     "valid-jsdoc": "error",
     "valid-typeof": "error",
-
     "array-callback-return": "error",
     "curly": ["error", "multi-or-nest", "consistent"],
     "dot-location": ["error", "property"],
@@ -73,7 +56,7 @@ module.exports = {
     "no-fallthrough": "error",
     "no-floating-decimal": "error",
     "no-implied-eval": "error",
-    "no-invalid-this": "error",
+    "no-invalid-this": 0,
     "no-iterator": "error",
     "no-labels": "error",
     "no-lone-blocks": "error",
@@ -84,7 +67,7 @@ module.exports = {
     "no-new-func": "error",
     "no-new-wrappers": "error",
     "no-octal": "error",
-    "no-octal-escape": "error",
+    "no-octal-escape": 0,
     "no-param-reassign": "error",
     "no-proto": "error",
     "no-redeclare": "error",
@@ -94,6 +77,9 @@ module.exports = {
     "no-self-compare": "error",
     "no-sequences": "error",
     "no-unused-expressions": "error",
+    "no-useless-catch": 0,
+    "no-prototype-builtins": 0,
+    "no-restricted-globals": 0,
     "no-useless-call": "error",
     "no-useless-concat": "error",
     "no-useless-escape": "error",
@@ -101,15 +87,19 @@ module.exports = {
     "no-with": "error",
     "radix": ["error", "as-needed"],
     "wrap-iife": ["error", "inside"],
-    "yoda": ["error", "never", { "exceptRange": true }],
+    "yoda": ["error", "never", {
+      "exceptRange": true
+    }],
     "strict": ["error", "safe"],
     "no-delete-var": "error",
     "no-label-var": "error",
-    "no-shadow": ["error", { "builtinGlobals": true, "allow": ["_", "__", "done", "cb", "resolve", "reject"] }],
     "no-shadow-restricted-names": "error",
     "no-undef": "error",
     "no-undef-init": "error",
-    "no-unused-vars": ["error", { "vars": "local", "args": "after-used" }],
+    "no-unused-vars": ["warn", {
+      "vars": "local",
+      "args": "after-used"
+    }],
     "handle-callback-err": ["error", "^.(e|E)rr"],
     "no-mixed-requires": "error",
     "no-new-require": "error",
@@ -117,34 +107,49 @@ module.exports = {
     "no-process-exit": "error",
     "array-bracket-spacing": ["error", "never"],
     "block-spacing": ["error", "never"],
-    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "brace-style": ["error", "1tbs", {
+      "allowSingleLine": true
+    }],
     "comma-spacing": "error",
     "computed-property-spacing": "error",
     "consistent-this": ["error", "that"],
     "eol-last": "error",
-    "indent": ["error", 2, { "MemberExpression": 1 }],
     "jsx-quotes": ["error", "prefer-single"],
-    "key-spacing": ["error", { "beforeColon": false, "mode": "minimum" }],
+    "key-spacing": ["error", {
+      "beforeColon": false,
+      "mode": "minimum"
+    }],
     "keyword-spacing": "error",
     "max-depth": ["error", 4],
-    "max-len": ["error", 100],
+    "max-len": ["error", {
+      "code": 200,
+      "tabWidth": 2,
+      "ignoreComments": true
+    }],
     "max-nested-callbacks": ["error", 10],
     "max-params": ["error", 6],
-    "max-statements-per-line": ["error", { "max": 2 }],
-    "new-cap": "error",
+    "max-statements-per-line": ["error", {
+      "max": 2
+    }],
+    "new-cap": 0,
     "new-parens": "error",
     "no-array-constructor": "error",
-    "no-lonely-if": "error",
-    "no-mixed-spaces-and-tabs": "error",
-    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
+    "no-multiple-empty-lines": ["error", {
+      "max": 2,
+      "maxEOF": 1
+    }],
     "no-new-object": "error",
     "no-spaced-func": "error",
     "no-trailing-spaces": "error",
     "no-whitespace-before-property": "error",
+    "object-curly-newline": ["error", {
+      "multiline": true
+    }],
     "object-curly-spacing": ["error", "always"],
     "quote-props": ["error", "consistent-as-needed"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
+    "sort-imports": ["error", {
+      "ignoreDeclarationSort": true
+    }],
     "space-before-blocks": ["error", "always"],
     "space-before-function-paren": ["error", "always"],
     "space-in-parens": ["error", "never"],
@@ -156,30 +161,34 @@ module.exports = {
     "react/prefer-stateless-function": 0,
     "no-var": "error",
     "prefer-arrow-callback": "error",
+    "prefer-template": "error",
     "arrow-parens": ["error", "always"],
     "prefer-const": "error",
     "require-yield": "error",
-    "react/no-danger": 2,
+    "react/no-danger": 0,
     "react/no-direct-mutation-state": 2,
-    "react/no-multi-comp": [2, { "ignoreStateless": true }],
+    "react/no-multi-comp": [2, {
+      "ignoreStateless": true
+    }],
     "react/no-unknown-property": 2,
     "react/react-in-jsx-scope": 2,
     "react/self-closing-comp": 2,
     "react/sort-comp": 2,
     "react/jsx-wrap-multilines": 2,
     "react/jsx-boolean-value": 2,
-    "react/jsx-closing-bracket-location": 2,
     "react/jsx-curly-spacing": 2,
     "react/jsx-equals-spacing": 2,
-    "react/jsx-indent-props": [2, 2],
-    "react/jsx-indent": [2, 2],
-    "react/jsx-max-props-per-line": [2, { "maximum": 4 }],
+    "react/jsx-max-props-per-line": [2, {
+      "maximum": 4
+    }],
     "react/jsx-no-duplicate-props": 2,
     "react/jsx-no-undef": 2,
-    "react/jsx-pascal-case": 2,
+    "react/jsx-pascal-case": 0,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 2,
-    "react/jsx-filename-extension":0,
-    "import/no-unresolved": "off"
+    "react/jsx-filename-extension": 0,
+    "react/destructuring-assignment": "warn",
+    "jsx-a11y/no-static-element-interactions": 0,
+    "no-nested-ternary": 0
   }
 }

@@ -3,20 +3,23 @@ import clx from 'classnames';
 import './style.css';
 import { EasyAnimate } from '../Animation';
 
-
 export default class Table extends Component {
-  static Head = ({ children, ...props }) => (
+  static Head = ({ children }) => (
     <span className='table-head'>
       {children}
     </span>
   )
 
-  static Body = ({ children, ...props }) => (
+  static Body = ({ children }) => (
     <div className='tabel-body'>{children}</div>
   )
 
-  static HeadCell = ({ children, ...props }) => (
-    <div className='table-head-cell'>
+  static HeadCell = ({
+    children,
+    flex = true,
+    className = ''
+  }) => (
+    <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
       {children && (
         <span>
           {children}
@@ -29,8 +32,7 @@ export default class Table extends Component {
     children,
     orderInList = 0,
     subRow,
-    className = '',
-    ...props
+    className = ''
   }) => (
     <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
       <div className='table-row'>
@@ -44,43 +46,54 @@ export default class Table extends Component {
     children,
     mainContent,
     className = '',
+    flex = true,
+    flexStart,
     subContent,
     sideContent,
     ...props
-  }) => (
-    <div className={`table-cell ${className}`}>
-      {mainContent && (
-        !sideContent
-          ? (
-            <span className='cell-main-content'>
-              {mainContent}
-            </span>
-          )
-          : (
-            <div>
+  }) => {
+    const classNames = clx({
+      'table-cell': true,
+      [className]: className,
+      flex,
+      flexStart
+    });
+
+    return (
+      <div className={classNames} {...props}>
+        {mainContent && (
+          !sideContent
+            ? (
               <span className='cell-main-content'>
                 {mainContent}
               </span>
-              <span className='cell-main-content'>
-                {sideContent}
-              </span>
-            </div>
-          )
-      )
-      }
-      {typeof subContent !== 'object'
-        ? <span className='cell-sub-content'>{subContent}</span>
-        : <span className={`cell-sub-content ${subContent && subContent.className}`}>{subContent && subContent.content}</span>
-      }
-      {children}
-    </div>
-  )
+            )
+            : (
+              <div>
+                <span className='cell-main-content'>
+                  {mainContent}
+                </span>
+                <span className='cell-main-content'>
+                  {sideContent}
+                </span>
+              </div>
+            )
+        )
+        }
+        {typeof subContent !== 'object'
+          ? <span className='cell-sub-content'>{subContent}</span>
+          : <span className={`cell-sub-content ${subContent && subContent.className}`}>{subContent && subContent.content}</span>
+        }
+        {children}
+      </div>
+    );
+  }
 
-  static SmallCell = ({ children, ...props }) => (
+  static SmallCell = ({ children }) => (
     <div className='small-table-cell'>{children}</div>
   )
 
-  static RowControlls = ({ children, ...props }) => (
+  static RowControlls = ({ children }) => (
     <div className='row-controls'>
       {children}
     </div>
@@ -88,15 +101,15 @@ export default class Table extends Component {
 
 
   render = () => {
-    const { subTable, className } = this.props;
+    const { subTable, className, children } = this.props;
 
     const classes = clx({
       'sub-table': subTable,
-      className
+      [className]: className
     });
     return (
       <div className={`table-container ${classes}`}>
-        {this.props.children}
+        {children}
       </div>
     );
   }

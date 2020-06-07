@@ -1,0 +1,17 @@
+.payment-summary {
+  background: #DFDFDF;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px #3E3E3E;
+  margin: 15px;
+}
+
+.payment-summary-item {
+  padding: 5px 0;
+}
+
+.payment-summary-total {
+  margin: 0 -15px;
+  padding: 5px 15px;
+  background: #b9b9b9;
+}

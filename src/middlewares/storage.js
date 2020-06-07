@@ -4,6 +4,7 @@ import {
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
   ACTIVATE_AGENCY_CODE_SUCCESS,
   UPGRADE_USER_PACKAGE_SUCCESS,
+  APP_LAUNCH_SUCCESS,
   LOGOUT
 } from 'constantsTypes';
 import { appInit } from 'actions/appInit';
@@ -15,7 +16,8 @@ export default ({ dispatch }) => (next) => (action) => {
     || type === LOGOUT
     || type === UPDATE_USER_PROFILE_IMAGE_SUCCESS
     || type === ACTIVATE_AGENCY_CODE_SUCCESS
-    || type === UPGRADE_USER_PACKAGE_SUCCESS;
+    || type === UPGRADE_USER_PACKAGE_SUCCESS
+    || type === APP_LAUNCH_SUCCESS;
 
   // elemenating any action thats does not belongs to the loging family!
   if (!loggingEvent) return next(action);
@@ -33,13 +35,19 @@ export default ({ dispatch }) => (next) => (action) => {
         isLoggedIn: true
       });
     }
+    if (type === APP_LAUNCH_SUCCESS) {
+      const user = JSON.parse(localStorage.leadcart);
+      localStorage.leadcart = JSON.stringify({
+        ...user,
+        activeBrand: payload.activeBrand
+      });
+    }
     if (type === UPDATE_USER_PROFILE_IMAGE_SUCCESS) {
       localStorage.leadcart = JSON.stringify({
         ...JSON.parse(localStorage.leadcart),
         profileImage: payload
       });
     }
-
     if (type === ACTIVATE_AGENCY_CODE_SUCCESS) {
       localStorage.leadcart = JSON.stringify({
         ...JSON.parse(localStorage.leadcart),
@@ -56,9 +64,8 @@ export default ({ dispatch }) => (next) => (action) => {
     }
 
 
-    if (type === LOGOUT) 
-      localStorage.leadcart = '{}';
-    
+    if (type === LOGOUT) localStorage.leadcart = '{}';
+
 
     next(action);
   } catch (e) {
