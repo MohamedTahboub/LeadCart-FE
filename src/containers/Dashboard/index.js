@@ -53,7 +53,9 @@ const Dashboard = ({
 
   }, [activities, filterKeys.date, settings]);
 
-  const onChange = ({ target: { name, value } }) => {
+  const onChange = ({ target: { name, value: currentValue } }) => {
+    let value = currentValue;
+    if (value === 'all') value = undefined;
     const filters = { ...filterKeys, [name]: value };
     setFilterKeys(filters);
 
@@ -109,12 +111,12 @@ const Dashboard = ({
                   <SearchInput
                     className='chart-select-filter product-categories mx-2'
                     options={[
-                      { label: 'All Products Categories' },
+                      { label: 'All Products Categories', value: 'all' },
                       { label: 'Checkout Products', value: 'checkout' },
                       { label: 'Upsell/Downsell Products', value: 'upsell' }
                     ]}
                     value={filterKeys.category}
-                    defaultValue='All Products Categories'
+                    defaultValue={'all'}
                     // target='category'
                     name='category'
                     disabled={updatingCharts}

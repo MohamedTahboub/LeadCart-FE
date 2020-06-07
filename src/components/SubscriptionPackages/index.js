@@ -285,6 +285,8 @@ const mapStateToProps = ({
     } = {}
   } = {}
 }) => {
+  if (activePackage === null)
+    activePackage = {};
 
   if (trial) {
     activePackage.type = activePackage.type || 'Pro';
