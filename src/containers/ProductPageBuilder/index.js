@@ -34,9 +34,10 @@ const {
 
 const matchProductSectionsIds = (product) => {
   const sections = Array.isArray(product.sections) ?
-    product.sections.map((section) => ({ ...section, id: (section._id || section.id) }))
+    product.sections.map(({ id, _id = id, ...section }) => ({ ...section, id: _id }))
     : [];
 
+  console.log('sections', sections);
   return {
     ...product,
     sections
@@ -83,7 +84,7 @@ const ProductBuilder = ({
       if (product && state.product._id !== productId) {
         actions.updateState({
           standAlone: false,
-          product,
+          product: matchProductSectionsIds(product),
           funnel: isFunnelExist
         });
       }
