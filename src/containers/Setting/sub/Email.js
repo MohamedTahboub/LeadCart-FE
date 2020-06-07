@@ -368,7 +368,10 @@ const mapStatToProps = ({
     } = {}
   } = {}
 }) => {
-  let isPremium = activePackage.type === 'Premium';
+  let isPremium;
+
+  if (activePackage && activePackage !== null)
+    isPremium = activePackage.type === 'Premium';
 
   if (level >= 4) isPremium = true;
 
