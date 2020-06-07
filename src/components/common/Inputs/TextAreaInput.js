@@ -13,9 +13,7 @@ class TextAreaInput extends Component {
   }
 
   componentDidMount () {
-    const {
-      value, min, max, error
-    } = this.props;
+    const { value, min, max, error } = this.props;
     this.setState({
       value,
       min,
@@ -26,14 +24,10 @@ class TextAreaInput extends Component {
   }
 
   componentDidUpdate (prev) {
-    const {
-      name, value, min, max, error
-    } = this.props;
-    if (prev.name !== name || prev.value !== value) {
-      this.setState({
-        name, value, min, max, error
-      });
-    }
+    const { name, value, min, max, error } = this.props;
+    if (prev.name !== name || prev.value !== value)
+      this.setState({ name, value, min, max, error });
+
   }
 
   onChange = ({ target: { name, value } }) => {
@@ -47,9 +41,7 @@ class TextAreaInput extends Component {
         });
         this.props.onChange({ target: { name, value } });
       } else {
-        this.setState({
-          error: `Words shouldn't be less than ${min} word or more than ${max} word`
-        });
+        this.setState({ error: `Words shouldn't be less than ${min} word or more than ${max} word` });
       }
     } else {
       this.setState({
@@ -62,16 +54,12 @@ class TextAreaInput extends Component {
   }
 
   render () {
-    const {
-      value, error = this.props.error, wordsNumber, max
-    } = this.state;
-    const {
-      name, disabled, width = '697px', countable, className, placeholder
-    } = this.props;
+    const { value, error = this.props.error, wordsNumber, max } = this.state;
+    const { name, disabled, width = '697px', countable, className, placeholder } = this.props;
     return (
       <div className='text-area-container'>
         <textarea
-          style={{ width }}
+          // style={{ width }}
           placeholder={placeholder}
           onChange={this.onChange}
           value={value}

@@ -35,7 +35,8 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
 
   const handleSearch = (value) => setFilter(value);
 
-  const onCreateSubAccount = () => {
+  const onCreateSubAccount = (e) => {
+    e.preventDefault();
     props.onCreateSubAccount(
       newSubaccountForm,
       {
@@ -113,7 +114,7 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
             isVisible={isCreateSubaccountModalVisible}
             className='sub-account-modal'
           >
-            <form className='sub-account-form'>
+            <form className='sub-account-form' onSubmit={onCreateSubAccount}>
               <MainTitle className='margin-b-40'>Create Sub-Accounts</MainTitle>
               <InputRow>
                 <InputRow.Label>
@@ -160,7 +161,7 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
                 />
               </InputRow>
 
-              <Button onClick={onCreateSubAccount} className='primary-color margin-with-float-right'>
+              <Button type='submit' className='primary-color margin-with-float-right'>
                 <i className='fas fa-plus' />
                 {' '}
                 Invite

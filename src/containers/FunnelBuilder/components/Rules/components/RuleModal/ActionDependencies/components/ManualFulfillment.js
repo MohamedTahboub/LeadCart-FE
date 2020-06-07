@@ -7,43 +7,42 @@ const {
   Note
 
 } = common;
-const { Label, NormalInput, TextAreaInput } = InputRow;
+const { Label, TextField, TextAreaInput } = InputRow;
 
 const ManualFulfillment = ({
   onChange,
-  serviceName,
-  description
+  fulfillmentData: {
+    serviceName,
+    description
+  } = {}
 }) => (
   <FlexBox column>
     <Note
+      showOnce
       referenceLink='https://help.leadcart.io'
+      className='mx-auto'
     >
-                We need few information about the service so that
-                we can send it to your customers when they purchase
-                from you, we will send these fields in the receipts
-                order details by email.
+        We need the service information so that it can be accessible
+        by your customers when they purchase from you.
     </Note>
     <InputRow>
       <Label>
-                    Service Name:
+          Service Name:
       </Label>
-      <NormalInput
-        name='metaData.serviceName'
+      <TextField
+        name='action.metaData.fulfillmentMeta.serviceName'
         onChange={onChange}
         value={serviceName}
-        error={serviceName}
       />
     </InputRow>
     <InputRow>
       <Label>
-                    Service Description:
+          Service Description:
       </Label>
       <TextAreaInput
-        name='metaData.description'
-        className='service-description-textarea'
+        name='action.metaData.fulfillmentMeta.description'
         onChange={onChange}
         value={description}
-        error={description}
       />
     </InputRow>
   </FlexBox>
