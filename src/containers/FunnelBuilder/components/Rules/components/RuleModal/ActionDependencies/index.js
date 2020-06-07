@@ -10,7 +10,6 @@ import {
 const { LayoutSwitch } = common;
 
 const ActionDependencies = ({ integrationKey, type, metaData, onChange }) => {
-  console.log('integrationKey', integrationKey, type);
   if (integrationKey !== 'leadcart_fulfillment')
     return null;
 

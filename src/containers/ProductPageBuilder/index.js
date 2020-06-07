@@ -34,9 +34,10 @@ const {
 
 const matchProductSectionsIds = (product) => {
   const sections = Array.isArray(product.sections) ?
-    product.sections.map((section) => ({ ...section, id: (section._id || section.id) }))
+    product.sections.map(({ id, _id = id, ...section }) => ({ ...section, id: _id }))
     : [];
 
+  console.log('sections', sections);
   return {
     ...product,
     sections
@@ -56,35 +57,31 @@ const ProductBuilder = ({
 
 
   useEffect(() => {
-    const { params: { productId, funnelId } = {} } = props.match;
+    const { params: { productId, funnelUrl } = {} } = props.match;
 
-    if (!funnelId && productId) {
-      const product = productsMap[productId];
+    const product = productsMap[productId];
+    const funnel = funnelsMap[funnelUrl];
 
+    if (!funnelUrl && product) {
       if (state.product._id !== productId) {
         if (product) {
           actions.updateState({
             standAlone: true,
             product: matchProductSectionsIds(product)
-            // funnel: isFunnelExist
           });
           return setLoading(false);
         }
       }
     }
-    const isFunnelExist = funnelsMap[funnelId];
-    if (isFunnelExist && productId === 'new') return setLoading(false);
 
 
-    if (isFunnelExist) {
-      const product = productsMap[productId];
-      // const isProductFunnel = isFunnelExist.products.find((product) => product.productId === productId);
-
-      if (product && state.product._id !== productId) {
+    if (funnel && product) {
+      const localProductId = state.product._id;
+      if (localProductId !== productId) {
         actions.updateState({
           standAlone: false,
-          product,
-          funnel: isFunnelExist
+          product: matchProductSectionsIds(product),
+          funnel: funnel
         });
       }
       return setLoading(false);
