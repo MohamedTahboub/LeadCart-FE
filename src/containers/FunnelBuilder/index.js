@@ -88,7 +88,15 @@ const FunnelBuilder = ({
 
     if (!funnel) return;
 
-    if (funnel._id === fields._id) return;
+    if (funnel._id === fields._id) {
+      if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules)) {
+        setFields({
+          ...funnel,
+          paymentMethods: PaymentMethodNamesMap(funnel.paymentMethods)
+        });
+      }
+      return;
+    }
 
     if (!isObjectsEquivalent(funnel, fields)) {
       setFields({
