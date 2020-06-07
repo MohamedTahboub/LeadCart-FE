@@ -95,7 +95,7 @@ ReactDOM.render(
             <Route exact path='/saasmantra' component={SignUpSaasmantra} />
             <Route path='/verify' component={VerifyAccount} />
             <ProtectedRoute exact path='/products/:productId' component={ProductBuilder} />
-            <ProtectedRoute exact path='/funnels/:funnelId/products/:productId' component={ProductBuilder} />
+            <ProtectedRoute exact path='/funnels/:funnelUrl/products/:productId' component={ProductBuilder} />
             <ProtectedRoute exact path='/funnels/:url' component={FunnelBuilder} />
             <ProtectedRoute component={() => (
               <Fragment>
