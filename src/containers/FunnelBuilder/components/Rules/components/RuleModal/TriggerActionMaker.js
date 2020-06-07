@@ -10,16 +10,24 @@ import { includesIgnoreCase, mapListToObject } from 'libs';
 import { connect } from 'react-redux';
 import leadcartFulfillment from 'data/leadcartFulfillment';
 import ActionDependencies from './ActionDependencies';
+import * as immutable from 'object-path-immutable';
 const animatedComponents = makeAnimated();
 
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
   if (actionsMap[integrationKey]) {
     return actionsMap[integrationKey].actions.map((action) => ({
       label: action.label,
-      value: action.name
+      value: action.name || action.value
     }));
   }
   return [];
+};
+
+const notValidGroup = ({ products = [], action = {} }) => {
+  if (!products.length)
+    return 'Select at lease on product';
+  if (!(action.integrationKey && action.type))
+    return 'No service or service action is selected';
 };
 const {
   FlexBox,
@@ -34,13 +42,20 @@ const TriggerActionMaker = ({
   ...props
 }) => {
   const [group, setGroup] = useState({});
+  const [error, setError] = useState();
   const [expand, setExpand] = useState(hasGroups);
 
 
   const toggleExpand = () => setExpand((expand) => !expand);
 
   const onAdd = () => {
-    if (props.onAdd) props.onAdd(group);
+    const errorMessage = notValidGroup(group);
+
+    if (props.onAdd && !errorMessage) props.onAdd(group);
+
+    if (errorMessage)
+      setError(errorMessage);
+
     toggleExpand();
   };
 
@@ -49,6 +64,7 @@ const TriggerActionMaker = ({
       ...group,
       products: products.map((p) => p.value)
     });
+    setError();
   };
 
   const onIntegrationSelected = ({ value }) => {
@@ -65,6 +81,14 @@ const TriggerActionMaker = ({
         type: value
       }
     });
+    setError();
+  };
+
+  const onDependenciesChange = ({ target: { name, value } }) => {
+    console.log(name, value);
+    const newGroup = immutable.set(group, name, value);
+    setGroup(newGroup);
+    setError();
   };
 
   useEffect(() => {
@@ -110,13 +134,23 @@ const TriggerActionMaker = ({
           />
         </FlexBox>
         <Select
+          name=''
           className='flex-item'
           defaultValue='IntegrationsAction'
           options={actionsOptions}
           onChange={onIntegrationActionSelected}
         />
       </FlexBox>
-      <FlexBox flexEnd flex className='margin-top-10'>
+      <ActionDependencies
+        {...group.action}
+        onChange={onDependenciesChange}
+      />
+      <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
+        {error && (
+          <div className='error-message'>
+            {error}
+          </div>
+        )}
         <Button onClick={onAdd} className='light-btn'>
           <FlexBox center='v-center'>
             <IoIosAdd className='mx-1' />
@@ -127,9 +161,6 @@ const TriggerActionMaker = ({
         </Button>
         <ReactToolTip delayShow={300} />
       </FlexBox>
-      <ActionDependencies
-        {...group}
-      />
     </FlexBox>
   ) : (
     <Button onClick={toggleExpand} className='light-btn full-width'>

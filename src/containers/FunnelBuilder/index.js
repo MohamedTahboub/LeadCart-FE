@@ -88,13 +88,14 @@ const FunnelBuilder = ({
 
     if (!funnel) return;
 
-    if (funnel._id === fields._id) return;
     if (!isObjectsEquivalent(funnel, fields)) {
+      console.log('Funnel Updated');
       setFields({
         ...funnel,
         paymentMethods: PaymentMethodNamesMap(funnel.paymentMethods)
       });
     }
+    if (funnel._id === fields._id) return;
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);

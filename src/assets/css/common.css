@@ -586,3 +586,7 @@
 .parent-hover:hover .show-on-parent-hover{
   opacity: 1;
 }
+.mx-auto{
+  margin-left: auto;
+  margin-right: auto;
+}
