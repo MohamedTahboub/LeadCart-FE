@@ -8,6 +8,7 @@ import common from 'components/common';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { notification } from 'libs';
+import { includesIgnoreCase } from 'libs';
 
 import './style.css';
 
@@ -17,7 +18,8 @@ const {
   PageHeader,
   PageContent,
   MainTitle,
-  InputRow
+  InputRow,
+  SmallButton
 } = common;
 
 const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props }) => {
@@ -50,44 +52,54 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
   };
 
   useEffect(() => {
-    setDataSource(subaccounts.filter((subaccount) => subaccount.owner.toLowerCase().includes(filter.toLowerCase())));
+    setDataSource(subaccounts
+      .filter(({ email, firstName, lastName }) =>
+        includesIgnoreCase(`${email} ${firstName} ${lastName}`, filter)));
   }, [subaccounts, filter]);
+
+
+  const onUpdateSubAccountStatus = (agentId, active) => () => {
+    props.changeSubAccountStatus({ agentId, active });
+  };
 
   const columns = [
     {
-      title: 'Owner',
-      dataIndex: 'owner',
-      key: 'owner',
-      render: (text, record) => (
-        <div className='d-col align-center'>
-          <div>{text}</div>
-          <span>{record.email}</span>
-        </div>
+      title: 'Account Owner',
+      dataIndex: 'firstName',
+      key: 'firstName',
+      render: (firstName, { lastName }) => (
+        <span>{`${firstName} ${lastName}`}</span>
       )
     }, {
-      title: 'Brand Name (main)',
-      dataIndex: 'mainBrand',
-      key: 'mainBrand',
-      render: (brandId) => {
-        const targetBrand = brands.find(({ id }) => id === brandId);
-        if (targetBrand)
-          return <span>{targetBrand.name}</span>;
-      }
-    }, {
-      title: 'Package',
-      dataIndex: 'package',
-      key: 'package',
-      render: (_, record) => <span>{record.package.type}</span>
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      render: (email) => <span>{email}</span>
     }, {
       title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => <Tag color='#87d068'>{status}</Tag>
+      dataIndex: 'active',
+      key: 'active',
+      render: (active) => (
+        <Tag
+          color={active ? '#4DA1FF' : 'lightgray'}
+        >
+          {`${active ? 'ACTIVE' : 'INACTIVE'}`}
+        </Tag>
+      )
     }, {
       title: 'Controls',
       dataIndex: null,
       key: 'controls',
-      render: () => <span>-</span>
+      render: (_, { _id: id, active }) => (
+        <FlexBox flexStart>
+          <SmallButton
+            onClick={onUpdateSubAccountStatus(id, !active)}
+            className={active ? 'green-color' : 'gray-bg'}
+          >
+            {active ? 'Deactivate' : 'Activate'}
+          </SmallButton>
+        </FlexBox>
+      )
     }
   ];
   return (
@@ -96,13 +108,13 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
       <PageContent>
         <FlexBox column className='white-bg p-3 soft-edges'>
           <div className='d-flex justify-space-between mb-2'>
-            <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch}/>
+            <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
             <Button type='primary' onClick={toggleSubaccountModal}><PlusOutlined /> New Sub Account</Button>
           </div>
           <Table
             loading={dataLoading}
             columns={columns}
-            dataSource={dataSource.filter((column) => column.name.includes(filter))}
+            dataSource={dataSource}
             pagination={false}
           />
         </FlexBox>
@@ -175,8 +187,8 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
 
 };
 
-const mapStateToProps = ({ loading, brands }) => {
-  return { dataLoading: loading, brands };
+const mapStateToProps = ({ loading, brands, agency: { subAccounts: subaccounts = [] } = {} }) => {
+  return { dataLoading: loading, brands, subaccounts };
 };
 
 export default connect(mapStateToProps, agencyActions)(SubaccountsSection);
