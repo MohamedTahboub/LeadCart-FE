@@ -24,14 +24,6 @@ import {
   Workspace
 } from './components';
 
-const PaymentMethodNamesMap = (paymentName) => {
-  return {
-    Stripe: 'lc_stripe',
-    Paypal: 'lc_paypal'
-  }[paymentName] || undefined;
-};
-
-
 const {
   Page,
   FlexBox,
@@ -61,13 +53,11 @@ const FunnelBuilder = ({
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
     SetUnblock(unblock);
-    // stopTabClosing(true);
   };
 
   const changesSaved = () => {
     if (isFunction(unblock))
       unblock();
-    // stopTabClosing(false);
   };
 
   const onChange = ({ name, value }) => {
@@ -89,21 +79,15 @@ const FunnelBuilder = ({
     if (!funnel) return;
 
     if (funnel._id === fields._id) {
-      if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules)) {
-        setFields({
-          ...funnel,
-          paymentMethods: PaymentMethodNamesMap(funnel.paymentMethods)
-        });
-      }
+      if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules))
+        setFields(funnel);
+
       return;
     }
 
-    if (!isObjectsEquivalent(funnel, fields)) {
-      setFields({
-        ...funnel,
-        paymentMethods: PaymentMethodNamesMap(funnel.paymentMethods)
-      });
-    }
+    if (!isObjectsEquivalent(funnel, fields))
+      setFields(funnel);
+
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);
