@@ -28,20 +28,20 @@ const PaymentMethods = ({
 
   const [error, setError] = useState('');
 
-  const isMethodExist = (paymentKey) => paymentsIntegrations.find(({ key }) => includesIgnoreCase(key, paymentKey));
+  const isMethodExist = (paymentMethod) => paymentsIntegrations.find(({ name }) => includesIgnoreCase(name, paymentMethod));
 
-  const onSelect = (key) => () => {
+  const onSelect = (paymentMethod) => () => {
 
-    if (!selected.includes(key) && selected.length >= 2)
+    if (!selected.includes(paymentMethod) && selected.length >= 2)
       return setError('each product accepts two payment methods as max');
 
-    if (isMethodExist(key)) {
+    if (isMethodExist(paymentMethod)) {
       props.onChange({
         target: {
           name,
-          value: selected.includes(key)
-            ? selected.filter((m) => !includesIgnoreCase(m, key))
-            : [...selected, key]
+          value: selected.includes(paymentMethod)
+            ? selected.filter((method) => !includesIgnoreCase(method, paymentMethod))
+            : [...selected, paymentMethod]
         }
       });
       setError('');
@@ -53,11 +53,11 @@ const PaymentMethods = ({
       <div className='payment-methods-cards-container'>
         {paymentsIntegrations.map((payment) => (
           <MediumCard
-            key={payment.key}
+            key={payment.name}
             className='template-payment-card'
             imgSrc={payment.logo}
-            isActive={selected.includes(payment.key)}
-            onClick={onSelect(payment.key)}
+            isActive={selected.includes(payment.name)}
+            onClick={onSelect(payment.name)}
           />
         ))}
       </div>
