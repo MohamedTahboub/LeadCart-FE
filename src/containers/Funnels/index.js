@@ -92,7 +92,7 @@ const Funnels = ({
             new funnel
         </Button>
       </PageHeader>
-      <PageContent dflex>
+      <PageContent dflex className='align-content-start'>
         {funnels.map((funnel, id) => (
           <FunnelCard
             {...funnel}

@@ -61,7 +61,6 @@ export default {
             'Emails'
           ]
         },
-        'Affiliate Center',
         'LeadCart Branding Removal.',
         'Automatic Tax Calculations.',
         '....And Much More.'
