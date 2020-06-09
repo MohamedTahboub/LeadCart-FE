@@ -10,7 +10,7 @@ import DomainsTable from './DomainsTable';
 const { MainBlock } = common;
 
 const DomainsSettings = ({ domains }) => (
-  <MainBlock title='MarketPlace Domain Settings' className='domains-setting-block' containerClasses='transparent-bg'>
+  <MainBlock title='MarketPlace Domain Settings' className='domains-setting-block' containerClasses='transparent-white-bg'>
     <DomainForm domains={domains} />
     <DomainsTable domains={domains} />
   </MainBlock>

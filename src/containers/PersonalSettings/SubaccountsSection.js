@@ -12,6 +12,10 @@ import { includesIgnoreCase } from 'libs';
 
 import './style.css';
 
+const hasAgencyAccess = (packageType) => {
+  return !!['Premium', 'Agency'].includes(packageType);
+};
+
 const {
   FlexBox,
   Page,
@@ -22,7 +26,14 @@ const {
   SmallButton
 } = common;
 
-const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props }) => {
+const SubaccountsSection = ({
+  subaccounts = [],
+  dataLoading,
+  history,
+  packageType,
+  ...props
+}) => {
+
   const [filter, setFilter] = useState('');
   const [dataSource, setDataSource] = useState(subaccounts);
   const [isCreateSubaccountModalVisible, setCreateSubaccountModalVisible] = useState(false);
@@ -32,6 +43,11 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
     const { target: { name, value } } = event;
     setNewSubaccountForm({ ...newSubaccountForm, [name]: value });
   };
+
+  useEffect(() => {
+    if (!hasAgencyAccess(packageType)) return history.push('/');
+  }, [history, packageType]);
+
 
   const toggleSubaccountModal = () => setCreateSubaccountModalVisible(!isCreateSubaccountModalVisible);
 
@@ -187,8 +203,16 @@ const SubaccountsSection = ({ brands, subaccounts = [], dataLoading, ...props })
 
 };
 
-const mapStateToProps = ({ loading, brands, agency: { subAccounts: subaccounts = [] } = {} }) => {
-  return { dataLoading: loading, brands, subaccounts };
+const mapStateToProps = ({
+  loading,
+  agency: { subAccounts: subaccounts = [] } = {},
+  user: { user: { packageType } }
+}) => {
+  return {
+    dataLoading: loading,
+    subaccounts,
+    packageType
+  };
 };
 
 export default connect(mapStateToProps, agencyActions)(SubaccountsSection);
