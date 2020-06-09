@@ -1,8 +1,8 @@
 import { apiRequest } from 'actions/apiRequest';
 import { UPDATE_DASHBOARD_CHARTS_SETTINGS } from '../../constantsTypes';
 import {
-  updateDashboardChartsSettingsSuccess,
-  updateDashboardChartsSettingsFailed
+  updateDashboardChartsSettingsFailed,
+  updateDashboardChartsSettingsSuccess
 } from '../../actions/dashboard';
 
 export default ({ dispatch }) => (next) => (action) => {
@@ -14,9 +14,9 @@ export default ({ dispatch }) => (next) => (action) => {
   dispatch(apiRequest({
     options: {
       method: 'PUT',
-      uri: '/api/users/dashboard',
+      uri: '/api/brands/dashboard',
       body: payload,
-      contentType: 'json',
+      contentType: 'json'
     },
     onSuccess: (arg) => {
       if (meta.onSuccess) meta.onSuccess(arg);

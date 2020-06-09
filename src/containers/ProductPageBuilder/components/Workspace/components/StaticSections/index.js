@@ -27,10 +27,11 @@ const StaticSections = ({ onSetting, language }) => {
         payment = { methods: ['Paypal', 'Stripe'] },
         addOns = {},
         styles = {},
-        custom = {},
-        content: {
+        custom: {
           orderButtonText = 'Complete Order',
-          declineBtnText = 'No Thanks'
+          declineButtonText = 'No Thanks',
+          shippingDetails,
+          couponSection
         } = {}
       } = {}
     },
@@ -58,7 +59,7 @@ const StaticSections = ({ onSetting, language }) => {
             color={styles.themeColor}
             language={language}
           />
-          {custom.shippingDetails && (
+          {shippingDetails && (
             <ShippingDetails
               color={styles.themeColor}
               language={language}
@@ -69,7 +70,7 @@ const StaticSections = ({ onSetting, language }) => {
             methods={payment.methods}
             language={language}
           />
-          {custom.couponSection && (
+          {couponSection && (
             <CouponSection
               color={styles.themeColor}
               language={language}
@@ -82,6 +83,7 @@ const StaticSections = ({ onSetting, language }) => {
             language={language}
           />
           <CompleteOrderBtn
+            name='custom.orderButtonText'
             text={orderButtonText}
             color={styles.themeColor}
             onChange={onChange}
@@ -94,14 +96,15 @@ const StaticSections = ({ onSetting, language }) => {
           center='h-center'
         >
           <CompleteOrderBtn
+            name='custom.orderButtonText'
             text={orderButtonText}
             color={styles.themeColor}
             onChange={onChange}
           />
           <ResizableTextarea
             onChange={onChange}
-            name='content.declineBtnText'
-            value={declineBtnText}
+            name='custom.declineButtonText'
+            value={declineButtonText}
             style={{
               minWidth: '400px',
               outlineStyle: 'none',

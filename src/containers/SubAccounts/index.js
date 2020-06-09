@@ -44,50 +44,32 @@ const Agency = ({
     });
   };
 
-  const onCreateSubAccount = () => {
+  const onCreateSubAccount = (e) => {
+    e.preventDefault();
+
     props.onCreateSubAccount(
       account,
       {
         onSuccess: () => {
+          notification.success('Sub-Account Created successfully');
           toggleModal();
         },
-        onFailed: () => {
-
+        onFailed: (message) => {
+          notification.failed(message);
         }
       }
     );
   };
 
-  // componentDidUpdate = () => {
-  //   const { subAccountModel: { email } } = this.state;
-  //   if (this.props.subAccounts.find((sub) => sub.email === email)) {
-  //     setTimeout(() => {
-  //       this.setState({
-  //         subAccountModel: {}, isModalVisable: false
-  //       });
-  //     }, 350);
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   const { packageType, history } = this.props;
-  //   if (packageType !== 'Agency') history.push('/');
-  // }
-
-  // const showDeleteModal = (id) => {
-  //   setShowDeleteModal(id);
-  // };
 
   const onDeleteSubAccount = () => {
-    // const { deleteModal } = this.state;
     props.deleteSubAccount({ id: showDeleteModal }, {
       onSuccess: () => {
-        notification.success('subaccount deleted successfully');
+        notification.success('Sub-Account deleted successfully');
         setShowDeleteModal();
       },
       onFailed: (message) => {
         notification.failed(message);
-
       }
     });
   };
@@ -95,13 +77,6 @@ const Agency = ({
   useEffect(() => {
     if (packageType !== 'Agency') return history.push('/');
   }, [subAccounts, packageType, history]);
-
-  // const toggleWarningModal = () => setShowWarningModal(show => !show)
-
-
-  // const {
-  //   subAccountModel, isModalVisable, deleteModal, isShowWarringDialog
-  // } = this.state;
 
   const onUpdateSubAccountStatus = (agentId, active) => () => {
     props.changeSubAccountStatus({ agentId, active });
@@ -180,7 +155,7 @@ const Agency = ({
             isVisible={showCreateModal}
             className='sub-account-modal'
           >
-            <form className='sub-account-form'>
+            <form onClick={onCreateSubAccount} className='sub-account-form'>
               <MainTitle className='margin-b-40'>Create Sub-Accounts</MainTitle>
               <InputRow>
                 <InputRow.Label>
@@ -231,7 +206,7 @@ const Agency = ({
                 />
               </InputRow>
 
-              <Button onClick={onCreateSubAccount} className='primary-color margin-with-float-right'>
+              <Button type={'submit'} className='primary-color margin-with-float-right'>
                 <i className='fas fa-plus' />
                 {' '}
                 Invite
@@ -244,25 +219,6 @@ const Agency = ({
   );
 };
 
-/*
-{errors.message && <span className='error-message'>{errors.message}</span>}
-
-<Dialog
-onClose={this.hideWarringDialog}
-show={isShowWarringDialog}
-confirmBtnText='Ok'
-confirmBtnClass='primary-color'
-confirmBtnIcon={null}
-hideCancelBtn
-title='Oops, we are so sorry for that!'
-description={(
-<WarningMessage>
-{property('subAccounts.createSubAccount.warning')}
-</WarningMessage>
-)}
-onConfirm={this.hideWarringDialog}
-/>
-*/
 Agency.defaultProps = { subAccounts: [] };
 
 const mapStateToProps = ({ user: { user: { packageType } }, agency: { subAccounts, errors } }) => ({

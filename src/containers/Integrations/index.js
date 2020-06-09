@@ -185,7 +185,7 @@ const Integrations = ({ integrations, history, ...props }) => {
         {openModal && (
           <ConnectModal
             open={openModal}
-            // onToggle={() => setOpenModal(false)}
+            onToggle={() => setOpenModal(false)}
             onConnectClosed={onConnectClosed}
             onConnect={onConnect}
             onDisconnect={onShowDisconnectDialog}
