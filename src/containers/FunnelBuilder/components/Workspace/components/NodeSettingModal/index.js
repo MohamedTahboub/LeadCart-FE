@@ -144,7 +144,13 @@ const NodeSettingModal = ({
             </Button>
             <div className='title-text text-align-center margin-v-5'>Or</div>
           </FlexBox>
-          <FlexBox flex flexStart wrappable center='h-center'>
+          <FlexBox
+            flex
+            flexStart
+            wrappable
+            center='h-center'
+            className='scrolling-60vh'
+          >
             {
               nodeProducts.map((product) => (
                 <Product

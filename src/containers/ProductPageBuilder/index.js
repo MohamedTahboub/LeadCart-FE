@@ -37,7 +37,6 @@ const matchProductSectionsIds = (product) => {
     product.sections.map(({ id, _id = id, ...section }) => ({ ...section, id: _id }))
     : [];
 
-  console.log('sections', sections);
   return {
     ...product,
     sections

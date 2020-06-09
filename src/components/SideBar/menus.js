@@ -1,3 +1,8 @@
+
+const hasAgencyAccess = (packageType) => {
+  return !!['Premium', 'Agency'].includes(packageType);
+};
+
 export const main = () => [
   {
     title: 'Sales',
@@ -22,7 +27,7 @@ export const main = () => [
       }
     ]
   }, { divider: true }, {
-    title: 'Producs',
+    title: 'Products',
     key: 'products',
     icon: 'products',
     sub: [
@@ -61,7 +66,7 @@ export const main = () => [
   }, { divider: true }
 ];
 
-export const accountSettingsMenus = () => [{
+export const accountSettingsMenus = ({ packageType }) => [{
   title: 'Account Settings',
   key: 'accountSettings',
   icon: 'settings',
@@ -75,7 +80,8 @@ export const accountSettingsMenus = () => [{
       title: 'Sub-Accounts',
       key: 'subaccountsSettings',
       link: '/sub-accounts',
-      icon: 'subAccounts'
+      icon: 'subAccounts',
+      className: !hasAgencyAccess(packageType) && 'hide-element'
     }
   ]
 }];
