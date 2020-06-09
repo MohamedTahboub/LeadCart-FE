@@ -20,15 +20,11 @@ const {
 
 // const { InputGroup } = InputRow;
 
-const Login = ({
-  isLoggedIn, history, login, errors
-}) => {
+const Login = ({ isLoggedIn, history, login, errors }) => {
   isLoggedIn && history.push('/');
   const onLogin = (e) => {
     e.preventDefault();
-    const {
-      target: { email: { value: email }, password: { value: password } }
-    } = e;
+    const { target: { email: { value: email }, password: { value: password } } } = e;
     login({ email, password });
   };
 
@@ -67,6 +63,7 @@ const Login = ({
             <Button
               type='submit'
               className='primary-color large-text access-btn arrow-icon'
+              data-testid='submit'
             >
               Sign in
             </Button>
