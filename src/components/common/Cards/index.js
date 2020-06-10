@@ -78,7 +78,8 @@ export const ProductCard = ({
   currancy,
   orderInList = 0,
   monthlyProfite = 0,
-  price = {},
+  price,
+  currency = 'USD',
   available,
   onEdit,
   category,
@@ -117,7 +118,7 @@ export const ProductCard = ({
           ))
       }
       <span className='product-name-holder'>{name}</span>
-      <span className='product-price-holder'>{`${getCurrencySymbol(price.currency)} ${price.amount}`}</span>
+      <span className='product-price-holder'>{`${getCurrencySymbol(currency)} ${price}`}</span>
     </div>
     <div className='card-controlls-container'>
       <span data-tooltip='Edit Product'>

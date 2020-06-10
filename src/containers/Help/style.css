@@ -6,14 +6,12 @@
 }
 
 .help-item {
-  margin: 10px;
+  flex: 1;
+  min-width: 220px;
 }
-/* justify-content: center;
-align-items: center;
-display: flex; */
 
-/* TEMP */
 #help-item-image {
-  width: 200px;
-  height: 200px;
+  width: inherit;
+  height: auto;
+  opacity: .8;
 }
