@@ -4,8 +4,13 @@ import { Provider } from 'react-redux';
 import store from 'store';
 
 const testingStore = store;
-const render = (component, { store = testingStore } = {}) =>
-  ({ ...testRender(<Provider store={store}>{component}</Provider>) });
+
+const render = (component, { store = testingStore, ...renderOptions } = {}) => {
+  const Wrapper = ({ children }) =>
+    (<Provider store={store}>{children}</Provider>);
+
+  return testRender(component, { wrapper: Wrapper, ...renderOptions });
+};
 
 export * from '@testing-library/react';
-export default render;
+export { render };
