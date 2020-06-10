@@ -1,5 +1,5 @@
 import React from 'react';
-import render from 'components/TestUtils';
+import { render } from 'components/TestUtils';
 import Login from './index';
 import '@testing-library/jest-dom/extend-expect';
 
