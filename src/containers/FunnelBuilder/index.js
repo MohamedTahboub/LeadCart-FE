@@ -117,9 +117,14 @@ const FunnelBuilder = ({
 
     const productsUpdates = extractProductsRelations(funnel);
 
+    const reformProductCategories = (product = {}) => {
+      const category = (product.category === 'upSell' || product.category === 'downSell') ? 'upsell' : product.category;
+      return { ...product, category };
+    };
     const payload = {
       funnel: {
         ...funnel,
+        products: funnel.products.map(reformProductCategories),
         funnelId: fields._id
       },
       productsUpdates

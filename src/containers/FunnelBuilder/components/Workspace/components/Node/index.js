@@ -10,7 +10,7 @@ import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
-import { EditButton, NodeStatusHat } from './components';
+import { ConnectButton, EditButton, NodeStatusHat } from './components';
 import './style.css';
 
 const categoriesImages = {
@@ -40,6 +40,7 @@ const Node = ({
   onEdit,
   toggleOptions,
   activeNode,
+  relations,
   coordinates = {},
   onConnect,
   connectingMode,
@@ -47,12 +48,12 @@ const Node = ({
   onDelete
 }) => {
   const elementRef = useRef(null);
-  const [connecting, setConnecting] = useState();
+  // const [connecting, setConnecting] = useState();
   const highlighted = activeNode === elementId;
   const classes = clx(
     'card-style',
     'funnel-node-card',
-    { highlighted, connecting }
+    { highlighted, connecting: connectingMode }
   );
 
   const nodePosition = {
@@ -84,9 +85,8 @@ const Node = ({
     dataTransfer.setData('shift', stringifyObj({ shiftX, shiftY, width, height }));
   };
 
-  const onConnectStart = (e) => {
-    e.stopPropagation();
-    onConnect(elementId, nodeType);
+  const onConnectStart = (type) => {
+    onConnect(elementId, type);
   };
   const onConnectNode = (e) => {
     e.stopPropagation();
@@ -141,9 +141,8 @@ const Node = ({
           />
         ) : !connectingMode && (
           <div className='connect-btn-container'>
-            <AiOutlinePlusCircle
-              data-tip='connect with other products'
-              className='connect-node-btn'
+            <ConnectButton
+              position={nodePosition}
               onClick={onConnectStart}
             />
           </div>
