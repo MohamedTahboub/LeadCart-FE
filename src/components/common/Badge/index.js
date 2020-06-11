@@ -15,15 +15,13 @@ const Badge = ({
   });
 
   return (
-    <div className={`badge-container ${classNames}`} {...props}>
+    <div className={`badge-container ${classNames}`} {...props} data-testid='badge-test'>
       {children}
     </div>
   );
 };
 
-Badge.propTypes = {
-
-};
+Badge.propTypes = {};
 
 export default Badge;
 
