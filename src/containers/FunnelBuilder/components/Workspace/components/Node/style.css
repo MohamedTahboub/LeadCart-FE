@@ -48,10 +48,10 @@
 /* .connect-node-assets */
 
 .connect-btn-container {
-    top: 0;
+    top: 10px;
     bottom: 0;
     left: 60%;
-    right: -40px;
+    right: -47px;
     align-items: flex-end;
     transform: translateX(-60px);
     display: flex;

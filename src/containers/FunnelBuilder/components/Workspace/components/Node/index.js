@@ -142,6 +142,8 @@ const Node = ({
         ) : !connectingMode && (
           <div className='connect-btn-container'>
             <ConnectButton
+              nodeType={category}
+              relations={relations}
               position={nodePosition}
               onClick={onConnectStart}
             />
