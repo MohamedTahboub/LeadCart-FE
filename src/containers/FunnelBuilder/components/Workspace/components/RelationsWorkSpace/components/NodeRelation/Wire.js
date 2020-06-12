@@ -20,6 +20,7 @@ export const ThreadPath = ({ id, start, end, withoutShift }) => {
 
   return (
     <path
+      id={`path_${id}`}
       key={id}
       d={pathString}
       fill='none'
