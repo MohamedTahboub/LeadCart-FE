@@ -149,7 +149,7 @@ const Node = ({
             />
           </div>
         )}
-        {connectingMode && (
+        {(connectingMode && category !== 'checkout') && (
           <div onClick={onConnectNode} className='node-connect-tail'>
             <GoPlug className='white-text large-text' />
           </div>
