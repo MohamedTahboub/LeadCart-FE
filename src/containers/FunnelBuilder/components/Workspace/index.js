@@ -197,7 +197,6 @@ const WorkSpace = ({
     onNodeDelete
   };
 
-
   return (
     <FlexBox className='relative-element' flex>
       <RelationsWorkSpace nodes={nodes} />

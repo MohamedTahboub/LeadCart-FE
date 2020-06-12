@@ -63,7 +63,7 @@ const PersonalSettings = ({ brands, user, paymentMethods, onChangeAccountDetails
             {sideMenuOptions.map((option) => <Menu.Item key={option.key}>{option.title}</Menu.Item>)}
           </Menu>
           <div className='content'>
-            <Route />
+            <Route key={user.activeBrand} />
           </div>
         </div>
       </PageContent>
