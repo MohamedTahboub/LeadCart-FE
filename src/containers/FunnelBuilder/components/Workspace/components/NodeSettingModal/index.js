@@ -94,7 +94,7 @@ const NodeSettingModal = ({
             setLoading(false);
             history.push(`${funnelUrl}/products/${productId}`);
             notification.success('Product Created ');
-          }, 300);
+          }, 200);
         },
         onFailed: (message) => {
           setLoading(false);
