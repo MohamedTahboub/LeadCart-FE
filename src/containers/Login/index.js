@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 // import { FormLogo } from 'components/common/logos';
 import * as loginActions from 'actions/login';
@@ -21,11 +21,15 @@ const {
 // const { InputGroup } = InputRow;
 
 const Login = ({ isLoggedIn, history, login, errors }) => {
-  isLoggedIn && history.push('/');
+
+  useEffect(() => {
+    isLoggedIn && history.push('/');
+  }, [history, isLoggedIn]);
+
   const onLogin = (e) => {
+    const { email, password } = e.target.elements;
     e.preventDefault();
-    const { target: { email: { value: email }, password: { value: password } } } = e;
-    login({ email, password });
+    login({ email: email.value, password: password.value });
   };
 
 
@@ -45,21 +49,23 @@ const Login = ({ isLoggedIn, history, login, errors }) => {
             <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='/password/forgot'>Forgot Password?</a>
           </FlexBox>
 
-          <form onSubmit={onLogin} className='login-form'>
+          <form onSubmit={onLogin} className='login-form' data-testid='login-form'>
             <InputGroup
               name='email'
               label='Email address'
               error={errors.email}
-              autocomplete='off'
+              autoComplete='off'
+              data-testid='email'
             />
             <InputGroup
               name='password'
               label='Password'
               type='password'
-              autocomplete='off'
+              autoComplete='off'
+              data-testid='password'
               error={errors.password}
             />
-            {errors.loginError && <span className='error-text'>{errors.loginError}</span>}
+            {errors.loginError && <span className='error-text' data-testid='error-message' >{errors.loginError}</span>}
             <Button
               type='submit'
               className='primary-color large-text access-btn arrow-icon'
