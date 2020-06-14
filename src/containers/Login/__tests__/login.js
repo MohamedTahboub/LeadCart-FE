@@ -3,11 +3,25 @@ import { render } from 'components/TestUtils';
 import Login from '..';
 import '@testing-library/jest-dom/extend-expect';//
 import * as testHelpers from 'helpers/test';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, getByTestId, screen } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import * as loginActions from 'actions/login';
-testHelpers.serverInit();
 
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import { failedLoginPayload, successLoginPayload } from 'data/testPayloads';
+
+
+const server = setupServer(rest.post('/api/users/login', (req, res, ctx) => {
+  console.log('message from the server >> ', req.body);
+  return res(ctx.json(successLoginPayload));
+}));
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+
+// testHelpers.serverInit();
 const mockStore = configureStore({ user: {} });
 const initialStoreState = { user: {}, validation: {} };
 
@@ -47,3 +61,17 @@ test('Redirects the user if already logged in', async () => {
   expect(historyPush).toHaveBeenCalledTimes(1);
   expect(historyPush).toHaveBeenCalledWith('/');
 });
+
+
+test('Get the error message when the data not correct', () => {
+  const loginError = 'There is no user record corresponding to this email.';
+  const localStore = mockStore({ ...initialStoreState, user: { error: loginError } });
+
+  const { getByTestId } = render(
+    <Login />,
+    { store: localStore }
+  );
+
+  expect(getByTestId('error-message')).toBeInTheDocument();
+});
+
