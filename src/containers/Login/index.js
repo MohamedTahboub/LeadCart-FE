@@ -1,24 +1,17 @@
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-// import { FormLogo } from 'components/common/logos';
 import * as loginActions from 'actions/login';
-import CustomInputField from 'components/CustomInputField';
 import './styles.css';
 
 import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 
 import common from 'components/common';
 const {
-  FormLogo,
-  Feature,
   FlexBox,
   Button,
-  InputRow,
   InputGroup
 } = common;
-
-// const { InputGroup } = InputRow;
 
 const Login = ({ isLoggedIn, history, login, errors }) => {
 
