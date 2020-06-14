@@ -7,21 +7,9 @@ import { fireEvent, getByTestId, screen } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import * as loginActions from 'actions/login';
 
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-import { failedLoginPayload, successLoginPayload } from 'data/testPayloads';
 
+testHelpers.serverInit();
 
-const server = setupServer(rest.post('/api/users/login', (req, res, ctx) => {
-  console.log('message from the server >> ', req.body);
-  return res(ctx.json(successLoginPayload));
-}));
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-
-// testHelpers.serverInit();
 const mockStore = configureStore({ user: {} });
 const initialStoreState = { user: {}, validation: {} };
 
