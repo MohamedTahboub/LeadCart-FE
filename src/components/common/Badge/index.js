@@ -9,13 +9,14 @@ const Badge = ({
   className,
   ...props
 }) => {
-  const classNames = classes({
-    [type]: true,
-    [className]: true
-  });
+  const classNames = classes('badge-container', type, className);
 
   return (
-    <div className={`badge-container ${classNames}`} {...props} data-testid='badge-test'>
+    <div
+      data-testid='badge-test'
+      className={classNames}
+      {...props}
+    >
       {children}
     </div>
   );
