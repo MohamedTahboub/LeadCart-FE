@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import './style.css';
-
-import * as settingsActions from 'actions/settings';
 import { connect } from 'react-redux';
-
+import * as settingsActions from 'actions/settings';
 import common from 'components/common';
+import { Page, PageContent, PageHeader } from '../../components/common/Layout';
+import { SmallButton } from 'components/common/Buttons';
 import {
   Billing,
   Email,
@@ -13,14 +12,18 @@ import {
   TeamMembers,
   Translations
 } from './sub';
-import { Page, PageContent, PageHeader } from '../../components/common/Layout';
-import { SmallButton } from 'components/common/Buttons';
+import './style.css';
+
+
 const { MainTitle, LCTabs } = common;
 
 const Setting = ({ history, brands, user }) => {
+
   const { user: { activeBrand: activeBrandId } } = user;
   const [saveFunction, setSaveFunction] = useState({});
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
+  const { location: { pathname } } = history;
+
   const tabs = [
     {
       key: 'general',
@@ -54,7 +57,7 @@ const Setting = ({ history, brands, user }) => {
       component: <Billing activeBrand={activeBrand} />
     }
   ];
-  const { location: { pathname } } = history;
+
   const { key: activeTab } = tabs.find(({ link }) => link.toLowerCase() === pathname) || {};
   const onTabChange = (tabId) => history.push(`/settings/${tabId}`);
 
@@ -81,6 +84,7 @@ const Setting = ({ history, brands, user }) => {
           vertical
           activeKey={activeTab}
           onChange={onTabChange}
+          key={user.activeBrand}
         >
           {
             tabs.map(({ component, ...tab }) => <LCTabs.TabPane {...tab}>{component}</LCTabs.TabPane>)

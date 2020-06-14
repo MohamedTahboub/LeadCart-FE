@@ -14,3 +14,11 @@
   circle.start-circle:hover{
     filter: scale(1.2px);
   }
+
+  /* circle[id*="path_delete_circle_"]{
+    display: none;
+  }
+
+  path[id*="path_"]:hover + circle[id*="path_delete_circle_"]{
+    display: inline;
+  } */
