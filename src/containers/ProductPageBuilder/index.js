@@ -120,7 +120,6 @@ const ProductBuilder = ({
     );
   };
   if (loading) return <ProductBuilderSkelton />;
-  const activeProduct = productsMap[props.match.params.productId];
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
@@ -129,7 +128,7 @@ const ProductBuilder = ({
           <DndProvider backend={Backend}>
             <SideBar />
             <Workspace />
-            <SettingSideBar canOffer={activeProduct && activeProduct.category !== 'thankyoupage'} />
+            <SettingSideBar canOffer={state.product.category !== 'thankyoupage'} />
           </DndProvider>
         </FlexBox>
       </Page>

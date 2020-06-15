@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import './style.css';
-import currencies from '../../../../../../../../../../data/currencies.json';
+import currencies from 'data/currencies.json';
 
 const getCurrencySymbol = (code) => {
   const currency = currencies.find((c) => c.code === code);
