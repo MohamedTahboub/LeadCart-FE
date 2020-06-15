@@ -108,7 +108,7 @@ const ProductBuilder = ({
         details: product
       },
       {
-        onSuccess: (msg) => {
+        onSuccess: () => {
           setSaving(false);
           notification.success('Changes Saved');
         },
@@ -120,7 +120,6 @@ const ProductBuilder = ({
     );
   };
   if (loading) return <ProductBuilderSkelton />;
-
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
@@ -129,7 +128,7 @@ const ProductBuilder = ({
           <DndProvider backend={Backend}>
             <SideBar />
             <Workspace />
-            <SettingSideBar />
+            <SettingSideBar canOffer={state.product.category !== 'thankyoupage'} />
           </DndProvider>
         </FlexBox>
       </Page>
