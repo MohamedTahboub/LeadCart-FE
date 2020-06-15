@@ -112,7 +112,12 @@
     padding: 5px 16px;
     background: rgba(188, 201, 214, 0.1);
     border: 1px solid #C9D3DC;
-    outline-color: lightgray;
+    border-radius: 3px;
+}
+
+.textarea-input-field:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(29, 150, 243, .25);
 }
 
 .textarea-input-field:disabled {
@@ -396,9 +401,10 @@ input[type="radio"] {
 }
 
 
-.custom-switch-input-container{
+.custom-switch-input-container {
     position: relative;
 }
+
 .custom-switch-input-container .slider-input {
     position: absolute;
     cursor: pointer;
@@ -1025,9 +1031,11 @@ input.checkout-input-field:valid+label.checkout-input-label {
 .btn.danger-btn {
     background: #e02b49b0;
 }
+
 .btn.danger-btn:hover {
     background: #e02b4ad6;
 }
+
 /* .danger-color {
     color: tomato;
 } */
@@ -1073,7 +1081,7 @@ input.checkout-input-field:valid+label.checkout-input-label {
 .text-input-filed-container {
     position: relative;
     display: flex;
-    
+
 }
 
 input.text-input-filed {
@@ -1122,9 +1130,11 @@ div.ant-select-sm .ant-select-selection--single {
 .padding-left-10 {
     padding-left: 10px;
 }
+
 .padding-left-20 {
     padding-left: 20px;
 }
+
 .padding-right-20 {
     padding-right: 20px;
 }
@@ -1145,6 +1155,7 @@ div.ant-select-sm .ant-select-selection--single {
 .margin-right-10 {
     margin-right: 10px;
 }
+
 .margin-right-20 {
     margin-right: 20px;
 }
@@ -1197,48 +1208,50 @@ div.ant-select-sm .ant-select-selection--single {
 
 /* Input Group Styles */
 
-.input-group{
+.input-group {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
     margin-bottom: 15px;
-    font-family: 'GTEestiDisplay-Regular',-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+    font-family: 'GTEestiDisplay-Regular', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     width: 100%;
 }
-.input-group .group-label{
+
+.input-group .group-label {
     font-size: 13px;
-    color : #333333;
+    color: #333333;
     opacity: .75;
     font-weight: 600;
 }
 
-.input-group input.text-input-filed{
-    color : #333333;
+.input-group input.text-input-filed {
+    color: #333333;
     opacity: .85;
     border-radius: 3px;
     font-size: 14px;
     font-weight: 600;
     padding: .5rem;
     border: 2px solid transparent;
-    border-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0, 0, 0);
     background: #0000000d;
     /* width: 100%; */
 }
 
-.input-group .text-input-filed-container{
+.input-group .text-input-filed-container {
     width: 100%;
 }
 
-.input-group input.text-input-filed:focus{
-    border: 2px solid rgba(0,0,0,0.25);
-    background-color: hsla(0,0%,0%,0.05);
-    box-shadow:unset;
+.input-group input.text-input-filed:focus {
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    background-color: hsla(0, 0%, 0%, 0.05);
+    box-shadow: unset;
 }
 
-.input-group.error[error-data]{
+.input-group.error[error-data] {
     position: relative;
 }
-.input-group.error[error-data]::after{
+
+.input-group.error[error-data]::after {
     position: absolute;
     bottom: -20px;
     left: 2px;
@@ -1254,7 +1267,7 @@ div.ant-select-sm .ant-select-selection--single {
 
 
 
-.auto-resize-textarea-input{
+.auto-resize-textarea-input {
     border: none;
     resize: none;
 }

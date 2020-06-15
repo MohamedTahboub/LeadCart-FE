@@ -50,7 +50,7 @@ import Setting from './containers/Setting';
 import Help from './containers/Help';
 import PersonalSettings from './containers/PersonalSettings';
 import Account from './containers/Account';
-import SubaccountsSection from './containers/PersonalSettings/SubaccountsSection';
+import SubAccounts from './containers/PersonalSettings/SubaccountsSection';
 
 
 // services
@@ -95,7 +95,7 @@ ReactDOM.render(
             <Route exact path='/saasmantra' component={SignUpSaasmantra} />
             <Route path='/verify' component={VerifyAccount} />
             <ProtectedRoute exact path='/products/:productId' component={ProductBuilder} />
-            <ProtectedRoute exact path='/funnels/:funnelId/products/:productId' component={ProductBuilder} />
+            <ProtectedRoute exact path='/funnels/:funnelUrl/products/:productId' component={ProductBuilder} />
             <ProtectedRoute exact path='/funnels/:url' component={FunnelBuilder} />
             <ProtectedRoute component={() => (
               <Fragment>
@@ -114,7 +114,7 @@ ReactDOM.render(
                   <Route path='/settings' component={Setting} />
                   <Route exact path='/help' component={Help} />
                   <Route exact path='/account' component={PersonalSettings} />
-                  <Route exact path='/sub-accounts' component={SubaccountsSection} />
+                  <Route exact path='/sub-accounts' component={SubAccounts} />
                   <Route exact path='*' component={FourOFour} />
                 </Switch>
               </Fragment>

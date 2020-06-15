@@ -48,10 +48,10 @@
 /* .connect-node-assets */
 
 .connect-btn-container {
-    top: 0;
+    top: 10px;
     bottom: 0;
-    left: 50%;
-    right: -40px;
+    left: 60%;
+    right: -47px;
     align-items: flex-end;
     transform: translateX(-60px);
     display: flex;
@@ -68,8 +68,7 @@
 
 
 .funnel-node-card:hover .connect-btn-container {
-    transform: translateX(0px);
-    z-index: inherit;
+    transform: translateX(16px);
 }
 .delete-btn-container,
 .node-connect-tail{
@@ -85,6 +84,7 @@
     left: -20px;
     z-index: -1;
 }
+
 .delete-btn-container{
     background: transparent;
     height: 20px;

@@ -6,9 +6,9 @@ import { MdDelete } from 'react-icons/md';
 import ReactToolTip from 'react-tooltip';
 
 
-import TriggerGroup from './TriggerGroup';
+import TriggerGroup from './RuleModal/TriggerGroup';
 
-const getSubProducts = (productsMap = {}, products = []) => products.map((productId) => productsMap[productId] || {});
+import { getIntersectedProducts } from './helpers';
 
 const {
   Card,
@@ -39,7 +39,7 @@ const RuleCard = ({
               className='margin-left-20'
               key={group.id}
               {...group}
-              products={getSubProducts(productsMap, group.products)}
+              products={getIntersectedProducts(productsMap, group.products)}
             />
           ))}
         </FlexBox>

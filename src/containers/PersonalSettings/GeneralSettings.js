@@ -45,7 +45,11 @@ const GeneralSettings = ({ user, onChangeAccountDetails, onChangeAccountPassword
     );
   };
 
-  const onAvatarImageChange = () => {};
+  const onRequestEmailChange = () => {
+    if (window.Intercom)
+      window.Intercom('showNewMessage', 'I would like to change my email address');
+  };
+  const onAvatarImageChange = () => { };
 
   return (
     <div className='d-flex'>
@@ -73,7 +77,7 @@ const GeneralSettings = ({ user, onChangeAccountDetails, onChangeAccountPassword
         </Section>
         <Section title='Emails'>
           <span>{user.email}</span>
-          <Button type='primary' size='small' className='ml-2'>Request email change</Button>
+          <Button onClick={onRequestEmailChange} type='primary' size='small' className='ml-2'>Request email change</Button>
         </Section>
         <Section title='Password'>
           <InputField

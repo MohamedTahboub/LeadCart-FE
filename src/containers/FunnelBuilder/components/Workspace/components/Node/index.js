@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
@@ -10,8 +10,7 @@ import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
-import ReactToolTip from 'react-tooltip';
-import { ConnectingMode, EditButton, NodeStatusHat } from './components';
+import { ConnectButton, EditButton, NodeStatusHat } from './components';
 import './style.css';
 
 const categoriesImages = {
@@ -36,26 +35,25 @@ const Node = ({
   elementId,
   type: nodeType,
   product = {},
-  // onShowNodeOptions,
   category = 'checkout',
   productId,
   onEdit,
   toggleOptions,
   activeNode,
+  relations,
   coordinates = {},
   onConnect,
   connectingMode,
   onConnected,
   onDelete
-  // ...props
 }) => {
   const elementRef = useRef(null);
-  const [connecting, setConnecting] = useState();
+  // const [connecting, setConnecting] = useState();
   const highlighted = activeNode === elementId;
   const classes = clx(
     'card-style',
     'funnel-node-card',
-    { highlighted, connecting }
+    { highlighted, connecting: connectingMode }
   );
 
   const nodePosition = {
@@ -67,6 +65,7 @@ const Node = ({
 
   const _onEdit = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     return onEdit(productId);
   };
 
@@ -86,9 +85,8 @@ const Node = ({
     dataTransfer.setData('shift', stringifyObj({ shiftX, shiftY, width, height }));
   };
 
-  const onConnectStart = (e) => {
-    e.stopPropagation();
-    onConnect(elementId, nodeType);
+  const onConnectStart = (type) => {
+    onConnect(elementId, type);
   };
   const onConnectNode = (e) => {
     e.stopPropagation();
@@ -118,7 +116,7 @@ const Node = ({
     onClick: () => toggleOptions(elementId)
   };
 
-
+  const showStatusHate = category !== 'thankyoupage';
   return (
     <div className='funnel-node-container'>
       <FlexBox column className={classes} style={nodeStyle} {...cardProps}>
@@ -126,10 +124,12 @@ const Node = ({
           {name}
         </div>
         <FlexBox column style={style} className='content soft-edges'>
-          <NodeStatusHat
-            active={productId}
-            note={name}
-          />
+          {showStatusHate && (
+            <NodeStatusHat
+              active={productId}
+              note={name}
+            />
+          )}
           {productId && (
             <EditButton onClick={_onEdit} />
           )}
@@ -141,14 +141,15 @@ const Node = ({
           />
         ) : !connectingMode && (
           <div className='connect-btn-container'>
-            <AiOutlinePlusCircle
-              data-tip='connect with other products'
-              className='connect-node-btn'
+            <ConnectButton
+              nodeType={category}
+              relations={relations}
+              position={nodePosition}
               onClick={onConnectStart}
             />
           </div>
         )}
-        {connectingMode && (
+        {(connectingMode && category !== 'checkout') && (
           <div onClick={onConnectNode} className='node-connect-tail'>
             <GoPlug className='white-text large-text' />
           </div>
@@ -162,7 +163,6 @@ const Node = ({
           </div>)
         }
       </FlexBox>
-      <ReactToolTip delayShow={300} theme='light' />
     </div>
 
   );

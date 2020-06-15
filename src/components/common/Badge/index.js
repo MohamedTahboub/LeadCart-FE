@@ -9,21 +9,20 @@ const Badge = ({
   className,
   ...props
 }) => {
-  const classNames = classes({
-    [type]: true,
-    [className]: true
-  });
+  const classNames = classes('badge-container', type, className);
 
   return (
-    <div className={`badge-container ${classNames}`} {...props}>
+    <div
+      data-testid='badge-test'
+      className={classNames}
+      {...props}
+    >
       {children}
     </div>
   );
 };
 
-Badge.propTypes = {
-
-};
+Badge.propTypes = {};
 
 export default Badge;
 

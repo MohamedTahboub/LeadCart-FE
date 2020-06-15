@@ -10,6 +10,7 @@ const modules = {
       'bold',
       'italic',
       'underline',
+      'strike',
       {
         color: [
           '#000000',
@@ -97,6 +98,7 @@ const headingModules = {
       'bold',
       'italic',
       'underline',
+      'strike',
       {
         color: [
           '#000000',
@@ -151,7 +153,8 @@ const headingFormats = [
   'italic',
   'underline',
   'color',
-  'align'
+  'align',
+  'strike'
 ];
 
 export {

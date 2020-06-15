@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import common from 'components/common';
@@ -8,17 +8,26 @@ import { IoIosAdd } from 'react-icons/io';
 import ReactToolTip from 'react-tooltip';
 import { includesIgnoreCase, mapListToObject } from 'libs';
 import { connect } from 'react-redux';
+import leadcartFulfillment from 'data/leadcartFulfillment';
+import ActionDependencies from './ActionDependencies';
+import * as immutable from 'object-path-immutable';
 const animatedComponents = makeAnimated();
-
 
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
   if (actionsMap[integrationKey]) {
     return actionsMap[integrationKey].actions.map((action) => ({
       label: action.label,
-      value: action.name
+      value: action.name || action.value
     }));
   }
   return [];
+};
+
+const notValidGroup = ({ products = [], action = {} }) => {
+  if (!products.length)
+    return 'Select at lease on product';
+  if (!(action.integrationKey && action.type))
+    return 'No service or service action is selected';
 };
 const {
   FlexBox,
@@ -33,13 +42,20 @@ const TriggerActionMaker = ({
   ...props
 }) => {
   const [group, setGroup] = useState({});
+  const [error, setError] = useState();
   const [expand, setExpand] = useState(hasGroups);
 
 
   const toggleExpand = () => setExpand((expand) => !expand);
 
   const onAdd = () => {
-    if (props.onAdd) props.onAdd(group);
+    const errorMessage = notValidGroup(group);
+
+    if (props.onAdd && !errorMessage) props.onAdd(group);
+
+    if (errorMessage)
+      setError(errorMessage);
+
     toggleExpand();
   };
 
@@ -48,6 +64,7 @@ const TriggerActionMaker = ({
       ...group,
       products: products.map((p) => p.value)
     });
+    setError();
   };
 
   const onIntegrationSelected = ({ value }) => {
@@ -64,6 +81,13 @@ const TriggerActionMaker = ({
         type: value
       }
     });
+    setError();
+  };
+
+  const onDependenciesChange = ({ target: { name, value } }) => {
+    const newGroup = immutable.set(group, name, value);
+    setGroup(newGroup);
+    setError();
   };
 
   useEffect(() => {
@@ -109,16 +133,26 @@ const TriggerActionMaker = ({
           />
         </FlexBox>
         <Select
+          name=''
           className='flex-item'
           defaultValue='IntegrationsAction'
           options={actionsOptions}
           onChange={onIntegrationActionSelected}
         />
       </FlexBox>
-      <FlexBox flexEnd flex className='margin-top-10'>
+      <ActionDependencies
+        {...group.action}
+        onChange={onDependenciesChange}
+      />
+      <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
+        {error && (
+          <div className='error-message'>
+            {error}
+          </div>
+        )}
         <Button onClick={onAdd} className='light-btn'>
           <FlexBox center='v-center'>
-            <IoIosAdd />
+            <IoIosAdd className='mx-1' />
             <span>
               Add
             </span>
@@ -139,11 +173,13 @@ const TriggerActionMaker = ({
   );
 };
 TriggerActionMaker.propTypes = {};
+
 const mapStateToProps = ({ integrations }) => {
-  const integrationsList = integrations
+  const integrationsLabels = integrations
     .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))
     .map((integration) => ({ label: integration.name, value: integration.key, actions: integration.actions }));
 
+  const integrationsList = [leadcartFulfillment, ...integrationsLabels];
   const actionsMap = mapListToObject(integrationsList, 'value');
 
   return {

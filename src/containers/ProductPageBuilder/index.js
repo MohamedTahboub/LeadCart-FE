@@ -1,16 +1,16 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
-import sampleProductData from 'data/product';
+// import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
-import { connect } from 'react-redux';
-import { mapListToObject } from 'libs';
-import * as productGeneralActions from 'actions/product';
-import { ProductBuilderSkelton } from 'components/Loaders';
 import ReactToolTip from 'react-tooltip';
-import { notification } from 'libs';
+import { connect } from 'react-redux';
+import common from 'components/common';
+import { ProductBuilderSkelton } from 'components/Loaders';
+import sampleProductData from 'data/product';
+import { mapListToObject, notification } from 'libs';
 import { ProductSchema } from 'libs/validation';
+import * as productGeneralActions from 'actions/product';
+
 
 import {
   ProductContext,
@@ -32,6 +32,17 @@ const {
   FlexBox
 } = common;
 
+const matchProductSectionsIds = (product) => {
+  const sections = Array.isArray(product.sections) ?
+    product.sections.map(({ id, _id = id, ...section }) => ({ ...section, id: _id }))
+    : [];
+
+  return {
+    ...product,
+    sections
+  };
+};
+
 const ProductBuilder = ({
   funnelsMap,
   productsMap,
@@ -45,35 +56,31 @@ const ProductBuilder = ({
 
 
   useEffect(() => {
-    const { params: { productId, funnelId } = {} } = props.match;
+    const { params: { productId, funnelUrl } = {} } = props.match;
 
-    if (!funnelId && productId) {
-      const product = productsMap[productId];
+    const product = productsMap[productId];
+    const funnel = funnelsMap[funnelUrl];
 
+    if (!funnelUrl && product) {
       if (state.product._id !== productId) {
         if (product) {
           actions.updateState({
             standAlone: true,
-            product
-            // funnel: isFunnelExist
+            product: matchProductSectionsIds(product)
           });
           return setLoading(false);
         }
       }
     }
-    const isFunnelExist = funnelsMap[funnelId];
-    if (isFunnelExist && productId === 'new') return setLoading(false);
 
 
-    if (isFunnelExist) {
-      const product = productsMap[productId];
-      // const isProductFunnel = isFunnelExist.products.find((product) => product.productId === productId);
-
-      if (product && state.product._id !== productId) {
+    if (funnel && product) {
+      const localProductId = state.product._id;
+      if (localProductId !== productId) {
         actions.updateState({
           standAlone: false,
-          product,
-          funnel: isFunnelExist
+          product: matchProductSectionsIds(product),
+          funnel: funnel
         });
       }
       return setLoading(false);

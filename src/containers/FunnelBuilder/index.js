@@ -53,13 +53,11 @@ const FunnelBuilder = ({
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
     SetUnblock(unblock);
-    // stopTabClosing(true);
   };
 
   const changesSaved = () => {
     if (isFunction(unblock))
       unblock();
-    // stopTabClosing(false);
   };
 
   const onChange = ({ name, value }) => {
@@ -80,9 +78,16 @@ const FunnelBuilder = ({
 
     if (!funnel) return;
 
-    if (funnel._id === fields._id) return;
+    if (funnel._id === fields._id) {
+      if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules))
+        setFields(funnel);
+
+      return;
+    }
+
     if (!isObjectsEquivalent(funnel, fields))
       setFields(funnel);
+
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);
@@ -112,9 +117,14 @@ const FunnelBuilder = ({
 
     const productsUpdates = extractProductsRelations(funnel);
 
+    const reformProductCategories = (product = {}) => {
+      const category = (product.category === 'upSell' || product.category === 'downSell') ? 'upsell' : product.category;
+      return { ...product, category };
+    };
     const payload = {
       funnel: {
         ...funnel,
+        products: funnel.products.map(reformProductCategories),
         funnelId: fields._id
       },
       productsUpdates

@@ -9,7 +9,7 @@ import './style.css';
 import { Product } from './components';
 
 
-const getMatchedProducts = (products, nodes, activeNodeId) => {
+const getMatchedProducts = (products = [], nodes, activeNodeId, filterKey) => {
   const activeNode = nodes.find((node) => node.elementId === activeNodeId);
 
   if (!activeNode) return [];
@@ -18,6 +18,7 @@ const getMatchedProducts = (products, nodes, activeNodeId) => {
 
   return products
     .filter((p) => includesIgnoreCase(p.category, category.toLowerCase()))
+    .filter((p) => includesIgnoreCase(p.name, filterKey))
     .map((p) => (p._id === activeNode.productId ? { ...p, active: true } : p));
 };
 
@@ -54,25 +55,16 @@ const NodeSettingModal = ({
   ...props
 }) => {
 
+  const [searchFilter, setFilter] = useState();
   const nodeProducts = useCallback(
     () =>
-      getMatchedProducts(products, nodes, isVisible),
-    [products, nodes, isVisible]
-  );
+      getMatchedProducts(products, nodes, isVisible, searchFilter),
+    [products, nodes, isVisible, searchFilter]
+  )();
 
-  const [filtered, setFilteredProducts] = useState(nodeProducts);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setFilteredProducts(nodeProducts);
-  }, [nodeProducts]);
-
-  const onSearch = ({ target: { value } }) => {
-    if (!value) return setFilteredProducts(nodeProducts);
-
-    const matched = nodeProducts.filter((product) => includesIgnoreCase(product.name, value));
-    setFilteredProducts(matched);
-  };
+  const onSearch = ({ target: { value } }) => setFilter(value);
 
   const stopPropagation = (e) => {
     e.preventDefault();
@@ -96,12 +88,13 @@ const NodeSettingModal = ({
       productSample,
       {
         onSuccess: (product) => {
-          onSelect(nodeId, product.id);
+          const productId = product.id || product._id;
+          onSelect(nodeId, productId);
           setTimeout(() => {
             setLoading(false);
-            history.push(`${funnelUrl}/products/${product.id}`);
+            history.push(`${funnelUrl}/products/${productId}`);
             notification.success('Product Created ');
-          }, 300);
+          }, 200);
         },
         onFailed: (message) => {
           setLoading(false);
@@ -151,9 +144,15 @@ const NodeSettingModal = ({
             </Button>
             <div className='title-text text-align-center margin-v-5'>Or</div>
           </FlexBox>
-          <FlexBox flex flexStart wrappable center='h-center'>
+          <FlexBox
+            flex
+            flexStart
+            wrappable
+            center='h-center'
+            className='scrolling-60vh'
+          >
             {
-              filtered.map((product) => (
+              nodeProducts.map((product) => (
                 <Product
                   key={product._id}
                   isUsed={isProductUsedOnOtherFunnel(product._id)}
@@ -162,19 +161,14 @@ const NodeSettingModal = ({
                   product={{
                     image: product.thumbnail,
                     name: product.name
-                  }
-                  }
+                  }}
                   {...product}
                 />
               ))
             }
           </FlexBox>
         </Tab>
-        <Tab id='filter' title='Filters'>
-          Filters
-        </Tab>
       </Tabs>
-
     </FlexBox>
   );
 };

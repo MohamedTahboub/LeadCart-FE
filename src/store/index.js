@@ -7,11 +7,17 @@ import LogRocket from 'logrocket';
 
 const env = process.env.NODE_ENV;
 
+const developmentDependencies = env === 'development' ? [logger] : [];
+
 const applicationMiddleware = env !== 'production'
   ? applyMiddleware(
-    // logger,
-    ...middlewares)
-  : applyMiddleware(...middlewares, LogRocket.reduxMiddleware());
+    ...developmentDependencies,
+    ...middlewares
+  )
+  : applyMiddleware(
+    ...middlewares,
+    LogRocket.reduxMiddleware()
+  );
 
 
 const store = createStore(rootReducer, applicationMiddleware);

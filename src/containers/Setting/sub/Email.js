@@ -110,7 +110,7 @@ const Email = ({
     <Fragment>
       <Tabs active='settings' className='emailing-setting-bg'>
         <Tab id='settings' title='Settings'>
-          <MainBlock title='Brand Emails' containerClasses='transparent-bg'>
+          <MainBlock title='Brand Emails' containerClasses='transparent-white-bg'>
             <InputRow>
               <InputRow.Label >
                 Brand Email Logo:
@@ -177,7 +177,7 @@ const Email = ({
             </InputRow>
             )}
           </MainBlock>
-          <MainBlock title='System Emails' containerClasses='transparent-bg'>
+          <MainBlock title='System Emails' containerClasses='transparent-white-bg'>
             <InputRow>
               <InputRow.Label>New Order</InputRow.Label>
               <InputRow.Note
@@ -197,7 +197,7 @@ const Email = ({
           </MainBlock>
         </Tab>
         <Tab id='email_testing' title='Email Testing'>
-          <MainBlock title='Orders Emails'>
+          <MainBlock title='Orders Emails' containerClasses='transparent-white-bg'>
             <InputRow>
               <InputRow.Label>Order Receipt</InputRow.Label>
               <InputRow.Note
@@ -271,7 +271,7 @@ const Email = ({
           </MainBlock>
           {
             isPremium && (
-              <MainBlock title='Dunning Emails'>
+              <MainBlock title='Dunning Emails' containerClasses='transparent-white-bg'>
                 <InputRow>
                   <InputRow.Label>Default Dunning</InputRow.Label>
                   <InputRow.Note
@@ -368,7 +368,10 @@ const mapStatToProps = ({
     } = {}
   } = {}
 }) => {
-  let isPremium = activePackage.type === 'Premium';
+  let isPremium;
+
+  if (activePackage && activePackage !== null)
+    isPremium = activePackage.type === 'Premium';
 
   if (level >= 4) isPremium = true;
 

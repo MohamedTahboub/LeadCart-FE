@@ -149,6 +149,7 @@ export default {
     hidden: false,
     type: 'bumpOffer',
     content: {
+      price: 10,
       title: 'Yes! I want the discount',
       introText: 'Use LeadCart Checkout to Boost Your Profit',
       bodyText: 'Get The premium upgrade with unlimited funnel, products & much more new coming features. your current package (Pro) is Limited but its upgradable.',

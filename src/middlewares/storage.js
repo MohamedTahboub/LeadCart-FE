@@ -1,11 +1,11 @@
 import {
-  SIGN_UP_SUCCESS,
-  LOGIN_SUCCESS,
-  UPDATE_USER_PROFILE_IMAGE_SUCCESS,
   ACTIVATE_AGENCY_CODE_SUCCESS,
-  UPGRADE_USER_PACKAGE_SUCCESS,
   APP_LAUNCH_SUCCESS,
-  LOGOUT
+  LOGIN_SUCCESS,
+  LOGOUT,
+  SIGN_UP_SUCCESS,
+  UPDATE_USER_PROFILE_IMAGE_SUCCESS,
+  UPGRADE_USER_PACKAGE_SUCCESS
 } from 'constantsTypes';
 import { appInit } from 'actions/appInit';
 
@@ -81,7 +81,7 @@ function packageType (level) {
 
   if (level === 4) type = 'Premium';
 
-  if (level >= 6) type = 'Agency';
+  if (level >= 5) type = 'Agency';
 
   return type;
 }

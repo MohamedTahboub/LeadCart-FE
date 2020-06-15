@@ -136,7 +136,7 @@
 }
 .available-item.coming-soon{
     position: relative;
-    padding-right: 65px;
+    padding-right: 70px;
 }
 .available-item.coming-soon::after{
     position: absolute;
@@ -148,7 +148,7 @@
     font-weight: bold;
     line-height: 12px;
     right: 5px;
-    top: 28%;
+    top: 23%;
     color: #4DA1FF;
     -webkit-transition: opacity .4s ease-in-out;
     -o-transition: opacity .4s ease-in-out;
@@ -157,7 +157,7 @@
 
 .main-charts-settings-container{
     display: flex;
-    flex-direction: column;
+    align-items: center;
 }
 .charts-settings-switch-container{
     display: flex;

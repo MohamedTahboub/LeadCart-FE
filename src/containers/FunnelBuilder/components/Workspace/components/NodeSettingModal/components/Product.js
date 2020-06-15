@@ -85,7 +85,7 @@ const Product = ({
       <div className='tiny-text gray-text bold-text truncate p-2'>
         {name}
       </div>
-      <OverrideSelect onClick={onProductSelect} show={isUsed} />
+      <OverrideSelect onClick={onProductSelect} show={false} />
     </FlexBox>
   );
 };
