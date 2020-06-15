@@ -46,7 +46,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
   return (
-    <div className='brands-menu'>
+    <div className='brands-menu' data-testid='brands-menu'>
       <Menu
         className={classNames('brands-navigation', { 'is-open': isBrandsOpen })}
         mode='inline'
@@ -57,12 +57,12 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
         onClick={_onChange}
       >
         <SubMenu className='always-active' title={<span>{activeBrand.name}</span>} key='brands'>
-          <Search placeholder='Search brands...' onChange={_filterBrands} className='minimal-input'/>
+          <Search placeholder='Search brands...' onChange={_filterBrands} className='minimal-input' />
           {
             brands.filter(({ name }) => insensitiveSearch(brandsFilter, name))
               .map((brand) => (
                 <MenuItem key={brand.id} className={classNames({ active: brand.id === activeBrandId })}>
-                  <BrandAvatar brand={brand} className='mr-3'/>
+                  <BrandAvatar brand={brand} className='mr-3' />
                   {brand.name}
                 </MenuItem>
               ))
@@ -71,7 +71,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
           <MenuItem key={CREATE_NEW_BRAND} className='center-content'><Button>+ Create new</Button></MenuItem>
         </SubMenu>
       </Menu>
-      <div style={{ border: '1px solid #E8E8E8' }}/>
+      <div style={{ border: '1px solid #E8E8E8' }} />
       {
         isCreateBrandModalOpen && (
           <CreateModal onClose={toggleCreateModalOpen} onCreate={onCreateBrand} />
