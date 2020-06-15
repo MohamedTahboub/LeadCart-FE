@@ -7,9 +7,11 @@ import LogRocket from 'logrocket';
 
 const env = process.env.NODE_ENV;
 
+const developmentDependencies = env === 'development' ? [logger] : [];
+
 const applicationMiddleware = env !== 'production'
   ? applyMiddleware(
-    logger,
+    ...developmentDependencies,
     ...middlewares
   )
   : applyMiddleware(

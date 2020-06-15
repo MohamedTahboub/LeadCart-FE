@@ -39,7 +39,7 @@ const Avatar = ({
   } : {};
 
   return (
-    <div className={`change-avatar-layer ${className}`} style={{ ...style }}>
+    <div className={`change-avatar-layer ${className}`} style={{ ...style }} data-testid='avatar-layer'>
       <span onClick={uploadUserImage} className='change-avatar-image'>
         <i className='fas fa-camera' />
       </span>
