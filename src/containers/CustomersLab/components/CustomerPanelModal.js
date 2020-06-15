@@ -7,7 +7,7 @@ import { RoundTow } from 'libs';
 import './style.css';
 import { connect } from 'react-redux';
 import clx from 'classnames';
-
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 const {
   MainTitle,
   Timeline,
@@ -44,7 +44,7 @@ const CustomerPanelModal = ({
           <MainTitle className='upsell-modal-head' mainClassName='fluid'>
             <span className='d-flex justify-content-between'>
               <span>Customer Orders History</span>
-              <Button onClick={onClose} className='link-btn'>X</Button>
+              <IoIosCloseCircleOutline onClick={onClose} className='clickable-item larger-text'/>
             </span>
           </MainTitle>
           <DetailRow

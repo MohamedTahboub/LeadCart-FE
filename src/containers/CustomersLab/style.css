@@ -1,11 +1,9 @@
 .customer-lab-table .table-head {
   position: fixed;
-  background: #FFF;
   padding: 10px;
   min-width: 324px;
   width: calc(100vw - 253px);
   border-radius: 5px;
-  border: 1px solid #0002;
   transition: width .3s;
 }
 .customer-lab-table.widget-open .table-head {
