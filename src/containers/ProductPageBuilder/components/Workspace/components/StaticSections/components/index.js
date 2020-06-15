@@ -4,3 +4,4 @@ export { default as OrderSummary } from './OrderSummary';
 export { default as PaymentMethods } from './PaymentMethods';
 export { default as ShippingDetails } from './ShippingDetails';
 export { default as CouponSection } from './CouponSection';
+export { default as Receipt } from './Receipt';

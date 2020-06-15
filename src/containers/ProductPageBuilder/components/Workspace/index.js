@@ -35,8 +35,7 @@ const getLanguageLabel = (
 
 const Workspace = ({
   className,
-  translations,
-  ...props
+  translations
 }) => {
   const {
     state: {
@@ -51,7 +50,6 @@ const Workspace = ({
     },
     actions
   } = useContext();
-
 
   const workspaceClasses = clx(
     'product-workspace',
@@ -70,7 +68,6 @@ const Workspace = ({
 
   const onSectionOrderChange = (id, newOrder) => {
     const newSections = sections.map((section) => {
-
       if (section.id === id) return { ...section, order: newOrder };
       return section;
     });
