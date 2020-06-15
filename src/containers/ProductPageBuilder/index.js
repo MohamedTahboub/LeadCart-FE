@@ -121,12 +121,12 @@ const ProductBuilder = ({
           }
         }
       );
-    const thumbnail = await generateImageFromHtmlElement('product-builder-window');
+    const thumbnail = await generateImageFromHtmlElement('product-builder-window', { fileName: productData._id });
 
     uploadFile({ file: thumbnail, type: 'products' }, {
       onSuccess: saveTheProduct,
       onFailed: saveTheProduct,
-      options: { showNotification: false, fileName: productData._id }
+      options: { showNotification: false }
     });
 
   };
