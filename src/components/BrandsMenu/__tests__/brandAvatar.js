@@ -1,11 +1,10 @@
 import React from 'react';
-import { render } from '../TestUtils';
-
+import { render } from '../../TestUtils';
 import '@testing-library/jest-dom';
 
-import BrandsMenu from './index';
+import BrandsMenu from '..';
 
-test('Test the BrandsMenu component', () => {
+test('Test the render BrandsMenu component', () => {
   const brands = [{
     activePackage: { type: 'Pro', period: 'Monthly' },
     id: '5ea8b41fd9bc62002360c32d',
