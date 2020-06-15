@@ -1,4 +1,3 @@
-// import { showFlashMessage } from 'actions/flashMessage';
 import { notification } from 'libs';
 
 
@@ -36,22 +35,19 @@ export default () => (next) => (action) => {
   case types.UPDATE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Updated');
     break;
-  // case types.UPDATE_PRODUCT_SUCCESS:
-  //   showSuccessMessage('The Product Updated');
-  //   break;
+
   case types.SAVE_USER_GENERAL_SETTINGS_SUCCESS:
     showSuccessMessage('Update General Setting');
     break;
-  // case types.PRODUCT_CREATED_SUCCESSFULLY:
-  //   showSuccessMessage('The Product Created');
-  //   break;
   case types.DELETE_USER_PRODUCT_SUCCESS:
     showSuccessMessage('The Product Deleted');
     break;
-  case types.UPLOAD_FILE_SUCCESS:
-    showSuccessMessage('Uploaded  ');
+  case types.UPLOAD_FILE_SUCCESS: {
+    const { meta: { options: { showNotification = true } = {} } = {} } = action.payload;
+    if (showNotification)
+      showSuccessMessage('Uploaded  ');
     break;
-
+  }
   case types.CREATE_NEW_MEMBER_SUCCESS:
     showSuccessMessage('\'New Member Have Been');
     break;
@@ -71,15 +67,9 @@ export default () => (next) => (action) => {
   case types.SAVE_USER_GENERAL_SETTINGS_FAILED:
     showFailureMessage('Failed to save the setting, fields maybe not valid');
     break;
-  // case types.UPDATE_PRODUCT_FAILED:
-  //   showFailureMessage('Failed to Update The Product');
-  //   break;
   case types.CREATE_SUB_ACCOUNT_FAILED:
     showFailureMessage('Failed to Create A Sub Account!');
     break;
-  // case types.PRODUCT_CREATION_FAILED:
-  //   showFailureMessage('Failed to Create The product');
-  //   break;
   case types.CHANGE_COUPON_STATE_FAILED:
     showFailureMessage('Failed to Change coupon status');
     break;
