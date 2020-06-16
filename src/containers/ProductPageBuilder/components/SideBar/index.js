@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import ReactTooltip from 'react-tooltip';
 import { BaseCard } from './components';
 
 const {
   SideMenu,
-  Tabs,
-  EditableField,
   FlexBox,
-  Tab,
-  Card,
   Collapse
 } = common;
 
 const { Panel } = Collapse;
 
-const SideBar = (props) => (
+const SideBar = ({ canOffer }) => (
   <SideMenu open>
     <Collapse activeKey={['1', '2', '3']}>
       <Panel header='Native Sections' key='1'>
@@ -93,11 +88,15 @@ const SideBar = (props) => (
             className='figure-section-bg'
             data-tip='Figure Widget'
           />
-          <BaseCard
-            type='bumpOffer'
-            className='bump-offer-bg'
-            data-tip='Bump Offer Section'
-          />
+          {
+            canOffer && (
+              <BaseCard
+                type='bumpOffer'
+                className='bump-offer-bg'
+                data-tip='Bump Offer Section'
+              />
+            )
+          }
           <BaseCard
             type='testimonialsSection'
             className='testimonials-bg'
@@ -125,6 +124,6 @@ const SideBar = (props) => (
 // className='shipping-bg'
 // data-tip='Shipping Form'
 // />
-SideBar.propTypes = {};
+SideBar.propTypes = { canOffer: PropTypes.bool };
 
 export default SideBar;

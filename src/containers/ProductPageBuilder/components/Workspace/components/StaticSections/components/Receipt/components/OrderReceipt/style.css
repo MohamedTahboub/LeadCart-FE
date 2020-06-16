@@ -1,0 +1,40 @@
+.order-recept-container{
+    display: flex;
+    flex-direction:  column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+.order-recept-table{
+    width: 70%;
+    min-width: 400px;
+    background:#eaf1f8;
+    color: #525f7f;
+    border-radius: 4px;
+    padding: 15px 20px;
+    font-size: 15px;
+}
+.order-recept-header{
+    opacity: .8;
+    margin: 0 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #b7bfd3d0;
+}
+.order-recept-header-text{
+    font-size: 16px;
+}
+
+.order-recept-row{
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+
+.total-row{
+    border-top: 2px solid #b7bfd3;
+    padding-top: 10px;
+    font-weight: bold;
+}
+ 

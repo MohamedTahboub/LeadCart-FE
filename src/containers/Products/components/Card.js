@@ -1,40 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
-import { getPriceFormat, trimExtraText } from 'libs';
-
 import ReactTooltip from 'react-tooltip';
-
+import { getPriceFormat, trimExtraText } from 'libs';
+import defaultProductImage from 'assets/images/big-logo-1.png';
 const { Card } = common;
 
-const getProductImage = ({ image, asset } = {}) => {
-  if (asset && asset.type === 'image') return asset.link;
-  return image;
-};
 
 const ProductCard = ({
   onDelete,
   onDuplicate,
-  pagePreferences,
   name,
   category,
   price: { amount, currency, format } = {},
   onEdit,
   available: active,
-  ...props
+  thumbnail = defaultProductImage
 }) => {
-  const productImage = getProductImage(pagePreferences);
-
 
   const coverImageStyle = {
     backgroundImage: ` linear-gradient(
               to bottom,
-              rgba(0,0,0, 0),
+              rgba(0, 0, 0, 0.14),
               rgba(0,0,0, .1)
-            ),url(${productImage})`,
+            ),url(${thumbnail})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
+    backgroundRepeat: 'no-repeat'
   };
 
 
@@ -47,11 +38,13 @@ const ProductCard = ({
         className='product-image-container'
       >
         <div className='head'>
-          <span
+          {
+          /*<span
             data-tip={`${active ? 'active' : 'inactive'}  product`}
             data-type='info'
             className={`status ${active ? 'active' : ''}`}
           />
+        */}
           <span
             data-tip='Duplicate'
             data-type='info'
@@ -106,13 +99,11 @@ const ProductCard = ({
           role='presentation'
         />
       </div>
-      <ReactTooltip />
+      <ReactTooltip delayShow={300}/>
     </Card>
   );
 };
 
-ProductCard.propTypes = {
-
-};
+ProductCard.propTypes = {};
 
 export default ProductCard;
