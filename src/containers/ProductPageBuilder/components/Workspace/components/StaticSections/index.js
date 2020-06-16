@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { SettingsHandle } from '../common';
 import { useContext } from '../../../../actions';
+import OrderReceipt from './components/Receipt';
 
 import './style.css';
 import {
@@ -112,6 +113,13 @@ const StaticSections = ({ onSetting, language }) => {
             }}
             className='medium-text blush-gray max-w-500 margin-v-20 aligned-center'
           />
+        </FlexBox>
+        <FlexBox
+          id='thankyoupage'
+          style={{ justifyContent: 'center' }}
+          className='medium-text blush-gray max-w-500 margin-v-20 aligned-center'
+        >
+          <OrderReceipt />
         </FlexBox>
       </LayoutSwitch>
     </FlexBox>
