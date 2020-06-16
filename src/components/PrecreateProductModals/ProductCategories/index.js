@@ -1,6 +1,6 @@
 import React from 'react';
 import checkoutIcon from 'assets/images/icons/checkout.svg';
-import pageFunnelIcon from 'assets/images/icons/pageFunnel.svg';
+// import pageFunnelIcon from 'assets/images/icons/pageFunnel.svg';
 import popUpCheckoutIcon from 'assets/images/icons/popUpCheckout.svg';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
 import { CategoryCard } from 'components/common/Cards';
@@ -15,27 +15,25 @@ const ProductCategories = ({ onSelect }) => (
       label='Checkout'
     />
     <CategoryCard
-      image={checkoutIcon}
-      label='Two Step Checkout'
-      // className='disabled'
-      onClick={onSelect('checkout')}
-    />
-    <CategoryCard
       image={popUpCheckoutIcon}
       onClick={onSelect('upsell')}
       label='Upsell/Downsell'
-    // className='disabled'
     />
     <CategoryCard
       image={thankyouPageImage}
-      label='One Page Funnel'
-      // className='disabled'
+      label='Thank You Page'
+      className='disabled'
       onClick={onSelect('thankyoupage')}
+    />
+    <CategoryCard
+      image={checkoutIcon}
+      onClick={onSelect('opt-in')}
+      className='disabled'
+      label='Opt-In Page'
     />
   </div>
 );
 
-ProductCategories.propTypes = {
-};
+ProductCategories.propTypes = {};
 
 export default ProductCategories;
