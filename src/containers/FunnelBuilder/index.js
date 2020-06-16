@@ -12,8 +12,6 @@ import {
   mapListToObject,
   notification
 } from 'libs';
-// import isEqualObjects from 'react-fast-compare';
-
 
 import './style.css';
 
@@ -35,26 +33,22 @@ const FunnelBuilder = ({
   productsMap,
   subdomain,
   domains,
-  // globelLoading,
+  saveFunnelState,
+  savedFunnel,
   ...props
 }) => {
   const { url: funnelUrl } = props.match.params;
-
-  const [fields, setFields] = useState({});
+  const [fields, setFields] = useState(savedFunnel);
   const [errors, setErrors] = useState({});
   const [activePage, setActivePage] = useState('blocks');
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
-
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
-
   const [unblock, SetUnblock] = useState();
-
 
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
     SetUnblock(unblock);
   };
-
   const changesSaved = () => {
     if (isFunction(unblock))
       unblock();
@@ -64,6 +58,7 @@ const FunnelBuilder = ({
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
+    saveFunnelState({ ...fields, [name]: value });
   };
 
 
@@ -81,7 +76,6 @@ const FunnelBuilder = ({
     if (funnel._id === fields._id) {
       if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules))
         setFields(funnel);
-
       return;
     }
 
@@ -213,16 +207,17 @@ const mapStateToProps = ({
       subDomain: subdomain,
       domains = []
     } = {}
-  } = {}
+  } = {},
+  workspace: { savedFunnel }
 }) => {
-
   const productsMap = mapListToObject(products, '_id', nodeProjectProjection);
   return ({
     productsMap,
     subdomain,
     domains,
     globelLoading,
-    funnels
+    funnels,
+    savedFunnel
   });
 };
 export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);
