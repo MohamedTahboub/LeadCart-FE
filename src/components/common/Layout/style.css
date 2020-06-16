@@ -31,6 +31,7 @@
 }
 .page-content-container{
   position: fixed;
+  align-content: baseline;
   top: 60px;
   bottom: 0px;
   left: 200px;
