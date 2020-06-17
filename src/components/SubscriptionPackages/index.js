@@ -9,6 +9,7 @@ import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
 import ActivePackage from './components/ActivePackage';
 import { upgradeUserSchema } from '../../libs/validation';
+import { getBrandActivePackage } from 'libs';
 const { packagesPlans = {} } = config;
 
 
@@ -112,7 +113,6 @@ const Subscription = ({
           onFailed: (message) => {
             setLoading({ ...loading, promoCode: false });
             setErrors({ promoCode: message });
-            // onUpdatePromoCode({})
           }
         }
       );
@@ -127,18 +127,14 @@ const Subscription = ({
     });
   };
   const onSubmit = async () => {
-
     const promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined;
-
     const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode });
-
     if (!isValid) {
       return setErrors({
         ...errors,
         message: ' please check your The Fields above'
       });
     }
-
     setLoading({ ...loading, upgrade: true });
     props.upgradeUserPackage(
       value,
@@ -155,6 +151,7 @@ const Subscription = ({
   };
 
   const lastTransaction = getLastItem(transactions);
+  console.log({ activePackage });
   return (
     <Box
       header={(
@@ -170,14 +167,16 @@ const Subscription = ({
       contentClassName='subscription-box-content'
       content={(
         <Fragment>
-          {activePackage.type && (
-            <ActivePackage
-              {...activePackage}
-              trial={trial}
-              lastTransaction={lastTransaction}
-              isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
-            />
-          )}
+          {
+            activePackage.type && (
+              <ActivePackage
+                {...activePackage}
+                trial={trial}
+                lastTransaction={lastTransaction}
+                isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
+              />
+            )
+          }
           <ActivationSwitchInput
             active={fields.recurringPeriod === 'Monthly'}
             className={`subscription-toggle-input ${fields.recurringPeriod}`}
@@ -287,14 +286,14 @@ const mapStateToProps = ({
 }) => {
   if (activePackage === null)
     activePackage = {};
-
   if (trial) {
     activePackage.type = activePackage.type || 'Pro';
     activePackage.period = activePackage.period || 'Monthly';
-  } else if (!activePackage.type && level) {
+  }/* else if (!activePackage.type && level) {
     activePackage.type = level >= 4 ? 'Premium' : 'Pro';
     activePackage.period = 'Monthly';
-  }
+  }*/
+  activePackage.type = level ? getBrandActivePackage({ activePackage, level }) : activePackage.type;
   return {
     activePackage,
     trial: { trialEndDate, trial },

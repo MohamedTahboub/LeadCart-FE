@@ -4,13 +4,11 @@ import classNames from 'classnames';
 import './index.css';
 
 const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
-
   if (level) {
     let type = 'Basic';
     if (level >= 2) type = 'Pro';
     if (level >= 4) type = 'Premium';
     return type;
-
   } else {
     return activePackage.type === 'Free' ? 'FREE'
       : activePackage.type === 'Premium' ? 'PREMIUM'
@@ -18,7 +16,6 @@ const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
           : activePackage.type === 'Basic' ? 'BASIC'
             : 'Sub';
   }
-
 };
 
 const BrandAvatar = ({ brand, className }) => {
