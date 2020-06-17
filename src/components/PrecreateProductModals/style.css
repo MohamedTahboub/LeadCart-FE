@@ -12,7 +12,7 @@
 }
 .percreate-product-modal-cancel-btn{
     position: absolute;
-    left: 50px;
+    right: 50px;
     bottom: 30px;
     background: white;
     color:gray;
