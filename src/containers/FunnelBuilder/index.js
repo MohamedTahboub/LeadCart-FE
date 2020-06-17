@@ -58,7 +58,6 @@ const FunnelBuilder = ({
     setFields({ ...fields, [name]: value });
     setErrors({ ...errors, [name]: '' });
     changesDetected();
-    saveFunnelState({ ...fields, [name]: value });
   };
 
 
@@ -67,7 +66,7 @@ const FunnelBuilder = ({
   };
 
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
-
+  useEffect(() => saveFunnelState({ ...fields }));
   useEffect(() => {
     const funnel = getFunnelByUrl(funnelUrl);
 

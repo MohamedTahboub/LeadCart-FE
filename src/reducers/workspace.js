@@ -1,4 +1,4 @@
-import { SAVE_FUNNEL_STATE } from '../constantsTypes';
+import { CACHE_WORKSPACE_FUNNEL } from '../constantsTypes';
 
 
 const initialState = { savedFunnel: {} };
@@ -6,7 +6,7 @@ const initialState = { savedFunnel: {} };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case SAVE_FUNNEL_STATE:
+  case CACHE_WORKSPACE_FUNNEL:
     return { ...state, savedFunnel: payload };
   default: return state;
   }
