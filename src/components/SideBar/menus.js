@@ -37,6 +37,11 @@ export const main = () => [
         link: '/funnels',
         icon: 'funnels'
       }, {
+        title: 'Products Pages',
+        key: 'products',
+        link: '/products',
+        icon: 'products'
+      }, {
         title: 'Coupons',
         key: 'coupons',
         link: '/coupons',
