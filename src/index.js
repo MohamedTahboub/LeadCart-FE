@@ -2,12 +2,11 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import ReactNotification from 'react-notifications-component';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ToolTip from 'react-tooltip';
 import store from 'store';
 import 'config';
-
 
 // temp pages
 import affiliatesImage from 'assets/images/affiliates_bg.svg';
@@ -63,6 +62,7 @@ import 'react-notifications-component/dist/theme.css';
 import { APP_INIT } from 'constantsTypes';
 import IntercomApp from './components/Intercom';
 import VerifyAccount from './containers/VerifyAccount';
+import { history } from './history';
 
 
 window.onload = () => {
@@ -85,7 +85,7 @@ ReactDOM.render(
       <LoadingBar />
       <IntercomApp />
       <ErrorBoundary>
-        <BrowserRouter>
+        <Router history={history}>
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
@@ -121,7 +121,7 @@ ReactDOM.render(
             )}
             />
           </Switch>
-        </BrowserRouter>
+        </Router>
         <ReactNotification />
       </ErrorBoundary>
       <ToolTip />

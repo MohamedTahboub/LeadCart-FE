@@ -21,6 +21,7 @@ import {
   SideBar,
   Workspace
 } from './components';
+import { withHistoryListener } from '../../history';
 
 const {
   Page,
@@ -33,8 +34,9 @@ const FunnelBuilder = ({
   productsMap,
   subdomain,
   domains,
-  saveFunnelState,
+  registerHistoryListener,
   savedFunnel,
+  saveFunnelState,
   ...props
 }) => {
   const { url: funnelUrl } = props.match.params;
@@ -45,6 +47,10 @@ const FunnelBuilder = ({
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
   const [unblock, SetUnblock] = useState();
 
+  const onLocationChange = () => {
+    saveFunnelState({ ...fields });
+  };
+  registerHistoryListener(onLocationChange);
   const changesDetected = () => {
     const unblock = props.history.block('Changes you made may not be saved.');
     SetUnblock(unblock);
@@ -66,7 +72,6 @@ const FunnelBuilder = ({
   };
 
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
-  useEffect(() => () => saveFunnelState({ ...fields }));
   useEffect(() => {
     const funnel = getFunnelByUrl(funnelUrl);
 
@@ -137,7 +142,6 @@ const FunnelBuilder = ({
       }
     );
   };
-
 
   const onPageChange = (page) => () => {
     setActivePage(page);
@@ -219,4 +223,4 @@ const mapStateToProps = ({
     savedFunnel
   });
 };
-export default connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder);
+export default withHistoryListener(connect(mapStateToProps, { ...funnelActions, ...flashMessages })(FunnelBuilder));
