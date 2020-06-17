@@ -6,7 +6,7 @@ import * as couponsActions from 'actions/coupon';
 import Dialog from 'components/common/Dialog';
 
 
-import CouponModal from './modal'
+import CouponModal from './modal';
 
 import Table from 'components/common/Tables';
 import moment from 'moment';
@@ -44,23 +44,21 @@ const Coupons = ({
 
 
   const toggleModal = () => {
-    setShowModal(!showModal)
+    setShowModal(!showModal);
     if (showModal && editCoupon)
-      setEditCoupon(false)
-  }
+      setEditCoupon(false);
+  };
 
 
   const onCouponDelete = (couponId) => {
-    props.deleteCoupon({
-      couponId
-    }, {
-        onSuccess: () => {
-          setShowDeleteModal('');
-        },
-        onFailed: (message) => {
-          setShowDeleteModal('');
-        }
-      });
+    props.deleteCoupon({ couponId }, {
+      onSuccess: () => {
+        setShowDeleteModal('');
+      },
+      onFailed: (message) => {
+        setShowDeleteModal('');
+      }
+    });
   };
 
 
@@ -99,7 +97,7 @@ const Coupons = ({
                   // createdAt,
                   products: [productId] = [],
                   forAll,
-                  duration,
+                  duration
                   // usedBy
                 } = coupon;
                 return (
@@ -107,7 +105,12 @@ const Coupons = ({
                     <Table.Cell mainContent={code} />
                     <Table.Cell mainContent={discount.type} />
                     <Table.Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
-                    <Table.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} />
+                    {/* <Table.Cell mainContent={forAll === true ? 'All Products' : productsNames[productId]} /> */}
+                    <Table.Cell mainContent={
+                      forAll === true ? 'All Products'
+                        : coupon.products ? productsNames[productId]
+                          : productsNames[coupon.productId]}
+                    />
                     <Table.Cell mainContent={moment(duration).format('YYYY-MM-DD')} />
                     <Table.Cell>
                       <SmallButton
