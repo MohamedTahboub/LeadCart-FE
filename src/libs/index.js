@@ -27,6 +27,7 @@ export {
   mapListToObject,
   throttle,
   isObjectsEquivalent,
-  nestedKeyValue
+  nestedKeyValue,
+  getBrandActivePackage
 } from './specialFuncs';
 export { notification };
