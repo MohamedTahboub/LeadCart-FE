@@ -5,3 +5,7 @@
 .coupon-tabel-row{
   position: relative;
 }
+
+.select-coupons{
+  width: 100%;
+}

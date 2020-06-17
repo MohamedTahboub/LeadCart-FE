@@ -1,32 +1,30 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as couponsActions from 'actions/coupon';
-// import propTypes from 'prop-types';
 import common from 'components/common';
 import { couponSchema } from 'libs/validation';
 import { Modal } from 'components/Modals';
 import moment from 'moment';
+import Select from 'react-select';
+
 const {
   InputRow,
   Button,
   MainTitle
 } = common;
 
+const { Label, CustomInput, DatePicker, FlatSelect, PriceField } = InputRow;
 
 const CouponModal = ({
   edit,
-  show,
   onClose,
   products = [],
   coupon: couponData = { products: [] },
-  //   coupon,
   ...props
 }) => {
   const initCoupon = {
     active: true,
-    discount: {
-      type: 'Flat'
-    },
+    discount: { type: 'Flat' },
     duration: moment().format(),
     forAll: true,
     productId: couponData.products && couponData.products[0],
@@ -36,14 +34,14 @@ const CouponModal = ({
   const [coupon, setCoupon] = useState(initCoupon);
   const [errors, setErrors] = useState({});
 
-
   const onChange = ({ target: { value, name } }) => {
     if (value === 'all') {
       name = 'forAll';
       value = true;
       coupon.productId = 'all';
-    } else if (name === 'productId') {coupon.forAll = false;}
-
+    } else if (name === 'productId') {
+      coupon.forAll = false;
+    }
 
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
@@ -127,6 +125,29 @@ const CouponModal = ({
     }
   };
 
+
+  //
+  //
+  //
+  //
+  //
+  //
+  const [productValues, setProductValues] = useState([]);
+
+  const selectValues = (values) => {
+    setProductValues(values);
+  };
+
+
+  const multiProducts = () => {
+    return Array.isArray(productValues) &&
+      productValues.filter((ele) =>
+        ele.value === 'all').length > 0;
+  };
+
+  console.log(!multiProducts());
+
+
   const { discount } = coupon;
   return (
     <Modal
@@ -135,19 +156,19 @@ const CouponModal = ({
     >
       <MainTitle>{edit ? 'Update Coupon' : 'Create Coupon'}</MainTitle>
       <InputRow>
-        <InputRow.Label
+        <Label
           error={errors.code}
         >
           Coupon code
-        </InputRow.Label>
-        <InputRow.CustomInput
+        </Label>
+        <CustomInput
           name='code'
           value={coupon.code}
           placeholder='Coupon Code.'
           onBlur={onChange}
           error={errors.code}
         />
-        <InputRow.DatePicker
+        <DatePicker
           name='duration'
           type='date'
           disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
@@ -158,16 +179,16 @@ const CouponModal = ({
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label
+        <Label
           error={errors.amount || errors.percent}
         >
           Coupon Type
-        </InputRow.Label>
-        <InputRow.FlatSelect
+        </Label>
+        <FlatSelect
           onSelect={onCouponTypeChange}
           value={discount.type}
         />
-        <InputRow.PriceField
+        <PriceField
           value={discount.type === 'Flat' ? discount.amount : discount.percent}
           currency={discount.type === 'Flat' ? '$' : '%'}
           name={discount.type === 'Flat' ? 'discount.amount' : 'discount.percent'}
@@ -177,17 +198,26 @@ const CouponModal = ({
         />
       </InputRow>
       <InputRow margin='35'>
-        <InputRow.Label>
+        <Label>
           Apply to
+        </Label>
 
-        </InputRow.Label>
-        <InputRow.SearchInput
+        {/*  */}
+        {/*  */}
+
+
+        <Select
+          className='select-coupons'
           options={products}
-          value={typeof coupon.productId !== 'boolean' ? coupon.productId : 'all'}
           target='name'
           name='productId'
-          onChange={onChange}
+          onChange={selectValues}
+          value={productValues}
+          // isMulti={!multiProducts}
+          isMulti={!multiProducts()}
         />
+
+
       </InputRow>
       {errors.message && <span className='error-message'>{errors.message}</span>}
       <Button onClick={edit ? onUpdate : onCreate} className='primary-color margin-with-float-right'>
