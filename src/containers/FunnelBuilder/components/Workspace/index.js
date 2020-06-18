@@ -25,12 +25,9 @@ const WorkSpace = ({
     url: funnelUrl
   },
   productsNodeDetails,
-  // showFlashMessage,
   history
-  // ...props
 }) => {
   const [connecting, setConnecting] = useState(false);
-  // const [showNodeOptions, setShowNodeOptions] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false);
 
 

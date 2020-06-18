@@ -108,15 +108,15 @@ const Node = ({
     backgroundSize: '105% 105%',
     backgroundRepeat: 'no-repeat'
   };
+  const showStatusHate = category !== 'thankyoupage';
 
   const cardProps = {
     draggable: true,
     elementRef,
     onDragStart,
-    onClick: () => toggleOptions(elementId)
+    onClick: () => showStatusHate && toggleOptions(elementId)
   };
 
-  const showStatusHate = category !== 'thankyoupage';
   return (
     <div className='funnel-node-container'>
       <FlexBox column className={classes} style={nodeStyle} {...cardProps}>

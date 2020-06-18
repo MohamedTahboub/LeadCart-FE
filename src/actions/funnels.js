@@ -12,14 +12,13 @@ import {
   DELETE_FUNNEL_RULE_SUCCESS,
   DELETE_FUNNEL_SUCCESS,
   GET_FUNNELS,
+  CACHE_WORKSPACE_FUNNEL,
   UPDATE_FUNNEL,
   UPDATE_FUNNEL_FAILED,
   UPDATE_FUNNEL_RULE,
   UPDATE_FUNNEL_RULE_FAILED,
   UPDATE_FUNNEL_RULE_SUCCESS,
   UPDATE_FUNNEL_SUCCESS
-
-
 } from '../constantsTypes';
 
 
@@ -120,4 +119,9 @@ export const deleteFunnelRuleSuccess = (rule) => ({
 export const deleteFunnelRuleFailed = (message) => ({
   type: DELETE_FUNNEL_RULE_FAILED,
   payload: message
+});
+
+export const saveFunnelState = (funnel) => ({
+  type: CACHE_WORKSPACE_FUNNEL,
+  payload: funnel
 });
