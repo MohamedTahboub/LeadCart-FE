@@ -274,11 +274,12 @@ Subscription.propTypes = {
 
 const mapStateToProps = ({
   loading: globalLoading,
+  brands,
   user: {
     user: {
+      activeBrand: activeBrandId,
       activePackage = {},
       trial,
-      level,
       trialEndDate,
       transactions = []
     } = {}
@@ -289,11 +290,10 @@ const mapStateToProps = ({
   if (trial) {
     activePackage.type = activePackage.type || 'Pro';
     activePackage.period = activePackage.period || 'Monthly';
-  }/* else if (!activePackage.type && level) {
-    activePackage.type = level >= 4 ? 'Premium' : 'Pro';
-    activePackage.period = 'Monthly';
-  }*/
-  activePackage.type = level ? getBrandActivePackage({ activePackage, level }) : activePackage.type;
+  }
+  const activeBrand = brands.find(({ id }) => id === activeBrandId);
+  if (activeBrand)
+    activePackage.type = activeBrand.level ? getBrandActivePackage(activeBrand) : activePackage.type;
   return {
     activePackage,
     trial: { trialEndDate, trial },
