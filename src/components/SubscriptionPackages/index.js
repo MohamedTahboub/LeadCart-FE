@@ -26,6 +26,7 @@ const {
   Box,
   SmallButton,
   // SpcialAnnouncement,
+  activePackage,
   ActivationSwitchInput
 } = common;
 
@@ -151,7 +152,6 @@ const Subscription = ({
   };
 
   const lastTransaction = getLastItem(transactions);
-  console.log({ activePackage });
   return (
     <Box
       header={(
@@ -187,7 +187,7 @@ const Subscription = ({
               name='Basic'
               package={packagesPlans.basic}
               onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
+              activePackage={activePackage.type}
               interval={fields.recurringPeriod}
               code={fields.promoCode}
               lastTransaction={lastTransaction}
@@ -196,7 +196,7 @@ const Subscription = ({
               name='Pro'
               package={packagesPlans.pro}
               onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
+              activePackage={activePackage.type}
               interval={fields.recurringPeriod}
               code={fields.promoCode}
               lastTransaction={lastTransaction}
@@ -205,7 +205,7 @@ const Subscription = ({
               name='Premium'
               package={packagesPlans.premium}
               onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
+              activePackage={activePackage.type}
               interval={fields.recurringPeriod}
               plus
               code={fields.promoCode}
