@@ -1,35 +1,14 @@
 {
     "price": {
         "currency": "USD",
-        "amount": 11.9
+        "amount": 9.9
     },
     "payment": {
         "type": "Onetime"
     },
     "sections": [],
     "category": "checkout",
-    "offer": {
-        "enabled": true,
-        "bodyText": "LIMITED EDITION, we are offering a special 'Client License Upgrade' Create unlimited carts for up to 5 simultaneous clients, using your own account for only $297 per year Or $599 One Time!",
-        "introText": "Use Leadcart For Your Clients Sites & Profit Today!",
-        "name": "Client Licenses",
-        "price": 8.9,
-        "title": "YES! I Want one of the Limited 'Client Licenses'",
-        "style": {
-            "containerBackground": "white",
-            "containerTextColor": "gray",
-            "headerBackground": "#8ed1fc",
-            "headerTextColor": "#000000",
-            "borderColor": "#0693e3",
-            "borderStyle": "dashed",
-            "borderRadius": "0",
-            "borderWidth": "3"
-        }
-    },
-    "coupons": {
-        "enabled": true
-    },
     "available": true,
-    "name": "Leadcart Premium",
-    "internalName": "leadcart-premium-lifetime"
+    "name": "My Product",
+    "internalName": "my-product"
 }

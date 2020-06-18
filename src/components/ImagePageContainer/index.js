@@ -9,11 +9,11 @@ const ImageFullPageContainer = ({
   image,
   // className,
   title,
-  hideBox,
+  hideBox
 }) => (
   <Page>
     {title && (
-      <MainTitle>
+      <MainTitle className='mx-3'>
         {title}
       </MainTitle>
     )}

@@ -10,7 +10,7 @@ import common from 'components/common';
 
 const { Tab, Tabs } = common;
 
-const Billing = ({ transactions = [], activeBrand }) => (
+const Billing = ({ activeBrand }) => (
   <Fragment>
     <Tabs active='subscription'>
       <Tab id='subscription' title='Your Subscription'>

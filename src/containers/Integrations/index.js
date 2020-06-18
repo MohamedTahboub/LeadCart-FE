@@ -34,7 +34,7 @@ const {
 
 const { TextField, SelectOption } = InputRow;
 
-const filtersIntegrations = (list, key, connected) => list.filter((integration) => {
+const filtersIntegrations = (list, key, connected = 'all') => list.filter((integration) => {
   if (connected === 'all') return true;
   if (connected === 'connected') return integration.connected;
   if (connected === 'disconnected') return !integration.connected;
@@ -92,10 +92,6 @@ const Integrations = ({ integrations, history, ...props }) => {
     setSearchKey(value);
   };
 
-  const onChangeConnectFilter = ({ target: { value } }) => {
-
-    setShowConnected(value);
-  };
 
   const filteredList = filtersIntegrations(integrations, searchKey, showConnected);
 
@@ -153,26 +149,26 @@ const Integrations = ({ integrations, history, ...props }) => {
   return (
     <Page>
       <PageHeader className='space-between-elements'>
-        <MainTitle>Integrations</MainTitle>
+        <FlexBox center='v-center'>
+          <MainTitle className='larger-text'>Integrations</MainTitle>
+          <TextField
+            name='search'
+            prefix={<Currency value={<i className='fas fa-search' />} />}
+            className='margin-h-10 integrations-search-input'
+            onChange={onSearch}
+            placeholder='Search Service/Categories'
+            autoComplete='off'
+            value={searchKey}
+          />
+          <LayoutOptions
+            onChange={onLayoutChange}
+            active={activeLayout}
+            className='margin-h-10'
+          />
+        </FlexBox>
       </PageHeader>
       <PageContent dflex>
         <FlexBox column flex>
-          <FlexBox flexStart>
-            <TextField
-              name='search'
-              prefix={<Currency value={<i className='fas fa-search' />} />}
-              className='margin-h-10 integrations-search-input'
-              onChange={onSearch}
-              placeholder='Search Service/Categories'
-              autoComplete='off'
-              value={searchKey}
-            />
-            <LayoutOptions
-              onChange={onLayoutChange}
-              active={activeLayout}
-              className='margin-h-10'
-            />
-          </FlexBox>
           <FlexBox column flex>
             <ActiveIntegrationLayout
               layout={activeLayout}

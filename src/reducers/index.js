@@ -24,6 +24,7 @@ import funnels from './funnels';
 import translations from './translations';
 import brands from './brands';
 import integrations from './integrations';
+import workspace from './workspace';
 
 
 const rootReducer = combineReducers({
@@ -51,7 +52,8 @@ const rootReducer = combineReducers({
   translations,
   validation,
   brands,
-  integrations
+  integrations,
+  workspace
 });
 
 export default rootReducer;
