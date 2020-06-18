@@ -132,7 +132,21 @@ const CouponModal = ({
   //
   //
   //
+  const defaultCoupon = {
+    label: 'For All Products',
+    value: 'all'
+  };
+
   const [productValues, setProductValues] = useState([]);
+
+  React.useEffect(() => {
+    const allProducts = Array.isArray(productValues) &&
+      productValues.filter((ele) =>
+        ele.value === 'all').length > 0;
+
+    allProducts && setProductValues([defaultCoupon]);
+  }, [productValues, defaultCoupon]);
+
 
   const selectValues = (values) => {
     setProductValues(values);
@@ -140,13 +154,20 @@ const CouponModal = ({
 
 
   const multiProducts = () => {
-    return Array.isArray(productValues) &&
+    const allProducts = Array.isArray(productValues) &&
       productValues.filter((ele) =>
         ele.value === 'all').length > 0;
+
+    return allProducts;
   };
 
   console.log(!multiProducts());
-
+  //
+  //
+  //
+  //
+  //
+  //
 
   const { discount } = coupon;
   return (

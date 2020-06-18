@@ -43,6 +43,7 @@ const CouponsList = ({ coupons, showEditModal, deleteModal, productsNames, ...pr
                 forAll === true ? 'All Products'
                   : coupon.products ? productsNames[productId]
                     : productsNames[coupon.productId]}
+                cellName='product'
               />
               <Cell mainContent={moment(duration).format('YYYY-MM-DD')} />
 
