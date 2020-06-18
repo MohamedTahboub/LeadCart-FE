@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import clx from 'classnames';
-import './style.css';
+import { Tooltip } from 'antd';
 import { EasyAnimate } from '../Animation';
+import './style.css';
+
+import Cell from './cell';
 
 export default class Table extends Component {
   static Head = ({ children }) => (
@@ -19,14 +22,14 @@ export default class Table extends Component {
     flex = true,
     className = ''
   }) => (
-    <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
-      {children && (
-        <span>
-          {children}
-        </span>
-      )}
-    </div>
-  )
+      <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
+        {children && (
+          <span>
+            {children}
+          </span>
+        )}
+      </div>
+    )
 
   static Row = ({
     children,
@@ -34,13 +37,13 @@ export default class Table extends Component {
     subRow,
     className = ''
   }) => (
-    <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
-      <div className='table-row'>
-        {children}
-      </div>
-      {subRow}
-    </EasyAnimate>
-  )
+      <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
+        <div className='table-row'>
+          {children}
+        </div>
+        {subRow}
+      </EasyAnimate>
+    )
 
   static Cell = ({
     children,
@@ -50,6 +53,7 @@ export default class Table extends Component {
     flexStart,
     subContent,
     sideContent,
+    cellName,
     ...props
   }) => {
     const classNames = clx({
@@ -59,35 +63,38 @@ export default class Table extends Component {
       flexStart
     });
 
+    const productNameClasses = clx({
+      'cell-main-content': true,
+      'truncate': cellName
+    });
+
+
     return (
-      <div className={classNames} {...props}>
-        {mainContent && (
-          !sideContent
-            ? (
-              <span className='cell-main-content'>
-                {mainContent}
-              </span>
-            )
-            : (
-              <div>
-                <span className='cell-main-content'>
-                  {mainContent}
-                </span>
-                <span className='cell-main-content'>
-                  {sideContent}
-                </span>
-              </div>
-            )
-        )
-        }
-        {typeof subContent !== 'object'
-          ? <span className='cell-sub-content'>{subContent}</span>
-          : <span className={`cell-sub-content ${subContent && subContent.className}`}>{subContent && subContent.content}</span>
-        }
-        {children}
-      </div>
+      <React.Fragment>
+        {cellName === undefined ? <Cell
+          children={children}
+          mainContent={mainContent}
+          subContent={subContent}
+          sideContent={sideContent}
+          productNameClasses={productNameClasses}
+          classNames={classNames}
+        />
+          :
+
+          <Tooltip placement='top' title={mainContent}>
+            <Cell
+              children={children}
+              mainContent={mainContent}
+              subContent={subContent}
+              sideContent={sideContent}
+              productNameClasses={productNameClasses}
+              classNames={classNames}
+            /></Tooltip>}
+
+      </React.Fragment>
     );
   }
+
 
   static SmallCell = ({ children }) => (
     <div className='small-table-cell'>{children}</div>
