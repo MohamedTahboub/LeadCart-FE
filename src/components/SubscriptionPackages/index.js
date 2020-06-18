@@ -26,7 +26,6 @@ const {
   Box,
   SmallButton,
   // SpcialAnnouncement,
-  activePackage,
   ActivationSwitchInput
 } = common;
 
@@ -41,13 +40,16 @@ const Subscription = ({
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState({});
   const [fields, setFields] = useState({
-    packageType: 'Pro',
-    recurringPeriod: 'Monthly',
+    packageType: activePackage.type,
+    recurringPeriod: activePackage.period,
     amount: 199,
     promoCode: {},
     credit: {}
   });
-
+  useEffect(() => {
+    if (!fields.packageType || !fields.recurringPeriod)
+      setFields({ ...fields, packageType: activePackage.type, recurringPeriod: activePackage.period });
+  }, [activePackage, fields]);
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
@@ -187,7 +189,7 @@ const Subscription = ({
               name='Basic'
               package={packagesPlans.basic}
               onSelect={onPackageTypeChange}
-              activePackage={activePackage.type}
+              activePackage={fields.packageType}
               interval={fields.recurringPeriod}
               code={fields.promoCode}
               lastTransaction={lastTransaction}
@@ -196,7 +198,7 @@ const Subscription = ({
               name='Pro'
               package={packagesPlans.pro}
               onSelect={onPackageTypeChange}
-              activePackage={activePackage.type}
+              activePackage={fields.packageType}
               interval={fields.recurringPeriod}
               code={fields.promoCode}
               lastTransaction={lastTransaction}
@@ -205,7 +207,7 @@ const Subscription = ({
               name='Premium'
               package={packagesPlans.premium}
               onSelect={onPackageTypeChange}
-              activePackage={activePackage.type}
+              activePackage={fields.packageType}
               interval={fields.recurringPeriod}
               plus
               code={fields.promoCode}
