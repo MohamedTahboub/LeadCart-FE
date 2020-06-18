@@ -6,7 +6,8 @@ import * as productActions from 'actions/product';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import PreCreateProductModals from 'components/PrecreateProductModals';
-// import { ProductCardSkelton } from 'components/Loaders';
+import { ProductSchema } from 'libs/validation';
+import { notification } from 'libs';
 
 import './style.css';
 import { ProductCard } from './components';
@@ -39,8 +40,8 @@ const Products = ({
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [filterKeys, setFilterKeys] = useState({ categories: ['checkout', 'upsell'] });
 
-  const onProductEdit = ({ category = '', _id }) => {
-    props.history.push(`/products/${_id}`);
+  const onProductEdit = ({ id, _id: productId = id }) => {
+    props.history.push(`/products/${productId}`);
   };
 
   useEffect(() => {
@@ -48,38 +49,26 @@ const Products = ({
   }, [products]);
 
 
-  const onProductDuplicate = ({
-    // __v,
-    // id,
-    // _id,
-    // isActive,
-    // owner,
-    name,
-    coupons: { list, enabled } = {},
-    payment,
-    // createdAt,
-    // updatedAt,
-    // downSell,
-    // upSell,
-    // url,
-    ...product
-  }) => {
-    product.name = `${name}- copy`;
-    product.coupons = { enabled: !!enabled };
-    delete product.token;
+  const onProductDuplicate = async (product = {}) => {
+    const newReplica = {
+      ...product,
+      name: `${product.name}- copy`
+    };
+
+    const {
+      isValid,
+      value: newProduct
+    } = await ProductSchema(newReplica);
+
+    if (!isValid)
+      return notification.failed('Couldn\'t duplicate this product');
 
 
-    if (payment.type === 'Onetime' && payment.recurringPeriod) delete payment.recurringPeriod;
-    // else if (!payment.recurringPeriod) payment.recurringPeriod = 'MONTH';
-
-    if (product.category === 'upsell') product.payment = { type: payment.type };
-    else product.payment = payment;
-
-
-    props.createNewProduct(product, {
+    props.createNewProduct(newProduct, {
       onSuccess: (msg) => {
+        notification.success('Product duplicated successfully');
       },
-      onFailed: (message) => { }
+      onFailed: notification.failed
     });
   };
   const onShowDeleteDialogue = (id) => setShowDelete(id);
@@ -118,7 +107,7 @@ const Products = ({
       <PageHeader>
         <div className='margin-h-20 flex-container fb-aligned-center'>
           <TextField
-            // className='products-search-field'
+          // className='products-search-field'
             onChange={onSearch}
             prefix={<Currency value={<i className='fas fa-search' />} />}
             value={filterKeys.searchKey}
@@ -129,14 +118,14 @@ const Products = ({
             onClick={onToggleCategory('checkout')}
             checked={filterKeys.categories.includes('checkout')}
           >
-            Checkout
+          Checkout
           </Checkbox>
           <Checkbox
             className='margin-left-10'
             onClick={onToggleCategory('upsell')}
             checked={filterKeys.categories.includes('upsell')}
           >
-            Upsell
+          Upsell
           </Checkbox>
         </div>
         <Button onClick={() => setShowProductModal(true)} className='primary-color'>
@@ -170,7 +159,7 @@ const Products = ({
         <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
           <MainTitle>Are you sure,you want delete this product ?</MainTitle>
           <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
-            Cancel
+          Cancel
           </Button>
           <Button onClick={onProductDelete} className='warning-bg margin-with-float-right'>
             <i className='fas fa-trash-alt' />
