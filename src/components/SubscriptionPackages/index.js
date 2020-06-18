@@ -40,13 +40,18 @@ const Subscription = ({
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState({});
   const [fields, setFields] = useState({
-    packageType: 'Pro',
-    recurringPeriod: 'Monthly',
+    packageType: activePackage.type,
+    recurringPeriod: activePackage.period,
     amount: 199,
     promoCode: {},
     credit: {}
   });
-
+  const updateActivePackage = ({ packageType }) => {
+    setFields({ ...fields, packageType });
+  };
+  useEffect(() => {
+    updateActivePackage({ packageType: activePackage.type });
+  }, [activePackage.type]);
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
@@ -151,7 +156,6 @@ const Subscription = ({
   };
 
   const lastTransaction = getLastItem(transactions);
-  console.log({ activePackage });
   return (
     <Box
       header={(
@@ -274,29 +278,32 @@ Subscription.propTypes = {
 
 const mapStateToProps = ({
   loading: globalLoading,
+  brands,
   user: {
     user: {
+      activeBrand: activeBrandId,
       activePackage = {},
       trial,
-      level,
       trialEndDate,
       transactions = []
     } = {}
   } = {}
 }) => {
+  const packageTrial = { trial, trialEndDate };
   if (activePackage === null)
     activePackage = {};
   if (trial) {
     activePackage.type = activePackage.type || 'Pro';
     activePackage.period = activePackage.period || 'Monthly';
-  }/* else if (!activePackage.type && level) {
-    activePackage.type = level >= 4 ? 'Premium' : 'Pro';
-    activePackage.period = 'Monthly';
-  }*/
-  activePackage.type = level ? getBrandActivePackage({ activePackage, level }) : activePackage.type;
-  return {
+  }
+  const activeBrand = brands.find(({ id }) => id === activeBrandId);
+  if (activeBrand) {
+    activePackage.type = getBrandActivePackage(activeBrand);
+    packageTrial.trialEndDate = activePackage.trialEndDate;
+    packageTrial.trial = activePackage.trial;
+  } return {
     activePackage,
-    trial: { trialEndDate, trial },
+    trial: packageTrial,
     globalLoading,
     transactions
   };
