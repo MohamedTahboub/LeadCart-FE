@@ -170,3 +170,18 @@ export const isObjectsEquivalent = (obj1, obj2) => {
 
   return true;
 };
+
+export const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
+  if (level) {
+    let type = 'Basic';
+    if (level >= 2) type = 'Pro';
+    if (level >= 4) type = 'Premium';
+    return type;
+  } else {
+    return activePackage.type === 'Free' ? 'Free'
+      : activePackage.type === 'Premium' ? 'Premium'
+        : activePackage.type === 'Pro' ? 'Pro'
+          : activePackage.type === 'Basic' ? 'Basic'
+            : 'Sub';
+  }
+};

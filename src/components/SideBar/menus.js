@@ -37,7 +37,7 @@ export const main = () => [
         link: '/funnels',
         icon: 'funnels'
       }, {
-        title: 'Product Pages',
+        title: 'Products Pages',
         key: 'products',
         link: '/products',
         icon: 'products'

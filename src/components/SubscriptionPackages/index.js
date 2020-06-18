@@ -9,6 +9,7 @@ import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
 import ActivePackage from './components/ActivePackage';
 import { upgradeUserSchema } from '../../libs/validation';
+import { getBrandActivePackage } from 'libs';
 const { packagesPlans = {} } = config;
 
 
@@ -39,13 +40,18 @@ const Subscription = ({
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState({});
   const [fields, setFields] = useState({
-    packageType: 'Pro',
-    recurringPeriod: 'Monthly',
+    packageType: activePackage.type,
+    recurringPeriod: activePackage.period,
     amount: 199,
     promoCode: {},
     credit: {}
   });
-
+  const updateActivePackage = ({ packageType }) => {
+    setFields({ ...fields, packageType });
+  };
+  useEffect(() => {
+    updateActivePackage({ packageType: activePackage.type });
+  }, [activePackage.type]);
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
@@ -112,7 +118,6 @@ const Subscription = ({
           onFailed: (message) => {
             setLoading({ ...loading, promoCode: false });
             setErrors({ promoCode: message });
-            // onUpdatePromoCode({})
           }
         }
       );
@@ -127,18 +132,14 @@ const Subscription = ({
     });
   };
   const onSubmit = async () => {
-
     const promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined;
-
     const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode });
-
     if (!isValid) {
       return setErrors({
         ...errors,
         message: ' please check your The Fields above'
       });
     }
-
     setLoading({ ...loading, upgrade: true });
     props.upgradeUserPackage(
       value,
@@ -170,14 +171,16 @@ const Subscription = ({
       contentClassName='subscription-box-content'
       content={(
         <Fragment>
-          {activePackage.type && (
-            <ActivePackage
-              {...activePackage}
-              trial={trial}
-              lastTransaction={lastTransaction}
-              isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
-            />
-          )}
+          {
+            activePackage.type && (
+              <ActivePackage
+                {...activePackage}
+                trial={trial}
+                lastTransaction={lastTransaction}
+                isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
+              />
+            )
+          }
           <ActivationSwitchInput
             active={fields.recurringPeriod === 'Monthly'}
             className={`subscription-toggle-input ${fields.recurringPeriod}`}
@@ -275,29 +278,32 @@ Subscription.propTypes = {
 
 const mapStateToProps = ({
   loading: globalLoading,
+  brands,
   user: {
     user: {
+      activeBrand: activeBrandId,
       activePackage = {},
       trial,
-      level,
       trialEndDate,
       transactions = []
     } = {}
   } = {}
 }) => {
+  const packageTrial = { trial, trialEndDate };
   if (activePackage === null)
     activePackage = {};
-
   if (trial) {
     activePackage.type = activePackage.type || 'Pro';
     activePackage.period = activePackage.period || 'Monthly';
-  } else if (!activePackage.type && level) {
-    activePackage.type = level >= 4 ? 'Premium' : 'Pro';
-    activePackage.period = 'Monthly';
   }
-  return {
+  const activeBrand = brands.find(({ id }) => id === activeBrandId);
+  if (activeBrand) {
+    activePackage.type = getBrandActivePackage(activeBrand);
+    packageTrial.trialEndDate = activePackage.trialEndDate;
+    packageTrial.trial = activePackage.trial;
+  } return {
     activePackage,
-    trial: { trialEndDate, trial },
+    trial: packageTrial,
     globalLoading,
     transactions
   };
