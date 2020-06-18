@@ -25,7 +25,7 @@
 .btn.circle{
   padding: 10px;
   border-radius: 50%;
-  
+
 }
 
 .btn.danger-bg:hover {
@@ -39,7 +39,7 @@
   cursor: pointer;
   background: rgba(0,0,0,0.3);
   color:white;
-  padding: 5px; 
+  padding: 5px;
   transition: all .3 ease-in-out;
   z-index: 1;
 }
@@ -138,4 +138,16 @@
   font-size: 10px;
 }
 
+.lc-toggle .react-toggle-track {
+  background-color: #4D4D4DAA;
+}
+.lc-toggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #03A9F45E;
+}
+.lc-toggle.react-toggle--checked .react-toggle-track {
+  background-color: #4DA1FF;
+}
 
+.lc-toggle.react-toggle--checked .react-toggle-thumb {
+  border-color: #4DA1FF;
+}

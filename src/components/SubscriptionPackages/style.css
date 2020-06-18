@@ -16,9 +16,9 @@
 }
 .subscription-toggle-input::before {
     content:'Yearly';
-    right: -55px;
+    right: -85px;
     position: absolute;
-    top: -5px;
+    top: 0;
     font-size: 15px;
     color:gray;
     color: var(--text-color);
@@ -28,7 +28,7 @@
     content:'Monthly';
     left: -81px;
     position: absolute;
-    top: -5px;
+    top: 0;
     font-size: 15px;
     color:gray;
     color: var(--text-color);

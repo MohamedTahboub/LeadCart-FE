@@ -37,6 +37,7 @@ const Subscription = ({
   transactions,
   ...props
 }) => {
+  console.log({ activePackage });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState({});
   const [fields, setFields] = useState({
@@ -46,10 +47,14 @@ const Subscription = ({
     promoCode: {},
     credit: {}
   });
+  const updateActivePackage = ({ packageType }) => {
+    console.log({ packageType });
+    setFields({ ...fields, packageType });
+  };
+  console.log({ packageType: fields.packageType });
   useEffect(() => {
-    if (!fields.packageType || !fields.recurringPeriod)
-      setFields({ ...fields, packageType: activePackage.type, recurringPeriod: activePackage.period });
-  }, [activePackage, fields]);
+    updateActivePackage({ packageType: activePackage.type });
+  }, [activePackage.type]);
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
@@ -295,7 +300,7 @@ const mapStateToProps = ({
   }
   const activeBrand = brands.find(({ id }) => id === activeBrandId);
   if (activeBrand)
-    activePackage.type = activeBrand.level ? getBrandActivePackage(activeBrand) : activePackage.type;
+    activePackage.type = getBrandActivePackage(activeBrand);
   return {
     activePackage,
     trial: { trialEndDate, trial },
