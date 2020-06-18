@@ -7,10 +7,8 @@ const ActivationSwitchInput = ({
   active,
   note,
   className = 'activability-switch',
-  onToggle,
-  ...props
+  onToggle
 }) => {
-  console.log({ active });
   const [id] = useState(ids.generate());
   return (
     <div className='activations-switch-input'>

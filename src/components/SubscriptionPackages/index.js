@@ -37,7 +37,6 @@ const Subscription = ({
   transactions,
   ...props
 }) => {
-  console.log({ activePackage });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState({});
   const [fields, setFields] = useState({
@@ -48,10 +47,8 @@ const Subscription = ({
     credit: {}
   });
   const updateActivePackage = ({ packageType }) => {
-    console.log({ packageType });
     setFields({ ...fields, packageType });
   };
-  console.log({ packageType: fields.packageType });
   useEffect(() => {
     updateActivePackage({ packageType: activePackage.type });
   }, [activePackage.type]);
@@ -292,6 +289,7 @@ const mapStateToProps = ({
     } = {}
   } = {}
 }) => {
+  const packageTrial = { trial, trialEndDate };
   if (activePackage === null)
     activePackage = {};
   if (trial) {
@@ -299,11 +297,13 @@ const mapStateToProps = ({
     activePackage.period = activePackage.period || 'Monthly';
   }
   const activeBrand = brands.find(({ id }) => id === activeBrandId);
-  if (activeBrand)
+  if (activeBrand) {
     activePackage.type = getBrandActivePackage(activeBrand);
-  return {
+    packageTrial.trialEndDate = activePackage.trialEndDate;
+    packageTrial.trial = activePackage.trial;
+  } return {
     activePackage,
-    trial: { trialEndDate, trial },
+    trial: packageTrial,
     globalLoading,
     transactions
   };
