@@ -13,11 +13,9 @@ import './style.css';
 import { ProductCard } from './components';
 
 const {
-  // ProductCard,
   Page,
   PageHeader,
   PageContent,
-  // NewThingCard,
   MainTitle,
   InputRow,
   Currency,
@@ -107,7 +105,6 @@ const Products = ({
       <PageHeader>
         <div className='margin-h-20 flex-container fb-aligned-center'>
           <TextField
-          // className='products-search-field'
             onChange={onSearch}
             prefix={<Currency value={<i className='fas fa-search' />} />}
             value={filterKeys.searchKey}
@@ -155,19 +152,21 @@ const Products = ({
         )}
       </PageContent>
 
-      {!!showDelete && (
-        <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
-          <MainTitle>Are you sure,you want delete this product ?</MainTitle>
-          <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
+      {
+        !!showDelete && (
+          <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
+            <MainTitle>Are you sure,you want delete this product ?</MainTitle>
+            <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
           Cancel
-          </Button>
-          <Button onClick={onProductDelete} className='warning-bg margin-with-float-right'>
-            <i className='fas fa-trash-alt' />
+            </Button>
+            <Button onClick={onProductDelete} className='warning-bg margin-with-float-right'>
+              <i className='fas fa-trash-alt' />
             Delete
-          </Button>
-        </Modal>
-      )}
-    </Page>
+            </Button>
+          </Modal>
+        )
+      }
+    </Page >
   );
 };
 
