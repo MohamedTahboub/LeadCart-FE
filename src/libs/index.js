@@ -27,6 +27,8 @@ export {
   mapListToObject,
   throttle,
   isObjectsEquivalent,
-  nestedKeyValue
+  nestedKeyValue,
+  getBrandActivePackage,
+  getGavatarByEmail
 } from './specialFuncs';
 export { notification };

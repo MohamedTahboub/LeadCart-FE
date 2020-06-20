@@ -4,7 +4,6 @@ import { Button, Card } from 'antd';
 import TutorialsSVG from 'assets/images/Problem-solving-rafiki.svg';
 import HelpSVG from 'assets/images/Problem-solving-pana.svg';
 import BugsAndFeedbackSVG from 'assets/images/Work-chat-rafiki.svg';
-import { openNewWindow } from 'libs';
 import './style.css';
 
 const {
@@ -30,9 +29,6 @@ const HelpItem = ({ title, description, footer, image }) => (
 );
 
 export default () => {
-
-  const goToLink = ({ target: { name } }) => links[name] && openNewWindow(links[name]);
-
   const openIntercom = ({ target: { dataset } }) => {
     const { message } = dataset;
     if (window.Intercom)
@@ -49,13 +45,14 @@ export default () => {
           <HelpItem
             title='Tutorials & Use Cases'
             footer={(
-              <Button
-                type='primary'
-                name='tutorials'
-                onClick={goToLink}
-              >
+              <a href={links.tutorials} target='_blank'>
+                <Button
+                  type='primary'
+                  name='tutorials'
+                >
                   Tutorials & Use Cases
-              </Button>
+                </Button>
+              </a>
             )}
             image={TutorialsSVG}
           />
@@ -64,19 +61,20 @@ export default () => {
             image={HelpSVG}
             footer={(
               <div className='d-flex'>
-                <Button
-                  type='primary'
-                  className='mr-1'
-                  name='helpCenter'
-                  onClick={goToLink}
-                >
+                <a href={links.helpCenter} target='_blank'>
+                  <Button
+                    type='primary'
+                    className='mr-1'
+                    name='helpCenter'
+                  >
                     Help Center
-                </Button>
+                  </Button>
+                </a>
                 <Button
                   type='primary'
                   onClick={openIntercom}
                 >
-                    Chat Support
+                  Chat Support
                 </Button>
               </div>
             )}
@@ -90,7 +88,7 @@ export default () => {
                 type='primary'
                 onClick={openIntercom}
               >
-                  Report Bugs & Feedback
+                Report Bugs & Feedback
               </Button>
             )}
           />

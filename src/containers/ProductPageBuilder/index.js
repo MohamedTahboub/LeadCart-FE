@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { ProductBuilderSkelton } from 'components/Loaders';
 import sampleProductData from 'data/product';
-import { mapListToObject, notification } from 'libs';
+import { htmlToImage as generateImageFromHtmlElement, mapListToObject, notification } from 'libs';
 import { ProductSchema } from 'libs/validation';
 import * as productGeneralActions from 'actions/product';
-
+import * as filesActions from 'actions/files';
 
 import {
   ProductContext,
@@ -46,6 +46,7 @@ const matchProductSectionsIds = (product) => {
 const ProductBuilder = ({
   funnelsMap,
   productsMap,
+  uploadFile,
   ...props
 }) => {
   const [loading, setLoading] = useState(true);
@@ -98,29 +99,38 @@ const ProductBuilder = ({
     } = await ProductSchema(productData);
 
     if (!isValid)
-
       return notification.failed('Can\'t save, validation Error');
 
-
-    props.updateProduct(
-      {
-        productId: productData._id,
-        details: product
-      },
-      {
-        onSuccess: (msg) => {
-          setSaving(false);
-          notification.success('Changes Saved');
+    const saveTheProduct = (uploadedFileUrl) =>
+      props.updateProduct(
+        {
+          productId: productData._id,
+          details: {
+            ...product,
+            thumbnail: uploadedFileUrl
+          }
         },
-        onFailed: (message) => {
-          setSaving(false);
-          notification.failed(message);
+        {
+          onSuccess: (msg) => {
+            setSaving(false);
+            notification.success('Changes Saved');
+          },
+          onFailed: (message) => {
+            setSaving(false);
+            notification.failed(message);
+          }
         }
-      }
-    );
+      );
+    const thumbnail = await generateImageFromHtmlElement('product-builder-window', { fileName: productData._id });
+
+    uploadFile({ file: thumbnail, type: 'products' }, {
+      onSuccess: saveTheProduct,
+      onFailed: saveTheProduct,
+      options: { showNotification: false }
+    });
+
   };
   if (loading) return <ProductBuilderSkelton />;
-
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
@@ -129,7 +139,7 @@ const ProductBuilder = ({
           <DndProvider backend={Backend}>
             <SideBar />
             <Workspace />
-            <SettingSideBar />
+            <SettingSideBar canOffer={state.product.category !== 'thankyoupage'} />
           </DndProvider>
         </FlexBox>
       </Page>
@@ -144,4 +154,4 @@ const propifyState = ({ funnels = [], products: { products = [] } = {} }) => ({
   funnelsMap: mapListToObject(funnels, 'url'),
   productsMap: mapListToObject(products, '_id')
 });
-export default connect(propifyState, productGeneralActions)(ProductBuilder);
+export default connect(propifyState, { ...productGeneralActions, ...filesActions })(ProductBuilder);

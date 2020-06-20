@@ -1,6 +1,7 @@
+import ids from 'shortid';
 import html2canvas from 'html2canvas';
 
-export default async (elementId) => {
+export default async (elementId, { quality = 0.10, fileName } = {}) => {
   const target = document.getElementById(elementId);
   if (!target) return;
   const canvas = await html2canvas(target, {
@@ -8,12 +9,12 @@ export default async (elementId) => {
     allowTaint: true
   });
 
-  const dataURL = canvas.toDataURL('image/jpeg', 0.05);
+  const dataURL = canvas.toDataURL('image/jpeg', quality);
 
-  return dataURItoBlob(dataURL);
+  return dataURItoBlob(dataURL, fileName);
 };
 
-function dataURItoBlob (dataURI) {
+function dataURItoBlob (dataURI, fileName) {
   // convert base64 to raw binary data held in a string
   // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
   const byteString = atob(dataURI.split(',')[1]);
@@ -27,12 +28,11 @@ function dataURItoBlob (dataURI) {
   for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
 
 
-  // Old Code
-  // write the ArrayBuffer to a blob, and you're done
-  // var bb = new BlobBuilder();
-  // bb.append(ab);
-  // return bb.getBlob(mimeString);
-
+  let theFileName = fileName;
+  if (!theFileName)
+    theFileName = ids.generate();
   // New Code
-  return new Blob([ab], { type: mimeString });
+  const imageBlob = new Blob([ab], { type: mimeString });
+  return new File([imageBlob], `${theFileName}.jpeg`);
+
 }

@@ -1,26 +1,33 @@
-import React from 'react';
-import { SlideModal } from 'components/Modals';
+import React, { use, useState } from 'react';
 import common from 'components/common';
 import Order from './Order';
-import { DetailRow } from './common';
-import { RoundTow } from 'libs';
+import { getGavatarByEmail, getPriceFormat, includesIgnoreCase } from 'libs';
 import './style.css';
 import { connect } from 'react-redux';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { Avatar } from 'antd';
+import { MdEmail, MdLocalPhone } from 'react-icons/md';
+
+
 const {
-  MainTitle,
+  InputRow,
   Timeline,
-  Button
+  FlexBox
 } = common;
+const { TextField } = InputRow;
+const filterOrderByKey = (key) => ({ products = [] }) => {
+  if (!key) return true;
+  const searchText = products.map((p) => p.name).join(' ');
+  return includesIgnoreCase(searchText, key);
+};
 
 const CustomerPanelModal = ({
   isVisible,
   ordersItems,
   onClose,
   onOrderRefund,
-  customer,
-  ...props
+  customer
 }) => {
   const {
     firstName,
@@ -31,8 +38,16 @@ const CustomerPanelModal = ({
     orders: ordersIds = []
   } = customer;
 
-  const orders = ordersItems.filter((order) => ordersIds.includes(order._id));
+  const [searchKey, setSearchKey] = useState('');
+  const orders = ordersItems
+    .filter((order) => ordersIds.includes(order._id))
+    .filter(filterOrderByKey(searchKey));
 
+  const onSearch = ({ target: { value } }) => setSearchKey(value);
+
+  const customerImage = getGavatarByEmail(email);
+
+  const totalPurchases = getPriceFormat(lifeTimeCharges, 'USD', 'amount_with_comma_separator');
   return (
     <div
       isVisible={isVisible}
@@ -41,29 +56,45 @@ const CustomerPanelModal = ({
     >
       <div className='fixed-content'>
         <div className='customer-modal-content'>
-          <MainTitle className='upsell-modal-head' mainClassName='fluid'>
-            <span className='d-flex justify-content-between'>
-              <span>Customer Orders History</span>
-              <IoIosCloseCircleOutline onClick={onClose} className='clickable-item larger-text'/>
+          <FlexBox flexEnd flex>
+            <IoIosCloseCircleOutline onClick={onClose} className='item-clickable larger-text' />
+          </FlexBox>
+
+          <FlexBox center='v-center' className='m-2'>
+            <Avatar size={90} src={customerImage} />
+            <FlexBox column className='ml-3'>
+              <span className='larger-text bold-text gray text'>
+                {`${firstName} ${lastName}`}
+              </span>
+              <FlexBox center='v-center' className='large-text gray text'>
+                <MdEmail className='mr-1' />
+                {email}
+              </FlexBox>
+              <FlexBox center='v-center' className='large-text gray text'>
+                <MdLocalPhone className='mr-1' />
+                {phoneNumber}
+              </FlexBox>
+            </FlexBox>
+          </FlexBox>
+
+          <FlexBox column className='aligned-center'>
+            <span className='gray-text'>Total Purchases</span>
+            <span className='larger-text bold-text' >
+              {`${totalPurchases}`}
             </span>
-          </MainTitle>
-          <DetailRow
-            label='Customer Name'
-            value={`${firstName} ${lastName}`}
-          />
-          <DetailRow
-            label='Customer Email'
-            value={email}
-          />
-          <DetailRow
-            label='Phone Number'
-            value={phoneNumber}
-          />
-          <DetailRow
-            label='life time charges'
-            value={`$${RoundTow(lifeTimeCharges)}`}
-          />
-          <div className='customer-history-title'>Orders History:</div>
+          </FlexBox>
+
+          <FlexBox center='v-center' className='p-2 white-bg' flex>
+            <TextField
+              value={searchKey}
+              onChange={onSearch}
+              className='flex mx-2 full-width'
+              placeHolder='Search orders history'
+            />
+            <span className='bold-text' data-tip='orders number'>
+              {orders.length}
+            </span>
+          </FlexBox>
           <div className='customer-orders-history'>
             <Timeline>
               {orders.map((order) => (

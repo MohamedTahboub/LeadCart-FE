@@ -28,13 +28,11 @@ const Section = ({
   moveCard,
   findCard,
   section,
-  active,
   activeSection = {},
   onSectionDuplicate,
   addNewAndMove,
   onSetting,
   index,
-  // onSectionOrderChange,
   ...props
 }) => {
 
@@ -85,7 +83,6 @@ const Section = ({
       id={id}
     >
       <DropBeforeLine show={isOver} />
-
       <div
         className={classes}
         style={style}
@@ -104,7 +101,6 @@ const Section = ({
           language={props.language}
           {...content}
         />
-
       </div>
     </div>
   );
