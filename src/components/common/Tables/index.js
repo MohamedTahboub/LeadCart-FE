@@ -10,16 +10,17 @@ export default class Table extends Component {
     </span>
   )
 
-  static Body = ({ children }) => (
-    <div className='tabel-body'>{children}</div>
+  static Body = ({ children, className }) => (
+    <div className={clx('tabel-body', className)}>{children}</div>
   )
 
   static HeadCell = ({
     children,
     flex = true,
-    className = ''
+    className = '',
+    nowrap
   }) => (
-    <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
+    <div className={clx('table-head-cell', className, { flex }, { nowrap })}>
       {children && (
         <span>
           {children}
@@ -32,10 +33,12 @@ export default class Table extends Component {
     children,
     orderInList = 0,
     subRow,
-    className = ''
+    className = '',
+    onClick,
+    noMinWidth
   }) => (
-    <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
-      <div className='table-row'>
+    <EasyAnimate className={clx('table-row-container', className, { 'row-aligned-center': subRow }, { 'no-min-width': noMinWidth })} delay={orderInList * 50}>
+      <div className='table-row' onClick={onClick}>
         {children}
       </div>
       {subRow}
@@ -50,10 +53,12 @@ export default class Table extends Component {
     flexStart,
     subContent,
     sideContent,
+    nowrap,
     ...props
   }) => {
     const classNames = clx({
       'table-cell': true,
+      nowrap,
       [className]: className,
       flex,
       flexStart
