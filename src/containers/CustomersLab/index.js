@@ -7,7 +7,8 @@ import Table from 'components/common/Tables';
 import * as customersActions from 'actions/customers';
 import { checkObject } from 'helpers/common';
 import clx from 'classnames';
-
+import { MdClose } from 'react-icons/md';
+import { FaEllipsisH } from 'react-icons/fa';
 import common from 'components/common';
 
 const {
@@ -30,10 +31,18 @@ const CustomersLab = ({ customers, orderRefund }) => {
 
   const onSearchChange = (filterValue) => setFilter(filterValue);
 
-  const showCustomerPanel = (customer) => {
-    setShowPanel(true);
-    setCustomer(customer);
+  const toggleCustomerPanel = (customer = {}) => {
+    setCustomer((activeCustomer = {}) => {
+      if (activeCustomer.email === customer.email) {
+        setShowPanel(false);
+        return {};
+      } else {
+        setShowPanel(true);
+        return customer;
+      }
+    });
   };
+
 
   const hideCustomerPanel = (customer) => {
     setShowPanel(false);
@@ -52,8 +61,8 @@ const CustomersLab = ({ customers, orderRefund }) => {
       <PageHeader withRefreshBtn>
         <MainTitle>
           <div className='d-flex align-center justify-content-start'>
-          Customers
-            <InputRow.SearchInput className='ml-3' placeholder='Search customers' onSearch={onSearchChange}/>
+            Customers
+            <InputRow.SearchInput className='ml-3' placeholder='Search customers' onSearch={onSearchChange} />
           </div>
         </MainTitle>
       </PageHeader>
@@ -81,7 +90,12 @@ const CustomersLab = ({ customers, orderRefund }) => {
                     orders = []
                   } = customer;
                   return (
-                    <Table.Row noMinWidth key={email} orderInList={orderInList}>
+                    <Table.Row
+                      key={email}
+                      noMinWidth
+                      orderInList={orderInList}
+                      className={clx('order-table-row', { 'active-row': activeCustomer.email === email })}
+                    >
                       <Table.SmallCell>
                         <Avatar name={`${firstName} ${lastName}`} />
                       </Table.SmallCell>
@@ -91,8 +105,8 @@ const CustomersLab = ({ customers, orderRefund }) => {
                       <Table.Cell mainContent={orders.length} />
                       <Table.Cell mainContent={`$ ${RoundTow(lifeTimeCharges)}`} />
                       <Table.Cell mainContent={(
-                        <MiniButton onClick={() => showCustomerPanel(customer)}>
-                          <i className='fas fa-ellipsis-h' />
+                        <MiniButton onClick={() => toggleCustomerPanel(customer)}>
+                          {(showPanel && activeCustomer.email === email) ? <MdClose /> : <FaEllipsisH />}
                         </MiniButton>
                       )}
                       />

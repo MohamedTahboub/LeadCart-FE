@@ -34,10 +34,11 @@ export default class Table extends Component {
     orderInList = 0,
     subRow,
     className = '',
+    onClick,
     noMinWidth
   }) => (
     <EasyAnimate className={clx('table-row-container', className, { 'row-aligned-center': subRow }, { 'no-min-width': noMinWidth })} delay={orderInList * 50}>
-      <div className='table-row'>
+      <div className='table-row' onClick={onClick}>
         {children}
       </div>
       {subRow}
