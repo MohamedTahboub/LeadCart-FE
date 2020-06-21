@@ -26,22 +26,22 @@ const CouponModal = ({
     active: true,
     discount: { type: 'Flat' },
     duration: moment().format(),
-    forAll: true,
-    productId: couponData.products && couponData.products[0],
+    products: [],
     ...couponData
   };
 
   const [coupon, setCoupon] = useState(initCoupon);
   const [errors, setErrors] = useState({});
+  const [productValues, setProductValues] = useState([]);
 
   const onChange = ({ target: { value, name } }) => {
-    if (value === 'all') {
-      name = 'forAll';
-      value = true;
-      coupon.productId = 'all';
-    } else if (name === 'productId') {
-      coupon.forAll = false;
-    }
+    // if (value === 'all') {
+    //   name = 'forAll';
+    //   value = true;
+    //   coupon.productId = 'all';
+    // } else if (name === 'productId') {
+    //   coupon.forAll = false;
+    // }
 
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
@@ -57,6 +57,8 @@ const CouponModal = ({
     coupon.duration = date.format();
     setCoupon(coupon);
   };
+
+
   const onCouponTypeChange = (value) => {
     let { discount: { percent, amount } = {} } = coupon;
     percent = percent === 0 || !percent ? amount : percent;
@@ -86,12 +88,14 @@ const CouponModal = ({
     }
   };
 
+
   const onCreate = async () => {
     const validCoupon = await onValidate(coupon);
 
     if (validCoupon) {
       props.createNewCoupon(
-        validCoupon,
+        validCoupon
+        ,
         {
           onSuccess: () => {
             onClose();
@@ -105,6 +109,20 @@ const CouponModal = ({
     }
   };
 
+  /*
+
+<<<<
+we need this function to get the current products on update the coupon,
+but I have an error with the key for the array element and I need to fix it
+>>>>
+
+  const productsUpdate = async () => {
+    const validCoupon = await onValidate(coupon);
+    setProductValues(validCoupon.products);
+    console.log(validCoupon.products);
+  };
+  edit && productsUpdate();
+*/
   const onUpdate = async () => {
     const validCoupon = await onValidate(coupon);
     if (validCoupon) {
@@ -126,48 +144,19 @@ const CouponModal = ({
   };
 
 
-  //
-  //
-  //
-  //
-  //
-  //
-  const defaultCoupon = {
-    label: 'For All Products',
-    value: 'all'
-  };
-
-  const [productValues, setProductValues] = useState([]);
-
-  React.useEffect(() => {
-    const allProducts = Array.isArray(productValues) &&
-      productValues.filter((ele) =>
-        ele.value === 'all').length > 0;
-
-    allProducts && setProductValues([defaultCoupon]);
-  }, [productValues, defaultCoupon]);
-
-
   const selectValues = (values) => {
-    setProductValues(values);
-  };
-
-
-  const multiProducts = () => {
-    const allProducts = Array.isArray(productValues) &&
-      productValues.filter((ele) =>
+    const allProducts = Array.isArray(values) &&
+      values.filter((ele) =>
         ele.value === 'all').length > 0;
 
-    return allProducts;
+    if (allProducts) {
+      setProductValues([]);
+      setCoupon({ ...coupon, products: [] });
+    } else {
+      setProductValues(values);
+      setCoupon({ ...coupon, products: values.map((ele) => ele.value) });
+    }
   };
-
-  console.log(!multiProducts());
-  //
-  //
-  //
-  //
-  //
-  //
 
   const { discount } = coupon;
   return (
@@ -223,10 +212,6 @@ const CouponModal = ({
           Apply to
         </Label>
 
-        {/*  */}
-        {/*  */}
-
-
         <Select
           className='select-coupons'
           options={products}
@@ -234,10 +219,8 @@ const CouponModal = ({
           name='productId'
           onChange={selectValues}
           value={productValues}
-          // isMulti={!multiProducts}
-          isMulti={!multiProducts()}
+          isMulti
         />
-
 
       </InputRow>
       {errors.message && <span className='error-message'>{errors.message}</span>}

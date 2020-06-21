@@ -1,7 +1,7 @@
 
 import * as immutable from 'object-path-immutable';
 import defaultLanguage from 'data/defaultLanguage.json';
-
+import { md5 } from './encoding';
 export const filterSubscriptions = (orders = []) => orders.filter(({ payment }) => payment.paymentType === 'Subscription');
 
 
@@ -178,10 +178,15 @@ export const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
     if (level >= 4) type = 'Premium';
     return type;
   } else {
-    return activePackage.type === 'Free' ? 'FREE'
-      : activePackage.type === 'Premium' ? 'PREMIUM'
-        : activePackage.type === 'Pro' ? 'PRO'
-          : activePackage.type === 'Basic' ? 'BASIC'
+    return activePackage.type === 'Free' ? 'Free'
+      : activePackage.type === 'Premium' ? 'Premium'
+        : activePackage.type === 'Pro' ? 'Pro'
+          : activePackage.type === 'Basic' ? 'Basic'
             : 'Sub';
   }
+};
+
+
+export const getGavatarByEmail = (email = '') => {
+  return `https://www.gravatar.com/avatar/${md5(email)}`;
 };

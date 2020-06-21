@@ -1,9 +1,10 @@
 import React from 'react';
+import clx from 'classnames';
 
 import './style.css';
 
 
-export const MainTitle = ({ handle, className, style, children, bottomLine, props, fluid }) => (
+export const MainTitle = ({ handle, className, style, children, bottomLine, props, fluid, mainClassName }) => (
   <div style={{ ...style }} className={`main-title-container ${className || ''} ${bottomLine ? 'title-bottom-line' : ''} ${fluid ? 'full' : ''}`}>
     {handle && (
       <span className='main-title-handle'>
@@ -11,7 +12,7 @@ export const MainTitle = ({ handle, className, style, children, bottomLine, prop
         {handle.label}
       </span>
     )}
-    <span className='main-title'>{children}</span>
+    <span className={clx('main-title', mainClassName)}>{children}</span>
   </div>
 );
 

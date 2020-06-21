@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import clx from 'classnames';
-import { Tooltip } from 'antd';
+import ReactTooltip from 'react-tooltip';
 import { EasyAnimate } from '../Animation';
-import './style.css';
-
 import Cell from './cell';
+import './style.css';
 
 export default class Table extends Component {
   static Head = ({ children }) => (
@@ -71,26 +70,16 @@ export default class Table extends Component {
 
     return (
       <React.Fragment>
-        {cellName === undefined ? <Cell
+        <Cell
           children={children}
           mainContent={mainContent}
           subContent={subContent}
           sideContent={sideContent}
           productNameClasses={productNameClasses}
           classNames={classNames}
+          data-tip={cellName === 'product' ? mainContent : ''}
         />
-          :
-
-          <Tooltip placement='top' title={mainContent}>
-            <Cell
-              children={children}
-              mainContent={mainContent}
-              subContent={subContent}
-              sideContent={sideContent}
-              productNameClasses={productNameClasses}
-              classNames={classNames}
-            /></Tooltip>}
-
+        <ReactTooltip />
       </React.Fragment>
     );
   }

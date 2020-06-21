@@ -25,14 +25,13 @@ const Order = ({
   paymentMethod,
   // payment = {},
   product = {},
-  products = [],
+  products = []
 }) => {
 
-  if (product.name && !products.length) products.push(product)
+  if (product.name && !products.length) products.push(product);
 
   // const [moreOptions, setMoreOptions] = useState(false);
   const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
-
   return (
     <div className='customer-order-card'>
       <div className='order-code'>{`#LC-${orderNumber}`}</div>
@@ -40,13 +39,12 @@ const Order = ({
         type={paymentMethod}
         className='order-payment-method-icon'
       />
-      {products.map(product => (
+      {products.map((product) => (
         <ProductRow
           {...product}
           onRefund={onRefund}
           orderId={orderId}
-        />)
-      )}
+        />))}
       <ReceiptRow
         className='receipt-total'
         label='Total'

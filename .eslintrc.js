@@ -189,6 +189,7 @@ module.exports = {
     "react/jsx-filename-extension": 0,
     "react/destructuring-assignment": "warn",
     "jsx-a11y/no-static-element-interactions": 0,
-    "no-nested-ternary": 0
+    "no-nested-ternary": 0,
+    "react-hooks/exhaustive-deps": 0
   }
 }

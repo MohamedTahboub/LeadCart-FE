@@ -27,11 +27,17 @@ const CouponsList = ({ coupons, showEditModal, deleteModal, productsNames, ...pr
             code,
             discount = {},
             active,
-            products: [productId] = [],
-            forAll,
+            products,
             duration
           } = coupon;
 
+          const selectedProducts = products.map((ele) => productsNames[ele]).reverse();
+          let content = '';
+
+          if (selectedProducts.length === 1)
+            content = selectedProducts.join('');
+          else
+            content = `${selectedProducts.slice(0, -1).join(', ')} and ${selectedProducts[selectedProducts.length - 1]}`;
 
           return (
             <Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
@@ -39,10 +45,12 @@ const CouponsList = ({ coupons, showEditModal, deleteModal, productsNames, ...pr
               <Cell mainContent={discount.type} />
               <Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
 
-              <Cell mainContent={
-                forAll === true ? 'All Products'
-                  : coupon.products ? productsNames[productId]
-                    : productsNames[coupon.productId]}
+              <Cell
+                mainContent={
+                  products.length === 0 ? 'All Products'
+                    : content
+                }
+                nowrap='productnowrap'
                 cellName='product'
               />
               <Cell mainContent={moment(duration).format('YYYY-MM-DD')} />

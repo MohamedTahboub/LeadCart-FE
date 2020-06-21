@@ -18,9 +18,7 @@ const TestimonialElement = ({
     props.onChange({
       target: {
         name: id,
-        value: {
-          author, content, image, [name]: value
-        }
+        value: { author, content, image, [name]: value }
       }
     });
   };
