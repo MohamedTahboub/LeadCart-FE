@@ -75,8 +75,8 @@ const ButtonSection = () => {
             <span className='gray-text bold-text mb-2'>On Click Open:</span>
             <div className='padding-left-20'>
               <TextField
-                name='content.value'
-                value={content.value}
+                name='content.link'
+                value={content.link}
                 onChange={onChange}
               />
             </div>
