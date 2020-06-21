@@ -27,7 +27,7 @@ const StaticSections = ({ onSetting, language }) => {
         price = {},
         payment = { methods: ['Paypal', 'Stripe'] },
         addOns = {},
-        styles = {},
+        pageStyles = {},
         custom: {
           orderButtonText = 'Complete Order',
           declineButtonText = 'No Thanks',
@@ -57,12 +57,12 @@ const StaticSections = ({ onSetting, language }) => {
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
           <BillingDetails
-            color={styles.themeColor}
+            color={pageStyles.themeColor}
             language={language}
           />
           {shippingDetails && (
             <ShippingDetails
-              color={styles.themeColor}
+              color={pageStyles.themeColor}
               language={language}
             />
           )}
@@ -73,7 +73,7 @@ const StaticSections = ({ onSetting, language }) => {
           />
           {couponSection && (
             <CouponSection
-              color={styles.themeColor}
+              color={pageStyles.themeColor}
               language={language}
             />
           )}
@@ -86,7 +86,7 @@ const StaticSections = ({ onSetting, language }) => {
           <CompleteOrderBtn
             name='custom.orderButtonText'
             text={orderButtonText}
-            color={styles.themeColor}
+            color={pageStyles.themeColor}
             onChange={onChange}
           />
         </FlexBox>
@@ -99,7 +99,7 @@ const StaticSections = ({ onSetting, language }) => {
           <CompleteOrderBtn
             name='custom.orderButtonText'
             text={orderButtonText}
-            color={styles.themeColor}
+            color={pageStyles.themeColor}
             onChange={onChange}
           />
           <ResizableTextarea

@@ -137,9 +137,9 @@ const ProductBuilder = ({
         <Header history={props.history} onSave={onSaveProduct} saving={saving} />
         <FlexBox id='blocks' flex className='relative-element'>
           <DndProvider backend={Backend}>
-            <SideBar />
+            <SideBar canOffer={state.product.category !== 'thankyoupage'} />
             <Workspace />
-            <SettingSideBar canOffer={state.product.category !== 'thankyoupage'} />
+            <SettingSideBar />
           </DndProvider>
         </FlexBox>
       </Page>
