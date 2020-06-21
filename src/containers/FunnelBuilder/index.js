@@ -7,6 +7,7 @@ import { isFunction } from 'libs/checks';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
+import queryString from 'querystring';
 import {
   isObjectsEquivalent,
   mapListToObject,
@@ -42,7 +43,8 @@ const FunnelBuilder = ({
   const { url: funnelUrl } = props.match.params;
   const [fields, setFields] = useState(savedFunnel);
   const [errors, setErrors] = useState({});
-  const [activePage, setActivePage] = useState('blocks');
+  const { sub: activeSub = 'blocks' } = queryString.parse(props.history.location.search.replace('?', ''));
+  const [activePage, setActivePage] = useState(activeSub);
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
   const [unblock, SetUnblock] = useState();
@@ -142,6 +144,11 @@ const FunnelBuilder = ({
       }
     );
   };
+
+
+  useEffect(() => {
+    props.history.push(`?sub=${activePage}`);
+  }, [activePage]);
 
   const onPageChange = (page) => () => {
     setActivePage(page);
