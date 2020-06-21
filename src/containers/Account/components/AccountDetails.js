@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { notification } from 'libs';
 import common from 'components/common';
@@ -10,7 +10,7 @@ const {
   InputRow,
   FlexBox,
   //   Tabel,
-  Button,
+  Button
   //   FlexBoxesContainer
 } = common;
 
@@ -27,7 +27,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
   const onSubmit = () => {
     const userDetails = {
       firstName: values.firstName,
-      lastName: values.lastName,
+      lastName: values.lastName
     };
     onProgress(true);
     onUpdate(
@@ -89,6 +89,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
             name='email'
             value={values.email}
             disabled
+            uncontrolled
           />
         </FlexBox>
       </FlexBox>
@@ -107,11 +108,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
   );
 };
 
-AccountDetails.propTypes = {
-
-};
-AccountDetails.default = {
-  user: {}
-};
+AccountDetails.propTypes = {};
+AccountDetails.default = { user: {} };
 
 export default AccountDetails;
