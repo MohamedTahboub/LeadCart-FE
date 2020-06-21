@@ -47,20 +47,17 @@ const OrderSummary = ({
     format
   } = {},
   vat = 0.1,
-  language = {},
+  language = {}
 
 }) => {
   const {
     orderSummary: orderSummaryLabel,
-    total: totalLabel,
-    // discount: discountLabel,
+    total: totalLabel
   } = language.checkout || {};
 
   const { label, nextCharge } = getPaymentDetails(productName, payment);
 
-  // const tax = amount * vat
   const total = getPriceFormat(amount, currency, format);
-  // const currencySymbol = getCurrencySymbol(currency);
   return (
     <section className='product-template-order-summary'>
       <h4>{orderSummaryLabel}</h4>
@@ -75,9 +72,7 @@ const OrderSummary = ({
       />
       {nextCharge && (
         <div className='purchases-charge-details'>
-          {' '}
           Your next charge is going to be on
-          {' '}
           {nextCharge}
         </div>
       )}

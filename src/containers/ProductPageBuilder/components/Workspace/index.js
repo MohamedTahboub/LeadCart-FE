@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
 import clx from 'classnames';
 import { connect } from 'react-redux';
@@ -45,7 +44,6 @@ const Workspace = ({
         sections = [],
         staticSections = [],
         pageStyles = {}
-        // maxSectionsOrder
       } = {}
     },
     actions
@@ -71,7 +69,6 @@ const Workspace = ({
       if (section.id === id) return { ...section, order: newOrder };
       return section;
     });
-    // .sort((a, b) => (a.order > b.order ? 1 : -1));
 
     actions.onProductFieldChange({
       name: 'sections',
@@ -88,9 +85,7 @@ const Workspace = ({
   };
 
   const moveCard = (id, atIndex) => {
-    // const newSections = [...sections];
     const { section, index } = findCard(id);
-    // newSections.splice(atIndex, 0, section);
     const newSections = update(sections, {
       $splice: [
         [index, 1],
