@@ -37,10 +37,12 @@ const TextField = ({
 TextField.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
+  value: PropTypes.string
 };
 TextField.defaultProps = {
   className: '',
   type: 'text',
+  value: ''
 };
 
 export default TextField;
