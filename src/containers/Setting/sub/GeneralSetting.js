@@ -74,7 +74,6 @@ const GeneralSettings = ({
     }
   };
   getSave({ onSave });
-
   return (
     <MainBlock title='General Brand Settings' containerClasses='marketplace-settings-bg'>
       <InputRow>
