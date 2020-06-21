@@ -20,6 +20,7 @@ const CouponModal = ({
   onClose,
   products = [],
   coupon: couponData = { products: [] },
+  productsNames,
   ...props
 }) => {
   const initCoupon = {
@@ -30,19 +31,12 @@ const CouponModal = ({
     ...couponData
   };
 
+
   const [coupon, setCoupon] = useState(initCoupon);
   const [errors, setErrors] = useState({});
   const [productValues, setProductValues] = useState([]);
 
   const onChange = ({ target: { value, name } }) => {
-    // if (value === 'all') {
-    //   name = 'forAll';
-    //   value = true;
-    //   coupon.productId = 'all';
-    // } else if (name === 'productId') {
-    //   coupon.forAll = false;
-    // }
-
     if (name.includes('.')) {
       const [key, nestedKey] = name.split('.');
       const nestedValue = { [nestedKey]: value };
@@ -109,20 +103,34 @@ const CouponModal = ({
     }
   };
 
+  React.useEffect(
+    () => {
+      const getData = async () => {
+        const validCoupon = await onValidate(coupon);
+        const selectedValues = await validCoupon.products.map((ele) => ({ label: productsNames[ele], value: ele }));
+        setProductValues(selectedValues);
+      };
+      edit && getData();
+    }
+    , [edit]
+  );
+
   /*
+React.useEffect(
+  () => {
+    const getData = async () => {
+      const validCoupon = await onValidate(coupon);
+      const selectedValues = await validCoupon.products.map((productID) =>
+      products.filter((product) =>
+      product.value === productID));
+    };
+    edit && getData();
+  }
+  , [edit]
+  );
+ */
 
-<<<<
-we need this function to get the current products on update the coupon,
-but I have an error with the key for the array element and I need to fix it
->>>>
 
-  const productsUpdate = async () => {
-    const validCoupon = await onValidate(coupon);
-    setProductValues(validCoupon.products);
-    console.log(validCoupon.products);
-  };
-  edit && productsUpdate();
-*/
   const onUpdate = async () => {
     const validCoupon = await onValidate(coupon);
     if (validCoupon) {
@@ -157,6 +165,7 @@ but I have an error with the key for the array element and I need to fix it
       setCoupon({ ...coupon, products: values.map((ele) => ele.value) });
     }
   };
+
 
   const { discount } = coupon;
   return (
@@ -232,5 +241,12 @@ but I have an error with the key for the array element and I need to fix it
   );
 };
 
+const mapStateToProps = ({ products: { products = [] } = {} }) => ({
+  productsNames: products.reduce((obj, { _id: id, name }) => {
+    obj[id] = name;
+    return obj;
+  }, {})
+});
 
-export default connect(null, couponsActions)(CouponModal);
+
+export default connect(mapStateToProps, couponsActions)(CouponModal);
