@@ -21,14 +21,14 @@ export default class Table extends Component {
     flex = true,
     className = ''
   }) => (
-      <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
-        {children && (
-          <span>
-            {children}
-          </span>
-        )}
-      </div>
-    )
+    <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
+      {children && (
+        <span>
+          {children}
+        </span>
+      )}
+    </div>
+  )
 
   static Row = ({
     children,
@@ -36,13 +36,13 @@ export default class Table extends Component {
     subRow,
     className = ''
   }) => (
-      <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
-        <div className='table-row'>
-          {children}
-        </div>
-        {subRow}
-      </EasyAnimate>
-    )
+    <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
+      <div className='table-row'>
+        {children}
+      </div>
+      {subRow}
+    </EasyAnimate>
+  )
 
   static Cell = ({
     children,
@@ -77,7 +77,6 @@ export default class Table extends Component {
           sideContent={sideContent}
           productNameClasses={productNameClasses}
           classNames={classNames}
-          data-tip={cellName === 'product' ? mainContent : ''}
         />
         <ReactTooltip />
       </React.Fragment>

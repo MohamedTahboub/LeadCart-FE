@@ -4,20 +4,21 @@ import common from 'components/common';
 import * as couponsActions from 'actions/coupon';
 import Table from 'components/common/Tables';
 import moment from 'moment';
-import './style.css';
+import { mapListToObject } from 'libs';
 
-const {
-  SmallButton,
-  MiniButton
-} = common;
+import { ProductsNamesList } from './common';
 
-const {
-  Body,
-  Cell,
-  Row
-} = Table;
+const { SmallButton, MiniButton } = common;
+const { Body, Cell, Row } = Table;
 
-const CouponsList = ({ coupons, showEditModal, deleteModal, productsNames, ...props }) => {
+const CouponsList = ({
+  coupons,
+  showEditModal,
+  deleteModal,
+  productsMap: productsNamesMap,
+  changeCouponState
+}) => {
+
   return (
     <Body>
       {coupons
@@ -31,13 +32,10 @@ const CouponsList = ({ coupons, showEditModal, deleteModal, productsNames, ...pr
             duration
           } = coupon;
 
-          const selectedProducts = products.map((ele) => productsNames[ele]).reverse();
-          let content = '';
-
-          if (selectedProducts.length === 1)
-            content = selectedProducts.join('');
-          else
-            content = `${selectedProducts.slice(0, -1).join(', ')} and ${selectedProducts[selectedProducts.length - 1]}`;
+          const productsNames = products
+            .map((ele) => productsNamesMap[ele])
+            .filter(Boolean)
+            .map((product) => product.name);
 
           return (
             <Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
@@ -46,18 +44,18 @@ const CouponsList = ({ coupons, showEditModal, deleteModal, productsNames, ...pr
               <Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
 
               <Cell
-                mainContent={
-                  products.length === 0 ? 'All Products'
-                    : content
+                mainContent={(
+                  <ProductsNamesList
+                    names={productsNames}
+                  />)
                 }
-                nowrap='productnowrap'
-                cellName='product'
+                nowrap
               />
               <Cell mainContent={moment(duration).format('YYYY-MM-DD')} />
 
               <Cell>
                 <SmallButton
-                  onClick={() => props.changeCouponState({ couponId, active: !active })}
+                  onClick={() => changeCouponState({ couponId, active: !active })}
                   className={active ? 'green-color' : 'gray-bg'}
                 >
                   {`${active ? 'Active' : 'Inactive'}`}
@@ -86,20 +84,15 @@ const CouponsList = ({ coupons, showEditModal, deleteModal, productsNames, ...pr
 
 
 const mapStateToProps = ({
-  coupons: {
-    coupons = [],
-    errors
-  },
+  coupons: { coupons = [] },
   products: { products = [] } = {}
-}) => ({
-  errors,
-  coupons,
-  productsNames: products.reduce((obj, { _id: id, name }) => {
-    obj[id] = name;
-    return obj;
-  }, {})
-});
-
+}) => {
+  const projection = { name: 'name', image: 'thumbnail', _id: '_id' };
+  return {
+    coupons,
+    productsMap: mapListToObject(products, '_id', projection)
+  };
+};
 
 export default connect(mapStateToProps, { ...couponsActions })(CouponsList);
 

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import * as couponsActions from 'actions/coupon';
 import Dialog from 'components/common/Dialog';
-import CouponModal from './modal';
 import Table from 'components/common/Tables';
-import CouponList from './CouponsList';
 import './style.css';
+import { notification } from 'libs';
+import { CouponList, EditModal } from './components';
 
 const {
   Button,
@@ -24,10 +24,8 @@ const {
 
 const HeadContent = ['Code', 'Type', 'Amount/Percent', 'For Product', 'Expiration Date', 'Status'];
 
-const Coupons = ({
-  products,
-  ...props
-}) => {
+const Coupons = (props) => {
+
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editCoupon, setEditCoupon] = useState(false);
@@ -42,10 +40,9 @@ const Coupons = ({
     props.deleteCoupon({ couponId }, {
       onSuccess: () => {
         setShowDeleteModal('');
+        notification.success('Coupon deleted successfully');
       },
-      onFailed: (message) => {
-        setShowDeleteModal('');
-      }
+      onFailed: notification.failed
     });
   };
 
@@ -85,11 +82,10 @@ const Coupons = ({
 
 
       {showModal && (
-        <CouponModal
-          edit={editCoupon}
+        <EditModal
+          isEdit={!!editCoupon}
           onClose={toggleModal}
           coupon={editCoupon}
-          products={products}
         />
       )}
 
@@ -108,18 +104,28 @@ const Coupons = ({
 };
 
 
-const mapStateToProps = ({
-  coupons: {
-    coupons = [],
-    errors
-  },
-  products: { products = [] } = {}
-}) => ({
-  errors,
-  coupons,
-  products: [{ label: 'For All Products', value: 'all' }
-    , ...products.map(({ _id: value, name: label }) => ({ label, value }))]
-});
+// const mapStateToProps = ({
+//   coupons: {
+//     coupons = [],
+//   },
+//   products: { products = [] } = {}
+// }) => {
 
-export default connect(mapStateToProps, { ...couponsActions })(Coupons);
+//   const projection = { name: 'name', image: 'thumbnail', _id: '_id' }
+//   const productsMap =
+
+//   const productsLabels = [
+//     { label: 'For All Products', value: 'all' },
+//     ...products.map(({ _id: value, name: label }) => ({ label, value }))
+//   ]
+
+//   return {
+//     errors,
+//     productsMap,
+//     coupons,
+//     productsLabels
+//   }
+// };
+
+export default connect(null, { ...couponsActions })(Coupons);
 
