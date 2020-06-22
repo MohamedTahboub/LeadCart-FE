@@ -1,7 +1,13 @@
-.ant-select-dropdown,
-.ant-calendar-picker-container{
-  z-index: 1000000;
-}
-.coupon-tabel-row{
+
+.coupon-table-row {
   position: relative;
+}
+
+.select-coupons {
+  width: 70%;
+  max-width: 70%;
+}
+
+.coupon-edit-modal {
+  max-width: 800px;
 }
