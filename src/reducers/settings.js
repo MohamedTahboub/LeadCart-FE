@@ -1,14 +1,14 @@
 import {
-  SETTINGS_GENERAL_FIELD_UPDATE,
-  SAVE_USER_GENERAL_SETTINGS_SUCCESS,
-  SAVE_USER_GENERAL_SETTINGS_FAILED,
-  CONNECT_WITH_PAYPAL_SUCCESS,
+  CONNECT_MARKETPLACE_DOMAIN_SUCCESS,
   CONNECT_WITH_PAYPAL_FAILED,
-  UPDATE_MARKETPLACE_SETTINGS_SUCCESS,
-  VERIFY_MARKETPLACE_DOMAIN_SUCCESS,
-  TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_SUCCESS,
+  CONNECT_WITH_PAYPAL_SUCCESS,
   DELETE_MARKETPLACE_DOMAIN_SUCCESS,
-  CONNECT_MARKETPLACE_DOMAIN_SUCCESS
+  SAVE_USER_GENERAL_SETTINGS_FAILED,
+  SAVE_USER_GENERAL_SETTINGS_SUCCESS,
+  SETTINGS_GENERAL_FIELD_UPDATE,
+  TOGGLE_MARKETPLACE_DOMAIN_CONNECTION_SUCCESS,
+  UPDATE_MARKETPLACE_SETTINGS_SUCCESS,
+  VERIFY_MARKETPLACE_DOMAIN_SUCCESS
 } from '../constantsTypes';
 
 
@@ -18,9 +18,7 @@ const initialState = {
     layout: {},
     domains: []
   },
-  integrations: {
-    errors: {}
-  }
+  integrations: { errors: {} }
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -30,10 +28,7 @@ export default (state = initialState, { type, payload }) => {
   case UPDATE_MARKETPLACE_SETTINGS_SUCCESS:
     return {
       ...state,
-      generalModel: {
-        ...state.generalModel,
-        ...payload
-      }
+      generalModel: { ...payload }
     };
 
   case SAVE_USER_GENERAL_SETTINGS_FAILED:

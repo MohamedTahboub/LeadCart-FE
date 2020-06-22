@@ -50,7 +50,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     border-radius: 5px;
 }
 
@@ -210,13 +210,16 @@
     border-left: 2px solid #3c7fc76e;
     margin-left: 70px;
 }
-
-
-.sub-table .table-row-container.row-aligned-center {
+.sub-table .table-row-container{
+    height: 20px;
     padding: 5px;
     margin: 5px 0;
-    /* height: 20px; */
     min-height: unset;
     background: inherit;
     min-width: unset;
+}
+
+.cell-main-content.truncate {
+    width: 150px;
+    text-align: center;
 }

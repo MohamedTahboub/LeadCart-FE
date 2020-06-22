@@ -17,14 +17,12 @@ const InputGroup = (props) => {
   });
   return (
     <div className={`input-group ${classNames}`} error-data={error}>
-      <TextField {...rest} />
+      <TextField {...rest} uncontrolled />
       {label && <span className='group-label'>{label}</span>}
     </div>
   );
 };
 
-InputGroup.propTypes = {
-
-};
+InputGroup.propTypes = {};
 
 export default InputGroup;

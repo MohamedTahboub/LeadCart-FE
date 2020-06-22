@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import { connect } from 'react-redux'
-import * as integrationsActions from 'actions/integrations'
+import { connect } from 'react-redux';
+import * as integrationsActions from 'actions/integrations';
 import ServiceCard from './ServiceCard';
 
 import {
@@ -43,6 +43,7 @@ const ConnectClient = ({ name, ...props }) => (
       value={(
         <TextField
           name='clientId'
+          uncontrolled
         />)
       }
     // spaceBetween
@@ -53,6 +54,7 @@ const ConnectClient = ({ name, ...props }) => (
       value={(
         <TextField
           name='secret'
+          uncontrolled
         />
       )}
     // spaceBetween
@@ -78,6 +80,7 @@ const ConnectApiKey = ({ name, ...props }) => (
       value={(
         <TextField
           name='apiKey'
+          uncontrolled
         />
       )}
     />
@@ -111,9 +114,7 @@ const ServiceConnect = ({ data = {}, ...props }) => {
   useEffect(() => {
     if (service.key !== data.key) setService(data);
     props.checkIntegrationService(
-      {
-        key: service.key
-      },
+      { key: service.key },
       {
         onSuccess: () => {},
         onFailed: () => {}
@@ -145,8 +146,6 @@ const ServiceConnect = ({ data = {}, ...props }) => {
   );
 };
 
-ServiceConnect.propTypes = {
-
-};
+ServiceConnect.propTypes = {};
 
 export default connect(null, integrationsActions)(ServiceConnect);

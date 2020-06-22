@@ -133,6 +133,7 @@ const BumpOffer = ({ ...props }) => {
             name='content.name'
             onBlur={onChange}
             defaultValue={content.name}
+            uncontrolled
           />
         </InputRow>
         <InputRow className='sidebar-row'>
@@ -147,6 +148,7 @@ const BumpOffer = ({ ...props }) => {
             prefix={<Currency value={currency} />}
             defaultValue={content.price}
             currency='$'
+            uncontrolled
           />
         </InputRow>
         <FlexBox flex spaceBetween center='v-center'>
