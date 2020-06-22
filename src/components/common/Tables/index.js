@@ -4,6 +4,7 @@ import './style.css';
 import { EasyAnimate } from '../Animation';
 
 export default class Table extends Component {
+
   static Head = ({ children }) => (
     <span className='table-head'>
       {children}
@@ -11,7 +12,7 @@ export default class Table extends Component {
   )
 
   static Body = ({ children, className }) => (
-    <div className={clx('tabel-body', className)}>{children}</div>
+    <div className={clx('table-body', className)}>{children}</div>
   )
 
   static HeadCell = ({
@@ -36,14 +37,21 @@ export default class Table extends Component {
     className = '',
     onClick,
     noMinWidth
-  }) => (
-    <EasyAnimate className={clx('table-row-container', className, { 'row-aligned-center': subRow }, { 'no-min-width': noMinWidth })} delay={orderInList * 50}>
-      <div className='table-row' onClick={onClick}>
-        {children}
-      </div>
-      {subRow}
-    </EasyAnimate>
-  )
+  }) => {
+    const classNames = clx('table-row-container', className, { 'row-aligned-center': subRow }, { 'no-min-width': noMinWidth });
+
+    return (
+      <EasyAnimate
+        className={classNames}
+        delay={orderInList * 50}
+      >
+        <div className='table-row' onClick={onClick}>
+          {children}
+        </div>
+        {subRow}
+      </EasyAnimate>
+    );
+  }
 
   static Cell = ({
     children,
@@ -56,10 +64,8 @@ export default class Table extends Component {
     nowrap,
     ...props
   }) => {
-    const classNames = clx({
-      'table-cell': true,
+    const classNames = clx('table-cell', className, {
       nowrap,
-      [className]: className,
       flex,
       flexStart
     });
@@ -98,7 +104,7 @@ export default class Table extends Component {
     <div className='small-table-cell'>{children}</div>
   )
 
-  static RowControlls = ({ children }) => (
+  static RowControls = ({ children }) => (
     <div className='row-controls'>
       {children}
     </div>
@@ -107,13 +113,10 @@ export default class Table extends Component {
 
   render = () => {
     const { subTable, className, children } = this.props;
+    const classes = clx('table-container', className, { 'sub-table': subTable });
 
-    const classes = clx({
-      'sub-table': subTable,
-      [className]: className
-    });
     return (
-      <div className={`table-container ${classes}`}>
+      <div className={` ${classes}`}>
         {children}
       </div>
     );

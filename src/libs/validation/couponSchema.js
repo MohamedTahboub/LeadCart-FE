@@ -4,29 +4,29 @@ import castYupErrors from './castErrors';
 export default async (coupon) => {//
   const schema = yup.object().shape({
     code: yup.string().couponCode().required('coupon code is required'),
-    duration: yup.date(),
-    forAll: yup.bool().required(),
+    duration: yup.date('Select a valid duration for the coupon'),
     active: yup.bool(),
     discount: yup.object({
-      type: yup.string().oneOf(['Flat', 'Percent']).required(),
-      percent: yup.number().when('type',
+      type: yup.string().oneOf(['Flat', 'Percent']).required('The coupon code must be either a percentage or flat'),
+      percent: yup.number('enter an amount').when(
+        'type',
         {
           is: 'Percent',
           then: yup.number().required('the discount amount is required'),
           otherwise: yup.number().transform(() => undefined)
-        }),
-      amount: yup.number().when('type',
+        }
+      ),
+      amount: yup.number('enter an amount').when(
+        'type',
         {
           is: 'Flat',
-          then: yup.number().required('the discount amount is required'),
-          otherwise: yup.number().transform(() => undefined)
-        }),
+          then: yup.number('enter the Flat value').required('the discount amount is required'),
+          otherwise: yup.number('enter the percentage value').transform(() => undefined)
+        }
+      )
     }).required(),
-    productId: yup.string().when('forAll', {
-      is: false,
-      then: yup.string().required(),
-      otherwise: yup.string().transform(() => undefined)
-    })
+    products: yup.array().of(yup.string())
+
   }).required();
 
   try {
