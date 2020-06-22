@@ -103,29 +103,5 @@ const Coupons = (props) => {
   );
 };
 
-
-// const mapStateToProps = ({
-//   coupons: {
-//     coupons = [],
-//   },
-//   products: { products = [] } = {}
-// }) => {
-
-//   const projection = { name: 'name', image: 'thumbnail', _id: '_id' }
-//   const productsMap =
-
-//   const productsLabels = [
-//     { label: 'For All Products', value: 'all' },
-//     ...products.map(({ _id: value, name: label }) => ({ label, value }))
-//   ]
-
-//   return {
-//     errors,
-//     productsMap,
-//     coupons,
-//     productsLabels
-//   }
-// };
-
 export default connect(null, { ...couponsActions })(Coupons);
 

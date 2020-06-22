@@ -1,8 +1,5 @@
-/* .ant-select-dropdown,
-.ant-calendar-picker-container{
-  z-index: 1000000;
-} */
-.coupon-tabel-row {
+
+.coupon-table-row {
   position: relative;
 }
 

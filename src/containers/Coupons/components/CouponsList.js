@@ -38,7 +38,7 @@ const CouponsList = ({
             .map((product) => product.name);
 
           return (
-            <Row key={code} orderInList={orderInList} className='coupon-tabel-row'>
+            <Row key={code} orderInList={orderInList} className='coupon-table-row'>
               <Cell mainContent={code} />
               <Cell mainContent={discount.type} />
               <Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
