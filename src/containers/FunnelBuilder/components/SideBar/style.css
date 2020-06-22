@@ -182,3 +182,43 @@ div.sidebar-menu-content div.ant-collapse{
  background: #4DA1FF;
  width: 100%;
 }
+
+.tab__marketPlace__publish,
+.tab__marketPlace__add-img,
+.tab__marketPlace__description{
+    padding: 10px 20px;
+}
+
+.tab__marketPlace__publish{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab__marketPlace__description textarea{
+    width: 100%;
+    margin-top: 10px;
+    height: 76px;
+    resize: none;
+    color: #2B3748;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -.012rem;
+    padding: 5px 16px;
+    background: rgba(188, 201, 214, 0.1);
+    border: 1px solid #C9D3DC;
+    border-radius: 3px;
+}
+
+.tab__marketPlace__description textarea:focus{
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(29, 150, 243, .25);
+}
+
+.tabs-funnel .tabs-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tabs-funnel .tabs-header .tab-item {
+    margin:0;
+}
