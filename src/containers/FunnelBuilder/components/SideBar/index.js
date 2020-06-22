@@ -148,6 +148,7 @@ const SideBar = ({
             <textarea
               value={marketPlace.discription}
               onChange={onNameChange}
+              placeholder='Funnel Description'
             />
           </section>
         </Tab>
