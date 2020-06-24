@@ -62,8 +62,6 @@ const SideBar = ({
 
   const menus = sidebarMenus({ brands });
 
-  const mainAccountMenu = useCallback(() => accountSettingsMenus(user), [user])();
-
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
