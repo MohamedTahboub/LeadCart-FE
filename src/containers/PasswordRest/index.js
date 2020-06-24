@@ -1,26 +1,17 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import * as accountActions from 'actions/account';
-// import { FormLogo } from 'components/common/logos';
-// import CustomInputField from 'components/CustomInputField';
-import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
-import './style.css';
 import { FaSpinner } from 'react-icons/fa';
 
+import * as accountActions from 'actions/account';
+import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 import common from 'components/common';
-const {
-  FormLogo,
-  Feature,
-  FlexBox,
-  Button,
-  InputRow,
-  InputGroup
-} = common;
+import './style.css';
 
+const { FlexBox, Button, InputGroup } = common;
 
 const PasswordRest = ({ isLoggedIn, history, ...props }) => {
-  const { hash } = props.match.params || {};
-
+  const { match } = props;
+  const { hash } = match.params || {};
 
   const [processing, setProcessing] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -34,9 +25,7 @@ const PasswordRest = ({ isLoggedIn, history, ...props }) => {
     if (!verified && !error) {
       setProcessing(true);
       props.verifyResetKey(
-        {
-          hash
-        },
+        { hash },
         {
           onSuccess: () => {
             setVerified(true);
@@ -79,14 +68,12 @@ const PasswordRest = ({ isLoggedIn, history, ...props }) => {
         },
         onFailed: (message) => {
           setProcessing(false);
-          // history.push('/login');
           setError(message);
         }
       });
     }
   };
 
-  //   if (isLoggedIn) return null;
   return (
     <FlexBox className='full-page background-image-elements' center='h-center v-center' column>
       <FlexBox className='header-logo-container' wrappable>
@@ -135,15 +122,15 @@ const PasswordRest = ({ isLoggedIn, history, ...props }) => {
                 </Button>
               </form>
             ) : (
-              <div className='verified-message-container'>
-                <i className='fas fa-check-circle' />
-                <span className='verified-label'>
+                <div className='verified-message-container'>
+                  <i className='fas fa-check-circle' />
+                  <span className='verified-label'>
                     you have reset your account password successfully,
                   <br />
                     you will be redirected to the login page.
                 </span>
-              </div>
-            ))}
+                </div>
+              ))}
         </FlexBox>
       </FlexBox>
       <footer className='copyright-text'>
@@ -153,7 +140,5 @@ const PasswordRest = ({ isLoggedIn, history, ...props }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn
-});
+const mapStateToProps = (state) => ({ isLoggedIn: state.user.isLoggedIn });
 export default connect(mapStateToProps, accountActions)(PasswordRest);

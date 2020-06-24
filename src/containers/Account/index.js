@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import common from 'components/common';
 import { connect } from 'react-redux';
+
 import * as accountActions from 'actions/account';
 
 import {
-  PasswordBox,
   AccountDetails,
-  Brands
+  Brands,
+  PasswordBox
 } from './components';
 const {
   MainTitle,
@@ -22,31 +23,29 @@ const Account = ({
   brands,
   user
 }) => (
-  <Page>
-    <PageHeader>
-      <MainTitle>Account</MainTitle>
-    </PageHeader>
-    <PageContent>
-      <FlexBox column>
-        <FlexBox wrappable flexStart>
-          <AccountDetails onUpdate={onChangeAccountDetails} user={user} />
-          <PasswordBox onUpdate={onChangeAccountPassword} />
+    <Page>
+      <PageHeader>
+        <MainTitle>Account</MainTitle>
+      </PageHeader>
+      <PageContent>
+        <FlexBox column>
+          <FlexBox wrappable flexStart>
+            <AccountDetails onUpdate={onChangeAccountDetails} user={user} />
+            <PasswordBox onUpdate={onChangeAccountPassword} />
+          </FlexBox>
+          <Brands list={brands} />
         </FlexBox>
-        <Brands list={brands} />
-      </FlexBox>
-    </PageContent>
-  </Page>
-);
+      </PageContent>
+    </Page>
+  );
 
-Account.defaultProps = {
-  brands: []
-};
+Account.defaultProps = { brands: [] };
 
 const mapStateToProps = ({ account, brands, user: { user = {} } }) => ({
   user: {
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email,
+    email: user.email
   },
   passwordsModel: account.passwordsModel || {},
   detailsModel: account.detailsModel || {},

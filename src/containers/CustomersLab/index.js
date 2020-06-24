@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import './style.css';
+import { MdClose } from 'react-icons/md';
+import { FaEllipsisH } from 'react-icons/fa';
+import clx from 'classnames';
+
 import { CustomerPanelModal } from './components';
 import { RoundTow } from 'libs';
 import Table from 'components/common/Tables';
 import * as customersActions from 'actions/customers';
 import { checkObject } from 'helpers/common';
-import clx from 'classnames';
-import { MdClose } from 'react-icons/md';
-import { FaEllipsisH } from 'react-icons/fa';
 import common from 'components/common';
+import './style.css';
+
 
 const {
   MainTitle,
   Page,
   PageHeader,
   PageContent,
-  SubTabs,
   MiniButton,
   Avatar,
   InputRow
@@ -125,10 +126,6 @@ const CustomersLab = ({ customers, orderRefund }) => {
     </Page>
   );
 };
-
-// CustomerList.propTypes = {
-//   customers: PropType.array.default([])
-// }
 
 const mapStateToProps = ({ customers: { list } }) => ({ customers: list });
 

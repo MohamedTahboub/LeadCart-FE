@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 
+import common from 'components/common';
 import servicesList from './components/servicesList';
 
 import {
-  LayoutSwitch,
+  ConnectModal,
   IntegrationsGrid,
   IntegrationsTable,
   LayoutOptions,
-  ConnectModal
+  LayoutSwitch
 } from './components';
 
-
-const {
-  MainTitle,
-  Button,
-  InputRow,
-  Tabs
-} = common;
+const { MainTitle, Button } = common;
 
 const ActiveIntegrationLayout = ({ layout, ...props }) => (
   <LayoutSwitch active={layout}>
@@ -65,11 +58,6 @@ const Integrations = ({ integrations, ...props }) => {
   );
 };
 
-Integrations.propTypes = {
-
-};
-Integrations.defaultProps = {
-  integrations: servicesList
-};
+Integrations.defaultProps = { integrations: servicesList };
 
 export default Integrations;

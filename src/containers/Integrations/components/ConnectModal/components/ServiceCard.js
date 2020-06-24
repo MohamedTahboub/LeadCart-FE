@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import clx from 'classnames';
 
+import clx from 'classnames';
 import common from 'components/common';
-const {
-  Card
-} = common;
+
+const { Card } = common;
 
 const ServiceCard = ({
   brandLogo,
@@ -36,10 +34,6 @@ const ServiceCard = ({
       <span className='service-name'>{name}</span>
     </Card>
   );
-};
-
-ServiceCard.propTypes = {
-
 };
 
 export default ServiceCard;

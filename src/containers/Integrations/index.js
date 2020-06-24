@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 import { connect } from 'react-redux';
+import queryString from 'querystring';
+
+import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { includesIgnoreCase, notification } from 'libs';
 import servicesList from 'data/integrationsServices';
-import queryString from 'querystring';
 
 import {
   ConnectModal,
@@ -17,22 +17,9 @@ import {
 } from './components';
 
 
-const {
-  MainTitle,
-  Button,
-  InputRow,
-  FlexBox,
-  Tabs,
-  Page,
-  PageHeader,
-  // Select,
-  Currency,
-  PageContent,
-  Dialog,
-  WarningMessage
-} = common;
+const { MainTitle, InputRow, FlexBox, Page, PageHeader, Currency, PageContent, Dialog, WarningMessage } = common;
 
-const { TextField, SelectOption } = InputRow;
+const { TextField } = InputRow;
 
 const filtersIntegrations = (list, key, connected = 'all') => list.filter((integration) => {
   if (connected === 'all') return true;
@@ -98,8 +85,8 @@ const Integrations = ({ integrations, history, ...props }) => {
   const onConnect = (service) => {
     setActiveService(service);
     setOpenModal(true);
-    // alert(service.name);
   };
+
   const onConnectClosed = () => {
     setActiveService();
     setOpenModal(false);
@@ -131,7 +118,6 @@ const Integrations = ({ integrations, history, ...props }) => {
         notification.failed(message);
       }
     });
-    // setOpenModal(true);
   };
 
   const onConnectOnProgress = (details) => {
