@@ -80,6 +80,7 @@
 }
 
 .layout-section .progress-bar {
+  width: 100%;
   height: fit-content;
 }
 /* Image Section Styles */
