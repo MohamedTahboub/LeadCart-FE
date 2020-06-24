@@ -7,7 +7,7 @@ import { DummySuccessUrl, NewUrl } from './components';
 const { FlexBox } = common;
 const SuccessUrls = ({
   name = 'action.metaData.successUrls',
-  successUrls: urls = [{ activeDuration: '7,day', url: 'https:example.com' }],
+  successUrls: urls = [],
   onChange
 }) => {
 
@@ -34,7 +34,10 @@ const SuccessUrls = ({
 
   return (
     <FlexBox column>
-      <FlexBox column className='success-urls-container'>
+      <div className='large-text bold-text gray-text aligned-center my-2'>
+        Add your Success Urls below
+      </div>
+      <FlexBox column>
         {urls.map((url, id) => (
           <DummySuccessUrl
             key={url._id + id.toString()}

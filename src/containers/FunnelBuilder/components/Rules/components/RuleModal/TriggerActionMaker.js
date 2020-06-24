@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -11,8 +11,10 @@ import { connect } from 'react-redux';
 import leadcartFulfillment from 'data/leadcartFulfillment';
 import ActionDependencies from './ActionDependencies';
 import * as immutable from 'object-path-immutable';
-const animatedComponents = makeAnimated();
+import { isFunction } from 'libs/checks';
+import ids from 'shortid';
 
+const animatedComponents = makeAnimated();
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
   if (actionsMap[integrationKey]) {
     return actionsMap[integrationKey].actions.map((action) => ({
@@ -35,29 +37,39 @@ const {
 } = common;
 
 const TriggerActionMaker = ({
+  isEdit,
+  onUpdate,
+  group: groupDetails = {},
   products,
   hasGroups,
   integrations: integrationsLabels,
   actionsMap,
-  ...props
+  onAdd
 }) => {
-  const [group, setGroup] = useState({});
+  const [group, setGroup] = useState(groupDetails);
   const [error, setError] = useState();
   const [expand, setExpand] = useState(hasGroups);
 
 
   const toggleExpand = () => setExpand((expand) => !expand);
 
-  const onAdd = () => {
+  const _onAdd = () => {
     const errorMessage = notValidGroup(group);
 
-    if (props.onAdd && !errorMessage) props.onAdd(group);
+    if (isFunction(onAdd) && !errorMessage) {
+      onAdd({
+        _id: ids.generate(),
+        ...group
+      });
+    }
 
     if (errorMessage)
       setError(errorMessage);
 
     toggleExpand();
   };
+
+  const _onUpdate = () => isFunction(onUpdate) && onUpdate(group);
 
   const onProductsChanged = (products) => {
     setGroup({
@@ -86,7 +98,6 @@ const TriggerActionMaker = ({
 
   const onDependenciesChange = ({ target: { name, value } }) => {
     const newGroup = immutable.set(group, name, value);
-    console.log(newGroup);
     setGroup(newGroup);
     setError();
   };
@@ -95,11 +106,34 @@ const TriggerActionMaker = ({
     setGroup({});
   }, [expand]);
 
-  const actionsOptions = getActionsOptions(group, actionsMap);
+  useEffect(() => {
+    setGroup(groupDetails);
+    if (isEdit) setExpand(true);
+    return () => setExpand(false);
+  }, [isEdit]);
+
+  const getFormValuesOnceUpdated = useCallback(() => {
+    const actionsOptions = getActionsOptions(group, actionsMap);
+    return {
+      actionsOptions,
+      selectedProducts: products.filter(({ value }) => Array.isArray(group.products) && group.products.includes(value)),
+      selectedIntegration: integrationsLabels.find(({ value }) => group.action && group.action.integrationKey === value),
+      selectedActionOption: actionsOptions.find(({ value }) => group.action && group.action.type === value),
+      actionIntegrationId: group.action && actionsMap[group.action.integrationKey].integrationId
+    };
+  }, [group]);
+
+  const {
+    actionsOptions,
+    selectedProducts,
+    selectedIntegration,
+    selectedActionOption,
+    actionIntegrationId
+  } = getFormValuesOnceUpdated(group);
 
   return expand ? (
-    <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges'>
-      <div className='large-text'>Make New Trigger Group:</div>
+    <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges my-1'>
+      <div className='large-text'>{`${isEdit ? 'Update This' : 'Make New'}`} Trigger Group:</div>
       <FlexBox center='v-center margin-v-10'>
         <div className='label margin-right-10'>For The Products</div>
         <Select
@@ -109,6 +143,7 @@ const TriggerActionMaker = ({
           onChange={onProductsChanged}
           isMulti
           options={products}
+          value={selectedProducts}
         />
       </FlexBox>
       <FlexBox center='v-center margin-v-10'>
@@ -125,6 +160,7 @@ const TriggerActionMaker = ({
           defaultValue='IntegrationsService'
           options={integrationsLabels}
           onChange={onIntegrationSelected}
+          value={selectedIntegration}
         />
         <FlexBox center='v-center' className='label margin-right-10'>
           Action
@@ -139,11 +175,13 @@ const TriggerActionMaker = ({
           defaultValue='IntegrationsAction'
           options={actionsOptions}
           onChange={onIntegrationActionSelected}
+          value={selectedActionOption}
         />
       </FlexBox>
       <ActionDependencies
         {...group.action}
         onChange={onDependenciesChange}
+        integrationId={actionIntegrationId}
       />
       <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
         {error && (
@@ -151,11 +189,11 @@ const TriggerActionMaker = ({
             {error}
           </div>
         )}
-        <Button onClick={onAdd} className='light-btn'>
+        <Button onClick={isEdit ? _onUpdate : _onAdd} className='light-btn'>
           <FlexBox center='v-center'>
             <IoIosAdd className='mx-1' />
             <span>
-              Add
+              {`${isEdit ? 'Update' : 'Add'}`}
             </span>
           </FlexBox>
         </Button>
@@ -173,12 +211,18 @@ const TriggerActionMaker = ({
     </Button>
   );
 };
+
 TriggerActionMaker.propTypes = {};
 
 const mapStateToProps = ({ integrations }) => {
   const integrationsLabels = integrations
     .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))
-    .map((integration) => ({ label: integration.name, value: integration.key, actions: integration.actions }));
+    .map((integration) => ({
+      label: integration.name,
+      value: integration.key,
+      actions: integration.actions,
+      integrationId: integration._id
+    }));
 
   const integrationsList = [leadcartFulfillment, ...integrationsLabels];
   const actionsMap = mapListToObject(integrationsList, 'value');

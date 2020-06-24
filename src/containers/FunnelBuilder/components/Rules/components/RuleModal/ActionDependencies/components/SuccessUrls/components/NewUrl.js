@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import common from 'components/common';
-import moment from 'moment';
 import { MdAddCircleOutline } from 'react-icons/md';
-const {
-  InputRow,
-  SelectBox,
-  FlexBox
-} = common;
-
+import { string } from 'yup';
+const { InputRow, SelectBox, FlexBox } = common;
 const { Label, TextField, SelectOption } = InputRow;
+const urlSchema = string().url();
+
 
 const TimeInterval = ({ onChange }) => {
   const initialValue = {
@@ -83,13 +80,18 @@ const TimeInterval = ({ onChange }) => {
   );
 };
 
-const initialUrlValue = { url: '', activeDuration: moment() };
+const initialUrlValue = { url: '', activeDuration: 'infinite' };
 const NewRow = ({ onAdd }) => {
   const [url, setUrl] = useState(initialUrlValue);
+  const [error, setError] = useState();
 
-  const _onAdd = () => {
+  const _onAdd = async () => {
+    if (!urlSchema.isValidSync(url.url))
+      return setError('Enter a valid URL path');
+
     onAdd(url);
     setUrl(initialUrlValue);
+    setError();
   };
 
   const _onChange = ({ target: { name, value } }) => {
@@ -97,17 +99,30 @@ const NewRow = ({ onAdd }) => {
   };
 
   return (
-    <FlexBox center='v-center p-2'>
-      <TextField
-        value={url.url}
-        name='url'
-        onChange={_onChange}
-      />
-      <TimeInterval
-        onChange={_onChange}
-        url={url.url}
-      />
-      <MdAddCircleOutline onClick={_onAdd} />
+    <FlexBox column center='h-center'>
+      <FlexBox center='v-center p-2'>
+        <TextField
+          value={url.url}
+          name='url'
+          onChange={_onChange}
+          className='success-url-input'
+          placeholder='Success Url'
+        />
+        <TimeInterval
+          onChange={_onChange}
+          url={url.url}
+        />
+        <MdAddCircleOutline
+          data-tip='Add Url'
+          onClick={_onAdd}
+          className='primary-text-color larger-text item-clickable'
+        />
+      </FlexBox>
+      {error && (
+        <span className='error-text aligned-center'>
+          {error}
+        </span>
+      )}
     </FlexBox>
   );
 };

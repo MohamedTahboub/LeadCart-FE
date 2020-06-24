@@ -14,3 +14,9 @@
     right: 0;
     padding: 10px;
 }
+.trigger-group-edit-btn{
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    cursor: pointer;
+}

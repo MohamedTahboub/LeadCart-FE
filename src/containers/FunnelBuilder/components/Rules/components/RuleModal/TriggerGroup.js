@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
-import { trimExtraText } from 'libs';
 import ReactToolTip from 'react-tooltip';
 import { FaLongArrowAltRight } from 'react-icons/fa';
+import { FiEdit } from 'react-icons/fi';
 
 const {
   FlexBox,
@@ -27,13 +27,14 @@ const Label = ({ children, ...props }) => (
 
 
 const TriggerGroup = ({
+  onEdit,
   className,
   products,
   action
 }) => (
   <FlexBox
     center='v-center'
-    className={`margin-v-5 ${className}`}
+    className={`margin-v-5 ${className} parent-hover relative-element`}
   >
     <Label>The products:</Label>
     {products.map((product, index) => (
@@ -69,6 +70,7 @@ const TriggerGroup = ({
       <FaLongArrowAltRight />
       <GroupAction {...action} />
     </FlexBox>
+    <FiEdit onClick={onEdit} className='show-on-parent-hover trigger-group-edit-btn'/>
   </FlexBox>
 );
 
