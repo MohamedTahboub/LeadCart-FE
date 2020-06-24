@@ -159,7 +159,7 @@
   border-bottom: 2px solid #33333354;
 }
 
-.underlined-text:hover {
+.underlined-text:not(.without-hover):hover {
   border-bottom: 2px solid #333333;
 }
 
@@ -399,6 +399,9 @@
 .primary-color {
   background: #4DA1FF;
 }
+.primary-text-color {
+  color: #4DA1FF;
+}
 
 .yellowish-color {
   color: rgb(255, 205, 111);
@@ -487,8 +490,20 @@
   max-width: 300px;
 }
 
-.max-width-400 {
-  max-width: 400px;
+.max-width-500 {
+  max-width: 500px;
+}
+.max-width-600 {
+  max-width: 600px;
+}
+.max-width-700 {
+  max-width: 700px;
+}
+.max-width-800 {
+  max-width: 800px;
+}
+.max-width-900 {
+  max-width: 900px;
 }
 
 .min-height-100 {
