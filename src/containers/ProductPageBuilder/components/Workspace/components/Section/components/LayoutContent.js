@@ -10,6 +10,7 @@ import SectionContent from './SectionContent';
 import ids from 'shortid';
 import { SettingsHandles } from '../components';
 import sectionsTemplates from 'data/productSectionsTemplates';
+import FlexibleBox from 'components/FlexibleBox';
 
 const NestedSection = ({
   className,
@@ -62,23 +63,29 @@ const NestedSection = ({
   });
 
   return (
-    <div
-      ref={(ref) => drop(dragConnect(ref))}
-      className={clx('layout-section', classNames)}
-      style={{ opacity, position: 'relative' }}
+    <FlexibleBox
+      showOnParentHover
+      vertical
     >
-      <SettingsHandles
-        handleDelete={deleteNestedSectionWithId}
-        section={section}
-        id={section.id}
-      />
-      <SectionContent
-        type={section.type}
-        section={section}
-        onChange={onChange}
-        {...section.content}
-      />
-    </div>
+      <div
+        ref={(ref) => drop(dragConnect(ref))}
+        className={clx('layout-section', classNames)}
+        style={{ opacity, position: 'relative' }}
+      >
+        <SettingsHandles
+          handleDelete={deleteNestedSectionWithId}
+          section={section}
+          id={section.id}
+        />
+        <SectionContent
+          type={section.type}
+          section={section}
+          onChange={onChange}
+          parentSectionId={parentSectionId}
+          {...section.content}
+        />
+      </div>
+    </FlexibleBox>
   );
 };
 
@@ -191,23 +198,33 @@ const LayoutContent = ({
       }
     });
   };
+
+  const onSizeChange = (size) => {
+  };
   return (
-    <div className={classNames} style={sectionStyle}>
-      {
-        NestedSections.map((childSection) => (
-          <NestedSection
-            key={childSection.id}
-            onReorder={onNestedSectionReorder}
-            addNewNestedSectionAt={addNewNestedSectionAt}
-            onChange={onNestedSectionChange}
-            onSectionDelete={actions.onSectionDelete}
-            deleteNestedSectionWithId={deleteNestedSectionWithId}
-            className='item'
-            findCard={findCard}
-            section={childSection}
-            parentSectionId={section.id}
-          />))}
-    </div>
+    <FlexibleBox
+      size={{ height: styles.height }}
+      onResize={onSizeChange}
+      showOnParentHover
+      className='overflow-hidden'
+    >
+      <div className={classNames} style={sectionStyle}>
+        {
+          NestedSections.map((childSection) => (
+            <NestedSection
+              key={childSection.id}
+              onReorder={onNestedSectionReorder}
+              addNewNestedSectionAt={addNewNestedSectionAt}
+              onChange={onNestedSectionChange}
+              onSectionDelete={actions.onSectionDelete}
+              deleteNestedSectionWithId={deleteNestedSectionWithId}
+              className='item'
+              findCard={findCard}
+              section={childSection}
+              parentSectionId={section.id}
+            />))}
+      </div>
+    </FlexibleBox>
   );
 };
 

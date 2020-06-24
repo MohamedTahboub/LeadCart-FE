@@ -100,14 +100,26 @@
     min-height: 120px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    overflow: hidden;
 }
 
-.layout-section .item{
+.layout-section .item {
+    flex: 1;
+    border: .8px solid transparent;
+    border-radius: 3px;
+    margin: 3px;
+}
+
+.layout-section .item:hover, .active .layout-section .item {
     flex: 1;
     border: .8px solid lightgray;
     border-radius: 3px;
     margin: 3px;
+}
+
+.layout-section .product-section-settings-handle {
+  top: 6px;
+  right: 0;
 }
 
 .video-section{

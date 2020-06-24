@@ -453,3 +453,4 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
   border: 1px solid #c5c5c5;
   margin: 1.5rem 0;
 }
+.overflow-hidden {overflow: hidden;}

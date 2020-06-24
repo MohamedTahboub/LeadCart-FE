@@ -8,10 +8,11 @@ const { InputRow: { AddImage } } = common;
 
 const ImageContent = ({
   className,
-  section = {}
+  section = {},
+  parentSectionId
 }) => {
   const inputRef = useRef(null);
-
+  console.log({ parentSectionId });
   const { actions } = useContext();
   const { styles = {}, content = {} } = section;
   const classNames = clx({
@@ -50,6 +51,7 @@ const ImageContent = ({
       className={classNames}
       onResizeStop={onSizeChange}
       showOnParentHover
+      holdResize={!!parentSectionId}
     >
       <img
         src={content.value || defaultDropImage}
