@@ -19,14 +19,10 @@ const ElementCard = ({
   const [{ isDragging }, drag, previewConnect] = useDrag({
     item: {
       type: dropTypes.SECTION,
-      section: {
-        type
-      },
+      section: { type },
       new: true
     },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+    collect: (monitor) => ({ isDragging: monitor.isDragging() })
     // end: (dropResult, monitor) => {
     //   const { id: droppedId, originalIndex } = monitor.getItem();
     //   const didDrop = monitor.didDrop();
@@ -45,17 +41,14 @@ const ElementCard = ({
     <Fragment>
       <DraggingPreview type={type} connect={previewConnect} />
       <div
-        className={classNames}
         {...props}
+        className={classNames}
         ref={(node) => drag(node)}
-      // onDragStart={onDragStart}
       />
     </Fragment>
   );
 };
 
-ElementCard.propTypes = {
-
-};
+ElementCard.propTypes = {};
 
 export default ElementCard;

@@ -33,6 +33,19 @@ export default {
       paddingBottom: 0
     }
   },
+  grid: {
+    hidden: false,
+    type: 'grid',
+    content: { children: [] },
+    styles: {
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0
+    }
+  },
   button: {
     hidden: false,
     type: 'button',
@@ -101,11 +114,11 @@ export default {
       children: [],
       sections: [
         {
-          id: 'abc',
+          id: '____2',
           hidden: false,
-          type: 'text',
+          type: 'image',
           content: {
-            value: 'Text Content',
+            value: 'https://via.placeholder.com/200',
             children: []
           },
           styles: {
@@ -118,7 +131,7 @@ export default {
           }
         },
         {
-          id: 'abcd',
+          id: '____1',
           hidden: false,
           type: 'image',
           content: {

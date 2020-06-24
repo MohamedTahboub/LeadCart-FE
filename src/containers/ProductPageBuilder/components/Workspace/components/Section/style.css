@@ -63,7 +63,7 @@
     opacity: 0;
     /* background: #4DA1FF; */
     border-radius: 5px;
- 
+
     /* font-weight: bold; */
     font-size: 0px;
 }
@@ -79,7 +79,13 @@
     border-width: 2.5px;
 }
 
+.layout-section .progress-bar {
+  height: fit-content;
+}
 /* Image Section Styles */
+.layout-section .image-section, .layout-section .countdown-timer, .layout-section .figure-section, .layout-section .testimonial-section {
+  flex-direction: column;
+}
 .image-section{
     height: inherit;
     width: 100%;

@@ -75,6 +75,12 @@
 .base-element-card.layout-bg:hover{
     background-image: url(../../../../../assets/images/icons/colored-layout.png);
 }
+.base-element-card.grid-bg{
+    background-image: url(../../../../../assets/images/icons/grid-layout.png);
+}
+.base-element-card.grid-bg:hover{
+    background-image: url(../../../../../assets/images/icons/grid-layout.png);
+}
 
 
 

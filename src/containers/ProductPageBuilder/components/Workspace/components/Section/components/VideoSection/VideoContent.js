@@ -5,9 +5,7 @@ import ReactPlayer from 'react-player';
 import upsellDefaultImage from 'assets/images/upsells/upsell-image.png';
 
 
-const {
-  InputRow,
-} = common;
+const { InputRow } = common;
 
 
 const VideoContent = ({
@@ -21,6 +19,7 @@ const VideoContent = ({
       // playing={autoPlay}
       disabled
       className='media-assets'
+      width='min-content'
     />
     <div className='editing-warper'>
       <InputRow className='editing-warper-from'>
@@ -36,12 +35,8 @@ const VideoContent = ({
   </div>
 );
 
-VideoContent.propTypes = {
-  value: PropTypes.string
-};
+VideoContent.propTypes = { value: PropTypes.string };
 
-VideoContent.defaultProps = {
-  value: upsellDefaultImage
-};
+VideoContent.defaultProps = { value: upsellDefaultImage };
 
 export default VideoContent;

@@ -46,6 +46,11 @@ const SideBar = ({ canOffer }) => (
             className='spacer-bg'
             data-tip='Spacer'
           />
+          <BaseCard
+            type='layout'
+            className='layout-bg'
+            data-tip='Layout'
+          />
         </FlexBox>
       </Panel>
 

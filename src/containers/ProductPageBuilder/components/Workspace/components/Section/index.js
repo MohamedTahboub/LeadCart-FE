@@ -16,6 +16,8 @@ import {
   SectionContent,
   SettingsHandles
 } from './components';
+import { useContext } from '../../../../actions';
+import update from 'immutability-helper';
 
 const Section = ({
   id,
@@ -35,6 +37,7 @@ const Section = ({
   index,
   ...props
 }) => {
+  const { actions } = useContext();
 
   const originalIndex = findCard(id).index;
 
@@ -43,24 +46,44 @@ const Section = ({
     collect: (monitor) => ({ isDragging: monitor.isDragging() })
   });
 
-  const [{ isOver }, drop] = useDrop({
-    accept: dropTypes.SECTION,
-    collect: (monitor) => ({ isOver: monitor.isOver() }),
-    drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }) => {
-
-      if (newItem) {
-        const newId = ids.generate();
-        addNewAndMove({
-          atIndex: index,
-          type,
-          id: newId
-        });
-        return { isHandled: true };
-      }
-      const { index: overIndex } = findCard(id);
-      moveCard(droppedItemId, overIndex);
+  const onDrop = (item, monitor) => {
+    const { new: newItem, parentSectionId, section: { id: droppedItemId, type } = {} } = item;
+    if (monitor && monitor.didDrop()) return;
+    if (parentSectionId) {
+      const { section } = findCard(parentSectionId);
+      const nested = section.content.sections;
+      const newNestedSections = update(nested, {
+        $splice: [
+          [0, 1]
+        ]
+      });
+      actions.addNewSection(type);
+      actions.onSectionSettingChange({
+        section,
+        field: {
+          name: 'content.sections',
+          value: newNestedSections
+        }
+      });
+      return;
+    }
+    if (newItem) {
+      addNewAndMove({
+        atIndex: index,
+        type,
+        id: ids.generate()
+      });
       return { isHandled: true };
     }
+    const { index: overIndex } = findCard(id);
+    moveCard(droppedItemId, overIndex);
+    return { isHandled: true };
+  };
+
+  const [{ isOver }, drop] = useDrop({
+    accept: [dropTypes.SECTION, dropTypes.NESTED_SECTION],
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
+    drop: onDrop
   });
 
 
@@ -76,7 +99,6 @@ const Section = ({
   const onDuplicate = (fromId) => () => {
     onSectionDuplicate(fromId);
   };
-
   return (
     <div
       ref={(node) => drop(drag(node))}
@@ -99,6 +121,7 @@ const Section = ({
           type={type}
           section={section}
           language={props.language}
+          onDrop={onDrop}
           {...content}
         />
       </div>

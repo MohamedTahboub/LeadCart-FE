@@ -55,6 +55,7 @@ const Testimonials = ({
       {...content}
       onChange={onChange}
       theme={styles.theme}
+      className='testimonial-section'
     />
   );
 };

@@ -8,7 +8,7 @@ import * as dropTypes from '../dropTypes';
 
 const {
   Button,
-  FlexBox,
+  FlexBox
 
 } = common;
 
@@ -22,28 +22,11 @@ export default ({
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
       if (didDrop) return;
-
       onDrop(item);
     }
   });
 
-
-  // const onDragOver = (event) => {
-  //   event.stopPropagation();
-  //   event.preventDefault();
-  // };
-
-  // const onDrop = (e) => {
-  //   e.preventDefault();
-  //   const sectionType = e.dataTransfer.getData('section-item');
-  //   // e.currentTarget.style.background = 'lightyellow';
-  //   actions.addNewSection(sectionType);
-  // };
-
-  const className = clx({
-    'product-drop-zone': true,
-    // 'drag-over': dragOver
-  });
+  const className = clx({ 'product-drop-zone': true });
 
   return (
     <div

@@ -14,7 +14,8 @@ const sectionThatHaveSettings = [
   'progressbarWidget',
   'figure',
   'pageSetting',
-  'staticSectionSetting'
+  'staticSectionSetting',
+  'grid'
 ];
 
 export const updateState = ({ dispatch }) => (subState) => {
@@ -87,8 +88,7 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 
 
 export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) => {
-  const section = sectionsTemplates[sectionType];
-
+  const section = { ...sectionsTemplates[sectionType] };
   if (!section) return;
 
   section.id = ids.generate();

@@ -12,7 +12,8 @@ const SettingsHandles = ({
   id,
   onDuplicate,
   section = {},
-  onSettings
+  onSettings,
+  handleDelete
 }) => {
   const { actions } = useContext();
 
@@ -21,7 +22,8 @@ const SettingsHandles = ({
   };
 
   const onDelete = () => {
-    actions.onSectionDelete(id);
+    if (handleDelete) handleDelete(id);
+    else actions.onSectionDelete(id);
   };
 
 
@@ -34,7 +36,7 @@ const SettingsHandles = ({
         data-tip='delete this section'
       />
       <MdContentCopy
-        onClick={onDuplicate(id)}
+        onClick={onDuplicate && onDuplicate(id)}
         className='item-handle'
         data-tip='duplicate this section'
       />
@@ -50,8 +52,6 @@ const SettingsHandles = ({
   );
 };
 
-SettingsHandles.propTypes = {
-
-};
+SettingsHandles.propTypes = {};
 
 export default SettingsHandles;
