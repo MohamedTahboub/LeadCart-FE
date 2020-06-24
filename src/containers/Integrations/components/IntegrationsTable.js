@@ -1,38 +1,28 @@
-import React, { Fragment, useState } from 'react';
-import common from 'components/common';
-import PropTypes from 'prop-types';
-import Table from 'components/common/Tables';
-// import { spawn } from 'child_process';
+import React from 'react';
 import clx from 'classnames';
+import PropTypes from 'prop-types';
 import ReactTip from 'react-tooltip';
 
-const {
-  // Badge,
-  // MiniButton,
-  // FlexBox,
-  // onConnect,
-  Button
-} = common;
+import common from 'components/common';
+import Table from 'components/common/Tables';
 
+const { Button } = common;
+const { Body, Row, Cell } = Table;
 
 const defaultDescription = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste accusamus maiores quam reiciendis!';
 const IntegrationsTable = ({
   list,
   onConnect,
-  onDisconnect,
-  showHeader
+  onDisconnect
 }) => {
-  const [toggleBtn, setToggleBtn] = useState(false);
-
 
   return (
     <Table className='integration-list-table'>
-      <Table.Body>
-        {list.map((service, orderInList) => {
+      <Body>
+        {list.map((service) => {
           const {
             key,
             name = 'Untitled',
-            // label = name,
             connected,
             brandLogo,
             active,
@@ -51,13 +41,11 @@ const IntegrationsTable = ({
           });
 
           return (
-            <Table.Row
-
+            <Row
               key={key}
-              // orderInList={orderInList}
               className='integration-table-row'
             >
-              <Table.Cell
+              <Cell
                 flex={false}
                 data-tip={name}
                 data-type='light'
@@ -65,10 +53,9 @@ const IntegrationsTable = ({
                 mainContent={(
                   <img src={brandLogo} className='integrations-service-brand' alt={`${name} brand`} />
                 )}
-                // subContent={name}
               />
 
-              <Table.Cell
+              <Cell
                 flex
                 flexStart
                 className='padding-h-20'
@@ -80,13 +67,13 @@ const IntegrationsTable = ({
                   )
                 }
               />
-              <Table.Cell
+
+              <Cell
                 flex={false}
 
                 mainContent={(
                   <Button
                     fallback-data='Disconnect'
-                    // type={active ? 'primary' : 'secondary'}
                     className={connectBtnClasses}
                     onClick={() => connectAction(service)}
                     onHoverProps={connected ? {
@@ -99,39 +86,16 @@ const IntegrationsTable = ({
                   </Button>
                 )}
               />
-            </Table.Row>
+            </Row>
           );
         })}
         <ReactTip />
-      </Table.Body>
+      </Body>
     </Table>
   );
 };
-/*
-{showHeader && (
-  <Table.Head>
-    <Table.HeadCell
-      className='integration-head-cell'
-      flex={false}
-    >
-      Service Name
-    </Table.HeadCell>
-    <Table.HeadCell flex />
-    <Table.HeadCell
-      className='integration-head-cell'
-      flex={false}
-    >
-      Status
-    </Table.HeadCell>
-  </Table.Head>
-)}
 
-*/
-IntegrationsTable.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.object)
-};
-IntegrationsTable.defaultProps = {
-  list: []
-};
+IntegrationsTable.propTypes = { list: PropTypes.arrayOf(PropTypes.object) };
+IntegrationsTable.defaultProps = { list: [] };
 
 export default IntegrationsTable;

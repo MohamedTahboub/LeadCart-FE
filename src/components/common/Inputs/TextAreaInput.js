@@ -12,7 +12,7 @@ class TextAreaInput extends Component {
     min: 5
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { value, min, max, error } = this.props;
     this.setState({
       value,
@@ -23,7 +23,7 @@ class TextAreaInput extends Component {
     });
   }
 
-  componentDidUpdate (prev) {
+  componentDidUpdate(prev) {
     const { name, value, min, max, error } = this.props;
     if (prev.name !== name || prev.value !== value)
       this.setState({ name, value, min, max, error });
@@ -53,13 +53,12 @@ class TextAreaInput extends Component {
     }
   }
 
-  render () {
+  render() {
     const { value, error = this.props.error, wordsNumber, max } = this.state;
-    const { name, disabled, width = '697px', countable, className, placeholder } = this.props;
+    const { name, disabled, countable, className, placeholder } = this.props;
     return (
       <div className='text-area-container'>
         <textarea
-          // style={{ width }}
           placeholder={placeholder}
           onChange={this.onChange}
           value={value}

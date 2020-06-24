@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 import { connect } from 'react-redux';
+
 import * as integrationsActions from 'actions/integrations';
+import common from 'components/common';
 import ServiceCard from './ServiceCard';
+import { LayoutSwitch } from '../..';
 
-import {
-  LayoutSwitch,
-  servicesList
-} from '../..';
-
-const {
-  FlexBox,
-  Badge,
-  Button,
-  InputRow
-} = common;
+const { FlexBox, Badge, Button, InputRow } = common;
 const { TextField } = InputRow;
 
 const ConnectOAuth = ({ name = 'Stripe', ...props }) => (
@@ -46,8 +37,7 @@ const ConnectClient = ({ name, ...props }) => (
           uncontrolled
         />)
       }
-    // spaceBetween
-    // flex
+
     />
     <Statement
       label='Client Secret'
@@ -57,10 +47,7 @@ const ConnectClient = ({ name, ...props }) => (
           uncontrolled
         />
       )}
-    // spaceBetween
-    // flex
     />
-
 
     <Button className='primary-color'>
       Authorize
@@ -108,16 +95,14 @@ const Statement = ({ label, value, ...props }) => (
 
 const ServiceConnect = ({ data = {}, ...props }) => {
   const [service, setService] = useState(data);
-  const [supported, setSupported] = useState(data);
-  const [onprogress, setOnprogress] = useState(data);
 
   useEffect(() => {
     if (service.key !== data.key) setService(data);
     props.checkIntegrationService(
       { key: service.key },
       {
-        onSuccess: () => {},
-        onFailed: () => {}
+        onSuccess: () => { },
+        onFailed: () => { }
       }
     );
   }, [data]);

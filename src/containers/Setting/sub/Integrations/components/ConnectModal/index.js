@@ -1,30 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
 import { SlideModal } from 'components/Modals';
 import common from 'components/common';
+import { ServiceConnect, ServiceSelect } from './components';
+import { LayoutSwitch } from '..';
 import './style.css';
 
-import {
-  LayoutSwitch,
-} from '..';
-
-
-import {
-  // ServiceCard,
-  ServiceConnect,
-  ServiceSelect
-} from './components';
-
-const {
-  MainTitle,
-  // Button,
-  // InputRow,
-  // Currency,
-  // Tabs,
-  // Card,
-  Step
-} = common;
-
+const { MainTitle, Step } = common;
 
 const ConnectModal = ({
   open,
@@ -68,10 +50,6 @@ const ConnectModal = ({
       </LayoutSwitch>
     </SlideModal>
   );
-};
-
-ConnectModal.propTypes = {
-
 };
 
 export default ConnectModal;
