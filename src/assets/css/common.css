@@ -399,6 +399,7 @@
 .primary-color {
   background: #4DA1FF;
 }
+
 .primary-text-color {
   color: #4DA1FF;
 }
@@ -406,6 +407,7 @@
 .yellowish-color {
   color: rgb(255, 205, 111);
 }
+
 .orange-color {
   color: rgb(241, 83, 10);
 }
@@ -413,12 +415,15 @@
 .warning-bg {
   background: tomato;
 }
+
 .warning-color {
   color: tomato;
 }
+
 .danger-bg {
   background: rgb(219, 40, 70);
 }
+
 .danger-color {
   color: rgb(219, 40, 70);
 }
@@ -490,18 +495,26 @@
   max-width: 300px;
 }
 
+.max-width-400 {
+  max-width: 400px;
+}
+
 .max-width-500 {
   max-width: 500px;
 }
+
 .max-width-600 {
   max-width: 600px;
 }
+
 .max-width-700 {
   max-width: 700px;
 }
+
 .max-width-800 {
   max-width: 800px;
 }
+
 .max-width-900 {
   max-width: 900px;
 }
@@ -565,6 +578,7 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+
 .scrolling-70vh {
   max-height: 70vh;
   overflow-x: hidden;
@@ -574,9 +588,11 @@
 .transparent-background {
   background: transparent;
 }
-.transparent-white-bg{
+
+.transparent-white-bg {
   background: rgba(255, 255, 255, 0.246);
 }
+
 .card-style {
   box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.1);
   margin: 5px;
@@ -601,17 +617,21 @@
 .card-icon-wrapper:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
-.show-on-parent-hover{
+
+.show-on-parent-hover {
   opacity: 0;
   transition: opacity .3s ease-in-out;
 }
-.parent-hover:hover .show-on-parent-hover{
+
+.parent-hover:hover .show-on-parent-hover {
   opacity: 1;
 }
-.mx-auto{
+
+.mx-auto {
   margin-left: auto;
   margin-right: auto;
 }
-.align-content-start{
+
+.align-content-start {
   align-content: flex-start;
 }
