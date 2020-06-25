@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 import { connect } from 'react-redux';
+
+import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { notification, openNewWindow } from 'libs';
-// import { useForm } from 'libs/hooks';
 import ServiceCard from './ServiceCard';
+import { LayoutSwitch } from '../..';
 
-import {
-  LayoutSwitch,
-  servicesList
-} from '../..';
-
-const {
-  FlexBox,
-  Badge,
-  Button,
-  InputRow
-} = common;
+const { FlexBox, Button, InputRow } = common;
 const { TextField } = InputRow;
 
 const LoadingIcon = () => (
@@ -32,7 +22,6 @@ const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) =>
         <FlexBox center='h-center' className='full-width margin-top-20'>
           <Button onClick={() => openNewWindow(auth_url)} className='primary-color'>
             Connect with
-            {' '}
             {name}
           </Button>
         </FlexBox>
@@ -43,7 +32,7 @@ const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) =>
   </FlexBox>
 );
 
-const ConnectClient = ({ name, onChange, onSubmit, ...props }) => (
+const ConnectClient = ({ onChange, onSubmit, ...props }) => (
   <FlexBox column center='v-left' flex>
     <Statement
       label='Client Id'
@@ -68,7 +57,6 @@ const ConnectClient = ({ name, onChange, onSubmit, ...props }) => (
       flex
       spaceBetween
       className='full-width'
-    // flex
     />
 
     <FlexBox flexEnd className='full-width'>
@@ -80,7 +68,7 @@ const ConnectClient = ({ name, onChange, onSubmit, ...props }) => (
 );
 
 
-const ConnectApiKey = ({ name, onChange, onSubmit, ...props }) => (
+const ConnectApiKey = ({ onChange, onSubmit, ...props }) => (
   <FlexBox column>
     <Statement
       label='API KEY'
@@ -88,7 +76,6 @@ const ConnectApiKey = ({ name, onChange, onSubmit, ...props }) => (
         <TextField
           name='apiKey'
           onChange={onChange}
-        // value={values.apiKey}
         />
       )}
     />
@@ -185,7 +172,6 @@ const ServiceConnect = ({ data = {}, ...props }) => {
       setOnprogress(false);
       setSupported(true);
     }
-    //eslint-disable-next-line
   }, [data]);
 
   const onConnect = ({
@@ -216,15 +202,11 @@ const ServiceConnect = ({ data = {}, ...props }) => {
               onConnect={onConnect(service)}
               onModalToggle={props.onModalToggle}
             />
-          ) : (
-            <FlexBox flex column center='v-center h-center'>
-              {onprogress ? (
-                <LoadingIcon />
-              ) : (
-                <span className='error-text'>{error}</span>
-              )}
-            </FlexBox>
-          )}
+          ) : (<FlexBox flex column center='v-center h-center'>
+            {onprogress ? (
+              <LoadingIcon />
+            ) : (<span className='error-text'>{error}</span>)}
+          </FlexBox>)}
         </FlexBox>
         <FlexBox>
           <ServiceCard {...service} disabled />
@@ -233,7 +215,5 @@ const ServiceConnect = ({ data = {}, ...props }) => {
     </FlexBox>
   );
 };
-
-ServiceConnect.propTypes = {};
 
 export default connect(null, integrationsActions)(ServiceConnect);

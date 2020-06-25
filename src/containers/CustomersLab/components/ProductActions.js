@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import * as customersActions from 'actions/customers';
+
 import common from '../../../components/common';
 
-
-const {  Button } = common;
+const { Button } = common;
 
 const Action = ({ label, onRefund, ...props }) => (
     <Button
@@ -22,8 +20,8 @@ const getInitActions = ({ payment, offer, productName }) => {
         paymentType,
         paymentRefunded,
         subscriptionRefunded,
-        subscriptionCanceled,
-    } = payment
+        subscriptionCanceled
+    } = payment;
     const action = {
         id: 1,
         label: paymentType === 'Onetime'
@@ -31,7 +29,7 @@ const getInitActions = ({ payment, offer, productName }) => {
             : subscriptionRefunded ? `Subscription Canceled(${productName})` : `Refund Subscription(${productName})`,
         target: 'product',
         disabled: paymentType === 'Onetime' ? paymentRefunded : subscriptionRefunded
-    }
+    };
     const actions = [action];
 
     // for Split and Subscription types
@@ -41,24 +39,22 @@ const getInitActions = ({ payment, offer, productName }) => {
             label: `Cancel Subscription (${productName})`,
             cancel: true,
             disabled: subscriptionCanceled
-        })
+        });
     }
     if (offer.price) {
-        const {
-            offerPaymentRefunded,
-        } = payment
+        const { offerPaymentRefunded } = payment;
 
         const offerAction = {
             id: 3,
             label: offerPaymentRefunded ? `Offer(${offer.name}) Refunded` : `Refund Offer(${offer.name})`,
             target: 'offer',
             disabled: offerPaymentRefunded
-        }
-        actions.push(offerAction)
+        };
+        actions.push(offerAction);
     }
 
-    return actions 
-}
+    return actions;
+};
 
 
 const ProductActions = ({
@@ -70,23 +66,23 @@ const ProductActions = ({
     ...props
 }) => {
 
-    const initActions = getInitActions({ payment, offer, productName })
+    const initActions = getInitActions({ payment, offer, productName });
 
-    const [loading, setLoading] = useState({})
-    const [actions, setActions] = useState(initActions)
+    const [loading, setLoading] = useState({});
+    const [actions, setActions] = useState(initActions);
 
     useEffect(() => {
-        const actions = getInitActions({ payment, offer , productName})
-        setActions(actions)
+        const actions = getInitActions({ payment, offer, productName });
+        setActions(actions);
 
         return () => {
-            setActions([])
-            setLoading({})
+            setActions([]);
+            setLoading({});
         };
-    }, [payment, offer])
+    }, [payment, offer]);
 
     const onRefund = ({ cancel, target, id }) => () => {
-        setLoading(loading => ({ ...loading, [id]: true }));
+        setLoading((loading) => ({ ...loading, [id]: true }));
         props.onRefund({
             orderId,
             productId,
@@ -94,24 +90,24 @@ const ProductActions = ({
             cancel
         }, {
             onSuccess: () => {
-                setLoading(loading => ({ ...loading, [id]: false }));
-                actionRefunded(id)
+                setLoading((loading) => ({ ...loading, [id]: false }));
+                actionRefunded(id);
             },
             onFailed: () => {
-                setLoading(loading => ({ ...loading, [id]: false }));
+                setLoading((loading) => ({ ...loading, [id]: false }));
             }
-        })
-    }
+        });
+    };
 
     const actionRefunded = (id) => {
-        setActions(actions => {
-            return actions.map(action => {
+        setActions((actions) => {
+            return actions.map((action) => {
                 if (action.id === id)
-                    action.disabled = true
-                return action
-            })
-        })
-    }
+                    action.disabled = true;
+                return action;
+            });
+        });
+    };
 
     return (
         <div className='order-product-action'>
@@ -122,11 +118,7 @@ const ProductActions = ({
     );
 };
 
-ProductActions.propTypes = {
-    payment: PropTypes.objectOf
-};
-ProductActions.defaultProps = {
-    payment: {}
-}
+ProductActions.propTypes = { payment: PropTypes.objectOf };
+ProductActions.defaultProps = { payment: {} };
 
 export default ProductActions;

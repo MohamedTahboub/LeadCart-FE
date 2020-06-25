@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const VerificationPage = (props) => (
   <div className='account-verify-page'>
@@ -13,9 +12,5 @@ const VerificationPage = (props) => (
     </div>
   </div>
 );
-
-VerificationPage.propTypes = {
-
-};
 
 export default VerificationPage;

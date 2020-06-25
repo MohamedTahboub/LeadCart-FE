@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import common from 'components/common';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import ids from 'shortid';
 
+import common from 'components/common';
 import './style.css';
-const { InputRow } = common;
 
+const { InputRow } = common;
 const supportedPlatforms = ['facebook', 'twitter', 'instagram', 'linkedin'];
 
 const LinkRow = ({ link: { name, link } = {}, id, ...props }) => {
@@ -54,8 +54,6 @@ const NewLink = ({ remainsPlatforms = [{}], onAdd }) => {
       name: socialPlatform,
       link: socialLink
     });
-
-    // setSocialLink({});
   };
   useEffect(() => {
     if (socialPlatform !== remainsPlatforms[0].value) setSocialPlatform(remainsPlatforms[0].value);

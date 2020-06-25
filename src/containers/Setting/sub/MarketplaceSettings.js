@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -9,8 +9,8 @@ import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
-
 const { InputRow, MainBlock, FlexBox } = common;
+const { Label, TextField, AddImage } = InputRow;
 
 const MarketplaceSettings = ({
   marketPlace,
@@ -72,36 +72,37 @@ const MarketplaceSettings = ({
     <FlexBox column className='marketplace-settings-bg'>
       <MainBlock title='Marketplace Page Settings' containerClasses='transparent-white-bg'>
         <InputRow>
-          <InputRow.Label error={errors.name}>Displayed Company Name:</InputRow.Label>
-          <InputRow.TextField
+          <Label error={errors.name}>Displayed Company Name:</Label>
+          <TextField
             error={errors.layout && errors.layout.name}
             name='layout.name'
             value={fields.layout.name}
             onChange={onChange}
           />
         </InputRow>
+
         <InputRow margin='40'>
-          <InputRow.Label
+          <Label
             error={errors.layout && errors.layout.coverImage}
             notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
           >
-          Background Image:
+            Background Image:
+          </Label>
 
-          </InputRow.Label>
-          <InputRow.AddImage
+          <AddImage
             value={fields.layout.coverImage}
             subLabel='Logo'
             source='company_layout_coverImage'
             name='layout.coverImage'
             onUploaded={(image) => updateFields('layout.coverImage', image)}
           >
-          Image
-
-          </InputRow.AddImage>
+            Image
+          </AddImage>
         </InputRow>
+
         <InputRow>
-          <InputRow.Label error={errors.support}>Contact Link:</InputRow.Label>
-          <InputRow.TextField
+          <Label error={errors.support}>Contact Link:</Label>
+          <TextField
             name='supportEmail'
             notes='This will be shown in the marketplace navbar'
             placeholder='e.g. example.com/contact'

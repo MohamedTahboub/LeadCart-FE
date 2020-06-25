@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import leadcartLogo from 'assets/images/leadcart-white-brand.png';
 import loadingGif from 'assets/images/gifs/circles-menu-1.gif';
-
 import common from 'components/common';
 
 const { FlexBox } = common;
@@ -16,9 +15,5 @@ const ServiceConnectAnimation = ({ image }) => (
     </FlexBox>
   ) : null
 );
-
-ServiceConnectAnimation.propTypes = {
-
-};
 
 export default ServiceConnectAnimation;
