@@ -54,13 +54,11 @@ const SideBar = ({
     event.dataTransfer.setData('shift', JSON.stringify({ shiftX, shiftY, width, height }));
   };
 
-  const onNameChange = ({ target: { name, value } }) => {
-    onChange({ name, value });
-  };
+  const _onChange = ({ target: { name, value } }) => onChange({ name, value });
 
   const onImageChange = (image) => {
     onChange({
-      name: 'marketPlace.cardIamge',
+      name: 'marketPlace.cardImage',
       value: image
     });
   };
@@ -73,7 +71,7 @@ const SideBar = ({
           className='large-text dashed-text aligned-center-text lightgray-border-color'
           name='name'
           defaultValue='Funnel Name'
-          onChange={onNameChange}
+          onChange={_onChange}
           value={funnel.name}
           max={50}
         />
@@ -135,9 +133,9 @@ const SideBar = ({
           <section className='tab__marketPlace__add-img'>
             <AddImage
               onUploaded={onImageChange}
-              name='marketPlace.cardIamge'
+              name='marketPlace.cardImage'
               subLabel='image_funnel'
-              value={marketPlace.cardIamge}
+              value={marketPlace.cardImage}
             >
               Add Image
             </AddImage>
@@ -146,8 +144,9 @@ const SideBar = ({
           <section className='tab__marketPlace__description'>
             Description :
             <textarea
-              value={marketPlace.discription}
-              onChange={onNameChange}
+              name='marketPlace.description'
+              value={marketPlace.description}
+              onChange={_onChange}
               placeholder='Funnel Description'
             />
           </section>
