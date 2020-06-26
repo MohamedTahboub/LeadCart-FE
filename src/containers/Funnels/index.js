@@ -1,17 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-// import * as modalsActions from 'actions/modals';
+
 import * as funnelsActions from 'actions/funnels';
 import * as productsActions from 'actions/products';
 import { notification } from 'libs';
 import config from 'config';
-
-
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-
 import { FunnelCard, PreCreateModal } from './components';
-
 import './style.css';
 
 const { USER_SUB_DOMAIN_URL } = config;
@@ -40,7 +36,6 @@ const Funnels = ({
   const onFunnelEdit = (url) => () => {
     props.history.push(`/funnels/${url}`);
   };
-
 
   const onShowDeleteDialogue = (id) => () => setShowDelete(id);
   const onHideDeleteDialogue = () => setShowDelete('');
@@ -72,12 +67,11 @@ const Funnels = ({
 
   const onPreview = (funnelUrl) => () => {
     const domain = getValidDomain(domains);
-
     let url;
+
     if (domain && domain.domain) url = `https://${domain.domain}/${funnelUrl}`;
     else url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
 
-    // const funnelUrl = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${url}`;
     window.open(url, '_blank');
   };
 
@@ -92,6 +86,7 @@ const Funnels = ({
             new funnel
         </Button>
       </PageHeader>
+
       <PageContent dflex className='align-content-start'>
         {funnels.map((funnel, id) => (
           <FunnelCard
@@ -106,24 +101,20 @@ const Funnels = ({
         }
       </PageContent>
 
-
       <PreCreateModal
         show={showCreateModal}
         history={props.history}
         onClose={onCreateCancel}
       />
 
-
       {!!showDelete && (
         <Modal onClose={onHideDeleteDialogue} isVisible={showDelete}>
           <MainTitle>Are you sure,you want delete this funnel?</MainTitle>
           <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
-            {' '}
-              Cancel
+            Cancel
           </Button>
           <Button onClick={onFunnelDelete} className='danger-bg margin-with-float-right'>
             <i className='fas fa-trash-alt' />
-            {' '}
               Delete
           </Button>
         </Modal>

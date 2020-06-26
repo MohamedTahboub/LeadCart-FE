@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { Card } from '../../common/Cards';
 import sampleProductImage from '../../../assets/images/new-product-icon.png';
 
@@ -11,7 +11,7 @@ const coverImageStyle = {
             ),url(${sampleProductImage})`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
+  backgroundRepeat: 'no-repeat'
 };
 
 
@@ -35,10 +35,10 @@ const Product = (props) => (
     </div>
     <div className='product-content'>
       <div className='title-text'>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique placeat quae exercitationem rerum labore illo, alias ratione? Minima hic corporis laboriosam libero, modi deleniti similique, et ducimus beatae culpa ipsum.
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique placeat quae exercitationem rerum labore illo, alias ratione? Minima hic corporis laboriosam libero, modi deleniti similique, et ducimus beatae culpa ipsum.
       </div>
       <div className='price-text text-center'>
-                22
+        22
       </div>
     </div>
     <div className='footer'>
@@ -51,9 +51,5 @@ const Product = (props) => (
     </div>
   </Card>
 );
-
-Product.propTypes = {
-
-};
 
 export default Product;

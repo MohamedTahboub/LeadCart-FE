@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
 import { Modal } from 'components/Modals';
-
 import common from 'components/common';
-const {
 
-  InputRow,
-  FlexBox,
-  Badge,
-  Table,
-  Button,
-  //   FlexBoxesContainer
-} = common;
-
+const { InputRow, FlexBox, Button } = common;
 const { Label, TextField, SelectOption } = InputRow;
 
-const CreateModal = ({
-  onClose, onCreate, open, ...props
-}) => {
+const CreateModal = ({ onClose, onCreate, ...props }) => {
   const [values, setValues] = useState({ packageType: 'Pro', period: 'Monthly' });
   const [errors, setErrors] = useState({});
 
@@ -70,13 +59,9 @@ const CreateModal = ({
             value={values.packageType}
             onChange={onChange}
             options={[
-              {
-                label: 'Premium', value: 'Premium'
-              },
+              { label: 'Premium', value: 'Premium' },
               { label: 'Pro', value: 'Pro' },
-              {
-                label: 'Basic', value: 'Basic',
-              }
+              { label: 'Basic', value: 'Basic' }
             ]}
             error={errors.packageType}
           />
@@ -89,10 +74,6 @@ const CreateModal = ({
       </FlexBox>
     </Modal>
   );
-};
-
-CreateModal.propTypes = {
-
 };
 
 export default CreateModal;

@@ -1,23 +1,14 @@
 import React, { Fragment, useState } from 'react';
-import CustomInputField from 'components/CustomInputField';
 import { connect } from 'react-redux';
+import * as yup from 'yup';
+import { IoMdSend } from 'react-icons/io';
+
 import * as accountActions from 'actions/account';
 import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
-import * as yup from 'yup';
-import { IoMdSend, IoMdCheckmarkCircle } from 'react-icons/io';
+import common from 'components/common';
 import './styles.css';
 
-
-import common from 'components/common';
-const {
-  FormLogo,
-  Feature,
-  FlexBox,
-  Button,
-  InputRow,
-  InputGroup
-} = common;
-
+const { FlexBox, Button, InputGroup } = common;
 
 const ForgetPassword = (props) => {
   const [error, setError] = useState('');
@@ -66,7 +57,7 @@ const ForgetPassword = (props) => {
         <FlexBox spaceBetween className='form-container padding-bottom-40' wrappable>
           <FlexBox flex spaceBetween className='full-width margin-bottom-30' center='v-center'>
             <span className='login-header-title'>
-            {`${!success ? 'Recover Your Password':'Please check your email.'}`}
+              {`${!success ? 'Recover Your Password' : 'Please check your email.'}`}
             </span>
             <a className='gray-text bold-text not-underlined underlined-text small-text animate' href='/login'>
               Back to sign in
@@ -86,7 +77,6 @@ const ForgetPassword = (props) => {
                   name='email'
                   label='Email'
                   type='email'
-                  // placeholder='Email Address'
                   error={error}
                   onChange={onChange}
                 />

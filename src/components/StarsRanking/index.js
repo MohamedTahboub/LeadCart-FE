@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-
+import React from 'react';
 import './style.css';
 
 const StarsRanking = ({
@@ -31,19 +29,13 @@ const StarsRanking = ({
           <i
             className='fas fa-star'
             onClick={onIncrement}
-            style={{
-              color: (index + 1) <= rank ? color : '#ABB8C3'
-            }}
+            style={{ color: (index + 1) <= rank ? color : '#ABB8C3' }}
             role='presentation'
           />
         ))
       }
     </span>
   );
-};
-
-StarsRanking.propTypes = {
-
 };
 
 export default StarsRanking;

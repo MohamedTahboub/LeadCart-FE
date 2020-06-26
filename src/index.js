@@ -27,8 +27,7 @@ import ErrorBoundary from 'containers/ErrorBoundary';
 // Container
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
-import SignUpSaasmantra from 'containers/SignUpSaasmantra';
-import PromoCodeActivation from 'containers/PromoCodeActivation';
+import PrivateSignUp from 'containers/PrivateSignUp';
 import ForgetPassword from 'containers/ForgetPassword';
 import PasswordRest from 'containers/PasswordRest';
 import Funnels from 'containers/Funnels';
@@ -89,10 +88,9 @@ ReactDOM.render(
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
+            <Route exact path='/private-signup' component={PrivateSignUp} />
             <Route exact path='/password/forgot' component={ForgetPassword} />
             <Route exact path='/password/reset/:hash' component={PasswordRest} />
-            <Route exact path='/promocode' component={PromoCodeActivation} />
-            <Route exact path='/saasmantra' component={SignUpSaasmantra} />
             <Route path='/verify' component={VerifyAccount} />
             <ProtectedRoute exact path='/products/:productId' component={ProductBuilder} />
             <ProtectedRoute exact path='/funnels/:funnelUrl/products/:productId' component={ProductBuilder} />

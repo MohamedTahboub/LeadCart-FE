@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+
 import { notification } from 'libs';
 import common from 'components/common';
-const {
-  //   MainTitle,
-  //   Page,
-  //   PageHeader,
-  //   PageContent,
-  InputRow,
-  FlexBox,
-  //   Tabel,
-  Button
-  //   FlexBoxesContainer
-} = common;
 
+const { InputRow, FlexBox, Button } = common;
 const { Label, TextField } = InputRow;
 
 const AccountDetails = ({ onUpdate, user, ...porps }) => {
@@ -36,13 +26,11 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
         onSuccess: () => {
           notification.success('Your Details Changes Successfully');
           onProgress(false);
-          //   onClose();
         },
         onFailed: (message) => {
           onProgress(false);
           setErrors({ message });
           notification.failed(message);
-          //   onClose();
         }
       }
     );
@@ -108,7 +96,5 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
   );
 };
 
-AccountDetails.propTypes = {};
 AccountDetails.default = { user: {} };
-
 export default AccountDetails;

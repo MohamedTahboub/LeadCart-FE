@@ -8,6 +8,7 @@ import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
 import queryString from 'querystring';
+import * as immutable from 'object-path-immutable';
 import {
   isObjectsEquivalent,
   mapListToObject,
@@ -63,7 +64,9 @@ const FunnelBuilder = ({
   };
 
   const onChange = ({ name, value }) => {
-    setFields({ ...fields, [name]: value });
+    const newFields = immutable.set(fields, name, value);
+    setFields(newFields);
+
     setErrors({ ...errors, [name]: '' });
     changesDetected();
   };
