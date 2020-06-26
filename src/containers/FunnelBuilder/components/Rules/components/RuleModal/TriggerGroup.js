@@ -4,6 +4,7 @@ import common from 'components/common';
 import ReactToolTip from 'react-tooltip';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
+import { MdDelete } from 'react-icons/md';
 
 const {
   FlexBox,
@@ -28,6 +29,7 @@ const Label = ({ children, ...props }) => (
 
 const TriggerGroup = ({
   onEdit,
+  onDelete,
   className,
   products,
   action
@@ -35,6 +37,7 @@ const TriggerGroup = ({
   <FlexBox
     center='v-center'
     className={`margin-v-5 ${className} parent-hover relative-element`}
+    wrappable
   >
     <Label>The products:</Label>
     {products.map((product, index) => (
@@ -44,7 +47,7 @@ const TriggerGroup = ({
           data-tip
           key={product._id}
           data-for={`rule-product-demo-${product._id}`}
-          className='margin-h-5'
+          className='margin-h-5 my-1'
         >
           {product.name}
         </Badge>
@@ -70,7 +73,18 @@ const TriggerGroup = ({
       <FaLongArrowAltRight />
       <GroupAction {...action} />
     </FlexBox>
-    <FiEdit onClick={onEdit} className='show-on-parent-hover trigger-group-edit-btn'/>
+    {onEdit && (
+      <FiEdit
+        onClick={onEdit}
+        className='show-on-parent-hover trigger-group-edit-btn'
+      />
+    )}
+    {onDelete && (
+      <MdDelete
+        onClick={onDelete}
+        className='show-on-parent-hover trigger-group-delete-btn warning-color'
+      />
+    )}
   </FlexBox>
 );
 

@@ -36,6 +36,7 @@ const Rules = ({
     });
   };
   const onRuleEdit = (rule) => () => {
+    console.log({ rule });
     setActiveRule(rule);
     onToggleRuleModal();
   };
@@ -58,10 +59,10 @@ const Rules = ({
       {rules.map((rule) => (
         <RuleCard
           key={rule.trigger}
-          {...rule}
           productsMap={productsMap}
           onEdit={onRuleEdit(rule)}
           onDelete={onRuleDelete(rule)}
+          {...rule}
         />
       ))}
       <FlexBox className={rules.length ? 'line-up-10' : ''}>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -19,7 +19,8 @@ const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
   if (actionsMap[integrationKey]) {
     return actionsMap[integrationKey].actions.map((action) => ({
       label: action.label,
-      value: action.name || action.value
+      value: action.name || action.value,
+      requirement: action.requirement
     }));
   }
   return [];
@@ -71,26 +72,30 @@ const TriggerActionMaker = ({
 
   const _onUpdate = () => isFunction(onUpdate) && onUpdate(group);
 
-  const onProductsChanged = (products) => {
+  const onProductsChanged = (products = []) => {
+    console.log({ products });
     setGroup({
       ...group,
-      products: products.map((p) => p.value)
+      products: products === null ? [] : products.map((p) => p.value)
     });
     setError();
   };
 
   const onIntegrationSelected = ({ value }) => {
+    console.log({ action_integrationKey: value });
     setGroup({
       ...group,
       action: { integrationKey: value }
     });
   };
-  const onIntegrationActionSelected = ({ value }) => {
+  const onIntegrationActionSelected = ({ value, requirement }) => {
+    console.log({ action_type: value });
     setGroup({
       ...group,
       action: {
         ...group.action,
-        type: value
+        type: value,
+        requirement
       }
     });
     setError();
@@ -112,24 +117,12 @@ const TriggerActionMaker = ({
     return () => setExpand(false);
   }, [isEdit]);
 
-  const getFormValuesOnceUpdated = useCallback(() => {
-    const actionsOptions = getActionsOptions(group, actionsMap);
-    return {
-      actionsOptions,
-      selectedProducts: products.filter(({ value }) => Array.isArray(group.products) && group.products.includes(value)),
-      selectedIntegration: integrationsLabels.find(({ value }) => group.action && group.action.integrationKey === value),
-      selectedActionOption: actionsOptions.find(({ value }) => group.action && group.action.type === value),
-      actionIntegrationId: group.action && actionsMap[group.action.integrationKey].integrationId
-    };
-  }, [group]);
 
-  const {
-    actionsOptions,
-    selectedProducts,
-    selectedIntegration,
-    selectedActionOption,
-    actionIntegrationId
-  } = getFormValuesOnceUpdated(group);
+  const actionsOptions = getActionsOptions(group, actionsMap);
+  const selectedProducts = products.filter(({ value }) => Array.isArray(group.products) && group.products.includes(value));
+  const selectedIntegration = integrationsLabels.find(({ value }) => group.action && group.action.integrationKey === value);
+  const selectedActionOption = actionsOptions.find(({ value }) => group.action && group.action.type === value);
+  const actionIntegrationId = group.action && actionsMap[group.action.integrationKey].integrationId;
 
   return expand ? (
     <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges my-1'>

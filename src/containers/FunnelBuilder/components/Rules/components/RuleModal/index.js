@@ -49,6 +49,10 @@ const RuleModal = ({
     setEitGroupMode();
   };
 
+  const onDeleteTriggerGroup = (id) => () => {
+    const newTriggerGroups = fields.triggerGroups.filter((group) => group._id !== id);
+    setFields({ ...fields, triggerGroups: newTriggerGroups });
+  };
 
   const onTriggerGroupAdded = (group) => {
     setFields({
@@ -67,14 +71,14 @@ const RuleModal = ({
 
   const onSubmit = () => {
     setSaving(true);
-
+    console.log({ fields });
     if (isNew) {
       props.createFunnelRule({
         rule: {
           ...fields,
-          rule: fields.rule.triggerGroups = fields.rule.triggerGroups.map(({ actions, products }) => ({
+          triggerGroups: fields.triggerGroups.map(({ action: { requirement, ...action }, products }) => ({
             products,
-            actions
+            action
           }))
         },
         funnel: funnelId
@@ -92,9 +96,9 @@ const RuleModal = ({
     } else {
       const { _id: ruleId, ...rule } = fields;
       if (Array.isArray(rule.triggerGroups)) {
-        rule.triggerGroups = rule.triggerGroups.map(({ actions, products }) => ({
+        rule.triggerGroups = rule.triggerGroups.map(({ action: { requirement, ...action }, products }) => ({
           products,
-          actions
+          action
         }));
       }
       props.updateFunnelRule({
@@ -165,6 +169,7 @@ const RuleModal = ({
               <TriggerGroup
                 className='white-bg soft-edges margin-v-5 padding-v-10 padding-h-5'
                 onEdit={onTriggerGroupEdit(group)}
+                onDelete={onDeleteTriggerGroup(group._id)}
                 key={group._id}
                 {...group}
                 products={getIntersectedProducts(productsMap, group.products)}
@@ -195,7 +200,7 @@ const RuleModal = ({
 
 RuleModal.propTypes = {
   isNew: PropTypes.bool,
-  ruleData: funnelTypes.ruleProps,
+  ruleData: funnelTypes.rule,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   funnelId: PropTypes.string.isRequired,

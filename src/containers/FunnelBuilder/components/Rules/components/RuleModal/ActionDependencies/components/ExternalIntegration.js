@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 import * as IntegrationsActions from 'actions/integrations';
 import { connect } from 'react-redux';
-import { notification } from 'antd';
 import Select from 'react-select';
+import { Label } from 'semantic-ui-react';
 
 const { FlexBox, Spinner } = common;
 
-const ExternalIntegration = ({ type, integrationId, onChange, ...props }) => {
+const ExternalIntegration = ({ integrationId, metaData = {}, onChange, requirement, ...props }) => {
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(false);
 
   const postActions = {
     onSuccess: (data) => {
 
-      if (Array.isArray(data)) {
-        const options = data.map(({ listId: value, listName: label }) => ({ value, label }));
-        setState({ type: 'select', options });
-      }
+      setState({
+        ...data,
+        options: Array.isArray(data.options) ? data.options.map(({ name: label, value }) => ({ label, value })) : []
+      });
       setLoading(false);
     },
     onFailed: (arg) => {
@@ -27,34 +27,45 @@ const ExternalIntegration = ({ type, integrationId, onChange, ...props }) => {
     }
   };
 
-  useEffect(() => {
+  const getTheDependencies = () => {
     const details = {
       integration: integrationId,
-      name: type
+      requirement
     };
-    if (integrationId && type) {
+    if (integrationId && requirement) {
       setLoading(true);
       props.getIntegrationActionRequirement(details, postActions);
     }
-  }, [integrationId, type]);
+  };
+
+  useEffect(getTheDependencies, [integrationId, requirement]);
 
   const _onChange = ({ value }) => onChange({
     target: {
       value,
-      name: 'action.metaData.listId'
+      name: `action.metaData.${state.name}`
     }
   });
 
   return (
     <FlexBox column flex>
-      <FlexBox center='h-center'>
-        <Spinner show={loading} size='large' color='gray' className='mt-3 mb-4' />
-      </FlexBox>
+      {loading ? (
+        <FlexBox center='h-center'>
+          <Spinner show={loading} size='large' color='gray' className='mt-3 mb-4' />
+        </FlexBox>
+      ) : (
+        <FlexBox flexStart flex>
+          <span className='large-text gray-text bold-text capitalized-text ml-2'>
+            {requirement}
+          </span>
+        </FlexBox>
+      )}
       {state.type && (
         <Select
           className='flex-item margin-h-10 min-width-400'
-          defaultValue='IntegrationsService'
+          // defaultValue='IntegrationsService'
           options={state.options || []}
+          defaultValue={metaData[state.name]}
           onChange={_onChange}
         />
       )}
