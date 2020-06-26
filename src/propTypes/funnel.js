@@ -6,6 +6,7 @@ const triggers = rulesEvents.map(({ value }) => value);
 
 const triggerGroup = PropTypes.shape({});
 const rule = PropTypes.shape({
+  _id: PropTypes.string,
   trigger: PropTypes.oneOf(triggers).isRequired,
   triggerGroups: PropTypes.arrayOf(triggerGroup)
 });
