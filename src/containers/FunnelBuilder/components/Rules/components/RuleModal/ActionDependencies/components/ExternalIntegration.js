@@ -21,8 +21,7 @@ const ExternalIntegration = ({ integrationId, metaData = {}, onChange, requireme
       });
       setLoading(false);
     },
-    onFailed: (arg) => {
-      console.log(arg);
+    onFailed: () => {
       setLoading(false);
     }
   };

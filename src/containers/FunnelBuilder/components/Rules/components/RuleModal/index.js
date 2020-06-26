@@ -62,7 +62,6 @@ const RuleModal = ({
   };
 
   const onTriggerChange = ({ value: trigger }) => {
-    console.log();
     setFields({
       ...fields,
       trigger
@@ -71,7 +70,6 @@ const RuleModal = ({
 
   const onSubmit = () => {
     setSaving(true);
-    console.log({ fields });
     if (isNew) {
       props.createFunnelRule({
         rule: {

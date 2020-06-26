@@ -13,7 +13,6 @@ const { LayoutSwitch } = common;
 const ActionDependencies = (props) => {
   const { integrationKey, type, metaData, onChange } = props;
 
-  console.log({ props });
   if (integrationKey !== 'leadcart_fulfillment')
     return <ExternalIntegration {...props} />;
 

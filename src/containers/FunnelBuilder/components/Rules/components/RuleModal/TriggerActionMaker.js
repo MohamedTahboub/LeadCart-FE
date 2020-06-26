@@ -73,7 +73,6 @@ const TriggerActionMaker = ({
   const _onUpdate = () => isFunction(onUpdate) && onUpdate(group);
 
   const onProductsChanged = (products = []) => {
-    console.log({ products });
     setGroup({
       ...group,
       products: products === null ? [] : products.map((p) => p.value)
@@ -82,14 +81,12 @@ const TriggerActionMaker = ({
   };
 
   const onIntegrationSelected = ({ value }) => {
-    console.log({ action_integrationKey: value });
     setGroup({
       ...group,
       action: { integrationKey: value }
     });
   };
   const onIntegrationActionSelected = ({ value, requirement }) => {
-    console.log({ action_type: value });
     setGroup({
       ...group,
       action: {

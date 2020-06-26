@@ -36,7 +36,6 @@ const Rules = ({
     });
   };
   const onRuleEdit = (rule) => () => {
-    console.log({ rule });
     setActiveRule(rule);
     onToggleRuleModal();
   };
