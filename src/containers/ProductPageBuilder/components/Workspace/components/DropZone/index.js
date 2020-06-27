@@ -15,6 +15,7 @@ const {
 export default ({
   children,
   onDrop,
+  onDragOver,
   ...props
 }) => {
   const [collectedProps, drop] = useDrop({
@@ -31,7 +32,7 @@ export default ({
   return (
     <div
       className={className}
-      // onDragOver={onDragOver}
+      onDragOver={onDragOver}
       // onDrop={onDrop}
       ref={drop}
     >

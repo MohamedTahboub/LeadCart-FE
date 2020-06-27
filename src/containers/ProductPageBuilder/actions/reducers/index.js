@@ -5,7 +5,8 @@ import * as types from '../actionsTypes';
 const initialState = {
   modals: { sectionSetting: false },
   product: sampleProductData,
-  standAlone: true
+  standAlone: true,
+  dndEnabled: true
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -88,6 +89,10 @@ export default (state = initialState, { type, payload }) => {
         sections: state.product.sections.filter((sec) => sec.id !== payload)
       }
     };
+  case types.DISABLE_DND:
+    return { ...state, dndEnabled: false };
+  case types.ENABLE_DND:
+    return { ...state, dndEnabled: true };
   default: return state;
   }
 };

@@ -1,30 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clx from 'classnames';
+import SectionContent from './SectionContent';
+import sectionTemplates from 'data/productSectionsTemplates';
 
 const DropBeforeLine = ({
   className,
-  show
+  show,
+  item
 }) => {
   const classes = clx({
     [className]: className,
     'drop-before-line': true,
     show
   });
+  let section = {};
+  if (item) {
+    if (item.section.type === 'layout') section = { type: 'layout', section: sectionTemplates[item.section.type] };
+    else section = sectionTemplates[item.section.type];
+  } else {
+    section = { section: { content: {} } };
+  }
+  section.shallow = true;
   return (
     <div className={classes}>
-      Drop Here
+      <SectionContent {...section}/>
     </div>
   );
 };
 
 DropBeforeLine.propTypes = {
   className: PropTypes.string,
-  show: PropTypes.bool,
+  show: PropTypes.bool
 };
 DropBeforeLine.defaultProps = {
   className: '',
-  show: false,
+  show: false
 };
 
 export default DropBeforeLine;

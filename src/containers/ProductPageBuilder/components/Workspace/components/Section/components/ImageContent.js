@@ -12,7 +12,6 @@ const ImageContent = ({
   parentSectionId
 }) => {
   const inputRef = useRef(null);
-  console.log({ parentSectionId });
   const { actions } = useContext();
   const { styles = {}, content = {} } = section;
   const classNames = clx({

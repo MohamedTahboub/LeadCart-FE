@@ -454,3 +454,45 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
   margin: 1.5rem 0;
 }
 .overflow-hidden {overflow: hidden;}
+
+/* React split styles */
+.gutter {
+  background-color: #FCFCFC;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transition: background-color .3s;
+}
+.gutter:hover {
+  background-color: #EEE;
+  transition: background-color .3s;
+}
+
+.gutter.gutter-horizontal {
+  cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+  cursor: row-resize;
+}
+.gutter.gutter-vertical {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+}
+.split {
+  box-sizing: border-box;
+}
+.split,
+.gutter.gutter-horizontal {
+  float: left;
+}
+.split,
+.gutter.gutter-horizontal {
+  height: 100%;
+}
+.split {
+    overflow-y: auto;
+    overflow-x: hidden;
+}

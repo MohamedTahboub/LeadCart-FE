@@ -105,14 +105,12 @@ export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) 
   }, 100);
 };
 
-
 export const updateDisplayMode = ({ dispatch }) => (mode) => {
   dispatch({
     type: types.UPDATE_DISPLAY_MODE,
     payload: mode
   });
 };
-
 
 export const onSectionSettingChange = ({ dispatch }) => ({ section, field: { name, value } = {} }) => {
   const sectionUpdated = immutable.set(section, name, value);
@@ -122,10 +120,17 @@ export const onSectionSettingChange = ({ dispatch }) => ({ section, field: { nam
   });
 };
 
-
 export const updateProductSection = ({ dispatch }) => (section) => {
   dispatch({
     type: types.UPDATE_PRODUCT_SECTION,
     payload: section
   });
+};
+
+export const disableDnd = ({ dispatch }) => () => {
+  dispatch({ type: types.DISABLE_DND });
+};
+
+export const enableDnd = ({ dispatch }) => () => {
+  dispatch({ type: types.ENABLE_DND });
 };

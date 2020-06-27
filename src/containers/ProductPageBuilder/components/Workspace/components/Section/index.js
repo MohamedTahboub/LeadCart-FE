@@ -37,13 +37,14 @@ const Section = ({
   index,
   ...props
 }) => {
-  const { actions } = useContext();
-
+  const { actions, state: { dndEnabled = true } } = useContext();
+  const [hoveredItem, setHoveredItem] = useState(null);
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: dropTypes.SECTION, section, originalIndex },
-    collect: (monitor) => ({ isDragging: monitor.isDragging() })
+    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
+    canDrag: () => dndEnabled
   });
 
   const onDrop = (item, monitor) => {
@@ -83,11 +84,13 @@ const Section = ({
   const [{ isOver }, drop] = useDrop({
     accept: [dropTypes.SECTION, dropTypes.NESTED_SECTION],
     collect: (monitor) => ({ isOver: monitor.isOver() }),
+    hover: (item) => setHoveredItem(item),
     drop: onDrop
   });
 
 
   const classes = clx({
+    'layout-product-section': type === 'layout',
     'product-section': true,
     'isDragging': isDragging,
     'active': activeSection.id === id,
@@ -104,7 +107,7 @@ const Section = ({
       ref={(node) => drop(drag(node))}
       id={id}
     >
-      <DropBeforeLine show={isOver} />
+      <DropBeforeLine show={isOver} item={hoveredItem}/>
       <div
         className={classes}
         style={style}

@@ -39,7 +39,7 @@ const CodeEditor = ({
       className='code-editor'
       value={value}
       onValueChange={onValueChange}
-      highlight={(code) => highlight(code, languages.jsx)}
+      highlight={(code) => code && highlight(code, languages.jsx)}
       padding={10}
       draggable={false}
       style={styes}

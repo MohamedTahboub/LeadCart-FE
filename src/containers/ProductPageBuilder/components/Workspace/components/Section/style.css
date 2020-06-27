@@ -6,6 +6,9 @@
     /* overflow: hidden; */
     /* transform: translateY(0); */
 }
+.layout-product-section {
+  padding: 15px;
+}
 .product-section:hover,
 .drop-before-line{
     border: 1.5px dashed lightgray;
@@ -60,6 +63,7 @@
 
 
 .drop-before-line{
+  display: none;
     opacity: 0;
     /* background: #4DA1FF; */
     border-radius: 5px;
@@ -74,9 +78,10 @@
     font-size: 20px;
     animation: scaleCycle .5s ease-in-out infinite;
     opacity: 1;
-    height: 40px;
+    height: auto;
     margin: 15px 0;
     border-width: 2.5px;
+    opacity: .6;
 }
 
 .layout-section .progress-bar {
@@ -84,7 +89,7 @@
   height: fit-content;
 }
 /* Image Section Styles */
-.layout-section .image-section, .layout-section .countdown-timer, .layout-section .figure-section, .layout-section .testimonial-section {
+.layout-section .image-section, .layout-section .figure-section, .layout-section .testimonial-section {
   flex-direction: column;
 }
 .image-section{
@@ -98,29 +103,23 @@
 
 /* Layout Section Styles */
 .layout-section{
-    min-height: 120px;
-    width: 100%;
-    display: flex;
-    overflow: hidden;
+  height: 100%;
+  min-height: 120px;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
 }
 
 .layout-section .item {
-    flex: 1;
     border: .8px solid transparent;
     border-radius: 3px;
     margin: 3px;
 }
 
 .layout-section .item:hover, .active .layout-section .item {
-    flex: 1;
     border: .8px solid lightgray;
     border-radius: 3px;
     margin: 3px;
-}
-
-.layout-section .product-section-settings-handle {
-  top: 6px;
-  right: 0;
 }
 
 .video-section{
@@ -128,10 +127,6 @@
     display: flex;
     justify-content: center;
 }
-
-
-
-
 
 *:hover > .spacer-resize-btn{
     opacity: 1;
