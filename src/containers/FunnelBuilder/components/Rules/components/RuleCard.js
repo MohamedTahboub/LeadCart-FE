@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import common from 'components/common';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
@@ -21,8 +21,8 @@ const RuleCard = ({
   trigger,
   triggerGroups,
   onDelete,
-  onEdit,
-  ...props
+  onEdit
+  // ...props
 }) => (
   <Card className='width-percent-60 padding-h-20 padding-v-20 margin-v-10 relative-element'>
     <FlexBox column>

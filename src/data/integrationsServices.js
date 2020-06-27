@@ -77,6 +77,26 @@ const services = [
     supported: true
   },
   {
+    key: 'lc_moosend',
+    name: 'MooSend',
+    brandLogo: brandsLogos.mooSend,
+    category: 'Auto Responders',
+    description: 'Email marketing & marketing automation platform, with newsletter templates, list segmentation.',
+    active: false,
+    connected: false,
+    supported: true
+  },
+  {
+    key: 'lc_hubspot',
+    name: 'HubSpot',
+    brandLogo: brandsLogos.hubspot,
+    category: 'Auto Responders',
+    description: 'Full stack of software for marketing, sales, and customer service, with a completely free CRM at its core.',
+    active: false,
+    connected: false,
+    supported: true
+  },
+  {
     key: 'lc_mailchimp',
     name: 'MailChimp',
     brandLogo: brandsLogos.mailChimp,
@@ -142,16 +162,6 @@ const services = [
     brandLogo: brandsLogos.infusionSoft,
     category: 'Auto Responders',
     description: 'Email marketing platform that provides automation, marketing & sales tools',
-    active: false,
-    connected: false,
-    supported: true
-  },
-  {
-    key: 'lc_moosend',
-    name: 'MooSend',
-    brandLogo: brandsLogos.mooSend,
-    category: 'Auto Responders',
-    description: 'Email marketing & marketing automation platform, with newsletter templates, list segmentation.',
     active: false,
     connected: false,
     supported: true
