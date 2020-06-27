@@ -1,24 +1,20 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
+import { Tag } from 'antd';
+
 import * as accountActions from 'actions/account';
-import { Anchor, Tag, Tooltip } from 'antd';
 import { Modal } from 'components/Modals';
-import Onboarding from 'components/Onboarding';
 import Avatar from 'components/common/Avatar';
 import { SubscriptionPackageMinimal } from 'components/SubscriptionPackageMinimal';
 
-const { Link } = Anchor;
 
 const UserAvatarPreview = ({
   user,
   updateUserProfileImage,
-  onSettingClick,
   history,
   brands,
   ...rest
 }) => {
-  const [isOnboardingModalOpen, setOnboardingModalOpen] = useState(false);
-  const toggleOnboardingModalOpen = () => setOnboardingModalOpen(!isOnboardingModalOpen);
   const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
   const {

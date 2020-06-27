@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+
 import * as fileUploadingActions from 'actions/files';
-// import { DeleteButton } from '../Buttons';
-// import { BlankLink } from '../Links';
 
 const AddImage = ({
   color = 'primary-color',
@@ -15,7 +14,6 @@ const AddImage = ({
   inputRef,
   children,
   notes,
-  description,
   ...props
 }) => {
   const [image, setImage] = useState(value);
@@ -61,7 +59,7 @@ const AddImage = ({
       <input
         onChange={onImageUpload}
         style={{ display: 'none' }}
-        ref={(ref) => {imageFieldRef = ref;}}
+        ref={(ref) => { imageFieldRef = ref; }}
         type='file'
         name='myImage'
         accept='image/x-png,image/gif,image/jpeg'
@@ -73,7 +71,5 @@ const AddImage = ({
     </div>
   );
 };
-const mapStateToProps = ({ files }) => ({
-  files
-});
+const mapStateToProps = ({ files }) => ({ files });
 export default connect(mapStateToProps, fileUploadingActions)(AddImage);

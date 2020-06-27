@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+
 import * as accountActions from 'actions/account';
 import './style.css';
 
-// const verifyingPath = '/api/users/verify';
 
 const Verify = ({ isLoggedIn, history, ...props }) => {
   const pathname = history.location.pathname.split('/');
   const hash = pathname[2];
-
 
   const [verified, setVerified] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -19,9 +18,7 @@ const Verify = ({ isLoggedIn, history, ...props }) => {
 
     setProcessing(true);
     props.verifyUserAccount(
-      {
-        hash
-      },
+      { hash },
       {
         onSuccess: () => {
           setVerified(true);
@@ -63,7 +60,5 @@ const Verify = ({ isLoggedIn, history, ...props }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.isLoggedIn
-});
+const mapStateToProps = (state) => ({ isLoggedIn: state.user.isLoggedIn });
 export default connect(mapStateToProps, accountActions)(Verify);

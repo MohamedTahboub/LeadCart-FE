@@ -20,6 +20,7 @@ export { default as ontraport } from 'assets/images/brands/ontraport-logo.png';
 export { default as convertkit } from 'assets/images/brands/convertkit-long.svg';
 export { default as infusionSoft } from 'assets/images/brands/infusionSoft-logo.png';
 export { default as mooSend } from 'assets/images/brands/moosend_logo.svg';
+export { default as hubspot } from 'assets/images/brands/hubspot_logo.png';
 
 
 // Membership Platforms

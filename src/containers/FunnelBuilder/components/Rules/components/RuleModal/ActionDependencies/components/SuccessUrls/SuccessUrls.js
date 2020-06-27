@@ -5,16 +5,15 @@ import SuccessLinks from 'components/SuccessUrls';
 
 const { FlexBox } = common;
 const SuccessUrls = ({ successUrls, onChange }) => {
-  return null;
-  // return (
-  //   <FlexBox column>
-  //     <SuccessLinks
-  //       name='action.metaData.successUrls'
-  //       list={successUrls}
-  //       onChange={onChange}
-  //     />
-  //   </FlexBox>
-  // );
+  return (
+    <FlexBox column>
+      <SuccessLinks
+        name='action.metaData.successUrls'
+        list={successUrls}
+        onChange={onChange}
+      />
+    </FlexBox>
+  );
 };
 
 SuccessUrls.propTypes = {};

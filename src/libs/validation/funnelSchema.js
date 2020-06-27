@@ -38,7 +38,13 @@ const funnelSchema = yup.object({
   products: yup.array().of(ProductsSchema).default([]),
   thankyouPage: yup.string().nullable(),
   productsUpdates: yup.object({}),
-  url: yup.string()
+  url: yup.string(),
+  marketPlace: yup.object({
+    publish: yup.boolean().default(true),
+    cardImage: yup.string(),
+    description: yup.string(),
+    featured: yup.boolean().default(false)
+  })
 });
 
 export default async (funnel) => {
