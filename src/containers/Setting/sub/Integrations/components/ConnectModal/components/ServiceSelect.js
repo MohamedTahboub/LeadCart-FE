@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import common from 'components/common';
 import ServiceCard from './ServiceCard';
-
-
 import { servicesList } from '../..';
 
 const {
-  MainTitle,
-  Button,
   InputRow,
   Currency,
-  Tabs,
-  Card,
-  CardsContainer,
-  Step
+  CardsContainer
 } = common;
 
-const ServiceSelect = ({ onSelect, ...props }) => 
-  // const [activeLayout, setActiveLayout] = useState('list');
-
-
-   (
+const ServiceSelect = ({ onSelect, ...props }) =>
+  (
     <div className='integration-connect-section'>
       <div>
         <InputRow.TextField
           className='words-search-field integration-services-search'
-          //   onChange={onSelect}
           prefix={<Currency value={<i className='fas fa-search' />} />}
-          // value={filterKeys.searchKey}
           placeholder='Search By Service Name/Category'
           name='service'
         />
@@ -44,9 +31,7 @@ const ServiceSelect = ({ onSelect, ...props }) =>
         </CardsContainer>
       </div>
     </div>
-  )
-;
-
+  );
 
 export default ServiceSelect;
 

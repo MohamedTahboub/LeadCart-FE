@@ -1,34 +1,20 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import common from 'components/common';
 import CreditCardInputs from 'components/CreditCardInputs';
 import config from 'config';
-import './style.css';
-import { connect } from 'react-redux';
 import * as promoCodeActions from '../../actions/promoCode';
 import * as billingActions from '../../actions/billing';
 import ActivePackage from './components/ActivePackage';
 import { upgradeUserSchema } from '../../libs/validation';
 import { getBrandActivePackage } from 'libs';
+import './style.css';
+
 const { packagesPlans = {} } = config;
-
-
 const getLastItem = (list) => list[list.length - 1];
-
-const {
-  InputRow,
-  HeadLine,
-  // BigText,
-  FlexBoxesContainer,
-  // MainBlock,
-  // MainTitle,
-  PackageCard,
-  Box,
-  SmallButton,
-  // SpcialAnnouncement,
-  ActivationSwitchInput
-} = common;
-
+const { InputRow, HeadLine, FlexBoxesContainer, PackageCard, Box, SmallButton, ActivationSwitchInput } = common;
 
 const Subscription = ({
   activePackage = {},
@@ -76,14 +62,7 @@ const Subscription = ({
     setFields({ ...fields, [name]: value });
   };
 
-  const onUpdatePromoCode = (promoCode) => {
-    onChange({
-      target: {
-        name: 'promoCode',
-        value: promoCode
-      }
-    });
-  };
+
   const onChangePromoCode = ({ target: { name, value } }) => {
     onChange({
       target: {
@@ -92,6 +71,7 @@ const Subscription = ({
       }
     });
   };
+
   const onPromoCodeCheck = () => {
     const { promoCode: { code } = {} } = fields;
 

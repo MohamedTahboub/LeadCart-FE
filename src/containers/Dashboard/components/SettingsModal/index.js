@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'components/Modals';
-import './style.css';
 import { connect } from 'react-redux';
+
+import { Modal } from 'components/Modals';
 import dashboardSettings from 'data/dashboardSettings';
 import * as Schemas from 'libs/validation';
 import * as dashboardActions from '../../../../actions/dashboard';
 import * as flashMessagesActions from '../../../../actions/flashMessage';
 import common from '../../../../components/common';
 import { notification } from 'libs';
+import './style.css';
 
 const { Button, InputRow } = common;
 
@@ -70,7 +71,7 @@ const SettingsModal = ({
       }
     };
 
-    const { isValid, value: validSettings, errors } = await Schemas.dashboardChartsSettings(settings);
+    const { isValid, value: validSettings } = await Schemas.dashboardChartsSettings(settings);
 
     if (isValid) {
       updateDashboardChartsSettings(

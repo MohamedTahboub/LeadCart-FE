@@ -1,11 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-markup';
-import dedent from 'dedent';
 import './style.css';
 require('prismjs/components/prism-jsx');
 
@@ -14,11 +13,8 @@ const CodeEditor = ({
   value,
   onChange,
   style = {},
-  withIndent,
   ...props
 }) => {
-
-
   const styes = {
     fontFamily: '"Fira code", "Fira Mono", monospace',
     fontSize: 12,

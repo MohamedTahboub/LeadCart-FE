@@ -3,21 +3,23 @@ import React from 'react';
 import common from 'components/common';
 
 import {
+  ExternalIntegration,
   ManualFulfillment,
   SuccessUrls
 } from './components';
 
 const { LayoutSwitch } = common;
 
-const ActionDependencies = ({ integrationKey, type, metaData, onChange }) => {
+const ActionDependencies = (props) => {
+  const { integrationKey, type, metaData, onChange } = props;
+
   if (integrationKey !== 'leadcart_fulfillment')
-    return null;
+    return <ExternalIntegration {...props} />;
 
   const passedProps = {
     ...metaData,
     onChange
   };
-
 
   return (
     <LayoutSwitch active={type}>

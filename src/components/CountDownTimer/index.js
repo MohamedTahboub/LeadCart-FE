@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 import clx from 'classnames';
 
-import './style.css';
 import countDownTimerClock from './coundown';
+import common from 'components/common';
+import './style.css';
 
 const { FlexBox } = common;
 
 const CountDownFrame = ({ titleStyle, label, value, style, show }) => {
-
   if (!show) return null;
 
   const className = clx({
@@ -40,7 +38,7 @@ const CountDownTimer = ({
   display = {},
   ...props
 }) => {
-  const { valueType, styleType, ...value } = options;
+  const { valueType, ...value } = options;
   const [state, setState] = useState(counterInitialState);
 
 
@@ -87,7 +85,6 @@ const CountDownTimer = ({
   );
 };
 
-CountDownTimer.propTypes = {};
 CountDownTimer.defaultProps = { options: {} };
 
 export default CountDownTimer;

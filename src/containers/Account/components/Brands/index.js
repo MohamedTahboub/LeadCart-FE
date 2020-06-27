@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
-// import sampleBrandsList from 'data/brandsList';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { notification } from 'libs';
 import { connect } from 'react-redux';
+
+import common from 'components/common';
+import { notification } from 'libs';
 import * as brandsActions from 'actions/brands';
 import { CreateModal } from './components';
 
-const {
-
-  //   InputRow,
-  FlexBox,
-  Badge,
-  Table,
-  Button
-  //   FlexBoxesContainer
-} = common;
+const { FlexBox, Badge, Table, Button } = common;
 
 const Brands = ({
   list: brandsList,
@@ -66,8 +57,7 @@ const Brands = ({
               name,
               trial,
               subDomain,
-              activePackage: { type: packageType = 'Basic' } = {},
-              ...rest
+              activePackage: { type: packageType = 'Basic' } = {}
             } = brand;
 
             return (
@@ -106,8 +96,6 @@ const Brands = ({
   );
 };
 
-Brands.propTypes = {};
 Brands.defaultProps = { list: [] };
 
-// const propifyState = ({ brands }) => ({ brands });
 export default connect(null, brandsActions)(Brands);

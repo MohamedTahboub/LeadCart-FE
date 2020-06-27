@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
+
 import { Modal } from 'components/Modals';
 import common from 'components/common';
+import { ServiceConnect } from './components';
 import './style.css';
 
-import { ServiceConnect } from './components';
-
 const { MainTitle } = common;
-
 
 const ConnectModal = ({
   open,
@@ -15,23 +13,19 @@ const ConnectModal = ({
   service,
   onToggle
 }) => (
-  <Modal
-    className='integrations-modal'
-    // contentClassName='integrations-modal'
-    // type='vertical'
-    isVisible={open}
-    onClose={onConnectClosed}
-  >
-    <div className='header'>
-      <MainTitle>
+    <Modal
+      className='integrations-modal'
+      isVisible={open}
+      onClose={onConnectClosed}
+    >
+      <div className='header'>
+        <MainTitle>
           Connect with
-        {' '}
         {service.name}
-      </MainTitle>
-    </div>
-    <ServiceConnect data={service} onModalToggle={onToggle}/>
-  </Modal>
-);
-ConnectModal.propTypes = {};
+        </MainTitle>
+      </div>
+      <ServiceConnect data={service} onModalToggle={onToggle} />
+    </Modal>
+  );
 
 export default ConnectModal;

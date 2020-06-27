@@ -1,23 +1,19 @@
 
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-import { notification, includesIgnoreCase } from 'libs';
-import { connect } from 'react-redux';
+import { includesIgnoreCase, notification } from 'libs';
 import * as integrationsActions from 'actions/integrations';
 import integrationsServices from 'data/integrationsServices';
-
-import './style.css';
 import ServiceConnectAnimation from './ServiceConnectAnimation';
-const {
-  FlexBox,
-  MainTitle,
-} = common;
+import './style.css';
+
+const { FlexBox, MainTitle } = common;
 
 const getServiceDetails = (key = '') => {
   const integration = integrationsServices.find(({ key: intKey = '' }) => includesIgnoreCase(intKey, key));
-
   return integration || {};
 };
 
@@ -30,12 +26,8 @@ const ConnectingModal = ({
 }) => {
   const [progress, setProgress] = useState(true);
   const [serviceImage, setServiceImage] = useState();
-
   const [error, setError] = useState(data.error);
-  const {
-    activation,
-    code,
-  } = data;
+  const { activation, code } = data;
 
   useEffect(() => {
     if (code && !error) {
@@ -43,9 +35,7 @@ const ConnectingModal = ({
       setServiceImage(service.brandLogo);
       onConnect({
         ...service,
-        authDetails: {
-          code,
-        }
+        authDetails: { code }
       });
     } else {
       setError(error);
@@ -66,25 +56,23 @@ const ConnectingModal = ({
       authType: 'OAuth'
     };
     setProgress(true);
-    connectIntegrationService(
-      serviceDetails, {
-        onSuccess: () => {
-          setProgress(false);
-          notification.success(`You have Connected ${activation} Successfully`);
-          onClose();
+    connectIntegrationService(serviceDetails, {
+      onSuccess: () => {
+        setProgress(false);
+        notification.success(`You have Connected ${activation} Successfully`);
+        onClose();
+        history.push('/integrations');
+      },
+      onFailed: (errMessage) => {
+        setError(errMessage);
+        setProgress(false);
+        notification.failed(errMessage);
+        setTimeout(() => {
           history.push('/integrations');
-        },
-        onFailed: (errMessage) => {
-          setError(errMessage);
-          setProgress(false);
-          notification.failed(errMessage);
-          setTimeout(() => {
-            history.push('/integrations');
-            onClose();
-          }, 4000);
-        }
+          onClose();
+        }, 4000);
       }
-    );
+    });
   };
   return (
     <Modal
@@ -114,9 +102,5 @@ const ConnectingModal = ({
     </Modal>
   );
 };
-ConnectingModal.propTypes = {
-
-};
 
 export default connect(null, integrationsActions)(ConnectingModal);
-

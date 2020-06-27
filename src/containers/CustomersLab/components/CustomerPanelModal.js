@@ -1,21 +1,23 @@
-import React, { use, useState } from 'react';
-import common from 'components/common';
-import Order from './Order';
-import { getGavatarByEmail, getPriceFormat, includesIgnoreCase } from 'libs';
-import './style.css';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { MdEmail, MdLocalPhone } from 'react-icons/md';
+import { Avatar } from 'antd';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
-import { Avatar } from 'antd';
-import { MdEmail, MdLocalPhone } from 'react-icons/md';
 
+import common from 'components/common';
+import { getGavatarByEmail, getPriceFormat, includesIgnoreCase } from 'libs';
+import Order from './Order';
+import './style.css';
 
 const {
   InputRow,
   Timeline,
   FlexBox
 } = common;
+
 const { TextField } = InputRow;
+
 const filterOrderByKey = (key) => ({ products = [] }) => {
   if (!key) return true;
   const searchText = products.map((p) => p.name).join(' ');
