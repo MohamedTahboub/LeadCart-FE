@@ -24,7 +24,7 @@ const DropBeforeLine = ({
   section.shallow = true;
   return (
     <div className={classes}>
-      <SectionContent {...section}/>
+      <SectionContent shallow {...section}/>
     </div>
   );
 };

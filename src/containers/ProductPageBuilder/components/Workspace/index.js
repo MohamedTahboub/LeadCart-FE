@@ -121,12 +121,11 @@ const Workspace = ({
   };
 
   const addNewAndMove = ({ id, type, atIndex }) => {
-    const section = sectionsTemplates[type];
+    const section = { ...sectionsTemplates[type] };
 
     if (!section) return;
 
     section.id = id;
-
     const newSections = update(sections, {
       $splice: [
         [(atIndex), 0, section],
@@ -137,6 +136,9 @@ const Workspace = ({
       name: 'sections',
       value: newSections
     });
+    setTimeout(() => {
+      document.getElementById('product-builder-window').scroll({ left: 0, behavior: 'smooth', top: document.getElementById(id).offsetTop });
+    }, 100);
   };
 
   const onProductSettings = () => {

@@ -97,6 +97,9 @@
     width: 100%;
     object-fit: contain;
 }
+.shallow .image-section {
+  max-height: 300px;
+}
 .item .image-section{
     height: 100%;
 }

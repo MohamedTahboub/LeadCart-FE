@@ -206,8 +206,7 @@ const LayoutContent = ({
       }
     });
   };
-  const onSizeChange = (size) => {
-  };
+  const onSizeChange = () => {};
   return (
     <FlexibleBox
       size={{ height: styles.height }}
@@ -219,7 +218,7 @@ const LayoutContent = ({
         {
           sectionsMounted && (
             <Split
-              minSize={100}
+              minSize={50}
               gutterSize={8}
               cursor='col-resize'
               style={{ display: 'flex', width: '100%' }}

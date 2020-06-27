@@ -69,10 +69,11 @@ const Section = ({
       return;
     }
     if (newItem) {
+      const id = ids.generate();
       addNewAndMove({
         atIndex: index,
         type,
-        id: ids.generate()
+        id
       });
       return { isHandled: true };
     }

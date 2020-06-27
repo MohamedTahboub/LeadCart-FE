@@ -1,4 +1,5 @@
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
+import defaultDropImage from 'assets/images/upload-image.png';
 
 export default {
   text: {
@@ -118,7 +119,7 @@ export default {
           hidden: false,
           type: 'image',
           content: {
-            value: 'https://via.placeholder.com/200',
+            value: defaultDropImage,
             children: []
           },
           styles: {
@@ -135,7 +136,7 @@ export default {
           hidden: false,
           type: 'image',
           content: {
-            value: 'https://via.placeholder.com/200',
+            value: defaultDropImage,
             children: []
           },
           styles: {

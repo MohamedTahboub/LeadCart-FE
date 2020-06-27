@@ -3,13 +3,14 @@ import { useContext } from '../../../../../../actions';
 import './style.css';
 import { Feature } from './components';
 
+const defaultList = [{ text: 'First feature' }, { text: 'Second feature' }, { text: 'Third feature' }];
 
-const Features = ({ section }) => {
+const Features = ({ section = {} }) => {
   const { actions } = useContext();
 
   const {
-    styles,
-    content: { list = [] } = {}
+    styles = {},
+    content: { list = defaultList } = {}
   } = section;
 
 
