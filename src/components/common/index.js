@@ -25,7 +25,7 @@ import Step from './Step';
 import * as Customs from './Custom';
 import * as Tabs from './Tabs';
 import * as Menus from './Menus';
-import * as Loaders from './Loaders';
+import * as Spinners from './Spinners';
 
 export default {
   Table,
@@ -54,6 +54,6 @@ export default {
   ...Customs,
   ...Tabs,
   ...Menus,
-  ...Loaders,
+  Spinners,
   Dialog
 };

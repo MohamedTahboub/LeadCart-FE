@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
-import common from 'components/common';
-import * as IntegrationsActions from 'actions/integrations';
-import { connect } from 'react-redux';
 import Select from 'react-select';
-import { Label } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as IntegrationsActions from 'actions/integrations';
+import common from 'components/common';
 
-const { FlexBox, Spinner } = common;
+const { FlexBox, Spinners } = common;
+const { Loader } = Spinners;
 
 const ExternalIntegration = ({ integrationId, metaData = {}, onChange, requirement, ...props }) => {
   const [state, setState] = useState({});
@@ -50,7 +49,12 @@ const ExternalIntegration = ({ integrationId, metaData = {}, onChange, requireme
     <FlexBox column flex>
       {loading ? (
         <FlexBox center='h-center'>
-          <Spinner show={loading} size='large' color='gray' className='mt-3 mb-4' />
+          <Loader
+            loading={loading}
+            size={20}
+            color='gray'
+            className='mt-3 mb-4'
+          />
         </FlexBox>
       ) : (
         <FlexBox flexStart flex>
@@ -62,7 +66,6 @@ const ExternalIntegration = ({ integrationId, metaData = {}, onChange, requireme
       {state.type && (
         <Select
           className='flex-item margin-h-10 min-width-400'
-          // defaultValue='IntegrationsService'
           options={state.options || []}
           defaultValue={metaData[state.name]}
           onChange={_onChange}
