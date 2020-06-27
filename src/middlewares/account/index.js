@@ -4,7 +4,7 @@ import verifyResetKey from './verifyResetKey';
 import resetPassword from './resetPassword';
 import updateUserDetails from './updateUserDetails';
 import updateUserPassword from './updateUserPassword';
-
+import redemption from './redemption';
 
 export default [
   verifyAccount,
@@ -12,5 +12,6 @@ export default [
   verifyResetKey,
   resetPassword,
   updateUserDetails,
-  updateUserPassword
+  updateUserPassword,
+  ...redemption
 ];
