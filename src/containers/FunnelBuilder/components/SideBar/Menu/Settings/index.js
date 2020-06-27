@@ -1,39 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import common from 'components/common';
 import PaymentsGateways from 'components/PaymentGateways';
 import currencies from 'data/currencies.json';
 
 import './style.css';
+const defaultLanguage = { label: 'English', value: 'en-Us"' };
 const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
+
 const {
   InputRow,
   FlexBox
 } = common;
 
 const {
-  // Label,
   TextField,
-  // Toggle,
   SearchInput
 } = InputRow;
 
-const Label = (props) => (
+const Label = ({ children, ...props }) => (
   <InputRow.Label className='sidebar-input-label bold-text' {...props}>
-    {props.children}
+    {children}
   </InputRow.Label>
 );
 
 const Settings = ({
+  languagesOptions,
   funnel: {
     url,
     paymentMethods,
+    language,
     currency = 'USD'
   } = {},
-  // onToggleDarkTheme,
-  // darkTheme,
-  onChange,
-  ...props
+  onChange
 }) => {
 
   const onFiledChange = ({ target: { name, value } }) => {
@@ -68,6 +68,19 @@ const Settings = ({
             onChange={onFiledChange}
           />
         </FlexBox>
+        <FlexBox flex center='v-center'>
+          <Label>
+            language:
+          </Label>
+          <SearchInput
+            size='small'
+            width={350}
+            options={languagesOptions}
+            defaultValue={language}
+            name='language'
+            onChange={onFiledChange}
+          />
+        </FlexBox>
       </FlexBox>
       <FlexBox column>
         <Label>
@@ -91,4 +104,10 @@ Settings.propTypes = {
 
 Settings.defaultProps = { product: {} };
 
-export default Settings;
+
+const mapStateToProps = ({ translations: languages = [defaultLanguage] }) => {
+  const languagesOptions = languages
+    .map(({ name: label, _id: value }) => ({ label, value }));
+  return { languagesOptions };
+};
+export default connect(mapStateToProps)(Settings);
