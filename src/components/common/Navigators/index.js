@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import ids from 'shortid';
 import PropTypes from 'prop-types';
+
 import './style.css';
 
 export const TabsNavigator = ({ tabs, history }) => {
@@ -27,9 +28,10 @@ export const TabsNavigator = ({ tabs, history }) => {
     </div>
   );
 };
+
 TabsNavigator.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
-  history: PropTypes.object,
+  history: PropTypes.object
 };
 
 export const SubTabs = ({
@@ -45,13 +47,14 @@ export const SubTabs = ({
 
   const goToTab = (tabName) => {
     setActiveTabName(tabName);
-    props.onTabChange && props.onTabChange(tabName)
+    props.onTabChange && props.onTabChange(tabName);
   };
 
   useEffect(() => {
     if (activeTab && activeTabName !== activeTab)
       setActiveTabName(activeTab);
-  }, [activeTab])
+  }, [activeTab]);
+
   return (
     <Fragment>
       <div className={`tabs-titles-container ${className}`}>
@@ -74,6 +77,7 @@ export const SubTabs = ({
     </Fragment>
   );
 };
+
 SubTabs.propTypes = {
   tabs: PropTypes.objectOf(PropTypes.object.isRequired).isRequired,
   defaultTab: PropTypes.string.isRequired

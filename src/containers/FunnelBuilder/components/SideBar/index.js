@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
 import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
@@ -7,26 +6,30 @@ import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
 import './style.css';
 import funnelNodes from 'data/funnelBasicSteps';
-// import Sidebars from './Bar';
 import ids from 'shortid';
-import {
-  GrabbableBlock
-  // SettingMenu
-} from './components';
+import { GrabbableBlock } from './components';
 import SettingMenu from './Menu';
+
+
 const {
   SideMenu,
   Tabs,
   EditableField,
   FlexBox,
-  Tab
+  Tab,
+  InputRow
 } = common;
+const { Toggle, AddImage } = InputRow;
+
 
 const SideBar = ({
   funnel,
   onChange,
   ...props
 }) => {
+
+  const { marketPlace = {} } = funnel;
+
   const onDrag = ({
     data = {},
     ref,
@@ -51,9 +54,15 @@ const SideBar = ({
     event.dataTransfer.setData('shift', JSON.stringify({ shiftX, shiftY, width, height }));
   };
 
-  const onNameChange = ({ target: { name, value } }) => {
-    onChange({ name, value });
+  const _onChange = ({ target: { name, value } }) => onChange({ name, value });
+
+  const onImageChange = (image) => {
+    onChange({
+      name: 'marketPlace.cardImage',
+      value: image
+    });
   };
+
 
   return (
     <SideMenu open>
@@ -62,12 +71,12 @@ const SideBar = ({
           className='large-text dashed-text aligned-center-text lightgray-border-color'
           name='name'
           defaultValue='Funnel Name'
-          onChange={onNameChange}
+          onChange={_onChange}
           value={funnel.name}
           max={50}
         />
       </FlexBox>
-      <Tabs active='funnelBlocks' className='padding-v-10 padding-h-10'>
+      <Tabs active='funnelBlocks' className='padding-v-10 padding-h-10 tabs-funnel'>
         <Tab id='funnelBlocks' title='Funnel Blocks'>
           <GrabbableBlock
             demoImage={pageFunnelImage}
@@ -108,8 +117,43 @@ const SideBar = ({
             funnel={funnel}
           />
         </Tab>
+
+        <Tab id='marketPlace' title='Market Place'>
+          <section className='tab__marketPlace__publish'>
+            Publish
+            <Toggle
+              name='marketPlace.publish'
+              value={marketPlace.publish}
+              onToggle={onChange}
+              beforeLabel='On'
+              afterLabel='Off'
+            />
+          </section>
+
+          <section className='tab__marketPlace__add-img'>
+            <AddImage
+              onUploaded={onImageChange}
+              name='marketPlace.cardImage'
+              subLabel='image_funnel'
+              value={marketPlace.cardImage}
+            >
+              Add Image
+            </AddImage>
+          </section>
+
+          <section className='tab__marketPlace__description'>
+            Description :
+            <textarea
+              name='marketPlace.description'
+              value={marketPlace.description}
+              onChange={_onChange}
+              placeholder='Funnel Description'
+            />
+          </section>
+        </Tab>
+
       </Tabs>
-    </SideMenu>
+    </SideMenu >
 
 
   );

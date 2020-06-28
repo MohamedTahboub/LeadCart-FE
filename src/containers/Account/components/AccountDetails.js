@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+
 import { notification } from 'libs';
 import common from 'components/common';
-const {
-  //   MainTitle,
-  //   Page,
-  //   PageHeader,
-  //   PageContent,
-  InputRow,
-  FlexBox,
-  //   Tabel,
-  Button,
-  //   FlexBoxesContainer
-} = common;
 
+const { InputRow, FlexBox, Button } = common;
 const { Label, TextField } = InputRow;
 
 const AccountDetails = ({ onUpdate, user, ...porps }) => {
@@ -27,7 +17,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
   const onSubmit = () => {
     const userDetails = {
       firstName: values.firstName,
-      lastName: values.lastName,
+      lastName: values.lastName
     };
     onProgress(true);
     onUpdate(
@@ -36,13 +26,11 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
         onSuccess: () => {
           notification.success('Your Details Changes Successfully');
           onProgress(false);
-          //   onClose();
         },
         onFailed: (message) => {
           onProgress(false);
           setErrors({ message });
           notification.failed(message);
-          //   onClose();
         }
       }
     );
@@ -89,6 +77,7 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
             name='email'
             value={values.email}
             disabled
+            uncontrolled
           />
         </FlexBox>
       </FlexBox>
@@ -107,11 +96,5 @@ const AccountDetails = ({ onUpdate, user, ...porps }) => {
   );
 };
 
-AccountDetails.propTypes = {
-
-};
-AccountDetails.default = {
-  user: {}
-};
-
+AccountDetails.default = { user: {} };
 export default AccountDetails;

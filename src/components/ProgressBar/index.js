@@ -1,13 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 
+import common from 'components/common';
+import { ProgressBar } from './components';
 import './style.css';
 
-import { ProgressBar } from './components';
-
 const { ResizableInput } = common;
-
 
 const ProgressBarSection = ({
   value = 70,
@@ -35,7 +32,5 @@ const ProgressBarSection = ({
     </ProgressBar>
   );
 };
-
-ProgressBarSection.propTypes = {};
 
 export default ProgressBarSection;

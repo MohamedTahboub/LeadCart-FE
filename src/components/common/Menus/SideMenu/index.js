@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { FaAngleDoubleLeft } from 'react-icons/fa';
 import clx from 'classnames';
 
@@ -32,7 +31,7 @@ const SideMenu = ({
     [defaultClasses]: true,
     [className]: className,
     [`${position}-position`]: position,
-    open,
+    open
   });
 
   const iconRotateClass = clx({
@@ -55,10 +54,6 @@ const SideMenu = ({
       {children}
     </div>
   );
-};
-
-SideMenu.propTypes = {
-
 };
 
 export default SideMenu;

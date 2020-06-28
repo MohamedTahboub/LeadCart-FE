@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 import clx from 'classnames';
+
+import common from 'components/common';
 
 const { FlexBox } = common;
 
@@ -28,9 +28,7 @@ const ProgressBar = ({
   return (
     <div
       className={`progress-bar ${classNames}`}
-      style={{
-        borderColor: colors.borderColor
-      }}
+      style={{ borderColor: colors.borderColor }}
     >
       <div
         className={progressBarValueClasses}
@@ -46,10 +44,6 @@ const ProgressBar = ({
       </div>
     </div>
   );
-};
-
-ProgressBar.propTypes = {
-
 };
 
 export default ProgressBar;

@@ -4,24 +4,22 @@ import common from 'components/common';
 import { useContext } from '../../../actions';
 
 const {
-  SideMenu,
   Tabs,
-  EditableField,
   InputRow,
   MiniTwitterPicker,
   FlexBox,
   Tab
 } = common;
 
-const { TextField, SelectOption, Slider } = InputRow;
+const { TextField, SelectOption } = InputRow;
 
-const ButtonSection = (props) => {
+const ButtonSection = () => {
   const {
     state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
-  const { styles = {}, actions: sectionActions = {} } = sectionSetting;
+  const { styles = {}, content = {} } = sectionSetting;
 
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
@@ -63,8 +61,8 @@ const ButtonSection = (props) => {
         <FlexBox center='v-center px-2' spaceBetween>
           <span className='gray-text bold-text'>Go To:</span>
           <SelectOption
-            name='actions.type'
-            value={sectionActions.type}
+            name='content.type'
+            value={content.type}
             onChange={onChange}
             options={[
               { label: 'Payment Form', value: 'paymentForm' },
@@ -72,18 +70,18 @@ const ButtonSection = (props) => {
             ]}
           />
         </FlexBox>
-        {sectionActions.type === 'external' ? (
+        {content.type === 'external' ? (
           <div className='px-2'>
             <span className='gray-text bold-text mb-2'>On Click Open:</span>
             <div className='padding-left-20'>
               <TextField
-                name='actions.value'
-                value={sectionActions.value}
+                name='content.link'
+                value={content.link}
                 onChange={onChange}
               />
             </div>
           </div>
-        ) : (sectionActions.type && (
+        ) : (content.type && (
           <span className='gray-text aligned-center mt-3'>
               When this Button clicked it will take the customer to the payment form section
           </span>

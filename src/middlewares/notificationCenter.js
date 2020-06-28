@@ -14,9 +14,6 @@ export default () => (next) => (action) => {
   case types.VERIFY_SOURCE_EMAIL_SUCCESS:
     showSuccessMessage('An email sent to your account to be verified');
     break;
-  case types.DELETE_COUPON_SUCCESS:
-    showSuccessMessage('Coupon Deleted');
-    break;
   case types.TEST_EMAIL_SUCCESS:
     showSuccessMessage('A test email was sent to your leadcart email');
     break;
@@ -51,9 +48,6 @@ export default () => (next) => (action) => {
   case types.CREATE_NEW_MEMBER_SUCCESS:
     showSuccessMessage('\'New Member Have Been');
     break;
-  case types.CREATE_NEW_COUPON_SUCCESS:
-    showSuccessMessage('New Coupon Created');
-    break;
   case types.CHANGE_COUPON_STATE_SUCCESS:
     showSuccessMessage('Coupon status changed');
     break;
@@ -73,12 +67,12 @@ export default () => (next) => (action) => {
   case types.CHANGE_COUPON_STATE_FAILED:
     showFailureMessage('Failed to Change coupon status');
     break;
-  case types.CREATE_NEW_COUPON_FAILED:
-    showFailureMessage('Failed to Create New Coupon');
+  case types.UPLOAD_FILE_FAILED: {
+    const { meta: { options: { showNotification = true } = {} } = {} } = action.payload;
+    if (showNotification)
+      showFailureMessage('Failed to Upload The File');
     break;
-  case types.UPLOAD_FILE_FAILED:
-    showFailureMessage('Failed to Upload The File');
-    break;
+  }
   case types.DELETE_UPSELL_FAILED:
     showFailureMessage('Couldn\'t delete that Upsell,Something went wrong');
     break;
@@ -94,20 +88,11 @@ export default () => (next) => (action) => {
   case types.CREATE_UPSELL_FAILED:
     showFailureMessage('Failed to create this upsell');
     break;
-  case types.DELETE_COUPON_FAILED:
-    showFailureMessage('Failed to Delete the coupon');
-    break;
   case types.DELETE_MEMBER_FAILED:
     showFailureMessage('Failed to Delete The Member');
     break;
   case types.DELETE_MEMBER_SUCCESS:
     showSuccessMessage('Member has been deleted  ');
-    break;
-  case types.EDIT_COUPON_SUCCESS:
-    showSuccessMessage('Coupon has been updated  ');
-    break;
-  case types.EDIT_COUPON_FAILED:
-    showFailureMessage('Failed to update the coupon');
     break;
   case types.RESEND_RECEIPT_EMAIL_SUCCESS:
     showSuccessMessage('Receipt email sent  ');

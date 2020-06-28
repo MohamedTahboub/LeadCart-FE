@@ -1,31 +1,27 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { Menu } from 'antd';
 
 import { HeaderLogo } from 'components/common/logos';
-import { Link as PureLink } from 'components/common/MainMenu';
 import BrandsMenu from 'components/BrandsMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { FillerButton } from 'components/Buttons';
 import common from 'components/common';
-// import { Modal } from 'components/Modals';
+import CreateProductModal from '../CreateProductModal';
+import { notification } from 'libs';
+import { accountSettingsMenus, main as sidebarMenus } from './menus';
+import Icons from './icons';
 
 import * as brandsAction from 'actions/brands';
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
 import { appInit } from 'actions/appInit';
 import './style.css';
-import { notification } from 'libs';
-import { Menu } from 'antd';
 
-import CreateProductModal from '../CreateProductModal';
-
-import { accountSettingsMenus, main as sidebarMenus } from './menus';
-import Icons from './icons';
 
 const { SubMenu } = Menu;
-
-const { InputRow, FlexBox } = common;
+const { InputRow } = common;
 const { SelectOption } = InputRow;
 
 const BrandSelect = ({
@@ -61,39 +57,10 @@ const SideBar = ({
   brands,
   ...props
 }) => {
-  // const [activeTab, setActiveTab] = useState(history.location.pathname);
   const [isBrandsOpen, setBrandsOpen] = useState(false);
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
   const menus = sidebarMenus({ brands });
-
-  const mainAccountMenu = useCallback(() => accountSettingsMenus(user), [user])();
-  // const Link = ({
-  //   to: page,
-  //   className = '',
-  //   children,
-  //   icon,
-  //   external
-  // }) => {
-  //   const Icon = Icons[icon] || null;
-
-  //   return (
-  //     <FlexBox
-  //       center='v-center'
-  //       spaceBetween
-  //       className={`sideBar-item ${className} ${activeTab === page ? 'active' : ''}`}
-  //     >
-  //       <Icon className='svg-icon sideBar-icon' />
-  //       <PureLink
-  //         to={{ history, page }}
-  //         external={external}
-  //         onTabChange={onTabChange}
-  //       >
-  //         {children}
-  //       </PureLink>
-  //     </FlexBox>
-  //   );
-  // };
 
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {

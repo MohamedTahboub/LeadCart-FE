@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
 import clx from 'classnames';
 import { connect } from 'react-redux';
@@ -25,7 +24,7 @@ const { FlexBox } = common;
 
 const getLanguageLabel = (
   languages = [],
-  { language: langId } = {}
+  langId
 ) => {
   let language = languages.find((lang) => lang._id === langId);
   if (!language) language = defaultLanguage;
@@ -35,17 +34,17 @@ const getLanguageLabel = (
 
 const Workspace = ({
   className,
-  translations
+  translations: userLanguages
 }) => {
   const {
     state: {
       displayMode,
       modals: { sectionSetting: activeSection = {} } = {},
+      funnel: { language } = {},
       product: {
         sections = [],
         staticSections = [],
         pageStyles = {}
-        // maxSectionsOrder
       } = {}
     },
     actions
@@ -59,7 +58,7 @@ const Workspace = ({
     displayMode
   );
 
-  const activeLanguage = getLanguageLabel(translations);
+  const activeLanguage = getLanguageLabel(userLanguages, language);
 
 
   const onSectionSettings = (section) => {
@@ -71,7 +70,6 @@ const Workspace = ({
       if (section.id === id) return { ...section, order: newOrder };
       return section;
     });
-    // .sort((a, b) => (a.order > b.order ? 1 : -1));
 
     actions.onProductFieldChange({
       name: 'sections',
@@ -88,9 +86,7 @@ const Workspace = ({
   };
 
   const moveCard = (id, atIndex) => {
-    // const newSections = [...sections];
     const { section, index } = findCard(id);
-    // newSections.splice(atIndex, 0, section);
     const newSections = update(sections, {
       $splice: [
         [index, 1],
