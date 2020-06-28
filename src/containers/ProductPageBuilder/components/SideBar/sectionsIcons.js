@@ -13,7 +13,7 @@ import progressBar from 'assets/images/product_builder_icons/progressBar.png';
 import testimonials from 'assets/images/product_builder_icons/testimonials.png';
 import spacer from 'assets/images/product_builder_icons/spacer.png';
 
-export const data = [
+const sectionsIcons = [
   { type: 'headingText', title: 'Heading Text', src: headingText },
   { type: 'text', title: 'Text', src: text },
   { type: 'button', title: 'Button', src: button },
@@ -30,3 +30,4 @@ export const data = [
   { type: 'embedCode', title: 'Embed Code', src: embedCode }
 ];
 
+export default sectionsIcons;
