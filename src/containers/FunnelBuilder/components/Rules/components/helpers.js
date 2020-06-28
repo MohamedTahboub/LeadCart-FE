@@ -1,4 +1,4 @@
-
+import { mapListToObject } from 'libs';
 import rulesEvents from 'data/rulesEvents';
 
 const getProductsAndOffer = (productsMap, neededProductNodes) => {
@@ -23,7 +23,22 @@ export const constructProductsAndOffersLabels = (productsMap = {}, funnelProduct
 };
 
 export const getIntersectedProducts = (productsMap = {}, products = []) => {
-  const matchedProducts = getProductsAndOffer(productsMap, products.map((id) => ({ productId: id })));
+  const productsAndOffers = Object.values(productsMap)
+    .map((product) => {
+      let offers = [];
+      if (Array.isArray(product.sections)) {
+        offers = product.sections
+          .filter(({ type }) => type === 'bumpOffer')
+          .filter((offer) => offer.content && offer.content.price)
+          .map(({ id, _id = id, content = {} }) => ({ _id, name: `${content.name || 'Untitled'}(offer)` }));
+      }
+
+      return [product, ...offers];
+    })
+    .flat();
+
+  const productsAndOffersMap = mapListToObject(productsAndOffers, '_id');
+  const matchedProducts = getProductsAndOffer(productsAndOffersMap, products.map((id) => ({ productId: id })));
 
   return matchedProducts.filter((product) => products.includes(product._id));
 

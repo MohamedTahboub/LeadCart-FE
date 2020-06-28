@@ -24,7 +24,7 @@ const { FlexBox } = common;
 
 const getLanguageLabel = (
   languages = [],
-  { language: langId } = {}
+  langId
 ) => {
   let language = languages.find((lang) => lang._id === langId);
   if (!language) language = defaultLanguage;
@@ -34,12 +34,13 @@ const getLanguageLabel = (
 
 const Workspace = ({
   className,
-  translations
+  translations: userLanguages
 }) => {
   const {
     state: {
       displayMode,
       modals: { sectionSetting: activeSection = {} } = {},
+      funnel: { language } = {},
       product: {
         sections = [],
         staticSections = [],
@@ -57,7 +58,7 @@ const Workspace = ({
     displayMode
   );
 
-  const activeLanguage = getLanguageLabel(translations);
+  const activeLanguage = getLanguageLabel(userLanguages, language);
 
 
   const onSectionSettings = (section) => {

@@ -44,7 +44,7 @@ export default (state = initialState, { type, payload }) => {
       if (funnel._id === payload.funnel) {
         const rules = funnel.rules.map((rule) => {
           if (rule._id === payload.ruleId)
-            return payload.rule;
+            return { ...payload.rule, _id: payload.ruleId };
 
           return rule;
         });
