@@ -40,7 +40,7 @@ const Workspace = ({
     state: {
       displayMode,
       modals: { sectionSetting: activeSection = {} } = {},
-      funnel: { language },
+      funnel: { language } = {},
       product: {
         sections = [],
         staticSections = [],
