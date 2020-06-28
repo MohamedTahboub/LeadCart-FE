@@ -1,64 +1,67 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as couponsActions from 'actions/coupon';
-// import propTypes from 'prop-types';
 import common from 'components/common';
 import { couponSchema } from 'libs/validation';
 import { Modal } from 'components/Modals';
 import moment from 'moment';
+import Select from 'react-select';
+import * as immutable from 'object-path-immutable';
+import { mapListToObject, notification } from 'libs';
+import { isFunction } from 'libs/checks';
+
 const {
   InputRow,
   Button,
-  MainTitle
+  MainTitle,
+  FlexBox
 } = common;
 
+const {
+  Label,
+  CustomInput,
+  DatePicker,
+  FlatSelect,
+  PriceField
+} = InputRow;
 
 const CouponModal = ({
-  edit,
-  show,
+  isEdit,
   onClose,
-  products = [],
   coupon: couponData = { products: [] },
-  //   coupon,
+  productsLabelsMap,
   ...props
 }) => {
   const initCoupon = {
     active: true,
-    discount: {
-      type: 'Flat'
-    },
+    discount: { type: 'Flat' },
     duration: moment().format(),
-    forAll: true,
-    productId: couponData.products && couponData.products[0],
+    products: [],
     ...couponData
   };
 
   const [coupon, setCoupon] = useState(initCoupon);
   const [errors, setErrors] = useState({});
 
+  const productsOptions = Object.values(productsLabelsMap);
+  const couponProductsLabels = coupon.products.map((productId) => productsLabelsMap[productId]);
 
-  const onChange = ({ target: { value, name } }) => {
-    if (value === 'all') {
-      name = 'forAll';
-      value = true;
-      coupon.productId = 'all';
-    } else if (name === 'productId') {coupon.forAll = false;}
-
-
-    if (name.includes('.')) {
-      const [key, nestedKey] = name.split('.');
-      const nestedValue = { [nestedKey]: value };
-      name = key;
-      value = { ...coupon[key], ...nestedValue };
-    }
-    setCoupon({ ...coupon, [name]: value });
+  const onChange = (name, value) => {
+    const updatedCoupon = immutable.set(coupon, name, value);
+    setCoupon(updatedCoupon);
     setErrors({});
   };
 
-  const onDateChange = (date) => {
-    coupon.duration = date.format();
-    setCoupon(coupon);
+  const onFiledChange = ({ target: { value, name } }) => {
+    onChange(name, value);
   };
+
+  const onDateChange = (date) => {
+    const duration = isFunction(date.format) && date.format();
+    onChange('duration', duration);
+  };
+
+
   const onCouponTypeChange = (value) => {
     let { discount: { percent, amount } = {} } = coupon;
     percent = percent === 0 || !percent ? amount : percent;
@@ -88,22 +91,21 @@ const CouponModal = ({
     }
   };
 
+
   const onCreate = async () => {
     const validCoupon = await onValidate(coupon);
 
     if (validCoupon) {
-      props.createNewCoupon(
-        validCoupon,
-        {
-          onSuccess: () => {
-            onClose();
-          },
-          onFailed: (message) => {
-            if (message.includes('Coupons.$code_1 dup')) return setErrors({ message: 'This coupon code is not available,try to pick another one' });
-            setErrors({ message });
-          }
+      props.createNewCoupon(validCoupon, {
+        onSuccess: () => {
+          onClose();
+          notification.success(`Coupon with the code ${validCoupon.code} has been created`);
+        },
+        onFailed: (message) => {
+          notification.failed(message);
+          setErrors({ message });
         }
-      );
+      });
     }
   };
 
@@ -117,9 +119,11 @@ const CouponModal = ({
         },
         {
           onSuccess: () => {
+            notification.success(`${validCoupon.code} coupon has been updated`);
             onClose();
           },
           onFailed: (message) => {
+            notification.failed(message);
             setErrors({ message });
           }
         }
@@ -127,27 +131,34 @@ const CouponModal = ({
     }
   };
 
+  const onSelectProducts = (products) => {
+    if (!Array.isArray(products) || products === null)
+      return onChange('products', []);
+
+    const productsIds = products.map(({ value }) => value);
+    onChange('products', productsIds);
+  };
+
   const { discount } = coupon;
   return (
     <Modal
+      className='coupon-edit-modal'
       onClose={onClose}
       isVisible
     >
-      <MainTitle>{edit ? 'Update Coupon' : 'Create Coupon'}</MainTitle>
+      <MainTitle>{isEdit ? 'Update Coupon' : 'Create Coupon'}</MainTitle>
       <InputRow>
-        <InputRow.Label
-          error={errors.code}
-        >
+        <Label error={errors.code}>
           Coupon code
-        </InputRow.Label>
-        <InputRow.CustomInput
+        </Label>
+        <CustomInput
           name='code'
           value={coupon.code}
           placeholder='Coupon Code.'
-          onBlur={onChange}
+          onBlur={onFiledChange}
           error={errors.code}
         />
-        <InputRow.DatePicker
+        <DatePicker
           name='duration'
           type='date'
           disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
@@ -158,45 +169,51 @@ const CouponModal = ({
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label
-          error={errors.amount || errors.percent}
-        >
+        <Label error={errors.discount && (errors.discount.amount || errors.discount.percent)}>
           Coupon Type
-        </InputRow.Label>
-        <InputRow.FlatSelect
+        </Label>
+        <FlatSelect
           onSelect={onCouponTypeChange}
           value={discount.type}
         />
-        <InputRow.PriceField
+        <PriceField
           value={discount.type === 'Flat' ? discount.amount : discount.percent}
           currency={discount.type === 'Flat' ? '$' : '%'}
           name={discount.type === 'Flat' ? 'discount.amount' : 'discount.percent'}
-          onChange={onChange}
+          onChange={onFiledChange}
           note='How much off is your coupon.'
           className='margin-left-30'
         />
       </InputRow>
       <InputRow margin='35'>
-        <InputRow.Label>
-          Apply to
-
-        </InputRow.Label>
-        <InputRow.SearchInput
-          options={products}
-          value={typeof coupon.productId !== 'boolean' ? coupon.productId : 'all'}
-          target='name'
-          name='productId'
-          onChange={onChange}
-        />
+        <FlexBox center='v-center' flex>
+          <Label>
+            Apply to
+          </Label>
+          <Select
+            className='select-coupons'
+            options={productsOptions}
+            target='name'
+            name='productId'
+            onChange={onSelectProducts}
+            value={couponProductsLabels}
+            placeholder='All Products'
+            isMulti
+          />
+        </FlexBox>
       </InputRow>
       {errors.message && <span className='error-message'>{errors.message}</span>}
-      <Button onClick={edit ? onUpdate : onCreate} className='primary-color margin-with-float-right'>
+      <Button onClick={isEdit ? onUpdate : onCreate} className='primary-color margin-with-float-right'>
         <i className='fas fa-plus' />
-        {`${edit ? 'Update' : 'Create'} Coupon`}
+        {`${isEdit ? 'Update' : 'Create'} Coupon`}
       </Button>
     </Modal>
   );
 };
 
+const mapStateToProps = ({ products: { products = [] } = {} }) => {
+  return { productsLabelsMap: mapListToObject(products, '_id', { name: 'label', _id: 'value' }) };
+};
 
-export default connect(null, couponsActions)(CouponModal);
+
+export default connect(mapStateToProps, couponsActions)(CouponModal);

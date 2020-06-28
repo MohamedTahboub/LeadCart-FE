@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import { Modal } from 'components/Modals';
 import defaultLanguage from 'data/defaultLanguage.json';
 import common from 'components/common';
-import { connect } from 'react-redux';
 import * as translationsActions from 'actions/translations';
 import { languagesSchema } from 'libs/validation';
-
 import './style.css';
 
 import { friendlyMessage } from 'libs';
@@ -116,7 +116,7 @@ const TranslationEditModal = ({
   };
 
   const onSave = async () => {
-    const { isValid, errors, value } = await languagesSchema(language);
+    const { isValid, value } = await languagesSchema(language);
     if (!isValid) return; // setErrors(errors)
 
 

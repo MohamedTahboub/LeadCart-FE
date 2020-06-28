@@ -16,6 +16,7 @@ export default ({
   error,
   defaultValue,
   onChange: onParentChange,
+  onSearch,
   dropdownClassName,
   options = []
 }) => {
@@ -36,6 +37,9 @@ export default ({
       onChange={onChange}
       dropdownClassName={dropdownClassName}
       filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+      notFoundContent={null}
+      showArrow={false}
+      onSearch={onSearch}
     >
       {options.map((o) => <Option key={ids.generate()} value={o.value}>{o.label}</Option>)}
     </Select>

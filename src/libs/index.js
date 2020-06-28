@@ -28,6 +28,7 @@ export {
   throttle,
   isObjectsEquivalent,
   nestedKeyValue,
-  getBrandActivePackage
+  getBrandActivePackage,
+  getGavatarByEmail
 } from './specialFuncs';
 export { notification };

@@ -58,10 +58,10 @@ const Rules = ({
       {rules.map((rule) => (
         <RuleCard
           key={rule.trigger}
-          {...rule}
           productsMap={productsMap}
           onEdit={onRuleEdit(rule)}
           onDelete={onRuleDelete(rule)}
+          {...rule}
         />
       ))}
       <FlexBox className={rules.length ? 'line-up-10' : ''}>

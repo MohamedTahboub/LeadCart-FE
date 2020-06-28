@@ -1,7 +1,7 @@
 
 import * as immutable from 'object-path-immutable';
 import defaultLanguage from 'data/defaultLanguage.json';
-
+import { md5 } from './encoding';
 export const filterSubscriptions = (orders = []) => orders.filter(({ payment }) => payment.paymentType === 'Subscription');
 
 
@@ -184,4 +184,9 @@ export const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
           : activePackage.type === 'Basic' ? 'Basic'
             : 'Sub';
   }
+};
+
+
+export const getGavatarByEmail = (email = '') => {
+  return `https://www.gravatar.com/avatar/${md5(email)}`;
 };

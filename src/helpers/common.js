@@ -1,3 +1,5 @@
+import uuid from 'uuid/v4';
+
 export const insensitiveSearch = (searchWord = '', comparedWord = '') => comparedWord.toLowerCase().replace(/\s/g, '').includes(searchWord.toLowerCase().replace(/\s/, ''));
 
 export const GetCardType = (number) => {
@@ -67,3 +69,29 @@ String.prototype.insertAt = function (index, characters) {
     return this.substring(0, index) + characters + this.substring(index);
   }
 };
+
+// eslint-disable-next-line no-extend-native
+String.prototype.toPlain = function () {
+  return this.toLowerCase().replace(/\s/g, '');
+};
+
+export function ObjectChecker (object) {
+  this.object = { ...object };
+  this.atKeys = (paths) => {
+    this.paths = paths;
+    return this;
+  };
+  this.joinKeys = (pathsToJoin) => {
+    const newPath = uuid();
+    this.paths.push(newPath);
+    this.object[newPath] = pathsToJoin.reduce((combinedValue, path) => combinedValue + this.object[path].toString(), '');
+    return this;
+  };
+  this.containing = (searchValue) => {
+    const { paths, object } = this;
+    return paths.some((path) => object[path].includes && object[path].toLowerCase().includes(searchValue.toPlain()));
+  };
+  return this;
+}
+
+export const checkObject = (object) => new ObjectChecker(object);

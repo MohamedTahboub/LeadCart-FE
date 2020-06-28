@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import * as integrationsActions from 'actions/integrations';
 import common from 'components/common';
-import { connect } from 'react-redux'
-import * as integrationsActions from 'actions/integrations'
 import ServiceCard from './ServiceCard';
+import { LayoutSwitch } from '../..';
 
-import {
-  LayoutSwitch,
-  servicesList
-} from '../..';
-
-const {
-  FlexBox,
-  Badge,
-  Button,
-  InputRow
-} = common;
+const { FlexBox, Badge, Button, InputRow } = common;
 const { TextField } = InputRow;
 
 const ConnectOAuth = ({ name = 'Stripe', ...props }) => (
@@ -43,22 +34,20 @@ const ConnectClient = ({ name, ...props }) => (
       value={(
         <TextField
           name='clientId'
+          uncontrolled
         />)
       }
-    // spaceBetween
-    // flex
+
     />
     <Statement
       label='Client Secret'
       value={(
         <TextField
           name='secret'
+          uncontrolled
         />
       )}
-    // spaceBetween
-    // flex
     />
-
 
     <Button className='primary-color'>
       Authorize
@@ -78,6 +67,7 @@ const ConnectApiKey = ({ name, ...props }) => (
       value={(
         <TextField
           name='apiKey'
+          uncontrolled
         />
       )}
     />
@@ -105,18 +95,14 @@ const Statement = ({ label, value, ...props }) => (
 
 const ServiceConnect = ({ data = {}, ...props }) => {
   const [service, setService] = useState(data);
-  const [supported, setSupported] = useState(data);
-  const [onprogress, setOnprogress] = useState(data);
 
   useEffect(() => {
     if (service.key !== data.key) setService(data);
     props.checkIntegrationService(
+      { key: service.key },
       {
-        key: service.key
-      },
-      {
-        onSuccess: () => {},
-        onFailed: () => {}
+        onSuccess: () => { },
+        onFailed: () => { }
       }
     );
   }, [data]);
@@ -145,8 +131,6 @@ const ServiceConnect = ({ data = {}, ...props }) => {
   );
 };
 
-ServiceConnect.propTypes = {
-
-};
+ServiceConnect.propTypes = {};
 
 export default connect(null, integrationsActions)(ServiceConnect);

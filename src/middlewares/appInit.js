@@ -2,11 +2,9 @@ import { APP_INIT } from 'constantsTypes';
 import { getMembersSuccess } from 'actions/teamMembers';
 import { getSubAccountsSuccess } from 'actions/agency';
 import { getCouponsList } from 'actions/coupon';
-import { getUserPaymentMethods } from 'actions/payments';
 import { getUserProductsSuccess } from 'actions/products';
 import { getCustomers } from 'actions/customers';
 import { getOrders } from 'actions/orders';
-import { getUpsellsSuccess } from 'actions/upsells';
 import { getFunnels } from 'actions/funnels';
 import { getUserIntegration } from 'actions/integrations';
 import { getActivatedPromoCodesNumber } from 'actions/promoCode';
@@ -34,13 +32,9 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
     dispatch(getCouponsList(data.coupons));
-    // dispatch(getUpsellsSuccess(data.upsells));
-    // dispatch(getFulfillmentsSuccess(data.fulfillments));
-    // dispatch(getUserPaymentMethods(data.paymentMethods));
     dispatch(getDashboardDataSuccess(data.dashboard));
     dispatch(getFunnels(data.funnels || []));
     dispatch(getUserProductsSuccess({ products: data.products }));
-
     dispatch(getActivatedPromoCodesNumber(data.promoCodes));
     dispatch(updateMarketPlaceSettingsSuccess(data.marketPlace));
     dispatch(getTranslationsLanguages(data.languages));
@@ -78,16 +72,11 @@ export default ({ dispatch, getState }) => (next) => (action) => {
   }));
 };
 
-function cleanUpTheConsole () {
+const cleanUpTheConsole = () => {
   consoleMessage();
-}
+};
 
-// const user = localStorage.user && JSON.parse(localStorage.user);
-
-// if (!getState().user.isLoggedIn && user.isLoggedIn === true) dispatch(loginSuccess(user));
-
-// restore the application stored data in the loaclStorage
-function consoleMessage () {
+const consoleMessage = () => {
   const LeadCarttext = `%c
   ╔╗░░╔═══╦═══╦═══╦═══╦═══╦═══╦════╗
   ║║░░║╔══╣╔═╗╠╗╔╗║╔═╗║╔═╗║╔═╗║╔╗╔╗║
@@ -109,4 +98,4 @@ function consoleMessage () {
       console.log(LeadCarttext, 'font-size:30px;color:lightblue', 'font-size:20px;color:gray');
     }, 1000);
   }
-}
+};

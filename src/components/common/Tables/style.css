@@ -26,6 +26,10 @@
     position: relative;
 }
 
+.table-head-cell.nowrap span {
+  white-space: nowrap;
+}
+
 .table-head-cell span:after {
     position: absolute;
     content: '\25B2';
@@ -46,8 +50,13 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     border-radius: 5px;
+}
+
+.no-min-width {
+  min-width: unset;
+  border-radius: 5px;
 }
 
 .table-row {
@@ -57,12 +66,14 @@
 }
 
 .table-cell {
-    /* flex: 1; */
-    min-width: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.table-cell.nowrap {
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .table-cell.flex{
@@ -199,13 +210,16 @@
     border-left: 2px solid #3c7fc76e;
     margin-left: 70px;
 }
-
-
-.sub-table .table-row-container.row-aligned-center {
+.sub-table .table-row-container{
+    height: 20px;
     padding: 5px;
     margin: 5px 0;
-    /* height: 20px; */
     min-height: unset;
     background: inherit;
     min-width: unset;
+}
+
+.cell-main-content.truncate {
+    width: 150px;
+    text-align: center;
 }

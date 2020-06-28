@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import common from 'components/common';
-// import moment from 'moment';
 
-// const todayDate = (Date.now() - (24 * 60 * 60 * 1000));
-
-const {
-  InputRow,
-  SelectBox
-} = common;
-
+const { InputRow, SelectBox } = common;
 
 const TimeInterval = ({
   activeDuration = '',
@@ -40,7 +34,6 @@ const TimeInterval = ({
     const newFields = { ...fields, [name]: value };
     setFields(newFields);
 
-
     const activeDuration = newFields.isInfinite ? 'infinite' : `${newFields.value},${newFields.interval}`;
 
     props.onChange({
@@ -56,14 +49,6 @@ const TimeInterval = ({
 
     onChange('isInfinite', infinite);
   };
-
-  // const onIntervalChange = (value) => {
-  //   onChange({
-  //     ...fields,
-  //     interval: value,
-  //     maxValue: value === 'day' ? 31 : 12
-  //   });
-  // };
 
   const onFieldChange = ({ target: { name, value } }) => {
     onChange(name, value);
@@ -118,23 +103,24 @@ const newRow = ({
   url,
   id
 }) => (
-  <InputRow className='success-url-row'>
-    <span className='success-order'>
-      {id + 1}
-    </span>
-    <InputRow.NormalInput
-      value={url}
-      name='url'
-      onBlur={(e) => onChange(e, id)}
-    />
-    <TimeInterval
-      id={id}
-      onChange={(e) => onChange(e, id)}
-      activeDuration={activeDuration}
-    />
-    <span className='danger-color success-url-delete-btn'>
-      <i onClick={() => onDelete(id)} className='fas fa-trash-alt' />
-    </span>
-  </InputRow>
-);
+    <InputRow className='success-url-row'>
+      <span className='success-order'>
+        {id + 1}
+      </span>
+      <InputRow.NormalInput
+        value={url}
+        name='url'
+        onBlur={(e) => onChange(e, id)}
+      />
+      <TimeInterval
+        id={id}
+        onChange={(e) => onChange(e, id)}
+        activeDuration={activeDuration}
+      />
+      <span className='danger-color success-url-delete-btn'>
+        <i onClick={() => onDelete(id)} className='fas fa-trash-alt' />
+      </span>
+    </InputRow>
+  );
+
 export default newRow;

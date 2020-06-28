@@ -14,3 +14,18 @@
     right: 0;
     padding: 10px;
 }
+.trigger-group-delete-btn,
+.trigger-group-edit-btn{
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    cursor: pointer;
+    transition: transform .3s ease-in-out , opacity .3s ease-in-out !important;
+}
+.trigger-group-delete-btn{
+    right: 50px;
+}
+.trigger-group-delete-btn:hover,
+.trigger-group-edit-btn:hover{
+    transform: scale(1.2);
+}

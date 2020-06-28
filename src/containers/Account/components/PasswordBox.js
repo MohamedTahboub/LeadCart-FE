@@ -1,20 +1,10 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
 import { notification } from 'libs';
 import { notEmptyObj } from 'libs/checks';
 import common from 'components/common';
-const {
-  //   MainTitle,
-  //   Page,
-  //   PageHeader,
-  //   PageContent,
-  InputRow,
-  FlexBox,
-  //   Tabel,
-  Button,
-  //   FlexBoxesContainer
-} = common;
 
+const { InputRow, FlexBox, Button } = common;
 const { Label, TextField } = InputRow;
 
 const PasswordBox = ({ onUpdate, ...props }) => {
@@ -40,7 +30,6 @@ const PasswordBox = ({ onUpdate, ...props }) => {
           notification.failed(message);
           setErrors({ message });
           onProgress(false);
-          // setValues({});
         }
       }
     );
@@ -101,10 +90,6 @@ const PasswordBox = ({ onUpdate, ...props }) => {
       </FlexBox>
     </FlexBox>
   );
-};
-
-PasswordBox.propTypes = {
-
 };
 
 export default PasswordBox;

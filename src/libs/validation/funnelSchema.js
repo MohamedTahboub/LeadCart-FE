@@ -31,6 +31,7 @@ const ProductsSchema = yup.object({
 const funnelSchema = yup.object({
   name: yup.string(),
   style: yup.string(),
+  language: yup.string(),
   currency: yup.string(),
   paymentMethods: yup.array().of(yup.string()).default([]),
   thumbnail: yup.string().default(funnelCoverDefaultImage),
@@ -38,7 +39,13 @@ const funnelSchema = yup.object({
   products: yup.array().of(ProductsSchema).default([]),
   thankyouPage: yup.string().nullable(),
   productsUpdates: yup.object({}),
-  url: yup.string()
+  url: yup.string(),
+  marketPlace: yup.object({
+    publish: yup.boolean().default(true),
+    cardImage: yup.string(),
+    description: yup.string(),
+    featured: yup.boolean().default(false)
+  })
 });
 
 export default async (funnel) => {

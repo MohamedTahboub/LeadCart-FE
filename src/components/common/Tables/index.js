@@ -4,22 +4,24 @@ import './style.css';
 import { EasyAnimate } from '../Animation';
 
 export default class Table extends Component {
+
   static Head = ({ children }) => (
     <span className='table-head'>
       {children}
     </span>
   )
 
-  static Body = ({ children }) => (
-    <div className='tabel-body'>{children}</div>
+  static Body = ({ children, className }) => (
+    <div className={clx('table-body', className)}>{children}</div>
   )
 
   static HeadCell = ({
     children,
     flex = true,
-    className = ''
+    className = '',
+    nowrap
   }) => (
-    <div className={`table-head-cell  ${className} ${flex ? 'flex' : ''}`}>
+    <div className={clx('table-head-cell', className, { flex }, { nowrap })}>
       {children && (
         <span>
           {children}
@@ -32,15 +34,24 @@ export default class Table extends Component {
     children,
     orderInList = 0,
     subRow,
-    className = ''
-  }) => (
-    <EasyAnimate className={`table-row-container ${className} ${subRow ? '' : 'row-aligned-center'}`} delay={orderInList * 50}>
-      <div className='table-row'>
-        {children}
-      </div>
-      {subRow}
-    </EasyAnimate>
-  )
+    className = '',
+    onClick,
+    noMinWidth
+  }) => {
+    const classNames = clx('table-row-container', className, { 'row-aligned-center': subRow }, { 'no-min-width': noMinWidth });
+
+    return (
+      <EasyAnimate
+        className={classNames}
+        delay={orderInList * 50}
+      >
+        <div className='table-row' onClick={onClick}>
+          {children}
+        </div>
+        {subRow}
+      </EasyAnimate>
+    );
+  }
 
   static Cell = ({
     children,
@@ -50,11 +61,11 @@ export default class Table extends Component {
     flexStart,
     subContent,
     sideContent,
+    nowrap,
     ...props
   }) => {
-    const classNames = clx({
-      'table-cell': true,
-      [className]: className,
+    const classNames = clx('table-cell', className, {
+      nowrap,
       flex,
       flexStart
     });
@@ -93,7 +104,7 @@ export default class Table extends Component {
     <div className='small-table-cell'>{children}</div>
   )
 
-  static RowControlls = ({ children }) => (
+  static RowControls = ({ children }) => (
     <div className='row-controls'>
       {children}
     </div>
@@ -102,13 +113,10 @@ export default class Table extends Component {
 
   render = () => {
     const { subTable, className, children } = this.props;
+    const classes = clx('table-container', className, { 'sub-table': subTable });
 
-    const classes = clx({
-      'sub-table': subTable,
-      [className]: className
-    });
     return (
-      <div className={`table-container ${classes}`}>
+      <div className={` ${classes}`}>
         {children}
       </div>
     );

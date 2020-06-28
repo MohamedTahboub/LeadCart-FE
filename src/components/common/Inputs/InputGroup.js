@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clx from 'classnames';
+
 import TextField from './TextField';
 
 const InputGroup = (props) => {
@@ -17,14 +17,10 @@ const InputGroup = (props) => {
   });
   return (
     <div className={`input-group ${classNames}`} error-data={error}>
-      <TextField {...rest} />
+      <TextField {...rest} uncontrolled />
       {label && <span className='group-label'>{label}</span>}
     </div>
   );
-};
-
-InputGroup.propTypes = {
-
 };
 
 export default InputGroup;
