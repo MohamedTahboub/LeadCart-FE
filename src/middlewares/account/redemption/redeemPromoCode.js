@@ -1,4 +1,4 @@
-import { checkRedeemFailed, checkRedeemSuccess } from '../../../actions/redemption';
+import { redeemPromoCodeFailed, redeemPromoCodeSuccess } from '../../../actions/redemption';
 import { REDEEM_PROMO_CODE } from '../../../constantsTypes';
 import { apiRequest } from '../../../actions/apiRequest';
 
@@ -15,12 +15,12 @@ export default ({ dispatch }) => (next) => (action) => {
 
     onSuccess: (data) => {
       if (meta.onSuccess) meta.onSuccess(data);
-      return checkRedeemSuccess(data);
+      return redeemPromoCodeSuccess(data);
     },
 
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
-      return checkRedeemFailed(message);
+      return redeemPromoCodeFailed(message);
     }
   }));
 };

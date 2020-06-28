@@ -1,7 +1,7 @@
 import {
-  CHECK_REDEEM_FAILED,
-  CHECK_REDEEM_SUCCESS,
-  REDEEM_PROMO_CODE
+  REDEEM_PROMO_CODE,
+  REDEEM_PROMO_CODE_FAILED,
+  REDEEM_PROMO_CODE_SUCCESS
 } from '../constantsTypes';
 
 
@@ -11,13 +11,13 @@ export const redeemPromoCode = (code, meta) => ({
   meta
 });
 
-export const checkRedeemSuccess = (promoCode) => ({
-  type: CHECK_REDEEM_SUCCESS,
+export const redeemPromoCodeSuccess = (promoCode) => ({
+  type: REDEEM_PROMO_CODE_SUCCESS,
   payload: promoCode
 });
 
-export const checkRedeemFailed = (message) => ({
-  type: CHECK_REDEEM_FAILED,
+export const redeemPromoCodeFailed = (message) => ({
+  type: REDEEM_PROMO_CODE_FAILED,
   payload: message
 });
 
