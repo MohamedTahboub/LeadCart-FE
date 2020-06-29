@@ -30,15 +30,15 @@ StatusFeed.defaultProps = { active: true };
 export default ({
   name,
   orderInList,
-  active,
-  thumbnail = defaultFunnelThumbnail,
+  // thumbnail = defaultFunnelThumbnail,
   onEdit,
   onPreview,
-  onDelete
+  onDelete,
+  marketPlace: { publish } = {}
 }) => {
 
   const cardCover = {
-    backgroundImage: `linear-gradient(to bottom,rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0)), url(${thumbnail})`,
+    backgroundImage: `linear-gradient(to bottom,rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0)), url(${defaultFunnelThumbnail})`,
     height: '100%'
   };
 
@@ -55,10 +55,7 @@ export default ({
           <MdLaunch onClick={onPreview} className='larger-text item-clickable' />
         </FlexBox>
         <FlexBox column flex style={cardCover} className='funnel-bg white-text'>
-          <StatusFeed
-
-            active={active}
-          />
+          <StatusFeed active={publish} />
           <FlexBox column flex flexEnd >
             <FlexBox spaceBetween style={{ width: '100%', paddingBottom: '12px' }}>
               <span onClick={onDelete} className='card-icon-wrapper show-on-parent-hover'>
