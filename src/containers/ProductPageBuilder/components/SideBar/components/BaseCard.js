@@ -1,61 +1,28 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import clx from 'classnames';
-import { useDrag, useDrop } from 'react-dnd';
+import { DragPreviewImage, useDrag } from 'react-dnd';
 
-import DraggingPreview from '../../DraggingPreview';
 import * as dropTypes from '../../Workspace/components/dropTypes';
 
-const ElementCard = ({
-  type,
-  className,
-  id,
-  moveCard,
-  findCard,
-  ...props
-}) => {
-  // const originalIndex = findCard(id).index;
-
+const ElementCard = ({ ...props }) => {
+  const { src, type, title } = props;
   const [{ isDragging }, drag, previewConnect] = useDrag({
     item: {
       type: dropTypes.SECTION,
-      section: {
-        type
-      },
+      section: { type },
       new: true
     },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    // end: (dropResult, monitor) => {
-    //   const { id: droppedId, originalIndex } = monitor.getItem();
-    //   const didDrop = monitor.didDrop();
-    //   if (!didDrop) moveCard(droppedId, originalIndex);
-    // },
+    collect: (monitor) => ({ isDragging: monitor.isDragging() })
   });
-
-
-  const classNames = clx({
-    'base-element-card': true,
-    [className]: className
-  });
-
 
   return (
     <Fragment>
-      <DraggingPreview type={type} connect={previewConnect} />
-      <div
-        className={classNames}
-        {...props}
-        ref={(node) => drag(node)}
-      // onDragStart={onDragStart}
-      />
+      <DragPreviewImage connect={previewConnect} src={src} />
+      <div className='builder-section__icon' ref={(node) => drag(node)} {...props}>
+        <img src={src} alt={type} className='builder-section__img' />
+        <p className='builder-section__title'>{title}</p>
+      </div>
     </Fragment>
   );
-};
-
-ElementCard.propTypes = {
-
 };
 
 export default ElementCard;
