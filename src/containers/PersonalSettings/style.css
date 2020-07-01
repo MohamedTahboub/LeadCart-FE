@@ -104,6 +104,15 @@ display: flex; */
   flex-wrap: wrap;
 }
 
+.redemption .ant-table-tbody > tr > td,
+.redemption .ant-table-thead > tr > th{
+  text-align: center;
+}
+
 .redemption__form-title{
   font-weight: bold;
+}
+
+.redemption-text-center{
+  text-align: center;
 }

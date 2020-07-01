@@ -6,11 +6,13 @@ export default ({ dispatch }) => (next) => (action) => {
   const { payload, meta = {}, type } = action;
   if (type !== REDEEM_PROMO_CODE) return next(action);
 
+
   dispatch(apiRequest({
     options: {
       method: 'POST',
       body: payload,
-      uri: '/users/redeem'
+      uri: '/api/users/promo-code/redeem',
+      contentType: 'json'
     },
 
     onSuccess: (data) => {
@@ -20,7 +22,7 @@ export default ({ dispatch }) => (next) => (action) => {
 
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
-      return redeemPromoCodeFailed(message);
+      return redeemPromoCodeFailed({});
     }
   }));
 };

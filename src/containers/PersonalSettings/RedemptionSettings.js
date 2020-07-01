@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import ids from 'shortid';
+import moment from 'moment';
 
 import Section from './Section';
+import Badge from 'components/common/Badge';
 import { Input } from 'components/Inputs';
 import { Button } from 'components/Buttons';
 import { Table } from 'components/Tables';
@@ -14,36 +15,29 @@ import './style.css';
 const columns = [
   { title: 'Code', dataIndex: 'code', key: 'code' },
   { title: 'Type', dataIndex: 'type', key: 'type' },
-  { title: 'Value', dataIndex: 'value', key: 'value' },
-  { title: 'Redemption Date', dataIndex: 'redemptionDate', key: 'redemptionDate' }
+  { title: 'Value', dataIndex: 'credits', key: 'credits' },
+  { title: 'Status', dataIndex: 'state', key: 'state', render: (state) => <Badge className='redemption-text-center'>{state === 'Used' ? 'Redeemed' : state}</Badge> },
+  { title: 'Redemption Date', dataIndex: 'updatedAt', key: 'createdAt', render: (updatedAt) => moment(updatedAt).format('MMM DD YYYY') }
 ];
-
-const redemptionCodes = [
-  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
-  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
-  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
-  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
-  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
-  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() },
-  { code: '', type: 'Stacking', value: 1, redemptionDate: (new Date()).toISOString() }]
-  .map((code) => ({
-    ...code,
-    code: ids.generate()
-  }));
 
 
 const RedemptionSettings = ({ codes, redeemPromoCode }) => {
+  const [redeeming, setRedeeming] = useState(false);
+
   const onRedeem = (e) => {
     e.preventDefault();
     const { target: { redeemCode: { value } } } = e;
-
-    redeemPromoCode({ value }, {
+    setRedeeming(true);
+    redeemPromoCode({ code: value }, {
       onSuccess: () => {
         notification.success('your code redeemed successfully');
+        setRedeeming(false);
       },
 
       onFailed: (message) => {
         notification.failed(message);
+        setRedeeming(false);
+
       }
     });
 
@@ -51,12 +45,12 @@ const RedemptionSettings = ({ codes, redeemPromoCode }) => {
   };
 
   return (
-    < Section title='Redemption' >
+    < Section title='Redemption' className='redemption' >
       <form form className='mb-3' onSubmit={onRedeem}>
         <div className='mb-2 redemption__form-title'>Redeem codes:</div>
         <div className='d-flex ml-2'>
           <Input placeholder='E.g. XpI3_13-3' className='mr-2' name='redeemCode' />
-          <Button type='dashed' htmlType='submit' primary>Redeem</Button>
+          <Button type='dashed' htmlType='submit' loading={redeeming} primary>Redeem</Button>
         </div>
       </form>
 
@@ -70,5 +64,5 @@ const RedemptionSettings = ({ codes, redeemPromoCode }) => {
   );
 };
 
-const mapStateToProps = ({ codes = redemptionCodes }) => ({ codes });
+const mapStateToProps = ({ redemption }) => ({ ...redemption });
 export default connect(mapStateToProps, redemptionActions)(RedemptionSettings);
