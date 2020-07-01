@@ -87,8 +87,8 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 };
 
 
-export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) => {
-  const section = { ...sectionsTemplates[sectionType] };
+export const addNewSection = ({ state, dispatch }) => (sectionOrSectionType, postEffect) => {
+  const section = sectionOrSectionType instanceof String || typeof sectionOrSectionType === 'string' ? { ...sectionsTemplates[sectionOrSectionType] } : sectionOrSectionType;
   if (!section) return;
 
   section.id = ids.generate();

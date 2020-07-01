@@ -16,10 +16,11 @@ const DropBeforeLine = ({
   });
   let section = {};
   if (item) {
-    if (item.section.type === 'layout') section = { type: 'layout', section: sectionTemplates[item.section.type] };
+    if (item.section.id) section = { ...item, type: item.section.type };
+    else if (item.section.type === 'layout') section = { type: 'layout', section: sectionTemplates[item.section.type] };
     else section = sectionTemplates[item.section.type];
   } else {
-    section = { section: { content: {} } };
+    return null;
   }
   section.shallow = true;
   return (

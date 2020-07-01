@@ -53,12 +53,13 @@ const Section = ({
     if (parentSectionId) {
       const { section } = findCard(parentSectionId);
       const nested = section.content.sections;
+      const nestedSectionIndex = nested.findIndex(({ id }) => droppedItemId === id);
       const newNestedSections = update(nested, {
         $splice: [
-          [0, 1]
+          [nestedSectionIndex, 1]
         ]
       });
-      actions.addNewSection(type);
+      actions.addNewSection(nested[nestedSectionIndex]);
       actions.onSectionSettingChange({
         section,
         field: {
@@ -85,7 +86,13 @@ const Section = ({
   const [{ isOver }, drop] = useDrop({
     accept: [dropTypes.SECTION, dropTypes.NESTED_SECTION],
     collect: (monitor) => ({ isOver: monitor.isOver() }),
-    hover: (item) => setHoveredItem(item),
+    hover: (item, monitor) => {
+      const isOver = monitor.isOver();
+      if (item.section.id === section.id) return;
+      if (item.parentSectionId === section.id) return;
+      setHoveredItem(item);
+      if (!isOver) eraseShallowSections();
+    },
     drop: onDrop
   });
 
@@ -102,6 +109,20 @@ const Section = ({
 
   const onDuplicate = (fromId) => () => {
     onSectionDuplicate(fromId);
+  };
+  const eraseShallowSections = () => {
+    const { content: { sections: nestedSections } } = section;
+    if (!nestedSections) return;
+    const hasShallow = nestedSections.find(({ shallow }) => shallow);
+    if (!hasShallow) return;
+    const newNestedSections = nestedSections.filter(({ shallow }) => !shallow);
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name: 'content.sections',
+        value: newNestedSections
+      }
+    });
   };
   return (
     <div

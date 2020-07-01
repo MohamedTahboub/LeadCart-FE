@@ -116,6 +116,7 @@ export default {
       sections: [
         {
           id: '____2',
+          order: 2,
           hidden: false,
           type: 'image',
           content: {
@@ -130,9 +131,9 @@ export default {
             paddingTop: 0,
             paddingBottom: 0
           }
-        },
-        {
+        }, {
           id: '____1',
+          order: 1,
           hidden: false,
           type: 'image',
           content: {
