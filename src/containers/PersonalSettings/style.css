@@ -113,6 +113,29 @@ display: flex; */
   font-weight: bold;
 }
 
-.redemption-text-center{
+.redemption-cards{
+  display: flex;
   text-align: center;
+  font-weight: bold;
+}
+
+.redemption-cards div{
+  display: flex;
+  align-items: center;
+}
+
+.redemption-cards div:first-child{
+  margin-right: 1.5rem;
+}
+
+.redemption-cards p {
+  margin-right: 3px;
+}
+
+.redemption-cards span{
+  font-size: 2.5rem;
+  color: #95a5a6
+}
+.redemption .text-input-filed-container{
+  width: 100%;
 }

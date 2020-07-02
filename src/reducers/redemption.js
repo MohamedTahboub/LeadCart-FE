@@ -19,8 +19,9 @@ export default (state = initailState, { type, payload }) => {
         ...state,
         codes: [
           ...state.codes,
-          payload.promoCode
-        ]
+          { ...payload.promoCode, updatedAt: new Date() }
+        ],
+        credits: state.credits + payload.promoCode.credits
       };
 
     default:
