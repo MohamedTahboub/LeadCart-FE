@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getCurrencySymbol } from 'libs';
 import { ReceiptRow } from './common';
-// import { ActivationSwitchInput } from '../../../components/common/Buttons';
 
 import ProductActions from './ProductActions';
 
@@ -64,7 +63,7 @@ const ProductRow = ({
 
   return (
     <ReceiptRow
-      label={name}
+      label={`${name}${payment.paymentRefunded ? ' (REFUNDED)' : ''}`}
       prefix={(
         <span
           className='order-product-action-btn'
@@ -77,16 +76,17 @@ const ProductRow = ({
       )}
       value={`${currencySymbol} ${amount}`}
       subRow={(haveSubRows ? (
-        <div
-          className='receipt-sub-row left-sub-branch'
-        >
-          {subRows.map((row) => (
-            <ReceiptRow
-              label={row.name} // offer name or coupon code
-              prefix={row.type} // offer or coupon(discount)
-              value={`${row.sign} ${currencySymbol}  ${row.value}`}
-            />
-          ))}
+        <div className='receipt-sub-row left-sub-branch'>
+          {
+            subRows.map((row, ix) => (
+              <ReceiptRow
+                key={ix}
+                label={row.name} // offer name or coupon code
+                prefix={row.type} // offer or coupon(discount)
+                value={`${row.sign} ${currencySymbol}  ${row.value}`}
+              />
+            ))
+          }
           {renderOptions}
         </div>
       ) : (
@@ -98,10 +98,10 @@ const ProductRow = ({
 };
 
 ProductRow.propTypes = {
-  price: PropTypes.objectOf(),
+  price: PropTypes.number,
   name: PropTypes.string,
-  offer: PropTypes.objectOf(),
-  coupon: PropTypes.objectOf()
+  offer: PropTypes.shape({}),
+  coupon: PropTypes.shape({})
 };
 ProductRow.defaultProps = {
   price: {},

@@ -1,7 +1,7 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import common from '../../../components/common';
-import { connect } from 'react-redux'
-import * as customersActions from 'actions/customers'
+import { connect } from 'react-redux';
+import * as customersActions from 'actions/customers';
 
 const { InputRow, Button } = common;
 
@@ -23,92 +23,88 @@ const OrderOptions = ({
     } = {},
     product: {
       // name:productName,
-      price: {
-        amount: productPrice
-      } = {},
+      price: { amount: productPrice } = {}
     } = {}
-  } = details
+  } = details;
 
   const [refundState, setRefundState] = useState({
     paymentRefunded,
     offerPaymentRefunded,
     subscriptionCanceled
-  })
-  const [loading, setLoading] = useState({})
+  });
+  const [loading, setLoading] = useState({});
   const [unfoldOptions, setUnfoldOptions] = useState(true);
 
   const updateLoading = (element) => {
-    setLoading({ ...loading, ...element })
-  }
-  const onRefund = (target = 'product',isCancel) => {
-    let loadingName = target === 'product' ? 'refundProduct' : 'refundOffer'
+    setLoading({ ...loading, ...element });
+  };
+  const onRefund = (target = 'product', isCancel) => {
+    let loadingName = target === 'product' ? 'refundProduct' : 'refundOffer';
 
     loadingName = isCancel ? 'cancelSubscriptionProduct' : loadingName;
-    
-    const refundType = target === 'offer' ?
-      'offerPaymentRefunded'
-      :
-      paymentType === 'Onetime' ? 'paymentRefunded' : 'subscriptionCanceled'
-    updateLoading({ [loadingName]: true })
-    props.orderRefund({
-      orderId,
-      target,
-      cancel:isCancel
-    },
+
+    const refundType = target === 'offer' ? 'offerPaymentRefunded'
+      : paymentType === 'Onetime' ? 'paymentRefunded'
+        : 'subscriptionCanceled';
+    updateLoading({ [loadingName]: true });
+    props.orderRefund(
+      {
+        orderId,
+        target,
+        cancel: isCancel
+      },
       {
         onSuccess: () => {
-          updateLoading({ [loadingName]: false })
+          updateLoading({ [loadingName]: false });
           setRefundState({
             ...refundState,
             [refundType]: true
-          })
+          });
         },
         onFailed: () => {
-          updateLoading({ [loadingName]: false })
+          updateLoading({ [loadingName]: false });
         }
       }
-    )
-  }
+    );
+  };
 
-  const onCancelSubscription = ()=>{
-    onRefund('product',true)
-  }
+  const onCancelSubscription = () => {
+    onRefund('product', true);
+  };
   const onResendReceiptEmail = () => {
-    updateLoading({ resendReceipt: true })
-    props.resendReceiptEmail({
-      orderId
-    },
+    updateLoading({ resendReceipt: true });
+    props.resendReceiptEmail(
+      { orderId },
       {
         onSuccess: () => {
-          updateLoading({ resendReceipt: false })
+          updateLoading({ resendReceipt: false });
         },
         onFailed: () => {
-          updateLoading({ resendReceipt: false })
+          updateLoading({ resendReceipt: false });
         }
       }
-    )
-  }
+    );
+  };
   const onResendFulfillmentEmail = () => {
-    updateLoading({ resendFulfillment: true })
-    props.resendFulfillmentEmail({
-      orderId
-    },
+    updateLoading({ resendFulfillment: true });
+    props.resendFulfillmentEmail(
+      { orderId },
       {
         onSuccess: () => {
-          updateLoading({ resendFulfillment: false })
+          updateLoading({ resendFulfillment: false });
         },
         onFailed: () => {
-          updateLoading({ resendFulfillment: false })
+          updateLoading({ resendFulfillment: false });
         }
       }
-    )
-  }
+    );
+  };
 
-  const notPaypal = paymentMethod !== 'Paypal'
-  const notCOD = paymentMethod !== 'COD'
-  const refundLabel = paymentType === 'Onetime' ? 'Refund' : 'Refund Last Subscription'
-  const isRefundedOrCanceled = paymentType === 'Onetime' ? refundState.paymentRefunded : refundState.subscriptionCanceled
-  const isOfferPaymentRefunded = refundState.offerPaymentRefunded
+  const notPaypal = paymentMethod !== 'Paypal';
+  const notCOD = paymentMethod !== 'COD';
+  const refundLabel = paymentType === 'Onetime' ? 'Refund' : 'Refund Last Subscription';
+  const isRefundedOrCanceled = paymentType === 'Onetime' ? refundState.paymentRefunded : refundState.subscriptionCanceled;
+  const isOfferPaymentRefunded = refundState.offerPaymentRefunded;
 
   return (
     <div>
@@ -116,7 +112,7 @@ const OrderOptions = ({
         className={`more-order-options-btn ${unfoldOptions ? '' : 'open'}`}
         onClick={() => setUnfoldOptions(!unfoldOptions)}
       >
-        <i className="fas fa-chevron-down" />
+        <i className='fas fa-chevron-down' />
         {`show ${unfoldOptions ? 'more' : 'less'} options`}
       </div>
       <div className={`more-order-options ${unfoldOptions ? 'close' : 'open'}`}>
@@ -138,7 +134,7 @@ const OrderOptions = ({
                 className='primary-color more-order-options-btns'
                 onClick={() => onRefund('offer')}
                 onprogress={loading.refundOffer}
-              >
+                                              >
                 {`Refund Offer ${currency}${offer.price}`}
               </Button>
               )}
@@ -151,7 +147,7 @@ const OrderOptions = ({
                 onClick={() => onCancelSubscription()}
                 onprogress={loading.cancelSubscriptionProduct}
               >
-                {`Cancel`}
+                {'Cancel'}
               </Button>
             </InputRow>
           </Fragment>
@@ -176,16 +172,14 @@ const OrderOptions = ({
             onprogress={loading.resendFulfillment}
           >
             Send
-        </Button>
+          </Button>
         </InputRow>
       </div>
     </div>
   );
 };
 
-OrderOptions.propTypes = {
-
-};
+OrderOptions.propTypes = {};
 
 
 export default connect(null, customersActions)(OrderOptions);

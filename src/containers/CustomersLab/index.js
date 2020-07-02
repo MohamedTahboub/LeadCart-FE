@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MdClose } from 'react-icons/md';
 import { FaEllipsisH } from 'react-icons/fa';
@@ -31,7 +31,6 @@ const CustomersLab = ({ customers, orderRefund }) => {
   const [filterValue, setFilter] = useState('');
 
   const onSearchChange = (filterValue) => setFilter(filterValue);
-
   const toggleCustomerPanel = (customer = {}) => {
     setCustomer((activeCustomer = {}) => {
       if (activeCustomer.email === customer.email) {
@@ -43,6 +42,15 @@ const CustomersLab = ({ customers, orderRefund }) => {
       }
     });
   };
+
+  useEffect(() => {
+    customers.find((customer) => {
+      if (activeCustomer.email === customer.email) {
+        setCustomer(customer);
+        return true;
+      }
+    });
+  }, [customers]);
 
 
   const hideCustomerPanel = (customer) => {
