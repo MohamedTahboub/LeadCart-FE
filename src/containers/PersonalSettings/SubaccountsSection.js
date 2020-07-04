@@ -124,10 +124,19 @@ const SubaccountsSection = ({
       <PageHeader>Sub Accounts</PageHeader>
       <PageContent>
         <FlexBox column className='white-bg p-3 soft-edges'>
-          <div className='d-flex justify-space-between mb-2'>
+          <FlexBox center='v-center' spaceBetween className='mb-2'>
             <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
-            <Button type='primary' onClick={toggleSubaccountModal}><PlusOutlined /> New Sub Account</Button>
-          </div>
+            <span className='ml-2' >
+              You have
+              <span className='bold-text mx-1' data-tip='you can use credit for brands or sub-accounts creation'>
+                {credits}
+              </span>
+               credits left
+            </span>
+            <FlexBox flexEnd>
+              <Button type='primary' onClick={toggleSubaccountModal}><PlusOutlined /> New Sub Account</Button>
+            </FlexBox>
+          </FlexBox>
           <Table
             loading={dataLoading}
             columns={columns}
