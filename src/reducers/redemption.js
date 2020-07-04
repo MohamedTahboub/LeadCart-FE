@@ -4,27 +4,27 @@ import {
 } from 'constantsTypes';
 
 
-const initailState = {
+const initialState = {
   codes: [],
-  credits: 5
+  credits: 0
 };
 
-export default (state = initailState, { type, payload }) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_PROMO_CODES:
-      return payload || initailState;
+  case GET_PROMO_CODES:
+    return payload || initialState;
 
-    case REDEEM_PROMO_CODE_SUCCESS:
-      return {
-        ...state,
-        codes: [
-          ...state.codes,
-          { ...payload.promoCode, updatedAt: new Date() }
-        ],
-        credits: state.credits + payload.promoCode.credits
-      };
+  case REDEEM_PROMO_CODE_SUCCESS:
+    return {
+      ...state,
+      codes: [
+        ...state.codes,
+        { ...payload.promoCode, updatedAt: new Date() }
+      ],
+      credits: state.credits + payload.promoCode.credits
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 };
