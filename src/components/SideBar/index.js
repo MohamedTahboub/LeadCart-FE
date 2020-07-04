@@ -51,6 +51,7 @@ BrandSelect.defaultProps = { brands: [] };
 const SideBar = ({
   history,
   user,
+  credits,
   appInit,
   logout,
   updateActiveBrand,
@@ -139,7 +140,7 @@ const SideBar = ({
       </Menu>
       <div className='tail-actions'>
         <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate} onOpenChange={onAccountSettingsOpen}>
-          {mapMenuItems(accountSettingsMenus(user))}
+          {mapMenuItems(accountSettingsMenus({ credits }))}
         </Menu>
         <div className='upgrade'>
           <FillerButton onClick={logout} className='upgrade-btn' type='primary'>
@@ -153,8 +154,9 @@ const SideBar = ({
 };
 const mapStateToProps = ({
   brands,
-  user: { user }
-}) => ({ user, brands });
+  user: { user },
+  redemption: { credits = 0 } = {}
+}) => ({ user, brands, credits });
 
 export default connect(
   mapStateToProps,

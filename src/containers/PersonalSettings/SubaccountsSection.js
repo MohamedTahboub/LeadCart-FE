@@ -12,8 +12,8 @@ import { includesIgnoreCase } from 'libs';
 
 import './style.css';
 
-const hasAgencyAccess = (packageType) => {
-  return !!['Premium', 'Agency'].includes(packageType);
+const hasSubAccountsAccess = (credits) => {
+  return credits > 0;
 };
 
 const {
@@ -27,6 +27,7 @@ const {
 } = common;
 
 const SubaccountsSection = ({
+  credits,
   subaccounts = [],
   dataLoading,
   history,
@@ -45,7 +46,7 @@ const SubaccountsSection = ({
   };
 
   useEffect(() => {
-    if (!hasAgencyAccess(packageType)) return history.push('/');
+    if (!hasSubAccountsAccess(credits)) return history.push('/');
   }, [history, packageType]);
 
 
@@ -204,6 +205,7 @@ const SubaccountsSection = ({
 };
 
 const mapStateToProps = ({
+  redemption: { credits = 0 } = {},
   loading,
   agency: { subAccounts: subaccounts = [] } = {},
   user: { user: { packageType } }
@@ -211,7 +213,8 @@ const mapStateToProps = ({
   return {
     dataLoading: loading,
     subaccounts,
-    packageType
+    packageType,
+    credits
   };
 };
 
