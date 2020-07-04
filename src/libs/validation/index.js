@@ -11,4 +11,5 @@ export { default as upgradeUserSchema } from './userUpgrade';
 export { freeTrailSignup, proSignup, PrivateSignUp } from './proSignup';
 export { default as dashboardChartsSettings } from './dashboardChartsSettings';
 export { default as funnelSchema } from './funnelSchema';
+export { default as funnelRuleSchema } from './funnelRule';
 export { default as languagesSchema } from './languagesSchema';

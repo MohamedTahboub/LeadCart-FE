@@ -13,7 +13,9 @@ import ActionDependencies from './ActionDependencies';
 import * as immutable from 'object-path-immutable';
 import { isFunction } from 'libs/checks';
 import ids from 'shortid';
+import config from 'config';
 
+const { admins = [] } = config;
 const animatedComponents = makeAnimated();
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
   if (actionsMap[integrationKey]) {
@@ -99,6 +101,7 @@ const TriggerActionMaker = ({
   };
 
   const onDependenciesChange = ({ target: { name, value } }) => {
+    console.log(name, value);
     const newGroup = immutable.set(group, name, value);
     setGroup(newGroup);
     setError();
@@ -204,7 +207,7 @@ const TriggerActionMaker = ({
 
 TriggerActionMaker.propTypes = {};
 
-const mapStateToProps = ({ integrations }) => {
+const mapStateToProps = ({ user: { user = {} } = {}, integrations }) => {
   const integrationsLabels = integrations
     .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))
     .map((integration) => ({
@@ -214,7 +217,11 @@ const mapStateToProps = ({ integrations }) => {
       integrationId: integration._id
     }));
 
-  const integrationsList = [leadcartFulfillment, ...integrationsLabels];
+  const localFulfillment = {
+    ...leadcartFulfillment,
+    actions: leadcartFulfillment.actions.filter((ful) => ful.private ? admins.includes(user.email) : true)
+  };
+  const integrationsList = [localFulfillment, ...integrationsLabels];
   const actionsMap = mapListToObject(integrationsList, 'value');
 
   return {
