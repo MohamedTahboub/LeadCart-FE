@@ -13,20 +13,31 @@ export default (state = initState, { type, payload }) => {
     return payload;
 
   case ORDER_REFUND_SUCCESS: {
+    console.log({ payload });
+
+    // Go through orders to update the refunded order
     const orders = state.map((order) => {
       if (order._id === payload.orderId) {
+        // Go through order.products to update the refunded product
         const products = order.products.map((product) => {
-          // if (product.id === payload.productId) {
-          //   if (payload.target !== 'offer') product.price.amount *= -1;
-          //   else product.offer.price *= -1;
-          // }
-          return { ...product };
+          let price = product.price;
+          if (payload.target === 'offer') {
+            // Go through order.product.offers to update the refunded product's offer
+            const offers = product.offers.map((offer) => {
+              if (offer.id === payload.productId) {
+                price -= offer.price;
+                return { ...offer, refunded: true, price: -offer.price };
+              }
+              return offer;
+            });
+            return { ...product, offers, price };
+          }
+          return { ...product, price };
         });
         return { ...order, products };
       }
       return order;
     });
-
     return orders;
   }
 

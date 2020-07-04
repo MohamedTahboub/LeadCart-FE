@@ -15,7 +15,7 @@ const Action = ({ label, onRefund, ...props }) => (
   </Button>
 );
 
-const getInitActions = ({ payment, offer, productName }) => {
+const getInitActions = ({ payment, offers, productName }) => {
   const {
     paymentType,
     paymentRefunded,
@@ -41,51 +41,57 @@ const getInitActions = ({ payment, offer, productName }) => {
       disabled: subscriptionCanceled
     });
   }
-  if (offer.price) {
-    const { offerPaymentRefunded } = payment;
 
-    const offerAction = {
-      id: 3,
-      label: offerPaymentRefunded ? `Offer(${offer.name}) Refunded` : `Refund Offer(${offer.name})`,
-      target: 'offer',
-      disabled: offerPaymentRefunded
-    };
-    actions.push(offerAction);
-  }
-
+  offers.forEach((offer, ix) => {
+    if (offer.price) {
+      const { offerPaymentRefunded } = payment;
+      const offerAction = {
+        id: 3 + ix,
+        label: offerPaymentRefunded ? `Offer (${offer.name}) Refunded` : `Refund Offer(${offer.name})`,
+        target: 'offer',
+        targetId: offer.id,
+        disabled: offerPaymentRefunded
+      };
+      actions.push(offerAction);
+    }
+  });
+  console.log({ actions });
   return actions;
 };
 
 
 const ProductActions = ({
   payment = {},
-  offer = {},
+  offers = [],
   productName,
   productId,
   orderId,
   ...props
 }) => {
+  console.log({ offers });
 
-  const initActions = getInitActions({ payment, offer, productName });
+  const initActions = getInitActions({ payment, offers, productName });
 
   const [loading, setLoading] = useState({});
   const [actions, setActions] = useState(initActions);
 
   useEffect(() => {
-    const actions = getInitActions({ payment, offer, productName });
+    const actions = getInitActions({ payment, offers, productName });
     setActions(actions);
 
     return () => {
       setActions([]);
       setLoading({});
     };
-  }, [payment, offer]);
+  }, [payment, offers]);
 
-  const onRefund = ({ cancel, target, id }) => () => {
+  const onRefund = ({ cancel, target, id, targetId }) => () => {
+    let productOrOfferId = productId;
+    if (target === 'offer') productOrOfferId = targetId;
     setLoading((loading) => ({ ...loading, [id]: true }));
     props.onRefund({
       orderId,
-      productId,
+      productId: productOrOfferId,
       target,
       cancel
     }, {
@@ -112,7 +118,7 @@ const ProductActions = ({
   return (
     <div className='order-product-action'>
       {actions.map((action) => (
-        <Action {...action} onRefund={onRefund(action)} onprogress={loading[action.id]} />
+        <Action key={action.id} {...action} onRefund={onRefund(action)} onprogress={loading[action.id]} />
       ))}
     </div>
   );

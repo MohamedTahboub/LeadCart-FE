@@ -6,16 +6,18 @@ import { ReceiptRow } from './common';
 import ProductActions from './ProductActions';
 
 
-const getSubRows = ({ offer, coupon }) => {
+const getSubRows = ({ offers, coupon }) => {
   const rows = [];
-  if (offer.name) {
-    rows.push({
-      name: offer.name,
-      type: 'Offer: ',
-      value: offer.price,
-      sign: ''
-    });
-  }
+  offers.forEach((offer) => {
+    if (offer.name) {
+      rows.push({
+        ...offer,
+        type: 'Offer: ',
+        value: offer.price,
+        sign: ''
+      });
+    }
+  });
   if (coupon.code) {
     rows.push({
       name: coupon.code,
@@ -35,35 +37,40 @@ const ProductRow = ({
   name,
   price: amount,
   currency,
-  offer,
+  offers,
   payment,
   coupon,
   onRefund
 }) => {
   const [expand, setExpand] = useState(false);
   const currencySymbol = getCurrencySymbol(currency);
-  const subRows = getSubRows({ offer, coupon });
+  console.log({ offers });
+  const subRows = getSubRows({ offers, coupon });
   const haveSubRows = !!subRows.length;
 
   const onToggleActions = () => {
     setExpand((v) => !v);
   };
 
-
   const renderOptions = expand && (
     <ProductActions
       payment={payment}
       onRefund={onRefund}
-      offer={offer}
+      offers={offers}
       productName={name}
       orderId={orderId}
       productId={productId}
     />
   );
 
+  let orderStatus = '';
+  if (payment.paymentRefunded) orderStatus = ' (REFUNDED)';
+  else if (payment.subscriptionCanceled) orderStatus = ' (SUBSCRIPTION CANCELED)';
+  else if (payment.subscriptionRefunded) orderStatus = ' (SUBSCRIPTION REFUNDED)';
+
   return (
     <ReceiptRow
-      label={`${name}${payment.paymentRefunded ? ' (REFUNDED)' : ''}`}
+      label={`${name}${orderStatus}`}
       prefix={(
         <span
           className='order-product-action-btn'
@@ -81,9 +88,9 @@ const ProductRow = ({
             subRows.map((row, ix) => (
               <ReceiptRow
                 key={ix}
-                label={row.name} // offer name or coupon code
+                label={`${row.refunded ? `${row.name} (REFUNDED)` : row.name}`} // offer name or coupon code
                 prefix={row.type} // offer or coupon(discount)
-                value={`${row.sign} ${currencySymbol}  ${row.value}`}
+                value={`${row.refunded ? '-' : ''} ${row.sign} ${currencySymbol}  ${row.value}`}
               />
             ))
           }
