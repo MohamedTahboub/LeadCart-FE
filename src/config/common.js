@@ -77,5 +77,12 @@ export default {
     defaultSupportEmail: 'supprot@leadcart.io',
     defaultName: 'Leadcart',
     defaultLogo: leadcartBrandLogo
-  }
+  },
+  admins: [
+    'mohamed@leadcart.io',
+    'maysara@leadcart.io',
+    'nour@leadcart.io',
+    'fares@leadcart.io',
+    'eslam@leadcart.io'
+  ]
 };

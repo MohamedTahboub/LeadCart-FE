@@ -7,6 +7,7 @@ import rulesEvents from 'data/rulesEvents';
 import { connect } from 'react-redux';
 import * as funnelsActions from 'actions/funnels';
 import { mapListToObject, notification } from 'libs';
+import { funnelRuleSchema } from 'libs/validation';
 import TriggerGroup from './TriggerGroup';
 import TriggerActionMaker from './TriggerActionMaker';
 import { funnelTypes } from 'propTypes';
@@ -68,17 +69,16 @@ const RuleModal = ({
     });
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setSaving(true);
+    const { isValid, errors, value } = await funnelRuleSchema(fields);
+
+    if (!isValid)
+      return notification.failed('Validation issue!!');
+
     if (isNew) {
       props.createFunnelRule({
-        rule: {
-          ...fields,
-          triggerGroups: fields.triggerGroups.map(({ action: { requirement, ...action }, products }) => ({
-            products,
-            action
-          }))
-        },
+        rule: value,
         funnel: funnelId
       }, {
         onSuccess: () => {
@@ -92,16 +92,10 @@ const RuleModal = ({
         }
       });
     } else {
-      const { _id: ruleId, ...rule } = fields;
-      if (Array.isArray(rule.triggerGroups)) {
-        rule.triggerGroups = rule.triggerGroups.map(({ action: { requirement, ...action }, products }) => ({
-          products,
-          action
-        }));
-      }
+      const { _id: ruleId } = fields;
       props.updateFunnelRule({
         ruleId,
-        rule,
+        rule: value,
         funnel: funnelId
       }, {
         onSuccess: () => {
