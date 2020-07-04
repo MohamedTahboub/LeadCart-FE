@@ -8,7 +8,7 @@ export { default as generalSettingSchema } from './marketPlaceSettingSchema';
 export { default as marketPlaceSettingSchema } from './settings';
 export { default as couponSchema } from './couponSchema';
 export { default as upgradeUserSchema } from './userUpgrade';
-export { freeTrailSignup, proSignup, PrivateSignUp } from './proSignup';
+export { freeTrailSignup, proSignup } from './proSignup';
 export { default as dashboardChartsSettings } from './dashboardChartsSettings';
 export { default as funnelSchema } from './funnelSchema';
 export { default as languagesSchema } from './languagesSchema';

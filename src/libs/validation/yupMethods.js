@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 yup.addMethod(yup.string, 'couponCode', function (key) {
   return this.test(
     'equals',
@@ -16,6 +17,7 @@ yup.addMethod(yup.string, 'productUrl', function (key) {
     (value) => !(/([&+,:;=?|'<>.^*()%!-]|\ )/.test(value))
   );
 });
+
 yup.addMethod(yup.string, 'subDomain', function (key) {
   return this.test(
     'subDomain',
@@ -25,3 +27,11 @@ yup.addMethod(yup.string, 'subDomain', function (key) {
   );
 });
 
+yup.addMethod(yup.string, 'promoCode', function () {
+  return this.test(
+    'promoCode',
+    'don\'t include these characters [&+,:;=?|\'<>.^*()%!] or empty spaces',
+    // eslint-disable-next-line
+    (value) => !(/([&+,:;=?|'<>.^*()%!]|\ )/.test(value))
+  );
+});

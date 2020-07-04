@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import * as signupActions from 'actions/signup';
-import { PrivateSignUp } from 'libs/validation';
+import { freeTrailSignup } from 'libs/validation';
 import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 import config from 'config';
 import common from 'components/common';
@@ -13,8 +13,7 @@ const { packagesPlans } = config;
 const { Feature, FlexBox, Button, InputGroup } = common;
 
 
-const PrivateSignUpPage = (props) => {
-  const { isLoggedIn, history: { push } } = props;
+const PrivateSignUpPage = ({ isLoggedIn, history: { push }, signUp }) => {
   isLoggedIn && push('/');
 
   const [success, setSuccess] = useState(false);
@@ -35,10 +34,10 @@ const PrivateSignUpPage = (props) => {
         promoCode: promoCode.value
       };
 
-      const { isValid, value, errors } = await PrivateSignUp(newUser);
+      const { isValid, value, errors } = await freeTrailSignup(newUser);
 
       !isValid ? setErrors({ ...errors }) :
-        props.signUp(
+        signUp(
           value,
           {
             trial: true,
@@ -62,6 +61,7 @@ const PrivateSignUpPage = (props) => {
       setErrors({ message });
     }
   };
+
 
   const onChange = ({ target: { name } }) => {
     setErrors({ ...errors, [name]: '', message: '' });
