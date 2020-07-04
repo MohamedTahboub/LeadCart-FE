@@ -13,7 +13,6 @@ export default (state = initState, { type, payload }) => {
     return payload;
 
   case ORDER_REFUND_SUCCESS: {
-    console.log({ payload });
 
     // Go through orders to update the refunded order
     const orders = state.map((order) => {

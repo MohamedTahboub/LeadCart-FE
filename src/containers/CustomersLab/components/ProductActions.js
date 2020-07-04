@@ -44,18 +44,17 @@ const getInitActions = ({ payment, offers, productName }) => {
 
   offers.forEach((offer, ix) => {
     if (offer.price) {
-      const { offerPaymentRefunded } = payment;
+      const { offerPaymentRefunded } = payment || {};
       const offerAction = {
         id: 3 + ix,
-        label: offerPaymentRefunded ? `Offer (${offer.name}) Refunded` : `Refund Offer(${offer.name})`,
+        label: offer.refunded || offerPaymentRefunded ? `Offer (${offer.name}) Refunded` : `Refund Offer(${offer.name})`,
         target: 'offer',
         targetId: offer.id,
-        disabled: offerPaymentRefunded
+        disabled: offer.refunded || offerPaymentRefunded
       };
       actions.push(offerAction);
     }
   });
-  console.log({ actions });
   return actions;
 };
 
@@ -68,7 +67,6 @@ const ProductActions = ({
   orderId,
   ...props
 }) => {
-  console.log({ offers });
 
   const initActions = getInitActions({ payment, offers, productName });
 

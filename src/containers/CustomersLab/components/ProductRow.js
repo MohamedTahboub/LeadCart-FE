@@ -44,7 +44,6 @@ const ProductRow = ({
 }) => {
   const [expand, setExpand] = useState(false);
   const currencySymbol = getCurrencySymbol(currency);
-  console.log({ offers });
   const subRows = getSubRows({ offers, coupon });
   const haveSubRows = !!subRows.length;
 
