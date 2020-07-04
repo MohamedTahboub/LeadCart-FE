@@ -8,7 +8,6 @@ import BrandsMenu from 'components/BrandsMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { FillerButton } from 'components/Buttons';
 import common from 'components/common';
-import CreateProductModal from '../CreateProductModal';
 import { notification } from 'libs';
 import { accountSettingsMenus, main as sidebarMenus } from './menus';
 import Icons from './icons';
@@ -148,7 +147,6 @@ const SideBar = ({
           </FillerButton>
         </div>
       </div>
-      <CreateProductModal history={history} />
     </div>
   );
 };
