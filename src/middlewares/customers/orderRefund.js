@@ -24,7 +24,6 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (data) => {
       if (meta.onSuccess) meta.onSuccess(data);
-      dispatch(refundProduct(payload));
       const { orders } = store.getState();
       payload.orders = orders;
       return orderRefundSuccess(payload);
