@@ -101,7 +101,6 @@ const TriggerActionMaker = ({
   };
 
   const onDependenciesChange = ({ target: { name, value } }) => {
-    console.log(name, value);
     const newGroup = immutable.set(group, name, value);
     setGroup(newGroup);
     setError();

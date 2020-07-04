@@ -71,9 +71,8 @@ const RuleModal = ({
 
   const onSubmit = async () => {
     setSaving(true);
-
     const { isValid, errors, value } = await funnelRuleSchema(fields);
-    console.log({ errors, value });
+
     if (!isValid)
       return notification.failed('Validation issue!!');
 
@@ -94,12 +93,6 @@ const RuleModal = ({
       });
     } else {
       const { _id: ruleId } = fields;
-      // if (Array.isArray(rule.triggerGroups)) {
-      //   rule.triggerGroups = rule.triggerGroups.map(({ action: { requirement, ...action }, products }) => ({
-      //     products,
-      //     action
-      //   }));
-      // }
       props.updateFunnelRule({
         ruleId,
         rule: value,
