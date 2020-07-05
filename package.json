@@ -15,7 +15,6 @@
     "html2canvas": "^1.0.0-rc.5",
     "immutability-helper": "^3.0.1",
     "jest-environment-jsdom-sixteen": "^1.0.3",
-    "lodash.debounce": "^4.0.8",
     "logrocket": "^1.0.5",
     "msw": "^0.19.1",
     "numeral": "^2.0.6",
