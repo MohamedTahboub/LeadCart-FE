@@ -8,7 +8,6 @@ import BrandsMenu from 'components/BrandsMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { FillerButton } from 'components/Buttons';
 import common from 'components/common';
-import CreateProductModal from '../CreateProductModal';
 import { notification } from 'libs';
 import { accountSettingsMenus, main as sidebarMenus } from './menus';
 import Icons from './icons';
@@ -51,6 +50,7 @@ BrandSelect.defaultProps = { brands: [] };
 const SideBar = ({
   history,
   user,
+  credits,
   appInit,
   logout,
   updateActiveBrand,
@@ -139,7 +139,7 @@ const SideBar = ({
       </Menu>
       <div className='tail-actions'>
         <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate} onOpenChange={onAccountSettingsOpen}>
-          {mapMenuItems(accountSettingsMenus(user))}
+          {mapMenuItems(accountSettingsMenus({ credits }))}
         </Menu>
         <div className='upgrade'>
           <FillerButton onClick={logout} className='upgrade-btn' type='primary'>
@@ -147,14 +147,14 @@ const SideBar = ({
           </FillerButton>
         </div>
       </div>
-      <CreateProductModal history={history} />
     </div>
   );
 };
 const mapStateToProps = ({
   brands,
-  user: { user }
-}) => ({ user, brands });
+  user: { user },
+  redemption: { credits = 0 } = {}
+}) => ({ user, brands, credits });
 
 export default connect(
   mapStateToProps,
