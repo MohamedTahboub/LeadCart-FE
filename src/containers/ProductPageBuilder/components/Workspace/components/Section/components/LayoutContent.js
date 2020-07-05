@@ -12,7 +12,6 @@ import { SettingsHandles } from '../components';
 import sectionsTemplates from 'data/productSectionsTemplates';
 import Split from 'react-split';
 import FlexibleBox from 'components/FlexibleBox';
-import debounce from 'lodash.debounce';
 
 const NestedSection = ({
   className,
