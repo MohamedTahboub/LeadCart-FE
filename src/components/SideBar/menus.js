@@ -1,7 +1,4 @@
 
-const hasAgencyAccess = (packageType) => {
-  return !!['Premium', 'Agency'].includes(packageType);
-};
 
 export const main = () => [
   {
@@ -71,7 +68,7 @@ export const main = () => [
   }, { divider: true }
 ];
 
-export const accountSettingsMenus = ({ packageType }) => [{
+export const accountSettingsMenus = ({ credits }) => [{
   title: 'Account Settings',
   key: 'accountSettings',
   icon: 'settings',
@@ -86,7 +83,7 @@ export const accountSettingsMenus = ({ packageType }) => [{
       key: 'subaccountsSettings',
       link: '/sub-accounts',
       icon: 'subAccounts',
-      className: !hasAgencyAccess(packageType) && 'hide-element'
+      className: `${(+credits > 0) ? '' : 'hide-element'}`
     }
   ]
 }];

@@ -25,6 +25,7 @@ import translations from './translations';
 import brands from './brands';
 import integrations from './integrations';
 import workspace from './workspace';
+import redemption from './redemption';
 
 
 const rootReducer = combineReducers({
@@ -53,7 +54,8 @@ const rootReducer = combineReducers({
   validation,
   brands,
   integrations,
-  workspace
+  workspace,
+  redemption
 });
 
 export default rootReducer;

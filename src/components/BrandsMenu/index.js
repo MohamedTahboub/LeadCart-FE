@@ -18,7 +18,7 @@ const CREATE_NEW_BRAND = uuid();
 
 const { SubMenu, Item: MenuItem, Divider } = Menu;
 
-const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, createBrand }) => {
+const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, createBrand, credits }) => {
   const [brandsFilter, filterBrands] = useState('');
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
   const [isBrandsOpen, setBrandsOpen] = useState(false);
@@ -74,7 +74,11 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
       <div style={{ border: '1px solid #E8E8E8' }} />
       {
         isCreateBrandModalOpen && (
-          <CreateModal onClose={toggleCreateModalOpen} onCreate={onCreateBrand} />
+          <CreateModal
+            onClose={toggleCreateModalOpen}
+            onCreate={onCreateBrand}
+            credits={credits}
+          />
         )
       }
     </div>
@@ -90,5 +94,5 @@ BrandsMenu.propTypes = {
   // Brand creator
   createBrand: PropTypes.func.isRequired
 };
-
-export default connect(null, brandsActions)(BrandsMenu);
+const mapStateToProps = ({ redemption: { credits } = {} }) => ({ credits });
+export default connect(mapStateToProps, brandsActions)(BrandsMenu);

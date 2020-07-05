@@ -9,6 +9,11 @@ export default {
     {
       label: 'Manual Fulfillment',
       value: 'MANUAL_FULFILLMENT'
+    },
+    {
+      label: 'LeadCart Private Fulfillment',
+      value: 'LEADCART_FULFILLMENT',
+      private: true
     }
   ]
 };

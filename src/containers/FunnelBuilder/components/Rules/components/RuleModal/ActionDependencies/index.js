@@ -5,6 +5,7 @@ import common from 'components/common';
 import {
   ExternalIntegration,
   ManualFulfillment,
+  PrivateLeadcartFulfillment,
   SuccessUrls
 } from './components';
 
@@ -25,6 +26,7 @@ const ActionDependencies = (props) => {
     <LayoutSwitch active={type}>
       <SuccessUrls id='SUCCESS_URLS' {...passedProps} />
       <ManualFulfillment id='MANUAL_FULFILLMENT' {...passedProps} />
+      <PrivateLeadcartFulfillment id='LEADCART_FULFILLMENT' {...passedProps} metaData={metaData} />
     </LayoutSwitch>
   );
 };

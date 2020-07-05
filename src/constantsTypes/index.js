@@ -30,8 +30,14 @@ export const GET_ACTIVATED_AGENCY_CODES_NUMBERS = Symbol('GET_ACTIVATED_AGENCY_C
 
 /* AGENCY CODE ENDS */
 
+/*  redemptions actions */
+export const GET_PROMO_CODES = Symbol('GET_PROMO_CODES');
+export const REDEEM_PROMO_CODE = Symbol('REDEEM_PROMO_CODE');
+export const REDEEM_PROMO_CODE_SUCCESS = Symbol('REDEEM_PROMO_CODE_SUCCESS');
+export const REDEEM_PROMO_CODE_FAILED = Symbol('REDEEM_PROMO_CODE_FAILED');
+/*  redemptions actions ENDS*/
+
 /* PromoCode actions types */
-export const PROMO_CODE_ACTIVATE = Symbol('PROMO_CODE_ACTIVATE');
 export const PROMO_CODE_ACTIVATE_SUCCESS = Symbol('PROMO_CODE_ACTIVATE_SUCCESS');
 export const PROMO_CODE_ACTIVATE_FAILED = Symbol('PROMO_CODE_ACTIVATE_FAILED');
 
