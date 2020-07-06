@@ -35,7 +35,7 @@
   align-items: center;
   width: 33.33%;
   margin-bottom: 10px;
-
+  cursor: pointer;
 }
 
 .builder-section__title{
