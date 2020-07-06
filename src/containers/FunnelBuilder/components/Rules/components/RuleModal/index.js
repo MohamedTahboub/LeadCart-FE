@@ -136,6 +136,7 @@ const RuleModal = ({
           options={rulesEvents}
           className='flex-item margin-h-10'
           onChange={onTriggerChange}
+          placeholder='Select an event'
           value={rulesEventsMap[fields.trigger]}
         />
         <div className='label margin-left-10'>Fired</div>
@@ -155,6 +156,7 @@ const RuleModal = ({
                 products={productsOptions}
                 onAdd={onTriggerGroupAdded}
                 onUpdate={onUpdateTriggerGroup}
+                event={fields.trigger}
                 group={group}
               />
             ) : (
