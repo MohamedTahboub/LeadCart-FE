@@ -71,7 +71,7 @@ const RuleModal = ({
 
   const onSubmit = async () => {
     setSaving(true);
-    const { isValid, errors, value } = await funnelRuleSchema(fields);
+    const { isValid, value } = await funnelRuleSchema(fields);
 
     if (!isValid)
       return notification.failed('Validation issue!!');
@@ -143,7 +143,6 @@ const RuleModal = ({
       </FlexBox>
       <FlexBox
         column
-        // flexStart
         className='modal-trigger-groups-list margin-top-10 padding-v-10 padding-h-10 bordered soft-edges lightgray-bg'
       >
         {
@@ -156,7 +155,7 @@ const RuleModal = ({
                 products={productsOptions}
                 onAdd={onTriggerGroupAdded}
                 onUpdate={onUpdateTriggerGroup}
-                event={fields.trigger}
+                triggerEvent={fields.trigger}
                 group={group}
               />
             ) : (
@@ -176,6 +175,7 @@ const RuleModal = ({
             hasGroups={!!(fields.triggerGroups && fields.triggerGroups.length)}
             products={productsOptions}
             onAdd={onTriggerGroupAdded}
+            triggerEvent={fields.trigger}
           />)}
       </FlexBox>
       <FlexBox flex flexEnd>

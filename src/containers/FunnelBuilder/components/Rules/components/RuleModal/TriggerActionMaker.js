@@ -47,7 +47,7 @@ const TriggerActionMaker = ({
   hasGroups,
   integrations: integrationsLabels,
   actionsMap,
-  event,
+  triggerEvent,
   onAdd
 }) => {
   const [group, setGroup] = useState(groupDetails);
@@ -123,8 +123,7 @@ const TriggerActionMaker = ({
   const selectedIntegration = integrationsLabels.find(({ value }) => group.action && group.action.integrationKey === value);
   const selectedActionOption = actionsOptions.find(({ value }) => group.action && group.action.type === value);
   const actionIntegrationId = group.action && actionsMap[group.action.integrationKey].integrationId;
-
-  const canSelectProducts = event === 'PROSPECT';
+  const canSelectProducts = triggerEvent !== 'PROSPECT';
 
   return expand ? (
     <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges my-1'>
@@ -137,7 +136,7 @@ const TriggerActionMaker = ({
           name='products'
           onChange={onProductsChanged}
           isMulti
-          disabled={canSelectProducts}
+          isDisabled={!canSelectProducts}
           options={products}
           value={canSelectProducts ? [] : selectedProducts}
         />
