@@ -11,6 +11,7 @@ const AreaChart = ({
   display,
   timelineFilter
 }) => {
+
   const initialState = {
     series: [
       {
@@ -26,29 +27,48 @@ const AreaChart = ({
       zoom: { enabled: false },
       toolbar: { show: false }
     },
+
     dataLabels: { enabled: false },
+
     markers: {
       size: 2,
       style: 'hollow'
     },
+
     xaxis: {
       type: 'datetime',
       min: undefined,
       max: undefined,
-
       tickAmount: 1
     },
-    tooltip: { x: { format: 'dd MMM yyyy' } },
-    colors: ['#4DA1FF'],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.5,
-        opacityTo: 0,
-        stops: [0, 100]
-      }
-    }
+
+    tooltip: {
+      x: { format: 'dd MMM yyyy', show: false },
+
+      y: [{
+        formatter: (value, data) => {
+          const { w: { globals: { seriesNames } } } = data;
+          const [seriesName] = seriesNames;
+
+          if (typeof value !== 'undefined') {
+
+            if (seriesName === 'Checkout Views')
+              return `${value} <i className='fas fa-eye' />`;
+            else if (seriesName === 'Net Revenue' || seriesName === 'Gross Revenue')
+              return `$${value}`;
+            else if (seriesName === 'Conversion Rate' || seriesName === 'abandonmentsRate' || seriesName === 'refundRate')
+              return `${value}%`;
+            else
+              return value;
+
+          } else {
+            return value;
+          }
+        }
+      }]
+    },
+
+    colors: ['#4DA1FF']
   };
 
 
@@ -68,7 +88,7 @@ const AreaChart = ({
       <ApexCharts
         options={options}
         series={state.series}
-        type='area'
+        type='line'
         height='250'
         loading
       />

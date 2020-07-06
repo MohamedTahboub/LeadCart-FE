@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Chart, MiniChart } from 'components/LeadCartCharts';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import dateOptions from 'data/dateOptions';
-import { ChartTypeCard, ChartsSettingsModal } from './components';
-import { reshapeFeed } from './helpers';
-import * as dashboardActions from 'actions/dashboard';
-import dashboardSettings from 'data/dashboardSettings';
+import PropTypes from 'prop-types';
+
 import { getChartPreviewCardDescription, getDateValueReferences } from 'libs';
+import * as dashboardActions from 'actions/dashboard';
+import { ChartTypeCard, ChartsSettingsModal } from './components';
+import { Chart, MiniChart } from 'components/LeadCartCharts';
+import { reshapeFeed } from './helpers';
+import common from 'components/common';
+import dashboardSettings from 'data/dashboardSettings';
+import dateOptions from 'data/dateOptions';
+import chrtCardData from './chartCardData';
 import './style.css';
 
-import common from 'components/common';
 
-
-const {
-  MainTitle,
-  Page,
-  PageHeader,
-  PageContent,
-  InputRow,
-  InsightBadge
-} = common;
-
-
+const { MainTitle, Page, PageHeader, PageContent, InputRow, InsightBadge } = common;
 const { SearchInput } = InputRow;
 
 const Dashboard = ({
@@ -36,21 +28,19 @@ const Dashboard = ({
   const [activeType, setActiveType] = useState('views');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
   const [updatingCharts, setUpdatingCharts] = useState(false);
-
   const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(false);
 
   const onOpenChartsSettingsModal = () => {
     setShowChartsSettingsModal(true);
   };
+
   const onCloseChartsSettingModal = () => {
     setShowChartsSettingsModal(false);
   };
 
 
   useEffect(() => {
-
     setChartsFeed(reshapeFeed(activities, getDateValueReferences(filterKeys.date)));
-
   }, [activities, filterKeys.date, settings]);
 
   const onChange = ({ target: { name, value: currentValue } }) => {
@@ -59,8 +49,8 @@ const Dashboard = ({
     const filters = { ...filterKeys, [name]: value };
     setFilterKeys(filters);
 
-
     setUpdatingCharts(true);
+
     getDashboardChartsData(
       constructFilters(filters),
       {
@@ -80,18 +70,19 @@ const Dashboard = ({
     if (filters.product === 'all')
       filters.product = undefined;
 
-
     return {
       productId: filters.product,
       category: filters.category,
       date: getDateValueReferences(filters.date)
     };
   };
+
   return (
     <Page>
       <PageHeader withRefreshBtn data={{ chartsFilters: constructFilters(filterKeys) }}>
         <MainTitle>Sales Overview</MainTitle>
       </PageHeader>
+
       <PageContent>
         <div className='dashboard-page'>
           <div className='dashboar-content-holder'>
@@ -144,88 +135,24 @@ const Dashboard = ({
                     onClose={onCloseChartsSettingModal}
                   />
                 </div>
+
+                {/* ==================== THE CARDS FOR THE HADER CHART ==================== */}
                 <div className='chart-header-cards'>
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Gross Revenue'
-                    data={chartsFeed.sums}
-                    name='grossRevenue'
-                    onClick={setActiveType}
-                    prefix='$'
-                  />
-
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Views'
-                    data={chartsFeed.sums}
-                    name='views'
-                    prefix={<i className='fas fa-eye' />}
-                    onClick={setActiveType}
-                    labelFormat='0'
-                  />
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Sales'
-                    data={chartsFeed.sums}
-                    name='salesNumber'
-                    onClick={setActiveType}
-                    labelFormat='0'
-                  />
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Net Revenue'
-                    data={chartsFeed.sums}
-                    name='netRevenue'
-                    prefix='$'
-                    onClick={setActiveType}
-                  />
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Cart Conversion'
-                    data={chartsFeed.sums}
-                    name='conversionRate'
-                    suffix='%'
-                    onClick={setActiveType}
-                    labelFormat='0.0'
-                  />
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Refunds'
-                    data={chartsFeed.sums}
-                    name='refundsNumber'
-                    onClick={setActiveType}
-                    labelFormat='0'
-                    warning
-                  />
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Refund Rate'
-                    data={chartsFeed.sums}
-                    name='refundRate'
-                    suffix='%'
-                    onClick={setActiveType}
-                    labelFormat='0.0'
-                    warning
-                  />
-
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Cart Abandonments'
-                    data={chartsFeed.sums}
-                    name='cartAbandonments'
-                    labelFormat='0'
-                    onClick={setActiveType}
-                  />
-                  <ChartTypeCard
-                    activeType={activeType}
-                    label='Abandonments Rate'
-                    data={chartsFeed.sums}
-                    name='abandonmentsRate'
-                    suffix='%'
-                    labelFormat='0.0'
-                    onClick={setActiveType}
-                  />
+                  {chrtCardData.map(({ label, name, prefix, suffix, labelFormat, warning }) =>
+                    (<ChartTypeCard
+                      activeType={activeType}
+                      label={label}
+                      data={chartsFeed.sums}
+                      name={name}
+                      onClick={setActiveType}
+                      prefix={prefix ? prefix : null}
+                      labelFormat={labelFormat ? labelFormat : null}
+                      suffix={suffix ? suffix : null}
+                      warning={warning ? warning : null}
+                    />))}
                 </div>
+
+                {/* ====================THE CHART==================== */}
                 <div className='chart-body'>
                   <Chart
                     data={chartsFeed.activities[activeType]}
@@ -235,8 +162,10 @@ const Dashboard = ({
                   />
                 </div>
               </div>
+
               {/* overview insights section */}
               <div className='overview-insights-container'>
+
                 {settings.defaultCardsSettings.sales.map((card) => (
                   <InsightBadge
                     key={card.value}
@@ -251,7 +180,20 @@ const Dashboard = ({
                       <MiniChart data={chartsFeed.activities[card.value]} />
                     )}
                   />
-                ))}
+                ))
+                }
+
+                {
+                  settings.defaultCardsSettings.sales.forEach((card, index) => {
+                    console.log('>>>>>>>> INDEX', index);
+                    console.log('>>>>>>>> CARD LABEL', card.label);
+                    console.log('>>>>>>>> CARD VALUE', card.value);
+                    console.log('>>>>>>>> DATA', chartsFeed.activities[card.value]);
+                    console.log('>>>>>>>> CHARTS FEED ACTIVITIES)', chartsFeed.activities);
+                    console.log('=========================================');
+                  })
+                }
+
                 {settings.defaultCardsSettings.refunds.map((card) => (
                   <InsightBadge
                     key={card.value}
@@ -267,6 +209,7 @@ const Dashboard = ({
                     )}
                   />
                 ))}
+
               </div>
             </div>
           </div>
@@ -296,7 +239,6 @@ const mapStateToProps = ({
     settings = {}
   } = {}
 }) => {
-
   const withDefaultSetting = !(settings.defaultCardsSettings && settings.defaultCardsSettings.sales.length);
   return {
     filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
@@ -304,6 +246,5 @@ const mapStateToProps = ({
     settings: withDefaultSetting ? dashboardSettings : settings
   };
 };
-
 
 export default connect(mapStateToProps, dashboardActions)(Dashboard);
