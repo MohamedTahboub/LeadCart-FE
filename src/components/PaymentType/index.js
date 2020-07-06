@@ -54,6 +54,7 @@ export default ({
           type='number'
           defaultValue={price.amount}
           prefix={<Currency value={price.currency} />}
+          uncontrolled
         />
       </InputRow>
       <PaymentTypeSelector value={paymentType} onChange={onFieldChange} />
