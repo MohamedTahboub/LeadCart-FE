@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ApexCharts from 'react-apexcharts';
 import PropTypes from 'prop-types';
+import numeral from 'numeral';
 
-import { getLabelByValue } from 'data/dashboardSettings';
+import { getFormatByValue, getLabelByValue } from 'data/dashboardSettings';
 import './chart.css';
 
 const AreaChart = ({
@@ -49,21 +50,15 @@ const AreaChart = ({
         formatter: (value, data) => {
           const { w: { globals: { seriesNames } } } = data;
           const [seriesName] = seriesNames;
-
-          if (typeof value !== 'undefined') {
-
-            if (seriesName === 'Checkout Views')
-              return `${value} <i className='fas fa-eye' />`;
-            else if (seriesName === 'Net Revenue' || seriesName === 'Gross Revenue')
-              return `$${value}`;
-            else if (seriesName === 'Conversion Rate' || seriesName === 'abandonmentsRate' || seriesName === 'refundRate')
-              return `${value}%`;
-            else
-              return value;
-
-          } else {
+          if (seriesName === 'Checkout Views')
+            return `${value} view`;
+          else if (seriesName === 'Net Revenue' || seriesName === 'Gross Revenue')
+            return `$${value}`;
+          else if (seriesName === 'Conversion Rate' || seriesName === 'abandonmentsRate' || seriesName === 'refundRate')
+            return `${value}%`;
+          else
             return value;
-          }
+
         }
       }]
     },
@@ -77,7 +72,7 @@ const AreaChart = ({
       series: [
         {
           name: getLabelByValue(activeTypeValue),
-          data
+          data: data.map(([first, second]) => [first, numeral(second).format(getFormatByValue(activeTypeValue))])
         }
       ]
     });

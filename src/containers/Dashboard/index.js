@@ -136,23 +136,16 @@ const Dashboard = ({
                   />
                 </div>
 
-                {/* ==================== THE CARDS FOR THE HADER CHART ==================== */}
                 <div className='chart-header-cards'>
-                  {chrtCardData.map(({ label, name, prefix, suffix, labelFormat, warning }) =>
+                  {chrtCardData.map((card) =>
                     (<ChartTypeCard
                       activeType={activeType}
-                      label={label}
                       data={chartsFeed.sums}
-                      name={name}
                       onClick={setActiveType}
-                      prefix={prefix ? prefix : null}
-                      labelFormat={labelFormat ? labelFormat : null}
-                      suffix={suffix ? suffix : null}
-                      warning={warning ? warning : null}
+                      {...card}
                     />))}
                 </div>
 
-                {/* ====================THE CHART==================== */}
                 <div className='chart-body'>
                   <Chart
                     data={chartsFeed.activities[activeType]}
@@ -181,17 +174,6 @@ const Dashboard = ({
                     )}
                   />
                 ))
-                }
-
-                {
-                  settings.defaultCardsSettings.sales.forEach((card, index) => {
-                    console.log('>>>>>>>> INDEX', index);
-                    console.log('>>>>>>>> CARD LABEL', card.label);
-                    console.log('>>>>>>>> CARD VALUE', card.value);
-                    console.log('>>>>>>>> DATA', chartsFeed.activities[card.value]);
-                    console.log('>>>>>>>> CHARTS FEED ACTIVITIES)', chartsFeed.activities);
-                    console.log('=========================================');
-                  })
                 }
 
                 {settings.defaultCardsSettings.refunds.map((card) => (

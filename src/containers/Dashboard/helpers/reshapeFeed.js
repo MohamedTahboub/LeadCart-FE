@@ -13,7 +13,7 @@ const getDiffsRate = (salesList, viewsList) => salesList.map(([saleDate, saleNum
 
 const getDiffs = (baseList, subList) => baseList.map(([baseDate, baseValue]) => {
   const sameDayExist = subList.find(([subDate]) => subDate === baseDate);
-  let amount = Math.round(baseValue);
+  let amount = baseValue;
 
   if (sameDayExist) amount -= (isNaN(sameDayExist[1]) ? 0 : sameDayExist[1]);
   return [baseDate, amount];
@@ -83,8 +83,6 @@ export default (feeds = [], fromDate) => {
         }
       }
     );
-
-    console.log(';;;;;;;;;;;;;;;;', activities);
 
     const numberOfDays = moment().diff(fromDate.min, 'days');
     sums.dailyAvg = divided(sums.grossRevenue).by(numberOfDays);
@@ -158,13 +156,14 @@ const groupList = (list) => ({
       const DayDate = moment(key ? item[key] : item).format('YYYY-MM-DD');// YYYY-MM-DDTHH:mm
 
       if (group[DayDate]) {
-        if (key2 && item[key2]) group[DayDate] += +(Math.round(item[key2]));
+        if (key2 && item[key2]) group[DayDate] += +(item[key2]);
         else group[DayDate]++;
       } else if (key2 && item[key2]) {
-        group[DayDate] = +(Math.round(item[key2]));
+        group[DayDate] = +(item[key2]);
       } else {
         group[DayDate] = 1;
       }
+
 
       return group;
     }, {});
