@@ -154,6 +154,7 @@ const groupList = (list) => ({
   for: (key, key2) => {
     const group = list.reduce((group, item) => {
       const DayDate = moment(key ? item[key] : item).format('YYYY-MM-DD');// YYYY-MM-DDTHH:mm
+
       if (group[DayDate]) {
         if (key2 && item[key2]) group[DayDate] += +(item[key2]);
         else group[DayDate]++;
@@ -162,6 +163,7 @@ const groupList = (list) => ({
       } else {
         group[DayDate] = 1;
       }
+
 
       return group;
     }, {});
@@ -182,6 +184,7 @@ const groupList = (list) => ({
 
       result = result.reverse();
     }
+
     return result;
   }
 });
