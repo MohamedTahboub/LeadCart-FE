@@ -24,13 +24,14 @@ const OrderRow = ({
   customer: {
     firstName,
     lastName,
-    email,
+    email
   } = {},
   products = [],
   paymentMethod,
   createdAt,
   totalCharge = 0
 }) => {
+
   const productsCount = products.length;
   const [expand, setExpand] = useState(false);
   // eslint-disable-next-line
@@ -81,8 +82,6 @@ const OrderRow = ({
     </Table.Row>
   );
 };
-OrderRow.propTypes = {
-
-};
+OrderRow.propTypes = {};
 // getCurrencySymbol(checkoutProduct && checkoutProduct.payment.currency)}
 export default OrderRow;
