@@ -25,6 +25,7 @@ const AreaChart = ({
 
   const options = {
     chart: {
+      type: 'area',
       zoom: { enabled: false },
       toolbar: { show: false }
     },
@@ -63,7 +64,17 @@ const AreaChart = ({
       }]
     },
 
-    colors: ['#4DA1FF']
+    stroke: { curve: 'straight' },
+
+    fill: {
+      type: 'gradient',
+      colors: ['#4DA1FF'],
+      gradient: {
+        opacityFrom: 0.7,
+        opacityTo: 0.1,
+        stops: [0, 100]
+      }
+    }
   };
 
 
@@ -83,7 +94,7 @@ const AreaChart = ({
       <ApexCharts
         options={options}
         series={state.series}
-        type='line'
+        type='area'
         height='250'
         loading
       />
