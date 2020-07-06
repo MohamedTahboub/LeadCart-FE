@@ -25,13 +25,8 @@ export const filterCustomers = (orders = []) => {
     .map((customer) => ({
       lifeTimeCharges: customer.orders.reduce((total, o) => {
         if (o.payment.paymentRefunded || o.payment.subscriptionCanceled) total -= o.product.price.amount;
-
-
         if (o.offerPaymentRefunded) total -= o.product.offer.price;
-
-
-        total += o.totalCharge;
-        return total;
+        return total + o.totalCharge;
       }, 0),
       ...customer
     }))

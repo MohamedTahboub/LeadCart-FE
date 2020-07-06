@@ -22,11 +22,10 @@ function fireEvent (eventName, payload) {
 }
 
 
-export default ({ type, payload }) => {
+export default (event) => {
+  const { type, payload } = event;
   const eventName = eventsNamesMap(type);
 
   fireEvent(eventName, payload);
-  return {
-    register: EventsRegister
-  };
+  return { register: EventsRegister };
 };

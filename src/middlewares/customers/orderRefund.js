@@ -1,17 +1,19 @@
 import { ORDER_REFUND } from 'constantsTypes';
 
 import {
-  orderRefundSuccess,
-  orderRefundFailed
+  orderRefundFailed,
+  orderRefundSuccess
 } from 'actions/customers';
 
+import { refundProduct } from 'actions/product';
+
 import { apiRequest } from 'actions/apiRequest';
+import store from 'store';
 
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== ORDER_REFUND) return next(action);
 
   const { payload, meta = {} } = action;
-
 
   dispatch(apiRequest({
     options: {
@@ -22,6 +24,8 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (data) => {
       if (meta.onSuccess) meta.onSuccess(data);
+      const { orders } = store.getState();
+      payload.orders = orders;
       return orderRefundSuccess(payload);
     },
     onFailed: (message) => {
