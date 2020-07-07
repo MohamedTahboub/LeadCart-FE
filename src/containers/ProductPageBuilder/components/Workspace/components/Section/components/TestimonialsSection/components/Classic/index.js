@@ -23,7 +23,7 @@ const ClassicTestimonial = ({
     });
   };
   return (
-    <div className={`testimonial-item margin-h-10 ${className}`}>
+    <div className={`testimonial-item margin-h-auto ${className}`}>
       <Image
         className='testimonial-author-image'
         image={image}

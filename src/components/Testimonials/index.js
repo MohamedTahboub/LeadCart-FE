@@ -14,6 +14,7 @@ const TestimonialElement = ({
   onDelete,
   ...props
 }) => {
+
   const onChange = ({ target: { value, name } }) => {
     props.onChange({
       target: {

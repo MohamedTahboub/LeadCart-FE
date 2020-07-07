@@ -4,14 +4,14 @@ import common from 'components/common';
 import ids from 'shortid';
 import { useContext } from '../../../actions';
 import {
-  SettingBox,
-  ImageOption
+  ImageOption,
+  SettingBox
 } from './common';
 
 
 const emptyTestimonial = {
   author: 'edit author name!',
-  content: 'click on text to edit content',
+  content: 'click on text to edit content'
 };
 
 
@@ -19,10 +19,24 @@ const themesOptions = [
   {
     theme: 'classic',
     src: 'https://i.imgur.com/KrpUDcY.png'
-  },
-  {
+  }, {
     theme: 'modern',
     src: 'https://i.imgur.com/loxwoC8.png'
+  }, {
+    theme: 'description-oriented',
+    src: 'https://imgur.com/gc1pKG8.png'
+  }, {
+    theme: 'edgy',
+    src: 'https://imgur.com/qtbQdUD.png'
+  }, {
+    theme: 'plain',
+    src: 'https://imgur.com/RRNuBwx.png'
+  }, {
+    theme: 'compact',
+    src: 'https://imgur.com/ORfQGLU.png'
+  }, {
+    theme: 'business',
+    src: 'https://imgur.com/dxL8dBD.png'
   }
 ];
 
@@ -34,27 +48,21 @@ const {
   MiniTwitterPicker,
   Button,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
 const { TextField, SelectOption } = InputRow;
 
 const TestimonialsSection = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
     actions: sectionActions = {},
-    content: {
-      list = []
-    } = {}
+    content: { list = [] } = {}
   } = sectionSetting;
 
   const onChange = ({ target }) => {
@@ -86,7 +94,7 @@ const TestimonialsSection = (props) => {
     });
   };
   return (
-    <div>
+    <div className='overflow-y-scroll'>
       <Tabs active='themes' className='padding-v-10 padding-h-10'>
         <Tab id='themes' title='Themes'>
           {themesOptions.map(({ theme, src }) => (
@@ -104,8 +112,6 @@ const TestimonialsSection = (props) => {
   );
 };
 
-TestimonialsSection.propTypes = {
-
-};
+TestimonialsSection.propTypes = {};
 
 export default TestimonialsSection;
