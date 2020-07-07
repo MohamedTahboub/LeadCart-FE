@@ -186,7 +186,7 @@ export default {
       value: 'testimonials Section Content',
       children: []
     },
-    styles: { theme: 'modern' }
+    styles: { theme: 'edgy' }
   },
   featuresSection: {
     hidden: false,
