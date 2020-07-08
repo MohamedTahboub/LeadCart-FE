@@ -75,7 +75,7 @@ const RuleModal = ({
 
     if (!isValid) {
       setSaving(false);
-      return notification.failed('Please check your rule fields');
+      return notification.failed('Please check your rule fields,\ne.g. rule event');
     }
 
     if (isNew) {
