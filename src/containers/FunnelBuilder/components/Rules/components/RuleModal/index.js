@@ -69,12 +69,14 @@ const RuleModal = ({
     });
   };
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     setSaving(true);
-    const { isValid, value } = await funnelRuleSchema(fields);
+    const { isValid, value } = funnelRuleSchema(fields);
 
-    if (!isValid)
-      return notification.failed('Validation issue!!');
+    if (!isValid) {
+      setSaving(false);
+      return notification.failed('Please check your rule fields,\ne.g. rule event');
+    }
 
     if (isNew) {
       props.createFunnelRule({
