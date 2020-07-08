@@ -13,8 +13,8 @@ const {
 } = common;
 
 const DescriptionOrientedTestimonial = ({
-  author = 'Click to edit Author name',
-  authorDescription = 'Click to edit job title',
+  author = 'John Doe',
+  authorDescription = 'Senior Marketing Manager, University of San Diego',
   value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   rank = 2,
@@ -48,7 +48,6 @@ const DescriptionOrientedTestimonial = ({
           name='content.value'
           defaultValue='testimonial content'
           value={content}
-          style={{ minWidth: '400px' }}
           className='medium-text blush-gray max-w-500 margin-v-20'
         />
         <FlexBox>

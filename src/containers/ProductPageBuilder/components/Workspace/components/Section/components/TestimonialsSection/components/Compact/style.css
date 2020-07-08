@@ -22,3 +22,8 @@
 .verifying-party-input {
     font-size: 10px;
 }
+
+.mobile .col-on-mobile {
+    flex-direction: column;
+    align-items: center;
+}

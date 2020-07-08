@@ -13,7 +13,7 @@ const {
 } = common;
 
 const ModernTestimonial = ({
-  author = 'Click to edit Author name',
+  author = 'John Doe',
   value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   rank = 2,
@@ -54,7 +54,6 @@ const ModernTestimonial = ({
           name='content.value'
           defaultValue='testimonial content'
           value={content}
-          style={{ minWidth: '400px' }}
           className='medium-text blush-gray max-w-500 margin-v-20'
         />
         <FlexBox center='v-center'>

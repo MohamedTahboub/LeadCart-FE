@@ -12,8 +12,12 @@
 .business-testimonial-section {
     padding: 16px;
     width: 432px;
-    margin: 0 auto;
+    margin: 15px auto;
     box-shadow: 1px 3px 8px #D1D1D1;
+}
+
+.mobile .business-testimonial-section {
+    width: auto;
 }
 
 .verifying-party-input {

@@ -13,20 +13,17 @@ const {
 } = common;
 
 const EdgyTestimonial = ({
-  author = 'Click to edit Author name',
-  authorDescription = 'Click to edit job title',
+  author = 'John Doe',
+  authorDescription = 'Senior Marketing Manager, University of San Diego',
   value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
-  verifyingParty = 'Verified by Endorsal.io',
   image = avatarLink,
   rank = 2,
-  className,
   orderId: id,
-  onChange,
-  ...props
+  onChange
 }) => {
 
 
-  const onImageChange = ({ value, ...res }) => {
+  const onImageChange = ({ value }) => {
     onChange({
       target: {
         name: 'content.image',
@@ -49,10 +46,9 @@ const EdgyTestimonial = ({
           name='content.value'
           defaultValue='testimonial content'
           value={content}
-          style={{ minWidth: '400px' }}
           className='medium-text blush-gray max-w-500 margin-v-20 text-align-center'
         />
-        <FlexBox spaceBetween>
+        <FlexBox spaceBetween className='col-on-mobile'>
           <ResizableInput
             className='ml-2'
             onChange={onChange}
@@ -74,14 +70,6 @@ const EdgyTestimonial = ({
           name='content.authorDescription'
           defaultValue='Job title'
           value={authorDescription}
-          style={{ fontWeight: 'bold' }}
-        />
-        <ResizableInput
-          className='ml-2 testimonial-content-input text-align-start verifying-party-input'
-          onChange={onChange}
-          name='content.verifyingParty'
-          defaultValue='Verified by Endorsal.io'
-          value={verifyingParty}
           style={{ fontWeight: 'bold' }}
         />
       </FlexBox>

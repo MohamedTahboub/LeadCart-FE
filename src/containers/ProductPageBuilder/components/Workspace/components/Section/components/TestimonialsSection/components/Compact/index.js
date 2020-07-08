@@ -13,12 +13,9 @@ const {
 } = common;
 
 const CompactTestimonial = ({
-  author = 'Click to edit Author name',
-  authorDescription = 'Click to edit job title',
-  authorDescriptionExtra = 'Click to edit job description',
-  authorCountry = 'Click to edit country of residence',
+  author = 'John Doe',
+  authorDescription = 'Senior Marketing Manager, University of San Diego',
   value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
-  verifyingParty = 'Verified by Endorsal.io',
   image = avatarLink,
   rank = 2,
   className,
@@ -51,10 +48,9 @@ const CompactTestimonial = ({
           name='content.value'
           defaultValue='testimonial content'
           value={content}
-          style={{ minWidth: '400px' }}
           className='medium-text blush-gray max-w-500 margin-v-20 text-align-center'
         />
-        <FlexBox spaceBetween>
+        <FlexBox spaceBetween className='col-on-mobile'>
           <ResizableInput
             className='ml-2'
             onChange={onChange}
@@ -76,30 +72,6 @@ const CompactTestimonial = ({
           name='content.authorDescription'
           defaultValue='Works at Xalion'
           value={authorDescription}
-          style={{ fontWeight: 'bold' }}
-        />
-        <ResizableInput
-          className='ml-2 testimonial-content-input text-align-start verifying-party-input'
-          onChange={onChange}
-          name='content.authorDescriptionExtra'
-          defaultValue='Works at Xalion'
-          value={authorDescriptionExtra}
-          style={{ fontWeight: 'bold' }}
-        />
-        <ResizableInput
-          className='ml-2 testimonial-content-input text-align-start verifying-party-input'
-          onChange={onChange}
-          name='content.authorCountry'
-          defaultValue='Austin, Tx'
-          value={authorCountry}
-          style={{ fontWeight: 'bold' }}
-        />
-        <ResizableInput
-          className='ml-2 testimonial-content-input text-align-start verifying-party-input'
-          onChange={onChange}
-          name='content.verifyingParty'
-          defaultValue='Verified by Endorsal.io'
-          value={verifyingParty}
           style={{ fontWeight: 'bold' }}
         />
       </FlexBox>
