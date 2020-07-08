@@ -52,7 +52,7 @@ const EdgyTestimonial = ({
             style={{ fontWeight: 'bold' }}
           />
           <ResizableInput
-            className='testimonial-content-input text-align-start'
+            className='testimonial-content-input text-align-start author-description'
             onChange={onChange}
             name='content.authorDescription'
             defaultValue='Job title'

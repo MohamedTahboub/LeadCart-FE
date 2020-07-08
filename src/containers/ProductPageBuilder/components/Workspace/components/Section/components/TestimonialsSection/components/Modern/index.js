@@ -42,7 +42,7 @@ const ModernTestimonial = ({
         name={`testimonial-image-${id}`}
         onChange={onImageChange}
       />
-      <FlexBox column reverse className='margin-left-20'>
+      <FlexBox column reverse className='margin-left-20 full-width'>
         <StarsRanking
           name='content.rank'
           rank={rank}

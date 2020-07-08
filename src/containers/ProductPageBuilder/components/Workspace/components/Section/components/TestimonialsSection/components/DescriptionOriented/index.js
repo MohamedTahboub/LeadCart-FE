@@ -36,7 +36,7 @@ const DescriptionOrientedTestimonial = ({
 
   return (
     <FlexBox center='v-center margin-v-10 description-oriented-testimonial'>
-      <FlexBox column className='margin-left-20'>
+      <FlexBox column className='margin-left-20 full-width'>
         <StarsRanking
           name='content.rank'
           rank={rank}
@@ -67,7 +67,7 @@ const DescriptionOrientedTestimonial = ({
               style={{ fontWeight: 'bold' }}
             />
             <ResizableInput
-              className='ml-2 testimonial-content-input text-align-start'
+              className='ml-2 testimonial-content-input text-align-start author-description'
               onChange={onChange}
               name='content.authorDescription'
               defaultValue='Job title'

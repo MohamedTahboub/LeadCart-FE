@@ -65,7 +65,7 @@ const EdgyTestimonial = ({
           />
         </FlexBox>
         <ResizableInput
-          className='ml-2 testimonial-content-input text-align-start'
+          className='ml-2 testimonial-content-input text-align-start author-description'
           onChange={onChange}
           name='content.authorDescription'
           defaultValue='Job title'

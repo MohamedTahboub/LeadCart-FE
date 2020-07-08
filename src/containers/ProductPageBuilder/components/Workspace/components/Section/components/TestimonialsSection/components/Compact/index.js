@@ -67,7 +67,7 @@ const CompactTestimonial = ({
           />
         </FlexBox>
         <ResizableInput
-          className='ml-2 testimonial-content-input text-align-start verifying-party-input'
+          className='ml-2 testimonial-content-input text-align-start verifying-party-input author-description'
           onChange={onChange}
           name='content.authorDescription'
           defaultValue='Works at Xalion'

@@ -8,3 +8,9 @@
   max-width: 270px;
   text-align: center;
 }
+
+.mobile .author-description input {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
