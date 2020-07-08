@@ -1,4 +1,5 @@
 import {
+  CREATE_SUB_ACCOUNT_SUCCESS,
   GET_PROMO_CODES,
   REDEEM_PROMO_CODE_SUCCESS
 } from 'constantsTypes';
@@ -24,7 +25,11 @@ export default (state = initialState, { type, payload }) => {
       credits: state.credits + payload.promoCode.credits
     };
 
-  default:
-    return state;
+  case CREATE_SUB_ACCOUNT_SUCCESS:
+    return {
+      ...state,
+      credits: state.credits - 1
+    };
+  default: return state;
   }
 };
