@@ -76,7 +76,7 @@ const RedemptionSettings = ({ codes, credits, redeemPromoCode }) => {
           <Table dataSource={sortedCodes} columns={columns} pagination={false} />
         </div>
       </div>
-    </Section >
+    </Section>
   );
 };
 
