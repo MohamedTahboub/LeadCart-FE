@@ -8,15 +8,13 @@ import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { notification } from 'libs';
 import { includesIgnoreCase } from 'libs';
-import { GoInfo } from 'react-icons/go';
 import './style.css';
-import ReactTooltip from 'react-tooltip';
 
+import { CreditsStatus } from './common';
 const hasSubAccountsAccess = (credits) => {
   return credits > 0;
 };
 
-const aboutCredits = 'you can use credits for brands or sub-accounts creation, each credit equals one Pro Brand or one Sub-Account.';
 const {
   FlexBox,
   Page,
@@ -128,17 +126,7 @@ const SubAccountsSection = ({
         <FlexBox column className='white-bg p-3 soft-edges'>
           <FlexBox center='v-center' spaceBetween className='mb-2'>
             <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
-            <span className='ml-2' >
-              You have
-              <span className='bold-text mx-1' >
-                {credits}
-              </span>
-               credits left
-              <GoInfo
-                className='gray-text ml-2'
-                data-tip={aboutCredits}
-              />
-            </span>
+            <CreditsStatus credits={credits}/>
             <FlexBox flexEnd>
               <Button className='primary-color' onClick={toggleSubAccountModal}><PlusOutlined /> New Sub Account</Button>
             </FlexBox>
@@ -150,7 +138,6 @@ const SubAccountsSection = ({
             pagination={false}
           />
         </FlexBox>
-        <ReactTooltip />
 
       </PageContent>
       {
