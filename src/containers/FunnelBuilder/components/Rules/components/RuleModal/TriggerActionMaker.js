@@ -114,7 +114,9 @@ const TriggerActionMaker = ({
 
   useEffect(() => {
     setGroup(groupDetails);
-    if (isEdit) setExpand(true);
+    if (isEdit && (groupDetails.id && groupDetails.id === group.id))
+      setExpand(true)
+      ;
     return () => setExpand(false);
   }, [isEdit]);
 
