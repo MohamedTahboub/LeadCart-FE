@@ -31,12 +31,12 @@ const PersonalSettings = ({ brands, user, paymentMethods, onChangeAccountDetails
 
   const Route = () => {
     switch (activeTab) {
-      case 'general': return <GeneralSettings user={user} onChangeAccountDetails={onChangeAccountDetails} onChangeAccountPassword={onChangeAccountPassword} />;
-      case 'code_redemption': return <RedemptionSettings />;
-      case 'brands_management': return <BrandsSection brands={brands} />;
-      case 'payment_methods': return <PaymentSettings creditCards={paymentMethods} />;
-      default:
-        return <div />;
+    case 'general': return <GeneralSettings user={user} onChangeAccountDetails={onChangeAccountDetails} onChangeAccountPassword={onChangeAccountPassword} />;
+    case 'code_redemption': return <RedemptionSettings />;
+    case 'brands_management': return <BrandsSection brands={brands} />;
+    case 'payment_methods': return <PaymentSettings creditCards={paymentMethods} />;
+    default:
+      return <div />;
     }
   };
 
