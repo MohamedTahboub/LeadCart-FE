@@ -82,7 +82,7 @@ const CreateModal = ({ onClose, onCreate, credits }) => {
         {hasCredits && (
           <FlexBox className='margin-v-10'>
             <Label error={errors.package}>
-              Create Brand
+            Create Brand As/With:
             </Label>
             <Checkbox
               onClick={onBrandCreationOption(false)}
