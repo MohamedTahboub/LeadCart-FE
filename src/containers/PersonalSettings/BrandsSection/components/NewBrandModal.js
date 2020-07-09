@@ -82,7 +82,7 @@ const CreateModal = ({ onClose, onCreate, credits }) => {
         {hasCredits && (
           <FlexBox className='margin-v-10'>
             <Label error={errors.package}>
-              Creat Brand As
+            Create Brand As/With:
             </Label>
             <Checkbox
               onClick={onBrandCreationOption(false)}
@@ -96,9 +96,9 @@ const CreateModal = ({ onClose, onCreate, credits }) => {
               value={values.withCredits}
               checked={values.withCredits}
             >
-              with my
-              <span data-tip={`this will cost you 1 credit, and you will left with ${credits - 1}`}>
-                credits
+              My
+              <span data-tip={`this will cost you 1 credit, and you will left with ${credits - 1}`} className='mx-1'>
+                Credits
               </span>
             </Checkbox>
           </FlexBox>
