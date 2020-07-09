@@ -57,7 +57,7 @@ const RedemptionSettings = ({ codes, credits, redeemPromoCode }) => {
         </div>
 
         <div className='card-style white-bg p-2'>
-          <p>Codes Number/</p>
+          <p>Redeemed Codes/</p>
           <span>{codes.length}</span>
         </div>
       </section>
