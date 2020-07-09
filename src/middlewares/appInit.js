@@ -16,6 +16,7 @@ import { getEmailSettings } from 'actions/emails';
 import { getUserPlanSuccess } from 'actions/billing';
 import { getTranslationsLanguages } from 'actions/translations';
 import { getUserBrands } from 'actions/brands';
+import { getPromoCodes } from 'actions/redemption';
 
 
 window.user = '';
@@ -32,6 +33,10 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getMembersSuccess(data.members));
     dispatch(getSubAccountsSuccess(data.agents));
     dispatch(getCouponsList(data.coupons));
+    dispatch(getPromoCodes({
+      codes: data.promoCodes,
+      credits: data.credits
+    }));
     dispatch(getDashboardDataSuccess(data.dashboard));
     dispatch(getFunnels(data.funnels || []));
     dispatch(getUserProductsSuccess({ products: data.products }));

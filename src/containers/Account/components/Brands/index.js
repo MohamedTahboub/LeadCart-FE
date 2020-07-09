@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { notification } from 'libs';
 import * as brandsActions from 'actions/brands';
-import { CreateModal } from './components';
+import { NewBrandModal } from './components';
 
 const { FlexBox, Badge, Table, Button } = common;
 
@@ -86,7 +86,7 @@ const Brands = ({
         </Table.Body>
       </Table>
       {openModal && (
-        <CreateModal
+        <NewBrandModal
           open
           onClose={toggleCreateModal}
           onCreate={onCreate}

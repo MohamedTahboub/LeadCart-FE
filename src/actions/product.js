@@ -1,30 +1,30 @@
 import {
+  CREATE_NEW_PRODUCT,
+  DELETE_USER_PRODUCT,
+  DELETE_USER_PRODUCT_FAILED,
+  DELETE_USER_PRODUCT_SUCCESS,
+  GET_PRODUCT_DETAILS,
+  GET_PRODUCT_FAILED,
+  GET_PRODUCT_SUCCESS,
   NEW_PRODUCT_FIELD_UPDATE,
   NEW_PRODUCT_INVALID_FORM,
-  PRODUCT_DETAILS_FIELD_UPDATE,
-  CREATE_NEW_PRODUCT,
+  PRODUCT_BOOSTERS_FIELD_UPDATE,
+  PRODUCT_BUMPOFFER_FIELD_UPDATE,
+  PRODUCT_CHECKOUT_FIELD_UPDATE,
   PRODUCT_CREATED_SUCCESSFULLY,
   PRODUCT_CREATION_FAILED,
-  UPDATE_PRODUCT,
-  UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_FAILED,
-  GET_PRODUCT_DETAILS,
-  GET_PRODUCT_SUCCESS,
-  GET_PRODUCT_FAILED,
-  PRODUCT_CHECKOUT_FIELD_UPDATE,
+  PRODUCT_DETAILS_FIELD_UPDATE,
   PRODUCT_FULLFILLMENT_FIELD_UPDATE,
-  PRODUCT_BOOSTERS_FIELD_UPDATE,
   PRODUCT_PAYMENT_FIELD_UPDATE,
-  PRODUCT_BUMPOFFER_FIELD_UPDATE,
   PRODUCT_SETTING_FIELD_UPDATE,
-  DELETE_USER_PRODUCT,
-  DELETE_USER_PRODUCT_SUCCESS,
-  DELETE_USER_PRODUCT_FAILED,
   PRODUCT_THANKYOUPAGE_FIELD_UPDATE,
+  REFUND_PRODUCT,
   TOGGLE_PRODUCT_AVAILABILITY,
-  TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
   TOGGLE_PRODUCT_AVAILABILITY_FAILED,
-
+  TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
+  UPDATE_PRODUCT,
+  UPDATE_PRODUCT_FAILED,
+  UPDATE_PRODUCT_SUCCESS
 } from '../constantsTypes';
 
 
@@ -168,44 +168,7 @@ export const toggleProductAvailabilityFailed = (message) => ({
   type: TOGGLE_PRODUCT_AVAILABILITY_FAILED,
   payload: message
 });
-  /* Toggling Product Availability Ends */
-
-// export const updateProductCheckoutDesign = (checkout) => ({
-//   type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE,
-//   payload: checkout
-// });
-// export const updateProductCheckoutDesignSuccess = (checkout) => ({
-//   type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE_SUCCESS,
-//   payload: checkout
-// });
-// export const updateProductCheckoutDesignFailed = (checkout) => ({
-//   type: UPDATE_PRODUCT_CHECKOUT_TEMPLATE_FAILED,
-//   payload: checkout
-// });
-// export const updateProductPayment = (payment) => ({
-//   type: UPDATE_PRODUCT_PAYMENT_METHOD,
-//   payload: payment
-// });
-// export const updateProductOrderBump = (bump) => ({
-//   type: UPDATE_PRODUCT_BUMP_SETTING,
-//   payload: bump
-// });
-// export const updateProductAdvanceSetting = (advanceSetting) => ({
-//   type: UPDATE_PRODUCT_ADVANCE_SETTING,
-//   payload: advanceSetting
-// });
-
-
-// export const addProductPaymentMethod = (method) => ({
-//   type: ADD_PRODUCT_PAYMENT_METHOD,
-//   payload: method
-// });
-// export const addProductPaymentMethodSuccess = (method) => ({
-//   type: ADD_PRODUCT_PAYMENT_METHOD_SUCCESS,
-//   payload: method
-// });
-// export const addProductPaymentMethodFailed = (method) => ({
-//   type: ADD_PRODUCT_PAYMENT_METHOD_FAILED,
-//   payload: method
-// });
-
+export const refundProduct = (payload) => ({
+  type: REFUND_PRODUCT,
+  payload
+});

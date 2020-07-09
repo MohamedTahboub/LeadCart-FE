@@ -170,39 +170,6 @@ export default {
       borderRadius: 5
     }
   },
-  shippingDetails: {
-    hidden: false,
-    type: 'shippingDetails',
-    content: {
-      value: 'shipping Details Content',
-      children: []
-    },
-    styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
-      themeColor: 'rgb(142, 209, 252)'
-    }
-  },
-  couponSection: {
-    hidden: false,
-    type: 'couponSection',
-    content: {
-      value: 'couponSection Content',
-      children: []
-    },
-    styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 10,
-      paddingBottom: 20
-    }
-  },
   testimonialsSection: {
     hidden: false,
     type: 'testimonialsSection',
@@ -288,19 +255,6 @@ export default {
       value: 93,
       children: []
     },
-    styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0
-    }
-  },
-  productMarkWidget: {
-    hidden: false,
-    type: 'productMarkWidget',
-    content: { children: [] },
     styles: {
       marginTop: 0,
       marginBottom: 0,

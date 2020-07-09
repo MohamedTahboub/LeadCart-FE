@@ -1,24 +1,16 @@
 export default [
   {
-    label: 'Select a trigger',
-    value: ''
-  },
-  {
     label: 'Order Completed',
     value: 'ORDER_COMPLETE'
   },
+  // {
+  //   label: 'Product Refunded',
+  //   value: 'productRefunded'
+  // },
   {
-    label: 'Product Purchased',
-    value: 'PRODUCT_PURCHASED'
+    label: 'Prospect Created',
+    value: 'PROSPECT'
   }
-  // {
-  //   "label": "Product Refunded",
-  //   "value": "productRefunded"
-  // },
-  // {
-  //   "label": "Prospect Created",
-  //   "value": "prospectCreated"
-  // },
   // {
   //   "label": "Subscription Canceled",
   //   "value": "subscriptionCanceled"
