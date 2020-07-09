@@ -7,6 +7,7 @@ import rulesEvents from 'data/rulesEvents';
 import { connect } from 'react-redux';
 import * as funnelsActions from 'actions/funnels';
 import { mapListToObject, notification } from 'libs';
+import { funnelRuleSchema } from 'libs/validation';
 import TriggerGroup from './TriggerGroup';
 import TriggerActionMaker from './TriggerActionMaker';
 import { funnelTypes } from 'propTypes';
@@ -44,7 +45,10 @@ const RuleModal = ({
     setEitGroupMode(group);
   };
   const onUpdateTriggerGroup = (group) => {
-    const newTriggerGroups = [...fields.triggerGroups.map((currentGroup) => currentGroup._id === group._id ? group : currentGroup)];
+    const newTriggerGroups = [...fields.triggerGroups.map((currentGroup) => {
+      const groupId = currentGroup._id || currentGroup.id;
+      return groupId === (group._id || group.id) ? group : currentGroup;
+    })];
     setFields({ ...fields, triggerGroups: newTriggerGroups });
     setEitGroupMode();
   };
@@ -70,15 +74,16 @@ const RuleModal = ({
 
   const onSubmit = () => {
     setSaving(true);
+    const { isValid, value } = funnelRuleSchema(fields);
+
+    if (!isValid) {
+      setSaving(false);
+      return notification.failed('Please check your rule fields,\ne.g. rule event');
+    }
+
     if (isNew) {
       props.createFunnelRule({
-        rule: {
-          ...fields,
-          triggerGroups: fields.triggerGroups.map(({ action: { requirement, ...action }, products }) => ({
-            products,
-            action
-          }))
-        },
+        rule: value,
         funnel: funnelId
       }, {
         onSuccess: () => {
@@ -92,16 +97,10 @@ const RuleModal = ({
         }
       });
     } else {
-      const { _id: ruleId, ...rule } = fields;
-      if (Array.isArray(rule.triggerGroups)) {
-        rule.triggerGroups = rule.triggerGroups.map(({ action: { requirement, ...action }, products }) => ({
-          products,
-          action
-        }));
-      }
+      const { _id: ruleId } = fields;
       props.updateFunnelRule({
         ruleId,
-        rule,
+        rule: value,
         funnel: funnelId
       }, {
         onSuccess: () => {
@@ -142,13 +141,13 @@ const RuleModal = ({
           options={rulesEvents}
           className='flex-item margin-h-10'
           onChange={onTriggerChange}
+          placeholder='Select an event'
           value={rulesEventsMap[fields.trigger]}
         />
         <div className='label margin-left-10'>Fired</div>
       </FlexBox>
       <FlexBox
         column
-        // flexStart
         className='modal-trigger-groups-list margin-top-10 padding-v-10 padding-h-10 bordered soft-edges lightgray-bg'
       >
         {
@@ -161,6 +160,7 @@ const RuleModal = ({
                 products={productsOptions}
                 onAdd={onTriggerGroupAdded}
                 onUpdate={onUpdateTriggerGroup}
+                triggerEvent={fields.trigger}
                 group={group}
               />
             ) : (
@@ -180,6 +180,7 @@ const RuleModal = ({
             hasGroups={!!(fields.triggerGroups && fields.triggerGroups.length)}
             products={productsOptions}
             onAdd={onTriggerGroupAdded}
+            triggerEvent={fields.trigger}
           />)}
       </FlexBox>
       <FlexBox flex flexEnd>

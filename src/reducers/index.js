@@ -25,6 +25,7 @@ import translations from './translations';
 import brands from './brands';
 import integrations from './integrations';
 import workspace from './workspace';
+import redemption from './redemption';
 
 
 const rootReducer = combineReducers({
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   product,
   products,
   activities,
+  orders,
   customers,
   modals,
   settings,
@@ -44,7 +46,6 @@ const rootReducer = combineReducers({
   fulfillments,
   teamMembers,
   agency,
-  orders,
   payments,
   flashMessage,
   dashboard,
@@ -53,7 +54,8 @@ const rootReducer = combineReducers({
   validation,
   brands,
   integrations,
-  workspace
+  workspace,
+  redemption
 });
 
 export default rootReducer;

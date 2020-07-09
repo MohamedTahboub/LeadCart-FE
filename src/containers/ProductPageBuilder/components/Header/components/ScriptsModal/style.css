@@ -18,13 +18,16 @@
 }
 
 .scripts-labels{
-    width: 140px !important;
+    width: 160px !important;
 }
 
 .scripts-head-message{
     margin: 10px 0;
     font-size: 14px;
     max-width: 570px;
+}
+.trackers-modal{
+    padding-bottom: 20px;
 }
 .scripts-footer-message{
     margin: -10px 0;

@@ -200,35 +200,6 @@ const Subscription = ({
       )}
       footer={(
         <Fragment>
-
-          <InputRow.Label
-            notes='If you have a promo code, please enter it below'
-            className='subscription-promo-code-label'
-          >
-            Do You have a Promo Code ?
-          </InputRow.Label>
-          <div className='subscription-promocode-section'>
-            <InputRow.TextField
-              error={errors.promoCode}
-              name='promoCode'
-              className={`promo-code-input ${fields.promoCode.applied ? 'valid' : ''}`}
-              onChange={onChangePromoCode}
-              value={fields.promoCode.code}
-              placeholder='e.g. PROMO_CODE_XHRNE3'
-            />
-            <SmallButton
-              disabled={loading.promoCode}
-              className={loading.promoCode ? 'primary-color spinner' : 'primary-color'}
-              onClick={onPromoCodeCheck}
-            >
-              Apply Promo Code
-            </SmallButton>
-            {errors.promoCode && (
-              <div className='error-message redeem-box-error'>
-                {errors.promoCode}
-              </div>)
-            }
-          </div>
           <InputRow.Label className='margin-top-20'>
             Fill Your Card Details
           </InputRow.Label>

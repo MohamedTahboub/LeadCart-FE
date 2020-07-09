@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import common from 'components/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { AiOutlineHistory, AiOutlineMobile } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
-
+import { FaCode } from 'react-icons/fa';
 import { useContext } from '../../actions';
+import { ScriptsModal } from './components';
 
 const {
   Button,
@@ -16,7 +16,6 @@ const {
 
 const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
   const commonClasses = 'margin-h-5 large-text gray-text animate item-clickable';
-
 
   const isActive = (mode) => `${mode === activeDisplay ? 'active' : ''}`;
 
@@ -48,11 +47,12 @@ const Header = ({
   saving,
   ...props
 }) => {
+
   const {
     state: {
       displayMode,
       standAlone,
-      product: { name: productName } = {},
+      product: { name: productName, scripts = {} } = {},
       funnel: {
         url: funnelUrl,
         name: funnelName
@@ -60,6 +60,9 @@ const Header = ({
     },
     actions
   } = useContext();
+
+  const [openScriptModal, setOpenScriptModal] = useState(false);
+  const onToggleScriptModal = () => setOpenScriptModal((open) => !open);
 
   const goToProducts = () => {
     if (standAlone) history.push('/products');
@@ -88,15 +91,9 @@ const Header = ({
           <Title>{`Back To ${standAlone ? 'Products' : 'Funnel'}`}</Title>
         </FlexBox>
         <FlexBox center='h-center'>
-          {
-            !standAlone && (
-              <Title>
-                Funnel(
-                {funnelName}
-                )
-              </Title>
-            )
-          }
+          {!standAlone && (
+            <Title> Funnel({funnelName})</Title>
+          )}
         </FlexBox>
 
         <FlexBox center='v-center' flexEnd className='margin-right-20 min-width-250 '>
@@ -136,6 +133,17 @@ const Header = ({
             <AiOutlineHistory />
           </Button>
           <Button
+            onClick={onToggleScriptModal}
+            className='light-btn mr-2'
+          >
+            <FlexBox center='v-center'>
+              <FaCode className='gray-text mr-1' />
+              <span>
+                Analytics Trackers
+              </span>
+            </FlexBox>
+          </Button>
+          <Button
             onClick={onSave}
             className='light-btn px-3'
             disabled={saving}
@@ -146,6 +154,12 @@ const Header = ({
           </Button>
         </FlexBox>
       </FlexBox>
+      <ScriptsModal
+        isVisible={openScriptModal}
+        scripts={scripts}
+        onClose={onToggleScriptModal}
+        onChange={onChange}
+      />
     </FlexBox>
   );
 };

@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MdClose } from 'react-icons/md';
 import { FaEllipsisH } from 'react-icons/fa';
 import clx from 'classnames';
 
 import { CustomerPanelModal } from './components';
-import { RoundTow } from 'libs';
+import { getPriceWithCurrency } from 'libs';
 import Table from 'components/common/Tables';
 import * as customersActions from 'actions/customers';
 import { checkObject } from 'helpers/common';
 import common from 'components/common';
 import './style.css';
-
+import { FlexBox } from '../../components/common/boxes';
+import { FiBox } from 'react-icons/fi';
 
 const {
   MainTitle,
@@ -23,7 +24,6 @@ const {
   InputRow
 } = common;
 
-
 const CustomersLab = ({ customers, orderRefund }) => {
 
   const [showPanel, setShowPanel] = useState(false);
@@ -31,7 +31,6 @@ const CustomersLab = ({ customers, orderRefund }) => {
   const [filterValue, setFilter] = useState('');
 
   const onSearchChange = (filterValue) => setFilter(filterValue);
-
   const toggleCustomerPanel = (customer = {}) => {
     setCustomer((activeCustomer = {}) => {
       if (activeCustomer.email === customer.email) {
@@ -43,6 +42,15 @@ const CustomersLab = ({ customers, orderRefund }) => {
       }
     });
   };
+
+  useEffect(() => {
+    customers.find((customer) => {
+      if (activeCustomer.email === customer.email) {
+        setCustomer(customer);
+        return true;
+      }
+    });
+  }, [customers]);
 
 
   const hideCustomerPanel = (customer) => {
@@ -103,8 +111,14 @@ const CustomersLab = ({ customers, orderRefund }) => {
                       <Table.Cell mainContent={`${firstName} ${lastName}`} />
                       <Table.Cell className={clx('d-md-none', { 'd-none': showPanel })} mainContent={email} />
                       <Table.Cell className={clx('d-md-none', { 'd-none': showPanel })} mainContent={phoneNumber} />
-                      <Table.Cell mainContent={orders.length} />
-                      <Table.Cell mainContent={`$ ${RoundTow(lifeTimeCharges)}`} />
+                      <Table.Cell mainContent={(
+                        <FlexBox center='v-center'>
+                          <span className='bold-text mr-2'>{orders.length}</span>
+                          <FiBox className='gray-text' />
+                        </FlexBox>
+                      )}
+                      />
+                      <Table.Cell mainContent={getPriceWithCurrency(lifeTimeCharges)} />
                       <Table.Cell mainContent={(
                         <MiniButton onClick={() => toggleCustomerPanel(customer)}>
                           {(showPanel && activeCustomer.email === email) ? <MdClose /> : <FaEllipsisH />}
