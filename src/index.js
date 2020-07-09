@@ -43,7 +43,7 @@ import registerServiceWorker from 'services/RegisterServiceWorker';
 import Transactions from './containers/Transactions';
 import CustomersLab from './containers/CustomersLab';
 import Coupons from './containers/Coupons';
-import Setting from './containers/Setting';
+import Setting from './containers/BrandSettings';
 // import SubAccounts from './containers/SubAccounts';
 import Help from './containers/Help';
 import PersonalSettings from './containers/PersonalSettings';
