@@ -45,7 +45,10 @@ const RuleModal = ({
     setEitGroupMode(group);
   };
   const onUpdateTriggerGroup = (group) => {
-    const newTriggerGroups = [...fields.triggerGroups.map((currentGroup) => currentGroup._id === group._id ? group : currentGroup)];
+    const newTriggerGroups = [...fields.triggerGroups.map((currentGroup) => {
+      const groupId = currentGroup._id || currentGroup.id;
+      return groupId === (group._id || group.id) ? group : currentGroup;
+    })];
     setFields({ ...fields, triggerGroups: newTriggerGroups });
     setEitGroupMode();
   };
