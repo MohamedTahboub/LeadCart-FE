@@ -62,7 +62,6 @@ const PrivateSignUpPage = ({ isLoggedIn, history: { push }, signUp }) => {
     }
   };
 
-
   const onChange = ({ target: { name } }) => {
     setErrors({ ...errors, [name]: '', message: '' });
   };

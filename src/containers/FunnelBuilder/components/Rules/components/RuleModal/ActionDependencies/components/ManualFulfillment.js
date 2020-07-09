@@ -30,7 +30,7 @@ const ManualFulfillment = ({
           Service Name:
       </Label>
       <TextField
-        name='action.metaData.fulfillmentMeta.serviceName'
+        name='action.metaData.fulfillmentData.serviceName'
         onChange={onChange}
         value={serviceName}
       />
@@ -40,7 +40,7 @@ const ManualFulfillment = ({
           Service Description:
       </Label>
       <TextAreaInput
-        name='action.metaData.fulfillmentMeta.description'
+        name='action.metaData.fulfillmentData.description'
         onChange={onChange}
         value={description}
       />
