@@ -5,11 +5,11 @@ import common from 'components/common';
 import './style.css';
 const { InputRow, Currency } = common;
 
-
+const { Label, SelectOption, TextField } = InputRow;
 const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
   <InputRow>
-    <InputRow.Label>Payment Type</InputRow.Label>
-    <InputRow.SelectOption
+    <Label>Payment Type</Label>
+    <SelectOption
       value={value}
       name='payment.type'
       className='small-select-element'
@@ -45,11 +45,10 @@ export default ({
   return (
     <Fragment>
       <InputRow>
-        <InputRow.Label>{priceLabel}</InputRow.Label>
-        <InputRow.TextField
+        <Label>{priceLabel}</Label>
+        <TextField
           onBlur={onChange}
           className='default-pricing-field-length'
-          // currency={getCurrencySymbol(price.currency)}
           name='price.amount'
           type='number'
           defaultValue={price.amount}
@@ -61,8 +60,8 @@ export default ({
       {paymentType === 'Subscription'
         && (
           <InputRow>
-            <InputRow.Label>Recurring Period</InputRow.Label>
-            <InputRow.SelectOption
+            <Label>Recurring Period</Label>
+            <SelectOption
               onChange={onFieldChange}
               className='small-select-element'
               name='payment.recurringPeriod'
@@ -77,8 +76,8 @@ export default ({
       {paymentType === 'Split'
         && (
           <InputRow>
-            <InputRow.Label>Number of Splits</InputRow.Label>
-            <InputRow.SelectOption
+            <Label>Number of Splits</Label>
+            <SelectOption
               onChange={onFieldChange}
               className='small-select-element'
               name='payment.splits'
