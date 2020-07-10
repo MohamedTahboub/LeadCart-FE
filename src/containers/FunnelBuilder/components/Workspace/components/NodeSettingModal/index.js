@@ -129,6 +129,7 @@ const NodeSettingModal = ({
           <TextField
             name='search'
             onChange={onSearch}
+            value={searchFilter}
             placeholder='Search'
             className='full-width'
           />

@@ -40,6 +40,7 @@ const ConnectClient = ({ onChange, onSubmit, ...props }) => (
         <TextField
           name='client_id'
           onChange={onChange}
+          uncontrolled
         />
       )}
       flex
@@ -52,6 +53,7 @@ const ConnectClient = ({ onChange, onSubmit, ...props }) => (
         <TextField
           name='client_secret'
           onChange={onChange}
+          uncontrolled
         />
       )}
       flex
@@ -76,6 +78,7 @@ const ConnectApiKey = ({ onChange, onSubmit, ...props }) => (
         <TextField
           name='apiKey'
           onChange={onChange}
+          uncontrolled
         />
       )}
     />
