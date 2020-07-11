@@ -9,6 +9,12 @@
   text-align: center;
 }
 
+.author-description input {
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .mobile .author-description input {
   max-width: 160px;
   overflow: hidden;
