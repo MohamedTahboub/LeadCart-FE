@@ -3,6 +3,7 @@ import clx from 'classnames';
 
 import countDownTimerClock from './coundown';
 import common from 'components/common';
+import useCountDown from './useCountDown';
 import './style.css';
 
 const { FlexBox } = common;
@@ -31,6 +32,7 @@ const counterInitialState = {
   hours: 0,
   seconds: 0
 };
+
 const CountDownTimer = ({
   titlesStyle,
   options,
@@ -41,6 +43,7 @@ const CountDownTimer = ({
   const { valueType, ...value } = options;
   const [state, setState] = useState(counterInitialState);
 
+  // useCountDown({ date: value.date, type: valueType, ...state }, { ...value }, state);
 
   useEffect(() => {
     const timerInstance = countDownTimerClock({ ...value, type: valueType });
