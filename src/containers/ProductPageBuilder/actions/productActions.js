@@ -1,6 +1,7 @@
-import sectionsTemplates from 'data/productSectionsTemplates';
 import ids from 'shortid';
 import * as immutable from 'object-path-immutable';
+
+import sectionsTemplates from 'data/productSectionsTemplates';
 import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
 
@@ -27,18 +28,23 @@ export const updateState = ({ dispatch }) => (subState) => {
 export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
   let { name, value } = filed || {};
 
+  let secondValue = value.map((ele) => ({
+    ...ele,
+    id: ids.generate()
+  }));
+
   if (name.includes('.')) {
     const [key, nestedKey] = name.split('.');
-    const nestedValue = { [nestedKey]: value };
+    const nestedValue = { [nestedKey]: secondValue };
     name = key;
-    value = { ...state.product[key], ...nestedValue };
+    secondValue = { ...state.product[key], ...nestedValue };
   }
 
   dispatch({
     type: types.PRODUCT_FIELD_CHANGE,
     payload: {
       ...state.product,
-      [name]: value
+      [name]: secondValue
     }
   });
 };
