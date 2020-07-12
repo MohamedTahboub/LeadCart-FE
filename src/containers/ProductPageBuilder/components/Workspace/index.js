@@ -117,8 +117,12 @@ const Workspace = ({
     });
   };
 
-  const addNewAndMove = ({ type, atIndex }) => {
-    const section = sectionsTemplates[type];
+  const addNewAndMove = ({ id, type, atIndex }) => {
+    const section = { ...sectionsTemplates[type] };
+
+    if (!section) return;
+
+    section.id = id;
 
     const newSections = update(sections, {
       $splice: [

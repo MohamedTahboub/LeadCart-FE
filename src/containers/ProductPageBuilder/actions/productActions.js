@@ -28,23 +28,18 @@ export const updateState = ({ dispatch }) => (subState) => {
 export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
   let { name, value } = filed || {};
 
-  let secondValue = value.map((ele) => ({
-    ...ele,
-    id: ids.generate()
-  }));
-
   if (name.includes('.')) {
     const [key, nestedKey] = name.split('.');
-    const nestedValue = { [nestedKey]: secondValue };
+    const nestedValue = { [nestedKey]: value };
     name = key;
-    secondValue = { ...state.product[key], ...nestedValue };
+    value = { ...state.product[key], ...nestedValue };
   }
 
   dispatch({
     type: types.PRODUCT_FIELD_CHANGE,
     payload: {
       ...state.product,
-      [name]: secondValue
+      [name]: value
     }
   });
 };
