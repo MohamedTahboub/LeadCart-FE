@@ -1,6 +1,7 @@
-import sectionsTemplates from 'data/productSectionsTemplates';
 import ids from 'shortid';
 import * as immutable from 'object-path-immutable';
+
+import sectionsTemplates from 'data/productSectionsTemplates';
 import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
 
