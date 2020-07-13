@@ -47,7 +47,7 @@ const CountDownTimer = ({
     timerInstance.tick(setState);
 
     return timerInstance.tick;
-  }, [valueType]);
+  }, [valueType, options]);
 
 
   return (
