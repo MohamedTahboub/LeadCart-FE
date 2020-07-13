@@ -12,19 +12,18 @@ const {
   ResizableTextarea
 } = common;
 
-const ModernTestimonial = ({
+const EdgyTestimonial = ({
   author = 'John Doe',
+  authorDescription = 'Senior Marketing Manager, University of San Diego',
   value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   rank = 2,
-  className,
   orderId: id,
-  onChange,
-  ...props
+  onChange
 }) => {
 
 
-  const onImageChange = ({ value, ...res }) => {
+  const onImageChange = ({ value }) => {
     onChange({
       target: {
         name: 'content.image',
@@ -34,42 +33,50 @@ const ModernTestimonial = ({
   };
 
   return (
-    <FlexBox center='v-center margin-v-10'>
+    <FlexBox className='edgy-testimonial-section'>
       <Image
-        // className='testimonial-author-image'
-        className='modern-testimonial-image'
+        className='edgy-testimonial-image'
         image={image}
         name={`testimonial-image-${id}`}
         onChange={onImageChange}
       />
-      <FlexBox column reverse className='margin-left-20 full-width'>
-        <StarsRanking
-          name='content.rank'
-          rank={rank}
-          max={5}
-          onChange={onChange}
-        />
+      <FlexBox column className='full-width'>
         <ResizableTextarea
           onChange={onChange}
           name='content.value'
           defaultValue='testimonial content'
           value={content}
-          className='medium-text blush-gray max-w-500 margin-v-20'
+          className='medium-text blush-gray max-w-500 margin-v-20 text-align-center'
         />
-        <FlexBox center='v-center'>
+        <FlexBox spaceBetween className='col-on-mobile'>
           <ResizableInput
+            className='ml-2'
             onChange={onChange}
             name='content.author'
             defaultValue='Author Name'
             value={author}
             style={{ fontWeight: 'bold' }}
           />
+          <StarsRanking
+            name='content.rank'
+            rank={rank}
+            max={5}
+            onChange={onChange}
+          />
         </FlexBox>
+        <ResizableInput
+          className='ml-2 testimonial-content-input text-align-start author-description'
+          onChange={onChange}
+          name='content.authorDescription'
+          defaultValue='Job title'
+          value={authorDescription}
+          style={{ fontWeight: 'bold' }}
+        />
       </FlexBox>
     </FlexBox>
   );
 };
 
-ModernTestimonial.propTypes = {};
+EdgyTestimonial.propTypes = {};
 
-export default ModernTestimonial;
+export default EdgyTestimonial;
