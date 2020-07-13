@@ -11,6 +11,13 @@
     box-shadow: 0 0 5px #D1D1D1;
 }
 
+.mobile .compact-testimonial-section .author-description input {
+    max-width: 250px;
+}
+.tablet .compact-testimonial-section .author-description input {
+    max-width: 300px;
+}
+
 .compact-testimonial-section {
     margin: 32px auto;
     border-radius: 8px;

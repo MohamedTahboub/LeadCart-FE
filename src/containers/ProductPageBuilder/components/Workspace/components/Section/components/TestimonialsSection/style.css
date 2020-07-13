@@ -10,13 +10,18 @@
 }
 
 .author-description input {
-  max-width: 240px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
 .mobile .author-description input {
-  max-width: 160px;
+  max-width: 170px;
+} 
+.tablet .author-description input {
+  max-width: 280px;
+}
+.mobile .author-description input, .tablet .author-description input {
   overflow: hidden;
   text-overflow: ellipsis;
 }
