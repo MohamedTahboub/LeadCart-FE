@@ -22,7 +22,6 @@ const SettingsHandles = ({
 
   const onDelete = () => {
     actions.onSectionDelete(id);
-    onSettings({ type: 'deleted' });
   };
 
 

@@ -15,8 +15,7 @@ const sectionThatHaveSettings = [
   'progressbarWidget',
   'figure',
   'pageSetting',
-  'staticSectionSetting',
-  'deleted'
+  'staticSectionSetting'
 ];
 
 export const updateState = ({ dispatch }) => (subState) => {
@@ -51,10 +50,15 @@ export const onSectionSetting = ({ dispatch }) => (section) => {
     payload: section
   });
 };
-export const onSectionDelete = ({ dispatch }) => (sectionId) => {
+export const onSectionDelete = ({ state: { modals: { sectionSetting } = {} }, dispatch }) => (sectionId) => {
   dispatch({
     type: types.DELETE_PRODUCT_SECTION,
     payload: sectionId
+  });
+
+  sectionSetting && sectionSetting.id === sectionId && dispatch({
+    type: types.TOGGLE_SECTION_SETTINGS_SIDEBAR,
+    payload: false
   });
 };
 
@@ -77,8 +81,6 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 
   let newSettingsState;
   if (opened && sameSection)
-    newSettingsState = false;
-  else if (section.type === 'deleted')
     newSettingsState = false;
   else
     newSettingsState = section;
