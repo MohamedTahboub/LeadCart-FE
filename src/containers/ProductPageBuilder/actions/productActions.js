@@ -15,7 +15,8 @@ const sectionThatHaveSettings = [
   'progressbarWidget',
   'figure',
   'pageSetting',
-  'staticSectionSetting'
+  'staticSectionSetting',
+  'deleted'
 ];
 
 export const updateState = ({ dispatch }) => (subState) => {
@@ -76,6 +77,8 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 
   let newSettingsState;
   if (opened && sameSection)
+    newSettingsState = false;
+  else if (section.type === 'deleted')
     newSettingsState = false;
   else
     newSettingsState = section;
