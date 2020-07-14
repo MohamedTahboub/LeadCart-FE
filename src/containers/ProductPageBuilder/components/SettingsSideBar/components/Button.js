@@ -54,8 +54,8 @@ const ButtonSection = () => {
         <FlexBox center='v-center px-2' spaceBetween>
           <span className='gray-text bold-text'>Go To:</span>
           <SelectOption
-            name='content.actiontype'
-            value={content.actiontype}
+            name='content.type'
+            value={content.type}
             onChange={onChange}
             options={[
               { label: 'Payment Form', value: 'paymentForm' },
@@ -63,7 +63,7 @@ const ButtonSection = () => {
             ]}
           />
         </FlexBox>
-        {content.actiontype === 'external' ? (
+        {content.type === 'external' ? (
           <div className='px-2'>
             <span className='gray-text bold-text mb-2'>On Click Open:</span>
             <div className='padding-left-20'>
