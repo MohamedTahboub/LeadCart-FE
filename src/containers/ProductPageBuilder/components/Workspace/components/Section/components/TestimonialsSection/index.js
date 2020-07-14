@@ -5,8 +5,13 @@ import { useContext } from '../../../../../../actions';
 
 import './style.css';
 import {
+  BusinessTestimonial,
   ClassicTestimonial,
-  ModernTestimonial
+  CompactTestimonial,
+  DescriptionOrientedTestimonial,
+  EdgyTestimonial,
+  ModernTestimonial,
+  PlainTestimonial
 } from './components';
 
 const {
@@ -22,6 +27,11 @@ const Testimonial = ({ theme = 'classic', ...props }) => (
   <LayoutSwitch active={theme}>
     <ClassicTestimonial id='classic' {...props} />
     <ModernTestimonial id='modern' {...props} />
+    <DescriptionOrientedTestimonial id='description-oriented' {...props} />
+    <EdgyTestimonial id='edgy' {...props} />
+    <PlainTestimonial id='plain' {...props} />
+    <CompactTestimonial id='compact' {...props} />
+    <BusinessTestimonial id='business' {...props} />
   </LayoutSwitch>
 );
 const Testimonials = ({
@@ -39,17 +49,6 @@ const Testimonials = ({
     });
   };
 
-  // const onDelete = (i) => {
-  //   const newList = content.list.filter((f, id) => id !== +(i));
-  //   onChange({
-  //     target: {
-  //       name: 'content.list',
-  //       value: newList
-  //     }
-  //   });
-  // };
-
-
   return (
     <Testimonial
       {...content}
@@ -59,24 +58,4 @@ const Testimonials = ({
   );
 };
 
-// <FlexBox
-// center='h-center'
-// // className='product-template-testimonials-container'
-// column
-// // style={style}
-// >
-// <FlexBox flex spaceAround wrappable={content.list && content.list.length > 2}>
-//   {Array.isArray(content.list) && content.list.map((i, id) => (
-//     <Testimonial
-//       key={id}
-//       orderId={id}
-//       {...i}
-//       // className={testimonialClassName}
-//       onDelete={onDelete}
-//       onChange={onTestimonialChange}
-//       theme={styles.theme}
-//     />
-//   ))}
-// </FlexBox>
-// </FlexBox>
 export default Testimonials;

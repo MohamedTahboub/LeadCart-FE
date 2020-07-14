@@ -183,10 +183,12 @@ export default {
           authorAvatar: 'https://leadcart.io/assets/images/testimonial-4.png'
         }
       ],
-      value: 'testimonials Section Content',
+      author: 'Michael C.',
+      image: 'https://imgur.com/WzV9Jn4.png', // https://thispersondoesnotexist.com
+      value: '"I am very impressed with all the features of LeadCart. It has made testimonial collection and sharing so easy for us and our students. The service and response time has also been very impressive. Highly recommend!"',
       children: []
     },
-    styles: { theme: 'modern' }
+    styles: { theme: 'edgy' }
   },
   featuresSection: {
     hidden: false,
