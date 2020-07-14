@@ -1,16 +1,9 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+
 import common from 'components/common';
 import { useContext } from '../../../actions';
 
-const {
-  Tabs,
-  InputRow,
-  MiniTwitterPicker,
-  FlexBox,
-  Tab
-} = common;
-
+const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption } = InputRow;
 
 const ButtonSection = () => {
@@ -61,8 +54,8 @@ const ButtonSection = () => {
         <FlexBox center='v-center px-2' spaceBetween>
           <span className='gray-text bold-text'>Go To:</span>
           <SelectOption
-            name='content.type'
-            value={content.type}
+            name='content.actiontype'
+            value={content.actiontype}
             onChange={onChange}
             options={[
               { label: 'Payment Form', value: 'paymentForm' },
@@ -70,7 +63,7 @@ const ButtonSection = () => {
             ]}
           />
         </FlexBox>
-        {content.type === 'external' ? (
+        {content.actiontype === 'external' ? (
           <div className='px-2'>
             <span className='gray-text bold-text mb-2'>On Click Open:</span>
             <div className='padding-left-20'>
@@ -81,18 +74,14 @@ const ButtonSection = () => {
               />
             </div>
           </div>
-        ) : (content.type && (
+        ) : ((
           <span className='gray-text aligned-center mt-3'>
-              When this Button clicked it will take the customer to the payment form section
+            When this Button clicked it will take the customer to the payment form section
           </span>
         ))}
       </Tab>
-
-
     </Tabs>
   );
 };
-
-ButtonSection.propTypes = {};
 
 export default ButtonSection;
