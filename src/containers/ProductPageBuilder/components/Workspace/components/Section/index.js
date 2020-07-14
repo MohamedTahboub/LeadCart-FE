@@ -1,21 +1,11 @@
-import React, {
-  // useRef,
-  // useEffect,
-  useState,
-  Fragment
-} from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
 import clx from 'classnames';
-// import common from 'components/common';
 import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
+
+import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
 import './style.css';
-import {
-  DropBeforeLine,
-  SectionContent,
-  SettingsHandles
-} from './components';
 
 const Section = ({
   id,
