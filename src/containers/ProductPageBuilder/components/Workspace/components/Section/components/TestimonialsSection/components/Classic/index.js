@@ -15,7 +15,7 @@ const ClassicTestimonial = ({
   ...props
 }) => {
   const onImageChange = ({ value, ...res }) => {
-    props.onChange({
+    onChange({
       target: {
         name: 'content.image',
         value

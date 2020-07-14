@@ -112,7 +112,6 @@ const StaticSection = ({ ...props }) => {
           />
         </InputRow>
       </Tab>
-      <Tab id='addOns' title='Add-ons' />
     </Tabs>
   );
 };
