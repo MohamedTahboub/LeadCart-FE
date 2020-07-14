@@ -18,7 +18,7 @@ import config from 'config';
 const { admins = [] } = config;
 const animatedComponents = makeAnimated();
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
-  if (actionsMap[integrationKey]) {
+  if (actionsMap[integrationKey] && Array.isArray(actionsMap[integrationKey].actions)) {
     return actionsMap[integrationKey].actions.map((action) => ({
       label: action.label,
       value: action.name || action.value,

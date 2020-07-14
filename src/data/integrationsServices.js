@@ -105,6 +105,16 @@ const services = [
     active: false,
     connected: false,
     supported: true
+  }, {
+    key: 'lc_convertkit',
+    name: 'Convertkit',
+    brandLogo: brandsLogos.convertkit,
+    category: 'Auto Responders',
+    fieldLabel: 'Secret Key',
+    description: 'Email marketing software for creators',
+    active: false,
+    connected: false,
+    supported: true
   },
   {
     key: 'lc_activecampaign',
@@ -142,16 +152,6 @@ const services = [
     brandLogo: brandsLogos.ontraport,
     category: 'Auto Responders',
     description: 'Business automation software for entrepreneurs, solopreneurs and small businesses',
-    active: false,
-    connected: false,
-    supported: true
-  },
-  {
-    key: 'lc_convertkit',
-    name: 'Convertkit',
-    brandLogo: brandsLogos.convertkit,
-    category: 'Auto Responders',
-    description: 'Email marketing software for creators',
     active: false,
     connected: false,
     supported: true
