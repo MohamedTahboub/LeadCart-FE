@@ -11,7 +11,7 @@ const { Label, TextField, TextAreaInput } = InputRow;
 
 const ManualFulfillment = ({
   onChange,
-  fulfillmentData: {
+  fulfillmentMeta: {
     serviceName,
     description
   } = {}
@@ -30,7 +30,7 @@ const ManualFulfillment = ({
           Service Name:
       </Label>
       <TextField
-        name='action.metaData.fulfillmentData.serviceName'
+        name='action.metaData.fulfillmentMeta.serviceName'
         onChange={onChange}
         value={serviceName}
       />
@@ -40,7 +40,7 @@ const ManualFulfillment = ({
           Service Description:
       </Label>
       <TextAreaInput
-        name='action.metaData.fulfillmentData.description'
+        name='action.metaData.fulfillmentMeta.description'
         onChange={onChange}
         value={description}
       />

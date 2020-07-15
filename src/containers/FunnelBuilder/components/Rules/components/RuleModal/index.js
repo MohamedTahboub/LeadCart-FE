@@ -45,7 +45,10 @@ const RuleModal = ({
     setEitGroupMode(group);
   };
   const onUpdateTriggerGroup = (group) => {
-    const newTriggerGroups = [...fields.triggerGroups.map((currentGroup) => currentGroup._id === group._id ? group : currentGroup)];
+    const newTriggerGroups = [...fields.triggerGroups.map((currentGroup) => {
+      const groupId = currentGroup._id || currentGroup.id;
+      return groupId === (group._id || group.id) ? group : currentGroup;
+    })];
     setFields({ ...fields, triggerGroups: newTriggerGroups });
     setEitGroupMode();
   };
@@ -69,12 +72,14 @@ const RuleModal = ({
     });
   };
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     setSaving(true);
-    const { isValid, errors, value } = await funnelRuleSchema(fields);
+    const { isValid, value } = funnelRuleSchema(fields);
 
-    if (!isValid)
-      return notification.failed('Validation issue!!');
+    if (!isValid) {
+      setSaving(false);
+      return notification.failed('Please check your rule fields,\ne.g. rule event');
+    }
 
     if (isNew) {
       props.createFunnelRule({
@@ -136,13 +141,13 @@ const RuleModal = ({
           options={rulesEvents}
           className='flex-item margin-h-10'
           onChange={onTriggerChange}
+          placeholder='Select an event'
           value={rulesEventsMap[fields.trigger]}
         />
         <div className='label margin-left-10'>Fired</div>
       </FlexBox>
       <FlexBox
         column
-        // flexStart
         className='modal-trigger-groups-list margin-top-10 padding-v-10 padding-h-10 bordered soft-edges lightgray-bg'
       >
         {
@@ -155,6 +160,7 @@ const RuleModal = ({
                 products={productsOptions}
                 onAdd={onTriggerGroupAdded}
                 onUpdate={onUpdateTriggerGroup}
+                triggerEvent={fields.trigger}
                 group={group}
               />
             ) : (
@@ -174,6 +180,7 @@ const RuleModal = ({
             hasGroups={!!(fields.triggerGroups && fields.triggerGroups.length)}
             products={productsOptions}
             onAdd={onTriggerGroupAdded}
+            triggerEvent={fields.trigger}
           />)}
       </FlexBox>
       <FlexBox flex flexEnd>

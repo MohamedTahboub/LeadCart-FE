@@ -6,7 +6,7 @@ import { EditableField } from 'components/common/Inputs';
 import './style.css';
 
 const ClassicTestimonial = ({
-  author = 'Click to edit Author name',
+  author = 'John Doe',
   value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   className,
@@ -15,7 +15,7 @@ const ClassicTestimonial = ({
   ...props
 }) => {
   const onImageChange = ({ value, ...res }) => {
-    props.onChange({
+    onChange({
       target: {
         name: 'content.image',
         value
@@ -23,7 +23,7 @@ const ClassicTestimonial = ({
     });
   };
   return (
-    <div className={`testimonial-item margin-h-10 ${className}`}>
+    <div className={`testimonial-item margin-h-auto ${className}`}>
       <Image
         className='testimonial-author-image'
         image={image}

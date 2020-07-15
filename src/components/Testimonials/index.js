@@ -6,7 +6,7 @@ import { EditableField } from 'components/common/Inputs';
 import './style.css';
 
 const TestimonialElement = ({
-  author = 'Click to edit Author name',
+  author = 'John Doe',
   content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   className,
@@ -14,6 +14,7 @@ const TestimonialElement = ({
   onDelete,
   ...props
 }) => {
+
   const onChange = ({ target: { value, name } }) => {
     props.onChange({
       target: {

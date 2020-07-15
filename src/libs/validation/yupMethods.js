@@ -35,3 +35,7 @@ yup.addMethod(yup.string, 'promoCode', function () {
     (value) => !(/([&+,:;=?|'<>.^*()%!]|\ )/.test(value))
   );
 });
+
+yup.addMethod(yup.mixed, 'remove', () => {
+  return yup.mixed().transform(() => undefined);
+});

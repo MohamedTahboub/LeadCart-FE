@@ -2,10 +2,11 @@ import React from 'react';
 import { MdContentCopy } from 'react-icons/md';
 import { FiTrash2 } from 'react-icons/fi';
 import { IoMdSettings } from 'react-icons/io';
+
 import { useContext } from '../../../../../actions';
 
 
-const settingLessTypes = ['image', 'video'];
+const settingLessTypes = ['image', 'video', 'code'];
 
 const SettingsHandles = ({
   id,

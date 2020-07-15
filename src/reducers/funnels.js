@@ -7,7 +7,7 @@ import {
   UPDATE_FUNNEL_RULE_SUCCESS,
   UPDATE_FUNNEL_SUCCESS
 } from '../constantsTypes';
-
+import ids from 'shortid';
 
 const initialState = [];
 
@@ -43,8 +43,18 @@ export default (state = initialState, { type, payload }) => {
     return state.map((funnel) => {
       if (funnel._id === payload.funnel) {
         const rules = funnel.rules.map((rule) => {
-          if (rule._id === payload.ruleId)
-            return { ...payload.rule, _id: payload.ruleId };
+          if (rule._id === payload.ruleId) {
+            return {
+              ...payload.rule,
+              triggerGroups: payload.rule.triggerGroups.map((group) => {
+                return {
+                  _id: ids.generate(),
+                  ...group
+                };
+              }),
+              _id: payload.ruleId
+            };
+          }
 
           return rule;
         });

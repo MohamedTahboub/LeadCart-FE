@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import { Table, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Search } from 'components/Inputs';
-import { Button } from 'components/Buttons';
 import common from 'components/common';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { notification } from 'libs';
 import { includesIgnoreCase } from 'libs';
-
 import './style.css';
 
+import { CreditsStatus } from './common';
 const hasSubAccountsAccess = (credits) => {
   return credits > 0;
 };
@@ -23,12 +22,13 @@ const {
   PageContent,
   MainTitle,
   InputRow,
-  SmallButton
+  SmallButton,
+  Button
 } = common;
 
-const SubaccountsSection = ({
+const SubAccountsSection = ({
   credits,
-  subaccounts = [],
+  subAccounts = [],
   dataLoading,
   history,
   packageType,
@@ -36,13 +36,13 @@ const SubaccountsSection = ({
 }) => {
 
   const [filter, setFilter] = useState('');
-  const [dataSource, setDataSource] = useState(subaccounts);
-  const [isCreateSubaccountModalVisible, setCreateSubaccountModalVisible] = useState(false);
-  const [newSubaccountForm, setNewSubaccountForm] = useState({});
+  const [dataSource, setDataSource] = useState(subAccounts);
+  const [isCreateSubAccountModalVisible, setCreateSubAccountModalVisible] = useState(false);
+  const [newSubAccountForm, setNewSubAccountForm] = useState({});
 
-  const handleSubaccountFormChange = (event) => {
+  const handleSubAccountFormChange = (event) => {
     const { target: { name, value } } = event;
-    setNewSubaccountForm({ ...newSubaccountForm, [name]: value });
+    setNewSubAccountForm({ ...newSubAccountForm, [name]: value });
   };
 
   useEffect(() => {
@@ -50,18 +50,18 @@ const SubaccountsSection = ({
   }, [history, packageType]);
 
 
-  const toggleSubaccountModal = () => setCreateSubaccountModalVisible(!isCreateSubaccountModalVisible);
+  const toggleSubAccountModal = () => setCreateSubAccountModalVisible(!isCreateSubAccountModalVisible);
 
   const handleSearch = (value) => setFilter(value);
 
   const onCreateSubAccount = (e) => {
     e.preventDefault();
     props.onCreateSubAccount(
-      newSubaccountForm,
+      newSubAccountForm,
       {
         onSuccess: () => {
-          notification.success('Subaccount created');
-          toggleSubaccountModal();
+          notification.success('Sub-Account Created');
+          toggleSubAccountModal();
         },
         onFailed: (error) => notification.failed(error)
       }
@@ -69,10 +69,10 @@ const SubaccountsSection = ({
   };
 
   useEffect(() => {
-    setDataSource(subaccounts
+    setDataSource(subAccounts
       .filter(({ email, firstName, lastName }) =>
         includesIgnoreCase(`${email} ${firstName} ${lastName}`, filter)));
-  }, [subaccounts, filter]);
+  }, [subAccounts, filter]);
 
 
   const onUpdateSubAccountStatus = (agentId, active) => () => {
@@ -126,15 +126,9 @@ const SubaccountsSection = ({
         <FlexBox column className='white-bg p-3 soft-edges'>
           <FlexBox center='v-center' spaceBetween className='mb-2'>
             <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
-            <span className='ml-2' >
-              You have
-              <span className='bold-text mx-1' data-tip='you can use credit for brands or sub-accounts creation'>
-                {credits}
-              </span>
-               credits left
-            </span>
+            <CreditsStatus credits={credits}/>
             <FlexBox flexEnd>
-              <Button type='primary' onClick={toggleSubaccountModal}><PlusOutlined /> New Sub Account</Button>
+              <Button className='primary-color' onClick={toggleSubAccountModal}><PlusOutlined /> New Sub Account</Button>
             </FlexBox>
           </FlexBox>
           <Table
@@ -144,12 +138,13 @@ const SubaccountsSection = ({
             pagination={false}
           />
         </FlexBox>
+
       </PageContent>
       {
-        isCreateSubaccountModalVisible && (
+        isCreateSubAccountModalVisible && (
           <Modal
-            onClose={toggleSubaccountModal}
-            isVisible={isCreateSubaccountModalVisible}
+            onClose={toggleSubAccountModal}
+            isVisible={isCreateSubAccountModalVisible}
             className='sub-account-modal'
           >
             <form className='sub-account-form' onSubmit={onCreateSubAccount}>
@@ -160,8 +155,8 @@ const SubaccountsSection = ({
                 </InputRow.Label>
                 <InputRow.TextField
                   name='firstName'
-                  onChange={handleSubaccountFormChange}
-                  value={newSubaccountForm.firstName}
+                  onChange={handleSubAccountFormChange}
+                  value={newSubAccountForm.firstName}
                   className='margin-left-30 reset-font-size'
                 />
               </InputRow>
@@ -171,19 +166,30 @@ const SubaccountsSection = ({
                 </InputRow.Label>
                 <InputRow.TextField
                   name='lastName'
-                  onChange={handleSubaccountFormChange}
-                  value={newSubaccountForm.lastName}
+                  onChange={handleSubAccountFormChange}
+                  value={newSubAccountForm.lastName}
                   className='margin-left-30 reset-font-size'
                 />
               </InputRow>
               <InputRow>
                 <InputRow.Label>
-                  SubDomain:
+                  Brand Name:
+                </InputRow.Label>
+                <InputRow.TextField
+                  name='brandName'
+                  onChange={handleSubAccountFormChange}
+                  value={newSubAccountForm.brandName}
+                  className='margin-left-30 reset-font-size'
+                />
+              </InputRow>
+              <InputRow>
+                <InputRow.Label>
+                  Brand SubDomain:
                 </InputRow.Label>
                 <InputRow.TextField
                   name='subDomain'
-                  onChange={handleSubaccountFormChange}
-                  value={newSubaccountForm.subDomain}
+                  onChange={handleSubAccountFormChange}
+                  value={newSubAccountForm.subDomain}
                   className='margin-left-30 reset-font-size'
                 />
               </InputRow>
@@ -193,17 +199,18 @@ const SubaccountsSection = ({
                 </InputRow.Label>
                 <InputRow.TextField
                   name='email'
-                  onChange={handleSubaccountFormChange}
-                  value={newSubaccountForm.email}
+                  onChange={handleSubAccountFormChange}
+                  value={newSubAccountForm.email}
                   className='margin-left-30 reset-font-size'
                 />
               </InputRow>
 
-              <Button type='submit' className='primary-color margin-with-float-right'>
-                <i className='fas fa-plus' />
-                {' '}
-                Invite
-              </Button>
+              <FlexBox flexEnd>
+                <Button type='submit' className='primary-color'>
+                  <i className='fas fa-plus' />
+                  Invite
+                </Button>
+              </FlexBox>
             </form>
           </Modal>
         )
@@ -216,15 +223,15 @@ const SubaccountsSection = ({
 const mapStateToProps = ({
   redemption: { credits = 0 } = {},
   loading,
-  agency: { subAccounts: subaccounts = [] } = {},
+  agency: { subAccounts = [] } = {},
   user: { user: { packageType } }
 }) => {
   return {
     dataLoading: loading,
-    subaccounts,
+    subAccounts,
     packageType,
     credits
   };
 };
 
-export default connect(mapStateToProps, agencyActions)(SubaccountsSection);
+export default connect(mapStateToProps, agencyActions)(SubAccountsSection);

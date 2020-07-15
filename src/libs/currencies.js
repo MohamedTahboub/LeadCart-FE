@@ -15,17 +15,13 @@ export const getPriceFormat = (price = 0, currency = 'USD', format = 'amount') =
     amount_with_comma_separator: '(0,0.00)',
     amount_with_comma_separator_no_decimals: '(0,0)'
   };
-
   const matchedFormat = formats[format] || formats.amount;
-
-  const formated = numeral(price).format(matchedFormat);
-
-  // const formatter = new Intl.NumberFormat('en-US', {
-  //   style: 'currency',
-  //   currency,
-  // });
-  // return formatter.format(price);
-
-  return `${getCurrencySymbol(currency)} ${formated}`;
+  const formatted = numeral(price).format(matchedFormat);
+  return `${getCurrencySymbol(currency)} ${formatted}`;
 };
 
+export const getPriceWithCurrency = (price, currency, format) => {
+  const defaultFormat = `${price}`.includes('.') && !`${price}`.endsWith('.00') ? 'amount_with_comma_separator' : 'amount_with_comma_separator_no_decimals';
+  console.log({ price: `${price}`, yes: `${price}`.includes('.') });
+  return getPriceFormat(price, currency, format || defaultFormat);
+};

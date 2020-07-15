@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AutosizeInput from 'react-input-autosize';
 import { isFunction } from 'libs/checks';
@@ -52,9 +52,7 @@ const ResizableInput = ({
   );
 };
 
-ResizableInput.propTypes = {
-  style: PropTypes.objectOf(PropTypes.object)
-};
+ResizableInput.propTypes = { style: PropTypes.objectOf(PropTypes.object) };
 ResizableInput.defaultProps = {
   style: {
     border: 'none',

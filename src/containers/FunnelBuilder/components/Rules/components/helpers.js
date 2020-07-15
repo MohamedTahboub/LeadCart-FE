@@ -40,7 +40,9 @@ export const getIntersectedProducts = (productsMap = {}, products = []) => {
   const productsAndOffersMap = mapListToObject(productsAndOffers, '_id');
   const matchedProducts = getProductsAndOffer(productsAndOffersMap, products.map((id) => ({ productId: id })));
 
-  return matchedProducts.filter((product) => products.includes(product._id));
+  const matched = matchedProducts.filter((product) => products.includes(product._id));
+
+  return Object.values(mapListToObject(matched, '_id'));
 
 };
 
