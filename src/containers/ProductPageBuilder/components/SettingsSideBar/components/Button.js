@@ -1,16 +1,9 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+
 import common from 'components/common';
 import { useContext } from '../../../actions';
 
-const {
-  Tabs,
-  InputRow,
-  MiniTwitterPicker,
-  FlexBox,
-  Tab
-} = common;
-
+const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption } = InputRow;
 
 const ButtonSection = () => {
@@ -81,18 +74,14 @@ const ButtonSection = () => {
               />
             </div>
           </div>
-        ) : (content.type && (
+        ) : ((
           <span className='gray-text aligned-center mt-3'>
-              When this Button clicked it will take the customer to the payment form section
+            When this Button clicked it will take the customer to the payment form section
           </span>
         ))}
       </Tab>
-
-
     </Tabs>
   );
 };
-
-ButtonSection.propTypes = {};
 
 export default ButtonSection;

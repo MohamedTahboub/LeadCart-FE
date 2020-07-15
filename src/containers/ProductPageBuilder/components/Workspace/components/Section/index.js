@@ -86,10 +86,10 @@ const Section = ({
           maxOrder={maxOrder}
         />
         <SectionContent
+          {...content}
           type={type}
           section={section}
           language={props.language}
-          {...content}
         />
       </div>
     </div>
