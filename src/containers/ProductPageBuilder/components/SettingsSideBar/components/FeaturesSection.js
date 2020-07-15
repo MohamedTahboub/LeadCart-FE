@@ -49,7 +49,7 @@ const {
 
 } = common;
 
-const { Label } = InputRow;
+const { Label, AddImage } = InputRow;
 
 const FeaturesSection = (props) => {
   const {
@@ -59,7 +59,8 @@ const FeaturesSection = (props) => {
 
   const {
     styles = {},
-    content: { list = [] } = {}
+    content: { list = [] } = {},
+    customBulletPoint
   } = sectionSetting;
 
   const onChange = ({ target }) => {
@@ -89,8 +90,22 @@ const FeaturesSection = (props) => {
         value: theme
       }
     });
+    onChange({
+      target: {
+        name: 'styles.customBulletPoint',
+        value: null
+      }
+    });
   };
 
+  const onImageChange = (image) => {
+    onChange({
+      target: {
+        name: 'styles.customBulletPoint',
+        value: image
+      }
+    });
+  };
   return (
     <div>
       <Tabs active='settings' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -111,6 +126,14 @@ const FeaturesSection = (props) => {
                 name='styles.bulletColor'
                 value={styles.bulletColor}
                 onChange={onChange}
+              />
+            </FlexBox>
+            <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
+              <Label>Set custom bullet points</Label>
+              <AddImage
+                name='styles.customBulletPoint'
+                value={customBulletPoint}
+                onUploaded={onImageChange}
               />
             </FlexBox>
             <FlexBox column center='h-center'>

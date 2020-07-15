@@ -5,6 +5,8 @@ import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
 
 const sectionThatHaveSettings = [
+  'text',
+  'heading',
   'button',
   'bumpOffer',
   'testimonialsSection',

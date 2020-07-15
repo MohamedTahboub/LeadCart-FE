@@ -12,7 +12,6 @@ const Features = ({ section }) => {
     content: { list = [] } = {}
   } = section;
 
-
   const onChange = (name, value) => {
     actions.onSectionSettingChange({
       section,
@@ -57,6 +56,7 @@ const Features = ({ section }) => {
           text={text}
           onChange={onFeatureChange}
           onDelete={onFeatureDelete}
+          customBulletPoint={styles.customBulletPoint}
           color={styles.bulletColor}
           theme={styles.theme}
         />
