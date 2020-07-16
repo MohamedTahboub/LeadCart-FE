@@ -448,6 +448,7 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 }
 
 .fluid { width: 100%; }
+.fit { width: fit-content; }
 
 /* Declarations */
 .divider {

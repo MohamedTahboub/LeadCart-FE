@@ -47,7 +47,6 @@ const Features = ({ section }) => {
   };
 
   return (
-
     <div className='features-list-container'>
       {list.map(({ text }, id) => (
         <Feature

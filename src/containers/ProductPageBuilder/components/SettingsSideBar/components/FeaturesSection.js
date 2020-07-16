@@ -175,7 +175,7 @@ const FeaturesSection = (props) => {
               />
             </FlexBox>
             <FlexBox>
-              <Label>Custom bullets</Label>
+              <Label className='fit mr-4 d-flex align-center'>Custom bullets</Label>
               <Toggle value={customBullets} onToggle={onToggleCustomBullets} />
             </FlexBox>
             {
