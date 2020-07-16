@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import common from 'components/common';
 import ids from 'shortid';
 import { useContext } from '../../../actions';
 import { MdAddCircleOutline } from 'react-icons/md';
 import Toggle from '../../../../../components/common/Inputs/Toggle';
-import {
-  ImageOption,
-  SettingBox
-} from './common';
+import { ImageOption } from './common';
 
 
 const featuresThemesImages = [
@@ -43,7 +39,6 @@ const emptyFeature = { text: 'Feature Content' };
 const {
   Tabs,
   InputRow,
-  Button,
   FlexBox,
   Tab,
   MiniTwitterPicker
@@ -51,7 +46,7 @@ const {
 
 const { Label, AddImage } = InputRow;
 
-const FeaturesSection = (props) => {
+const FeaturesSection = () => {
   const [customBullets, setCustomBullets] = useState(false);
   const [stash, setStash] = useState({});
 
@@ -62,10 +57,13 @@ const FeaturesSection = (props) => {
 
   const {
     styles = {},
-    content: { list = [] } = {},
-    customBulletPoint
+    content: { list = [] } = {}
   } = sectionSetting;
 
+  useEffect(() => {
+    setCustomBullets(!!styles.customBulletPoint);
+    setStash({ theme: styles.theme, image: styles.customBulletPoint });
+  }, [styles.customBulletPoint, styles.theme]);
   const onChange = ({ target }) => {
     return actions.onSectionSettingChange({
       section: sectionSetting,
@@ -184,7 +182,7 @@ const FeaturesSection = (props) => {
                   <Label>Set custom bullets</Label>
                   <AddImage
                     name='styles.customBulletPoint'
-                    value={customBulletPoint}
+                    value={styles.customBulletPoint}
                     onUploaded={onImageChange}
                   />
                 </FlexBox>
