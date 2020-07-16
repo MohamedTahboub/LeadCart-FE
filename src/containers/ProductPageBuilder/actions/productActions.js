@@ -135,3 +135,15 @@ export const updateProductSection = ({ dispatch }) => (section) => {
     payload: section
   });
 };
+
+export const onSectionFieldChange = ({ dispatch }) => (section) => {
+  dispatch({
+    type: types.UPDATE_PRODUCT_SECTION,
+    payload: section
+  });
+
+  dispatch({
+    type: types.UPDATE_SECTION_SETTINGS,
+    payload: section
+  });
+};
