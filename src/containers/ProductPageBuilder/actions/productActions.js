@@ -122,8 +122,17 @@ export const updateDisplayMode = ({ dispatch }) => (mode) => {
 };
 
 
-export const onSectionSettingChange = ({ dispatch }) => ({ section, field: { name, value } = {} }) => {
-  const sectionUpdated = immutable.set(section, name, value);
+export const onSectionSettingChange = ({ dispatch }) => ({ section, field = {}, fields }) => {
+  let sectionUpdated;
+  if (fields) {
+    fields.forEach((field) => {
+      const { name, value } = field;
+      sectionUpdated = immutable.set(sectionUpdated || section, name, value);
+    });
+  } else {
+    const { name, value } = field;
+    sectionUpdated = immutable.set(section, name, value);
+  }
   dispatch({
     type: types.UPDATE_SECTION_SETTINGS,
     payload: sectionUpdated

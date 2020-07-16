@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import ids from 'shortid';
 import { useContext } from '../../../actions';
 import { MdAddCircleOutline } from 'react-icons/md';
+import Toggle from '../../../../../components/common/Inputs/Toggle';
 import {
   ImageOption,
   SettingBox
@@ -46,12 +47,14 @@ const {
   FlexBox,
   Tab,
   MiniTwitterPicker
-
 } = common;
 
 const { Label, AddImage } = InputRow;
 
 const FeaturesSection = (props) => {
+  const [customBullets, setCustomBullets] = useState(false);
+  const [stash, setStash] = useState({});
+
   const {
     state: { modals: { sectionSetting = {} } = {} },
     actions
@@ -64,7 +67,7 @@ const FeaturesSection = (props) => {
   } = sectionSetting;
 
   const onChange = ({ target }) => {
-    actions.onSectionSettingChange({
+    return actions.onSectionSettingChange({
       section: sectionSetting,
       field: target
     });
@@ -84,27 +87,70 @@ const FeaturesSection = (props) => {
   };
 
   const onThemeChange = (theme) => () => () => {
-    onChange({
-      target: {
-        name: 'styles.theme',
-        value: theme
-      }
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      fields: [
+        {
+          name: 'styles.theme',
+          value: theme
+        },
+        {
+          name: 'styles.customBulletPoint',
+          value: null
+        }
+      ]
     });
-    onChange({
-      target: {
-        name: 'styles.customBulletPoint',
-        value: null
-      }
-    });
+    setStash({ ...stash, theme });
   };
 
   const onImageChange = (image) => {
-    onChange({
-      target: {
-        name: 'styles.customBulletPoint',
-        value: image
-      }
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      fields: [
+        {
+          name: 'styles.theme',
+          value: null
+        },
+        {
+          name: 'styles.customBulletPoint',
+          value: image
+        }
+      ]
     });
+    setStash({ ...stash, image });
+  };
+
+  const onToggleCustomBullets = () => {
+    setCustomBullets(!customBullets);
+    if (customBullets) {
+      actions.onSectionSettingChange({
+        section: sectionSetting,
+        fields: [
+          {
+            name: 'styles.theme',
+            value: stash.theme
+          },
+          {
+            name: 'styles.customBulletPoint',
+            value: null
+          }
+        ]
+      });
+    } else {
+      actions.onSectionSettingChange({
+        section: sectionSetting,
+        fields: [
+          {
+            name: 'styles.theme',
+            value: null
+          },
+          {
+            name: 'styles.customBulletPoint',
+            value: stash.image
+          }
+        ]
+      });
+    }
   };
   return (
     <div>
@@ -128,25 +174,34 @@ const FeaturesSection = (props) => {
                 onChange={onChange}
               />
             </FlexBox>
-            <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
-              <Label>Set custom bullet points</Label>
-              <AddImage
-                name='styles.customBulletPoint'
-                value={customBulletPoint}
-                onUploaded={onImageChange}
-              />
+            <FlexBox>
+              <Label>Custom bullets</Label>
+              <Toggle value={customBullets} onToggle={onToggleCustomBullets} />
             </FlexBox>
-            <FlexBox column center='h-center'>
-              {featuresThemesImages.map(({ src, theme }) => (
-                <ImageOption
-                  className='feature-theme-demo'
-                  value={src}
-                  key={theme}
-                  onClick={onThemeChange(theme)}
-                  active={theme === styles.theme}
-                />
-              ))}
-            </FlexBox>
+            {
+              customBullets ? (
+                <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
+                  <Label>Set custom bullets</Label>
+                  <AddImage
+                    name='styles.customBulletPoint'
+                    value={customBulletPoint}
+                    onUploaded={onImageChange}
+                  />
+                </FlexBox>
+              ) : (
+                <FlexBox column center='h-center'>
+                  {featuresThemesImages.map(({ src, theme }) => (
+                    <ImageOption
+                      className='feature-theme-demo'
+                      value={src}
+                      key={theme}
+                      onClick={onThemeChange(theme)}
+                      active={theme === styles.theme}
+                    />
+                  ))}
+                </FlexBox>
+              )
+            }
           </FlexBox>
         </Tab>
       </Tabs>
