@@ -136,14 +136,17 @@ export const updateProductSection = ({ dispatch }) => (section) => {
   });
 };
 
-export const onSectionFieldChange = ({ dispatch }) => (section) => {
-  dispatch({
-    type: types.UPDATE_PRODUCT_SECTION,
-    payload: section
-  });
 
-  dispatch({
-    type: types.UPDATE_SECTION_SETTINGS,
-    payload: section
-  });
+export const onSectionFieldChange = ({ dispatch }) => (section, sectionSetting) => {
+  sectionSetting && sectionSetting.id === section.id ?
+    dispatch({
+      type: types.UPDATE_SECTION_SETTINGS,
+      payload: section
+    })
+    :
+    dispatch({
+      type: types.UPDATE_PRODUCT_SECTION,
+      payload: section
+    });
 };
+

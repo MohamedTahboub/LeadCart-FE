@@ -14,7 +14,7 @@ const ButtonSection = ({
   section = {},
   ...props
 }) => {
-  const { actions = {} } = useContext();
+  const { actions = {}, state: { modals: { sectionSetting } = {} } } = useContext();
   const { content = {}, styles = {}, actions: buttonActions } = section;
   const { position } = styles;
 
@@ -28,7 +28,7 @@ const ButtonSection = ({
     };
     if (props.onChange) return props.onChange(updatedSection);
 
-    actions.onSectionFieldChange(updatedSection);
+    actions.onSectionFieldChange(updatedSection, sectionSetting);
   };
 
   const buttonStyle = {
