@@ -1,19 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import common from 'components/common';
 import moment from 'moment';
 
-
+import common from 'components/common';
 import { ImageOption, SettingBox } from './common';
 import { useContext } from '../../../actions';
 
-const {
-  Tabs,
-  InputRow,
-  MiniTwitterPicker,
-  FlexBox,
-  Tab
-} = common;
+const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
+const { TextField, SelectOption, DatePicker, Toggle } = InputRow;
 
 const themesOptions = [
   {
@@ -33,7 +26,6 @@ const themesOptions = [
     src: 'https://i.imgur.com/8cPU4ku.png'
   }
 ];
-const { TextField, SelectOption, DatePicker, Toggle } = InputRow;
 
 const CountDowTimerWidget = (props) => {
   const {
@@ -119,7 +111,28 @@ const CountDowTimerWidget = (props) => {
             </FlexBox>
           </FlexBox>
         </Tab>
+
         <Tab id='settings' title='Settings'>
+          <SettingBox title='Redirect Link'>
+            <FlexBox column className='margin-v-5' flexStart>
+              <Toggle
+                name='content.redirectLink'
+                value={content.redirectLink}
+                onToggle={onChange}
+                className='mr-2'
+                beforeLabel='show'
+                afterLabel='hide'
+              />
+              {content.redirectLink &&
+                <TextField
+                  name='content.value.redirectLink'
+                  value={content.value.redirectLink}
+                  onChange={onFiledChange}
+                />
+              }
+            </FlexBox>
+          </SettingBox>
+
           <SettingBox title='Setup'>
             <FlexBox column className='margin-v-5' flexStart>
               <span className='gray-text'>Timer Clock Type:</span>
@@ -149,7 +162,7 @@ const CountDowTimerWidget = (props) => {
                 />
               </FlexBox>
             </SettingBox>
-          ) : (
+          ) :
             <SettingBox title='Fixed Date Timer Values'>
               <FlexBox center='v-center margin-v-5' spaceBetween>
                 <span className='gray-text'>Days:</span>
@@ -182,7 +195,8 @@ const CountDowTimerWidget = (props) => {
                 />
               </FlexBox>
             </SettingBox>
-          )}
+          }
+
           <SettingBox title='Appearance'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Days</span>
