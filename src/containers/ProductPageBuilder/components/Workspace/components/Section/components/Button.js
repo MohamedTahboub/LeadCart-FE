@@ -14,7 +14,7 @@ const ButtonSection = ({
   section = {},
   ...props
 }) => {
-  const { actions = {}, state: { modals: { sectionSetting } = {} } } = useContext();
+  const { actions = {} } = useContext();
   const { content = {}, styles = {}, actions: buttonActions } = section;
   const { position } = styles;
 
