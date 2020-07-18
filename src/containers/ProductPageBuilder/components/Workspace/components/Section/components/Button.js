@@ -28,7 +28,7 @@ const ButtonSection = ({
     };
     if (props.onChange) return props.onChange(updatedSection);
 
-    actions.onSectionFieldChange(updatedSection, sectionSetting);
+    actions.onSectionFieldChange(updatedSection);
   };
 
   const buttonStyle = {

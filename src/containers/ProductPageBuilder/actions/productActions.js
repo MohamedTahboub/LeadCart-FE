@@ -137,7 +137,7 @@ export const updateProductSection = ({ dispatch }) => (section) => {
 };
 
 
-export const onSectionFieldChange = ({ dispatch }) => (section, sectionSetting) => {
+export const onSectionFieldChange = ({ state: { modals: { sectionSetting } = {} }, dispatch }) => (section) => {
   sectionSetting && sectionSetting.id === section.id ?
     dispatch({
       type: types.UPDATE_SECTION_SETTINGS,
