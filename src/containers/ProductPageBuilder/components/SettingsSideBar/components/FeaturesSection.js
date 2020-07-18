@@ -47,7 +47,6 @@ const {
 const { Label, AddImage } = InputRow;
 
 const FeaturesSection = () => {
-  const [customBullets, setCustomBullets] = useState(false);
   const [stash, setStash] = useState({});
 
   const {
@@ -60,10 +59,11 @@ const FeaturesSection = () => {
     content: { list = [] } = {}
   } = sectionSetting;
 
+  const [customBullets, setCustomBullets] = useState(styles.withCustomBullets);
   useEffect(() => {
-    setCustomBullets(!!styles.customBulletPoint);
-    setStash({ theme: styles.theme, image: styles.customBulletPoint });
-  }, [styles.customBulletPoint, styles.theme]);
+    setCustomBullets(!!styles.withCustomBullets);
+    setStash({ theme: styles.theme, image: styles.customBullet });
+  }, [styles.customBullet, styles.theme]);
   const onChange = ({ target }) => {
     return actions.onSectionSettingChange({
       section: sectionSetting,
@@ -87,16 +87,10 @@ const FeaturesSection = () => {
   const onThemeChange = (theme) => () => () => {
     actions.onSectionSettingChange({
       section: sectionSetting,
-      fields: [
-        {
-          name: 'styles.theme',
-          value: theme
-        },
-        {
-          name: 'styles.customBulletPoint',
-          value: null
-        }
-      ]
+      field: {
+        name: 'styles.theme',
+        value: theme
+      }
     });
     setStash({ ...stash, theme });
   };
@@ -104,51 +98,23 @@ const FeaturesSection = () => {
   const onImageChange = (image) => {
     actions.onSectionSettingChange({
       section: sectionSetting,
-      fields: [
-        {
-          name: 'styles.theme',
-          value: null
-        },
-        {
-          name: 'styles.customBulletPoint',
-          value: image
-        }
-      ]
+      field: {
+        name: 'styles.customBullet',
+        value: image
+      }
     });
     setStash({ ...stash, image });
   };
 
   const onToggleCustomBullets = () => {
     setCustomBullets(!customBullets);
-    if (customBullets) {
-      actions.onSectionSettingChange({
-        section: sectionSetting,
-        fields: [
-          {
-            name: 'styles.theme',
-            value: stash.theme
-          },
-          {
-            name: 'styles.customBulletPoint',
-            value: null
-          }
-        ]
-      });
-    } else {
-      actions.onSectionSettingChange({
-        section: sectionSetting,
-        fields: [
-          {
-            name: 'styles.theme',
-            value: null
-          },
-          {
-            name: 'styles.customBulletPoint',
-            value: stash.image
-          }
-        ]
-      });
-    }
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: 'styles.withCustomBullets',
+        value: !customBullets
+      }
+    });
   };
   return (
     <div>
@@ -181,8 +147,8 @@ const FeaturesSection = () => {
                 <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
                   <Label>Set custom bullets</Label>
                   <AddImage
-                    name='styles.customBulletPoint'
-                    value={styles.customBulletPoint}
+                    name='styles.customBullet'
+                    value={styles.customBullet}
                     onUploaded={onImageChange}
                   />
                 </FlexBox>

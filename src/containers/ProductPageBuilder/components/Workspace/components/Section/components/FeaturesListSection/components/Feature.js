@@ -20,7 +20,8 @@ const Feature = ({
   onChange,
   onDelete,
   text,
-  customBulletPoint
+  withCustomBullets,
+  customBullet
 }) => {
   const classes = clx({
     'section-feature-item': true,
@@ -35,11 +36,11 @@ const Feature = ({
   return (
     <div className={classes}>
       <span
-        style={{ background: customBulletPoint ? `url(${customBulletPoint}) 0% 0% / contain` : color }}
+        style={{ background: withCustomBullets ? `url(${customBullet}) 0% 0% / contain` : color }}
         className={pointClasses}
       >
         {
-          !customBulletPoint ? (
+          !withCustomBullets ? (
             <span className='order'>
               {id + 1}
             </span>

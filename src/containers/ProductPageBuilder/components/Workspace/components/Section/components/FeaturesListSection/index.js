@@ -43,7 +43,6 @@ const Features = ({ section }) => {
     onChange('content.list', newList);
     if (!newList.length)
       actions.onSectionDelete(section.id);
-
   };
 
   return (
@@ -55,9 +54,10 @@ const Features = ({ section }) => {
           text={text}
           onChange={onFeatureChange}
           onDelete={onFeatureDelete}
-          customBulletPoint={styles.customBulletPoint}
+          withCustomBullets={styles.withCustomBullets}
           color={styles.bulletColor}
           theme={styles.theme}
+          customBullet={styles.customBullet}
         />
       ))}
     </div>
