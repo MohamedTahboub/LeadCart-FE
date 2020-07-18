@@ -30,7 +30,7 @@ const Feature = ({
 
   const pointClasses = clx({
     'feature-item-point': true,
-    [featureThemes[theme]]: theme
+    [featureThemes[theme]]: !withCustomBullets && theme
   });
 
   return (
