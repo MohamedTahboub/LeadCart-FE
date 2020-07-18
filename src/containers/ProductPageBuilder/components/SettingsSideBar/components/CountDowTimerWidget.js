@@ -116,17 +116,17 @@ const CountDowTimerWidget = (props) => {
           <SettingBox title='Redirect Link'>
             <FlexBox column className='margin-v-5' flexStart>
               <Toggle
-                name='content.redirectLink'
-                value={content.redirectLink}
+                name='hasPostAction'
+                value={sectionSetting.hasPostAction}
                 onToggle={onChange}
                 className='mr-2'
                 beforeLabel='show'
                 afterLabel='hide'
               />
-              {content.redirectLink &&
+              {sectionSetting.hasPostAction &&
                 <TextField
-                  name='content.value.redirectLink'
-                  value={content.value.redirectLink}
+                  name='content.redirectUrl'
+                  value={content.redirectUrl}
                   onChange={onFiledChange}
                 />
               }
