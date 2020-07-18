@@ -110,7 +110,7 @@ const services = [
     name: 'Convertkit',
     brandLogo: brandsLogos.convertkit,
     category: 'Auto Responders',
-    fieldLabel: 'API Secret',
+    fields: [{ name: 'apiKey', label: 'API Secret' }],
     description: 'Email marketing software for creators',
     active: false,
     connected: false,
@@ -123,6 +123,10 @@ const services = [
     category: 'Auto Responders',
     description: 'Email marketing, marketing automation, sales automation, and CRM software platform',
     active: false,
+    fields: [
+      { name: 'apiKey', label: 'API Key' },
+      { name: 'apiUrl', label: 'API Url' }
+    ],
     connected: false,
     supported: true
   },

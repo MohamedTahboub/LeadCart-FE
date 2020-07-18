@@ -10,6 +10,8 @@ import { LayoutSwitch } from '../..';
 const { FlexBox, Button, InputRow } = common;
 const { TextField } = InputRow;
 
+const defaultAuthWithKeyFields = [{ name: 'apiKey', label: 'API Key' }];
+
 const LoadingIcon = () => (
   <div>checking Support</div>
 );
@@ -73,21 +75,23 @@ const ConnectClient = ({ onChange, onSubmit, ...props }) => (
 const ConnectApiKey = ({
   onChange,
   note,
-  fieldLabel = 'API KEY',
+  fields = defaultAuthWithKeyFields,
   onSubmit
 }) => (
   <FlexBox column>
-    <Statement
-      label={fieldLabel}
-      note={note}
-      value={(
-        <TextField
-          name={'apiKey'}
-          onChange={onChange}
-          uncontrolled
-        />
-      )}
-    />
+    {fields.map(({ name, label }) => (
+      <Statement
+        key={name}
+        label={label}
+        note={note}
+        value={(
+          <TextField
+            name={name}
+            onChange={onChange}
+            uncontrolled
+          />
+        )}
+      />))}
     <FlexBox flexEnd className='full-width'>
       <Button onClick={onSubmit} className='primary-color'>
           Authorize
