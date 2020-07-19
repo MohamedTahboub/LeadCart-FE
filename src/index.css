@@ -440,6 +440,7 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .overflow-y-scroll { overflow-y: scroll; }
 
 .d-none { display: none; }
+.col-6 { width: 50%; }
 
 @media (max-width: 992px) {
   .d-md-none {

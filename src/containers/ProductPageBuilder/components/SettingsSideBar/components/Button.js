@@ -2,9 +2,29 @@ import React from 'react';
 
 import common from 'components/common';
 import { useContext } from '../../../actions';
+import { ImageOption } from './common';
 
 const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption } = InputRow;
+
+const layouts = [
+  {
+    src: 'https://imgur.com/k07SZuu.png',
+    layout: 'standalone'
+  }, {
+    src: 'https://imgur.com/wNo3iSF.png',
+    layout: 'withTextLeft'
+  }, {
+    src: 'https://imgur.com/HEt82ji.png',
+    layout: 'withTextRight'
+  }, {
+    src: 'https://imgur.com/3TZJITW.png',
+    layout: 'withImageLeft'
+  }, {
+    src: 'https://imgur.com/HLH9mfq.png',
+    layout: 'withImageRight'
+  }
+];
 
 const ButtonSection = () => {
   const {
@@ -21,9 +41,31 @@ const ButtonSection = () => {
     });
   };
 
+  const onLayoutChange = (layout) => () => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: 'content.layout',
+        value: layout
+      }
+    });
+  };
 
   return (
     <Tabs active='styles' className='padding-v-10 padding-h-10'>
+      <Tab id='layout' title='layout'>
+        <FlexBox column center='h-center' spaceBetween>
+          {
+            layouts.map(({ src, layout }) => (
+              <ImageOption
+                value={src}
+                key={layout}
+                onClick={() => onLayoutChange(layout)}
+                active={layout === styles.layout}
+              />
+            ))}
+        </FlexBox>
+      </Tab>
       <Tab id='styles' title='styles'>
         <FlexBox center='v-center' spaceBetween>
           <span className='gray-text'>Position</span>

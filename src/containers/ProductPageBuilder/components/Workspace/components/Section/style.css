@@ -136,7 +136,7 @@
     /* cursor: nw-resize */
 }
 
-.align-left{
+/* .align-left{
     justify-content: flex-start;
 }
 .align-right{
@@ -144,7 +144,7 @@
 }
 .align-center{
     justify-content: center;
-}
+} */
 .justified{
     width: 100%;
     display: flex;

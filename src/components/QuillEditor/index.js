@@ -16,7 +16,8 @@ const Editor = ({
   headingMode,
   onEdit,
   onBlur,
-  bounds
+  bounds,
+  className
   // uploadFile
 }) => {
   const editorProps = {
@@ -25,6 +26,7 @@ const Editor = ({
   };
   return (
     <ReactQuill
+      className={className}
       theme={theme}
       scrollingContainer='body'
       onChange={onEdit}
