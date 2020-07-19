@@ -265,5 +265,18 @@ export default {
       paddingTop: 0,
       paddingBottom: 0
     }
+  },
+  contentReveal: {
+    hidden: false,
+    type: 'contentReveal',
+    content: {
+      title: 'Your Title',
+      list: [
+        { title: 'First Title', content: 'First Content' },
+        { title: 'Second Title', content: 'Second Content' },
+        { title: 'Third Title', content: 'Third Content' }
+      ]
+    },
+    styles: {}
   }
 };
