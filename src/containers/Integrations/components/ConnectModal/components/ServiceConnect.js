@@ -75,30 +75,28 @@ const ConnectClient = ({ onChange, onSubmit, ...props }) => (
 const ConnectApiKey = ({
   onChange,
   note,
-  fields = defaultAuthWithKeyFields,
+  fieldLabel = 'API KEY',
   onSubmit
 }) => (
-  <FlexBox column>
-    {fields.map(({ name, label }) => (
+    <FlexBox column>
       <Statement
-        key={name}
-        label={label}
+        label={fieldLabel}
         note={note}
         value={(
           <TextField
-            name={name}
+            name={'apiKey'}
             onChange={onChange}
             uncontrolled
           />
         )}
-      />))}
-    <FlexBox flexEnd className='full-width'>
-      <Button onClick={onSubmit} className='primary-color'>
+      />
+      <FlexBox flexEnd className='full-width'>
+        <Button onClick={onSubmit} className='primary-color'>
           Authorize
       </Button>
+      </FlexBox>
     </FlexBox>
-  </FlexBox>
-);
+  );
 
 const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) => {
   const [values, setValues] = useState({});
