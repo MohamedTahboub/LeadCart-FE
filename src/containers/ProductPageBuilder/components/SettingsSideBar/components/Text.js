@@ -53,20 +53,23 @@ const Text = (props) => {
                 name='styles.fontFamily'
                 value={styles.fontFamily}
                 onChange={onChange}
-                // className='margin-h-10'
                 options={[
-                  { label: 'Cairo', value: '\'Open Sans\', sans-serif' },
-                  { label: 'Calibri', value: 'Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif' },
-                  { value: 'Georgia', label: 'Georgia' },
-                  { value: 'Palatino Linotype', label: 'Palatino Linotype' },
-                  { value: 'Book Antiqua', label: 'Book Antiqua' },
-                  { value: 'Courier New', label: 'Courier, monospace' },
-                  { value: 'Arial', label: 'Arial' },
-                  { value: 'Lucida Console', label: 'Lucida Console' },
-                  { value: 'Helvetica', label: 'Helvetica' },
-                  { value: 'Arial Black', label: 'Arial Black' },
-                  { value: 'Lucida Sans Unicode', label: 'Lucida Sans Unicode' },
-                  { value: 'Times New Roman', label: 'Times New Roman' }
+                  { label: 'Helvetica', value: '\'Helvetica\', Arial, sans-serif' },
+                  { label: 'Cairo', value: '\'Cairo\', sans-serif' },
+                  { label: 'Modak', value: '\'Modak\', cursive' },
+                  { label: 'Merriweather', value: '\'Merriweather\', serif' },
+                  // { label: 'Calibri', value: 'Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif' },
+                  // { value: 'Georgia', label: 'Georgia' },
+                  { value: 'Dancing Script, cursive', label: 'Dancing Script' },
+                  // { value: 'Palatino Linotype', label: 'Palatino Linotype' },
+                  // { value: 'Book Antiqua', label: 'Book Antiqua' },
+                  { value: 'Courier New', label: 'Courier, monospace' }
+                  // { value: 'Arial', label: 'Arial' },
+                  // { value: 'Lucida Console', label: 'Lucida Console' },
+                  // { value: 'Helvetica', label: 'Helvetica' },
+                  // { value: 'Arial Black', label: 'Arial Black' },
+                  // { value: 'Lucida Sans Unicode', label: 'Lucida Sans Unicode' },
+                  // { value: 'Times New Roman', label: 'Times New Roman' }
                 ]}
               />
             </FlexBox>
@@ -81,43 +84,6 @@ const Text = (props) => {
                 name='styles.backgroundColor'
                 value={styles.backgroundColor}
                 onChange={onChange}
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Text Color</span>
-              <MiniTwitterPicker
-                name='styles.color'
-                value={styles.color}
-                onChange={onChange}
-              />
-            </FlexBox>
-          </div>
-
-
-          <div className='large-text border-left-text margin-top-20'>Paddings</div>
-          <div className='padding-left-20'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding Top:</span>
-              <Slider
-                min={0}
-                max={200}
-                name='styles.paddingTop'
-                // value={styles.paddingTop}
-                defaultValue={20}
-                className='width-100'
-                onChange={(va) => {
-                }}
-              />
-
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Padding bottom:</span>
-              <TextField
-                type='number'
-                name='styles.paddingBottom'
-                value={styles.paddingBottom}
-                onChange={onChange}
-                className='width-70'
               />
             </FlexBox>
           </div>
