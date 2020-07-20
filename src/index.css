@@ -461,3 +461,7 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
   font-family: unset;
   font-size: unset;
 }
+
+.rs-slider {
+  margin: 10px 0;
+}

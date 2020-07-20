@@ -145,6 +145,15 @@
 .align-center{
     justify-content: center;
 } */
+.button-section-wrapper {
+    padding: 20px 0;
+    overflow: visible !important;
+}
+.button-icon {
+    width: 32px;
+    height: 32px;
+}
+.align-items-center {align-items: center;}
 .justified{
     width: 100%;
     display: flex;

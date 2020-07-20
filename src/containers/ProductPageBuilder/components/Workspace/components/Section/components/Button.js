@@ -53,32 +53,89 @@ const ButtonSection = ({
   };
 
   const buttonStyle = {
+    borderTopLeftRadius: content.borderTopLeftRadius,
+    borderTopRightRadius: content.borderTopRightRadius,
+    borderBottomLeftRadius: content.borderBottomLeftRadius,
+    borderBottomRightRadius: content.borderBottomRightRadius,
     display: 'flex',
+    borderStyle: styles.borderStyle || 'none',
+    borderColor: styles.borderColor || '#FFF',
+    boxShadow: content.hasShadow ? `${content.boxShadowOffsetX || 0}px ${content.boxShadowOffsetY || 0}px ${content.boxShadowBlur || 0}px ${styles.shadowColor || '#FFF'}` : '',
     backgroundColor: styles.backgroundColor
   };
   const buttonTextStyle = {
+    color: styles.foregroundColor || '#FFF',
     backgroundColor: 'transparent',
     fontWeight: 'bold',
     fontSize: '16px'
   };
-  const containerClasses = clx(`justify-${position === 'left' ? 'start' : position === 'right' ? 'end' : 'center'}`, 'truncate');
+  const containerClasses = clx('button-section-wrapper', `justify-${position === 'left' ? 'start' : position === 'right' ? 'end' : 'center'}`, 'truncate');
   const buttonClasses = clx({
     'primary-color': true,
-    'justified': position === 'justified'
+    'justified': position === 'justified',
+    'align-items-center': true
   });
+  const iconStyles = {
+    borderRadius: content.iconBorderRadius || 0,
+    padding: content.iconBorderRadius * 0.1,
+    ...(content.iconPlacement === 'left' ? {
+      marginLeft: content.iconBorderRadius / -2,
+      marginRight: 8
+    } : content.iconPlacement === 'right' ? {
+      marginRight: content.iconBorderRadius / -2,
+      marginLeft: 8
+    } : content.iconPlacement === 'snapped-left' ? {
+      width: 34,
+      height: 34,
+      padding: 4,
+      borderRadius: 0,
+      borderTopLeftRadius: 5,
+      borderBottomLeftRadius: 5
+    } : {
+      width: 34,
+      height: 34,
+      padding: 4,
+      borderRadius: 0,
+      borderTopRightRadius: 5,
+      borderBottomRightRadius: 5
+    }),
+    backgroundColor: styles.iconBackgroundColor || 'transparent'
+  };
+  const icon = content.iconPlacement !== 'none' && content.icon;
+
+  const iconComponent = (
+    icon && <img alt='icon' src={icon} className='button-icon' style={iconStyles} />
+  );
+  const buttonComponent = (
+    <>
+      {
+        content.iconPlacement === 'snapped-left' && iconComponent
+      }
+      <Button className={buttonClasses} style={buttonStyle}>
+        {
+          content.iconPlacement === 'left' && iconComponent
+        }
+        <ResizableInput
+          onChange={onChange}
+          value={value}
+          style={buttonTextStyle}
+        />
+        {
+          content.iconPlacement === 'right' && iconComponent
+        }
+      </Button>
+      {
+        content.iconPlacement === 'snapped-right' && iconComponent
+      }
+    </>
+  );
   return (
     <FlexBox {...props} className={containerClasses}>
       {
         ['withTextLeft', 'withTextRight'].includes(layout) ? (
           <FlexBox className='fluid py-5' reverse={layout === 'withTextLeft'}>
             <FlexBox className={clx(containerClasses, 'col-6', 'align-center')}>
-              <Button className={buttonClasses} style={buttonStyle}>
-                <ResizableInput
-                  onChange={onChange}
-                  value={value}
-                  style={buttonTextStyle}
-                />
-              </Button>
+              {buttonComponent}
             </FlexBox>
             <FlexBox className='col-6'>
               <QuillEditor
@@ -93,13 +150,7 @@ const ButtonSection = ({
         ) : ['withImageLeft', 'withImageRight'].includes(layout) ? (
           <FlexBox className='fluid py-5' reverse={layout === 'withImageLeft'}>
             <FlexBox className={clx(containerClasses, 'col-6', 'align-center')}>
-              <Button className={buttonClasses} style={buttonStyle}>
-                <ResizableInput
-                  onChange={onChange}
-                  value={value}
-                  style={buttonTextStyle}
-                />
-              </Button>
+              {buttonComponent}
             </FlexBox>
             <FlexBox className='col-6'>
               <Image
@@ -112,13 +163,7 @@ const ButtonSection = ({
             </FlexBox>
           </FlexBox>
         ) : (
-          <Button className={buttonClasses} style={buttonStyle}>
-            <ResizableInput
-              onChange={onChange}
-              value={content.value}
-              style={buttonTextStyle}
-            />
-          </Button>
+          buttonComponent
         )
       }
     </FlexBox>
