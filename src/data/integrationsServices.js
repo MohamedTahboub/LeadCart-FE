@@ -17,7 +17,7 @@ const services = [
     key: 'lc_paypal',
     brandLogo: brandsLogos.paypalImage,
     category: 'Payment Gateways',
-    description: 'an online financial service that allows you to pay for items using a secure internet account',
+    description: 'An online financial service that allows you to pay for items using a secure internet account',
     active: false,
     connected: false,
     supported: true
@@ -127,6 +127,15 @@ const services = [
       { name: 'apiKey', label: 'API Key' },
       { name: 'apiUrl', label: 'API Url' }
     ],
+    connected: false,
+    supported: true
+  }, {
+    key: 'lc_mailerlite',
+    name: 'MailerLite',
+    brandLogo: brandsLogos.mailerLite,
+    category: 'Auto Responders',
+    description: 'Email marketing tool that support landing pages and automation for your campaigns.',
+    active: false,
     connected: false,
     supported: true
   },
@@ -349,6 +358,23 @@ const services = [
     active: false,
     connected: false,
     supported: false
+  },
+  {
+    key: 'lc_zapier',
+    name: 'Zapier',
+    brandLogo: brandsLogos.zapierBrand,
+    category: 'Misc Integrations',
+    description: 'Zapier moves info between your web apps automatically',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'Get Invited',
+      action: 'link',
+      linkPath: 'https://zapier.com/developer/public-invite/110760/c6fb681572753e1aad9488f28a22a64c/'
+    }
   }
 ];
 
