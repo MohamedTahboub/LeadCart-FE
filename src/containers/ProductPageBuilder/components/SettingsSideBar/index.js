@@ -8,14 +8,13 @@ import SubSettings from './components';
 
 const {
   SideMenu,
-  FlexBox,
+  FlexBox
 } = common;
 
 const defaultTitle = 'Section Properties';
 
-const SettingSideBar = (props) => {
+const SettingSideBar = () => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
-
 
   const toggleMenu = () => {
     actions.toggleSectionSettingModal(sectionSetting);
@@ -49,8 +48,6 @@ const SettingSideBar = (props) => {
   );
 };
 
-SettingSideBar.propTypes = {
-
-};
+SettingSideBar.propTypes = {};
 
 export default SettingSideBar;
