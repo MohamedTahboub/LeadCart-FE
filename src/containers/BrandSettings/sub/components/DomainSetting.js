@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
@@ -14,9 +14,7 @@ const CopyIcon = ({ text }) => (
   </CopyToClipboard>
 );
 
-const {
-  InputRow, MainBlock, Button, MiniButton
-} = common;
+const { InputRow, MainBlock, Button, MiniButton } = common;
 
 const VerificationProcess = ({
   verifying,
@@ -84,7 +82,7 @@ const DomainConnectInstruction = () => (
 
       <div>
         Follow the step-by-step instructions &nbsp;
-        <a href='https://help.leadcart.io/domains/connect' target='_blank'>
+        <a href='intercom.help/leadcart' target='_blank'>
           here
         </a>
         &nbsp; if you have any issue.
@@ -108,9 +106,7 @@ const DomainSetting = ({
   const onConnect = () => {
     setLoading(true);
     connectMarketPlaceDomain(
-      {
-        domain: fields.domain
-      },
+      { domain: fields.domain },
       {
         onSuccess: (data) => {
           setFields({
@@ -133,9 +129,7 @@ const DomainSetting = ({
   const onVerify = () => {
     setLoading(true);
     connectMarketPlaceDomain(
-      {
-        domain: fields.domain
-      },
+      { domain: fields.domain },
       {
         onSuccess: (data) => {
           // setRecords(data.records);
@@ -159,11 +153,13 @@ const DomainSetting = ({
 
   };
 
-  useEffect(() => () => {
-    setError({});
+  useEffect(
+    () => () => {
+      setError({});
     // setConnected();
-  },
-  [customDomain]);
+    },
+    [customDomain]
+  );
 
   return (
     <MainBlock title='MarketPlace Domain Settings' className='domains-setting-block'>
@@ -248,9 +244,7 @@ const DomainSetting = ({
       />
 */
 
-DomainSetting.propTypes = {
-
-};
+DomainSetting.propTypes = {};
 
 const mapStateToProps = ({
   settings: {
