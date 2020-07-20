@@ -21,7 +21,7 @@ export { default as convertkit } from 'assets/images/brands/convertkit-long.svg'
 export { default as infusionSoft } from 'assets/images/brands/infusionSoft-logo.png';
 export { default as mooSend } from 'assets/images/brands/moosend_logo.svg';
 export { default as hubspot } from 'assets/images/brands/hubspot_logo.png';
-
+export { default as mailerLite } from 'assets/images/brands/mailerlite-logo.png';
 
 // Membership Platforms
 export { default as Kajabi } from 'assets/images/brands/Kajabi-logo.png';

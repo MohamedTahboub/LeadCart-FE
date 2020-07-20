@@ -129,6 +129,15 @@ const services = [
     ],
     connected: false,
     supported: true
+  }, {
+    key: 'lc_mailerlite',
+    name: 'MailerLite',
+    brandLogo: brandsLogos.mailerLite,
+    category: 'Auto Responders',
+    description: 'Email marketing tool that support landing pages and automation for your campaigns.',
+    active: false,
+    connected: false,
+    supported: true
   },
   {
     key: 'lc_getresponse',
