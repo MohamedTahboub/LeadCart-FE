@@ -7,11 +7,11 @@ import common from 'components/common';
 
 const { ResizableInput, ResizableTextarea } = common;
 
-const OneContent = ({ ele, id, toggle, onChange, open, onDelete }) => {
+const OneContent = ({ title, content, id, toggle, onChange, open, onDelete }) => {
   return (
     <div className={clx(
       'contentReveal-listItem', 'margin-v-10',
-      { 'content-active': open === ele.title }
+      { 'content-active': open === title }
     )}
     >
 
@@ -25,25 +25,25 @@ const OneContent = ({ ele, id, toggle, onChange, open, onDelete }) => {
         />
       </span>
 
-      {open !== ele.title ?
+      {open !== title ?
         <FaPlusCircle className='contentReveal-listItem-icon'
           onClick={() => {
-            toggle(ele.title);
+            toggle(title);
           }}
         />
         :
         <FaMinusCircle className='contentReveal-listItem-icon' onClick={() => {
-          toggle(ele.title);
+          toggle(title);
         }}
         />
       }
 
       <span className='contentReveal-listItem-title'>
-        <ResizableInput value={ele.title} onChange={onChange} name={`title.${id}`} />
+        <ResizableInput value={title} onChange={onChange} name={`title.${id}`} />
       </span>
 
-      <Expand open={open === ele.title}>
-        <ResizableTextarea className='contentReveal-listItem-content' value={ele.content} onChange={onChange} name={`content.${id}`} />
+      <Expand open={open === title}>
+        <ResizableTextarea className='contentReveal-listItem-content' value={content} onChange={onChange} name={`content.${id}`} />
       </Expand>
     </div>
   );

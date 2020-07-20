@@ -30,8 +30,8 @@ const ContentReveal = (props) => {
   };
 
   const onContentChange = ({ target: { value, name } }) => {
-    const newList = list.map((ele, id) => {
-      if (name.split('.')[1] === `${id}`) {
+    const newList = list.map((ele) => {
+      if (name.split('.')[1] === `${ele.id}`) {
         if (name.split('.')[0] === 'title') {
           return {
             ...ele,
@@ -51,7 +51,7 @@ const ContentReveal = (props) => {
   };
 
   const onDelete = (id) => {
-    const newList = list.filter((ele, i) => i !== (id));
+    const newList = list.filter((ele) => ele.id !== (id));
     onChange(newList);
 
     if (!newList.length)
@@ -66,13 +66,14 @@ const ContentReveal = (props) => {
       <div>
         {list.map((ele, id) => (
           <OneContent
-            ele={ele}
-            id={id}
             onChange={onContentChange}
             toggle={toggle}
             open={open}
             onDelete={onDelete}
             key={id}
+            title={ele.title}
+            content={ele.content}
+            id={ele.id}
           />
         ))}
       </div>

@@ -1,4 +1,6 @@
+import ids from 'shortid';
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
+
 
 export default {
   text: {
@@ -272,9 +274,9 @@ export default {
     content: {
       title: 'Your Title',
       list: [
-        { title: 'First Title', content: 'First Content' },
-        { title: 'Second Title', content: 'Second Content' },
-        { title: 'Third Title', content: 'Third Content' }
+        { title: 'First Title', content: 'First Content', id: ids.generate() },
+        { title: 'Second Title', content: 'Second Content', id: ids.generate() },
+        { title: 'Third Title', content: 'Third Content', id: ids.generate() }
       ]
     },
     styles: {}
