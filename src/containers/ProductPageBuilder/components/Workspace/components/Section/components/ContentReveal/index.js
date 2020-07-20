@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import Expand from 'react-expand-animated';
-import clx from 'classnames';
-
 
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
+import OneContent from './components';
 import './style.css';
 
 const { ResizableInput } = common;
@@ -21,9 +19,19 @@ const ContentReveal = (props) => {
       setOpen(title);
   };
 
-  const onChange = ({ target: { value, name } }) => {
-    const newList = list.map((ele, index) => {
-      if (name.split('.')[1] === `${index}`) {
+  const onChange = (newList) => {
+    actions.onSectionFieldChange({
+      ...section,
+      content: {
+        ...section.content,
+        list: newList
+      }
+    });
+  };
+
+  const onContentChange = ({ target: { value, name } }) => {
+    const newList = list.map((ele, id) => {
+      if (name.split('.')[1] === `${id}`) {
         if (name.split('.')[0] === 'title') {
           return {
             ...ele,
@@ -39,13 +47,15 @@ const ContentReveal = (props) => {
       return ele;
     });
 
-    actions.onSectionFieldChange({
-      ...section,
-      content: {
-        ...section.content,
-        list: newList
-      }
-    });
+    onChange(newList);
+  };
+
+  const onDelete = (id) => {
+    const newList = list.filter((ele, i) => i !== (id));
+    onChange(newList);
+
+    if (!newList.length)
+      actions.onSectionDelete(section.id);
   };
 
 
@@ -54,39 +64,17 @@ const ContentReveal = (props) => {
       <ResizableInput value={title} className='contentReveal__title' />
 
       <div className='contentReveal__list-container'>
-        {list.map((ele, index) => (
-          <div className={clx(
-            'contentReveal__list-item', 'margin-v-10',
-            { 'content-active': open === ele.title }
-          )}
-          >
-
-            {open !== ele.title ?
-              <span className='contentReveal__list-item__icon'
-                onClick={() => {
-                  toggle(ele.title);
-                }}
-              >+</span>
-              :
-              <span className='contentReveal__list-item__icon'
-                onClick={() => {
-                  toggle(ele.title);
-                }}
-              >-</span>
-            }
-
-            <span className='contentReveal__list-item__title'>
-              <ResizableInput value={ele.title} onChange={onChange} name={`title.${index}`} />
-            </span>
-
-            <Expand open={open === ele.title}>
-              <ResizableInput className='contentReveal__list-item__content' value={ele.content} onChange={onChange} name={`content.${index}`} />
-            </Expand>
-          </div>
+        {list.map((ele, id) => (
+          <OneContent
+            ele={ele}
+            id={id}
+            onChange={onContentChange}
+            toggle={toggle}
+            open={open}
+            onDelete={onDelete}
+          />
         ))}
-
       </div>
-
     </section>
   );
 };

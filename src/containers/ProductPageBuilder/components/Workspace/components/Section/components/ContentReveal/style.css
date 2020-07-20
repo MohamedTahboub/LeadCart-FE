@@ -14,6 +14,22 @@
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.05);
 }
 
+.contentReveal__list-item__delete{
+  position: relative;
+  top: -2px;
+  left: -5px;
+  font-size: 12px;
+  border-radius: 50%;
+  color: lightcoral;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  opacity: 0;
+}
+
+.contentReveal__list-item:hover .contentReveal__list-item__delete{
+  opacity: 1;
+}
+
 .contentReveal__list-item__icon{
   width: 18px;
   height: 18px;
