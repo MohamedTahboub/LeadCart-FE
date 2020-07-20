@@ -280,8 +280,8 @@ const ButtonSection = () => {
             />
             <span className='gray-text'>Add icon</span>
             <AddImage
-              name='content.buttonIcon'
-              value={content.buttonIcon}
+              name='content.icon'
+              value={content.icon}
               onUploaded={onImageChange}
             />
             <span className='gray-text'>Icon Border Radius</span>
@@ -291,6 +291,7 @@ const ButtonSection = () => {
               defaultValue={5}
               onChange={(blur) => onSliderChange(blur, 'iconBorderRadius')}
               value={content.iconBorderRadius || 0}
+              disabled={['snapped-left', 'snapped-right'].includes(content.iconPlacement)}
             />
             <FlexBox center='v-center' spaceBetween>
               <span className='gray-text'>Icon Background</span>
