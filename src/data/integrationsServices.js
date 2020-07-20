@@ -17,7 +17,7 @@ const services = [
     key: 'lc_paypal',
     brandLogo: brandsLogos.paypalImage,
     category: 'Payment Gateways',
-    description: 'an online financial service that allows you to pay for items using a secure internet account',
+    description: 'An online financial service that allows you to pay for items using a secure internet account',
     active: false,
     connected: false,
     supported: true

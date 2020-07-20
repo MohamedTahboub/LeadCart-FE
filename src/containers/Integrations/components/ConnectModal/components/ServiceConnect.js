@@ -5,9 +5,8 @@ import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { notification, openNewWindow } from 'libs';
 import ServiceCard from './ServiceCard';
-import { LayoutSwitch } from '../..';
 
-const { FlexBox, Button, InputRow } = common;
+const { FlexBox, Button, InputRow, LayoutSwitch } = common;
 const { TextField } = InputRow;
 
 const defaultAuthWithKeyFields = [{ name: 'apiKey', label: 'API Key' }];
