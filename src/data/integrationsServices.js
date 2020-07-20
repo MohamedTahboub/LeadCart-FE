@@ -349,6 +349,23 @@ const services = [
     active: false,
     connected: false,
     supported: false
+  },
+  {
+    key: 'lc_zapier',
+    name: 'Zapier',
+    brandLogo: brandsLogos.zapierBrand,
+    category: 'Misc Integrations',
+    description: 'Zapier moves info between your web apps automatically',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'Get Invited',
+      action: 'link',
+      linkPath: 'https://zapier.com/developer/public-invite/110760/c6fb681572753e1aad9488f28a22a64c/'
+    }
   }
 ];
 

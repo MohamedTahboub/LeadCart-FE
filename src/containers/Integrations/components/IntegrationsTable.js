@@ -5,9 +5,18 @@ import ReactTip from 'react-tooltip';
 
 import common from 'components/common';
 import Table from 'components/common/Tables';
-
+import { openNewWindow } from 'libs';
 const { Button } = common;
 const { Body, Row, Cell } = Table;
+
+
+const navigateAction = ({ customCard: { linkPath } = {} }) => linkPath && openNewWindow(linkPath);
+
+
+const getCustomActions = (action) => {
+  if (action === 'link') return navigateAction;
+  return () => null;
+};
 
 const defaultDescription = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste accusamus maiores quam reiciendis!';
 const IntegrationsTable = ({
@@ -25,20 +34,34 @@ const IntegrationsTable = ({
             name = 'Untitled',
             connected,
             brandLogo,
-            active,
+            // active,
+            customCard = {},
             description = defaultDescription
           } = service;
 
-          const connectLabel = active ? connected ? 'connected' : 'disconnected' : 'connect';
-          const connectAction = connected ? onDisconnect : onConnect;
+
+          let connectLabel = connected ? 'connected' : 'connect';
+          let connectAction = connected ? onDisconnect : onConnect;
+          let hasHover = true;
+
+          if (customCard.enabled) {
+            connectLabel = customCard.actionLabel;
+            connectAction = getCustomActions(customCard.action);
+            hasHover = customCard.hasHover;
+          }
 
           const connectBtnClasses = clx({
             'integration-toggle-btn': true,
             'uppercase-text': true,
             'primary-color': connected,
-            'danger-btn': !connected && active,
-            'gray-btn': !active
+            'gray-btn': !connected
           });
+
+          const hoverProps = (hasHover && connected) ?
+            {
+              children: 'Disconnect',
+              className: `${connectBtnClasses} danger-btn`
+            } : {};
 
           return (
             <Row
@@ -70,17 +93,12 @@ const IntegrationsTable = ({
 
               <Cell
                 flex={false}
-
                 mainContent={(
                   <Button
                     fallback-data='Disconnect'
                     className={connectBtnClasses}
                     onClick={() => connectAction(service)}
-                    onHoverProps={connected ? {
-                      children: 'Disconnect',
-                      className: `${connectBtnClasses} danger-btn`
-                    }
-                      : {}}
+                    onHoverProps={hoverProps}
                   >
                     {connectLabel}
                   </Button>

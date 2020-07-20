@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 
 import common from 'components/common';
 import clx from 'classnames';
+import { openNewWindow } from 'libs';
 
 const { FlexBox, MediumCard, Button } = common;
+
+const navigateAction = ({ customCard: { linkPath } = {} }) => linkPath && openNewWindow(linkPath);
+
+
+const getCustomActions = (action) => {
+  if (action === 'link') return navigateAction;
+  return () => null;
+};
 
 const IntegrationsGrid = ({
   onDisconnect,
@@ -16,20 +25,30 @@ const IntegrationsGrid = ({
       key,
       connected,
       brandLogo,
-      active
+      active,
+      customCard = {}
     } = service;
 
-    const connectLabel = active ? connected ? 'connected' : 'disconnected' : 'connect';
-    const connectAction = connected ? onDisconnect : onConnect;
-
+    let connectLabel = active ? connected ? 'connected' : 'disconnected' : 'connect';
+    let connectAction = connected ? onDisconnect : onConnect;
+    let hasHover = true;
+    if (customCard.enabled) {
+      connectLabel = customCard.actionLabel;
+      connectAction = getCustomActions(customCard.action);
+      hasHover = customCard.hasHover;
+    }
     const connectBtnClasses = clx({
       'integration-toggle-btn': true,
       'uppercase-text': true,
       'primary-color': connected,
-      'danger-btn': !connected && active,
-      'gray-btn': !active
+      'gray-btn': !connected
     });
 
+    const hoverProps = (hasHover && connected) ?
+      {
+        children: 'Disconnect',
+        className: `${connectBtnClasses} danger-btn`
+      } : {};
 
     return (
       <MediumCard
@@ -42,11 +61,7 @@ const IntegrationsGrid = ({
             fallback-data='Disconnect'
             className={connectBtnClasses}
             onClick={() => connectAction(service)}
-            onHoverProps={connected ? {
-              children: 'Disconnect',
-              className: `${connectBtnClasses} danger-btn`
-            }
-              : {}}
+            onHoverProps={hoverProps}
           >
             {connectLabel}
           </Button>
