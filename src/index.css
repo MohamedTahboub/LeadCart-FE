@@ -465,3 +465,7 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .rs-slider {
   margin: 10px 0;
 }
+
+.pb-140px {
+  padding-bottom: 140px;
+}

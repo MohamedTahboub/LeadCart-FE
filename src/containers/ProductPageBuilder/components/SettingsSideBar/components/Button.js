@@ -4,25 +4,26 @@ import common from 'components/common';
 import { useContext } from '../../../actions';
 import { ImageOption } from './common';
 import { Slider } from 'rsuite';
+import Collapse from 'components/Collapsible';
 
 const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption, Toggle, AddImage } = InputRow;
 
 const layouts = [
   {
-    src: 'https://imgur.com/k07SZuu.png',
+    src: 'https://imgur.com/jZFW66Q.png',
     layout: 'standalone'
   }, {
-    src: 'https://imgur.com/wNo3iSF.png',
+    src: 'https://imgur.com/TFkUW4F.png',
     layout: 'withTextLeft'
   }, {
-    src: 'https://imgur.com/HEt82ji.png',
+    src: 'https://imgur.com/i5O0xA8.png',
     layout: 'withTextRight'
   }, {
-    src: 'https://imgur.com/3TZJITW.png',
+    src: 'https://imgur.com/IzSFWum.png',
     layout: 'withImageLeft'
   }, {
-    src: 'https://imgur.com/HLH9mfq.png',
+    src: 'https://imgur.com/eu5xfhe.png',
     layout: 'withImageRight'
   }
 ];
@@ -122,8 +123,8 @@ const ButtonSection = () => {
   };
 
   return (
-    <Tabs active='styles' className='padding-v-10 padding-h-10'>
-      <Tab id='layout' title='layout'>
+    <Tabs active='layout' className='padding-v-10 padding-h-10'>
+      <Tab id='layout' title='layouts'>
         <FlexBox column center='h-center' spaceBetween>
           {
             layouts.map(({ src, layout }) => (
@@ -132,6 +133,7 @@ const ButtonSection = () => {
                 key={layout}
                 onClick={() => onLayoutChange(layout)}
                 active={layout === styles.layout}
+                className='button-layout-image'
               />
             ))}
         </FlexBox>
@@ -167,141 +169,147 @@ const ButtonSection = () => {
             onChange={onChange}
           />
         </FlexBox>
-        <FlexBox column center='margin-v-5' spaceBetween>
-          <span>Border Radius</span>
-          <span className='gray-text'>Symmetric</span>
-          <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry'/>
-          <span>TR</span>
-          <Slider
-            max={50}
-            min={0}
-            defaultValue={5}
-            onChange={(radius) => onSliderChange(radius, 'borderTopRightRadius')}
-            value={content.borderTopRightRadius || 0}
-          />
-          <span>TL</span>
-          <Slider
-            max={50}
-            min={0}
-            defaultValue={5}
-            onChange={(radius) => onSliderChange(radius, 'borderTopLeftRadius')}
-            value={content.borderTopLeftRadius || 0}
-          />
-          <span>BR</span>
-          <Slider
-            max={50}
-            min={0}
-            defaultValue={5}
-            onChange={(radius) => onSliderChange(radius, 'borderBottomRightRadius')}
-            value={content.borderBottomRightRadius || 0}
-          />
-          <span>BL</span>
-          <Slider
-            max={50}
-            min={0}
-            defaultValue={5}
-            onChange={(radius) => onSliderChange(radius, 'borderBottomLeftRadius')}
-            value={content.borderBottomLeftRadius || 0}
-          />
-          <FlexBox center='v-center' spaceBetween>
-            <span className='gray-text'>Border style</span>
-            <SelectOption
-              name='styles.borderStyle'
-              value={styles.borderStyle || 'hidden'}
-              onChange={onChange}
-              options={[
-                { label: 'Solid', value: 'solid' },
-                { label: 'Dashed', value: 'dashed' },
-                { label: 'Dotted', value: 'dotted' },
-                { label: 'None', value: 'hidden' }
-              ]}
+        <FlexBox column center='margin-v-5 fluid' spaceBetween>
+          <Collapse title='Borders'>
+            <div>Border Radius</div>
+            <span className='gray-text'>Symmetric</span>
+            <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry'/>
+            <div className='mb-2'>Top right</div>
+            <Slider
+              max={50}
+              min={0}
+              defaultValue={5}
+              onChange={(radius) => onSliderChange(radius, 'borderTopRightRadius')}
+              value={content.borderTopRightRadius || 0}
             />
-          </FlexBox>
-          <FlexBox center='v-center' spaceBetween>
-            <span className='gray-text'>Border Color</span>
-            <MiniTwitterPicker
-              name='styles.borderColor'
-              value={styles.borderColor || '#FFF'}
-              onChange={onChange}
+            <div className='mb-2'>Top left</div>
+            <Slider
+              max={50}
+              min={0}
+              defaultValue={5}
+              onChange={(radius) => onSliderChange(radius, 'borderTopLeftRadius')}
+              value={content.borderTopLeftRadius || 0}
             />
-          </FlexBox>
-          <span>Shadow</span>
-          <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow'/>
-          <span className='gray-text'>Offset-X</span>
-          <Slider
-            max={20}
-            min={0}
-            defaultValue={5}
-            onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
-            value={content.boxShadowOffsetX || 0}
-            disabled={!content.hasShadow}
-          />
-          <span className='gray-text'>Offset-Y</span>
-          <Slider
-            max={20}
-            min={0}
-            defaultValue={5}
-            onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
-            value={content.boxShadowOffsetY || 0}
-            disabled={!content.hasShadow}
-          />
-          <span className='gray-text'>Blur</span>
-          <Slider
-            max={20}
-            min={0}
-            defaultValue={5}
-            onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
-            value={content.boxShadowBlur || 0}
-            disabled={!content.hasShadow}
-          />
-          <FlexBox center='v-center' spaceBetween>
-            <span className='gray-text'>Shadow Color</span>
-            <MiniTwitterPicker
-              name='styles.shadowColor'
-              value={styles.shadowColor || '#FFF'}
-              onChange={onChange}
-              disabled={!content.hasShadow}
+            <div className='mb-2'>Bottom right</div>
+            <Slider
+              max={50}
+              min={0}
+              defaultValue={5}
+              onChange={(radius) => onSliderChange(radius, 'borderBottomRightRadius')}
+              value={content.borderBottomRightRadius || 0}
             />
-          </FlexBox>
-          <FlexBox column>
-            <span>Button Icon</span>
-            <span className='gray-text'>Placement</span>
-            <SelectOption
-              name='content.iconPlacement'
-              value={content.iconPlacement || 'none'}
-              onChange={onChange}
-              options={[
-                { label: 'Included Left', value: 'left' },
-                { label: 'Included Right', value: 'right' },
-                { label: 'Snapped Left', value: 'snapped-left' },
-                { label: 'Snapped Right', value: 'snapped-right' },
-                { label: 'None', value: 'none' }
-              ]}
+            <div className='mb-2'>Bottom left</div>
+            <Slider
+              max={50}
+              min={0}
+              defaultValue={5}
+              onChange={(radius) => onSliderChange(radius, 'borderBottomLeftRadius')}
+              value={content.borderBottomLeftRadius || 0}
             />
-            <span className='gray-text'>Add icon</span>
-            <AddImage
-              name='content.icon'
-              value={content.icon}
-              onUploaded={onImageChange}
-            />
-            <span className='gray-text'>Icon Border Radius</span>
+            <FlexBox center='v-center' spaceBetween className='mb-2'>
+              <div className='gray-text mb-2'>Border style</div>
+              <SelectOption
+                name='styles.borderStyle'
+                value={styles.borderStyle || 'hidden'}
+                onChange={onChange}
+                options={[
+                  { label: 'Solid', value: 'solid' },
+                  { label: 'Dashed', value: 'dashed' },
+                  { label: 'Dotted', value: 'dotted' },
+                  { label: 'None', value: 'hidden' }
+                ]}
+              />
+            </FlexBox>
+            <FlexBox center='v-center' className='pb-140px' spaceBetween>
+              <span className='gray-text'>Border Color</span>
+              <MiniTwitterPicker
+                name='styles.borderColor'
+                value={styles.borderColor || '#FFF'}
+                onChange={onChange}
+              />
+            </FlexBox>
+          </Collapse>
+          <Collapse title='Shadows'>
+            <span>Shadow</span>
+            <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow'/>
+            <span className='gray-text'>Offset-X</span>
             <Slider
               max={20}
               min={0}
               defaultValue={5}
-              onChange={(blur) => onSliderChange(blur, 'iconBorderRadius')}
-              value={content.iconBorderRadius || 0}
-              disabled={['snapped-left', 'snapped-right'].includes(content.iconPlacement)}
+              onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
+              value={content.boxShadowOffsetX || 0}
+              disabled={!content.hasShadow}
             />
-            <FlexBox center='v-center' spaceBetween>
-              <span className='gray-text'>Icon Background</span>
+            <span className='gray-text'>Offset-Y</span>
+            <Slider
+              max={20}
+              min={0}
+              defaultValue={5}
+              onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
+              value={content.boxShadowOffsetY || 0}
+              disabled={!content.hasShadow}
+            />
+            <span className='gray-text'>Blur</span>
+            <Slider
+              max={20}
+              min={0}
+              defaultValue={5}
+              onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
+              value={content.boxShadowBlur || 0}
+              disabled={!content.hasShadow}
+            />
+            <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
+              <span className='gray-text'>Shadow Color</span>
               <MiniTwitterPicker
-                name='styles.iconBackgroundColor'
-                value={styles.iconBackgroundColor || '#FFF'}
+                name='styles.shadowColor'
+                value={styles.shadowColor || '#FFF'}
                 onChange={onChange}
+                disabled={!content.hasShadow}
               />
             </FlexBox>
-          </FlexBox>
+          </Collapse>
+          <Collapse title='Icon'>
+            <FlexBox column>
+              <span>Button Icon</span>
+              <span className='gray-text'>Placement</span>
+              <SelectOption
+                name='content.iconPlacement'
+                value={content.iconPlacement || 'none'}
+                onChange={onChange}
+                options={[
+                  { label: 'Included Left', value: 'left' },
+                  { label: 'Included Right', value: 'right' },
+                  { label: 'Snapped Left', value: 'snapped-left' },
+                  { label: 'Snapped Right', value: 'snapped-right' },
+                  { label: 'None', value: 'none' }
+                ]}
+              />
+              <span className='gray-text'>Add icon</span>
+              <AddImage
+                name='content.icon'
+                value={content.icon}
+                onUploaded={onImageChange}
+              />
+              <span className='gray-text'>Icon Border Radius</span>
+              <Slider
+                max={20}
+                min={0}
+                defaultValue={5}
+                onChange={(blur) => onSliderChange(blur, 'iconBorderRadius')}
+                value={content.iconBorderRadius || 0}
+                disabled={['snapped-left', 'snapped-right'].includes(content.iconPlacement) || !content.icon}
+              />
+              <FlexBox center='v-center' spaceBetween className='pb-140px'>
+                <span className='gray-text'>Icon Background</span>
+                <MiniTwitterPicker
+                  name='styles.iconBackgroundColor'
+                  value={styles.iconBackgroundColor || '#FFF'}
+                  onChange={onChange}
+                />
+              </FlexBox>
+            </FlexBox>
+          </Collapse>
         </FlexBox>
       </Tab>
 

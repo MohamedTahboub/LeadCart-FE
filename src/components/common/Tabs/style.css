@@ -23,6 +23,7 @@
 }
 
 .side-bar-menu.right-position .tabs-content {
-    overflow: scroll;
+    overflow-y: auto;
     padding: 0 15px;
+    height: calc(100vh - 188px)
 }

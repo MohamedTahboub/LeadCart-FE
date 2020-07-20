@@ -40,3 +40,8 @@
 .side-bar-menu .add-element-circle {
     position: unset;
 }
+
+.button-layout-image {
+    width: 100%;
+    margin: 10px 0;
+}
