@@ -12,22 +12,22 @@ const LayoutOptions = ({
   active,
   flex
 }) => (
-    <div className={`layout-options ${clx({ 'flex-space-center': flex })}`}>
-      <MiniButton
-        active={active === 'list'}
-        onClick={onChange('list')}
-        flex
-      >
-        <FaThList />
-      </MiniButton>
-      <MiniButton
-        active={active === 'grid'}
-        onClick={onChange('grid')}
-      >
-        <FiGrid />
-      </MiniButton>
-    </div>
-  );
+  <div className={`layout-options ${clx({ 'flex-space-center': flex })}`}>
+    <MiniButton
+      active={active === 'list'}
+      onClick={onChange('list')}
+      flex
+    >
+      <FaThList />
+    </MiniButton>
+    <MiniButton
+      active={active === 'grid'}
+      onClick={onChange('grid')}
+    >
+      <FiGrid />
+    </MiniButton>
+  </div>
+);
 
 
 export default LayoutOptions;
