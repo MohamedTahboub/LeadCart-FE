@@ -15,8 +15,8 @@ const {
 } = common;
 
 const links = {
-  tutorials: 'https://help.leadcart.io/en/collections/2005494-getting-started-guide',
-  helpCenter: 'https://help.leadcart.io'
+  tutorials: 'https://intercom.help/leadcart/en/collections/2005494-getting-started-guide',
+  helpCenter: 'https://intercom.help/leadcart'
 };
 
 const HelpItem = ({ title, description, footer, image }) => (
