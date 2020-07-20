@@ -1,20 +1,16 @@
-.contentReveal {}
-
-.contentReveal__title {
+.contentReveal-title {
   font-size: 25px;
   color: #000;
   margin: 20px 0 0 20px;
 }
 
-.contentReveal__list-container{}
-
-.contentReveal__list-item{
+.contentReveal-listItem{
   border: 1px solid lightgray;
   padding: 10px;
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.05);
 }
 
-.contentReveal__list-item__delete{
+.contentReveal-listItem-delete{
   position: relative;
   top: -2px;
   left: -5px;
@@ -26,39 +22,38 @@
   opacity: 0;
 }
 
-.contentReveal__list-item:hover .contentReveal__list-item__delete{
+.contentReveal-listItem:hover .contentReveal-listItem-delete{
   opacity: 1;
 }
 
-.contentReveal__list-item__icon{
-  width: 18px;
-  height: 18px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #4DA1FF;
+.contentReveal-listItem-icon{
   color: #4DA1FF;
-  border-radius: 50%;
   margin-right: 5px;
-  font-size: 18px;
   cursor: pointer
 }
 
-.contentReveal__list-item__title{
+.contentReveal-listItem-title{
   font-size: 18px;
   color: #0b2475
 }
 
-.contentReveal__list-item__title input{
+.contentReveal-listItem-title input{
   font-weight: bold;
 
 }
 
-.contentReveal__list-item__content{}
+.contentReveal .transparent-background {
+  width: 90%;
+}
 
 .contentReveal input{
-  width: auto !important;
+  width: 100% !important;
 }
+
+.contentReveal textarea{
+  width: 100% !important;
+}
+
 
 .content-active{
   border-color: #4DA1FF;

@@ -61,9 +61,9 @@ const ContentReveal = (props) => {
 
   return (
     <section className='contentReveal'>
-      <ResizableInput value={title} className='contentReveal__title' />
+      <ResizableInput value={title} className='contentReveal-title' />
 
-      <div className='contentReveal__list-container'>
+      <div>
         {list.map((ele, id) => (
           <OneContent
             ele={ele}
@@ -72,6 +72,7 @@ const ContentReveal = (props) => {
             toggle={toggle}
             open={open}
             onDelete={onDelete}
+            key={id}
           />
         ))}
       </div>
