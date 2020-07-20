@@ -11,6 +11,11 @@ const successUrlMetaSchema = yup.object({
     activeDuration: yup.string().default('7,day')
   })).default([])
 });
+const webhooksSchema = yup.object({
+  label: yup.string(),
+  url: yup.string(),
+  payloadFormat: yup.string().default('FORM_DATA')
+});
 
 const manualFulfillmentMetaData = yup.object({
   fulfillmentMeta: yup.object({
@@ -51,9 +56,12 @@ const actionSchema = yup.object({
       otherwise: metaDataSchema.when('type', {
         is: 'LEADCART_FULFILLMENT',
         then: leadcartPrivateFulfillmentMetaData,
-        otherwise: yup.mixed()
+        otherwise: metaDataSchema.when('type', {
+          is: 'WEBHOOKS',
+          then: webhooksSchema,
+          otherwise: yup.mixed()
+        })
       })
-
     })
   })
 });
