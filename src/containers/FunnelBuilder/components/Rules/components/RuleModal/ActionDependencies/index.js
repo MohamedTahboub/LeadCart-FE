@@ -6,7 +6,8 @@ import {
   ExternalIntegration,
   ManualFulfillment,
   PrivateLeadcartFulfillment,
-  SuccessUrls
+  SuccessUrls,
+  WebhooksForm
 } from './components';
 
 const { LayoutSwitch } = common;
@@ -26,6 +27,7 @@ const ActionDependencies = (props) => {
     <LayoutSwitch active={type}>
       <SuccessUrls id='SUCCESS_URLS' {...passedProps} />
       <ManualFulfillment id='MANUAL_FULFILLMENT' {...passedProps} />
+      <WebhooksForm id='WEBHOOKS' {...passedProps} />
       <PrivateLeadcartFulfillment id='LEADCART_FULFILLMENT' {...passedProps} metaData={metaData} />
     </LayoutSwitch>
   );

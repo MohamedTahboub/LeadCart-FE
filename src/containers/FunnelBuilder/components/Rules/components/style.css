@@ -29,3 +29,7 @@
 .trigger-group-edit-btn:hover{
     transform: scale(1.2);
 }
+
+.webhook-url-field input{
+    min-width: 300px;
+}

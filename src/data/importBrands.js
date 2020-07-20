@@ -46,7 +46,7 @@ export { default as shipStation } from 'assets/images/brands/shipStation.png';
 
 
 // Misc Integrations
-export { default as zapierBrand } from 'assets/images/zapier_brand.png';
+export { default as zapierBrand } from 'assets/images/brands/zapier_brand_logo.svg';
 export { default as twillio } from 'assets/images/brands/twillio.png';
 export { default as wordpress } from 'assets/images/brands/wordpress.png';
 export { default as wooCommerce } from 'assets/images/brands/wooCommerce.png';
