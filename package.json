@@ -34,6 +34,7 @@
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.8.1",
+    "react-expand-animated": "^1.0.2",
     "react-global-configuration": "^1.4.0",
     "react-highcharts": "^16.0.2",
     "react-icons": "^3.8.0",
