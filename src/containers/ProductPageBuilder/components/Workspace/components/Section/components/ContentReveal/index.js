@@ -9,14 +9,15 @@ const { ResizableInput } = common;
 
 const ContentReveal = (props) => {
   const { title, list, section } = props;
+  const { styles: { bulletColor, toggleIcon, customBullet } } = section;
   const { actions } = useContext();
   const [open, setOpen] = useState(false);
 
-  const toggle = (title) => {
-    if (open === title)
+  const toggle = (id) => {
+    if (open === id)
       setOpen(false);
     else
-      setOpen(title);
+      setOpen(id);
   };
 
   const onChange = (newList) => {
@@ -71,9 +72,10 @@ const ContentReveal = (props) => {
             open={open}
             onDelete={onDelete}
             key={id}
-            title={ele.title}
-            content={ele.content}
-            id={ele.id}
+            color={bulletColor}
+            toggleIcon={toggleIcon}
+            customBullet={customBullet}
+            {...ele}
           />
         ))}
       </div>

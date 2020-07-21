@@ -279,6 +279,10 @@ export default {
         { title: 'Third Title', content: 'Third Content', id: ids.generate() }
       ]
     },
-    styles: {}
+    styles: {
+      bulletColor: '#4DA1FF',
+      customBullet: false,
+      toggleIcon: 'FaPlusCircle'
+    }
   }
 };

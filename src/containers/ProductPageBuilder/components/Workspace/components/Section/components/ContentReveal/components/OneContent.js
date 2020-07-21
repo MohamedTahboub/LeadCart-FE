@@ -1,17 +1,20 @@
 import React from 'react';
 import Expand from 'react-expand-animated';
 import clx from 'classnames';
-import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 
 import common from 'components/common';
+import { getIcon } from './getIcon';
 
 const { ResizableInput, ResizableTextarea } = common;
 
-const OneContent = ({ title, content, id, toggle, onChange, open, onDelete }) => {
+const OneContent = ({ title, content, id, toggle, onChange, open, onDelete, color, toggleIcon }) => {
+  const { OpenIcon } = getIcon(toggleIcon);
+  const { CloseIcon } = getIcon(toggleIcon);
+
   return (
     <div className={clx(
       'contentReveal-listItem', 'margin-v-10',
-      { 'content-active': open === title }
+      { 'content-active': open === id }
     )}
     >
 
@@ -25,16 +28,20 @@ const OneContent = ({ title, content, id, toggle, onChange, open, onDelete }) =>
         />
       </span>
 
-      {open !== title ?
-        <FaPlusCircle className='contentReveal-listItem-icon'
+      {open !== id ?
+        <OpenIcon
+          style={{ color: `${color}` }}
+          className='contentReveal-listItem-icon'
           onClick={() => {
-            toggle(title);
+            toggle(id);
           }}
         />
         :
-        <FaMinusCircle className='contentReveal-listItem-icon' onClick={() => {
-          toggle(title);
-        }}
+        <CloseIcon
+          style={{ color: `${color}` }}
+          className='contentReveal-listItem-icon' onClick={() => {
+            toggle(id);
+          }}
         />
       }
 
@@ -42,7 +49,7 @@ const OneContent = ({ title, content, id, toggle, onChange, open, onDelete }) =>
         <ResizableInput value={title} onChange={onChange} name={`title.${id}`} />
       </span>
 
-      <Expand open={open === title}>
+      <Expand open={open === id}>
         <ResizableTextarea className='contentReveal-listItem-content' value={content} onChange={onChange} name={`content.${id}`} />
       </Expand>
     </div>
