@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ids from 'shortid';
 import { MdAddCircleOutline } from 'react-icons/md';
 import Select from 'react-select';
@@ -36,7 +36,7 @@ const ContentRevealSettings = () => {
   } = useContext();
 
   const { styles = {}, content: { list = [] } = {} } = sectionSetting;
-  const { bulletColor, customBullet, toggleIcon } = styles;
+  const { bulletColor, toggleIcon, customOpenIcon = '', customCloseIcon = '' } = styles;
 
   const onChange = ({ target }) => {
     return actions.onSectionSettingChange({
@@ -59,7 +59,10 @@ const ContentRevealSettings = () => {
     const { value } = selectedOption;
     actions.onSectionSettingChange({
       section: sectionSetting,
-      field: { name: 'styles.toggleIcon', value }
+      fields: [
+        { name: 'styles.toggleIcon', value },
+        { name: 'styles.customBullet', value: false }
+      ]
     });
   };
 
@@ -71,11 +74,27 @@ const ContentRevealSettings = () => {
     </div>
   );
 
+  const [customIcons, setCustomIcons] = useState({});
+  useEffect(() => {
+    if (Object.keys(customIcons).length === 2) {
+      actions.onSectionSettingChange({
+        section: sectionSetting,
+        fields: [
+          { name: 'styles.customOpenIcon', value: customIcons.customOpenIcon },
+          { name: 'styles.customCloseIcon', value: customIcons.customCloseIcon },
+          { name: 'styles.customBullet', value: true }
+        ]
+      });
+    }
+  }, [customIcons]);
 
-  const onImageChange = (image) => {
-
+  const onOpenIconChange = (img) => {
+    setCustomIcons({ ...customIcons, customOpenIcon: img });
   };
 
+  const onCloseIconChange = (img) => {
+    setCustomIcons({ ...customIcons, customCloseIcon: img });
+  };
 
   const options = [
     { value: 'FaPlusCircle', label: iconLabel(FaPlusCircle, FaMinusCircle) },
@@ -139,8 +158,8 @@ const ContentRevealSettings = () => {
                   <Label>Open custom bullets</Label>
                   <AddImage
                     name='styles.customBullet'
-                    // value={customBullet}
-                    onUploaded={onImageChange}
+                    onUploaded={onOpenIconChange}
+                    value={customOpenIcon}
                   />
                 </FlexBox>
 
@@ -148,8 +167,8 @@ const ContentRevealSettings = () => {
                   <Label>Close custom bullets</Label>
                   <AddImage
                     name='styles.customBullet'
-                    // value={customBullet}
-                    onUploaded={onImageChange}
+                    onUploaded={onCloseIconChange}
+                    value={customCloseIcon}
                   />
                 </FlexBox>
               </div>

@@ -58,3 +58,17 @@
 .content-active{
   border-color: #4DA1FF;
 }
+
+
+.contentReveal-customIcon{
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  margin-right: 5px;
+  cursor: pointer
+}
+
+.contentReveal-customIcon img{
+  width: 100%;
+  height: 100%;
+}

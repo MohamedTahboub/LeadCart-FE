@@ -7,9 +7,9 @@ import { getIcon } from './getIcon';
 
 const { ResizableInput, ResizableTextarea } = common;
 
-const OneContent = ({ title, content, id, toggle, onChange, open, onDelete, color, toggleIcon }) => {
-  const { OpenIcon } = getIcon(toggleIcon);
-  const { CloseIcon } = getIcon(toggleIcon);
+const OneContent = ({ title, content, id, toggle, onChange, open, onDelete, color, styles }) => {
+  const { customOpenIcon = '', customCloseIcon = '', customBullet, toggleIcon } = styles;
+  const { OpenIcon, CloseIcon } = getIcon(toggleIcon);
 
   return (
     <div className={clx(
@@ -28,21 +28,48 @@ const OneContent = ({ title, content, id, toggle, onChange, open, onDelete, colo
         />
       </span>
 
-      {open !== id ?
-        <OpenIcon
-          style={{ color: `${color}` }}
-          className='contentReveal-listItem-icon'
-          onClick={() => {
-            toggle(id);
-          }}
-        />
-        :
-        <CloseIcon
-          style={{ color: `${color}` }}
-          className='contentReveal-listItem-icon' onClick={() => {
-            toggle(id);
-          }}
-        />
+      {
+        customBullet ?
+          (open !== id ?
+            <div className='contentReveal-customIcon'>
+              <img
+                src={customOpenIcon}
+                onClick={() => {
+                  toggle(id);
+                }}
+                alt='Open Icon'
+              />
+            </div>
+            :
+            <div className='contentReveal-customIcon'>
+              <img
+                src={customCloseIcon}
+                onClick={() => {
+                  toggle(id);
+                }}
+                alt='Close Icon'
+              />
+            </div>
+
+          )
+          :
+          (
+            open !== id ?
+              <OpenIcon
+                style={{ color: `${color}` }}
+                className='contentReveal-listItem-icon'
+                onClick={() => {
+                  toggle(id);
+                }}
+              />
+              :
+              <CloseIcon
+                style={{ color: `${color}` }}
+                className='contentReveal-listItem-icon' onClick={() => {
+                  toggle(id);
+                }}
+              />
+          )
       }
 
       <span className='contentReveal-listItem-title'>

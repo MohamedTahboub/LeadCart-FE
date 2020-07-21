@@ -9,7 +9,8 @@ const { ResizableInput } = common;
 
 const ContentReveal = (props) => {
   const { title, list, section } = props;
-  const { styles: { bulletColor, toggleIcon, customBullet } } = section;
+  const { styles } = section;
+  const { bulletColor } = styles;
   const { actions } = useContext();
   const [open, setOpen] = useState(false);
 
@@ -73,8 +74,7 @@ const ContentReveal = (props) => {
             onDelete={onDelete}
             key={id}
             color={bulletColor}
-            toggleIcon={toggleIcon}
-            customBullet={customBullet}
+            styles={styles}
             {...ele}
           />
         ))}
