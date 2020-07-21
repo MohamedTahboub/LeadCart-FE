@@ -38,7 +38,8 @@ export default {
     type: 'button',
     content: {
       value: 'Click Here',
-      children: []
+      children: [],
+      image: 'https://www.disruptivestatic.com/wp-content/uploads/2018/01/digital-marketing-blog-1.jpg'
     },
     styles: {
       marginTop: 0,
