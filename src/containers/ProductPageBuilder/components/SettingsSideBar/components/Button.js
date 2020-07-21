@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import common from 'components/common';
 import { useContext } from '../../../actions';
@@ -14,10 +14,10 @@ const layouts = [
     src: 'https://imgur.com/jZFW66Q.png',
     layout: 'standalone'
   }, {
-    src: 'https://imgur.com/TFkUW4F.png',
+    src: 'https://imgur.com/JkCcP5m.png',
     layout: 'withTextLeft'
   }, {
-    src: 'https://imgur.com/i5O0xA8.png',
+    src: 'https://imgur.com/J4C316K.png',
     layout: 'withTextRight'
   }, {
     src: 'https://imgur.com/IzSFWum.png',
@@ -33,6 +33,7 @@ const ButtonSection = () => {
     state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
+  const [openCollapse, setOpenCollapse] = useState(null);
 
   const { styles = {}, content = {}, borderSymmetry } = sectionSetting;
   const onChange = ({ target }) => {
@@ -170,7 +171,7 @@ const ButtonSection = () => {
           />
         </FlexBox>
         <FlexBox column center='margin-v-5 fluid' spaceBetween>
-          <Collapse title='Borders'>
+          <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
             <div>Border Radius</div>
             <span className='gray-text'>Symmetric</span>
             <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry'/>
@@ -229,7 +230,7 @@ const ButtonSection = () => {
               />
             </FlexBox>
           </Collapse>
-          <Collapse title='Shadows'>
+          <Collapse defaultOpen={openCollapse === 'Shadows'} title='Shadows' toggle={setOpenCollapse}>
             <span>Shadow</span>
             <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow'/>
             <span className='gray-text'>Offset-X</span>
@@ -269,7 +270,7 @@ const ButtonSection = () => {
               />
             </FlexBox>
           </Collapse>
-          <Collapse title='Icon'>
+          <Collapse defaultOpen={openCollapse === 'Icon'} title='Icon' toggle={setOpenCollapse}>
             <FlexBox column>
               <span>Button Icon</span>
               <span className='gray-text'>Placement</span>

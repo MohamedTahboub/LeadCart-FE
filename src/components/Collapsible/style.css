@@ -45,9 +45,9 @@ span.Collapsible__trigger.is-open {
 }
 
 .Collapsible__trigger.is-closed:after {
-    content: '▲';
+    content: '▼';
 }
 
 .Collapsible__trigger.is-open:after {
-    content: '▼';
+    content: '▲';
 }
