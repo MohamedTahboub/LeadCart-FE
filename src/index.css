@@ -469,3 +469,6 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .pb-140px {
   padding-bottom: 140px;
 }
+h5 {
+  font-size: revert;
+}

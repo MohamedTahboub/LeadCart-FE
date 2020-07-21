@@ -54,9 +54,9 @@ import SubAccounts from './containers/PersonalSettings/SubaccountsSection';
 // services
 
 // Styles
+import 'rsuite/dist/styles/rsuite-default.min.css';
 import './index.css';
 import 'antd/dist/antd.css';
-import 'rsuite/dist/styles/rsuite-default.min.css';
 // import 'semantic-ui-css/semantic.min.css';
 import 'react-notifications-component/dist/theme.css';
 import { APP_INIT } from 'constantsTypes';
