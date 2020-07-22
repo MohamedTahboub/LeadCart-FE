@@ -1,9 +1,20 @@
-/*
- * Quill modules to attach to editor
- * See https://quilljs.com/docs/modules/ for complete options
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
+import ReactQuill from 'react-quill';
+const Font = ReactQuill.Quill.import('formats/font');
+const supportedFontFamilyList = [
+  'Raleway',
+  'Roboto',
+  'Modak',
+  'Dancing',
+  'Merriweather',
+  'Courier',
+  'Cairo',
+  'Helvetica',
+  'Ubuntu'
+];
+
+Font.whitelist = supportedFontFamilyList;
+ReactQuill.Quill.register(Font, true);
+
 const modules = {
   toolbar: [
     [
@@ -51,16 +62,39 @@ const modules = {
           'custom-color'
         ]
       },
+      {
+        background: [
+          '#000000',
+          '#e60000',
+          '#ff9900',
+          '#ffff00',
+          '#008a00',
+          '#0066cc',
+          '#9933ff',
+          '#ffffff',
+          '#facccc',
+          '#ffebcc',
+          '#ffffcc',
+          '#cce8cc',
+          '#cce0f5',
+          '#ebd6ff',
+          '#bbbbbb',
+          '#f06666',
+          '#ffc266',
+          '#ffff66',
+          '#66b966',
+          'custom-color'
+        ]
+      },
       'blockquote'
     ],
     [{ size: [] }],
-    [{ font: [] }],
+    [{ font: supportedFontFamilyList }],
     [
       { align: ['', 'right', 'center', 'justify'] },
       { list: 'ordered' },
       { list: 'bullet' }
-    ],
-    ['quill-emoji']
+    ]
   ],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
@@ -87,6 +121,7 @@ const formats = [
   'list',
   'bullet',
   'color',
+  'background',
   'align',
   'link'
 ];
@@ -138,6 +173,30 @@ const headingModules = {
           '#3d1466',
           'custom-color'
         ]
+      },
+      {
+        background: [
+          '#000000',
+          '#e60000',
+          '#ff9900',
+          '#ffff00',
+          '#008a00',
+          '#0066cc',
+          '#9933ff',
+          '#ffffff',
+          '#facccc',
+          '#ffebcc',
+          '#ffffcc',
+          '#cce8cc',
+          '#cce0f5',
+          '#ebd6ff',
+          '#bbbbbb',
+          '#f06666',
+          '#ffc266',
+          '#ffff66',
+          '#66b966',
+          'custom-color'
+        ]
       }
     ],
     [
@@ -153,6 +212,7 @@ const headingFormats = [
   'italic',
   'underline',
   'color',
+  'background',
   'align',
   'strike'
 ];

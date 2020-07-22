@@ -1,5 +1,7 @@
 import * as brandsLogos from './importBrands';
 import { mapListToObject } from 'libs';
+import config from 'config';
+const { ZAPIER_INVITATION_LINK } = config;
 
 const services = [
   {
@@ -373,7 +375,7 @@ const services = [
       hasHover: false,
       actionLabel: 'Get Invited',
       action: 'link',
-      linkPath: 'https://zapier.com/developer/public-invite/110760/c6fb681572753e1aad9488f28a22a64c/'
+      linkPath: ZAPIER_INVITATION_LINK
     }
   }
 ];

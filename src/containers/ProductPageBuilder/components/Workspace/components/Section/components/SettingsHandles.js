@@ -6,7 +6,7 @@ import { IoMdSettings } from 'react-icons/io';
 import { useContext } from '../../../../../actions';
 
 
-const settingLessTypes = ['text', 'heading', 'image', 'video', 'code'];
+const settingLessTypes = ['image', 'video', 'code'];
 
 const SettingsHandles = ({
   id,
