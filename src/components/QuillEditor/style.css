@@ -3,6 +3,59 @@
     /* position:fixed; */
 }
 
+.ql-picker.ql-font .ql-picker-item {
+    font-size: 0;
+}
+
+.ql-picker.ql-font .ql-picker-item::before {
+    content: attr(data-value) !important;
+    font-size: 14px;
+}
+
+.ql-picker.ql-font .ql-active::before {
+    content: attr(data-value) !important;
+    font-size: 14px;
+}
+
+/* Support Font Families */
+
+
+.ql-font-Raleway {
+    font-family: 'Raleway';
+}
+
+.ql-font-Roboto {
+    font-family: 'Roboto';
+}
+
+.ql-font-Modak {
+    font-family: 'Modak', cursive;
+}
+
+.ql-font-Merriweather {
+    font-family: 'Merriweather', serif;
+}
+
+.ql-font-Courier {
+    font-family: Courier, monospace;
+}
+
+.ql-font-Cairo {
+    font-family: 'Cairo', sans-serif;
+}
+
+.ql-font-Dancing {
+    font-family: 'Dancing Script', cursive;
+}
+
+.ql-font-Helvetica {
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.ql-font-Ubuntu {
+    font-family: 'Ubuntu';
+}
+/* Support Font Families */
 
 /*  Adding font sizes Overrides */
 /* 
