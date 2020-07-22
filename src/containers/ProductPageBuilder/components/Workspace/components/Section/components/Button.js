@@ -152,7 +152,7 @@ const ButtonSection = ({
             <FlexBox className={clx(containerClasses, 'col-6', 'align-center')}>
               {buttonComponent}
             </FlexBox>
-            <FlexBox className='col-6'>
+            <FlexBox className='col-6 justify-center'>
               <Image
                 className='figure-section-image'
                 image={image}

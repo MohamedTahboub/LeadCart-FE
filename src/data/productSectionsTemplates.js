@@ -39,7 +39,7 @@ export default {
     content: {
       value: 'Click Here',
       children: [],
-      image: 'https://www.disruptivestatic.com/wp-content/uploads/2018/01/digital-marketing-blog-1.jpg'
+      image: 'https://imgur.com/qZYW3BK.png'
     },
     styles: {
       marginTop: 0,
