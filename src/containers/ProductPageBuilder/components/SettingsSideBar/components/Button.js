@@ -5,7 +5,7 @@ import { useContext } from '../../../actions';
 import { ImageOption } from './common';
 import { Slider } from 'rsuite';
 import Collapse from 'components/Collapsible';
-import { buttonTemplates } from './templates';
+import { buttonTemplates } from 'data/templates';
 
 const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption, Toggle, AddImage } = InputRow;
@@ -29,6 +29,23 @@ const layouts = [
   }
 ];
 
+const borderCornerNames = [
+  'borderTopLeftRadius',
+  'borderTopRightRadius',
+  'borderBottomLeftRadius',
+  'borderBottomRightRadius'
+];
+
+const getCornerTitle = (corner) => {
+  switch (corner) {
+  case 'borderTopLeftRadius': return 'Top Left';
+  case 'borderTopRightRadius': return 'Top Right';
+  case 'borderBottomLeftRadius': return 'Bottom Left';
+  case 'borderBottomRightRadius': return 'Bottom Right';
+  default: return '';
+  }
+};
+
 const ButtonSection = () => {
   const {
     state: { modals: { sectionSetting = {} } = {} },
@@ -43,19 +60,10 @@ const ButtonSection = () => {
         section: sectionSetting,
         fields: [
           target,
-          {
-            name: 'content.borderTopLeftRadius',
+          ...borderCornerNames.map((corner) => ({
+            name: `content.${corner}`,
             value: sectionSetting.content.borderTopRightRadius || 10
-          }, {
-            name: 'content.borderTopRightRadius',
-            value: sectionSetting.content.borderTopRightRadius || 10
-          }, {
-            name: 'content.borderBottomLeftRadius',
-            value: sectionSetting.content.borderTopRightRadius || 10
-          }, {
-            name: 'content.borderBottomRightRadius',
-            value: sectionSetting.content.borderTopRightRadius || 10
-          }
+          }))
         ]
       });
     } else {
@@ -78,30 +86,14 @@ const ButtonSection = () => {
 
   const onSliderChange = (radius, name) => {
     if (
-      [
-        'borderTopLeftRadius',
-        'borderTopRightRadius',
-        'borderBottomLeftRadius',
-        'borderBottomRightRadius'
-      ].includes(name) && borderSymmetry
+      borderCornerNames.includes(name) && borderSymmetry
     ) {
       actions.onSectionSettingChange({
         section: sectionSetting,
-        fields: [
-          {
-            name: 'content.borderTopLeftRadius',
-            value: radius
-          }, {
-            name: 'content.borderTopRightRadius',
-            value: radius
-          }, {
-            name: 'content.borderBottomLeftRadius',
-            value: radius
-          }, {
-            name: 'content.borderBottomRightRadius',
-            value: radius
-          }
-        ]
+        fields: borderCornerNames.map((corner) => ({
+          name: `content.${corner}`,
+          value: radius
+        }))
       });
     } else {
       actions.onSectionSettingChange({
@@ -208,39 +200,21 @@ const ButtonSection = () => {
           <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
             <div>Border Radius</div>
             <span className='gray-text'>Symmetric</span>
-            <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry'/>
-            <div className='mb-2'>Top right</div>
-            <Slider
-              max={50}
-              min={0}
-              defaultValue={5}
-              onChange={(radius) => onSliderChange(radius, 'borderTopRightRadius')}
-              value={content.borderTopRightRadius || 0}
-            />
-            <div className='mb-2'>Top left</div>
-            <Slider
-              max={50}
-              min={0}
-              defaultValue={5}
-              onChange={(radius) => onSliderChange(radius, 'borderTopLeftRadius')}
-              value={content.borderTopLeftRadius || 0}
-            />
-            <div className='mb-2'>Bottom right</div>
-            <Slider
-              max={50}
-              min={0}
-              defaultValue={5}
-              onChange={(radius) => onSliderChange(radius, 'borderBottomRightRadius')}
-              value={content.borderBottomRightRadius || 0}
-            />
-            <div className='mb-2'>Bottom left</div>
-            <Slider
-              max={50}
-              min={0}
-              defaultValue={5}
-              onChange={(radius) => onSliderChange(radius, 'borderBottomLeftRadius')}
-              value={content.borderBottomLeftRadius || 0}
-            />
+            <Toggle value={borderSymmetry} onToggle={(target) => console.log({ target }) || onChange({ target })} name='borderSymmetry'/>
+            {
+              borderCornerNames.map((corner) => (
+                <>
+                  <div className='mb-2'>{getCornerTitle(corner)}</div>
+                  <Slider
+                    max={50}
+                    min={0}
+                    defaultValue={5}
+                    onChange={(radius) => onSliderChange(radius, corner)}
+                    value={content[corner] || 0}
+                  />
+                </>
+              ))
+            }
             <FlexBox center='v-center' spaceBetween className='mb-2'>
               <div className='gray-text mb-2'>Border style</div>
               <SelectOption

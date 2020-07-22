@@ -1,9 +1,9 @@
 import React from 'react';
 import common from 'components/common';
 import clx from 'classnames';
-import { useContext } from '../../../../../actions';
-import QuillEditor from 'components/QuillEditor';
-import Image from 'components/common/Image';
+import { useContext } from '../../../../../../actions';
+import ButtonWithText from './components/ButtonWithText';
+import ButtonWithImage from './components/ButtonWithImage';
 
 const {
   Button,
@@ -29,7 +29,6 @@ const ButtonSection = ({
       }
     };
     if (props.onChange) return props.onChange(updatedSection);
-
     actions.onSectionFieldChange(updatedSection);
   };
 
@@ -108,60 +107,41 @@ const ButtonSection = ({
   );
   const buttonComponent = (
     <>
-      {
-        content.iconPlacement === 'snapped-left' && iconComponent
-      }
+      {content.iconPlacement === 'snapped-left' && iconComponent}
       <Button className={buttonClasses} style={buttonStyle}>
-        {
-          content.iconPlacement === 'left' && iconComponent
-        }
+        {content.iconPlacement === 'left' && iconComponent}
         <ResizableInput
           onChange={onChange}
           value={value}
           style={buttonTextStyle}
         />
-        {
-          content.iconPlacement === 'right' && iconComponent
-        }
+        {content.iconPlacement === 'right' && iconComponent}
       </Button>
-      {
-        content.iconPlacement === 'snapped-right' && iconComponent
-      }
+      {content.iconPlacement === 'snapped-right' && iconComponent}
     </>
   );
+
   return (
     <FlexBox {...props} className={containerClasses}>
       {
         ['withTextLeft', 'withTextRight'].includes(layout) ? (
-          <FlexBox className='fluid py-5' reverse={layout === 'withTextLeft'}>
-            <FlexBox className={clx(containerClasses, 'col-6', 'align-center')}>
-              {buttonComponent}
-            </FlexBox>
-            <FlexBox className='col-6'>
-              <QuillEditor
-                className='fluid'
-                value={editor}
-                onEdit={onEditorChange}
-                headingMode
-                bounds={`[id='${section.id}']`}
-              />
-            </FlexBox>
-          </FlexBox>
+          <ButtonWithText
+            layout={layout}
+            containerClasses={containerClasses}
+            buttonComponent={buttonComponent}
+            editor={editor}
+            onEditorChange={onEditorChange}
+            section={section}
+          />
         ) : ['withImageLeft', 'withImageRight'].includes(layout) ? (
-          <FlexBox className='fluid py-5' reverse={layout === 'withImageLeft'}>
-            <FlexBox className={clx(containerClasses, 'col-6', 'align-center')}>
-              {buttonComponent}
-            </FlexBox>
-            <FlexBox className='col-6 justify-center'>
-              <Image
-                className='figure-section-image'
-                image={image}
-                alt='figure illustration photo'
-                name={`figure-image-${section.id}`}
-                onChange={onImageChange}
-              />
-            </FlexBox>
-          </FlexBox>
+          <ButtonWithImage
+            layout={layout}
+            containerClasses={containerClasses}
+            buttonComponent={buttonComponent}
+            editor={image}
+            onEditorChange={onImageChange}
+            section={section}
+          />
         ) : (
           buttonComponent
         )

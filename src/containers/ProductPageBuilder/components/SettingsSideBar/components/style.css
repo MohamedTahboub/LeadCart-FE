@@ -54,3 +54,7 @@
     /* height: 100px; */
 }
 
+.quill.fluid .ql-tooltip {
+    min-width: 375px;
+    /* left: 0 !important; */
+}
