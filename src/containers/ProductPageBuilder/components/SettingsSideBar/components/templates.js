@@ -1,6 +1,6 @@
 export const buttonTemplates = [
   {
-    src: 'https://imgur.com/lUXwAEI.png',
+    src: 'https://imgur.com/itadZNq.png',
     content: {
       borderBottomLeftRadius: 5,
       borderBottomRightRadius: 5,
@@ -28,7 +28,7 @@ export const buttonTemplates = [
       borderStyle: 'hidden'
     }
   }, {
-    src: 'https://imgur.com/VgvVPDo.png',
+    src: 'https://imgur.com/iPqyJLH.png',
     content: {
       borderBottomLeftRadius: 5,
       borderBottomRightRadius: 5,
@@ -57,7 +57,7 @@ export const buttonTemplates = [
       shadowColor: '#e8e8e8'
     }
   }, {
-    src: 'https://imgur.com/tB7aqzQ.png',
+    src: 'https://imgur.com/Rf9fmqI.png',
     content: {
       borderBottomLeftRadius: 5,
       borderBottomRightRadius: 5,
@@ -86,7 +86,7 @@ export const buttonTemplates = [
       shadowColor: '#e8e8e8'
     }
   }, {
-    src: 'https://imgur.com/APoN6cB.png',
+    src: 'https://imgur.com/pg0nmoy.png',
     content: {
       borderBottomLeftRadius: 21,
       borderBottomRightRadius: 21,
@@ -115,7 +115,7 @@ export const buttonTemplates = [
       paddingTop: 0
     }
   }, {
-    src: 'https://imgur.com/RBpm7VO.png',
+    src: 'https://imgur.com/P7TWESp.png',
     content: {
       borderBottomLeftRadius: 5,
       borderBottomRightRadius: 5,
@@ -144,7 +144,7 @@ export const buttonTemplates = [
       iconBackgroundColor: null
     }
   }, {
-    src: 'https://imgur.com/I6I5YiZ.png',
+    src: 'https://imgur.com/cwQzQEN.png',
     content: {
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,
