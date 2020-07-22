@@ -49,6 +49,8 @@
 
 .button-layout-image {
     width: 100%;
-    margin: 10px 0;
+    margin: 2px 0;
+    padding: 0;
+    /* height: 100px; */
 }
 
