@@ -23,7 +23,7 @@ const TextContent = ({
     };
     if (props.onChange) return props.onChange(updatedSection);
 
-    actions.updateProductSection(updatedSection);
+    actions.onSectionFieldChange(updatedSection);
   };
 
   if (!section.styles) section.styles = {};

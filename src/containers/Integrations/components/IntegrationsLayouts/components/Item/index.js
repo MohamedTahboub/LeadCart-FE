@@ -7,7 +7,7 @@ import clx from 'classnames';
 import { Card, Row } from './components';
 
 const { LayoutSwitch } = common;
-const navigateAction = ({ linkPath }) => linkPath && openNewWindow(linkPath);
+const navigateAction = ({ customCard = {} }) => openNewWindow(customCard.linkPath);
 
 
 const getCustomActions = (action) => {

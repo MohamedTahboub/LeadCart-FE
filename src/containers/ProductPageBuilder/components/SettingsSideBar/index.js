@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
 import { IoIosClose } from 'react-icons/io';
 import clx from 'classnames';
