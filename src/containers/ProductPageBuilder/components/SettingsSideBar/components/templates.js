@@ -11,7 +11,6 @@ export const buttonTemplates = [
       boxShadowOffsetY: 0,
       hasShadow: false,
       icon: null,
-      image: null,
       iconPlacement: 'right',
       value: 'Click here!'
     },
@@ -39,7 +38,6 @@ export const buttonTemplates = [
       boxShadowOffsetY: 2,
       hasShadow: true,
       icon: null,
-      image: null,
       iconPlacement: 'right',
       value: 'Click here!'
     },
@@ -69,7 +67,6 @@ export const buttonTemplates = [
       hasShadow: true,
       value: 'DANGER',
       icon: null,
-      image: null,
       iconPlacement: 'right'
     },
     styles: {
