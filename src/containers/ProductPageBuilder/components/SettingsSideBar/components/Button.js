@@ -5,6 +5,7 @@ import { useContext } from '../../../actions';
 import { ImageOption } from './common';
 import { Slider } from 'rsuite';
 import Collapse from 'components/Collapsible';
+import { buttonTemplates } from './templates';
 
 const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption, Toggle, AddImage } = InputRow;
@@ -123,6 +124,26 @@ const ButtonSection = () => {
     });
   };
 
+  const onBulkChange = ({ content, styles }) => () => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      fields: [
+        ...Object.keys(content).map((key) => {
+          return {
+            name: `content.${key}`,
+            value: content[key]
+          };
+        }),
+        ...Object.keys(styles).map((key) => {
+          return {
+            name: `styles.${key}`,
+            value: styles[key]
+          };
+        })
+      ]
+    });
+  };
+
   return (
     <Tabs active='layout' className='padding-v-10 padding-h-10'>
       <Tab id='layout' title='layouts'>
@@ -134,6 +155,19 @@ const ButtonSection = () => {
                 key={layout}
                 onClick={() => onLayoutChange(layout)}
                 active={layout === styles.layout}
+                className='button-layout-image'
+              />
+            ))}
+        </FlexBox>
+      </Tab>
+      <Tab id='buttons' title='buttons'>
+        <FlexBox column center='h-center' spaceBetween>
+          {
+            buttonTemplates.map(({ src, content, styles }) => (
+              <ImageOption
+                value={src}
+                key={src}
+                onClick={() => onBulkChange({ content, styles })}
                 className='button-layout-image'
               />
             ))}
