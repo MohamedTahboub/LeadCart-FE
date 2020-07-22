@@ -268,21 +268,20 @@ export default {
       paddingBottom: 0
     }
   },
-  contentReveal: {
+  faqs: {
     hidden: false,
-    type: 'contentReveal',
+    type: 'faqs',
     content: {
-      title: 'Your Title',
+      title: 'FAQs',
       list: [
-        { title: 'First Title', content: 'First Content', id: ids.generate() },
-        { title: 'Second Title', content: 'Second Content', id: ids.generate() },
-        { title: 'Third Title', content: 'Third Content', id: ids.generate() }
+        { title: 'FAQ Title', content: 'FAQ Content', id: ids.generate() },
+        { title: 'FAQ Title', content: 'FAQ Content', id: ids.generate() },
+        { title: 'FAQ Title', content: 'FAQ Content', id: ids.generate() }
       ]
     },
     styles: {
-      bulletColor: '#4DA1FF',
-      customBullet: false,
-      toggleIcon: 'FaPlusCircle'
+      iconsColor: '#4DA1FF',
+      isCustom: 'FaPlusCircle'
     }
   }
 };

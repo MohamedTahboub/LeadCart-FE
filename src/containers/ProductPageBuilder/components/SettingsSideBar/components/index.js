@@ -12,7 +12,7 @@ import ProgressBar from './ProgressBar';
 import PageSettings from './PageSettings';
 import StaticSection from './StaticSection';
 import FigureSection from './FigureSection';
-import ContentReveal from './ContentReveal';
+import FAQs from './FAQs';
 
 export default ({ type, ...props }) => {
   switch (type) {
@@ -28,7 +28,7 @@ export default ({ type, ...props }) => {
     case 'staticSectionSetting': return <StaticSection {...props} />;
     case 'figure': return <FigureSection {...props} />;
     case 'pageSetting': return <PageSettings {...props} />;
-    case 'contentReveal': return <ContentReveal {...props} />;
+    case 'faqs': return <FAQs {...props} />;
     default: return null;
   }
 };

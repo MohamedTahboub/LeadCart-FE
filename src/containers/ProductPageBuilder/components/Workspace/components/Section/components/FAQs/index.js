@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
-import OneContent from './components';
+import Content from './components';
 import './style.css';
 
 const { ResizableInput } = common;
 
-const ContentReveal = (props) => {
-  const { title, list, section } = props;
+const FAQs = ({ title, list, section }) => {
   const { styles } = section;
-  const { bulletColor } = styles;
   const { actions } = useContext();
   const [open, setOpen] = useState(false);
 
@@ -31,26 +29,21 @@ const ContentReveal = (props) => {
     });
   };
 
-  const onContentChange = ({ target: { value, name } }) => {
+  const onFAQChange = ({ target: { id, value, name } }) => {
     const newList = list.map((ele) => {
-      if (name.split('.')[1] === `${ele.id}`) {
-        if (name.split('.')[0] === 'title') {
-          return {
-            ...ele,
-            title: value
-          };
-        } else {
-          return {
-            ...ele,
-            content: value
-          };
-        }
+      if (id === ele.id) {
+        return {
+          ...ele,
+          [name]: value
+        };
+      } else {
+        return ele;
       }
-      return ele;
     });
 
     onChange(newList);
   };
+
 
   const onDelete = (id) => {
     const newList = list.filter((ele) => ele.id !== (id));
@@ -62,18 +55,17 @@ const ContentReveal = (props) => {
 
 
   return (
-    <section className='contentReveal'>
-      <ResizableInput value={title} className='contentReveal-title' />
+    <section className='faq'>
+      <ResizableInput value={title} className='faq-title' />
 
       <div>
         {list.map((ele, id) => (
-          <OneContent
-            onChange={onContentChange}
+          <Content
+            onChange={onFAQChange}
             toggle={toggle}
             open={open}
             onDelete={onDelete}
             key={id}
-            color={bulletColor}
             styles={styles}
             {...ele}
           />
@@ -83,4 +75,4 @@ const ContentReveal = (props) => {
   );
 };
 
-export default ContentReveal;
+export default FAQs;

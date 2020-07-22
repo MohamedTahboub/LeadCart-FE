@@ -42,7 +42,7 @@
 }
 
 
-.contentReveal-settings-icons{
+.faq-settings-icons{
     border: 1px solid lightgray;
     padding: 5px;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.05);
@@ -52,15 +52,6 @@
     margin: auto;
 }
 
-.contentReveal-settings .css-1uccc91-singleValue{
+.faqs .css-1uccc91-singleValue{
     width: 90%;
-}
-
-.contentReveal-settings-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 19vh;
-    margin: 20px 0;    
-    /* border: 1px solid red; */
 }

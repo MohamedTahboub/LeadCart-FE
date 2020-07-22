@@ -18,5 +18,5 @@ export { default as ProgressBar } from './ProgressBar';
 export { default as DropBeforeLine } from './DropBeforeLine';
 export { default as FigureSection } from './FigureSection';
 export { default as CodeSection } from './CodeSection';
-export { default as ContentReveal } from './ContentReveal';
+export { default as FAQs } from './FAQs';
 

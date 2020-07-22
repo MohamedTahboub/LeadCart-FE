@@ -1,13 +1,13 @@
+/* eslint-disable indent */
 import React from 'react';
-// import PropTypes from 'prop-types';
 
 import {
   BumpOffer,
   Button,
   CodeSection,
-  ContentReveal,
   CountDownTimer,
   CouponSection,
+  FAQs,
   FeaturesListSection,
   FigureSection,
   GuaranteeSection,
@@ -41,7 +41,7 @@ const SectionContent = ({ type, ...props }) => {
     case 'guaranteeWidget': return <GuaranteeSection {...props} />;
     case 'countDownWidget': return <CountDownTimer {...props} />;
     case 'progressbarWidget': return <ProgressBar {...props} />;
-    case 'contentReveal': return <ContentReveal {...props} />;
+    case 'faqs': return <FAQs {...props} />;
     default: return null;
   }
 };

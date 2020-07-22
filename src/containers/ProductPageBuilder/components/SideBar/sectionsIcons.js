@@ -12,7 +12,7 @@ import embedCode from 'assets/images/product_builder_icons/embedCode.png';
 import progressBar from 'assets/images/product_builder_icons/progressBar.png';
 import testimonials from 'assets/images/product_builder_icons/testimonials.png';
 import spacer from 'assets/images/product_builder_icons/spacer.png';
-import content from 'assets/images/product_builder_icons/content.png';
+import faq from 'assets/images/product_builder_icons/content.png';
 
 
 const sectionsIcons = [
@@ -30,7 +30,7 @@ const sectionsIcons = [
   { type: 'featuresSection', title: 'Features', src: features },
   { type: 'bumpOffer', title: 'Bump Offer', src: bumpOffer },
   { type: 'code', title: 'Embed Code', src: embedCode },
-  { type: 'contentReveal', title: 'Content Reveal', src: content }
+  { type: 'faqs', title: 'FAQs', src: faq }
 ];
 
 export default sectionsIcons;
