@@ -16,6 +16,7 @@ span.Collapsible__trigger {
     font-size: 20px;
     color: #403a49;
     cursor: pointer;
+    position: relative;
 }
 span.Collapsible__trigger.is-open {
     display: block;
@@ -34,4 +35,19 @@ span.Collapsible__trigger.is-open {
     background: white;
     padding: 20px 5px;
     border-bottom: 1px solid #8080807a;
+}
+
+.Collapsible__trigger:after {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    color: #989898;
+}
+
+.Collapsible__trigger.is-closed:after {
+    content: '▼';
+}
+
+.Collapsible__trigger.is-open:after {
+    content: '▲';
 }

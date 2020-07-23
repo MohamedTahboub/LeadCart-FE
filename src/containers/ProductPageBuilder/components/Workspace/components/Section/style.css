@@ -68,7 +68,7 @@
     font-size: 0px;
 }
 .drop-before-line.show{
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     font-size: 20px;
@@ -136,7 +136,7 @@
     /* cursor: nw-resize */
 }
 
-.align-left{
+/* .align-left{
     justify-content: flex-start;
 }
 .align-right{
@@ -144,7 +144,16 @@
 }
 .align-center{
     justify-content: center;
+} */
+.button-section-wrapper {
+    padding: 20px 0;
+    /* overflow: visible !important; */
 }
+.button-icon {
+    width: 32px;
+    height: 32px;
+}
+.align-items-center {align-items: center;}
 .justified{
     width: 100%;
     display: flex;

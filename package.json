@@ -59,6 +59,7 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.4",
+    "rsuite": "^4.8.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0",
     "shortid": "^2.2.14",
