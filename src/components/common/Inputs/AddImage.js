@@ -31,7 +31,6 @@ const AddImage = ({
   const onImageUpload = (e) => {
     const [file] = e.target.files || [];
     if (!file) return;
-
     props.uploadFile({
       file,
       type: 'products',
