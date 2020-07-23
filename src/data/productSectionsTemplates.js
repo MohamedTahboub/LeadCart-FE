@@ -40,7 +40,8 @@ export default {
     type: 'button',
     content: {
       value: 'Click Here',
-      children: []
+      children: [],
+      image: 'https://imgur.com/qZYW3BK.png'
     },
     styles: {
       marginTop: 0,
