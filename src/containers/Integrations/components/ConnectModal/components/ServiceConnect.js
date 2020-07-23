@@ -5,10 +5,11 @@ import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { notification, openNewWindow } from 'libs';
 import ServiceCard from './ServiceCard';
-import { LayoutSwitch } from '../..';
 
-const { FlexBox, Button, InputRow } = common;
+const { FlexBox, Button, InputRow, LayoutSwitch } = common;
 const { TextField } = InputRow;
+
+const defaultAuthWithKeyFields = [{ name: 'apiKey', label: 'API Key' }];
 
 const LoadingIcon = () => (
   <div>checking Support</div>
@@ -40,6 +41,7 @@ const ConnectClient = ({ onChange, onSubmit, ...props }) => (
         <TextField
           name='client_id'
           onChange={onChange}
+          uncontrolled
         />
       )}
       flex
@@ -52,6 +54,7 @@ const ConnectClient = ({ onChange, onSubmit, ...props }) => (
         <TextField
           name='client_secret'
           onChange={onChange}
+          uncontrolled
         />
       )}
       flex
@@ -68,20 +71,29 @@ const ConnectClient = ({ onChange, onSubmit, ...props }) => (
 );
 
 
-const ConnectApiKey = ({ onChange, onSubmit, ...props }) => (
+const ConnectApiKey = ({
+  onChange,
+  note,
+  fields = defaultAuthWithKeyFields,
+  onSubmit
+}) => (
   <FlexBox column>
-    <Statement
-      label='API KEY'
-      value={(
-        <TextField
-          name='apiKey'
-          onChange={onChange}
-        />
-      )}
-    />
+    {fields.map(({ name, label }) => (
+      <Statement
+        key={name}
+        label={label}
+        note={note}
+        value={(
+          <TextField
+            name={name}
+            onChange={onChange}
+            uncontrolled
+          />
+        )}
+      />))}
     <FlexBox flexEnd className='full-width'>
       <Button onClick={onSubmit} className='primary-color'>
-        Authorize
+          Authorize
       </Button>
     </FlexBox>
   </FlexBox>
@@ -131,9 +143,12 @@ const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) =>
 };
 
 
-const Statement = ({ label, value, ...props }) => (
+const Statement = ({ label, note, value, ...props }) => (
   <FlexBox center='v-center margin-top-10' {...props}>
-    <div className='label-text margin-right-10 bold-text'>{label}</div>
+    <div className='label-text margin-right-10 bold-text'>
+      {label}
+      {note && <span className='note-text mx-2'>({note})</span>}
+    </div>
     {value && <div className='label-text'>{value}</div>}
   </FlexBox>
 );

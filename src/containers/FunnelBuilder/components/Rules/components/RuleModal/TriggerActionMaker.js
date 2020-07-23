@@ -18,7 +18,7 @@ import config from 'config';
 const { admins = [] } = config;
 const animatedComponents = makeAnimated();
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
-  if (actionsMap[integrationKey]) {
+  if (actionsMap[integrationKey] && Array.isArray(actionsMap[integrationKey].actions)) {
     return actionsMap[integrationKey].actions.map((action) => ({
       label: action.label,
       value: action.name || action.value,
@@ -47,17 +47,19 @@ const TriggerActionMaker = ({
   hasGroups,
   integrations: integrationsLabels,
   actionsMap,
+  triggerEvent,
   onAdd
 }) => {
   const [group, setGroup] = useState(groupDetails);
   const [error, setError] = useState();
   const [expand, setExpand] = useState(hasGroups);
 
+  const canSelectProducts = triggerEvent !== 'PROSPECT';
 
   const toggleExpand = () => setExpand((expand) => !expand);
 
   const _onAdd = () => {
-    const errorMessage = notValidGroup(group);
+    const errorMessage = canSelectProducts ? notValidGroup(group) : '';
 
     if (isFunction(onAdd) && !errorMessage) {
       onAdd({
@@ -112,7 +114,10 @@ const TriggerActionMaker = ({
 
   useEffect(() => {
     setGroup(groupDetails);
-    if (isEdit) setExpand(true);
+    const groupId = groupDetails._id || groupDetails.id;
+    if (isEdit && (groupId === (group._id || group.id)))
+      setExpand(true);
+
     return () => setExpand(false);
   }, [isEdit]);
 
@@ -126,18 +131,20 @@ const TriggerActionMaker = ({
   return expand ? (
     <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges my-1'>
       <div className='large-text'>{`${isEdit ? 'Update This' : 'Make New'}`} Trigger Group:</div>
-      <FlexBox center='v-center margin-v-10'>
-        <div className='label margin-right-10'>For The Products</div>
-        <Select
-          className='flex-item '
-          components={animatedComponents}
-          name='products'
-          onChange={onProductsChanged}
-          isMulti
-          options={products}
-          value={selectedProducts}
-        />
-      </FlexBox>
+      {canSelectProducts && (
+        <FlexBox center='v-center margin-v-10'>
+          <div className='label margin-right-10'>For The Products</div>
+          <Select
+            className='flex-item '
+            components={animatedComponents}
+            name='products'
+            onChange={onProductsChanged}
+            isMulti
+            options={products}
+            value={selectedProducts}
+          />
+        </FlexBox>
+      )}
       <FlexBox center='v-center margin-v-10'>
         <FlexBox center='v-center' className='label margin-right-10'>
           Execute
@@ -177,7 +184,7 @@ const TriggerActionMaker = ({
       />
       <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
         {error && (
-          <div className='error-message'>
+          <div className='error-text'>
             {error}
           </div>
         )}

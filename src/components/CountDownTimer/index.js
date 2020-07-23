@@ -31,6 +31,7 @@ const counterInitialState = {
   hours: 0,
   seconds: 0
 };
+
 const CountDownTimer = ({
   titlesStyle,
   options,
@@ -41,13 +42,13 @@ const CountDownTimer = ({
   const { valueType, ...value } = options;
   const [state, setState] = useState(counterInitialState);
 
-
   useEffect(() => {
     const timerInstance = countDownTimerClock({ ...value, type: valueType });
     timerInstance.tick(setState);
 
     return timerInstance.tick;
-  }, [options, value, valueType]);
+  }, [valueType, options]);
+
 
   return (
     <div>

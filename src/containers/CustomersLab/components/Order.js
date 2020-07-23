@@ -23,28 +23,24 @@ const Order = ({
   onRefund,
   totalCharge,
   paymentMethod,
-  // payment = {},
   product = {},
   products = []
 }) => {
-
   if (product.name && !products.length) products.push(product);
-
   // const [moreOptions, setMoreOptions] = useState(false);
   const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
   return (
     <div className='customer-order-card'>
       <div className='order-code'>{`#LC-${orderNumber}`}</div>
-      <PaymentTypeIcon
-        type={paymentMethod}
-        className='order-payment-method-icon'
-      />
-      {products.map((product) => (
-        <ProductRow
-          {...product}
-          onRefund={onRefund}
-          orderId={orderId}
-        />))}
+      <PaymentTypeIcon type={paymentMethod} className='order-payment-method-icon'/>
+      {
+        products.map((product) => (
+          <ProductRow
+            {...product}
+            onRefund={onRefund}
+            orderId={orderId}
+          />))
+      }
       <ReceiptRow
         className='receipt-total'
         label='Total'
@@ -53,17 +49,5 @@ const Order = ({
     </div>
   );
 };
-/*
-      <OrderOptions
-        details={{
-          orderId,
-          offer,
-          payment,
-          product,
-          currency: currencySymbol
-        }}
-        show={moreOptions}
-        onHide={() => setMoreOptions(false)}
-      />
-*/
+
 export default Order;

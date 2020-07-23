@@ -13,7 +13,6 @@ const Features = ({ section = {} }) => {
     content: { list = defaultList } = {}
   } = section;
 
-
   const onChange = (name, value) => {
     actions.onSectionSettingChange({
       section,
@@ -45,11 +44,9 @@ const Features = ({ section = {} }) => {
     onChange('content.list', newList);
     if (!newList.length)
       actions.onSectionDelete(section.id);
-
   };
 
   return (
-
     <div className='features-list-container'>
       {list.map(({ text }, id) => (
         <Feature
@@ -58,8 +55,10 @@ const Features = ({ section = {} }) => {
           text={text}
           onChange={onFeatureChange}
           onDelete={onFeatureDelete}
+          withCustomBullets={styles.withCustomBullets}
           color={styles.bulletColor}
           theme={styles.theme}
+          customBullet={styles.customBullet}
         />
       ))}
     </div>

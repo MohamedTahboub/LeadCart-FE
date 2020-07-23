@@ -39,16 +39,13 @@ const CustomerPanelModal = ({
     lifeTimeCharges,
     orders: ordersIds = []
   } = customer;
-
   const [searchKey, setSearchKey] = useState('');
   const orders = ordersItems
     .filter((order) => ordersIds.includes(order._id))
     .filter(filterOrderByKey(searchKey));
-
   const onSearch = ({ target: { value } }) => setSearchKey(value);
 
   const customerImage = getGavatarByEmail(email);
-
   const totalPurchases = getPriceFormat(lifeTimeCharges, 'USD', 'amount_with_comma_separator');
   return (
     <div

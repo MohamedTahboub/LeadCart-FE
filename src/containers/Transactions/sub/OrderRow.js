@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import { getPriceWithCurrency } from 'libs';
 import Table from 'components/common/Tables';
 import './style.css';
 import moment from 'moment';
-
-import { RoundTow } from 'libs';
-
 
 const PaymentTypeIcon = ({ type }) => {
   const icon = {
@@ -17,20 +14,21 @@ const PaymentTypeIcon = ({ type }) => {
   return icon || null;
 };
 
-
 const OrderRow = ({
   orderInList,
   orderNumber,
   customer: {
     firstName,
     lastName,
-    email,
+    email
   } = {},
   products = [],
   paymentMethod,
   createdAt,
+  currency,
   totalCharge = 0
 }) => {
+
   const productsCount = products.length;
   const [expand, setExpand] = useState(false);
   // eslint-disable-next-line
@@ -52,7 +50,7 @@ const OrderRow = ({
             {products.map((product) => (
               <Table.Row>
                 <Table.Cell mainContent={product.name} />
-                <Table.Cell mainContent={product.price && product.price.amount} />
+                <Table.Cell mainContent={getPriceWithCurrency(product.price, currency)} />
               </Table.Row>
             ))}
           </Table.Body>
@@ -72,7 +70,7 @@ const OrderRow = ({
         mainContent={`${firstName} ${lastName}`}
         subContent={email}
       />
-      <Table.Cell mainContent={`$ ${RoundTow(totalCharge)}`} />
+      <Table.Cell mainContent={getPriceWithCurrency(totalCharge, currency)} />
       <Table.Cell
         mainContent={<PaymentTypeIcon type={paymentMethod} />}
         subContent={paymentMethod}
@@ -81,8 +79,5 @@ const OrderRow = ({
     </Table.Row>
   );
 };
-OrderRow.propTypes = {
-
-};
-// getCurrencySymbol(checkoutProduct && checkoutProduct.payment.currency)}
+OrderRow.propTypes = {};
 export default OrderRow;

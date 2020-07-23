@@ -1,5 +1,5 @@
 import LeadCartEvents from './leadcartEvents';
-import { userPilotEvents, mixPanelEvents, logRocketEvents } from './trackersIntegrations';
+import { logRocketEvents, mixPanelEvents, userPilotEvents } from './trackersIntegrations';
 const notDevelopment = process.env.NODE_ENV !== 'development';
 
 export default () => (next) => (action) => {

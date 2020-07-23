@@ -3,16 +3,20 @@ import { connect } from 'react-redux';
 import { Avatar, Table } from 'antd';
 import { Search } from 'components/Inputs';
 import { Button } from 'components/Buttons';
-import { CreateModal } from 'containers/Account/components/Brands/components';
-import Section from './Section';
-import config from '../../config';
+import { NewBrandModal } from './components';
+import Section from '../Section';
+import config from 'config';
 import { notification } from 'libs';
 import * as brandsActions from 'actions/brands';
 import { PlusOutlined } from '@ant-design/icons';
+import { CreditsStatus } from '../common';
 
-import './style.css';
+const getPackagePrice = (pkg = {}) => {
+  const packageDetails = config.packagesPlans[pkg.type.toLowerCase()] || {};
+  return packageDetails.price[pkg.period] || 0;
+};
 
-const BrandsSection = ({ brands, dataLoading, createBrand }) => {
+const BrandsSection = ({ brands, credits, dataLoading, createBrand }) => {
   const [dataSource, setDataSource] = useState(brands);
   const [filter, setFilter] = useState('');
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
@@ -23,7 +27,7 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
       key: 'brandAvatar',
       width: 52,
       render: (text, record) => {
-        if (record.logo) return <Avatar src={record.logo}/>;
+        if (record.logo) return <Avatar src={record.logo} />;
         else return <Avatar>{record.name[0]}</Avatar>;
       }
     }, {
@@ -40,7 +44,7 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
       dataIndex: null,
       key: 'subscription',
       render: (text, record) => {
-        const packagePlanPrice = config.packagesPlans[record.activePackage.type.toLowerCase()].price[record.activePackage.period];
+        const packagePlanPrice = getPackagePrice(record.activePackage);
         return <span>{packagePlanPrice}$/{record.activePackage.period === 'Monthly' ? 'mo' : 'ye'}</span>;
       }
     }, {
@@ -73,7 +77,8 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
   return (
     <Section title='Brands'>
       <div className='d-flex justify-space-between mb-2'>
-        <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch}/>
+        <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
+        <CreditsStatus credits={credits}/>
         <Button type='primary' onClick={() => setCreateModalOpen(true)}><PlusOutlined /> New brand</Button>
       </div>
       <Table
@@ -85,15 +90,19 @@ const BrandsSection = ({ brands, dataLoading, createBrand }) => {
       />
       {
         isCreateBrandModalOpen && (
-          <CreateModal onClose={toggleCreateModalOpen} onCreate={onCreateBrand} />
+          <NewBrandModal
+            onClose={toggleCreateModalOpen}
+            onCreate={onCreateBrand}
+            credits={credits}
+          />
         )
       }
     </Section>
   );
 };
 
-const mapStateToProps = ({ loading }) => {
-  return { dataLoading: loading };
+const mapStateToProps = ({ loading, redemption: { credits } = {} }) => {
+  return { dataLoading: loading, credits };
 };
 
 export default connect(mapStateToProps, brandsActions)(BrandsSection);

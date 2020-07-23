@@ -1,12 +1,20 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
-const metaDataSchema = yup.mixed({}).default({});
+const removeIt = yup.string().transform(() => undefined);
+
+const metaDataSchema = yup.mixed();
+
 const successUrlMetaSchema = yup.object({
   successUrls: yup.array().of(yup.object({
     url: yup.string(),
     activeDuration: yup.string().default('7,day')
   })).default([])
+});
+const webhooksSchema = yup.object({
+  label: yup.string(),
+  url: yup.string(),
+  payloadFormat: yup.string().default('FORM_DATA')
 });
 
 const manualFulfillmentMetaData = yup.object({
@@ -21,17 +29,18 @@ const leadcartPrivateFulfillmentMetaData = yup.object({
   codeType: yup.string().default('Package'),
   packageType: yup.string().when('codeType', {
     is: 'Package',
-    then: yup.string().default('Basic')
+    then: yup.string().default('Basic'),
+    otherwise: removeIt
   }),
   credits: yup.mixed().when('codeType', {
     is: 'Credits',
     then: yup.number().default(0),
-    otherwise: yup.string().transform(() => undefined)
+    otherwise: removeIt
   }),
   unlimited: yup.mixed().when('codeType', {
     is: 'Package',
     then: yup.boolean().default(false),
-    otherwise: yup.string().transform(() => undefined)
+    otherwise: removeIt
   })
 });
 
@@ -47,15 +56,18 @@ const actionSchema = yup.object({
       otherwise: metaDataSchema.when('type', {
         is: 'LEADCART_FULFILLMENT',
         then: leadcartPrivateFulfillmentMetaData,
-        otherwise: yup.object().default({})
+        otherwise: metaDataSchema.when('type', {
+          is: 'WEBHOOKS',
+          then: webhooksSchema,
+          otherwise: yup.mixed()
+        })
       })
-
     })
   })
 });
 
 const triggerGroupsSchema = yup.object({
-  products: yup.array(yup.string()),
+  products: yup.array().of(yup.string()).default([]),
   action: actionSchema
 });
 
@@ -65,9 +77,9 @@ const funnelRuleSchema = yup.object({
   triggerGroups: yup.array(triggerGroupsSchema).default([])
 });
 
-export default async (funnelRule) => {
+export default (funnelRule) => {
   try {
-    const casted = await funnelRuleSchema.validateSync(funnelRule, { abortEarly: false, stripUnknown: true });
+    const casted = funnelRuleSchema.validateSync(funnelRule, { abortEarly: false, stripUnknown: true });
     return {
       isValid: true,
       value: casted

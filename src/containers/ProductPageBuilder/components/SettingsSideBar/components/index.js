@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-// import Text from './Text';
+import Text from './Text';
 // import Image from './Image';
 // import Video from './Video';
 import Button from './Button';
@@ -20,7 +20,8 @@ import FigureSection from './FigureSection';
 
 export default ({ type, ...props }) => {
   switch (type) {
-  // case 'text': return <Text {...props} />;
+  case 'text': return <Text {...props} />;
+  case 'heading': return <Text {...props} />;
   // case 'image': return <Image {...props} />;
   // case 'video': return <Video {...props} />;
   case 'button': return <Button {...props} />;

@@ -185,39 +185,6 @@ export default {
       borderRadius: 5
     }
   },
-  shippingDetails: {
-    hidden: false,
-    type: 'shippingDetails',
-    content: {
-      value: 'shipping Details Content',
-      children: []
-    },
-    styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
-      themeColor: 'rgb(142, 209, 252)'
-    }
-  },
-  couponSection: {
-    hidden: false,
-    type: 'couponSection',
-    content: {
-      value: 'couponSection Content',
-      children: []
-    },
-    styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 10,
-      paddingBottom: 20
-    }
-  },
   testimonialsSection: {
     hidden: false,
     type: 'testimonialsSection',
@@ -231,10 +198,12 @@ export default {
           authorAvatar: 'https://leadcart.io/assets/images/testimonial-4.png'
         }
       ],
-      value: 'testimonials Section Content',
+      author: 'Michael C.',
+      image: 'https://imgur.com/WzV9Jn4.png', // https://thispersondoesnotexist.com
+      value: '"I am very impressed with all the features of LeadCart. It has made testimonial collection and sharing so easy for us and our students. The service and response time has also been very impressive. Highly recommend!"',
       children: []
     },
-    styles: { theme: 'modern' }
+    styles: { theme: 'edgy' }
   },
   featuresSection: {
     hidden: false,
@@ -303,19 +272,6 @@ export default {
       value: 93,
       children: []
     },
-    styles: {
-      marginTop: 0,
-      marginBottom: 0,
-      marginLeft: 0,
-      marginRight: 0,
-      paddingTop: 0,
-      paddingBottom: 0
-    }
-  },
-  productMarkWidget: {
-    hidden: false,
-    type: 'productMarkWidget',
-    content: { children: [] },
     styles: {
       marginTop: 0,
       marginBottom: 0,

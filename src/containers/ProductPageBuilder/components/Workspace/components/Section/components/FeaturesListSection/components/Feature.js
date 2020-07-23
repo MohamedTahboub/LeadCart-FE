@@ -19,7 +19,9 @@ const Feature = ({
   theme = featureThemes.orderedCircles,
   onChange,
   onDelete,
-  text
+  text,
+  withCustomBullets,
+  customBullet
 }) => {
   const classes = clx({
     'section-feature-item': true,
@@ -28,18 +30,22 @@ const Feature = ({
 
   const pointClasses = clx({
     'feature-item-point': true,
-    [featureThemes[theme]]: theme
+    [featureThemes[theme]]: !withCustomBullets && theme
   });
 
   return (
     <div className={classes}>
       <span
-        style={{ background: color }}
+        style={{ background: withCustomBullets ? `url(${customBullet}) 0% 0% / contain` : color }}
         className={pointClasses}
       >
-        <span className='order'>
-          {id + 1}
-        </span>
+        {
+          !withCustomBullets ? (
+            <span className='order'>
+              {id + 1}
+            </span>
+          ) : null
+        }
       </span>
       <ResizableTextarea
         className='feature-item-input'

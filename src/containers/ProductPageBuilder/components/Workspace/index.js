@@ -2,22 +2,18 @@ import React from 'react';
 import common from 'components/common';
 import clx from 'classnames';
 import { connect } from 'react-redux';
-import './style.css';
+import update from 'immutability-helper';
+import ids from 'shortid';
+
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
-import update from 'immutability-helper';
 import sectionsTemplates from 'data/productSectionsTemplates';
-import ids from 'shortid';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import { useContext } from '../../actions';
 import { SettingsHandle } from './components/common';
+import { DropZone, ProductHead, Section, StaticSections } from './components';
+import './style.css';
 
-import {
-  DropZone,
-  ProductHead,
-  Section,
-  StaticSections
-} from './components';
 
 const { FlexBox } = common;
 

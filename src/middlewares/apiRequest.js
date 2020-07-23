@@ -1,4 +1,4 @@
-import { API_REQUEST, START_LOADING, END_LOADING } from 'constantsTypes';
+import { API_REQUEST, END_LOADING, START_LOADING } from 'constantsTypes';
 import apiRequest from './helpers/apiRequest';
 
 export default ({ dispatch, getState }) => (next) => async (action) => {

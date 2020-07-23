@@ -1,21 +1,12 @@
-import React, {
-  // useRef,
-  // useEffect,
-  useState,
-  Fragment
-} from 'react';
-// import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import clx from 'classnames';
-// import common from 'components/common';
 import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
+
+import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
 import './style.css';
-import {
-  DropBeforeLine,
-  SectionContent,
-  SettingsHandles
-} from './components';
+
 import { useContext } from '../../../../actions';
 import update from 'immutability-helper';
 
@@ -129,7 +120,7 @@ const Section = ({
       ref={(node) => drop(drag(node))}
       id={id}
     >
-      <DropBeforeLine show={isOver} item={hoveredItem}/>
+      <DropBeforeLine show={isOver} item={hoveredItem} />
       <div
         className={classes}
         style={style}
@@ -143,11 +134,11 @@ const Section = ({
           maxOrder={maxOrder}
         />
         <SectionContent
+          {...content}
           type={type}
           section={section}
           language={props.language}
           onDrop={onDrop}
-          {...content}
         />
       </div>
     </div>

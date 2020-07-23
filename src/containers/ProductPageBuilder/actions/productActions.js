@@ -1,10 +1,13 @@
-import sectionsTemplates from 'data/productSectionsTemplates';
 import ids from 'shortid';
 import * as immutable from 'object-path-immutable';
+
+import sectionsTemplates from 'data/productSectionsTemplates';
 import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
 
 const sectionThatHaveSettings = [
+  'text',
+  'heading',
   'button',
   'bumpOffer',
   'testimonialsSection',
@@ -50,10 +53,15 @@ export const onSectionSetting = ({ dispatch }) => (section) => {
     payload: section
   });
 };
-export const onSectionDelete = ({ dispatch }) => (sectionId) => {
+export const onSectionDelete = ({ state: { modals: { sectionSetting } = {} }, dispatch }) => (sectionId) => {
   dispatch({
     type: types.DELETE_PRODUCT_SECTION,
     payload: sectionId
+  });
+
+  sectionSetting && sectionSetting.id === sectionId && dispatch({
+    type: types.TOGGLE_SECTION_SETTINGS_SIDEBAR,
+    payload: false
   });
 };
 
@@ -112,8 +120,18 @@ export const updateDisplayMode = ({ dispatch }) => (mode) => {
   });
 };
 
-export const onSectionSettingChange = ({ dispatch }) => ({ section, field: { name, value } = {} }) => {
-  const sectionUpdated = immutable.set(section, name, value);
+
+export const onSectionSettingChange = ({ dispatch }) => ({ section, field = {}, fields }) => {
+  let sectionUpdated;
+  if (fields) {
+    fields.forEach((field) => {
+      const { name, value } = field;
+      sectionUpdated = immutable.set(sectionUpdated || section, name, value);
+    });
+  } else {
+    const { name, value } = field;
+    sectionUpdated = immutable.set(section, name, value);
+  }
   dispatch({
     type: types.UPDATE_SECTION_SETTINGS,
     payload: sectionUpdated
@@ -134,3 +152,18 @@ export const disableDnd = ({ dispatch }) => () => {
 export const enableDnd = ({ dispatch }) => () => {
   dispatch({ type: types.ENABLE_DND });
 };
+
+export const onSectionFieldChange = ({ state: { modals: { sectionSetting = {} } = {} }, dispatch }) => (section) => {
+  if (sectionSetting.id === section.id) {
+    dispatch({
+      type: types.UPDATE_SECTION_SETTINGS,
+      payload: section
+    });
+  } else {
+    dispatch({
+      type: types.UPDATE_PRODUCT_SECTION,
+      payload: section
+    });
+  }
+};
+

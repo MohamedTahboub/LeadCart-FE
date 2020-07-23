@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 import classNames from 'classnames';
 import { insensitiveSearch } from 'helpers/common';
 import { Button } from 'components/Buttons';
-import { CreateModal } from '../../containers/Account/components/Brands/components';
+import { NewBrandModal } from '../../containers/Account/components/Brands/components';
 import { notification } from 'libs';
 import { connect } from 'react-redux';
 import * as brandsActions from '../../actions/brands';
@@ -74,7 +74,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
       <div style={{ border: '1px solid #E8E8E8' }} />
       {
         isCreateBrandModalOpen && (
-          <CreateModal
+          <NewBrandModal
             onClose={toggleCreateModalOpen}
             onCreate={onCreateBrand}
             credits={credits}
@@ -87,11 +87,8 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
 
 BrandsMenu.propTypes = {
   brands: PropTypes.arrayOf(brandsTypes.brandType).isRequired,
-  // Active brand id
   activeBrand: PropTypes.string.isRequired,
-  // On brand change
   onChange: PropTypes.func.isRequired,
-  // Brand creator
   createBrand: PropTypes.func.isRequired
 };
 const mapStateToProps = ({ redemption: { credits } = {} }) => ({ credits });

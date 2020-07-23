@@ -1,5 +1,7 @@
 import * as brandsLogos from './importBrands';
 import { mapListToObject } from 'libs';
+import config from 'config';
+const { ZAPIER_INVITATION_LINK } = config;
 
 const services = [
   {
@@ -17,7 +19,7 @@ const services = [
     key: 'lc_paypal',
     brandLogo: brandsLogos.paypalImage,
     category: 'Payment Gateways',
-    description: 'an online financial service that allows you to pay for items using a secure internet account',
+    description: 'An online financial service that allows you to pay for items using a secure internet account',
     active: false,
     connected: false,
     supported: true
@@ -105,6 +107,16 @@ const services = [
     active: false,
     connected: false,
     supported: true
+  }, {
+    key: 'lc_convertkit',
+    name: 'Convertkit',
+    brandLogo: brandsLogos.convertkit,
+    category: 'Auto Responders',
+    fields: [{ name: 'apiKey', label: 'API Secret' }],
+    description: 'Email marketing software for creators',
+    active: false,
+    connected: false,
+    supported: true
   },
   {
     key: 'lc_activecampaign',
@@ -112,6 +124,19 @@ const services = [
     brandLogo: brandsLogos.activeCampaign,
     category: 'Auto Responders',
     description: 'Email marketing, marketing automation, sales automation, and CRM software platform',
+    active: false,
+    fields: [
+      { name: 'apiKey', label: 'API Key' },
+      { name: 'apiUrl', label: 'API Url' }
+    ],
+    connected: false,
+    supported: true
+  }, {
+    key: 'lc_mailerlite',
+    name: 'MailerLite',
+    brandLogo: brandsLogos.mailerLite,
+    category: 'Auto Responders',
+    description: 'Email marketing tool that support landing pages and automation for your campaigns.',
     active: false,
     connected: false,
     supported: true
@@ -142,16 +167,6 @@ const services = [
     brandLogo: brandsLogos.ontraport,
     category: 'Auto Responders',
     description: 'Business automation software for entrepreneurs, solopreneurs and small businesses',
-    active: false,
-    connected: false,
-    supported: true
-  },
-  {
-    key: 'lc_convertkit',
-    name: 'Convertkit',
-    brandLogo: brandsLogos.convertkit,
-    category: 'Auto Responders',
-    description: 'Email marketing software for creators',
     active: false,
     connected: false,
     supported: true
@@ -345,6 +360,23 @@ const services = [
     active: false,
     connected: false,
     supported: false
+  },
+  {
+    key: 'lc_zapier',
+    name: 'Zapier',
+    brandLogo: brandsLogos.zapierBrand,
+    category: 'Misc Integrations',
+    description: 'Zapier moves info between your web apps automatically',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'Get Invited',
+      action: 'link',
+      linkPath: ZAPIER_INVITATION_LINK
+    }
   }
 ];
 
