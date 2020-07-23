@@ -29,8 +29,11 @@ const AddImage = ({
 
 
   const onImageUpload = (e) => {
+    const [file] = e.target.files || [];
+    if (!file) return;
+
     props.uploadFile({
-      file: e.target.files[0],
+      file,
       type: 'products',
       source: props.source
     }, {
@@ -59,7 +62,7 @@ const AddImage = ({
       <input
         onChange={onImageUpload}
         style={{ display: 'none' }}
-        ref={(ref) => { imageFieldRef = ref; }}
+        ref={(ref) => {imageFieldRef = ref;}}
         type='file'
         name='myImage'
         accept='image/x-png,image/gif,image/jpeg'
