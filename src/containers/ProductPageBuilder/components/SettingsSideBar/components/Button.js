@@ -200,7 +200,7 @@ const ButtonSection = () => {
           <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
             <div>Border Radius</div>
             <span className='gray-text'>Symmetric</span>
-            <Toggle value={borderSymmetry} onToggle={(target) => console.log({ target }) || onChange({ target })} name='borderSymmetry'/>
+            <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry'/>
             {
               borderCornerNames.map((corner) => (
                 <>
