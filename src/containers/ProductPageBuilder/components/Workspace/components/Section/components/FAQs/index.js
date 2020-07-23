@@ -53,10 +53,19 @@ const FAQs = ({ title, list, section }) => {
       actions.onSectionDelete(section.id);
   };
 
+  const onFaqTitltChange = ({ target: { value } }) => {
+    actions.onSectionFieldChange({
+      ...section,
+      content: {
+        ...section.content,
+        title: value
+      }
+    });
+  };
 
   return (
     <section className='faq'>
-      <ResizableInput value={title} className='faq-title' />
+      <ResizableInput value={title} className='faq-title' onChange={onFaqTitltChange} />
 
       <div>
         {list.map((ele, id) => (
