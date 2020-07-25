@@ -1,4 +1,6 @@
+import ids from 'shortid';
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
+
 
 export default {
   text: {
@@ -265,6 +267,22 @@ export default {
       marginRight: 0,
       paddingTop: 0,
       paddingBottom: 0
+    }
+  },
+  faqs: {
+    hidden: false,
+    type: 'faqs',
+    content: {
+      title: 'FAQs',
+      list: [
+        { title: 'FAQ Title', content: 'FAQ Content', id: ids.generate() },
+        { title: 'FAQ Title', content: 'FAQ Content', id: ids.generate() },
+        { title: 'FAQ Title', content: 'FAQ Content', id: ids.generate() }
+      ]
+    },
+    styles: {
+      iconsColor: '#4DA1FF',
+      isCustom: 'FaPlusCircle'
     }
   }
 };
