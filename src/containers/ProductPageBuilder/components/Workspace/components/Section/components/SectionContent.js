@@ -1,5 +1,5 @@
+/* eslint-disable indent */
 import React from 'react';
-// import PropTypes from 'prop-types';
 
 import {
   BumpOffer,
@@ -8,6 +8,7 @@ import {
   CodeSection,
   CountDownTimer,
   CouponSection,
+  FAQs,
   FeaturesListSection,
   FigureSection,
   GuaranteeSection,
@@ -44,6 +45,7 @@ const SectionContent = ({ type, ...props }) => {
     case 'progressbarWidget': return <ProgressBar {...props} />;
     case 'checkout': return <Checkout {...props} />;
     case 'upsell': return <Upsell {...props} />;
+    case 'faqs': return <FAQs {...props} />;
     default: return null;
   }
 };

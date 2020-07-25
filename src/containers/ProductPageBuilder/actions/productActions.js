@@ -18,7 +18,8 @@ const sectionThatHaveSettings = [
   'figure',
   'pageSetting',
   'staticSectionSetting',
-  'checkout'
+  'checkout',
+  'faqs'
 ];
 
 export const updateState = ({ dispatch }) => (subState) => {

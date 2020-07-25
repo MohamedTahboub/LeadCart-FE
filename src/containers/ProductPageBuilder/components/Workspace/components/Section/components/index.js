@@ -20,3 +20,5 @@ export { default as FigureSection } from './FigureSection';
 export { default as CodeSection } from './CodeSection';
 export { default as Checkout } from './Checkout';
 export { default as Upsell } from './Upsell';
+export { default as FAQs } from './FAQs';
+

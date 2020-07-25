@@ -38,6 +38,10 @@
   cursor: pointer;
 }
 
+.builder-section__icon img {
+  width: 58%;
+}
+
 .builder-section__title{
   font-size: .85em;
   margin: 5px 0;
