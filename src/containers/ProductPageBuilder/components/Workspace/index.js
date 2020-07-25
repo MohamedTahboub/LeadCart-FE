@@ -165,7 +165,7 @@ const Workspace = ({
         <FlexBox className='relative-element product-page-content' column style={productStyles}>
           <SettingsHandle onClick={onProductSettings} />
           <DropZone onDrop={onSectionDropped}>
-            {!sections.length && (
+            {sections.length === 1 && (
               <FlexBox column center='h-center v-center' className='builder-drop-area'>
                 <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
                 <span className='gray-text'>
@@ -194,11 +194,11 @@ const Workspace = ({
               ))
             }
           </DropZone>
-          <StaticSections
+          {/* <StaticSections
             language={activeLanguage}
             onSetting={onSectionSettings}
             sections={staticSections}
-          />
+          /> */}
         </FlexBox>
       </FlexBox>
     </FlexBox>

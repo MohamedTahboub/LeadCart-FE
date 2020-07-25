@@ -17,26 +17,29 @@ import ProgressBar from './ProgressBar';
 import PageSettings from './PageSettings';
 import StaticSection from './StaticSection';
 import FigureSection from './FigureSection';
+import Checkout from './Checkout';
 
 export default ({ type, ...props }) => {
   switch (type) {
-  case 'text': return <Text {...props} />;
-  case 'heading': return <Text {...props} />;
-  // case 'image': return <Image {...props} />;
-  // case 'video': return <Video {...props} />;
-  case 'button': return <Button {...props} />;
-  case 'bumpOffer': return <BumpOffer {...props} />;
-  // case 'shippingDetails': return <ShippingAddress {...props} />;
-  // case 'couponSection': return <CouponSection {...props} />;
-  case 'testimonialsSection': return <TestimonialsSection {...props} />;
-  case 'featuresSection': return <FeaturesSection {...props} />;
-  case 'guaranteeWidget': return <GuaranteeWidget {...props} />;
-  case 'countDownWidget': return <CountDowTimerWidget {...props} />;
-  case 'progressbarWidget': return <ProgressBar {...props} />;
-  // case 'productMarkWidget': return <ProductBadgeWidget {...props} />;
-  case 'staticSectionSetting': return <StaticSection {...props} />;
-  case 'figure': return <FigureSection {...props} />;
-  case 'pageSetting': return <PageSettings {...props} />;
-  default: return null;
+    case 'text': return <Text {...props} />;
+    case 'heading': return <Text {...props} />;
+    // case 'image': return <Image {...props} />;
+    // case 'video': return <Video {...props} />;
+    case 'button': return <Button {...props} />;
+    case 'bumpOffer': return <BumpOffer {...props} />;
+    // case 'shippingDetails': return <ShippingAddress {...props} />;
+    // case 'couponSection': return <CouponSection {...props} />;
+    case 'testimonialsSection': return <TestimonialsSection {...props} />;
+    case 'featuresSection': return <FeaturesSection {...props} />;
+    case 'guaranteeWidget': return <GuaranteeWidget {...props} />;
+    case 'countDownWidget': return <CountDowTimerWidget {...props} />;
+    case 'progressbarWidget': return <ProgressBar {...props} />;
+    // case 'productMarkWidget': return <ProductBadgeWidget {...props} />;
+    case 'staticSectionSetting': return <StaticSection {...props} />;
+    case 'figure': return <FigureSection {...props} />;
+    case 'pageSetting': return <PageSettings {...props} />;
+    case 'checkout': return <Checkout {...props} />;
+    case 'upsell': return <Checkout {...props} />;
+    default: return null;
   }
 };

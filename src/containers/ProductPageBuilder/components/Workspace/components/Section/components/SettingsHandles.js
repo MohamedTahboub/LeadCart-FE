@@ -15,6 +15,7 @@ const SettingsHandles = ({
   onSettings
 }) => {
   const { actions } = useContext();
+  const staticSections = ['checkout', 'upsell'].includes(section.type);
 
   const onSettingsClick = () => {
     onSettings(section);
@@ -24,20 +25,25 @@ const SettingsHandles = ({
     actions.onSectionDelete(id);
   };
 
-
   const withSettingSide = !settingLessTypes.includes(section.type);
   return (
     <div className='product-section-settings-handle'>
-      <FiTrash2
-        onClick={onDelete}
-        className='item-handle delete-handle'
-        data-tip='delete this section'
-      />
-      <MdContentCopy
-        onClick={onDuplicate(id)}
-        className='item-handle'
-        data-tip='duplicate this section'
-      />
+
+      {!staticSections &&
+        <FiTrash2
+          onClick={onDelete}
+          className='item-handle delete-handle'
+          data-tip='delete this section'
+        />
+      }
+
+      {!staticSections &&
+        <MdContentCopy
+          onClick={onDuplicate(id)}
+          className='item-handle'
+          data-tip='duplicate this section'
+        />}
+
       {withSettingSide && (
         <IoMdSettings
           draggable

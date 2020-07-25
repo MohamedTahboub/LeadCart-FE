@@ -34,7 +34,13 @@ const {
 
 const matchProductSectionsIds = (product) => {
   const sections = Array.isArray(product.sections) ?
-    product.sections.map(({ id, _id = id, ...section }) => ({ ...section, id: _id }))
+    product.sections.map(({ id, _id = id, type, staticSections, ...section }) => {
+      // if(staticSections) {
+      //   type = staticSections;
+      // }
+
+      return ({ ...section, type, id: _id });
+    })
     : [];
 
   return {
@@ -54,7 +60,6 @@ const ProductBuilder = ({
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
-
 
   useEffect(() => {
     const { params: { productId, funnelUrl } = {} } = props.match;

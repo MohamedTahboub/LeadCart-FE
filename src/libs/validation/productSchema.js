@@ -36,10 +36,10 @@ const ProductSchema = yup.object({
         type,
         schema
       ) => (
-        type === 'Onetime'
-          ? schema.transform(() => undefined)
-          : schema.default('MONTH')
-      )),
+          type === 'Onetime'
+            ? schema.transform(() => undefined)
+            : schema.default('MONTH')
+        )),
     splits: yup.string().when(
       'type',
       {
