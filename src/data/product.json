@@ -6,7 +6,15 @@
     "payment": {
         "type": "Onetime"
     },
-    "sections": [],
+    "sections": [
+        {
+            "hidden": false,
+            "type": "staticSections",
+            "content": {
+                "value": "StaticSections"
+            }
+        }
+    ],
     "category": "checkout",
     "available": true,
     "name": "My Product",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { MdContentCopy } from 'react-icons/md';
 import { FiTrash2 } from 'react-icons/fi';
 import { IoMdSettings } from 'react-icons/io';
@@ -28,16 +28,20 @@ const SettingsHandles = ({
   const withSettingSide = !settingLessTypes.includes(section.type);
   return (
     <div className='product-section-settings-handle'>
-      <FiTrash2
-        onClick={onDelete}
-        className='item-handle delete-handle'
-        data-tip='delete this section'
-      />
-      <MdContentCopy
-        onClick={onDuplicate(id)}
-        className='item-handle'
-        data-tip='duplicate this section'
-      />
+      {section.type !== 'staticSections' &&
+        <Fragment>
+          <FiTrash2
+            onClick={onDelete}
+            className='item-handle delete-handle'
+            data-tip='delete this section'
+          />
+          <MdContentCopy
+            onClick={onDuplicate(id)}
+            className='item-handle'
+            data-tip='duplicate this section'
+          />
+        </Fragment>
+      }
       {withSettingSide && (
         <IoMdSettings
           draggable

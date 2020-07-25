@@ -17,6 +17,7 @@ import {
   ProgressBar,
   ShippingDetails,
   Spacer,
+  StaticSections,
   TestimonialsSection,
   TextContent,
   VideoContent
@@ -42,6 +43,7 @@ const SectionContent = ({ type, ...props }) => {
     case 'countDownWidget': return <CountDownTimer {...props} />;
     case 'progressbarWidget': return <ProgressBar {...props} />;
     case 'faqs': return <FAQs {...props} />;
+    case 'staticSections': return <StaticSections {...props} />;
     default: return null;
   }
 };

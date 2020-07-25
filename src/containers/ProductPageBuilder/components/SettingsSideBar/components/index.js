@@ -25,7 +25,7 @@ export default ({ type, ...props }) => {
     case 'guaranteeWidget': return <GuaranteeWidget {...props} />;
     case 'countDownWidget': return <CountDowTimerWidget {...props} />;
     case 'progressbarWidget': return <ProgressBar {...props} />;
-    case 'staticSectionSetting': return <StaticSection {...props} />;
+    case 'staticSections': return <StaticSection {...props} />;
     case 'figure': return <FigureSection {...props} />;
     case 'pageSetting': return <PageSettings {...props} />;
     case 'faqs': return <FAQs {...props} />;
