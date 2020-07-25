@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useState } from 'react';
-// import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import ReactToolTip from 'react-tooltip';
@@ -32,6 +31,12 @@ const {
   FlexBox
 } = common;
 
+const staticSectionDetails = {
+  id: 'staticSections',
+  hidden: false,
+  type: 'staticSections',
+  content: { value: '' }
+};
 const matchProductSectionsIds = (product) => {
   const sections = Array.isArray(product.sections) ?
     product.sections.map(({ id, _id = id, ...section }) => ({ ...section, id: _id }))
@@ -42,7 +47,13 @@ const matchProductSectionsIds = (product) => {
     sections
   };
 };
+const hasStaticSection = ({ sections = [] } = {}) =>
+  sections.find(({ type }) => type === 'staticSection');
 
+const injectProductSection = (product = {}) => ({
+  ...product,
+  sections: [...product.sections, staticSectionDetails]
+});
 const ProductBuilder = ({
   funnelsMap,
   productsMap,
@@ -78,9 +89,11 @@ const ProductBuilder = ({
     if (funnel && product) {
       const localProductId = state.product._id;
       if (localProductId !== productId) {
+
+        const updatedProductSection = hasStaticSection(product) ? product : injectProductSection(product);
         actions.updateState({
           standAlone: false,
-          product: matchProductSectionsIds(product),
+          product: matchProductSectionsIds(updatedProductSection),
           funnel: funnel
         });
       }

@@ -21,11 +21,12 @@ const SettingsHandles = ({
   };
 
   const onDelete = () => {
-    actions.onSectionDelete(id);
+    if (section.type !== 'staticSections')
+      actions.onSectionDelete(id);
   };
 
-
   const withSettingSide = !settingLessTypes.includes(section.type);
+
   return (
     <div className='product-section-settings-handle'>
       {section.type !== 'staticSections' &&

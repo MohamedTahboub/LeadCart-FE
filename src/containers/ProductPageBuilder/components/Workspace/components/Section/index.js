@@ -53,7 +53,6 @@ const Section = ({
     }
   });
 
-
   const classes = clx({
     'product-section': true,
     'isDragging': isDragging,

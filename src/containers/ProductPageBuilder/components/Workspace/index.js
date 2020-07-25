@@ -11,12 +11,10 @@ import sectionsTemplates from 'data/productSectionsTemplates';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import { useContext } from '../../actions';
 import { SettingsHandle } from './components/common';
-import { DropZone, ProductHead, Section, StaticSections } from './components';
+import { DropZone, ProductHead, Section } from './components';
 import './style.css';
 
-
 const { FlexBox } = common;
-
 
 const getLanguageLabel = (
   languages = [],
@@ -39,7 +37,6 @@ const Workspace = ({
       funnel: { language } = {},
       product: {
         sections = [],
-        staticSections = [],
         pageStyles = {}
       } = {}
     },
