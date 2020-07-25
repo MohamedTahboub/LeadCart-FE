@@ -36,6 +36,8 @@
   width: 33.33%;
   margin-bottom: 10px;
   cursor: pointer;
+  -moz-appearance: none !important;
+  -webkit-appearance: none !important;
 }
 
 .builder-section__title{
