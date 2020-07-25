@@ -11,7 +11,7 @@ import sectionsTemplates from 'data/productSectionsTemplates';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import { useContext } from '../../actions';
 import { SettingsHandle } from './components/common';
-import { DropZone, ProductHead, Section, StaticSections } from './components';
+import { DropZone, ProductHead, Section } from './components';
 import './style.css';
 
 
@@ -165,7 +165,7 @@ const Workspace = ({
         <FlexBox className='relative-element product-page-content' column style={productStyles}>
           <SettingsHandle onClick={onProductSettings} />
           <DropZone onDrop={onSectionDropped}>
-            {!sections.length && (
+            {sections.length === 1 && (
               <FlexBox column center='h-center v-center' className='builder-drop-area'>
                 <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
                 <span className='gray-text'>
@@ -194,11 +194,6 @@ const Workspace = ({
               ))
             }
           </DropZone>
-          <StaticSections
-            language={activeLanguage}
-            onSetting={onSectionSettings}
-            sections={staticSections}
-          />
         </FlexBox>
       </FlexBox>
     </FlexBox>

@@ -77,14 +77,16 @@ const Section = ({
         className={classes}
         style={style}
       >
-        <SettingsHandles
-          onSettings={onSetting}
-          onDuplicate={onDuplicate}
-          section={section}
-          order={order}
-          id={id}
-          maxOrder={maxOrder}
-        />
+        {type !== 'staticSections' &&
+          <SettingsHandles
+            onSettings={onSetting}
+            onDuplicate={onDuplicate}
+            section={section}
+            order={order}
+            id={id}
+            maxOrder={maxOrder}
+          />
+        }
         <SectionContent
           {...content}
           type={type}

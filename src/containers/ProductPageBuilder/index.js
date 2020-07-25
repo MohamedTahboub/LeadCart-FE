@@ -1,9 +1,10 @@
 import React, { useEffect, useReducer, useState } from 'react';
-// import PropTypes from 'prop-types';
+import ids from 'shortid';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import ReactToolTip from 'react-tooltip';
 import { connect } from 'react-redux';
+
 import common from 'components/common';
 import { ProductBuilderSkelton } from 'components/Loaders';
 import sampleProductData from 'data/product';
@@ -11,26 +12,11 @@ import { htmlToImage as generateImageFromHtmlElement, mapListToObject, notificat
 import { ProductSchema } from 'libs/validation';
 import * as productGeneralActions from 'actions/product';
 import * as filesActions from 'actions/files';
+import { ProductContext, connectActions, productActions, reducers } from './actions';
+import { Header, SettingSideBar, SideBar, Workspace } from './components';
 
-import {
-  ProductContext,
-  connectActions,
-  productActions,
-  reducers
-} from './actions';
+const { Page, FlexBox } = common;
 
-
-import {
-  Header,
-  SettingSideBar,
-  SideBar,
-  Workspace
-} from './components';
-
-const {
-  Page,
-  FlexBox
-} = common;
 
 const matchProductSectionsIds = (product) => {
   const sections = Array.isArray(product.sections) ?
@@ -39,7 +25,15 @@ const matchProductSectionsIds = (product) => {
 
   return {
     ...product,
-    sections
+    sections: sections.filter((section) => section.type !== 'staticSections').concat([
+      {
+        hidden: false,
+        type: 'staticSections',
+        content: { value: 'Billing' },
+        id: ids.generate(),
+        order: 0
+      }
+    ])
   };
 };
 

@@ -18,7 +18,7 @@ import {
 const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
 
 
-const StaticSections = ({ onSetting, language }) => {
+const StaticSections = ({ language }) => {
   const {
     state: {
       product: {
@@ -44,7 +44,8 @@ const StaticSections = ({ onSetting, language }) => {
       type: 'staticSectionSetting',
       menuTitle: 'Payment & Pricing Settings'
     };
-    onSetting(meta);
+
+    actions.toggleSectionSettingModal(meta);
   };
 
   const onChange = ({ target: { name, value } }) => {
@@ -126,9 +127,6 @@ const StaticSections = ({ onSetting, language }) => {
   );
 };
 
-StaticSections.propTypes = {
-  language: PropTypes.objectOf(PropTypes.object).isRequired,
-  onSetting: PropTypes.func.isRequired
-};
+StaticSections.propTypes = { language: PropTypes.objectOf(PropTypes.object).isRequired };
 
 export default StaticSections;
