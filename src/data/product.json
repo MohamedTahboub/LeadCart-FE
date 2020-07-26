@@ -9,7 +9,7 @@
     "sections": [
         {
             "hidden": false,
-            "type": "staticSections",
+            "type": "checkoutSection",
             "content": {
                 "value": "StaticSections"
             }

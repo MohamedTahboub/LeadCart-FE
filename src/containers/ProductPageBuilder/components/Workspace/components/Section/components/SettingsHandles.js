@@ -21,7 +21,7 @@ const SettingsHandles = ({
   };
 
   const onDelete = () => {
-    if (section.type !== 'staticSections')
+    if (section.type !== 'checkoutSection')
       actions.onSectionDelete(id);
   };
 
@@ -29,7 +29,7 @@ const SettingsHandles = ({
 
   return (
     <div className='product-section-settings-handle'>
-      {section.type !== 'staticSections' &&
+      {section.type !== 'checkoutSection' &&
         <Fragment>
           <FiTrash2
             onClick={onDelete}

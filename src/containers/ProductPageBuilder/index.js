@@ -32,9 +32,9 @@ const {
 } = common;
 
 const staticSectionDetails = {
-  id: 'staticSections',
+  id: 'checkoutSection',
   hidden: false,
-  type: 'staticSections',
+  type: 'checkoutSection',
   content: { value: '' }
 };
 const matchProductSectionsIds = (product) => {
@@ -48,7 +48,7 @@ const matchProductSectionsIds = (product) => {
   };
 };
 const hasStaticSection = ({ sections = [] } = {}) =>
-  sections.find(({ type }) => type === 'staticSection');
+  sections.find(({ type }) => type === 'checkoutSection');
 
 const injectProductSection = (product = {}) => ({
   ...product,
