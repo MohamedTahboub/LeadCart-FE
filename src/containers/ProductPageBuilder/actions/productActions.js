@@ -17,8 +17,8 @@ const sectionThatHaveSettings = [
   'progressbarWidget',
   'figure',
   'pageSetting',
-  'staticSectionSetting',
-  'faqs'
+  'faqs',
+  'checkoutSection'
 ];
 
 export const updateState = ({ dispatch }) => (subState) => {
