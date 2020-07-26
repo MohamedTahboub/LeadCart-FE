@@ -73,12 +73,14 @@ const Email = ({
           testing: false,
           emailTestType: ''
         });
+        notification.success(`A (${type}) test email was sent to your leadcart account email`);
       },
-      onFailed: () => {
+      onFailed: (message) => {
         setTestType({
           testing: false,
           emailTestType: ''
         });
+        notification.failed(message);
       }
     });
   };
