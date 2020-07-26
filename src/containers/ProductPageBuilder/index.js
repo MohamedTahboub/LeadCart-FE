@@ -31,7 +31,7 @@ const {
   FlexBox
 } = common;
 
-const staticSectionDetails = {
+const checkoutSectionDetails = {
   id: 'checkoutSection',
   hidden: false,
   type: 'checkoutSection',
@@ -47,12 +47,12 @@ const matchProductSectionsIds = (product) => {
     sections
   };
 };
-const hasStaticSection = ({ sections = [] } = {}) =>
+const hasCheckoutSection = ({ sections = [] } = {}) =>
   sections.find(({ type }) => type === 'checkoutSection');
 
 const injectProductSection = (product = {}) => ({
   ...product,
-  sections: [...product.sections, staticSectionDetails]
+  sections: [...product.sections, checkoutSectionDetails]
 });
 const ProductBuilder = ({
   funnelsMap,
@@ -90,7 +90,7 @@ const ProductBuilder = ({
       const localProductId = state.product._id;
       if (localProductId !== productId) {
 
-        const updatedProductSection = hasStaticSection(product) ? product : injectProductSection(product);
+        const updatedProductSection = hasCheckoutSection(product) ? product : injectProductSection(product);
         actions.updateState({
           standAlone: false,
           product: matchProductSectionsIds(updatedProductSection),
