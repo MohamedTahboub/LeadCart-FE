@@ -475,3 +475,8 @@ h5 {
 .d-none {
   display: none !important;
 }
+.black-title {
+  align-items: center;
+  font-size: 20px;
+  color: #000;
+}

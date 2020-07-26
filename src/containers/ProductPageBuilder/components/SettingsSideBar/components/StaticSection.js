@@ -41,18 +41,15 @@ const {
 
 const StaticSection = ({ ...props }) => {
   const {
-    state: { product = {} },
+    state: { product = {}, modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
-
   const {
     price = {},
     payment = {},
-    // addOns = {},
     pageStyles: { themeColor } = {},
     custom = {}
   } = product;
-
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
@@ -66,8 +63,29 @@ const StaticSection = ({ ...props }) => {
       }
     });
   };
+
+  const onTwoStepCheckoutChange = ({ name, value }) => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: `content.${name}`,
+        value: value
+      }
+    });
+  };
+
   return (
-    <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+    <Tabs active='forms' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
+      <Tab id='forms' title='Forms'>
+        <Label>
+          Two step checkout:
+        </Label>
+        <Toggle
+          value={sectionSetting.content.twoStepCheckout}
+          name='twoStepCheckout'
+          onToggle={onTwoStepCheckoutChange}
+        />
+      </Tab>
       <Tab id='pricing' title='Pricing'>
         <InputRow>
           <Label>
