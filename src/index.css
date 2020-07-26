@@ -472,3 +472,6 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 h5 {
   font-size: revert;
 }
+.d-none {
+  display: none !important;
+}

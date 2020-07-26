@@ -14,6 +14,7 @@ import {
   PaymentMethods,
   ShippingDetails
 } from './components';
+import MultipleStepForm from 'components/MultipleStepForm';
 
 const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
 
@@ -47,39 +48,45 @@ const StaticSections = ({ language }) => {
     <FlexBox column className='relative-element'>
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
-          <BillingDetails
-            color={pageStyles.themeColor}
-            language={language}
-          />
-          {shippingDetails && (
-            <ShippingDetails
-              color={pageStyles.themeColor}
-              language={language}
-            />
-          )}
-          <PaymentMethods
-            step={addOns.shippingDetails ? 3 : 2}
-            methods={payment.methods}
-            language={language}
-          />
-          {couponSection && (
-            <CouponSection
-              color={pageStyles.themeColor}
-              language={language}
-            />
-          )}
-          <OrderSummary
-            price={price}
-            productName={name}
-            payment={payment}
-            language={language}
-          />
-          <CompleteOrderBtn
-            name='custom.orderButtonText'
-            text={orderButtonText}
-            color={pageStyles.themeColor}
-            onChange={onChange}
-          />
+          <MultipleStepForm steps={[shippingDetails ? 'Billing & Shipping Details' : 'Billing Details', 'Payment Details']}>
+            <>
+              <BillingDetails
+                color={pageStyles.themeColor}
+                language={language}
+              />
+              {shippingDetails && (
+                <ShippingDetails
+                  color={pageStyles.themeColor}
+                  language={language}
+                />
+              )}
+            </>
+            <>
+              <PaymentMethods
+                step={addOns.shippingDetails ? 3 : 2}
+                methods={payment.methods}
+                language={language}
+              />
+              {couponSection && (
+                <CouponSection
+                  color={pageStyles.themeColor}
+                  language={language}
+                />
+              )}
+              <OrderSummary
+                price={price}
+                productName={name}
+                payment={payment}
+                language={language}
+              />
+              <CompleteOrderBtn
+                name='custom.orderButtonText'
+                text={orderButtonText}
+                color={pageStyles.themeColor}
+                onChange={onChange}
+              />
+            </>
+          </MultipleStepForm>
         </FlexBox>
         <FlexBox
           id='upsell'
