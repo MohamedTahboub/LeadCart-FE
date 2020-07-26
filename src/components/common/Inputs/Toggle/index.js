@@ -1,5 +1,6 @@
 import React from 'react';
 import clx from 'classnames';
+import { isFunction } from 'libs/checks';
 
 import './style.css';
 const Toggle = ({
@@ -15,7 +16,8 @@ const Toggle = ({
   const classNames = clx('toggle-bar', className, { active: value });
 
   const _onToggle = () => {
-    onToggle({ name, value: !value });
+    if (isFunction(onToggle))
+      onToggle({ name, value: !value });
   };
   return (
     <div
