@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import common from 'components/common';
 import PaymentType from 'components/PaymentType';
 import { useContext } from '../../../actions';
-
+import FlatRadio from 'components/FlatRadio';
 
 const {
   MiniTwitterPicker,
@@ -75,17 +75,7 @@ const StaticSection = ({ ...props }) => {
   };
 
   return (
-    <Tabs active='forms' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
-      <Tab id='forms' title='Forms'>
-        <Label>
-          Two step checkout:
-        </Label>
-        <Toggle
-          value={sectionSetting.content.twoStepCheckout}
-          name='twoStepCheckout'
-          onToggle={onTwoStepCheckoutChange}
-        />
-      </Tab>
+    <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='pricing' title='Pricing'>
         <InputRow>
           <Label>
@@ -105,6 +95,28 @@ const StaticSection = ({ ...props }) => {
           payment={payment}
           onChange={onChange}
           price={price}
+        />
+      </Tab>
+      <Tab id='forms' title='Forms'>
+        <Label className='mb-2'>
+          Two step checkout:
+        </Label>
+        <FlatRadio
+          options={[
+            { label: 'Two step', value: true },
+            { label: 'Classic', value: false }
+          ]}
+          value={sectionSetting.content.twoStepCheckout}
+          name='twoStepCheckout'
+          onToggle={onTwoStepCheckoutChange}
+        />
+        <img
+          src={sectionSetting.content.twoStepCheckout ? 'https://imgur.com/wnThVnO.png' : 'https://imgur.com/nqjepZ3.png'}
+          alt='thumb'
+          style={{
+            height: '320px',
+            objectFit: 'contain'
+          }}
         />
       </Tab>
 
