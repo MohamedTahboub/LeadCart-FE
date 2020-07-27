@@ -99,7 +99,7 @@ const StaticSection = ({ ...props }) => {
       </Tab>
       <Tab id='forms' title='Forms'>
         <Label className='mb-2'>
-          Two step checkout:
+          Checkout type:
         </Label>
         <FlatRadio
           options={[
