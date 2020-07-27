@@ -119,7 +119,6 @@ const StaticSection = ({ ...props }) => {
           }}
         />
       </Tab>
-
       <Tab id='customs' title='Custom'>
         <InputRow className='sidebar-row'>
           <Label className='sidebar-input-label'>

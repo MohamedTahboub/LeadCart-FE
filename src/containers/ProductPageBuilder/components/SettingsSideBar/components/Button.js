@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import common from 'components/common';
 import { useContext } from '../../../actions';
 import { ImageOption } from './common';
-import { Slider } from 'rsuite';
+import Slider from 'rc-slider';
 import Collapse from 'components/Collapsible';
 import { buttonTemplates } from 'data/templates';
 

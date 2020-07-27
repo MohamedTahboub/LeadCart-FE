@@ -20,7 +20,7 @@ const MultipleStepForm = ({ steps, children }) => {
       <div className='multi-step-form__form-wrapper'>
         <div className='multi-step-form__steps-wrapper'>
           {
-            React.Children.toArray(children).filter((o) => o).map((child, index) => child ? (
+            React.Children.toArray(children).filter((o) => o).map((child, index) => child ? index === currentStep && (
               <div className={clx('multi-step-form__step', { active: index === currentStep })}>
                 {child}
               </div>
