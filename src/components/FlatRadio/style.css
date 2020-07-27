@@ -1,5 +1,6 @@
 .flat-radio {
   display: flex;
+  justify-content: center;
 }
 
 .flat-radio-key {

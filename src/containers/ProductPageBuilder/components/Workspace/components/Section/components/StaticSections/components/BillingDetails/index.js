@@ -14,11 +14,14 @@ const BillingDetails = ({ color, language = {} }) => {
     email,
     phoneNumber
   } = language.checkout || {};
-  const { state: { product: { custom: { shippingDetails } } } } = useContext();
+  const { state: { product: { custom: { shippingDetails }, sections } } } = useContext();
+
+  const checkoutSection = sections.find(({ type }) => type === 'checkoutSection') || { content: {} };
+
   return (
     <div className='product-template-billing'>
       {
-        shippingDetails ?
+        shippingDetails || !checkoutSection.content.twoStepCheckout ?
           <CycleStepTitle step='1'>{title}</CycleStepTitle> :
           <div className='black-title'>{title}</div>
       }
