@@ -26,8 +26,6 @@ const CategoryItems = ({ layout, showHeader, ...props }) => {
 const IntegrationsLayout = ({ layout, key, list, ...props }) => {
   const categories = getCategories(list);
 
-  console.log(categories);
-
   return categories
     .map(([title, list]) => (
       <Fragment>

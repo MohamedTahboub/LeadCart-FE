@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import { SettingsHandle } from '../../../common';
-import { useContext } from '../../../../../../actions';
+import { SettingsHandle } from '../common';
+import { useContext } from '../../../../actions';
 import OrderReceipt from './components/Receipt';
 
 import './style.css';
@@ -19,7 +19,7 @@ import MultipleStepForm from 'components/MultipleStepForm';
 const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
 
 
-const StaticSections = ({ language, section }) => {
+const StaticSections = ({ onSetting, language, section }) => {
   const { content: { twoStepCheckout } } = section;
   const {
     state: {
@@ -40,12 +40,21 @@ const StaticSections = ({ language, section }) => {
     },
     actions
   } = useContext();
+  const onSectionSettings = () => {
+    const meta = {
+      type: 'staticSectionSetting',
+      menuTitle: 'Payment & Pricing Settings'
+    };
+    onSetting(meta);
+  };
+
   const onChange = ({ target: { name, value } }) => {
     actions.onProductFieldChange({ name, value });
   };
 
   return (
     <FlexBox column className='relative-element'>
+      <SettingsHandle onClick={onSectionSettings} />
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
           {
@@ -168,6 +177,9 @@ const StaticSections = ({ language, section }) => {
   );
 };
 
-StaticSections.propTypes = { language: PropTypes.objectOf(PropTypes.object).isRequired };
+StaticSections.propTypes = {
+  language: PropTypes.objectOf(PropTypes.object).isRequired,
+  onSetting: PropTypes.func.isRequired
+};
 
 export default StaticSections;

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import common from 'components/common';
 import PaymentType from 'components/PaymentType';
 import { useContext } from '../../../actions';
-
+import FlatRadio from 'components/FlatRadio';
 
 const {
   MiniTwitterPicker,
@@ -41,18 +41,15 @@ const {
 
 const StaticSection = ({ ...props }) => {
   const {
-    state: { product = {} },
+    state: { product = {}, modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
-
   const {
     price = {},
     payment = {},
-    // addOns = {},
     pageStyles: { themeColor } = {},
     custom = {}
   } = product;
-
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
@@ -66,6 +63,17 @@ const StaticSection = ({ ...props }) => {
       }
     });
   };
+
+  const onTwoStepCheckoutChange = ({ name, value }) => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: `content.${name}`,
+        value: value
+      }
+    });
+  };
+
   return (
     <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='pricing' title='Pricing'>
@@ -89,7 +97,28 @@ const StaticSection = ({ ...props }) => {
           price={price}
         />
       </Tab>
-
+      <Tab id='forms' title='Forms'>
+        <Label className='mb-2'>
+          Checkout type:
+        </Label>
+        <FlatRadio
+          options={[
+            { label: 'Two step', value: true },
+            { label: 'Classic', value: false }
+          ]}
+          value={sectionSetting.content.twoStepCheckout}
+          name='twoStepCheckout'
+          onToggle={onTwoStepCheckoutChange}
+        />
+        <img
+          src={sectionSetting.content.twoStepCheckout ? 'https://imgur.com/wnThVnO.png' : 'https://imgur.com/nqjepZ3.png'}
+          alt='thumb'
+          style={{
+            height: '320px',
+            objectFit: 'contain'
+          }}
+        />
+      </Tab>
       <Tab id='customs' title='Custom'>
         <InputRow className='sidebar-row'>
           <Label className='sidebar-input-label'>

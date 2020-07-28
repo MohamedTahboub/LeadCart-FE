@@ -1,0 +1,17 @@
+.flat-radio {
+  display: flex;
+  justify-content: center;
+}
+
+.flat-radio-key {
+  padding: 5px 10px;
+  color: #000;
+  background-color: #E8E8E8;
+  transition: all .3s;
+  cursor: pointer;
+}
+.flat-radio-key.active {
+  background-color: #4da0fe;
+  color: #fff;
+  transition: all .3s;
+}

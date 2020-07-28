@@ -1,11 +1,12 @@
 import React from 'react';
 import common from 'components/common';
+import { useContext } from '../../../../../../../../actions';
 
 import './style.css';
 const { CycleStepTitle, CheckoutInput } = common;
 
 
-const BillingDetails = ({ color, language = {}, ...props }) => {
+const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
   const {
     billingDetails: title,
     firstName,
@@ -13,11 +14,16 @@ const BillingDetails = ({ color, language = {}, ...props }) => {
     email,
     phoneNumber
   } = language.checkout || {};
+  const { state: { product: { custom: { shippingDetails } } } } = useContext();
+
 
   return (
     <div className='product-template-billing'>
-
-      <CycleStepTitle step='1'>{title}</CycleStepTitle>
+      {
+        shippingDetails || !twoStepCheckout ?
+          <CycleStepTitle step='1'>{title}</CycleStepTitle> :
+          <div className='black-title'>{title}</div>
+      }
       <div style={{ color }} className='flex-row'>
         <CheckoutInput
           disabled
