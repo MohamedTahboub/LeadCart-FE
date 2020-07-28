@@ -5,7 +5,7 @@ import paypalImage from 'assets/images/paypal-thumbnail.png';
 import creditCardImage from 'assets/images/credit-card-demo.gif';
 import payOnDeliveryImage from 'assets/images/payOnDelivery.jpg';
 import cashOnDeliveryImage from 'assets/images/cod.png';
-
+import { useContext } from '../../../../../../../../actions';
 import './style.css';
 
 
@@ -38,22 +38,28 @@ const PaymentMethods = ({
   // onOptionSelected,
   language = {},
   methods = [],
-  step = 2
+  step = 2,
+  twoStepCheckout
 }) => {
+  const { state: { product: { custom: { shippingDetails } } } } = useContext();
   const [method, setMethod] = useState(0);
-  const {
-    paymentMethods: paymentMethodsTitle
-  } = language.checkout || {};
+  const { paymentMethods: paymentMethodsTitle } = language.checkout || {};
 
   return (
     <Fragment>
       <div className='template-payment-methods-container'>
-        <CycleStepTitle
-          step={step}
-          className='underlined template-payment-method-title'
-        >
-          {paymentMethodsTitle}
-        </CycleStepTitle>
+        {
+          shippingDetails || !twoStepCheckout ? (
+            <CycleStepTitle
+              step={step}
+              className='underlined template-payment-method-title'
+            >
+              {paymentMethodsTitle}
+            </CycleStepTitle>
+          ) : (
+            <div className='black-title'>{paymentMethodsTitle}</div>
+          )
+        }
         {methods.includes('Stripe') && (
           <RadioImageCard
             title='Credit Cards'

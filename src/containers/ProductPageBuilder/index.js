@@ -75,13 +75,12 @@ const ProductBuilder = ({
 
     if (!funnelUrl && product) {
       if (state.product._id !== productId) {
-        if (product) {
-          actions.updateState({
-            standAlone: true,
-            product: matchProductSectionsIds(product)
-          });
-          return setLoading(false);
-        }
+        const updatedProductSection = hasCheckoutSection(product) ? product : injectProductSection(product);
+        actions.updateState({
+          standAlone: true,
+          product: matchProductSectionsIds(updatedProductSection)
+        });
+        return setLoading(false);
       }
     }
 

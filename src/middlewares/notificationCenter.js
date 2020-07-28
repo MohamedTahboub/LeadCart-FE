@@ -14,9 +14,6 @@ export default () => (next) => (action) => {
   case types.VERIFY_SOURCE_EMAIL_SUCCESS:
     showSuccessMessage('An email sent to your account to be verified');
     break;
-  case types.TEST_EMAIL_SUCCESS:
-    showSuccessMessage('A test email was sent to your leadcart email');
-    break;
   case types.CREATE_UPSELL_SUCCESS:
     showSuccessMessage('Upsell Created');
     break;

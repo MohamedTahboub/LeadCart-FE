@@ -1,0 +1,49 @@
+.multi-step-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.multi-step-form__step-tabs {
+  display: flex;
+}
+
+.multi-step-form__step-tabs__tab {
+  font-weight: 100;
+  padding: 5px 10px;
+  border: 2px solid #0000;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.multi-step-form__step-tabs__tab.active {
+  font-weight: 600;
+  color: rgb(6, 147, 227);
+  border: 2px solid #E8E8E8;
+  border-bottom: none;
+}
+
+.multi-step-form__step {
+  display: none;
+}
+
+.multi-step-form__step.active {
+  display: block;
+}
+
+.next-step-key {
+  align-self: flex-end;
+}
+
+.multi-step-form__controllers {
+  display: flex;
+  margin-top: .5rem;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.multi-step-form__form-wrapper {
+  padding: 5px;
+  border: 2px solid #E8E8E8;
+  border-radius: 5px;
+}

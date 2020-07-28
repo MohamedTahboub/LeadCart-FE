@@ -11,8 +11,6 @@ const ResizableInput = ({
   ...props
 }) => {
   const [value, setValue] = useState(props.value || defaultValue);
-
-
   useEffect(() => {
     setValue(props.value);
     return () => {
