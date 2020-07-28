@@ -20,6 +20,12 @@ const ButtonSection = ({
   const { content = {}, styles = {}, actions: buttonActions } = section;
   const { image, layout, editor } = content;
   const { position } = styles;
+
+  //
+  //
+  //
+  //
+  //
   const onChange = ({ target: { value } }) => {
     const updatedSection = {
       ...section,
@@ -28,9 +34,16 @@ const ButtonSection = ({
         value
       }
     };
-    if (props.onChange) return props.onChange(updatedSection);
+
+    console.log('updatedSection from Button index >>>', updatedSection);
+
     actions.onSectionFieldChange(updatedSection);
   };
+  //
+  //
+  //
+  //
+  //
 
   const onImageChange = (image) => {
     actions.onSectionSettingChange({
@@ -91,13 +104,13 @@ const ButtonSection = ({
       borderTopLeftRadius: 5,
       borderBottomLeftRadius: 5
     } : {
-      width: 34,
-      height: 34,
-      padding: 4,
-      borderRadius: 0,
-      borderTopRightRadius: 5,
-      borderBottomRightRadius: 5
-    }),
+            width: 34,
+            height: 34,
+            padding: 4,
+            borderRadius: 0,
+            borderTopRightRadius: 5,
+            borderBottomRightRadius: 5
+          }),
     backgroundColor: styles.iconBackgroundColor || 'transparent'
   };
   const icon = content.iconPlacement !== 'none' && content.icon;
@@ -143,8 +156,8 @@ const ButtonSection = ({
             section={section}
           />
         ) : (
-          buttonComponent
-        )
+              buttonComponent
+            )
       }
     </FlexBox>
   );

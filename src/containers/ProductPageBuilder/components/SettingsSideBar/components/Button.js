@@ -38,11 +38,11 @@ const borderCornerNames = [
 
 const getCornerTitle = (corner) => {
   switch (corner) {
-  case 'borderTopLeftRadius': return 'Top Left';
-  case 'borderTopRightRadius': return 'Top Right';
-  case 'borderBottomLeftRadius': return 'Bottom Left';
-  case 'borderBottomRightRadius': return 'Bottom Right';
-  default: return '';
+    case 'borderTopLeftRadius': return 'Top Left';
+    case 'borderTopRightRadius': return 'Top Right';
+    case 'borderBottomLeftRadius': return 'Bottom Left';
+    case 'borderBottomRightRadius': return 'Bottom Right';
+    default: return '';
   }
 };
 
@@ -51,10 +51,19 @@ const ButtonSection = () => {
     state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
+  const newTemp = { ...sectionSetting };
   const [openCollapse, setOpenCollapse] = useState(null);
-
   const { styles = {}, content = {}, borderSymmetry } = sectionSetting;
-  const onChange = ({ target }) => {
+
+  //
+  //
+  //
+  //
+  //
+  //
+  const onChange = (arg) => onFiledChange(arg, sectionSetting);
+
+  const onFiledChange = ({ target }, sectionSetting) => {
     if (target.name === 'borderSymmetry') {
       actions.onSectionSettingChange({
         section: sectionSetting,
@@ -67,12 +76,41 @@ const ButtonSection = () => {
         ]
       });
     } else {
+      // console.log('===================');
+      // console.log('sectionSetting from button settings', {
+      //   ...sectionSetting,
+      //   styles: {
+      //     ...sectionSetting.styles,
+      //     name: target.name
+      //   }
+      // });
+      // console.log('===================');
+      const field = {
+        name: target.name.split('.')[1],
+        value: target.value
+      };
+      console.log('+++++++++++', newTemp);
       actions.onSectionSettingChange({
-        section: sectionSetting,
-        field: target
+        section: newTemp,
+        field
       });
+      // actions.onSectionSettingChange({
+      //   ...sectionSetting,
+      //   styles: {
+      //     ...sectionSetting.styles,
+      //     [target.name.split('.')[1]]: target.value
+      //   }
+      // });
+
     }
   };
+
+  //
+  //
+  //
+  //
+  //
+  //
 
   const onLayoutChange = (layout) => () => {
     actions.onSectionSettingChange({
@@ -200,7 +238,7 @@ const ButtonSection = () => {
           <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
             <div>Border Radius</div>
             <span className='gray-text'>Symmetric</span>
-            <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry'/>
+            <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry' />
             {
               borderCornerNames.map((corner) => (
                 <>
@@ -240,7 +278,7 @@ const ButtonSection = () => {
           </Collapse>
           <Collapse defaultOpen={openCollapse === 'Shadows'} title='Shadows' toggle={setOpenCollapse}>
             <span>Shadow</span>
-            <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow'/>
+            <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow' />
             <span className='gray-text'>Offset-X</span>
             <Slider
               max={20}
