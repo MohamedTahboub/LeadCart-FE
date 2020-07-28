@@ -6,7 +6,7 @@ import './style.css';
 const { CycleStepTitle, CheckoutInput } = common;
 
 
-const BillingDetails = ({ color, language = {} }) => {
+const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
   const {
     billingDetails: title,
     firstName,
@@ -14,14 +14,13 @@ const BillingDetails = ({ color, language = {} }) => {
     email,
     phoneNumber
   } = language.checkout || {};
-  const { state: { product: { custom: { shippingDetails }, sections } } } = useContext();
+  const { state: { product: { custom: { shippingDetails } } } } = useContext();
 
-  const checkoutSection = sections.find(({ type }) => type === 'checkoutSection') || { content: {} };
 
   return (
     <div className='product-template-billing'>
       {
-        shippingDetails || !checkoutSection.content.twoStepCheckout ?
+        shippingDetails || !twoStepCheckout ?
           <CycleStepTitle step='1'>{title}</CycleStepTitle> :
           <div className='black-title'>{title}</div>
       }

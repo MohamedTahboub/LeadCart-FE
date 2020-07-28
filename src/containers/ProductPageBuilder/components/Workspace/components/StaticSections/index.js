@@ -62,6 +62,7 @@ const StaticSections = ({ onSetting, language, section }) => {
               <MultipleStepForm steps={[shippingDetails ? 'Billing & Shipping Details' : 'Billing Details', 'Payment Details']}>
                 <>
                   <BillingDetails
+                    twoStepCheckout={twoStepCheckout}
                     color={pageStyles.themeColor}
                     language={language}
                   />
@@ -74,6 +75,7 @@ const StaticSections = ({ onSetting, language, section }) => {
                 </>
                 <>
                   <PaymentMethods
+                    twoStepCheckout={twoStepCheckout}
                     step={addOns.shippingDetails ? 3 : 2}
                     methods={payment.methods}
                     language={language}
@@ -101,6 +103,7 @@ const StaticSections = ({ onSetting, language, section }) => {
             ) : (
               <>
                 <BillingDetails
+                  twoStepCheckout={twoStepCheckout}
                   color={pageStyles.themeColor}
                   language={language}
                 />
@@ -111,6 +114,7 @@ const StaticSections = ({ onSetting, language, section }) => {
                   />
                 )}
                 <PaymentMethods
+                  twoStepCheckout={twoStepCheckout}
                   step={addOns.shippingDetails ? 3 : 2}
                   methods={payment.methods}
                   language={language}

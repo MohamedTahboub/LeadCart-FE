@@ -38,19 +38,18 @@ const PaymentMethods = ({
   // onOptionSelected,
   language = {},
   methods = [],
-  step = 2
+  step = 2,
+  twoStepCheckout
 }) => {
-  const { state: { product: { custom: { shippingDetails }, sections } } } = useContext();
+  const { state: { product: { custom: { shippingDetails } } } } = useContext();
   const [method, setMethod] = useState(0);
   const { paymentMethods: paymentMethodsTitle } = language.checkout || {};
-
-  const checkoutSection = sections.find(({ type }) => type === 'checkoutSection') || { content: {} };
 
   return (
     <Fragment>
       <div className='template-payment-methods-container'>
         {
-          shippingDetails || !checkoutSection.content.twoStepCheckout ? (
+          shippingDetails || !twoStepCheckout ? (
             <CycleStepTitle
               step={step}
               className='underlined template-payment-method-title'
