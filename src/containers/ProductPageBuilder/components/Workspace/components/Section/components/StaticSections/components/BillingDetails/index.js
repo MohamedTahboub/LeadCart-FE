@@ -14,7 +14,7 @@ const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
     email,
     phoneNumber
   } = language.checkout || {};
-  const { state: { product: { custom: { shippingDetails } } } } = useContext();
+  const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
 
 
   return (

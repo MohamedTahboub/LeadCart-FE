@@ -41,7 +41,7 @@ const PaymentMethods = ({
   step = 2,
   twoStepCheckout
 }) => {
-  const { state: { product: { custom: { shippingDetails } } } } = useContext();
+  const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
   const [method, setMethod] = useState(0);
   const { paymentMethods: paymentMethodsTitle } = language.checkout || {};
 
