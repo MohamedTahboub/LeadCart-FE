@@ -5,14 +5,14 @@ import './templateCard.css';
 
 const TemplateCard = (props) => {
   const { actions, state } = useContext();
-  const { img = '' } = props;
+  const { img = '', sections } = props;
 
   const onClick = () => {
     actions.updateState({
       ...state,
       product: {
         ...state.product,
-        sections: props.sections
+        sections
       }
     });
   };
