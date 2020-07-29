@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaHome } from 'react-icons/fa';
+import { FaElementor, FaHome } from 'react-icons/fa';
 
 import common from 'components/common';
 import { BaseCard, sectionsIcons } from './BuilderSections';
@@ -13,12 +13,16 @@ const SideBar = ({ canOffer }) => {
   const sideBarData = canOffer ? sectionsIcons : sectionsIcons.filter((ele) => ele.type !== 'bumpOffer');
 
   const builderSectionTitle =
-    (<div className='builder-section__header'>
-      <span className='builder-section__header-icon' ><FaHome /></span>
+    (<div className='tab-section__header'>
+      <span className='tab-section__header-icon' ><FaHome /></span>
       Builder Section
     </div>);
 
-  const templatesSectionTitle = <div className='templates-section__header'>Templates</div>;
+  const templatesSectionTitle =
+    (<div className='tab-section__header'>
+      <span className='tab-section__header-icon' ><FaElementor /></span>
+      Templates
+    </div>);
 
 
   return (
