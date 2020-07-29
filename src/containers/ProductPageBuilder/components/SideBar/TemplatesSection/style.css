@@ -1,0 +1,9 @@
+.templates{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100vh;
+  overflow: auto;
+  padding-bottom: 150px;
+}

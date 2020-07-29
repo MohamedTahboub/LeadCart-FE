@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { DragPreviewImage, useDrag } from 'react-dnd';
 
-import * as dropTypes from '../../Workspace/components/dropTypes';
+import * as dropTypes from '../../../Workspace/components/dropTypes';
 
 const ElementCard = ({ ...props }) => {
   const { src, type, title } = props;

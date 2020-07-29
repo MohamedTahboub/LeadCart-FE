@@ -6,14 +6,14 @@
   overflow: auto;
 }
 
-.active .builder-section__header{
+.active .builder-section__header, .active .templates-section__header{
   color: #4DA1FF;
 }
 
 .builder-section__header{
   display: flex;
   align-items: center;
-  color: #4DA1FF;
+  /* color: #4DA1FF; */
 }
 
 .builder-section__header-icon{
