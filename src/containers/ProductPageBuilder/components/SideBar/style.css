@@ -6,27 +6,21 @@
   overflow: auto;
 }
 
-.active .builder-section__header, .active .templates-section__header{
+.active .tab-section__header{ 
   color: #4DA1FF;
 }
 
-.builder-section__header{
+.tab-section__header{
   display: flex;
   align-items: center;
-  /* color: #4DA1FF; */
 }
 
-.builder-section__header-icon{
+.tab-section__header-icon{
   margin-right: 5px;
-  border-bottom: 2px dotted;
   display: flex;
   align-items: center;
 }
 
-.builder-section__header-text{
-  display: flex;
-  align-items: center;
-}
 
 .builder-section__icon{
   display: flex;
