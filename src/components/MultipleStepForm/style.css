@@ -19,7 +19,6 @@
 .multi-step-form__step-tabs__tab.active {
   font-weight: 600;
   color: rgb(6, 147, 227);
-  border: 2px solid #E8E8E8;
   border-bottom: none;
 }
 
@@ -46,4 +45,59 @@
   padding: 5px;
   border: 2px solid #E8E8E8;
   border-radius: 5px;
+}
+
+.progress-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center ;
+  width: 100%;
+}
+
+
+.progress-steps{
+display: flex;
+justify-content: center;
+align-items: center ;
+width: 100%;
+}
+
+.progress-one-step{
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.progress-titles{
+  display: flex;
+  justify-content: space-around;
+  align-items: center ;
+  width: 100%;
+}
+
+
+
+
+.progress-circle {
+  width: 23px;
+  height: 23px;
+  margin: 0 4px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.progress-line{
+  display: inline-block;
+  width: calc(100% - 25px);
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+.activeCircle .progress-circle{
+  background-color: rgb(6, 147, 227);
 }
