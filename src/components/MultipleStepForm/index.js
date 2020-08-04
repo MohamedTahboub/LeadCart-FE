@@ -2,21 +2,15 @@ import React, { useState } from 'react';
 import { Button } from 'components/common/Buttons';
 import clx from 'classnames';
 
+import ProgressBar from './ProgressBar';
 import './style.css';
 
 const MultipleStepForm = ({ steps, children }) => {
   const [currentStep, setCurrentStep] = useState(0);
   return (
     <div className='multi-step-form'>
-      <div className='multi-step-form__step-tabs'>
-        {
-          steps.map((step, index) => (
-            <div className={clx('multi-step-form__step-tabs__tab', { active: index === currentStep })}>
-              {step}
-            </div>
-          ))
-        }
-      </div>
+      <ProgressBar steps={steps} currentStep={currentStep} />
+
       <div className='multi-step-form__form-wrapper'>
         <div className='multi-step-form__steps-wrapper'>
           {
