@@ -103,7 +103,7 @@ const StaticSection = ({ ...props }) => {
         </Label>
         <FlatRadio
           options={[
-            { label: 'Two step', value: true },
+            { label: 'Three step', value: true },
             { label: 'Classic', value: false }
           ]}
           value={sectionSetting.content.twoStepCheckout}

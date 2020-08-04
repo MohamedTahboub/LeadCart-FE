@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-import { SettingsHandle } from '../../../common';
 import { useContext } from '../../../../../../actions';
 import OrderReceipt from './components/Receipt';
 
@@ -50,20 +49,22 @@ const StaticSections = ({ language, section }) => {
         <FlexBox column id='checkout'>
           {
             twoStepCheckout ? (
-              <MultipleStepForm steps={[shippingDetails ? 'Billing & Shipping Details' : 'Billing Details', 'Payment Details']}>
+              <MultipleStepForm steps={shippingDetails ? ['Billing Details', 'Shipping Details', 'Payment Details'] : ['Billing Details', 'Payment Details']}>
                 <>
                   <BillingDetails
                     twoStepCheckout={twoStepCheckout}
                     color={pageStyles.themeColor}
                     language={language}
                   />
-                  {shippingDetails && (
-                    <ShippingDetails
-                      color={pageStyles.themeColor}
-                      language={language}
-                    />
-                  )}
                 </>
+
+                {shippingDetails && <>
+                  <ShippingDetails
+                    color={pageStyles.themeColor}
+                    language={language}
+                  />
+                </>}
+
                 <>
                   <PaymentMethods
                     twoStepCheckout={twoStepCheckout}
@@ -91,7 +92,8 @@ const StaticSections = ({ language, section }) => {
                   />
                 </>
               </MultipleStepForm>
-            ) : (
+
+            ) :
               <>
                 <BillingDetails
                   twoStepCheckout={twoStepCheckout}
@@ -129,7 +131,6 @@ const StaticSections = ({ language, section }) => {
                   onChange={onChange}
                 />
               </>
-            )
           }
         </FlexBox>
         <FlexBox
