@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Button } from 'components/common/Buttons';
 import clx from 'classnames';
 
-import ProgressBar from './ProgressBar';
+import { Button } from 'components/common/Buttons';
+import ProgressBarWithSteps from 'components/common/ProgressBarWithSteps';
 import './style.css';
 
 const MultipleStepForm = ({ steps, children }) => {
   const [currentStep, setCurrentStep] = useState(0);
   return (
     <div className='multi-step-form'>
-      <ProgressBar steps={steps} currentStep={currentStep} />
+      <ProgressBarWithSteps steps={steps} currentStep={currentStep} />
 
       <div className='multi-step-form__form-wrapper'>
         <div className='multi-step-form__steps-wrapper'>
