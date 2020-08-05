@@ -103,8 +103,8 @@ const StaticSection = ({ ...props }) => {
         </Label>
         <FlatRadio
           options={[
-            { label: 'Three step', value: true },
-            { label: 'Classic', value: false }
+            { label: 'Two steps', value: true },
+            { label: 'One step', value: false }
           ]}
           value={sectionSetting.content.twoStepCheckout}
           name='twoStepCheckout'
@@ -137,6 +137,16 @@ const StaticSection = ({ ...props }) => {
           <Toggle
             value={custom.couponSection}
             name='couponSection'
+            onToggle={onToggleCustom}
+          />
+        </InputRow>
+        <InputRow className='sidebar-row'>
+          <Label className='sidebar-input-label'>
+            Show Order Summary
+          </Label>
+          <Toggle
+            value={custom.orderSummary}
+            name='orderSummary'
             onToggle={onToggleCustom}
           />
         </InputRow>

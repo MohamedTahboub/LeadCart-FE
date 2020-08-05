@@ -33,7 +33,8 @@ const StaticSections = ({ language, section }) => {
           orderButtonText = 'Complete Order',
           declineButtonText = 'No Thanks',
           shippingDetails,
-          couponSection
+          couponSection,
+          orderSummary
         } = {}
       } = {}
     },
@@ -56,6 +57,15 @@ const StaticSections = ({ language, section }) => {
                     color={pageStyles.themeColor}
                     language={language}
                   />
+
+                  {orderSummary &&
+                    <OrderSummary
+                      price={price}
+                      productName={name}
+                      payment={payment}
+                      language={language}
+                    />}
+
                 </>
 
                 {shippingDetails && <>
@@ -63,6 +73,14 @@ const StaticSections = ({ language, section }) => {
                     color={pageStyles.themeColor}
                     language={language}
                   />
+
+                  {orderSummary &&
+                    <OrderSummary
+                      price={price}
+                      productName={name}
+                      payment={payment}
+                      language={language}
+                    />}
                 </>}
 
                 <>
