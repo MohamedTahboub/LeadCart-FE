@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clx from 'classnames';
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 
 import { Button } from 'components/common/Buttons';
 import ProgressBarWithSteps from 'components/common/ProgressBarWithSteps';
@@ -31,14 +32,17 @@ const MultipleStepForm = ({ steps, children }) => {
                   onClick={() => setCurrentStep(currentStep + 1)}
                 >
                   Next
+                  <FaArrowAltCircleRight />
                 </Button>
               )
           }
           <Button
-            className={clx('next-step-key', { 'd-none': currentStep === 0 })}
+            className={clx('back-step-key', { 'd-none': currentStep === 0 })}
             onClick={() => setCurrentStep(currentStep - 1)}
           >
+            <FaArrowAltCircleLeft />
             Back
+
           </Button>
         </div>
       </div>

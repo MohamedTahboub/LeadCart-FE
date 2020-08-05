@@ -27,8 +27,24 @@
   display: block;
 }
 
-.next-step-key {
-  align-self: flex-end;
+.next-step-key,
+.back-step-key {
+  display: flex;
+  justify-content: space-evenly ;
+  align-items: center;
+  padding: 7px 0;
+  width: 80px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.back-step-key{
+  background-color: #d63031;
+  opacity: .6;
+}
+.back-step-key:hover{
+  background-color: #d63031;
+  opacity: 1;
 }
 
 .multi-step-form__controllers {
