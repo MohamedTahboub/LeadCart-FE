@@ -114,7 +114,7 @@ const Node = ({
     draggable: true,
     elementRef,
     onDragStart,
-    onClick: () => showStatusHate && toggleOptions(elementId)
+    onClick: () => toggleOptions(elementId)
   };
 
   return (
