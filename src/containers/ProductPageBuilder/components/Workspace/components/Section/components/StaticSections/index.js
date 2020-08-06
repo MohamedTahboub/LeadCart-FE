@@ -26,7 +26,7 @@ const StaticSections = ({ language, section }) => {
         name,
         category: productCategory = 'checkout',
         price = {},
-        payment = { methods: ['Paypal', 'Stripe'] },
+        payment,
         addOns = {},
         pageStyles = {},
         custom: {
@@ -40,6 +40,10 @@ const StaticSections = ({ language, section }) => {
     },
     actions
   } = useContext();
+
+  let { methods } = payment;
+  methods = methods.length === 0 ? ['Paypal', 'Stripe'] : methods;
+
   const onChange = ({ target: { name, value } }) => {
     actions.onProductFieldChange({ name, value });
   };
@@ -87,7 +91,7 @@ const StaticSections = ({ language, section }) => {
                   <PaymentMethods
                     twoStepCheckout={twoStepCheckout}
                     step={addOns.shippingDetails ? 3 : 2}
-                    methods={payment.methods}
+                    methods={methods}
                     language={language}
                   />
                   {couponSection && (
@@ -127,7 +131,7 @@ const StaticSections = ({ language, section }) => {
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}
                   step={addOns.shippingDetails ? 3 : 2}
-                  methods={payment.methods}
+                  methods={methods}
                   language={language}
                 />
                 {couponSection && (
