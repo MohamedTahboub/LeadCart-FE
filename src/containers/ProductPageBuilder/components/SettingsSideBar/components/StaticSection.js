@@ -144,12 +144,14 @@ const StaticSection = ({ ...props }) => {
         {twoStepCheckout &&
           <InputRow className='sidebar-row'>
             <Label className='sidebar-input-label'>
-              Show Order Summary
+              summary in each step
             </Label>
             <Toggle
               value={custom.orderSummary}
               name='orderSummary'
               onToggle={onToggleCustom}
+              beforeLabel='Show'
+              afterLabel='Hide'
             />
           </InputRow>
         }
