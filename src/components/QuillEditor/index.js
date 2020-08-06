@@ -1,5 +1,6 @@
 import React from 'react';
 import 'react-quill/dist/quill.bubble.css';
+import 'quill-mention/dist/quill.mention.css';
 import ReactQuill from 'react-quill';
 import PropTypes from 'prop-types';
 import './style.css';

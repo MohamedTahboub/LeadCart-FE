@@ -18,7 +18,8 @@ const ProductSchema = yup.object({
     declineButtonText: yup.string(),
     orderButtonText: yup.string(),
     shippingDetails: yup.boolean().default(false),
-    couponSection: yup.boolean().default(false)
+    couponSection: yup.boolean().default(false),
+    orderSummary: yup.boolean().default(false)
   }),
   internalName: yup.string(),
   thumbnail: yup.string(),
@@ -36,10 +37,10 @@ const ProductSchema = yup.object({
         type,
         schema
       ) => (
-        type === 'Onetime'
-          ? schema.transform(() => undefined)
-          : schema.default('MONTH')
-      )),
+          type === 'Onetime'
+            ? schema.transform(() => undefined)
+            : schema.default('MONTH')
+        )),
     splits: yup.string().when(
       'type',
       {

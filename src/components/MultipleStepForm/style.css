@@ -9,18 +9,14 @@
 }
 
 .multi-step-form__step-tabs__tab {
-  font-weight: 100;
-  padding: 5px 10px;
-  border: 2px solid #0000;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  padding: 5px 0;
+  width: 110px;
+  text-align: center;
 }
 
 .multi-step-form__step-tabs__tab.active {
   font-weight: 600;
   color: rgb(6, 147, 227);
-  border: 2px solid #E8E8E8;
-  border-bottom: none;
 }
 
 .multi-step-form__step {
@@ -31,8 +27,24 @@
   display: block;
 }
 
-.next-step-key {
-  align-self: flex-end;
+.next-step-key,
+.back-step-key {
+  display: flex;
+  justify-content: space-evenly ;
+  align-items: center;
+  padding: 7px 0;
+  width: 80px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.back-step-key{
+  background-color: #d63031;
+  opacity: .6;
+}
+.back-step-key:hover{
+  background-color: #d63031;
+  opacity: 1;
 }
 
 .multi-step-form__controllers {
@@ -47,3 +59,4 @@
   border: 2px solid #E8E8E8;
   border-radius: 5px;
 }
+
