@@ -1,5 +1,8 @@
 import ReactQuill from 'react-quill';
+import QuillMention from 'quill-mention';
+import { includesIgnoreCase } from 'libs';
 const Font = ReactQuill.Quill.import('formats/font');
+
 const supportedFontFamilyList = [
   'Raleway',
   'Roboto',
@@ -12,8 +15,30 @@ const supportedFontFamilyList = [
   'Ubuntu'
 ];
 
+const fieldsNames = [
+  { id: 'firstName', value: 'First Name' },
+  { id: 'lastName', value: 'Last Name' },
+  { id: 'email', value: 'Email Address' },
+  { id: 'phoneNumber', value: 'Phone Number' }
+];
+
+const mentionModule = {
+  allowedChars: /^[A-Za-z\s]*$/,
+  mentionDenotationChars: ['@', '#'],
+  source: function (searchTerm = '', renderList, mentionChar) {
+
+    const filtered = fieldsNames.filter((field) => {
+      if (!(searchTerm && searchTerm.trim())) return true;
+      return includesIgnoreCase(field.value, searchTerm);
+    });
+
+    renderList(filtered, searchTerm);
+  }
+};
+
 Font.whitelist = supportedFontFamilyList;
 ReactQuill.Quill.register(Font, true);
+ReactQuill.Quill.register('modules/mentions', QuillMention);
 
 const modules = {
   toolbar: [
@@ -99,15 +124,8 @@ const modules = {
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: true
-  }
-  // imageResize: {
-  //   displayStyles: {
-  //     backgroundColor: 'black',
-  //     border: 'none',
-  //     color: 'white'
-  //     // other camelCase styles for size display
-  //   }
-  // }
+  },
+  mention: mentionModule
 };
 
 const formats = [
@@ -123,8 +141,10 @@ const formats = [
   'color',
   'background',
   'align',
-  'link'
+  'link',
+  'mention'
 ];
+
 const headingModules = {
   toolbar: [
     [{ header: 1 }, { header: 2 }],
@@ -202,7 +222,8 @@ const headingModules = {
     [
       { align: ['', 'right', 'center', 'justify'] }
     ]
-  ]
+  ],
+  mention: mentionModule
 };
 const headingFormats = [
   'font',
@@ -214,7 +235,8 @@ const headingFormats = [
   'color',
   'background',
   'align',
-  'strike'
+  'strike',
+  'mention'
 ];
 
 export {
