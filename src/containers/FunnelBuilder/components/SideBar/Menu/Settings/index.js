@@ -107,7 +107,7 @@ Settings.defaultProps = { product: {} };
 
 const mapStateToProps = ({ translations: languages = [defaultLanguage] }) => {
   const languagesOptions = languages
-    .map(({ name: label, _id: value }) => ({ label, value }));
+    .map(({ name: label, _id: value = label }) => ({ label, value }));
   return { languagesOptions };
 };
 export default connect(mapStateToProps)(Settings);
