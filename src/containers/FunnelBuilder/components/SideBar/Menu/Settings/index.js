@@ -79,6 +79,7 @@ const Settings = ({
             defaultValue={language}
             name='language'
             onChange={onFiledChange}
+            placeholder={language === undefined ? 'English' : language}
           />
         </FlexBox>
       </FlexBox>
