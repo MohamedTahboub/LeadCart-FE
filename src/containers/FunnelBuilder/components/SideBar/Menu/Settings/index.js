@@ -37,7 +37,7 @@ const Settings = ({
 }) => {
 
   const onFiledChange = ({ target: { name, value } }) => {
-    onChange({ name, value });
+    onChange({ name, value: value === 'English' ? undefined : value });
   };
 
   return (
