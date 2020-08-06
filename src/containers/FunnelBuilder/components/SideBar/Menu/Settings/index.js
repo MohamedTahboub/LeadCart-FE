@@ -37,7 +37,7 @@ const Settings = ({
 }) => {
 
   const onFiledChange = ({ target: { name, value } }) => {
-    onChange({ name, value });
+    onChange({ name, value: value === 'English' ? undefined : value });
   };
 
   return (
@@ -79,6 +79,7 @@ const Settings = ({
             defaultValue={language}
             name='language'
             onChange={onFiledChange}
+            placeholder={language === undefined ? 'English' : language}
           />
         </FlexBox>
       </FlexBox>
@@ -107,7 +108,7 @@ Settings.defaultProps = { product: {} };
 
 const mapStateToProps = ({ translations: languages = [defaultLanguage] }) => {
   const languagesOptions = languages
-    .map(({ name: label, _id: value }) => ({ label, value }));
+    .map(({ name: label, _id: value = label }) => ({ label, value }));
   return { languagesOptions };
 };
 export default connect(mapStateToProps)(Settings);
