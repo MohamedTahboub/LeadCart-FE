@@ -44,6 +44,7 @@ const StaticSection = ({ ...props }) => {
     state: { product = {}, modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
+  const { content: { twoStepCheckout } } = sectionSetting;
   const {
     price = {},
     payment = {},
@@ -103,15 +104,15 @@ const StaticSection = ({ ...props }) => {
         </Label>
         <FlatRadio
           options={[
-            { label: 'Two step', value: true },
-            { label: 'Classic', value: false }
+            { label: 'Two steps', value: true },
+            { label: 'One step', value: false }
           ]}
-          value={sectionSetting.content.twoStepCheckout}
+          value={twoStepCheckout}
           name='twoStepCheckout'
           onToggle={onTwoStepCheckoutChange}
         />
         <img
-          src={sectionSetting.content.twoStepCheckout ? 'https://imgur.com/wnThVnO.png' : 'https://imgur.com/nqjepZ3.png'}
+          src={twoStepCheckout ? 'https://imgur.com/nqjepZ3.png' : 'https://imgur.com/wnThVnO.png'}
           alt='thumb'
           style={{
             height: '320px',
@@ -140,6 +141,20 @@ const StaticSection = ({ ...props }) => {
             onToggle={onToggleCustom}
           />
         </InputRow>
+        {twoStepCheckout &&
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              summary in each step
+            </Label>
+            <Toggle
+              value={custom.orderSummary}
+              name='orderSummary'
+              onToggle={onToggleCustom}
+              beforeLabel='Show'
+              afterLabel='Hide'
+            />
+          </InputRow>
+        }
       </Tab>
     </Tabs>
   );
