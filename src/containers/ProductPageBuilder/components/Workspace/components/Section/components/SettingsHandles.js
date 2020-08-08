@@ -40,13 +40,15 @@ const SettingsHandles = ({
     moveCard(id, index + 1);
   };
 
+  const isOnBottom = index !== sections.length - 1;
+  const isOnTop = index !== 0;
   const withSettingSide = !settingLessTypes.includes(section.type);
 
   return (
     <div className='product-section-settings-handle'>
       <section className='order-buttons'>
-        {index !== sections.length - 1 && <div className='order-buttons-bottom' onClick={onOrderBottom}><FaArrowAltCircleDown /></div>}
-        {index !== 0 && <div className='order-buttons-top' onClick={onOrderTop}><FaArrowAltCircleUp /></div>}
+        {isOnBottom && <div className='order-buttons-bottom' onClick={onOrderBottom}><FaArrowAltCircleDown /></div>}
+        {isOnTop && <div className='order-buttons-top' onClick={onOrderTop}><FaArrowAltCircleUp /></div>}
       </section>
 
       {section.type !== 'checkoutSection' &&
