@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
@@ -22,11 +22,12 @@ const StaticSections = ({ language, section }) => {
   const { content: { twoStepCheckout } } = section;
   const {
     state: {
+      funnel: { paymentMethods } = {},
       product: {
         name,
         category: productCategory = 'checkout',
         price = {},
-        payment = { methods: ['Paypal', 'Stripe'] },
+        payment,
         addOns = {},
         pageStyles = {},
         custom: {
@@ -40,6 +41,7 @@ const StaticSections = ({ language, section }) => {
     },
     actions
   } = useContext();
+
   const onChange = ({ target: { name, value } }) => {
     actions.onProductFieldChange({ name, value });
   };
@@ -51,7 +53,7 @@ const StaticSections = ({ language, section }) => {
           {
             twoStepCheckout ? (
               <MultipleStepForm steps={shippingDetails ? ['Billing Details', 'Shipping Details', 'Payment Details'] : ['Billing Details', 'Payment Details']}>
-                <>
+                <Fragment>
                   <BillingDetails
                     twoStepCheckout={twoStepCheckout}
                     color={pageStyles.themeColor}
@@ -66,28 +68,30 @@ const StaticSections = ({ language, section }) => {
                       language={language}
                     />}
 
-                </>
+                </Fragment>
 
-                {shippingDetails && <>
-                  <ShippingDetails
-                    color={pageStyles.themeColor}
-                    language={language}
-                  />
-
-                  {orderSummary &&
-                    <OrderSummary
-                      price={price}
-                      productName={name}
-                      payment={payment}
+                {shippingDetails && (
+                  <Fragment>
+                    <ShippingDetails
+                      color={pageStyles.themeColor}
                       language={language}
-                    />}
-                </>}
+                    />
 
-                <>
+                    {orderSummary &&
+                      <OrderSummary
+                        price={price}
+                        productName={name}
+                        payment={payment}
+                        language={language}
+                      />}
+                  </Fragment>
+                )}
+
+                <Fragment>
                   <PaymentMethods
                     twoStepCheckout={twoStepCheckout}
                     step={addOns.shippingDetails ? 3 : 2}
-                    methods={payment.methods}
+                    methods={paymentMethods}
                     language={language}
                   />
                   {couponSection && (
@@ -108,11 +112,11 @@ const StaticSections = ({ language, section }) => {
                     color={pageStyles.themeColor}
                     onChange={onChange}
                   />
-                </>
+                </Fragment>
               </MultipleStepForm>
 
             ) :
-              <>
+              <Fragment>
                 <BillingDetails
                   twoStepCheckout={twoStepCheckout}
                   color={pageStyles.themeColor}
@@ -127,7 +131,7 @@ const StaticSections = ({ language, section }) => {
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}
                   step={addOns.shippingDetails ? 3 : 2}
-                  methods={payment.methods}
+                  methods={paymentMethods}
                   language={language}
                 />
                 {couponSection && (
@@ -148,7 +152,7 @@ const StaticSections = ({ language, section }) => {
                   color={pageStyles.themeColor}
                   onChange={onChange}
                 />
-              </>
+              </Fragment>
           }
         </FlexBox>
         <FlexBox
