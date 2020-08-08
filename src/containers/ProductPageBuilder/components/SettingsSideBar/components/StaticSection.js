@@ -49,8 +49,11 @@ const StaticSection = ({ ...props }) => {
     price = {},
     payment = {},
     pageStyles: { themeColor } = {},
-    custom = {}
+    custom = {},
+    category
   } = product;
+
+  const isCheckoutProductPage = category === 'checkout';
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
@@ -98,64 +101,70 @@ const StaticSection = ({ ...props }) => {
           price={price}
         />
       </Tab>
-      <Tab id='forms' title='Forms'>
-        <Label className='mb-2'>
-          Checkout type:
-        </Label>
-        <FlatRadio
-          options={[
-            { label: 'Two steps', value: true },
-            { label: 'One step', value: false }
-          ]}
-          value={twoStepCheckout}
-          name='twoStepCheckout'
-          onToggle={onTwoStepCheckoutChange}
-        />
-        <img
-          src={twoStepCheckout ? 'https://imgur.com/nqjepZ3.png' : 'https://imgur.com/wnThVnO.png'}
-          alt='thumb'
-          style={{
-            height: '320px',
-            objectFit: 'contain'
-          }}
-        />
-      </Tab>
-      <Tab id='customs' title='Custom'>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Show Shipping Form
+
+      {isCheckoutProductPage &&
+        <Tab id='forms' title='Forms'>
+          <Label className='mb-2'>
+            Checkout type:
           </Label>
-          <Toggle
-            value={custom.shippingDetails}
-            name='shippingDetails'
-            onToggle={onToggleCustom}
+          <FlatRadio
+            options={[
+              { label: 'Two steps', value: true },
+              { label: 'One step', value: false }
+            ]}
+            value={twoStepCheckout}
+            name='twoStepCheckout'
+            onToggle={onTwoStepCheckoutChange}
           />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Show Coupon Section
-          </Label>
-          <Toggle
-            value={custom.couponSection}
-            name='couponSection'
-            onToggle={onToggleCustom}
+          <img
+            src={twoStepCheckout ? 'https://imgur.com/nqjepZ3.png' : 'https://imgur.com/wnThVnO.png'}
+            alt='thumb'
+            style={{
+              height: '320px',
+              objectFit: 'contain'
+            }}
           />
-        </InputRow>
-        {twoStepCheckout &&
+        </Tab>
+      }
+
+      {isCheckoutProductPage &&
+        <Tab id='customs' title='Custom'>
           <InputRow className='sidebar-row'>
             <Label className='sidebar-input-label'>
-              summary in each step
+              Show Shipping Form
             </Label>
             <Toggle
-              value={custom.orderSummary}
-              name='orderSummary'
+              value={custom.shippingDetails}
+              name='shippingDetails'
               onToggle={onToggleCustom}
-              beforeLabel='Show'
-              afterLabel='Hide'
             />
           </InputRow>
-        }
-      </Tab>
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Show Coupon Section
+            </Label>
+            <Toggle
+              value={custom.couponSection}
+              name='couponSection'
+              onToggle={onToggleCustom}
+            />
+          </InputRow>
+          {twoStepCheckout &&
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
+                summary in each step
+              </Label>
+              <Toggle
+                value={custom.orderSummary}
+                name='orderSummary'
+                onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
+              />
+            </InputRow>
+          }
+        </Tab>
+      }
     </Tabs>
   );
 };
