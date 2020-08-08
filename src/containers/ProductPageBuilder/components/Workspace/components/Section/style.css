@@ -167,3 +167,28 @@
         transform: scale(1.01);
     }
 }
+
+.order-buttons{
+  display: flex;
+}
+
+.order-buttons-bottom,
+.order-buttons-top{
+  margin: 0 3px;
+  opacity: .6;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+.order-buttons-top{
+   color: #4DA1FF
+}
+
+.order-buttons-bottom{
+    color: #d63031;
+}
+
+.order-buttons-bottom:hover,
+.order-buttons-top:hover{
+  opacity: 1;
+}

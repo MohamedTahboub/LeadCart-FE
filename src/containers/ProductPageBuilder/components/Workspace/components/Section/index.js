@@ -83,6 +83,8 @@ const Section = ({
           order={order}
           id={id}
           maxOrder={maxOrder}
+          moveCard={moveCard}
+          index={index}
         />
         <SectionContent
           {...content}
