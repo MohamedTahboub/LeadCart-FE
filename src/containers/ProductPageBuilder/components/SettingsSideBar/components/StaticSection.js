@@ -53,7 +53,7 @@ const StaticSection = ({ ...props }) => {
     category
   } = product;
 
-  const checkoutProductPage = category === 'checkout';
+  const isCheckoutProductPage = category === 'checkout';
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
@@ -102,7 +102,7 @@ const StaticSection = ({ ...props }) => {
         />
       </Tab>
 
-      {checkoutProductPage &&
+      {isCheckoutProductPage &&
         <Tab id='forms' title='Forms'>
           <Label className='mb-2'>
             Checkout type:
@@ -127,7 +127,7 @@ const StaticSection = ({ ...props }) => {
         </Tab>
       }
 
-      {checkoutProductPage &&
+      {isCheckoutProductPage &&
         <Tab id='customs' title='Custom'>
           <InputRow className='sidebar-row'>
             <Label className='sidebar-input-label'>

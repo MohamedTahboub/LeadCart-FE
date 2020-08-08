@@ -28,7 +28,7 @@ const Section = ({
   ...props
 }) => {
   const { state: { product: { category } = {} } } = useContext();
-  const upsellProductPage = category === 'thankyoupage';
+  const isThankYouProductPage = category === 'thankyoupage';
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
@@ -79,17 +79,17 @@ const Section = ({
         className={classes}
         style={style}
       >
-        {!upsellProductPage &&
-          <SettingsHandles
-            onSettings={onSetting}
-            onDuplicate={onDuplicate}
-            section={section}
-            order={order}
-            id={id}
-            maxOrder={maxOrder}
-            moveCard={moveCard}
-            index={index}
-          />}
+        <SettingsHandles
+          onSettings={onSetting}
+          onDuplicate={onDuplicate}
+          section={section}
+          order={order}
+          id={id}
+          maxOrder={maxOrder}
+          moveCard={moveCard}
+          index={index}
+          isThankYouProductPage={isThankYouProductPage}
+        />
         <SectionContent
           {...content}
           type={type}
