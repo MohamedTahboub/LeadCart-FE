@@ -9,7 +9,7 @@ import { useContext } from '../../../../../../../../actions';
 import './style.css';
 
 
-const { CycleStepTitle, RadioImageCard } = common;
+const { FlexBox, CycleStepTitle, RadioImageCard } = common;
 
 const PaymentSelectionDemo = ({ method }) => {
   let src;
@@ -27,20 +27,25 @@ const PaymentSelectionDemo = ({ method }) => {
   }
 
   return (
-    <img
-      src={src}
-      alt='paypal brand'
-      className={`template-payment-gateway-demo ${classes}`}
-    />
+    <FlexBox center='h-center'>
+      <img
+        src={src}
+        alt='paypal brand'
+        className={`template-payment-gateway-demo ${classes}`}
+      />
+    </FlexBox>
   );
 };
+const defaultPaymentsMethods = ['Paypal', 'Stripe'];
+
 const PaymentMethods = ({
-  // onOptionSelected,
   language = {},
-  methods = [],
+  methods: paymentMethods = defaultPaymentsMethods,
   step = 2,
   twoStepCheckout
 }) => {
+  const methods = paymentMethods.length ? paymentMethods : defaultPaymentsMethods;
+
   const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
   const [method, setMethod] = useState(0);
   const { paymentMethods: paymentMethodsTitle } = language.checkout || {};
