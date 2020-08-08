@@ -5,6 +5,8 @@ import ids from 'shortid';
 
 import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
+import { useContext } from '../../../../actions';
+
 import './style.css';
 
 const Section = ({
@@ -25,7 +27,8 @@ const Section = ({
   index,
   ...props
 }) => {
-
+  const { state: { product: { category } = {} } } = useContext();
+  const upsellProductPage = category === 'thankyoupage';
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
@@ -76,16 +79,17 @@ const Section = ({
         className={classes}
         style={style}
       >
-        <SettingsHandles
-          onSettings={onSetting}
-          onDuplicate={onDuplicate}
-          section={section}
-          order={order}
-          id={id}
-          maxOrder={maxOrder}
-          moveCard={moveCard}
-          index={index}
-        />
+        {!upsellProductPage &&
+          <SettingsHandles
+            onSettings={onSetting}
+            onDuplicate={onDuplicate}
+            section={section}
+            order={order}
+            id={id}
+            maxOrder={maxOrder}
+            moveCard={moveCard}
+            index={index}
+          />}
         <SectionContent
           {...content}
           type={type}
