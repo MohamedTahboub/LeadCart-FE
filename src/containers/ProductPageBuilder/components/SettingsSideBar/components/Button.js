@@ -55,6 +55,7 @@ const ButtonSection = () => {
 
   const { styles = {}, content = {} } = sectionSetting;
   const { borderSymmetry } = styles;
+
   const onChange = ({ target }) => {
     if (target.name === 'styles.borderSymmetry') {
       actions.onSectionSettingChange({
@@ -62,8 +63,8 @@ const ButtonSection = () => {
         fields: [
           target,
           ...borderCornerNames.map((corner) => ({
-            name: `content.${corner}`,
-            value: sectionSetting.content.borderTopRightRadius || 10
+            name: `styles.${corner}`,
+            value: sectionSetting.styles.borderTopRightRadius || 10
           }))
         ]
       });
@@ -79,7 +80,7 @@ const ButtonSection = () => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: {
-        name: 'content.layout',
+        name: 'styles.layout',
         value: layout
       }
     });
@@ -92,7 +93,7 @@ const ButtonSection = () => {
       actions.onSectionSettingChange({
         section: sectionSetting,
         fields: borderCornerNames.map((corner) => ({
-          name: `content.${corner}`,
+          name: `styles.${corner}`,
           value: radius
         }))
       });
@@ -100,7 +101,7 @@ const ButtonSection = () => {
       actions.onSectionSettingChange({
         section: sectionSetting,
         field: {
-          name: `content.${name}`,
+          name: `styles.${name}`,
           value: radius
         }
       });
@@ -111,22 +112,16 @@ const ButtonSection = () => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: {
-        name: 'content.icon',
+        name: 'styles.icon',
         value: image
       }
     });
   };
 
-  const onBulkChange = ({ content, styles }) => () => {
+  const onBulkChange = ({ styles }) => () => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       fields: [
-        ...Object.keys(content).map((key) => {
-          return {
-            name: `content.${key}`,
-            value: content[key]
-          };
-        }),
         ...Object.keys(styles).map((key) => {
           return {
             name: `styles.${key}`,
@@ -149,6 +144,7 @@ const ButtonSection = () => {
                 onClick={() => onLayoutChange(layout)}
                 active={layout === styles.layout}
                 className='button-layout-image'
+                name='styles.layout'
               />
             ))}
         </FlexBox>
@@ -156,11 +152,11 @@ const ButtonSection = () => {
       <Tab id='buttons' title='buttons'>
         <FlexBox column center='h-center' spaceBetween>
           {
-            buttonTemplates.map(({ src, content, styles }) => (
+            buttonTemplates.map(({ src, styles }) => (
               <ImageOption
                 value={src}
                 key={src}
-                onClick={() => onBulkChange({ content, styles })}
+                onClick={() => onBulkChange({ styles })}
                 className='button-layout-image'
               />
             ))}
@@ -211,7 +207,7 @@ const ButtonSection = () => {
                     min={0}
                     defaultValue={5}
                     onChange={(radius) => onSliderChange(radius, corner)}
-                    value={content[corner] || 0}
+                    value={styles[corner] || 0}
                   />
                 </>
               ))
@@ -241,15 +237,15 @@ const ButtonSection = () => {
           </Collapse>
           <Collapse defaultOpen={openCollapse === 'Shadows'} title='Shadows' toggle={setOpenCollapse}>
             <span>Shadow</span>
-            <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow' />
+            <Toggle value={styles.hasShadow} onToggle={(target) => onChange({ target })} name='styles.hasShadow' />
             <span className='gray-text'>Offset-X</span>
             <Slider
               max={20}
               min={0}
               defaultValue={5}
               onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
-              value={content.boxShadowOffsetX || 0}
-              disabled={!content.hasShadow}
+              value={styles.boxShadowOffsetX || 0}
+              disabled={!styles.hasShadow}
             />
             <span className='gray-text'>Offset-Y</span>
             <Slider
@@ -257,8 +253,8 @@ const ButtonSection = () => {
               min={0}
               defaultValue={5}
               onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
-              value={content.boxShadowOffsetY || 0}
-              disabled={!content.hasShadow}
+              value={styles.boxShadowOffsetY || 0}
+              disabled={!styles.hasShadow}
             />
             <span className='gray-text'>Blur</span>
             <Slider
@@ -266,8 +262,8 @@ const ButtonSection = () => {
               min={0}
               defaultValue={5}
               onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
-              value={content.boxShadowBlur || 0}
-              disabled={!content.hasShadow}
+              value={styles.boxShadowBlur || 0}
+              disabled={!styles.hasShadow}
             />
             <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
               <span className='gray-text'>Shadow Color</span>
@@ -275,7 +271,7 @@ const ButtonSection = () => {
                 name='styles.shadowColor'
                 value={styles.shadowColor || '#FFF'}
                 onChange={onChange}
-                disabled={!content.hasShadow}
+                disabled={!styles.hasShadow}
               />
             </FlexBox>
           </Collapse>
@@ -284,8 +280,8 @@ const ButtonSection = () => {
               <span>Button Icon</span>
               <span className='gray-text'>Placement</span>
               <SelectOption
-                name='content.iconPlacement'
-                value={content.iconPlacement || 'none'}
+                name='styles.iconPlacement'
+                value={styles.iconPlacement || 'none'}
                 onChange={onChange}
                 options={[
                   { label: 'Included Left', value: 'left' },
@@ -297,8 +293,8 @@ const ButtonSection = () => {
               />
               <span className='gray-text'>Add icon</span>
               <AddImage
-                name='content.icon'
-                value={content.icon}
+                name='styles.icon'
+                value={styles.icon}
                 onUploaded={onImageChange}
               />
               <span className='gray-text'>Icon Border Radius</span>
@@ -307,8 +303,8 @@ const ButtonSection = () => {
                 min={0}
                 defaultValue={5}
                 onChange={(blur) => onSliderChange(blur, 'iconBorderRadius')}
-                value={content.iconBorderRadius || 0}
-                disabled={['snapped-left', 'snapped-right'].includes(content.iconPlacement) || !content.icon}
+                value={styles.iconBorderRadius || 0}
+                disabled={['snapped-left', 'snapped-right'].includes(styles.iconPlacement) || !styles.icon}
               />
               <FlexBox center='v-center' spaceBetween className='pb-140px'>
                 <span className='gray-text'>Icon Background</span>
@@ -327,8 +323,8 @@ const ButtonSection = () => {
         <FlexBox center='v-center px-2' spaceBetween>
           <span className='gray-text bold-text'>Go To:</span>
           <SelectOption
-            name='content.type'
-            value={content.type}
+            name='styles.type'
+            value={styles.type}
             onChange={onChange}
             options={[
               { label: 'Payment Form', value: 'paymentForm' },
@@ -336,13 +332,13 @@ const ButtonSection = () => {
             ]}
           />
         </FlexBox>
-        {content.type === 'external' ? (
+        {styles.type === 'external' ? (
           <div className='px-2'>
             <span className='gray-text bold-text mb-2'>On Click Open:</span>
             <div className='padding-left-20'>
               <TextField
-                name='content.link'
-                value={content.link}
+                name='styles.link'
+                value={styles.link}
                 onChange={onChange}
               />
             </div>
