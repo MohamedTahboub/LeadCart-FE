@@ -38,11 +38,11 @@ const borderCornerNames = [
 
 const getCornerTitle = (corner) => {
   switch (corner) {
-  case 'borderTopLeftRadius': return 'Top Left';
-  case 'borderTopRightRadius': return 'Top Right';
-  case 'borderBottomLeftRadius': return 'Bottom Left';
-  case 'borderBottomRightRadius': return 'Bottom Right';
-  default: return '';
+    case 'borderTopLeftRadius': return 'Top Left';
+    case 'borderTopRightRadius': return 'Top Right';
+    case 'borderBottomLeftRadius': return 'Bottom Left';
+    case 'borderBottomRightRadius': return 'Bottom Right';
+    default: return '';
   }
 };
 
@@ -53,9 +53,10 @@ const ButtonSection = () => {
   } = useContext();
   const [openCollapse, setOpenCollapse] = useState(null);
 
-  const { styles = {}, content = {}, borderSymmetry } = sectionSetting;
+  const { styles = {}, content = {} } = sectionSetting;
+  const { borderSymmetry } = styles;
   const onChange = ({ target }) => {
-    if (target.name === 'borderSymmetry') {
+    if (target.name === 'styles.borderSymmetry') {
       actions.onSectionSettingChange({
         section: sectionSetting,
         fields: [
@@ -200,7 +201,7 @@ const ButtonSection = () => {
           <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
             <div>Border Radius</div>
             <span className='gray-text'>Symmetric</span>
-            <Toggle value={borderSymmetry} onToggle={(target) => onChange({ target })} name='borderSymmetry'/>
+            <Toggle value={styles.borderSymmetry} onToggle={(target) => onChange({ target })} name='styles.borderSymmetry' />
             {
               borderCornerNames.map((corner) => (
                 <>
@@ -240,7 +241,7 @@ const ButtonSection = () => {
           </Collapse>
           <Collapse defaultOpen={openCollapse === 'Shadows'} title='Shadows' toggle={setOpenCollapse}>
             <span>Shadow</span>
-            <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow'/>
+            <Toggle value={content.hasShadow} onToggle={(target) => onChange({ target })} name='content.hasShadow' />
             <span className='gray-text'>Offset-X</span>
             <Slider
               max={20}
