@@ -61,7 +61,7 @@ const CountDowTimerWidget = (props) => {
   };
 
   const onFixedTimeChange = (date) => {
-    onChange({
+    date && onChange({
       name: 'content.value',
       value: {
         ...timerValue,
