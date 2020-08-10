@@ -74,3 +74,8 @@
 }
 
 
+
+circle#node_downsell,
+circle#node_upsell {
+    transition: .5s all ease-in-out;
+}

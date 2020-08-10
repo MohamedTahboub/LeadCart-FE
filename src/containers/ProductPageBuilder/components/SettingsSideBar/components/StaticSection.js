@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import common from 'components/common';
 import PaymentType from 'components/PaymentType';
 import { useContext } from '../../../actions';
-
+import FlatRadio from 'components/FlatRadio';
 
 const {
   MiniTwitterPicker,
@@ -41,18 +41,19 @@ const {
 
 const StaticSection = ({ ...props }) => {
   const {
-    state: { product = {} },
+    state: { product = {}, modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
-
+  const { content: { twoStepCheckout } } = sectionSetting;
   const {
     price = {},
     payment = {},
-    // addOns = {},
     pageStyles: { themeColor } = {},
-    custom = {}
+    custom = {},
+    category
   } = product;
 
+  const isCheckoutProductPage = category === 'checkout';
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
@@ -66,6 +67,17 @@ const StaticSection = ({ ...props }) => {
       }
     });
   };
+
+  const onTwoStepCheckoutChange = ({ name, value }) => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: `content.${name}`,
+        value: value
+      }
+    });
+  };
+
   return (
     <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='pricing' title='Pricing'>
@@ -90,28 +102,69 @@ const StaticSection = ({ ...props }) => {
         />
       </Tab>
 
-      <Tab id='customs' title='Custom'>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Show Shipping Form
+      {isCheckoutProductPage &&
+        <Tab id='forms' title='Forms'>
+          <Label className='mb-2'>
+            Checkout type:
           </Label>
-          <Toggle
-            value={custom.shippingDetails}
-            name='shippingDetails'
-            onToggle={onToggleCustom}
+          <FlatRadio
+            options={[
+              { label: 'Two steps', value: true },
+              { label: 'One step', value: false }
+            ]}
+            value={twoStepCheckout}
+            name='twoStepCheckout'
+            onToggle={onTwoStepCheckoutChange}
           />
-        </InputRow>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Show Coupon Section
-          </Label>
-          <Toggle
-            value={custom.couponSection}
-            name='couponSection'
-            onToggle={onToggleCustom}
+          <img
+            src={twoStepCheckout ? 'https://imgur.com/nqjepZ3.png' : 'https://imgur.com/wnThVnO.png'}
+            alt='thumb'
+            style={{
+              height: '320px',
+              objectFit: 'contain'
+            }}
           />
-        </InputRow>
-      </Tab>
+        </Tab>
+      }
+
+      {isCheckoutProductPage &&
+        <Tab id='customs' title='Custom'>
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Show Shipping Form
+            </Label>
+            <Toggle
+              value={custom.shippingDetails}
+              name='shippingDetails'
+              onToggle={onToggleCustom}
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Show Coupon Section
+            </Label>
+            <Toggle
+              value={custom.couponSection}
+              name='couponSection'
+              onToggle={onToggleCustom}
+            />
+          </InputRow>
+          {twoStepCheckout &&
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
+                summary in each step
+              </Label>
+              <Toggle
+                value={custom.orderSummary}
+                name='orderSummary'
+                onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
+              />
+            </InputRow>
+          }
+        </Tab>
+      }
     </Tabs>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useState } from 'react';
-// import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import ReactToolTip from 'react-tooltip';
@@ -32,6 +31,12 @@ const {
   FlexBox
 } = common;
 
+const checkoutSectionDetails = {
+  id: 'checkoutSection',
+  hidden: false,
+  type: 'checkoutSection',
+  content: { value: '' }
+};
 const matchProductSectionsIds = (product) => {
   const sections = Array.isArray(product.sections) ?
     product.sections.map(({ id, _id = id, ...section }) => ({ ...section, id: _id }))
@@ -42,7 +47,13 @@ const matchProductSectionsIds = (product) => {
     sections
   };
 };
+const hasCheckoutSection = ({ sections = [] } = {}) =>
+  sections.find(({ type }) => type === 'checkoutSection');
 
+const injectProductSection = (product = {}) => ({
+  ...product,
+  sections: [...product.sections, checkoutSectionDetails]
+});
 const ProductBuilder = ({
   funnelsMap,
   productsMap,
@@ -64,13 +75,12 @@ const ProductBuilder = ({
 
     if (!funnelUrl && product) {
       if (state.product._id !== productId) {
-        if (product) {
-          actions.updateState({
-            standAlone: true,
-            product: matchProductSectionsIds(product)
-          });
-          return setLoading(false);
-        }
+        const updatedProductSection = hasCheckoutSection(product) ? product : injectProductSection(product);
+        actions.updateState({
+          standAlone: true,
+          product: matchProductSectionsIds(updatedProductSection)
+        });
+        return setLoading(false);
       }
     }
 
@@ -78,9 +88,11 @@ const ProductBuilder = ({
     if (funnel && product) {
       const localProductId = state.product._id;
       if (localProductId !== productId) {
+
+        const updatedProductSection = hasCheckoutSection(product) ? product : injectProductSection(product);
         actions.updateState({
           standAlone: false,
-          product: matchProductSectionsIds(product),
+          product: matchProductSectionsIds(updatedProductSection),
           funnel: funnel
         });
       }
@@ -137,7 +149,7 @@ const ProductBuilder = ({
         <Header history={props.history} onSave={onSaveProduct} saving={saving} />
         <FlexBox id='blocks' flex className='relative-element'>
           <DndProvider backend={Backend}>
-            <SideBar canOffer={state.product.category !== 'thankyoupage'} />
+            <SideBar canOffer={state.product.category === 'checkout'} />
             <Workspace />
             <SettingSideBar />
           </DndProvider>

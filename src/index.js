@@ -54,6 +54,7 @@ import SubAccounts from './containers/PersonalSettings/SubaccountsSection';
 // services
 
 // Styles
+import 'rc-slider/assets/index.css';
 import './index.css';
 import 'antd/dist/antd.css';
 // import 'semantic-ui-css/semantic.min.css';

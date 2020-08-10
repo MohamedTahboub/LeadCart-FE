@@ -40,8 +40,6 @@ const Email = ({
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(_sourceEmail);
   const [errors, setErrors] = useState({});
-  const [isNewOrder, setNewOrder] = useState(false);
-  const [isFailedCharge, setFailedCharge] = useState(false);
   const [versifying, setVersifying] = useState(false);
   const onToggleFooterModal = () => {
     setFooterModal(!showFooterModal);
@@ -50,14 +48,6 @@ const Email = ({
   const onSourceEmailChange = ({ target: { value } }) => {
     setSourceEmail(value);
     setErrors({ sourceEmail: '' });
-  };
-  const handleToggleChange = ({ name, value }) => {
-    // TODO: Send change to server?
-    switch (name) {
-    case 'newOrder': setNewOrder(value); break;
-    case 'failedCharge': setFailedCharge(value); break;
-    default:
-    }
   };
 
 
@@ -83,12 +73,14 @@ const Email = ({
           testing: false,
           emailTestType: ''
         });
+        notification.success(`A (${type}) test email was sent to your leadcart account email`);
       },
-      onFailed: () => {
+      onFailed: (message) => {
         setTestType({
           testing: false,
           emailTestType: ''
         });
+        notification.failed(message);
       }
     });
   };
@@ -183,7 +175,7 @@ const Email = ({
               <InputRow.Note
                 content='This email is sent every time a customer buys a product.'
               >
-                <InputRow.Toggle value={isNewOrder} onToggle={handleToggleChange} name='newOrder' />
+                <InputRow.Toggle value name='newOrder' />
               </InputRow.Note>
             </InputRow>
             <InputRow>
@@ -191,7 +183,7 @@ const Email = ({
               <InputRow.Note
                 content="This email is sent each time a customer's subscription payment fails to charge."
               >
-                <InputRow.Toggle value={isFailedCharge} onToggle={handleToggleChange} name='failedCharge' />
+                <InputRow.Toggle value name='failedCharge' />
               </InputRow.Note>
             </InputRow>
           </MainBlock>

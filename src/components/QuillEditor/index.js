@@ -1,5 +1,6 @@
 import React from 'react';
 import 'react-quill/dist/quill.bubble.css';
+import 'quill-mention/dist/quill.mention.css';
 import ReactQuill from 'react-quill';
 import PropTypes from 'prop-types';
 import './style.css';
@@ -16,15 +17,25 @@ const Editor = ({
   headingMode,
   onEdit,
   onBlur,
-  bounds
+  // isMentionsSupported,
+  bounds,
+  className
   // uploadFile
 }) => {
+
   const editorProps = {
     modules: headingMode ? headingModules : modules,
     formats: headingMode ? headingFormats : formats
   };
+
+  // if (!isMentionsSupported) {
+  //   delete editorProps.modules.mention;
+  //   editorProps.formats = editorProps.formats.filter((module) => module !== 'mention');
+  // }
+
   return (
     <ReactQuill
+      className={className}
       theme={theme}
       scrollingContainer='body'
       onChange={onEdit}

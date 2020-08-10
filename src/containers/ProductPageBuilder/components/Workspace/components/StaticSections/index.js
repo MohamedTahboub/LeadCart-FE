@@ -14,11 +14,13 @@ import {
   PaymentMethods,
   ShippingDetails
 } from './components';
+import MultipleStepForm from 'components/MultipleStepForm';
 
 const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
 
 
-const StaticSections = ({ onSetting, language }) => {
+const StaticSections = ({ onSetting, language, section }) => {
+  const { content: { twoStepCheckout } } = section;
   const {
     state: {
       product: {
@@ -38,7 +40,6 @@ const StaticSections = ({ onSetting, language }) => {
     },
     actions
   } = useContext();
-
   const onSectionSettings = () => {
     const meta = {
       type: 'staticSectionSetting',
@@ -56,39 +57,89 @@ const StaticSections = ({ onSetting, language }) => {
       <SettingsHandle onClick={onSectionSettings} />
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
-          <BillingDetails
-            color={pageStyles.themeColor}
-            language={language}
-          />
-          {shippingDetails && (
-            <ShippingDetails
-              color={pageStyles.themeColor}
-              language={language}
-            />
-          )}
-          <PaymentMethods
-            step={addOns.shippingDetails ? 3 : 2}
-            methods={payment.methods}
-            language={language}
-          />
-          {couponSection && (
-            <CouponSection
-              color={pageStyles.themeColor}
-              language={language}
-            />
-          )}
-          <OrderSummary
-            price={price}
-            productName={name}
-            payment={payment}
-            language={language}
-          />
-          <CompleteOrderBtn
-            name='custom.orderButtonText'
-            text={orderButtonText}
-            color={pageStyles.themeColor}
-            onChange={onChange}
-          />
+          {
+            twoStepCheckout ? (
+              <MultipleStepForm steps={[shippingDetails ? 'Billing & Shipping Details' : 'Billing Details', 'Payment Details']}>
+                <>
+                  <BillingDetails
+                    twoStepCheckout={twoStepCheckout}
+                    color={pageStyles.themeColor}
+                    language={language}
+                  />
+                  {shippingDetails && (
+                    <ShippingDetails
+                      color={pageStyles.themeColor}
+                      language={language}
+                    />
+                  )}
+                </>
+                <>
+                  <PaymentMethods
+                    twoStepCheckout={twoStepCheckout}
+                    step={addOns.shippingDetails ? 3 : 2}
+                    methods={payment.methods}
+                    language={language}
+                  />
+                  {couponSection && (
+                    <CouponSection
+                      color={pageStyles.themeColor}
+                      language={language}
+                    />
+                  )}
+                  <OrderSummary
+                    price={price}
+                    productName={name}
+                    payment={payment}
+                    language={language}
+                  />
+                  <CompleteOrderBtn
+                    name='custom.orderButtonText'
+                    text={orderButtonText}
+                    color={pageStyles.themeColor}
+                    onChange={onChange}
+                  />
+                </>
+              </MultipleStepForm>
+            ) : (
+              <>
+                <BillingDetails
+                  twoStepCheckout={twoStepCheckout}
+                  color={pageStyles.themeColor}
+                  language={language}
+                />
+                {shippingDetails && (
+                  <ShippingDetails
+                    color={pageStyles.themeColor}
+                    language={language}
+                  />
+                )}
+                <PaymentMethods
+                  twoStepCheckout={twoStepCheckout}
+                  step={addOns.shippingDetails ? 3 : 2}
+                  methods={payment.methods}
+                  language={language}
+                />
+                {couponSection && (
+                  <CouponSection
+                    color={pageStyles.themeColor}
+                    language={language}
+                  />
+                )}
+                <OrderSummary
+                  price={price}
+                  productName={name}
+                  payment={payment}
+                  language={language}
+                />
+                <CompleteOrderBtn
+                  name='custom.orderButtonText'
+                  text={orderButtonText}
+                  color={pageStyles.themeColor}
+                  onChange={onChange}
+                />
+              </>
+            )
+          }
         </FlexBox>
         <FlexBox
           id='upsell'

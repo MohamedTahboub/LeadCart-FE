@@ -5,6 +5,8 @@ import ids from 'shortid';
 
 import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
+import { useContext } from '../../../../actions';
+
 import './style.css';
 
 const Section = ({
@@ -25,7 +27,8 @@ const Section = ({
   index,
   ...props
 }) => {
-
+  const { state: { product: { category } = {} } } = useContext();
+  const isThankYouProductPage = category === 'thankyoupage';
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
@@ -52,7 +55,6 @@ const Section = ({
       return { isHandled: true };
     }
   });
-
 
   const classes = clx({
     'product-section': true,
@@ -84,12 +86,16 @@ const Section = ({
           order={order}
           id={id}
           maxOrder={maxOrder}
+          moveCard={moveCard}
+          index={index}
+          isThankYouProductPage={isThankYouProductPage}
         />
         <SectionContent
           {...content}
           type={type}
           section={section}
           language={props.language}
+          hasMentions={isThankYouProductPage}
         />
       </div>
     </div>

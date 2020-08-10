@@ -14,7 +14,6 @@ const CouponActivation = ({
     applyCoupon = 'APPLY'
   } = language.checkout || {};
 
-
   return (
     <div className='product-template-coupon-container'>
       <div className='coupon-form-head'>

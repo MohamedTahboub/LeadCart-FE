@@ -1,0 +1,62 @@
+.multi-step-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.multi-step-form__step-tabs {
+  display: flex;
+}
+
+.multi-step-form__step-tabs__tab {
+  padding: 5px 0;
+  width: 110px;
+  text-align: center;
+}
+
+.multi-step-form__step-tabs__tab.active {
+  font-weight: 600;
+  color: rgb(6, 147, 227);
+}
+
+.multi-step-form__step {
+  display: none;
+}
+
+.multi-step-form__step.active {
+  display: block;
+}
+
+.next-step-key,
+.back-step-key {
+  display: flex;
+  justify-content: space-evenly ;
+  align-items: center;
+  padding: 7px 0;
+  width: 80px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.back-step-key{
+  background-color: #d63031;
+  opacity: .6;
+}
+.back-step-key:hover{
+  background-color: #d63031;
+  opacity: 1;
+}
+
+.multi-step-form__controllers {
+  display: flex;
+  margin-top: .5rem;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.multi-step-form__form-wrapper {
+  padding: 5px 10px;
+  border: 2px solid #E8E8E8;
+  border-radius: 5px;
+}
+

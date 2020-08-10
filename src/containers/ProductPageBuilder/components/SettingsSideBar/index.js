@@ -23,7 +23,7 @@ const SettingSideBar = () => {
 
   const classNames = clx({
     'width-300': sectionSetting && (sectionSetting.type === 'pageSetting'
-      || sectionSetting.type === 'staticSectionSetting')
+      || sectionSetting.type === 'checkoutSection')
   });
 
   return (

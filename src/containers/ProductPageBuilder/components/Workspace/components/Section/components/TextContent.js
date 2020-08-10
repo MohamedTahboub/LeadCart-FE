@@ -8,6 +8,7 @@ import { useContext } from '../../../../../actions';
 const TextContent = ({
   value,
   section = { styles: {} },
+  hasMentions,
   ...props
 }) => {
   const { actions } = useContext();
@@ -38,6 +39,7 @@ const TextContent = ({
       <QuillEditor
         value={value}
         onEdit={onChange}
+        isMentionsSupported={hasMentions}
         bounds='#product-builder-window'
       />
     </div>

@@ -5,11 +5,11 @@ import paypalImage from 'assets/images/paypal-thumbnail.png';
 import creditCardImage from 'assets/images/credit-card-demo.gif';
 import payOnDeliveryImage from 'assets/images/payOnDelivery.jpg';
 import cashOnDeliveryImage from 'assets/images/cod.png';
-
+import { useContext } from '../../../../../../../../actions';
 import './style.css';
 
 
-const { CycleStepTitle, RadioImageCard } = common;
+const { FlexBox, CycleStepTitle, RadioImageCard } = common;
 
 const PaymentSelectionDemo = ({ method }) => {
   let src;
@@ -27,33 +27,44 @@ const PaymentSelectionDemo = ({ method }) => {
   }
 
   return (
-    <img
-      src={src}
-      alt='paypal brand'
-      className={`template-payment-gateway-demo ${classes}`}
-    />
+    <FlexBox center='h-center'>
+      <img
+        src={src}
+        alt='paypal brand'
+        className={`template-payment-gateway-demo ${classes}`}
+      />
+    </FlexBox>
   );
 };
+const defaultPaymentsMethods = ['Paypal', 'Stripe'];
+
 const PaymentMethods = ({
-  // onOptionSelected,
   language = {},
-  methods = [],
-  step = 2
+  methods: paymentMethods = defaultPaymentsMethods,
+  step = 2,
+  twoStepCheckout
 }) => {
+  const methods = paymentMethods.length ? paymentMethods : defaultPaymentsMethods;
+
+  const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
   const [method, setMethod] = useState(0);
-  const {
-    paymentMethods: paymentMethodsTitle
-  } = language.checkout || {};
+  const { paymentMethods: paymentMethodsTitle } = language.checkout || {};
 
   return (
     <Fragment>
       <div className='template-payment-methods-container'>
-        <CycleStepTitle
-          step={step}
-          className='underlined template-payment-method-title'
-        >
-          {paymentMethodsTitle}
-        </CycleStepTitle>
+        {
+          shippingDetails || !twoStepCheckout ? (
+            <CycleStepTitle
+              step={step}
+              className='underlined template-payment-method-title'
+            >
+              {paymentMethodsTitle}
+            </CycleStepTitle>
+          ) : (
+            <div className='black-title'>{paymentMethodsTitle}</div>
+          )
+        }
         {methods.includes('Stripe') && (
           <RadioImageCard
             title='Credit Cards'

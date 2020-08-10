@@ -40,3 +40,36 @@
 .side-bar-menu .add-element-circle {
     position: unset;
 }
+
+
+.faq-settings-icons{
+    border: 1px solid lightgray;
+    padding: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: auto;
+}
+
+.faqs .css-1uccc91-singleValue{
+    width: 90%; 
+}
+
+.side-bar-menu span.Collapsible__trigger {
+    font-size: 16px !important;
+    padding: 5px !important;
+    border-color: #E8E8E8;
+}
+
+.button-layout-image {
+    width: 100%;
+    margin: 2px 0;
+    padding: 0;
+    /* height: 100px; */
+}
+
+.quill.fluid .ql-tooltip {
+    min-width: 375px;
+    /* left: 0 !important; */
+}
