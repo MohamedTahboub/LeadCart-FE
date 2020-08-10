@@ -140,7 +140,10 @@ const Node = ({
             className='close-node-setting'
           />
         ) : !connectingMode && (
-          <div className='connect-btn-container'>
+          <div className='connect-btn-container' onClick={(e) => {
+            e.stopPropagation();
+          }}
+          >
             <ConnectButton
               nodeType={category}
               relations={relations}
