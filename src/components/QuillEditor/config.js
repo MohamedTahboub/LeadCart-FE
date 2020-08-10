@@ -1,5 +1,5 @@
 import ReactQuill from 'react-quill';
-import QuillMention from 'quill-mention';
+// import QuillMention from 'quill-mention';
 import { includesIgnoreCase } from 'libs';
 const Font = ReactQuill.Quill.import('formats/font');
 
@@ -38,7 +38,7 @@ const mentionModule = {
 
 Font.whitelist = supportedFontFamilyList;
 ReactQuill.Quill.register(Font, true);
-ReactQuill.Quill.register('modules/mentions', QuillMention);
+// ReactQuill.Quill.register('modules/mentions', QuillMention);
 
 const modules = {
   toolbar: [
