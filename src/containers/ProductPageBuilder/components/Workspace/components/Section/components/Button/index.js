@@ -18,8 +18,7 @@ const ButtonSection = ({
 }) => {
   const { actions = {} } = useContext();
   const { content = {}, styles = {}, actions: buttonActions } = section;
-  const { image, layout, editor } = content;
-  const { position } = styles;
+  const { position, editor, image, layout } = styles;
   const onChange = ({ target: { value } }) => {
     const updatedSection = {
       ...section,
@@ -36,7 +35,7 @@ const ButtonSection = ({
     actions.onSectionSettingChange({
       section,
       field: {
-        name: 'content.image',
+        name: 'styles.image',
         value: image.value
       }
     });
@@ -45,21 +44,21 @@ const ButtonSection = ({
     actions.onSectionSettingChange({
       section,
       field: {
-        name: 'content.editor',
+        name: 'styles.editor',
         value: editor
       }
     });
   };
 
   const buttonStyle = {
-    borderTopLeftRadius: content.borderTopLeftRadius,
-    borderTopRightRadius: content.borderTopRightRadius,
-    borderBottomLeftRadius: content.borderBottomLeftRadius,
-    borderBottomRightRadius: content.borderBottomRightRadius,
+    borderTopLeftRadius: styles.borderTopLeftRadius,
+    borderTopRightRadius: styles.borderTopRightRadius,
+    borderBottomLeftRadius: styles.borderBottomLeftRadius,
+    borderBottomRightRadius: styles.borderBottomRightRadius,
     display: 'flex',
     borderStyle: styles.borderStyle || 'none',
     borderColor: styles.borderColor || '#FFF',
-    boxShadow: content.hasShadow ? `${content.boxShadowOffsetX || 0}px ${content.boxShadowOffsetY || 0}px ${content.boxShadowBlur || 0}px ${styles.shadowColor || '#FFF'}` : '',
+    boxShadow: styles.hasShadow ? `${styles.boxShadowOffsetX || 0}px ${styles.boxShadowOffsetY || 0}px ${styles.boxShadowBlur || 0}px ${styles.shadowColor || '#FFF'}` : '',
     backgroundColor: styles.backgroundColor
   };
   const buttonTextStyle = {
@@ -75,15 +74,15 @@ const ButtonSection = ({
     'align-items-center': true
   });
   const iconStyles = {
-    borderRadius: content.iconBorderRadius || 0,
-    padding: content.iconBorderRadius * 0.1,
-    ...(content.iconPlacement === 'left' ? {
-      marginLeft: content.iconBorderRadius / -2,
+    borderRadius: styles.iconBorderRadius || 0,
+    padding: styles.iconBorderRadius * 0.1,
+    ...(styles.iconPlacement === 'left' ? {
+      marginLeft: styles.iconBorderRadius / -2,
       marginRight: 8
-    } : content.iconPlacement === 'right' ? {
-      marginRight: content.iconBorderRadius / -2,
+    } : styles.iconPlacement === 'right' ? {
+      marginRight: styles.iconBorderRadius / -2,
       marginLeft: 8
-    } : content.iconPlacement === 'snapped-left' ? {
+    } : styles.iconPlacement === 'snapped-left' ? {
       width: 34,
       height: 34,
       padding: 4,
@@ -91,33 +90,34 @@ const ButtonSection = ({
       borderTopLeftRadius: 5,
       borderBottomLeftRadius: 5
     } : {
-      width: 34,
-      height: 34,
-      padding: 4,
-      borderRadius: 0,
-      borderTopRightRadius: 5,
-      borderBottomRightRadius: 5
-    }),
+            width: 34,
+            height: 34,
+            padding: 4,
+            borderRadius: 0,
+            borderTopRightRadius: 5,
+            borderBottomRightRadius: 5
+          }),
     backgroundColor: styles.iconBackgroundColor || 'transparent'
   };
-  const icon = content.iconPlacement !== 'none' && content.icon;
+  const icon = styles.iconPlacement !== 'none' && styles.icon;
+
 
   const iconComponent = (
     icon && <img alt='icon' src={icon} className='button-icon' style={iconStyles} />
   );
   const buttonComponent = (
     <>
-      {content.iconPlacement === 'snapped-left' && iconComponent}
+      {styles.iconPlacement === 'snapped-left' && iconComponent}
       <Button className={buttonClasses} style={buttonStyle}>
-        {content.iconPlacement === 'left' && iconComponent}
+        {styles.iconPlacement === 'left' && iconComponent}
         <ResizableInput
           onChange={onChange}
           value={value}
           style={buttonTextStyle}
         />
-        {content.iconPlacement === 'right' && iconComponent}
+        {styles.iconPlacement === 'right' && iconComponent}
       </Button>
-      {content.iconPlacement === 'snapped-right' && iconComponent}
+      {styles.iconPlacement === 'snapped-right' && iconComponent}
     </>
   );
 
@@ -143,8 +143,8 @@ const ButtonSection = ({
             section={section}
           />
         ) : (
-          buttonComponent
-        )
+              buttonComponent
+            )
       }
     </FlexBox>
   );

@@ -1,19 +1,7 @@
 export const buttonTemplates = [
   {
     src: 'https://imgur.com/itadZNq.png',
-    content: {
-      borderBottomLeftRadius: 5,
-      borderBottomRightRadius: 5,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
-      boxShadowBlur: 0,
-      boxShadowOffsetX: 0,
-      boxShadowOffsetY: 0,
-      hasShadow: false,
-      icon: null,
-      iconPlacement: 'right',
-      value: 'Click here!'
-    },
+    content: { value: 'Click here!' },
     styles: {
       backgroundColor: '#0693e3',
       foregroundColor: '#ffffff',
@@ -24,23 +12,21 @@ export const buttonTemplates = [
       paddingBottom: 0,
       paddingTop: 0,
       shadowColor: '#e8e8e8',
-      borderStyle: 'hidden'
-    }
-  }, {
-    src: 'https://imgur.com/iPqyJLH.png',
-    content: {
+      borderStyle: 'hidden',
       borderBottomLeftRadius: 5,
       borderBottomRightRadius: 5,
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,
-      boxShadowBlur: 3,
-      boxShadowOffsetX: 1,
-      boxShadowOffsetY: 2,
-      hasShadow: true,
+      boxShadowBlur: 0,
+      boxShadowOffsetX: 0,
+      boxShadowOffsetY: 0,
+      hasShadow: false,
       icon: null,
-      iconPlacement: 'right',
-      value: 'Click here!'
-    },
+      iconPlacement: 'right'
+    }
+  }, {
+    src: 'https://imgur.com/iPqyJLH.png',
+    content: { value: 'Click here!' },
     styles: {
       backgroundColor: '#ffffff',
       borderColor: '#0693e3',
@@ -52,11 +38,7 @@ export const buttonTemplates = [
       marginTop: 0,
       paddingBottom: 0,
       paddingTop: 0,
-      shadowColor: '#e8e8e8'
-    }
-  }, {
-    src: 'https://imgur.com/Rf9fmqI.png',
-    content: {
+      shadowColor: '#e8e8e8',
       borderBottomLeftRadius: 5,
       borderBottomRightRadius: 5,
       borderTopLeftRadius: 5,
@@ -65,10 +47,12 @@ export const buttonTemplates = [
       boxShadowOffsetX: 1,
       boxShadowOffsetY: 2,
       hasShadow: true,
-      value: 'DANGER',
       icon: null,
       iconPlacement: 'right'
-    },
+    }
+  }, {
+    src: 'https://imgur.com/Rf9fmqI.png',
+    content: { value: 'DANGER' },
     styles: {
       backgroundColor: '#eb144c',
       borderColor: '#0693e3',
@@ -80,24 +64,21 @@ export const buttonTemplates = [
       marginTop: 0,
       paddingBottom: 0,
       paddingTop: 0,
-      shadowColor: '#e8e8e8'
+      shadowColor: '#e8e8e8',
+      borderBottomLeftRadius: 5,
+      borderBottomRightRadius: 5,
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
+      boxShadowBlur: 3,
+      boxShadowOffsetX: 1,
+      boxShadowOffsetY: 2,
+      hasShadow: true,
+      icon: null,
+      iconPlacement: 'right'
     }
   }, {
     src: 'https://imgur.com/pg0nmoy.png',
-    content: {
-      borderBottomLeftRadius: 21,
-      borderBottomRightRadius: 21,
-      borderTopLeftRadius: 21,
-      borderTopRightRadius: 21,
-      boxShadowBlur: 0,
-      boxShadowOffsetX: 0,
-      boxShadowOffsetY: 0,
-      icon: 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5cc123168001ea7df2cc1dcf/products/shopping-cart.png',
-      iconBorderRadius: 20,
-      iconPlacement: 'right',
-      hasShadow: false,
-      value: 'BUY NOW!'
-    },
+    content: { value: 'BUY NOW!' },
     styles: {
       backgroundColor: '#0693e3',
       foregroundColor: '#ffffff',
@@ -109,24 +90,22 @@ export const buttonTemplates = [
       marginTop: 0,
       paddingBottom: 0,
       shadowColor: '#e8e8e8',
-      paddingTop: 0
+      paddingTop: 0,
+      borderBottomLeftRadius: 21,
+      borderBottomRightRadius: 21,
+      borderTopLeftRadius: 21,
+      borderTopRightRadius: 21,
+      boxShadowBlur: 0,
+      boxShadowOffsetX: 0,
+      boxShadowOffsetY: 0,
+      icon: 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5cc123168001ea7df2cc1dcf/products/shopping-cart.png',
+      iconBorderRadius: 20,
+      iconPlacement: 'right',
+      hasShadow: false
     }
   }, {
     src: 'https://imgur.com/P7TWESp.png',
-    content: {
-      borderBottomLeftRadius: 5,
-      borderBottomRightRadius: 5,
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
-      boxShadowBlur: 3,
-      boxShadowOffsetX: 1,
-      boxShadowOffsetY: 2,
-      icon: 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5cc123168001ea7df2cc1dcf/products/shopping-cart.png',
-      iconPlacement: 'left',
-      value: 'THIS PRODUCT IS BETTER!',
-      iconBorderRadius: 0,
-      hasShadow: true
-    },
+    content: { value: 'THIS PRODUCT IS BETTER!' },
     styles: {
       backgroundColor: '#eb144c',
       foregroundColor: '#fff',
@@ -138,24 +117,22 @@ export const buttonTemplates = [
       marginTop: 0,
       paddingBottom: 0,
       paddingTop: 0,
-      iconBackgroundColor: null
+      iconBackgroundColor: null,
+      borderBottomLeftRadius: 5,
+      borderBottomRightRadius: 5,
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
+      boxShadowBlur: 3,
+      boxShadowOffsetX: 1,
+      boxShadowOffsetY: 2,
+      icon: 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5cc123168001ea7df2cc1dcf/products/shopping-cart.png',
+      iconPlacement: 'left',
+      iconBorderRadius: 0,
+      hasShadow: true
     }
   }, {
     src: 'https://imgur.com/cwQzQEN.png',
-    content: {
-      borderBottomLeftRadius: 0,
-      borderBottomRightRadius: 0,
-      borderTopLeftRadius: 0,
-      borderTopRightRadius: 0,
-      boxShadowBlur: 0,
-      boxShadowOffsetX: 0,
-      boxShadowOffsetY: 0,
-      icon: 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5cc123168001ea7df2cc1dcf/products/shopping-cart.png',
-      iconPlacement: 'left',
-      value: 'GET TO THIS PRODUCT!',
-      iconBorderRadius: 0,
-      hasShadow: false
-    },
+    content: { value: 'GET TO THIS PRODUCT!' },
     styles: {
       backgroundColor: '#ffffff00',
       foregroundColor: '#0693e3',
@@ -167,7 +144,18 @@ export const buttonTemplates = [
       marginTop: 0,
       paddingBottom: 0,
       paddingTop: 0,
-      iconBackgroundColor: null
+      iconBackgroundColor: null,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0,
+      boxShadowBlur: 0,
+      boxShadowOffsetX: 0,
+      boxShadowOffsetY: 0,
+      icon: 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5cc123168001ea7df2cc1dcf/products/shopping-cart.png',
+      iconPlacement: 'left',
+      iconBorderRadius: 0,
+      hasShadow: false
     }
   }
 ];
