@@ -218,7 +218,7 @@ const WorkSpace = ({
             product={productsNodeDetails[node.productId]}
           />
         ))}
-        <ShadowBackground show={showNodeSettingModal} />
+        <ShadowBackground show={showNodeSettingModal} setShowNodeSettingModal={setShowNodeSettingModal} />
         <NodeSettingModal
           show={showNodeSettingModal}
           nodes={nodes}
@@ -234,7 +234,7 @@ const WorkSpace = ({
   );
 };
 
-function getElementPosition (event, originalMouseOffset, parentRef) {
+function getElementPosition(event, originalMouseOffset, parentRef) {
   const {
     left: parentLeft,
     top: parentTop
