@@ -1,14 +1,10 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+
 import common from 'components/common';
-// import { connect } from 'react-redux';
 import { nestedKeyValue } from 'libs';
 import { useContext } from '../../../actions';
+import { ImageOption, SettingBox } from './common';
 
-import {
-  ImageOption,
-  SettingBox
-} from './common';
 
 const {
   MiniTwitterPicker,
@@ -62,7 +58,6 @@ const themesOptions = [
 
 ];
 
-const currency = 'USD';
 const {
   Label,
   SwitchInput,
@@ -73,7 +68,7 @@ const {
 
 const BumpOffer = ({ ...props }) => {
   const {
-    state: { modals: { sectionSetting = {} } = {} },
+    state: { modals: { sectionSetting = {} } = {}, funnel: { currency = 'USD' } = {} },
     actions
   } = useContext();
 
@@ -147,7 +142,6 @@ const BumpOffer = ({ ...props }) => {
             type='number'
             prefix={<Currency value={currency} />}
             defaultValue={content.price}
-            currency='$'
             uncontrolled
           />
         </InputRow>
