@@ -95,6 +95,7 @@ const Section = ({
           type={type}
           section={section}
           language={props.language}
+          hasMentions={isThankYouProductPage}
         />
       </div>
     </div>

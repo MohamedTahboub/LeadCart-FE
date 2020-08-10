@@ -18,6 +18,7 @@ const ButtonWithText = ({ layout, containerClasses, buttonComponent, editor, onE
           value={editor}
           onEdit={onEditorChange}
           headingMode
+          isMentionsSupported={false}
           bounds={`[id='${section.id}']`}
         />
       </FlexBox>
