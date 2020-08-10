@@ -124,8 +124,8 @@ const modules = {
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: true
-  },
-  mention: mentionModule
+  }
+  // mention: mentionModule
 };
 
 const formats = [
@@ -141,8 +141,8 @@ const formats = [
   'color',
   'background',
   'align',
-  'link',
-  'mention'
+  'link'
+  // 'mention'
 ];
 
 const headingModules = {
@@ -222,8 +222,8 @@ const headingModules = {
     [
       { align: ['', 'right', 'center', 'justify'] }
     ]
-  ],
-  mention: mentionModule
+  ]
+  // mention: mentionModule
 };
 const headingFormats = [
   'font',
@@ -235,8 +235,8 @@ const headingFormats = [
   'color',
   'background',
   'align',
-  'strike',
-  'mention'
+  'strike'
+  // 'mention'
 ];
 
 export {

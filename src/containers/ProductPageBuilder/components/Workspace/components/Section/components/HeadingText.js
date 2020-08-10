@@ -7,6 +7,7 @@ import { useContext } from '../../../../../actions';
 const HeadingText = ({
   value,
   section = { styles: {} },
+  hasMentions,
   ...props
 }) => {
   const { actions } = useContext();
@@ -38,6 +39,7 @@ const HeadingText = ({
         value={value}
         onEdit={onChange}
         headingMode
+        isMentionsSupported={hasMentions}
         bounds='#product-builder-window'
       />
     </div>
