@@ -17,7 +17,7 @@ const Editor = ({
   headingMode,
   onEdit,
   onBlur,
-  isMentionsSupported,
+  // isMentionsSupported,
   bounds,
   className
   // uploadFile
@@ -28,10 +28,10 @@ const Editor = ({
     formats: headingMode ? headingFormats : formats
   };
 
-  if (!isMentionsSupported) {
-    delete editorProps.modules.mention;
-    editorProps.formats = editorProps.formats.filter((module) => module !== 'mention');
-  }
+  // if (!isMentionsSupported) {
+  //   delete editorProps.modules.mention;
+  //   editorProps.formats = editorProps.formats.filter((module) => module !== 'mention');
+  // }
 
   return (
     <ReactQuill
