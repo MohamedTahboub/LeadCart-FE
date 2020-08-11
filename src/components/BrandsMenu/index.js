@@ -23,13 +23,15 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
   const [isBrandsOpen, setBrandsOpen] = useState(false);
 
-  const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
-  const _filterBrands = (event) => filterBrands(event.target.value);
-  const _onChange = ({ key }) => (key === CREATE_NEW_BRAND) ? toggleCreateModalOpen() : onChange(key);
   const onOpenChange = (openKeys) => {
     setBrandsOpen(openKeys.find((key) => key === 'brands'));
     onMenuOpen(isBrandsOpen);
   };
+
+  const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
+  const _filterBrands = (event) => filterBrands(event.target.value);
+  const _onChange = ({ key }) => (key === CREATE_NEW_BRAND) ? toggleCreateModalOpen() : onChange(key, onOpenChange);
+
   const onCreateBrand = (brand, cb) => {
     const actions = {
       onSuccess: () => {

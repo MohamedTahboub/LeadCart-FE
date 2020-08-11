@@ -62,9 +62,10 @@ const SideBar = ({
 
   const menus = sidebarMenus({ brands });
 
-  const onActiveBrandChange = (activeBrand) => {
+  const onActiveBrandChange = (activeBrand, onOpenChange) => {
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
+        onOpenChange([]);
         appInit({}, {
           onSuccess: () => {
             const brand = brands.find(({ id }) => id === activeBrand) || {};
