@@ -207,6 +207,7 @@ const mapStateToProps = ({
   if (activeBrand) {
     activePackage.type = getBrandActivePackage(activeBrand);
     packageTrial.trialEndDate = activePackage.trialEndDate;
+    packageTrial.trial = activePackage.trial;
     activePackage.ltd = activeBrand.activePackage.ltd;
   } return {
     activePackage,
