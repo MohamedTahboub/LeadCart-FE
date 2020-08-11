@@ -62,48 +62,6 @@ const Subscription = ({
     setFields({ ...fields, [name]: value });
   };
 
-
-  const onChangePromoCode = ({ target: { name, value } }) => {
-    onChange({
-      target: {
-        name: 'promoCode',
-        value: { ...fields.promoCode, code: value }
-      }
-    });
-  };
-
-  const onPromoCodeCheck = () => {
-    const { promoCode: { code } = {} } = fields;
-
-    if (code) {
-      setLoading({ ...loading, promoCode: true });
-      props.checkPromoCode(
-        { promoCode: code },
-        {
-          onSuccess: (promoCode) => {
-            setLoading({ ...loading, promoCode: false });
-            setFields({
-              ...fields,
-              amount: promoCode.amount,
-              promoCode: {
-                ...promoCode,
-                code,
-                applied: true
-              },
-              packageType: promoCode.packageType,
-              recurringPeriod: promoCode.recurringPeriod
-            });
-            setErrors({});
-          },
-          onFailed: (message) => {
-            setLoading({ ...loading, promoCode: false });
-            setErrors({ promoCode: message });
-          }
-        }
-      );
-    }
-  };
-
   const cleanUp = () => {
     setFields({
       ...fields,
@@ -136,6 +94,16 @@ const Subscription = ({
   };
 
   const lastTransaction = getLastItem(transactions);
+
+  const packageCardProps = {
+    onSelect: onPackageTypeChange,
+    activePackage: fields.packageType,
+    interval: fields.recurringPeriod,
+    code: fields.promoCode,
+    lastTransaction: lastTransaction,
+    isLtd: activePackage.ltd
+  };
+
   return (
     <Box
       header={(
@@ -157,7 +125,8 @@ const Subscription = ({
                 {...activePackage}
                 trial={trial}
                 lastTransaction={lastTransaction}
-                isLoadingClass={`${globalLoading ? 'blur-effect' : ''}`}
+                isLoading={globalLoading}
+                isLtd={activePackage.ltd}
               />
             )
           }
@@ -170,30 +139,17 @@ const Subscription = ({
             <PackageCard
               name='Basic'
               package={packagesPlans.basic}
-              onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
-              interval={fields.recurringPeriod}
-              code={fields.promoCode}
-              lastTransaction={lastTransaction}
+              {...packageCardProps}
             />
             <PackageCard
               name='Pro'
               package={packagesPlans.pro}
-              onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
-              interval={fields.recurringPeriod}
-              code={fields.promoCode}
-              lastTransaction={lastTransaction}
+              {...packageCardProps}
             />
             <PackageCard
               name='Premium'
               package={packagesPlans.premium}
-              onSelect={onPackageTypeChange}
-              activePackage={fields.packageType}
-              interval={fields.recurringPeriod}
-              plus
-              code={fields.promoCode}
-              lastTransaction={lastTransaction}
+              {...packageCardProps}
             />
           </FlexBoxesContainer>
         </Fragment>
@@ -251,7 +207,7 @@ const mapStateToProps = ({
   if (activeBrand) {
     activePackage.type = getBrandActivePackage(activeBrand);
     packageTrial.trialEndDate = activePackage.trialEndDate;
-    packageTrial.trial = activePackage.trial;
+    activePackage.ltd = activeBrand.activePackage.ltd;
   } return {
     activePackage,
     trial: packageTrial,
