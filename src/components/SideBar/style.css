@@ -218,7 +218,7 @@ svg.sideBar-icon path {
 }
 
 .brands-navigation.is-open {
-  min-height: calc(100vh - 166px);
+  height: calc(100vh - 130px);
   animation: resize-to .3s forwards ease-in;
 }
 
