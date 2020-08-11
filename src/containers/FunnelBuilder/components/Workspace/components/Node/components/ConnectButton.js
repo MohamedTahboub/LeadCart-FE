@@ -26,7 +26,7 @@ const ConnectButton = ({
   const dontHaveUpSell = !upSell, dontHaveDownSell = (!downSell && nodeType !== 'checkout');
   return (
     <svg height='70' width='60' >      {dontHaveUpSell && <path d='M 5 30 Q 34 30 50 10' stroke='#4DA1FF' strokeWidth='1.5' fill='none' />}
-      {dontHaveDownSell && <path d='M 5 30 Q 34 30 50 48' stroke='#4DA1FF' strokeWidth='1.5' fill='none' />}
+      {dontHaveDownSell && <path d='M 5 30 Q 34 30 50 48' stroke='rgb(219, 40, 70)' strokeWidth='1.5' fill='none' />}
       {(dontHaveUpSell && dontHaveDownSell) && (
         <circle
           id='node_start'

@@ -14,8 +14,9 @@ export const StartCircle = ({ x, y, color = '#4DA1FF' }) => {
   );
 };
 
-export const ThreadPath = ({ id, start, end, withoutShift }) => {
+export const ThreadPath = ({ id, start, end, withoutShift, type }) => {
 
+  const isUpSell = type === 'upSell';
   const pathString = getPathCoords(start, end, withoutShift);
 
   return (
@@ -24,14 +25,16 @@ export const ThreadPath = ({ id, start, end, withoutShift }) => {
       key={id}
       d={pathString}
       fill='none'
-      stroke='#03a9f4d4'
+      stroke={isUpSell ? '#03a9f4d4' : 'rgb(219, 40, 70)'}
       strokeWidth='1.5'
       markerEnd={`url(#arrowHead_${id})`}
     />
   );
 };
 
-export const Marker = ({ id }) => {
+export const Marker = ({ id, type }) => {
+  const isUpSell = type === 'upSell';
+
   return (
     <defs>
       <marker
@@ -45,7 +48,7 @@ export const Marker = ({ id }) => {
         markerHeight='10'
         orient='auto'
       >
-        <path d='M 0 0 L 10 5 L 0 10 z' fill='#4DA1FF' strokeWidth='1' />
+        <path d='M 0 0 L 10 5 L 0 10 z' fill={isUpSell ? '#03a9f4d4' : 'rgb(219, 40, 70)'} strokeWidth='1' />
       </marker>
     </defs>
   );
@@ -57,8 +60,8 @@ const Wire = ({ id, position, relation }) => {
 
   return (
     <Fragment>
-      <Marker id={id} />
-      <ThreadPath id={id} end={relation.coordinates} start={startPoint} />
+      <Marker id={id} type={relation.type} />
+      <ThreadPath id={id} end={relation.coordinates} start={startPoint} type={relation.type} />
       <StartCircle {...startPoint} />
     </Fragment>
   );
