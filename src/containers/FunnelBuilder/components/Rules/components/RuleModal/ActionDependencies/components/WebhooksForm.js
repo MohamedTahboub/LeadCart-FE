@@ -33,7 +33,7 @@ const WebhooksForm = ({
       },
       onFailed: (message) => {
         setLoading(false);
-        notification.success(message);
+        notification.failed(message);
       }
     });
   };
