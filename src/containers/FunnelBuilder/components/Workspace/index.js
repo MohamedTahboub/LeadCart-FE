@@ -151,9 +151,6 @@ const WorkSpace = ({
       return node;
     });
 
-
-    console.log('updatedList >>>>', updatedList);
-
     onChange({
       name: 'products',
       value: updatedList

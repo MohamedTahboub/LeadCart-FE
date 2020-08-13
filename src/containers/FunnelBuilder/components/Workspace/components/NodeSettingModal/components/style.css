@@ -31,3 +31,30 @@
     margin: 5px 0;
     transform: rotate(45deg);
 }
+
+.node-settings-product{
+    text-align: center;
+    margin: 10px 0;
+    width: 47%;
+}
+
+.node-settings-product-img{ 
+    background-position: center center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 200px;
+    margin: 0 !important;
+    margin-bottom: 10px !important;
+    background-color: rgba(47, 109, 255, 0.05) !important;
+
+}
+
+.node-settings-product-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    margin-left: 4px;
+}

@@ -124,12 +124,7 @@ const Node = ({
   const name = product.name ? product.name : categoriesNames[category.toLowerCase()];
 
 
-  const style = {
-    backgroundImage: `linear-gradient(to bottom, #fff 5%, transparent 95%), url(${bgImage})`,
-    backgroundPosition: 'center',
-    backgroundSize: '105% 105%',
-    backgroundRepeat: 'no-repeat'
-  };
+  const style = { backgroundImage: `linear-gradient(to bottom, #fff 1%, transparent 95%), url(${bgImage})` };
   const showStatusHate = category !== 'thankyoupage';
 
   const cardProps = {
@@ -145,7 +140,7 @@ const Node = ({
         <div className='node-title tiny-text  gray-text bold-text truncate p-2'>
           {name}
         </div>
-        <FlexBox column style={style} className='content soft-edges'>
+        <FlexBox column style={style} className='content soft-edges node-img'>
           {showStatusHate && (
             <NodeStatusHat
               active={productId}
