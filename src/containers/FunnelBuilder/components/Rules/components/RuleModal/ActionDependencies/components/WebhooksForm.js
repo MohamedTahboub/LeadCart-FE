@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import common from 'components/common';
-
+import { connect } from 'react-redux';
+import { sendWebhookTestPayload } from 'actions/integrations';
+import { notification, trimExtraText } from 'libs';
 const {
   FlexBox,
-  InputRow
+  InputRow,
+  Button
 } = common;
 
-const { Label, TextField, TextAreaInput, SelectOption } = InputRow;
+const { Label, TextField, SelectOption } = InputRow;
 
 const WebhooksForm = ({
   onChange,
   url,
   label,
+  sendWebhookTestPayload,
   payloadFormat
 }) => {
 
+  const [loading, setLoading] = useState(false);
+
+  const onSendTestPayload = () => {
+    setLoading(true);
+    sendWebhookTestPayload({
+      url: url ? url.trim() : url,
+      payloadFormat: payloadFormat || 'JSON'
+    }, {
+      onSuccess: () => {
+        setLoading(false);
+        notification.success(`We have Successfully sent a test Payload to ${trimExtraText(url, 20)}`);
+      },
+      onFailed: (message) => {
+        setLoading(false);
+        notification.success(message);
+      }
+    });
+  };
   return (
     <FlexBox column>
       <FlexBox center='h-center' className='mb-2'>
@@ -68,8 +90,13 @@ const WebhooksForm = ({
           </FlexBox>
         </InputRow>
       </FlexBox>
+      <FlexBox flex center='h-center' className='m-2 mt-3'>
+        <Button className='primary-color' onClick={onSendTestPayload} onprogress={loading}>
+          Send Test Payload
+        </Button>
+      </FlexBox>
     </FlexBox>
   );
 };
 
-export default WebhooksForm;
+export default connect(null, { sendWebhookTestPayload })(WebhooksForm);
