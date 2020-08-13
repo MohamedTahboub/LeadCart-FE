@@ -2,13 +2,14 @@ import React, { Fragment } from 'react';
 import common from 'components/common';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import clx from 'classnames';
 
 const {
   InputRow,
   HeadLine,
   BigText,
   FlexBoxesContainer,
-  Box,
+  Box
 } = common;
 
 const getExpirationDate = (date) => (moment(date).isAfter() ? moment(date).fromNow() : 'Expired');
@@ -22,21 +23,22 @@ const ActivePackage = ({
   } = {},
   userSource,
   // className = '',
-  isLoadingClass,
-  lastTransaction = {}
+  lastTransaction = {},
+  isLoading,
+  isLtd
 }) => (
   <Box
     className='active-package-box '
     header={<HeadLine>Active Package :</HeadLine>}
     content={(
-      <BigText className={isLoadingClass}>
+      <BigText className={clx({ 'blur-effect': isLoading })}>
         <div className='package-level'>
           {packageType}
           {isTrial && (
             <Fragment>
               <span className='trial-package'>(trial)</span>
               <span className='trial-package-expiration'>
-                  Ends :
+                Ends :
                 {' '}
                 {getExpirationDate(trialEndDate)}
               </span>
@@ -45,13 +47,13 @@ const ActivePackage = ({
         </div>
         {lastTransaction.amount !== 0 && (
           <div className='note-text '>
-            {`Subscribed to a ${period} Plan`}
+            {!isLtd ? `Subscribed to a ${period} Plan` : 'Active Forever'}
           </div>
         )}
       </BigText>
     )}
-    footer={(lastTransaction.createdAt && lastTransaction.amount !== 0) ? (
-      <FlexBoxesContainer className={isLoadingClass}>
+    footer={(lastTransaction.createdAt && lastTransaction.amount !== 0 && !isLtd) ? (
+      <FlexBoxesContainer className={clx({ 'blur-effect': isLoading })}>
         <div>
           <InputRow.Label>Next billing date</InputRow.Label>
           {userSource === 'saasmntra'
