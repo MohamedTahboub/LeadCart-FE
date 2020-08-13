@@ -99,10 +99,6 @@ const WorkSpace = ({
 
 
   const onNodeConnectionCancel = (targetId, fromElementId) => {
-    console.log(targetId);
-    const targetElement = nodes.find(({ elementId }) => elementId === fromElementId);
-    if (!targetElement) return;
-
     const updatedList = nodes.map((node) => {
       if (node.elementId === fromElementId) {
         const relation = () => node.relations.find(({ target }) => target !== targetId);
