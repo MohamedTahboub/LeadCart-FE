@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
-import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import clx from 'classnames';
 import { IoMdCheckmark } from 'react-icons/io';
 import { TiWarning } from 'react-icons/ti';
@@ -44,17 +42,16 @@ const OverrideSelect = ({ show, onClick }) => {
   );
 };
 const Product = ({
-  image = checkoutPageImage,
   active,
   name,
   isUsed,
   onSelect,
   id: productId,
-  nodeId
+  nodeId,
+  thumbnail
 }) => {
-
-
   const classes = clx(
+    'node-settings-product-img',
     'card-style',
     'funnel-product-card',
     'relative-element',
@@ -64,28 +61,26 @@ const Product = ({
     }
   );
 
-  const style = {
-    backgroundImage: `linear-gradient(to bottom, #fff 5%, transparent 95%), url(${image})`,
-    backgroundPosition: 'center',
-    backgroundSize: '105% 105%',
-    backgroundRepeat: 'no-repeat'
-  };
+  const style = { backgroundImage: `linear-gradient(to bottom, #fff 2%, transparent 95%), url(${thumbnail})` };
 
   const onProductSelect = () => {
     onSelect(nodeId, productId);
   };
 
   return (
-    <FlexBox
-      style={style}
-      className={classes}
-      onClick={onProductSelect}
-    >
-      <ActiveBadge show={active} />
-      <div className='tiny-text gray-text bold-text truncate p-2'>
+    <FlexBox className='node-settings-product' column>
+
+      <FlexBox
+        style={style}
+        className={classes}
+        onClick={onProductSelect}
+      >
+        <ActiveBadge show={active} />
+        <OverrideSelect onClick={onProductSelect} show={false} />
+      </FlexBox>
+      <div className='node-settings-product-text'>
         {name}
       </div>
-      <OverrideSelect onClick={onProductSelect} show={false} />
     </FlexBox>
   );
 };
