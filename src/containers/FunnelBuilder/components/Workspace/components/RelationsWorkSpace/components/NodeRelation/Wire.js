@@ -16,8 +16,11 @@ export const StartCircle = ({ x, y, color = '#4DA1FF' }) => {
 
 export const ThreadPath = ({ id, start, end, withoutShift, type }) => {
 
+  const endUpsSell = { ...end, y: end.y - 20 };
+  const endDownSell = { ...end, y: end.y + 20 };
   const isUpSell = type === 'upSell';
-  const pathString = getPathCoords(start, end, withoutShift);
+
+  const pathString = getPathCoords(start, isUpSell ? endUpsSell : endDownSell, withoutShift);
 
   return (
     <path
@@ -25,7 +28,7 @@ export const ThreadPath = ({ id, start, end, withoutShift, type }) => {
       key={id}
       d={pathString}
       fill='none'
-      stroke={isUpSell ? '#03a9f4d4' : 'rgb(219, 40, 70)'}
+      stroke={isUpSell ? '#03a9f4d4' : '#e67e22'}
       strokeWidth='1.5'
       markerEnd={`url(#arrowHead_${id})`}
     />
@@ -48,7 +51,7 @@ export const Marker = ({ id, type }) => {
         markerHeight='10'
         orient='auto'
       >
-        <path d='M 0 0 L 10 5 L 0 10 z' fill={isUpSell ? '#03a9f4d4' : 'rgb(219, 40, 70)'} strokeWidth='1' />
+        <path d='M 0 0 L 10 5 L 0 10 z' fill={isUpSell ? '#03a9f4d4' : '#e67e22'} strokeWidth='1' />
       </marker>
     </defs>
   );
