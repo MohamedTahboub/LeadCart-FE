@@ -11,10 +11,6 @@ export default {
       value: 'MANUAL_FULFILLMENT'
     },
     {
-      label: 'Webhook',
-      value: 'WEBHOOKS'
-    },
-    {
       label: 'LeadCart Private Fulfillment',
       value: 'LEADCART_FULFILLMENT',
       private: true

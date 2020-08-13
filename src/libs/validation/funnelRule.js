@@ -46,20 +46,24 @@ const leadcartPrivateFulfillmentMetaData = yup.object({
 
 const actionSchema = yup.object({
   type: yup.string(),
-  integrationKey: yup.string(),
-  metaData: metaDataSchema.when('type', {
-    is: 'SUCCESS_URLS',
-    then: successUrlMetaSchema,
+  integrationKey: yup.string().when('type', {
+    is: 'WEBHOOKS',
+    then: yup.string().transform(() => 'leadcart_fulfillment'),
+    otherwise: yup.string().required()
+  }),
+  metaData: metaDataSchema.when('integrationKey', {
+    is: 'WEBHOOKS',
+    then: webhooksSchema,
     otherwise: metaDataSchema.when('type', {
-      is: 'MANUAL_FULFILLMENT',
-      then: manualFulfillmentMetaData,
+      is: 'SUCCESS_URLS',
+      then: successUrlMetaSchema,
       otherwise: metaDataSchema.when('type', {
-        is: 'LEADCART_FULFILLMENT',
-        then: leadcartPrivateFulfillmentMetaData,
+        is: 'MANUAL_FULFILLMENT',
+        then: manualFulfillmentMetaData,
         otherwise: metaDataSchema.when('type', {
-          is: 'WEBHOOKS',
-          then: webhooksSchema,
-          otherwise: yup.mixed()
+          is: 'LEADCART_FULFILLMENT',
+          then: leadcartPrivateFulfillmentMetaData,
+          otherwise: metaDataSchema
         })
       })
     })
