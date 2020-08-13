@@ -52,4 +52,7 @@ export { default as wordpress } from 'assets/images/brands/wordpress.png';
 export { default as wooCommerce } from 'assets/images/brands/wooCommerce.png';
 export { default as shopify } from 'assets/images/brands/shopify.jpg';
 export { default as taxamo } from 'assets/images/brands/taxamo.jpg';
+export { default as pabblyLogo } from 'assets/images/brands/pabbly-logo.png';
+export { default as integratelyLogo } from 'assets/images/brands/integrately_logo.png';
+export { default as webhookLogo } from 'assets/images/brands/webhook.png';
 
