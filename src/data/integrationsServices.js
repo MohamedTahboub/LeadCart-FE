@@ -362,6 +362,54 @@ const services = [
     supported: false
   },
   {
+    key: 'lc_webhook',
+    name: 'Webhooks',
+    brandLogo: brandsLogos.webhookLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Connect',
+      // action: 'link',
+      linkPath: '#webhooks'
+    }
+  },
+  {
+    key: 'lc_pabbly',
+    name: 'Pabbly',
+    brandLogo: brandsLogos.pabblyLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Connect',
+      // action: 'link',
+      linkPath: '#pabbly'
+    }
+  },
+  {
+    key: 'lc_integrately',
+    name: 'Integrately',
+    brandLogo: brandsLogos.integratelyLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Connect',
+      // action: 'link',
+      linkPath: '#Integrately'
+    }
+  },
+  {
     key: 'lc_zapier',
     name: 'Zapier',
     brandLogo: brandsLogos.zapierBrand,
