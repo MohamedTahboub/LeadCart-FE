@@ -149,8 +149,7 @@ const NodeSettingModal = ({
             flex
             flexStart
             wrappable
-            center='h-center'
-            className='scrolling-60vh'
+            className='scrolling-60vh space-between-elements pb-5 pr-2'
           >
             {
               nodeProducts.map((product) => (
