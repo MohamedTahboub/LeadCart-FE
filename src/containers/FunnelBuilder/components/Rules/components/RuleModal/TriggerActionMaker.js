@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -85,10 +85,18 @@ const TriggerActionMaker = ({
   };
 
   const onIntegrationSelected = ({ value }) => {
-    setGroup({
-      ...group,
-      action: { integrationKey: value }
-    });
+    const newGroup = { ...group };
+    console.log(value);
+    if (value === 'WEBHOOKS') {
+      newGroup.action = {
+        integrationKey: 'WEBHOOKS',
+        type: 'WEBHOOKS'
+      };
+    } else {
+      newGroup.action = { integrationKey: value };
+    }
+
+    setGroup(newGroup);
   };
   const onIntegrationActionSelected = ({ value, requirement }) => {
     setGroup({
@@ -127,6 +135,7 @@ const TriggerActionMaker = ({
   const selectedIntegration = integrationsLabels.find(({ value }) => group.action && group.action.integrationKey === value);
   const selectedActionOption = actionsOptions.find(({ value }) => group.action && group.action.type === value);
   const actionIntegrationId = group.action && actionsMap[group.action.integrationKey].integrationId;
+  const isWebhookAction = group.action && group.action.type === 'WEBHOOKS';
 
   return expand ? (
     <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges my-1'>
@@ -161,21 +170,24 @@ const TriggerActionMaker = ({
           onChange={onIntegrationSelected}
           value={selectedIntegration}
         />
-        <FlexBox center='v-center' className='label margin-right-10'>
-          Action
-          <GoInfo
-            data-tip='An action is the functionality available in an Integration you are connected to.'
-            className='gray-text animate margin-left-3 font-size-11'
-          />
-        </FlexBox>
-        <Select
-          name=''
-          className='flex-item'
-          defaultValue='IntegrationsAction'
-          options={actionsOptions}
-          onChange={onIntegrationActionSelected}
-          value={selectedActionOption}
-        />
+        {!isWebhookAction && (
+          <Fragment>
+            <FlexBox center='v-center' className='label margin-right-10'>
+              Action
+              <GoInfo
+                data-tip='An action is the functionality available in an Integration you are connected to.'
+                className='gray-text animate margin-left-3 font-size-11'
+              />
+            </FlexBox>
+            <Select
+              className='flex-item'
+              defaultValue='IntegrationsAction'
+              options={actionsOptions}
+              onChange={onIntegrationActionSelected}
+              value={selectedActionOption}
+            />
+          </Fragment>
+        )}
       </FlexBox>
       <ActionDependencies
         {...group.action}
@@ -227,7 +239,12 @@ const mapStateToProps = ({ user: { user = {} } = {}, integrations }) => {
     ...leadcartFulfillment,
     actions: leadcartFulfillment.actions.filter((ful) => ful.private ? admins.includes(user.email) : true)
   };
-  const integrationsList = [localFulfillment, ...integrationsLabels];
+  const localWebHookFulfillment = {
+    label: 'Webhooks',
+    value: 'WEBHOOKS',
+    actions: []
+  };
+  const integrationsList = [localFulfillment, localWebHookFulfillment, ...integrationsLabels];
   const actionsMap = mapListToObject(integrationsList, 'value');
 
   return {
