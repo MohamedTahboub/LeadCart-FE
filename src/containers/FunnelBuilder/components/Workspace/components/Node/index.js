@@ -4,6 +4,7 @@ import common from 'components/common';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import { GoPlug } from 'react-icons/go';
 import { MdDelete } from 'react-icons/md';
 import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
@@ -40,13 +41,34 @@ const Node = ({
   onEdit,
   toggleOptions,
   activeNode,
-  relations,
+  relations = [],
   coordinates = {},
   onConnect,
   connectingMode,
   onConnected,
-  onDelete
+  onDelete,
+  ocCancelConnection
 }) => {
+  const hasUpSell = !!relations.find(({ type }) => type === 'upSell');
+  const hasDownSell = !!relations.find(({ type }) => type === 'downSell');
+
+  const upsellId = relations.map(({ target, type }) => {
+    if (type === 'upSell')
+      return target;
+    else
+      return null;
+
+  }).toString();
+
+
+  const downSellId = relations.map(({ target, type }) => {
+    if (type === 'downSell')
+      return target;
+    else
+      return null;
+
+  }).toString();
+
   const elementRef = useRef(null);
   // const [connecting, setConnecting] = useState();
   const highlighted = activeNode === elementId;
@@ -165,6 +187,28 @@ const Node = ({
             />
           </div>)
         }
+
+        {hasUpSell &&
+          <span className='connection-cancel-upsell danger-color'
+            onClick={(e) => {
+              e.stopPropagation();
+              ocCancelConnection(upsellId, elementId);
+            }}
+          >
+            <FaRegTimesCircle />
+          </span>
+        }
+
+        {hasDownSell &&
+          <span className='connection-cancel-downsell danger-color'
+            onClick={(e) => {
+              e.stopPropagation();
+              ocCancelConnection(downSellId, elementId);
+            }}
+          >
+            <FaRegTimesCircle />
+          </span>}
+
       </FlexBox>
     </div>
 
