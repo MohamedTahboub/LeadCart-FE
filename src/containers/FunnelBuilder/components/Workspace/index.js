@@ -98,12 +98,11 @@ const WorkSpace = ({
   };
 
 
-  const onNodeConnectionCancel = (targetId, fromElementId) => {
-    const updatedList = nodes.map((node) => {
-      if (node.elementId === fromElementId) {
-        const relation = () => node.relations.find(({ target }) => target !== targetId);
-        node.relations = [relation()];
-      }
+  const onNodeConnectionCancel = (targetId, elementId) => {
+    const updatedList = [...nodes].map((node) => {
+      if (node.elementId === elementId)
+        node.relations = [...node.relations].filter(({ target = '' }) => target !== targetId);
+
       return node;
     });
 

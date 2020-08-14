@@ -1,12 +1,11 @@
-import React, { useRef, useState } from 'react';
-// import PropTypes from 'prop-types';
-import common from 'components/common';
+import React, { useRef } from 'react';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import { GoPlug } from 'react-icons/go';
 import { MdDelete } from 'react-icons/md';
+
+import common from 'components/common';
 import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
@@ -34,7 +33,6 @@ const { FlexBox } = common;
 const stringifyObj = (obj) => JSON.stringify(obj);
 const Node = ({
   elementId,
-  type: nodeType,
   product = {},
   category = 'checkout',
   productId,
@@ -49,28 +47,22 @@ const Node = ({
   onDelete,
   ocCancelConnection
 }) => {
-  const hasUpSell = !!relations.find(({ type }) => type === 'upSell');
-  const hasDownSell = !!relations.find(({ type }) => type === 'downSell');
+  const targetData = {};
 
-  const upsellId = relations.map(({ target, type }) => {
-    if (type === 'upSell')
-      return target;
-    else
-      return null;
+  relations.forEach(({ target, type }) => {
+    if (type === 'upSell') {
+      targetData.upsellId = target;
+      targetData.hasUpSell = true;
+    }
 
-  }).toString();
-
-
-  const downSellId = relations.map(({ target, type }) => {
-    if (type === 'downSell')
-      return target;
-    else
-      return null;
-
-  }).toString();
+    if (type === 'downSell') {
+      targetData.downSellId = target;
+      targetData.hasDownSell = true;
+    }
+  });
+  const { hasUpSell, upsellId, hasDownSell, downSellId } = targetData;
 
   const elementRef = useRef(null);
-  // const [connecting, setConnecting] = useState();
   const highlighted = activeNode === elementId;
   const classes = clx(
     'card-style',
@@ -119,10 +111,8 @@ const Node = ({
     onDelete(elementId);
   };
 
-
   const bgImage = product.image ? product.image : categoriesImages[category.toLowerCase()];
   const name = product.name ? product.name : categoriesNames[category.toLowerCase()];
-
 
   const style = { backgroundImage: `linear-gradient(to bottom, #fff 1%, transparent 95%), url(${bgImage})` };
   const showStatusHate = category !== 'thankyoupage';
@@ -203,7 +193,6 @@ const Node = ({
           >
             <FaRegTimesCircle />
           </span>}
-
       </FlexBox>
     </div>
 
