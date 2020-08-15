@@ -98,6 +98,20 @@ const WorkSpace = ({
   };
 
 
+  const onNodeConnectionCancel = (targetId, elementId) => {
+    const updatedList = [...nodes].map((node) => {
+      if (node.elementId === elementId)
+        node.relations = [...node.relations].filter(({ target = '' }) => target !== targetId);
+
+      return node;
+    });
+
+    onChange({
+      name: 'products',
+      value: updatedList
+    });
+  };
+
   const onNodeConnected = (targetId) => {
     const { currentId, type } = connecting;
     setConnecting(false);
@@ -131,7 +145,6 @@ const WorkSpace = ({
       }
       return node;
     });
-
 
     onChange({
       name: 'products',
@@ -212,6 +225,7 @@ const WorkSpace = ({
             onConnect={onConnectNode}
             connectingMode={connecting}
             onConnected={onNodeConnected}
+            onCancelConnection={onNodeConnectionCancel}
             onDelete={onNodeDelete}
             {...node}
             {...nodeProps}

@@ -118,7 +118,7 @@ const SideBar = ({
           />
         </Tab>
 
-        <Tab id='marketPlace' title='Market Place'>
+        <Tab id='marketPlace' title='MarketPlace'>
           <section className='tab__marketPlace__publish'>
             Publish
             <Toggle
