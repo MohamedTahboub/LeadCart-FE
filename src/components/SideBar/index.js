@@ -2,6 +2,7 @@ import React, { Fragment, useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { Menu } from 'antd';
+import moment from 'moment';
 
 import { HeaderLogo } from 'components/common/logos';
 import BrandsMenu from 'components/BrandsMenu';
@@ -65,7 +66,14 @@ const SideBar = ({
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
-        appInit({}, {
+        appInit({
+          chartsFilters: {
+            date: {
+              min: moment().subtract(7, 'days').endOf('day').format('YYYY-MM-DD'),
+              max: moment().format('YYYY-MM-DD')
+            }
+          }
+        }, {
           onSuccess: () => {
             const brand = brands.find(({ id }) => id === activeBrand) || {};
             notification.success(`You Now On the ${brand.name}`);
