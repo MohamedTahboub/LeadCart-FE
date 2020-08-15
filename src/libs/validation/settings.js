@@ -11,7 +11,7 @@ export default async (fields) => {//
     timeZone: yup.string().default('Central America'),
     supportEmail: yup.string().email(),
     layout: yup.object({
-      name: yup.string().default('Market Place Name'),
+      name: yup.string().default('MarketPlace Name'),
       coverImage: yup.string().url(),
       links: yup.array()
     }).required()
