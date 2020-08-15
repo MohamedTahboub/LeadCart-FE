@@ -22,14 +22,11 @@ const defaultCountry = countries.find(({ value }) => value === 'US').value;
 const GeneralSettings = ({
   marketPlace,
   getSave,
-  brands,
-  activeBrand,
   ...props
 }) => {
   const [fields, setFields] = useState({ ...marketPlace });
   const [errors, setErrors] = useState({});
 
-  const currentActiveBrand = brands.find(({ id }) => id === activeBrand);
 
   useEffect(() => {
     setFields(marketPlace);
@@ -173,7 +170,7 @@ const GeneralSettings = ({
   );
 };
 
-const mapStateToProps = ({ settings: { generalModel: marketPlace }, brands, user: { user: { activeBrand } } }) => ({ marketPlace, brands, activeBrand });
+const mapStateToProps = ({ settings: { generalModel: marketPlace } }) => ({ marketPlace });
 
 GeneralSettings.propTypes = {
   user: PropTypes.objectOf({ email: PropTypes.string.isRequired }),
