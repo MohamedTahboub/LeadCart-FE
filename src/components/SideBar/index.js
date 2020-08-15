@@ -15,6 +15,8 @@ import Icons from './icons';
 import * as brandsAction from 'actions/brands';
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
+import * as settingsActions from 'actions/settings';
+
 import { appInit } from 'actions/appInit';
 import './style.css';
 
@@ -54,13 +56,18 @@ const SideBar = ({
   appInit,
   logout,
   updateActiveBrand,
+  updateMarketPlaceSettings,
   brands,
+  generalModel,
   ...props
 }) => {
   const [isBrandsOpen, setBrandsOpen] = useState(false);
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
   const menus = sidebarMenus({ brands });
+
+  const { country, currency, layout, subDomain, timeZone } = generalModel;
+  const currentGeneralSettingsData = { country, currency, layout, subDomain, timeZone };
 
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
@@ -69,6 +76,7 @@ const SideBar = ({
           onSuccess: () => {
             const brand = brands.find(({ id }) => id === activeBrand) || {};
             notification.success(`You Now On the ${brand.name}`);
+            updateMarketPlaceSettings({ ...currentGeneralSettingsData, name: brand.name });
           },
           onFailed: (message) => {
             notification.failed(message);
@@ -153,8 +161,9 @@ const SideBar = ({
 const mapStateToProps = ({
   brands,
   user: { user },
-  redemption: { credits = 0 } = {}
-}) => ({ user, brands, credits });
+  redemption: { credits = 0 } = {},
+  settings: { generalModel }
+}) => ({ user, brands, credits, generalModel });
 
 export default connect(
   mapStateToProps,
@@ -162,6 +171,7 @@ export default connect(
     ...logout,
     ...modalsActions,
     ...brandsAction,
+    ...settingsActions,
     appInit
   }
 )(SideBar);

@@ -22,10 +22,14 @@ const defaultCountry = countries.find(({ value }) => value === 'US').value;
 const GeneralSettings = ({
   marketPlace,
   getSave,
+  brands,
+  activeBrand,
   ...props
 }) => {
   const [fields, setFields] = useState({ ...marketPlace });
   const [errors, setErrors] = useState({});
+
+  const currentActiveBrand = brands.find(({ id }) => id === activeBrand);
 
   useEffect(() => {
     setFields(marketPlace);
@@ -89,7 +93,7 @@ const GeneralSettings = ({
         <InputRow.Label
           error={errors.logo}
         >
-            Default Logo:
+          Default Logo:
 
         </InputRow.Label>
         <InputRow.AddImage
@@ -99,7 +103,7 @@ const GeneralSettings = ({
           name='logo'
           onUploaded={(image) => updateFields('logo', image)}
         >
-            Logo
+          Logo
 
         </InputRow.AddImage>
       </InputRow>
@@ -107,7 +111,7 @@ const GeneralSettings = ({
         <InputRow.Label
           error={errors.country}
         >
-            Default Country:
+          Default Country:
 
         </InputRow.Label>
         <InputRow.SearchInput
@@ -156,7 +160,7 @@ const GeneralSettings = ({
           error={errors.subDomain}
           notes='Brand SubDomain'
         >
-            Brand SubDomain:
+          Brand SubDomain:
         </InputRow.Label>
         <InputRow.TextField
           name='subDomain'
@@ -169,7 +173,7 @@ const GeneralSettings = ({
   );
 };
 
-const mapStateToProps = ({ settings: { generalModel: marketPlace } }) => ({ marketPlace });
+const mapStateToProps = ({ settings: { generalModel: marketPlace }, brands, user: { user: { activeBrand } } }) => ({ marketPlace, brands, activeBrand });
 
 GeneralSettings.propTypes = {
   user: PropTypes.objectOf({ email: PropTypes.string.isRequired }),
