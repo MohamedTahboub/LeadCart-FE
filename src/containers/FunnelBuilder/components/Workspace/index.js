@@ -225,7 +225,7 @@ const WorkSpace = ({
             onConnect={onConnectNode}
             connectingMode={connecting}
             onConnected={onNodeConnected}
-            ocCancelConnection={onNodeConnectionCancel}
+            onCancelConnection={onNodeConnectionCancel}
             onDelete={onNodeDelete}
             {...node}
             {...nodeProps}

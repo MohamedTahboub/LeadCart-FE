@@ -45,7 +45,7 @@ const Node = ({
   connectingMode,
   onConnected,
   onDelete,
-  ocCancelConnection
+  onCancelConnection
 }) => {
   const targetData = {};
 
@@ -109,6 +109,11 @@ const Node = ({
   const onNodeDelete = (e) => {
     e.stopPropagation();
     onDelete(elementId);
+  };
+
+  const onRelationDelete = (targetID, elementId) => (e) => {
+    e.stopPropagation();
+    onCancelConnection(targetID, elementId);
   };
 
   const bgImage = product.image ? product.image : categoriesImages[category.toLowerCase()];
@@ -175,10 +180,7 @@ const Node = ({
 
         {hasUpSell &&
           <span className='connection-cancel-upsell danger-color'
-            onClick={(e) => {
-              e.stopPropagation();
-              ocCancelConnection(upsellId, elementId);
-            }}
+            onClick={onRelationDelete(upsellId, elementId)}
           >
             <FaRegTimesCircle />
           </span>
@@ -186,10 +188,7 @@ const Node = ({
 
         {hasDownSell &&
           <span className='connection-cancel-downsell danger-color'
-            onClick={(e) => {
-              e.stopPropagation();
-              ocCancelConnection(downSellId, elementId);
-            }}
+            onClick={onRelationDelete(downSellId, elementId)}
           >
             <FaRegTimesCircle />
           </span>}
