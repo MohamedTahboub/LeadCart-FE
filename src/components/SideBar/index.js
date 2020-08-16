@@ -16,6 +16,7 @@ import Icons from './icons';
 import * as brandsAction from 'actions/brands';
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
+
 import { appInit } from 'actions/appInit';
 import './style.css';
 
@@ -62,6 +63,7 @@ const SideBar = ({
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
   const menus = sidebarMenus({ brands });
+
 
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
