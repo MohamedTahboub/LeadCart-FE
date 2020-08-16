@@ -24,7 +24,7 @@ const GroupAction = ({ integrationKey: serviceName, type: serviceAction }) => {
 
   return (
     <Badge className='margin-left-10 capitalized-text'>
-      {service.toLowerCase().replace('_', ' ')}
+      {service.toLowerCase().replace(/_/ig, ' ')}
     </Badge>
   );
 };
