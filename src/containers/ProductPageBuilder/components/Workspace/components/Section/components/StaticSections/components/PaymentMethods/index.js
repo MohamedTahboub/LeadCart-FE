@@ -48,7 +48,11 @@ const PaymentMethods = ({
 
   const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
   const [method, setMethod] = useState(0);
-  const { paymentMethods: paymentMethodsTitle } = language.checkout || {};
+  const {
+    paymentMethods: paymentMethodsTitle = 'Payment Method',
+    creditCards: creditCardsTitle = 'Credit Cards',
+    payPal: payPalTitle = 'PayPal'
+  } = language.checkout || {};
 
   return (
     <Fragment>
@@ -61,13 +65,14 @@ const PaymentMethods = ({
             >
               {paymentMethodsTitle}
             </CycleStepTitle>
-          ) : (
-            <div className='black-title'>{paymentMethodsTitle}</div>
-          )
+          ) :
+            (
+              <div className='black-title'>{paymentMethodsTitle}</div>
+            )
         }
         {methods.includes('Stripe') && (
           <RadioImageCard
-            title='Credit Cards'
+            title={creditCardsTitle}
             name='payment-type'
             image={creditsImage}
             onClick={() => setMethod(1)}
@@ -75,7 +80,7 @@ const PaymentMethods = ({
         )}
         {methods.includes('Paypal') && (
           <RadioImageCard
-            title='PayPal'
+            title={payPalTitle}
             name='payment-type'
             image={paypalImage}
             onClick={() => setMethod(2)}
