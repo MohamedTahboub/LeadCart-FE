@@ -8,7 +8,7 @@ import ReactToolTip from 'react-tooltip';
 
 import TriggerGroup from './RuleModal/TriggerGroup';
 
-import { getIntersectedProducts } from './helpers';
+import { getIntersectedProducts, getTriggerLabel } from './helpers';
 
 const {
   Card,
@@ -31,7 +31,7 @@ const RuleCard = ({
       <FlexBox column>
         <FlexBox center='v-center'>
           <span className='small-text gray-color bold-text'>When</span>
-          <Badge data-tip='rule trigger event' className='margin-h-10'>{trigger}</Badge>
+          <Badge data-tip='rule trigger event' className='margin-h-10'>{getTriggerLabel(trigger)}</Badge>
           <span className='small-text gray-color bold-text'>Occur</span>
         </FlexBox>
         <FlexBox center='v-center'>

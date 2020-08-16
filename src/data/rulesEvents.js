@@ -8,7 +8,7 @@ export default [
   //   value: 'productRefunded'
   // },
   {
-    label: 'Prospect Created',
+    label: 'Cart Abandonment',
     value: 'PROSPECT'
   }
   // {
