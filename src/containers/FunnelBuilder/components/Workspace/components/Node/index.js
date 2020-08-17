@@ -45,7 +45,8 @@ const Node = ({
   connectingMode,
   onConnected,
   onDelete,
-  onCancelConnection
+  onCancelConnection,
+  connectingElement
 }) => {
   const targetData = {};
 
@@ -164,7 +165,7 @@ const Node = ({
             />
           </div>
         )}
-        {(connectingMode && category !== 'checkout') && (
+        {(connectingMode && category !== 'checkout' && elementId !== connectingElement) && (
           <div onClick={onConnectNode} className='node-connect-tail'>
             <GoPlug className='white-text large-text' />
           </div>
