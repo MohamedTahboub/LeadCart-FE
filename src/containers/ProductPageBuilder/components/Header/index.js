@@ -159,6 +159,7 @@ const Header = ({
         scripts={scripts}
         onClose={onToggleScriptModal}
         onChange={onChange}
+        onSaveTheProduct={onSave}
       />
     </FlexBox>
   );
