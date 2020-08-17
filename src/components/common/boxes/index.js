@@ -1,7 +1,7 @@
 import Block from './Block';
 import Box from './Box';
 import CardsContainer from './CardsContainer';
-import EmbededScripContainer from './EmbededScripContainer';
+import EmbeddedScripContainer from './EmbeddedScripContainer';
 import FlexBox from './FlexBox';
 import FlexBoxesContainer from './FlexBoxesContainer';
 import InsightBadge from './InsightBadge';
@@ -10,4 +10,4 @@ import SmallBox from './SmallBox';
 import './style.css';
 
 
-export { Block, Box, CardsContainer, EmbededScripContainer, FlexBox, FlexBoxesContainer, InsightBadge, MainBlock, SmallBox };
+export { Block, Box, CardsContainer, EmbeddedScripContainer, FlexBox, FlexBoxesContainer, InsightBadge, MainBlock, SmallBox };
