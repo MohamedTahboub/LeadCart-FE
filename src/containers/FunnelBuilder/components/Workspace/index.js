@@ -30,7 +30,6 @@ const WorkSpace = ({
   const [connecting, setConnecting] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false);
 
-
   const elementRef = useRef(null);
 
   const onDragOver = (event) => {
@@ -230,6 +229,7 @@ const WorkSpace = ({
             {...node}
             {...nodeProps}
             product={productsNodeDetails[node.productId]}
+            connectingElement={connecting.currentId}
           />
         ))}
         <ShadowBackground show={showNodeSettingModal} setShowNodeSettingModal={setShowNodeSettingModal} />
