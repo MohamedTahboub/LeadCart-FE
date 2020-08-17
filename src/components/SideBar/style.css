@@ -218,12 +218,12 @@ svg.sideBar-icon path {
 }
 
 .brands-navigation.is-open {
-  min-height: calc(100vh - 166px);
-  animation: resize-to .3s forwards ease-in;
+  min-height: calc(100vh - 130px);
+  animation: resize-to .15s forwards ease-in;
 }
 
 .brands-navigation:not(.is-open) {
-  animation: resize-from .1s forwards ease-in;
+  animation: resize-from .15s forwards ease-in;
 }
 
 .sidebar-topper {
@@ -232,10 +232,10 @@ svg.sideBar-icon path {
 
 @keyframes resize-to {
   from {min-height: 49px}
-  to {min-height: calc(100vh - 166px)}
+  to {min-height: calc(100vh - 130px)}
 }
 
 @keyframes resize-from {
-  from {min-height: calc(100vh - 166px)}
+  from {min-height: calc(100vh - 130px)}
   to {min-height: 49px}
 }
