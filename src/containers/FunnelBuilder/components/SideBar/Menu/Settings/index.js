@@ -37,7 +37,7 @@ const Settings = ({
 }) => {
 
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
-  const currentLanguageValue = currentLanguage ? currentLanguage.value : currentLanguage;
+  const currentLanguageValue = currentLanguage ? currentLanguage.value : 'English';
 
   const onFiledChange = ({ target: { name, value } }) => {
     onChange({ name, value: value === 'English' ? undefined : value });
@@ -82,7 +82,7 @@ const Settings = ({
             defaultValue={currentLanguageValue}
             name='language'
             onChange={onFiledChange}
-            placeholder={currentLanguageValue === undefined ? 'English' : currentLanguageValue}
+            placeholder={currentLanguageValue}
           />
         </FlexBox>
       </FlexBox>
