@@ -23,7 +23,11 @@ const ProductsScripts = ({
   const [fields, setFields] = useState(scripts);
 
   useEffect(() => {
-    setFields(scripts);
+    const newObj = {};
+    newObj['scripts.fbPixelId'] = scripts.fbPixelId;
+    newObj['scripts.googleTagManager'] = scripts.googleTagManager;
+
+    setFields(newObj);
   }, [scripts]);
 
   const onUpdateParent = () => {
