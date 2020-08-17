@@ -32,6 +32,13 @@
 
 .brands-navigation {
   grid-area: brands;
+  min-height: 49px;
+  transition: all .2s ease-in-out;
+}
+
+.brands-navigation.is-open {
+  min-height: calc(100vh - 130px);
+  transition: all .2s ease-in-out;
 }
 
 .side-bar-navigation {
@@ -217,25 +224,8 @@ svg.sideBar-icon path {
   align-self: flex-start;
 }
 
-.brands-navigation.is-open {
-  min-height: calc(100vh - 130px);
-  animation: resize-to .15s forwards ease-in;
-}
 
-.brands-navigation:not(.is-open) {
-  animation: resize-from .15s forwards ease-in;
-}
 
 .sidebar-topper {
   max-height: calc(100% - 42px);
-}
-
-@keyframes resize-to {
-  from {min-height: 49px}
-  to {min-height: calc(100vh - 130px)}
-}
-
-@keyframes resize-from {
-  from {min-height: calc(100vh - 130px)}
-  to {min-height: 49px}
 }
