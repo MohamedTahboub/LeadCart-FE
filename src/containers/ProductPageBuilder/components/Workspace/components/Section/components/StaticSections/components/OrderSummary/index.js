@@ -86,7 +86,7 @@ const OrderSummary = ({
       />
       {nextCharge && (
         <div className='purchases-charge-details'>
-          {nextChargeLabel + nextCharge}
+          {`${nextChargeLabel} ${nextCharge}`}
         </div>
       )}
     </section>
