@@ -74,6 +74,26 @@
                     "label": "Payment Methods"
                 },
                 {
+                    "key": "creditCards",
+                    "value": "Credit Cards",
+                    "label": "Credit Cards"
+                },
+                {
+                    "key": "payPal",
+                    "value": "PayPal",
+                    "label": "PayPal"
+                },
+                {
+                    "key": "coupon",
+                    "value": "Coupon",
+                    "label": "Coupon"
+                },
+                {
+                    "key": "applyCoupon",
+                    "value": "Apply",
+                    "label": "Apply"
+                },
+                {
                     "key": "orderSummary",
                     "value": "Order Summary",
                     "label": "Order Summary"
@@ -101,14 +121,24 @@
                     ]
                 },
                 {
-                    "key": "coupon",
-                    "value": "Coupon",
-                    "label": "Coupon"
+                    "key": "subscriptionMonthly",
+                    "value": "Subscription - Monthly",
+                    "label": "Subscription - Monthly"
                 },
                 {
-                    "key": "applyCoupon",
-                    "value": "Apply",
-                    "label": "Apply"
+                    "key": "subscriptionYearly",
+                    "value": "Subscription - Yearly",
+                    "label": "Subscription - Yearly"
+                },
+                {
+                    "key": "splitPayment",
+                    "value": "First Installment Out of",
+                    "label": "First Installment Out of"
+                },
+                {
+                    "key": "nextCharge",
+                    "value": "Your next charge is going to be on",
+                    "label": "Your next charge is going to be on"
                 }
             ]
         },
