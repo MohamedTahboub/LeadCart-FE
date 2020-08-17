@@ -1,14 +1,17 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Modal } from '../Modals';
 import common from '../common';
 
 import './style.css';
+
+const defaultWhiteLogo = 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5e70880c81f85530d0ecd553/products/leadcart_light_logo.png';
+
 const {
   // ShareButton,
   MainTitle,
   Button,
-  EmbededScripContainer,
+  EmbeddedScripContainer,
   // ShareBtnContainer,
   SubTabs
 } = common;
@@ -36,42 +39,45 @@ const CopyScriptButton = ({ embeddedText }) => {
   );
 };
 
-const formatEmbedScript = ({ subdomain, productUrl }) => `<script>
+const formatEmbedScript = ({ funnelUrl }) => `<script>
     function prepareFrame() {
-    var iframeUrl = "https://${subdomain}.leadcart.io/${productUrl}";
+    var iframeUrl = "${funnelUrl}";
     var ifrm = document.createElement("iframe");
     ifrm.setAttribute("id", "leadcart-iframe-container");
     ifrm.setAttribute("src", iframeUrl);
     ifrm.style.width = "100%";
-    ifrm.style.height = "1000px";
+    ifrm.style.height = "100vh";
+    ifrm.style.border = "none";
     document.body.appendChild(ifrm);
     }
     prepareFrame();
 </script>`;
 
-const ButtonFormatEmbedScript = ({ subdomain, productUrl }) => `<a
-    href="https://${subdomain}.leadcart.io/${productUrl}"
+const ButtonFormatEmbedScript = ({ funnelUrl, brandLogo = defaultWhiteLogo }) => `
+<a
+    href="${funnelUrl}"
     target='_blank'
-    style="background:blue;border-radius:5px;
-    font-size:16px;font-weight:bold;color:white;
-    padding:10px 20px;text-decoration:none;
-    box-shadow:2px 2px 5px 2px rgba(0,0,0,.2);margin:20px;"
+    style="border-radius:3px;font-size:17px;font-weight:bold;color:white;padding:10px 25px;text-decoration:none;box-shadow:0px 0px 3px 2px rgba(0,0,0,.08);margin:20px;background-color:#03A9F4;font-family:arial;display:flex;
+    align-items:center;justify-content:center;"
 >
-    Buy Now
+    <img style="margin:auto 10px;height:30px;width:auto;object-fit:contain;" src="${brandLogo}" alt="brand" />
+   <span>
+     Buy Now  
+   </span>
 </a>
-    `;
+    
+`;
 
 
 const ShareProductModal = ({
   onClose,
   subdomain,
   isVisible,
-  productUrl,
+  funnelUrl,
   logo
 }) => {
-  const script = formatEmbedScript({ productUrl, subdomain });
-  const buttonScript = ButtonFormatEmbedScript({ productUrl, subdomain });
-  const productExternalLink = `https://${subdomain}.leadcart.io/${productUrl}`;
+  const script = formatEmbedScript({ funnelUrl, subdomain });
+  const buttonScript = ButtonFormatEmbedScript({ funnelUrl, brandLogo: logo });
 
   return (
     <Modal onClose={onClose} isVisible={isVisible} affectIntercom={false}>
@@ -80,9 +86,9 @@ const ShareProductModal = ({
       <div className=''>
         <pre className='product-link-preview'>
           <span>
-            {productExternalLink}
+            {funnelUrl}
           </span>
-          <CopyScriptButton embeddedText={productExternalLink} />
+          <CopyScriptButton embeddedText={funnelUrl} />
         </pre>
       </div>
       <SubTabs
@@ -90,7 +96,7 @@ const ShareProductModal = ({
         tabs={{
           'Full Page Embed Script': (
             <Fragment key='Full Page Embed Script'>
-              <EmbededScripContainer
+              <EmbeddedScripContainer
                 headNote="Include this code wherever you want to embed link to this product's Leadcart checkout page"
                 script={script}
               />
@@ -99,7 +105,7 @@ const ShareProductModal = ({
           ),
           'Buy Now Button Script': (
             <Fragment key='Buy Now Button Script'>
-              <EmbededScripContainer
+              <EmbeddedScripContainer
                 headNote='This Element is basic and you are free to customize it the way it suits your requirement.'
                 script={buttonScript}
               />
