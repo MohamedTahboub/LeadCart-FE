@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
 import { IoIosClose } from 'react-icons/io';
 import clx from 'classnames';
@@ -8,14 +7,13 @@ import SubSettings from './components';
 
 const {
   SideMenu,
-  FlexBox,
+  FlexBox
 } = common;
 
 const defaultTitle = 'Section Properties';
 
-const SettingSideBar = (props) => {
+const SettingSideBar = () => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
-
 
   const toggleMenu = () => {
     actions.toggleSectionSettingModal(sectionSetting);
@@ -49,8 +47,6 @@ const SettingSideBar = (props) => {
   );
 };
 
-SettingSideBar.propTypes = {
-
-};
+SettingSideBar.propTypes = {};
 
 export default SettingSideBar;

@@ -21,3 +21,9 @@
 .tab-item.active{
     border-bottom: 3px solid rgba(33, 123, 232, 0.767);
 }
+
+.side-bar-menu.right-position .tabs-content {
+    overflow-y: auto;
+    padding: 0 15px;
+    height: calc(100vh - 188px)
+}

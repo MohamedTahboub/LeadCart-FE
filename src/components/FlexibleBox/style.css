@@ -18,8 +18,22 @@
     border-radius: 20px;
     transition: height .3s ease-in-out;
 }
+.resizable-flexibleBox.vertical .expander {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  left: unset;
+  height: auto;
+  transition: width .3s ease-in-out;
+  cursor: ew-resize;
+}
 .resizable-flexibleBox .expander:hover{
     height: 22px;
+}
+.resizable-flexibleBox.vertical .expander:hover{
+    width: 22px;
+    height: unset;
 }
 .expander-icon {
     font-size: 30px;

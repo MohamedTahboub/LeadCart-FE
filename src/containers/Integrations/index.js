@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'querystring';
 
@@ -10,14 +10,22 @@ import servicesList from 'data/integrationsServices';
 import {
   ConnectModal,
   ConnectingModal,
-  IntegrationsGrid,
-  IntegrationsTable,
-  LayoutOptions,
-  LayoutSwitch
+  IntegrationsLayouts,
+  LayoutOptions
 } from './components';
 
 
-const { MainTitle, InputRow, FlexBox, Page, PageHeader, Currency, PageContent, Dialog, WarningMessage } = common;
+const {
+  MainTitle,
+  InputRow,
+  FlexBox,
+  Page,
+  PageHeader,
+  Currency,
+  PageContent,
+  Dialog,
+  WarningMessage
+} = common;
 
 const { TextField } = InputRow;
 
@@ -32,29 +40,6 @@ const filtersIntegrations = (list, key, connected = 'all') => list.filter((integ
     const hasMatched = values.find((v) => includesIgnoreCase(v, key));
     return hasMatched;
   });
-
-
-const ActiveIntegrationLayout = ({ layout, ...props }) => {
-  const categories = props.list.reduce((cat, service) => {
-    if (Array.isArray(cat[service.category])) cat[service.category].push(service);
-    else cat[service.category] = [service];
-    return cat;
-  }, {});
-
-  return Object.keys(categories).map((key, index) => {
-    const list = categories[key];
-    return (
-      <Fragment>
-        <MainTitle className='integration-category-title capitalized-text'>{key}</MainTitle>
-        <LayoutSwitch active={layout}>
-          <IntegrationsGrid id='grid' {...props} list={list} />
-          <IntegrationsTable id='list' {...props} list={list} showHeader={!index} />
-        </LayoutSwitch>
-      </Fragment>
-    );
-  });
-};
-
 
 const checkConnecting = (searchUrl = '') => {
   const details = queryString.parse(searchUrl.replace('?', ''));
@@ -156,7 +141,7 @@ const Integrations = ({ integrations, history, ...props }) => {
       <PageContent dflex>
         <FlexBox column flex>
           <FlexBox column flex>
-            <ActiveIntegrationLayout
+            <IntegrationsLayouts
               layout={activeLayout}
               list={filteredList}
               onConnect={onConnect}

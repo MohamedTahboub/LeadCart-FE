@@ -8,25 +8,47 @@ const { InputRow: { AddImage } } = common;
 
 const ImageContent = ({
   className,
-  section = {}
+  section = {},
+  parentSectionId,
+  shallow,
+  ...rest
 }) => {
   const inputRef = useRef(null);
-
-  const { actions } = useContext();
-  const { styles = {}, content = {} } = section;
+  const { actions, state } = useContext();
+  const { styles = {}, content = {}, id: sectionId } = section;
   const classNames = clx({
+    shallow,
     'image-section': true,
     [className]: className
   });
 
   const onImageChange = (image) => {
-    actions.onSectionSettingChange({
-      section,
-      field: {
-        name: 'content.value',
-        value: image
-      }
-    });
+    if (parentSectionId) {
+      const { product: { sections } } = state;
+      const parentSection = sections.find(({ id }) => id === parentSectionId);
+      const nestedSections = parentSection.content.sections;
+      const updatedSections = nestedSections.map((section) => {
+        if (section.id === sectionId)
+          return { ...section, content: { ...section.content, value: image } };
+
+        return section;
+      });
+      actions.onSectionSettingChange({
+        section: parentSection,
+        field: {
+          name: 'content.sections',
+          value: updatedSections
+        }
+      });
+    } else {
+      actions.onSectionSettingChange({
+        section,
+        field: {
+          name: 'content.value',
+          value: image
+        }
+      });
+    }
   };
 
   const onUpload = () => {
@@ -50,6 +72,7 @@ const ImageContent = ({
       className={classNames}
       onResizeStop={onSizeChange}
       showOnParentHover
+      holdResize={!!parentSectionId}
     >
       <img
         src={content.value || defaultDropImage}

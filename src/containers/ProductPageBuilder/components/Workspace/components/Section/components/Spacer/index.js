@@ -38,4 +38,3 @@ const Spacer = ({
 Spacer.propTypes = {};
 
 export default Spacer;
-

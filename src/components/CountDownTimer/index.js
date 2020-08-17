@@ -52,7 +52,7 @@ const CountDownTimer = ({
 
   return (
     <div>
-      <FlexBox center='h-center'>
+      <FlexBox center='h-center' className='countdown-timer'>
         <CountDownFrame
           value={state.days}
           label='Days'

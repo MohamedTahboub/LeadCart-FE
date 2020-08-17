@@ -76,7 +76,10 @@ const WorkSpace = ({
         });
       }
     }
-    if (node.category === 'checkout' || node.category === 'thankyouPage') if (nodes.find(({ category }) => node.category === category)) notification.failed(`The funnel accepts one ${category.toUpperCase()} product`);
+    if (node.category === 'checkout' || node.category === 'thankyouPage') {
+      if (nodes.find(({ category }) => node.category === category))
+        notification.failed(`The funnel accepts one ${category.toUpperCase()} product`);
+    }
 
     const updatedList = [
       ...nodes,

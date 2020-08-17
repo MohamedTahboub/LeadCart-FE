@@ -6,13 +6,14 @@ import { IoMdSettings } from 'react-icons/io';
 import { useContext } from '../../../../../actions';
 
 
-const settingLessTypes = ['heading', 'text', 'image', 'video', 'code'];
+const settingLessTypes = ['image', 'video', 'code'];
 
 const SettingsHandles = ({
   id,
   onDuplicate,
   section = {},
-  onSettings
+  onSettings,
+  handleDelete
 }) => {
   const { actions } = useContext();
 
@@ -21,7 +22,8 @@ const SettingsHandles = ({
   };
 
   const onDelete = () => {
-    actions.onSectionDelete(id);
+    if (handleDelete) handleDelete(id);
+    else actions.onSectionDelete(id);
   };
 
 
@@ -34,7 +36,7 @@ const SettingsHandles = ({
         data-tip='delete this section'
       />
       <MdContentCopy
-        onClick={onDuplicate(id)}
+        onClick={onDuplicate && onDuplicate(id)}
         className='item-handle'
         data-tip='duplicate this section'
       />
@@ -49,5 +51,7 @@ const SettingsHandles = ({
     </div>
   );
 };
+
+SettingsHandles.propTypes = {};
 
 export default SettingsHandles;

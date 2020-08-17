@@ -9,6 +9,7 @@ import {
   CouponSection,
   FeaturesListSection,
   FigureSection,
+  GridContent,
   GuaranteeSection,
   HeadingText,
   ImageContent,
@@ -40,6 +41,7 @@ const SectionContent = ({ type, ...props }) => {
   case 'guaranteeWidget': return <GuaranteeSection {...props} />;
   case 'countDownWidget': return <CountDownTimer {...props} />;
   case 'progressbarWidget': return <ProgressBar {...props} />;
+  case 'grid': return <GridContent {...props} />;
   default: return null;
   }
 };

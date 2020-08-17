@@ -1,4 +1,5 @@
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
+import defaultDropImage from 'assets/images/upload-image.png';
 
 export default {
   text: {
@@ -33,12 +34,26 @@ export default {
       paddingBottom: 0
     }
   },
+  grid: {
+    hidden: false,
+    type: 'grid',
+    content: { children: [] },
+    styles: {
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0
+    }
+  },
   button: {
     hidden: false,
     type: 'button',
     content: {
       value: 'Click Here',
-      children: []
+      children: [],
+      image: 'https://imgur.com/qZYW3BK.png'
     },
     styles: {
       marginTop: 0,
@@ -101,11 +116,12 @@ export default {
       children: [],
       sections: [
         {
-          id: 'abc',
+          id: '____2',
+          order: 2,
           hidden: false,
-          type: 'text',
+          type: 'image',
           content: {
-            value: 'Text Content',
+            value: defaultDropImage,
             children: []
           },
           styles: {
@@ -116,13 +132,13 @@ export default {
             paddingTop: 0,
             paddingBottom: 0
           }
-        },
-        {
-          id: 'abcd',
+        }, {
+          id: '____1',
+          order: 1,
           hidden: false,
           type: 'image',
           content: {
-            value: 'https://via.placeholder.com/200',
+            value: defaultDropImage,
             children: []
           },
           styles: {

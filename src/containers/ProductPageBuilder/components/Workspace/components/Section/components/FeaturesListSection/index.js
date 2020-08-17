@@ -3,15 +3,15 @@ import { useContext } from '../../../../../../actions';
 import './style.css';
 import { Feature } from './components';
 
+const defaultList = [{ text: 'First feature' }, { text: 'Second feature' }, { text: 'Third feature' }];
 
-const Features = ({ section }) => {
+const Features = ({ section = {} }) => {
   const { actions } = useContext();
 
   const {
-    styles,
-    content: { list = [] } = {}
+    styles = {},
+    content: { list = defaultList } = {}
   } = section;
-
 
   const onChange = (name, value) => {
     actions.onSectionSettingChange({
@@ -44,11 +44,9 @@ const Features = ({ section }) => {
     onChange('content.list', newList);
     if (!newList.length)
       actions.onSectionDelete(section.id);
-
   };
 
   return (
-
     <div className='features-list-container'>
       {list.map(({ text }, id) => (
         <Feature
@@ -57,8 +55,10 @@ const Features = ({ section }) => {
           text={text}
           onChange={onFeatureChange}
           onDelete={onFeatureDelete}
+          withCustomBullets={styles.withCustomBullets}
           color={styles.bulletColor}
           theme={styles.theme}
+          customBullet={styles.customBullet}
         />
       ))}
     </div>

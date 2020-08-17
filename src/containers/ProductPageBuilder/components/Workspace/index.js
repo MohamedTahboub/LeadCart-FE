@@ -123,18 +123,19 @@ const Workspace = ({
     if (!section) return;
 
     section.id = id;
-
     const newSections = update(sections, {
       $splice: [
         [(atIndex), 0, section],
         [(atIndex + 1), 0]
       ]
     });
-
     actions.onProductFieldChange({
       name: 'sections',
       value: newSections
     });
+    setTimeout(() => {
+      document.getElementById('product-builder-window').scroll({ left: 0, behavior: 'smooth', top: document.getElementById(id).offsetTop });
+    }, 100);
   };
 
   const onProductSettings = () => {
@@ -150,8 +151,6 @@ const Workspace = ({
     backgroundColor: pageStyles.productBackground,
     borderRadius: `${pageStyles.borderRadius}px`
   };
-
-
   return (
     <FlexBox
       flex
@@ -165,33 +164,34 @@ const Workspace = ({
         <FlexBox className='relative-element product-page-content' column style={productStyles}>
           <SettingsHandle onClick={onProductSettings} />
           <DropZone onDrop={onSectionDropped}>
-            {!sections.length && (
-              <FlexBox column center='h-center v-center' className='builder-drop-area'>
-                <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
-                <span className='gray-text'>
-                  Drop your sections here
-                </span>
-              </FlexBox>
-            )}
             {
-              sections.map((section, index) => (
-                <Section
-                  key={`${section.id}${index}`}
-                  id={`${section.id}`}
-                  {...section}
-                  section={section}
-                  onSetting={onSectionSettings}
-                  onSectionOrderChange={onSectionOrderChange}
-                  active={activeSection.id === section.id}
-                  activeSection={activeSection}
-                  moveCard={moveCard}
-                  onSectionDuplicate={onSectionDuplicate}
-                  findCard={findCard}
-                  language={activeLanguage}
-                  addNewAndMove={addNewAndMove}
-                  index={index}
-                />
-              ))
+              sections.length ? (
+                sections.map((section, index) => (
+                  <Section
+                    key={`${section.id}${index}`}
+                    id={`${section.id}`}
+                    {...section}
+                    section={section}
+                    onSetting={onSectionSettings}
+                    onSectionOrderChange={onSectionOrderChange}
+                    active={activeSection.id === section.id}
+                    activeSection={activeSection}
+                    moveCard={moveCard}
+                    onSectionDuplicate={onSectionDuplicate}
+                    findCard={findCard}
+                    language={activeLanguage}
+                    addNewAndMove={addNewAndMove}
+                    index={index}
+                  />
+                ))
+              ) : (
+                <FlexBox column center='h-center v-center' className='builder-drop-area'>
+                  <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
+                  <span className='gray-text'>
+                  Drop your sections here
+                  </span>
+                </FlexBox>
+              )
             }
           </DropZone>
           <StaticSections

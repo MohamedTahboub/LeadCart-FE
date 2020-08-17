@@ -9,6 +9,7 @@ export { default as guaranteeImage } from 'assets/images/icons/colored-guarantee
 export { default as countdownImage } from 'assets/images/icons/colored-countdown.png';
 export { default as progressbarImage } from 'assets/images/icons/colored-progressbar.png';
 export { default as pageBadgeImage } from 'assets/images/icons/colored-bookmark-badge.png';
+export { default as gridImage } from 'assets/images/icons/grid-layout.png';
 
 export const buttonImage = 'https://i.imgur.com/WY4HYyM.png';
 export const bumpOfferImage = 'https://i.imgur.com/69VvHEV.png';
@@ -16,4 +17,3 @@ export const shippingDetailsImage = 'https://i.imgur.com/24FugB7.png';
 export const couponImage = 'https://i.imgur.com/86mMJjC.png';
 export const testimonialsImage = 'https://i.imgur.com/loxwoC8.png';
 export const featuresImage = 'https://i.imgur.com/vIlArx5.png';
-

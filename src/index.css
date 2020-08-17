@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Modak&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200;300;400;600;700;900&family=Dancing+Script:wght@400;500;600;700&family=Roboto&display=swap');
 @import url("assets/css/common.css");
 
 body {
@@ -439,6 +440,7 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .overflow-y-scroll { overflow-y: scroll; }
 
 .d-none { display: none; }
+.col-6 { width: 50%; }
 
 @media (max-width: 992px) {
   .d-md-none {
@@ -447,9 +449,69 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 }
 
 .fluid { width: 100%; }
+.fit { width: fit-content; }
 
 /* Declarations */
 .divider {
   border: 1px solid #c5c5c5;
   margin: 1.5rem 0;
+}
+.overflow-hidden {overflow: hidden;}
+
+/* React split styles */
+.gutter {
+  background-color: #FCFCFC;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transition: background-color .3s;
+}
+.gutter:hover {
+  background-color: #EEE;
+  transition: background-color .3s;
+}
+
+.gutter.gutter-horizontal {
+  cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+  cursor: row-resize;
+}
+.gutter.gutter-vertical {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+}
+.split {
+  box-sizing: border-box;
+}
+.split,
+.gutter.gutter-horizontal {
+  float: left;
+}
+.split,
+.gutter.gutter-horizontal {
+  height: 100%;
+}
+.split {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ql-container {
+  font-family: unset;
+  font-size: unset;
+}
+
+.rs-slider {
+  margin: 10px 0;
+}
+
+.pb-140px {
+  padding-bottom: 140px;
+}
+h5 {
+  font-size: revert;
 }

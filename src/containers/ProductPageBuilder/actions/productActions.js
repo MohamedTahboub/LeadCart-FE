@@ -6,6 +6,8 @@ import { isFunction } from 'libs/checks';
 import * as types from './actionsTypes';
 
 const sectionThatHaveSettings = [
+  'text',
+  'heading',
   'button',
   'bumpOffer',
   'testimonialsSection',
@@ -15,7 +17,8 @@ const sectionThatHaveSettings = [
   'progressbarWidget',
   'figure',
   'pageSetting',
-  'staticSectionSetting'
+  'staticSectionSetting',
+  'grid'
 ];
 
 export const updateState = ({ dispatch }) => (subState) => {
@@ -92,9 +95,8 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 };
 
 
-export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) => {
-  const section = sectionsTemplates[sectionType];
-
+export const addNewSection = ({ state, dispatch }) => (sectionOrSectionType, postEffect) => {
+  const section = sectionOrSectionType instanceof String || typeof sectionOrSectionType === 'string' ? { ...sectionsTemplates[sectionOrSectionType] } : sectionOrSectionType;
   if (!section) return;
 
   section.id = ids.generate();
@@ -111,7 +113,6 @@ export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) 
   }, 100);
 };
 
-
 export const updateDisplayMode = ({ dispatch }) => (mode) => {
   dispatch({
     type: types.UPDATE_DISPLAY_MODE,
@@ -120,14 +121,22 @@ export const updateDisplayMode = ({ dispatch }) => (mode) => {
 };
 
 
-export const onSectionSettingChange = ({ dispatch }) => ({ section, field: { name, value } = {} }) => {
-  const sectionUpdated = immutable.set(section, name, value);
+export const onSectionSettingChange = ({ dispatch }) => ({ section, field = {}, fields }) => {
+  let sectionUpdated;
+  if (fields) {
+    fields.forEach((field) => {
+      const { name, value } = field;
+      sectionUpdated = immutable.set(sectionUpdated || section, name, value);
+    });
+  } else {
+    const { name, value } = field;
+    sectionUpdated = immutable.set(section, name, value);
+  }
   dispatch({
     type: types.UPDATE_SECTION_SETTINGS,
     payload: sectionUpdated
   });
 };
-
 
 export const updateProductSection = ({ dispatch }) => (section) => {
   dispatch({
@@ -136,6 +145,13 @@ export const updateProductSection = ({ dispatch }) => (section) => {
   });
 };
 
+export const disableDnd = ({ dispatch }) => () => {
+  dispatch({ type: types.DISABLE_DND });
+};
+
+export const enableDnd = ({ dispatch }) => () => {
+  dispatch({ type: types.ENABLE_DND });
+};
 
 export const onSectionFieldChange = ({ state: { modals: { sectionSetting = {} } = {} }, dispatch }) => (section) => {
   if (sectionSetting.id === section.id) {

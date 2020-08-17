@@ -21,6 +21,7 @@ const images = {
   countDownWidget: previewImages.countdownImage,
   progressbarWidget: previewImages.progressbarImage,
   productMarkWidget: previewImages.pageBadgeImage,
+  grid: previewImages.gridImage
 };
 
 export default ({ connect, type }) => {

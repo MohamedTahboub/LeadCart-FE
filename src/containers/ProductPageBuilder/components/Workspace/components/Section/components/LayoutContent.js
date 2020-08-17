@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import clx from 'classnames';
 // import Section from '../index';
@@ -7,6 +7,11 @@ import update from 'immutability-helper';
 import * as dropTypes from '../../dropTypes';
 import { useContext } from '../../../../../actions';
 import SectionContent from './SectionContent';
+import ids from 'shortid';
+import { SettingsHandles } from '../components';
+import sectionsTemplates from 'data/productSectionsTemplates';
+import Split from 'react-split';
+import FlexibleBox from 'components/FlexibleBox';
 
 const NestedSection = ({
   className,
@@ -15,102 +20,120 @@ const NestedSection = ({
   onChange,
   addNewNestedSectionAt,
   section = {},
-  ...props
+  onSectionDelete,
+  parentSectionId,
+  deleteNestedSectionWithId,
+  isParentShallow,
+  modifyNestedSection,
+  onHover,
+  ...rest
 }) => {
+  const { state: { dndEnabled = true } } = useContext();
   const [{ isDragging }, dragConnect] = useDrag({
     item: {
       type: dropTypes.NESTED_SECTION,
       section,
-      id: section.id
+      id: section.id,
+      parentSectionId
     },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging()
-    }),
-
-    // if (!didDrop) moveCard(droppedId, originalIndex);
-
+    collect: (monitor) => ({ isDragging: monitor.isDragging() })
   });
-
   const [{ isOver }, drop] = useDrop({
-    accept: dropTypes.NESTED_SECTION,
-    collect: (monitor) => ({
-      isOver: monitor.isOver()
-    }),
-    drop: ({ new: isNew, id, section: droppedSection }) => {
-      // const { id: droppedId, originalIndex } = monitor.getItem();
-      // const didDrop = monitor.didDrop();
-      // if (didDrop)
-
-
+    accept: [dropTypes.NESTED_SECTION, dropTypes.SECTION],
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
+    canDrop: () => !isParentShallow,
+    drop: ({ new: isNew, id, section: droppedSection, parentSectionId: dropParentId }) => {
+      if (['spacer', 'layout', 'bumpOffer', 'code'].includes(droppedSection.type)) return;
+      const newSection = sectionsTemplates[droppedSection.type];
+      if (dropParentId)
+        if (dropParentId !== parentSectionId) return;
       if (isNew) {
-        // add new sections
         const { index: atIndex } = findCard(section.id);
+        addNewNestedSectionAt(newSection, atIndex);
+      } else if (!id) {
+        const { index: atIndex } = findCard(section.id);
+        onSectionDelete(droppedSection.id);
         addNewNestedSectionAt(droppedSection, atIndex);
       } else {
         const { index: atIndex } = findCard(section.id);
         onReorder(id, atIndex);
       }
+      return { isHandled: true };
+    },
+    hover: (item) => {
+      console.log({ section, item });
+      if (section.shallow) {
+        // update the section data with the item type
+        modifyNestedSection(section.id, item.section.type);
+      } else {
+        // reorder the current section with the shallow sections
+        onReorder(section.id, 2);
+        //
+      }
     }
-    // canDrop: () => false,
-    // hover: ({ id: draggedId }, monitor) => {
-    //   const item = monitor.getItem();
-    //   if (item.type === 'card' && item.id) {
-    //     const { index: overIndex } = findCard(item.id);
-    //     return moveCard(draggedId, overIndex);
-    //   }
-
-    //   if (item.type === 'card' && !item.id) {
-
-    //   }
-    
-    // if (draggedId !== id) {
-    //   const { index: overIndex } = findCard(id);
-    //   moveCard(draggedId, overIndex);
-    // }
-    // },
   });
 
-  const opacity = (isOver || isDragging) ? 0.3 : 1;
+  const opacity = ((isOver || isDragging) && !isParentShallow) ? 0.3 : 1;
   const classNames = clx({
     'nested-section': true,
-    [className]: className,
+    [className]: className
   });
 
   return (
+
     <div
       ref={(ref) => drop(dragConnect(ref))}
-      className={classNames}
-      style={{ opacity }}
+      className={clx('layout-section', classNames)}
+      style={{ opacity, position: 'relative' }}
+      {...rest}
     >
+      <SettingsHandles
+        handleDelete={deleteNestedSectionWithId}
+        section={section}
+        id={section.id}
+      />
       <SectionContent
         type={section.type}
         section={section}
         onChange={onChange}
+        parentSectionId={parentSectionId}
         {...section.content}
       />
     </div>
   );
 };
 
-const nestedSectionTemplate = {
-
-};
 const LayoutContent = ({
   className,
-  content: {
-
-  } = {},
-  section = {}
+  content: {} = {},
+  section = {},
+  onDrop,
+  shallow
 }) => {
   const { actions } = useContext();
-
   let {
     styles,
     structure: { columns = 2 } = {},
-    content: {
-      sections: NestedSections = [],
-    }
+    content: { sections: nestedSections = [] }
   } = section;
+  const [sectionsMounted, setSectionsMounted] = useState(true);
+  const [shallowSection, setShallowNested] = useState(null);
+  let nestedWithShallow = nestedSections;
+  if (shallowSection) {
+    nestedWithShallow = update(
+      nestedSections,
+      {
+        $splice: [
+          [0, 0],
+          [shallowSection.order, 0, shallowSection]
+        ]
+      }
+    );
+  }
+  useEffect(() => {
+    setSectionsMounted(false);
+    setTimeout(() => setSectionsMounted(true), 0);
+  }, [nestedWithShallow]);
 
   if (!styles) styles = {};
   const sectionStyle = {
@@ -130,25 +153,26 @@ const LayoutContent = ({
 
   const classNames = clx({
     'layout-section': true,
-    [className]: className,
+    [className]: className
   });
 
 
   const findCard = (id) => {
-    const section = NestedSections.filter((c) => `${c.id}` === id)[0];
+    const section = nestedSections.filter((c) => `${c.id}` === id)[0];
     return {
       section,
-      index: NestedSections.indexOf(section),
+      index: nestedSections.indexOf(section)
     };
   };
 
   const onNestedSectionReorder = (id, atIndex) => {
     const { section: nestedSection, index } = findCard(id);
-    const newNestedSections = update(NestedSections, {
+    if (index === atIndex) return;
+    const newNestedSections = update(nestedSections, {
       $splice: [
         [index, 1],
-        [atIndex, 0, nestedSection],
-      ],
+        [atIndex, 0, nestedSection]
+      ]
     });
     actions.onSectionSettingChange({
       section,
@@ -159,12 +183,13 @@ const LayoutContent = ({
     });
   };
 
-  const addNewNestedSectionAt = (section, atIndex) => {
-    const newNestedSections = update(NestedSections, {
+  const addNewNestedSectionAt = (_section, atIndex) => {
+    if (nestedSections.length > 4) return;
+    const newNestedSections = update(nestedSections, {
       $splice: [
         [0, 0],
-        [atIndex, 0, section],
-      ],
+        [atIndex, 0, { ..._section, id: ids.generate() }]
+      ]
     });
     actions.onSectionSettingChange({
       section,
@@ -174,8 +199,38 @@ const LayoutContent = ({
       }
     });
   };
+  const deleteNestedSectionWithId = (id) => {
+    const newNestedSections = update(nestedSections, {
+      $splice: [
+        [0, 0],
+        [nestedSections.findIndex(({ id: secId }) => id === secId), 1]
+      ]
+    });
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name: 'content.sections',
+        value: newNestedSections
+      }
+    });
+  };
+  const modifyNestedSection = (id, type) => {
+    const targetIndexToModify = nestedSections.findIndex(({ id: secId }) => id === secId);
+    const targetToModify = nestedSections[targetIndexToModify];
+    targetToModify.type = type;
+    const newNestedSections = update(nestedSections, {
+      $splice: [
+        [0, 0],
+        [targetIndexToModify, 1, targetToModify]
+      ]
+    });
+  };
+  if (nestedSections.length === 1) {
+    onDrop({ parentSectionId: section.id, section: nestedSections[0] });
+    actions.onSectionDelete(section.id);
+  }
   const onNestedSectionChange = (changedSection) => {
-    const newSections = NestedSections.map((section) => {
+    const newSections = nestedSections.map((section) => {
       if (section.id === changedSection.id) return changedSection;
       return section;
     });
@@ -188,24 +243,56 @@ const LayoutContent = ({
       }
     });
   };
+
+  const onNestedHover = (draggedItem, hoveredSection) => {
+    console.log({ hoveredSection });
+    setShallowNested({ ...draggedItem, order: hoveredSection.order });
+  };
+
+  const onSizeChange = () => {};
   return (
-    <div className={classNames} style={sectionStyle}>
-      {NestedSections.map((section, id) => (
-        <NestedSection
-          key={section.id}
-          onReorder={onNestedSectionReorder}
-          addNewNestedSectionAt={addNewNestedSectionAt}
-          onChange={onNestedSectionChange}
-          className='item'
-          findCard={findCard}
-          section={section}
-        />))}
-    </div>
+    <FlexibleBox
+      size={{ height: styles.height }}
+      onResize={onSizeChange}
+      showOnParentHover
+      className='overflow-hidden'
+    >
+      <div className={classNames} style={sectionStyle}>
+        {
+          sectionsMounted && (
+            <Split
+              minSize={50}
+              gutterSize={8}
+              cursor='col-resize'
+              style={{ display: 'flex', width: '100%' }}
+            >
+              {
+                nestedWithShallow.map((childSection) => (
+                  <NestedSection
+                    isParentShallow={shallow}
+                    key={childSection.id}
+                    onReorder={onNestedSectionReorder}
+                    addNewNestedSectionAt={addNewNestedSectionAt}
+                    onChange={onNestedSectionChange}
+                    onSectionDelete={actions.onSectionDelete}
+                    deleteNestedSectionWithId={deleteNestedSectionWithId}
+                    className='item'
+                    findCard={findCard}
+                    section={childSection}
+                    parentSectionId={section.id}
+                    onHover={onNestedHover}
+                    modifyNestedSection={modifyNestedSection}
+                  />
+                ))
+              }
+            </Split>
+          )
+        }
+      </div>
+    </FlexibleBox>
   );
 };
 
-LayoutContent.propTypes = {
-
-};
+LayoutContent.propTypes = {};
 
 export default LayoutContent;

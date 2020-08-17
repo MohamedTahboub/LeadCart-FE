@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
@@ -6,6 +6,9 @@ import ids from 'shortid';
 import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
 import './style.css';
+
+import { useContext } from '../../../../actions';
+import update from 'immutability-helper';
 
 const Section = ({
   id,
@@ -25,36 +28,68 @@ const Section = ({
   index,
   ...props
 }) => {
-
+  const { actions, state: { dndEnabled = true } } = useContext();
+  const [hoveredItem, setHoveredItem] = useState(null);
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: dropTypes.SECTION, section, originalIndex },
-    collect: (monitor) => ({ isDragging: monitor.isDragging() })
+    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
+    canDrag: () => dndEnabled
   });
 
-  const [{ isOver }, drop] = useDrop({
-    accept: dropTypes.SECTION,
-    collect: (monitor) => ({ isOver: monitor.isOver() }),
-    drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }) => {
-
-      if (newItem) {
-        const newId = ids.generate();
-        addNewAndMove({
-          atIndex: index,
-          type,
-          id: newId
-        });
-        return { isHandled: true };
-      }
-      const { index: overIndex } = findCard(id);
-      moveCard(droppedItemId, overIndex);
+  const onDrop = (item, monitor) => {
+    const { new: newItem, parentSectionId, section: { id: droppedItemId, type } = {} } = item;
+    if (monitor && monitor.didDrop()) return;
+    if (parentSectionId) {
+      const { section } = findCard(parentSectionId);
+      const nested = section.content.sections;
+      const nestedSectionIndex = nested.findIndex(({ id }) => droppedItemId === id);
+      const newNestedSections = update(nested, {
+        $splice: [
+          [nestedSectionIndex, 1]
+        ]
+      });
+      actions.addNewSection(nested[nestedSectionIndex]);
+      actions.onSectionSettingChange({
+        section,
+        field: {
+          name: 'content.sections',
+          value: newNestedSections
+        }
+      });
+      return;
+    }
+    if (newItem) {
+      const id = ids.generate();
+      addNewAndMove({
+        atIndex: index,
+        type,
+        id
+      });
       return { isHandled: true };
     }
+    const { index: overIndex } = findCard(id);
+    moveCard(droppedItemId, overIndex);
+    return { isHandled: true };
+  };
+
+  const [{ isOver }, drop] = useDrop({
+    accept: [dropTypes.SECTION, dropTypes.NESTED_SECTION],
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
+    hover: (item, monitor) => {
+      const isOver = monitor.isOver();
+      if (item.section.id === section.id) return;
+      if (item.parentSectionId === section.id) return;
+      setHoveredItem(item);
+      if (!isOver) eraseShallowSections();
+    },
+    drop: onDrop
   });
 
 
   const classes = clx({
+    'layout-product-section': type === 'layout',
     'product-section': true,
     'isDragging': isDragging,
     'active': activeSection.id === id,
@@ -66,13 +101,26 @@ const Section = ({
   const onDuplicate = (fromId) => () => {
     onSectionDuplicate(fromId);
   };
-
+  const eraseShallowSections = () => {
+    const { content: { sections: nestedSections } } = section;
+    if (!nestedSections) return;
+    const hasShallow = nestedSections.find(({ shallow }) => shallow);
+    if (!hasShallow) return;
+    const newNestedSections = nestedSections.filter(({ shallow }) => !shallow);
+    actions.onSectionSettingChange({
+      section,
+      field: {
+        name: 'content.sections',
+        value: newNestedSections
+      }
+    });
+  };
   return (
     <div
       ref={(node) => drop(drag(node))}
       id={id}
     >
-      <DropBeforeLine show={isOver} />
+      <DropBeforeLine show={isOver} item={hoveredItem} />
       <div
         className={classes}
         style={style}
@@ -90,6 +138,7 @@ const Section = ({
           type={type}
           section={section}
           language={props.language}
+          onDrop={onDrop}
         />
       </div>
     </div>

@@ -12,27 +12,33 @@ export default ({
   children,
   size: initialSize = {},
   className,
+  holdResize,
+  vertical,
+  forcedDimension: { forcedDimensionName, forcedDimensionValue } = {},
   ...props
 }) => {
+  const dimension = vertical ? 'width' : 'height';
+  const oppositeDim = vertical ? 'height' : 'width';
   const [size, setSize] = useState(initialSize);
   const [resizing, setResizing] = useState(false);
   const expanderRef = useRef(null);
 
-  const throttleResizing = useCallback(throttle((height) => {
-    onResize({ height });
-  }, size.height, 1000 / 60), [initialSize.height]);
+  const throttleResizing = useCallback(throttle((value) => {
+    onResize({ [dimension]: value });
+  }, size[dimension], 1000 / 60), [initialSize[dimension]]);
 
   const getRect = useCallback(() => {
     if (expanderRef)
       return expanderRef.current.getBoundingClientRect();
     else return {};
     //eslint-disable-next-line
-  }, [initialSize.height]);
+  }, [initialSize[dimension]]);
 
-  const getCurrentHeight = (e) => {
-    const { y } = getRect();
+  const getCurrentDimensions = (e) => {
+    const { y, x } = getRect();
     const height = e.pageY - y;
-    return { height };
+    const width = e.pageX - x;
+    return { height, width };
   };
 
   const startResizing = (e) => {
@@ -40,7 +46,7 @@ export default ({
     e.stopPropagation();
 
     setResizing(true);
-    if (isFunction(onResizeStart)) onResizeStart(getCurrentHeight(e), e);
+    if (isFunction(onResizeStart)) onResizeStart(getCurrentDimensions(e), e);
     window.document.addEventListener('mousemove', tracking, true);
     window.document.addEventListener('mouseup', stopResizing, true);
   };
@@ -50,19 +56,19 @@ export default ({
     window.document.removeEventListener('mousemove', tracking, true);
     window.document.removeEventListener('mouseup', stopResizing, true);
 
-    if (isFunction(onResizeStop)) onResizeStop(getCurrentHeight(e), e);
+    if (isFunction(onResizeStop)) onResizeStop(getCurrentDimensions(e), e);
   };
 
 
   const tracking = (e) => {
-    setSize(getCurrentHeight(e));
+    setSize(getCurrentDimensions(e));
   };
 
   useEffect(() => {
-    const { height } = size;
-    if (isFunction(onResize)) throttleResizing.on(height);
+    const { [dimension]: value } = size;
+    if (isFunction(onResize)) throttleResizing.on(value);
     // eslint-disable-next-line
-  }, [size.height]);
+  }, [size[dimension]]);
 
   const classNames = clx({
     [className]: className,
@@ -75,20 +81,26 @@ export default ({
       id='resizable-box-element'
       ref={expanderRef}
       style={{
-        height: size.height,
+        [dimension]: size[dimension],
+        [forcedDimensionName]: forcedDimensionValue,
         userSelect: resizing ? 'none' : ''
       }}
-      className={classNames}
+      className={clx(classNames, { vertical })}
     >
       {children}
-      <span
-        className='expander'
-        onMouseDown={startResizing}
-        role='presentation'
-        draggable={false}
-      >
-        <AiOutlineSmallDash className='gray-color expander-icon' />
-      </span>
+      {
+        holdResize ?
+          null : (
+            <span
+              className='expander'
+              onMouseDown={startResizing}
+              role='presentation'
+              draggable={false}
+            >
+              <AiOutlineSmallDash className='gray-color expander-icon' />
+            </span>
+          )
+      }
     </div>
   );
 };

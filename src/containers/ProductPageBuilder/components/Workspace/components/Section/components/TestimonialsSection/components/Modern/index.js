@@ -34,7 +34,7 @@ const ModernTestimonial = ({
   };
 
   return (
-    <FlexBox center='v-center margin-v-10'>
+    <FlexBox center={`v-center margin-v-10 ${className}`}>
       <Image
         // className='testimonial-author-image'
         className='modern-testimonial-image'

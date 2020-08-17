@@ -19,11 +19,9 @@ test('Test the render BrandsMenu component', () => {
     brands={brands}
     activeBrand={brands[0].id}
     onChange={() => {
-      console.log(brands[0].id);
     }}
   />);
 
   expect(getByText(/name/i)).toBeInTheDocument();
   expect(getByTestId(/brands-menu/i).classList.contains('brands-menu')).toBe(true);
 });
-
