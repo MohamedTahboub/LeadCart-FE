@@ -29,8 +29,6 @@ const WorkSpace = ({
 }) => {
   const [connecting, setConnecting] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false);
-  const [connectingElement, setConnectingElement] = useState('');
-
 
   const elementRef = useRef(null);
 
@@ -96,7 +94,6 @@ const WorkSpace = ({
 
   const onConnectNode = (currentId, type) => {
     setConnecting({ currentId, type });
-    setConnectingElement(currentId);
   };
 
 
@@ -232,7 +229,7 @@ const WorkSpace = ({
             {...node}
             {...nodeProps}
             product={productsNodeDetails[node.productId]}
-            connectingElement={connectingElement}
+            connectingElement={connecting.currentId}
           />
         ))}
         <ShadowBackground show={showNodeSettingModal} setShowNodeSettingModal={setShowNodeSettingModal} />
