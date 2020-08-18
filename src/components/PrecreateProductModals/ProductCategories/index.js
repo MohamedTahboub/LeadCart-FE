@@ -22,13 +22,11 @@ const ProductCategories = ({ onSelect }) => (
     <CategoryCard
       image={thankyouPageImage}
       label='Thank You Page'
-      className='disabled'
       onClick={onSelect('thankyoupage')}
     />
     <CategoryCard
       image={checkoutIcon}
       onClick={onSelect('opt-in')}
-      className='disabled'
       label='Opt-In Page'
     />
   </div>
