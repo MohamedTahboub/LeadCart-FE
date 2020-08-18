@@ -46,7 +46,8 @@ const Node = ({
   onConnected,
   onDelete,
   onCancelConnection,
-  connectingElement
+  connectingElement,
+  isOptInFunnel
 }) => {
   const targetData = {};
 
@@ -152,7 +153,7 @@ const Node = ({
             onClick={cardProps.onClick}
             className='close-node-setting'
           />
-        ) : !connectingMode && (
+        ) : !connectingMode && !isOptInFunnel && (
           <div className='connect-btn-container' onClick={(e) => {
             e.stopPropagation();
           }}
@@ -170,7 +171,7 @@ const Node = ({
             <GoPlug className='white-text large-text' />
           </div>
         )}
-        {!connectingMode && (
+        {!connectingMode && !isOptInFunnel && (
           <div onClick={onNodeDelete} className='delete-btn-container'>
             <MdDelete
               data-tip='delete this node'
@@ -179,7 +180,7 @@ const Node = ({
           </div>)
         }
 
-        {hasUpSell &&
+        {hasUpSell && !isOptInFunnel &&
           <span className='connection-cancel-upsell danger-color'
             onClick={onRelationDelete(upsellId, elementId)}
           >

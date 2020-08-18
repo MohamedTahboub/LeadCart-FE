@@ -6,8 +6,7 @@ import clx from 'classnames';
 import * as funnelActions from 'actions/funnels';
 import { notification } from 'libs';
 import { Modal } from 'components/Modals';
-import { basic as sampleBasicFunnel } from 'data/sampleFunnel';
-import common from 'components/common';
+import { optIn as sampleOptInFunnel } from 'data/sampleFunnel'; import common from 'components/common';
 
 import blankFunnelImage from 'assets/images/blankFunnelImage.png';
 
@@ -17,8 +16,11 @@ import basicFunnelImage from 'assets/images/basicFunnelImage.png';
 const { Button, InputRow, FlexBox } = common;
 
 const funnelsTypes = {
-  optIn: sampleBasicFunnel, // sampleBasicFunnel,
-  checkout: {} // sampleCheckoutFunnel
+  optIn: {
+    type: 'OPT-IN',
+    ...sampleOptInFunnel
+  },
+  checkout: { type: 'CHECKOUT' }
 };
 
 

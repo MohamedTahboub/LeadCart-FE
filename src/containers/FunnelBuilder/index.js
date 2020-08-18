@@ -167,19 +167,22 @@ const FunnelBuilder = ({
     onSave,
     history: props.history
   };
+  const isOptInFunnel = fields.type && fields.type === 'OPT-IN';
 
   const sidebarProps = {
     onChange,
     funnel: fields,
     onToggleDarkTheme,
-    darkTheme: enableDarkTheme
+    darkTheme: enableDarkTheme,
+    isOptInFunnel
   };
   const workSpaceProps = {
     funnel: fields,
     onChange,
     productsNodeDetails,
     errors,
-    history: props.history
+    history: props.history,
+    isOptInFunnel
   };
 
   const rulesProps = {
