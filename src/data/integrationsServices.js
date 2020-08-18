@@ -362,6 +362,70 @@ const services = [
     supported: false
   },
   {
+    key: 'lc_webhook',
+    name: 'Webhooks',
+    brandLogo: brandsLogos.webhookLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Use'
+      // action: 'link',
+      // linkPath: '#webhooks'
+    }
+  },
+  {
+    key: 'lc_pabbly',
+    name: 'Pabbly',
+    brandLogo: brandsLogos.pabblyLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Connect',
+      action: 'link',
+      linkPath: 'https://intercom.help/leadcart/en/articles/4351920-connect-leadcart-with-pabbly-conenct'
+    }
+  },
+  {
+    key: 'lc_integrately',
+    name: 'Integrately',
+    brandLogo: brandsLogos.integratelyLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Connect',
+      action: 'link',
+      linkPath: 'https://intercom.help/leadcart/en/articles/4352486-connect-leadcart-with-integrately'
+    }
+  },
+  {
+    key: 'lc_konnectzit',
+    name: 'KonnectZit',
+    brandLogo: brandsLogos.konnectzitLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Connect',
+      action: 'link',
+      linkPath: 'https://intercom.help/leadcart/en/articles/4352491-connect-leadcart-with-konnectzit'
+    }
+  },
+  {
     key: 'lc_zapier',
     name: 'Zapier',
     brandLogo: brandsLogos.zapierBrand,

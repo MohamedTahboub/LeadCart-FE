@@ -27,6 +27,7 @@ const GeneralSettings = ({
   const [fields, setFields] = useState({ ...marketPlace });
   const [errors, setErrors] = useState({});
 
+
   useEffect(() => {
     setFields(marketPlace);
   }, [marketPlace]);
@@ -89,7 +90,7 @@ const GeneralSettings = ({
         <InputRow.Label
           error={errors.logo}
         >
-            Default Logo:
+          Default Logo:
 
         </InputRow.Label>
         <InputRow.AddImage
@@ -99,7 +100,7 @@ const GeneralSettings = ({
           name='logo'
           onUploaded={(image) => updateFields('logo', image)}
         >
-            Logo
+          Logo
 
         </InputRow.AddImage>
       </InputRow>
@@ -107,7 +108,7 @@ const GeneralSettings = ({
         <InputRow.Label
           error={errors.country}
         >
-            Default Country:
+          Default Country:
 
         </InputRow.Label>
         <InputRow.SearchInput
@@ -156,7 +157,7 @@ const GeneralSettings = ({
           error={errors.subDomain}
           notes='Brand SubDomain'
         >
-            Brand SubDomain:
+          Brand SubDomain:
         </InputRow.Label>
         <InputRow.TextField
           name='subDomain'

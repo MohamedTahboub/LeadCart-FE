@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import common from 'components/common';
 import ReactToolTip from 'react-tooltip';
@@ -14,11 +14,20 @@ const {
 const ProductThumbnail = ({ thumbnail, name }) => (
   <img src={thumbnail} alt={name} className='small-image' />
 );
-const GroupAction = ({ integrationKey: serviceName, type: serviceAction }) => (
-  <Badge className='margin-left-10'>
-    {serviceAction ? `${serviceName} (${serviceAction})` : serviceName}
-  </Badge>
-);
+const GroupAction = ({ integrationKey: serviceName, type: serviceAction }) => {
+
+
+  let service = serviceAction ? `${serviceName} (${serviceAction})` : serviceName;
+
+  if (serviceAction === 'WEBHOOKS')
+    service = 'WEBHOOKS';
+
+  return (
+    <Badge className='margin-left-10 capitalized-text'>
+      {service.toLowerCase().replace(/_/ig, ' ')}
+    </Badge>
+  );
+};
 
 const Label = ({ children, ...props }) => (
   <span className='mx-2 gray-text bold-text' {...props}>
@@ -39,35 +48,38 @@ const TriggerGroup = ({
     className={`margin-v-5 ${className} parent-hover relative-element`}
     wrappable
   >
-    <Label>The products:</Label>
-    {products.map((product, index) => (
-      <FlexBox center='v-center'>
-        <Badge
-          //   data-for={product.name}
-          data-tip
-          key={product._id}
-          data-for={`rule-product-demo-${product._id}`}
-          className='margin-h-5 my-1'
-        >
-          {product.name}
-        </Badge>
-        {product.thumbnail && (
-          <ReactToolTip
-            id={`rule-product-demo-${product._id}`}
-            //   type='light'
-            delayShow={300}
-            className='soft-edges'
-          >
-            <ProductThumbnail {...product} />
-          </ReactToolTip>
-        )}
-        {
-          index !== (products.length - 1) && (
-            <Label>&&</Label>
-          )
-        }
-      </FlexBox>
-    ))}
+    {!!products.length && (
+      <Fragment>
+        <Label>The products:</Label>
+        {products.map((product, index) => (
+          <FlexBox center='v-center'>
+            <Badge
+              data-tip='product.name'
+              key={product._id}
+              data-for={`rule-product-demo-${product._id}`}
+              className='margin-h-5 my-1'
+            >
+              {product.name}
+            </Badge>
+            {product.thumbnail && (
+              <ReactToolTip
+                id={`rule-product-demo-${product._id}`}
+                delayShow={300}
+                className='soft-edges'
+              >
+                <ProductThumbnail {...product} />
+              </ReactToolTip>
+            )}
+            {
+              index !== (products.length - 1) && (
+                <Label>&&</Label>
+              )
+            }
+          </FlexBox>
+        ))}
+      </Fragment>
+    )}
+
     <FlexBox className='gray-text' center='v-center'>
       <Label>Do</Label>
       <FaLongArrowAltRight />

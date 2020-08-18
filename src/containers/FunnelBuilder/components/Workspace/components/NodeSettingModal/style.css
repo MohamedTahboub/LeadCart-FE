@@ -4,11 +4,11 @@
     background: white;
     top: 0px;
     bottom: 0px;
-    width: 300px;
+    width: 330px;
     right: 0px;
     left: unset;
     box-shadow: -1px 5px 10px 5px rgba(0, 0, 0, 0.01);
-    transform:translateX(300px);
+    transform:translateX(330px);
     transition: transform .4s ease-in-out;
     z-index: 101;
 }
@@ -28,16 +28,3 @@
 }
 /* .node-setting-modal */
 
-
-
-
-.node-products-list-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    overflow: auto;
-    padding: 10px 15px;
-    flex: 1;
-    height: 100%;
-}

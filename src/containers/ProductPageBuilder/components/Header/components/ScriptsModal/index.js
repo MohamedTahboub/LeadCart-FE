@@ -18,12 +18,17 @@ const ProductsScripts = ({
   scripts,
   isVisible,
   onClose,
-  onChange
+  onChange,
+  onSaveTheProduct
 }) => {
   const [fields, setFields] = useState(scripts);
 
   useEffect(() => {
-    setFields(scripts);
+    const newObj = {};
+    newObj['scripts.fbPixelId'] = scripts.fbPixelId;
+    newObj['scripts.googleTagManager'] = scripts.googleTagManager;
+
+    setFields(newObj);
   }, [scripts]);
 
   const onUpdateParent = () => {
@@ -93,7 +98,10 @@ const ProductsScripts = ({
           Cancel
         </Button>
         <Button
-          onClick={onUpdateParent}
+          onClick={() => {
+            onUpdateParent();
+            onSaveTheProduct({ saveFrom: 'analytics' });
+          }}
           className='primary-color script-save-btn'
         >
           Save

@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, createRef } from 'react';
+import { Tooltip } from 'react-svg-tooltip';
+
 import { mapListToObject } from 'libs';
 
 
@@ -22,11 +23,11 @@ const ConnectButton = ({
     onClick(e.target.dataset.type);
   };
 
+  const circleRef = createRef(null);
 
   const dontHaveUpSell = !upSell, dontHaveDownSell = (!downSell && nodeType !== 'checkout');
   return (
-    <svg height='70' width='60' >      {dontHaveUpSell && <path d='M 5 30 Q 34 30 50 10' stroke='#4DA1FF' strokeWidth='1.5' fill='none' />}
-      {dontHaveDownSell && <path d='M 5 30 Q 34 30 50 48' stroke='#4DA1FF' strokeWidth='1.5' fill='none' />}
+    <svg height='70' width='60' style={{ overflow: 'visible' }} >
       {(dontHaveUpSell && dontHaveDownSell) && (
         <circle
           id='node_start'
@@ -38,43 +39,61 @@ const ConnectButton = ({
       )
       }
       {dontHaveUpSell && (
-        <circle
-          onMouseEnter={({ target }) => {
-            target.setAttribute('r', 10);
-          }}
+        <Fragment>
+          <circle
+            onMouseEnter={({ target }) => {
+              target.setAttribute('r', 10);
+            }}
 
-          onMouseLeave={({ target }) => {
-            target.setAttribute('r', 6);
-          }}
-          data-type='upSell'
-          onClick={_onClick}
-          id='node_upsell'
-          cx='50'
-          cy={(upSell && upSell.coordinates && upSell.coordinates.y) ? (upSell.coordinates.y + 10) : 10}
-          r='6'
-          fill='#4DA1FF'
-          data-tip='Connect as upsell'
-        />
+            onMouseLeave={({ target }) => {
+              target.setAttribute('r', 6);
+            }}
+            data-type='upSell'
+            onClick={_onClick}
+            id='node_upsell'
+            cx='50'
+            cy={(upSell && upSell.coordinates && upSell.coordinates.y) ? (upSell.coordinates.y + 10) : 10}
+            r='6'
+            fill='#4DA1FF'
+            ref={circleRef}
+          />
+
+          <Tooltip triggerRef={circleRef}>
+            <rect x={2} y={2} width={108} height={18}
+              rx={5} ry={5} fill='#4DA1FF'
+            />
+            <text x={14} y={16} fontSize={12} fill='white'>Click to connect</text>
+          </Tooltip>
+        </Fragment>
       )
       }
       {dontHaveDownSell && (
-        <circle
-          onMouseEnter={({ target }) => {
-            target.setAttribute('r', 10);
-          }}
+        <Fragment>
+          <circle
+            onMouseEnter={({ target }) => {
+              target.setAttribute('r', 10);
+            }}
 
-          onMouseLeave={({ target }) => {
-            target.setAttribute('r', 6);
-          }}
-          data-type='downSell'
-          onClick={_onClick}
-          id='node_downsell'
-          cx='50'
-          cy='48'
-          r='6'
-          fill='rgb(219, 40, 70)'
-          data-tip='Connect as downsell'
-        />
+            onMouseLeave={({ target }) => {
+              target.setAttribute('r', 6);
+            }}
+            data-type='downSell'
+            onClick={_onClick}
+            id='node_downsell'
+            cx='50'
+            cy='48'
+            r='6'
+            fill='#e67e22'
+            ref={circleRef}
+          />
+
+          <Tooltip triggerRef={circleRef}>
+            <rect x={2} y={2} width={108} height={18}
+              rx={5} ry={5} fill='#e67e22'
+            />
+            <text x={14} y={16} fontSize={12} fill='white'>Click to connect</text>
+          </Tooltip>
+        </Fragment>
       )
       }
     </svg>

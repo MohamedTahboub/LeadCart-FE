@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
-// import PropTypes from 'prop-types';
-import common from 'components/common';
+import React, { useRef } from 'react';
 import clx from 'classnames';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import { GoPlug } from 'react-icons/go';
 import { MdDelete } from 'react-icons/md';
+
+import common from 'components/common';
 import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
@@ -33,22 +33,37 @@ const { FlexBox } = common;
 const stringifyObj = (obj) => JSON.stringify(obj);
 const Node = ({
   elementId,
-  type: nodeType,
   product = {},
   category = 'checkout',
   productId,
   onEdit,
   toggleOptions,
   activeNode,
-  relations,
+  relations = [],
   coordinates = {},
   onConnect,
   connectingMode,
   onConnected,
-  onDelete
+  onDelete,
+  onCancelConnection,
+  connectingElement
 }) => {
+  const targetData = {};
+
+  relations.forEach(({ target, type }) => {
+    if (type === 'upSell') {
+      targetData.upsellId = target;
+      targetData.hasUpSell = true;
+    }
+
+    if (type === 'downSell') {
+      targetData.downSellId = target;
+      targetData.hasDownSell = true;
+    }
+  });
+  const { hasUpSell, upsellId, hasDownSell, downSellId } = targetData;
+
   const elementRef = useRef(null);
-  // const [connecting, setConnecting] = useState();
   const highlighted = activeNode === elementId;
   const classes = clx(
     'card-style',
@@ -97,17 +112,15 @@ const Node = ({
     onDelete(elementId);
   };
 
+  const onRelationDelete = (targetID, elementId) => (e) => {
+    e.stopPropagation();
+    onCancelConnection(targetID, elementId);
+  };
 
   const bgImage = product.image ? product.image : categoriesImages[category.toLowerCase()];
   const name = product.name ? product.name : categoriesNames[category.toLowerCase()];
 
-
-  const style = {
-    backgroundImage: `linear-gradient(to bottom, #fff 5%, transparent 95%), url(${bgImage})`,
-    backgroundPosition: 'center',
-    backgroundSize: '105% 105%',
-    backgroundRepeat: 'no-repeat'
-  };
+  const style = { backgroundImage: `linear-gradient(to bottom, #fff 1%, transparent 95%), url(${bgImage})` };
   const showStatusHate = category !== 'thankyoupage';
 
   const cardProps = {
@@ -123,7 +136,7 @@ const Node = ({
         <div className='node-title tiny-text  gray-text bold-text truncate p-2'>
           {name}
         </div>
-        <FlexBox column style={style} className='content soft-edges'>
+        <FlexBox column style={style} className='content soft-edges node-img'>
           {showStatusHate && (
             <NodeStatusHat
               active={productId}
@@ -152,7 +165,7 @@ const Node = ({
             />
           </div>
         )}
-        {(connectingMode && category !== 'checkout') && (
+        {(connectingMode && category !== 'checkout' && elementId !== connectingElement) && (
           <div onClick={onConnectNode} className='node-connect-tail'>
             <GoPlug className='white-text large-text' />
           </div>
@@ -165,6 +178,21 @@ const Node = ({
             />
           </div>)
         }
+
+        {hasUpSell &&
+          <span className='connection-cancel-upsell danger-color'
+            onClick={onRelationDelete(upsellId, elementId)}
+          >
+            <FaRegTimesCircle />
+          </span>
+        }
+
+        {hasDownSell &&
+          <span className='connection-cancel-downsell danger-color'
+            onClick={onRelationDelete(downSellId, elementId)}
+          >
+            <FaRegTimesCircle />
+          </span>}
       </FlexBox>
     </div>
 

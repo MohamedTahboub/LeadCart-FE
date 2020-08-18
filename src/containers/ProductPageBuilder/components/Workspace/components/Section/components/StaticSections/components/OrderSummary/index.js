@@ -17,25 +17,38 @@ const SummarySlice = ({ name, amount = 0, className = '' }) => (
 );
 
 
-const getPaymentDetails = (name, { type = 'Onetime', recurringPeriod = 'month', splits = 0 } = {}) => {
+const getPaymentDetails = (
+  name,
+  { type = 'Onetime', recurringPeriod = 'month', splits = 0 } = {},
+  {
+    subscriptionMonthly = 'Subscription - Monthly',
+    subscriptionYearly = 'Subscription - Yearly',
+    splitPayment = 'First Installment Out of '
+  } = {}
+) => {
+
+
+  const isYearlyRecurring = capitalize(recurringPeriod) === 'Year';
+  const subscriptionLabel = isYearlyRecurring ? subscriptionYearly : subscriptionMonthly;
+
   const label = name;
   const nextCharge = '';
 
   switch (type) {
-  case 'Onetime': return { label, nextCharge };
-  case 'Split':
-    return {
-      label: `${label}(First Installment Out of ${splits})`,
-      nextCharge: moment().add(1, 'M').format('MM/DD/YYYY')
-    };
-  case 'Subscription': {
-    const recTime = recurringPeriod[0].toLowerCase();
-    return {
-      label: `${label}( Subscription - ${capitalize(recurringPeriod)}ly )`,
-      nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format('MM/DD/YYYY')
-    };
-  }
-  default: return { label, nextCharge };
+    case 'Onetime': return { label, nextCharge };
+    case 'Split':
+      return {
+        label: `${label}(${splitPayment + splits})`,
+        nextCharge: moment().add(1, 'M').format('MM/DD/YYYY')
+      };
+    case 'Subscription': {
+      const recTime = recurringPeriod[0].toLowerCase();
+      return {
+        label: `${label}( ${subscriptionLabel} )`,
+        nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format('MM/DD/YYYY')
+      };
+    }
+    default: return { label, nextCharge };
   }
 };
 const OrderSummary = ({
@@ -51,11 +64,12 @@ const OrderSummary = ({
 
 }) => {
   const {
-    orderSummary: orderSummaryLabel,
-    total: totalLabel
+    orderSummary: orderSummaryLabel = 'Order Summary',
+    total: totalLabel = 'Total',
+    nextCharge: nextChargeLabel = 'Your next charge is going to be on '
   } = language.checkout || {};
 
-  const { label, nextCharge } = getPaymentDetails(productName, payment);
+  const { label, nextCharge } = getPaymentDetails(productName, payment, language.checkout);
 
   const total = getPriceFormat(amount, currency, format);
   return (
@@ -72,8 +86,7 @@ const OrderSummary = ({
       />
       {nextCharge && (
         <div className='purchases-charge-details'>
-          Your next charge is going to be on
-          {nextCharge}
+          {`${nextChargeLabel} ${nextCharge}`}
         </div>
       )}
     </section>

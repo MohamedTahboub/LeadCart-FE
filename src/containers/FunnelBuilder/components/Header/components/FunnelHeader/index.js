@@ -16,6 +16,16 @@ const {
 
 const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
 
+const getFunnelUrl = ({ funnelUrl, domains = [], subdomain }) => {
+
+  const domain = getValidDomain(domains);
+
+  if (domain && domain.domain)
+    return `https://${domain.domain}/${funnelUrl}`;
+  else
+    return `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
+
+};
 const CheckoutHeader = ({
   funnel,
   onChange,
@@ -30,21 +40,12 @@ const CheckoutHeader = ({
 }) => {
   const [showModal, setShowModal] = useState({});
 
+
+  const funnelUrl = getFunnelUrl({ funnelUrl: funnel.url, domains, subdomain });
+
   const onPreview = () => {
-    const { url: funnelUrl } = funnel;
-
-    const domain = getValidDomain(domains);
-
-    let url;
-    if (domain && domain.domain) url = `https://${domain.domain}/${funnelUrl}`;
-    else url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
-
-    window.open(url, '_blank');
+    window.open(funnelUrl, '_blank');
   };
-
-  // const onShowScripts = () => {
-  //   setShowModal({ scripts: true });
-  // };
 
   const onShowShare = () => {
     setShowModal({ share: true });
@@ -121,7 +122,7 @@ const CheckoutHeader = ({
           isVisible={showModal.share}
           onClose={onCloseModal}
           subdomain={subdomain}
-          productUrl={funnel.url}
+          funnelUrl={funnelUrl}
         />
       </FlexBox>
     </FlexBox>
@@ -131,13 +132,3 @@ const CheckoutHeader = ({
 CheckoutHeader.propTypes = {};
 
 export default CheckoutHeader;
-
-
-// <Button onClick={onShowShare} className='primary-btn '>
-//   <i className='fas fa-share-square' />
-//   Share
-// </Button>
-//   <Button onClick={onPreview} className='primary-btn '>
-//     <i className='fas fa-eye' />
-//     Preview
-// </Button>
