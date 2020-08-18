@@ -2,7 +2,7 @@ import React from 'react';
 import { CodeInputArea } from '../Inputs';
 
 
-const EmbededScripContainer = ({ headNote, showCopied, script }) => (
+const EmbeddedScripContainer = ({ headNote, showCopied, script }) => (
   <div className='embeded-script-container'>
     <div className='input-head-note'>
       <span className='head-note-text'>{headNote}</span>
@@ -18,4 +18,4 @@ const EmbededScripContainer = ({ headNote, showCopied, script }) => (
 );
 
 
-export default EmbededScripContainer;
+export default EmbeddedScripContainer;
