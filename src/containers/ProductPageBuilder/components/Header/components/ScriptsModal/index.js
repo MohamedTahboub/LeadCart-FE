@@ -18,7 +18,8 @@ const ProductsScripts = ({
   scripts,
   isVisible,
   onClose,
-  onChange
+  onChange,
+  onSaveTheProduct
 }) => {
   const [fields, setFields] = useState(scripts);
 
@@ -97,7 +98,10 @@ const ProductsScripts = ({
           Cancel
         </Button>
         <Button
-          onClick={onUpdateParent}
+          onClick={() => {
+            onUpdateParent();
+            onSaveTheProduct({ saveFrom: 'analytics' });
+          }}
           className='primary-color script-save-btn'
         >
           Save
