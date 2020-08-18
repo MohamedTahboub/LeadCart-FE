@@ -101,7 +101,9 @@ const ProductBuilder = ({
     //eslint-disable-next-line
   }, [funnelsMap, productsMap]);
 
-  const onSaveProduct = async () => {
+  const onSaveProduct = async ({ saveFrom }) => {
+    const isAnalytics = saveFrom === 'analytics';
+
     const { product: productData } = state;
     setSaving(true);
     const {
@@ -135,13 +137,15 @@ const ProductBuilder = ({
       );
     const thumbnail = await generateImageFromHtmlElement('product-builder-window', { fileName: productData._id });
 
-    uploadFile({ file: thumbnail, type: 'products' }, {
-      onSuccess: saveTheProduct,
-      onFailed: saveTheProduct,
-      options: { showNotification: false }
-    });
-
+    !isAnalytics ?
+      uploadFile({ file: thumbnail, type: 'products' }, {
+        onSuccess: saveTheProduct,
+        onFailed: saveTheProduct,
+        options: { showNotification: false }
+      }) :
+      saveTheProduct();
   };
+
   if (loading) return <ProductBuilderSkelton />;
   return (
     <ProductContext.Provider value={{ state, actions }}>
