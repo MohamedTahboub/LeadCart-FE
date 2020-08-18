@@ -182,47 +182,6 @@
                     "label": "Access Your Product"
                 }
             ]
-        },
-        {
-            "title": "Order Receipt",
-            "key": "orderReceipt",
-            "words": [
-                {
-                    "key": "heyMessage",
-                    "value": "Hey",
-                    "label": "Hey"
-                },
-                {
-                    "key": "intro_1",
-                    "value": "We've got your order!",
-                    "label": "We've got your order!"
-                },
-                {
-                    "key": "intro_2",
-                    "value": "Here's your receipt.",
-                    "label": "Here's your receipt."
-                },
-                {
-                    "key": "orderNumberLabel",
-                    "value": "ORDER NO.",
-                    "label": "ORDER NO."
-                },
-                {
-                    "key": "itemsLabel",
-                    "value": "ITEMS",
-                    "label": "ITEMS"
-                },
-                {
-                    "key": "totalText",
-                    "value": "Total",
-                    "label": "Total"
-                },
-                {
-                    "key": "accessButton",
-                    "value": "Access Your Product",
-                    "label": "Access Your Product"
-                }
-            ]
         }
     ]
 }
