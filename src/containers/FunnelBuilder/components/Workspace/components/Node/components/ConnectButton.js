@@ -59,10 +59,10 @@ const ConnectButton = ({
           />
 
           <Tooltip triggerRef={circleRef}>
-            <rect x={2} y={2} width={130} height={18}
+            <rect x={2} y={2} width={108} height={18}
               rx={5} ry={5} fill='#4DA1FF'
             />
-            <text x={14} y={16} fontSize={14} fill='white'>Click To Connect</text>
+            <text x={14} y={16} fontSize={12} fill='white'>Click to connect</text>
           </Tooltip>
         </Fragment>
       )
@@ -88,10 +88,10 @@ const ConnectButton = ({
           />
 
           <Tooltip triggerRef={circleRef}>
-            <rect x={2} y={2} width={130} height={18}
+            <rect x={2} y={2} width={108} height={18}
               rx={5} ry={5} fill='#e67e22'
             />
-            <text x={14} y={16} fontSize={14} fill='white'>Click To Connect</text>
+            <text x={14} y={16} fontSize={12} fill='white'>Click to connect</text>
           </Tooltip>
         </Fragment>
       )

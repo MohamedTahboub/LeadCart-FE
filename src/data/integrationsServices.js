@@ -372,9 +372,9 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'How to Connect',
+      actionLabel: 'How to Use'
       // action: 'link',
-      linkPath: '#webhooks'
+      // linkPath: '#webhooks'
     }
   },
   {
@@ -389,8 +389,8 @@ const services = [
       enabled: true,
       hasHover: false,
       actionLabel: 'How to Connect',
-      // action: 'link',
-      linkPath: '#pabbly'
+      action: 'link',
+      linkPath: 'https://intercom.help/leadcart/en/articles/4351920-connect-leadcart-with-pabbly-conenct'
     }
   },
   {
@@ -405,8 +405,24 @@ const services = [
       enabled: true,
       hasHover: false,
       actionLabel: 'How to Connect',
-      // action: 'link',
-      linkPath: '#Integrately'
+      action: 'link',
+      linkPath: 'https://intercom.help/leadcart/en/articles/4352486-connect-leadcart-with-integrately'
+    }
+  },
+  {
+    key: 'lc_konnectzit',
+    name: 'KonnectZit',
+    brandLogo: brandsLogos.konnectzitLogo,
+    category: 'Misc Integrations',
+    active: true,
+    connected: true,
+    supported: true,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'How to Connect',
+      action: 'link',
+      linkPath: 'https://intercom.help/leadcart/en/articles/4352491-connect-leadcart-with-konnectzit'
     }
   },
   {
