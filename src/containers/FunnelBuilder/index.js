@@ -115,7 +115,7 @@ const FunnelBuilder = ({
       return setErrors(errors);
     }
 
-    const startPoint = getStartPointProduct(funnel);
+    const startPoint = getStartPointProduct(fields);
     if (startPoint) funnel.startPoint = startPoint;
 
     const productsUpdates = extractProductsRelations(funnel);
