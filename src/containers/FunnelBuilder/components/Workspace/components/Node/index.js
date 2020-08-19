@@ -10,21 +10,24 @@ import pageFunnelImage from 'assets/images/funnels/PageFunnel.png';
 import checkoutPageImage from 'assets/images/funnels/checkoutPage.png';
 import upsellPageImage from 'assets/images/funnels/upsellPage.png';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
+import optInPageImage from 'assets/images/funnels/checkoutPage.png';
 import { ConnectButton, EditButton, NodeStatusHat } from './components';
 import './style.css';
 
 const categoriesImages = {
-  onepagefunnel: pageFunnelImage,
-  checkout: checkoutPageImage,
-  upsell: upsellPageImage,
-  thankyoupage: thankyouPageImage
+  'onepagefunnel': pageFunnelImage,
+  'checkout': checkoutPageImage,
+  'upsell': upsellPageImage,
+  'thankyoupage': thankyouPageImage,
+  'opt-in': optInPageImage
 };
 
 const categoriesNames = {
-  onepagefunnel: 'Page Funnel',
-  checkout: 'Checkout page',
-  upsell: 'Upsell Page',
-  thankyoupage: 'Thankyou Page'
+  'onepagefunnel': 'Page Funnel',
+  'checkout': 'Checkout page',
+  'upsell': 'Upsell Page',
+  'thankyoupage': 'Thankyou Page',
+  'opt-in': 'Opt-In Page'
 };
 
 
