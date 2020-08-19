@@ -1,14 +1,14 @@
 import React from 'react';
-import common from 'components/common';
 import clx from 'classnames';
 import { IoMdCheckmark } from 'react-icons/io';
 import { TiWarning } from 'react-icons/ti';
+
+import common from 'components/common';
+import basicProductImage from 'assets/images/basicProductImage.jpeg';
+
 const { FlexBox } = common;
 
-
 const ActiveBadge = ({ show }) => {
-
-
   return show ? (
     <FlexBox center='h-center' className='active-product-badge'>
       <IoMdCheckmark className='white-text active-check' />
@@ -17,7 +17,6 @@ const ActiveBadge = ({ show }) => {
 };
 
 const OverrideSelect = ({ show, onClick }) => {
-
   if (!show) return null;
 
   const selectBtnClasses = 'tinier-text gray-text light-btn soft-edges p-2 white-bg bold-text';
@@ -48,7 +47,7 @@ const Product = ({
   onSelect,
   id: productId,
   nodeId,
-  thumbnail
+  thumbnail = basicProductImage
 }) => {
   const classes = clx(
     'node-settings-product-img',
