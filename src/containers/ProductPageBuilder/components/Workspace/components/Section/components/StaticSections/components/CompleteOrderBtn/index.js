@@ -1,11 +1,13 @@
 import React from 'react';
 import common from 'components/common';
+import clx from 'classnames';
 
 import './style.css';
 
 const { ResizableInput } = common;
 
 const CompleteOrderBtn = ({
+  className,
   text,
   color: background = '#4da1ff',
   onChange,
@@ -13,7 +15,7 @@ const CompleteOrderBtn = ({
 }) => {
   const style = { background };
   return (
-    <div style={style} className='template-complete-order'>
+    <div style={style} className={clx(className, 'template-complete-order')}>
       <ResizableInput
         onChange={onChange}
         name={name}
