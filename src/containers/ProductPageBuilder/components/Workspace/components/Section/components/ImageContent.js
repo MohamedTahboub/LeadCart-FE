@@ -20,12 +20,9 @@ const ImageContent = ({
   });
 
   const onImageChange = (image) => {
-    actions.onSectionSettingChange({
-      section,
-      field: {
-        name: 'content.value',
-        value: image
-      }
+    actions.onSectionFieldChange({
+      ...section,
+      content: { ...content, value: image }
     });
   };
 
