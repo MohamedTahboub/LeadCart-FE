@@ -2,6 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { getServiceBrand } from 'data/integrationsServices';
 import { includesIgnoreCase, openNewWindow } from 'libs';
 
+import StripLogo from 'assets/images/stripe.png';
+import PaypalLogo from 'assets/images/paypal-thumbnail.png';
 import common from 'components/common';
 import { connect } from 'react-redux';
 
@@ -10,7 +12,13 @@ import './style.css';
 const { MediumCard, InputRow } = common;
 
 
-function Message ({ children }) {
+const paymentLogos = {
+  Stripe: StripLogo,
+  Paypal: PaypalLogo
+};
+
+
+function Message({ children }) {
   return (
     <div className='message-note'>
       <span className='message-content'>{children}</span>
@@ -25,7 +33,6 @@ const PaymentMethods = ({
   name = 'paymentMethods',
   ...props
 }) => {
-
   const [error, setError] = useState('');
 
   const isMethodExist = (paymentMethod) => paymentsIntegrations.find(({ name }) => includesIgnoreCase(name, paymentMethod));
@@ -55,7 +62,7 @@ const PaymentMethods = ({
           <MediumCard
             key={payment.name}
             className='template-payment-card'
-            imgSrc={payment.logo}
+            imgSrc={payment.logo || paymentLogos[payment.name]}
             isActive={selected.includes(payment.name)}
             onClick={onSelect(payment.name)}
           />
