@@ -2,7 +2,7 @@
 export const optIn = {
   products: [
     {
-      category: 'checkout',
+      category: 'opt-in',
       elementId: 'DReko4TOC11',
       coordinates: {
         x: 500,

@@ -48,9 +48,13 @@ const getCornerTitle = (corner) => {
 
 const ButtonSection = () => {
   const {
-    state: { modals: { sectionSetting = {} } = {} },
+    state: { modals: { sectionSetting = {} } = {}, product: { category = '' } = {} },
     actions
   } = useContext();
+
+
+  const isOptIn = category === 'opt-in';
+
   const [openCollapse, setOpenCollapse] = useState(null);
 
   const { styles = {}, content = {} } = sectionSetting;
@@ -327,7 +331,7 @@ const ButtonSection = () => {
             value={styles.type}
             onChange={onChange}
             options={[
-              { label: 'Payment Form', value: 'paymentForm' },
+              { label: isOptIn ? 'Complete Order' : 'Payment Form', value: isOptIn ? 'Complete Order' : 'Payment Form' },
               { label: 'External Link', value: 'external' }
             ]}
           />
@@ -345,7 +349,11 @@ const ButtonSection = () => {
           </div>
         ) : ((
           <span className='gray-text aligned-center mt-3'>
-            When this Button clicked it will take the customer to the payment form section
+            {isOptIn ?
+              'When this Button clicked it will take the customer to the Complete Order section'
+              :
+              'When this Button clicked it will take the customer to the payment form section'
+            }
           </span>
         ))}
       </Tab>
