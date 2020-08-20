@@ -32,7 +32,7 @@ export const extractProductsRelations = ({ products = [] }) => {
 
 export const getStartPointProduct = (funnel) => {
   const targetCategory = funnel.type === 'OPT-IN' ? 'opt-in' : 'checkout';
-  const StartPointProduct = funnel.products.find(({ category = '' }) => category.toLowerCase() === targetCategory);
+  const startPointProduct = funnel.products.find(({ category = '' }) => category.toLowerCase() === targetCategory);
 
-  return StartPointProduct.productId;
+  return startPointProduct?.productId;
 };
