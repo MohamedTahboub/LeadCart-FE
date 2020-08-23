@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import common from 'components/common';
 import { MdAddCircleOutline } from 'react-icons/md';
 import { string } from 'yup';
-const { InputRow, FlexBox } = common;
+const { InputRow, FlexBox, Button } = common;
 const { Label, TextField, SelectOption, Toggle } = InputRow;
 const urlSchema = string().url();
 
@@ -44,7 +44,7 @@ const TimeInterval = ({ onChange }) => {
   };
 
   return (
-    <FlexBox center='v-center time-interval'>
+    <FlexBox center='v-center' className='time-interval'>
       <Label
         className='success-url-interval-label-text'
       >
@@ -120,10 +120,10 @@ const NewRow = ({ onAdd }) => {
             onChange={_onChange}
             url={url.url}
           />
-          <button className='item-clickable add-success-url' onClick={_onAdd}>
+          <Button className='add-success-url' onClick={_onAdd}>
             <MdAddCircleOutline className='add-success-url-icon' />
             <span>Add Success URL</span>
-          </button>
+          </Button>
         </section>
 
       </FlexBox>

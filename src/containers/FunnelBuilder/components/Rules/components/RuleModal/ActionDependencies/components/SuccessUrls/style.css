@@ -134,11 +134,7 @@ span.success-order {
     background-color: transparent;
     display: flex;
     align-items: center;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: bold;
     margin: 15px auto 0;
-    transition: .4s all ease-in-out;
 }
 
 .add-success-url-icon{
