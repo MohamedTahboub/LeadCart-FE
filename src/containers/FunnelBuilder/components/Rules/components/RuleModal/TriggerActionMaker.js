@@ -53,6 +53,7 @@ const TriggerActionMaker = ({
   const [group, setGroup] = useState(groupDetails);
   const [error, setError] = useState();
   const [expand, setExpand] = useState(hasGroups);
+  const [disableAdd, setDisableAdd] = useState(false);
 
   const canSelectProducts = triggerEvent !== 'PROSPECT';
 
@@ -115,6 +116,11 @@ const TriggerActionMaker = ({
     setGroup(newGroup);
     setError();
   };
+
+  useEffect(() => {
+    const { action: { metaData: { successUrls = [] } = {}, type = '' } = {} } = group;
+    setDisableAdd(!successUrls.length && type === 'SUCCESS_URLS');
+  }, [group]);
 
   useEffect(() => {
     setGroup({});
@@ -200,7 +206,7 @@ const TriggerActionMaker = ({
             {error}
           </div>
         )}
-        <Button onClick={isEdit ? _onUpdate : _onAdd} className='light-btn'>
+        <Button onClick={isEdit ? _onUpdate : _onAdd} className='light-btn' disabled={disableAdd}>
           <FlexBox center='v-center'>
             <IoIosAdd className='mx-1' />
             <span>
@@ -211,16 +217,16 @@ const TriggerActionMaker = ({
         <ReactToolTip delayShow={300} />
       </FlexBox>
     </FlexBox>
-  ) : (
+  ) :
     <Button onClick={toggleExpand} className='light-btn full-width'>
       <FlexBox center='v-center h-center padding-v-5'>
         <IoIosAdd />
         <span>
-            Add New Trigger Group
+          Add New Trigger Group
         </span>
       </FlexBox>
-    </Button>
-  );
+    </Button>;
+
 };
 
 TriggerActionMaker.propTypes = {};
