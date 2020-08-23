@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import common from 'components/common';
 import { MdAddCircleOutline } from 'react-icons/md';
 import { string } from 'yup';
-const { InputRow, SelectBox, FlexBox } = common;
-const { Label, TextField, SelectOption } = InputRow;
+const { InputRow, FlexBox } = common;
+const { Label, TextField, SelectOption, Toggle } = InputRow;
 const urlSchema = string().url();
 
 
@@ -44,7 +44,7 @@ const TimeInterval = ({ onChange }) => {
   };
 
   return (
-    <FlexBox center='v-center'>
+    <FlexBox center='v-center time-interval'>
       <Label
         className='success-url-interval-label-text'
       >
@@ -59,6 +59,7 @@ const TimeInterval = ({ onChange }) => {
         className='success-url-interval-value'
         min='0'
       />
+
       <SelectOption
         value={fields.interval}
         name='interval'
@@ -70,12 +71,17 @@ const TimeInterval = ({ onChange }) => {
         disabled={fields.isInfinite}
         className='select-period'
       />
-      <SelectBox
-        className='success-url-interval-select'
-        checked={fields.isInfinite}
-        onChange={toggleIsInfinite}
-        label='Ever'
-      />
+
+      <section className='success-url-interval-select'>
+        <label>Forever</label>
+        <Toggle
+          value={fields.isInfinite}
+          onToggle={toggleIsInfinite}
+          beforeLabel=''
+          afterLabel=''
+        />
+        <label>Specific Time</label>
+      </section>
     </FlexBox>
   );
 };
@@ -86,7 +92,7 @@ const NewRow = ({ onAdd }) => {
   const [error, setError] = useState();
 
   const _onAdd = async () => {
-    if (!urlSchema.isValidSync(url.url))
+    if (!urlSchema.isValidSync(url.url) || !url.url)
       return setError('Enter a valid URL path');
 
     onAdd(url);
@@ -100,7 +106,7 @@ const NewRow = ({ onAdd }) => {
 
   return (
     <FlexBox column center='h-center'>
-      <FlexBox center='v-center p-2'>
+      <FlexBox center='v-center p-2 df-warp'>
         <TextField
           value={url.url}
           name='url'
@@ -108,15 +114,18 @@ const NewRow = ({ onAdd }) => {
           className='success-url-input'
           placeholder='Success Url'
         />
-        <TimeInterval
-          onChange={_onChange}
-          url={url.url}
-        />
-        <MdAddCircleOutline
-          data-tip='Add Url'
-          onClick={_onAdd}
-          className='primary-text-color larger-text item-clickable'
-        />
+
+        <section className='success-url-time'>
+          <TimeInterval
+            onChange={_onChange}
+            url={url.url}
+          />
+          <button className='item-clickable add-success-url' onClick={_onAdd}>
+            <MdAddCircleOutline className='add-success-url-icon' />
+            <span>Add Success URL</span>
+          </button>
+        </section>
+
       </FlexBox>
       {error && (
         <span className='error-text aligned-center'>
