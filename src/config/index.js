@@ -10,7 +10,9 @@ const envsVars = {
     USER_SUB_DOMAIN_URL: 'https://subDomain.dev.leadcart.io/',
     mixPanelId: '6f1e8d2fe9734115de1fdcac460bd8ba',
     intercomAppId: 'hegmjd4b',
-    logRocketId: 'olwrix/leadcart'
+    logRocketId: 'olwrix/leadcart',
+    LEADCART_AFFILIATE_CENTER_URL: 'https://lc-affiliates.netlify.app',
+    AFFILIATE_ENCODING_KEY: 'strong-key!'
   },
   staging: {
     ZAPIER_INVITATION_LINK: 'https://zapier.com/developer/public-invite/110760/c6fb681572753e1aad9488f28a22a64c/',
@@ -18,7 +20,9 @@ const envsVars = {
     USER_SUB_DOMAIN_URL: 'https://subDomain.staging.leadcart.io/',
     mixPanelId: '6f1e8d2fe9734115de1fdcac460bd8ba',
     intercomAppId: 'hegmjd4b',
-    logRocketId: 'olwrix/leadcart'
+    logRocketId: 'olwrix/leadcart',
+    LEADCART_AFFILIATE_CENTER_URL: 'https://lc-affiliates.netlify.app',
+    AFFILIATE_ENCODING_KEY: 'strong-key!'
   },
   production: {
     ZAPIER_INVITATION_LINK: 'https://zapier.com/developer/public-invite/110760/c6fb681572753e1aad9488f28a22a64c/',
@@ -26,7 +30,9 @@ const envsVars = {
     USER_SUB_DOMAIN_URL: 'https://subDomain.leadcart.io/',
     mixPanelId: '9f4e14f1602b54645779337eb660525a',
     intercomAppId: 'oiankyy0',
-    logRocketId: 'olwrix/leadcart'
+    logRocketId: 'olwrix/leadcart',
+    LEADCART_AFFILIATE_CENTER_URL: 'https://affiliates.leadcart.io',
+    AFFILIATE_ENCODING_KEY: 'the-strongest-key-ever!!'
   }
 };
 

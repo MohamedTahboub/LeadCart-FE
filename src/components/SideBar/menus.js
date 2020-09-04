@@ -1,6 +1,9 @@
 
+import config from 'config';
+import { notification, openNewWindow, tokenizedContent } from 'libs';
+const { LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 
-export const main = () => [
+export const main = ({ user }) => [
   {
     title: 'Sales',
     key: 'sales',
@@ -51,8 +54,17 @@ export const main = () => [
       }, {
         title: 'Affiliates',
         key: 'affiliates',
-        link: '/affiliates',
-        icon: 'affiliates'
+        // link: 'https://lc-affiliates.netlify.app/',
+        icon: 'affiliates',
+        onClick: () => {
+          try {
+            const tokenizedUtk = tokenizedContent(user, AFFILIATE_ENCODING_KEY);
+            const targetPath = `${LEADCART_AFFILIATE_CENTER_URL}/login?utk=${tokenizedUtk}`;
+            openNewWindow(targetPath);
+          } catch (err) {
+            notification.failed(err.message);
+          }
+        }
       }
     ]
   }, { divider: true }, {
