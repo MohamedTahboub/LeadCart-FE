@@ -29,6 +29,7 @@ export {
   isObjectsEquivalent,
   nestedKeyValue,
   getBrandActivePackage,
-  getGavatarByEmail
+  getGavatarByEmail,
+  tokenizedContent
 } from './specialFuncs';
 export { notification };

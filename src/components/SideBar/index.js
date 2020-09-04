@@ -62,7 +62,7 @@ const SideBar = ({
   const [isBrandsOpen, setBrandsOpen] = useState(false);
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
-  const menus = sidebarMenus({ brands });
+  const menus = sidebarMenus({ brands, user });
 
 
   const onActiveBrandChange = (activeBrand) => {
@@ -102,7 +102,12 @@ const SideBar = ({
         return (
           <SubMenu
             key={rest.key}
-            title={<div className='d-flex align-center-left'><Icon className='svg-icon sideBar-icon' />{title}</div>}
+            title={(
+              <div className='d-flex align-center-left'>
+                <Icon className='svg-icon sideBar-icon' />
+                {title}
+              </div>
+            )}
             {...rest}
           >
             {mapMenuItems(sub)}
