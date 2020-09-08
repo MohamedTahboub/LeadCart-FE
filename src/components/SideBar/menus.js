@@ -3,7 +3,7 @@ import config from 'config';
 import { notification, openNewWindow, tokenizedContent } from 'libs';
 const { LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 
-export const main = ({ user }) => [
+export const main = ({ user = {} }) => [
   {
     title: 'Sales',
     key: 'sales',
@@ -54,11 +54,23 @@ export const main = ({ user }) => [
       }, {
         title: 'Affiliates',
         key: 'affiliates',
-        // link: 'https://lc-affiliates.netlify.app/',
+        disabled: user.activePackage && (user.activePackage.type !== 'Premium'),
         icon: 'affiliates',
         onClick: () => {
           try {
-            const tokenizedUtk = tokenizedContent(user, AFFILIATE_ENCODING_KEY);
+            const { firstName, lastName, activeBrand, email, profileImage, token, activePackage } = user;
+            const shippedUser = {
+              firstName,
+              lastName,
+              activeBrand,
+              email,
+              profileImage,
+              activePackageType: activePackage.type,
+              token
+            };
+            if (activePackage.type !== 'Premium') return;
+
+            const tokenizedUtk = tokenizedContent(shippedUser, AFFILIATE_ENCODING_KEY);
             const targetPath = `${LEADCART_AFFILIATE_CENTER_URL}/login?utk=${tokenizedUtk}`;
             openNewWindow(targetPath);
           } catch (err) {
