@@ -21,6 +21,7 @@ import {
 
 import {
   Header,
+  NewPricingOptionModal,
   SettingSideBar,
   SideBar,
   Workspace
@@ -158,6 +159,12 @@ const ProductBuilder = ({
             <SettingSideBar />
           </DndProvider>
         </FlexBox>
+        <NewPricingOptionModal
+          isVisible
+          onClose={actions.onTogglePricingOptionModal}
+          onAdd={() => { }}
+          // formatOptions={formatOptions}
+        />
       </Page>
       <ReactToolTip delayShow={400} />
     </ProductContext.Provider>
