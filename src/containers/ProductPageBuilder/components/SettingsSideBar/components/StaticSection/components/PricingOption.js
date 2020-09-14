@@ -1,27 +1,14 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { formatPricingValue } from 'libs';
+const { FlexBox: Flex } = common;
 
-const {
-  // Button,
-  // Tabs,
-  // Tab,
-  // InputRow,
-  // Checkbox,
-  FlexBox: Flex
-} = common;
-
-const formatPricingValue = ({ amount, type, splits, recurringPeriod }) => {
-  if (type === 'Subscription') return `$${amount} each ${recurringPeriod}`;
-  if (type === 'Split') return `$${amount} X ${splits}`;
-  return `$ ${amount}`;
-};
 
 const PricingOption = ({
   onDelete,
-  label = 'Price Label',
+  label = 'Price Option Label',
   ...priceDetails
 }) => {
 
