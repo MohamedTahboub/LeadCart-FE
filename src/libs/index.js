@@ -30,6 +30,7 @@ export {
   nestedKeyValue,
   getBrandActivePackage,
   getGavatarByEmail,
-  tokenizedContent
+  tokenizedContent,
+  formatPricingValue
 } from './specialFuncs';
 export { notification };

@@ -11,6 +11,7 @@ import {
   CouponSection,
   OrderSummary,
   PaymentMethods,
+  PricingOptions,
   ShippingDetails
 } from './components';
 import MultipleStepForm from 'components/MultipleStepForm';
@@ -59,7 +60,7 @@ const StaticSections = ({ language, section }) => {
                     color={pageStyles.themeColor}
                     language={language}
                   />
-
+                  <PricingOptions />
                   {orderSummary &&
                     <OrderSummary
                       price={price}
@@ -76,7 +77,7 @@ const StaticSections = ({ language, section }) => {
                       color={pageStyles.themeColor}
                       language={language}
                     />
-
+                    <PricingOptions />
                     {orderSummary &&
                       <OrderSummary
                         price={price}
@@ -128,6 +129,7 @@ const StaticSections = ({ language, section }) => {
                     language={language}
                   />
                 )}
+                <PricingOptions />
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}
                   step={addOns.shippingDetails ? 3 : 2}

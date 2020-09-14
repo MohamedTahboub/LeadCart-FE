@@ -5,10 +5,15 @@ import * as types from '../actionsTypes';
 const initialState = {
   modals: { sectionSetting: false },
   product: sampleProductData,
-  standAlone: true
+  standAlone: true,
+  productPricing: {
+    openModal: false,
+    toEdit: {}
+  }
 };
 
 export default (state = initialState, { type, payload }) => {
+  console.log(type, payload);
   switch (type) {
   case types.UPDATE_STATE:
     return {
@@ -77,7 +82,6 @@ export default (state = initialState, { type, payload }) => {
           }
           return sec;
         })
-
       }
     };
   case types.DELETE_PRODUCT_SECTION:
@@ -86,6 +90,56 @@ export default (state = initialState, { type, payload }) => {
       product: {
         ...state.product,
         sections: state.product.sections.filter((sec) => sec.id !== payload)
+      }
+    };
+
+  case types.TOGGLE_PRODUCT_PRICING_MODAL:
+    return {
+      ...state,
+      productPricing: {
+        ...state.productPricing,
+        openModal: !state.productPricing?.openModal,
+        toEdit: {}
+      }
+    };
+  case types.EDIT_PRODUCT_PRICING_OPTION:
+    return {
+      ...state,
+      productPricing: {
+        ...state.productPricing,
+        openModal: true,
+        toEdit: payload
+      }
+    };
+  case types.ADD_PRODUCT_PRICING_OPTION:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        pricingOptions: [...(state.product.pricingOptions || []), payload]
+      }
+    };
+  case types.SELECT_PRODUCT_PRICING_OPTION:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        pricingOptions: state.product.pricingOptions.map((pricingOption) => {
+          let active = false;
+          if (pricingOption.id === payload)
+            active = true;
+
+          return { ...pricingOption, active };
+        })
+      }
+    };
+  case types.DELETE_PRODUCT_PRICING_OPTION:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        pricingOptions: state.product.pricingOptions
+          .filter((pricingOption) => pricingOption.id !== payload)
       }
     };
   default: return state;

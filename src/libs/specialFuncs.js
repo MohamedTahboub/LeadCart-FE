@@ -191,3 +191,10 @@ export const getGavatarByEmail = (email = '') => {
 export const tokenizedContent = (content, secret) => {
   return jwt.sign(content, secret);
 };
+
+
+export const formatPricingValue = ({ amount, type, splits, recurringPeriod = '' }) => {
+  if (type === 'Subscription') return `$${amount} each ${recurringPeriod.toLocaleLowerCase()}`;
+  if (type === 'Split') return `$${amount} X ${splits}`;
+  return `$ ${amount}`;
+};
