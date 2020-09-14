@@ -54,7 +54,7 @@ const TriggerGroup = ({
         {products.map((product, index) => (
           <FlexBox center='v-center'>
             <Badge
-              data-tip='product.name'
+              // data-tip='product.name'
               key={product._id}
               data-for={`rule-product-demo-${product._id}`}
               className='margin-h-5 my-1'
