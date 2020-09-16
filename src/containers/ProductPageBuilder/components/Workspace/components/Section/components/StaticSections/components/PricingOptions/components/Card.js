@@ -19,7 +19,7 @@ const Card = ({
     <Flex flex className={classes} onClick={onSelect(id)}>
       <Flex column>
         <span className='title-text bold-text'>{label}</span>
-        <span className='bold-text'>{formatPricingValue(priceDetails)}</span>
+        <span className='small-text'>{formatPricingValue(priceDetails)}</span>
       </Flex>
     </Flex>
   );

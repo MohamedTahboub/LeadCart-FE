@@ -13,6 +13,7 @@ import TriggerActionMaker from './TriggerActionMaker';
 import { funnelTypes } from 'propTypes';
 import {
   constructProductsAndOffersLabels,
+  getAvailablePricingOptionsDetails,
   getIntersectedProducts,
   getTriggerLabel
 } from '../helpers';
@@ -171,6 +172,7 @@ const RuleModal = ({
                 key={group._id}
                 {...group}
                 products={getIntersectedProducts(productsMap, group.products)}
+                pricingOptions={getAvailablePricingOptionsDetails(group.pricingOptions, group.products, productsMap)}
               />
             )
           ))
