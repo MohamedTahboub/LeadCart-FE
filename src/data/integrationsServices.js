@@ -372,9 +372,9 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'How to Use'
-      // action: 'link',
-      // linkPath: '#webhooks'
+      actionLabel: 'How to Use',
+      action: 'link',
+      linkPath: 'https://youtu.be/zNxy7AdvzTw'
     }
   },
   {
@@ -390,7 +390,7 @@ const services = [
       hasHover: false,
       actionLabel: 'How to Connect',
       action: 'link',
-      linkPath: 'https://intercom.help/leadcart/en/articles/4351920-connect-leadcart-with-pabbly-conenct'
+      linkPath: 'https://youtu.be/3OAHebK_aPk'
     }
   },
   {
@@ -406,7 +406,7 @@ const services = [
       hasHover: false,
       actionLabel: 'How to Connect',
       action: 'link',
-      linkPath: 'https://intercom.help/leadcart/en/articles/4352486-connect-leadcart-with-integrately'
+      linkPath: 'https://youtu.be/0ctNixnlDg0'
     }
   },
   {

@@ -50,3 +50,18 @@ export const getTriggerLabel = (val) => {
   const [{ label = 'Does Not Exist Event' } = {}] = rulesEvents.filter((r) => r.value === val);
   return label;
 };
+
+
+export const getProductsPricingOptions = (products = [], globalProductsMap = {}) => {
+  return products
+    .map((p) => p.value ? globalProductsMap[p.value] : globalProductsMap[p])
+    .filter((product) => (Array.isArray(product.pricingOptions) && product.pricingOptions.length))
+    .map((product) => product.pricingOptions)
+    .flat()
+    .map(({ label, id: value }) => ({ label, value }));
+};
+
+export const getAvailablePricingOptionsDetails = (pricingOptions, productsIds, productsMap) => {
+  return getProductsPricingOptions(productsIds, productsMap)
+    .filter((option) => pricingOptions.includes(option.value));
+};

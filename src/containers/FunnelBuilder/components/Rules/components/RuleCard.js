@@ -8,7 +8,7 @@ import ReactToolTip from 'react-tooltip';
 
 import TriggerGroup from './RuleModal/TriggerGroup';
 
-import { getIntersectedProducts, getTriggerLabel } from './helpers';
+import { getAvailablePricingOptionsDetails, getIntersectedProducts, getTriggerLabel } from './helpers';
 
 const {
   Card,
@@ -43,6 +43,7 @@ const RuleCard = ({
                 key={group.id}
                 {...group}
                 products={getIntersectedProducts(productsMap, group.products)}
+                pricingOptions={getAvailablePricingOptionsDetails(group.pricingOptions, group.products, productsMap)}
               />
             ))}
           </FlexBox>
