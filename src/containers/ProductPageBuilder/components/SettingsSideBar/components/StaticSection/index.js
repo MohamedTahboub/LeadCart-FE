@@ -1,4 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+
+import config from 'config';
 import common from 'components/common';
 import PaymentType from 'components/PaymentType';
 import { useContext } from '../../../../actions';
@@ -7,7 +10,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 import priceFormatOptions from 'data/priceFormatOptions';
 import { PricingOption } from './components';
 
-const PRICING_OPTIONS_LIMITS = 5;
+const { admins = [], PRICING_OPTIONS_LIMITS } = config;
 
 const {
   Button,
@@ -23,7 +26,8 @@ const {
   Toggle
 } = InputRow;
 
-const StaticSection = ({ ...props }) => {
+const StaticSection = ({ isAdminUser }) => {
+
   const {
     state: { product = {}, modals: { sectionSetting = {} } = {} },
     actions
@@ -71,6 +75,8 @@ const StaticSection = ({ ...props }) => {
   };
 
   const isExceededThePricingOptionsLimits = (Array.isArray(pricingOptions) && pricingOptions.length > PRICING_OPTIONS_LIMITS);
+
+
   return (
     <Fragment>
       <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -91,14 +97,18 @@ const StaticSection = ({ ...props }) => {
             onChange={onChange}
             price={price}
           />
-          <FlexBox center='h-center' className='mt-3 mb-2'>
-            <Button className='light-btn px-3' onClick={actions.onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
-              <FlexBox center='v-center'>
-                <IoIosAddCircleOutline color='gray' className='mr-2' />
-                <span>Add More Pricing Options</span>
+          {
+            isAdminUser && (
+              <FlexBox center='h-center' className='mt-3 mb-2'>
+                <Button className='light-btn px-3' onClick={actions.onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
+                  <FlexBox center='v-center'>
+                    <IoIosAddCircleOutline color='gray' className='mr-2' />
+                    <span>Add More Pricing Options</span>
+                  </FlexBox>
+                </Button>
               </FlexBox>
-            </Button>
-          </FlexBox>
+            )
+          }
           <FlexBox column>
             {pricingOptions.map((pricingOption) => {
               const { id } = pricingOption;
@@ -183,5 +193,5 @@ const StaticSection = ({ ...props }) => {
 };
 StaticSection.propTypes = {};
 
-
-export default StaticSection;
+const propifyState = ({ user: { user = {} } }) => ({ isAdminUser: admins.includes(user.email) });
+export default connect(propifyState)(StaticSection);
