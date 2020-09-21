@@ -157,7 +157,7 @@ const TriggerActionMaker = ({
   const isWebhookAction = group.action && group.action.type === 'WEBHOOKS';
   const pricingOptions = getProductsPricingOptions(selectedProducts, productsMap);
   const selectedPricingOptions = getSelectedPricingOptions(pricingOptions, group.pricingOptions);
-  const hasPricingOptions = !!selectedPricingOptions.length;
+  const hasPricingOptions = !!pricingOptions.length;
 
   return expand ? (
     <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges my-1'>

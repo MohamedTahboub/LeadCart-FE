@@ -61,7 +61,7 @@ export const getProductsPricingOptions = (products = [], globalProductsMap = {})
     .map(({ label, id: value }) => ({ label, value }));
 };
 
-export const getAvailablePricingOptionsDetails = (pricingOptions, productsIds, productsMap) => {
+export const getAvailablePricingOptionsDetails = (pricingOptions = [], productsIds, productsMap) => {
   return getProductsPricingOptions(productsIds, productsMap)
     .filter((option) => pricingOptions.includes(option.value));
 };

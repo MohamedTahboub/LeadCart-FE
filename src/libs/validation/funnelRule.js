@@ -63,7 +63,11 @@ const actionSchema = yup.object({
         otherwise: metaDataSchema.when('type', {
           is: 'LEADCART_FULFILLMENT',
           then: leadcartPrivateFulfillmentMetaData,
-          otherwise: metaDataSchema
+          otherwise: metaDataSchema.when('type', {
+            is: 'REVOKE_LEADCART_ACCESS',
+            then: metaDataSchema.default({ temp: true }),
+            otherwise: metaDataSchema
+          })
         })
       })
     })
