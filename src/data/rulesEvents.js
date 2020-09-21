@@ -3,10 +3,10 @@ export default [
     label: 'Order Completed',
     value: 'ORDER_COMPLETE'
   },
-  // {
-  //   label: 'Product Refunded',
-  //   value: 'productRefunded'
-  // },
+  {
+    label: 'Products Refunded',
+    value: 'ORDER_REFUND'
+  },
   {
     label: 'Cart Abandonment',
     value: 'PROSPECT'

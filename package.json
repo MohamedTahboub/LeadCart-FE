@@ -15,6 +15,7 @@
     "html2canvas": "^1.0.0-rc.5",
     "immutability-helper": "^3.0.1",
     "jest-environment-jsdom-sixteen": "^1.0.3",
+    "jsonwebtoken": "^8.5.1",
     "logrocket": "^1.0.5",
     "msw": "^0.19.1",
     "numeral": "^2.0.6",
@@ -94,7 +95,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "faker": "^4.1.0"
   },
-  "proxy": "https://leadcart-dev.herokuapp.com/",
+  "proxy": "https://affiliates-center.herokuapp.com/",
   "browserslist": {
     "production": [
       ">0.2%",

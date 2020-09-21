@@ -72,6 +72,7 @@ const actionSchema = yup.object({
 
 const triggerGroupsSchema = yup.object({
   products: yup.array().of(yup.string()).default([]),
+  pricingOptions: yup.array().of(yup.string()).default([]),
   action: actionSchema
 });
 

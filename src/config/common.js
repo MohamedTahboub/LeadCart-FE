@@ -81,8 +81,8 @@ export default {
   admins: [
     'mohamed@leadcart.io',
     'maysara@leadcart.io',
-    'nour@leadcart.io',
     'fares@leadcart.io',
     'eslam@leadcart.io'
-  ]
+  ],
+  PRICING_OPTIONS_LIMITS: 5
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { Menu } from 'antd';
@@ -62,7 +62,9 @@ const SideBar = ({
   const [isBrandsOpen, setBrandsOpen] = useState(false);
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
-  const menus = sidebarMenus({ brands });
+  const menus = sidebarMenus({ brands, user, history });
+
+
 
 
   const onActiveBrandChange = (activeBrand) => {
@@ -102,7 +104,12 @@ const SideBar = ({
         return (
           <SubMenu
             key={rest.key}
-            title={<div className='d-flex align-center-left'><Icon className='svg-icon sideBar-icon' />{title}</div>}
+            title={(
+              <div className='d-flex align-center-left'>
+                <Icon className='svg-icon sideBar-icon' />
+                {title}
+              </div>
+            )}
             {...rest}
           >
             {mapMenuItems(sub)}

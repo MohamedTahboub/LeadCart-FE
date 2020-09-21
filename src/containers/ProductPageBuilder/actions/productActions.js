@@ -163,3 +163,18 @@ export const onSectionFieldChange = ({ state: { modals: { sectionSetting = {} } 
   }
 };
 
+export const onTogglePricingOptionModal = ({ dispatch }) => () => {
+  dispatch({ type: types.TOGGLE_PRODUCT_PRICING_MODAL });
+};
+export const addProductPriceOption = ({ dispatch }) => (pricingOption) => {
+  dispatch({ type: types.ADD_PRODUCT_PRICING_OPTION, payload: pricingOption });
+};
+export const selectProductPriceOption = ({ dispatch }) => (id) => {
+  dispatch({ type: types.SELECT_PRODUCT_PRICING_OPTION, payload: id });
+};
+export const editProductPriceOption = ({ dispatch }) => (pricingOption) => {
+  dispatch({ type: types.EDIT_PRODUCT_PRICING_OPTION, payload: pricingOption });
+};
+export const deleteProductPriceOption = ({ dispatch }) => (id) => {
+  dispatch({ type: types.DELETE_PRODUCT_PRICING_OPTION, payload: id });
+};

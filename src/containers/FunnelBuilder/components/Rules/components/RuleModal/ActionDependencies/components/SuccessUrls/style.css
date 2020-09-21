@@ -18,7 +18,6 @@ span.success-order {
     justify-content: center;
     align-items: center;
     margin: 0px 10px;
-    /* text-align: center; */
 }
 
 .success-url-delete-btn {
@@ -31,7 +30,6 @@ span.success-order {
 .success-url-delete-btn:hover {
     opacity: 1;
 }
-
 
 .new-fulfillment-btn {
     margin: 10px;
@@ -64,8 +62,6 @@ span.success-order {
     align-items: center;
 }
 
-
-
 .success-url-interval {
     display: flex;
     min-width: 240px;
@@ -89,13 +85,16 @@ span.success-order {
 
 .success-url-interval-value input {
     width: 70px;
+    color: #000;
+    text-align: center;
 }
 
 .select-period:disabled,
-.success-url-interval-interval:disabled {
+.success-url-interval-value input:disabled{
+    border: 1px solid darkgray;
+    color: darkgray;
     background: #eee;
 }
-
 
 .success-url-interval-select {
     display: flex;
@@ -117,4 +116,35 @@ span.success-order {
 
 .success-url-input input {
     width: 100%;
+}
+
+.success-url-time{
+    min-width: 100%;
+    margin-top: 15px;
+}
+
+.time-interval{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add-success-url {
+    border: 2px solid #33333354;
+    color: #33333354;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    margin: 15px auto 0;
+}
+
+.add-success-url-icon{
+    font-size: 1.25rem;
+    margin-right: 5px;
+}
+
+
+.add-success-url:hover{
+    background-color: #4DA1FF;
+    border-color: #4DA1FF;
+    color: #fff;
 }

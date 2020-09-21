@@ -2,6 +2,8 @@
 import * as immutable from 'object-path-immutable';
 import defaultLanguage from 'data/defaultLanguage.json';
 import { md5 } from './encoding';
+import jwt from 'jsonwebtoken';
+import { getPriceFormat } from './currencies';
 export const filterSubscriptions = (orders = []) => orders.filter(({ payment }) => payment.paymentType === 'Subscription');
 
 
@@ -184,4 +186,16 @@ export const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
 
 export const getGavatarByEmail = (email = '') => {
   return `https://www.gravatar.com/avatar/${md5(email)}`;
+};
+
+export const tokenizedContent = (content, secret) => {
+  return jwt.sign(content, secret);
+};
+
+
+export const formatPricingValue = ({ amount, type, splits, recurringPeriod = '', currency, format }) => {
+  const formattedAmount = getPriceFormat(amount, currency, format);
+  if (type === 'Subscription') return `${formattedAmount} each ${recurringPeriod.toLocaleLowerCase()}`;
+  if (type === 'Split') return `${splits}x ${formattedAmount}`;
+  return `${formattedAmount}`;
 };

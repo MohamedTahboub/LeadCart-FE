@@ -1,6 +1,9 @@
 
+import config from 'config';
+import { notification, openNewWindow, tokenizedContent } from 'libs';
+const { admins = [], LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 
-export const main = () => [
+export const main = ({ user = {}, history }) => [
   {
     title: 'Sales',
     key: 'sales',
@@ -51,8 +54,33 @@ export const main = () => [
       }, {
         title: 'Affiliates',
         key: 'affiliates',
-        link: '/affiliates',
-        icon: 'affiliates'
+        icon: 'affiliates',
+        onClick: () => {
+          try {
+            const { firstName, lastName, activeBrand, email, profileImage, token, activePackage } = user;
+            const shippedUser = {
+              firstName,
+              lastName,
+              activeBrand,
+              email,
+              profileImage,
+              activePackageType: activePackage.type,
+              token
+            };
+            const isPremium = activePackage.type === 'Premium';
+            const isAdmin = admins.includes(user.email);
+
+            if (!(isPremium && isAdmin))
+              return history.push('/affiliates');
+
+
+            const tokenizedUtk = tokenizedContent(shippedUser, AFFILIATE_ENCODING_KEY);
+            const targetPath = `${LEADCART_AFFILIATE_CENTER_URL}/login?utk=${tokenizedUtk}`;
+            openNewWindow(targetPath);
+          } catch (err) {
+            notification.failed(err.message);
+          }
+        }
       }
     ]
   }, { divider: true }, {

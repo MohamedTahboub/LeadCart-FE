@@ -1,4 +1,4 @@
-import {  getPriceFormat } from "./currencies";
+import { getPriceFormat } from './currencies';
 
 export const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -71,7 +71,7 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
           paymentType,
           paymentMethod
         } = {}
-      } = {},
+      } = {}
     }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(chargeAmount, currency)},${paymentType}`).join('\n');
   return titles + convertToCSVFormat;
 };

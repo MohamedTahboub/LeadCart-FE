@@ -11,6 +11,26 @@ const sectionSchema = yup.mixed().transform((section = {}) => {
   return section;
 });
 
+const paymentPriceSubSchema = {
+  type: yup.string().default('Onetime'),
+  recurringPeriod: yup.string().when('type', {
+    is: 'Onetime',
+    then: yup.string().transform(() => undefined),
+    otherwise: yup.string().default('MONTH')
+  }),
+  splits: yup.string().when('type', {
+    is: 'Split',
+    then: yup.string().default('3'),
+    otherwise: yup.string().transform(() => undefined)
+  })
+};
+const pricingOptionSchema = yup.object({
+  id: yup.string().required(),
+  label: yup.string().required(),
+  amount: yup.number().required(),
+  ...paymentPriceSubSchema
+});
+
 const ProductSchema = yup.object({
   name: yup.string().default('Product-Name'),
   category: yup.string().default('checkout'),
@@ -31,25 +51,9 @@ const ProductSchema = yup.object({
   }).required(),
   payment: yup.object({
     methods: yup.array().of(yup.string()),
-    type: yup.string().default('Onetime'),
-    recurringPeriod: yup.string()
-      .when('type', (
-        type,
-        schema
-      ) => (
-          type === 'Onetime'
-            ? schema.transform(() => undefined)
-            : schema.default('MONTH')
-        )),
-    splits: yup.string().when(
-      'type',
-      {
-        is: 'Split',
-        then: yup.string().default('3'),
-        otherwise: yup.string().transform(() => undefined)
-      }
-    )
+    ...paymentPriceSubSchema
   }),
+  pricingOptions: yup.array().of(pricingOptionSchema),
   fulfillment: yup.string(),
   coupons: yup.object({ enabled: yup.bool().transform((val) => !!val) }),
   shippingDetails: yup.object({ enabled: yup.bool() }),

@@ -14,9 +14,10 @@ import * as immutable from 'object-path-immutable';
 import { isFunction } from 'libs/checks';
 import ids from 'shortid';
 import config from 'config';
-
+import { getProductsPricingOptions } from '../helpers';
 const { admins = [] } = config;
 const animatedComponents = makeAnimated();
+
 const getActionsOptions = ({ action: { integrationKey } = {} }, actionsMap) => {
   if (actionsMap[integrationKey] && Array.isArray(actionsMap[integrationKey].actions)) {
     return actionsMap[integrationKey].actions.map((action) => ({
@@ -34,6 +35,11 @@ const notValidGroup = ({ products = [], action = {} }) => {
   if (!(action.integrationKey && action.type))
     return 'No service or service action is selected';
 };
+
+const getSelectedPricingOptions = (pricingOptions = [], optionsIds = []) => {
+  return pricingOptions.filter((price) => optionsIds.includes(price.value));
+};
+
 const {
   FlexBox,
   Button
@@ -47,12 +53,14 @@ const TriggerActionMaker = ({
   hasGroups,
   integrations: integrationsLabels,
   actionsMap,
+  productsMap,
   triggerEvent,
   onAdd
 }) => {
   const [group, setGroup] = useState(groupDetails);
   const [error, setError] = useState();
   const [expand, setExpand] = useState(hasGroups);
+  const [disableAdd, setDisableAdd] = useState(false);
 
   const canSelectProducts = triggerEvent !== 'PROSPECT';
 
@@ -80,6 +88,13 @@ const TriggerActionMaker = ({
     setGroup({
       ...group,
       products: products === null ? [] : products.map((p) => p.value)
+    });
+    setError();
+  };
+  const onPricingOptionsChange = (pricingOptions = []) => {
+    setGroup({
+      ...group,
+      pricingOptions: pricingOptions === null ? [] : pricingOptions.map((p) => p.value)
     });
     setError();
   };
@@ -117,6 +132,11 @@ const TriggerActionMaker = ({
   };
 
   useEffect(() => {
+    const { action: { metaData: { successUrls = [] } = {}, type = '' } = {} } = group;
+    setDisableAdd(!successUrls.length && type === 'SUCCESS_URLS');
+  }, [group]);
+
+  useEffect(() => {
     setGroup({});
   }, [expand]);
 
@@ -129,30 +149,49 @@ const TriggerActionMaker = ({
     return () => setExpand(false);
   }, [isEdit]);
 
-
   const actionsOptions = getActionsOptions(group, actionsMap);
   const selectedProducts = products.filter(({ value }) => Array.isArray(group.products) && group.products.includes(value));
   const selectedIntegration = integrationsLabels.find(({ value }) => group.action && group.action.integrationKey === value);
   const selectedActionOption = actionsOptions.find(({ value }) => group.action && group.action.type === value);
   const actionIntegrationId = group.action && actionsMap[group.action.integrationKey].integrationId;
   const isWebhookAction = group.action && group.action.type === 'WEBHOOKS';
+  const pricingOptions = getProductsPricingOptions(selectedProducts, productsMap);
+  const selectedPricingOptions = getSelectedPricingOptions(pricingOptions, group.pricingOptions);
+  const hasPricingOptions = !!selectedPricingOptions.length;
 
   return expand ? (
     <FlexBox column className='white-bg padding-v-10 padding-h-10 soft-edges my-1'>
       <div className='large-text'>{`${isEdit ? 'Update This' : 'Make New'}`} Trigger Group:</div>
       {canSelectProducts && (
-        <FlexBox center='v-center margin-v-10'>
-          <div className='label margin-right-10'>For The Products</div>
-          <Select
-            className='flex-item '
-            components={animatedComponents}
-            name='products'
-            onChange={onProductsChanged}
-            isMulti
-            options={products}
-            value={selectedProducts}
-          />
-        </FlexBox>
+        <Fragment>
+          <FlexBox center='v-center margin-v-10'>
+            <div className='label margin-right-10'>For The Products</div>
+            <Select
+              className='flex-item '
+              components={animatedComponents}
+              name='products'
+              onChange={onProductsChanged}
+              isMulti
+              options={products}
+              value={selectedProducts}
+            />
+          </FlexBox>
+          {hasPricingOptions && (
+            <FlexBox center='v-center margin-v-10'>
+              <div className='label margin-right-10'>And With Price Option</div>
+              <Select
+                className='flex-item '
+                components={animatedComponents}
+                name='products'
+                onChange={onPricingOptionsChange}
+                isMulti
+                options={pricingOptions}
+                value={selectedPricingOptions}
+              />
+            </FlexBox>
+          )
+          }
+        </Fragment>
       )}
       <FlexBox center='v-center margin-v-10'>
         <FlexBox center='v-center' className='label margin-right-10'>
@@ -200,7 +239,7 @@ const TriggerActionMaker = ({
             {error}
           </div>
         )}
-        <Button onClick={isEdit ? _onUpdate : _onAdd} className='light-btn'>
+        <Button onClick={isEdit ? _onUpdate : _onAdd} className='light-btn' disabled={disableAdd}>
           <FlexBox center='v-center'>
             <IoIosAdd className='mx-1' />
             <span>
@@ -211,21 +250,21 @@ const TriggerActionMaker = ({
         <ReactToolTip delayShow={300} />
       </FlexBox>
     </FlexBox>
-  ) : (
+  ) :
     <Button onClick={toggleExpand} className='light-btn full-width'>
       <FlexBox center='v-center h-center padding-v-5'>
         <IoIosAdd />
         <span>
-            Add New Trigger Group
+          Add New Trigger Group
         </span>
       </FlexBox>
-    </Button>
-  );
+    </Button>;
+
 };
 
 TriggerActionMaker.propTypes = {};
 
-const mapStateToProps = ({ user: { user = {} } = {}, integrations }) => {
+const mapStateToProps = ({ user: { user = {} } = {}, integrations, products: { products = [] } = {} }) => {
   const integrationsLabels = integrations
     .filter((integration) => !includesIgnoreCase(integration.category, 'payment'))
     .map((integration) => ({
@@ -246,10 +285,12 @@ const mapStateToProps = ({ user: { user = {} } = {}, integrations }) => {
   };
   const integrationsList = [localFulfillment, localWebHookFulfillment, ...integrationsLabels];
   const actionsMap = mapListToObject(integrationsList, 'value');
+  const productsMap = mapListToObject(products, '_id');
 
   return {
     integrations: integrationsList,
-    actionsMap
+    actionsMap,
+    productsMap
   };
 };
 export default connect(mapStateToProps)(TriggerActionMaker);
