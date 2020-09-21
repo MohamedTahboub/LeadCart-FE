@@ -11,8 +11,13 @@ export default {
       value: 'MANUAL_FULFILLMENT'
     },
     {
-      label: 'LeadCart Private Fulfillment',
+      label: 'LeadCart Grant Access',
       value: 'LEADCART_FULFILLMENT',
+      private: true
+    },
+    {
+      label: 'LeadCart Revoke Access',
+      value: 'REVOKE_LEADCART_ACCESS',
       private: true
     }
   ]
