@@ -84,8 +84,8 @@
 .funnel-status-hat {
     position: absolute;
     right: -5px;
-    top: 42px;
-    transform: rotate(177deg);
+    top: 38px;
+    transform: rotate(180deg);
     height: 23px;
     width: 55px;
     background-size: cover;
