@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import common from 'components/common';
 import clx from 'classnames';
 import { useContext } from '../../../../../../actions';
@@ -17,7 +17,7 @@ const ButtonSection = ({
   ...props
 }) => {
   const { actions = {} } = useContext();
-  const { content = {}, styles = {}, actions: buttonActions } = section;
+  const { styles = {} } = section;
   const { position, editor, image, layout } = styles;
   const onChange = ({ target: { value } }) => {
     const updatedSection = {
@@ -90,13 +90,13 @@ const ButtonSection = ({
       borderTopLeftRadius: 5,
       borderBottomLeftRadius: 5
     } : {
-            width: 34,
-            height: 34,
-            padding: 4,
-            borderRadius: 0,
-            borderTopRightRadius: 5,
-            borderBottomRightRadius: 5
-          }),
+      width: 34,
+      height: 34,
+      padding: 4,
+      borderRadius: 0,
+      borderTopRightRadius: 5,
+      borderBottomRightRadius: 5
+    }),
     backgroundColor: styles.iconBackgroundColor || 'transparent'
   };
   const icon = styles.iconPlacement !== 'none' && styles.icon;
@@ -106,7 +106,7 @@ const ButtonSection = ({
     icon && <img alt='icon' src={icon} className='button-icon' style={iconStyles} />
   );
   const buttonComponent = (
-    <>
+    <Fragment>
       {styles.iconPlacement === 'snapped-left' && iconComponent}
       <Button className={buttonClasses} style={buttonStyle}>
         {styles.iconPlacement === 'left' && iconComponent}
@@ -118,7 +118,7 @@ const ButtonSection = ({
         {styles.iconPlacement === 'right' && iconComponent}
       </Button>
       {styles.iconPlacement === 'snapped-right' && iconComponent}
-    </>
+    </Fragment>
   );
 
   return (
@@ -143,8 +143,8 @@ const ButtonSection = ({
             section={section}
           />
         ) : (
-              buttonComponent
-            )
+          buttonComponent
+        )
       }
     </FlexBox>
   );

@@ -47,6 +47,7 @@ const CountDownTimer = ({
     timerInstance.tick(setState);
 
     return timerInstance.tick;
+    //eslint-disable-next-line
   }, [valueType, options]);
 
 

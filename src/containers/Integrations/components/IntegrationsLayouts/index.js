@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import common from 'components/common';
 import { IntegrationsGrid, IntegrationsTable } from './components';
-const { LayoutSwitch, FlexBox, MainTitle } = common;
+const { LayoutSwitch, MainTitle } = common;
 
 const getCategories = (list = []) => {
   const categories = list.reduce((cat, service) => {
@@ -14,7 +14,7 @@ const getCategories = (list = []) => {
 };
 
 
-const CategoryItems = ({ layout, showHeader, ...props }) => {
+const CategoryItems = ({ layout, ...props }) => {
 
   return (
     <LayoutSwitch active={layout}>
@@ -23,7 +23,7 @@ const CategoryItems = ({ layout, showHeader, ...props }) => {
     </LayoutSwitch>
   );
 };
-const IntegrationsLayout = ({ layout, key, list, ...props }) => {
+const IntegrationsLayout = ({ layout, list, ...props }) => {
   const categories = getCategories(list);
 
   return categories

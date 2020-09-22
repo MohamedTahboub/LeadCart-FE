@@ -34,6 +34,7 @@ const Verify = ({ isLoggedIn, history, ...props }) => {
         }
       }
     );
+    //eslint-disable-next-line
   }, [isLoggedIn]);
 
   if (isLoggedIn) return null;

@@ -4,7 +4,6 @@ import ShareProductModal from 'components/ShareProductModal';
 import { IoIosAdd, IoIosArrowRoundBack } from 'react-icons/io';
 
 import common from 'components/common';
-import { DefaultHeader } from '..';
 
 
 const { USER_SUB_DOMAIN_URL } = config;
@@ -28,15 +27,13 @@ const getFunnelUrl = ({ funnelUrl, domains = [], subdomain }) => {
 };
 const CheckoutHeader = ({
   funnel,
-  onChange,
   subdomain,
   domains,
   activePage,
   onPageChange,
   onToggleRuleModal,
   onSave,
-  history,
-  ...props
+  history
 }) => {
   const [showModal, setShowModal] = useState({});
 

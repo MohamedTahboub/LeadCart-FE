@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clx from 'classnames';
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
 import common from 'components/common';

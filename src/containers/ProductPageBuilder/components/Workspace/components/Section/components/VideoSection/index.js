@@ -1,21 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clx from 'classnames';
-// import ReactPlayer from 'react-player';
 import VideoContent from './VideoContent';
 import { useContext } from '../../../../../../actions';
 import './style.css';
 const VideoSection = ({
   className,
   section = { styles: {} },
-  value: videoLink,
+  value: videoLink
 }) => {
   const { actions } = useContext();
 
 
   const classNames = clx({
     'video-section': true,
-    [className]: className,
+    [className]: className
   });
 
   if (!section.styles) section.styles = {};
@@ -48,8 +46,6 @@ const VideoSection = ({
     </div>
   );
 };
-VideoSection.propTypes = {
-
-};
+VideoSection.propTypes = {};
 
 export default VideoSection;

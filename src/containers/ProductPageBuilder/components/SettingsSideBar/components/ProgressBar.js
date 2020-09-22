@@ -1,30 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import progressAnimatedRect from 'assets/images/gifs/animated-progressbar-rect.gif';
 import progressAnimated from 'assets/images/gifs/animated-progressbar.gif';
 import { useContext } from '../../../actions';
 
 import {
-  SettingBox,
-  ImageOption
+  ImageOption,
+  SettingBox
 } from './common';
 
 
 const {
-  // SideMenu,
   Tabs,
-  // EditableField,
   InputRow,
   MiniTwitterPicker,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
-const {
-  TextField,
-  // SelectOption
-} = InputRow;
+const { TextField } = InputRow;
 
 
 const themesOptions = [
@@ -56,11 +50,7 @@ const themesOptions = [
 
 const ProgressBar = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
@@ -142,8 +132,6 @@ const ProgressBar = (props) => {
   );
 };
 
-ProgressBar.propTypes = {
-
-};
+ProgressBar.propTypes = {};
 
 export default ProgressBar;

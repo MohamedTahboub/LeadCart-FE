@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import avatarLink from 'assets/images/avatar.jpg';
 import StarsRanking from 'components/StarsRanking';

@@ -17,16 +17,13 @@ const {
   SelectOption
 } = InputRow;
 
-const PageSettings = (props) => {
+const PageSettings = () => {
   const {
     state: { product = {} },
     actions
   } = useContext();
 
-  const {
-    category,
-    pageStyles = {}
-  } = product;
+  const { pageStyles = {} } = product;
 
 
   const onChange = ({ target }) => {

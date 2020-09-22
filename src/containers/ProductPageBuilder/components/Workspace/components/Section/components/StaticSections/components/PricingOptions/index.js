@@ -1,16 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import { useContext } from '../../../../../../../../actions';
 
 import { PricingOptionCard } from './components';
-const {
-  Button,
-  Tabs,
-  Tab,
-  InputRow,
-  FlexBox
-} = common;
+const { FlexBox } = common;
 
 
 const PricingOptions = (props) => {

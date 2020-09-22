@@ -20,7 +20,17 @@ const links = {
 };
 
 const HelpItem = ({ title, description, footer, image }) => (
-  <Card className='help-item m-2' title={<a>{title}</a>} bodyStyle={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  <Card
+    className='help-item m-2'
+    title={(
+      <a
+        href='/'
+        onClick={(e) => e.preventDefault()}
+      >
+        {title}
+      </a>
+    )} bodyStyle={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+  >
     <div id='help-item-image' className='mb-1'><img src={image} alt='informative text' /></div>
     <div className='help-item-title mb-1'>{title}</div>
     <div className='help-item-desc mb-3'>{description}</div>
@@ -45,7 +55,7 @@ export default () => {
           <HelpItem
             title='Tutorials & Use Cases'
             footer={(
-              <a href={links.tutorials} target='_blank'>
+              <a href={links.tutorials} target='_blank' rel='noopener noreferrer'>
                 <Button
                   type='primary'
                   name='tutorials'
@@ -61,7 +71,7 @@ export default () => {
             image={HelpSVG}
             footer={(
               <div className='d-flex'>
-                <a href={links.helpCenter} target='_blank'>
+                <a href={links.helpCenter} target='_blank' rel='noopener noreferrer'>
                   <Button
                     type='primary'
                     className='mr-1'

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import productSample from 'data/product.json';
 import * as productActions from 'actions/product';

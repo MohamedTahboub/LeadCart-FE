@@ -81,7 +81,7 @@
     padding:15px;
     flex-direction: row;
     align-items: flex-start;
-    align-content: start;
+    align-content: flex-start;
     flex-wrap: wrap;
 }
 
