@@ -68,8 +68,8 @@
     height: 230px;
     width: 200px;
     position: relative;
-    padding: 0;
-    margin: 10px;
+    padding: 5px;
+    margin: 5px;
     background-color: white;
     overflow: hidden;
 }
@@ -84,8 +84,8 @@
 .funnel-status-hat {
     position: absolute;
     right: -5px;
-    top: 38px;
-    transform: rotate(180deg);
+    top: 42px;
+    transform: rotate(177deg);
     height: 23px;
     width: 55px;
     background-size: cover;
