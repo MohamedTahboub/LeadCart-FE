@@ -4,7 +4,7 @@ import Backend from 'react-dnd-html5-backend';
 import ReactToolTip from 'react-tooltip';
 import { connect } from 'react-redux';
 import common from 'components/common';
-import { ProductBuilderSkelton } from 'components/Loaders';
+import { LoadingPage } from 'components/Loaders';
 import sampleProductData from 'data/product';
 import { htmlToImage as generateImageFromHtmlElement, mapListToObject, notification } from 'libs';
 import { ProductSchema } from 'libs/validation';
@@ -147,7 +147,7 @@ const ProductBuilder = ({
       saveTheProduct();
   };
 
-  if (loading) return <ProductBuilderSkelton />;
+  if (loading) return <LoadingPage message='Setting up ...' />;
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>

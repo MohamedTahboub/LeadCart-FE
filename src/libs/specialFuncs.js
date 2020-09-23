@@ -193,9 +193,9 @@ export const tokenizedContent = (content, secret) => {
 };
 
 
-export const formatPricingValue = ({ amount, type, splits, recurringPeriod = '', currency, format }) => {
+export const formatPricingValue = ({ amount, type, splits = 3, recurringPeriod = 'Month', currency, format }) => {
   const formattedAmount = getPriceFormat(amount, currency, format);
   if (type === 'Subscription') return `${formattedAmount} each ${recurringPeriod.toLocaleLowerCase()}`;
-  if (type === 'Split') return `${splits}x ${formattedAmount}`;
+  if (type === 'Split') return `${splits}x${formattedAmount}`;
   return `${formattedAmount}`;
 };
