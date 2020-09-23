@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import ids from 'shortid';
@@ -18,7 +18,7 @@ const { Label, TextField, SearchInput } = InputRow;
 
 const defaultPriceOption = { format: 'amount', payment: { type: 'Onetime' }, price: {} };
 
-const NewPricingOptionModal = (props) => {
+const NewPricingOptionModal = () => {
   const { state: { productPricing: { openModal } = {} }, actions } = useContext();
   const [priceOption, setOptionPrice] = useState(defaultPriceOption);
 

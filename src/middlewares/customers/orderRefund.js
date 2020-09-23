@@ -5,8 +5,6 @@ import {
   orderRefundSuccess
 } from 'actions/customers';
 
-import { refundProduct } from 'actions/product';
-
 import { apiRequest } from 'actions/apiRequest';
 import store from 'store';
 

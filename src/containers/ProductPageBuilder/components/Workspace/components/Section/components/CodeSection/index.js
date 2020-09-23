@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import common from 'components/common';
-// import clx from 'classnames';
+
 import FlexibleBox from 'components/FlexibleBox';
 import CodeEditor from 'components/CodeEditor';
 import { useContext } from '../../../../../../actions';
 import CodeExecutor from './CodeExecutor';
 import './style.css';
-const {
-  //   Button,
-  //   ResizableInput,
-  ResizableTextarea,
-  Tab,
-  Tabs
-} = common;
+
+const { Tab, Tabs } = common;
 
 const CodeSection = ({
   section = {},
@@ -42,10 +37,6 @@ const CodeSection = ({
     });
   };
 
-  const onEditorHeightChange = (height) => {
-    if (height > styles.height)
-      onSizeChange({ height });
-  };
   return (
     <FlexibleBox
       size={{ height: styles.height }}

@@ -38,11 +38,11 @@ const borderCornerNames = [
 
 const getCornerTitle = (corner) => {
   switch (corner) {
-    case 'borderTopLeftRadius': return 'Top Left';
-    case 'borderTopRightRadius': return 'Top Right';
-    case 'borderBottomLeftRadius': return 'Bottom Left';
-    case 'borderBottomRightRadius': return 'Bottom Right';
-    default: return '';
+  case 'borderTopLeftRadius': return 'Top Left';
+  case 'borderTopRightRadius': return 'Top Right';
+  case 'borderBottomLeftRadius': return 'Bottom Left';
+  case 'borderBottomRightRadius': return 'Bottom Right';
+  default: return '';
   }
 };
 
@@ -53,7 +53,7 @@ const ButtonSection = () => {
   } = useContext();
   const [openCollapse, setOpenCollapse] = useState(null);
 
-  const { styles = {}, content = {} } = sectionSetting;
+  const { styles = {} } = sectionSetting;
   const { borderSymmetry } = styles;
 
   const onChange = ({ target }) => {

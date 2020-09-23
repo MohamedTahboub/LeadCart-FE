@@ -1,19 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
-import ids from 'shortid';
 import { useContext } from '../../../actions';
-import {
-  ImageOption,
-  SettingBox
-} from './common';
-
-
-const emptyTestimonial = {
-  author: 'edit author name!',
-  content: 'click on text to edit content'
-};
-
+import { ImageOption } from './common';
 
 const themesOptions = [
   {
@@ -40,18 +28,7 @@ const themesOptions = [
   }
 ];
 
-const {
-  SideMenu,
-  Tabs,
-  EditableField,
-  InputRow,
-  MiniTwitterPicker,
-  Button,
-  FlexBox,
-  Tab
-} = common;
-
-const { TextField, SelectOption } = InputRow;
+const { Tabs, Tab } = common;
 
 const TestimonialsSection = (props) => {
   const {
@@ -59,31 +36,8 @@ const TestimonialsSection = (props) => {
     actions
   } = useContext();
 
-  const {
-    styles = {},
-    actions: sectionActions = {},
-    content: { list = [] } = {}
-  } = sectionSetting;
+  const { styles = {} } = sectionSetting;
 
-  const onChange = ({ target }) => {
-    actions.onSectionSettingChange({
-      section: sectionSetting,
-      field: target
-    });
-  };
-
-  const addNewColumn = () => {
-    if (list.length <= 4) {
-      list.id = ids.generate();
-      actions.onSectionSettingChange({
-        section: sectionSetting,
-        field: {
-          name: 'content.list',
-          value: [...list, emptyTestimonial]
-        }
-      });
-    }
-  };
   const onThemeChange = (theme) => (src) => () => {
     actions.onSectionSettingChange({
       section: sectionSetting,

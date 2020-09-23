@@ -24,7 +24,7 @@ const TimeInterval = ({ onChange }) => {
         value: activeDuration
       }
     });
-
+    //eslint-disable-next-line
   }, [fields]);
 
 

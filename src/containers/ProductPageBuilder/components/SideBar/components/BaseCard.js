@@ -5,7 +5,7 @@ import * as dropTypes from '../../Workspace/components/dropTypes';
 
 const ElementCard = ({ ...props }) => {
   const { src, type, title } = props;
-  const [{ isDragging }, drag, previewConnect] = useDrag({
+  const [, drag, previewConnect] = useDrag({
     item: {
       type: dropTypes.SECTION,
       section: { type },

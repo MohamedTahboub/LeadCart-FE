@@ -39,7 +39,8 @@ const PasswordRest = ({ isLoggedIn, history, ...props }) => {
         }
       );
     }
-  });
+    //eslint-disable-next-line
+  }, [isLoggedIn, verified, error]);
 
 
   const onReset = (e) => {
@@ -122,15 +123,15 @@ const PasswordRest = ({ isLoggedIn, history, ...props }) => {
                 </Button>
               </form>
             ) : (
-                <div className='verified-message-container'>
-                  <i className='fas fa-check-circle' />
-                  <span className='verified-label'>
+              <div className='verified-message-container'>
+                <i className='fas fa-check-circle' />
+                <span className='verified-label'>
                     you have reset your account password successfully,
                   <br />
                     you will be redirected to the login page.
                 </span>
-                </div>
-              ))}
+              </div>
+            ))}
         </FlexBox>
       </FlexBox>
       <footer className='copyright-text'>

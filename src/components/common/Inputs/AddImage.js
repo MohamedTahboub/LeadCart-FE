@@ -21,6 +21,7 @@ const AddImage = ({
 
   useEffect(() => {
     if (value !== image) setImage(value);
+    // eslint-disable-next-line
   }, [value]);
 
   const onAddImage = () => {

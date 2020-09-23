@@ -37,7 +37,9 @@ const Subscription = ({
   };
   useEffect(() => {
     updateActivePackage({ packageType: activePackage.type });
+    //eslint-disable-next-line
   }, [activePackage.type]);
+
   const onPackageTypeChange = (pkg) => {
     const { promoCode, recurringPeriod } = fields;
     const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];

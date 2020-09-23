@@ -81,6 +81,7 @@ const ProductActions = ({
       setActions([]);
       setLoading({});
     };
+    //eslint-disable-next-line
   }, [payment, offers]);
 
   const onRefund = ({ cancel, target, id, targetId }) => () => {

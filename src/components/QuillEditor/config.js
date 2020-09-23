@@ -1,6 +1,5 @@
 import ReactQuill from 'react-quill';
-// import QuillMention from 'quill-mention';
-import { includesIgnoreCase } from 'libs';
+// import { includesIgnoreCase } from 'libs';
 const Font = ReactQuill.Quill.import('formats/font');
 
 const supportedFontFamilyList = [
@@ -15,26 +14,26 @@ const supportedFontFamilyList = [
   'Ubuntu'
 ];
 
-const fieldsNames = [
-  { id: 'firstName', value: 'First Name' },
-  { id: 'lastName', value: 'Last Name' },
-  { id: 'email', value: 'Email Address' },
-  { id: 'phoneNumber', value: 'Phone Number' }
-];
+// const fieldsNames = [
+//   { id: 'firstName', value: 'First Name' },
+//   { id: 'lastName', value: 'Last Name' },
+//   { id: 'email', value: 'Email Address' },
+//   { id: 'phoneNumber', value: 'Phone Number' }
+// ];
 
-const mentionModule = {
-  allowedChars: /^[A-Za-z\s]*$/,
-  mentionDenotationChars: ['@', '#'],
-  source: function (searchTerm = '', renderList, mentionChar) {
+// const mentionModule = {
+//   allowedChars: /^[A-Za-z\s]*$/,
+//   mentionDenotationChars: ['@', '#'],
+//   source: function (searchTerm = '', renderList, mentionChar) {
 
-    const filtered = fieldsNames.filter((field) => {
-      if (!(searchTerm && searchTerm.trim())) return true;
-      return includesIgnoreCase(field.value, searchTerm);
-    });
+//     const filtered = fieldsNames.filter((field) => {
+//       if (!(searchTerm && searchTerm.trim())) return true;
+//       return includesIgnoreCase(field.value, searchTerm);
+//     });
 
-    renderList(filtered, searchTerm);
-  }
-};
+//     renderList(filtered, searchTerm);
+//   }
+// };
 
 Font.whitelist = supportedFontFamilyList;
 ReactQuill.Quill.register(Font, true);

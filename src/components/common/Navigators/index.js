@@ -53,6 +53,7 @@ export const SubTabs = ({
   useEffect(() => {
     if (activeTab && activeTabName !== activeTab)
       setActiveTabName(activeTab);
+    //eslint-disable-next-line
   }, [activeTab]);
 
   return (

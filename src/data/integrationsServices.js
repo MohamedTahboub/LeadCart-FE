@@ -372,7 +372,7 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'How to Use',
+      actionLabel: 'Connect',
       action: 'link',
       linkPath: 'https://youtu.be/zNxy7AdvzTw'
     }
@@ -388,7 +388,7 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'How to Connect',
+      actionLabel: 'Connect',
       action: 'link',
       linkPath: 'https://youtu.be/3OAHebK_aPk'
     }
@@ -404,7 +404,7 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'How to Connect',
+      actionLabel: 'Connect',
       action: 'link',
       linkPath: 'https://youtu.be/0ctNixnlDg0'
     }
@@ -420,7 +420,7 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'How to Connect',
+      actionLabel: 'Connect',
       action: 'link',
       linkPath: 'https://intercom.help/leadcart/en/articles/4352491-connect-leadcart-with-konnectzit'
     }
@@ -437,7 +437,7 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'Get Invited',
+      actionLabel: 'Connect',
       action: 'link',
       linkPath: ZAPIER_INVITATION_LINK
     }

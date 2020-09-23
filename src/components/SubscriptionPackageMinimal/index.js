@@ -17,10 +17,6 @@ const { InputRow, HeadLine, Box, SmallButton } = common;
 
 
 const SubscriptionMinimal = ({
-  activePackage = {},
-  trial,
-  globalLoading,
-  transactions,
   nextPackage,
   history,
   closeModal,
@@ -37,81 +33,7 @@ const SubscriptionMinimal = ({
     promoCode: {},
     credit: {}
   });
-  const activeBrand = brands.find(({ id }) => user.activeBrand) || {};
-
-  // const getLastItem = (list) => list[list.length - 1];
-
-  // const onPackageTypeChange = (pkg) => {
-  //   const { promoCode, recurringPeriod } = fields;
-  //   const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
-  //   setFields({
-  //     ...fields,
-  //     packageType: pkg,
-  //     amount: promoCode.applied ? promoCode.amount : currentPkgPrice
-  //   });
-  // };
-
-  // const togglePeriod = () => {
-  //   const { promoCode, recurringPeriod, packageType: pkg } = fields;
-  //   const currentPkgPrice = packagesPlans[pkg.toLowerCase()].price[recurringPeriod];
-  //   setFields({
-  //     ...fields,
-  //     recurringPeriod: recurringPeriod === 'Monthly' ? 'Yearly' : 'Monthly',
-  //     amount: promoCode.applied ? promoCode.amount : currentPkgPrice
-  //   });
-  // };
-
-
-  // const onUpdatePromoCode = (promoCode) => {
-  //   onChange({
-  //     target: {
-  //       name: 'promoCode',
-  //       value: promoCode
-  //     }
-  //   });
-  // };
-
-  // const onChangePromoCode = ({ target: { name, value } }) => {
-  //   onChange({
-  //     target: {
-  //       name: 'promoCode',
-  //       value: { ...fields.promoCode, code: value }
-  //     }
-  //   });
-  // };
-
-  // const onPromoCodeCheck = () => {
-  //   const { promoCode: { code } = {} } = fields;
-
-  //   if (code) {
-  //     setLoading({ ...loading, promoCode: true });
-  //     props.checkPromoCode(
-  //       { promoCode: code },
-  //       {
-  //         onSuccess: (promoCode) => {
-  //           setLoading({ ...loading, promoCode: false });
-  //           setFields({
-  //             ...fields,
-  //             amount: promoCode.amount,
-  //             promoCode: {
-  //               ...promoCode,
-  //               code,
-  //               applied: true
-  //             },
-  //             packageType: promoCode.packageType,
-  //             recurringPeriod: promoCode.recurringPeriod
-  //           });
-  //           setErrors({});
-  //         },
-  //         onFailed: (message) => {
-  //           setLoading({ ...loading, promoCode: false });
-  //           setErrors({ promoCode: message });
-  //           // onUpdatePromoCode({})
-  //         }
-  //       }
-  //     );
-  //   }
-  // };
+  const activeBrand = brands.find(({ id }) => user.activeBrand === id) || {};
 
   const onChange = ({ target: { name, value } }) => {
     setFields({ ...fields, [name]: value });
@@ -150,12 +72,11 @@ const SubscriptionMinimal = ({
       }
     );
   };
-  const onLearnMore = () => {
+  const onLearnMore = (e) => {
+    e.preventDefault();
     history.push('/settings/billing');
     closeModal();
   };
-
-  // const lastTransaction = getLastItem(transactions);
 
   const mapItem = (listOrKey) => {
     const { list, key = listOrKey } = listOrKey;
@@ -206,12 +127,12 @@ const SubscriptionMinimal = ({
             </ul>
           </div>
           <div className='mb-2'>
-            You can always stay on the Pro plan if you only need the Pro functionality. <a onClick={onLearnMore}>Learn more about Pro and Premium plans.</a>
+            You can always stay on the Pro plan if you only need the Pro functionality. <a href='/plans' onClick={onLearnMore}>Learn more about Pro and Premium plans.</a>
           </div>
           <div className='upgrade-text'>Upgrade this brand:</div>
           <div className='d-flex sub-minimal-brand mb-2'>
             <div className='mr-4'>
-              <img src={activeBrand.logo} alt='profileimage' />
+              <img src={activeBrand.logo} alt='profile' />
             </div>
             <div className='d-flex d-col align-center justify-space-between'>
               <span><strong>{activeBrand.name}</strong></span>

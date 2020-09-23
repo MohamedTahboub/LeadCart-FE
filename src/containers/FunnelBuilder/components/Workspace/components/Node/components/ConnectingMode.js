@@ -1,5 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useState } from 'react';
 import { ThreadPath } from '../../RelationsWorkSpace/components/NodeRelation/Wire';
 import { FiPlus } from 'react-icons/fi';
 
@@ -31,7 +30,6 @@ const ConnectingMode = ({ connecting, coords = {} }) => {
   };
 
   const getCurrentPosition = (e) => {
-    const details = getRect();
     const { pageX: x, pageY: y } = e;
     return { x, y: y - 50 };
   };
@@ -39,15 +37,15 @@ const ConnectingMode = ({ connecting, coords = {} }) => {
     setPosition(getCurrentPosition(e));
   };
 
-  const getRect = useCallback(() => {
-    if (elementRef)
-      return elementRef.current.getBoundingClientRect();
-    else return {};
-    //eslint-disable-next-line
-  }, [coords]);
+  // const getRect = useCallback(() => {
+  //   if (elementRef)
+  //     return elementRef.current.getBoundingClientRect();
+  //   else return {};
+  //   //eslint-disable-next-line
+  // }, [coords]);
 
 
-  const { pathStart, pathEnd } = getPointsCoords(coords);
+  const { pathStart } = getPointsCoords(coords);
 
   return (
     <div className='connect-node-assets' draggable>

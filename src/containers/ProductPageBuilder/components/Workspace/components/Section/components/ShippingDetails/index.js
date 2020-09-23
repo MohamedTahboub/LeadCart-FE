@@ -4,15 +4,13 @@ import common from 'components/common';
 import './style.css';
 const {
   CycleStepTitle,
-  CheckoutInput,
-  FloatButton
+  CheckoutInput
 } = common;
 
 
 export default ({
   section = {},
-  language = {},
-  ...props
+  language = {}
 }) => {
   const { styles = {} } = section;
   const { themeColor } = styles;
@@ -35,7 +33,7 @@ export default ({
     paddingTop: `${styles.paddingTop}px`,
     paddingBottom: `${styles.paddingBottom}px`,
     paddingLeft: `${styles.paddingLeft}px`,
-    paddingRight: `${styles.paddingRight}px`,
+    paddingRight: `${styles.paddingRight}px`
   };
 
   return (
@@ -66,12 +64,10 @@ export default ({
       <div style={{ color: themeColor }} className='flex-row'>
         <CheckoutInput
           disabled
-          // name='postal'
           label={postal}
         />
         <CheckoutInput
           disabled
-          // name='country'
           label={country}
         />
       </div>

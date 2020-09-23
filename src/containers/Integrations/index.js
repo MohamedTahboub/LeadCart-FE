@@ -33,6 +33,7 @@ const filtersIntegrations = (list, key, connected = 'all') => list.filter((integ
   if (connected === 'all') return true;
   if (connected === 'connected') return integration.connected;
   if (connected === 'disconnected') return !integration.connected;
+  return true;
 })
   .filter((int) => {
     const values = [int.name, int.category];
@@ -52,7 +53,6 @@ const Integrations = ({ integrations, history, ...props }) => {
   const [openModal, setOpenModal] = useState(false);
   const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
-  const [showConnected, setShowConnected] = useState('all');
   const [disconnectedDialog, setDisconnectDialog] = useState(false);
   const [connectStatus, setConnectStatus] = useState();
 
@@ -65,7 +65,7 @@ const Integrations = ({ integrations, history, ...props }) => {
   };
 
 
-  const filteredList = filtersIntegrations(integrations, searchKey, showConnected);
+  const filteredList = filtersIntegrations(integrations, searchKey);
 
   const onConnect = (service) => {
     setActiveService(service);
@@ -87,7 +87,7 @@ const Integrations = ({ integrations, history, ...props }) => {
     setActiveService({});
   };
 
-  const onConfirmDisconnect = (service) => {
+  const onConfirmDisconnect = () => {
     props.disconnectIntegrationService({
       integrationId: activeService._id,
       remove: true
