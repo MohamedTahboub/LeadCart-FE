@@ -87,6 +87,7 @@ const AreaChart = ({
         }
       ]
     });
+    //eslint-disable-next-line
   }, [timelineFilter, data]);
 
   return display ? (

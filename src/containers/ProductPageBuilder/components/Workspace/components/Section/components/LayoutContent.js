@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clx from 'classnames';
-// import Section from '../index';
 import { useDrag, useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import * as dropTypes from '../../dropTypes';
@@ -14,8 +12,7 @@ const NestedSection = ({
   findCard,
   onChange,
   addNewNestedSectionAt,
-  section = {},
-  ...props
+  section = {}
 }) => {
   const [{ isDragging }, dragConnect] = useDrag({
     item: {
@@ -23,19 +20,12 @@ const NestedSection = ({
       section,
       id: section.id
     },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging()
-    }),
-
-    // if (!didDrop) moveCard(droppedId, originalIndex);
-
+    collect: (monitor) => ({ isDragging: monitor.isDragging() })
   });
 
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.NESTED_SECTION,
-    collect: (monitor) => ({
-      isOver: monitor.isOver()
-    }),
+    collect: (monitor) => ({ isOver: monitor.isOver() }),
     drop: ({ new: isNew, id, section: droppedSection }) => {
       // const { id: droppedId, originalIndex } = monitor.getItem();
       // const didDrop = monitor.didDrop();
@@ -62,7 +52,7 @@ const NestedSection = ({
     //   if (item.type === 'card' && !item.id) {
 
     //   }
-    
+
     // if (draggedId !== id) {
     //   const { index: overIndex } = findCard(id);
     //   moveCard(draggedId, overIndex);
@@ -73,7 +63,7 @@ const NestedSection = ({
   const opacity = (isOver || isDragging) ? 0.3 : 1;
   const classNames = clx({
     'nested-section': true,
-    [className]: className,
+    [className]: className
   });
 
   return (
@@ -92,24 +82,15 @@ const NestedSection = ({
   );
 };
 
-const nestedSectionTemplate = {
-
-};
 const LayoutContent = ({
   className,
-  content: {
-
-  } = {},
   section = {}
 }) => {
   const { actions } = useContext();
 
   let {
     styles,
-    structure: { columns = 2 } = {},
-    content: {
-      sections: NestedSections = [],
-    }
+    content: { sections: NestedSections = [] }
   } = section;
 
   if (!styles) styles = {};
@@ -130,7 +111,7 @@ const LayoutContent = ({
 
   const classNames = clx({
     'layout-section': true,
-    [className]: className,
+    [className]: className
   });
 
 
@@ -138,7 +119,7 @@ const LayoutContent = ({
     const section = NestedSections.filter((c) => `${c.id}` === id)[0];
     return {
       section,
-      index: NestedSections.indexOf(section),
+      index: NestedSections.indexOf(section)
     };
   };
 
@@ -147,8 +128,8 @@ const LayoutContent = ({
     const newNestedSections = update(NestedSections, {
       $splice: [
         [index, 1],
-        [atIndex, 0, nestedSection],
-      ],
+        [atIndex, 0, nestedSection]
+      ]
     });
     actions.onSectionSettingChange({
       section,
@@ -163,8 +144,8 @@ const LayoutContent = ({
     const newNestedSections = update(NestedSections, {
       $splice: [
         [0, 0],
-        [atIndex, 0, section],
-      ],
+        [atIndex, 0, section]
+      ]
     });
     actions.onSectionSettingChange({
       section,
@@ -204,8 +185,6 @@ const LayoutContent = ({
   );
 };
 
-LayoutContent.propTypes = {
-
-};
+LayoutContent.propTypes = {};
 
 export default LayoutContent;

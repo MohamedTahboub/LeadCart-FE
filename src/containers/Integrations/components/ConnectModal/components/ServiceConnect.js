@@ -15,7 +15,7 @@ const LoadingIcon = () => (
   <div>checking Support</div>
 );
 
-const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) => (
+const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {} }) => (
   <FlexBox>
     <Statement
       label={`Login into your account in ${name} to give us access to your account`}
@@ -33,7 +33,7 @@ const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {}, ...props }) =>
   </FlexBox>
 );
 
-const ConnectClient = ({ onChange, onSubmit, ...props }) => (
+const ConnectClient = ({ onChange, onSubmit }) => (
   <FlexBox column center='v-left' flex>
     <Statement
       label='Client Id'
@@ -187,6 +187,7 @@ const ServiceConnect = ({ data = {}, ...props }) => {
       setOnprogress(false);
       setSupported(true);
     }
+    // eslint-disable-next-line
   }, [data]);
 
   const onConnect = ({

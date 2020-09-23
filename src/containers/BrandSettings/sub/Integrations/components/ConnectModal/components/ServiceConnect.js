@@ -105,6 +105,7 @@ const ServiceConnect = ({ data = {}, ...props }) => {
         onFailed: () => { }
       }
     );
+    // eslint-disable-next-line
   }, [data]);
 
   return (

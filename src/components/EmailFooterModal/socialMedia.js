@@ -57,6 +57,7 @@ const NewLink = ({ remainsPlatforms = [{}], onAdd }) => {
   };
   useEffect(() => {
     if (socialPlatform !== remainsPlatforms[0].value) setSocialPlatform(remainsPlatforms[0].value);
+    //eslint-disable-next-line
   }, [remainsPlatforms]);
 
   return (

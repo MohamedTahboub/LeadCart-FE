@@ -60,13 +60,12 @@ const themesOptions = [
 
 const {
   Label,
-  SwitchInput,
   Toggle,
   TextField,
   SelectOption
 } = InputRow;
 
-const BumpOffer = ({ ...props }) => {
+const BumpOffer = () => {
   const {
     state: { modals: { sectionSetting = {} } = {}, funnel: { currency = 'USD' } = {} },
     actions

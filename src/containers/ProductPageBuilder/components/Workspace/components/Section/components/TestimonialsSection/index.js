@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 
@@ -14,13 +14,7 @@ import {
   PlainTestimonial
 } from './components';
 
-const {
-  EditableField,
-  FlexBox,
-  LayoutSwitch
-} = common;
-
-// const Wrapper = ({ className, children, ...props }) => (className ? <div className={className}>{children}</div> : <Fragment>{children}</Fragment>);
+const { LayoutSwitch } = common;
 
 
 const Testimonial = ({ theme = 'classic', ...props }) => (
@@ -34,10 +28,7 @@ const Testimonial = ({ theme = 'classic', ...props }) => (
     <BusinessTestimonial id='business' {...props} />
   </LayoutSwitch>
 );
-const Testimonials = ({
-  section = {},
-  ...props
-}) => {
+const Testimonials = ({ section = {} }) => {
   const { styles = {}, content = {} } = section;
   const { actions } = useContext();
 

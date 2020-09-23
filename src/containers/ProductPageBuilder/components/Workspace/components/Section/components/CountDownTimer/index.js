@@ -13,11 +13,7 @@ const Timer = ({
 }) => {
   const {
     styles = { theme: 'formal-circles' },
-    content: {
-      valueType,
-      value
-    } = {},
-    options
+    content: { value } = {}
   } = section;
 
   const classNames = clx({ [className]: className });
@@ -33,7 +29,6 @@ const Timer = ({
   const countDownStyles = {
     format,
     color: styles.clockColor,
-    // fontSize: styles.fontSize,
     shape,
     backgroundColor: styles.backgroundColor
   };
@@ -53,7 +48,6 @@ const Timer = ({
     >
       <CountDownTimer
         styles={countDownStyles}
-        // type={valueType}
         options={value}
         titlesStyle={{ color: styles.backgroundColor }}
         display={showElements}

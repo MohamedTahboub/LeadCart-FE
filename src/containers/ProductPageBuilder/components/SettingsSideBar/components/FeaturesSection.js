@@ -60,10 +60,13 @@ const FeaturesSection = () => {
   } = sectionSetting;
 
   const [customBullets, setCustomBullets] = useState(styles.withCustomBullets);
+
   useEffect(() => {
     setCustomBullets(!!styles.withCustomBullets);
     setStash({ theme: styles.theme, image: styles.customBullet });
+    //eslint-disable-next-line
   }, [styles.customBullet, styles.theme]);
+
   const onChange = ({ target }) => {
     return actions.onSectionSettingChange({
       section: sectionSetting,

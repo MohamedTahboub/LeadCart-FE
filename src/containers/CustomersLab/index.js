@@ -49,7 +49,9 @@ const CustomersLab = ({ customers, orderRefund }) => {
         setCustomer(customer);
         return true;
       }
+      return false;
     });
+    //eslint-disable-next-line
   }, [customers]);
 
 

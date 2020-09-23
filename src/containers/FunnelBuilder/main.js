@@ -151,7 +151,7 @@ const FunnelBuilder = ({
 
   useEffect(() => {
     props.history.push(`?sub=${activePage}`);
-  }, [activePage]);
+  }, [activePage, props.history]);
 
   const onPageChange = (page) => () => {
     setActivePage(page);

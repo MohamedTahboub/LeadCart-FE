@@ -1,50 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
-// import config from 'config';
 import './style.css';
 
-// import {
-//   DisplayModeButtons
-// } from './components';
-
-// const { USER_SUB_DOMAIN_URL } = config;
 const {
   HeaderLogo,
   EditableField,
-  FlexBox,
-  // Button,
-  ActivationSwitchInput
+  FlexBox
 } = common;
 
 
 const Header = ({
-  onDisplayChange,
-  displayType,
   onChange,
   funnel,
-  subdomain,
-  showSandBoxSwitch,
-  showDisplayModes,
   history,
-  onSave,
   ...props
 }) => {
   const navigateToHome = () => {
     history.goBack();
   };
 
-  // const onToggleAvailability = () => {
-  //   // onChange({
-  //   //   target: {
-  //   //     name: 'available',
-  //   //     value: !funnel.available
-  //   //   }
-  //   // });
-  // };
   const onNameChange = ({ target: { name, value } }) => {
     onChange({ name, value });
   };
+
   return (
     <FlexBox className='white-bg' center='v-center'>
       <FlexBox flex flexStart>
@@ -68,19 +47,6 @@ const Header = ({
     </FlexBox>
   );
 };
-/*
-      <EditableField
-        className='product-name'
-        name='name'
-        defaultValue=' '
-        onChange={onNameChange}
-        value={funnel.name}
-        max={50}
-      />
-*/
-
-//  {showSandBoxSwitch && <ActivationSwitchInput active={funnel.available} onToggle={onToggleAvailability} />}
-//        {showDisplayModes && <DisplayModeButtons onChange={onDisplayChange} type={displayType} />}
 Header.propTypes = {
   onDisplayChange: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -88,12 +54,12 @@ Header.propTypes = {
   type: PropTypes.string.isRequired,
   subdomain: PropTypes.string.isRequired,
   history: PropTypes.objectOf({}),
-  product: PropTypes.objectOf({}),
+  product: PropTypes.objectOf({})
 };
 
 Header.defaultProps = {
   history: {},
-  product: {},
+  product: {}
 };
 
 export default Header;

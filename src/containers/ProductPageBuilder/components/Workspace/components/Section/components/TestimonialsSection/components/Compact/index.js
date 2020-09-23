@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import avatarLink from 'assets/images/avatar.jpg';
 import StarsRanking from 'components/StarsRanking';
@@ -18,14 +17,12 @@ const CompactTestimonial = ({
   value: content = 'click to edit , Write the testimonial content,what the author want to say about your product',
   image = avatarLink,
   rank = 2,
-  className,
   orderId: id,
-  onChange,
-  ...props
+  onChange
 }) => {
 
 
-  const onImageChange = ({ value, ...res }) => {
+  const onImageChange = ({ value }) => {
     onChange({
       target: {
         name: 'content.image',

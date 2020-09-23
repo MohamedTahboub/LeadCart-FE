@@ -47,6 +47,7 @@ const SubAccountsSection = ({
 
   useEffect(() => {
     if (!hasSubAccountsAccess(credits)) return history.push('/');
+    //eslint-disable-next-line
   }, [history, packageType]);
 
 

@@ -2,24 +2,13 @@ import React from 'react';
 import common from 'components/common';
 
 import './style.css';
-const { CycleStepTitle, CheckoutInput, FloatButton } = common;
+const { CycleStepTitle, CheckoutInput } = common;
 
 
 export default ({
-  data = {},
   color,
-  // onOptionSelected,
-  language = {},
-  ...props
+  language = {}
 }) => {
-  const onDisable = () => {
-    props.onChange({
-      target: {
-        name: 'shippingDetails.enabled',
-        value: false
-      }
-    });
-  };
 
   const {
     shippingDetails,
@@ -71,10 +60,3 @@ export default ({
     </div>
   );
 };
-// <FloatButton
-// className='payment-setting-btn'
-// onClick={onDisable}
-// position={{ left: -27, top: -2 }}
-// >
-// <i className='fas fa-eye-slash' />
-// </FloatButton>

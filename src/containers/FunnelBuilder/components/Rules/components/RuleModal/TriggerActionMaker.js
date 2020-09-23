@@ -147,6 +147,7 @@ const TriggerActionMaker = ({
       setExpand(true);
 
     return () => setExpand(false);
+    // eslint-disable-next-line
   }, [isEdit]);
 
   const actionsOptions = getActionsOptions(group, actionsMap);

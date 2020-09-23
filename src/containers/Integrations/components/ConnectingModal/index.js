@@ -40,6 +40,7 @@ const ConnectingModal = ({
     } else {
       setError(error);
     }
+    //eslint-disable-next-line
   }, [activation, code]);
 
   const onConnect = ({
