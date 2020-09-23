@@ -52,7 +52,7 @@ export default {
         'Email Builder & Customizations (Coming Soon).',
         'Dedicated Training & Support.',
         'Cart Abandonment Recovery via Rules.',
-        'Unlimited Team Members (AppSumo Exclusive)',
+        'Unlimited Team Members',
         {
           key: 'Assign Roles & Permissions To Team Members (Coming Soon).',
           list: [
