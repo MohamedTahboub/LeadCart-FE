@@ -1,7 +1,11 @@
-import React, { lazy, Suspense } from 'react';
-
+import React, { Suspense, lazy } from 'react';
+import { LoadingPage } from 'components/Loaders';
 const Wizard = lazy(() => import('./main'));
 
 
-export default (props) => <Suspense fallback={<span>Loading...</span>}><Wizard {...props} /></Suspense>;
+export default (props) => (
+  <Suspense fallback={<LoadingPage />}>
+    <Wizard {...props} />
+  </Suspense>
+);
 
