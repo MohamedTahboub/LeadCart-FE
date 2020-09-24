@@ -1,7 +1,7 @@
 
 import {
-  createBrandSuccess,
   createBrandFailed,
+  createBrandSuccess
 } from '../../actions/brands';
 import { apiRequest } from '../../actions/apiRequest';
 import { CREATE_BRAND } from '../../constantsTypes';

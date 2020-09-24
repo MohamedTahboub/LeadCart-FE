@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
+import moment from 'moment';
 
 const { InputRow, FlexBox, Button } = common;
 const { Label, TextField, SelectOption, Checkbox } = InputRow;
@@ -11,13 +12,23 @@ const packagesOptions = [
   { label: 'Pro', value: 'Pro' },
   { label: 'Basic', value: 'Basic' }
 ];
-const CreateModal = ({ onClose, onCreate, credits }) => {
+const CreateModal = ({ onClose, onCreate, credits, user }) => {
+
+  const andDigitalThinkLaunchUser = (user = {}) => moment(user.createdAt).isAfter('2020-09-22');
 
   const hasCredits = credits > 0;
-  const [values, setValues] = useState({ packageType: 'Pro', period: 'Monthly', withCredits: hasCredits });
+  const defaultPackageType = andDigitalThinkLaunchUser(user) ? 'Premium' : 'Pro';
+  const [values, setValues] = useState({ packageType: defaultPackageType, period: 'Monthly', withCredits: hasCredits });
   const [errors, setErrors] = useState({});
 
-  const pkgOptions = packagesOptions.filter((pkg) => values.withCredits ? pkg.value === 'Pro' : true);
+
+  const pkgOptions = packagesOptions.filter((pkg) => values.withCredits ?
+    (
+      andDigitalThinkLaunchUser(user) ?
+        pkg.value === 'Premium'
+        : pkg.value === 'Pro'
+    )
+    : true);
 
   const onChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });

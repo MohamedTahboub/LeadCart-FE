@@ -11,6 +11,7 @@ const { FlexBox, Badge, Table, Button } = common;
 
 const Brands = ({
   list: brandsList,
+  user,
   ...props
 }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -90,6 +91,7 @@ const Brands = ({
           open
           onClose={toggleCreateModal}
           onCreate={onCreate}
+          user={user}
         />)
       }
     </FlexBox>
@@ -97,5 +99,5 @@ const Brands = ({
 };
 
 Brands.defaultProps = { list: [] };
-
-export default connect(null, brandsActions)(Brands);
+const stateToProps = ({ user: { user = {} } }) => ({ user });
+export default connect(stateToProps, brandsActions)(Brands);
