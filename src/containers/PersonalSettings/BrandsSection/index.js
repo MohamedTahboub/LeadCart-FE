@@ -10,9 +10,11 @@ import { notification } from 'libs';
 import * as brandsActions from 'actions/brands';
 import { PlusOutlined } from '@ant-design/icons';
 import { CreditsStatus } from '../common';
+import moment from 'moment';
 
 const getPackagePrice = (pkg = {}) => {
-  const packageDetails = config.packagesPlans[pkg.type.toLowerCase()] || {};
+  const packageType = pkg.type && pkg.type.toLowerCase();
+  const packageDetails = config.packagesPlans[packageType] || {};
   return packageDetails.price[pkg.period] || 0;
 };
 
@@ -26,9 +28,10 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
       dataIndex: 'logo',
       key: 'brandAvatar',
       width: 52,
-      render: (text, record) => {
+      render: (text, record = {}) => {
+        const [name = ''] = record.name;
         if (record.logo) return <Avatar src={record.logo} />;
-        else return <Avatar>{record.name[0]}</Avatar>;
+        else return <Avatar>{name}</Avatar>;
       }
     }, {
       title: 'Brand name',
@@ -43,13 +46,15 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
       title: 'Subscription',
       dataIndex: null,
       key: 'subscription',
-      render: (text, record) => {
+      render: (text, record = {}) => {
         const packagePlanPrice = getPackagePrice(record.activePackage);
         return <span>{packagePlanPrice}$/{record.activePackage.period === 'Monthly' ? 'mo' : 'ye'}</span>;
       }
     }, {
       key: 'date',
-      render: () => <span>06/12/2020</span>
+      render: (text, { createdAt } = {}) => (
+        <span>{moment(createdAt).format('MMM DD YYYY')}</span>
+      )
     }
   ];
 
