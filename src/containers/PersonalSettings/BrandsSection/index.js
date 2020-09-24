@@ -47,8 +47,9 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
       dataIndex: null,
       key: 'subscription',
       render: (text, record = {}) => {
-        const packagePlanPrice = getPackagePrice(record.activePackage);
-        return <span>{packagePlanPrice}$/{record.activePackage.period === 'Monthly' ? 'mo' : 'ye'}</span>;
+        const activePackage = record.activePackage || {};
+        const packagePlanPrice = getPackagePrice(activePackage);
+        return <span>{packagePlanPrice}$/{activePackage.period === 'Monthly' ? 'mo' : 'ye'}</span>;
       }
     }, {
       key: 'date',
