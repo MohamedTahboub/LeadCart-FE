@@ -14,11 +14,13 @@ const packagesOptions = [
 ];
 const CreateModal = ({ onClose, onCreate, credits, user }) => {
 
+  const andDigitalThinkLaunchUser = (user = {}) => moment(user.createdAt).isAfter('2020-09-22');
+
   const hasCredits = credits > 0;
-  const [values, setValues] = useState({ packageType: 'Pro', period: 'Monthly', withCredits: hasCredits });
+  const defaultPackageType = andDigitalThinkLaunchUser(user) ? 'Premium' : 'Pro';
+  const [values, setValues] = useState({ packageType: defaultPackageType, period: 'Monthly', withCredits: hasCredits });
   const [errors, setErrors] = useState({});
 
-  const andDigitalThinkLaunchUser = (user = {}) => moment(user.createdAt).isAfter('2020-09-22');
 
   const pkgOptions = packagesOptions.filter((pkg) => values.withCredits ?
     (
