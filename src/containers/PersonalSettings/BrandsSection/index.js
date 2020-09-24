@@ -15,7 +15,7 @@ import moment from 'moment';
 const getPackagePrice = (pkg = {}) => {
   const packageType = pkg.type && pkg.type.toLowerCase();
   const packageDetails = config.packagesPlans[packageType] || {};
-  return packageDetails.price[pkg.period] || 0;
+  return packageDetails.price ? (packageDetails.price[pkg.period] || 0) : 0;
 };
 
 const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {

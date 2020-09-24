@@ -12,34 +12,38 @@ const initialState = [];
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_USER_BRANDS:
-      return payload;
-    case CREATE_BRAND_SUCCESS:
-      return [...state, { ...payload, id: payload._id }];
+  case GET_USER_BRANDS:
+    return payload;
+  case CREATE_BRAND_SUCCESS:
+    return [...state, {
+      activePackage: payload.subscription ? payload.subscription.activePackage : {},
+      id: payload._id,
+      ...payload
+    }];
 
-    case UPDATE_MARKETPLACE_SETTINGS_SUCCESS:
-      return state.map((brand) => {
-        if (brand.id === payload.activeBrand) {
-          return {
-            ...brand,
-            name: payload.name
-          };
-        } else {
-          return brand;
-        }
-      });
-
-    case UPDATE_ACTIVE_BRAND_SUCCESS:
-      return state.map((brand) => {
-        if (brand.id === payload.activeBrand) return { ...brand, active: true };
-
+  case UPDATE_MARKETPLACE_SETTINGS_SUCCESS:
+    return state.map((brand) => {
+      if (brand.id === payload.activeBrand) {
+        return {
+          ...brand,
+          name: payload.name
+        };
+      } else {
         return brand;
-      });
+      }
+    });
 
-    case DELETE_BRAND_SUCCESS:
-      return state.filter((brand) => brand.id !== payload.activeBrand);
+  case UPDATE_ACTIVE_BRAND_SUCCESS:
+    return state.map((brand) => {
+      if (brand.id === payload.activeBrand) return { ...brand, active: true };
 
-    default: return state;
+      return brand;
+    });
+
+  case DELETE_BRAND_SUCCESS:
+    return state.filter((brand) => brand.id !== payload.activeBrand);
+
+  default: return state;
   }
 };
 
