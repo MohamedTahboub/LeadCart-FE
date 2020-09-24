@@ -38,7 +38,7 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
       title: 'Package',
       dataIndex: null,
       key: 'package',
-      render: (text, record) => <span>{record.activePackage.type}</span>
+      render: (text, record = {}) => <span>{record.activePackage && record.activePackage.type}</span>
     }, {
       title: 'Subscription',
       dataIndex: null,
@@ -71,7 +71,7 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
   };
 
   useEffect(() => {
-    setDataSource(brands.filter((brand) => brand.name.toLowerCase().includes(filter.toLowerCase())));
+    setDataSource(brands.filter(({ name = '' } = {}) => name.toLowerCase().includes(filter.toLowerCase())));
   }, [brands, filter]);
 
   return (
