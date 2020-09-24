@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
+import moment from 'moment';
 
 const { InputRow, FlexBox, Button } = common;
 const { Label, TextField, SelectOption, Checkbox } = InputRow;
@@ -11,13 +12,21 @@ const packagesOptions = [
   { label: 'Pro', value: 'Pro' },
   { label: 'Basic', value: 'Basic' }
 ];
-const CreateModal = ({ onClose, onCreate, credits }) => {
+const CreateModal = ({ onClose, onCreate, credits, user }) => {
 
   const hasCredits = credits > 0;
   const [values, setValues] = useState({ packageType: 'Pro', period: 'Monthly', withCredits: hasCredits });
   const [errors, setErrors] = useState({});
 
-  const pkgOptions = packagesOptions.filter((pkg) => values.withCredits ? pkg.value === 'Pro' : true);
+  const andDigitalThinkLaunchUser = (user = {}) => moment(user.createdAt).isAfter('2020-09-22');
+
+  const pkgOptions = packagesOptions.filter((pkg) => values.withCredits ?
+    (
+      andDigitalThinkLaunchUser(user) ?
+        pkg.value === 'Premium'
+        : pkg.value === 'Pro'
+    )
+    : true);
 
   const onChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
@@ -82,7 +91,7 @@ const CreateModal = ({ onClose, onCreate, credits }) => {
         {hasCredits && (
           <FlexBox className='margin-v-10'>
             <Label error={errors.package}>
-            Create Brand As/With:
+              Create Brand As/With:
             </Label>
             <Checkbox
               onClick={onBrandCreationOption(false)}
@@ -96,9 +105,9 @@ const CreateModal = ({ onClose, onCreate, credits }) => {
               value={values.withCredits}
               checked={values.withCredits}
             >
-            My
+              My
               <span data-tip={`this will cost you 1 credit, and you will left with ${credits - 1}`} className='mx-1'>
-              Credits
+                Credits
               </span>
             </Checkbox>
           </FlexBox>

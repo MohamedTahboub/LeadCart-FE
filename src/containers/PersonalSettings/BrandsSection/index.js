@@ -16,7 +16,7 @@ const getPackagePrice = (pkg = {}) => {
   return packageDetails.price[pkg.period] || 0;
 };
 
-const BrandsSection = ({ brands, credits, dataLoading, createBrand }) => {
+const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
   const [dataSource, setDataSource] = useState(brands);
   const [filter, setFilter] = useState('');
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
@@ -78,7 +78,7 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand }) => {
     <Section title='Brands'>
       <div className='d-flex justify-space-between mb-2'>
         <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
-        <CreditsStatus credits={credits}/>
+        <CreditsStatus credits={credits} />
         <Button type='primary' onClick={() => setCreateModalOpen(true)}><PlusOutlined /> New brand</Button>
       </div>
       <Table
@@ -94,6 +94,7 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand }) => {
             onClose={toggleCreateModalOpen}
             onCreate={onCreateBrand}
             credits={credits}
+            user={user}
           />
         )
       }
@@ -101,8 +102,8 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand }) => {
   );
 };
 
-const mapStateToProps = ({ loading, redemption: { credits } = {} }) => {
-  return { dataLoading: loading, credits };
+const mapStateToProps = ({ user: { user = {} } = {}, loading, redemption: { credits } = {} }) => {
+  return { dataLoading: loading, credits, user };
 };
 
 export default connect(mapStateToProps, brandsActions)(BrandsSection);
