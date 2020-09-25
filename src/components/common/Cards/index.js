@@ -11,7 +11,7 @@ import { Button, MiniButton, SmallButton } from '../Buttons';
 import { WarningMessage } from '../Messages';
 import Dialog from '../Dialog';
 import EasyAnimate from '../Animation/EasyAnimate';
-
+import { AiFillInfoCircle } from 'react-icons/ai';
 
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
@@ -30,6 +30,7 @@ export const MediumCard = ({
   disabled,
   error,
   headline,
+  warningInfo,
   ...props
 }) => {
   const wraperStatus = isActive
@@ -54,6 +55,9 @@ export const MediumCard = ({
       {headline && <span className='medium-card-headline'>{headline}</span>}
       {error && <span className='payment-error-message'>{error}</span>}
       {children}
+      {warningInfo && (
+        <AiFillInfoCircle data-tip={warningInfo} className='payment-warning-message' />
+      )}
     </div>
   );
 };
