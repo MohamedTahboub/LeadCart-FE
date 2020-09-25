@@ -18,15 +18,18 @@ function Message ({ children }) {
   );
 }
 
-
+const notSupportedCurrenciesByPaypal = ['MYR', 'INR', 'BRL'];
+const getNotSupportedThisMessage = (currency) => `${currency} currency not supported by PayPal`;
 const PaymentMethods = ({
   paymentsIntegrations = [],
   selected = [],
   name = 'paymentMethods',
+  currency,
   ...props
 }) => {
 
   const [error, setError] = useState('');
+  const isSupportedByPaypal = (payment) => payment === 'Paypal' ? notSupportedCurrenciesByPaypal.includes(currency) : false;
 
   const isMethodExist = (paymentMethod) => paymentsIntegrations.find(({ name }) => includesIgnoreCase(name, paymentMethod));
 
@@ -58,6 +61,7 @@ const PaymentMethods = ({
             imgSrc={payment.logo}
             isActive={selected.includes(payment.name)}
             onClick={onSelect(payment.name)}
+            warningInfo={isSupportedByPaypal(payment.name) && getNotSupportedThisMessage(currency)}
           />
         ))}
       </div>

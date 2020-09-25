@@ -70,6 +70,7 @@ const Settings = ({
             name='paymentMethods'
             selected={paymentMethods}
             onChange={onFiledChange}
+            currency={currency}
           />
         </FlexBox>
         <FlexBox flex center='v-center'>

@@ -314,6 +314,16 @@ span.medium-card-headline {
     text-align: center;
     color: rgba(255, 99, 71, 0.815);
 }
+.payment-warning-message {
+    float: left;
+    position: absolute;
+    font-size: 18px;
+    top: 5px;
+    right: 5px;
+    line-height: 13px;
+    text-align: center;
+    color: rgba(245, 139, 40, 0.602);
+}
 
 .paypal-error-message {
     text-align: center;
