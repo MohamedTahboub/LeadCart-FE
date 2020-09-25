@@ -7,7 +7,7 @@ import { Modal } from 'components/Modals';
 import moment from 'moment';
 import Select from 'react-select';
 import * as immutable from 'object-path-immutable';
-import { mapListToObject, notification } from 'libs';
+import { getCurrencySymbol, mapListToObject, notification } from 'libs';
 import { isFunction } from 'libs/checks';
 
 const {
@@ -29,6 +29,7 @@ const CouponModal = ({
   isEdit,
   onClose,
   coupon: couponData = { products: [] },
+  currency,
   productsLabelsMap,
   ...props
 }) => {
@@ -140,6 +141,8 @@ const CouponModal = ({
   };
 
   const { discount } = coupon;
+  const currencySymbol = getCurrencySymbol(currency);
+
   return (
     <Modal
       className='coupon-edit-modal'
@@ -175,10 +178,11 @@ const CouponModal = ({
         <FlatSelect
           onSelect={onCouponTypeChange}
           value={discount.type}
+          currencySymbol={currencySymbol}
         />
         <PriceField
           value={discount.type === 'Flat' ? discount.amount : discount.percent}
-          currency={discount.type === 'Flat' ? '$' : '%'}
+          currency={discount.type === 'Flat' ? currencySymbol : '%'}
           name={discount.type === 'Flat' ? 'discount.amount' : 'discount.percent'}
           onChange={onFiledChange}
           note='How much off is your coupon.'

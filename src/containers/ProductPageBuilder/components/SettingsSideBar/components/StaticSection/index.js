@@ -26,10 +26,14 @@ const {
   Toggle
 } = InputRow;
 
-const StaticSection = ({ isAdminUser }) => {
+const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
 
   const {
-    state: { product = {}, modals: { sectionSetting = {} } = {} },
+    state: {
+      funnel: { currency = defaultBrandCurrency } = {},
+      product = {},
+      modals: { sectionSetting = {} } = {}
+    },
     actions
   } = useContext();
 
@@ -96,6 +100,7 @@ const StaticSection = ({ isAdminUser }) => {
             payment={payment}
             onChange={onChange}
             price={price}
+            currency={currency}
           />
           {
             isAdminUser && (
@@ -118,6 +123,7 @@ const StaticSection = ({ isAdminUser }) => {
                   {...pricingOption}
                   onEdit={onEditProductPriceOption(pricingOption)}
                   onDelete={onDeleteProductPriceOption(id)}
+                  currency={currency}
                 />
               );
             })}
@@ -193,5 +199,12 @@ const StaticSection = ({ isAdminUser }) => {
 };
 StaticSection.propTypes = {};
 
-const propifyState = ({ user: { user = {} } }) => ({ isAdminUser: admins.includes(user.email) });
+const propifyState = ({
+  user: { user = {} },
+  settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {}
+}) => ({
+  isAdminUser: admins.includes(user.email),
+  defaultBrandCurrency
+});
+
 export default connect(propifyState)(StaticSection);

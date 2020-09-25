@@ -1,9 +1,11 @@
 import React from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { useContext } from '../../../../../../../../actions';
 import {
   // getCurrencySymbol,
-  getPriceFormat,
-  capitalize
+  capitalize,
+  getPriceFormat
 } from 'libs';
 
 import './style.css';
@@ -35,34 +37,35 @@ const getPaymentDetails = (
   const nextCharge = '';
 
   switch (type) {
-    case 'Onetime': return { label, nextCharge };
-    case 'Split':
-      return {
-        label: `${label}(${splitPayment + splits})`,
-        nextCharge: moment().add(1, 'M').format('MM/DD/YYYY')
-      };
-    case 'Subscription': {
-      const recTime = recurringPeriod[0].toLowerCase();
-      return {
-        label: `${label}( ${subscriptionLabel} )`,
-        nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format('MM/DD/YYYY')
-      };
-    }
-    default: return { label, nextCharge };
+  case 'Onetime': return { label, nextCharge };
+  case 'Split':
+    return {
+      label: `${label}(${splitPayment + splits})`,
+      nextCharge: moment().add(1, 'M').format('MM/DD/YYYY')
+    };
+  case 'Subscription': {
+    const recTime = recurringPeriod[0].toLowerCase();
+    return {
+      label: `${label}( ${subscriptionLabel} )`,
+      nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format('MM/DD/YYYY')
+    };
+  }
+  default: return { label, nextCharge };
   }
 };
 const OrderSummary = ({
   payment,
   productName = 'Not Set',
+  defaultBrandCurrency,
   price: {
     amount = 0,
-    currency = 'USD',
     format
   } = {},
   vat = 0.1,
   language = {}
 
 }) => {
+  const { state: { funnel: { currency = defaultBrandCurrency } = {} } = {} } = useContext();
   const {
     orderSummary: orderSummaryLabel = 'Order Summary',
     total: totalLabel = 'Total',
@@ -92,5 +95,5 @@ const OrderSummary = ({
     </section>
   );
 };
-
-export default OrderSummary;
+const mapStateToProps = ({ settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {} }) => ({ defaultBrandCurrency });
+export default connect(mapStateToProps)(OrderSummary);

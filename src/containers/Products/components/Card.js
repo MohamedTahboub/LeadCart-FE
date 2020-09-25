@@ -11,9 +11,9 @@ const ProductCard = ({
   onDuplicate,
   name,
   category,
-  price: { amount, currency, format } = {},
+  currency,
+  price: { amount, format } = {},
   onEdit,
-  available: active,
   thumbnail = defaultProductImage
 }) => {
 
@@ -38,13 +38,6 @@ const ProductCard = ({
         className='product-image-container'
       >
         <div className='head'>
-          {
-          /*<span
-            data-tip={`${active ? 'active' : 'inactive'}  product`}
-            data-type='info'
-            className={`status ${active ? 'active' : ''}`}
-          />
-        */}
           <span
             data-tip='Duplicate'
             data-type='info'

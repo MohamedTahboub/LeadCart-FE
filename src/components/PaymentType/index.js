@@ -26,6 +26,7 @@ const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
 export default ({
   payment = {},
   price = {},
+  currency = 'USD',
   onChange
 }) => {
   const onFieldChange = ({ target: { name, value } }) => {
@@ -52,7 +53,7 @@ export default ({
           name='price.amount'
           type='number'
           defaultValue={price.amount}
-          prefix={<Currency value={price.currency} />}
+          prefix={<Currency value={currency} />}
           uncontrolled
         />
       </InputRow>

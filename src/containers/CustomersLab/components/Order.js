@@ -22,13 +22,15 @@ const Order = ({
   orderNumber,
   onRefund,
   totalCharge,
+  defaultCurrency,
   paymentMethod,
+  currency = defaultCurrency,
   product = {},
   products = []
 }) => {
   if (product.name && !products.length) products.push(product);
-  // const [moreOptions, setMoreOptions] = useState(false);
-  const currencySymbol = getCurrencySymbol(product.price && product.price.currency);
+
+  const currencySymbol = getCurrencySymbol(currency);
   return (
     <div className='customer-order-card'>
       <div className='order-code'>{`#LC-${orderNumber}`}</div>
@@ -38,6 +40,7 @@ const Order = ({
           <ProductRow
             {...product}
             onRefund={onRefund}
+            currency={currency}
             orderId={orderId}
           />))
       }

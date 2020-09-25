@@ -24,7 +24,7 @@ const {
 
 const HeadContent = ['Code', 'Type', 'Amount/Percent', 'For Product', 'Expiration Date', 'Status'];
 
-const Coupons = (props) => {
+const Coupons = ({ defaultBrandCurrency, ...props }) => {
 
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -75,6 +75,7 @@ const Coupons = (props) => {
             <CouponList
               showEditModal={showEditModal}
               deleteModal={deleteModal}
+              currency={defaultBrandCurrency}
             />
           </Body>
         </Table>
@@ -86,6 +87,8 @@ const Coupons = (props) => {
           isEdit={!!editCoupon}
           onClose={toggleModal}
           coupon={editCoupon}
+          currency={defaultBrandCurrency}
+
         />
       )}
 
@@ -103,5 +106,6 @@ const Coupons = (props) => {
   );
 };
 
-export default connect(null, { ...couponsActions })(Coupons);
+const mapStateToProps = ({ settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {} }) => ({ defaultBrandCurrency });
+export default connect(mapStateToProps, { ...couponsActions })(Coupons);
 

@@ -59,6 +59,7 @@ const ProductBuilder = ({
   funnelsMap,
   productsMap,
   uploadFile,
+  defaultBrandCurrency,
   ...props
 }) => {
   const [loading, setLoading] = useState(true);
@@ -148,6 +149,9 @@ const ProductBuilder = ({
   };
 
   if (loading) return <LoadingPage message='Setting up ...' />;
+
+  const { funnel: { currency = defaultBrandCurrency } } = state;
+
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
@@ -162,6 +166,7 @@ const ProductBuilder = ({
         <NewPricingOptionModal
           isVisible
           onClose={actions.onTogglePricingOptionModal}
+          currency={currency}
         />
       </Page>
       <ReactToolTip delayShow={400} />
@@ -171,8 +176,13 @@ const ProductBuilder = ({
 
 ProductBuilder.propTypes = {};
 
-const propifyState = ({ funnels = [], products: { products = [] } = {} }) => ({
+const propifyState = ({
+  funnels = [],
+  products: { products = [] } = {},
+  settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {}
+}) => ({
   funnelsMap: mapListToObject(funnels, 'url'),
-  productsMap: mapListToObject(products, '_id')
+  productsMap: mapListToObject(products, '_id'),
+  defaultBrandCurrency
 });
 export default connect(propifyState, { ...productGeneralActions, ...filesActions })(ProductBuilder);

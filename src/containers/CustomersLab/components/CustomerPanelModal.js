@@ -29,6 +29,7 @@ const CustomerPanelModal = ({
   ordersItems,
   onClose,
   onOrderRefund,
+  defaultBrandCurrency,
   customer
 }) => {
   const {
@@ -98,7 +99,7 @@ const CustomerPanelModal = ({
             <Timeline>
               {orders.map((order) => (
                 <Timeline.Item key={order._id}>
-                  <Order {...order} onRefund={onOrderRefund} />
+                  <Order {...order} onRefund={onOrderRefund} defaultCurrency={defaultBrandCurrency} />
                 </Timeline.Item>
               ))}
             </Timeline>
@@ -109,5 +110,12 @@ const CustomerPanelModal = ({
   );
 };
 CustomerPanelModal.defaultProps = { orders: [] };
-const mapStateToProps = ({ orders }) => ({ ordersItems: orders });
+const mapStateToProps = ({
+  orders,
+  settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {}
+}) => ({
+  ordersItems: orders,
+  defaultBrandCurrency
+});
+
 export default connect(mapStateToProps)(CustomerPanelModal);
