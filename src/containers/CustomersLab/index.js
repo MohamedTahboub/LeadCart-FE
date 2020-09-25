@@ -24,7 +24,7 @@ const {
   InputRow
 } = common;
 
-const CustomersLab = ({ customers, orderRefund }) => {
+const CustomersLab = ({ customers, orderRefund, defaultBrandCurrency }) => {
 
   const [showPanel, setShowPanel] = useState(false);
   const [activeCustomer, setCustomer] = useState({});
@@ -120,7 +120,7 @@ const CustomersLab = ({ customers, orderRefund }) => {
                         </FlexBox>
                       )}
                       />
-                      <Table.Cell mainContent={getPriceWithCurrency(lifeTimeCharges)} />
+                      <Table.Cell mainContent={getPriceWithCurrency(lifeTimeCharges, defaultBrandCurrency)} />
                       <Table.Cell mainContent={(
                         <MiniButton onClick={() => toggleCustomerPanel(customer)}>
                           {(showPanel && activeCustomer.email === email) ? <MdClose /> : <FaEllipsisH />}
@@ -143,6 +143,9 @@ const CustomersLab = ({ customers, orderRefund }) => {
   );
 };
 
-const mapStateToProps = ({ customers: { list } }) => ({ customers: list });
+const mapStateToProps = ({
+  customers: { list },
+  settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {}
+}) => ({ customers: list, defaultBrandCurrency });
 
 export default connect(mapStateToProps, customersActions)(CustomersLab);

@@ -18,7 +18,7 @@ const { Label, TextField, SearchInput } = InputRow;
 
 const defaultPriceOption = { format: 'amount', payment: { type: 'Onetime' }, price: {} };
 
-const NewPricingOptionModal = () => {
+const NewPricingOptionModal = ({ currency }) => {
   const { state: { productPricing: { openModal } = {} }, actions } = useContext();
   const [priceOption, setOptionPrice] = useState(defaultPriceOption);
 
@@ -81,6 +81,7 @@ const NewPricingOptionModal = () => {
           onChange={onChange}
           name='type'
           price={priceOption.price}
+          currency={currency}
         />
       </FlexBox>
 

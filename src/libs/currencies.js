@@ -22,6 +22,5 @@ export const getPriceFormat = (price = 0, currency = 'USD', format = 'amount') =
 
 export const getPriceWithCurrency = (price, currency, format) => {
   const defaultFormat = `${price}`.includes('.') && !`${price}`.endsWith('.00') ? 'amount_with_comma_separator' : 'amount_with_comma_separator_no_decimals';
-  console.log({ price: `${price}`, yes: `${price}`.includes('.') });
   return getPriceFormat(price, currency, format || defaultFormat);
 };

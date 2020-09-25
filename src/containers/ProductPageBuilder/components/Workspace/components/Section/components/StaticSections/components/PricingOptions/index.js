@@ -1,15 +1,15 @@
 import React from 'react';
 import common from 'components/common';
+import { connect } from 'react-redux';
 import { useContext } from '../../../../../../../../actions';
-
 import { PricingOptionCard } from './components';
 const { FlexBox } = common;
 
 
-const PricingOptions = (props) => {
+const PricingOptions = ({ defaultBrandCurrency }) => {
 
   const {
-    state: { product: { pricingOptions = [] } = {} },
+    state: { product: { pricingOptions = [], funnel: { currency = defaultBrandCurrency } = {} } = {} },
     actions
   } = useContext();
 
@@ -24,8 +24,14 @@ const PricingOptions = (props) => {
       <span className='title-text'>Choose a pricing option</span>
       <FlexBox wrappable>
         {
-          pricingOptions.map((pricingOption) =>
-            <PricingOptionCard key={pricingOption.id} {...pricingOption} onSelect={onSelectPriceOption} />)
+          pricingOptions.map((pricingOption) => (
+            <PricingOptionCard
+              key={pricingOption.id}
+              {...pricingOption}
+              onSelect={onSelectPriceOption}
+              currency={currency}
+            />
+          ))
         }
       </FlexBox>
     </FlexBox>
@@ -34,4 +40,5 @@ const PricingOptions = (props) => {
 
 PricingOptions.propTypes = {};
 
-export default PricingOptions;
+const mapStateToProps = ({ settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {} }) => ({ defaultBrandCurrency });
+export default connect(mapStateToProps)(PricingOptions);
