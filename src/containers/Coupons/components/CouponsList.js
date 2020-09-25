@@ -4,7 +4,7 @@ import common from 'components/common';
 import * as couponsActions from 'actions/coupon';
 import Table from 'components/common/Tables';
 import moment from 'moment';
-import { mapListToObject } from 'libs';
+import { getCurrencySymbol, mapListToObject } from 'libs';
 
 import { ProductsNamesList } from './common';
 
@@ -16,7 +16,8 @@ const CouponsList = ({
   showEditModal,
   deleteModal,
   productsMap: productsNamesMap,
-  changeCouponState
+  changeCouponState,
+  currency
 }) => {
 
   return (
@@ -41,7 +42,7 @@ const CouponsList = ({
             <Row key={code} orderInList={orderInList} className='coupon-table-row'>
               <Cell mainContent={code} />
               <Cell mainContent={discount.type} />
-              <Cell mainContent={discount.type !== 'Percent' ? `$${discount.amount}` : `${discount.percent}%`} />
+              <Cell mainContent={discount.type !== 'Percent' ? `${getCurrencySymbol(currency)}${discount.amount}` : `${discount.percent}%`} />
 
               <Cell
                 mainContent={(

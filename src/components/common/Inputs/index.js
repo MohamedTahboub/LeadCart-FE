@@ -282,7 +282,7 @@ export class InputRow extends Component {
     </div>
   )
 
-  static FlatSelect = ({ note, onSelect, value = 'Percent', ...props }) => (
+  static FlatSelect = ({ note, onSelect, value = 'Percent', currencySymbol = '$', ...props }) => (
     <div className='charging-method-picker'>
       <input
         id='charge-method-el-1'
@@ -312,7 +312,7 @@ export class InputRow extends Component {
         className='charging-method-item'
 
       >
-        $
+        {currencySymbol}
 
       </label>
       {note && <span className='charging-method-picker-notes'>{note}</span>}

@@ -26,12 +26,13 @@ const Label = ({ children, ...props }) => (
 );
 
 const Settings = ({
+  defaultCurrency,
   languagesOptions,
   funnel: {
     url,
     paymentMethods,
     language,
-    currency = 'USD'
+    currency = defaultCurrency
   } = {},
   onChange
 }) => {
@@ -69,6 +70,7 @@ const Settings = ({
             name='paymentMethods'
             selected={paymentMethods}
             onChange={onFiledChange}
+            currency={currency}
           />
         </FlexBox>
         <FlexBox flex center='v-center'>
@@ -109,9 +111,12 @@ Settings.propTypes = {
 Settings.defaultProps = { product: {} };
 
 
-const mapStateToProps = ({ translations: languages = [defaultLanguage] }) => {
+const mapStateToProps = ({
+  translations: languages = [defaultLanguage],
+  settings: { generalModel: { currency: defaultCurrency = 'USD' } = {} } = {}
+}) => {
   const languagesOptions = languages
     .map(({ name: label, _id: value = label }) => ({ label, value }));
-  return { languagesOptions };
+  return { languagesOptions, defaultCurrency };
 };
 export default connect(mapStateToProps)(Settings);
