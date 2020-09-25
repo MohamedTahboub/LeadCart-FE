@@ -150,7 +150,7 @@ const ProductBuilder = ({
 
   if (loading) return <LoadingPage message='Setting up ...' />;
 
-  const { funnel: { currency = defaultBrandCurrency } } = state;
+  const { funnel: { currency = defaultBrandCurrency } = {} } = state;
 
   return (
     <ProductContext.Provider value={{ state, actions }}>
