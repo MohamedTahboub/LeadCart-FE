@@ -74,7 +74,7 @@ export default {
     }
   },
   brandsDefaults: {
-    defaultSupportEmail: 'supprot@leadcart.io',
+    defaultSupportEmail: 'support@leadcart.io',
     defaultName: 'Leadcart',
     defaultLogo: leadcartBrandLogo
   },
