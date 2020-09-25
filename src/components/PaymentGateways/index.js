@@ -18,7 +18,7 @@ function Message ({ children }) {
   );
 }
 
-const notSupportedCurrenciesByPaypal = ['MYR', 'INR', 'BRL'];
+const notSupportedCurrenciesByPaypal = ['MYR', 'INR'];
 const getNotSupportedThisMessage = (currency) => `${currency} currency not supported by PayPal`;
 const PaymentMethods = ({
   paymentsIntegrations = [],
