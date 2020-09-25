@@ -9,7 +9,10 @@ const { FlexBox } = common;
 const PricingOptions = ({ defaultBrandCurrency }) => {
 
   const {
-    state: { product: { pricingOptions = [], funnel: { currency = defaultBrandCurrency } = {} } = {} },
+    state: {
+      funnel: { currency = defaultBrandCurrency } = {},
+      product: { pricingOptions = [] } = {}
+    },
     actions
   } = useContext();
 
