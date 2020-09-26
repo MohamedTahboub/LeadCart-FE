@@ -38,11 +38,11 @@ const borderCornerNames = [
 
 const getCornerTitle = (corner) => {
   switch (corner) {
-  case 'borderTopLeftRadius': return 'Top Left';
-  case 'borderTopRightRadius': return 'Top Right';
-  case 'borderBottomLeftRadius': return 'Bottom Left';
-  case 'borderBottomRightRadius': return 'Bottom Right';
-  default: return '';
+    case 'borderTopLeftRadius': return 'Top Left';
+    case 'borderTopRightRadius': return 'Top Right';
+    case 'borderBottomLeftRadius': return 'Bottom Left';
+    case 'borderBottomRightRadius': return 'Bottom Right';
+    default: return '';
   }
 };
 
@@ -53,7 +53,7 @@ const ButtonSection = () => {
   } = useContext();
   const [openCollapse, setOpenCollapse] = useState(null);
 
-  const { styles = {} } = sectionSetting;
+  const { styles = {}, content = {} } = sectionSetting;
   const { borderSymmetry } = styles;
 
   const onChange = ({ target }) => {
@@ -323,8 +323,8 @@ const ButtonSection = () => {
         <FlexBox center='v-center px-2' spaceBetween>
           <span className='gray-text bold-text'>Go To:</span>
           <SelectOption
-            name='styles.type'
-            value={styles.type}
+            name='content.type'
+            value={content.type}
             onChange={onChange}
             options={[
               { label: 'Payment Form', value: 'paymentForm' },
@@ -332,13 +332,13 @@ const ButtonSection = () => {
             ]}
           />
         </FlexBox>
-        {styles.type === 'external' ? (
+        {content.type === 'external' ? (
           <div className='px-2'>
             <span className='gray-text bold-text mb-2'>On Click Open:</span>
             <div className='padding-left-20'>
               <TextField
-                name='styles.link'
-                value={styles.link}
+                name='content.link'
+                value={content.link}
                 onChange={onChange}
               />
             </div>
