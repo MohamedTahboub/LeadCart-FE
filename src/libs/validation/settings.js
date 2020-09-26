@@ -14,7 +14,8 @@ export default async (fields) => {//
       name: yup.string().default('MarketPlace Name'),
       coverImage: yup.string().url(),
       links: yup.array()
-    }).required()
+    }).required(),
+    showPoweredBy: yup.boolean().required()
   }).required();
 
   try {

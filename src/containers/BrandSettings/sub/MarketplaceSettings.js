@@ -10,7 +10,7 @@ import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, FlexBox } = common;
-const { Label, TextField, AddImage } = InputRow;
+const { Label, TextField, AddImage, Toggle } = InputRow;
 
 const MarketplaceSettings = ({
   marketPlace,
@@ -108,6 +108,15 @@ const MarketplaceSettings = ({
             placeholder='e.g. example.com/contact'
             onChange={onChange}
             value={fields.supportEmail}
+          />
+        </InputRow>
+
+        <InputRow>
+          <Label error={errors.showPoweredBy}> Hide powerd by leadcart badge:</Label>
+          <Toggle
+            name='showPoweredBy'
+            value={fields.showPoweredBy}
+            onToggle={(target) => onChange({ target })}
           />
         </InputRow>
       </MainBlock>
