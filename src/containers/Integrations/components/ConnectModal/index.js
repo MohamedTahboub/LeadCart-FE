@@ -13,19 +13,18 @@ const ConnectModal = ({
   service,
   onToggle
 }) => (
-    <Modal
-      className='integrations-modal'
-      isVisible={open}
-      onClose={onConnectClosed}
-    >
-      <div className='header'>
-        <MainTitle>
-          Connect with
-        {service.name}
-        </MainTitle>
-      </div>
-      <ServiceConnect data={service} onModalToggle={onToggle} />
-    </Modal>
-  );
+  <Modal
+    className='integrations-modal'
+    isVisible={open}
+    onClose={onConnectClosed}
+  >
+    <div className='header'>
+      <MainTitle>
+        {`Connect with ${service.name}`}
+      </MainTitle>
+    </div>
+    <ServiceConnect data={service} onModalToggle={onToggle} />
+  </Modal>
+);
 
 export default ConnectModal;
