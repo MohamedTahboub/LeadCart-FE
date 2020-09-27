@@ -17,11 +17,12 @@ const MarketplaceSettings = ({
   getSave,
   ...props
 }) => {
+  const { showPoweredBy = true } = marketPlace;
   const [fields, setFields] = useState({ ...marketPlace });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    setFields(marketPlace);
+    setFields({ ...marketPlace, showPoweredBy });
   }, [marketPlace]);
 
   const updateFields = (_name, _value) => {

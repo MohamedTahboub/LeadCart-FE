@@ -15,7 +15,7 @@ export default async (fields) => {//
       coverImage: yup.string().url(),
       links: yup.array()
     }).required(),
-    showPoweredBy: yup.boolean().required()
+    showPoweredBy: yup.boolean().default(true)
   }).required();
 
   try {
