@@ -18,7 +18,7 @@ const LicensesDistribution = ({
   codes: codeList = [],
   instructions = ''
 }) => {
-  const [isValid, setValid] = useState(false);
+  const [isValid, setValid] = useState(true);
   const codes = prepareForDisplay(codeList);
   const inputFile = useRef();
 

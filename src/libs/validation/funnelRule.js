@@ -13,7 +13,7 @@ const successUrlMetaSchema = yup.object({
 });
 const codeDistributionFulfillmentMetaData = yup.object({
   codes: yup.array().of(yup.string()).required('Add at least one code to the licenses list').min(1, 'Add at least on code to the licenses list'),
-  instructions: yup.string().default('instructions')
+  instructions: yup.string().default(undefined)
 });
 const webhooksSchema = yup.object({
   label: yup.string(),
