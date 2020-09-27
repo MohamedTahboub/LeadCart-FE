@@ -1,8 +1,9 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import clx from 'classnames';
+
 import common from 'components/common';
 import { formatPricingValue } from 'libs';
+
 const { FlexBox: Flex } = common;
 
 const Card = ({
@@ -12,20 +13,26 @@ const Card = ({
   active = 0,
   ...priceDetails
 }) => {
+  const classes = clx('min-width-250 m-2 p-3 product-pricing-card v-center', { active });
 
-
-  const classes = clx('min-width-250 m-2 p-2 pl-3 product-pricing-card', { active });
   return (
     <Flex flex className={classes} onClick={onSelect(id)}>
-      <Flex column>
-        <span className='title-text bold-text'>{label}</span>
-        <span className='small-text'>{formatPricingValue(priceDetails)}</span>
+      <Flex className='v-center' flex>
+        <Flex className='checkbox-container'>
+          <input type='checkbox' checked={active} />
+          <span className='checkmark' />
+        </Flex>
+
+        <Flex className='title-text bold-text'>
+          {label}
+        </Flex>
       </Flex>
-    </Flex>
+
+      <Flex className='max-width-100 v-center small-text bold-text primary-text-color ml-2'>
+        {formatPricingValue(priceDetails)}
+      </Flex>
+    </Flex >
   );
 };
-
-
-Card.propTypes = {};
 
 export default Card;

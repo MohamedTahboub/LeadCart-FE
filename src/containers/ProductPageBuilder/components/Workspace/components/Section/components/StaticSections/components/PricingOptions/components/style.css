@@ -1,24 +1,73 @@
 .product-pricing-card{
     position: relative;
-    background-color: rgba(0, 0, 0, 0.04);
-    border: 3px solid transparent;
-    border-radius: 3px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
     cursor: pointer;
     transition: border-color .2s ease-in-out;
 }
+
 .product-pricing-card.active{
-    border-color: #76dda1;
-    border-radius: 5px;
+    border-color: #4DA1FF;
 }
-.product-pricing-card::after{
+
+
+.product-pricing-card .checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+
+  .product-pricing-card .checkbox-container input {
     position: absolute;
-    top: calc(50% - 19.5px);
-    right: 10px;
-    color: #76dda1;
-}
-.product-pricing-card.active::after{
-    font-family: Font Awesome\ 5 Free;
-    font-weight: 400;
-    font-size: 25px;
-    content: "\F058";
-}
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+  
+  .product-pricing-card .checkbox-container .checkmark {
+    position: absolute;
+    top: -12.5px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid #bdc3c7;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: .2s border ease-in-out,
+     .2s  background-color ease-in-out;
+  }
+  
+  
+  .product-pricing-card .checkbox-container input:checked ~ .checkmark {
+    background-color: #4DA1FF;
+    border-color: #4DA1FF;
+  }
+  
+  .product-pricing-card .checkbox-container .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .product-pricing-card .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .product-pricing-card .checkbox-container .checkmark:after {
+    left: 8px;
+    top: 2px;
+    width: 7px;
+    height: 16px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
