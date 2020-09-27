@@ -23,7 +23,7 @@ const MarketplaceSettings = ({
 
   useEffect(() => {
     setFields({ ...marketPlace, showPoweredBy });
-  }, [marketPlace]);
+  }, [marketPlace, showPoweredBy]);
 
   const updateFields = (_name, _value) => {
     let name = _name, value = _value;

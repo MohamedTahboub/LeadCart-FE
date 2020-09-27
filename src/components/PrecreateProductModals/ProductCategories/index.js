@@ -22,7 +22,6 @@ const ProductCategories = ({ onSelect }) => (
     <CategoryCard
       image={thankyouPageImage}
       label='Thank You Page'
-      className='disabled'
       onClick={onSelect('thankyoupage')}
     />
     <CategoryCard
