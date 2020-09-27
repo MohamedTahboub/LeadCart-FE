@@ -42,9 +42,6 @@
     flex-direction: column;
 }
 
-.btn-primary {
-    background: #4DA1FF;
-}
 
 .dashboar-content-holder{
     display: flex;
