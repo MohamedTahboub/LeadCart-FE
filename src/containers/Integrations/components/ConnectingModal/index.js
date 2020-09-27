@@ -83,9 +83,7 @@ const ConnectingModal = ({
     >
       <div className='header'>
         <MainTitle>
-          Connect with
-          {' '}
-          {activation}
+          {`Connect with ${activation}`}
         </MainTitle>
       </div>
       <FlexBox center='h-center' className='aligned-center-text' column>

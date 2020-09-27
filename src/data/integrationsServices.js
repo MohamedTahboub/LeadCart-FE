@@ -142,6 +142,16 @@ const services = [
     supported: true
   },
   {
+    key: 'lc_automizy',
+    name: 'Automizy',
+    brandLogo: brandsLogos.automizyLogo,
+    category: 'Auto Responders',
+    description: 'An Email Marketing Software that is designed to increase your open rates.',
+    active: false,
+    connected: false,
+    supported: true
+  },
+  {
     key: 'lc_getresponse',
     name: 'Getresponse',
     brandLogo: brandsLogos.getresponse,
@@ -150,8 +160,7 @@ const services = [
     active: false,
     connected: false,
     supported: true
-  },
-  {
+  }, {
     key: 'lc_drip',
     name: 'Drip',
     brandLogo: brandsLogos.drip,

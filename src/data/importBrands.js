@@ -56,4 +56,5 @@ export { default as pabblyLogo } from 'assets/images/brands/pabbly-logo.png';
 export { default as integratelyLogo } from 'assets/images/brands/integrately_logo.png';
 export { default as konnectzitLogo } from 'assets/images/brands/konnectzit_logo.png';
 export { default as webhookLogo } from 'assets/images/brands/webhook.png';
+export { default as automizyLogo } from 'assets/images/brands/automizy_logo.png';
 

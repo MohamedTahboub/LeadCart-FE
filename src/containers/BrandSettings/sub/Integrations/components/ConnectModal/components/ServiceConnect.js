@@ -15,9 +15,7 @@ const ConnectOAuth = ({ name = 'Stripe', ...props }) => (
       label={`Authorize LeadCart to access your ${name} data:`}
       value={(
         <Button className='primary-color'>
-          Connect with
-          {' '}
-          {name}
+          {`Connect with ${name}`}
         </Button>
       )}
     />
