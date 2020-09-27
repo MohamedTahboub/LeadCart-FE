@@ -17,7 +17,7 @@ const ProductThumbnail = ({ thumbnail, name }) => (
 
 const isPlural = (items = []) => items.length >= 1;
 
-const GroupAction = ({ integrationKey: serviceName, type: serviceAction }) => {
+const GroupAction = ({ integrationKey: serviceName = '', type: serviceAction }) => {
 
   let service = serviceAction ? `${serviceName} (${serviceAction})` : serviceName;
 

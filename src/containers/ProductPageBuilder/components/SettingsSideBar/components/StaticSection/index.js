@@ -102,18 +102,14 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
             price={price}
             currency={currency}
           />
-          {
-            isAdminUser && (
-              <FlexBox center='h-center' className='mt-3 mb-2'>
-                <Button className='light-btn px-3' onClick={actions.onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
-                  <FlexBox center='v-center'>
-                    <IoIosAddCircleOutline color='gray' className='mr-2' />
-                    <span>Add More Pricing Options</span>
-                  </FlexBox>
-                </Button>
+          <FlexBox center='h-center' className='mt-3 mb-2'>
+            <Button className='light-btn px-3' onClick={actions.onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
+              <FlexBox center='v-center'>
+                <IoIosAddCircleOutline color='gray' className='mr-2' />
+                <span>Add More Pricing Options</span>
               </FlexBox>
-            )
-          }
+            </Button>
+          </FlexBox>
           <FlexBox column>
             {pricingOptions.map((pricingOption) => {
               const { id } = pricingOption;

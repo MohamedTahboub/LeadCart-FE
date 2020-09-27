@@ -22,8 +22,7 @@ const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {} }) => (
       value={(
         <FlexBox center='h-center' className='full-width margin-top-20'>
           <Button onClick={() => openNewWindow(auth_url)} className='primary-color'>
-            Connect with
-            {name}
+            {`Connect with ${name}`}
           </Button>
         </FlexBox>
       )}
