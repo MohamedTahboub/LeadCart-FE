@@ -16,7 +16,7 @@ import { showIntercomIcon } from './intercom';
 //     </p>
 //   </div>
 // );
-
+const defaultDuration = 5000;
 const defaultOptions = {
   // title: "Wonderful!",
   // message: "teodosii@react-notifications-component",
@@ -26,28 +26,29 @@ const defaultOptions = {
   animationIn: ['animated', 'fadeIn'],
   animationOut: ['animated', 'fadeOut'],
   width: 300,
-  dismiss: {
-    duration: 5000
-  }
+  dismiss: { duration: defaultDuration }
 };
 
 const commonNotification = (title, message, options = {}) => {
   showIntercomIcon(false);
+  const { duration = defaultDuration, withIcon, type } = options;
   store.addNotification({
     title,
     message,
     ...defaultOptions,
     type: 'custom',
-    content: <Skins.Custom
-      message={message}
-      // title={title}
-      icon={options.withIcon}
-      type={options.type}
-    />,
+    content: (
+      <Skins.Custom
+        message={message}
+        // title={title}
+        icon={withIcon}
+        type={type}
+      />),
     onRemoval: () => {
       // showIntercomIcon(true);
     },
-    showIcon: true,
+    dismiss: { duration },
+    showIcon: true
     // ...options
   });
 };

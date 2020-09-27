@@ -11,6 +11,10 @@ const successUrlMetaSchema = yup.object({
     activeDuration: yup.string().default('7,day')
   })).default([])
 });
+const codeDistributionFulfillmentMetaData = yup.object({
+  codes: yup.array().of(yup.string()).required('Add at least one code to the licenses list').min(1, 'Add at least on code to the licenses list'),
+  instructions: yup.string().default(undefined)
+});
 const webhooksSchema = yup.object({
   label: yup.string(),
   url: yup.string(),
@@ -64,9 +68,13 @@ const actionSchema = yup.object({
           is: 'LEADCART_FULFILLMENT',
           then: leadcartPrivateFulfillmentMetaData,
           otherwise: metaDataSchema.when('type', {
-            is: 'REVOKE_LEADCART_ACCESS',
-            then: metaDataSchema.default({ temp: true }),
-            otherwise: metaDataSchema
+            is: 'CODES_DISTRIBUTION',
+            then: codeDistributionFulfillmentMetaData,
+            otherwise: metaDataSchema.when('type', {
+              is: 'REVOKE_LEADCART_ACCESS',
+              then: metaDataSchema.default({ temp: true }),
+              otherwise: metaDataSchema
+            })
           })
         })
       })
@@ -94,9 +102,11 @@ export default (funnelRule) => {
       value: casted
     };
   } catch (err) {
+    const { errors: [firstErrorMessage] = [] } = err || {};
     return {
       isValid: false,
-      errors: castYupErrors(err)
+      errors: castYupErrors(err),
+      message:  firstErrorMessage || err.message
     };
   }
 };
