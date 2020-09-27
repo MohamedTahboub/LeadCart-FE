@@ -95,7 +95,6 @@
 }
 
 .primary-btn {
-  background: #4DA1FF;
   background: var(--btn-bg);
   font-weight: inherit;
   padding: 5px 5px;

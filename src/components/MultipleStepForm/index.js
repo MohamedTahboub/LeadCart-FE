@@ -28,7 +28,7 @@ const MultipleStepForm = ({ steps, children }) => {
               <span /> :
               (
                 <Button
-                  className={clx('next-step-key btn-primary')}
+                  className={clx('next-step-key primary-btn')}
                   onClick={() => setCurrentStep(currentStep + 1)}
                 >
                   Next
