@@ -3,6 +3,7 @@ import common from 'components/common';
 
 import {
   ExternalIntegration,
+  LicensesDistribution,
   ManualFulfillment,
   PrivateLeadcartFulfillment,
   RevokeAccessFulfillment,
@@ -28,6 +29,7 @@ const ActionDependencies = (props) => {
   return (
     <LayoutSwitch active={type}>
       <SuccessUrls id='SUCCESS_URLS' {...passedProps} />
+      <LicensesDistribution id='CODES_DISTRIBUTION' {...passedProps} />
       <ManualFulfillment id='MANUAL_FULFILLMENT' {...passedProps} />
       <RevokeAccessFulfillment id='REVOKE_LEADCART_ACCESS' {...passedProps} />
       <PrivateLeadcartFulfillment id='LEADCART_FULFILLMENT' {...passedProps} metaData={metaData} />

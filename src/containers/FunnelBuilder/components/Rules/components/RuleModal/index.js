@@ -75,11 +75,11 @@ const RuleModal = ({
 
   const onSubmit = () => {
     setSaving(true);
-    const { isValid, value } = funnelRuleSchema(fields);
+    const { isValid, value, message: errorMessage = 'Please check your rule fields,\ne.g. rule event' } = funnelRuleSchema(fields);
 
     if (!isValid) {
       setSaving(false);
-      return notification.failed('Please check your rule fields,\ne.g. rule event');
+      return notification.failed(errorMessage);
     }
 
     if (isNew) {

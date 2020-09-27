@@ -7,6 +7,10 @@ export default {
       value: 'SUCCESS_URLS'
     },
     {
+      label: 'License Distribution',
+      value: 'CODES_DISTRIBUTION'
+    },
+    {
       label: 'Manual Fulfillment',
       value: 'MANUAL_FULFILLMENT'
     },
