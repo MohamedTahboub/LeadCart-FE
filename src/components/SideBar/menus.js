@@ -1,7 +1,7 @@
 
 import config from 'config';
-import { notification, openNewWindow, tokenizedContent } from 'libs';
-const { admins = [], LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
+import { openNewWindow, tokenizedContent } from 'libs';
+const { LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 
 export const main = ({ user = {}, history }) => [
   {
@@ -68,9 +68,9 @@ export const main = ({ user = {}, history }) => [
               token
             };
             const isPremium = activePackage.type === 'Premium';
-            const isAdmin = admins.includes(user.email);
+            // const isAdmin = admins.includes(user.email);
 
-            if (!(isPremium && isAdmin))
+            if (!(isPremium))
               return history.push('/affiliates');
 
 
@@ -78,7 +78,8 @@ export const main = ({ user = {}, history }) => [
             const targetPath = `${LEADCART_AFFILIATE_CENTER_URL}/login?utk=${tokenizedUtk}`;
             openNewWindow(targetPath);
           } catch (err) {
-            notification.failed(err.message);
+            // notification.failed(err.message);
+            console.log(err.message);
           }
         }
       }
