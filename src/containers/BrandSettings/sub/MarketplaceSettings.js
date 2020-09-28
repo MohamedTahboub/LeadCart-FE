@@ -113,11 +113,13 @@ const MarketplaceSettings = ({
         </InputRow>
 
         <InputRow>
-          <Label error={errors.showPoweredBy}> Hide powerd by leadcart badge:</Label>
+          <Label error={errors.showPoweredBy}>Powered by Branding:</Label>
           <Toggle
             name='showPoweredBy'
             value={fields.showPoweredBy}
             onToggle={(target) => onChange({ target })}
+            beforeLabel='Show'
+            afterLabel='Hide'
           />
         </InputRow>
       </MainBlock>

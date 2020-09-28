@@ -7,13 +7,15 @@ import './style.css';
 import DomainForm from './DomainForm';
 import DomainsTable from './DomainsTable';
 
-const { MainBlock } = common;
+const { MainBlock, DisplayContent } = common;
 
 const DomainsSettings = ({ domains }) => (
-  <MainBlock title='MarketPlace Domain Settings' className='domains-setting-block' containerClasses='transparent-white-bg'>
-    <DomainForm domains={domains} />
-    <DomainsTable domains={domains} />
-  </MainBlock>
+  <DisplayContent target='Premium'>
+    <MainBlock title='MarketPlace Domain Settings' className='domains-setting-block' containerClasses='transparent-white-bg'>
+      <DomainForm domains={domains} />
+      <DomainsTable domains={domains} />
+    </MainBlock>
+  </DisplayContent>
 );
 
 DomainsSettings.propTypes = {};
