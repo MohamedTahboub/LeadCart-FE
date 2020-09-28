@@ -16,6 +16,7 @@ const { Label, TextAreaInput } = InputRow;
 const LicensesDistribution = ({
   onChange,
   codes: codeList = [],
+  setDisableAdd,
   instructions = ''
 }) => {
   const [isValid, setValid] = useState(true);
@@ -30,6 +31,7 @@ const LicensesDistribution = ({
       }
     });
     setValid(true);
+    setDisableAdd(true);
   };
 
   const _onChange = ({ target: { value = '' } }) => {
@@ -67,8 +69,10 @@ const LicensesDistribution = ({
   };
 
   const onBlur = () => {
-    if (!isValid)
+    if (!isValid) {
       notification.failed(invalidFormat, { duration: 10000 });
+      setDisableAdd(false);
+    }
   };
 
   return (
