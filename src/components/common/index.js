@@ -26,6 +26,7 @@ import * as Customs from './Custom';
 import * as Tabs from './Tabs';
 import * as Menus from './Menus';
 import * as Spinners from './Spinners';
+import DisplayContent from './DisplayContent';
 
 export default {
   Table,
@@ -55,5 +56,6 @@ export default {
   ...Tabs,
   ...Menus,
   Spinners,
-  Dialog
+  Dialog,
+  DisplayContent
 };
