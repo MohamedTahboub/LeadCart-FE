@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { passProps } from 'helpers/common';
 
-const DisplayContent = ({ children, target, hide, user: { packageType } = {} }) => {
+const DisplayContent = ({ children, target, hide, type: packageType }) => {
   if (hide) return null;
   if (target && packageType !== target) return null;
   return children;
@@ -9,4 +9,4 @@ const DisplayContent = ({ children, target, hide, user: { packageType } = {} }) 
 
 DisplayContent.propTypes = {};
 
-export default connect(passProps('user.user'))(DisplayContent);
+export default connect(passProps('user.user.activePackage.type'))(DisplayContent);
