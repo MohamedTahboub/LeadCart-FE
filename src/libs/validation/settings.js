@@ -9,11 +9,13 @@ export default async (fields) => {//
     country: yup.string().default('US'),
     currency: yup.string().default('US'),
     timeZone: yup.string().default('Central America'),
-    supportEmail: yup.string().email(),
     layout: yup.object({
       name: yup.string().default('MarketPlace Name'),
       coverImage: yup.string().url(),
-      links: yup.array()
+      links: yup.array(yup.object({
+        label: yup.string().required(),
+        value: yup.string().required()
+      }))
     }).required(),
     showPoweredBy: yup.boolean().default(true)
   }).required();

@@ -194,6 +194,23 @@ div.ever-lesson-logo {
     font-size: 13px;
     margin: 10px 0;
 }
+
+
+.delete-link{   
+    opacity: .6;
+    transition: .3s opacity ease-in-out;
+}
+
+.delete-link:hover{
+    opacity: 1;
+}
+
+.label-link{
+    opacity: .8;
+}
+
+
+
 @media only screen and (min-width: 1150px) {
     .emailing-setting-bg,
     .marketplace-settings-bg{

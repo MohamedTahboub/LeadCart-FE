@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FaTrash } from 'react-icons/fa';
+import ids from 'shortid';
 
 import { marketPlaceSettingSchema } from 'libs/validation';
 import common from 'components/common';
@@ -9,7 +11,7 @@ import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
-const { InputRow, MainBlock, FlexBox } = common;
+const { InputRow, MainBlock, FlexBox, Badge, Button } = common;
 const { Label, TextField, AddImage, Toggle } = InputRow;
 
 const MarketplaceSettings = ({
@@ -17,12 +19,20 @@ const MarketplaceSettings = ({
   getSave,
   ...props
 }) => {
-  const { showPoweredBy = true } = marketPlace;
-  const [fields, setFields] = useState({ ...marketPlace });
+  const { showPoweredBy = true, supportEmail = {} } = marketPlace;
+  const [fields, setFields] = useState({ supportEmail, ...marketPlace });
   const [errors, setErrors] = useState({});
+  const [disabledAddLink, setDisabledAddLink] = useState(true);
+  const { supportEmail: { label: linkLabel, value: linkValue } = {} } = fields;
+  const maxLinksLength = fields.layout.links && fields.layout.links.length === 6;
 
   useEffect(() => {
-    setFields({ ...marketPlace, showPoweredBy });
+    setDisabledAddLink(maxLinksLength || !(linkLabel && linkValue));
+    maxLinksLength ? setErrors({ ...errors, maxLinksLength: 'You can\'t add more than 6 links' }) : setErrors({ ...errors, maxLinksLength: '' });
+  }, [linkLabel, linkValue]);
+
+  useEffect(() => {
+    setFields({ ...marketPlace, showPoweredBy, supportEmail });
   }, [marketPlace, showPoweredBy]);
 
   const updateFields = (_name, _value) => {
@@ -39,6 +49,10 @@ const MarketplaceSettings = ({
   const onChange = ({ target: { name, value } }) => {
     updateFields(name, value);
     setErrors({ [name]: '' });
+  };
+
+  const onLinksFieldsChange = ({ target: { name, value } }) => {
+    onChange({ target: { name, value } });
   };
 
   const onSave = async () => {
@@ -68,6 +82,35 @@ const MarketplaceSettings = ({
     }
   };
   getSave({ onSave });
+
+
+  const onAddLink = () => {
+    const { layout: { links } = {}, supportEmail } = fields;
+
+    setFields({
+      ...fields,
+      layout: {
+        ...fields.layout,
+        links: [
+          ...links, { ...supportEmail, _id: ids.generate() }]
+      },
+      supportEmail: {}
+    });
+  };
+
+  const onDeleteLink = (linkId) => () => {
+    const { layout: { links } = {} } = fields;
+
+    setFields({
+      ...fields,
+      layout: {
+        ...fields.layout,
+        links: links.filter(({ _id }) => _id !== linkId) || []
+      }
+    });
+    setErrors({ ...errors, maxLinksLength: '' });
+  };
+
 
   return (
     <FlexBox column className='marketplace-settings-bg'>
@@ -101,16 +144,46 @@ const MarketplaceSettings = ({
           </AddImage>
         </InputRow>
 
-        <InputRow>
-          <Label error={errors.support}>Contact Link:</Label>
-          <TextField
-            name='supportEmail'
-            notes='This will be shown in the marketplace navbar'
-            placeholder='e.g. example.com/contact'
-            onChange={onChange}
-            value={fields.supportEmail}
-          />
-        </InputRow>
+
+        <FlexBox column>
+          <Label error={errors.support}>Contact Links:</Label>
+
+          <FlexBox column>
+            {fields.layout.links && fields.layout.links.map(({ label, value, _id }) => (
+              <FlexBox className='mb-2 v-center' key={_id}>
+                <Badge type='primary' className='min-width-100 label-link'>{label}</Badge>
+                <div className='max-width-200 truncate bold-text mx-2'>{value}</div>
+                <FaTrash onClick={onDeleteLink(_id)} color='tomato' className='item-clickable delete-link' />
+              </FlexBox>
+            ))}
+          </FlexBox>
+
+          {errors.maxLinksLength && <div style={{ color: 'tomato' }}>{errors.maxLinksLength}</div>}
+
+          <InputRow>
+            <TextField
+              name='supportEmail.label'
+              notes='This will be shown in the marketplace navbar'
+              placeholder='Label'
+              onChange={onLinksFieldsChange}
+              value={fields.supportEmail.label}
+            />
+
+            <TextField
+              name='supportEmail.value'
+              notes='This will be shown in the marketplace navbar'
+              placeholder='Link'
+              onChange={onLinksFieldsChange}
+              value={fields.supportEmail.value}
+              className='mx-2'
+            />
+            <Button onClick={onAddLink} className='p-2 primary-color' disabled={disabledAddLink}>
+              <FlexBox className='v-center'>
+                Add Link
+              </FlexBox>
+            </Button>
+          </InputRow>
+        </FlexBox>
 
         <InputRow>
           <Label error={errors.showPoweredBy}>Powered by Branding:</Label>
