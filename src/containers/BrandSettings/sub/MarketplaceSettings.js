@@ -113,7 +113,7 @@ const MarketplaceSettings = ({
         </InputRow>
 
         <InputRow>
-          <Label error={errors.showPoweredBy}>Powerd by Branding:</Label>
+          <Label error={errors.showPoweredBy}>Powered by Branding:</Label>
           <Toggle
             name='showPoweredBy'
             value={fields.showPoweredBy}
