@@ -14,10 +14,11 @@ import {
 const { LayoutSwitch } = common;
 
 const ActionDependencies = (props) => {
-  const { integrationKey, type, metaData = {}, onChange } = props;
+  const { integrationKey, type, metaData = {}, onChange, setDisableAdd } = props;
 
   const passedProps = {
     ...metaData,
+    setDisableAdd,
     onChange
   };
   if (integrationKey === 'WEBHOOKS')
