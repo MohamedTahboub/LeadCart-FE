@@ -103,49 +103,34 @@ const ProductBuilder = ({
     //eslint-disable-next-line
   }, [funnelsMap, productsMap]);
 
-  const onSaveProduct = async ({ saveFrom }) => {
-    const isAnalytics = saveFrom === 'analytics';
+  const onSaveProduct = async () => {
 
     const { product: productData } = state;
     setSaving(true);
     const {
       isValid,
-      // errors,
       value: product
     } = await ProductSchema(productData);
 
     if (!isValid)
       return notification.failed('Can\'t save, validation Error');
 
-    const saveTheProduct = (uploadedFileUrl) =>
-      props.updateProduct(
-        {
-          productId: productData._id,
-          details: {
-            ...product,
-            thumbnail: uploadedFileUrl
-          }
+    props.updateProduct(
+      {
+        productId: productData._id,
+        details: product
+      },
+      {
+        onSuccess: () => {
+          setSaving(false);
+          notification.success('Changes Saved');
         },
-        {
-          onSuccess: (msg) => {
-            setSaving(false);
-            notification.success('Changes Saved');
-          },
-          onFailed: (message) => {
-            setSaving(false);
-            notification.failed(message);
-          }
+        onFailed: (message) => {
+          setSaving(false);
+          notification.failed(message);
         }
-      );
-    const thumbnail = await generateImageFromHtmlElement('product-builder-window', { fileName: productData._id });
-
-    !isAnalytics ?
-      uploadFile({ file: thumbnail, type: 'products' }, {
-        onSuccess: saveTheProduct,
-        onFailed: saveTheProduct,
-        options: { showNotification: false }
-      }) :
-      saveTheProduct();
+      }
+    );
   };
 
   if (loading) return <LoadingPage message='Setting up ...' />;
