@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4';
+import * as immutable from 'object-path-immutable';
 
 export const insensitiveSearch = (searchWord = '', comparedWord = '') => comparedWord.toLowerCase().replace(/\s/g, '').includes(searchWord.toLowerCase().replace(/\s/, ''));
 
@@ -75,7 +76,7 @@ String.prototype.toPlain = function () {
   return this.toLowerCase().replace(/\s/g, '');
 };
 
-export function ObjectChecker (object) {
+export function ObjectChecker(object) {
   this.object = { ...object };
   this.atKeys = (paths) => {
     this.paths = paths;
@@ -95,3 +96,36 @@ export function ObjectChecker (object) {
 }
 
 export const checkObject = (object) => new ObjectChecker(object);
+
+
+const getNestedKey = (keyPath) => ({ from: (obj) => immutable.get(obj, keyPath) });
+
+const getKeyName = (key = '') => {
+  let name = key;
+  if (key.includes(':')) {
+    const [newName] = key.split(':').reverse();
+    name = newName;
+  } else if (key.includes('.')) {
+    const [newName] = key.split('.').reverse();
+    name = newName;
+  }
+  return name;
+};
+
+export const passProps = (...args) => {
+  const keys = args;
+
+  return (state) => {
+    if (Array.isArray(keys) && keys.length) {
+      return keys.reduce((props, key) => {
+        if (!props[key]) {
+          const keyName = getKeyName(key);
+          const keyValue = getNestedKey(key).from(state);
+          props[keyName] = keyValue;
+        }
+        return props;
+      }, {});
+    }
+    return state;
+  };
+};

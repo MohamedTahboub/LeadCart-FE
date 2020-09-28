@@ -101,7 +101,6 @@ const TriggerActionMaker = ({
 
   const onIntegrationSelected = ({ value }) => {
     const newGroup = { ...group };
-    console.log(value);
     if (value === 'WEBHOOKS') {
       newGroup.action = {
         integrationKey: 'WEBHOOKS',
@@ -135,6 +134,7 @@ const TriggerActionMaker = ({
     const { action: { metaData: { successUrls = [] } = {}, type = '' } = {} } = group;
     setDisableAdd(!successUrls.length && type === 'SUCCESS_URLS');
   }, [group]);
+
 
   useEffect(() => {
     setGroup({});
@@ -233,6 +233,7 @@ const TriggerActionMaker = ({
         {...group.action}
         onChange={onDependenciesChange}
         integrationId={actionIntegrationId}
+        setDisableAdd={setDisableAdd}
       />
       <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
         {error && (

@@ -16,6 +16,7 @@ const { Label, TextAreaInput } = InputRow;
 const LicensesDistribution = ({
   onChange,
   codes: codeList = [],
+  setDisableAdd,
   instructions = ''
 }) => {
   const [isValid, setValid] = useState(true);
@@ -34,11 +35,10 @@ const LicensesDistribution = ({
 
   const _onChange = ({ target: { value = '' } }) => {
     const codes = value.split('\n');
-    if (isValidCodeList(codes))
-      updateCodeList(codes);
-    else
+    if (isValidCodeList(codes)) {updateCodeList(codes);} else {
       setValid(false);
-
+      setDisableAdd(true);
+    }
   };
 
   const openFile = () => {
@@ -67,8 +67,12 @@ const LicensesDistribution = ({
   };
 
   const onBlur = () => {
-    if (!isValid)
+    if (!isValid) {
       notification.failed(invalidFormat, { duration: 10000 });
+      setDisableAdd(true);
+    } else {
+      setDisableAdd(false);
+    }
   };
 
   return (
