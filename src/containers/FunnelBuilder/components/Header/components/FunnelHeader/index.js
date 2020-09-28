@@ -18,12 +18,15 @@ const getValidDomain = (domains = []) => domains.find(({ verified, connected }) 
 const getFunnelUrl = ({ funnelUrl, domains = [], subdomain }) => {
 
   const domain = getValidDomain(domains);
-
+  let rootPath;
   if (domain && domain.domain)
-    return `https://${domain.domain}/${funnelUrl}`;
+    rootPath = `https://${domain.domain}/`;
   else
-    return `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
-
+    rootPath = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}`;
+  return {
+    rootPath,
+    funnelUrl: `${rootPath}${funnelUrl}`
+  };
 };
 const CheckoutHeader = ({
   funnel,
@@ -38,7 +41,7 @@ const CheckoutHeader = ({
   const [showModal, setShowModal] = useState({});
 
 
-  const funnelUrl = getFunnelUrl({ funnelUrl: funnel.url, domains, subdomain });
+  const { funnelUrl, rootPath } = getFunnelUrl({ funnelUrl: funnel.url, domains, subdomain });
 
   const onPreview = () => {
     window.open(funnelUrl, '_blank');
@@ -88,7 +91,6 @@ const CheckoutHeader = ({
             className='light-btn '
           >
             <FlexBox center='v-center'>
-
               <IoIosAdd />
               New Rule
             </FlexBox>
@@ -120,6 +122,7 @@ const CheckoutHeader = ({
           onClose={onCloseModal}
           subdomain={subdomain}
           funnelUrl={funnelUrl}
+          rootPath={rootPath}
         />
       </FlexBox>
     </FlexBox>

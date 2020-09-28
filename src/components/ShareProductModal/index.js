@@ -39,18 +39,17 @@ const CopyScriptButton = ({ embeddedText }) => {
   );
 };
 
-const formatEmbedScript = ({ funnelUrl }) => `<script>
-    function prepareFrame() {
-    var iframeUrl = "${funnelUrl}";
-    var ifrm = document.createElement("iframe");
-    ifrm.setAttribute("id", "leadcart-iframe-container");
-    ifrm.setAttribute("src", iframeUrl);
-    ifrm.style.width = "100%";
-    ifrm.style.height = "100vh";
-    ifrm.style.border = "none";
-    document.body.appendChild(ifrm);
-    }
-    prepareFrame();
+const formatEmbedScript = ({ rootPath, funnelUrl }) => `<iframe 
+src="${funnelUrl}"
+title="Funnel Name"
+id='leadcart-embed'
+width="100%"
+scrolling="no"
+style="border:none;"></iframe>
+<script type="text/javascript" src="${rootPath}js/iframeResizer.min.js">
+</script>
+<script type="text/javascript">
+  iFrameResize({}, '#leadcart-embed')
 </script>`;
 
 const ButtonFormatEmbedScript = ({ funnelUrl, brandLogo = defaultWhiteLogo }) => `
@@ -74,9 +73,10 @@ const ShareProductModal = ({
   subdomain,
   isVisible,
   funnelUrl,
+  rootPath,
   logo
 }) => {
-  const script = formatEmbedScript({ funnelUrl, subdomain });
+  const script = formatEmbedScript({ funnelUrl, rootPath, subdomain });
   const buttonScript = ButtonFormatEmbedScript({ funnelUrl, brandLogo: logo });
 
   return (

@@ -17,21 +17,18 @@ const Rules = ({
   productsMap,
   funnelId,
   funnelProducts,
+  openRuleModal,
+  onToggleRuleModal,
   ...props
 }) => {
-  const [openRuleModal, setOpenRuleModal] = useState(false);
   const [activeRule, setActiveRule] = useState();
 
-  const onToggleRuleModal = () => {
-    setOpenRuleModal((open) => {
-      if (activeRule && open) setActiveRule();
-
-      return !open;
-    });
+  const onToggleModal = () => {
+    onToggleRuleModal(activeRule, setActiveRule);
   };
   const onRuleEdit = (rule) => () => {
     setActiveRule(rule);
-    onToggleRuleModal();
+    onToggleModal();
   };
 
   const onRuleDelete = (rule) => () => {
@@ -61,7 +58,7 @@ const Rules = ({
       ))}
       <FlexBox className={rules.length ? 'line-up-10' : ''}>
         <IoIosAdd
-          onClick={onToggleRuleModal}
+          onClick={onToggleModal}
           data-tip='create new rule'
           className='animate gray-text white-bg rounded font-size-20 item-clickable'
         />
@@ -69,7 +66,7 @@ const Rules = ({
       {openRuleModal && (
         <RuleModal
           open={openRuleModal}
-          onClose={onToggleRuleModal}
+          onClose={onToggleModal}
           productsMap={productsMap}
           funnelProducts={funnelProducts}
           funnelId={funnelId}
