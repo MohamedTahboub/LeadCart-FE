@@ -136,6 +136,7 @@ const TriggerActionMaker = ({
     setDisableAdd(!successUrls.length && type === 'SUCCESS_URLS');
   }, [group]);
 
+
   useEffect(() => {
     setGroup({});
   }, [expand]);
@@ -233,6 +234,7 @@ const TriggerActionMaker = ({
         {...group.action}
         onChange={onDependenciesChange}
         integrationId={actionIntegrationId}
+        setDisableAdd={setDisableAdd}
       />
       <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
         {error && (

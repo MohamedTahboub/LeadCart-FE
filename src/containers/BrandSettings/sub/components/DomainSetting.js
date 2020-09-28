@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
 import common from 'components/common';
@@ -15,35 +15,6 @@ const CopyIcon = ({ text }) => (
 );
 
 const { InputRow, MainBlock, Button, MiniButton } = common;
-
-const VerificationProcess = ({
-  verifying,
-  connected,
-  records = [],
-  error
-}) => {
-  if (verifying) return null;
-
-  if (!error && !connected) return null;
-
-
-  if (error && error.includes('ENOTFOUND')) error = 'This domain does not seem to exist, Please check your domain name and try again';
-  return (
-    <div className='flex-container flex-start'>
-      {error
-        ? (
-          <div className='note error-note'>
-            {error}
-          </div>
-        ) : (
-          <div className='note success-note'>
-            <strong>You Domain is verified & Connected Successfully</strong>
-          </div>
-        )
-      }
-    </div>
-  );
-};
 
 const DomainConnectInstruction = () => (
   <div className='flex-container flex-start'>
@@ -113,28 +84,6 @@ const DomainSetting = ({
             domain: fields.domain,
             connected: true
           });
-          setLoading(false);
-        },
-        onFailed: (err) => {
-          let error = {};
-          if (typeof err === 'string') error.message = err;
-          else error = err;
-          setError(error);
-          setLoading(false);
-        }
-      }
-    );
-  };
-
-  const onVerify = () => {
-    setLoading(true);
-    connectMarketPlaceDomain(
-      { domain: fields.domain },
-      {
-        onSuccess: (data) => {
-          // setRecords(data.records);
-          // setConnected(true);
-
           setLoading(false);
         },
         onFailed: (err) => {
