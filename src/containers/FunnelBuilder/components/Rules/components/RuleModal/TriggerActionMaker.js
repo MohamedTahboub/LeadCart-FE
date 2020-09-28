@@ -101,7 +101,6 @@ const TriggerActionMaker = ({
 
   const onIntegrationSelected = ({ value }) => {
     const newGroup = { ...group };
-    console.log(value);
     if (value === 'WEBHOOKS') {
       newGroup.action = {
         integrationKey: 'WEBHOOKS',
