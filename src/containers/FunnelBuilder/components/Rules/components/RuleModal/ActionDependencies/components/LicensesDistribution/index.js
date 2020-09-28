@@ -71,7 +71,7 @@ const LicensesDistribution = ({
   const onBlur = () => {
     if (!isValid) {
       notification.failed(invalidFormat, { duration: 10000 });
-      setDisableAdd(true);
+      setDisableAdd(false);
     }
   };
 
