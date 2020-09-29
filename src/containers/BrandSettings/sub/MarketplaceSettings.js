@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa';
 import ids from 'shortid';
 
-import { marketPlaceSettingSchema } from 'libs/validation';
+import { contactLinksSchema, marketPlaceSettingSchema } from 'libs/validation';
 import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
-const { InputRow, MainBlock, FlexBox, Badge, Button } = common;
+const { InputRow, MainBlock, FlexBox, Badge, Button, ErrorMessage, DisplayContent } = common;
 const { Label, TextField, AddImage, Toggle } = InputRow;
 
 const MarketplaceSettings = ({
@@ -19,21 +19,21 @@ const MarketplaceSettings = ({
   getSave,
   ...props
 }) => {
-  const { showPoweredBy = true, supportEmail = {} } = marketPlace;
-  const [fields, setFields] = useState({ supportEmail, ...marketPlace });
+  const { showPoweredBy = true, contactLinks = {} } = marketPlace;
+  const [fields, setFields] = useState({ contactLinks, ...marketPlace });
   const [errors, setErrors] = useState({});
-  const [disabledAddLink, setDisabledAddLink] = useState(true);
-  const { supportEmail: { label: linkLabel, value: linkValue } = {} } = fields;
+  const [contactLinksError, setContactLinksError] = useState({});
   const maxLinksLength = fields.layout.links && fields.layout.links.length === 6;
 
   useEffect(() => {
-    setDisabledAddLink(maxLinksLength || !(linkLabel && linkValue));
-    maxLinksLength ? setErrors({ ...errors, maxLinksLength: 'You can\'t add more than 6 links' }) : setErrors({ ...errors, maxLinksLength: '' });
-  }, [linkLabel, linkValue]);
+    setFields({ ...marketPlace, showPoweredBy, contactLinks });
+    maxLinksLength ? setErrors({ ...errors, maxLinksLength: 'You can only add six links/emails to contact' }) : setErrors({ ...errors, maxLinksLength: '' });
+  }, [marketPlace, showPoweredBy]);
 
   useEffect(() => {
-    setFields({ ...marketPlace, showPoweredBy, supportEmail });
-  }, [marketPlace, showPoweredBy]);
+    maxLinksLength ? setErrors({ ...errors, maxLinksLength: 'You can only add six links/emails to contact' }) : setErrors({ ...errors, maxLinksLength: '' });
+  }, [maxLinksLength]);
+
 
   const updateFields = (_name, _value) => {
     let name = _name, value = _value;
@@ -84,18 +84,30 @@ const MarketplaceSettings = ({
   getSave({ onSave });
 
 
-  const onAddLink = () => {
-    const { layout: { links } = {}, supportEmail } = fields;
+  const onAddLink = async () => {
+    const { layout: { links } = {}, contactLinks } = fields;
 
-    setFields({
-      ...fields,
-      layout: {
-        ...fields.layout,
-        links: [
-          ...links, { ...supportEmail, _id: ids.generate() }]
-      },
-      supportEmail: {}
-    });
+    try {
+      const { isValid, value, errors } = await contactLinksSchema(contactLinks);
+
+      if (isValid) {
+        setFields({
+          ...fields,
+          layout: {
+            ...fields.layout,
+            links: [
+              ...links, { ...value, _id: ids.generate() }]
+          },
+          contactLinks: {}
+        });
+        setContactLinksError({});
+      } else {
+        setContactLinksError(errors);
+      }
+
+    } catch ({ message }) {
+      setContactLinksError(message);
+    }
   };
 
   const onDeleteLink = (linkId) => () => {
@@ -144,45 +156,49 @@ const MarketplaceSettings = ({
           </AddImage>
         </InputRow>
 
-
         <FlexBox column>
           <Label error={errors.support}>Contact Links:</Label>
 
           <FlexBox column>
             {fields.layout.links && fields.layout.links.map(({ label, value, _id }) => (
               <FlexBox className='mb-2 v-center' key={_id}>
-                <Badge type='primary' className='min-width-100 label-link'>{label}</Badge>
-                <div className='max-width-200 truncate bold-text mx-2'>{value}</div>
+                <Badge type='primary' className='width-100 truncate label-link'>{label}</Badge>
+                <div className='width-200 truncate bold-text mx-2'>{value}</div>
                 <FaTrash onClick={onDeleteLink(_id)} color='tomato' className='item-clickable delete-link' />
               </FlexBox>
             ))}
           </FlexBox>
 
-          {errors.maxLinksLength && <div style={{ color: 'tomato' }}>{errors.maxLinksLength}</div>}
+          <ErrorMessage>{errors.maxLinksLength}</ErrorMessage>
+          <ErrorMessage>{contactLinksError.label}</ErrorMessage>
+          <ErrorMessage>{contactLinksError.value}</ErrorMessage>
 
-          <InputRow>
-            <TextField
-              name='supportEmail.label'
-              notes='This will be shown in the marketplace navbar'
-              placeholder='Label'
-              onChange={onLinksFieldsChange}
-              value={fields.supportEmail.label}
-            />
+          <DisplayContent hide={maxLinksLength}>
+            <InputRow>
+              <TextField
+                name='contactLinks.label'
+                notes='This will be shown in the marketplace navbar'
+                placeholder='Label'
+                onChange={onLinksFieldsChange}
+                value={fields.contactLinks.label}
+              />
 
-            <TextField
-              name='supportEmail.value'
-              notes='This will be shown in the marketplace navbar'
-              placeholder='Link'
-              onChange={onLinksFieldsChange}
-              value={fields.supportEmail.value}
-              className='mx-2'
-            />
-            <Button onClick={onAddLink} className='p-2 primary-color' disabled={disabledAddLink}>
-              <FlexBox className='v-center'>
-                Add Link
-              </FlexBox>
-            </Button>
-          </InputRow>
+              <TextField
+                name='contactLinks.value'
+                notes='This will be shown in the marketplace navbar'
+                placeholder='Link'
+                onChange={onLinksFieldsChange}
+                value={fields.contactLinks.value}
+                className='mx-2'
+              />
+
+              <Button onClick={onAddLink} className='p-2 primary-color'>
+                <FlexBox className='v-center'>
+                  Add Link
+                </FlexBox>
+              </Button>
+            </InputRow>
+          </DisplayContent>
         </FlexBox>
 
         <InputRow>
