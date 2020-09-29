@@ -9,10 +9,11 @@ const InsightBadge = ({
   name,
   chart,
   description,
+  currency,
   format: valueFormat = '0.00',
   show
 }) => {
-  const { prefixSymbol, suffixSymbol } = getSymbolsReferences(name);
+  const { prefixSymbol, suffixSymbol } = getSymbolsReferences(name, currency);
 
   if (!show) return null;
 
