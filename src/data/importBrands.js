@@ -22,6 +22,8 @@ export { default as infusionSoft } from 'assets/images/brands/infusionSoft-logo.
 export { default as mooSend } from 'assets/images/brands/moosend_logo.svg';
 export { default as hubspot } from 'assets/images/brands/hubspot_logo.png';
 export { default as mailerLite } from 'assets/images/brands/mailerlite-logo.png';
+export { default as automizyLogo } from 'assets/images/brands/automizy_logo.png';
+export { default as kirimEmailLogo } from 'assets/images/brands/kirim-logo-brand.png';
 
 // Membership Platforms
 export { default as Kajabi } from 'assets/images/brands/Kajabi-logo.png';
@@ -56,5 +58,4 @@ export { default as pabblyLogo } from 'assets/images/brands/pabbly-logo.png';
 export { default as integratelyLogo } from 'assets/images/brands/integrately_logo.png';
 export { default as konnectzitLogo } from 'assets/images/brands/konnectzit_logo.png';
 export { default as webhookLogo } from 'assets/images/brands/webhook.png';
-export { default as automizyLogo } from 'assets/images/brands/automizy_logo.png';
 
