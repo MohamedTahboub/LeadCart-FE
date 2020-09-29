@@ -142,6 +142,20 @@ const services = [
     supported: true
   },
   {
+    key: 'lc_kirim',
+    name: 'Kirim Email',
+    brandLogo: brandsLogos.kirimEmailLogo,
+    category: 'Auto Responders',
+    description: 'An Email Marketing Software with built-in email validation & automatic list cleaner',
+    active: false,
+    connected: false,
+    fields: [
+      { name: 'apiKey', label: 'API Key' },
+      { name: 'username', label: 'Username' }
+    ],
+    supported: true
+  },
+  {
     key: 'lc_automizy',
     name: 'Automizy',
     brandLogo: brandsLogos.automizyLogo,
