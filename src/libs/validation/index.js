@@ -5,7 +5,7 @@ export { default as ProductSchema } from './productSchema';
 export { default as FulfillmentsValidationSchema } from './fulfillmentSchema';
 export { default as emailFooterSchema } from './emailFooter';
 export { default as generalSettingSchema } from './marketPlaceSettingSchema';
-export { default as marketPlaceSettingSchema } from './settings';
+export { default as marketPlaceSettingSchema, contactLinksSchema } from './settings';
 export { default as couponSchema } from './couponSchema';
 export { default as upgradeUserSchema } from './userUpgrade';
 export { freeTrailSignup, proSignup } from './proSignup';

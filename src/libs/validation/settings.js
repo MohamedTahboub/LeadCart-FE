@@ -29,3 +29,19 @@ export default async (fields) => {//
   }
 };
 
+
+export const contactLinksSchema = async (fields) => {
+  const schema = yup.object({
+    label: yup.string().required('Label shouldn\'t be empty'),
+    value: yup.string().required('value shouldn\'t be empty')
+  }).required();
+
+  try {
+    const casted = await schema.validateSync(fields, { abortEarly: false, stripUnknown: true });
+
+    return { isValid: true, value: casted };
+  } catch (err) {
+    return { isValid: false, errors: castYupErrors(err) };
+  }
+};
+
