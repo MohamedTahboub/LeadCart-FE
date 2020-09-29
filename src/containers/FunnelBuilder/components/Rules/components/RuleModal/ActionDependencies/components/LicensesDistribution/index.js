@@ -31,16 +31,14 @@ const LicensesDistribution = ({
       }
     });
     setValid(true);
-    setDisableAdd(true);
   };
 
   const _onChange = ({ target: { value = '' } }) => {
     const codes = value.split('\n');
-    if (isValidCodeList(codes))
-      updateCodeList(codes);
-    else
+    if (isValidCodeList(codes)) {updateCodeList(codes);} else {
       setValid(false);
-
+      setDisableAdd(true);
+    }
   };
 
   const openFile = () => {
@@ -71,6 +69,8 @@ const LicensesDistribution = ({
   const onBlur = () => {
     if (!isValid) {
       notification.failed(invalidFormat, { duration: 10000 });
+      setDisableAdd(true);
+    } else {
       setDisableAdd(false);
     }
   };
