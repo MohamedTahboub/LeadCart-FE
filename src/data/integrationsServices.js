@@ -126,8 +126,8 @@ const services = [
     description: 'Email marketing, marketing automation, sales automation, and CRM software platform',
     active: false,
     fields: [
-      { name: 'apiKey', label: 'API Key' },
-      { name: 'apiUrl', label: 'API Url' }
+      { name: 'apiUrl', label: 'API Url' },
+      { name: 'apiKey', label: 'API Key' }
     ],
     connected: false,
     supported: true
@@ -150,8 +150,8 @@ const services = [
     active: false,
     connected: false,
     fields: [
-      { name: 'apiKey', label: 'API Key' },
-      { name: 'username', label: 'Username' }
+      { name: 'username', label: 'Username' },
+      { name: 'apiKey', label: 'API Key' }
     ],
     supported: true
   },
