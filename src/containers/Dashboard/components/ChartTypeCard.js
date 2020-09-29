@@ -1,20 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
+import { getCurrencySymbol } from 'libs';
+
+const updateWithDefaultCurrency = ({ prefix, suffix }, currency) => {
+  if (prefix === '$')
+    return { prefix: getCurrencySymbol(currency) };
+  if (suffix === '$')
+    return { suffix: getCurrencySymbol(currency) };
+
+  return { prefix, suffix };
+};
+
 
 const ChartTypeCard = ({
   activeType,
   label,
   value,
   warning,
-  prefix,
-  suffix,
   data,
   onClick,
   labelFormat = '0.00',
-  name
+  name,
+  currency,
+  ...props
 }) => {
+  const { prefix, suffix } = updateWithDefaultCurrency(props, currency);
+
+
   const onChange = () => onClick(name);
+
 
   const labelValue = (value || data[name]) || 0;
   const castedValue = typeof labelValue === 'number' ? numeral(labelValue).format(labelFormat) : 0;
@@ -55,6 +70,6 @@ ChartTypeCard.defaultProps = {
   warning: false,
   data: {},
   prefix: null,
-  suffix: null,
+  suffix: null
 };
 export default ChartTypeCard;
