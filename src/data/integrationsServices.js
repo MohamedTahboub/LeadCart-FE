@@ -126,8 +126,8 @@ const services = [
     description: 'Email marketing, marketing automation, sales automation, and CRM software platform',
     active: false,
     fields: [
-      { name: 'apiKey', label: 'API Key' },
-      { name: 'apiUrl', label: 'API Url' }
+      { name: 'apiUrl', label: 'API Url' },
+      { name: 'apiKey', label: 'API Key' }
     ],
     connected: false,
     supported: true
@@ -139,6 +139,20 @@ const services = [
     description: 'Email marketing tool that support landing pages and automation for your campaigns.',
     active: false,
     connected: false,
+    supported: true
+  },
+  {
+    key: 'lc_kirim',
+    name: 'Kirim Email',
+    brandLogo: brandsLogos.kirimEmailLogo,
+    category: 'Auto Responders',
+    description: 'An Email Marketing Software with built-in email validation & automatic list cleaner',
+    active: false,
+    connected: false,
+    fields: [
+      { name: 'username', label: 'Username' },
+      { name: 'apiKey', label: 'API Key' }
+    ],
     supported: true
   },
   {

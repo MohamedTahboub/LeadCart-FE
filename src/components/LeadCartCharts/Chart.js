@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ApexCharts from 'react-apexcharts';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
+import { getCurrencySymbol } from 'libs';
 
 import { getFormatByValue, getLabelByValue } from 'data/dashboardSettings';
 import './chart.css';
@@ -10,8 +11,10 @@ const AreaChart = ({
   data = [],
   activeTypeValue,
   display,
-  timelineFilter
+  timelineFilter,
+  currency
 }) => {
+  const currencySymbol = getCurrencySymbol(currency);
 
   const initialState = {
     series: [
@@ -54,7 +57,7 @@ const AreaChart = ({
           if (seriesName === 'Checkout Views')
             return `${value} view`;
           else if (seriesName === 'Net Revenue' || seriesName === 'Gross Revenue')
-            return `$${value}`;
+            return `${currencySymbol}${value}`;
           else if (seriesName === 'Conversion Rate' || seriesName === 'abandonmentsRate' || seriesName === 'refundRate')
             return `${value}%`;
           else

@@ -10,7 +10,7 @@ import { reshapeFeed } from './helpers';
 import common from 'components/common';
 import dashboardSettings from 'data/dashboardSettings';
 import dateOptions from 'data/dateOptions';
-import chrtCardData from './chartCardData';
+import chartCardData from './chartCardData';
 import './style.css';
 
 
@@ -21,13 +21,15 @@ const Dashboard = ({
   filtersLabels,
   activities,
   settings,
-  getDashboardChartsData
+  getDashboardChartsData,
+  defaultCurrency
 }) => {
   const [filterKeys, setFilterKeys] = useState({ date: 'weekToDate' });
   const [activeType, setActiveType] = useState('views');
   const [chartsFeed, setChartsFeed] = useState({ activities: { refunds: [] }, sums: {} });
   const [updatingCharts, setUpdatingCharts] = useState(false);
   const [showChartsSettingsModal, setShowChartsSettingsModal] = useState(false);
+
 
   const onOpenChartsSettingsModal = () => {
     setShowChartsSettingsModal(true);
@@ -136,13 +138,15 @@ const Dashboard = ({
                 </div>
 
                 <div className='chart-header-cards'>
-                  {chrtCardData.map((card) =>
-                    (<ChartTypeCard
+                  {chartCardData.map((card) => (
+                    <ChartTypeCard
                       activeType={activeType}
                       data={chartsFeed.sums}
                       onClick={setActiveType}
+                      currency={defaultCurrency}
                       {...card}
-                    />))}
+                    />
+                  ))}
                 </div>
 
                 <div className='chart-body'>
@@ -151,6 +155,7 @@ const Dashboard = ({
                     timelineFilter={filterKeys.date}
                     activeTypeValue={activeType}
                     display={settings.displayMainChart}
+                    currency={defaultCurrency}
                   />
                 </div>
               </div>
@@ -168,6 +173,7 @@ const Dashboard = ({
                     name={card.value}
                     description={getChartPreviewCardDescription(card.value)}
                     value={chartsFeed.sums[card.value]}
+                    currency={defaultCurrency}
                     chart={(
                       <MiniChart data={chartsFeed.activities[card.value]} />
                     )}
@@ -215,6 +221,7 @@ Dashboard.defaultProps = {
 
 const mapStateToProps = ({
   products: { products = [] } = {},
+  settings: { generalModel: { currency: defaultCurrency = 'USD' } = {} } = {},
   dashboard: {
     activities,
     settings = {}
@@ -224,7 +231,8 @@ const mapStateToProps = ({
   return {
     filtersLabels: [{ label: 'All Products', value: 'all' }, ...products.map(({ _id: value, name: label }) => ({ label, value }))],
     activities,
-    settings: withDefaultSetting ? dashboardSettings : settings
+    settings: withDefaultSetting ? dashboardSettings : settings,
+    defaultCurrency
   };
 };
 
