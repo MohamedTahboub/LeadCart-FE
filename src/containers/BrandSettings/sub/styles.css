@@ -206,7 +206,10 @@ div.ever-lesson-logo {
 }
 
 .label-link{
-    opacity: .8;
+    background-color: rgba(0, 0, 0, .65);
+    border-radius: 4px;
+    color: #eeeeee;
+    padding: 0 4px ;
 }
 
 

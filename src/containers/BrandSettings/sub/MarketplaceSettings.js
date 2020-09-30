@@ -23,16 +23,12 @@ const MarketplaceSettings = ({
   const [fields, setFields] = useState({ contactLinks, ...marketPlace });
   const [errors, setErrors] = useState({});
   const [contactLinksError, setContactLinksError] = useState({});
-  const maxLinksMsg = fields.layout?.links?.length === 6 && 'You can only add six links/emails to contact';
 
+  const showContactsLinks = fields.layout?.links?.length < 6;
 
   useEffect(() => {
     setFields({ ...marketPlace, showPoweredBy, contactLinks });
   }, [marketPlace, showPoweredBy]);
-
-  useEffect(() => {
-    setErrors({ ...errors, maxLinksMsg });
-  }, [maxLinksMsg]);
 
 
   const updateFields = (_name, _value) => {
@@ -86,6 +82,8 @@ const MarketplaceSettings = ({
 
   const onAddLink = async () => {
     const { layout: { links = [] } = {}, contactLinks } = fields;
+    const lastLink = fields.layout?.links?.length === 5;
+    const maxLinksMsg = lastLink && 'You can only add six links/emails to contact';
 
     const { isValid, value, errors } = await contactLinksSchema(contactLinks);
 
@@ -100,6 +98,7 @@ const MarketplaceSettings = ({
         contactLinks: {}
       });
       setContactLinksError({});
+      setErrors({ ...errors, maxLinksMsg });
     } else {
       setContactLinksError(errors);
     }
@@ -115,6 +114,8 @@ const MarketplaceSettings = ({
         links: links.filter(({ _id }) => _id !== linkId) || []
       }
     });
+
+    setErrors({ ...errors, maxLinksMsg: '' });
   };
 
 
@@ -156,18 +157,14 @@ const MarketplaceSettings = ({
           <FlexBox column>
             {fields.layout.links && fields.layout.links.map(({ label, value, _id }) => (
               <FlexBox className='mb-2 v-center' key={_id}>
-                <Badge type='primary' className='width-100 truncate label-link'>{label}</Badge>
+                <div className='width-100 truncate  bold-text label-link'>{label}</div>
                 <div className='width-200 truncate bold-text mx-2'>{value}</div>
                 <FaTrash onClick={onDeleteLink(_id)} color='tomato' className='item-clickable delete-link' />
               </FlexBox>
             ))}
           </FlexBox>
 
-          <ErrorMessage>{errors.maxLinksMsg}</ErrorMessage>
-          <ErrorMessage>{contactLinksError.label}</ErrorMessage>
-          <ErrorMessage>{contactLinksError.value}</ErrorMessage>
-
-          <DisplayContent hide={maxLinksMsg}>
+          <DisplayContent hide={!showContactsLinks}>
             <InputRow>
               <TextField
                 name='contactLinks.label'
@@ -193,6 +190,10 @@ const MarketplaceSettings = ({
               </Button>
             </InputRow>
           </DisplayContent>
+
+          <ErrorMessage>{errors?.maxLinksMsg}</ErrorMessage>
+          <ErrorMessage>{contactLinksError.label}</ErrorMessage>
+          <ErrorMessage>{contactLinksError.value}</ErrorMessage>
         </FlexBox>
 
         <InputRow>
