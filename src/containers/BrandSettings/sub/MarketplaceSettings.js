@@ -23,16 +23,16 @@ const MarketplaceSettings = ({
   const [fields, setFields] = useState({ contactLinks, ...marketPlace });
   const [errors, setErrors] = useState({});
   const [contactLinksError, setContactLinksError] = useState({});
-  const maxLinksLength = fields.layout.links && fields.layout.links.length === 6;
+  const maxLinksMsg = fields.layout?.links?.length === 6 && 'You can only add six links/emails to contact';
+
 
   useEffect(() => {
     setFields({ ...marketPlace, showPoweredBy, contactLinks });
-    maxLinksLength ? setErrors({ ...errors, maxLinksLength: 'You can only add six links/emails to contact' }) : setErrors({ ...errors, maxLinksLength: '' });
   }, [marketPlace, showPoweredBy]);
 
   useEffect(() => {
-    maxLinksLength ? setErrors({ ...errors, maxLinksLength: 'You can only add six links/emails to contact' }) : setErrors({ ...errors, maxLinksLength: '' });
-  }, [maxLinksLength]);
+    setErrors({ ...errors, maxLinksMsg });
+  }, [maxLinksMsg]);
 
 
   const updateFields = (_name, _value) => {
@@ -85,28 +85,23 @@ const MarketplaceSettings = ({
 
 
   const onAddLink = async () => {
-    const { layout: { links } = {}, contactLinks } = fields;
+    const { layout: { links = [] } = {}, contactLinks } = fields;
 
-    try {
-      const { isValid, value, errors } = await contactLinksSchema(contactLinks);
+    const { isValid, value, errors } = await contactLinksSchema(contactLinks);
 
-      if (isValid) {
-        setFields({
-          ...fields,
-          layout: {
-            ...fields.layout,
-            links: [
-              ...links, { ...value, _id: ids.generate() }]
-          },
-          contactLinks: {}
-        });
-        setContactLinksError({});
-      } else {
-        setContactLinksError(errors);
-      }
-
-    } catch ({ message }) {
-      setContactLinksError(message);
+    if (isValid) {
+      setFields({
+        ...fields,
+        layout: {
+          ...fields.layout,
+          links: [
+            ...links, { ...value, _id: ids.generate() }]
+        },
+        contactLinks: {}
+      });
+      setContactLinksError({});
+    } else {
+      setContactLinksError(errors);
     }
   };
 
@@ -120,7 +115,6 @@ const MarketplaceSettings = ({
         links: links.filter(({ _id }) => _id !== linkId) || []
       }
     });
-    setErrors({ ...errors, maxLinksLength: '' });
   };
 
 
@@ -169,11 +163,11 @@ const MarketplaceSettings = ({
             ))}
           </FlexBox>
 
-          <ErrorMessage>{errors.maxLinksLength}</ErrorMessage>
+          <ErrorMessage>{errors.maxLinksMsg}</ErrorMessage>
           <ErrorMessage>{contactLinksError.label}</ErrorMessage>
           <ErrorMessage>{contactLinksError.value}</ErrorMessage>
 
-          <DisplayContent hide={maxLinksLength}>
+          <DisplayContent hide={maxLinksMsg}>
             <InputRow>
               <TextField
                 name='contactLinks.label'
