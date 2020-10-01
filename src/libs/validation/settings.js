@@ -32,8 +32,8 @@ export default async (fields) => {//
 
 export const contactLinksSchema = async (fields) => {
   const schema = yup.object({
-    label: yup.string().required('Label shouldn\'t be empty'),
-    value: yup.string().required('value shouldn\'t be empty')
+    label: yup.string().required('Please add a descriptive Lable'),
+    value: yup.string().url().required('Add a valid url for the link')
   }).required();
 
   try {

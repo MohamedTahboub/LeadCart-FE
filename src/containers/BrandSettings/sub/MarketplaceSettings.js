@@ -11,7 +11,7 @@ import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
-const { InputRow, MainBlock, FlexBox, Badge, Button, ErrorMessage, DisplayContent } = common;
+const { InputRow, MainBlock, FlexBox, Button, ErrorMessage, DisplayContent } = common;
 const { Label, TextField, AddImage, Toggle } = InputRow;
 
 const MarketplaceSettings = ({
@@ -157,46 +157,47 @@ const MarketplaceSettings = ({
         <FlexBox column>
           <Label error={errors.support}>Contact Links:</Label>
 
-          <FlexBox column className='mt-2 pl-3'>
-            {fields.layout.links && fields.layout.links.map(({ label, value, _id }) => (
-              <FlexBox className='mb-2 v-center' key={_id}>
-                <div className='width-100 truncate  bold-text label-link'>{label}</div>
-                <div className='width-200 truncate bold-text mx-2'>{value}</div>
-                <FaTrash onClick={onDeleteLink(_id)} color='tomato' className='item-clickable delete-link' />
-              </FlexBox>
-            ))}
-          </FlexBox>
-
-          <DisplayContent hide={!showContactsLinks}>
-            <InputRow className='pl-3'>
-              <TextField
-                name='contactLinks.label'
-                notes='This will be shown in the marketplace navbar'
-                placeholder='Label'
-                onChange={onLinksFieldsChange}
-                value={fields.contactLinks.label}
-              />
-
-              <TextField
-                name='contactLinks.value'
-                notes='This will be shown in the marketplace navbar'
-                placeholder='Link'
-                onChange={onLinksFieldsChange}
-                value={fields.contactLinks.value}
-                className='mx-2'
-              />
-
-              <Button onClick={onAddLink} className='p-2 primary-color'>
-                <FlexBox className='v-center'>
-                  Add Link
+          <FlexBox className='mt-2 pl-3' column>
+            <FlexBox column>
+              {fields.layout.links && fields.layout.links.map(({ label, value, _id }) => (
+                <FlexBox className='mb-2 v-center' key={_id}>
+                  <div className='width-100 truncate  bold-text label-link'>{label}</div>
+                  <div className='width-200 truncate bold-text mx-2'>{value}</div>
+                  <FaTrash onClick={onDeleteLink(_id)} color='tomato' className='item-clickable delete-link' />
                 </FlexBox>
-              </Button>
-            </InputRow>
-          </DisplayContent>
+              ))}
+            </FlexBox>
 
-          <ErrorMessage>{errors?.maxLinksMsg}</ErrorMessage>
-          <ErrorMessage>{contactLinksError.label}</ErrorMessage>
-          <ErrorMessage>{contactLinksError.value}</ErrorMessage>
+            <DisplayContent hide={!showContactsLinks}>
+              <InputRow >
+                <TextField
+                  name='contactLinks.label'
+                  notes='This will be shown in the marketplace navbar'
+                  placeholder='Label'
+                  onChange={onLinksFieldsChange}
+                  value={fields.contactLinks.label}
+                />
+
+                <TextField
+                  name='contactLinks.value'
+                  notes='This will be shown in the marketplace navbar'
+                  placeholder='Link'
+                  onChange={onLinksFieldsChange}
+                  value={fields.contactLinks.value}
+                  className='mx-2'
+                />
+
+                <Button onClick={onAddLink} className='p-2 primary-color'>
+                  <FlexBox className='v-center'>
+                    Add Link
+                  </FlexBox>
+                </Button>
+              </InputRow>
+            </DisplayContent>
+
+            <ErrorMessage>{errors?.maxLinksMsg}</ErrorMessage>
+            <ErrorMessage>{contactLinksError.label || contactLinksError.value}</ErrorMessage>
+          </FlexBox>
         </FlexBox>
 
         <InputRow>
