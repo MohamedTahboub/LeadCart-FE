@@ -5,7 +5,7 @@ const { LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 
 export const main = ({ user = {}, history }) => {
   const { firstName, lastName, activeBrand, email, profileImage, token, activePackage = {} } = user;
-  const isPremium = activePackage.type === 'Premium';
+  const isPremium = Boolean(activePackage && activePackage.type === 'Premium');
 
 
   const menuItems = [

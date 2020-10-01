@@ -14,7 +14,8 @@ const {
 
 const {
   Label,
-  SelectOption
+  SelectOption,
+  Toggle
 } = InputRow;
 
 const PageSettings = () => {
@@ -24,14 +25,16 @@ const PageSettings = () => {
   } = useContext();
 
   const { pageStyles = {} } = product;
-
+  const onToggleChange = (target) => {
+    actions.onProductFieldChange(target);
+  };
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
   };
 
   return (
-    <Tabs active='settings' className='p-2 flex' tabsContentClassName='scrolling-70vh flex'>
+    <Tabs active='styles' className='p-2 flex' tabsContentClassName='scrolling-70vh flex'>
 
       <Tab id='styles' title='Styles' >
         <SettingBox
@@ -113,6 +116,24 @@ const PageSettings = () => {
           </InputRow>
         </SettingBox>
 
+      </Tab>
+      <Tab id='advance' title='Advance' >
+        <SettingBox
+          title='Product Header'
+        >
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Show:
+            </Label>
+            <Toggle
+              value={pageStyles.showHead}
+              name='pageStyles.showHead'
+              onToggle={onToggleChange}
+              beforeLabel='Show'
+              afterLabel='Hide'
+            />
+          </InputRow>
+        </SettingBox>
       </Tab>
     </Tabs>
   );

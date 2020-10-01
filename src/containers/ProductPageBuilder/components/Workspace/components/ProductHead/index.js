@@ -16,8 +16,9 @@ const {
 
 const Header = ({
   supportEmail,
-  logo
-}) => (
+  logo,
+  show = true
+}) => show ? (
   <FlexBox
     spaceBetween
     className='p-2'
@@ -34,7 +35,7 @@ const Header = ({
       {supportEmail}
     </a>
   </FlexBox>
-);
+) : null;
 
 Header.defaultProps = {
   companyName: defaultName,
