@@ -138,7 +138,7 @@ const ButtonSection = ({
             layout={layout}
             containerClasses={containerClasses}
             buttonComponent={buttonComponent}
-            editor={image}
+            image={image}
             onEditorChange={onImageChange}
             section={section}
           />
