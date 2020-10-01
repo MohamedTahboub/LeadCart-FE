@@ -49,6 +49,7 @@ TemplateImage.propTypes = {
 const PreCreateModal = ({
   show,
   onClose,
+  defaultCurrency,
   ...props
 }) => {
   const [name, setName] = useState();
@@ -79,6 +80,7 @@ const PreCreateModal = ({
     if (typeof funnel !== 'object') return;
 
     funnel.name = name;
+    funnel.currency = defaultCurrency;
 
     props.createFunnel({ funnel }, { onSuccess, onFailed });
   };
