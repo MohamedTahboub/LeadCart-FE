@@ -19,7 +19,7 @@ test('Test the render BrandsMenu component', () => {
     brands={brands}
     activeBrand={brands[0].id}
     onChange={() => {
-      console.log(brands[0].id);
+      // console.log(brands[0].id);
     }}
   />);
 

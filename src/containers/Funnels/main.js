@@ -27,6 +27,7 @@ const Funnels = ({
   filtersLabels,
   deleteFunnel,
   subdomain,
+  defaultCurrency,
   domains,
   ...props
 }) => {
@@ -105,6 +106,7 @@ const Funnels = ({
         show={showCreateModal}
         history={props.history}
         onClose={onCreateCancel}
+        defaultCurrency={defaultCurrency}
       />
 
       {!!showDelete && (
@@ -123,7 +125,6 @@ const Funnels = ({
   );
 };
 
-
 const mapStateToProps = ({
   loading,
   funnels,
@@ -131,6 +132,7 @@ const mapStateToProps = ({
   settings: {
     generalModel: {
       subDomain: subdomain,
+      currency: defaultCurrency = 'USD',
       domains = []
     } = {}
   } = {}
@@ -139,6 +141,7 @@ const mapStateToProps = ({
   subdomain,
   domains,
   funnels,
+  defaultCurrency,
   products: products.products.map((p) => ({ ...p, category: p.category || 'Checkout' })),
   filtersLabels: [
     { label: 'All Products', value: 'all' },

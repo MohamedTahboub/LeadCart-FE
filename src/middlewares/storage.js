@@ -1,6 +1,7 @@
 import {
   ACTIVATE_AGENCY_CODE_SUCCESS,
   APP_LAUNCH_SUCCESS,
+  CHANGE_ACCOUNT_DETAILS_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT,
   SIGN_UP_SUCCESS,
@@ -17,6 +18,7 @@ export default ({ dispatch }) => (next) => (action) => {
     || type === UPDATE_USER_PROFILE_IMAGE_SUCCESS
     || type === ACTIVATE_AGENCY_CODE_SUCCESS
     || type === UPGRADE_USER_PACKAGE_SUCCESS
+    || type === CHANGE_ACCOUNT_DETAILS_SUCCESS
     || type === APP_LAUNCH_SUCCESS;
 
   // elemenating any action thats does not belongs to the loging family!
@@ -48,6 +50,13 @@ export default ({ dispatch }) => (next) => (action) => {
         profileImage: payload
       });
     }
+    if (type === CHANGE_ACCOUNT_DETAILS_SUCCESS) {
+      localStorage.leadcart = JSON.stringify({
+        ...JSON.parse(localStorage.leadcart),
+        ...payload
+      });
+    }
+
     if (type === ACTIVATE_AGENCY_CODE_SUCCESS) {
       localStorage.leadcart = JSON.stringify({
         ...JSON.parse(localStorage.leadcart),

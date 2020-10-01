@@ -646,3 +646,7 @@
     font-weight: bold;
     font-size: 16px;
 }
+.disabled-icon{
+  color: lightgray !important;
+  cursor: not-allowed;
+}
