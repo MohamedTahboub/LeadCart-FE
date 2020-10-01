@@ -36,7 +36,7 @@ const ButtonSection = ({
       section,
       field: {
         name: 'styles.image',
-        value: image
+        value: image.value
       }
     });
   };
