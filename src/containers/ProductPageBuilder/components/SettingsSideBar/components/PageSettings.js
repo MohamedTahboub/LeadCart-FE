@@ -126,8 +126,8 @@ const PageSettings = () => {
               Show:
             </Label>
             <Toggle
-              value={pageStyles.hideHead}
-              name='pageStyles.hideHead'
+              value={pageStyles.showHead}
+              name='pageStyles.showHead'
               onToggle={onToggleChange}
               beforeLabel='Show'
               afterLabel='Hide'

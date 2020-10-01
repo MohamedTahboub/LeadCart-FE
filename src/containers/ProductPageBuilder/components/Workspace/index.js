@@ -158,7 +158,7 @@ const Workspace = ({
       style={screenStyles}
     >
       <FlexBox id='product-builder-window' column className={workspaceClasses} >
-        <ProductHead show={pageStyles.hideHead}/>
+        <ProductHead show={pageStyles.showHead}/>
         <FlexBox className='relative-element product-page-content' column style={productStyles}>
           <SettingsHandle onClick={onProductSettings} />
           <DropZone onDrop={onSectionDropped}>

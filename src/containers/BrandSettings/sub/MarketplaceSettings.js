@@ -138,7 +138,7 @@ const MarketplaceSettings = ({
         <InputRow margin='40'>
           <Label
             error={errors.layout && errors.layout.coverImage}
-            notes='Image should be smaller than 2MB, 250 x 250 pixels in size, and in either JPG, PNG, or GIF format.'
+            notes='Image should be smaller than 2MB, and in either JPG, PNG, or GIF format.'
           >
             Background Image:
           </Label>
