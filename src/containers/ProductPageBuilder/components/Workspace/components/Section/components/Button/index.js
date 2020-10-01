@@ -36,7 +36,7 @@ const ButtonSection = ({
       section,
       field: {
         name: 'styles.image',
-        value: image.value
+        value: image
       }
     });
   };
@@ -138,7 +138,7 @@ const ButtonSection = ({
             layout={layout}
             containerClasses={containerClasses}
             buttonComponent={buttonComponent}
-            editor={image}
+            image={image}
             onEditorChange={onImageChange}
             section={section}
           />

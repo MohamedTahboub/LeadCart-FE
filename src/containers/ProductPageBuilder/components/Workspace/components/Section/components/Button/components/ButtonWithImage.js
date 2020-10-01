@@ -5,7 +5,7 @@ import clx from 'classnames';
 
 const { FlexBox } = common;
 
-const ButtonWithImage = ({ layout, containerClasses, buttonComponent, image, onImageChange, section }) => {
+const ButtonWithImage = ({ layout, containerClasses, buttonComponent, image, onEditorChange, section }) => {
 
   return (
     <FlexBox className='fluid py-5' reverse={layout === 'withImageLeft'}>
@@ -18,7 +18,7 @@ const ButtonWithImage = ({ layout, containerClasses, buttonComponent, image, onI
           image={image}
           alt='figure illustration photo'
           name={`figure-image-${section.id}`}
-          onChange={onImageChange}
+          onChange={onEditorChange}
         />
       </FlexBox>
     </FlexBox>
