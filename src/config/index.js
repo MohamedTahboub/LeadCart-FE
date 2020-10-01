@@ -30,7 +30,7 @@ const envsVars = {
     USER_SUB_DOMAIN_URL: 'https://subDomain.leadcart.io/',
     mixPanelId: '9f4e14f1602b54645779337eb660525a',
     intercomAppId: 'oiankyy0',
-    logRocketId: 'olwrix/leadcart',
+    logRocketId: '7mxnqn/leadcart',
     LEADCART_AFFILIATE_CENTER_URL: 'https://affiliates.leadcart.io',
     AFFILIATE_ENCODING_KEY: 'the-strongest-key-ever!!'
   }
