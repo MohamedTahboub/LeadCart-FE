@@ -99,6 +99,9 @@ const MarketplaceSettings = ({
       });
       setContactLinksError({});
       setErrors({ ...errors, maxLinksMsg });
+      setTimeout(() => {
+        setErrors({ ...errors, maxLinksMsg: '' });
+      }, 10000);
     } else {
       setContactLinksError(errors);
     }
@@ -154,7 +157,7 @@ const MarketplaceSettings = ({
         <FlexBox column>
           <Label error={errors.support}>Contact Links:</Label>
 
-          <FlexBox column>
+          <FlexBox column className='mt-2 pl-3'>
             {fields.layout.links && fields.layout.links.map(({ label, value, _id }) => (
               <FlexBox className='mb-2 v-center' key={_id}>
                 <div className='width-100 truncate  bold-text label-link'>{label}</div>
@@ -165,7 +168,7 @@ const MarketplaceSettings = ({
           </FlexBox>
 
           <DisplayContent hide={!showContactsLinks}>
-            <InputRow>
+            <InputRow className='pl-3'>
               <TextField
                 name='contactLinks.label'
                 notes='This will be shown in the marketplace navbar'
