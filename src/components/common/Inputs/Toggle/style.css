@@ -7,7 +7,7 @@
     background-color: lightgray;
     position: relative;
     border-radius: 30px;
-    padding: 1.5px;
+    /* padding: 1.5px; */
     cursor: pointer;
     margin: 8px 25px;
 }
@@ -44,7 +44,7 @@
 }
 
 .toggle-bar .circle {
-    margin: auto 0;
+    margin: 1px;
     cursor: pointer;
     height: calc(var(--bar-height) - 2px);
     width: calc(var(--bar-height) - 2px);
