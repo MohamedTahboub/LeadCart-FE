@@ -59,7 +59,7 @@ const MandatoryDetails = ({
           name='image'
           children='Upload'
         />
-      </InputRow>
+      </Inpu tRow>
     </Fragment>
   );
 };

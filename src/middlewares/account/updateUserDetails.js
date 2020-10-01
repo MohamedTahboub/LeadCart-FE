@@ -19,7 +19,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (arg) => {
       if (meta.onSuccess) meta.onSuccess(arg);
-      return onChangeAccountDetailsSuccess(arg);
+      return onChangeAccountDetailsSuccess(payload);
     },
     onFailed: (arg) => {
       if (meta.onFailed) meta.onFailed(arg);

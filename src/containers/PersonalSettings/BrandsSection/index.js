@@ -4,6 +4,7 @@ import { Avatar, Table } from 'antd';
 import { Search } from 'components/Inputs';
 import { Button } from 'components/Buttons';
 import { NewBrandModal } from './components';
+import { FaTrash } from 'react-icons/fa';
 import Section from '../Section';
 import config from 'config';
 import { notification } from 'libs';
@@ -55,6 +56,15 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
       key: 'date',
       render: (text, { createdAt } = {}) => (
         <span>{moment(createdAt).format('MMM DD YYYY')}</span>
+      )
+    }, {
+      key: 'date',
+      render: (text, { createdAt } = {}) => (
+        <FaTrash
+          color='tomato'
+          className='item-clickable delete-link disabled-icon'
+          data-tip='Brands Deletion is disabled temporarily'
+        />
       )
     }
   ];

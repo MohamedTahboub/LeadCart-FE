@@ -2,6 +2,7 @@ import {
   ACTIVATE_AGENCY_CODE_FAILED,
   ACTIVATE_AGENCY_CODE_SUCCESS,
   APP_LAUNCH_SUCCESS,
+  CHANGE_ACCOUNT_DETAILS_SUCCESS,
   GET_ACTIVATED_AGENCY_CODES_NUMBERS,
   GET_USER_PLAN,
   LOGIN_FAILED,
@@ -59,6 +60,7 @@ export default (state = initialState, { type, payload }) => {
   case LOGIN_FAILED: return { ...state, error: payload };
   case LOGOUT: return { ...state, isLoggedIn: false };
   case UPDATE_USER_PROFILE_IMAGE_SUCCESS: return { ...state, user: { ...state.user, profileImage: payload } };
+  case CHANGE_ACCOUNT_DETAILS_SUCCESS: return { ...state, user: { ...state.user, ...payload } };
   case ACTIVATE_AGENCY_CODE_SUCCESS:
     return {
       ...state,
