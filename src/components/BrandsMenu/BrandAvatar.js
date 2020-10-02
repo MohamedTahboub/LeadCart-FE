@@ -35,7 +35,7 @@ const BrandAvatar = ({ brand, className }) => {
       <Avatar size={32} className='mr-2 brand-avatar-image' src={brand.logo}>{brand.name[0]}</Avatar>
       <Tag className='brand-avatar-subscription'>
         {brandType ? (
-          <span className='bold-text'>{`${brandType} Account`}</span>
+          <span className='capitalized-text'>{`${brandType}-Account`}</span>
         ) : (
           brandPackage
         )}
