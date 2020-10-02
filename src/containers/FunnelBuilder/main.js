@@ -49,14 +49,6 @@ const FunnelBuilder = ({
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
   const [unblock, SetUnblock] = useState();
-  const [openRuleModal, setOpenRuleModal] = useState(false);
-
-  const onToggleRuleModal = (activeRule, setActiveRule) => {
-    setOpenRuleModal((open) => {
-      if (activeRule && open && isFunction(setActiveRule)) setActiveRule();
-      return !open;
-    });
-  };
 
   const onLocationChange = () => {
     saveFunnelState({ ...fields });
@@ -123,7 +115,7 @@ const FunnelBuilder = ({
       return setErrors(errors);
     }
 
-    const startPoint = getStartPointProduct(funnel);
+    const startPoint = getStartPointProduct(fields);
     if (startPoint) funnel.startPoint = startPoint;
 
     const productsUpdates = extractProductsRelations(funnel);
@@ -159,7 +151,7 @@ const FunnelBuilder = ({
 
   useEffect(() => {
     props.history.push(`?sub=${activePage}`);
-  }, [activePage, props.history]);
+  }, [activePage]);
 
   const onPageChange = (page) => () => {
     setActivePage(page);
@@ -171,31 +163,31 @@ const FunnelBuilder = ({
     activePage,
     subdomain,
     domains,
-    onToggleRuleModal,
     funnel: fields,
     onSave,
     history: props.history
   };
+  const isOptInFunnel = fields.type && fields.type === 'OPT-IN';
 
   const sidebarProps = {
     onChange,
     funnel: fields,
     onToggleDarkTheme,
-    darkTheme: enableDarkTheme
+    darkTheme: enableDarkTheme,
+    isOptInFunnel
   };
   const workSpaceProps = {
     funnel: fields,
     onChange,
     productsNodeDetails,
     errors,
-    history: props.history
+    history: props.history,
+    isOptInFunnel
   };
 
   const rulesProps = {
     funnelId: fields._id,
     rules: fields.rules,
-    openRuleModal,
-    onToggleRuleModal,
     funnelProducts: fields.products
   };
   return (

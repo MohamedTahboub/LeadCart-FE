@@ -16,7 +16,7 @@ import {
 } from './components';
 import MultipleStepForm from 'components/MultipleStepForm';
 
-const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
+const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
 
 const StaticSections = ({ language, section }) => {
@@ -42,6 +42,11 @@ const StaticSections = ({ language, section }) => {
     },
     actions
   } = useContext();
+
+  const {
+    fullName = 'Full Name',
+    email
+  } = language.checkout || {};
 
   const onChange = ({ target: { name, value } }) => {
     actions.onProductFieldChange({ name, value });
@@ -187,6 +192,26 @@ const StaticSections = ({ language, section }) => {
           className='medium-text blush-gray max-w-500 margin-v-20 aligned-center'
         >
           <OrderReceipt />
+        </FlexBox>
+        <FlexBox
+          id='opt-in'
+          column
+        >
+          <CheckoutInput
+            disabled
+            label={fullName}
+          />
+          <CheckoutInput
+            disabled
+            label={email}
+          />
+          <CompleteOrderBtn
+            name='custom.orderButtonText'
+            className='mt-3 soft-edges py-1'
+            text={orderButtonText}
+            color={pageStyles.themeColor}
+            onChange={onChange}
+          />
         </FlexBox>
       </LayoutSwitch>
     </FlexBox>

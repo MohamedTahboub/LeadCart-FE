@@ -216,9 +216,9 @@ div.sidebar-menu-content div.ant-collapse{
 
 .tabs-funnel .tabs-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .tabs-funnel .tabs-header .tab-item {
-    margin:0;
+    margin:0 5px;
 }

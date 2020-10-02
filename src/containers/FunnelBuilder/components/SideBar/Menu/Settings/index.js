@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import common from 'components/common';
@@ -34,7 +34,8 @@ const Settings = ({
     language,
     currency = defaultCurrency
   } = {},
-  onChange
+  onChange,
+  isOptInFunnel
 }) => {
 
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
