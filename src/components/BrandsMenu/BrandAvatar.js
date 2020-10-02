@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Avatar, Tag } from 'antd';
 import classNames from 'classnames';
 import './index.css';
@@ -18,11 +18,28 @@ const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
   }
 };
 
+const getBrandType = ({ type }) => {
+  const brandTypes = {
+    Admin: '',
+    Sub: 'Sub'
+  };
+  return brandTypes[type] || '';
+};
+
+
 const BrandAvatar = ({ brand, className }) => {
+  const brandType = getBrandType(brand);
+  const brandPackage = getBrandActivePackage(brand);
   return (
     <span className={classNames('brand-avatar-wrapper', className)}>
       <Avatar size={32} className='mr-2 brand-avatar-image' src={brand.logo}>{brand.name[0]}</Avatar>
-      <Tag className='brand-avatar-subscription'>{getBrandActivePackage(brand)}</Tag>
+      <Tag className='brand-avatar-subscription'>
+        {brandType ? (
+          <span className='uppercase'>{`${brandType}-Account`}</span>
+        ) : (
+          brandPackage
+        )}
+      </Tag>
     </span>
   );
 };
