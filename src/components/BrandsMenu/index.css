@@ -24,5 +24,7 @@
   top: 10px;
   bottom: unset;
   color: orange;
-
+}
+.uppercase{
+  text-transform: uppercase;
 }

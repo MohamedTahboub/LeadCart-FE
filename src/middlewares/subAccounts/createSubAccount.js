@@ -16,7 +16,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return onCreateSubAccountSuccess({ ...payload, _id: args.id });
+      return onCreateSubAccountSuccess({ ...payload, _id: args.id, brand: args.brand });
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
