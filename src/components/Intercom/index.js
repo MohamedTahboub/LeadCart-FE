@@ -7,8 +7,15 @@ import config from '../../config';
 
 const { intercomAppId } = config;
 
-const IntercomAPP = ({ user = {} }) => {
+const checkIfUserHasSupportEnabled = (brands = [], { activeBrand }) => {
+  const { type = 'Admin' } = brands.find(({ id }) => id === activeBrand) || {};
+  return type === 'Admin';
+};
+
+const IntercomAPP = ({ user = {}, brands }) => {
   const [state, setState] = useState({});
+
+  const hasSupport = checkIfUserHasSupportEnabled(brands, user);
 
   useEffect(() => {
     const ActiveUser = {
@@ -19,20 +26,18 @@ const IntercomAPP = ({ user = {} }) => {
     setState(ActiveUser);
   }, [user]);
 
+  if (!hasSupport) return null;
 
-  return (<Intercom
-    appID={intercomAppId}
-    {...state}
-  />
+  return (
+    <Intercom
+      appID={intercomAppId}
+      {...state}
+    />
   );
 };
 
-IntercomAPP.propTypes = {
-
-};
+IntercomAPP.propTypes = {};
 
 
-const mapStateToProps = ({ user: { user = {} } = {} }) => ({
-  user
-});
+const mapStateToProps = ({ user: { user = {} } = {}, brands = [] }) => ({ user, brands });
 export default connect(mapStateToProps)(IntercomAPP);

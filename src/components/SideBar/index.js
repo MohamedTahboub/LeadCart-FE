@@ -56,15 +56,12 @@ const SideBar = ({
   appInit,
   logout,
   updateActiveBrand,
-  brands,
-  ...props
+  brands
 }) => {
   const [isBrandsOpen, setBrandsOpen] = useState(false);
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
 
   const menus = sidebarMenus({ brands, user, history });
-
-
 
 
   const onActiveBrandChange = (activeBrand) => {
