@@ -1,5 +1,6 @@
 import {
   CREATE_BRAND_SUCCESS,
+  CREATE_SUB_ACCOUNT_SUCCESS,
   DELETE_BRAND_SUCCESS,
   GET_USER_BRANDS,
   UPDATE_ACTIVE_BRAND_SUCCESS,
@@ -20,6 +21,12 @@ export default (state = initialState, { type, payload }) => {
       id: payload._id,
       ...payload
     }];
+
+  case CREATE_SUB_ACCOUNT_SUCCESS:
+    return [
+      ...state,
+      payload.brand
+    ];
 
   case UPDATE_MARKETPLACE_SETTINGS_SUCCESS:
     return state.map((brand) => {
