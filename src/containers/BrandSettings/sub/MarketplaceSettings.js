@@ -175,10 +175,10 @@ const MarketplaceSettings = ({
 
         <InputRow margin='50'>
           <Label
-            error={errors?.favicon}
+            error={errors.favicon}
             notes='format for the image you have chosen must be 16x16, 32x32 or 64x64  pixel'
           >
-            Checkout Favicon:
+            Marketplace Favicon:
           </Label>
 
           <AddImage
