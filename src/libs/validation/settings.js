@@ -9,6 +9,7 @@ export default async (fields) => {//
     country: yup.string().default('US'),
     currency: yup.string().default('US'),
     timeZone: yup.string().default('Central America'),
+    supportEmail: yup.string().email(),
     layout: yup.object({
       name: yup.string().default('MarketPlace Name'),
       coverImage: yup.string().url(),
@@ -17,7 +18,8 @@ export default async (fields) => {//
         value: yup.string().required()
       }))
     }).required(),
-    showPoweredBy: yup.boolean().default(true)
+    showPoweredBy: yup.boolean().default(true),
+    favicon: yup.string().required()
   }).required();
 
   try {

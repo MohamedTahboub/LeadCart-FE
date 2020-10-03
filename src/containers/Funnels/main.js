@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import * as funnelsActions from 'actions/funnels';
 import * as productsActions from 'actions/products';
 import { notification } from 'libs';
-import config from 'config';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import { FunnelCard, PreCreateModal } from './components';
+import { getMarketPlaceUrl } from 'helpers/common';
+
 import './style.css';
 
-const { USER_SUB_DOMAIN_URL } = config;
 const {
   Page,
   PageHeader,
@@ -20,13 +20,11 @@ const {
 } = common;
 
 
-const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
-
 const Funnels = ({
   funnels,
   filtersLabels,
   deleteFunnel,
-  subdomain,
+  subDomain,
   defaultCurrency,
   domains,
   ...props
@@ -67,13 +65,8 @@ const Funnels = ({
 
 
   const onPreview = (funnelUrl) => () => {
-    const domain = getValidDomain(domains);
-    let url;
-
-    if (domain && domain.domain) url = `https://${domain.domain}/${funnelUrl}`;
-    else url = `${USER_SUB_DOMAIN_URL.replace('subDomain', subdomain)}${funnelUrl}`;
-
-    window.open(url, '_blank');
+    const url = getMarketPlaceUrl({ domains, subDomain });
+    window.open(`${url}${funnelUrl}`, '_blank');
   };
 
   return (
@@ -131,14 +124,14 @@ const mapStateToProps = ({
   products,
   settings: {
     generalModel: {
-      subDomain: subdomain,
+      subDomain,
       currency: defaultCurrency = 'USD',
       domains = []
     } = {}
   } = {}
 }) => ({
   isFetching: loading,
-  subdomain,
+  subDomain,
   domains,
   funnels,
   defaultCurrency,
