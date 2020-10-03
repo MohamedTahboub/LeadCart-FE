@@ -177,6 +177,26 @@ const MarketplaceSettings = ({
           </AddImage>
         </InputRow>
 
+
+        <InputRow margin='50'>
+          <Label
+            error={errors?.favicon}
+            notes='Icon Size should be smaller than (12 * 12), (32 * 32), (64 * 64)'
+          >
+            Checkout Favicon:
+          </Label>
+
+          <AddImage
+            value={fields.favicon}
+            subLabel='Logo'
+            source='checkout-favicon'
+            name='favicon'
+            onUploaded={(image) => updateFields('favicon', image)}
+          >
+            Icon
+          </AddImage>
+        </InputRow>
+
         <FlexBox column>
           <Label error={errors.support}>Contact Links:</Label>
 
