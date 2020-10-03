@@ -1,6 +1,8 @@
 import uuid from 'uuid/v4';
 import * as immutable from 'object-path-immutable';
 
+import config from 'config';
+
 export const insensitiveSearch = (searchWord = '', comparedWord = '') => comparedWord.toLowerCase().replace(/\s/g, '').includes(searchWord.toLowerCase().replace(/\s/, ''));
 
 export const GetCardType = (number) => {
@@ -128,4 +130,17 @@ export const passProps = (...args) => {
     }
     return state;
   };
+};
+
+const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
+
+
+export const getMarketPlaceUrl = ({ domains = [], subDomain }) => {
+  const { USER_SUB_DOMAIN_URL } = config;
+  const validDomain = getValidDomain(domains);
+
+  if (validDomain?.domain)
+    return `https://${validDomain.domain}/`;
+  else
+    return `${USER_SUB_DOMAIN_URL.replace('subDomain', subDomain)}`;
 };

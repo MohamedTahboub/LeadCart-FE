@@ -3,23 +3,41 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa';
 import ids from 'shortid';
+import { MdLaunch } from 'react-icons/md';
 
 import { contactLinksSchema, marketPlaceSettingSchema } from 'libs/validation';
 import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
+import { getMarketPlaceUrl } from 'helpers/common';
+
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, FlexBox, Button, ErrorMessage, DisplayContent } = common;
 const { Label, TextField, AddImage, Toggle } = InputRow;
+
+
+const Header = ({ domains, subDomain }) => {
+  const url = getMarketPlaceUrl({ domains, subDomain });
+
+  const onCheckoutPreview = () => window.open(url, '_blank');
+
+  return (
+    <FlexBox className='v-center'>
+      <p className='m-0 mr-4'>Marketplace Page Settings</p>
+      <MdLaunch onClick={onCheckoutPreview} className='item-clickable checkout-previre-icon' size={18} />
+    </FlexBox>
+  );
+};
+
 
 const MarketplaceSettings = ({
   marketPlace,
   getSave,
   ...props
 }) => {
-  const { showPoweredBy = true, contactLinks = {} } = marketPlace;
+  const { showPoweredBy = true, contactLinks = {}, domains = [], subDomain } = marketPlace;
   const [fields, setFields] = useState({ contactLinks, ...marketPlace });
   const [errors, setErrors] = useState({});
   const [contactLinksError, setContactLinksError] = useState({});
@@ -124,7 +142,7 @@ const MarketplaceSettings = ({
 
   return (
     <FlexBox column className='marketplace-settings-bg'>
-      <MainBlock title='Marketplace Page Settings' containerClasses='transparent-white-bg'>
+      <MainBlock title={<Header domains={domains} subDomain={subDomain} />} containerClasses='transparent-white-bg'>
         <InputRow>
           <Label error={errors.name}>Displayed Company Name:</Label>
           <TextField
@@ -151,6 +169,26 @@ const MarketplaceSettings = ({
             onUploaded={(image) => updateFields('layout.coverImage', image)}
           >
             Image
+          </AddImage>
+        </InputRow>
+
+
+        <InputRow margin='50'>
+          <Label
+            error={errors?.favicon}
+            notes='Icon Size should be smaller than (12 * 12), (32 * 32), (64 * 64)'
+          >
+            Checkout Favicon:
+          </Label>
+
+          <AddImage
+            value={fields.favicon}
+            subLabel='Logo'
+            source='checkout-favicon'
+            name='favicon'
+            onUploaded={(image) => updateFields('favicon', image)}
+          >
+            Icon
           </AddImage>
         </InputRow>
 
