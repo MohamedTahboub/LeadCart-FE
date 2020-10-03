@@ -26,6 +26,12 @@ const Word = ({
   subs = []
 }) => {
   const hasSubs = !!subs.length;
+  const [hasValue, setHasValue] = useState(true);
+
+  useEffect(() => {
+    setHasValue(!!value);
+  }, []);
+
 
   return (
     <div className='language-word-item'>
@@ -36,7 +42,7 @@ const Word = ({
         >
           {`${label}:`}
         </label>
-        {value &&
+        {hasValue &&
           <InputRow.TextField
             className='word-input'
             value={value}
@@ -74,6 +80,7 @@ const LanguageContext = ({
       wordKey,
       value
     });
+
   };
 
   return (
