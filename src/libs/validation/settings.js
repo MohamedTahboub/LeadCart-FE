@@ -19,7 +19,7 @@ export default async (fields) => {//
       }))
     }).required(),
     showPoweredBy: yup.boolean().default(true),
-    favicon: yup.string().required()
+    favicon: yup.string().url()
   }).required();
 
   try {
