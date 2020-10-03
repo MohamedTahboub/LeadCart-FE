@@ -10,23 +10,18 @@ import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
-import config from 'config';
+import { getMarketPlaceUrl } from 'helpers/common';
 
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, FlexBox, Button, ErrorMessage, DisplayContent } = common;
 const { Label, TextField, AddImage, Toggle } = InputRow;
-const { USER_SUB_DOMAIN_URL } = config;
 
 
 const Header = ({ domains, subDomain }) => {
-  const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
-  const domain = getValidDomain(domains);
-  const url = (domain?.domain) ? `https://${domain.domain}` : `${USER_SUB_DOMAIN_URL.replace('subDomain', subDomain)}`;
+  const url = getMarketPlaceUrl({ domains, subDomain });
 
-  const onCheckoutPreview = () => {
-    window.open(url, '_blank');
-  };
+  const onCheckoutPreview = () => window.open(url, '_blank');
 
   return (
     <FlexBox className='v-center'>
