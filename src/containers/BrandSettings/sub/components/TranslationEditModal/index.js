@@ -36,14 +36,17 @@ const Word = ({
         >
           {`${label}:`}
         </label>
-        <InputRow.TextField
-          className='word-input'
-          value={value}
-          onChange={onChange}
-          name={keyValue}
-          id={keyValue}
-        />
+        {value &&
+          <InputRow.TextField
+            className='word-input'
+            value={value}
+            onChange={onChange}
+            name={keyValue}
+            id={keyValue}
+          />
+        }
       </div>
+
       {hasSubs && (
         <div className='word-subs'>
           {subs.map((word) => (

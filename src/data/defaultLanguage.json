@@ -184,43 +184,55 @@
             ]
         },
         {
-            "title": "Order Receipt",
-            "key": "orderReceipt",
+            "title": "Thank you page Translations",
+            "key": "thankyouPage",
             "words": [
                 {
-                    "key": "heyMessage",
-                    "value": "Hey",
-                    "label": "Hey"
+                    "key": "thankyouMessageTitle",
+                    "value": "THANK YOU, ",
+                    "label": "THANK YOU, "
                 },
                 {
-                    "key": "intro_1",
-                    "value": "We've got your order!",
-                    "label": "We've got your order!"
+                    "key": "thankyouMessageContent",
+                    "value": "Great choice you will get an email shortly with your purchase",
+                    "label": "Great choice you will get an email shortly with your purchase"
                 },
                 {
-                    "key": "intro_2",
-                    "value": "Here's your receipt.",
-                    "label": "Here's your receipt."
+                    "key": "orderDetails",
+                    "label": "Order Details before and after the products names",
+                    "subs": [
+                        {
+                            "key": "orderDetailsBeforeProductsNames",
+                            "value": "Your Purchases Details for the",
+                            "label": "(Before Products Names) Your Purchases Details for the"
+                        },
+                        {
+                            "key": "orderDetailsAfterProductsNames",
+                            "value": "listed below",
+                            "label": "(After Products Names) listed below"
+                        }
+                    ]
                 },
                 {
-                    "key": "orderNumberLabel",
-                    "value": "ORDER NO.",
-                    "label": "ORDER NO."
+                    "key": "orderSummary",
+                    "label": "Order Receipt",
+                    "subs": [
+                        {
+                            "key": "orderReceiptSummary",
+                            "value": "Your Order Receipt Summary",
+                            "label": "Your Order Receipt Summary"
+                        },
+                        {
+                            "key": "totalAmountPaid",
+                            "value": "Total Amount Paid",
+                            "label": "Total Amount Paid"
+                        }
+                    ]
                 },
                 {
-                    "key": "itemsLabel",
-                    "value": "ITEMS",
-                    "label": "ITEMS"
-                },
-                {
-                    "key": "totalText",
-                    "value": "Total",
-                    "label": "Total"
-                },
-                {
-                    "key": "accessButton",
-                    "value": "Access Your Product",
-                    "label": "Access Your Product"
+                    "key": "thankyouPageNote",
+                    "value": "Note: If you are facing any issue accessing your purchase please contact us",
+                    "label": "Note: If you are facing any issue accessing your purchase please contact us"
                 }
             ]
         }
