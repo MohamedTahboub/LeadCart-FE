@@ -17,7 +17,8 @@ export default async (fields) => {//
         value: yup.string().required()
       }))
     }).required(),
-    showPoweredBy: yup.boolean().default(true)
+    showPoweredBy: yup.boolean().default(true),
+    favicon: yup.string().required()
   }).required();
 
   try {
