@@ -213,6 +213,14 @@ div.ever-lesson-logo {
     padding: 0 4px;
 }
 
+.checkout-previre-icon{
+    transition: color .3s ease-in-out;
+}
+
+.checkout-previre-icon:hover{
+    color:gray;
+}
+
 
 
 @media only screen and (min-width: 1150px) {

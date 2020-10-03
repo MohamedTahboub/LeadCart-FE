@@ -3,23 +3,46 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa';
 import ids from 'shortid';
+import { MdLaunch } from 'react-icons/md';
 
 import { contactLinksSchema, marketPlaceSettingSchema } from 'libs/validation';
 import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
+import config from 'config';
+
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, FlexBox, Button, ErrorMessage, DisplayContent } = common;
 const { Label, TextField, AddImage, Toggle } = InputRow;
+const { USER_SUB_DOMAIN_URL } = config;
+
+
+const Header = ({ domains, subDomain }) => {
+  const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
+  const domain = getValidDomain(domains);
+  const url = (domain?.domain) ? `https://${domain.domain}` : `${USER_SUB_DOMAIN_URL.replace('subDomain', subDomain)}`;
+
+  const onCheckoutPreview = () => {
+    window.open(url, '_blank');
+  };
+
+  return (
+    <FlexBox className='v-center'>
+      <p className='m-0 mr-4'>Marketplace Page Settings</p>
+      <MdLaunch onClick={onCheckoutPreview} className='item-clickable checkout-previre-icon' size={18} />
+    </FlexBox>
+  );
+};
+
 
 const MarketplaceSettings = ({
   marketPlace,
   getSave,
   ...props
 }) => {
-  const { showPoweredBy = true, contactLinks = {} } = marketPlace;
+  const { showPoweredBy = true, contactLinks = {}, domains = [], subDomain } = marketPlace;
   const [fields, setFields] = useState({ contactLinks, ...marketPlace });
   const [errors, setErrors] = useState({});
   const [contactLinksError, setContactLinksError] = useState({});
@@ -124,7 +147,7 @@ const MarketplaceSettings = ({
 
   return (
     <FlexBox column className='marketplace-settings-bg'>
-      <MainBlock title='Marketplace Page Settings' containerClasses='transparent-white-bg'>
+      <MainBlock title={<Header domains={domains} subDomain={subDomain} />} containerClasses='transparent-white-bg'>
         <InputRow>
           <Label error={errors.name}>Displayed Company Name:</Label>
           <TextField
