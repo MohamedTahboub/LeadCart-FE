@@ -176,7 +176,7 @@ const MarketplaceSettings = ({
         <InputRow margin='50'>
           <Label
             error={errors?.favicon}
-            notes='Icon Size should be smaller than (12 * 12), (32 * 32), (64 * 64)'
+            notes='format for the image you have chosen must be 16x16, 32x32 or 64x64  pixel'
           >
             Checkout Favicon:
           </Label>
