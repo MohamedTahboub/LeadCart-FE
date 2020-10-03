@@ -50,6 +50,15 @@ const FunnelBuilder = ({
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
   const [unblock, SetUnblock] = useState();
 
+  const [openRuleModal, setOpenRuleModal] = useState(false);
+
+  const onToggleRuleModal = (activeRule, setActiveRule) => {
+    setOpenRuleModal((open) => {
+      if (activeRule && open && isFunction(setActiveRule)) setActiveRule();
+      return !open;
+    });
+  };
+
   const onLocationChange = () => {
     saveFunnelState({ ...fields });
   };
@@ -163,6 +172,7 @@ const FunnelBuilder = ({
     activePage,
     subdomain,
     domains,
+    onToggleRuleModal,
     funnel: fields,
     onSave,
     history: props.history
@@ -188,6 +198,8 @@ const FunnelBuilder = ({
   const rulesProps = {
     funnelId: fields._id,
     rules: fields.rules,
+    openRuleModal,
+    onToggleRuleModal,
     funnelProducts: fields.products
   };
   return (
