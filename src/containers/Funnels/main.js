@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import * as funnelsActions from 'actions/funnels';
 import * as productsActions from 'actions/products';
 import { notification } from 'libs';
-import config from 'config';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import { FunnelCard, PreCreateModal } from './components';
@@ -12,7 +11,6 @@ import { getMarketPlaceUrl } from 'helpers/common';
 
 import './style.css';
 
-const { USER_SUB_DOMAIN_URL } = config;
 const {
   Page,
   PageHeader,
@@ -21,8 +19,6 @@ const {
   Button
 } = common;
 
-
-const getValidDomain = (domains = []) => domains.find(({ verified, connected }) => verified && connected);
 
 const Funnels = ({
   funnels,
