@@ -23,7 +23,7 @@ const StaticSections = ({ language, section }) => {
   const { content: { twoStepCheckout } } = section;
   const {
     state: {
-      funnel: { paymentMethods } = {},
+      funnel: { paymentMethods, type } = {},
       product: {
         name,
         category: productCategory = 'checkout',
@@ -48,9 +48,15 @@ const StaticSections = ({ language, section }) => {
     email
   } = language.checkout || {};
 
+  const isOptInFunnel = type === 'OPT-IN';
+  const isThankyouProduct = productCategory === 'thankyoupage';
+
   const onChange = ({ target: { name, value } }) => {
     actions.onProductFieldChange({ name, value });
   };
+
+
+  if (isThankyouProduct && isOptInFunnel) return null;
 
   return (
     <FlexBox column className='relative-element'>

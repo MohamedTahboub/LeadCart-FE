@@ -48,32 +48,36 @@ const Settings = ({
   return (
     <FlexBox column className='margin-top-10'>
       <FlexBox flex column>
-        <FlexBox flex center='v-center'>
-          <Label
-            description='This will appear on your cart page,this is just for presentation purpose'
-          >
+        {!isOptInFunnel && (
+          <Fragment>
+            <FlexBox flex center='v-center'>
+              <Label
+                description='This will appear on your cart page,this is just for presentation purpose'
+              >
             Currency:
-          </Label>
-          <SearchInput
-            size='small'
-            width={350}
-            options={currenciesList}
-            defaultValue={currency}
-            name='currency'
-            onChange={onFiledChange}
-          />
-        </FlexBox>
-        <FlexBox flex column className='mt-3'>
-          <Label>
+              </Label>
+              <SearchInput
+                size='small'
+                width={350}
+                options={currenciesList}
+                defaultValue={currency}
+                name='currency'
+                onChange={onFiledChange}
+              />
+            </FlexBox>
+            <FlexBox flex column className='mt-3'>
+              <Label>
             Payment Method:
-          </Label>
-          <PaymentsGateways
-            name='paymentMethods'
-            selected={paymentMethods}
-            onChange={onFiledChange}
-            currency={currency}
-          />
-        </FlexBox>
+              </Label>
+              <PaymentsGateways
+                name='paymentMethods'
+                selected={paymentMethods}
+                onChange={onFiledChange}
+                currency={currency}
+              />
+            </FlexBox>
+          </Fragment>
+        )}
         <FlexBox flex center='v-center'>
           <Label>
             language:

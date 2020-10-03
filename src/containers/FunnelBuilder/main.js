@@ -41,10 +41,11 @@ const FunnelBuilder = ({
   saveFunnelState,
   ...props
 }) => {
-  const { url: funnelUrl } = props.match.params;
+  const { history: { location = {} } = {}, match: { params: { url: funnelUrl } = {} } = {} } = props;
+
   const [fields, setFields] = useState(savedFunnel);
   const [errors, setErrors] = useState({});
-  const { sub: activeSub = 'blocks' } = queryString.parse(props.history.location.search.replace('?', ''));
+  const { sub: activeSub = 'blocks' } = queryString.parse(location.search.replace('?', ''));
   const [activePage, setActivePage] = useState(activeSub);
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
@@ -86,11 +87,11 @@ const FunnelBuilder = ({
   };
 
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
+
   useEffect(() => {
     const funnel = getFunnelByUrl(funnelUrl);
 
     if (!funnel) return;
-
     if (funnel._id === fields._id) {
       if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules))
         setFields(funnel);

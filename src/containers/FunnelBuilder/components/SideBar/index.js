@@ -157,7 +157,7 @@ const SideBar = ({
         </Tab>
 
       </Tabs>
-    </SideMenu >
+    </SideMenu>
 
 
   );
