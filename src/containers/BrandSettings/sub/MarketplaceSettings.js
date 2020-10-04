@@ -239,7 +239,7 @@ const MarketplaceSettings = ({
         </FlexBox>
 
         <InputRow>
-          <Label error={errors.showPoweredBy}>Powered by Branding:</Label>
+          <Label error={errors.showPoweredBy}>LeadCart Branding:</Label>
           <Toggle
             name='showPoweredBy'
             value={fields.showPoweredBy}
