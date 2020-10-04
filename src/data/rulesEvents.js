@@ -10,11 +10,11 @@ export default [
   {
     label: 'Cart Abandonment',
     value: 'PROSPECT'
+  },
+  {
+    label: 'Lead Capture',
+    value: 'LEAD_CAPTURE'
   }
-  // {
-  //   "label": "Subscription Canceled",
-  //   "value": "subscriptionCanceled"
-  // },
   // {
   //   "label": "Subscription Charge",
   //   "value": "subscriptionCharged"

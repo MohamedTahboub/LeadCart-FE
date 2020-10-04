@@ -179,6 +179,14 @@ const Email = ({
               </InputRow.Note>
             </InputRow>
             <InputRow>
+              <InputRow.Label>New Lead</InputRow.Label>
+              <InputRow.Note
+                content='This email is sent every time a lead gets captured.'
+              >
+                <InputRow.Toggle value name='newLead' />
+              </InputRow.Note>
+            </InputRow>
+            <InputRow>
               <InputRow.Label> Failed Charge</InputRow.Label>
               <InputRow.Note
                 content="This email is sent each time a customer's subscription payment fails to charge."

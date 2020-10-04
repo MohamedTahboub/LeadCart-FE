@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import common from 'components/common';
 import { connect } from 'react-redux';
+import clx from 'classnames';
+
 import * as funnelActions from 'actions/funnels';
 import { notification } from 'libs';
-
 import { Modal } from 'components/Modals';
+import { optIn as sampleOptInFunnel } from 'data/sampleFunnel'; import common from 'components/common';
 
-import { basic as sampleBasicFunnel } from 'data/sampleFunnel';
+import checkoutFunnelImage from 'assets/images/checkout-thumbnail-template.png';
+// Need to Change
+import optInFunnelImage from 'assets/images/optIn-thumbnail-template.png';
 
-import basicFunnelImage from 'assets/images/basicFunnelImage.png';
-import blankFunnelImage from 'assets/images/blankFunnelImage.png';
 
-const {
-  Button,
-  InputRow
-} = common;
+const { Button, InputRow, FlexBox } = common;
 
 const funnelsTypes = {
-  basic: sampleBasicFunnel, // sampleBasicFunnel,
-  blank: {} // sampleBlankFunnel
+  optIn: {
+    type: 'OPT-IN',
+    ...sampleOptInFunnel
+  },
+  checkout: { type: 'CHECKOUT' }
 };
 
 
@@ -27,16 +28,24 @@ const TemplateImage = ({
   value,
   type,
   active,
-  onSelect
-}) => (
-  <div
-    onClick={onSelect(type)}
-    className={`modal-template-image ${active === type ? 'active' : ''}`}
-    role='presentation'
-  >
-    <img src={value} alt={`template ${type}`} />
-  </div>
-);
+  onSelect,
+  isBeta
+}) => {
+  const TemplateImageClasses = clx('modal-template-image', { active: active === type });
+
+  return (
+    <div onClick={onSelect(type)}
+      className={TemplateImageClasses}
+      role='presentation'
+    >
+      <p className='bold-text p-2'>{`${type === 'checkout' ? 'Checkout' : 'Opt-in'} Funnel Flow`}</p>
+      <img src={value} alt={`template ${type}`} />
+      {isBeta && (
+        <div className='beta-badge' >Beta</div>
+      )}
+    </div>);
+};
+
 
 TemplateImage.propTypes = {
   value: PropTypes.string.isRequired,
@@ -52,8 +61,8 @@ const PreCreateModal = ({
   defaultCurrency,
   ...props
 }) => {
-  const [name, setName] = useState();
-  const [activeType, setActiveType] = useState('basic');
+  const [name, setName] = useState('');
+  const [activeType, setActiveType] = useState('checkout');
 
   const onNameChange = ({ target: { value } }) => {
     setName(value);
@@ -95,7 +104,7 @@ const PreCreateModal = ({
     >
 
       <div className='funnel-modal-templates-title big'>
-                Start your funnel with a name and template
+        Start your funnel with a name and flow type
       </div>
       <div className='funnel-form-content'>
 
@@ -111,28 +120,31 @@ const PreCreateModal = ({
           />
         </InputRow>
         <div className='funnel-modal-templates-title'>
-                    Select your starting funnel layout:
+          Select your starting funnel flow:
         </div>
-        <div className='flex-container'>
+        <FlexBox className='justify-space-around df-warp'>
           <TemplateImage
-            type='blank'
-            value={blankFunnelImage}
+            type='checkout'
+            value={checkoutFunnelImage}
             onSelect={onSelect}
             active={activeType}
           />
+
           <TemplateImage
-            type='basic'
-            value={basicFunnelImage}
+            type='optIn'
+            value={optInFunnelImage}
             onSelect={onSelect}
             active={activeType}
+            isBeta
           />
-        </div>
+        </FlexBox>
       </div>
+
       <Button onClick={onClose} className='gray-bg margin-with-float-left'>
-                Cancel
+        Cancel
       </Button>
       <Button onClick={onCreate} className='primary-color  margin-with-float-right'>
-                Create
+        Create
       </Button>
     </Modal>
   );

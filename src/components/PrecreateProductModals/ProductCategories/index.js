@@ -27,7 +27,6 @@ const ProductCategories = ({ onSelect }) => (
     <CategoryCard
       image={checkoutIcon}
       onClick={onSelect('opt-in')}
-      className='disabled'
       label='Opt-In Page'
     />
   </div>

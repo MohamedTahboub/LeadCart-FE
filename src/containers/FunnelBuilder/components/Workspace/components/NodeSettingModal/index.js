@@ -43,6 +43,17 @@ const {
 } = common;
 const { TextField } = InputRow;
 
+const getProductTypeLabel = (nodes = [], nodeId) => {
+  const activeNode = nodes.find((node) => node.elementId === nodeId) || {};
+  const { category: productCategory } = activeNode;
+  const categoryLabel = {
+    'thankyoupage': 'Thank You Page',
+    'opt-in': 'Opt In Page',
+    'upsell': 'Upsell Page',
+    'checkout': 'Checkout Page'
+  }[productCategory];
+  return `New ${categoryLabel ? categoryLabel : 'Product'}`;
+};
 
 const NodeSettingModal = ({
   show: isVisible,
@@ -51,6 +62,7 @@ const NodeSettingModal = ({
   funnelId,
   onNodeSettingChange,
   connectedProductsMap,
+  isOptInFunnel,
   onClose,
   ...props
 }) => {
@@ -83,6 +95,13 @@ const NodeSettingModal = ({
     productSample.category = productCategory;
     const { history, funnelUrl } = props;
 
+    if (isOptInFunnel && productCategory === 'thankyoupage') {
+      productSample.sections = productSample.sections.map(({ type, ...rest }) => {
+        if (type === 'checkoutSection')
+          return { ...rest, type, hidden: true };
+      });
+    }
+
     setLoading(true);
     props.createNewProduct(
       productSample,
@@ -109,6 +128,8 @@ const NodeSettingModal = ({
     const inTheSameFunnel = product ? product.funnelId === funnelId : false;
     return !inTheSameFunnel;
   };
+
+  const productType = getProductTypeLabel(nodes, isVisible);
 
   return (
     <FlexBox
@@ -141,7 +162,7 @@ const NodeSettingModal = ({
               disabled={loading}
               onprogress={loading}
             >
-              New Product
+              {productType}
             </Button>
             <div className='title-text text-align-center margin-v-5'>Or</div>
           </FlexBox>

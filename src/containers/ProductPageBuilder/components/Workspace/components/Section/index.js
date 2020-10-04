@@ -29,6 +29,7 @@ const Section = ({
 }) => {
   const { state: { product: { category } = {} } } = useContext();
   const isThankYouProductPage = category === 'thankyoupage';
+  const isisOptInProduct = category === 'opt-in';
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
@@ -89,6 +90,7 @@ const Section = ({
           moveCard={moveCard}
           index={index}
           isThankYouProductPage={isThankYouProductPage}
+          isisOptInProduct={isisOptInProduct}
         />
         <SectionContent
           {...content}
