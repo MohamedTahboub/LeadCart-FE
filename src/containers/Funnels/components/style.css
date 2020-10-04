@@ -44,6 +44,7 @@
     height: min-content;
     text-align: center;
     overflow: hidden;
+    position: relative;
 }
 
 .modal-template-image p{
@@ -103,7 +104,17 @@
     z-index: 0;
 }
 
-
+.beta-badge{
+    position: absolute;
+    top: 45px; 
+    left: 10px;
+    background-color: #4da1ffbf;
+    color: white;
+    font-size: 13px;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-radius: 10px;
+}
 
 
 /* 

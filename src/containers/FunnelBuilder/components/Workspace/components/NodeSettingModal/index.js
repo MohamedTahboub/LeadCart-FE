@@ -129,8 +129,8 @@ const NodeSettingModal = ({
     return !inTheSameFunnel;
   };
 
-
   const productType = getProductTypeLabel(nodes, isVisible);
+
   return (
     <FlexBox
       column

@@ -201,6 +201,7 @@ const FunnelBuilder = ({
     rules: fields.rules,
     openRuleModal,
     onToggleRuleModal,
+    isOptInFunnel,
     funnelProducts: fields.products
   };
   return (

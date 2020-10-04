@@ -18,6 +18,7 @@ const Rules = ({
   funnelId,
   funnelProducts,
   openRuleModal,
+  isOptInFunnel,
   onToggleRuleModal,
   ...props
 }) => {
@@ -71,6 +72,7 @@ const Rules = ({
           funnelProducts={funnelProducts}
           funnelId={funnelId}
           ruleData={activeRule}
+          isOptInFunnel={isOptInFunnel}
           isNew={!activeRule}
         />
       )}

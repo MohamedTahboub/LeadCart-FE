@@ -34,6 +34,7 @@ const RuleModal = ({
   onClose,
   funnelId,
   productsMap,
+  isOptInFunnel,
   funnelProducts,
   ...props
 }) => {
@@ -126,6 +127,8 @@ const RuleModal = ({
   }, [isNew, open, ruleData]);
 
 
+  const eventTypes = rulesEvents.filter(({ value }) => (isOptInFunnel ? value === 'LEAD_CAPTURE' : value !== 'LEAD_CAPTURE'));
+
   return (
     <Modal
       isVisible={open}
@@ -139,7 +142,7 @@ const RuleModal = ({
         <div className='label margin-right-10'>When</div>
 
         <Select
-          options={rulesEvents}
+          options={eventTypes}
           className='flex-item margin-h-10'
           onChange={onTriggerChange}
           placeholder='Select an event'

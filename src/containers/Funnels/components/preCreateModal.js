@@ -8,10 +8,10 @@ import { notification } from 'libs';
 import { Modal } from 'components/Modals';
 import { optIn as sampleOptInFunnel } from 'data/sampleFunnel'; import common from 'components/common';
 
-import blankFunnelImage from 'assets/images/blankFunnelImage.png';
-
+import checkoutFunnelImage from 'assets/images/checkout-thumbnail-template.png';
 // Need to Change
-import basicFunnelImage from 'assets/images/basicFunnelImage.png';
+import optInFunnelImage from 'assets/images/optIn-thumbnail-template.png';
+
 
 const { Button, InputRow, FlexBox } = common;
 
@@ -28,7 +28,8 @@ const TemplateImage = ({
   value,
   type,
   active,
-  onSelect
+  onSelect,
+  isBeta
 }) => {
   const TemplateImageClasses = clx('modal-template-image', { active: active === type });
 
@@ -39,6 +40,9 @@ const TemplateImage = ({
     >
       <p className='bold-text p-2'>{`${type === 'checkout' ? 'Checkout' : 'Opt-in'} Funnel Flow`}</p>
       <img src={value} alt={`template ${type}`} />
+      {isBeta && (
+        <div className='beta-badge' >Beta</div>
+      )}
     </div>);
 };
 
@@ -57,7 +61,7 @@ const PreCreateModal = ({
   defaultCurrency,
   ...props
 }) => {
-  const [name, setName] = useState('My Funnel');
+  const [name, setName] = useState('');
   const [activeType, setActiveType] = useState('checkout');
 
   const onNameChange = ({ target: { value } }) => {
@@ -121,16 +125,17 @@ const PreCreateModal = ({
         <FlexBox className='justify-space-around df-warp'>
           <TemplateImage
             type='checkout'
-            value={blankFunnelImage}
+            value={checkoutFunnelImage}
             onSelect={onSelect}
             active={activeType}
           />
 
           <TemplateImage
             type='optIn'
-            value={basicFunnelImage}
+            value={optInFunnelImage}
             onSelect={onSelect}
             active={activeType}
+            isBeta
           />
         </FlexBox>
       </div>
