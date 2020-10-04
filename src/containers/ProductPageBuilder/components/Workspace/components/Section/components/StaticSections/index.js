@@ -20,7 +20,7 @@ const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
 
 const StaticSections = ({ language, section }) => {
-  const { content: { twoStepCheckout } } = section;
+  const { content: { twoStepCheckout }, hidden: isSetHidden } = section;
   const {
     state: {
       funnel: { paymentMethods, type } = {},
@@ -56,7 +56,8 @@ const StaticSections = ({ language, section }) => {
   };
 
 
-  if (isThankyouProduct && isOptInFunnel) return null;
+  console.log({ isSetHidden });
+  if (isThankyouProduct && (isOptInFunnel || isSetHidden)) return null;
 
   return (
     <FlexBox column className='relative-element'>
