@@ -51,6 +51,7 @@ const NodeSettingModal = ({
   funnelId,
   onNodeSettingChange,
   connectedProductsMap,
+  isOptInFunnel,
   onClose,
   ...props
 }) => {
@@ -82,6 +83,13 @@ const NodeSettingModal = ({
     const { category: productCategory } = activeNode;
     productSample.category = productCategory;
     const { history, funnelUrl } = props;
+
+    if (isOptInFunnel && productCategory === 'thankyoupage') {
+      productSample.sections = productSample.sections.map(({ type, ...rest }) => {
+        if (type === 'checkoutSection')
+          return { ...rest, type, hidden: true };
+      });
+    }
 
     setLoading(true);
     props.createNewProduct(

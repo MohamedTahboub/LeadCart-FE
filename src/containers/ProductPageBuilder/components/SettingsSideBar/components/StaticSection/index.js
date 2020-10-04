@@ -80,7 +80,6 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
 
   const isExceededThePricingOptionsLimits = (Array.isArray(pricingOptions) && pricingOptions.length > PRICING_OPTIONS_LIMITS);
 
-
   return (
     <Fragment>
       <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -102,28 +101,32 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
             price={price}
             currency={currency}
           />
-          <FlexBox center='h-center' className='mt-3 mb-2'>
-            <Button className='light-btn px-3' onClick={actions.onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
-              <FlexBox center='v-center'>
-                <IoIosAddCircleOutline color='gray' className='mr-2' />
-                <span>Add More Pricing Options</span>
+          {isCheckoutProductPage && (
+            <Fragment>
+              <FlexBox center='h-center' className='mt-3 mb-2'>
+                <Button className='light-btn px-3' onClick={actions.onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
+                  <FlexBox center='v-center'>
+                    <IoIosAddCircleOutline color='gray' className='mr-2' />
+                    <span>Add More Pricing Options</span>
+                  </FlexBox>
+                </Button>
               </FlexBox>
-            </Button>
-          </FlexBox>
-          <FlexBox column>
-            {pricingOptions.map((pricingOption) => {
-              const { id } = pricingOption;
-              return (
-                <PricingOption
-                  key={id}
-                  {...pricingOption}
-                  onEdit={onEditProductPriceOption(pricingOption)}
-                  onDelete={onDeleteProductPriceOption(id)}
-                  currency={currency}
-                />
-              );
-            })}
-          </FlexBox>
+              <FlexBox column>
+                {pricingOptions.map((pricingOption) => {
+                  const { id } = pricingOption;
+                  return (
+                    <PricingOption
+                      key={id}
+                      {...pricingOption}
+                      onEdit={onEditProductPriceOption(pricingOption)}
+                      onDelete={onDeleteProductPriceOption(id)}
+                      currency={currency}
+                    />
+                  );
+                })}
+              </FlexBox>
+            </Fragment>
+          )}
         </Tab>
 
         {isCheckoutProductPage &&

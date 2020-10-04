@@ -16,14 +16,14 @@ import {
 } from './components';
 import MultipleStepForm from 'components/MultipleStepForm';
 
-const { FlexBox, LayoutSwitch, ResizableTextarea } = common;
+const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
 
 const StaticSections = ({ language, section }) => {
-  const { content: { twoStepCheckout } } = section;
+  const { content: { twoStepCheckout }, hidden: isSetHidden } = section;
   const {
     state: {
-      funnel: { paymentMethods } = {},
+      funnel: { paymentMethods, type } = {},
       product: {
         name,
         category: productCategory = 'checkout',
@@ -43,9 +43,21 @@ const StaticSections = ({ language, section }) => {
     actions
   } = useContext();
 
+  const {
+    fullName = 'Full Name',
+    email
+  } = language.checkout || {};
+
+  const isOptInFunnel = type === 'OPT-IN';
+  const isThankyouProduct = productCategory === 'thankyoupage';
+
   const onChange = ({ target: { name, value } }) => {
     actions.onProductFieldChange({ name, value });
   };
+
+
+  console.log({ isSetHidden });
+  if (isThankyouProduct && (isOptInFunnel || isSetHidden)) return null;
 
   return (
     <FlexBox column className='relative-element'>
@@ -187,6 +199,26 @@ const StaticSections = ({ language, section }) => {
           className='medium-text blush-gray max-w-500 margin-v-20 aligned-center'
         >
           <OrderReceipt />
+        </FlexBox>
+        <FlexBox
+          id='opt-in'
+          column
+        >
+          <CheckoutInput
+            disabled
+            label={fullName}
+          />
+          <CheckoutInput
+            disabled
+            label={email}
+          />
+          <CompleteOrderBtn
+            name='custom.orderButtonText'
+            className='mt-3 soft-edges py-1'
+            text={orderButtonText}
+            color={pageStyles.themeColor}
+            onChange={onChange}
+          />
         </FlexBox>
       </LayoutSwitch>
     </FlexBox>
