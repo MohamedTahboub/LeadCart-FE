@@ -23,6 +23,7 @@ import ProtectedRoute from 'components/ProtectedRoute';
 import LoadingBar from 'components/LoadingBar';
 import FourOFour from 'containers/FourOFour';
 import ErrorBoundary from 'containers/ErrorBoundary';
+import Leads from 'containers/Leads';
 
 // Container
 import Login from 'containers/Login';
@@ -103,6 +104,7 @@ ReactDOM.render(
                   <Route exact path='/' component={Dashboard} />
                   <Route exact path='/products' component={Products} />
                   <Route path='/transactions' component={Transactions} />
+                  <Route path='/leads' component={Leads} />
                   <Route path='/customers' component={CustomersLab} />
                   <Route exact path='/coupons' component={Coupons} />
                   <Route exact path='/integrations' component={Integrations} />
