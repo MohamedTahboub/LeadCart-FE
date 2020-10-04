@@ -26,6 +26,7 @@ import brands from './brands';
 import integrations from './integrations';
 import workspace from './workspace';
 import redemption from './redemption';
+import leads from './leads';
 
 
 const rootReducer = combineReducers({
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
   dashboard,
   funnels,
   translations,
+  leads,
   validation,
   brands,
   integrations,
