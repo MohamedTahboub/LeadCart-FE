@@ -43,6 +43,17 @@ const {
 } = common;
 const { TextField } = InputRow;
 
+const getProductTypeLabel = (nodes = [], nodeId) => {
+  const activeNode = nodes.find((node) => node.elementId === nodeId) || {};
+  const { category: productCategory } = activeNode;
+  const categoryLabel = {
+    'thankyoupage': 'Thank You Page',
+    'opt-in': 'Opt In Page',
+    'upsell': 'Upsell Page',
+    'checkout': 'Checkout Page'
+  }[productCategory];
+  return `New ${categoryLabel ? categoryLabel : 'Product'}`;
+};
 
 const NodeSettingModal = ({
   show: isVisible,
@@ -118,6 +129,8 @@ const NodeSettingModal = ({
     return !inTheSameFunnel;
   };
 
+
+  const productType = getProductTypeLabel(nodes, isVisible);
   return (
     <FlexBox
       column
@@ -149,7 +162,7 @@ const NodeSettingModal = ({
               disabled={loading}
               onprogress={loading}
             >
-              New Product
+              {productType}
             </Button>
             <div className='title-text text-align-center margin-v-5'>Or</div>
           </FlexBox>
