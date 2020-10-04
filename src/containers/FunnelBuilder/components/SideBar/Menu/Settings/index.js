@@ -93,7 +93,7 @@ const Settings = ({
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox column>
+      <FlexBox column className='mt-3'>
         <Label>
           Funnel Publishable Link (URL):
         </Label>

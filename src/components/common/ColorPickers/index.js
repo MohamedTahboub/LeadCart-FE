@@ -10,14 +10,16 @@ export const MiniTwitterPicker = ({
 }) => {
   const [show, setShow] = useState(false);
   const onColorChange = (color = {}) => {
-    const { hex } = color;
+    const { hex = '' } = color;
     onChange({
       target: {
         name,
         value: hex
       }
     });
-    setShow(false);
+    if (hex.length === 6)
+      setShow(false);
+
   };
 
   const style = { background: value };
