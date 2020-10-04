@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'components/Buttons';
 import Section from './Section';
 import { InputField } from 'components/Inputs';
 import Avatar from 'components/common/Avatar';
 import { notification } from 'libs';
+import * as accountActions from 'actions/account';
 
 import './style.css';
+import { connect } from 'react-redux';
 
-const GeneralSettings = ({ user, onChangeAccountDetails, onChangeAccountPassword }) => {
+const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails, onChangeAccountPassword }) => {
   const [detailsForm, setDetailsForm] = useState({ firstName: user.firstName, lastName: user.lastName });
   const [passwordForm, setPasswordForm] = useState({});
 
@@ -49,7 +51,9 @@ const GeneralSettings = ({ user, onChangeAccountDetails, onChangeAccountPassword
     if (window.Intercom)
       window.Intercom('showNewMessage', 'I would like to change my email address');
   };
-  const onAvatarImageChange = () => { };
+  const onAvatarImageChange = ({ image }) => {
+    updateUserProfileImage(image);
+  };
 
   return (
     <div className='d-flex'>
@@ -119,4 +123,4 @@ const GeneralSettings = ({ user, onChangeAccountDetails, onChangeAccountPassword
   );
 };
 
-export default (GeneralSettings);
+export default connect(null, accountActions)(GeneralSettings);
