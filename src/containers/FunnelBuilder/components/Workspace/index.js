@@ -243,6 +243,7 @@ const WorkSpace = ({
           funnelUrl={funnelUrl}
           funnelId={funnelId}
           history={history}
+          isOptInFunnel={isOptInFunnel}
         />
 
       </div>
@@ -250,7 +251,7 @@ const WorkSpace = ({
   );
 };
 
-function getElementPosition(event, originalMouseOffset, parentRef) {
+function getElementPosition (event, originalMouseOffset, parentRef) {
   const {
     left: parentLeft,
     top: parentTop
