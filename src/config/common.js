@@ -56,7 +56,7 @@ export default {
         {
           key: 'Assign Roles & Permissions To Team Members (Coming Soon).',
           list: [
-            'Custom Domains (CNAME).',
+            'Custom Domain (CNAME).',
             'Checkout & Funnels',
             'Emails'
           ]
