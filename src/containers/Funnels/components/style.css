@@ -106,12 +106,12 @@
 
 .beta-badge{
     position: absolute;
-    top: 45px; 
-    left: 10px;
+    top: 48px;
+    right: 13px;
     background-color: #4da1ffbf;
     color: white;
     font-size: 13px;
-    padding: 5px 10px;
+    padding: 1px 10px;
     font-weight: bold;
     border-radius: 10px;
 }
