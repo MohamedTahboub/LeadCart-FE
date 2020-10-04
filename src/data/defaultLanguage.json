@@ -198,36 +198,24 @@
                     "label": "Great choice you will get an email shortly with your purchase"
                 },
                 {
-                    "key": "orderDetails",
-                    "label": "Order Details before and after the products names",
-                    "subs": [
-                        {
-                            "key": "orderDetailsBeforeProductsNames",
-                            "value": "Your Purchases Details for the",
-                            "label": "(Before Products Names) Your Purchases Details for the"
-                        },
-                        {
-                            "key": "orderDetailsAfterProductsNames",
-                            "value": "listed below",
-                            "label": "(After Products Names) listed below"
-                        }
-                    ]
+                    "key": "orderDetailsBeforeProductsNames",
+                    "value": "Your Purchases Details for the",
+                    "label": "Your Purchases Details for the"
                 },
                 {
-                    "key": "orderSummary",
-                    "label": "Order Receipt",
-                    "subs": [
-                        {
-                            "key": "orderReceiptSummary",
-                            "value": "Your Order Receipt Summary",
-                            "label": "Your Order Receipt Summary"
-                        },
-                        {
-                            "key": "totalAmountPaid",
-                            "value": "Total Amount Paid",
-                            "label": "Total Amount Paid"
-                        }
-                    ]
+                    "key": "orderDetailsAfterProductsNames",
+                    "value": "listed below",
+                    "label": "listed below"
+                },
+                {
+                    "key": "orderReceiptSummary",
+                    "value": "Your Order Receipt Summary",
+                    "label": "Your Order Receipt Summary"
+                },
+                {
+                    "key": "totalAmountPaid",
+                    "value": "Total Amount Paid",
+                    "label": "Total Amount Paid"
                 },
                 {
                     "key": "thankyouPageNote",

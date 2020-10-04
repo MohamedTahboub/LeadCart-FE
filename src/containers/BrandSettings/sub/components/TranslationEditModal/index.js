@@ -27,11 +27,6 @@ const Word = ({
   subs = []
 }) => {
   const hasSubs = !!subs.length;
-  const [hasValue, setHasValue] = useState(true);
-
-  useEffect(() => {
-    setHasValue(!!value);
-  }, []);
 
 
   return (
@@ -43,15 +38,14 @@ const Word = ({
         >
           {`${label}:`}
         </label>
-        {hasValue &&
-          <InputRow.TextField
-            className='word-input'
-            value={value}
-            onChange={onChange}
-            name={keyValue}
-            id={keyValue}
-          />
-        }
+        <InputRow.TextField
+          className='word-input'
+          value={value}
+          onChange={onChange}
+          name={keyValue}
+          id={keyValue}
+        />
+
       </div>
 
       {hasSubs && (
