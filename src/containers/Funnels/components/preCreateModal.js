@@ -37,12 +37,8 @@ const TemplateImage = ({
       className={TemplateImageClasses}
       role='presentation'
     >
+      <p className='bold-text p-2'>{`${type === 'checkout' ? 'Checkout' : 'Opt-in'} Funnel Flow`}</p>
       <img src={value} alt={`template ${type}`} />
-      {type === 'checkout' ?
-        <p>Checkout Funnel</p>
-        :
-        <p>Opt-in Funnel</p>
-      }
     </div>);
 };
 
@@ -104,7 +100,7 @@ const PreCreateModal = ({
     >
 
       <div className='funnel-modal-templates-title big'>
-        Start your funnel with a name and template
+        Start your funnel with a name and flow type
       </div>
       <div className='funnel-form-content'>
 
@@ -120,7 +116,7 @@ const PreCreateModal = ({
           />
         </InputRow>
         <div className='funnel-modal-templates-title'>
-          Select your starting funnel layout:
+          Select your starting funnel flow:
         </div>
         <FlexBox className='justify-space-around df-warp'>
           <TemplateImage

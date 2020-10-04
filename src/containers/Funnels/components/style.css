@@ -65,10 +65,10 @@
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
     content: "\f058";
-    font-size: 16px;
-    top: 5px;
+    font-size: 30px;
+    bottom: 5px;
     right: 10px;
-    color: lightgreen;
+    color: #4DA1FF;
 }
 
 .funnel-card {
