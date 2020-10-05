@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import { Button } from 'components/Buttons';
 import Section from './Section';
 import { InputField } from 'components/Inputs';
 import Avatar from 'components/common/Avatar';
 import { notification } from 'libs';
 import * as accountActions from 'actions/account';
+import { removeSpacesFromObj } from 'helpers/common';
 
 import './style.css';
-import { connect } from 'react-redux';
 
 const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails, onChangeAccountPassword }) => {
   const [detailsForm, setDetailsForm] = useState({ firstName: user.firstName, lastName: user.lastName });
@@ -21,7 +23,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
   const handlePasswordFormChange = (event) => handleFormChange(event)(passwordForm, setPasswordForm);
 
   const handleDetailsFormSubmit = () => {
-    const { firstName, lastName } = detailsForm;
+    const { firstName, lastName } = removeSpacesFromObj(detailsForm);
     onChangeAccountDetails(
       { firstName, lastName },
       {
@@ -30,8 +32,9 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
       }
     );
   };
+
   const handlePasswordFormSubmit = () => {
-    const { currentPassword, newPassword, newPasswordConfirmation } = passwordForm;
+    const { currentPassword, newPassword, newPasswordConfirmation } = removeSpacesFromObj(passwordForm);
     if (newPassword !== newPasswordConfirmation) return notification.failed('Passwords must match');
     if (!(/^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/g).test(newPassword))
       return notification.failed('New password must contain: \nAt least 1 letter, \n1 digit \nAnd must be at least 6 letters in length.');
@@ -46,6 +49,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
       }
     );
   };
+
 
   const onRequestEmailChange = () => {
     if (window.Intercom)

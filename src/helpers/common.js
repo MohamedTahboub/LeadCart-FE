@@ -144,3 +144,13 @@ export const getMarketPlaceUrl = ({ domains = [], subDomain }) => {
   else
     return `${USER_SUB_DOMAIN_URL.replace('subDomain', subDomain)}`;
 };
+
+
+export const removeSpacesFromObj = (obj = {}) => {
+  const newObj = { ...obj };
+
+  for (const property in newObj)
+    newObj[property] = newObj[property].trim();
+
+  return newObj;
+};

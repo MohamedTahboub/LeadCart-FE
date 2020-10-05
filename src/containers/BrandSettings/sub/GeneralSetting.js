@@ -8,6 +8,7 @@ import currencies from 'data/currencies.json';
 import PropTypes from 'prop-types';
 import { marketPlaceSettingSchema } from 'libs/validation';
 import { notification } from 'libs';
+import { removeSpacesFromObj } from 'helpers/common';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock } = common;
@@ -50,7 +51,7 @@ const GeneralSettings = ({
 
   const onSave = async () => {
     try {
-      const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
+      const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(removeSpacesFromObj(fields));
       if (!isValid) {
         const invalidFields = Object.keys(fieldsErrors).join(', ');
         notification.failed(`Invalid Fields ${invalidFields}`);

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+
 import * as signupActions from 'actions/signup';
 import { freeTrailSignup } from 'libs/validation';
 import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
 import config from 'config';
 import common from 'components/common';
 import { VerificationPage } from './components';
+import { removeSpacesFromObj } from 'helpers/common';
 
 import './styles.css';
 
@@ -37,7 +39,7 @@ const SignUp = (props) => {
         subDomain: e.target.subdomain.value
       };
 
-      const { isValid, value, errors } = await freeTrailSignup(newUser);
+      const { isValid, value, errors } = await freeTrailSignup(removeSpacesFromObj(newUser));
 
       !isValid ? setErrors({ ...errors }) :
         props.signUp(

@@ -1,12 +1,14 @@
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+
+
 import * as loginActions from 'actions/login';
+import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
+import common from 'components/common';
+import { removeSpacesFromObj } from 'helpers/common';
 import './styles.css';
 
-import whiteBrandLogo from 'assets/images/leadcart-white-brand.png';
-
-import common from 'components/common';
 const {
   FlexBox,
   Button,
@@ -22,7 +24,7 @@ const Login = ({ isLoggedIn, history, login, errors }) => {
   const onLogin = (e) => {
     const { email, password } = e.target.elements;
     e.preventDefault();
-    login({ email: email.value, password: password.value });
+    login(removeSpacesFromObj({ email: email.value, password: password.value }));
   };
 
 

@@ -10,7 +10,7 @@ import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
 import { notification } from 'libs';
-import { getMarketPlaceUrl } from 'helpers/common';
+import { getMarketPlaceUrl, removeSpacesFromObj } from 'helpers/common';
 
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
@@ -71,7 +71,7 @@ const MarketplaceSettings = ({
 
   const onSave = async () => {
     try {
-      const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(fields);
+      const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema(removeSpacesFromObj(fields));
       if (!isValid) {
         const invalidFields = Object.keys(fieldsErrors).join(', ');
         notification.failed(`Invalid Fields ${invalidFields}`);

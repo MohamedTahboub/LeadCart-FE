@@ -71,6 +71,8 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
           <MenuItem key={CREATE_NEW_BRAND} className='center-content'><Button>+ Create new</Button></MenuItem>
         </SubMenu>
       </Menu>
+
+
       <div style={{ border: '1px solid #E8E8E8' }} />
       {
         isCreateBrandModalOpen && (
