@@ -38,7 +38,8 @@
 
 .brands-navigation.is-open {
   min-height: calc(100vh - 130px);
-  transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;  
+  height: 50vh;
 }
 
 .side-bar-navigation {
