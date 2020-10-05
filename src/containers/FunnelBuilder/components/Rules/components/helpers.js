@@ -19,6 +19,7 @@ const getProductsAndOffer = (productsMap, neededProductNodes) => {
 };
 export const constructProductsAndOffersLabels = (productsMap = {}, funnelProducts = []) => {
   return getProductsAndOffer(productsMap, funnelProducts)
+    .filter(({ category }) => category ? category !== 'thankyoupage' : true)
     .map(({ _id: value, name: label }) => ({ label, value }));
 };
 
