@@ -176,6 +176,17 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
                 onToggle={onToggleCustom}
               />
             </InputRow>
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
+              "I Agree to Terms" Checkbox
+              </Label>
+              <Toggle
+                value={custom.termsCheckbox}
+                name='termsCheckbox'
+                onToggle={onToggleCustom}
+              />
+            </InputRow>
+
             {twoStepCheckout &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>

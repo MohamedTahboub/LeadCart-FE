@@ -6,7 +6,7 @@ import { testEmailTypes } from 'constantsTypes';
 import * as emailsActions from 'actions/emails';
 import * as yup from 'yup';
 import { notification } from 'libs';
-const { InputRow, MainBlock, SmallButton, EditButton, Tabs, Tab } = common;
+const { InputRow, MainBlock, SmallButton, EditButton, Tabs, Button, Tab } = common;
 
 
 const EmailTestButton = ({
@@ -33,10 +33,12 @@ const Email = ({
   isPremium,
   sourceEmail: _sourceEmail,
   emailLogo,
+  emailVerificationStatus,
   companyAddress,
   ...props
 }) => {
   const [showFooterModal, setFooterModal] = useState(false);
+  const [verificationStatus, setVerificationStatus] = useState(0);
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(_sourceEmail);
   const [errors, setErrors] = useState({});
@@ -57,8 +59,13 @@ const Email = ({
     if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
     setVersifying(true);
     props.verifyEmailSource({ email: sourceEmail }, {
-      onSuccess: () => {setVersifying(false);},
-      onFailed: () => {setVersifying(false);}
+      onSuccess: () => {
+        setVersifying(false);
+        setVerificationStatus(2);
+      },
+      onFailed: () => {
+        setVersifying(false);
+      }
     });
   };
 
@@ -98,6 +105,12 @@ const Email = ({
     });
   };
   const { testing, emailTestType } = testType;
+  useEffect(() => {
+    setVerificationStatus(emailVerificationStatus);
+  }, [emailVerificationStatus]);
+
+  const isFromEmailVerificationPending = verificationStatus === 2;
+  const isFromEmailVerified = verificationStatus === 1;
   return (
     <Fragment>
       <Tabs active='settings' className='emailing-setting-bg'>
@@ -159,12 +172,13 @@ const Email = ({
                   />
                 )}
               >
-                <SmallButton
+                <Button
                   onClick={onEmailVerify}
+                  disabled={isFromEmailVerified}
                   className={`primary-color ${versifying ? 'spinner' : ''}`}
                 >
-                  Verify
-                </SmallButton>
+                  {`${isFromEmailVerificationPending ? isFromEmailVerified ? 'Verified' : 'Verify' : 'Send Verification Email'}`}
+                </Button>
               </InputRow.Note>
             </InputRow>
             )}
@@ -186,7 +200,7 @@ const Email = ({
                 <InputRow.Toggle value name='newLead' />
               </InputRow.Note>
             </InputRow>
-            <InputRow>
+            {/*<InputRow>
               <InputRow.Label> Failed Charge</InputRow.Label>
               <InputRow.Note
                 content="This email is sent each time a customer's subscription payment fails to charge."
@@ -194,6 +208,7 @@ const Email = ({
                 <InputRow.Toggle value name='failedCharge' />
               </InputRow.Note>
             </InputRow>
+            */}
           </MainBlock>
         </Tab>
         <Tab id='email_testing' title='Email Testing'>
