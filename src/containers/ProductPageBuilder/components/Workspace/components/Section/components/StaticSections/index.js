@@ -72,7 +72,7 @@ const StaticSections = ({ language, section }) => {
                     color={pageStyles.themeColor}
                     language={language}
                   />
-                  <PricingOptions />
+                  <PricingOptions format={price.format} />
                   {orderSummary &&
                     <OrderSummary
                       price={price}
@@ -89,7 +89,7 @@ const StaticSections = ({ language, section }) => {
                       color={pageStyles.themeColor}
                       language={language}
                     />
-                    <PricingOptions />
+                    <PricingOptions format={price.format} />
                     {orderSummary &&
                       <OrderSummary
                         price={price}
@@ -141,7 +141,7 @@ const StaticSections = ({ language, section }) => {
                     language={language}
                   />
                 )}
-                <PricingOptions />
+                <PricingOptions format={price.format} />
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}
                   step={addOns.shippingDetails ? 3 : 2}

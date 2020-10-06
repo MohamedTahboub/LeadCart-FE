@@ -118,6 +118,7 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
                     <PricingOption
                       key={id}
                       {...pricingOption}
+                      format={price.format}
                       onEdit={onEditProductPriceOption(pricingOption)}
                       onDelete={onDeleteProductPriceOption(id)}
                       currency={currency}
