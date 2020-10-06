@@ -26,7 +26,7 @@ const {
   Toggle
 } = InputRow;
 
-const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
+const StaticSection = ({ defaultBrandCurrency }) => {
 
   const {
     state: {
@@ -165,6 +165,8 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
                 value={custom.shippingDetails}
                 name='shippingDetails'
                 onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
               />
             </InputRow>
             <InputRow className='sidebar-row'>
@@ -175,16 +177,20 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
                 value={custom.couponSection}
                 name='couponSection'
                 onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
               />
             </InputRow>
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
-              "I Agree to Terms" Checkbox
+              Terms & Conditions Check
               </Label>
               <Toggle
-                value={custom.termsCheckbox}
-                name='termsCheckbox'
+                value={custom.termsEnabled}
+                name='termsEnabled'
                 onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
               />
             </InputRow>
 

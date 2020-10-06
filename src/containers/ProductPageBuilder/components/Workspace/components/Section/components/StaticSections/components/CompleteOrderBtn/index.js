@@ -17,7 +17,11 @@ const CompleteOrderBtn = ({
   const style = { background };
   return (
     <FlexBox column>
-      <FlexBox />
+      <FlexBox >
+        <Checkbox>
+          I agree on this terms and conditions
+        </Checkbox>
+      </FlexBox>
       <div style={style} className={clx(className, 'template-complete-order')}>
         <ResizableInput
           onChange={onChange}
