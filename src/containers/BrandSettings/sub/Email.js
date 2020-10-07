@@ -48,7 +48,7 @@ const Email = ({
   const [systemEmails, setSystemEmails] = useState(initialSystemEmails);
 
   const [showFooterModal, setFooterModal] = useState(false);
-  const [verificationStatus, setVerificationStatus] = useState(1);
+  const [verificationStatus, setVerificationStatus] = useState(0);
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(_sourceEmail);
   const [errors, setErrors] = useState({});
