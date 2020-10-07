@@ -181,6 +181,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
+            {/*
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
               Terms & Conditions Check
@@ -193,7 +194,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
-
+           */}
             {twoStepCheckout &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>

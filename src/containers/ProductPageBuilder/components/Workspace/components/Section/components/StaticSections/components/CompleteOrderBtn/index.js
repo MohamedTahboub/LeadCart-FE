@@ -4,34 +4,26 @@ import clx from 'classnames';
 
 import './style.css';
 
-const { ResizableInput, FlexBox, Checkbox } = common;
+const { ResizableInput } = common;
 
 const CompleteOrderBtn = ({
   className,
   text,
   color: background = '#4da1ff',
   onChange,
-  content = { termsCheckbox: 'I agree to the' },
   name = 'custom.orderButtonText'
 }) => {
   const style = { background };
   return (
-    <FlexBox column>
-      <FlexBox >
-        <Checkbox>
-          I agree on this terms and conditions
-        </Checkbox>
-      </FlexBox>
-      <div style={style} className={clx(className, 'template-complete-order')}>
-        <ResizableInput
-          onChange={onChange}
-          name={name}
-          defaultValue='Complete Order'
-          value={text}
-          style={{ fontWeight: 'bold' }}
-        />
-      </div>
-    </FlexBox>
+    <div style={style} className={clx(className, 'template-complete-order')}>
+      <ResizableInput
+        onChange={onChange}
+        name={name}
+        defaultValue='Complete Order'
+        value={text}
+        style={{ fontWeight: 'bold' }}
+      />
+    </div>
   );
 };
 

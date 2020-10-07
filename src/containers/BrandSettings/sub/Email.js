@@ -4,8 +4,12 @@ import EmailFooterModal from 'components/EmailFooterModal';
 import { connect } from 'react-redux';
 import { testEmailTypes } from 'constantsTypes';
 import * as emailsActions from 'actions/emails';
+import * as settingsActions from 'actions/settings';
 import * as yup from 'yup';
 import { notification } from 'libs';
+import { marketPlaceSettingSchema } from 'libs/validation';
+import * as immutable from 'object-path-immutable';
+
 const { InputRow, MainBlock, SmallButton, EditButton, Tabs, Button, Tab } = common;
 
 
@@ -34,9 +38,15 @@ const Email = ({
   sourceEmail: _sourceEmail,
   emailLogo,
   emailVerificationStatus,
+  marketPlace = {},
   companyAddress,
   ...props
 }) => {
+
+  const { systemEmails: initialSystemEmails = {} } = marketPlace;
+
+  const [systemEmails, setSystemEmails] = useState(initialSystemEmails);
+
   const [showFooterModal, setFooterModal] = useState(false);
   const [verificationStatus, setVerificationStatus] = useState(0);
   const [testType, setTestType] = useState({});
@@ -109,8 +119,47 @@ const Email = ({
     setVerificationStatus(emailVerificationStatus);
   }, [emailVerificationStatus]);
 
+
   const isFromEmailVerificationPending = verificationStatus === 2;
   const isFromEmailVerified = verificationStatus === 1;
+
+
+  const onUpdateMarketPlaceSystemEmails = async (systemEmails) => {
+    try {
+      const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema({ ...marketPlace, systemEmails });
+      if (!isValid) {
+        // const invalidFields = Object.keys(fieldsErrors).join(', ');
+        notification.failed('Invalid Fields ');
+        return;// setErrors({ ...fieldsErrors });
+      }
+
+      props.updateMarketPlaceSettings(
+        payload,
+        {
+          onSuccess: () => {
+            notification.success('Your Changes Saved Successfully');
+          },
+          onFailed: (message) => {
+            // setErrors({ message });
+            notification.failed(message);
+          }
+        }
+      );
+    } catch ({ message, ...err }) {
+      notification.failed(message);
+      // setErrors({ message });
+    }
+  };
+  useEffect(() => {
+    setSystemEmails(initialSystemEmails);
+  }, [initialSystemEmails]);
+
+  const onChangeSystemEmails = ({ name, value }) => {
+    const updatedSystemEmails = immutable.set(systemEmails, name, value);
+    setSystemEmails(updatedSystemEmails);
+    onUpdateMarketPlaceSystemEmails(updatedSystemEmails);
+  };
+
   return (
     <Fragment>
       <Tabs active='settings' className='emailing-setting-bg'>
@@ -189,7 +238,11 @@ const Email = ({
               <InputRow.Note
                 content='This email is sent every time a customer buys a product.'
               >
-                <InputRow.Toggle value name='newOrder' />
+                <InputRow.Toggle
+                  value={systemEmails.newOrder}
+                  name='newOrder'
+                  onToggle={onChangeSystemEmails}
+                />
               </InputRow.Note>
             </InputRow>
             <InputRow>
@@ -197,7 +250,11 @@ const Email = ({
               <InputRow.Note
                 content='This email is sent every time a lead gets captured.'
               >
-                <InputRow.Toggle value name='newLead' />
+                <InputRow.Toggle
+                  value={systemEmails.newLead}
+                  name='newLead'
+                  onToggle={onChangeSystemEmails}
+                />
               </InputRow.Note>
             </InputRow>
             {/*<InputRow>
@@ -374,6 +431,7 @@ const mapStatToProps = ({
       activePackage = {}
     } = {}
   },
+  settings: { generalModel: marketPlace = {} },
   emails: {
     settings: {
       emailLogo,
@@ -395,7 +453,8 @@ const mapStatToProps = ({
     companyAddress,
     isPremium,
     sourceEmail,
-    emailVerificationStatus
+    emailVerificationStatus,
+    marketPlace
   };
 };
-export default connect(mapStatToProps, emailsActions)(Email);
+export default connect(mapStatToProps, { ...emailsActions, ...settingsActions })(Email);
