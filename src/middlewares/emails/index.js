@@ -1,6 +1,7 @@
-import emailFooter from './updateEmailFooter'
-import verifyEmail from './verifySourceEmail'
-import testEmail from './testEmail'
+import emailFooter from './updateEmailFooter';
+import verifyEmail from './verifySourceEmail';
+import checkEmailVerification from './checkEmailVerification';
+import testEmail from './testEmail';
 
-export default [emailFooter, verifyEmail, testEmail];
+export default [emailFooter, verifyEmail, checkEmailVerification, testEmail];
 

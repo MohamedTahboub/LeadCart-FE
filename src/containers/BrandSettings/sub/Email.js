@@ -48,7 +48,7 @@ const Email = ({
   const [systemEmails, setSystemEmails] = useState(initialSystemEmails);
 
   const [showFooterModal, setFooterModal] = useState(false);
-  const [verificationStatus, setVerificationStatus] = useState(0);
+  const [verificationStatus, setVerificationStatus] = useState(1);
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(_sourceEmail);
   const [errors, setErrors] = useState({});
@@ -60,6 +60,11 @@ const Email = ({
   const onSourceEmailChange = ({ target: { value } }) => {
     setSourceEmail(value);
     setErrors({ sourceEmail: '' });
+    if (_sourceEmail === value && emailVerificationStatus === 1)
+      setVerificationStatus(1);
+    else
+      setVerificationStatus(0);
+
   };
 
 
@@ -72,6 +77,21 @@ const Email = ({
       onSuccess: () => {
         setVersifying(false);
         setVerificationStatus(2);
+      },
+      onFailed: () => {
+        setVersifying(false);
+      }
+    });
+  };
+  const onEmailVerificationCheck = async () => {
+    const schema = yup.string().email().required();
+
+    if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
+    setVersifying(true);
+    props.checkEmailVerification({ email: sourceEmail }, {
+      onSuccess: () => {
+        setVersifying(false);
+        setVerificationStatus(1);
       },
       onFailed: () => {
         setVersifying(false);
@@ -126,11 +146,10 @@ const Email = ({
 
   const onUpdateMarketPlaceSystemEmails = async (systemEmails) => {
     try {
-      const { isValid, value: payload, errors: fieldsErrors } = await marketPlaceSettingSchema({ ...marketPlace, systemEmails });
+      const { isValid, value: payload } = await marketPlaceSettingSchema({ ...marketPlace, systemEmails });
       if (!isValid) {
-        // const invalidFields = Object.keys(fieldsErrors).join(', ');
         notification.failed('Invalid Fields ');
-        return;// setErrors({ ...fieldsErrors });
+        return;
       }
 
       props.updateMarketPlaceSettings(
@@ -140,14 +159,12 @@ const Email = ({
             notification.success('Your Changes Saved Successfully');
           },
           onFailed: (message) => {
-            // setErrors({ message });
             notification.failed(message);
           }
         }
       );
     } catch ({ message, ...err }) {
       notification.failed(message);
-      // setErrors({ message });
     }
   };
   useEffect(() => {
@@ -221,13 +238,22 @@ const Email = ({
                   />
                 )}
               >
-                <Button
-                  onClick={onEmailVerify}
-                  disabled={isFromEmailVerified}
-                  className={`primary-color ${versifying ? 'spinner' : ''}`}
-                >
-                  {`${isFromEmailVerificationPending ? isFromEmailVerified ? 'Verified' : 'Verify' : 'Send Verification Email'}`}
-                </Button>
+                {isFromEmailVerificationPending ? (
+                  <Button
+                    onClick={onEmailVerificationCheck}
+                    className={`small-btn primary-color ${versifying ? 'spinner' : ''}`}
+                  >
+                    Check Verification Status
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={onEmailVerify}
+                    disabled={isFromEmailVerified}
+                    className={`small-btn primary-color ${versifying ? 'spinner' : ''}`}
+                  >
+                    {` ${isFromEmailVerified ? 'Verified' : 'Send Verification Email'}`}
+                  </Button>
+                )}
               </InputRow.Note>
             </InputRow>
             )}
