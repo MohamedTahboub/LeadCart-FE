@@ -152,10 +152,19 @@ const TriggerActionMaker = ({
 
   const actionsOptions = getActionsOptions(group, actionsMap);
   const selectedProducts = products.filter(({ value }) => Array.isArray(group.products) && group.products.includes(value));
-  const selectedIntegration = integrationsLabels.find(({ value }) => (group?.action?.type || group?.action?.integrationKey) === value);
+  const isWebhookAction = group?.action?.type === 'WEBHOOKS';
+
+  const selectedIntegration = integrationsLabels.find(({ value }) => {
+    if (isWebhookAction) {
+      if (value === 'WEBHOOKS')
+        return true;
+    } else {
+      return group?.action?.integrationKey === value;
+    }
+  });
+
   const selectedActionOption = actionsOptions.find(({ value }) => group.action && group.action.type === value);
   const actionIntegrationId = group.action && actionsMap[group.action.integrationKey].integrationId;
-  const isWebhookAction = group.action && group.action.type === 'WEBHOOKS';
   const pricingOptions = getProductsPricingOptions(selectedProducts, productsMap);
   const selectedPricingOptions = getSelectedPricingOptions(pricingOptions, group.pricingOptions);
   const hasPricingOptions = !!pricingOptions.length;
