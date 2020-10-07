@@ -21,7 +21,7 @@ const ActionDependencies = (props) => {
     setDisableAdd,
     onChange
   };
-  if (integrationKey === 'WEBHOOKS')
+  if (integrationKey === 'WEBHOOKS' || type === 'WEBHOOKS')
     return <WebhooksForm id='WEBHOOKS' {...passedProps} />;
 
   if (integrationKey !== 'leadcart_fulfillment')
