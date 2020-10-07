@@ -56,7 +56,7 @@ export const getTriggerLabel = (val) => {
 export const getProductsPricingOptions = (products = [], globalProductsMap = {}) => {
   return products
     .map((p) => p.value ? globalProductsMap[p.value] : globalProductsMap[p])
-    .filter((product) => (Array.isArray(product.pricingOptions) && product.pricingOptions.length))
+    .filter((product = {}) => (Array.isArray(product.pricingOptions) && product.pricingOptions.length))
     .map((product) => product.pricingOptions)
     .flat()
     .map(({ label, id: value }) => ({ label, value }));
