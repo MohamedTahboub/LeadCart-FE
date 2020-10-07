@@ -72,16 +72,16 @@ const PaymentMethods = ({
           ? (
             <Message>
               you can add or remove the payment gateways integrations from:
-              <span onClick={() => openNewWindow('/integrations')} className='bold-text underlined-text'>
-                settings/integrations
+              <span onClick={() => openNewWindow('/integrations')} className='mx-1 bold-text underlined-text item-clickable'>
+              Integrations
               </span>
             </Message>
           )
           : (
             <Message>
               You Don't Have Any Payment Integration connected to Your Account, Add from
-              <span onClick={() => openNewWindow('/settings/integrations')} className='bold-text underlined-text'>
-                settings/integrations
+              <span onClick={() => openNewWindow('/integrations')} className='mx-1 bold-text underlined-text item-clickable'>
+                Integrations
               </span>
             </Message>
           )}

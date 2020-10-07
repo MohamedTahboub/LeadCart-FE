@@ -105,7 +105,7 @@ const DomainSetting = ({
   useEffect(
     () => () => {
       setError({});
-    // setConnected();
+      // setConnected();
     },
     [customDomain]
   );
@@ -152,7 +152,9 @@ const DomainSetting = ({
           </tr>
           <tr className='domain-table-row'>
             <td>
-              <code>{fields.domain}</code>
+              <a href={`https://${fields.domain}`} className='underlined-text'>
+                <code>{fields.domain}</code>
+              </a>
             </td>
             <td>
               <Button className='primary-color'>

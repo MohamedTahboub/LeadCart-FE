@@ -6,20 +6,14 @@ import { Link } from 'components/common/MainMenu';
 import paypalImage from 'assets/images/paypal.png';
 import stripeImage from 'assets/images/stripe.png';
 
-import {
-  Tab, Tabs, TabList, TabPanel
-} from 'react-tabs';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import common from 'components/common';
 import 'react-tabs/style/react-tabs.css';
 
 
-const {
-  Block, TabTitle, MediumCard, InputRow
-} = common;
+const { Block, TabTitle, MediumCard, InputRow } = common;
 
-const Payment = ({
-  productPaymentMethods, onProductPaymentFieldChange, userPayments, history, ...props
-}) => {
+const Payment = ({ productPaymentMethods, onProductPaymentFieldChange, userPayments, history, ...props }) => {
   const addProductpaymentGatway = (method) => {
     if (userPayments.includes(method)) {
       onProductPaymentFieldChange({
@@ -66,7 +60,7 @@ const Payment = ({
               : (
                 <Message>
                   You Dont Have Any Payment Method connected to Your Account,Add from
-                  <Link to={{ history, page: '/settings/integrations' }}> settings/integrations</Link>
+                  <Link to={{ history, page: '/settings/integrations' }}> Integrations</Link>
 
                 </Message>
               )}

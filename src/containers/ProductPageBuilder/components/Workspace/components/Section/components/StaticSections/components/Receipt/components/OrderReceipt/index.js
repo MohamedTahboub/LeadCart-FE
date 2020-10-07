@@ -46,7 +46,7 @@ const OrderRecept = ({
           <OrderRow
             key={id.toString() + name}
             label={name}
-            value={`${currencySymbol} ${amount}`}
+            value={`${currencySymbol}`}
           />
         ))}
         {coupon.type && (
@@ -57,7 +57,7 @@ const OrderRecept = ({
         )}
         <OrderRow
           label='Total Amount Paid'
-          value={`${currencySymbol} ${total}`}
+          value={`${currencySymbol}`}
           className='total-row'
         />
       </div>
