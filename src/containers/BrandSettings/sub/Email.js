@@ -4,9 +4,13 @@ import EmailFooterModal from 'components/EmailFooterModal';
 import { connect } from 'react-redux';
 import { testEmailTypes } from 'constantsTypes';
 import * as emailsActions from 'actions/emails';
+import * as settingsActions from 'actions/settings';
 import * as yup from 'yup';
 import { notification } from 'libs';
-const { InputRow, MainBlock, SmallButton, EditButton, Tabs, Tab } = common;
+import { marketPlaceSettingSchema } from 'libs/validation';
+import * as immutable from 'object-path-immutable';
+
+const { InputRow, MainBlock, SmallButton, EditButton, Tabs, Button, Tab } = common;
 
 
 const EmailTestButton = ({
@@ -33,10 +37,18 @@ const Email = ({
   isPremium,
   sourceEmail: _sourceEmail,
   emailLogo,
+  emailVerificationStatus,
+  marketPlace = {},
   companyAddress,
   ...props
 }) => {
+
+  const { systemEmails: initialSystemEmails = {} } = marketPlace;
+
+  const [systemEmails, setSystemEmails] = useState(initialSystemEmails);
+
   const [showFooterModal, setFooterModal] = useState(false);
+  const [verificationStatus, setVerificationStatus] = useState(0);
   const [testType, setTestType] = useState({});
   const [sourceEmail, setSourceEmail] = useState(_sourceEmail);
   const [errors, setErrors] = useState({});
@@ -48,6 +60,11 @@ const Email = ({
   const onSourceEmailChange = ({ target: { value } }) => {
     setSourceEmail(value);
     setErrors({ sourceEmail: '' });
+    if (_sourceEmail === value && emailVerificationStatus === 1)
+      setVerificationStatus(1);
+    else
+      setVerificationStatus(0);
+
   };
 
 
@@ -57,8 +74,28 @@ const Email = ({
     if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
     setVersifying(true);
     props.verifyEmailSource({ email: sourceEmail }, {
-      onSuccess: () => {setVersifying(false);},
-      onFailed: () => {setVersifying(false);}
+      onSuccess: () => {
+        setVersifying(false);
+        setVerificationStatus(2);
+      },
+      onFailed: () => {
+        setVersifying(false);
+      }
+    });
+  };
+  const onEmailVerificationCheck = async () => {
+    const schema = yup.string().email().required();
+
+    if (!(await schema.isValid(sourceEmail))) return setErrors({ sourceEmail: 'invalid email address' });
+    setVersifying(true);
+    props.checkEmailVerification({ email: sourceEmail }, {
+      onSuccess: () => {
+        setVersifying(false);
+        setVerificationStatus(1);
+      },
+      onFailed: () => {
+        setVersifying(false);
+      }
     });
   };
 
@@ -98,6 +135,48 @@ const Email = ({
     });
   };
   const { testing, emailTestType } = testType;
+  useEffect(() => {
+    setVerificationStatus(emailVerificationStatus);
+  }, [emailVerificationStatus]);
+
+
+  const isFromEmailVerificationPending = verificationStatus === 2;
+  const isFromEmailVerified = verificationStatus === 1;
+
+
+  const onUpdateMarketPlaceSystemEmails = async (systemEmails) => {
+    try {
+      const { isValid, value: payload } = await marketPlaceSettingSchema({ ...marketPlace, systemEmails });
+      if (!isValid) {
+        notification.failed('Invalid Fields ');
+        return;
+      }
+
+      props.updateMarketPlaceSettings(
+        payload,
+        {
+          onSuccess: () => {
+            notification.success('Your Changes Saved Successfully');
+          },
+          onFailed: (message) => {
+            notification.failed(message);
+          }
+        }
+      );
+    } catch ({ message, ...err }) {
+      notification.failed(message);
+    }
+  };
+  useEffect(() => {
+    setSystemEmails(initialSystemEmails);
+  }, [initialSystemEmails]);
+
+  const onChangeSystemEmails = ({ name, value }) => {
+    const updatedSystemEmails = immutable.set(systemEmails, name, value);
+    setSystemEmails(updatedSystemEmails);
+    onUpdateMarketPlaceSystemEmails(updatedSystemEmails);
+  };
+
   return (
     <Fragment>
       <Tabs active='settings' className='emailing-setting-bg'>
@@ -159,12 +238,22 @@ const Email = ({
                   />
                 )}
               >
-                <SmallButton
-                  onClick={onEmailVerify}
-                  className={`primary-color ${versifying ? 'spinner' : ''}`}
-                >
-                  Verify
-                </SmallButton>
+                {isFromEmailVerificationPending ? (
+                  <Button
+                    onClick={onEmailVerificationCheck}
+                    className={`small-btn primary-color ${versifying ? 'spinner' : ''}`}
+                  >
+                    Check Verification Status
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={onEmailVerify}
+                    disabled={isFromEmailVerified}
+                    className={`small-btn primary-color ${versifying ? 'spinner' : ''}`}
+                  >
+                    {` ${isFromEmailVerified ? 'Verified' : 'Send Verification Email'}`}
+                  </Button>
+                )}
               </InputRow.Note>
             </InputRow>
             )}
@@ -175,7 +264,11 @@ const Email = ({
               <InputRow.Note
                 content='This email is sent every time a customer buys a product.'
               >
-                <InputRow.Toggle value name='newOrder' />
+                <InputRow.Toggle
+                  value={systemEmails.newOrder}
+                  name='newOrder'
+                  onToggle={onChangeSystemEmails}
+                />
               </InputRow.Note>
             </InputRow>
             <InputRow>
@@ -183,10 +276,14 @@ const Email = ({
               <InputRow.Note
                 content='This email is sent every time a lead gets captured.'
               >
-                <InputRow.Toggle value name='newLead' />
+                <InputRow.Toggle
+                  value={systemEmails.newLead}
+                  name='newLead'
+                  onToggle={onChangeSystemEmails}
+                />
               </InputRow.Note>
             </InputRow>
-            <InputRow>
+            {/*<InputRow>
               <InputRow.Label> Failed Charge</InputRow.Label>
               <InputRow.Note
                 content="This email is sent each time a customer's subscription payment fails to charge."
@@ -194,6 +291,7 @@ const Email = ({
                 <InputRow.Toggle value name='failedCharge' />
               </InputRow.Note>
             </InputRow>
+            */}
           </MainBlock>
         </Tab>
         <Tab id='email_testing' title='Email Testing'>
@@ -359,6 +457,7 @@ const mapStatToProps = ({
       activePackage = {}
     } = {}
   },
+  settings: { generalModel: marketPlace = {} },
   emails: {
     settings: {
       emailLogo,
@@ -380,7 +479,8 @@ const mapStatToProps = ({
     companyAddress,
     isPremium,
     sourceEmail,
-    emailVerificationStatus
+    emailVerificationStatus,
+    marketPlace
   };
 };
-export default connect(mapStatToProps, emailsActions)(Email);
+export default connect(mapStatToProps, { ...emailsActions, ...settingsActions })(Email);
