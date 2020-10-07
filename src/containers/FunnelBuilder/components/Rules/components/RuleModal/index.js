@@ -15,7 +15,9 @@ import {
   constructProductsAndOffersLabels,
   getAvailablePricingOptionsDetails,
   getIntersectedProducts,
-  getTriggerLabel
+  getTriggerLabel,
+  hasWebhook,
+  updateWithWebhookDefault
 } from '../helpers';
 
 
@@ -77,15 +79,19 @@ const RuleModal = ({
   const onSubmit = () => {
     setSaving(true);
     const { isValid, value, message: errorMessage = 'Please check your rule fields,\ne.g. rule event' } = funnelRuleSchema(fields);
-
+    let ruleValue = value;
     if (!isValid) {
       setSaving(false);
       return notification.failed(errorMessage);
     }
 
+
+    if (hasWebhook(ruleValue.triggerGroups))
+      ruleValue = updateWithWebhookDefault(ruleValue);
+
     if (isNew) {
       props.createFunnelRule({
-        rule: value,
+        rule: ruleValue,
         funnel: funnelId
       }, {
         onSuccess: () => {
@@ -102,7 +108,7 @@ const RuleModal = ({
       const { _id: ruleId } = fields;
       props.updateFunnelRule({
         ruleId,
-        rule: value,
+        rule: ruleValue,
         funnel: funnelId
       }, {
         onSuccess: () => {
