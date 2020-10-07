@@ -19,6 +19,8 @@ const Rules = ({
   funnelProducts,
   openRuleModal,
   isOptInFunnel,
+  isPaypalConnected,
+  isSubscriptionCheckout,
   onToggleRuleModal,
   ...props
 }) => {
@@ -73,6 +75,8 @@ const Rules = ({
           funnelId={funnelId}
           ruleData={activeRule}
           isOptInFunnel={isOptInFunnel}
+          isPaypalConnected={isPaypalConnected}
+          isSubscriptionCheckout={isSubscriptionCheckout}
           isNew={!activeRule}
         />
       )}

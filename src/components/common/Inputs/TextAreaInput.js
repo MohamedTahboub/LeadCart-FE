@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const getWordsCount = (words = '') => words.split((/(\w+)/g)).filter((w) => w.trim().length >= 1).length;
+const getWordsCount = (words = '') => words.split((/(\n)/g)).filter((w) => w.trim().length >= 1).length;
 
 class TextAreaInput extends Component {
   state = {

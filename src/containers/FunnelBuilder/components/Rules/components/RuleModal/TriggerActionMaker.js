@@ -55,6 +55,7 @@ const TriggerActionMaker = ({
   actionsMap,
   productsMap,
   triggerEvent,
+  isPaypalConnected,
   onAdd
 }) => {
   const [group, setGroup] = useState(groupDetails);
@@ -234,6 +235,8 @@ const TriggerActionMaker = ({
         onChange={onDependenciesChange}
         integrationId={actionIntegrationId}
         setDisableAdd={setDisableAdd}
+        isPaypalConnected={isPaypalConnected}
+        triggerEvent={triggerEvent}
       />
       <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
         {error && (

@@ -13,6 +13,7 @@ import TriggerActionMaker from './TriggerActionMaker';
 import { funnelTypes } from 'propTypes';
 import {
   constructProductsAndOffersLabels,
+  filterProperEvents,
   getAvailablePricingOptionsDetails,
   getIntersectedProducts,
   getTriggerLabel
@@ -36,6 +37,8 @@ const RuleModal = ({
   productsMap,
   isOptInFunnel,
   funnelProducts,
+  isPaypalConnected,
+  isSubscriptionCheckout = false,
   ...props
 }) => {
   const [fields, setFields] = useState({ triggerGroups: [] });
@@ -126,8 +129,7 @@ const RuleModal = ({
     };
   }, [isNew, open, ruleData]);
 
-
-  const eventTypes = rulesEvents.filter(({ value }) => (isOptInFunnel ? value === 'LEAD_CAPTURE' : value !== 'LEAD_CAPTURE'));
+  const eventTypes = filterProperEvents(rulesEvents, { isOptInFunnel, isSubscriptionCheckout });
 
   return (
     <Modal
@@ -165,6 +167,7 @@ const RuleModal = ({
                 onAdd={onTriggerGroupAdded}
                 onUpdate={onUpdateTriggerGroup}
                 triggerEvent={fields.trigger}
+                isPaypalConnected={isPaypalConnected}
                 group={group}
               />
             ) : (

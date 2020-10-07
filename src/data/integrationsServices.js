@@ -236,9 +236,13 @@ const services = [
     name: 'WishListMember',
     brandLogo: brandsLogos.wishListMember,
     category: 'Membership Platforms',
+    fields: [
+      { name: 'apiUrl', label: 'API Url' },
+      { name: 'apiKey', label: 'API Key' }
+    ],
     active: false,
     connected: false,
-    supported: false
+    supported: true
   },
   {
     key: 'lc_membermouse',
