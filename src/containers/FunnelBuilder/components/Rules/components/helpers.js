@@ -68,6 +68,30 @@ export const getAvailablePricingOptionsDetails = (pricingOptions = [], productsI
     .filter((option) => pricingOptions.includes(option.value));
 };
 
+export const hasWebhook = (triggerGroups = []) => {
+  return Boolean(triggerGroups.find(({ action = {} }) => action.type === 'WEBHOOKS'));
+};
+
+export const updateWithWebhookDefault = (rule = {}) => {
+  return {
+    ...rule,
+    triggerGroups: rule.triggerGroups.map((triggerGroup) => {
+      if (triggerGroup?.action?.type === 'WEBHOOKS') {
+        return {
+          ...triggerGroup,
+          action: {
+            ...triggerGroup?.action,
+            metaData: {
+              ...triggerGroup?.action?.metaData,
+              payloadFormat: triggerGroup?.action?.metaData?.payloadFormat || 'JSON'
+            }
+          }
+        };
+      }
+      return triggerGroup;
+    })
+  };
+};
 
 export const filterProperEvents = (allEvents, { isOptInFunnel, isSubscriptionCheckout } = {}) => {
   let events = allEvents.filter(({ value }) => (isOptInFunnel ? value === 'LEAD_CAPTURE' : value !== 'LEAD_CAPTURE'));
