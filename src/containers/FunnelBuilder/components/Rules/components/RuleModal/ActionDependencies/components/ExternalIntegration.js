@@ -8,6 +8,7 @@ const { FlexBox, Spinners } = common;
 const { Loader } = Spinners;
 
 const ExternalIntegration = ({ integrationId, metaData = {}, onChange, requirement, ...props }) => {
+
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(false);
 

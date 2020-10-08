@@ -12,6 +12,14 @@ export default [
     value: 'PROSPECT'
   },
   {
+    label: 'Subscription Payment Failed',
+    value: 'SUBSCRIPTION_PAYMENT_FAILED'
+  },
+  {
+    label: 'Subscription Cancelled',
+    value: 'SUBSCRIPTION_CANCELLED'
+  },
+  {
     label: 'Lead Capture',
     value: 'LEAD_CAPTURE'
   }
