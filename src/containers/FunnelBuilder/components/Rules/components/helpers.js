@@ -1,5 +1,6 @@
 import { mapListToObject } from 'libs';
 import rulesEvents from 'data/rulesEvents';
+const subscriptionEvents = ['SUBSCRIPTION_CANCELLED', 'SUBSCRIPTION_PAYMENT_FAILED'];
 
 const getProductsAndOffer = (productsMap, neededProductNodes) => {
   return neededProductNodes.map(({ productId }) => productsMap[productId] || {})
@@ -90,4 +91,13 @@ export const updateWithWebhookDefault = (rule = {}) => {
       return triggerGroup;
     })
   };
+};
+
+export const filterProperEvents = (allEvents, { isOptInFunnel, isSubscriptionCheckout } = {}) => {
+  let events = allEvents.filter(({ value }) => (isOptInFunnel ? value === 'LEAD_CAPTURE' : value !== 'LEAD_CAPTURE'));
+
+  if (!isSubscriptionCheckout)
+    events = events.filter(({ value }) => !(subscriptionEvents.includes(value)));
+
+  return events;
 };
