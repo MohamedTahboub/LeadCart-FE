@@ -15,6 +15,9 @@ import { isFunction } from 'libs/checks';
 import ids from 'shortid';
 import config from 'config';
 import { getProductsPricingOptions } from '../helpers';
+
+import { SubscriptionsHooksNotes } from './components';
+
 const { admins = [] } = config;
 const animatedComponents = makeAnimated();
 
@@ -244,9 +247,10 @@ const TriggerActionMaker = ({
         onChange={onDependenciesChange}
         integrationId={actionIntegrationId}
         setDisableAdd={setDisableAdd}
-        isPaypalConnected={isPaypalConnected}
+        // isPaypalConnected={isPaypalConnected}
         triggerEvent={triggerEvent}
       />
+      <SubscriptionsHooksNotes triggerEvent={triggerEvent} isPaypalConnected={isPaypalConnected} />
       <FlexBox flexEnd={!error} spaceBetween={error} flex className='margin-top-10'>
         {error && (
           <div className='error-text'>
