@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { getServiceBrand } from 'data/integrationsServices';
 import { includesIgnoreCase, openNewWindow } from 'libs';
-
+import { codDeliveryPayment } from 'data/defaults';
 import common from 'components/common';
 import { connect } from 'react-redux';
 
@@ -93,9 +93,9 @@ const PaymentMethods = ({
 
 const mapStateToProps = ({ integrations }) => {
 
-  const integrationsList = integrations
+  const integrationsList = [codDeliveryPayment, ...integrations
     .filter((integration) => includesIgnoreCase(integration.category, 'payment'))
-    .map((integration) => ({ logo: getServiceBrand(integration.key), ...integration }));
+    .map((integration) => ({ logo: getServiceBrand(integration.key), ...integration }))];
 
   return { paymentsIntegrations: integrationsList };
 };
