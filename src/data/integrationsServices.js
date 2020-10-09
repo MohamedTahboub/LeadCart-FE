@@ -28,9 +28,10 @@ const services = [
     name: 'RazorPay',
     brandLogo: brandsLogos.razorpayLogo,
     category: 'Payment Gateways',
+    description: 'An Indian payment gateway that accepts payments from customers. Automate payouts to vendors and employees.',
     active: false,
     connected: false,
-    supported: false
+    supported: true
   },
   {
     key: 'lc_authorizenetlogo',
