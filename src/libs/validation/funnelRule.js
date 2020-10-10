@@ -18,7 +18,7 @@ const codeDistributionFulfillmentMetaData = yup.object({
 const webhooksSchema = yup.object({
   label: yup.string(),
   url: yup.string(),
-  payloadFormat: yup.string().default('FORM_DATA')
+  payloadFormat: yup.string().default('JSON')
 });
 
 const manualFulfillmentMetaData = yup.object({
@@ -106,7 +106,7 @@ export default (funnelRule) => {
     return {
       isValid: false,
       errors: castYupErrors(err),
-      message:  firstErrorMessage || err.message
+      message: firstErrorMessage || err.message
     };
   }
 };

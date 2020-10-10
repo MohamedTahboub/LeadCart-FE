@@ -13,9 +13,12 @@ import TriggerActionMaker from './TriggerActionMaker';
 import { funnelTypes } from 'propTypes';
 import {
   constructProductsAndOffersLabels,
+  filterProperEvents,
   getAvailablePricingOptionsDetails,
   getIntersectedProducts,
-  getTriggerLabel
+  getTriggerLabel,
+  hasWebhook,
+  updateWithWebhookDefault
 } from '../helpers';
 
 
@@ -34,7 +37,10 @@ const RuleModal = ({
   onClose,
   funnelId,
   productsMap,
+  isOptInFunnel,
   funnelProducts,
+  isPaypalConnected,
+  isSubscriptionCheckout = false,
   ...props
 }) => {
   const [fields, setFields] = useState({ triggerGroups: [] });
@@ -76,15 +82,19 @@ const RuleModal = ({
   const onSubmit = () => {
     setSaving(true);
     const { isValid, value, message: errorMessage = 'Please check your rule fields,\ne.g. rule event' } = funnelRuleSchema(fields);
-
+    let ruleValue = value;
     if (!isValid) {
       setSaving(false);
       return notification.failed(errorMessage);
     }
 
+
+    if (hasWebhook(ruleValue.triggerGroups))
+      ruleValue = updateWithWebhookDefault(ruleValue);
+
     if (isNew) {
       props.createFunnelRule({
-        rule: value,
+        rule: ruleValue,
         funnel: funnelId
       }, {
         onSuccess: () => {
@@ -101,7 +111,7 @@ const RuleModal = ({
       const { _id: ruleId } = fields;
       props.updateFunnelRule({
         ruleId,
-        rule: value,
+        rule: ruleValue,
         funnel: funnelId
       }, {
         onSuccess: () => {
@@ -125,6 +135,7 @@ const RuleModal = ({
     };
   }, [isNew, open, ruleData]);
 
+  const eventTypes = filterProperEvents(rulesEvents, { isOptInFunnel, isSubscriptionCheckout });
 
   return (
     <Modal
@@ -139,7 +150,7 @@ const RuleModal = ({
         <div className='label margin-right-10'>When</div>
 
         <Select
-          options={rulesEvents}
+          options={eventTypes}
           className='flex-item margin-h-10'
           onChange={onTriggerChange}
           placeholder='Select an event'
@@ -162,6 +173,7 @@ const RuleModal = ({
                 onAdd={onTriggerGroupAdded}
                 onUpdate={onUpdateTriggerGroup}
                 triggerEvent={fields.trigger}
+                isPaypalConnected={isPaypalConnected}
                 group={group}
               />
             ) : (

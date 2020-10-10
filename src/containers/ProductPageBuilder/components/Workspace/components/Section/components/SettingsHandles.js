@@ -16,7 +16,8 @@ const SettingsHandles = ({
   onSettings,
   moveCard,
   index,
-  isThankYouProductPage
+  isThankYouProductPage,
+  isisOptInProduct
 }) => {
   const {
     state: { product: { sections = [] } = {} },
@@ -44,7 +45,8 @@ const SettingsHandles = ({
   const isOnBottom = index !== sections.length - 1;
   const isOnTop = index !== 0;
   const isCheckoutInThankYouPage = isThankYouProductPage && section.type === 'checkoutSection';
-  const withSettingSide = !settingLessTypes.includes(section.type) && !isCheckoutInThankYouPage;
+  const isCheckoutInOptIn = isisOptInProduct && section.type === 'checkoutSection';
+  const withSettingSide = !settingLessTypes.includes(section.type) && !isCheckoutInThankYouPage && !isCheckoutInOptIn;
 
   return (
     <div className='product-section-settings-handle'>

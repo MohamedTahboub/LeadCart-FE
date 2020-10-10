@@ -11,6 +11,7 @@ const ResizableTextarea = ({
   const styles = {
     border: 'none',
     resize: 'none',
+    background: 'transparent',
     ...style
   };
   const classNames = clx({

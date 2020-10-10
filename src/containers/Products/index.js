@@ -24,7 +24,7 @@ const {
 
 const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
-const { Checkbox, TextField } = InputRow;
+const { SearchInput, TextField } = InputRow;
 const Products = ({
   isFetching: loadingProducts,
   deleteProduct,
@@ -76,29 +76,23 @@ const Products = ({
     onHideDeleteDialogue();
   };
 
-  const onFilterProducts = (searchKey, categories) => {
+  const onFilterProducts = (searchKey, category) => {
     let filtered = products;
     if (searchKey) filtered = filtered.filter(({ name = '' }) => name.toLowerCase().includes(searchKey.toLowerCase()));
+    if (category && category !== 'all') filtered = filtered.filter((p) => category === p.category);
 
-    if (categories) filtered = filtered.filter((p) => categories.includes(p.category));
-
-    setFilterKeys({ searchKey, categories });
+    setFilterKeys({ searchKey, category });
     setFilteredProducts(filtered);
   };
 
   const onSearch = ({ target: { value: searchKey } }) => {
-    const { categories } = filterKeys;
-    if (searchKey === 'all') return onFilterProducts(undefined, categories);
-    onFilterProducts(searchKey, categories);
+    onFilterProducts(searchKey);
   };
 
-
-  const onToggleCategory = (name) => () => {
-    let { searchKey, categories } = filterKeys;
-
-    categories = categories.includes(name) ? categories.filter((c) => c !== name) : [...categories, name];
-    onFilterProducts(searchKey, categories);
+  const onCategorySearch = ({ target: { value: category } }) => {
+    onFilterProducts(filterKeys.searchKey, category);
   };
+
   return (
     <Page>
       <PageHeader>
@@ -109,20 +103,20 @@ const Products = ({
             value={filterKeys.searchKey}
             name='product'
           />
-          <Checkbox
-            className='margin-left-10'
-            onClick={onToggleCategory('checkout')}
-            checked={filterKeys.categories.includes('checkout')}
-          >
-            Checkout
-          </Checkbox>
-          <Checkbox
-            className='margin-left-10'
-            onClick={onToggleCategory('upsell')}
-            checked={filterKeys.categories.includes('upsell')}
-          >
-            Upsell
-          </Checkbox>
+          <SearchInput
+            className='chart-select-filter product-categories mx-2'
+            options={[
+              { label: 'All Products Categories', value: 'all' },
+              { label: 'Checkout Products', value: 'checkout' },
+              { label: 'Upsell/Downsell Products', value: 'upsell' },
+              { label: 'Opt-in Products', value: 'opt-in' },
+              { label: 'Thank you Pages', value: 'thankyoupage' }
+            ]}
+            value={filterKeys.category}
+            defaultValue={'all'}
+            name='category'
+            onChange={onCategorySearch}
+          />
         </div>
         <Button onClick={() => setShowProductModal(true)} className='primary-color'>
           <i className='fas fa-plus' />

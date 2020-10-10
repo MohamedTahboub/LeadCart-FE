@@ -29,6 +29,12 @@ export const main = ({ user = {}, history }) => {
           key: 'customers',
           link: '/customers',
           icon: 'customers'
+        },
+        {
+          title: 'Leads',
+          key: 'leads',
+          link: '/leads',
+          icon: 'leads'
         }
       ]
     }, { divider: true }, {

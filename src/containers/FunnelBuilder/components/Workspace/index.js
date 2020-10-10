@@ -25,7 +25,8 @@ const WorkSpace = ({
     url: funnelUrl
   },
   productsNodeDetails,
-  history
+  history,
+  isOptInFunnel
 }) => {
   const [connecting, setConnecting] = useState(false);
   const [showNodeSettingModal, setShowNodeSettingModal] = useState(false);
@@ -208,7 +209,7 @@ const WorkSpace = ({
 
   return (
     <FlexBox className='relative-element' flex>
-      <RelationsWorkSpace nodes={nodes} />
+      <RelationsWorkSpace nodes={nodes} isOptInFunnel={isOptInFunnel} />
       <div
         onDragOver={onDragOver}
         onDrop={onDrop}
@@ -230,6 +231,7 @@ const WorkSpace = ({
             {...nodeProps}
             product={productsNodeDetails[node.productId]}
             connectingElement={connecting.currentId}
+            isOptInFunnel={isOptInFunnel}
           />
         ))}
         <ShadowBackground show={showNodeSettingModal} setShowNodeSettingModal={setShowNodeSettingModal} />
@@ -241,6 +243,7 @@ const WorkSpace = ({
           funnelUrl={funnelUrl}
           funnelId={funnelId}
           history={history}
+          isOptInFunnel={isOptInFunnel}
         />
 
       </div>
@@ -248,7 +251,7 @@ const WorkSpace = ({
   );
 };
 
-function getElementPosition(event, originalMouseOffset, parentRef) {
+function getElementPosition (event, originalMouseOffset, parentRef) {
   const {
     left: parentLeft,
     top: parentTop

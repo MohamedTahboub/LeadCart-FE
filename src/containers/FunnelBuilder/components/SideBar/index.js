@@ -25,6 +25,7 @@ const { Toggle, AddImage } = InputRow;
 const SideBar = ({
   funnel,
   onChange,
+  isOptInFunnel,
   ...props
 }) => {
 
@@ -76,49 +77,52 @@ const SideBar = ({
           max={50}
         />
       </FlexBox>
-      <Tabs active='funnelBlocks' className='padding-v-10 padding-h-10 tabs-funnel'>
-        <Tab id='funnelBlocks' title='Funnel Blocks'>
-          <GrabbableBlock
-            demoImage={pageFunnelImage}
-            title='Opt-in Page'
-            description='Funnel Step that will hold a one page Funnel product'
-            disabled
-            draggable={false}
-            onDragStart={onDrag}
-            data={funnelNodes.onePageFunnel}
-            className='hide-element'
-          />
-          <GrabbableBlock
-            demoImage={checkoutPageImage}
-            title='Checkout Page'
-            description='Funnel Step that will hold Checkout product'
-            onDragStart={onDrag}
-            data={funnelNodes.checkoutPage}
-          />
-          <GrabbableBlock
-            demoImage={upsellPageImage}
-            title='Upsell/Downsell Page'
-            description='Funnel Step that will hold a Upsell/Downsell product'
-            onDragStart={onDrag}
-            data={funnelNodes.upsellPage}
-          />
-          <GrabbableBlock
-            demoImage={thankyouPageImage}
-            title='Thankyou Page'
-            description='Funnel Step that will hold Thankyou Page'
-            onDragStart={onDrag}
-            data={funnelNodes.thankYouPage}
-          />
-        </Tab>
+      <Tabs active={isOptInFunnel ? 'funnelSettings' : 'funnelBlocks'} className='padding-v-10 padding-h-10 tabs-funnel'>
+        {!isOptInFunnel &&
+          <Tab id='funnelBlocks' title='Funnel Blocks'>
+            <GrabbableBlock
+              demoImage={pageFunnelImage}
+              title='Opt-in Page'
+              description='Funnel Step that will hold a one page Funnel product'
+              disabled
+              draggable={false}
+              onDragStart={onDrag}
+              data={funnelNodes.onePageFunnel}
+              className='hide-element'
+            />
+            <GrabbableBlock
+              demoImage={checkoutPageImage}
+              title='Checkout Page'
+              description='Funnel Step that will hold Checkout product'
+              onDragStart={onDrag}
+              data={funnelNodes.checkoutPage}
+            />
+            <GrabbableBlock
+              demoImage={upsellPageImage}
+              title='Upsell/Downsell Page'
+              description='Funnel Step that will hold a Upsell/Downsell product'
+              onDragStart={onDrag}
+              data={funnelNodes.upsellPage}
+            />
+            <GrabbableBlock
+              demoImage={thankyouPageImage}
+              title='Thankyou Page'
+              description='Funnel Step that will hold Thankyou Page'
+              onDragStart={onDrag}
+              data={funnelNodes.thankYouPage}
+            />
+          </Tab>
+        }
         <Tab id='funnelSettings' title='Settings'>
           <SettingMenu
             {...props}
             onChange={onChange}
             funnel={funnel}
+            isOptInFunnel={isOptInFunnel}
           />
         </Tab>
 
-        <Tab id='marketPlace' title='MarketPlace'>
+        <Tab id='marketPlace' title='Marketplace'>
           <section className='tab__marketPlace__publish'>
             Publish
             <Toggle
@@ -153,7 +157,7 @@ const SideBar = ({
         </Tab>
 
       </Tabs>
-    </SideMenu >
+    </SideMenu>
 
 
   );

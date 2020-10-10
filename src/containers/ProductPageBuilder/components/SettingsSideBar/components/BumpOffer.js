@@ -144,7 +144,7 @@ const BumpOffer = () => {
             uncontrolled
           />
         </InputRow>
-        <FlexBox flex spaceBetween center='v-center'>
+        <FlexBox spaceBetween center='v-center'>
           <FlexBox flex>
             Force opt-out:
           </FlexBox>

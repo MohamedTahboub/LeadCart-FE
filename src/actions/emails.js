@@ -1,24 +1,24 @@
 import {
-  UPDATE_EMAIL_FOOTER,
-  UPDATE_EMAIL_FOOTER_SUCCESS,
-  UPDATE_EMAIL_FOOTER_FAILED,
-  VERIFY_SOURCE_EMAIL,
-  VERIFY_SOURCE_EMAIL_SUCCESS,
-  VERIFY_SOURCE_EMAIL_FAILED,
   CHECK_EMAIL_VERIFICATION,
-  CHECK_EMAIL_VERIFICATION_SUCCESS,
   CHECK_EMAIL_VERIFICATION_FAILED,
+  CHECK_EMAIL_VERIFICATION_SUCCESS,
+  GET_EMAIL_SETTINGS,
   TEST_EMAIL,
-  TEST_EMAIL_SUCCESS,
   TEST_EMAIL_FAILED,
-  GET_EMAIL_SETTINGS
+  TEST_EMAIL_SUCCESS,
+  UPDATE_EMAIL_FOOTER,
+  UPDATE_EMAIL_FOOTER_FAILED,
+  UPDATE_EMAIL_FOOTER_SUCCESS,
+  VERIFY_SOURCE_EMAIL,
+  VERIFY_SOURCE_EMAIL_FAILED,
+  VERIFY_SOURCE_EMAIL_SUCCESS
 } from 'constantsTypes';
 
 
 export const getEmailSettings = (settings) => ({
   type: GET_EMAIL_SETTINGS,
   payload: settings
-})
+});
 export const updateEmailFooter = (details, meta) => ({
   type: UPDATE_EMAIL_FOOTER,
   payload: details,
@@ -47,9 +47,10 @@ export const verifyEmailSourceFailed = (message) => ({
   payload: message
 });
 
-export const checkEmailVerification = (email) => ({
+export const checkEmailVerification = (email, meta) => ({
   type: CHECK_EMAIL_VERIFICATION,
-  payload: email
+  payload: email,
+  meta
 });
 export const checkEmailVerificationSuccess = (email) => ({
   type: CHECK_EMAIL_VERIFICATION_SUCCESS,

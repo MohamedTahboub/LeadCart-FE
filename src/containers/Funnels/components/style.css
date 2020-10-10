@@ -41,11 +41,19 @@
     margin: 10px 20px;
     border-radius: 5px;
     border: 1px solid #eee;
+    height: min-content;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-template-image p{
+    margin: 0;
 }
 
 .modal-template-image img {
     height: 100px;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0 ;
     width: 155px;
 }
 
@@ -58,10 +66,10 @@
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
     content: "\f058";
-    font-size: 16px;
-    top: 5px;
+    font-size: 30px;
+    bottom: 5px;
     right: 10px;
-    color: lightgreen;
+    color: #4DA1FF;
 }
 
 .funnel-card {
@@ -95,3 +103,64 @@
     align-items: center;
     z-index: 0;
 }
+
+.beta-badge{
+    position: absolute;
+    top: 48px;
+    right: 13px;
+    background-color: #4da1ffbf;
+    color: white;
+    font-size: 13px;
+    padding: 1px 10px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+
+/* 
+   ============ The Second Template Image Style ============
+
+.modal-template-image {
+    cursor: pointer;
+    margin: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    height: min-content;
+    text-align: center;
+    overflow: hidden;
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-template-image p{
+    margin: 0 0 0 20px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-template-image img {
+    height: 100px;
+    border-radius: 5px;
+    width: 155px;
+}
+
+.modal-template-image.active {
+    position: relative;
+}
+
+.modal-template-image.active:before {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f058";
+    font-size: 16px;
+    top: 5px;
+    right: 10px;
+    color: lightgreen;
+}
+
+*/

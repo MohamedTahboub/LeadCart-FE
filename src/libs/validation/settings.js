@@ -19,6 +19,10 @@ export default async (fields) => {//
       }))
     }).required(),
     showPoweredBy: yup.boolean().default(true),
+    systemEmails: yup.object({
+      newOrder: yup.boolean().default(true),
+      newLead: yup.boolean().default(true)
+    }),
     favicon: yup.string().url()
   }).required();
 

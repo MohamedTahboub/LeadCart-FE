@@ -46,7 +46,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
   return (
-    <div className='brands-menu' data-testid='brands-menu'>
+    <div className={classNames('brands-menu', { 'brands-menu-open': isBrandsOpen })} data-testid='brands-menu'>
       <Menu
         className={classNames('brands-navigation', { 'is-open': isBrandsOpen })}
         mode='inline'
@@ -56,8 +56,8 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
         onOpenChange={onOpenChange}
         onClick={_onChange}
       >
-        <SubMenu className='always-active' title={<span>{activeBrand.name}</span>} key='brands'>
-          <Search placeholder='Search brands...' onChange={_filterBrands} className='minimal-input' />
+        <SubMenu className='always-active fixed-brands-title' title={<span>{activeBrand.name}</span>} key='brands'>
+          <Search placeholder='Search brands...' onChange={_filterBrands} className='minimal-input brands-search' />
           {
             brands.filter(({ name }) => insensitiveSearch(brandsFilter, name))
               .map((brand) => (

@@ -25,6 +25,21 @@ import {
 } from './components';
 import { withHistoryListener } from '../../history';
 
+const hasPaypalPayment = ({ paymentMethods = [] } = {}) => {
+  return paymentMethods.includes('Paypal');
+};
+const subscriptionPaymentTypes = ['Subscription', 'Split'];
+
+const hasSubscriptionProduct = ({ products = [] } = {}, productsMap) => {
+  const checkoutProduct = products.find(({ category }) => category === 'checkout');
+  if (!checkoutProduct) return false;
+  const startPointProduct = productsMap[checkoutProduct.productId];
+  if (!startPointProduct) return false;
+
+  const { payment: { type } = {} } = startPointProduct;
+  return subscriptionPaymentTypes.includes(type);
+};
+
 const {
   Page,
   FlexBox,
@@ -41,14 +56,16 @@ const FunnelBuilder = ({
   saveFunnelState,
   ...props
 }) => {
-  const { url: funnelUrl } = props.match.params;
+  const { history: { location = {} } = {}, match: { params: { url: funnelUrl } = {} } = {} } = props;
+
   const [fields, setFields] = useState(savedFunnel);
   const [errors, setErrors] = useState({});
-  const { sub: activeSub = 'blocks' } = queryString.parse(props.history.location.search.replace('?', ''));
+  const { sub: activeSub = 'blocks' } = queryString.parse(location.search.replace('?', ''));
   const [activePage, setActivePage] = useState(activeSub);
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
   const [unblock, SetUnblock] = useState();
+
   const [openRuleModal, setOpenRuleModal] = useState(false);
 
   const onToggleRuleModal = (activeRule, setActiveRule) => {
@@ -85,11 +102,11 @@ const FunnelBuilder = ({
   };
 
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
+
   useEffect(() => {
     const funnel = getFunnelByUrl(funnelUrl);
 
     if (!funnel) return;
-
     if (funnel._id === fields._id) {
       if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules))
         setFields(funnel);
@@ -123,7 +140,7 @@ const FunnelBuilder = ({
       return setErrors(errors);
     }
 
-    const startPoint = getStartPointProduct(funnel);
+    const startPoint = getStartPointProduct(fields);
     if (startPoint) funnel.startPoint = startPoint;
 
     const productsUpdates = extractProductsRelations(funnel);
@@ -159,7 +176,7 @@ const FunnelBuilder = ({
 
   useEffect(() => {
     props.history.push(`?sub=${activePage}`);
-  }, [activePage, props.history]);
+  }, [activePage]);
 
   const onPageChange = (page) => () => {
     setActivePage(page);
@@ -176,19 +193,22 @@ const FunnelBuilder = ({
     onSave,
     history: props.history
   };
+  const isOptInFunnel = fields.type && fields.type === 'OPT-IN';
 
   const sidebarProps = {
     onChange,
     funnel: fields,
     onToggleDarkTheme,
-    darkTheme: enableDarkTheme
+    darkTheme: enableDarkTheme,
+    isOptInFunnel
   };
   const workSpaceProps = {
     funnel: fields,
     onChange,
     productsNodeDetails,
     errors,
-    history: props.history
+    history: props.history,
+    isOptInFunnel
   };
 
   const rulesProps = {
@@ -196,6 +216,9 @@ const FunnelBuilder = ({
     rules: fields.rules,
     openRuleModal,
     onToggleRuleModal,
+    isOptInFunnel,
+    isPaypalConnected: hasPaypalPayment(fields),
+    isSubscriptionCheckout: hasSubscriptionProduct(fields, productsMap),
     funnelProducts: fields.products
   };
   return (
@@ -220,7 +243,7 @@ FunnelBuilder.defaultProps = {
   history: {}
 };
 
-const nodeProjectProjection = { thumbnail: 'image', name: 'name' };
+const nodeProjectProjection = { thumbnail: 'image', name: 'name', payment: 'payment' };
 
 const mapStateToProps = ({
   products: { products } = {},

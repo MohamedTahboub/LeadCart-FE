@@ -305,6 +305,7 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
   background: #E6F7FF;
 }
 
+
 .compress-modal {
   overflow-y: scroll;
   max-height: 750px;
@@ -327,6 +328,42 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 }
 
 .brands-menu .ant-input-affix-wrapper .ant-input:not(:last-child) { padding-right: 0 !important; }
+
+
+.brands-menu {
+  position: relative;
+}
+
+.brands-menu-open{
+  padding-top: 82px;
+}
+
+.brands-menu:not(.brands-menu-open){
+  animation: remove-padding .4s ease-in-out forwards;
+}
+
+@keyframes remove-padding {
+  from {padding-top: 82px;}
+  to {padding-top: 0;}
+
+}
+
+.fixed-brands-title .ant-menu-submenu-title{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.brands-search{
+  position: absolute !important;
+  z-index: 99;
+  right: 0px;
+  left: 0px;
+  top: 45px;
+}
+
+
 
 
 /* Spacing */
@@ -420,7 +457,9 @@ input.minimal-input, button.minimal-input, .ant-input-search.minimal-input input
 .justify-end { justify-content: flex-end; }
 .justify-center { justify-content: center; }
 .justify-space-between { justify-content: space-between; }
+.justify-space-around { justify-content: space-around; }
 .justify-content-between { justify-content: space-between; }
+.justify-content-around { justify-content: space-around; }
 .justify-content-end { justify-content: flex-end; }
 .justify-content-start { justify-content: flex-start; }
 .align-center-left {

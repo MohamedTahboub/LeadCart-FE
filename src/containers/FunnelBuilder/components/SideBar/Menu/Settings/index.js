@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import common from 'components/common';
@@ -34,7 +34,8 @@ const Settings = ({
     language,
     currency = defaultCurrency
   } = {},
-  onChange
+  onChange,
+  isOptInFunnel
 }) => {
 
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
@@ -47,32 +48,36 @@ const Settings = ({
   return (
     <FlexBox column className='margin-top-10'>
       <FlexBox flex column>
-        <FlexBox flex center='v-center'>
-          <Label
-            description='This will appear on your cart page,this is just for presentation purpose'
-          >
+        {!isOptInFunnel && (
+          <Fragment>
+            <FlexBox flex center='v-center'>
+              <Label
+                description='This will appear on your cart page,this is just for presentation purpose'
+              >
             Currency:
-          </Label>
-          <SearchInput
-            size='small'
-            width={350}
-            options={currenciesList}
-            defaultValue={currency}
-            name='currency'
-            onChange={onFiledChange}
-          />
-        </FlexBox>
-        <FlexBox flex column className='mt-3'>
-          <Label>
+              </Label>
+              <SearchInput
+                size='small'
+                width={350}
+                options={currenciesList}
+                defaultValue={currency}
+                name='currency'
+                onChange={onFiledChange}
+              />
+            </FlexBox>
+            <FlexBox flex column className='mt-3'>
+              <Label>
             Payment Method:
-          </Label>
-          <PaymentsGateways
-            name='paymentMethods'
-            selected={paymentMethods}
-            onChange={onFiledChange}
-            currency={currency}
-          />
-        </FlexBox>
+              </Label>
+              <PaymentsGateways
+                name='paymentMethods'
+                selected={paymentMethods}
+                onChange={onFiledChange}
+                currency={currency}
+              />
+            </FlexBox>
+          </Fragment>
+        )}
         <FlexBox flex center='v-center'>
           <Label>
             language:
@@ -88,7 +93,7 @@ const Settings = ({
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox column>
+      <FlexBox column className='mt-3'>
         <Label>
           Funnel Publishable Link (URL):
         </Label>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { MdClose } from 'react-icons/md';
 import { FaEllipsisH } from 'react-icons/fa';
+import { FiBox } from 'react-icons/fi';
 import clx from 'classnames';
 
 import { CustomerPanelModal } from './components';
@@ -10,9 +11,9 @@ import Table from 'components/common/Tables';
 import * as customersActions from 'actions/customers';
 import { checkObject } from 'helpers/common';
 import common from 'components/common';
-import './style.css';
 import { FlexBox } from '../../components/common/boxes';
-import { FiBox } from 'react-icons/fi';
+
+import './style.css';
 
 const {
   MainTitle,
@@ -21,8 +22,11 @@ const {
   PageContent,
   MiniButton,
   Avatar,
-  InputRow
+  InputRow,
+  Currency
 } = common;
+
+const { TextField } = InputRow;
 
 const CustomersLab = ({ customers, orderRefund, defaultBrandCurrency }) => {
 
@@ -30,7 +34,7 @@ const CustomersLab = ({ customers, orderRefund, defaultBrandCurrency }) => {
   const [activeCustomer, setCustomer] = useState({});
   const [filterValue, setFilter] = useState('');
 
-  const onSearchChange = (filterValue) => setFilter(filterValue);
+  const onSearchChange = ({ target: { value } }) => setFilter(value);
   const toggleCustomerPanel = (customer = {}) => {
     setCustomer((activeCustomer = {}) => {
       if (activeCustomer.email === customer.email) {
@@ -73,10 +77,18 @@ const CustomersLab = ({ customers, orderRefund, defaultBrandCurrency }) => {
         <MainTitle>
           <div className='d-flex align-center justify-content-start'>
             Customers
-            <InputRow.SearchInput className='ml-3' placeholder='Search customers' onSearch={onSearchChange} />
+            <TextField
+              className='ml-3'
+              onChange={onSearchChange}
+              value={filterValue}
+              name='customer'
+              placeholder='Search customers'
+              prefix={<Currency value={<i className='fas fa-search' />} />}
+            />
           </div>
         </MainTitle>
       </PageHeader>
+
       <PageContent className='d-flex overflow-x-hidden overflow-y-scroll py-0 mt--28px'>
         <Table className={clx('customer-lab-table', { 'widget-open': showPanel })}>
           <Table.Head>

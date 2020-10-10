@@ -13,6 +13,7 @@ import { ReactComponent as Settings } from 'assets/images/icons/settings.svg';
 import { ReactComponent as Help } from 'assets/images/icons/help.svg';
 import { ReactComponent as Analytics } from 'assets/images/icons/comparative.svg';
 import { ReactComponent as Sales } from 'assets/images/icons/commerce-and-shopping.svg';
+import { ReactComponent as Leads } from 'assets/images/icons/lead-icon.svg';
 
 
 export default {
@@ -29,5 +30,6 @@ export default {
   settings: Settings,
   help: Help,
   analytics: Analytics,
-  sales: Sales
+  sales: Sales,
+  leads: Leads
 };
