@@ -34,6 +34,11 @@
                     "label": "Phone Number"
                 },
                 {
+                    "key": "pricingOptionsLabel",
+                    "value": "Choose a pricing option:",
+                    "label": "Choose a pricing option:"
+                },
+                {
                     "key": "shippingDetails",
                     "value": "Shipping Address",
                     "label": "Shipping Address"
@@ -44,7 +49,7 @@
                     "label": "Street Address"
                 },
                 {
-                    "key": "streetAddress2",
+                    "key": "secondStreetAddress",
                     "value": "Street Address #2",
                     "label": "Street Address #2"
                 },
@@ -107,18 +112,6 @@
                     "key": "discount",
                     "value": "Discount",
                     "label": "Discount"
-                },
-                {
-                    "key": "termsAndConditions",
-                    "value": "By placing an order you are stating that you agree to the",
-                    "label": "By placing an order you are stating that you agree to the",
-                    "subs": [
-                        {
-                            "key": "link",
-                            "label": "Terms & Conditions",
-                            "value": "Terms & Conditions"
-                        }
-                    ]
                 },
                 {
                     "key": "subscriptionMonthly",

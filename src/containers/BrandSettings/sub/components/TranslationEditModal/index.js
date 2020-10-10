@@ -50,13 +50,17 @@ const Word = ({
 
       {hasSubs && (
         <div className='word-subs'>
-          {subs.map((word) => (
-            <Word
-              {...word}
-              keyValue={`${keyValue}.${word.key}`}
-              onChange={onChange}
-            />
-          ))}
+          {subs.map((word) => {
+            const kv = `${keyValue}.${word.key}`;
+            return (
+              <Word
+                {...word}
+                key={kv}
+                keyValue={kv}
+                onChange={onChange}
+              />
+            );
+          })}
         </div>
       )}
     </div>
@@ -70,6 +74,7 @@ const LanguageContext = ({
   ...props
 }) => {
   const onChange = ({ target: { name: wordKey, value } }) => {
+    console.log('Translations', wordKey, value);
     props.onChange({
       contextKey: keyValue,
       wordKey,
@@ -93,6 +98,7 @@ const LanguageContext = ({
         {words.map((word) => (
           <Word
             {...word}
+            key={word.key}
             keyValue={word.key}
             onChange={onChange}
           />
@@ -278,6 +284,7 @@ const TranslationEditModal = ({
         {filteredLanguageContexts.map((context) => (
           <LanguageContext
             {...context}
+            key={context.key}
             keyValue={context.key}
             onChange={onChange}
           />
