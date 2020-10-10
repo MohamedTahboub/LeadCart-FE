@@ -3,8 +3,8 @@ import common from 'components/common';
 import creditsImage from 'assets/images/payment-cards.png';
 import paypalImage from 'assets/images/paypal-thumbnail.png';
 import creditCardImage from 'assets/images/credit-card-demo.gif';
-import payOnDeliveryImage from 'assets/images/payOnDelivery.jpg';
-import cashOnDeliveryImage from 'assets/images/cod.png';
+import payOnDeliveryImage from 'assets/images/cod_icon.png';
+import cashOnDeliveryImage from 'assets/images/cod_icon.png';
 import { useContext } from '../../../../../../../../actions';
 import './style.css';
 
@@ -18,10 +18,9 @@ const PaymentSelectionDemo = ({ method }) => {
     src = creditCardImage;
     classes = 'credit-card';
   } else if (method === 2) {
-    src = paypalImage;
+    return null;
   } else if (method === 3) {
-    src = payOnDeliveryImage;
-    classes = 'cod-image';
+    return null;
   } else {
     return null;
   }

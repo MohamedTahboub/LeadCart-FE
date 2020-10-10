@@ -1,6 +1,7 @@
-import codIcon from 'assets/images/cash_icon_delivery.svg';
+import codIcon from 'assets/images/cod_icon.png';
 
 export const codDeliveryPayment = {
   name: 'COD',
-  logo: codIcon
+  logo: codIcon,
+  className: 'cod-image'
 };
