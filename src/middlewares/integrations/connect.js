@@ -1,7 +1,7 @@
 
 import {
-  connectIntegrationServiceSuccess,
   connectIntegrationServiceFailed,
+  connectIntegrationServiceSuccess
 } from '../../actions/integrations';
 import { apiRequest } from '../../actions/apiRequest';
 import { CONNECT_INTEGRATION_SERVICE } from '../../constantsTypes';
