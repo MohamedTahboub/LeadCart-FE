@@ -74,7 +74,6 @@ const LanguageContext = ({
   ...props
 }) => {
   const onChange = ({ target: { name: wordKey, value } }) => {
-    console.log('Translations', wordKey, value);
     props.onChange({
       contextKey: keyValue,
       wordKey,

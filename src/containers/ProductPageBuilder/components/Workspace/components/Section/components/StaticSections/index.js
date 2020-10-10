@@ -56,7 +56,6 @@ const StaticSections = ({ language, section }) => {
   };
 
 
-  console.log({ isSetHidden });
   if (isThankyouProduct && (isOptInFunnel || isSetHidden)) return null;
 
   return (

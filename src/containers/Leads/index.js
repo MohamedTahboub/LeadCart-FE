@@ -23,7 +23,6 @@ const filterLeads = ({ value }) => ({ funnel }) => value ? funnel === value : tr
 const Leads = ({ leads = [], funnelsOptions = [] }) => {
   const [downloading, setDownloading] = useState(false);
 
-  console.log({ funnelsOptions });
   const [searchOption, setSearch] = useState([]);
 
   const onSearch = (option) => {
