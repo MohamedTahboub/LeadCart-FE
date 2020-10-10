@@ -24,7 +24,7 @@ const services = [
     connected: false,
     supported: true
   }, {
-    key: 'lc_razor_pay',
+    key: 'lc_razorpay',
     name: 'RazorPay',
     brandLogo: brandsLogos.razorpayLogo,
     category: 'Payment Gateways',
