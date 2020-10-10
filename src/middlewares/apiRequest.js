@@ -11,11 +11,11 @@ export default ({ dispatch, getState }) => (next) => async (action) => {
   try {
     const { user: { user: { token } } } = getState();
 
-    const { success, message, data } = await apiRequest({ token, ...options });
+    const { success, message, error: errorMessage, data } = await apiRequest({ token, ...options });
 
     dispatch({ type: END_LOADING });
     if (success) dispatch(onSuccess(data));
-    else dispatch(onFailed(message));
+    else dispatch(onFailed(message || errorMessage));
   } catch (e) {
     dispatch({ type: END_LOADING });
     dispatch(onFailed(`Something gone wrong,please try again later ${e.message}`));

@@ -12,6 +12,7 @@ import { removeSpacesFromObj } from 'helpers/common';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock } = common;
+const { Label, TextField, AddImage, Toggle, SearchInput } = InputRow;
 
 const currenciesList = currencies.map((c) => ({ value: c.code, label: `${c.symbol} - ${c.name}` }));
 const countries = countriesList.map(({ name: label, code: value }) => ({ label, value }));
@@ -79,8 +80,8 @@ const GeneralSettings = ({
   return (
     <MainBlock title='General Brand Settings' containerClasses='marketplace-settings-bg'>
       <InputRow>
-        <InputRow.Label error={errors.name}>Company Name:</InputRow.Label>
-        <InputRow.TextField
+        <Label error={errors.name}>Company Name:</Label>
+        <TextField
           error={errors.name}
           name='name'
           value={fields.name}
@@ -88,13 +89,13 @@ const GeneralSettings = ({
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label
+        <Label
           error={errors.logo}
         >
           Default Logo:
 
-        </InputRow.Label>
-        <InputRow.AddImage
+        </Label>
+        <AddImage
           value={fields.logo}
           subLabel='Logo'
           source='company_logo'
@@ -103,16 +104,16 @@ const GeneralSettings = ({
         >
           Logo
 
-        </InputRow.AddImage>
+        </AddImage>
       </InputRow>
       <InputRow margin='42'>
-        <InputRow.Label
+        <Label
           error={errors.country}
         >
           Default Country:
 
-        </InputRow.Label>
-        <InputRow.SearchInput
+        </Label>
+        <SearchInput
           value={fields.country}
           options={countries}
           target='name'
@@ -124,8 +125,8 @@ const GeneralSettings = ({
 
       </InputRow>
       <InputRow margin='35'>
-        <InputRow.Label error={errors.timeZones}>Time Zone:</InputRow.Label>
-        <InputRow.SearchInput
+        <Label error={errors.timeZones}>Time Zone:</Label>
+        <SearchInput
           defaultValue={defaultTimeZone}
           options={timeZones}
           value={fields.timeZone}
@@ -135,8 +136,8 @@ const GeneralSettings = ({
         />
       </InputRow>
       <InputRow margin='20'>
-        <InputRow.Label error={errors.supportEmail}>Support Contact:</InputRow.Label>
-        <InputRow.TextField
+        <Label error={errors.supportEmail}>Support Contact:</Label>
+        <TextField
           name='supportEmail'
           onChange={onChange}
           error={errors.supportEmail}
@@ -145,8 +146,8 @@ const GeneralSettings = ({
         />
       </InputRow>
       <InputRow margin='20'>
-        <InputRow.Label error={errors.currency}>Default Currency:</InputRow.Label>
-        <InputRow.SearchInput
+        <Label error={errors.currency}>Default Currency:</Label>
+        <SearchInput
           options={currenciesList}
           defaultValue={fields.currency}
           name='currency'
@@ -154,17 +155,27 @@ const GeneralSettings = ({
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label
+        <Label
           error={errors.subDomain}
           notes='Brand SubDomain'
         >
           Brand SubDomain:
-        </InputRow.Label>
-        <InputRow.TextField
+        </Label>
+        <TextField
           name='subDomain'
           onChange={onChange}
           error={errors.subDomain}
           value={fields.subDomain}
+        />
+      </InputRow>
+      <InputRow className='mt-4'>
+        <Label error={errors.showPoweredBy}>Powered by Branding:</Label>
+        <Toggle
+          name='showPoweredBy'
+          value={fields.showPoweredBy}
+          onToggle={(target) => onChange({ target })}
+          beforeLabel='Show'
+          afterLabel='Hide'
         />
       </InputRow>
     </MainBlock>

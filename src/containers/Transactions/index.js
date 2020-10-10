@@ -37,7 +37,7 @@ const Transactions = ({ orders }) => {
   const subscriptions = getSubscriptionsList(orderedList);
 
   const onExportToCSV = () => {
-    const dataRows = exportOrdersToCsv(orders, { paymentType: activeTab === 'Orders' ? 'OneTime' : 'Subscription' });
+    const dataRows = exportOrdersToCsv(orders, { paymentType: activeTab === 'Orders' ? 'Onetime' : 'Subscription' });
 
     const fileName = `${activeTab}-${moment().format('MMM DD YYYY')}.csv`;
 

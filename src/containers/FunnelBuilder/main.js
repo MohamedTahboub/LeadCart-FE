@@ -25,6 +25,21 @@ import {
 } from './components';
 import { withHistoryListener } from '../../history';
 
+const hasPaypalPayment = ({ paymentMethods = [] } = {}) => {
+  return paymentMethods.includes('Paypal');
+};
+const subscriptionPaymentTypes = ['Subscription', 'Split'];
+
+const hasSubscriptionProduct = ({ products = [] } = {}, productsMap) => {
+  const checkoutProduct = products.find(({ category }) => category === 'checkout');
+  if (!checkoutProduct) return false;
+  const startPointProduct = productsMap[checkoutProduct.productId];
+  if (!startPointProduct) return false;
+
+  const { payment: { type } = {} } = startPointProduct;
+  return subscriptionPaymentTypes.includes(type);
+};
+
 const {
   Page,
   FlexBox,
@@ -202,6 +217,8 @@ const FunnelBuilder = ({
     openRuleModal,
     onToggleRuleModal,
     isOptInFunnel,
+    isPaypalConnected: hasPaypalPayment(fields),
+    isSubscriptionCheckout: hasSubscriptionProduct(fields, productsMap),
     funnelProducts: fields.products
   };
   return (
@@ -226,7 +243,7 @@ FunnelBuilder.defaultProps = {
   history: {}
 };
 
-const nodeProjectProjection = { thumbnail: 'image', name: 'name' };
+const nodeProjectProjection = { thumbnail: 'image', name: 'name', payment: 'payment' };
 
 const mapStateToProps = ({
   products: { products } = {},

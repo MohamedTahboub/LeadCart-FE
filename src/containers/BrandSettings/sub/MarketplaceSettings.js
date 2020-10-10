@@ -15,7 +15,7 @@ import { getMarketPlaceUrl, removeSpacesFromObj } from 'helpers/common';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, FlexBox, Button, ErrorMessage, DisplayContent } = common;
-const { Label, TextField, AddImage, Toggle } = InputRow;
+const { Label, TextField, AddImage } = InputRow;
 
 
 const Header = ({ domains, subDomain }) => {
@@ -233,21 +233,10 @@ const MarketplaceSettings = ({
               </InputRow>
             </DisplayContent>
 
-            <ErrorMessage>{errors?.maxLinksMsg}</ErrorMessage>
+            <ErrorMessage>{errors.maxLinksMsg}</ErrorMessage>
             <ErrorMessage>{contactLinksError.label || contactLinksError.value}</ErrorMessage>
           </FlexBox>
         </FlexBox>
-
-        <InputRow>
-          <Label error={errors.showPoweredBy}>Powered by Branding:</Label>
-          <Toggle
-            name='showPoweredBy'
-            value={fields.showPoweredBy}
-            onToggle={(target) => onChange({ target })}
-            beforeLabel='Show'
-            afterLabel='Hide'
-          />
-        </InputRow>
       </MainBlock>
       <DomainsSettings />
     </FlexBox>

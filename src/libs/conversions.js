@@ -53,7 +53,6 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
 
     return [...products, ...nestedProducts.map((product) => ({ product, ...order }))];
   }, []);
-
   const convertToCSVFormat = orderProducts
     .map(({
       customer: {
@@ -62,16 +61,18 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
         email,
         phoneNumber
       },
+      currency,
+      totalCharge,
       product: {
         name: productName,
         offer: { name: offerName = 'No', price: offerPrice = 0 } = {},
         coupon: { code = '- -', CouponDiscount = 0 } = {},
-        price: { amount: chargeAmount, currency } = {},
+        // price: { amount: chargeAmount } = {},
         payment: {
           paymentType,
           paymentMethod
         } = {}
       } = {}
-    }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(chargeAmount, currency)},${paymentType}`).join('\n');
+    }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(totalCharge, currency)},${paymentType}`).join('\n');
   return titles + convertToCSVFormat;
 };

@@ -7,6 +7,9 @@ import * as funnelActions from 'actions/funnels';
 import { notification } from 'libs';
 import { Modal } from 'components/Modals';
 import { optIn as sampleOptInFunnel } from 'data/sampleFunnel'; import common from 'components/common';
+import { includesIgnoreCase } from 'libs';
+import { getServiceBrand } from 'data/integrationsServices';
+
 
 import checkoutFunnelImage from 'assets/images/checkout-thumbnail-template.png';
 // Need to Change
@@ -59,6 +62,7 @@ const PreCreateModal = ({
   show,
   onClose,
   defaultCurrency,
+  enabledPaymentMethods,
   ...props
 }) => {
   const [name, setName] = useState('');
@@ -90,6 +94,8 @@ const PreCreateModal = ({
 
     funnel.name = name;
     funnel.currency = defaultCurrency;
+    if (Array.isArray(enabledPaymentMethods) && enabledPaymentMethods.length)
+      funnel.paymentMethods = enabledPaymentMethods;
 
     props.createFunnel({ funnel }, { onSuccess, onFailed });
   };
@@ -158,4 +164,12 @@ PreCreateModal.propTypes = {
   createFunnel: PropTypes.func.isRequired
 };
 
-export default connect(null, funnelActions)(PreCreateModal);
+
+const mapStateToProps = ({ integrations }) => {
+  const enabledPaymentMethods = integrations
+    .filter((integration) => includesIgnoreCase(integration.category, 'payment'))
+    .map(({ name }) => name);
+  return { enabledPaymentMethods };
+};
+
+export default connect(mapStateToProps, funnelActions)(PreCreateModal);

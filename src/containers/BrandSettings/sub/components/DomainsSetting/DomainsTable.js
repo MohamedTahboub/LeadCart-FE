@@ -223,7 +223,9 @@ const DomainsTable = ({
         }) => (
           <tr key={domain} className='domain-table-row'>
             <td>
-              <code>{domain}</code>
+              <a href={`https://${domain}`} targe='_blank' className='underlined-text'>
+                <code>{domain}</code>
+              </a>
             </td>
             <td>
               <Button

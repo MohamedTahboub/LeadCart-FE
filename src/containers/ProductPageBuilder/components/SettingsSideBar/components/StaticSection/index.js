@@ -26,7 +26,7 @@ const {
   Toggle
 } = InputRow;
 
-const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
+const StaticSection = ({ defaultBrandCurrency }) => {
 
   const {
     state: {
@@ -118,6 +118,7 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
                     <PricingOption
                       key={id}
                       {...pricingOption}
+                      format={price.format}
                       onEdit={onEditProductPriceOption(pricingOption)}
                       onDelete={onDeleteProductPriceOption(id)}
                       currency={currency}
@@ -164,6 +165,8 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
                 value={custom.shippingDetails}
                 name='shippingDetails'
                 onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
               />
             </InputRow>
             <InputRow className='sidebar-row'>
@@ -174,8 +177,24 @@ const StaticSection = ({ isAdminUser, defaultBrandCurrency }) => {
                 value={custom.couponSection}
                 name='couponSection'
                 onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
               />
             </InputRow>
+            {/*
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
+              Terms & Conditions Check
+              </Label>
+              <Toggle
+                value={custom.termsEnabled}
+                name='termsEnabled'
+                onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
+              />
+            </InputRow>
+           */}
             {twoStepCheckout &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>

@@ -32,12 +32,11 @@ const NewPricingOptionModal = ({ currency }) => {
   };
 
   const _onAdd = () => {
-    const { label, format, payment: { type, splits, recurringPeriod } = {}, price: { amount } = {} } = priceOption;
+    const { label, payment: { type, splits, recurringPeriod } = {}, price: { amount } = {} } = priceOption;
 
     const constructedOption = {
       id: ids.generate(),
       label,
-      format,
       type,
       recurringPeriod,
       splits,
@@ -62,17 +61,6 @@ const NewPricingOptionModal = ({ currency }) => {
             className='default-pricing-field-length'
             value={priceOption.label}
             name='label'
-            onChange={onChange}
-          />
-        </InputRow>
-        <InputRow>
-          <Label>Price Format:</Label>
-          <SearchInput
-            size='small'
-            width={150}
-            options={priceFormatOptions}
-            defaultValue={priceOption.format}
-            name='format'
             onChange={onChange}
           />
         </InputRow>
