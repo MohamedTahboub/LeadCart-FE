@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import * as immutable from 'object-path-immutable';
 
 import { Modal } from 'components/Modals';
 import defaultLanguage from 'data/defaultLanguage.json';
@@ -27,6 +28,7 @@ const Word = ({
 }) => {
   const hasSubs = !!subs.length;
 
+
   return (
     <div className='language-word-item'>
       <div className='word-value'>
@@ -43,16 +45,22 @@ const Word = ({
           name={keyValue}
           id={keyValue}
         />
+
       </div>
+
       {hasSubs && (
         <div className='word-subs'>
-          {subs.map((word) => (
-            <Word
-              {...word}
-              keyValue={`${keyValue}.${word.key}`}
-              onChange={onChange}
-            />
-          ))}
+          {subs.map((word) => {
+            const kv = `${keyValue}.${word.key}`;
+            return (
+              <Word
+                {...word}
+                key={kv}
+                keyValue={kv}
+                onChange={onChange}
+              />
+            );
+          })}
         </div>
       )}
     </div>
@@ -71,6 +79,7 @@ const LanguageContext = ({
       wordKey,
       value
     });
+
   };
 
   return (
@@ -88,6 +97,7 @@ const LanguageContext = ({
         {words.map((word) => (
           <Word
             {...word}
+            key={word.key}
             keyValue={word.key}
             onChange={onChange}
           />
@@ -154,20 +164,33 @@ const TranslationEditModal = ({
     setSearchKey();
   }, [languageData]);
 
-  const onChange = ({
-    contextKey,
-    wordKey,
-    value
-  }) => {
-
+  const onChange = ({ contextKey, wordKey, value }) => {
     const newContexts = [...language.contexts];
 
     const updatedContexts = newContexts.map((context) => {
       if (context.key === contextKey) {
         context.words = context.words.map((word) => {
-          if (word.key === wordKey) return { ...word, value };
-          return word;
+
+          if (wordKey.includes(word.key)) {
+            if (word.subs) {
+              return (
+                immutable.set(
+                  word, 'subs',
+                  word.subs.map((ele) => {
+                    if (wordKey.includes(ele.key))
+                      return { ...ele, value };
+                    else
+                      return ele;
+                  })
+                ));
+            } else {
+              return { ...word, value };
+            }
+          } else {
+            return word;
+          }
         });
+
         return context;
       }
       return context;
@@ -260,6 +283,7 @@ const TranslationEditModal = ({
         {filteredLanguageContexts.map((context) => (
           <LanguageContext
             {...context}
+            key={context.key}
             keyValue={context.key}
             onChange={onChange}
           />

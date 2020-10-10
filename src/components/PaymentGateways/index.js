@@ -1,14 +1,14 @@
 import React, { Fragment, useState } from 'react';
+import clx from 'classnames';
 import { getServiceBrand } from 'data/integrationsServices';
 import { includesIgnoreCase, openNewWindow } from 'libs';
-
+import { codDeliveryPayment } from 'data/defaults';
 import common from 'components/common';
 import { connect } from 'react-redux';
 
 import './style.css';
 
 const { MediumCard, InputRow } = common;
-
 
 function Message ({ children }) {
   return (
@@ -57,7 +57,7 @@ const PaymentMethods = ({
         {paymentsIntegrations.map((payment) => (
           <MediumCard
             key={payment.name}
-            className='template-payment-card'
+            className={clx('template-payment-card', payment.className)}
             imgSrc={payment.logo}
             isActive={selected.includes(payment.name)}
             onClick={onSelect(payment.name)}
@@ -73,7 +73,7 @@ const PaymentMethods = ({
             <Message>
               you can add or remove the payment gateways integrations from:
               <span onClick={() => openNewWindow('/integrations')} className='mx-1 bold-text underlined-text item-clickable'>
-              Integrations
+                Integrations
               </span>
             </Message>
           )
@@ -93,9 +93,9 @@ const PaymentMethods = ({
 
 const mapStateToProps = ({ integrations }) => {
 
-  const integrationsList = integrations
+  const integrationsList = [codDeliveryPayment, ...integrations
     .filter((integration) => includesIgnoreCase(integration.category, 'payment'))
-    .map((integration) => ({ logo: getServiceBrand(integration.key), ...integration }));
+    .map((integration) => ({ logo: getServiceBrand(integration.key), ...integration }))];
 
   return { paymentsIntegrations: integrationsList };
 };
