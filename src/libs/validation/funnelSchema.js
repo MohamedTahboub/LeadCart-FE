@@ -31,7 +31,7 @@ const ProductsSchema = yup.object({
 const funnelSchema = yup.object({
   name: yup.string(),
   style: yup.string(),
-  language: yup.string(),
+  language: yup.string().nullable(),
   currency: yup.string(),
   paymentMethods: yup.array().of(yup.string()).default([]),
   thumbnail: yup.string().default(funnelCoverDefaultImage),
