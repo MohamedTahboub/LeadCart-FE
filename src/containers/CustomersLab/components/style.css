@@ -341,3 +341,8 @@ span.order-receipt-name span {
     font-size: 15px;
     /* color:lightgray; */
 }
+.razorpay-order-flag{
+    filter: grayscale(10);
+    height: 10px;
+    width: auto;
+}
