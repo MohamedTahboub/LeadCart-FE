@@ -36,7 +36,7 @@ const Feature = ({
   return (
     <div className={classes}>
       <span
-        style={{ background: withCustomBullets ? `url(${customBullet}) 0% 0% / contain` : color }}
+        style={{ background: withCustomBullets ? `url(${customBullet}) center center / contain no-repeat` : color }}
         className={pointClasses}
       >
         {
