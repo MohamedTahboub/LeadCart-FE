@@ -42,7 +42,7 @@ const Settings = ({
   const currentLanguageValue = currentLanguage ? currentLanguage.value : 'English';
 
   const onFiledChange = ({ target: { name, value } }) => {
-    onChange({ name, value: value === 'English' ? undefined : value });
+    onChange({ name, value: value === 'English' ? null : value });
   };
 
   return (
@@ -54,7 +54,7 @@ const Settings = ({
               <Label
                 description='This will appear on your cart page,this is just for presentation purpose'
               >
-            Currency:
+                Currency:
               </Label>
               <SearchInput
                 size='small'
@@ -67,7 +67,7 @@ const Settings = ({
             </FlexBox>
             <FlexBox flex column className='mt-3'>
               <Label>
-            Payment Method:
+                Payment Method:
               </Label>
               <PaymentsGateways
                 name='paymentMethods'
