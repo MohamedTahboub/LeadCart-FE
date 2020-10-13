@@ -18,7 +18,8 @@ const LoadingIcon = () => (
 const ConnectOAuth = ({ name = 'Stripe', data: { auth_url } = {} }) => (
   <FlexBox>
     <Statement
-      label={`Login into your account in ${name} to give us access to your account`}
+      // label={`Login into your account in ${name} to give us access to your account`}
+      flex
       value={(
         <FlexBox center='h-center' className='full-width margin-top-20'>
           <Button onClick={() => openNewWindow(auth_url)} className='primary-color'>
