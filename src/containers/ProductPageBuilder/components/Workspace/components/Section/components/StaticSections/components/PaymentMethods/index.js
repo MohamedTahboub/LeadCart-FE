@@ -5,6 +5,8 @@ import paypalImage from 'assets/images/paypal-thumbnail.png';
 import creditCardImage from 'assets/images/credit-card-demo.gif';
 import payOnDeliveryImage from 'assets/images/cod_icon.png';
 import cashOnDeliveryImage from 'assets/images/cod_icon.png';
+import razorpayLogo  from 'assets/images/brands/razorpay-logo.svg';
+
 import { useContext } from '../../../../../../../../actions';
 import './style.css';
 
@@ -91,6 +93,14 @@ const PaymentMethods = ({
             name='payment-type'
             image={cashOnDeliveryImage}
             onClick={() => setMethod(3)}
+          />
+        )}
+        {methods.includes('Razorpay') && (
+          <RadioImageCard
+            title='Razorpay'
+            name='payment-type'
+            image={razorpayLogo}
+            onClick={() => setMethod(4)}
           />
         )}
       </div>
