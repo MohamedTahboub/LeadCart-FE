@@ -33,10 +33,13 @@ const ConnectingModal = ({
     if (code && !error) {
       const service = getServiceDetails(activation);
       setServiceImage(service.brandLogo);
-      onConnect({
-        ...service,
-        authDetails: { code }
-      });
+      setProgress(true);
+      setTimeout(() => {
+        onConnect({
+          ...service,
+          authDetails: { code }
+        });
+      }, 3000);
     } else {
       setError(error);
     }

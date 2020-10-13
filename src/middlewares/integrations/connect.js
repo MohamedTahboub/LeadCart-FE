@@ -1,7 +1,7 @@
 
 import {
-  connectIntegrationServiceSuccess,
   connectIntegrationServiceFailed,
+  connectIntegrationServiceSuccess
 } from '../../actions/integrations';
 import { apiRequest } from '../../actions/apiRequest';
 import { CONNECT_INTEGRATION_SERVICE } from '../../constantsTypes';
@@ -20,7 +20,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return connectIntegrationServiceSuccess(payload);
+      return connectIntegrationServiceSuccess(args);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);

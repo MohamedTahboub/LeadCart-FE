@@ -2,7 +2,7 @@ import React from 'react';
 import { getCurrencySymbol } from 'libs';
 import { RoundTow } from 'libs';
 import { ReceiptRow } from './common';
-
+import razorpayLogo  from 'assets/images/brands/razorpay-logo.svg';
 
 import ProductRow from './ProductRow';
 
@@ -10,7 +10,8 @@ const PaymentTypeIcon = ({ type, className = '' }) => {
   const icon = {
     Stripe: <i className={`fas fa-credit-card ${className}`} />,
     COD: <i className={`fas fa-money-bill-alt ${className}`} />,
-    Paypal: <i className={`fab fa-cc-paypal ${className}`} />
+    Paypal: <i className={`fab fa-cc-paypal ${className}`} />,
+    Razorpay: <img src={razorpayLogo} className={`razorpay-order-flag ${className}`} />,
   }[type];
 
   return icon || null;
