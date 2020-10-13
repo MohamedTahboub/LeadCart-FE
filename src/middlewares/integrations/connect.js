@@ -20,7 +20,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return connectIntegrationServiceSuccess(payload);
+      return connectIntegrationServiceSuccess(args);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
