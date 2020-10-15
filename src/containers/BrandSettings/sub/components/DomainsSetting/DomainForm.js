@@ -8,7 +8,7 @@ import * as settingsActions from 'actions/settings';
 const {
   InputRow,
   // MainBlock,
-  Button,
+  Button
   // MiniButton
 } = common;
 
@@ -29,9 +29,7 @@ const DomainForm = ({ domains, connectMarketPlaceDomain }) => {
   const onConnect = () => {
     setLoading(true);
     connectMarketPlaceDomain(
-      {
-        domain: value && value.trim()
-      },
+      { domain: value && value.trim() },
       {
         onSuccess: (data) => {
           setLoading(false);
@@ -52,7 +50,7 @@ const DomainForm = ({ domains, connectMarketPlaceDomain }) => {
       </strong>
       <InputRow margin='20'>
         <InputRow.Label
-          notes='Enter the domain you want to connect.'
+          notes='Enter the domain you want to connect, without the http or https.'
         >
                     Custom Domain Name:
         </InputRow.Label>
@@ -84,9 +82,7 @@ const DomainForm = ({ domains, connectMarketPlaceDomain }) => {
   );
 };
 
-DomainForm.propTypes = {
-
-};
+DomainForm.propTypes = {};
 
 
 export default connect(null, settingsActions)(DomainForm);
