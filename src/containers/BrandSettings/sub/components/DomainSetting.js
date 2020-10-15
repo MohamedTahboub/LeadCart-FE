@@ -119,7 +119,7 @@ const DomainSetting = ({
           </strong>
           <InputRow margin='20'>
             <InputRow.Label
-              notes='Enter the domain you want to connect.'
+              notes='Enter the domain you want to connect, without the http or https.'
             >
               Custom Domain Name:
             </InputRow.Label>

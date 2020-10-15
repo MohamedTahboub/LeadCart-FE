@@ -6,9 +6,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import common from 'components/common';
 
-const getMessage = (err = '') => (err.includes('queryCname')
-  ? 'This domain does not seems to be exist,Please check you domain and try again'
-  : err);
+const getMessage = (err = '') => (
+  typeof err === 'string' ?
+    err.includes('queryCname')
+      ? 'This domain does not seems to be exist,Please check you domain and try again'
+      : err
+    : 'We are not able to verify your domain, please recheck your records');
 
 const CopyIcon = ({ text }) => (
   <CopyToClipboard text={text}>
@@ -166,6 +169,7 @@ const DomainsTable = ({
         setLoading({ verify: false });
       },
       onFailed: (error) => {
+
         const message = typeof error === 'string' ? error : error.message;
         setVerificationResult({
           success: false,
