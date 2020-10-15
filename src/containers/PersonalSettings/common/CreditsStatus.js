@@ -4,7 +4,7 @@ import { GoInfo } from 'react-icons/go';
 import ReactTooltip from 'react-tooltip';
 
 
-const aboutCredits = 'you can use credits for brands or sub-accounts creation, each credit equals one Pro Brand or one Sub-Account.';
+const aboutCredits = 'you can use credits for brands or sub-accounts creation, each credit equals one Premium Brand or one Sub-Account.';
 const CreditsStatus = ({ credits }) => {
   return (
     <div className='ml-2' >
