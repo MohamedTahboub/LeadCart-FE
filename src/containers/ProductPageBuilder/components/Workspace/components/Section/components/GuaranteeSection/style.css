@@ -6,6 +6,6 @@ img.section-guarantee-image {
 }
 
 
-.image-section:not(.column) .section-guarantee-text{
-    max-width: 50%;
+.mobile .guarantee-section{ 
+    flex-direction: column;
 }

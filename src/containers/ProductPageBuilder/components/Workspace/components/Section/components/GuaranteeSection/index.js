@@ -29,15 +29,16 @@ const GuaranteeSection = ({
 
   const classNames = clx({
     'image-section': true,
+    'guarantee-section': true,
     [className]: className
   });
 
   const guaranteeTextClasses = clx({
     'px-2': true,
     'text-center full-width': theme === 'center-theme',
-    'section-guarantee-text': true
-
   });
+
+
 
 
   const onChange = ({ target: { name, value } }) => {
