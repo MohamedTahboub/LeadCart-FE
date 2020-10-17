@@ -136,47 +136,6 @@
             ]
         },
         {
-            "title": "Order Receipt",
-            "key": "orderReceipt",
-            "words": [
-                {
-                    "key": "heyMessage",
-                    "value": "Hey",
-                    "label": "Hey"
-                },
-                {
-                    "key": "intro_1",
-                    "value": "We've got your order!",
-                    "label": "We've got your order!"
-                },
-                {
-                    "key": "intro_2",
-                    "value": "Here's your receipt.",
-                    "label": "Here's your receipt."
-                },
-                {
-                    "key": "orderNumberLabel",
-                    "value": "ORDER NO.",
-                    "label": "ORDER NO."
-                },
-                {
-                    "key": "itemsLabel",
-                    "value": "ITEMS",
-                    "label": "ITEMS"
-                },
-                {
-                    "key": "totalText",
-                    "value": "Total",
-                    "label": "Total"
-                },
-                {
-                    "key": "accessButton",
-                    "value": "Access Your Product",
-                    "label": "Access Your Product"
-                }
-            ]
-        },
-        {
             "title": "Thank you page Order receipt Translations",
             "key": "thankyouPage",
             "words": [
@@ -214,6 +173,99 @@
                     "key": "thankyouPageNote",
                     "value": "Note: If you are facing any issue accessing your purchase please contact us",
                     "label": "Note: If you are facing any issue accessing your purchase please contact us"
+                }
+            ]
+        },
+        {
+            "title": "Order Refund Email",
+            "key": "orderRefundEmail",
+            "words": [
+                {
+                    "key": "hiMessage",
+                    "value": "Hi",
+                    "label": "Hi"
+                },
+                {
+                    "key": "intro_1",
+                    "value": "Your order",
+                    "label": "Your order"
+                },
+                {
+                    "key": "intro_2",
+                    "value": "has been refunded.",
+                    "label": "has been refunded."
+                },
+                {
+                    "key": "mainContent",
+                    "value": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account.",
+                    "label": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account."
+                },
+                {
+                    "key": "summaryLabel",
+                    "value": "Refund Summary",
+                    "label": "Refund Summary"
+                },
+                {
+                    "key": "amountRefundedLabel",
+                    "value": "Amount Refunded",
+                    "label": "Amount Refunded"
+                }
+            ]
+        },
+        {
+            "title": "Subscription Cancel Email",
+            "key": "subscriptionCancelEmail",
+            "words": [
+                {
+                    "key": "hiMessage",
+                    "value": "Hi",
+                    "label": "Hi"
+                },
+                {
+                    "key": "intro_1",
+                    "value": "Your Subscription to",
+                    "label": "Your Subscription to"
+                },
+                {
+                    "key": "intro_2",
+                    "value": "has been canceled.",
+                    "label": "has been canceled."
+                }
+            ]
+        },
+        {
+            "title": "Subscription Refund Email",
+            "key": "subscriptionRefundEmail",
+            "words": [
+                {
+                    "key": "hiMessage",
+                    "value": "Hi",
+                    "label": "Hi"
+                },
+                {
+                    "key": "intro_1",
+                    "value": "Your Subscription to",
+                    "label": "Your Subscription to"
+                },
+                {
+                    "key": "intro_2",
+                    "value": "has been refunded.",
+                    "label": "has been refunded."
+                },
+                {
+                    "key": "mainContent",
+                    "value": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account.",
+                    "label": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account."
+                },
+                {
+                    "key": "summaryLabel",
+                    "value": "Refund Summary",
+                    "label": "Refund Summary"
+                },
+                {
+                    "key": "amountRefundedLabel",
+                    "value": "Amount Refunded",
+                    "label": "Amount Refunded"
                 }
             ]
         }
