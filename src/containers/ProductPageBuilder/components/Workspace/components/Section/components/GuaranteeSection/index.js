@@ -33,8 +33,10 @@ const GuaranteeSection = ({
   });
 
   const guaranteeTextClasses = clx({
-    'margin-h-20': true,
-    'text-center full-width': theme === 'center-theme'
+    'px-2': true,
+    'text-center full-width': theme === 'center-theme',
+    'section-guarantee-text': true
+
   });
 
 
@@ -64,7 +66,7 @@ const GuaranteeSection = ({
         <ResizableInput
           name='content.title'
           onChange={onChange}
-          className='larger-text'
+          className='larger-text full-width'
           value={title}
         />
         <ResizableTextarea

@@ -3,7 +3,6 @@ import clx from 'classnames';
 
 import common from 'components/common';
 import CountDownTimer from 'components/CountDownTimer';
-import './style.css';
 
 const { FlexBox } = common;
 
