@@ -29,22 +29,23 @@ const StaticSection = ({ defaultBrandCurrency }) => {
   } = useContext();
 
 
-  const { content = {} } = sectionSetting;
+  const { content = {}, styles = {} } = sectionSetting;
+  const { twoStepCheckout } = content;
+  const { completeOrderButton = {} } = styles;
 
   const {
-    twoStepCheckout,
-    buttonPosition = 'justified',
-    buttonBackground,
-    ButtonTextColor = '#fff',
-    buttonBorderSymmetry,
-    buttonBorderStyle = 'hidden',
-    buttonBorderColor = '#fff',
-    buttonShadowColor = '#fff',
-    hasButtonShadow,
-    boxShadowOffsetX = 0,
-    boxShadowOffsetY = 0,
-    boxShadowBlur = 0
-  } = content;
+    position = 'justified',
+    background = '#4da1ff',
+    textColor = '#fff',
+    borderSymmetry,
+    borderStyle = 'hidden',
+    borderColor = '#4da1ff',
+    shadowColor = '#fff',
+    hasShadow,
+    boxShadowOffsetX,
+    boxShadowOffsetY,
+    boxShadowBlur
+  } = completeOrderButton;
 
 
   const {
@@ -85,18 +86,18 @@ const StaticSection = ({ defaultBrandCurrency }) => {
     onSectionSettingChange({
       section: sectionSetting,
       field: {
-        name: `content.${name}`,
+        name: `styles.completeOrderButton.${name}`,
         value: value
       }
     });
   };
 
   const onSliderChange = (radius, name) => {
-    if (borderCornerNames.includes(name) && buttonBorderSymmetry) {
+    if (borderCornerNames.includes(name) && borderSymmetry) {
       onSectionSettingChange({
         section: sectionSetting,
         fields: borderCornerNames.map((corner) => ({
-          name: `content.${corner}`,
+          name: `styles.completeOrderButton.${corner}`,
           value: radius
         }))
       });
@@ -280,10 +281,12 @@ const StaticSection = ({ defaultBrandCurrency }) => {
           <FlexBox center='v-center' spaceBetween>
             <span className='gray-text'>Position</span>
             <SelectOption
-              name='buttonPosition'
-              value={buttonPosition}
+              name='position'
+              value={position}
               onChange={onButtonSettingsChange}
               options={[
+                { label: 'Left', value: 'left' },
+                { label: 'Right', value: 'right' },
                 { label: 'Center', value: 'center' },
                 { label: 'Justified', value: 'justified' }
               ]}
@@ -293,8 +296,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
           <FlexBox center='v-center margin-v-5' spaceBetween>
             <span className='gray-text'>Button Background</span>
             <MiniTwitterPicker
-              name='buttonBackground'
-              value={buttonBackground}
+              name='background'
+              value={background}
               onChange={onButtonSettingsChange}
             />
           </FlexBox>
@@ -302,8 +305,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
           <FlexBox center='v-center margin-v-5' spaceBetween>
             <span className='gray-text'>Button Text</span>
             <MiniTwitterPicker
-              name='ButtonTextColor'
-              value={ButtonTextColor}
+              name='textColor'
+              value={textColor}
               onChange={onButtonSettingsChange}
             />
           </FlexBox>
@@ -312,7 +315,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
               <div>Border Radius</div>
               <span className='gray-text'>Symmetric</span>
-              <Toggle value={buttonBorderSymmetry} onToggle={(target) => onButtonSettingsChange({ target })} name='buttonBorderSymmetry' />
+              <Toggle value={borderSymmetry} onToggle={(target) => onButtonSettingsChange({ target })} name='borderSymmetry' />
               {
                 borderCornerNames.map((corner) => (
                   <>
@@ -322,7 +325,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                       min={0}
                       defaultValue={5}
                       onChange={(radius) => onSliderChange(radius, corner)}
-                      value={content[corner] || 0}
+                      value={completeOrderButton[corner] || 0}
                     />
                   </>
                 ))
@@ -330,8 +333,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               <FlexBox center='v-center' spaceBetween className='mb-2'>
                 <div className='gray-text mb-2'>Border style</div>
                 <SelectOption
-                  name='buttonBorderStyle'
-                  value={buttonBorderStyle}
+                  name='borderStyle'
+                  value={borderStyle}
                   onChange={onButtonSettingsChange}
                   options={[
                     { label: 'Solid', value: 'solid' },
@@ -344,8 +347,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               <FlexBox center='v-center' className='pb-140px' spaceBetween>
                 <span className='gray-text'>Border Color</span>
                 <MiniTwitterPicker
-                  name='buttonBorderColor'
-                  value={buttonBorderColor}
+                  name='borderColor'
+                  value={borderColor}
                   onChange={onButtonSettingsChange}
                 />
               </FlexBox>
@@ -353,7 +356,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
             <Collapse defaultOpen={openCollapse === 'Shadows'} title='Shadows' toggle={setOpenCollapse}>
               <span>Shadow</span>
-              <Toggle value={hasButtonShadow} onToggle={(target) => onButtonSettingsChange({ target })} name='hasButtonShadow' />
+              <Toggle value={hasShadow} onToggle={(target) => onButtonSettingsChange({ target })} name='hasShadow' />
               <span className='gray-text'>Offset-X</span>
               <Slider
                 max={20}
@@ -361,7 +364,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 defaultValue={5}
                 onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
                 value={boxShadowOffsetX}
-                disabled={!hasButtonShadow}
+                disabled={!hasShadow}
               />
               <span className='gray-text'>Offset-Y</span>
               <Slider
@@ -370,7 +373,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 defaultValue={5}
                 onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
                 value={boxShadowOffsetY}
-                disabled={!hasButtonShadow}
+                disabled={!hasShadow}
               />
               <span className='gray-text'>Blur</span>
               <Slider
@@ -379,15 +382,15 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 defaultValue={5}
                 onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
                 value={boxShadowBlur}
-                disabled={!hasButtonShadow}
+                disabled={!hasShadow}
               />
               <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
                 <span className='gray-text'>Shadow Color</span>
                 <MiniTwitterPicker
-                  name='buttonShadowColor'
-                  value={buttonShadowColor}
+                  name='shadowColor'
+                  value={shadowColor}
                   onChange={onButtonSettingsChange}
-                  disabled={!hasButtonShadow}
+                  disabled={!hasShadow}
                 />
               </FlexBox>
             </Collapse>

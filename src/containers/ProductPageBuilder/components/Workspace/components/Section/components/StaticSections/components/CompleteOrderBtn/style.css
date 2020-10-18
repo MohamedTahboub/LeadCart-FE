@@ -2,8 +2,7 @@
   font-size: 20px;
   color:white;
   padding: 8px 0px;
-  /* background: rgb(142, 209, 252); */
-  width: 100%;
+  min-width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,8 +10,6 @@
 }
 .template-complete-order-input{
   text-align: center;
-  /* background: rgb(142, 209, 252); */
-  /* background: inherit; */
   color:white;
 
 }
