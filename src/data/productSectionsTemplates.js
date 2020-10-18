@@ -1,5 +1,6 @@
 import ids from 'shortid';
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
+import figureImage from 'assets/images/nested-section-blank.png';
 
 
 export default {
@@ -41,7 +42,7 @@ export default {
     content: {
       value: 'Click Here',
       children: [],
-      image: 'https://imgur.com/qZYW3BK.png'
+      image: figureImage
     },
     styles: {
       marginTop: 0,
@@ -217,7 +218,7 @@ export default {
     hidden: false,
     type: 'figure',
     content: {
-      image: 'https://i.imgur.com/7cXlr4v.png',
+      image: figureImage,
       text: '<p><strong class="ql-size-huge">Language</strong></p><p><br></p><p><span class="ql-size-large">Retarget visitors who speak your language. Remove visitors who don’t speak that language from your retargeting list. Never again advertise to visitors who don’t speak the right language.</span></p>'
     },
     styles: { theme: 'right-theme' }
