@@ -15,26 +15,26 @@ const VideoContent = ({
   onChange,
   ...props
 }) => (
-  <div className='upsell-media-asset-container'>
-    <ReactPlayer
-      url={value}
-      // playing={autoPlay}
-      disabled
-      className='media-assets'
-    />
-    <div className='editing-warper'>
-      <InputRow className='editing-warper-from'>
-        <InputRow.TextField
-          value={value}
-          name='link'
-          onChange={onChange}
-          placeholder='Video URL'
-          className='asset-input-value'
-        />
-      </InputRow>
+    <div className='upsell-media-asset-container'>
+      <ReactPlayer
+        url={value}
+        // playing={autoPlay}
+        disabled
+        className='media-assets'
+      />
+      <div className='editing-warper'>
+        <InputRow className='editing-warper-from mx-4 flex-item'>
+          <InputRow.TextField
+            value={value}
+            name='link'
+            onChange={onChange}
+            placeholder='Video URL'
+            className='asset-input-value'
+          />
+        </InputRow>
+      </div>
     </div>
-  </div>
-);
+  );
 
 VideoContent.propTypes = {
   value: PropTypes.string

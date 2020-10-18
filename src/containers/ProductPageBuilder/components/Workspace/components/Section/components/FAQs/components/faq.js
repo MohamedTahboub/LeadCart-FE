@@ -6,7 +6,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import common from 'components/common';
 import ContentIcons from './faqIcon';
 
-const { ResizableInput, ResizableTextarea } = common;
+const { ResizableInput, ResizableTextarea, FlexBox } = common;
 
 const FAQ = ({ title, content, id, toggle, onChange, open, onDelete, styles }) => {
   return (
@@ -15,31 +15,34 @@ const FAQ = ({ title, content, id, toggle, onChange, open, onDelete, styles }) =
       { 'faq-active': open === id }
     )}
     >
+      <FlexBox center='v-center'>
 
-      <FaTrashAlt
-        className='faq-listItem-delete'
-        onClick={() => {
-          onDelete(id);
-        }}
-      />
-
-      <span onClick={() => { toggle(id); }}>
-        <ContentIcons
-          id={id}
-          toggle={toggle}
-          open={open}
-          styles={styles}
+        <FaTrashAlt
+          className='faq-listItem-delete'
+          onClick={() => {
+            onDelete(id);
+          }}
         />
 
-        <span className='faq-listItem-title' >
-          <ResizableInput
-            value={title}
-            onChange={onChange}
-            name={'title'}
+        <span onClick={() => { toggle(id); }}>
+          <ContentIcons
             id={id}
+            toggle={toggle}
+            open={open}
+            styles={styles}
           />
+
+          <span className='faq-listItem-title' >
+            <ResizableInput
+              value={title}
+              onChange={onChange}
+              name={'title'}
+              id={id}
+            />
+          </span>
         </span>
-      </span>
+      </FlexBox>
+
 
       <Expand open={open === id}>
         <ResizableTextarea

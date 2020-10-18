@@ -1,0 +1,18 @@
+.mobile .button-with-text, 
+.mobile .button-with-image{
+    flex-direction: column ;
+    align-items: center ;
+}
+
+.mobile .button-with-image .button-with-image-img-container {
+    width: 100%;
+}
+
+.mobile .button-with-image .figure-section-image {
+    width: 100%;
+}
+
+.mobile .button-with-text .button-with-text-text-container {
+    width: 90%;
+    margin: 0 20px;
+}

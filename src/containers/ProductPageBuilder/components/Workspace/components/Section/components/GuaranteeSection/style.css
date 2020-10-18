@@ -1,6 +1,11 @@
 img.section-guarantee-image {
-    height: 180px;
-    width: 180px;
+    max-height: 200px;
+    max-width: 50%;
     object-fit: contain;
-    margin: 10px 20px;
+    padding:  10px 20px;
+}
+
+
+.mobile .guarantee-section{ 
+    flex-direction: column;
 }

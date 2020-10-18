@@ -29,13 +29,16 @@ const GuaranteeSection = ({
 
   const classNames = clx({
     'image-section': true,
+    'guarantee-section': true,
     [className]: className
   });
 
   const guaranteeTextClasses = clx({
-    'margin-h-20': true,
-    'text-center full-width': theme === 'center-theme'
+    'px-2': true,
+    'text-center full-width': theme === 'center-theme',
   });
+
+
 
 
   const onChange = ({ target: { name, value } }) => {
@@ -64,7 +67,7 @@ const GuaranteeSection = ({
         <ResizableInput
           name='content.title'
           onChange={onChange}
-          className='larger-text'
+          className='larger-text full-width'
           value={title}
         />
         <ResizableTextarea

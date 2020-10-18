@@ -5,6 +5,8 @@ import { useContext } from '../../../../../../actions';
 import ButtonWithText from './components/ButtonWithText';
 import ButtonWithImage from './components/ButtonWithImage';
 
+import './style.css';
+
 const {
   Button,
   ResizableInput,
