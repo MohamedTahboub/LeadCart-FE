@@ -36,6 +36,7 @@ const ResizableInput = ({
     border: 'none',
     outlineStyle: 'none',
     background: 'transparent',
+    maxWidth: '100%',
     ...style
   };
   return (
