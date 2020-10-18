@@ -1,3 +1,11 @@
+@import url("https://use.typekit.net/wtl7grn.css");
+@import url("https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+
 .ql-tooltip {
     z-index: 10000 !important;
     /* position:fixed; */
@@ -55,41 +63,22 @@
 .ql-font-Ubuntu {
     font-family: 'Ubuntu';
 }
-/* Support Font Families */
 
-/*  Adding font sizes Overrides */
-/* 
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before {
-    content: 'Tiny';
-    font-size: 14px !important;
+.ql-font-Anton {
+    font-family: anton, sans-serif;
 }
 
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
-    content: 'Small';
-    font-size: 16px !important;
+.ql-font-Halant {
+    font-family: 'Halant', serif;
 }
 
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
-    content: 'Normal';
-    font-size: 18px !important;
+.ql-font-Montserrat {
+    font-family: 'Montserrat', sans-serif;
 }
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="22px"]::before {
-    content: 'Big';
-    font-size: 22px !important;
+
+.ql-font-PTSerif {
+    font-family: 'PT Serif', serif;
 }
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
-    content: 'Large';
-    font-size: 24px !important;
+.ql-font-BebasNeue {
+    font-family: 'Bebas Neue', cursive;
 }
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="28px"]::before {
-    content: 'Larger';
-    font-size: 28px !important;
-}
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
-    content: 'Extra Large';
-    font-size: 32px !important;
-}
-.ql-bubble .ql-picker.ql-size .ql-picker-item[data-value="36px"]::before {
-    content: 'Largest';
-    font-size: 36px !important;
-} */

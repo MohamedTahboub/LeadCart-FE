@@ -11,7 +11,12 @@ const supportedFontFamilyList = [
   'Courier',
   'Cairo',
   'Helvetica',
-  'Ubuntu'
+  'BebasNeue',
+  'Ubuntu',
+  'Anton',
+  'Halant',
+  'Montserrat',
+  'PTSerif'
 ];
 
 // const fieldsNames = [
@@ -88,6 +93,7 @@ const modules = {
       },
       {
         background: [
+          '#00000000',
           '#000000',
           '#e60000',
           '#ff9900',
@@ -218,6 +224,7 @@ const headingModules = {
         ]
       }
     ],
+    [{ font: supportedFontFamilyList }],
     [
       { align: ['', 'right', 'center', 'justify'] }
     ]
