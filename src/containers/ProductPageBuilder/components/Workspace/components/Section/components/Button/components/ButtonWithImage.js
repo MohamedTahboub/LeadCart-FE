@@ -2,10 +2,10 @@ import React from 'react';
 import common from 'components/common';
 import Image from 'components/common/Image';
 import clx from 'classnames';
-
+import figureImage from 'assets/images/nested-section-blank.png';
 const { FlexBox } = common;
 
-const ButtonWithImage = ({ layout, containerClasses, buttonComponent, image, onEditorChange, section }) => {
+const ButtonWithImage = ({ layout, containerClasses, buttonComponent, image = figureImage, onEditorChange, section }) => {
 
   return (
     <FlexBox className='fluid py-5 button-with-image' reverse={layout === 'withImageLeft'}>

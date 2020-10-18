@@ -34,6 +34,7 @@
 .product-workspace.mobile {
     width: 375px;
     min-height: 667px;
+    padding-bottom: 100px;
 }
 .builder-drop-area{
     border: 2px dashed lightgray;
