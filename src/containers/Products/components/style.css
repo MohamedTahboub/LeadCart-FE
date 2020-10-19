@@ -34,6 +34,18 @@
     transform: unset;
 }
 
+
+.product-category .thankyou-icon path {
+    stroke: rgb(151, 158, 165);
+    transition: all .4s ease-in-out;
+}
+
+.product-category .thankyou-icon:hover path{
+    stroke: #C9D3DC !important;
+    transform: unset;
+}
+
+
 .product-card .head {
     width: 100%;
     padding: 5px;

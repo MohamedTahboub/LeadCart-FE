@@ -82,7 +82,7 @@ const ProductCard = ({
             data-tip='Thank you Page'
             data-type='info'
             role='presentation'
-            className='product-category-icon'
+            className='fas thankyou-icon'
           />
           }
 
@@ -91,7 +91,7 @@ const ProductCard = ({
             data-tip='Opt-in Page'
             data-type='info'
             role='presentation'
-            className='product-category-icon'
+            className='fas product-category-icon'
           />
           }
         </div>
