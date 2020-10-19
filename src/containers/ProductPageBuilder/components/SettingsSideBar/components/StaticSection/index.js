@@ -44,7 +44,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
     hasShadow,
     boxShadowOffsetX,
     boxShadowOffsetY,
-    boxShadowBlur
+    boxShadowBlur,
+    borderWidth = '2px'
   } = completeOrderButton;
 
 
@@ -341,6 +342,27 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                     { label: 'Dashed', value: 'dashed' },
                     { label: 'Dotted', value: 'dotted' },
                     { label: 'None', value: 'hidden' }
+                  ]}
+                />
+              </FlexBox>
+              <FlexBox center='v-center' spaceBetween className='mb-2'>
+                <div className='gray-text mb-2'>Border Width</div>
+                <SelectOption
+                  value={borderWidth}
+                  name='borderWidth'
+                  onChange={onButtonSettingsChange}
+                  options={[
+                    { label: '0px', value: '0px' },
+                    { label: '1px', value: '1px' },
+                    { label: '2px', value: '2px' },
+                    { label: '3px', value: '3px' },
+                    { label: '4px', value: '4px' },
+                    { label: '5px', value: '5px' },
+                    { label: '6px', value: '6px' },
+                    { label: '7px', value: '7px' },
+                    { label: '8px', value: '8px' },
+                    { label: '9px', value: '9px' },
+                    { label: '10px', value: '10px' }
                   ]}
                 />
               </FlexBox>

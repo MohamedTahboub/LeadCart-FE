@@ -33,7 +33,8 @@ const CompleteOrderBtn = ({
     borderTopLeftRadius,
     borderTopRightRadius,
     borderBottomLeftRadius,
-    borderBottomRightRadius
+    borderBottomRightRadius,
+    borderWidth = '2px'
   } = completeOrderButtonStyle;
 
 
@@ -52,6 +53,7 @@ const CompleteOrderBtn = ({
     borderBottomRightRadius,
     borderStyle,
     borderColor,
+    borderWidth,
     boxShadow: hasShadow ? `${boxShadowOffsetX || 0}px ${boxShadowOffsetY || 0}px ${boxShadowBlur || 0}px ${shadowColor || '#FFF'}` : ''
   };
 
