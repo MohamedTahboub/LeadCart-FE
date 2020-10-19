@@ -56,7 +56,7 @@ const ProductCard = ({
             onClick={onDuplicate}
             role='presentation'
           >
-            <i className='fas fa-copy scale-12 duplicate-icon' />
+            <i className='fas fa-copy scale-12 duplicate-icon product-category-icon' />
           </span>
         </div>
         <div className='product-category'>

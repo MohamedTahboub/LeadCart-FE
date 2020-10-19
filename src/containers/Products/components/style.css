@@ -29,8 +29,8 @@
     color: rgb(151, 158, 165);
 }
 
-.product-category .product-category-icon {
-    color: #C9D3DC;
+.product-category .product-category-icon:hover {
+    color: #C9D3DC !important;
     transform: unset;
 }
 
