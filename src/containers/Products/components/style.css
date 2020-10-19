@@ -23,13 +23,13 @@
     border-top-right-radius: 3px;
 }
 
-.product-category i.fas {
+.product-category .product-category-icon {
     cursor: unset;
     font-size: 13px;
     color: rgb(151, 158, 165);
 }
 
-.product-category i.fas:hover {
+.product-category .product-category-icon {
     color: #C9D3DC;
     transform: unset;
 }
