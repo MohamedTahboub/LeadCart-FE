@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import common from 'components/common';
 import clx from 'classnames';

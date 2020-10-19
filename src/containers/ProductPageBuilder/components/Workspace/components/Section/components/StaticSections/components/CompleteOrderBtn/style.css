@@ -7,9 +7,14 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: opacity .4s ease-in-out;
 }
 .template-complete-order-input{
   text-align: center;
   color:white;
 
+}
+
+.template-complete-order:hover{
+  opacity: .7;
 }
