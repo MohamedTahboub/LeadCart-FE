@@ -23,16 +23,28 @@
     border-top-right-radius: 3px;
 }
 
-.product-category i.fas {
+.product-category .product-category-icon {
     cursor: unset;
     font-size: 13px;
     color: rgb(151, 158, 165);
 }
 
-.product-category i.fas:hover {
-    color: #C9D3DC;
+.product-category .product-category-icon:hover {
+    color: #C9D3DC !important;
     transform: unset;
 }
+
+
+.product-category .thankyou-icon path {
+    stroke: rgb(151, 158, 165);
+    transition: all .4s ease-in-out;
+}
+
+.product-category .thankyou-icon:hover path{
+    stroke: #C9D3DC !important;
+    transform: unset;
+}
+
 
 .product-card .head {
     width: 100%;
