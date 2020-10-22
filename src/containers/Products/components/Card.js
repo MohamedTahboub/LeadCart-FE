@@ -1,8 +1,12 @@
 import React from 'react';
 import common from 'components/common';
 import ReactTooltip from 'react-tooltip';
+import { SiMinutemailer } from 'react-icons/si';
+import { GrAnnounce } from 'react-icons/gr';
+
 import { getPriceFormat, trimExtraText } from 'libs';
 import defaultProductImage from 'assets/images/big-logo-1.png';
+
 const { Card } = common;
 
 
@@ -31,6 +35,13 @@ const ProductCard = ({
 
   const price = getPriceFormat(amount, currency, format);
 
+  const isThankyouPage = category === 'thankyoupage';
+  const isCheckoutProduct = category === 'checkout';
+  const isUpsellProduct = category === 'upsell';
+  const isOptInProduct = category === 'opt-in';
+  const hasPrice = isCheckoutProduct || isUpsellProduct;
+
+
   return (
     <Card className='product-card'>
       <div
@@ -45,25 +56,44 @@ const ProductCard = ({
             onClick={onDuplicate}
             role='presentation'
           >
-            <i className='fas fa-copy scale-12 duplicate-icon' />
+            <i className='fas fa-copy scale-12 duplicate-icon product-category-icon' />
           </span>
         </div>
         <div className='product-category'>
-          {category === 'checkout' ? (
-            <i
-              data-tip='Checkout Product'
-              data-type='info'
-              role='presentation'
-              className='fas fa-shopping-cart'
-            />
-          ) : (
+          {isCheckoutProduct &&
+           <i
+             data-tip='Checkout Product'
+             data-type='info'
+             role='presentation'
+             className='fas fa-shopping-cart product-category-icon'
+           />}
+
+          {isUpsellProduct &&
             <i
               data-tip='Upsell Product'
               data-type='info'
-              className='fas fa-chart-line'
+              className='fas fa-chart-line product-category-icon'
               role='presentation'
             />
-          )}
+          }
+
+          {isThankyouPage &&
+          <GrAnnounce
+            data-tip='Thank you Page'
+            data-type='info'
+            role='presentation'
+            className='fas thankyou-icon'
+          />
+          }
+
+          {isOptInProduct &&
+          <SiMinutemailer
+            data-tip='Opt-in Page'
+            data-type='info'
+            role='presentation'
+            className='fas product-category-icon'
+          />
+          }
         </div>
       </div>
       <div className='product-content'>
@@ -72,9 +102,13 @@ const ProductCard = ({
             {name}
           </span>
         </div>
+
+        {hasPrice &&
         <div className='price-text text-center'>
           {price}
         </div>
+        }
+
       </div>
       <div className='footer'>
         <i

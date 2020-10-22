@@ -1,18 +1,20 @@
 .template-complete-order{
   font-size: 20px;
   color:white;
-  padding: 8px 0px;
-  /* background: rgb(142, 209, 252); */
-  width: 100%;
+  padding: 2.7px 0px;
+  min-width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: opacity .4s ease-in-out;
 }
 .template-complete-order-input{
   text-align: center;
-  /* background: rgb(142, 209, 252); */
-  /* background: inherit; */
   color:white;
 
+}
+
+.template-complete-order:hover{
+  opacity: .7;
 }
