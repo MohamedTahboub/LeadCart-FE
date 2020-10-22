@@ -43,7 +43,7 @@ const CompleteOrderBtn = ({
     { justified: position === 'justified' }
   );
 
-  const buttonClasses = clx(className, 'template-complete-order', { justified: position === 'justified' });
+  const buttonClasses = clx(className, 'template-complete-order','mt-2' ,{ justified: position === 'justified' });
 
   const buttonStyle = {
     background,
