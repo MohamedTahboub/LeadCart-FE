@@ -13,6 +13,7 @@ const initialState = {
 };
 
 export default (state = initialState, { type, payload }) => {
+  console.log(type, payload)
   switch (type) {
   case types.UPDATE_STATE:
     return {

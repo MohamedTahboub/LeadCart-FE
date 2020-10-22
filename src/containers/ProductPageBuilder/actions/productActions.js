@@ -95,19 +95,22 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 };
 
 
-export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) => {
+export const addNewSection = ({ state, dispatch }) => ({ type: sectionType, parentZone = 'second-column' }, postEffect) => {
   const section = sectionsTemplates[sectionType];
 
   if (!section) return;
-
-  section.id = ids.generate();
-  if (!state.product.sections) section.order = 0;
-  else section.order = state.product.sections.length;
+  console.log("Just beofre the update", parentZone)
+  // if (!state.product.sections) section.order = 0;
+  // else section.order = state.product.sections.length;
 
 
   dispatch({
     type: types.ADD_NEW_SECTION,
-    payload: section
+    payload: {
+      ...section,
+      id: ids.generate(),
+      parentZone
+    }
   });
   setTimeout(() => {
     if (isFunction(postEffect)) postEffect(section);

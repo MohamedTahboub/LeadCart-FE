@@ -11,7 +11,7 @@ import sectionsTemplates from 'data/productSectionsTemplates';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import { useContext } from '../../actions';
 import { SettingsHandle } from './components/common';
-import { DropZone, ProductHead, Section } from './components';
+import { ProductHead, PageLayouts } from './components';
 import './style.css';
 
 const { FlexBox } = common;
@@ -78,12 +78,12 @@ const Workspace = ({
     };
   };
 
-  const moveCard = (id, atIndex) => {
+  const moveCard = (id, atIndex, parentZone) => {
     const { section, index } = findCard(id);
     const newSections = update(sections, {
       $splice: [
         [index, 1],
-        [atIndex, 0, section]
+        [atIndex, 0, { ...section, parentZone }]
       ]
     });
     actions.onProductFieldChange({
@@ -93,17 +93,20 @@ const Workspace = ({
   };
 
   const onSectionDropped = (section = {}) => {
-    const { section: { type } = {} } = section;
-    if (section.new) actions.addNewSection(type);
+    const { section: { type } = {}, parentZone } = section;
+    console.log({ parentZone })
+    
+    if (section.new) actions.addNewSection({ type, parentZone });
   };
 
-  const onSectionDuplicate = (id) => {
+  const onSectionDuplicate = (id, parentZone) => {
     const { section: copySection, index } = findCard(id);
     const newSections = update(sections, {
       $splice: [
         [index, 0],
         [(index + 1), 0, {
           ...copySection,
+          parentZone,
           id: ids.generate()
         }]
       ]
@@ -114,12 +117,11 @@ const Workspace = ({
     });
   };
 
-  const addNewAndMove = ({ id, type, atIndex }) => {
-    const section = { ...sectionsTemplates[type] };
+  const addNewAndMove = ({ id, type, atIndex, parentZone }) => {
+    const sectionTemplate = sectionsTemplates[type]
+    if (!sectionTemplate) return;
 
-    if (!section) return;
-
-    section.id = id;
+    const section = { ...sectionTemplate, parentZone, id };
 
     const newSections = update(sections, {
       $splice: [
@@ -148,6 +150,19 @@ const Workspace = ({
     borderRadius: `${pageStyles.borderRadius}px`
   };
 
+  const layoutProps = {
+    onSectionDropped,
+    sections,
+    dropAreaImage,
+    onSectionSettings,
+    onSectionOrderChange,
+    activeSection,
+    moveCard,
+    onSectionDuplicate,
+    findCard,
+    activeLanguage,
+    addNewAndMove
+  }
 
   return (
     <FlexBox
@@ -158,39 +173,10 @@ const Workspace = ({
       style={screenStyles}
     >
       <FlexBox id='product-builder-window' column className={workspaceClasses} >
-        <ProductHead show={pageStyles.showHead}/>
+        <ProductHead show={pageStyles.showHead} />
         <FlexBox className='relative-element product-page-content' column style={productStyles}>
           <SettingsHandle onClick={onProductSettings} />
-          <DropZone onDrop={onSectionDropped}>
-            {sections.length === 1 && (
-              <FlexBox column center='h-center v-center' className='builder-drop-area'>
-                <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
-                <span className='gray-text'>
-                  Drop your sections here
-                </span>
-              </FlexBox>
-            )}
-            {
-              sections.map((section, index) => (
-                <Section
-                  key={`${section.id}${index}`}
-                  id={`${section.id}`}
-                  {...section}
-                  section={section}
-                  onSetting={onSectionSettings}
-                  onSectionOrderChange={onSectionOrderChange}
-                  active={activeSection.id === section.id}
-                  activeSection={activeSection}
-                  moveCard={moveCard}
-                  onSectionDuplicate={onSectionDuplicate}
-                  findCard={findCard}
-                  language={activeLanguage}
-                  addNewAndMove={addNewAndMove}
-                  index={index}
-                />
-              ))
-            }
-          </DropZone>
+          <PageLayouts layout={pageStyles.layout} {...layoutProps} />
         </FlexBox>
       </FlexBox>
     </FlexBox>

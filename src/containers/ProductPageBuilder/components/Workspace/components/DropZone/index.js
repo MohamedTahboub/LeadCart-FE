@@ -5,14 +5,17 @@ import { useDrop } from 'react-dnd';
 import * as dropTypes from '../dropTypes';
 
 
-export default ({ children, onDrop }) => {
+export default ({ children, parentZone, onDrop }) => {
+
   const [, drop] = useDrop({
     accept: dropTypes.SECTION,
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
       if (didDrop) return;
+      let itemDetails = {...item};
 
-      onDrop(item);
+      
+      onDrop({ ...itemDetails, parentZone });
     }
   });
 

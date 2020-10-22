@@ -1,14 +1,17 @@
 import React from 'react';
 import common from 'components/common';
 import { useContext } from '../../../actions';
-
+import { FiColumns } from 'react-icons/fi';
+import { VscBrowser } from 'react-icons/vsc';
+import FlatRadio from 'components/FlatRadio';
 import { SettingBox } from './common';
-
+import ReactToolTip from 'react-tooltip'
 const {
   MiniTwitterPicker,
   Tabs,
   Tab,
-  InputRow
+  InputRow,
+  FlexBox
 } = common;
 
 
@@ -32,6 +35,7 @@ const PageSettings = () => {
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
   };
+
 
   return (
     <Tabs active='styles' className='p-2 flex' tabsContentClassName='scrolling-70vh flex'>
@@ -134,6 +138,44 @@ const PageSettings = () => {
             />
           </InputRow>
         </SettingBox>
+        <SettingBox
+          title='Product Page Layout'
+        >
+          <FlexBox center='v-center' className='p-2'>
+            <Label className='sidebar-input-label'>
+              Layout:
+            </Label>
+            <FlatRadio
+              options={[
+                {
+                  label: (
+                    <FlexBox center='v-center h-center' className='p-2'>
+                      <VscBrowser
+                        data-tip='One Column Product Layout'
+                        className={`${pageStyles.layout !== 'two-column' ? 'white-text' : 'gray-text'} mr-1`}
+                      />
+                    </FlexBox>
+                  )
+                  , value: 'one-column'
+                },
+                {
+                  label: (
+                    <FlexBox center='v-center h-center' className='p-2'>
+                      <FiColumns
+                        data-tip='Two Column Product Layout'
+                        className={`${pageStyles.layout === 'two-column' ? 'white-text' : 'gray-text'} mr-1`}
+                      />
+                    </FlexBox>
+                  ), value: 'two-column'
+                },
+              ]}
+              value={pageStyles.layout || 'one-column'}
+              name='pageStyles.layout'
+              onToggle={onToggleChange}
+            />
+          </FlexBox>
+        </SettingBox>
+        <ReactToolTip delayShow={300} />
       </Tab>
     </Tabs>
   );

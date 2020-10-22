@@ -77,6 +77,9 @@ const Header = ({
     actions.onProductFieldChange(target);
   };
 
+  const onToggleProductPageLayout = () => () => {
+
+  }
   return (
     <FlexBox column>
 
