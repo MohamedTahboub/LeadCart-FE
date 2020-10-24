@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
+import { toLowerCase } from './yupMethods'
 
 export const freeTrailSignup = async (user) => {
   const schema = yup.object().shape({
@@ -8,7 +9,7 @@ export const freeTrailSignup = async (user) => {
     email: yup.string().required(),
     companyName: yup.string(),
     password: yup.string().required(),
-    subDomain: yup.string(),
+    subDomain: yup.string().transform(toLowerCase),
     promoCode: yup.string().promoCode()
   }).required();
 
@@ -29,7 +30,7 @@ export const proSignup = async (user) => {
     companyName: yup.string(),
     code: yup.string().required(),
     password: yup.string().required(),
-    subDomain: yup.string()
+    subDomain: yup.string().transform(toLowerCase)
   }).required();
 
   try {

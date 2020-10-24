@@ -39,3 +39,6 @@ yup.addMethod(yup.string, 'promoCode', function () {
 yup.addMethod(yup.mixed, 'remove', () => {
   return yup.mixed().transform(() => undefined);
 });
+
+
+export const toLowerCase = (val) => val ? val.toLowerCase() : val;
