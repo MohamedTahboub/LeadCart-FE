@@ -1,11 +1,14 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
+import { toLowerCase } from './yupMethods'
+
+
 
 export default async (fields) => {//
   const schema = yup.object({
     name: yup.string().default('Company Name'),
     logo: yup.string().url('Upload a Valid image'),
-    subDomain: yup.string().subDomain('Please Enter A valid Sub Domain').required(''),
+    subDomain: yup.string().subDomain('Please Enter A valid Sub Domain').required('').transform(toLowerCase),
     country: yup.string().default('US'),
     currency: yup.string().default('US'),
     timeZone: yup.string().default('Central America'),
