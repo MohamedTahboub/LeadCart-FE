@@ -1,4 +1,5 @@
 import { getPriceFormat } from './currencies';
+import { getCountryByCode } from 'libs'
 
 export const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -44,7 +45,9 @@ export const formatLanguage = (language) => language.contexts.reduce((lang, cont
 
 
 export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
-  const titles = 'Name,Email Address,Phone Number,Product Name,Payment Processor,Offer Included,Coupon Used,Coupon Discount,Total Charge,Product Payment Type\n';
+  const titles = 'Name,Email Address,Phone Number,Product Name,Payment Processor,Offer Included,Coupon Used,Coupon Discount,Total Charge,Product Payment Type';
+  const shippingDetialsTitles = ',Adress, Second Address, City, State, Postal Code,  Country';
+  let hasShippingDetialsInProducts = false;
 
   const orderProducts = orders.reduce((products, { products: subProducts, ...order }) => {
     const nestedProducts = filterPayment
@@ -71,8 +74,30 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
         payment: {
           paymentType,
           paymentMethod
+        } = {},
+        shippingDetails: {
+          streetAddress,
+          streetAddressLine2,
+          city,
+          state,
+          postalCode,
+          country,
         } = {}
       } = {}
-    }) => `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(totalCharge, currency)},${paymentType}`).join('\n');
-  return titles + convertToCSVFormat;
+    }) => {
+
+      let basicOrderRow = `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(totalCharge, currency)},${paymentType}`
+
+      const shippingDetialsRow = `,"${streetAddress}","${streetAddressLine2}","${city}","${state}",${postalCode},"${getCountryByCode(country)}"`
+
+      if (streetAddress && streetAddressLine2 && city) {
+        basicOrderRow += shippingDetialsRow;
+        hasShippingDetialsInProducts = true
+      }
+
+      return basicOrderRow;
+    })
+    .join('\n');
+
+  return `${titles + (hasShippingDetialsInProducts ? shippingDetialsTitles : '')}\n ${convertToCSVFormat}`;
 };
