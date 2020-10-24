@@ -1,12 +1,12 @@
-
 import * as immutable from 'object-path-immutable';
 import defaultLanguage from 'data/defaultLanguage.json';
 import { md5 } from './encoding';
 import jwt from 'jsonwebtoken';
 import { getPriceFormat } from './currencies';
+import countries from 'data/countries'
+
+
 export const filterSubscriptions = (orders = []) => orders.filter(({ payment }) => payment.paymentType === 'Subscription');
-
-
 export const filteringActivities = (orders) => ({
   orders: orders.sort(sortOrders),
   subscriptions: filterSubscriptions(orders)
@@ -35,11 +35,11 @@ export const filterCustomers = (orders = []) => {
     .sort(sortCustomers);
 };
 
-function sortCustomers (customer1, customer2) {
+function sortCustomers(customer1, customer2) {
   return customer1.orders[customer1.orders.length - 1].createdAt - customer2.orders[customer2.orders.length - 1].createdAt;
 }
 
-function sortOrders (o1, o2) {
+function sortOrders(o1, o2) {
   return (new Date(o2.createdAt) - new Date(o1.createdAt));
 }
 
@@ -147,17 +147,17 @@ export const isObjectsEquivalent = (obj1, obj2) => {
     if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) return false;
 
     switch (typeof (obj1[p])) {
-    //Deep compare objects
-    case 'object':
-      if (!isObjectsEquivalent(obj1[p], obj2[p])) return false;
-      break;
+      //Deep compare objects
+      case 'object':
+        if (!isObjectsEquivalent(obj1[p], obj2[p])) return false;
+        break;
       //Compare function code
-    case 'function':
-      if (typeof (obj2[p]) == 'undefined' || (p !== 'compare' && obj1[p].toString() !== obj2[p].toString())) return false;
-      break;
+      case 'function':
+        if (typeof (obj2[p]) == 'undefined' || (p !== 'compare' && obj1[p].toString() !== obj2[p].toString())) return false;
+        break;
       //Compare values
-    default:
-      if (obj1[p] !== obj2[p]) return false;
+      default:
+        if (obj1[p] !== obj2[p]) return false;
     }
   }
 
@@ -199,3 +199,11 @@ export const formatPricingValue = ({ amount, type, splits = 3, recurringPeriod =
   if (type === 'Split') return `${splits}x${formattedAmount}`;
   return `${formattedAmount}`;
 };
+
+const countriesDictionary = mapListToObject(countries,'code')
+export const getCountryByCode = (code = '') => {
+  const country = countriesDictionary[code] || '';
+  if(!Boolean(country && country.name)) return ''
+
+  return country.name;
+}

@@ -31,6 +31,7 @@ export {
   getBrandActivePackage,
   getGavatarByEmail,
   tokenizedContent,
-  formatPricingValue
+  formatPricingValue,
+  getCountryByCode
 } from './specialFuncs';
 export { notification };

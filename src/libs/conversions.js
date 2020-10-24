@@ -1,4 +1,5 @@
 import { getPriceFormat } from './currencies';
+import { getCountryByCode } from 'libs'
 
 export const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -86,7 +87,8 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
     }) => {
 
       let basicOrderRow = `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(totalCharge, currency)},${paymentType}`
-      const shippingDetialsRow = `,"${streetAddress}","${streetAddressLine2}","${city}","${state}",${postalCode},"${country}"`
+
+      const shippingDetialsRow = `,"${streetAddress}","${streetAddressLine2}","${city}","${state}",${postalCode},"${getCountryByCode(country)}"`
 
       if (streetAddress && streetAddressLine2 && city) {
         basicOrderRow += shippingDetialsRow;
