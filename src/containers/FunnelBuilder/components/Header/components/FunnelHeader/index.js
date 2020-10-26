@@ -36,7 +36,8 @@ const CheckoutHeader = ({
   onPageChange,
   onToggleRuleModal,
   onSave,
-  history
+  history,
+  isChangesSaved
 }) => {
   const [showModal, setShowModal] = useState({});
 
@@ -107,6 +108,7 @@ const CheckoutHeader = ({
             <Button
               onClick={onPreview}
               className='light-btn solid-right-border solid-left-border'
+              disabled={!isChangesSaved}
             >
               <i className='fas fa-eye font-size-11' />
                 Preview

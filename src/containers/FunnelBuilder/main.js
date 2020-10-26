@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
@@ -67,6 +68,7 @@ const FunnelBuilder = ({
   const [unblock, SetUnblock] = useState();
 
   const [openRuleModal, setOpenRuleModal] = useState(false);
+  const [isChangesSaved, setIsChangesSaved] = useState(true);
 
   const onToggleRuleModal = (activeRule, setActiveRule) => {
     setOpenRuleModal((open) => {
@@ -88,9 +90,78 @@ const FunnelBuilder = ({
       unblock();
   };
 
+
+  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
+
+
+  const isFunnelBuilderChanged = (oldObj, newObj) => {
+    const importantProps = {
+      currency: 'EUR',
+      language: null,
+      thankyouPage: null,
+      url: 'second-funnel',
+      category: 'checkout',
+      elementId: 'G8zBuRcpl',
+      relations: [],
+      target: 'BoD92Nfle',
+      type: 'upSell',
+      marketPlace: {},
+      featured: false,
+      publish: true,
+      description: '',
+      products: [],
+      name: 'First Funnel',
+      paymentMethods: ['Stripe', 'COD'],
+      productId: ''
+    };
+
+    for (const prop in newObj)
+      if (oldObj.hasOwnProperty(prop) !== newObj.hasOwnProperty(prop)) return true;
+
+
+    for (const prop in oldObj) {
+      if (importantProps.hasOwnProperty(prop)) {
+        switch (typeof (oldObj[prop])) {
+        case 'object':
+          if (Array.isArray(oldObj[prop]) && oldObj[prop].length === newObj[prop].length) {
+            const hasObjects = Boolean(oldObj[prop].filter((ele) => typeof ele === 'object').length);
+
+            if (hasObjects) {
+              oldObj[prop].forEach((ele, i) => {
+                isFunnelBuilderChanged(oldObj[prop][i], newObj[prop][i]);
+              });
+            } else {
+              const res = JSON.stringify(oldObj[prop].sort()) !== JSON.stringify(newObj[prop].sort());
+              if (res) return true;
+            }
+
+
+          } else if (Array.isArray(oldObj[prop]) && oldObj[prop].length !== newObj[prop].length) {
+            return true;
+          } else if (oldObj[prop] !== null) {
+            isFunnelBuilderChanged(oldObj[prop], newObj[prop]);
+          }
+          break;
+
+        default: if (!Object.is(oldObj[prop], newObj[prop])) return true;
+        }
+      }
+    }
+
+    return 'no check';
+    // return false;
+  };
+
+
   const onChange = ({ name, value }) => {
     const newFields = immutable.set(fields, name, value);
     setFields(newFields);
+    setIsChangesSaved(false);
+
+    const funnel = getFunnelByUrl(funnelUrl);
+    const checkObj = isFunnelBuilderChanged(funnel, newFields);
+    console.log('checkObj ??', checkObj);
+
 
     setErrors({ ...errors, [name]: '' });
     changesDetected();
@@ -101,7 +172,6 @@ const FunnelBuilder = ({
     setEnableDarkTheme(!enableDarkTheme);
   };
 
-  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
 
   useEffect(() => {
     const funnel = getFunnelByUrl(funnelUrl);
@@ -165,6 +235,7 @@ const FunnelBuilder = ({
           notification.success('Funnel Saved Successfully');
           changesSaved();
           updateUrlOnChange(fields.url);
+          setIsChangesSaved(true);
         },
         onFailed: (message) => {
           notification.failed(message);
@@ -191,6 +262,7 @@ const FunnelBuilder = ({
     onToggleRuleModal,
     funnel: fields,
     onSave,
+    isChangesSaved,
     history: props.history
   };
   const isOptInFunnel = fields.type && fields.type === 'OPT-IN';
