@@ -116,7 +116,7 @@ const FunnelBuilder = ({
     };
 
     for (const prop in newObj)
-      if (oldObj.hasOwnProperty(prop) !== newObj.hasOwnProperty(prop)) return true;
+      if (!oldObj.hasOwnProperty(prop) && Boolean(newObj[prop])) return true;
 
 
     for (const prop in oldObj) {
