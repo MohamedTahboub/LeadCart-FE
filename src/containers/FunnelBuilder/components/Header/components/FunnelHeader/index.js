@@ -2,6 +2,8 @@ import React, { Fragment, useState } from 'react';
 import config from 'config';
 import ShareProductModal from 'components/ShareProductModal';
 import { IoIosAdd, IoIosArrowRoundBack } from 'react-icons/io';
+import ToolTip from 'react-tooltip';
+import clx from 'classnames';
 
 import common from 'components/common';
 
@@ -113,10 +115,17 @@ const CheckoutHeader = ({
               <i className='fas fa-eye font-size-11' />
                 Preview
             </Button>
-            <Button onClick={onSave} className='light-btn solid-left-border'>
+            <Button
+              onClick={onSave}
+              className={clx('light-btn solid-left-border', { 'unsaved-changes': isFunnelBuilderHasChanges })}
+              data-tip='You have unsaved changes'
+              data-tip-disable={!isFunnelBuilderHasChanges}
+              data-place='left'
+            >
               <i className='fas fa-save font-size-11' />
               Save
             </Button>
+            <ToolTip />
           </Fragment>
         )}
         <ShareProductModal
