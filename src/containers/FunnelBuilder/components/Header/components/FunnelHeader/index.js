@@ -37,7 +37,7 @@ const CheckoutHeader = ({
   onToggleRuleModal,
   onSave,
   history,
-  isChangesSaved
+  isFunnelBuilderHasChanges
 }) => {
   const [showModal, setShowModal] = useState({});
 
@@ -108,7 +108,7 @@ const CheckoutHeader = ({
             <Button
               onClick={onPreview}
               className='light-btn solid-right-border solid-left-border'
-              disabled={!isChangesSaved}
+              disabled={isFunnelBuilderHasChanges}
             >
               <i className='fas fa-eye font-size-11' />
                 Preview
