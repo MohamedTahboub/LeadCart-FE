@@ -18,9 +18,9 @@ const importantProps = {
 };
 
 
-export const isFunnelBuilderChanged = (oldObj = {}, newObj = {}) => {
+export const isFunnelBuilderChanged = (oldObj, newObj) => {
   const chekPropsWithRef = (oldObj, newObj) => {
-    if (Array.isArray(oldObj) && oldObj.length === newObj.length) {
+    if (Array.isArray(oldObj) && oldObj?.length === newObj?.length) {
       const hasObjects = Boolean(oldObj.filter((ele) => typeof ele === 'object').length);
       if (hasObjects) {
         return Boolean(oldObj.find((ele, i) => isFunnelBuilderChanged(oldObj[i], newObj[i])));
@@ -29,7 +29,7 @@ export const isFunnelBuilderChanged = (oldObj = {}, newObj = {}) => {
         if (res) return true;
       }
 
-    } else if (Array.isArray(oldObj) && oldObj.length !== newObj.length) {
+    } else if (Array.isArray(oldObj) && oldObj?.length !== newObj?.length) {
       return true;
     } else {
       return isFunnelBuilderChanged(oldObj, newObj);
