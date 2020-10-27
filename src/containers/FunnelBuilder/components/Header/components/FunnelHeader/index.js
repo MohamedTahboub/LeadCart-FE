@@ -39,7 +39,8 @@ const CheckoutHeader = ({
   onToggleRuleModal,
   onSave,
   history,
-  isFunnelBuilderHasChanges
+  isFunnelBuilderHasChanges,
+  hasCheckoutConnected
 }) => {
   const [showModal, setShowModal] = useState({});
 
@@ -107,24 +108,36 @@ const CheckoutHeader = ({
               <i className='fas fa-share-square font-size-11' />
                 Share
             </Button>
-            <Button
-              onClick={onPreview}
-              className='light-btn solid-right-border solid-left-border'
-              disabled={isFunnelBuilderHasChanges}
-            >
-              <i className='fas fa-eye font-size-11' />
-                Preview
-            </Button>
-            <Button
-              onClick={onSave}
-              className={clx('light-btn solid-left-border', { 'unsaved-changes': isFunnelBuilderHasChanges })}
+
+            <FlexBox
               data-tip='You have unsaved changes'
               data-tip-disable={!isFunnelBuilderHasChanges}
               data-place='left'
             >
-              <i className='fas fa-save font-size-11' />
+              <Button
+                onClick={onPreview}
+                className='light-btn solid-right-border solid-left-border'
+                disabled={isFunnelBuilderHasChanges}
+              >
+                <i className='fas fa-eye font-size-11' />
+                Preview
+              </Button>
+            </FlexBox>
+
+            <FlexBox
+              data-tip='you should start with a checkout page with a product'
+              data-tip-disable={hasCheckoutConnected}
+              data-place='left'
+            >
+              <Button
+                onClick={onSave}
+                className={clx('light-btn solid-left-border', { 'unsaved-changes': isFunnelBuilderHasChanges })}
+                disabled={!hasCheckoutConnected}
+              >
+                <i className='fas fa-save font-size-11' />
               Save
-            </Button>
+              </Button>
+            </FlexBox>
             <ToolTip />
           </Fragment>
         )}

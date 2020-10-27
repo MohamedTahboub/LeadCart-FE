@@ -60,6 +60,8 @@ const FunnelBuilder = ({
 
   const [openRuleModal, setOpenRuleModal] = useState(false);
   const [isFunnelBuilderHasChanges, setIsFunnelBuilderHasChanges] = useState(false);
+  const [hasCheckoutConnected, setHasCheckoutConnected] = useState(false);
+
 
   const onToggleRuleModal = (activeRule, setActiveRule) => {
     setOpenRuleModal((open) => {
@@ -83,16 +85,18 @@ const FunnelBuilder = ({
 
 
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
+  const funnel = getFunnelByUrl(funnelUrl);
 
+  const checkTheCheckoutPage = (funnel) => Boolean(funnel?.products.find(({ category, relations, productId }) => (category === 'checkout' && productId && relations?.length)));
 
   const onChange = ({ name, value }) => {
     const newFields = immutable.set(fields, name, value);
-    const funnel = getFunnelByUrl(funnelUrl);
     const isFunnelBuilderHasChanges = isFunnelBuilderChanged(funnel, newFields);
+    const hasCheckoutConnected = checkTheCheckoutPage(newFields);
 
     setFields(newFields);
     setIsFunnelBuilderHasChanges(isFunnelBuilderHasChanges);
-
+    setHasCheckoutConnected(hasCheckoutConnected);
     setErrors({ ...errors, [name]: '' });
     changesDetected();
   };
@@ -104,8 +108,6 @@ const FunnelBuilder = ({
 
 
   useEffect(() => {
-    const funnel = getFunnelByUrl(funnelUrl);
-
     if (!funnel) return;
     if (funnel._id === fields._id) {
       if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules))
@@ -119,6 +121,10 @@ const FunnelBuilder = ({
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);
+
+
+    const hasCheckoutConnected = checkTheCheckoutPage(funnel);
+    setHasCheckoutConnected(hasCheckoutConnected);
 
     //eslint-disable-next-line
   }, [funnels, productsMap]);
@@ -193,6 +199,7 @@ const FunnelBuilder = ({
     funnel: fields,
     onSave,
     isFunnelBuilderHasChanges,
+    hasCheckoutConnected,
     history: props.history
   };
   const isOptInFunnel = fields.type && fields.type === 'OPT-IN';
