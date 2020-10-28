@@ -1,0 +1,134 @@
+.taxes-table-row{
+  border: 1px solid rgb(218, 217, 217);
+  transition: .4s background ease-in-out;
+}
+
+.tax-delete-icon,
+.rates-per-zone-body-row-delete-icon,
+.tax-edit-icon{
+  cursor: pointer;
+  opacity: .7;
+  transition: .4s opacity ease-in-out, .4s transform ease-in-out;
+}
+
+.tax-delete-icon:hover,
+.rates-per-zone-body-row-delete-icon:hover,
+.tax-edit-icon:hover{
+  opacity: 1;
+  transform: scale(1.25);
+}
+
+
+.tax-edit-icon{
+  color: var(--primary-color);
+}
+
+.rates-per-zone-body-row-delete-icon,
+.tax-delete-icon{
+  color: #c23616;
+}
+
+
+/* ====================================================== */
+.expandable{
+  height: 0;
+  overflow: hidden;
+  transition: .4s height ease-in-out, .4s padding ease-in-out;
+  transform: translateY(-15px);
+  background-color: #f7f7f7;
+}
+
+
+
+.expandable.open{
+  height: 450px;
+  overflow: auto;
+}
+
+.taxes-table-row.open{
+  background-color: rgb(218, 217, 217);
+  background-color: #CDD4DB;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+.expandable-form-select .css-1pahdxg-control,
+.expandable-form-select .css-yk16xz-control{
+  background:transparent;
+  width: 402px;
+  height: 32px;
+  color: #2B3748;
+  font-size: 15px;
+  line-height: 16px;
+  letter-spacing: -.012rem;
+  padding: 0px 5px;
+  background: rgba(188, 201, 214, 0.1);
+  outline-color: lightgray;
+}
+
+.expandable-form-select .css-yk16xz-control .css-tlfecz-indicatorContainer{
+  padding: 0;
+}
+
+.expandable .toggle-bar:before{
+  left: -45px
+}
+
+.expandable .toggle-bar:after{
+  left: 42px
+}
+
+/* ====================================================== */
+
+.expandable .rates-per-zone-body-row,
+.expandable .rates-per-zone-header{
+  width: 402px;
+  height: 32px;
+
+  background-color: #fff;
+}
+
+
+.expandable .rates-per-zone-body-row > *:nth-child(1),
+.expandable .rates-per-zone-header > *:nth-child(1){
+  width: 60%;
+}
+
+.expandable .rates-per-zone-body-row > *:nth-child(2),
+.expandable .rates-per-zone-header > *:nth-child(2){
+  width: 25%;
+}
+
+
+.expandable .rates-per-zone-header{
+  background-color: #8F9FB0;
+  padding-right: 6.5% !important;
+  border-radius: 8px 8px 0 0;
+  padding: 22px 10px;
+
+}
+
+.rates-per-zone-header-title{
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.expandable .rates-per-zone-body-row{
+  border-bottom: 1px solid #cdd4db;
+  padding: 35px 10px;
+}
+
+.expandable .rates-per-zone-body-row:last-of-type{
+  border-bottom-color: transparent;
+  border-radius: 0 0 8px 8px !important;
+}
+
+
+.rates-per-zone-body-input {
+  text-align: center;
+}
+
+

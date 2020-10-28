@@ -84,6 +84,7 @@ export class InputRow extends Component {
       type={type}
       className={`input-field small-input ${className} ${error ? 'invalid-field' : ''}`}
       placeholder={props.children}
+      {...props}
     />
   )
 
