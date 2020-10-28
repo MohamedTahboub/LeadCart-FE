@@ -118,11 +118,11 @@ export const updateDisplayMode = ({ dispatch }) => (mode) => {
 
 
 export const onSectionSettingChange = ({ state: { modals: { sectionSetting = {} } = {} }, dispatch }) => ({ section, field = {}, fields }) => {
-  let sectionUpdated;
+  let sectionUpdated = section;
   if (Array.isArray(fields)) {
     fields.forEach((field) => {
       const { name, value } = field;
-      sectionUpdated = immutable.set(sectionUpdated || section, name, value);
+      sectionUpdated = immutable.set(sectionUpdated, name, value);
     });
   } else {
     const { name, value } = field;
@@ -131,12 +131,12 @@ export const onSectionSettingChange = ({ state: { modals: { sectionSetting = {} 
   if (sectionSetting.id === section.id) {
     dispatch({
       type: types.UPDATE_SECTION_SETTINGS,
-      payload: section
+      payload: sectionUpdated
     });
   } else {
     dispatch({
       type: types.UPDATE_PRODUCT_SECTION,
-      payload: section
+      payload: sectionUpdated
     });
   }
 };

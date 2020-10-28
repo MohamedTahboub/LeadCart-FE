@@ -136,14 +136,6 @@ const Workspace = ({
     });
   };
 
-  const onProductSettings = () => {
-    const meta = {
-      type: 'pageSetting',
-      menuTitle: 'Page Settings'
-    };
-    onSectionSettings(meta);
-  };
-
   const {
     productPage: {
       marginTop,
@@ -195,7 +187,6 @@ const Workspace = ({
       <FlexBox id='product-builder-window' column className={workspaceClasses} >
         <ProductHead show={pageStyles.showHead} />
         <FlexBox className='relative-element product-page-content' column style={productStyles}>
-          <SettingsHandle onClick={onProductSettings} />
           <PageLayouts layout={pageStyles.layout} {...layoutProps} />
         </FlexBox>
       </FlexBox>

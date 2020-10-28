@@ -7,7 +7,7 @@ import bookMarkImage1 from 'assets/images/icons/bookmark.svg';
 import bookMarkImage2 from 'assets/images/icons/bookmark-2.svg';
 
 
-import { SettingBox, ImageOption } from './common';
+import { ImageOption, SettingBox } from './common';
 import { useContext } from '../../../actions';
 
 const badgesImages = [
@@ -19,29 +19,25 @@ const badgesImages = [
 const {
   Tabs,
   InputRow,
-  MiniTwitterPicker,
+  MiniColorPicker,
   FlexBox,
-  Tab,
+  Tab
 } = common;
 
 const {
   TextField,
-  SelectOption,
+  SelectOption
 } = InputRow;
 
 const ProductBadgeWidget = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content = {},
+    content = {}
     // actions: sectionActions = {}
   } = sectionSetting;
 
@@ -77,7 +73,7 @@ const ProductBadgeWidget = (props) => {
                 options={[
                   { label: 'Absolute Top', value: 'absolute-top' },
                   { label: 'As Normal Section', value: 'section' },
-                  { label: 'Absolute Bottom', value: 'absolute-bottom' },
+                  { label: 'Absolute Bottom', value: 'absolute-bottom' }
                 ]}
               />
             </FlexBox>
@@ -102,7 +98,7 @@ const ProductBadgeWidget = (props) => {
 
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Badge Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.badgeColor'
                 value={styles.badgeColor}
                 onChange={onChange}
@@ -182,8 +178,6 @@ const ProductBadgeWidget = (props) => {
   );
 };
 
-ProductBadgeWidget.propTypes = {
-
-};
+ProductBadgeWidget.propTypes = {};
 
 export default ProductBadgeWidget;

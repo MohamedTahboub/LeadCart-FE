@@ -9,8 +9,8 @@ export default ({ styles, ...props }) => {
 
   const castedStyles = stylesCasting(columnStyles);
   return (
-    <FlexBox flex style={castedStyles}>
-      <DropZoneSpace {...props} parentZone='first-column' style={{ width: 750 }}/>
+    <FlexBox style={castedStyles}>
+      <DropZoneSpace {...props} parentZone='first-column'/>
     </FlexBox>
   );
 };

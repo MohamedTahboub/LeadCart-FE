@@ -21,11 +21,11 @@ export default ({ sections, styles, ...props }) => {
 
   return (
     <FlexBox>
-      <FlexBox flex style={firstColumnCastedStyles}>
-        <DropZoneSpace {...passedProps} parentZone='first-column' style={{ width: 450 }} />
+      <FlexBox style={firstColumnCastedStyles}>
+        <DropZoneSpace {...passedProps} parentZone='first-column' />
       </FlexBox>
-      <FlexBox flex style={secondColumnCastedStyles}>
-        <DropZoneSpace {...passedProps} parentZone='second-column' style={{ width: 450 }}/>
+      <FlexBox style={secondColumnCastedStyles}>
+        <DropZoneSpace {...passedProps} parentZone='second-column'/>
       </FlexBox>
     </FlexBox>
   );

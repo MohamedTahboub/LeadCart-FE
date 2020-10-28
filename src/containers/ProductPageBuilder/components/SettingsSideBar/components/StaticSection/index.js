@@ -13,7 +13,7 @@ import priceFormatOptions from 'data/priceFormatOptions';
 import { PricingOption } from './components';
 
 const { admins = [], PRICING_OPTIONS_LIMITS } = config;
-const { Button, Tabs, Tab, InputRow, FlexBox, MiniTwitterPicker } = common;
+const { Button, Tabs, Tab, InputRow, FlexBox, MiniColorPicker } = common;
 const { Label, SearchInput, Toggle, SelectOption } = InputRow;
 
 const StaticSection = ({ defaultBrandCurrency }) => {
@@ -296,7 +296,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
           <FlexBox center='v-center margin-v-5' spaceBetween>
             <span className='gray-text'>Button Background</span>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='background'
               value={background}
               onChange={onButtonSettingsChange}
@@ -305,7 +305,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
           <FlexBox center='v-center margin-v-5' spaceBetween>
             <span className='gray-text'>Button Text</span>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='textColor'
               value={textColor}
               onChange={onButtonSettingsChange}
@@ -368,7 +368,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               </FlexBox>
               <FlexBox center='v-center' className='pb-140px' spaceBetween>
                 <span className='gray-text'>Border Color</span>
-                <MiniTwitterPicker
+                <MiniColorPicker
                   name='borderColor'
                   value={borderColor}
                   onChange={onButtonSettingsChange}
@@ -408,7 +408,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               />
               <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
                 <span className='gray-text'>Shadow Color</span>
-                <MiniTwitterPicker
+                <MiniColorPicker
                   name='shadowColor'
                   value={shadowColor}
                   onChange={onButtonSettingsChange}

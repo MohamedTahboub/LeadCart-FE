@@ -6,7 +6,7 @@ import common from 'components/common';
 import { useContext } from '../../../../actions';
 import SelectInput from './select';
 
-const { Tabs, InputRow, FlexBox, Tab, MiniTwitterPicker } = common;
+const { Tabs, InputRow, FlexBox, Tab, MiniColorPicker } = common;
 const { Label } = InputRow;
 const newItem = { content: 'FAQ Text', title: 'FAQ Title' };
 
@@ -59,7 +59,7 @@ const FaqSettings = () => {
 
             <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
               <Label>Points Color</Label>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 value={iconsColor}
                 onChange={onColorChange}
               />

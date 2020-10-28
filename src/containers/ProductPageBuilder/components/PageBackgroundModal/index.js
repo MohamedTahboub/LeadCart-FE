@@ -11,7 +11,7 @@ const {
   Button,
   FlexBox,
   InputRow,
-  MiniTwitterPicker
+  MiniColorPicker
 } = common;
 
 const { Label, AddImage, SelectOption } = InputRow;
@@ -135,7 +135,7 @@ const ProductsScripts = ({ onChange: onProductChange }) => {
                 onUploaded={onImageChange}
               />
             ) : (
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name={`${activeSectionName}.backgroundColor`}
                 value={fields[activeSectionName]?.backgroundColor}
                 onChange={onNativeElementChange}

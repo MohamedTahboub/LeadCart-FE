@@ -2,7 +2,7 @@
     position: relative;
 }
 .product-workspace {
-    width: 750px;
+    /* width: 750px; */
     max-height: 89vh;
     overflow-y: auto;
     overflow-x: visible;
@@ -16,7 +16,7 @@
     padding-bottom: 50px;
 }
 .product-workspace.wide{
-    width: 950px;
+    /* width: 950px; */
     min-width: 70%;
 }
 .drop-area-image {

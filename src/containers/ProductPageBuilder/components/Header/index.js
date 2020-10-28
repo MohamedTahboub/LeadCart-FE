@@ -4,6 +4,7 @@ import { IoIosArrowRoundBack } from 'react-icons/io';
 import { AiOutlineHistory, AiOutlineMobile } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
 import { FaCode } from 'react-icons/fa';
+import { RiListSettingsLine } from 'react-icons/ri';
 import { useContext } from '../../actions';
 import { ScriptsModal } from './components';
 
@@ -44,8 +45,7 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 const Header = ({
   history,
   onSave,
-  saving,
-  ...props
+  saving
 }) => {
 
   const {
@@ -77,9 +77,14 @@ const Header = ({
     actions.onProductFieldChange(target);
   };
 
-  const onToggleProductPageLayout = () => () => {
+  const onPageLayoutSettings = () => {
+    const meta = {
+      type: 'pageSetting',
+      menuTitle: 'Page & Layouts Settings'
+    };
+    actions.toggleSectionSettingModal(meta);
+  };
 
-  }
   return (
     <FlexBox column>
 
@@ -134,6 +139,17 @@ const Header = ({
             className='light-btn margin-h-5 hide-element'
           >
             <AiOutlineHistory />
+          </Button>
+          <Button
+            onClick={onPageLayoutSettings}
+            className='light-btn mr-2'
+          >
+            <FlexBox center='v-center'>
+              <RiListSettingsLine className='gray-text mr-1' />
+              <span>
+                Page Layout
+              </span>
+            </FlexBox>
           </Button>
           <Button
             onClick={onToggleScriptModal}
