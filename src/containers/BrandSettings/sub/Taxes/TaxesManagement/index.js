@@ -144,6 +144,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
                   enabled={enabled}
                   taxId={_id}
                   saveLoading={saveLoading}
+                  setEditableTaxId={setEditableTaxId}
                 />
               </Fragment>
             );

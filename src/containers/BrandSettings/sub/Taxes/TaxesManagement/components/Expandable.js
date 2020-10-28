@@ -8,8 +8,9 @@ import RatesPerZone from './RatesPerZone';
 const { FlexBox, Button, InputRow } = common;
 const { Label, NormalInput, Toggle } = InputRow;
 
-const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabled, onSave, onCancelEdits, taxId, saveLoading, zone }) => {
-  const [fields, setFields] = useState({ appliesTo, zoneDefinition, zone, enabled, ratesPerZone });
+const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabled, onSave, onCancelEdits, taxId, saveLoading, zone, setEditableTaxId }) => {
+  const savedTaxData = { appliesTo, zoneDefinition, enabled, ratesPerZone };
+  const [fields, setFields] = useState(savedTaxData);
 
   const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
 
@@ -76,7 +77,13 @@ const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabl
 
 
       <FlexBox flexEnd>
-        <Button className='px-4 py-1 mr-3 light-btn' onClick={onCancelEdits} disabled={saveLoading} onprogress={saveLoading} >Cancel</Button>
+        <Button className='px-4 py-1 mr-3 light-btn'
+          onClick={() => {
+            setFields(savedTaxData);
+            setEditableTaxId('');
+          }}
+          disabled={saveLoading} onprogress={saveLoading}
+        >Cancel</Button>
         <Button className='px-4 py-1 primary-color' onClick={onSave(taxId, fields)} disabled={saveLoading} onprogress={saveLoading}>Save</Button>
       </FlexBox>
     </FlexBox>
