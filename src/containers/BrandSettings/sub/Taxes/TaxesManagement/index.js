@@ -6,15 +6,16 @@ import clx from 'classnames';
 import { connect } from 'react-redux';
 
 import common from 'components/common';
-import { DeleteModal, Expandable } from './components';
+import { CancelModal, DeleteModal, Expandable } from './components';
 import './style.css';
 
 const { Table, FlexBox, Title, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
 const TaxesManagement = ({ taxes }) => {
-  const [editableTaxId, setEditableTaxId] = useState();
+  const [editableTaxId, setEditableTaxId] = useState('');
   const [deleteTaxId, setDeleteTaxId] = useState('');
+  const [cancelModalOpened, setCancelModalOpened] = useState(false);
 
   const getTaxState = (enabled) => (
     <Badge type={enabled ? 'primary' : 'secondary'}>
@@ -26,7 +27,14 @@ const TaxesManagement = ({ taxes }) => {
   const onDeleteTax = (taxId) => () => setDeleteTaxId(taxId);
   const onCancelDeleteTax = () => setDeleteTaxId('');
   const onEditTax = (taxId) => () => setEditableTaxId(taxId);
-  const onCancelEdits = () => setEditableTaxId('');
+  const onCancelEdits = () => setCancelModalOpened(true);
+  const onCloseCancelModal = () => setCancelModalOpened(false);
+
+
+  const onSave = () => {
+    cancelModalOpened && setCancelModalOpened(false);
+    setEditableTaxId('');
+  };
 
   const deleteModalOpend = Boolean(deleteTaxId);
 
@@ -72,7 +80,7 @@ const TaxesManagement = ({ taxes }) => {
                     </FlexBox>
                   </Cell>
                 </Row>
-                <Expandable open={isEditableTax} {...tax} />
+                <Expandable open={isEditableTax} onSave={onSave} onCancelEdits={onCancelEdits} {...tax} />
               </Fragment>
             );
           })}
@@ -80,6 +88,7 @@ const TaxesManagement = ({ taxes }) => {
       </Table>
 
       <DeleteModal taxId={deleteTaxId} onClose={onCancelDeleteTax} isVisible={deleteModalOpend} />
+      <CancelModal onSave={onSave} onClose={onCloseCancelModal} isVisible={cancelModalOpened} />
     </FlexBox>
   );
 };

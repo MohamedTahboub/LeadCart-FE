@@ -8,7 +8,7 @@ import RatesPerZone from './RatesPerZone';
 const { FlexBox, Button, InputRow } = common;
 const { Label, NormalInput, Toggle } = InputRow;
 
-const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabled }) => {
+const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabled, onSave, onCancelEdits }) => {
   const [fields, setFields] = useState({ appliesTo, zoneDefinition, name, enabled, ratesPerZone });
 
   const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
@@ -37,7 +37,6 @@ const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabl
           className='mx-5'
         />
       </FlexBox>
-
 
       <InputRow>
         <Label>Tax Name:</Label>
@@ -76,8 +75,8 @@ const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabl
 
 
       <FlexBox flexEnd>
-        <Button className='px-4 py-1 mr-3 light-btn'>Cancel</Button>
-        <Button className='px-4 py-1 primary-color'>Save</Button>
+        <Button className='px-4 py-1 mr-3 light-btn' onClick={onCancelEdits} >Cancel</Button>
+        <Button className='px-4 py-1 primary-color' onClick={onSave} >Save</Button>
       </FlexBox>
     </FlexBox>
   );
