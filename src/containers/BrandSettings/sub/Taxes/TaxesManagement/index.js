@@ -6,16 +6,52 @@ import clx from 'classnames';
 import { connect } from 'react-redux';
 
 import common from 'components/common';
+import { notification } from 'libs';
+import * as taxesActions from 'actions/taxes';
 import { CancelModal, DeleteModal, Expandable } from './components';
+
 import './style.css';
 
 const { Table, FlexBox, Title, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
-const TaxesManagement = ({ taxes }) => {
+const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
   const [editableTaxId, setEditableTaxId] = useState('');
   const [deleteTaxId, setDeleteTaxId] = useState('');
   const [cancelModalOpened, setCancelModalOpened] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
+
+  const defaultTax = {
+    name: 'New Tax',
+    appliesTo: 'Subtotal',
+    zoneDefinition: 'IPAddress',
+    ratesPerZone: [
+      {
+        zone: '5f9832cf9b9fd77d030af889',
+        rate: 0
+      }
+    ]
+  };
+
+
+  const onAddNewtax = () => {
+    setLoading(true);
+    addNewTax(
+      defaultTax,
+      {
+        onSuccess: () => {
+          setLoading(false);
+          notification.success('New tax added successfuly');
+        },
+        onFailed: (message) => {
+          setLoading(false);
+          notification.failed(message);
+        }
+      }
+    );
+  };
+
 
   const getTaxState = (enabled) => (
     <Badge type={enabled ? 'primary' : 'secondary'}>
@@ -31,10 +67,26 @@ const TaxesManagement = ({ taxes }) => {
   const onCloseCancelModal = () => setCancelModalOpened(false);
 
 
-  const onSave = () => {
-    cancelModalOpened && setCancelModalOpened(false);
-    setEditableTaxId('');
+  const onSave = (taxId, details) => () => {
+    setSaveLoading(true);
+
+    editTax(
+      { tax: taxId, details },
+      {
+        onSuccess: () => {
+          setSaveLoading(false);
+          setEditableTaxId('');
+          cancelModalOpened && setCancelModalOpened(false);
+          notification.success('You Change edited successfuly successfuly');
+        },
+        onFailed: (message) => {
+          setSaveLoading(false);
+          notification.failed(message);
+        }
+      }
+    );
   };
+
 
   const deleteModalOpend = Boolean(deleteTaxId);
 
@@ -42,7 +94,7 @@ const TaxesManagement = ({ taxes }) => {
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
         <Title>Taxes Management</Title>
-        <Button className='primary-color' >Add new Tax Schema</Button>
+        <Button className='primary-color' onClick={onAddNewtax} disabled={loading} onprogress={loading} >Add new Tax Schema</Button>
       </FlexBox>
 
       <Table className='taxes-table mt-4'>
@@ -57,8 +109,8 @@ const TaxesManagement = ({ taxes }) => {
 
         <Body>
           {taxes.map((tax) => {
-            const { name, appliesTo, zoneDefinition, ratesPerZone, enabled, _id } = tax;
-            const isEditableTax = editableTaxId === tax._id;
+            const { name, appliesTo, zoneDefinition, ratesPerZone, enabled, _id, zone } = tax;
+            const isEditableTax = editableTaxId === _id;
             return (
               <Fragment>
                 <Row className={clx('taxes-table-row', { open: isEditableTax })}>
@@ -80,7 +132,19 @@ const TaxesManagement = ({ taxes }) => {
                     </FlexBox>
                   </Cell>
                 </Row>
-                <Expandable open={isEditableTax} onSave={onSave} onCancelEdits={onCancelEdits} {...tax} />
+                <Expandable
+                  open={isEditableTax}
+                  onSave={onSave}
+                  onCancelEdits={onCancelEdits}
+                  name={name}
+                  zone={zone}
+                  appliesTo={appliesTo}
+                  zoneDefinition={zoneDefinition}
+                  ratesPerZone={ratesPerZone}
+                  enabled={enabled}
+                  taxId={_id}
+                  saveLoading={saveLoading}
+                />
               </Fragment>
             );
           })}
@@ -95,4 +159,4 @@ const TaxesManagement = ({ taxes }) => {
 
 const mapStateToProps = ({ taxes }) => ({ taxes });
 
-export default connect(mapStateToProps)(TaxesManagement);
+export default connect(mapStateToProps, taxesActions)(TaxesManagement);

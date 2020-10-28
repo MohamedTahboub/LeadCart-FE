@@ -22,7 +22,7 @@ const DeleteModal = ({ isVisible, onClose, taxId, deleteTax }) => {
         onSuccess: () => {
           setLoading(false);
           onClose();
-          notification.success('Yoyr tax deleted successfuly');
+          notification.success('your tax deleted successfuly');
         },
         onFailed: (message) => {
           setLoading(false);

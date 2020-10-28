@@ -13,15 +13,19 @@ const { SmallInput } = InputRow;
 
 
 const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
-  const selectedZones = ratesPerZone.map(({ name }) => name);
-  const zonesOptions = zones.filter(({ zone }) => !selectedZones.includes(zone)).map(({ zone }) => ({ label: zone, value: zone }));
-  const getZoneOption = (value) => ({ label: value, value });
-  const hasDefaultZone = ratesPerZone.find(({ name }) => name === 'Americas');
+  const selectedZones = ratesPerZone.map(({ zone }) => zone);
+  const zonesOptions = zones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
+  const hasDefaultZone = ratesPerZone.find(({ zone }) => zone === '5f9832cf9b9fd77d030af88c');
+
+
+  const getZoneOption = (zoneId) => {
+    const currentZone = zones.find(({ _id }) => _id === zoneId) || {};
+    return { label: currentZone?.name, value: zoneId };
+  };
+
 
   const defaultZone = {
-    name: 'Americas',
-    countries: ['US'],
-    _id: ids.generate(),
+    zone: '5f9832cf9b9fd77d030af88c',
     rate: 0
   };
 
@@ -29,13 +33,14 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
   const onAddZone = () => onChange({ target: { value: [...ratesPerZone, defaultZone], name: 'ratesPerZone' } });
 
   const onDeleteZone = (zoneId) => () => {
-    const updatedList = ratesPerZone.filter(({ _id }) => _id !== zoneId);
+    const updatedList = ratesPerZone.filter(({ zone }) => zone !== zoneId);
     onChange({ target: { value: updatedList, name: 'ratesPerZone' } });
   };
 
+
   const onChangeZone = (zoneId, name, value) => {
     const updatedList = ratesPerZone.map((zone) => {
-      if (zone._id === zoneId)
+      if (zone.zone === zoneId)
         return ({ ...zone, [name]: value });
       else
         return zone;
@@ -65,21 +70,21 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
       </FlexBox>
 
 
-      {ratesPerZone.map(({ name, rate, _id }) => (
+      {ratesPerZone.map(({ zone, rate }) => (
         <FlexBox className='rates-per-zone-body-row v-center' spaceBetween>
           <Select
-            onChange={({ value }) => onChangeZone(_id, 'name', value)}
-            value={getZoneOption(name)}
+            onChange={({ value }) => onChangeZone(zone, 'zone', value)}
+            value={getZoneOption(zone)}
             className='mr-2'
             options={zonesOptions}
           />
           <SmallInput
-            onChange={({ target: { value } }) => onChangeZone(_id, 'rate', value)}
+            onChange={({ target: { value } }) => onChangeZone(zone, 'rate', value)}
             value={rate}
             type='number'
             className='mr-0 rates-per-zone-body-input'
           />
-          <RiDeleteBin6Line size={20} className='rates-per-zone-body-row-delete-icon' onClick={onDeleteZone(_id)} />
+          <RiDeleteBin6Line size={20} className='rates-per-zone-body-row-delete-icon' onClick={onDeleteZone(zone)} />
         </FlexBox>
       ))}
 
