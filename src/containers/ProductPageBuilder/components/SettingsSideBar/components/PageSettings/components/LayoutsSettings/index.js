@@ -21,9 +21,7 @@ const {
 
 const LayoutsSettings = ({
   pageStyles = {},
-  onChange,
-  isColumnBackgroundHasImageType
-
+  onChange
 }) => {
 
   const [openCollapse, setOpenCollapse] = useState();
@@ -59,6 +57,10 @@ const LayoutsSettings = ({
   useEffect(() => {
     if (activeColumn) setOpenCollapse();
   }, [activeColumn]);
+
+  const isColumnBackgroundHasImageType = productPage[activeColumn]?.backgroundType === 'image';
+  const isOneColumnLayout = pageStyles.layout !== 'two-column';
+
   return (
     <FlexBox column>
       <SettingBox
@@ -71,7 +73,7 @@ const LayoutsSettings = ({
         <FlatRadio
           options={[
             { label: 'First Column', value: 'firstColumn' },
-            { label: 'Second Column', value: 'secondColumn' }
+            { label: 'Second Column', value: 'secondColumn', disabled: isOneColumnLayout }
           ]}
           value={activeColumn || 'firstColumn'}
           name='activeColumn'
@@ -106,7 +108,7 @@ const LayoutsSettings = ({
           </InputRow>
           <InputRow className='sidebar-row'>
             <Label className='sidebar-input-label'>
-              Background {`${isColumnBackgroundHasImageType === 'image' ? 'Image' : 'Color'}`}:
+              Background {`${isColumnBackgroundHasImageType ? 'Image' : 'Color'}`}:
             </Label>
             {isColumnBackgroundHasImageType ? (
               <AddImage

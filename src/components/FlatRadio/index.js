@@ -11,7 +11,7 @@ const FlatRadio = ({ value, name, onToggle, options, className }) => {
   return (
     <div className={classNames}>
       {
-        options.map((option) => <div className={clx('flat-radio-key', { active: value === option.value })} onClick={() => onRadioClick(option.value)}>{option.label}</div>)
+        options.map(({ disabled, value: hereValue, label }) => <div className={clx('flat-radio-key', { active: value === hereValue, disabled })} onClick={() => onRadioClick(hereValue)}>{label}</div>)
       }
     </div>
   );
