@@ -11,7 +11,7 @@ import sectionsTemplates from 'data/productSectionsTemplates';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import { useContext } from '../../actions';
 import { SettingsHandle } from './components/common';
-import { ProductHead, PageLayouts } from './components';
+import { PageLayouts, ProductHead } from './components';
 import './style.css';
 
 const { FlexBox } = common;
@@ -94,8 +94,8 @@ const Workspace = ({
 
   const onSectionDropped = (section = {}) => {
     const { section: { type } = {}, parentZone } = section;
-    console.log({ parentZone })
-    
+    console.log({ parentZone });
+
     if (section.new) actions.addNewSection({ type, parentZone });
   };
 
@@ -118,7 +118,7 @@ const Workspace = ({
   };
 
   const addNewAndMove = ({ id, type, atIndex, parentZone }) => {
-    const sectionTemplate = sectionsTemplates[type]
+    const sectionTemplate = sectionsTemplates[type];
     if (!sectionTemplate) return;
 
     const section = { ...sectionTemplate, parentZone, id };
@@ -144,10 +144,30 @@ const Workspace = ({
     onSectionSettings(meta);
   };
 
+  const {
+    productPage: {
+      marginTop,
+      marginRight,
+      marginBottom,
+      marginLeft,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft
+    } = {}
+  } = pageStyles;
   const screenStyles = { backgroundColor: pageStyles.screenBackground };
   const productStyles = {
     backgroundColor: pageStyles.productBackground,
-    borderRadius: `${pageStyles.borderRadius}px`
+    borderRadius: `${pageStyles.borderRadius}px`,
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft
   };
 
   const layoutProps = {
@@ -162,7 +182,7 @@ const Workspace = ({
     findCard,
     activeLanguage,
     addNewAndMove
-  }
+  };
 
   return (
     <FlexBox

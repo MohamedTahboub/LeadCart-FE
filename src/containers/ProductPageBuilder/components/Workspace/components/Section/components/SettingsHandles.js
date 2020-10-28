@@ -17,7 +17,8 @@ const SettingsHandles = ({
   moveCard,
   index,
   isThankYouProductPage,
-  isisOptInProduct
+  isisOptInProduct,
+  parentZone
 }) => {
   const {
     state: { product: { sections = [] } = {} },
@@ -35,11 +36,11 @@ const SettingsHandles = ({
   };
 
   const onOrderTop = () => {
-    moveCard(id, index - 1);
+    moveCard(id, index - 1, parentZone);
   };
 
   const onOrderBottom = () => {
-    moveCard(id, index + 1);
+    moveCard(id, index + 1, parentZone);
   };
 
   const isOnBottom = index !== sections.length - 1;

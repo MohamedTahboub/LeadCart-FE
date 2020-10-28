@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
+import common from 'components/common';
+import { DropZoneSpace } from '.';
+import { stylesCasting } from './helpers';
+const { FlexBox } = common;
 
-import { DropZoneSpace } from '.'
+export default ({ styles, ...props }) => {
+  const { firstColumn: columnStyles = {} } = styles;
 
-export default (props) => {
-
-    return (<DropZoneSpace {...props} />)
-}
+  const castedStyles = stylesCasting(columnStyles);
+  return (
+    <FlexBox flex style={castedStyles}>
+      <DropZoneSpace {...props} parentZone='first-column' style={{ width: 750 }}/>
+    </FlexBox>
+  );
+};

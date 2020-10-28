@@ -13,7 +13,7 @@ const Section = ({
   id,
   className,
   type,
-  content= {},
+  content = {},
   style = {},
   order,
   maxOrder,
@@ -69,7 +69,7 @@ const Section = ({
   });
 
   const onDuplicate = (fromId) => () => {
-    onSectionDuplicate(fromId,parentZone);
+    onSectionDuplicate(fromId, parentZone);
   };
 
   return (
@@ -93,6 +93,7 @@ const Section = ({
           index={index}
           isThankYouProductPage={isThankYouProductPage}
           isisOptInProduct={isisOptInProduct}
+          parentZone={parentZone}
         />
         <SectionContent
           {...content}

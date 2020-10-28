@@ -10,15 +10,15 @@ export const MiniTwitterPicker = ({
 }) => {
   const [show, setShow] = useState(false);
   const onColorChange = (color = {}) => {
-    const { hex = '' } = color;
+    const { rgb = {} } = color;
+    const { r, g, b, a } = rgb;
+
     onChange({
       target: {
         name,
-        value: hex
+        value: `rgba(${r},${g},${b},${a})`
       }
     });
-    if (hex.length === 6)
-      setShow(false);
 
   };
 

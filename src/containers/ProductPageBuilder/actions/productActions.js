@@ -29,21 +29,12 @@ export const updateState = ({ dispatch }) => (subState) => {
 };
 
 export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
-  let { name, value } = filed || {};
-
-  if (name.includes('.')) {
-    const [key, nestedKey] = name.split('.');
-    const nestedValue = { [nestedKey]: value };
-    name = key;
-    value = { ...state.product[key], ...nestedValue };
-  }
+  const { name, value } = filed || {};
+  const updatedProduct = immutable.set(state.product, name, value);
 
   dispatch({
     type: types.PRODUCT_FIELD_CHANGE,
-    payload: {
-      ...state.product,
-      [name]: value
-    }
+    payload: updatedProduct
   });
 };
 
@@ -99,7 +90,7 @@ export const addNewSection = ({ state, dispatch }) => ({ type: sectionType, pare
   const section = sectionsTemplates[sectionType];
 
   if (!section) return;
-  console.log("Just beofre the update", parentZone)
+  console.log('Just beofre the update', parentZone);
   // if (!state.product.sections) section.order = 0;
   // else section.order = state.product.sections.length;
 
@@ -126,9 +117,9 @@ export const updateDisplayMode = ({ dispatch }) => (mode) => {
 };
 
 
-export const onSectionSettingChange = ({ dispatch }) => ({ section, field = {}, fields }) => {
+export const onSectionSettingChange = ({ state: { modals: { sectionSetting = {} } = {} }, dispatch }) => ({ section, field = {}, fields }) => {
   let sectionUpdated;
-  if (fields) {
+  if (Array.isArray(fields)) {
     fields.forEach((field) => {
       const { name, value } = field;
       sectionUpdated = immutable.set(sectionUpdated || section, name, value);
@@ -137,10 +128,17 @@ export const onSectionSettingChange = ({ dispatch }) => ({ section, field = {}, 
     const { name, value } = field;
     sectionUpdated = immutable.set(section, name, value);
   }
-  dispatch({
-    type: types.UPDATE_SECTION_SETTINGS,
-    payload: sectionUpdated
-  });
+  if (sectionSetting.id === section.id) {
+    dispatch({
+      type: types.UPDATE_SECTION_SETTINGS,
+      payload: section
+    });
+  } else {
+    dispatch({
+      type: types.UPDATE_PRODUCT_SECTION,
+      payload: section
+    });
+  }
 };
 
 
@@ -180,4 +178,7 @@ export const editProductPriceOption = ({ dispatch }) => (pricingOption) => {
 };
 export const deleteProductPriceOption = ({ dispatch }) => (id) => {
   dispatch({ type: types.DELETE_PRODUCT_PRICING_OPTION, payload: id });
+};
+export const onToggleProductBackgroundModal = ({ dispatch }) => () => {
+  dispatch({ type: types.TOGGLE_PRODUCT_BACKGROUND_MODAL });
 };

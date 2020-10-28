@@ -22,6 +22,8 @@ import {
 import {
   Header,
   NewPricingOptionModal,
+  PageBackgroundModal,
+  ScreenBackgroundSetup,
   SettingSideBar,
   SideBar,
   Workspace
@@ -58,8 +60,10 @@ const injectProductSection = (product = {}) => ({
 const ProductBuilder = ({
   funnelsMap,
   productsMap,
-  uploadFile,
+  // uploadFile,
   defaultBrandCurrency,
+  match,
+  history,
   ...props
 }) => {
   const [loading, setLoading] = useState(true);
@@ -70,7 +74,7 @@ const ProductBuilder = ({
 
 
   useEffect(() => {
-    const { params: { productId, funnelUrl } = {} } = props.match;
+    const { params: { productId, funnelUrl } = {} } = match;
 
     const product = productsMap[productId];
     const funnel = funnelsMap[funnelUrl];
@@ -135,13 +139,15 @@ const ProductBuilder = ({
 
   if (loading) return <LoadingPage message='Setting up ...' />;
 
-  const { funnel: { currency = defaultBrandCurrency } = {} } = state;
+  const { funnel: { currency = defaultBrandCurrency } = {}, product: { pageStyles = {} } = {} } = state;
+
 
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
-        <Header history={props.history} onSave={onSaveProduct} saving={saving} />
+        <Header history={history} onSave={onSaveProduct} saving={saving} />
         <FlexBox id='blocks' flex className='relative-element'>
+          <ScreenBackgroundSetup backgrounds={pageStyles} />
           <DndProvider backend={Backend}>
             <SideBar canOffer={state.product.category === 'checkout'} />
             <Workspace />
@@ -153,6 +159,7 @@ const ProductBuilder = ({
           onClose={actions.onTogglePricingOptionModal}
           currency={currency}
         />
+        <PageBackgroundModal />
       </Page>
       <ReactToolTip delayShow={400} />
     </ProductContext.Provider>
