@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
-import { RiDeleteBin6Line } from 'react-icons/ri';
+import { MdCancel, MdDelete } from 'react-icons/md';
 import clx from 'classnames';
 import { connect } from 'react-redux';
 
@@ -37,6 +37,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
     delete newObj?.updatedAt;
     delete newObj?.__v;
     setFields(newObj);
+    setSavedTaxData(newObj);
   };
 
   const onAddNewtax = () => {
@@ -46,7 +47,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
       zoneDefinition: 'IPAddress',
       ratesPerZone: [
         {
-          zone: '5f9832cf9b9fd77d030af889',
+          zone: '5f9832cf9b9fd77d030af88c',
           rate: 0
         }
       ]
@@ -160,8 +161,14 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
   return (
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
-        <Title>Taxes Management</Title>
-        <Button className='primary-color' onClick={onAddNewtax} disabled={loading} onprogress={loading} >Add new Tax Schema</Button>
+        <Title>
+          Manual tax rates are configured by you depending on destination and products sold. You fully control the calculation of your taxes; <br/>
+         set up taxes per customer location (country, state, zip/postal code), add tax per group of products, set up tax-free products.
+        </Title>
+
+        <FlexBox className='v-center'>
+          <Button className='primary-color' onClick={onAddNewtax} disabled={loading} onprogress={loading} >Add new Tax Schema</Button>
+        </FlexBox>
       </FlexBox>
 
       <Table className='taxes-table mt-4'>
@@ -190,8 +197,10 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
                   <Cell>{getTaxState(enabled)}</Cell>
                   <Cell>
                     <FlexBox>
-                      <RiDeleteBin6Line size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
-                      <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} />
+                      <MdDelete size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
+                      {!isEditableTax ? <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} /> :
+                        <MdCancel size={20} className='tax-cancel-icon ml-3' onClick={onConfirmCancelEdits} />
+                      }
                     </FlexBox>
                   </Cell>
                 </Row>

@@ -1,6 +1,6 @@
-
 import React from 'react';
-import { RiDeleteBin6Line } from 'react-icons/ri';
+import { MdDelete } from 'react-icons/md';
+import { RiAddCircleFill } from 'react-icons/ri';
 import Select from 'react-select';
 import ToolTip from 'react-tooltip';
 
@@ -8,7 +8,7 @@ import common from 'components/common';
 import { zones } from 'data/taxes';
 
 const { FlexBox, Title, Button, InputRow } = common;
-const { SmallInput } = InputRow;
+const { SmallInput, Label } = InputRow;
 
 
 const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
@@ -49,45 +49,60 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
 
   return (
     <FlexBox column className='rates-per-zone h-center v-center'>
-      <FlexBox className='rates-per-zone-header px-1 v-center' spaceBetween >
-        <Title className='rates-per-zone-header-title' >Zone</Title>
-        <Title className='rates-per-zone-header-title' >Rate, %</Title>
-        <Title />
-      </FlexBox>
 
-      <FlexBox className='rates-per-zone-body-row px-3 v-center' spaceBetween>
-        <Title className='aligned-center-text larger-text' >Other zones</Title>
-        <SmallInput
-          value={0}
-          name='rate'
-          type='number'
-          className='rates-per-zone-body-input'
-          style={{ marginRight: '30px ' }}
-        />
-      </FlexBox>
-
-
-      {ratesPerZone.map(({ zone, rate }) => (
-        <FlexBox className='rates-per-zone-body-row v-center' spaceBetween>
-          <Select
-            onChange={({ value }) => onChangeZone(zone, 'zone', value)}
-            value={getZoneOption(zone)}
-            className='mr-2'
-            options={zonesOptions}
-          />
-          <SmallInput
-            onChange={({ target: { value } }) => onChangeZone(zone, 'rate', value)}
-            value={rate}
-            type='number'
-            className='mr-0 rates-per-zone-body-input'
-          />
-          <RiDeleteBin6Line size={20} className='rates-per-zone-body-row-delete-icon' onClick={onDeleteZone(zone)} />
+      <FlexBox className='full-width px-3 mb-3 v-center' spaceBetween>
+        <Label>Rates Per Zone:</Label>
+        <FlexBox data-tip="You have a default zone and you can't duplicate it" data-tip-disable={!hasDefaultZone} data-place='left'>
+          <Button className='primary-color ml-2 min-width-150  py-1' onClick={onAddZone} disabled={hasDefaultZone}>
+            <FlexBox className='v-center' spaceBetween>
+              <RiAddCircleFill size={16} className='mr-2'/>
+                Add Zone
+            </FlexBox>
+          </Button>
         </FlexBox>
-      ))}
-
-      <FlexBox data-tip="You have a default zone and you can't duplicate it" data-tip-disable={!hasDefaultZone}>
-        <Button className='primary-color min-width-200 mt-3 py-2 large-text' onClick={onAddZone} disabled={hasDefaultZone}>Add Zone</Button>
       </FlexBox>
+
+      <FlexBox className='rates-per-zone-container' column>
+        <FlexBox className='rates-per-zone-header px-1 v-center' spaceBetween >
+          <Title className='rates-per-zone-header-title'>Zone</Title>
+          <Title className='rates-per-zone-header-title'>Rate %</Title>
+          <Title />
+        </FlexBox>
+
+        <FlexBox className='rates-per-zone-body' column>
+          <FlexBox className='rates-per-zone-body-row px-3 v-center' spaceBetween>
+            <Title className='aligned-center-text larger-text' >Other zones</Title>
+            <SmallInput
+              value={0}
+              name='rate'
+              type='number'
+              className='rates-per-zone-body-input'
+              style={{ marginRight: '30px ' }}
+            />
+          </FlexBox>
+
+
+          {ratesPerZone.reverse().map(({ zone, rate }) => (
+            <FlexBox className='rates-per-zone-body-row v-center' spaceBetween>
+              <Select
+                onChange={({ value }) => onChangeZone(zone, 'zone', value)}
+                value={getZoneOption(zone)}
+                className='mx-2'
+                options={zonesOptions}
+              />
+              <SmallInput
+                onChange={({ target: { value } }) => onChangeZone(zone, 'rate', value)}
+                value={rate}
+                type='number'
+                className='mr-0 rates-per-zone-body-input'
+              />
+              <MdDelete size={20} className='rates-per-zone-body-row-delete-icon' onClick={onDeleteZone(zone)} />
+            </FlexBox>
+          ))}
+        </FlexBox>
+
+      </FlexBox>
+
 
       <ToolTip />
     </FlexBox>

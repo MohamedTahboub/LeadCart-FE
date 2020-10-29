@@ -26,56 +26,56 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
   const defaultZoneDefinitionOption = zoneDefinitionOptions.find(({ value }) => value === zoneDefinition);
 
   return (
-    <FlexBox className={clx('expandable px-3', { open, 'pt-2 pb-5': open })} column>
-      <FlexBox flexEnd>
-        <Toggle
-          onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
-          value={enabled}
-          beforeLabel='Enabled'
-          afterLabel='Disabled'
-          className='mx-5'
-        />
+    <FlexBox className={clx('expandable px-5 h-center', { open, 'py-3': open })} column spaceBetween>
+
+      <FlexBox className='v-center' spaceBetween>
+        <FlexBox className='mr-4' column>
+          <Toggle
+            onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
+            value={enabled}
+            beforeLabel='Enabled'
+            afterLabel='Disabled'
+            className='mx-5 mb-4'
+          />
+
+          <InputRow className='mb-4'>
+            <Label>Tax Name:</Label>
+            <NormalInput
+              onChange={onChange}
+              value={name}
+              name='name'
+            />
+          </InputRow>
+
+          <InputRow className='mb-4'>
+            <Label>Tax applies to:</Label>
+            <Select
+              target='appliesTo'
+              onChange={({ value }) => onChange({ target: { value, name: 'appliesTo' } })}
+              className='expandable-form-select'
+              value={defaultAppliesOption}
+              options={appliesOptions}
+            />
+          </InputRow>
+
+          <InputRow className='mb-4'>
+            <Label>Zone defines by:</Label>
+            <Select
+              onChange={({ value }) => onChange({ target: { value, name: 'zoneDefinition' } })}
+              value={defaultZoneDefinitionOption}
+              className='expandable-form-select'
+              options={zoneDefinitionOptions}
+            />
+          </InputRow>
+        </FlexBox>
+
+        <RatesPerZone ratesPerZone={ratesPerZone} onChange={onChange} />
       </FlexBox>
 
-      <InputRow>
-        <Label>Tax Name:</Label>
-        <NormalInput
-          onChange={onChange}
-          value={name}
-          name='name'
-        />
-      </InputRow>
 
-      <InputRow>
-        <Label>Tax applies to:</Label>
-        <Select
-          target='appliesTo'
-          onChange={({ value }) => onChange({ target: { value, name: 'appliesTo' } })}
-          className='expandable-form-select'
-          value={defaultAppliesOption}
-          options={appliesOptions}
-        />
-      </InputRow>
-
-      <InputRow>
-        <Label>Zone defines by:</Label>
-        <Select
-          onChange={({ value }) => onChange({ target: { value, name: 'zoneDefinition' } })}
-          value={defaultZoneDefinitionOption}
-          className='expandable-form-select'
-          options={zoneDefinitionOptions}
-        />
-      </InputRow>
-
-      <InputRow>
-        <Label>Rates Per Zone:</Label>
-        <RatesPerZone ratesPerZone={ratesPerZone} onChange={onChange} />
-      </InputRow>
-
-
-      <FlexBox flexEnd>
+      <FlexBox className='mt-5' spaceBetween>
         <Button
-          className='px-4 py-1 mr-3 light-btn'
+          className='px-5 py-2 mr-3 light-btn'
           onClick={onConfirmCancelEdits}
           disabled={saveLoading} onprogress={saveLoading}
         >
@@ -83,7 +83,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         </Button>
 
         <Button
-          className='px-4 py-1 primary-color'
+          className='px-5 py-2 primary-color'
           onClick={onSave}
           disabled={saveLoading} onprogress={saveLoading}
         >
