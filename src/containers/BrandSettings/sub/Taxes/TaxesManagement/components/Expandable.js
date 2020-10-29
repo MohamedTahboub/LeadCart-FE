@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clx from 'classnames';
 import Select from 'react-select';
 
@@ -8,11 +8,8 @@ import RatesPerZone from './RatesPerZone';
 const { FlexBox, Button, InputRow } = common;
 const { Label, NormalInput, Toggle } = InputRow;
 
-const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabled, onSave, onCancelEdits, taxId, saveLoading, zone, setEditableTaxId }) => {
-  const savedTaxData = { appliesTo, zoneDefinition, enabled, ratesPerZone };
-  const [fields, setFields] = useState(savedTaxData);
-
-  const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
+const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, onChange }) => {
+  const { zoneDefinition, enabled, name, appliesTo, ratesPerZone } = fields;
 
   const appliesOptions = [
     { label: 'Subtotal And Shipping', value: 'SubtotalAndShipping' },
@@ -25,15 +22,15 @@ const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabl
     { label: 'IP Address', value: 'IPAddress' }
   ];
 
-  const defaultAppliesOption = appliesOptions.find(({ value }) => value === fields.appliesTo);
-  const defaultZoneDefinitionOption = zoneDefinitionOptions.find(({ value }) => value === fields.zoneDefinition);
+  const defaultAppliesOption = appliesOptions.find(({ value }) => value === appliesTo);
+  const defaultZoneDefinitionOption = zoneDefinitionOptions.find(({ value }) => value === zoneDefinition);
 
   return (
     <FlexBox className={clx('expandable px-3', { open, 'pt-2 pb-5': open })} column>
       <FlexBox flexEnd>
         <Toggle
-          onToggle={() => onChange({ target: { name: 'enabled', value: !fields.enabled } })}
-          value={fields.enabled}
+          onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
+          value={enabled}
           beforeLabel='Enabled'
           afterLabel='Disabled'
           className='mx-5'
@@ -72,19 +69,26 @@ const Expandable = ({ open, name, appliesTo, zoneDefinition, ratesPerZone, enabl
 
       <InputRow>
         <Label>Rates Per Zone:</Label>
-        <RatesPerZone ratesPerZone={fields.ratesPerZone} onChange={onChange} />
+        <RatesPerZone ratesPerZone={ratesPerZone} onChange={onChange} />
       </InputRow>
 
 
       <FlexBox flexEnd>
-        <Button className='px-4 py-1 mr-3 light-btn'
-          onClick={() => {
-            setFields(savedTaxData);
-            setEditableTaxId('');
-          }}
+        <Button
+          className='px-4 py-1 mr-3 light-btn'
+          onClick={onConfirmCancelEdits}
           disabled={saveLoading} onprogress={saveLoading}
-        >Cancel</Button>
-        <Button className='px-4 py-1 primary-color' onClick={onSave(taxId, fields)} disabled={saveLoading} onprogress={saveLoading}>Save</Button>
+        >
+          Cancel
+        </Button>
+
+        <Button
+          className='px-4 py-1 primary-color'
+          onClick={onSave}
+          disabled={saveLoading} onprogress={saveLoading}
+        >
+          Save
+        </Button>
       </FlexBox>
     </FlexBox>
   );

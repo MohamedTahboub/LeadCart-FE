@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { ImCancelCircle } from 'react-icons/im';
 import clx from 'classnames';
 import { connect } from 'react-redux';
 
@@ -9,6 +8,7 @@ import common from 'components/common';
 import { notification } from 'libs';
 import * as taxesActions from 'actions/taxes';
 import { CancelModal, DeleteModal, Expandable } from './components';
+import { isFunnelBuilderChanged } from 'helpers/common';
 
 import './style.css';
 
@@ -16,26 +16,31 @@ const { Table, FlexBox, Title, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
 const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
+  const [savedTaxData, setSavedTaxData] = useState({});
+  const [fields, setFields] = useState({});
   const [editableTaxId, setEditableTaxId] = useState('');
   const [deleteTaxId, setDeleteTaxId] = useState('');
   const [cancelModalOpened, setCancelModalOpened] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
+  const [commentedEditableTax, setCommentedEditableTax] = useState('');
 
-  const defaultTax = {
-    name: 'New Tax',
-    appliesTo: 'Subtotal',
-    zoneDefinition: 'IPAddress',
-    ratesPerZone: [
-      {
-        zone: '5f9832cf9b9fd77d030af889',
-        rate: 0
-      }
-    ]
-  };
 
+  const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
 
   const onAddNewtax = () => {
+    const defaultTax = {
+      name: 'New Tax',
+      appliesTo: 'Subtotal',
+      zoneDefinition: 'IPAddress',
+      ratesPerZone: [
+        {
+          zone: '5f9832cf9b9fd77d030af889',
+          rate: 0
+        }
+      ]
+    };
+
     setLoading(true);
     addNewTax(
       defaultTax,
@@ -53,30 +58,28 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
   };
 
 
-  const getTaxState = (enabled) => (
-    <Badge type={enabled ? 'primary' : 'secondary'}>
-      {enabled ? 'Enabled' : 'Disabled'}
-    </Badge>
-  );
+  const onSave = () => {
+    const inTheSameExpandable = commentedEditableTax._id === editableTaxId;
 
-
-  const onDeleteTax = (taxId) => () => setDeleteTaxId(taxId);
-  const onCancelDeleteTax = () => setDeleteTaxId('');
-  const onEditTax = (taxId) => () => setEditableTaxId(taxId);
-  const onCancelEdits = () => setCancelModalOpened(true);
-  const onCloseCancelModal = () => setCancelModalOpened(false);
-
-
-  const onSave = (taxId, details) => () => {
     setSaveLoading(true);
 
     editTax(
-      { tax: taxId, details },
+      { tax: editableTaxId, details: fields },
       {
         onSuccess: () => {
           setSaveLoading(false);
-          setEditableTaxId('');
-          cancelModalOpened && setCancelModalOpened(false);
+          setSavedTaxData(fields);
+          if (cancelModalOpened) setCancelModalOpened(false);
+
+          if (inTheSameExpandable) {
+            setEditableTaxId('');
+          } else {
+            setEditableTaxId(commentedEditableTax._id);
+            const newObj = { ...commentedEditableTax };
+            delete newObj._id;
+            setFields(newObj);
+          }
+
           notification.success('You Change edited successfuly successfuly');
         },
         onFailed: (message) => {
@@ -87,6 +90,53 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
     );
   };
 
+
+  const onEditTax = ({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone, _id }) => () => {
+    const hasChanges = isFunnelBuilderChanged(savedTaxData, fields);
+    const editableData = { name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone };
+    setCommentedEditableTax({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone, _id });
+
+    if (hasChanges) {
+      setCancelModalOpened(true);
+    } else {
+      setEditableTaxId(_id);
+      setSavedTaxData(editableData);
+      setFields(editableData);
+    }
+  };
+
+
+  const onConfirmCancelEdits = () => {
+    const hasChanges = isFunnelBuilderChanged(savedTaxData, fields);
+
+    if (hasChanges)
+      setCancelModalOpened(true);
+    else
+      setEditableTaxId('');
+  };
+
+  const onCancelEdits = () => {
+    const inTheSameExpandable = commentedEditableTax._id === editableTaxId;
+    setFields(savedTaxData);
+    setCancelModalOpened(false);
+
+    if (inTheSameExpandable)
+      setEditableTaxId('');
+    else
+      setEditableTaxId(commentedEditableTax._id);
+  };
+
+
+  const onDeleteTax = (taxId) => () => setDeleteTaxId(taxId);
+  const onCancelDeleteTax = () => setDeleteTaxId('');
+  const onCloseCancelModal = () => setCancelModalOpened(false);
+
+
+  const getTaxState = (enabled) => (
+    <Badge type={enabled ? 'primary' : 'secondary'}>
+      {enabled ? 'Enabled' : 'Disabled'}
+    </Badge>
+  );
 
   const deleteModalOpend = Boolean(deleteTaxId);
 
@@ -109,8 +159,9 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
 
         <Body>
           {taxes.map((tax) => {
-            const { name, appliesTo, zoneDefinition, ratesPerZone, enabled, _id, zone } = tax;
+            const { name, appliesTo, zoneDefinition, ratesPerZone, enabled, _id } = tax;
             const isEditableTax = editableTaxId === _id;
+
             return (
               <Fragment>
                 <Row className={clx('taxes-table-row', { open: isEditableTax })}>
@@ -124,27 +175,20 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
                     <FlexBox>
                       <RiDeleteBin6Line size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
 
-                      {isEditableTax ?
-                        <ImCancelCircle size={20} className='tax-edit-icon ml-3' onClick={onCancelEdits} />
-                        :
-                        <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(_id)} />
-                      }
+                      <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} />
                     </FlexBox>
                   </Cell>
                 </Row>
                 <Expandable
                   open={isEditableTax}
                   onSave={onSave}
-                  onCancelEdits={onCancelEdits}
-                  name={name}
-                  zone={zone}
-                  appliesTo={appliesTo}
-                  zoneDefinition={zoneDefinition}
-                  ratesPerZone={ratesPerZone}
-                  enabled={enabled}
+                  onConfirmCancelEdits={onConfirmCancelEdits}
                   taxId={_id}
                   saveLoading={saveLoading}
                   setEditableTaxId={setEditableTaxId}
+                  onChange={onChange}
+                  fields={fields}
+                  savedTaxData={savedTaxData}
                 />
               </Fragment>
             );
@@ -153,7 +197,13 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
       </Table>
 
       <DeleteModal taxId={deleteTaxId} onClose={onCancelDeleteTax} isVisible={deleteModalOpend} />
-      <CancelModal onSave={onSave} onClose={onCloseCancelModal} isVisible={cancelModalOpened} />
+      <CancelModal
+        onSave={onSave}
+        onClose={onCloseCancelModal}
+        isVisible={cancelModalOpened}
+        onCancelEdits={onCancelEdits}
+        saveLoading={saveLoading}
+      />
     </FlexBox>
   );
 };

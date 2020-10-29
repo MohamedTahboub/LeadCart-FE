@@ -10,8 +10,8 @@ export default (state = initialState, { type, payload }) => {
 
   case EDIT_TAX_SUCCESS: return state.map((tax) => {
     if (payload.tax === tax._id) {
-      const { appliesTo, name, ratesPerZone, zoneDefinition } = payload?.details;
-      return { _id: payload.tax, appliesTo, name, ratesPerZone, zoneDefinition };
+      const { appliesTo, name, ratesPerZone, zoneDefinition, enabled } = payload?.details;
+      return { _id: payload.tax, appliesTo, name, ratesPerZone, zoneDefinition, enabled };
     } else {
       return tax;
     }

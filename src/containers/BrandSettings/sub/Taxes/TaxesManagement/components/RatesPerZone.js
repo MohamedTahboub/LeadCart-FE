@@ -3,7 +3,6 @@ import React from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import Select from 'react-select';
 import ToolTip from 'react-tooltip';
-import ids from 'shortid';
 
 import common from 'components/common';
 import { zones } from 'data/taxes';
@@ -24,13 +23,11 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
   };
 
 
-  const defaultZone = {
-    zone: '5f9832cf9b9fd77d030af88c',
-    rate: 0
+  const onAddZone = () => {
+    const defaultZone = { zone: '5f9832cf9b9fd77d030af88c', rate: 0 };
+    onChange({ target: { value: [...ratesPerZone, defaultZone], name: 'ratesPerZone' } });
   };
 
-
-  const onAddZone = () => onChange({ target: { value: [...ratesPerZone, defaultZone], name: 'ratesPerZone' } });
 
   const onDeleteZone = (zoneId) => () => {
     const updatedList = ratesPerZone.filter(({ zone }) => zone !== zoneId);
