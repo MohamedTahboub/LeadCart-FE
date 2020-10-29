@@ -28,6 +28,17 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
 
   const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
 
+  const autoOpenEditMode = (data) => {
+    setEditableTaxId(data._id);
+    const newObj = { ...data };
+    delete newObj._id;
+    delete newObj?.brand;
+    delete newObj?.createdAt;
+    delete newObj?.updatedAt;
+    delete newObj?.__v;
+    setFields(newObj);
+  };
+
   const onAddNewtax = () => {
     const defaultTax = {
       name: 'New Tax',
@@ -45,8 +56,9 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
     addNewTax(
       defaultTax,
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           setLoading(false);
+          autoOpenEditMode(data);
           notification.success('New tax added successfuly');
         },
         onFailed: (message) => {
@@ -71,14 +83,11 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
           setSavedTaxData(fields);
           if (cancelModalOpened) setCancelModalOpened(false);
 
-          if (inTheSameExpandable) {
+          if (inTheSameExpandable)
             setEditableTaxId('');
-          } else {
-            setEditableTaxId(commentedEditableTax._id);
-            const newObj = { ...commentedEditableTax };
-            delete newObj._id;
-            setFields(newObj);
-          }
+          else
+            autoOpenEditMode(commentedEditableTax);
+
 
           notification.success('You Change edited successfuly successfuly');
         },
@@ -140,6 +149,14 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
 
   const deleteModalOpend = Boolean(deleteTaxId);
 
+  const valueToLabel = {
+    Subtotal: 'Subtotal',
+    SubtotalAndShipping: 'Subtotal And Shipping',
+    ShippingDetails: 'Shipping Details',
+    BillingDetails: 'Billing Details',
+    IPAddress: 'IP Address'
+  };
+
   return (
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
@@ -166,15 +183,14 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
               <Fragment>
                 <Row className={clx('taxes-table-row', { open: isEditableTax })}>
                   <Cell>{name}</Cell>
-                  <Cell>{appliesTo}</Cell>
-                  <Cell>{zoneDefinition}</Cell>
+                  <Cell>{valueToLabel[appliesTo]}</Cell>
+                  <Cell>{valueToLabel[zoneDefinition]}</Cell>
                   {/* <Cell>{ratesPerZone}</Cell> */}
                   <Cell>ratesPerZone</Cell>
                   <Cell>{getTaxState(enabled)}</Cell>
                   <Cell>
                     <FlexBox>
                       <RiDeleteBin6Line size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
-
                       <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} />
                     </FlexBox>
                   </Cell>
