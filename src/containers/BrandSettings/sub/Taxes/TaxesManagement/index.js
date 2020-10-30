@@ -89,8 +89,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
           else
             autoOpenEditMode(commentedEditableTax);
 
-
-          notification.success('You Change edited successfuly successfuly');
+          notification.success('You Change edited successfuly');
         },
         onFailed: (message) => {
           setSaveLoading(false);
@@ -106,8 +105,12 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
     const editableData = { name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone };
     setCommentedEditableTax({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone, _id });
 
+    const expandableOpened = document.getElementById(editableTaxId);
+
     if (hasChanges) {
       setCancelModalOpened(true);
+      if (expandableOpened?.offsetTop)
+        console.log('scroll >>>>>>>>>.', expandableOpened);
     } else {
       setEditableTaxId(_id);
       setSavedTaxData(editableData);
@@ -158,6 +161,20 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
     IPAddress: 'IP Address'
   };
 
+
+  const ExpandableProps = {
+    onSave,
+    onConfirmCancelEdits,
+    saveLoading,
+    setEditableTaxId,
+    onChange,
+    fields,
+    savedTaxData,
+    onCloseCancelModal,
+    cancelModalOpened,
+    onCancelEdits
+  };
+
   return (
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
@@ -187,8 +204,8 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
             const isEditableTax = editableTaxId === _id;
 
             return (
-              <Fragment>
-                <Row className={clx('taxes-table-row', { open: isEditableTax })}>
+              <Fragment key={_id}>
+                <Row className={clx('taxes-table-row', { open: isEditableTax })} id={_id}>
                   <Cell>{name}</Cell>
                   <Cell>{valueToLabel[appliesTo]}</Cell>
                   <Cell>{valueToLabel[zoneDefinition]}</Cell>
@@ -206,14 +223,8 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
                 </Row>
                 <Expandable
                   open={isEditableTax}
-                  onSave={onSave}
-                  onConfirmCancelEdits={onConfirmCancelEdits}
                   taxId={_id}
-                  saveLoading={saveLoading}
-                  setEditableTaxId={setEditableTaxId}
-                  onChange={onChange}
-                  fields={fields}
-                  savedTaxData={savedTaxData}
+                  {...ExpandableProps}
                 />
               </Fragment>
             );
@@ -222,13 +233,6 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
       </Table>
 
       <DeleteModal taxId={deleteTaxId} onClose={onCancelDeleteTax} isVisible={deleteModalOpend} />
-      <CancelModal
-        onSave={onSave}
-        onClose={onCloseCancelModal}
-        isVisible={cancelModalOpened}
-        onCancelEdits={onCancelEdits}
-        saveLoading={saveLoading}
-      />
     </FlexBox>
   );
 };

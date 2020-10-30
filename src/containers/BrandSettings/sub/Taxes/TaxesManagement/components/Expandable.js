@@ -4,11 +4,12 @@ import Select from 'react-select';
 
 import common from 'components/common';
 import RatesPerZone from './RatesPerZone';
+import CancelModal from './CancelModal';
 
 const { FlexBox, Button, InputRow } = common;
 const { Label, NormalInput, Toggle } = InputRow;
 
-const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, onChange }) => {
+const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits }) => {
   const { zoneDefinition, enabled, name, appliesTo, ratesPerZone } = fields;
 
   const appliesOptions = [
@@ -90,6 +91,15 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
           Save
         </Button>
       </FlexBox>
+
+      <CancelModal
+        onSave={onSave}
+        onClose={onCloseCancelModal}
+        isVisible={cancelModalOpened}
+        onCancelEdits={onCancelEdits}
+        saveLoading={saveLoading}
+      />
+
     </FlexBox>
   );
 };
