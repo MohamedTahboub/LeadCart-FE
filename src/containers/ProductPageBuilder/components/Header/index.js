@@ -22,24 +22,22 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 
   return (
     <FlexBox>
-      <Tooltip placement='left' text='Preview on Desktop Mode'>
+      <Tooltip placement='bottom' text='Preview on Desktop Mode'>
         <MdDesktopWindows
           className={`${commonClasses} ${isActive('desktop')}`}
           onClick={onChange('desktop')}
         />
       </Tooltip>
-      <Tooltip placement='left' text='Preview on Tablet Size Mode'>
+      <Tooltip placement='bottomRight' text='Preview on Tablet Size Mode'>
         <MdTabletMac
           onClick={onChange('tablet')}
           className={`${commonClasses} ${isActive('tablet')}`}
-          data-tip=''
         />
       </Tooltip>
-      <Tooltip placement='left' text='Preview on Mobile Mode'>
+      <Tooltip placement='bottomRight' text='Preview on Mobile Mode'>
         <AiOutlineMobile
           onClick={onChange('mobile')}
           className={`${commonClasses} ${isActive('mobile')}`}
-          data-tip='Preview on Mobile Mode'
         />
       </Tooltip>
     </FlexBox>

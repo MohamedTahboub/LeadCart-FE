@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import common from 'components/common';
 import './style.css';
 import { Inputs, PaymentGatewayImage } from './components';
 import clx from 'classnames';
 import { MdLock } from 'react-icons/md';
+import { useContext } from '../../../../../../../../actions';
 
 
 const { FlexBox, Tabs, Tab } = common;
@@ -22,10 +23,84 @@ const OrderButton = ({ className, text = 'Continue to Payment', prefix = '', suf
     <div className={clx(className, 'form-order-button')} {...props}>{prefix}{text}{suffix}</div>
   );
 };
-const FlatForm = (props) => {
+const FlatForm = ({ language, section }) => {
+  const [showSecondAddress, setSHowSecondAddress] = useState(false);
+  const [activeTab, setActiveTab] = useState('shipping');
+
+
+  const { content: { twoStepCheckout }, hidden: isSetHidden } = section;
+  const {
+    state: {
+      funnel: { paymentMethods = ['COD'], type } = {},
+      product: {
+        name,
+        category: productCategory = 'checkout',
+        price = {},
+        payment,
+        addOns = {},
+        pageStyles = {},
+        custom: {
+          orderButtonText = 'Complete Order',
+          declineButtonText = 'No Thanks',
+          shippingDetails,
+          couponSection,
+          orderSummary
+        } = {}
+      } = {}
+    },
+    actions
+  } = useContext();
+
+  const {
+    paymentMethods: paymentMethodsTitle = 'Payment Method',
+    creditCards: creditCardsTitle = 'Credit Cards',
+    payPal: payPalTitle = 'PayPal',
+    cashOnDelivery: cashOnDeliveryTitle = 'Cash On Delivery'
+  } = language.checkout || {};
+
+  const paymentMethodsLabels = {
+    Stripe: creditCardsTitle,
+    Paypal: payPalTitle,
+    COD: cashOnDeliveryTitle
+  };
+
+  const isOptInFunnel = type === 'OPT-IN';
+  const isThankyouProduct = productCategory === 'thankyoupage';
+
+  const onToggleSecondAddress = () => setSHowSecondAddress((show) => !show);
+
+  if (isThankyouProduct && (isOptInFunnel || isSetHidden)) return null;
+
+  const {
+    shippingDetails: shippingDetailsLabel,
+    streetAddress: streetAddressLabel,
+    streetAddress2: streetAddress2Label = 'Second Address',
+    city: cityLabel,
+    state: stateLabel,
+    postal: postalLabel,
+    country: countryLabel
+  } = language.checkout || {};
+
+
+  const renderPaymentMethodsOptions = (paymentMethods.map((payment) => (
+    ({
+      label: (
+        <FlexBox flex spaceBetween>
+          <span>{paymentMethodsLabels[payment] || payment}</span>
+          <PaymentGatewayImage name={payment} />
+        </FlexBox>
+      ),
+      value: payment
+    })
+  )));
+
+  const changeToTab = (tabName) => () => {
+    setActiveTab(tabName);
+  };
+
   return (
     <FlexBox className='white-bg soft-edges p-4'>
-      <Tabs active='shipping' className='custom-form-tabs flex' tabsContentClassName='pl-3 flex'>
+      <Tabs active={activeTab} className='custom-form-tabs flex' tabsContentClassName='pl-3 flex'>
         <Tab id='shipping' title='Billing & Shipping Info'>
           <FlexBox flex wrappable>
             <InputField
@@ -59,13 +134,24 @@ const FlatForm = (props) => {
               flex
               label={(
                 <FlexBox flex spaceBetween>
-                  <span className='label-content'>Shipping Address</span>
-                  <span className='label-content primary-text item-clickable'>+ Add Line 2</span>
+                  <span className='label-content'>{streetAddressLabel}</span>
+                  <span className='label-content primary-text item-clickable' onClick={onToggleSecondAddress}>
+                    {!showSecondAddress ? '+ Add Line 2' : 'Hide Second Address'}
+                  </span>
                 </FlexBox>
               )}
-              placeholder='Shipping Address'
+              placeholder={streetAddressLabel}
             />
           </FlexBox>
+          {showSecondAddress && (
+            <FlexBox flex>
+              <InputField
+                flex
+                label={streetAddress2Label}
+                placeholder={streetAddress2Label}
+              />
+            </FlexBox>
+          )}
           <FlexBox flex center='v-center' wrappable>
             <Select
               flex
@@ -89,6 +175,7 @@ const FlatForm = (props) => {
             <OrderButton
               className='mt-5 mb-3'
               prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
+              onClick={changeToTab('payment')}
             />
             <span className='label-content primary-text item-clickable underlined-text without-hover'>Have a Coupon Code?</span>
           </FlexBox>
@@ -99,26 +186,7 @@ const FlatForm = (props) => {
             className='payment-methods-radio-group mx-3 my-4'
             optionClassName='payment-method-radio-input'
             value='Stripe'
-            options={[
-              {
-                label: (
-                  <FlexBox flex spaceBetween>
-                    <span>Paypal</span>
-                    <PaymentGatewayImage name='Paypal' />
-                  </FlexBox>
-                ),
-                value: 'Paypal'
-              },
-              {
-                label: (
-                  <FlexBox flex spaceBetween>
-                    <span>Credit Card</span>
-                    <PaymentGatewayImage name='Stripe' />
-                  </FlexBox>
-                ),
-                value: 'Stripe'
-              }
-            ]}
+            options={renderPaymentMethodsOptions}
             name='published'
           />
 
@@ -151,7 +219,9 @@ const FlatForm = (props) => {
               text='Pay Now $315.00'
               prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
             />
-            <span className='label-content primary-text item-clickable underlined-text without-hover'> &larr; Back to billing & shipping info</span>
+            <span onClick={changeToTab('shipping')} className='label-content primary-text item-clickable underlined-text without-hover'>
+              &larr; Back to billing & shipping info
+            </span>
           </FlexBox>
 
         </Tab>

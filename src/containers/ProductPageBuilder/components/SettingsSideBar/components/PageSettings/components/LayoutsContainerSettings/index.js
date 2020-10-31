@@ -11,7 +11,8 @@ import * as immutable from 'object-path-immutable';
 const {
   MiniColorPicker,
   InputRow,
-  FlexBox
+  FlexBox,
+  Tooltip
 } = common;
 
 
@@ -88,23 +89,26 @@ const LayoutsContainerSettings = ({
             options={[
               {
                 label: (
-                  <FlexBox center='v-center h-center' className='p-2'>
-                    <VscBrowser
-                      data-tip='One Column Product Layout'
-                      className={`${pageStyles.layout !== 'two-column' ? 'white-text' : 'gray-text'} mr-1`}
-                    />
-                  </FlexBox>
+                  <Tooltip placement='top' text='One Column Product Layout'>
+                    <FlexBox center='v-center h-center' className='p-2'>
+                      <VscBrowser
+                        className={`${pageStyles.layout !== 'two-column' ? 'white-text' : 'gray-text'} mr-1`}
+                      />
+                    </FlexBox>
+                  </Tooltip>
                 )
                 , value: 'one-column'
               },
               {
                 label: (
-                  <FlexBox center='v-center h-center' className='p-2'>
-                    <FiColumns
-                      data-tip='Two Column Product Layout'
-                      className={`${pageStyles.layout === 'two-column' ? 'white-text' : 'gray-text'} mr-1`}
-                    />
-                  </FlexBox>
+                  <Tooltip placement='top' text='Two Column Product Layout'>
+                    <FlexBox center='v-center h-center' className='p-2'>
+                      <FiColumns
+                        data-tip='Two Column Product Layout'
+                        className={`${pageStyles.layout === 'two-column' ? 'white-text' : 'gray-text'} mr-1`}
+                      />
+                    </FlexBox>
+                  </Tooltip>
                 ), value: 'two-column'
               }
             ]}
