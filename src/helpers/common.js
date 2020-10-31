@@ -146,12 +146,12 @@ export const getMarketPlaceUrl = ({ domains = [], subDomain }) => {
 };
 
 
-export const isFunnelBuilderChanged = (oldObj, newObj) => {
+export const isNewObjHasChange = (oldObj, newObj) => {
   const chekPropsWithRef = (oldObj, newObj) => {
     if (Array.isArray(oldObj) && oldObj?.length === newObj?.length) {
       const hasObjects = Boolean(oldObj.filter((ele) => typeof ele === 'object').length);
       if (hasObjects) {
-        return Boolean(oldObj.find((ele, i) => isFunnelBuilderChanged(oldObj[i], newObj[i])));
+        return Boolean(oldObj.find((ele, i) => isNewObjHasChange(oldObj[i], newObj[i])));
       } else {
         const res = JSON.stringify(oldObj.sort()) !== JSON.stringify(newObj.sort());
         if (res) return true;
@@ -160,7 +160,7 @@ export const isFunnelBuilderChanged = (oldObj, newObj) => {
     } else if (Array.isArray(oldObj) && oldObj?.length !== newObj?.length) {
       return true;
     } else {
-      return isFunnelBuilderChanged(oldObj, newObj);
+      return isNewObjHasChange(oldObj, newObj);
     }
   };
 

@@ -30,13 +30,13 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
     <FlexBox className={clx('expandable px-5 h-center', { open, 'py-3': open })} column spaceBetween>
 
       <FlexBox className='v-center' spaceBetween>
-        <FlexBox className='mr-4' column>
+        <FlexBox className='mr-4 full-height' column spaceBetween >
           <Toggle
             onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
             value={enabled}
             beforeLabel='Enabled'
             afterLabel='Disabled'
-            className='mx-5 mb-4'
+            className='mx-5 my-3 '
           />
 
           <InputRow className='mb-4'>
@@ -59,7 +59,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
             />
           </InputRow>
 
-          <InputRow className='mb-4'>
+          <InputRow className='my-0'>
             <Label>Zone defines by:</Label>
             <Select
               onChange={({ value }) => onChange({ target: { value, name: 'zoneDefinition' } })}

@@ -53,10 +53,10 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
       <FlexBox className='full-width px-3 mb-3 v-center' spaceBetween>
         <Label>Rates Per Zone:</Label>
         <FlexBox data-tip="You have a default zone and you can't duplicate it" data-tip-disable={!hasDefaultZone} data-place='left'>
-          <Button className='primary-color ml-2 min-width-150  py-1' onClick={onAddZone} disabled={hasDefaultZone}>
+          <Button className='primary-color ml-2 min-width-150  py-1 px-4' onClick={onAddZone} disabled={hasDefaultZone}>
             <FlexBox className='v-center' spaceBetween>
-              <RiAddCircleFill size={16} className='mr-2'/>
-                Add Zone
+              <RiAddCircleFill size={18} className='mr-2'/>
+              <Title className='white-text' >Add Zone</Title>
             </FlexBox>
           </Button>
         </FlexBox>
@@ -70,18 +70,6 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
         </FlexBox>
 
         <FlexBox className='rates-per-zone-body' column>
-          <FlexBox className='rates-per-zone-body-row px-3 v-center' spaceBetween>
-            <Title className='aligned-center-text larger-text' >Other zones</Title>
-            <SmallInput
-              value={0}
-              name='rate'
-              type='number'
-              className='rates-per-zone-body-input'
-              style={{ marginRight: '30px ' }}
-            />
-          </FlexBox>
-
-
           {ratesPerZone.reverse().map(({ zone, rate }) => (
             <FlexBox className='rates-per-zone-body-row v-center' spaceBetween>
               <Select
@@ -99,6 +87,17 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
               <MdDelete size={20} className='rates-per-zone-body-row-delete-icon' onClick={onDeleteZone(zone)} />
             </FlexBox>
           ))}
+
+          <FlexBox className='rates-per-zone-body-row px-3 v-center' spaceBetween>
+            <Title className='aligned-center-text' >Other zones</Title>
+            <SmallInput
+              value={0}
+              name='rate'
+              type='number'
+              className='rates-per-zone-body-input'
+              style={{ marginRight: '30px ' }}
+            />
+          </FlexBox>
         </FlexBox>
 
       </FlexBox>

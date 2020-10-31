@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { notification } from 'libs';
 import * as taxesActions from 'actions/taxes';
-import { CancelModal, DeleteModal, Expandable } from './components';
-import { isFunnelBuilderChanged } from 'helpers/common';
+import { DeleteModal, Expandable } from './components';
+import { isNewObjHasChange } from 'helpers/common';
 
 import './style.css';
 
@@ -25,8 +25,9 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
   const [saveLoading, setSaveLoading] = useState(false);
   const [commentedEditableTax, setCommentedEditableTax] = useState('');
 
-
   const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
+  const taxHasChanges = isNewObjHasChange(savedTaxData, fields);
+
 
   const autoOpenEditMode = (data) => {
     setEditableTaxId(data._id);
@@ -101,16 +102,11 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
 
 
   const onEditTax = ({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone, _id }) => () => {
-    const hasChanges = isFunnelBuilderChanged(savedTaxData, fields);
     const editableData = { name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone };
     setCommentedEditableTax({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone, _id });
 
-    const expandableOpened = document.getElementById(editableTaxId);
-
-    if (hasChanges) {
+    if (taxHasChanges) {
       setCancelModalOpened(true);
-      if (expandableOpened?.offsetTop)
-        console.log('scroll >>>>>>>>>.', expandableOpened);
     } else {
       setEditableTaxId(_id);
       setSavedTaxData(editableData);
@@ -120,9 +116,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
 
 
   const onConfirmCancelEdits = () => {
-    const hasChanges = isFunnelBuilderChanged(savedTaxData, fields);
-
-    if (hasChanges)
+    if (taxHasChanges)
       setCancelModalOpened(true);
     else
       setEditableTaxId('');
@@ -178,7 +172,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
   return (
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
-        <Title>
+        <Title className='large-text'>
           Manual tax rates are configured by you depending on destination and products sold. You fully control the calculation of your taxes; <br/>
          set up taxes per customer location (country, state, zip/postal code), add tax per group of products, set up tax-free products.
         </Title>
@@ -215,7 +209,9 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
                   <Cell>
                     <FlexBox>
                       <MdDelete size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
-                      {!isEditableTax ? <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} /> :
+                      {!isEditableTax ?
+                        (editableTaxId && taxHasChanges) ? <a href={`#${editableTaxId}`}><FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} /></a> : <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} />
+                        :
                         <MdCancel size={20} className='tax-cancel-icon ml-3' onClick={onConfirmCancelEdits} />
                       }
                     </FlexBox>

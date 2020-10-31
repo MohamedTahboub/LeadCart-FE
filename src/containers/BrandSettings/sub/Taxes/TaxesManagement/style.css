@@ -43,7 +43,7 @@
   opacity: .7;
 }
 
-/* ====================================================== */
+/* ================== Expandable Style ================== */
 .expandable{
   height: 0;
   overflow: hidden;
@@ -54,10 +54,9 @@
 
 
 .expandable.open{
-  height: 500px;
+  height: 450px;
   border: 1px solid rgb(218, 217, 217);
   border-top: none;
-
 }
 
 .taxes-table-row.open{
@@ -92,7 +91,7 @@
   left: 42px
 }
 
-/* ====================================================== */
+/* ================== Rates Per Zone Style ================== */
 .rates-per-zone-container{
   background-color: #fff;
 }
@@ -116,7 +115,7 @@
 
 
 .expandable .rates-per-zone-header{
-  background-color: #34495e;
+  background-color: #4e5e79;
   border-radius: 8px 8px 0 0;
   padding: 22px 10px;
   position: fixed;
@@ -134,16 +133,16 @@
 
 .rates-per-zone-body{
   overflow-y: scroll;
-  height: 327px;
+  height: 228px;
   padding-top: 44px;
-  border: 1px solid #34495e;
+  border: 1px solid #4e5e79;
   border-top: none;
   border-radius: 8px;
 }
 
 .expandable .rates-per-zone-body-row{
   border-bottom: 1px solid #cdd4db;
-  padding: 35px 10px;
+  padding: 30px 10px;
 }
 
 
@@ -166,6 +165,21 @@
 .rates-per-zone-body-input {
   text-align: center;
 }
+
+
+.expandable .rates-per-zone-body .css-tlfecz-indicatorContainer{
+  padding: 0 8px;
+}
+
+.expandable .rates-per-zone-body .css-yk16xz-control{
+  min-height: 30px;
+}
+
+.expandable .rates-per-zone-body .css-b8ldur-Input{
+  padding: 0;
+  margin: 0;
+}
+
 
 .expandable ::-webkit-scrollbar-track {
   display: none;
