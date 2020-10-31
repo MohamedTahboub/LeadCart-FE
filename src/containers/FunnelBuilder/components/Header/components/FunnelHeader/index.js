@@ -40,7 +40,7 @@ const CheckoutHeader = ({
   onSave,
   history,
   isFunnelBuilderHasChanges,
-  hasCheckoutConnected
+  hasValidCheckout
 }) => {
   const [showModal, setShowModal] = useState({});
 
@@ -126,13 +126,13 @@ const CheckoutHeader = ({
 
             <FlexBox
               data-tip='you should start with a checkout page with a product'
-              data-tip-disable={hasCheckoutConnected}
+              data-tip-disable={hasValidCheckout}
               data-place='left'
             >
               <Button
                 onClick={onSave}
                 className={clx('light-btn solid-left-border', { 'unsaved-changes': isFunnelBuilderHasChanges })}
-                disabled={!hasCheckoutConnected}
+                disabled={!hasValidCheckout}
               >
                 <i className='fas fa-save font-size-11' />
               Save

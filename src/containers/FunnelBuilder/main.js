@@ -12,7 +12,7 @@ import queryString from 'querystring';
 import * as immutable from 'object-path-immutable';
 import { isObjectsEquivalent, mapListToObject, notification } from 'libs';
 import { Header, Rules, SideBar, Workspace } from './components';
-import { isFunnelBuilderChanged } from './helpers';
+import { hasChanges } from './helpers';
 import './style.css';
 
 import { withHistoryListener } from '../../history';
@@ -60,7 +60,7 @@ const FunnelBuilder = ({
 
   const [openRuleModal, setOpenRuleModal] = useState(false);
   const [isFunnelBuilderHasChanges, setIsFunnelBuilderHasChanges] = useState(false);
-  const [hasCheckoutConnected, setHasCheckoutConnected] = useState(false);
+  const [hasValidCheckout, setHasValidCheckout] = useState(false);
 
 
   const onToggleRuleModal = (activeRule, setActiveRule) => {
@@ -85,7 +85,6 @@ const FunnelBuilder = ({
 
 
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl) || {};
-  const funnel = getFunnelByUrl(funnelUrl);
 
   const checkTheCheckoutPage = ({ products = [] }) => Boolean(products?.find(({ category, productId }) => (category === 'checkout' && productId)));
 
@@ -104,6 +103,8 @@ const FunnelBuilder = ({
 
 
   useEffect(() => {
+    const funnel = getFunnelByUrl(funnelUrl);
+
     if (!funnel) return;
     if (funnel._id === fields._id) {
       if (!(funnel.rules === fields.rules) && !isObjectsEquivalent(funnel.rules, fields.rules))
@@ -119,8 +120,8 @@ const FunnelBuilder = ({
       setProductsNodeDetails(productsMap);
 
 
-    const hasCheckoutConnected = checkTheCheckoutPage(funnel);
-    setHasCheckoutConnected(hasCheckoutConnected);
+    const hasValidCheckout = checkTheCheckoutPage(funnel);
+    setHasValidCheckout(hasValidCheckout);
 
     //eslint-disable-next-line
   }, [funnels, productsMap]);
@@ -187,11 +188,15 @@ const FunnelBuilder = ({
 
 
   useEffect(() => {
-    const isFunnelBuilderHasChanges = isFunnelBuilderChanged(funnel, fields);
-    const hasCheckoutConnected = checkTheCheckoutPage(fields);
+    const funnel = getFunnelByUrl(funnelUrl);
+    const hasUnsavedChanges = hasChanges(funnel, fields);
+    const hasValidSteps = checkTheCheckoutPage(fields);
 
-    setIsFunnelBuilderHasChanges(isFunnelBuilderHasChanges);
-    setHasCheckoutConnected(hasCheckoutConnected);
+    if (hasUnsavedChanges !== isFunnelBuilderHasChanges)
+      setIsFunnelBuilderHasChanges(hasUnsavedChanges);
+
+    if (hasValidSteps !== hasValidCheckout)
+      setHasValidCheckout(hasValidSteps);
   }, [fields]);
 
 
@@ -205,7 +210,7 @@ const FunnelBuilder = ({
     funnel: fields,
     onSave,
     isFunnelBuilderHasChanges,
-    hasCheckoutConnected,
+    hasValidCheckout,
     history: props.history
   };
   const isOptInFunnel = fields.type && fields.type === 'OPT-IN';
