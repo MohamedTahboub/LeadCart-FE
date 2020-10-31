@@ -84,19 +84,15 @@ const FunnelBuilder = ({
   };
 
 
-  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
+  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl) || {};
   const funnel = getFunnelByUrl(funnelUrl);
 
-  const checkTheCheckoutPage = (funnel) => Boolean(funnel?.products.find(({ category, productId }) => (category === 'checkout' && productId)));
+  const checkTheCheckoutPage = ({ products = [] }) => Boolean(products?.find(({ category, productId }) => (category === 'checkout' && productId)));
 
   const onChange = ({ name, value }) => {
     const newFields = immutable.set(fields, name, value);
-    const isFunnelBuilderHasChanges = isFunnelBuilderChanged(funnel, newFields);
-    const hasCheckoutConnected = checkTheCheckoutPage(newFields);
 
     setFields(newFields);
-    setIsFunnelBuilderHasChanges(isFunnelBuilderHasChanges);
-    setHasCheckoutConnected(hasCheckoutConnected);
     setErrors({ ...errors, [name]: '' });
     changesDetected();
   };
@@ -188,6 +184,16 @@ const FunnelBuilder = ({
   const onPageChange = (page) => () => {
     setActivePage(page);
   };
+
+
+  useEffect(() => {
+    const isFunnelBuilderHasChanges = isFunnelBuilderChanged(funnel, fields);
+    const hasCheckoutConnected = checkTheCheckoutPage(fields);
+
+    setIsFunnelBuilderHasChanges(isFunnelBuilderHasChanges);
+    setHasCheckoutConnected(hasCheckoutConnected);
+  }, [fields]);
+
 
   const headerProps = {
     onChange,
