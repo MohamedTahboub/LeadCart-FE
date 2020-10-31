@@ -13,7 +13,6 @@ export default ({ children, parentZone, onDrop, moveCard, style }) => {
       const didDrop = monitor.didDrop();
       if (didDrop) return;
       const itemDetails = { ...item };
-      console.log({ ...itemDetails, parentZone });
       if (!isNaN(itemDetails.originalIndex) && itemDetails.section)
         return moveCard(itemDetails.section.id, itemDetails.originalIndex, parentZone);
 

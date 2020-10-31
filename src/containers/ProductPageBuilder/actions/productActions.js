@@ -90,7 +90,6 @@ export const addNewSection = ({ state, dispatch }) => ({ type: sectionType, pare
   const section = sectionsTemplates[sectionType];
 
   if (!section) return;
-  console.log('Just beofre the update', parentZone);
   // if (!state.product.sections) section.order = 0;
   // else section.order = state.product.sections.length;
 

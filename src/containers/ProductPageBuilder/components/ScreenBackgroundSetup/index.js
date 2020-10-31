@@ -30,7 +30,6 @@ const ScreenBackgroundSetup = ({ backgrounds = {} }) => {
   const { pageBackgroundSettings = {} } = backgrounds;
   const { firstSectionBackground = {}, secondSectionBackground = {}, splits } = pageBackgroundSettings;
 
-  console.log({ backgrounds });
 
   const isTwoSplits = `${splits}` === `${2}`;
 

@@ -23,7 +23,6 @@ const PageLayoutSettings = () => {
   const { pageStyles = {} } = product;
 
   const onChange = ({ target }) => {
-    console.log(target);
     onProductFieldChange(target);
   };
 
