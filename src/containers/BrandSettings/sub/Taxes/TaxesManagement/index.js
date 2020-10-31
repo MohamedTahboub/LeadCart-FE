@@ -12,10 +12,10 @@ import { isNewObjHasChange } from 'helpers/common';
 
 import './style.css';
 
-const { Table, FlexBox, Title, Button, Badge } = common;
+const { Table, FlexBox, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
-const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
+const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
   const [savedTaxData, setSavedTaxData] = useState({});
   const [fields, setFields] = useState({});
   const [editableTaxId, setEditableTaxId] = useState('');
@@ -127,10 +127,14 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
     setFields(savedTaxData);
     setCancelModalOpened(false);
 
-    if (inTheSameExpandable)
+    if (inTheSameExpandable) {
       setEditableTaxId('');
-    else
+    } else {
+      const targetedOffset = document.getElementById(commentedEditableTax?._id).offsetTop;
+      commentedEditableTax?._id && history.push(`/settings/taxes#${commentedEditableTax?._id}`);
+      commentedEditableTax?._id && window.scrollTo({ top: targetedOffset, behavior: 'smooth' });
       setEditableTaxId(commentedEditableTax._id);
+    }
   };
 
 
@@ -172,10 +176,10 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
   return (
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
-        <Title className='gray-text'>
-          Manual tax rates are configured by you depending on destination and products sold. You fully control the calculation of your taxes. <br/>
-         set up taxes per customer location (country, state, zip/postal code), add tax per group of products, set up tax-free products.
-        </Title>
+        <FlexBox column >
+          <p className='gray-text bold-text m-0'>Manual tax rates are configured by you depending on destination and products sold, You fully control the calculation of your taxes.</p>
+          <p className='gray-text bold-text m-0'>set up taxes per customer location (country, state, zip/postal code), add tax per group of products, set up tax-free products.</p>
+        </FlexBox>
 
         <FlexBox className='v-center'>
           <Button className='primary-color' onClick={onAddNewtax} disabled={loading} onprogress={loading} >Add new Tax Schema</Button>

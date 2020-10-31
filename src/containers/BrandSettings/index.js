@@ -40,7 +40,7 @@ const Setting = ({ history, brands, user }) => {
       key: 'taxes',
       tab: 'Taxes',
       link: '/settings/taxes',
-      component: <Taxes />
+      component: <Taxes history={history} />
     }, {
       key: 'emailing',
       tab: 'Emailing',

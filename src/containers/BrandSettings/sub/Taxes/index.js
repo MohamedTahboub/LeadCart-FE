@@ -5,11 +5,11 @@ import TaxesManagement from './TaxesManagement';
 const { Tabs, Tab } = common;
 
 
-const Taxes = () => {
+const Taxes = ({ history }) => {
   return (
     <Tabs active='taxesManagement' >
       <Tab id='taxesManagement' title='Taxes Management'>
-        <TaxesManagement />
+        <TaxesManagement history={history} />
       </Tab>
 
 
