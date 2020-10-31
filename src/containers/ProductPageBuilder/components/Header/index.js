@@ -4,7 +4,6 @@ import { IoIosArrowRoundBack } from 'react-icons/io';
 import { AiOutlineHistory, AiOutlineMobile } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
 import { FaCode } from 'react-icons/fa';
-import { RiListSettingsLine } from 'react-icons/ri';
 import { useContext } from '../../actions';
 import { ScriptsModal } from './components';
 
@@ -12,7 +11,8 @@ const {
   Button,
   FlexBox,
   Title,
-  EditableField
+  EditableField,
+  Tooltip
 } = common;
 
 const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
@@ -22,21 +22,26 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 
   return (
     <FlexBox>
-      <MdDesktopWindows
-        className={`${commonClasses} ${isActive('desktop')}`}
-        onClick={onChange('desktop')}
-        data-tip='Preview on Desktop Mode'
-      />
-      <MdTabletMac
-        onClick={onChange('tablet')}
-        className={`${commonClasses} ${isActive('tablet')}`}
-        data-tip='Preview on Tablet Size Mode'
-      />
-      <AiOutlineMobile
-        onClick={onChange('mobile')}
-        className={`${commonClasses} ${isActive('mobile')}`}
-        data-tip='Preview on Mobile Mode'
-      />
+      <Tooltip placement='left' text='Preview on Desktop Mode'>
+        <MdDesktopWindows
+          className={`${commonClasses} ${isActive('desktop')}`}
+          onClick={onChange('desktop')}
+        />
+      </Tooltip>
+      <Tooltip placement='left' text='Preview on Tablet Size Mode'>
+        <MdTabletMac
+          onClick={onChange('tablet')}
+          className={`${commonClasses} ${isActive('tablet')}`}
+          data-tip=''
+        />
+      </Tooltip>
+      <Tooltip placement='left' text='Preview on Mobile Mode'>
+        <AiOutlineMobile
+          onClick={onChange('mobile')}
+          className={`${commonClasses} ${isActive('mobile')}`}
+          data-tip='Preview on Mobile Mode'
+        />
+      </Tooltip>
     </FlexBox>
   );
 };
@@ -139,17 +144,6 @@ const Header = ({
             className='light-btn margin-h-5 hide-element'
           >
             <AiOutlineHistory />
-          </Button>
-          <Button
-            onClick={onPageLayoutSettings}
-            className='light-btn mr-2'
-          >
-            <FlexBox center='v-center'>
-              <RiListSettingsLine className='gray-text mr-1' />
-              <span>
-                Page Layout
-              </span>
-            </FlexBox>
           </Button>
           <Button
             onClick={onToggleScriptModal}

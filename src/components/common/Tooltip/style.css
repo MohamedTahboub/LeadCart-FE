@@ -1,0 +1,7 @@
+.rc-tooltip-inner{
+  min-height: 20px;
+  padding: 3px 7px;
+  font-weight: 600;
+  max-width: 150px;
+  z-index: 1200;
+}
