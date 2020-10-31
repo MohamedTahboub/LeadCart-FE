@@ -13,7 +13,7 @@ import {
 const {
   Tabs,
   InputRow,
-  MiniTwitterPicker,
+  MiniColorPicker,
   FlexBox,
   Tab
 } = common;
@@ -102,7 +102,7 @@ const ProgressBar = (props) => {
           <SettingBox title='Colors'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Bar Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.barColor'
                 value={styles.barColor}
                 onChange={onChange}
@@ -110,7 +110,7 @@ const ProgressBar = (props) => {
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Text Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.textColor'
                 value={styles.textColor}
                 onChange={onChange}
@@ -118,7 +118,7 @@ const ProgressBar = (props) => {
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Bar Border Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.borderColor'
                 value={styles.borderColor}
                 onChange={onChange}

@@ -11,7 +11,8 @@ const {
   Button,
   FlexBox,
   Title,
-  EditableField
+  EditableField,
+  Tooltip
 } = common;
 
 const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
@@ -21,21 +22,24 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 
   return (
     <FlexBox>
-      <MdDesktopWindows
-        className={`${commonClasses} ${isActive('desktop')}`}
-        onClick={onChange('desktop')}
-        data-tip='Preview on Desktop Mode'
-      />
-      <MdTabletMac
-        onClick={onChange('tablet')}
-        className={`${commonClasses} ${isActive('tablet')}`}
-        data-tip='Preview on Tablet Size Mode'
-      />
-      <AiOutlineMobile
-        onClick={onChange('mobile')}
-        className={`${commonClasses} ${isActive('mobile')}`}
-        data-tip='Preview on Mobile Mode'
-      />
+      <Tooltip placement='bottom' text='Preview on Desktop Mode'>
+        <MdDesktopWindows
+          className={`${commonClasses} ${isActive('desktop')}`}
+          onClick={onChange('desktop')}
+        />
+      </Tooltip>
+      <Tooltip placement='bottomRight' text='Preview on Tablet Size Mode'>
+        <MdTabletMac
+          onClick={onChange('tablet')}
+          className={`${commonClasses} ${isActive('tablet')}`}
+        />
+      </Tooltip>
+      <Tooltip placement='bottomRight' text='Preview on Mobile Mode'>
+        <AiOutlineMobile
+          onClick={onChange('mobile')}
+          className={`${commonClasses} ${isActive('mobile')}`}
+        />
+      </Tooltip>
     </FlexBox>
   );
 };
@@ -44,8 +48,7 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 const Header = ({
   history,
   onSave,
-  saving,
-  ...props
+  saving
 }) => {
 
   const {
@@ -75,6 +78,14 @@ const Header = ({
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
+  };
+
+  const onPageLayoutSettings = () => {
+    const meta = {
+      type: 'pageSetting',
+      menuTitle: 'Page & Layouts Settings'
+    };
+    actions.toggleSectionSettingModal(meta);
   };
 
   return (

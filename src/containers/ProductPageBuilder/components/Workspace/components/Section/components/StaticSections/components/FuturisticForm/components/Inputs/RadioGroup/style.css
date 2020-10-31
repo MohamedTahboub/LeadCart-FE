@@ -1,0 +1,54 @@
+.input-radio {
+  text-transform: capitalize;
+}
+
+.input-radio-container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.input-radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.input-radio .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: var(--white-color);
+  border-radius: 50%;
+  border: 2px solid var(--light-primary-color);
+}
+
+.input-radio-container input:checked ~ .checkmark {
+  background-color: var(--white-color);
+}
+
+.input-radio .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.input-radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.input-radio-container .checkmark:after {
+ 	top: 3px;
+	left: 3px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--light-primary-color);
+}

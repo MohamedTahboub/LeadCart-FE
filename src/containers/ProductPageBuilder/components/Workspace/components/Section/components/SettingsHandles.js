@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import common from 'components/common';
 import { MdContentCopy } from 'react-icons/md';
 import { FiTrash2 } from 'react-icons/fi';
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from 'react-icons/fa';
@@ -6,7 +7,7 @@ import { IoMdSettings } from 'react-icons/io';
 
 import { useContext } from '../../../../../actions';
 
-
+const { Tooltip } = common;
 const settingLessTypes = ['image', 'video', 'code'];
 
 const SettingsHandles = ({
@@ -14,10 +15,11 @@ const SettingsHandles = ({
   onDuplicate,
   section = {},
   onSettings,
-  moveCard,
+  moveCrossColumns,
   index,
   isThankYouProductPage,
-  isisOptInProduct
+  isisOptInProduct,
+  parentZone
 }) => {
   const {
     state: { product: { sections = [] } = {} },
@@ -35,11 +37,11 @@ const SettingsHandles = ({
   };
 
   const onOrderTop = () => {
-    moveCard(id, index - 1);
+    moveCrossColumns(id, -1, parentZone);
   };
 
   const onOrderBottom = () => {
-    moveCard(id, index + 1);
+    moveCrossColumns(id, 1, parentZone);
   };
 
   const isOnBottom = index !== sections.length - 1;
@@ -57,25 +59,28 @@ const SettingsHandles = ({
 
       {section.type !== 'checkoutSection' &&
         <Fragment>
-          <FiTrash2
-            onClick={onDelete}
-            className='item-handle delete-handle'
-            data-tip='delete this section'
-          />
-          <MdContentCopy
-            onClick={onDuplicate(id)}
-            className='item-handle'
-            data-tip='duplicate this section'
-          />
+          <Tooltip mouseEnterDelay={1} text='delete this section'>
+            <FiTrash2
+              onClick={onDelete}
+              className='item-handle delete-handle'
+            />
+          </Tooltip>
+          <Tooltip mouseEnterDelay={1} text='duplicate this section'>
+            <MdContentCopy
+              onClick={onDuplicate(id)}
+              className='item-handle'
+            />
+          </Tooltip>
         </Fragment>
       }
       {withSettingSide && (
-        <IoMdSettings
-          draggable
-          onClick={onSettingsClick}
-          className='item-handle'
-          data-tip='section-settings'
-        />
+        <Tooltip mouseEnterDelay={1} text='section settings'>
+          <IoMdSettings
+            draggable
+            onClick={onSettingsClick}
+            className='item-handle'
+          />
+        </Tooltip>
       )}
     </div>
   );

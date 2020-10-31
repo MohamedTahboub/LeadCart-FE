@@ -4,14 +4,27 @@ import { IoIosClose } from 'react-icons/io';
 import clx from 'classnames';
 import { useContext } from '../../actions';
 import SubSettings from './components';
+import { RiListSettingsLine } from 'react-icons/ri';
 
 const {
   SideMenu,
-  FlexBox
+  FlexBox,
+  Tooltip
 } = common;
 
 const defaultTitle = 'Section Properties';
 
+const PageSettingToggleButton = ({ onToggle }) => {
+
+
+  return (
+    <FlexBox onClick={onToggle} center='v-center h-center' className='page-settings-modal-close-btn'>
+      <Tooltip mouseEnterDelay={1} text='Page Layout Settings'>
+        <RiListSettingsLine className='icon-btn gray-text mr-1' />
+      </Tooltip>
+    </FlexBox>
+  );
+};
 const SettingSideBar = () => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
 
@@ -22,10 +35,17 @@ const SettingSideBar = () => {
   const menuTitle = (sectionSetting && sectionSetting.menuTitle) ? sectionSetting.menuTitle : defaultTitle;
 
   const classNames = clx({
-    'width-300': sectionSetting && (sectionSetting.type === 'pageSetting'
+    'width-320': sectionSetting && (sectionSetting.type === 'pageSetting'
       || sectionSetting.type === 'checkoutSection')
   });
 
+  const onTogglePageSettings = () => {
+    const meta = {
+      type: 'pageSetting',
+      menuTitle: 'Page & Layouts Settings'
+    };
+    actions.toggleSectionSettingModal(meta);
+  };
   return (
     <SideMenu
       open={sectionSetting && sectionSetting.type}
@@ -33,6 +53,7 @@ const SettingSideBar = () => {
       withCloseBtn={false}
       className={classNames}
     >
+      <PageSettingToggleButton onToggle={onTogglePageSettings} />
       <FlexBox spaceBetween center='v-center' className='padding-h-10 padding-v-10'>
         <div className='title-text capitalized-text'>
           {menuTitle}

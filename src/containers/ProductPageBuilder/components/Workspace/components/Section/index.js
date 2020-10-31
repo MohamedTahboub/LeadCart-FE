@@ -13,7 +13,7 @@ const Section = ({
   id,
   className,
   type,
-  content,
+  content = {},
   style = {},
   order,
   maxOrder,
@@ -24,7 +24,9 @@ const Section = ({
   onSectionDuplicate,
   addNewAndMove,
   onSetting,
+  moveCrossColumns,
   index,
+  parentZone,
   ...props
 }) => {
   const { state: { product: { category } = {} } } = useContext();
@@ -47,12 +49,13 @@ const Section = ({
         addNewAndMove({
           atIndex: index,
           type,
+          parentZone,
           id: newId
         });
         return { isHandled: true };
       }
       const { index: overIndex } = findCard(id);
-      moveCard(droppedItemId, overIndex);
+      moveCard(droppedItemId, overIndex, parentZone);
       return { isHandled: true };
     }
   });
@@ -67,7 +70,7 @@ const Section = ({
   });
 
   const onDuplicate = (fromId) => () => {
-    onSectionDuplicate(fromId);
+    onSectionDuplicate(fromId, parentZone);
   };
 
   return (
@@ -87,10 +90,11 @@ const Section = ({
           order={order}
           id={id}
           maxOrder={maxOrder}
-          moveCard={moveCard}
+          moveCrossColumns={moveCrossColumns}
           index={index}
           isThankYouProductPage={isThankYouProductPage}
           isisOptInProduct={isisOptInProduct}
+          parentZone={parentZone}
         />
         <SectionContent
           {...content}

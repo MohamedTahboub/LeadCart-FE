@@ -7,7 +7,7 @@ import { ImageOption, SettingBox } from './common';
 
 
 const {
-  MiniTwitterPicker,
+  MiniColorPicker,
   Currency,
   Tabs,
   Tab,
@@ -184,7 +184,7 @@ const BumpOffer = () => {
             <Label className='sidebar-input-label'>
               Background:
             </Label>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='styles.containerBackground'
               value={styles.containerBackground}
               onChange={onChange}
@@ -194,7 +194,7 @@ const BumpOffer = () => {
             <Label className='sidebar-input-label'>
               Container text:
             </Label>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='styles.containerTextColor'
               value={styles.containerTextColor}
               onChange={onChange}
@@ -204,7 +204,7 @@ const BumpOffer = () => {
             <Label className='sidebar-input-label'>
               Header Background:
             </Label>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='styles.headerBackground'
               value={styles.headerBackground}
               onChange={onChange}
@@ -214,7 +214,7 @@ const BumpOffer = () => {
             <Label className='sidebar-input-label'>
               Header text:
             </Label>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='styles.headerTextColor'
               value={styles.headerTextColor}
               onChange={onChange}
@@ -224,7 +224,7 @@ const BumpOffer = () => {
             <Label className='sidebar-input-label'>
               Content Headline Color:
             </Label>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='styles.contentHeadlineTextColor'
               value={styles.contentHeadlineTextColor}
               onChange={onChange}
@@ -237,7 +237,7 @@ const BumpOffer = () => {
             <Label className='sidebar-input-label'>
               Border Color:
             </Label>
-            <MiniTwitterPicker
+            <MiniColorPicker
               name='styles.borderColor'
               value={styles.borderColor}
               onChange={onChange}

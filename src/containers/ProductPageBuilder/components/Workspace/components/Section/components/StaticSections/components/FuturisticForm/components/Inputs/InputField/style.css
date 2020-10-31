@@ -1,0 +1,33 @@
+.input-field-container{
+
+}
+/* .input-field-container + .input-field-container{
+    margin-left: 20px;
+} */
+.input-field-element {
+    flex: 1;
+    /* max-width: 200px; */
+    padding: 4px 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f6f9fb;
+    border: 2px solid transparent;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.input-field-element::placeholder {
+    color: #C5C3C3;
+    font-size: 15px;
+}
+.input-field-element:focus{
+   outline-style: none;
+   border-color: #3579c771;
+}
+
+.label-content{
+    color: #4f5760;
+    font-size: 15px;
+    margin: 5px 0;
+}

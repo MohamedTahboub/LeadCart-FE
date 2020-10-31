@@ -5,7 +5,7 @@ import common from 'components/common';
 import { ImageOption, SettingBox } from './common';
 import { useContext } from '../../../actions';
 
-const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
+const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption, DatePicker, Toggle } = InputRow;
 
 const themesOptions = [
@@ -95,7 +95,7 @@ const CountDowTimerWidget = (props) => {
           <FlexBox column flex className='min-height-400'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Clock Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.clockColor'
                 value={styles.clockColor}
                 onChange={onFiledChange}
@@ -103,7 +103,7 @@ const CountDowTimerWidget = (props) => {
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Background Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.backgroundColor'
                 value={styles.backgroundColor}
                 onChange={onFiledChange}

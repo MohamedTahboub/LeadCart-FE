@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { FaAngleDoubleLeft } from 'react-icons/fa';
+import { RiPushpin2Fill, RiPushpinLine } from 'react-icons/ri';
 import clx from 'classnames';
-
+import { FlexBox } from '../../boxes';
 import './style.css';
+
 
 const SideMenu = ({
   className,
   position,
   children,
   onChange,
+  toggleOnHover,
   withCloseBtn = true,
   ...props
 }) => {
@@ -27,28 +29,31 @@ const SideMenu = ({
   }, [props.open]);
 
   const defaultClasses = 'side-bar-menu white-bg soft-edges soft-shadow';
-  const classes = clx({
-    [defaultClasses]: true,
-    [className]: className,
+
+  const classes = clx(defaultClasses, className, {
     [`${position}-position`]: position,
+    'open-on-hover': toggleOnHover,
     open
   });
 
-  const iconRotateClass = clx({
-    'animate': true,
-    'rotate-180': !open
-  });
+  const iconRotateClass = clx('animate', 'large-text');
 
   return (
     <div className={classes}>
       {withCloseBtn && (
-        <div
+        <FlexBox
+          center='v-center h-center'
           onClick={onToggle}
           className='menu-close-btn gray-color white-bg item-clickable'
           role='presentation'
-        >
-          <FaAngleDoubleLeft className={iconRotateClass} />
-        </div>
+        >{
+            open ? (
+              <RiPushpin2Fill className={iconRotateClass} />
+            ) : (
+              <RiPushpinLine className={iconRotateClass} />
+            )
+          }
+        </FlexBox>
       )
       }
       {children}

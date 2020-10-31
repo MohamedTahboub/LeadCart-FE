@@ -27,6 +27,7 @@ import * as Tabs from './Tabs';
 import * as Menus from './Menus';
 import * as Spinners from './Spinners';
 import DisplayContent from './DisplayContent';
+import Tooltip from './Tooltip';
 
 export default {
   Table,
@@ -57,5 +58,6 @@ export default {
   ...Menus,
   Spinners,
   Dialog,
+  Tooltip,
   DisplayContent
 };

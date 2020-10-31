@@ -4,7 +4,7 @@ import { useContext } from '../../../actions';
 
 const {
   Tabs,
-  MiniTwitterPicker,
+  MiniColorPicker,
   FlexBox,
   Tab
 } = common;
@@ -33,7 +33,7 @@ const Text = (props) => {
           <div className='padding-left-20'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Background Color</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.backgroundColor'
                 value={styles.backgroundColor}
                 onChange={onChange}
