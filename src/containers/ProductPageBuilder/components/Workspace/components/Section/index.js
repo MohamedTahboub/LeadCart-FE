@@ -24,6 +24,7 @@ const Section = ({
   onSectionDuplicate,
   addNewAndMove,
   onSetting,
+  moveCrossColumns,
   index,
   parentZone,
   ...props
@@ -89,7 +90,7 @@ const Section = ({
           order={order}
           id={id}
           maxOrder={maxOrder}
-          moveCard={moveCard}
+          moveCrossColumns={moveCrossColumns}
           index={index}
           isThankYouProductPage={isThankYouProductPage}
           isisOptInProduct={isisOptInProduct}

@@ -22,7 +22,7 @@ const SettingSideBar = () => {
   const menuTitle = (sectionSetting && sectionSetting.menuTitle) ? sectionSetting.menuTitle : defaultTitle;
 
   const classNames = clx({
-    'width-300': sectionSetting && (sectionSetting.type === 'pageSetting'
+    'width-320': sectionSetting && (sectionSetting.type === 'pageSetting'
       || sectionSetting.type === 'checkoutSection')
   });
 

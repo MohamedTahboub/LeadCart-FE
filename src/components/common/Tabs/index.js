@@ -23,6 +23,7 @@ export const Tabs = ({
   children,
   className,
   tabsContentClassName,
+  tabTitleClassName,
   vertical,
   active,
   onChange
@@ -50,6 +51,7 @@ export const Tabs = ({
           <Tab
             {...tab}
             key={tab.id}
+            className={clx(tab.className, tabTitleClassName)}
             onClick={onTabChange(tab.id)}
           />
         ))}

@@ -14,6 +14,7 @@ export default (props) => {
     onSectionOrderChange,
     activeSection,
     moveCard,
+    moveCrossColumns,
     onSectionDuplicate,
     findCard,
     activeLanguage,
@@ -28,7 +29,7 @@ export default (props) => {
   const hasOneSection = Array.isArray(localSections) && (!localSections.length);
 
   return (
-    <DropZone onDrop={onSectionDropped} parentZone={parentZone} style={style}>
+    <DropZone onDrop={onSectionDropped} parentZone={parentZone} style={style} moveCard={moveCard}>
       {hasOneSection && (
         <FlexBox column center='h-center v-center' flex className='builder-drop-area'>
           <img src={dropAreaImage} alt='Drop Area' className='drop-area-image' />
@@ -49,6 +50,7 @@ export default (props) => {
             active={activeSection.id === section.id}
             activeSection={activeSection}
             moveCard={moveCard}
+            moveCrossColumns={moveCrossColumns}
             onSectionDuplicate={onSectionDuplicate}
             findCard={findCard}
             language={activeLanguage}

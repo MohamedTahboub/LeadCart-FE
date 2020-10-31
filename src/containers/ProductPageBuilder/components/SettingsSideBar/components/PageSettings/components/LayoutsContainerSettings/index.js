@@ -114,24 +114,6 @@ const LayoutsContainerSettings = ({
           />
         </FlexBox>
       </SettingBox>
-      <SettingBox
-        title='Size'
-      >
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Product Width:
-          </Label>
-          <SelectOption
-            value={pageStyles.widthMode}
-            name='pageStyles.widthMode'
-            onChange={onChange}
-            options={[
-              { label: 'Normal', value: 'normal' },
-              { label: 'Wide', value: 'wide' }
-            ]}
-          />
-        </InputRow>
-      </SettingBox>
       <SettingBox title='Background' >
         <InputRow className='sidebar-row'>
           <Label className='sidebar-input-label'>
@@ -139,7 +121,7 @@ const LayoutsContainerSettings = ({
           </Label>
           <MiniColorPicker
             name='pageStyles.productPage.backgroundColor'
-            value={pageStyles.productPage?.productBackground}
+            value={pageStyles.productPage?.backgroundColor}
             onChange={onChange}
           />
         </InputRow>

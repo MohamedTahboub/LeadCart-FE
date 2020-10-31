@@ -17,6 +17,11 @@
   border-radius: 5px;
   min-height: 300px;
 }
+/* .split-area-item.vertical{
+  width: 250px;
+  min-height: 100px;
+} */
+
 .split-area-item.active {
   background: #a7d0ff;
 }
@@ -36,9 +41,10 @@
 .gutter {
   background-color: #fff;
   background-repeat: no-repeat;
-  background-position: 50%;
+  background-position: 50% 50%;
 }
 
+.gutter.gutter-vertical,
 .gutter.gutter-horizontal {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
   background-repeat: no-repeat;
@@ -46,4 +52,7 @@
 
 .gutter.gutter-horizontal {
   cursor: ew-resize;
+}
+.gutter.gutter-vertical {
+  cursor: row-resize;
 }

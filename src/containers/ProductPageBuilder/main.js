@@ -149,7 +149,7 @@ const ProductBuilder = ({
         <FlexBox id='blocks' flex className='relative-element'>
           <ScreenBackgroundSetup backgrounds={pageStyles} />
           <DndProvider backend={Backend}>
-            <SideBar canOffer={state.product.category === 'checkout'} />
+            <SideBar canOffer={state.product?.category === 'checkout'} />
             <Workspace />
             <SettingSideBar />
           </DndProvider>

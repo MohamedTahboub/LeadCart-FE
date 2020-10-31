@@ -31,9 +31,6 @@ const ProductsScripts = ({ onChange: onProductChange }) => {
     });
   };
 
-  // useEffect(() => {
-  //   setFields(pageBackgroundSettings);
-  // }, [pageBackgroundSettings]);
 
   const onBackgroundChange = ([firstSectionSize, secondSectionSize] = [], activeSection) => {
     const updateFields = (fields) => ({
@@ -108,6 +105,20 @@ const ProductsScripts = ({ onChange: onProductChange }) => {
               options={[
                 { label: 'One Split', value: 1 },
                 { label: 'Two Splits', value: 2 }
+              ]}
+            />
+          </InputRow>
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Backgrounds Direction:
+            </Label>
+            <SelectOption
+              value={fields.direction || 'vertical'}
+              name='direction'
+              onChange={onNativeElementChange}
+              options={[
+                { label: 'Vertical', value: 'vertical' },
+                { label: 'Horizontal', value: 'horizontal' }
               ]}
             />
           </InputRow>

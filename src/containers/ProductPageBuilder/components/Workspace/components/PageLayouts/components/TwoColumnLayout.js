@@ -8,7 +8,7 @@ const { FlexBox } = common;
 
 export default ({ sections, styles, ...props }) => {
 
-  const { firstColumn: firstColumnStyles = { }, secondColumn: secondColumnStyles = { } } = styles;
+  const { firstColumn: firstColumnStyles = {}, secondColumn: secondColumnStyles = {} } = styles;
 
 
   const passedProps = {
@@ -19,13 +19,18 @@ export default ({ sections, styles, ...props }) => {
   const firstColumnCastedStyles = stylesCasting(firstColumnStyles);
   const secondColumnCastedStyles = stylesCasting(secondColumnStyles);
 
+  if (!firstColumnCastedStyles.width)
+    firstColumnCastedStyles.width = '450px';
+  if (!secondColumnCastedStyles.width)
+    secondColumnCastedStyles.width = '450px';
+
   return (
-    <FlexBox>
-      <FlexBox style={firstColumnCastedStyles}>
+    <FlexBox wrappable>
+      <FlexBox className='product-column' style={firstColumnCastedStyles}>
         <DropZoneSpace {...passedProps} parentZone='first-column' />
       </FlexBox>
-      <FlexBox style={secondColumnCastedStyles}>
-        <DropZoneSpace {...passedProps} parentZone='second-column'/>
+      <FlexBox className='product-column' style={secondColumnCastedStyles}>
+        <DropZoneSpace {...passedProps} parentZone='second-column' />
       </FlexBox>
     </FlexBox>
   );

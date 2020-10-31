@@ -5,7 +5,7 @@ import { useDrop } from 'react-dnd';
 import * as dropTypes from '../dropTypes';
 
 
-export default ({ children, parentZone, onDrop, style }) => {
+export default ({ children, parentZone, onDrop, moveCard, style }) => {
 
   const [, drop] = useDrop({
     accept: dropTypes.SECTION,
@@ -14,6 +14,10 @@ export default ({ children, parentZone, onDrop, style }) => {
       if (didDrop) return;
       const itemDetails = { ...item };
       console.log({ ...itemDetails, parentZone });
+      if (!isNaN(itemDetails.originalIndex) && itemDetails.section)
+        return moveCard(itemDetails.section.id, itemDetails.originalIndex, parentZone);
+
+
       onDrop({ ...itemDetails, parentZone });
     }
   });

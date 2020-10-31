@@ -31,7 +31,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
   const { content = {}, styles = {} } = sectionSetting;
   const { twoStepCheckout } = content;
-  const { completeOrderButton = {} } = styles;
+  const { completeOrderButton = {}, theme: formTheme = 'classic' } = styles;
 
   const {
     position = 'justified',
@@ -130,6 +130,15 @@ const StaticSection = ({ defaultBrandCurrency }) => {
       }
     });
   };
+  const onCheckoutFormThemeChange = ({ name, value }) => {
+    onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name: `styles.${name}`,
+        value: value
+      }
+    });
+  };
 
   const onDeleteProductPriceOption = (id) => () => {
     deleteProductPriceOption(id);
@@ -196,7 +205,19 @@ const StaticSection = ({ defaultBrandCurrency }) => {
         </Tab>
 
         {isCheckoutProductPage &&
-          <Tab id='forms' title='Forms'>
+          <Tab id='options' title='Options'>
+            <Label className='mb-2'>
+              Form Theme:
+            </Label>
+            <FlatRadio
+              options={[
+                { label: 'Classic', value: 'classic' },
+                { label: 'Futuristic', value: 'futuristic' }
+              ]}
+              value={formTheme}
+              name='theme'
+              onToggle={onCheckoutFormThemeChange}
+            />
             <Label className='mb-2'>
               Checkout type:
             </Label>
@@ -209,6 +230,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               name='twoStepCheckout'
               onToggle={onTwoStepCheckoutChange}
             />
+            {/*
             <img
               src={twoStepCheckout ? 'https://imgur.com/nqjepZ3.png' : 'https://imgur.com/wnThVnO.png'}
               alt='thumb'
@@ -217,6 +239,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 objectFit: 'contain'
               }}
             />
+           */}
           </Tab>
         }
 

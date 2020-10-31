@@ -10,11 +10,12 @@ import defaultLanguage from 'data/defaultLanguage.json';
 import sectionsTemplates from 'data/productSectionsTemplates';
 import dropAreaImage from '../../../../assets/images/dropAreaImage.png';
 import { useContext } from '../../actions';
-import { SettingsHandle } from './components/common';
+// import { SettingsHandle } from './components/common';
 import { PageLayouts, ProductHead } from './components';
 import './style.css';
 
 const { FlexBox } = common;
+
 
 const getLanguageLabel = (
   languages = [],
@@ -80,6 +81,7 @@ const Workspace = ({
 
   const moveCard = (id, atIndex, parentZone) => {
     const { section, index } = findCard(id);
+
     const newSections = update(sections, {
       $splice: [
         [index, 1],
@@ -92,9 +94,28 @@ const Workspace = ({
     });
   };
 
+  const moveCrossColumns = (currentSectionId, direction, parentZone) => {
+    const sameZoneSections = sections.filter((section) => section.parentZone ? section.parentZone === parentZone : true);
+
+    const currentSectionInFiltered = sameZoneSections
+      .map((section, index) => ({ isMatched: section.id === currentSectionId, index }))
+      .find(({ isMatched }) => isMatched);
+
+    if (!(currentSectionInFiltered && currentSectionInFiltered.isMatched)) return;
+
+    const destinationIndex = currentSectionInFiltered.index + direction;
+
+    const destinationSection = sameZoneSections
+      .find((section, index) => index === destinationIndex);
+
+    if (!destinationSection) return;
+
+    const { index: dentationInOriginListIndex } = findCard(destinationSection.id);
+    moveCard(currentSectionId, dentationInOriginListIndex, parentZone);
+  };
+
   const onSectionDropped = (section = {}) => {
     const { section: { type } = {}, parentZone } = section;
-    console.log({ parentZone });
 
     if (section.new) actions.addNewSection({ type, parentZone });
   };
@@ -137,6 +158,7 @@ const Workspace = ({
   };
 
   const {
+    pageBackgroundSettings = {},
     productPage: {
       marginTop,
       marginRight,
@@ -148,10 +170,13 @@ const Workspace = ({
       paddingLeft
     } = {}
   } = pageStyles;
-  const screenStyles = { backgroundColor: pageStyles.screenBackground };
+
+  const hasBackgroundSetup = Boolean(pageBackgroundSettings.firstSectionBackground);
+
+  const screenStyles = { backgroundColor: !hasBackgroundSetup && pageStyles.screenBackground };
   const productStyles = {
-    backgroundColor: pageStyles.productBackground,
-    borderRadius: `${pageStyles.borderRadius}px`,
+    backgroundColor: pageStyles.productPage?.backgroundColor || pageStyles.productBackground,
+    borderRadius: `${pageStyles.productPage?.borderRadius || pageStyles.borderRadius}px`,
     marginTop,
     marginRight,
     marginBottom,
@@ -170,6 +195,7 @@ const Workspace = ({
     onSectionOrderChange,
     activeSection,
     moveCard,
+    moveCrossColumns,
     onSectionDuplicate,
     findCard,
     activeLanguage,

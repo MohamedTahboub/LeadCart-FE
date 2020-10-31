@@ -14,7 +14,7 @@ const SettingsHandles = ({
   onDuplicate,
   section = {},
   onSettings,
-  moveCard,
+  moveCrossColumns,
   index,
   isThankYouProductPage,
   isisOptInProduct,
@@ -36,11 +36,11 @@ const SettingsHandles = ({
   };
 
   const onOrderTop = () => {
-    moveCard(id, index - 1, parentZone);
+    moveCrossColumns(id, -1, parentZone);
   };
 
   const onOrderBottom = () => {
-    moveCard(id, index + 1, parentZone);
+    moveCrossColumns(id, 1, parentZone);
   };
 
   const isOnBottom = index !== sections.length - 1;
