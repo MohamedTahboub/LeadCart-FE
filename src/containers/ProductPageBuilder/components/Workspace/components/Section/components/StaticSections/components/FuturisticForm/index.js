@@ -213,6 +213,12 @@ const FlatForm = ({ language, section }) => {
               inputProps={{ disabled: true }}
             />
           </FlexBox>
+          <FlexBox center='h-center' className='small-text gray-text'>
+            <MdLock color='currentColor' size={16} className='mr-2' />
+            <span >
+              Your transaction is secured with SSL encryption
+            </span>
+          </FlexBox>
           <FlexBox column flex center='v-center'>
             <OrderButton
               className='mt-5 mb-3'
