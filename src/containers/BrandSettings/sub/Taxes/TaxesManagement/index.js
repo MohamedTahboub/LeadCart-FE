@@ -172,8 +172,8 @@ const TaxesManagement = ({ taxes, addNewTax, editTax }) => {
   return (
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
-        <Title className='large-text'>
-          Manual tax rates are configured by you depending on destination and products sold. You fully control the calculation of your taxes; <br/>
+        <Title className='gray-text'>
+          Manual tax rates are configured by you depending on destination and products sold. You fully control the calculation of your taxes. <br/>
          set up taxes per customer location (country, state, zip/postal code), add tax per group of products, set up tax-free products.
         </Title>
 

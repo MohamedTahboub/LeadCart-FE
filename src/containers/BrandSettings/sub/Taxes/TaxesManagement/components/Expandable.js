@@ -7,7 +7,7 @@ import RatesPerZone from './RatesPerZone';
 import CancelModal from './CancelModal';
 
 const { FlexBox, Button, InputRow } = common;
-const { Label, NormalInput, Toggle } = InputRow;
+const { Label, NormalInput } = InputRow;
 
 const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits }) => {
   const { zoneDefinition, enabled, name, appliesTo, ratesPerZone } = fields;
@@ -26,20 +26,17 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
   const defaultAppliesOption = appliesOptions.find(({ value }) => value === appliesTo);
   const defaultZoneDefinitionOption = zoneDefinitionOptions.find(({ value }) => value === zoneDefinition);
 
+  const ratesPerZoneProps = {
+    ratesPerZone,
+    onChange,
+    enabled
+  };
+
   return (
     <FlexBox className={clx('expandable px-5 h-center', { open, 'py-3': open })} column spaceBetween>
-
       <FlexBox className='v-center' spaceBetween>
-        <FlexBox className='mr-4 full-height' column spaceBetween >
-          <Toggle
-            onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
-            value={enabled}
-            beforeLabel='Enabled'
-            afterLabel='Disabled'
-            className='mx-5 my-3 '
-          />
-
-          <InputRow className='mb-4'>
+        <FlexBox className='mr-4' column spaceBetween style={{ height: '236px', alignSelf: 'flex-end' }}>
+          <InputRow className='my-2 flex-box v-center'>
             <Label>Tax Name:</Label>
             <NormalInput
               onChange={onChange}
@@ -48,7 +45,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
             />
           </InputRow>
 
-          <InputRow className='mb-4'>
+          <InputRow className='my-2 flex-box v-center'>
             <Label>Tax applies to:</Label>
             <Select
               target='appliesTo'
@@ -59,7 +56,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
             />
           </InputRow>
 
-          <InputRow className='my-0'>
+          <InputRow className='mt-2 mb-0 flex-box v-center'>
             <Label>Zone defines by:</Label>
             <Select
               onChange={({ value }) => onChange({ target: { value, name: 'zoneDefinition' } })}
@@ -70,7 +67,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
           </InputRow>
         </FlexBox>
 
-        <RatesPerZone ratesPerZone={ratesPerZone} onChange={onChange} />
+        <RatesPerZone {...ratesPerZoneProps} />
       </FlexBox>
 
 
@@ -78,7 +75,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         <Button
           className='px-5 py-2 mr-3 light-btn'
           onClick={onConfirmCancelEdits}
-          disabled={saveLoading} onprogress={saveLoading}
+          disabled={saveLoading}
         >
           Cancel
         </Button>
@@ -86,7 +83,8 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         <Button
           className='px-5 py-2 primary-color'
           onClick={onSave}
-          disabled={saveLoading} onprogress={saveLoading}
+          disabled={saveLoading}
+          onprogress={saveLoading}
         >
           Save
         </Button>
@@ -99,7 +97,6 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         onCancelEdits={onCancelEdits}
         saveLoading={saveLoading}
       />
-
     </FlexBox>
   );
 };

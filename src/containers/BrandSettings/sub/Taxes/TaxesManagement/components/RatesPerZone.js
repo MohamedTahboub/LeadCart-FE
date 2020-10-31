@@ -7,11 +7,11 @@ import ToolTip from 'react-tooltip';
 import common from 'components/common';
 import { zones } from 'data/taxes';
 
-const { FlexBox, Title, Button, InputRow } = common;
-const { SmallInput, Label } = InputRow;
+const { FlexBox, Title, InputRow, SmallButton } = common;
+const { SmallInput, Label, Toggle } = InputRow;
 
 
-const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
+const RatesPerZone = ({ ratesPerZone = [], onChange, enabled }) => {
   const selectedZones = ratesPerZone.map(({ zone }) => zone);
   const zonesOptions = zones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
   const hasDefaultZone = ratesPerZone.find(({ zone }) => zone === '5f9832cf9b9fd77d030af88c');
@@ -48,17 +48,27 @@ const RatesPerZone = ({ ratesPerZone = [], onChange }) => {
 
 
   return (
-    <FlexBox column className='rates-per-zone h-center v-center'>
+    <FlexBox column className='rates-per-zone h-center'>
+      <FlexBox className='pr-2 mb-2' flexEnd>
+        <Toggle
+          onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
+          value={enabled}
+          beforeLabel='Enabled'
+          afterLabel='Disabled'
+          className='mx-5 my-3 '
+        />
+      </FlexBox>
 
-      <FlexBox className='full-width px-3 mb-3 v-center' spaceBetween>
+
+      <FlexBox className='full-width  mb-3 pl-2 v-center' spaceBetween>
         <Label>Rates Per Zone:</Label>
         <FlexBox data-tip="You have a default zone and you can't duplicate it" data-tip-disable={!hasDefaultZone} data-place='left'>
-          <Button className='primary-color ml-2 min-width-150  py-1 px-4' onClick={onAddZone} disabled={hasDefaultZone}>
+          <SmallButton className='primary-color ml-2 min-width-150  py-1 px-3' onClick={onAddZone} disabled={hasDefaultZone}>
             <FlexBox className='v-center' spaceBetween>
-              <RiAddCircleFill size={18} className='mr-2'/>
+              <RiAddCircleFill size={16} className='mr-2'/>
               <Title className='white-text' >Add Zone</Title>
             </FlexBox>
-          </Button>
+          </SmallButton>
         </FlexBox>
       </FlexBox>
 
