@@ -13,7 +13,7 @@ const {
   Tabs,
   EditableField,
   InputRow,
-  MiniTwitterPicker,
+  MiniColorPicker,
   FlexBox,
   Tab,
 } = common;
@@ -47,7 +47,7 @@ const CouponSection = (props) => {
           <SettingBox title='Colors'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Border Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.borderColor'
                 value={styles.borderColor}
                 onChange={onChange}
@@ -55,7 +55,7 @@ const CouponSection = (props) => {
             </FlexBox>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Button Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.btnColor'
                 value={styles.btnColor}
                 onChange={onChange}

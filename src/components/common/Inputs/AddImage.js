@@ -65,7 +65,7 @@ const AddImage = ({
         ref={(ref) => {imageFieldRef = ref;}}
         type='file'
         name='myImage'
-        accept='image/x-png,image/gif,image/jpeg'
+        accept='image/*'
       />
 
       {image && (

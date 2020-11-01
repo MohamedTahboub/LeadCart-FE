@@ -2,6 +2,7 @@ import React, { Component, Fragment, useState } from 'react';
 import './style.css';
 import DatePicker from 'antd/lib/date-picker';
 import Checkbox from 'antd/lib/checkbox';
+import Radio from 'antd/lib/radio';
 import ids from 'shortid';
 import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
@@ -23,6 +24,7 @@ export class InputRow extends Component {
   static TextField = TextField
   static Slider = Slider
   static Checkbox = Checkbox
+  static Radio = Radio
   static Toggle = Toggle
 
 

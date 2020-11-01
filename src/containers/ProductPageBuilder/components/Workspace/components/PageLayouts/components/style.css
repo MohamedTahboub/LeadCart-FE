@@ -1,0 +1,13 @@
+.product-column{
+    /* flex: 1; */
+}
+
+.product-workspace.tablet .product-column {
+    width: 466px !important;
+}
+
+.product-workspace.mobile .product-column{
+    width: 340px !important;
+    min-height: 667px;
+    padding-bottom: 100px;
+}

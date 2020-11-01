@@ -13,7 +13,7 @@ const {
   Tabs,
   // EditableField,
   InputRow,
-  MiniTwitterPicker,
+  MiniColorPicker,
   FlexBox,
   Tab,
 } = common;
@@ -51,7 +51,7 @@ const ShippingAddress = (props) => {
           <SettingBox title='Colors'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Theme Color:</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.themeColor'
                 value={styles.themeColor}
                 onChange={onChange}

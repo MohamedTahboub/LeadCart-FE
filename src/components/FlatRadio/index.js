@@ -3,14 +3,15 @@ import clx from 'classnames';
 
 import './style.css';
 
-const FlatRadio = ({ value, name, onToggle, options }) => {
+const FlatRadio = ({ value, name, onToggle, options, className }) => {
   const onRadioClick = (value) => {
     onToggle({ name, value });
   };
+  const classNames = clx('flat-radio', className);
   return (
-    <div className='flat-radio'>
+    <div className={classNames}>
       {
-        options.map((option) => <div className={clx('flat-radio-key', { active: value === option.value })} onClick={() => onRadioClick(option.value)}>{option.label}</div>)
+        options.map(({ disabled, value: hereValue, label }) => <div className={clx('flat-radio-key', { active: value === hereValue, disabled })} onClick={() => onRadioClick(hereValue)}>{label}</div>)
       }
     </div>
   );

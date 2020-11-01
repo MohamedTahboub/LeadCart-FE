@@ -41,7 +41,7 @@ const {
   InputRow,
   FlexBox,
   Tab,
-  MiniTwitterPicker
+  MiniColorPicker
 } = common;
 
 const { Label, AddImage } = InputRow;
@@ -135,7 +135,7 @@ const FeaturesSection = () => {
             </FlexBox>
             <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
               <Label>Points Color</Label>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.bulletColor'
                 value={styles.bulletColor}
                 onChange={onChange}

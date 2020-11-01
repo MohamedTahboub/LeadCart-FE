@@ -10,6 +10,12 @@
     transition: transform .3s ease-in-out;
     z-index: 1120;
 }
+.side-bar-menu.open-on-hover{
+    transform: translateX(-175px);  
+}
+.side-bar-menu.open-on-hover:hover{
+    transform: translateX(0px); 
+};
 
 .side-bar-menu.left-position {
     left: 0;
@@ -34,6 +40,9 @@
 
 .side-bar-menu.open {
     transform: translateX(0);
+}
+.side-bar-menu.open-on-hover:not(.open) {
+    transform: translateX(-85);
 }
  .side-bar-menu.open {
     transform: translateX(-260);

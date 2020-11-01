@@ -7,7 +7,7 @@ import Slider from 'rc-slider';
 import Collapse from 'components/Collapsible';
 import { buttonTemplates } from 'data/templates';
 
-const { Tabs, InputRow, MiniTwitterPicker, FlexBox, Tab } = common;
+const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption, Toggle, AddImage } = InputRow;
 
 const layouts = [
@@ -183,7 +183,7 @@ const ButtonSection = () => {
         </FlexBox>
         <FlexBox center='v-center margin-v-5' spaceBetween>
           <span className='gray-text'>Button Background</span>
-          <MiniTwitterPicker
+          <MiniColorPicker
             name='styles.backgroundColor'
             value={styles.backgroundColor}
             onChange={onChange}
@@ -191,7 +191,7 @@ const ButtonSection = () => {
         </FlexBox>
         <FlexBox center='v-center margin-v-5' spaceBetween>
           <span className='gray-text'>Button Text</span>
-          <MiniTwitterPicker
+          <MiniColorPicker
             name='styles.foregroundColor'
             value={styles.foregroundColor || '#FFF'}
             onChange={onChange}
@@ -232,7 +232,7 @@ const ButtonSection = () => {
             </FlexBox>
             <FlexBox center='v-center' className='pb-140px' spaceBetween>
               <span className='gray-text'>Border Color</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.borderColor'
                 value={styles.borderColor || '#FFF'}
                 onChange={onChange}
@@ -271,7 +271,7 @@ const ButtonSection = () => {
             />
             <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
               <span className='gray-text'>Shadow Color</span>
-              <MiniTwitterPicker
+              <MiniColorPicker
                 name='styles.shadowColor'
                 value={styles.shadowColor || '#FFF'}
                 onChange={onChange}
@@ -312,7 +312,7 @@ const ButtonSection = () => {
               />
               <FlexBox center='v-center' spaceBetween className='pb-140px'>
                 <span className='gray-text'>Icon Background</span>
-                <MiniTwitterPicker
+                <MiniColorPicker
                   name='styles.iconBackgroundColor'
                   value={styles.iconBackgroundColor || '#FFF'}
                   onChange={onChange}

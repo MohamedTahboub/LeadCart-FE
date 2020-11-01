@@ -141,6 +141,12 @@ export default (state = initialState, { type, payload }) => {
           .filter((pricingOption) => pricingOption.id !== payload)
       }
     };
+  case types.TOGGLE_PRODUCT_BACKGROUND_MODAL:
+    return {
+      ...state,
+      productBackground: !state.productBackground
+    };
+
   default: return state;
   }
 };

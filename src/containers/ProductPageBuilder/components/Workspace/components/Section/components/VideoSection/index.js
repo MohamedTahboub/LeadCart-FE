@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import clx from 'classnames';
 import VideoContent from './VideoContent';
 import { useContext } from '../../../../../../actions';
@@ -37,14 +37,14 @@ const VideoSection = ({
     actions.updateProductSection(updatedSection);
   };
 
-  return (
+  return useMemo(() => (
     <div className={classNames} style={sectionStyle}>
       <VideoContent
         value={videoLink}
         onChange={onChange}
       />
     </div>
-  );
+  ), [videoLink]);
 };
 VideoSection.propTypes = {};
 

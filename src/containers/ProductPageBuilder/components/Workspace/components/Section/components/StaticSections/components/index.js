@@ -6,3 +6,5 @@ export { default as ShippingDetails } from './ShippingDetails';
 export { default as CouponSection } from './CouponSection';
 export { default as Receipt } from './Receipt';
 export { default as PricingOptions } from './PricingOptions';
+export { default as ClassicForm } from './ClassicForm';
+export { default as FuturisticForm } from './FuturisticForm';
