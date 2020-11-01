@@ -39,8 +39,8 @@ const DeleteModal = ({ isVisible, onClose, taxId, deleteTax }) => {
         <Title className='large-text mb-3' >Permanently delete the selected tax Schema?</Title>
 
         <FlexBox className='v-center h-center'>
-          <Button className='px-4 py-1 mr-5 light-btn' onClick={onClose} loading={loading} onprogress={loading} >Cancel</Button>
-          <Button className='px-4 py-1 danger-btn' onClick={onDeleteTax} loading={loading} onprogress={loading} >Delete</Button>
+          <Button className='px-4 py-1 mr-5 light-btn' onClick={onClose} disabled={loading} >Cancel</Button>
+          <Button className='px-4 py-1 danger-btn' onClick={onDeleteTax} disabled={loading} onprogress={loading} >Delete</Button>
         </FlexBox>
 
         <FlexBox className='v-center h-center'>

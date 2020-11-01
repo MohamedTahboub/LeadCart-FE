@@ -81,7 +81,7 @@ const RatesPerZone = ({ ratesPerZone = [], onChange, enabled }) => {
 
         <FlexBox className='rates-per-zone-body' column>
           {ratesPerZone.reverse().map(({ zone, rate }) => (
-            <FlexBox className='rates-per-zone-body-row v-center' spaceBetween>
+            <FlexBox className='rates-per-zone-body-row v-center' key={zone} spaceBetween>
               <Select
                 onChange={({ value }) => onChangeZone(zone, 'zone', value)}
                 value={getZoneOption(zone)}
