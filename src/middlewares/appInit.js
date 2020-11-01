@@ -18,6 +18,7 @@ import { getTranslationsLanguages } from 'actions/translations';
 import { getUserBrands } from 'actions/brands';
 import { getPromoCodes } from 'actions/redemption';
 import { getTaxes } from 'actions/taxes';
+import { getTaxZones } from 'actions/taxZones';
 
 
 window.user = '';
@@ -56,6 +57,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getOrders(data.orders));
     dispatch(getCustomers(data.customers));
     dispatch(getTaxes(data.taxes || []));
+    dispatch(getTaxZones(data.taxZones || []));
 
 
     return appLaunchSuccess(data);

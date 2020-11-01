@@ -7,8 +7,9 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { notification } from 'libs';
 import * as taxesActions from 'actions/taxes';
-import { DeleteModal, Expandable } from './components';
 import { isNewObjHasChange } from 'helpers/common';
+import { DeleteModal } from '../components';
+import Expandable from './Expandable';
 
 import './style.css';
 
@@ -232,7 +233,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
         </Body>
       </Table>
 
-      <DeleteModal taxId={deleteTaxId} onClose={onCancelDeleteTax} isVisible={deleteModalOpend} />
+      <DeleteModal taxId={deleteTaxId} onClose={onCancelDeleteTax} isVisible={deleteModalOpend} type='tax' />
     </FlexBox>
   );
 };

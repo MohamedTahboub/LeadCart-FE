@@ -469,3 +469,18 @@ export const DELETE_TAX = Symbol('DELETE_TAX');
 export const DELETE_TAX_SUCCESS = Symbol('DELETE_TAX_SUCCESS');
 export const DELETE_TAX_FAILED = Symbol('DELETE_TAX_FAILED');
 
+
+export const GET_TAX_ZONES = Symbol('GET_TAX_ZONES');
+
+export const ADD_NEW_TAX_ZONE = Symbol('ADD_NEW_TAX_ZONE');
+export const ADD_NEW_TAX_ZONE_SUCCESS = Symbol('ADD_NEW_TAX_ZONE_SUCCESS');
+export const ADD_NEW_TAX_ZONE_FAILED = Symbol('ADD_NEW_TAX_ZONE_FAILED');
+
+export const EDIT_TAX_ZONE = Symbol('EDIT_TAX_ZONE');
+export const EDIT_TAX_ZONE_SUCCESS = Symbol('EDIT_TAX_ZONE_SUCCESS');
+export const EDIT_TAX_ZONE_FAILED = Symbol('EDIT_TAX_ZONE_FAILED');
+
+export const DELETE_TAX_ZONE = Symbol('DELETE_TAX_ZONE');
+export const DELETE_TAX_ZONE_SUCCESS = Symbol('DELETE_TAX_ZONE_SUCCESS');
+export const DELETE_TAX_ZONE_FAILED = Symbol('DELETE_TAX_ZONE_FAILED');
+

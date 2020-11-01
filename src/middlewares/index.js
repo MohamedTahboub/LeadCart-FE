@@ -30,6 +30,7 @@ import translations from './translations';
 import integrations from './integrations';
 import brands from './brands';
 import taxes from './taxes';
+import taxZones from './taxZones';
 
 
 export default [
@@ -64,5 +65,6 @@ export default [
   apiRequest,
   uploadingFiles,
   storage,
-  ...taxes
+  ...taxes,
+  ...taxZones
 ];

@@ -4,7 +4,7 @@ import Select from 'react-select';
 
 import common from 'components/common';
 import RatesPerZone from './RatesPerZone';
-import CancelModal from './CancelModal';
+import { CancelModal } from '../components';
 
 const { FlexBox, Button, InputRow } = common;
 const { Label, NormalInput } = InputRow;
@@ -45,6 +45,16 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
             />
           </InputRow>
 
+          <InputRow className='mt-2 mb-0 flex-box v-center'>
+            <Label>Zone defines by:</Label>
+            <Select
+              onChange={({ value }) => onChange({ target: { value, name: 'zoneDefinition' } })}
+              value={defaultZoneDefinitionOption}
+              className='expandable-form-select'
+              options={zoneDefinitionOptions}
+            />
+          </InputRow>
+
           <InputRow className='my-2 flex-box v-center'>
             <Label>Tax applies to:</Label>
             <Select
@@ -53,16 +63,6 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
               className='expandable-form-select'
               value={defaultAppliesOption}
               options={appliesOptions}
-            />
-          </InputRow>
-
-          <InputRow className='mt-2 mb-0 flex-box v-center'>
-            <Label>Zone defines by:</Label>
-            <Select
-              onChange={({ value }) => onChange({ target: { value, name: 'zoneDefinition' } })}
-              value={defaultZoneDefinitionOption}
-              className='expandable-form-select'
-              options={zoneDefinitionOptions}
             />
           </InputRow>
         </FlexBox>

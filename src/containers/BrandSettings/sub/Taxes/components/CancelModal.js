@@ -5,7 +5,7 @@ import common from 'components/common';
 
 const { FlexBox, Title, Button, HeadLine } = common;
 
-const DeleteModal = ({ isVisible, onClose, onSave, onCancelEdits, saveLoading }) =>
+const CancelModal = ({ isVisible, onClose, onSave, onCancelEdits, saveLoading }) =>
   (
     <Modal onClose={onClose} isVisible={isVisible}>
       <FlexBox column>
@@ -23,4 +23,4 @@ const DeleteModal = ({ isVisible, onClose, onSave, onCancelEdits, saveLoading })
   );
 
 
-export default DeleteModal;
+export default CancelModal;

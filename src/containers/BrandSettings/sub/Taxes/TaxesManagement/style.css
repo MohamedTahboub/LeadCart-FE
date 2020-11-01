@@ -44,7 +44,7 @@
 }
 
 /* ================== Expandable Style ================== */
-.expandable{
+.taxes-container .expandable{
   height: 0;
   overflow: hidden;
   transition: .4s height ease-in-out, .4s padding ease-in-out;
@@ -53,20 +53,20 @@
 
 
 
-.expandable.open{
+.taxes-container .expandable.open{
   height: 450px;
   border: 1px solid rgb(218, 217, 217);
   border-top: none;
 }
 
-.taxes-table-row.open{
+.taxes-container .taxes-table-row.open{
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 
-.expandable-form-select .css-1pahdxg-control,
-.expandable-form-select .css-yk16xz-control{
+.taxes-container .expandable-form-select .css-1pahdxg-control,
+.taxes-container .expandable-form-select .css-yk16xz-control{
   background:transparent;
   width: 402px;
   height: 32px;
@@ -79,15 +79,15 @@
   outline-color: lightgray;
 }
 
-.expandable-form-select .css-yk16xz-control .css-tlfecz-indicatorContainer{
+.taxes-container .expandable-form-select .css-yk16xz-control .css-tlfecz-indicatorContainer{
   padding: 0;
 }
 
-.expandable .toggle-bar:before{
+.taxes-container .expandable .toggle-bar:before{
   left: -45px
 }
 
-.expandable .toggle-bar:after{
+.taxes-container .expandable .toggle-bar:after{
   left: 42px
 }
 
