@@ -16,6 +16,11 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
   const countriesOptions = getCountriesOptions(countriesData);
   const defaultCountries = getCountriesOptions(countriesData.filter(({ code }) => countries.includes(code)));
 
+  const onSelectOption = (arrOfValues) => {
+    const newValues = arrOfValues ? arrOfValues : [];
+    onChange({ target: { value: newValues.map(({ value }) => value), name: 'countries' } });
+  };
+
 
   return (
     <FlexBox className={clx('expandable px-5 h-center', { open, 'py-3': open })} column spaceBetween>
@@ -35,10 +40,8 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
           isMulti
           className='expandable-form-select'
           options={countriesOptions}
-          defaultValue={defaultCountries}
-          onChange={(arrOfValues) => {
-            onChange({ target: { value: arrOfValues.map(({ value }) => value), name: 'countries' } });
-          }}
+          value={defaultCountries}
+          onChange={onSelectOption}
         />
       </InputRow>
 
