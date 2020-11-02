@@ -101,7 +101,7 @@ const WorkSpace = ({
   const onNodeConnectionCancel = (targetId, elementId) => {
     const updatedList = [...nodes].map((node) => {
       if (node.elementId === elementId)
-        node.relations = [...node.relations].filter(({ target = '' }) => target !== targetId);
+        return { ...node, relations: [...node.relations].filter(({ target = '' }) => target !== targetId) };
 
       return node;
     });
@@ -138,9 +138,9 @@ const WorkSpace = ({
           ) return node;
 
 
-          node.relations.push(relation);
+          return { ...node, relations: [...node.relations, relation] };
         } else {
-          node.relations = [relation];
+          return { ...node, relations: [relation] };
         }
       }
       return node;

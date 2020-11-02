@@ -53,3 +53,11 @@
 .zoom-effect:hover{
     transform: scale(1.5);
 } */
+
+
+.unsaved-changes{
+    border-color: #27ae60 !important;
+    color: #27ae60 !important;
+    box-shadow: 2px 2px 4px #c2c2c2 !important;
+    transform: scale(1.05);
+}
