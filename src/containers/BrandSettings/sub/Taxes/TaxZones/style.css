@@ -44,21 +44,21 @@
 }
 
 
-
 /* ================== Expandable Style ================== */
 .tax-zones-container .expandable{
   height: 0;
   overflow: hidden;
   transition: .4s height ease-in-out, .4s padding ease-in-out;
   transform: translateY(-15px);
+  position: relative;
 }
 
 
-
 .tax-zones-container .expandable.open{
-  height: 250px;
+  height: 800px;
   border: 1px solid rgb(218, 217, 217);
   border-top: none;
+  overflow: auto;
 }
 
 .tax-zones-container .taxes-table-row.open{
@@ -91,3 +91,54 @@
 .tax-zones-container .expandable .toggle-bar:after{
   left: 42px
 }
+
+.expandable-buttons {
+  border-top: 1px solid #ccc; 
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+}
+
+
+/* ================== Select Boxes Style ================== */
+.displayed-zone-options,
+.available-zone-options{
+  height: 250px;
+  overflow: auto;
+  border:1px solid #ccc;  
+}
+
+.zone-option-item{
+  border:1px solid #eee;  
+  transition:padding .3s ease-in-out, background .3s ease-in-out, color .3s ease-in-out;
+}
+
+.zone-option-item:hover{
+  background: rgb(117, 173, 238);
+  color:white;
+  padding-right: 20px !important;
+  position: relative;
+}
+
+.zone-option-item:hover::after{
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  font-size: 10px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  color:white;
+  transition: opacity .4s ease-in-out;
+}
+
+.displayed-zone-options .zone-option-item:hover::after{
+  content: "\f00d";
+}
+
+.available-zone-options .zone-option-item:hover::after{
+  content: "\f067";
+}
+
+

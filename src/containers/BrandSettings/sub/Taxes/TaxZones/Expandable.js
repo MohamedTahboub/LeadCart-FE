@@ -1,26 +1,17 @@
 import React from 'react';
 import clx from 'classnames';
-import Select from 'react-select';
 
 import common from 'components/common';
 import { CancelModal } from '../components';
 import countriesData from 'data/taxes/countries';
+import SelectBoxes from './SelectBoxes';
+
 
 const { FlexBox, Button, InputRow } = common;
 const { Label, NormalInput } = InputRow;
 
 const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits }) => {
-  const { name, countries = [] } = fields;
-
-  const getCountriesOptions = (countries) => countries.map(({ name: label, code: value }) => ({ label, value }));
-  const countriesOptions = getCountriesOptions(countriesData);
-  const defaultCountries = getCountriesOptions(countriesData.filter(({ code }) => countries.includes(code)));
-
-  const onSelectOption = (arrOfValues) => {
-    const newValues = arrOfValues ? arrOfValues : [];
-    onChange({ target: { value: newValues.map(({ value }) => value), name: 'countries' } });
-  };
-
+  const { name } = fields;
 
   return (
     <FlexBox className={clx('expandable px-5 h-center', { open, 'py-3': open })} column spaceBetween>
@@ -34,21 +25,24 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         />
       </InputRow>
 
-      <InputRow>
-        <Label>Countries: </Label>
-        <Select
-          isMulti
-          className='expandable-form-select'
-          options={countriesOptions}
-          value={defaultCountries}
-          onChange={onSelectOption}
-        />
-      </InputRow>
+      <SelectBoxes
+        onChange={onChange}
+        fields={fields}
+        data={countriesData}
+        className='mt-4'
+      />
 
+      <SelectBoxes
+        onChange={onChange}
+        fields={fields}
+        data={countriesData}
+        className='mt-4'
+        type='states'
+      />
 
-      <FlexBox className='mt-5' spaceBetween>
+      <FlexBox className='expandable-buttons px-5 py-2' spaceBetween>
         <Button
-          className='px-5 py-2 mr-3 light-btn'
+          className='px-5 py-1 mr-3 light-btn'
           onClick={onConfirmCancelEdits}
           disabled={saveLoading}
         >
@@ -56,7 +50,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         </Button>
 
         <Button
-          className='px-5 py-2 primary-color'
+          className='px-5 py-1 primary-color'
           onClick={onSave}
           disabled={saveLoading}
           onprogress={saveLoading}
