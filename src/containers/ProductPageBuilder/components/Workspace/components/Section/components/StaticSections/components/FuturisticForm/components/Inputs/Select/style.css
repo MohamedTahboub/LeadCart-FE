@@ -5,3 +5,6 @@
 .select-field-container + .select-field-container{
     margin-left: 15px;
 }
+.select-field-container .select-input-field{
+    min-height: 38px;
+}

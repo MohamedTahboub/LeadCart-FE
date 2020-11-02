@@ -17,6 +17,7 @@ const Select = ({
   value,
   disabled,
   options,
+  style,
   ...props
 }) => {
 
@@ -33,6 +34,7 @@ const Select = ({
         value={value}
         disabled={disabled}
         options={options}
+        style={style}
       />
     </FlexBox>
   );

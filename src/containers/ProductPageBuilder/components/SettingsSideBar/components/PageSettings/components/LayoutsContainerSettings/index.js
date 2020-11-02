@@ -22,6 +22,12 @@ const {
   Toggle
 } = InputRow;
 
+const defaultPadding = {
+  top: 20,
+  right: 20,
+  bottom: 20,
+  left: 20
+};
 const LayoutsContainerSettings = ({
   pageStyles,
   onChange
@@ -137,7 +143,7 @@ const LayoutsContainerSettings = ({
             Border Radius:
           </Label>
           <SelectOption
-            value={pageStyles.productPage?.borderRadius}
+            value={pageStyles.productPage?.borderRadius || 16}
             name='pageStyles.productPage.borderRadius'
             onChange={onChange}
             options={[
@@ -151,7 +157,13 @@ const LayoutsContainerSettings = ({
               { label: '7 px', value: '7' },
               { label: '8 px', value: '8' },
               { label: '9 px', value: '9' },
-              { label: '10 px', value: '10' }
+              { label: '10 px', value: '10' },
+              { label: '11 px', value: '11' },
+              { label: '12 px', value: '12' },
+              { label: '13 px', value: '13' },
+              { label: '14 px', value: '14' },
+              { label: '15 px', value: '15' },
+              { label: '16 px', value: '16' }
             ]}
           />
         </InputRow>
@@ -197,40 +209,40 @@ const LayoutsContainerSettings = ({
         </Collapse>
         <Collapse defaultOpen={openCollapse === 'Padding'} title='Padding' toggle={setOpenCollapse}>
 
-          <span>Padding Top {`(${productPage.paddingTop || 0}px)`}</span>
+          <span>Padding Top {`(${productPage.paddingTop || defaultPadding.top}px)`}</span>
           <Slider
             max={200}
             min={0}
             defaultValue={5}
             onChange={(paddingTop) => onSliderChange(paddingTop, 'productPage.paddingTop')}
-            value={productPage.paddingTop || 0}
+            value={productPage.paddingTop || defaultPadding.top}
           />
 
-          <span>Padding Right {`(${productPage.paddingRight || 0}px)`}</span>
+          <span>Padding Right {`(${productPage.paddingRight || defaultPadding.right}px)`}</span>
           <Slider
             max={200}
             min={0}
             defaultValue={5}
             onChange={(paddingRight) => onSliderChange(paddingRight, 'productPage.paddingRight')}
-            value={productPage.paddingRight || 0}
+            value={productPage.paddingRight || defaultPadding.right}
           />
 
-          <span>Padding Bottom {`(${productPage.paddingBottom || 0}px)`}</span>
+          <span>Padding Bottom {`(${productPage.paddingBottom || defaultPadding.bottom}px)`}</span>
           <Slider
             max={200}
             min={0}
             defaultValue={5}
             onChange={(paddingBottom) => onSliderChange(paddingBottom, 'productPage.paddingBottom')}
-            value={productPage.paddingBottom || 0}
+            value={productPage.paddingBottom || defaultPadding.bottom}
           />
 
-          <span>Padding Left {`(${productPage.paddingLeft || 0}px)`}</span>
+          <span>Padding Left {`(${productPage.paddingLeft || defaultPadding.left}px)`}</span>
           <Slider
             max={200}
             min={0}
             defaultAddImageValue={5}
             onChange={(paddingLeft) => onSliderChange(paddingLeft, 'productPage.paddingLeft')}
-            value={productPage.paddingLeft || 0}
+            value={productPage.paddingLeft || defaultPadding.left}
           />
         </Collapse>
       </SettingBox>
