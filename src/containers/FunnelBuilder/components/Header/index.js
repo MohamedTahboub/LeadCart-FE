@@ -3,6 +3,8 @@ import common from 'components/common';
 
 import { FunnelHeader } from './components';
 
+import './style.css';
+
 const { FlexBox } = common;
 
 const Header = (props) => (
