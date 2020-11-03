@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import common from 'components/common';
 import './style.css';
-import { Inputs, PaymentGatewayImage, Title } from './components';
+import { CustomOrderSummary, Inputs, PaymentGatewaysOptions, Title } from './components';
 import clx from 'classnames';
 import { MdLock } from 'react-icons/md';
 import { useContext } from '../../../../../../../../actions';
+// import { PricingOptions } from '..';
 
 
 const { FlexBox, Tabs, Tab } = common;
@@ -34,17 +35,19 @@ const FlatForm = ({ language, section }) => {
       funnel: { paymentMethods = ['COD'], type } = {},
       product: {
         name,
-        category: productCategory = 'checkout',
         price = {},
-        payment,
-        addOns = {},
-        pageStyles = {},
+        payment = {},
+        category: productCategory = 'checkout',
+        // price = {},
+        // payment,
+        // addOns = {},
+        // pageStyles = {},
         custom: {
-          orderButtonText = 'Complete Order',
-          declineButtonText = 'No Thanks',
-          shippingDetails: shippingDetailsEnabled,
-          couponSection,
-          orderSummary
+          shippingDetails: shippingDetailsEnabled
+          // orderButtonText = 'Complete Order',
+          // declineButtonText = 'No Thanks',
+          // couponSection,
+          // orderSummary
         } = {}
       } = {}
     },
@@ -64,10 +67,10 @@ const FlatForm = ({ language, section }) => {
     shippingDetails: shippingDetailsTitle = 'Shipping Details',
     streetAddress: streetAddressLabel,
     streetAddress2: streetAddress2Label = 'Second Address',
-    city: cityLabel,
-    state: stateLabel,
-    postal: postalLabel,
-    country: countryLabel,
+    // city: cityLabel,
+    // state: stateLabel,
+    // postal: postalLabel,
+    // country: countryLabel,
     paymentMethods: paymentMethodsTitle = 'Payment Method',
     creditCards: creditCardsTitle = 'Credit Cards',
     payPal: payPalTitle = 'PayPal',
@@ -79,18 +82,6 @@ const FlatForm = ({ language, section }) => {
     Paypal: payPalTitle,
     COD: cashOnDeliveryTitle
   };
-
-  const renderPaymentMethodsOptions = (paymentMethods.map((payment) => (
-    ({
-      label: (
-        <FlexBox flex spaceBetween>
-          <span>{paymentMethodsLabels[payment] || payment}</span>
-          <PaymentGatewayImage name={payment} />
-        </FlexBox>
-      ),
-      value: payment
-    })
-  )));
 
   const changeToTab = (tabName) => () => {
     setActiveTab(tabName);
@@ -190,19 +181,11 @@ const FlatForm = ({ language, section }) => {
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
             onClick={changeToTab('payment')}
           />
-          <span className='label-content primary-text item-clickable underlined-text without-hover'>Have a Coupon Code?</span>
         </FlexBox>
       </Tab>
 
       <Tab title='Payment' id='payment'>
-        <RadioGroup
-          className='payment-methods-radio-group my-4'
-          optionClassName='payment-method-radio-input'
-          value='Stripe'
-          options={renderPaymentMethodsOptions}
-          name='published'
-        />
-
+        <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='radio' />
         <FlexBox flex wrappable>
           <InputField
             flex
@@ -231,6 +214,19 @@ const FlatForm = ({ language, section }) => {
           <span >
             Your transaction is secured with SSL encryption
           </span>
+        </FlexBox>
+        <FlexBox flex flexEnd>
+          <span className='label-content primary-text item-clickable underlined-text without-hover'>
+            Have a Coupon Code?
+          </span>
+        </FlexBox>
+        <FlexBox flex>
+          <CustomOrderSummary
+            price={price}
+            productName={name}
+            payment={payment}
+            language={language}
+          />
         </FlexBox>
         <FlexBox column flex center='v-center'>
           <OrderButton
@@ -345,16 +341,10 @@ const FlatForm = ({ language, section }) => {
         </FlexBox>
       )}
 
-      <RadioGroup
-        className='payment-methods-radio-group my-4'
-        optionClassName='payment-method-radio-input'
-        value='Stripe'
-        options={renderPaymentMethodsOptions}
-        name='published'
-      />
-
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>
-      <FlexBox flex wrappable>
+      <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='cards' />
+
+      <FlexBox flex wrappable className='mt-3'>
         <InputField
           flex
           label='Card Number'
@@ -382,6 +372,14 @@ const FlatForm = ({ language, section }) => {
         <span >
           Your transaction is secured with SSL encryption
         </span>
+      </FlexBox>
+      <FlexBox flex>
+        <CustomOrderSummary
+          price={price}
+          productName={name}
+          payment={payment}
+          language={language}
+        />
       </FlexBox>
       <FlexBox column flex center='v-center'>
         <OrderButton

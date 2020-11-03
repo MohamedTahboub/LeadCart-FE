@@ -23,6 +23,7 @@ import {
   Header,
   NewPricingOptionModal,
   PageBackgroundModal,
+  PageSetupModal,
   ScreenBackgroundSetup,
   SettingSideBar,
   SideBar,
@@ -160,6 +161,7 @@ const ProductBuilder = ({
           currency={currency}
         />
         <PageBackgroundModal />
+        <PageSetupModal history={history} />
       </Page>
       <ReactToolTip delayShow={400} />
     </ProductContext.Provider>

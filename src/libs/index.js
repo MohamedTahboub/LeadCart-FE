@@ -32,6 +32,7 @@ export {
   getGavatarByEmail,
   tokenizedContent,
   formatPricingValue,
-  getCountryByCode
+  getCountryByCode,
+  nodeHasChildElement
 } from './specialFuncs';
 export { notification };
