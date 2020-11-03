@@ -14,7 +14,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
   const { name } = fields;
 
   return (
-    <FlexBox className={clx('expandable px-5 h-center', { open, 'py-3': open })} column spaceBetween>
+    <FlexBox className={clx('expandable px-5', { open, 'py-3': open })} column spaceBetween>
 
       <InputRow className='my-2 flex-box v-center'>
         <Label>Zone Name:</Label>
@@ -40,7 +40,7 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         type='states'
       />
 
-      <FlexBox className='expandable-buttons px-5 py-2' spaceBetween>
+      <FlexBox className='expandable-buttons py-2' spaceBetween>
         <Button
           className='px-5 py-1 mr-3 light-btn'
           onClick={onConfirmCancelEdits}

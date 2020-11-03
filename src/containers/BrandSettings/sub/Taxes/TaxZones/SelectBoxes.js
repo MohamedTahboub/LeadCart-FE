@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react';
 import common from 'components/common';
 import countriesData from 'data/taxes/countries';
 
-
 import './style.css';
 
-const { InputRow, FlexBox } = common;
+const { InputRow, FlexBox, Title } = common;
 const { Label, TextField } = InputRow;
 
 const OptionItem = ({ label, onToggle }) => (
@@ -22,74 +21,103 @@ const OptionItem = ({ label, onToggle }) => (
 const SelectBoxes = ({ onChange, fields, type = 'countries', className }) => {
   const { countries = [], states = [] } = fields;
   const isCountriesSelect = type === 'countries';
-  const currentData = isCountriesSelect ? countries : states;
-  const allData = isCountriesSelect ? countriesData : [];
+  const savedData = isCountriesSelect ? countries : states;
+  const allData = isCountriesSelect ? countriesData : states;
 
-  const [availableOptions, setAvailableOptions] = useState(allData);
+  const [allAvailableOptions, setAvailableOptions] = useState(allData);
   const [displayedOptions, setDisplayedOptions] = useState([]);
+  const [availableSearchedOptions, setAvailableSearchedOptions] = useState([]);
   const [filteringValue, setFilteringValue] = useState('');
 
+  const availableOptions = availableSearchedOptions ? availableSearchedOptions : allAvailableOptions;
+  const hasDisplayedOptions = Boolean(displayedOptions.length);
+  const hasAvailableOptions = Boolean(availableOptions.length);
+
   const getCodesData = (data) => data.map(({ code }) => code);
+  const getFoundsCodes = (arrOfOptions, arrOfCodes) => arrOfOptions.filter(({ code }) => arrOfCodes.includes(code)) || [];
+  const getNotFoundCodes = (arrOfOptions, arrOfCodes) => arrOfOptions.filter(({ code }) => !arrOfCodes.includes(code)) || [];
+
 
   const onToggleOption = (value) => () => {
     const isDisplayed = Boolean(displayedOptions.find(({ code }) => code === value));
     const newDisplayedValues = isDisplayed ? getCodesData(displayedOptions.filter(({ code }) => code !== value)) : [...getCodesData(displayedOptions), value];
-    const newDisplayedOptionsValues = allData.filter(({ code }) => newDisplayedValues.includes(code));
-    const newAvailableOptionsValues = allData.filter(({ code }) => !newDisplayedValues.includes(code));
+    const newDisplayedOptionsValues = getFoundsCodes(allData, newDisplayedValues);
+    const newAvailableOptionsValues = getNotFoundCodes(allData, newDisplayedValues);
 
     onChange({ target: { value: newDisplayedValues, name: type } });
     setDisplayedOptions(newDisplayedOptionsValues);
     setAvailableOptions(newAvailableOptionsValues);
+
+    if (availableSearchedOptions)
+      setAvailableSearchedOptions(getFoundsCodes(newAvailableOptionsValues, getCodesData(availableSearchedOptions)));
   };
 
+  const onSearch = ({ target: { value } }) => setFilteringValue(value);
 
-  const onSearch = ({ target: { value } }) => {
-    setFilteringValue(value);
-    const filteredData = getCodesData(allData.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase())));
-
-    const displayedOptionsValues = allData.filter(({ code }) => currentData.includes(code)).filter(({ code }) => filteredData.includes(code));
-    const availableOptionsValues = allData.filter(({ code }) => !currentData.includes(code)).filter(({ code }) => filteredData.includes(code));
-
-    displayedOptionsValues && setDisplayedOptions(displayedOptionsValues);
-    availableOptionsValues && setAvailableOptions(availableOptionsValues);
-  };
+  useEffect(() => {
+    const filteredData = getCodesData(allData.filter(({ name }) => name.toLowerCase().includes(filteringValue.toLowerCase())));
+    const availableOptionsValues = getFoundsCodes(getNotFoundCodes(allData, savedData), filteredData);
+    setAvailableSearchedOptions(availableOptionsValues);
+  }, [filteringValue]);
 
 
   useEffect(() => {
-    const displayedOptionsValues = allData.filter(({ code }) => currentData.includes(code));
-    const availableOptionsValues = allData.filter(({ code }) => !currentData.includes(code));
+    const displayedOptionsValues = allData.filter(({ code }) => savedData.includes(code));
+    const availableOptionsValues = allData.filter(({ code }) => !savedData.includes(code));
 
     displayedOptionsValues && setDisplayedOptions(displayedOptionsValues);
     availableOptionsValues && setAvailableOptions(availableOptionsValues);
-  }, [currentData]);
+  }, [savedData]);
 
 
   return (
     <FlexBox className={className} column>
-      <FlexBox className='mb-3 v-center' spaceBetween>
-        <Label className='uppercase-text' >{type}: </Label>
-        <TextField value={filteringValue} onChange={onSearch} placeholder={`Search for ${type}`} />
-      </FlexBox>
+      <Label className='uppercase-text' >Zone {type}: </Label>
 
       <FlexBox>
-        <FlexBox className='displayed-zone-options min-width-250 mr-5 p-2 soft-edges' flex wrappable flexStart >
-          {displayedOptions.map(({ code, name }, index) => (
-            <OptionItem
-              key={`${code}_${index}`}
-              onToggle={onToggleOption(code)}
-              label={name}
-            />
-          ))}
+        <FlexBox className='height-220 mr-5 min-width-250' column flex>
+          <FlexBox className='min-height-35 mb-2 v-center'>
+            <Title>Selected {type}</Title>
+          </FlexBox>
+
+          <FlexBox className='displayed-zone-options min-width-250 p-2 soft-edges' wrappable flexStart >
+            {displayedOptions.map(({ code, name }, index) => (
+              <OptionItem
+                key={`${code}_${index}`}
+                onToggle={onToggleOption(code)}
+                label={name}
+              />
+            ))}
+
+            {!hasDisplayedOptions &&
+              <FlexBox className='h-center' flex>
+                <Title>No {type} Selected</Title>
+              </FlexBox>
+            }
+          </FlexBox>
         </FlexBox>
 
-        <FlexBox className='available-zone-options min-width-250 p-2 soft-edges' flex wrappable flexStart >
-          {availableOptions.map(({ code, name }, index) => (
-            <OptionItem
-              key={`${code}_${index}`}
-              onToggle={onToggleOption(code)}
-              label={name}
-            />
-          ))}
+        <FlexBox className='height-220 min-width-250' column flex>
+          <FlexBox className='min-height-35 mb-2 v-center' spaceBetween>
+            <Title>Available {type}</Title>
+            <TextField value={filteringValue} onChange={onSearch} placeholder={`${type} Search`} />
+          </FlexBox>
+
+          <FlexBox className='available-zone-options min-width-250 p-2 soft-edges' wrappable flexStart >
+            {availableOptions.map(({ code, name }, index) => (
+              <OptionItem
+                key={`${code}_${index}`}
+                onToggle={onToggleOption(code)}
+                label={name}
+              />
+            ))}
+
+            {!hasAvailableOptions &&
+              <FlexBox className='h-center' flex>
+                <Title>No {type} Available</Title>
+              </FlexBox>
+            }
+          </FlexBox>
         </FlexBox>
       </FlexBox>
     </FlexBox>

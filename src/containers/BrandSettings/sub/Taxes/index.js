@@ -8,12 +8,12 @@ const { Tabs, Tab } = common;
 
 const Taxes = ({ history }) => {
   return (
-    <Tabs active='taxesZones' >
+    <Tabs active='taxZones' >
       <Tab id='taxesManagement' title='Taxes Management'>
         <TaxesManagement history={history} />
       </Tab>
 
-      <Tab id='taxesZones' title='Taxes Zones'>
+      <Tab id='taxZones' title='Tax Zones'>
         <TaxZones />
       </Tab>
     </Tabs>

@@ -16,7 +16,7 @@ import './style.css';
 const { Table, FlexBox, Button } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
-const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone, history }) => {
+const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
   const [savedZoneData, setSavedZoneData] = useState({});
   const [fields, setFields] = useState({});
   const [editableZoneId, setEditableZoneId] = useState('');
@@ -50,6 +50,7 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone, history }) => {
         'PS'
       ]
     };
+
 
     setLoading(true);
     addNewTaxZone(

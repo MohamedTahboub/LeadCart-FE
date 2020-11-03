@@ -1,6 +1,5 @@
 .tax-zones-table-row{
   border: 1px solid rgb(218, 217, 217);
-  transition: .4s background ease-in-out, .4s opacity ease-in-out;
 }
 
 
@@ -55,13 +54,13 @@
 
 
 .tax-zones-container .expandable.open{
-  height: 800px;
+  height: 350px;
   border: 1px solid rgb(218, 217, 217);
   border-top: none;
   overflow: auto;
 }
 
-.tax-zones-container .taxes-table-row.open{
+.tax-zones-container .tax-zones-table-row.open{
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -92,20 +91,12 @@
   left: 42px
 }
 
-.expandable-buttons {
-  border-top: 1px solid #ccc; 
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background-color: #fff;
-}
 
 
 /* ================== Select Boxes Style ================== */
 .displayed-zone-options,
 .available-zone-options{
-  height: 250px;
+  height: 170px;
   overflow: auto;
   border:1px solid #ccc;  
 }
