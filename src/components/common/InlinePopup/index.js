@@ -3,10 +3,21 @@ import clx from 'classnames';
 import useEventListener from '@use-it/event-listener';
 import { nodeHasChildElement } from 'libs';
 import ids from 'shortid';
+import { GoSettings } from 'react-icons/go';
+import { BiHide } from 'react-icons/bi';
 
 import './style.css';
 
-export default ({ title, button, popUpContent, className, ...props }) => {
+const SettingToggleIcons = ({ show }) => {
+  return !show ? (
+    <GoSettings color='#25345d' />
+  ) : (
+    <BiHide color='#25345d' />
+  );
+};
+
+
+export default ({ title, button, popUpContent, defaultCloseBtn = true, className, ...props }) => {
   const [show, setShow] = useState(false);
   const [currentId, setCurrentId] = useState('id!');
 
@@ -20,13 +31,14 @@ export default ({ title, button, popUpContent, className, ...props }) => {
 
   }, []);
 
-  const buttonContent = typeof button === 'function' ? button({ show }) : button;
+  // let buttonContent = typeof button === 'function' ? button({  }) : button;
+
 
   return (
     <div className={clx('inline-popup-container', className)}>
       <span className='title'>{title}</span>
       <span onClick={onToggleShow} className='inline-popup-toggle-btn'>
-        {buttonContent}
+        {SettingToggleIcons({ show })}
       </span>
       {show && <Popup id={currentId} onClose={onToggleShow}>{popUpContent}</Popup>}
     </div>

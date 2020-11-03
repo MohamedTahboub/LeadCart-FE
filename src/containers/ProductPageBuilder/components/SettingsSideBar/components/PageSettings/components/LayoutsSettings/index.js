@@ -5,8 +5,6 @@ import { SettingBox } from '../../../common';
 import Slider from 'rc-slider';
 import * as immutable from 'object-path-immutable';
 import InlinePopup from 'components/common/InlinePopup';
-import { GoSettings } from 'react-icons/go';
-import { BiHide } from 'react-icons/bi';
 
 const {
   MiniColorPicker,
@@ -21,14 +19,6 @@ const {
   AddImage
 } = InputRow;
 
-const SettingToggleIcons = ({ show }) => {
-
-  return !show ? (
-    <GoSettings color='#25345d' />
-  ) : (
-    <BiHide color='#25345d'/>
-  );
-};
 const LayoutsSettings = ({
   pageStyles = {},
   onChange
@@ -91,7 +81,6 @@ const LayoutsSettings = ({
 
         <InlinePopup
           title={`Column Width ${productPage[activeColumn]?.width || defaultWidth}`}
-          button={SettingToggleIcons}
           popUpContent={(
             <Slider
               max={1200}
@@ -105,7 +94,6 @@ const LayoutsSettings = ({
 
         <InlinePopup
           title='Column Background'
-          button={SettingToggleIcons}
           popUpContent={(
             <FlexBox column>
               <InputRow className='sidebar-row'>
@@ -150,7 +138,6 @@ const LayoutsSettings = ({
         />
         <InlinePopup
           title='Column Border Radius'
-          button={SettingToggleIcons}
           popUpContent={(
             <FlexBox column>
               <span>Top Left Border {`${productPage[activeColumn]?.borderTopLeftRadius || 0}px`}</span>
@@ -196,7 +183,6 @@ const LayoutsSettings = ({
         />
         <InlinePopup
           title='Column Margin'
-          button={SettingToggleIcons}
           popUpContent={(
             <FlexBox column>
               <span>Margin Top {`${productPage[activeColumn]?.marginTop || 0}px`}</span>
@@ -239,7 +225,6 @@ const LayoutsSettings = ({
         />
         <InlinePopup
           title='Column Padding'
-          button={SettingToggleIcons}
           popUpContent={(
             <FlexBox column>
               <span>Padding Top {`${productPage[activeColumn]?.paddingTop || 0}px`}</span>

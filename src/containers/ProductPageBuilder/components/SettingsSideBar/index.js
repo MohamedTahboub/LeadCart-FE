@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import common from 'components/common';
 import { IoIosClose } from 'react-icons/io';
 import clx from 'classnames';
 import { useContext } from '../../actions';
 import SubSettings from './components';
 import { RiListSettingsLine } from 'react-icons/ri';
+
+const updateIntercomVisibilityWidget = (show) => {
+  const Intercom = window.Intercom;
+  if (typeof Intercom !== 'function') return;
+
+  Intercom('update', { hide_default_launcher: !show });
+};
 
 const {
   SideMenu,
@@ -46,6 +53,14 @@ const SettingSideBar = () => {
     };
     actions.toggleSectionSettingModal(meta);
   };
+
+  useEffect(() => {
+    updateIntercomVisibilityWidget(false);
+    return () => {
+      updateIntercomVisibilityWidget(true);
+    };
+  }, []);
+
   return (
     <SideMenu
       open={sectionSetting && sectionSetting.type}
