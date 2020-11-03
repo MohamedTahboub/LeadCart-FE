@@ -7,6 +7,19 @@ import { FiColumns } from 'react-icons/fi';
 import { VscBrowser } from 'react-icons/vsc';
 import FlatRadio from 'components/FlatRadio';
 import * as immutable from 'object-path-immutable';
+import InlinePopup from 'components/common/InlinePopup';
+import { GoSettings } from 'react-icons/go';
+import { BiHide } from 'react-icons/bi';
+
+
+const SettingToggleIcons = ({ show }) => {
+
+  return !show ? (
+    <GoSettings color='#25345d' />
+  ) : (
+    <BiHide color='#25345d' />
+  );
+};
 
 const {
   MiniColorPicker,
@@ -124,129 +137,122 @@ const LayoutsContainerSettings = ({
           />
         </FlexBox>
       </SettingBox>
-      <SettingBox title='Background' >
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Background Color:
-          </Label>
-          <MiniColorPicker
-            name='pageStyles.productPage.backgroundColor'
-            value={pageStyles.productPage?.backgroundColor}
-            onChange={onChange}
-          />
-        </InputRow>
-      </SettingBox>
-
-      <SettingBox title='Border Style'>
-        <InputRow className='sidebar-row'>
-          <Label className='sidebar-input-label'>
-            Border Radius:
-          </Label>
-          <SelectOption
-            value={pageStyles.productPage?.borderRadius || 16}
-            name='pageStyles.productPage.borderRadius'
-            onChange={onChange}
-            options={[
-              { label: '0 px', value: '0' },
-              { label: '1 px', value: '1' },
-              { label: '2 px', value: '2' },
-              { label: '3 px', value: '3' },
-              { label: '4 px', value: '4' },
-              { label: '5 px', value: '5' },
-              { label: '6 px', value: '6' },
-              { label: '7 px', value: '7' },
-              { label: '8 px', value: '8' },
-              { label: '9 px', value: '9' },
-              { label: '10 px', value: '10' },
-              { label: '11 px', value: '11' },
-              { label: '12 px', value: '12' },
-              { label: '13 px', value: '13' },
-              { label: '14 px', value: '14' },
-              { label: '15 px', value: '15' },
-              { label: '16 px', value: '16' }
-            ]}
-          />
-        </InputRow>
-      </SettingBox>
-      <SettingBox title='Spacing'>
-        <Collapse defaultOpen={openCollapse === 'Margin'} title='Margin' toggle={setOpenCollapse}>
-          <span>Margin Top {`(${productPage.marginTop || 0}px)`}</span>
+      <InlinePopup
+        title={'Background'}
+        button={SettingToggleIcons}
+        popUpContent={(
+          <InputRow className='sidebar-row'>
+            <Label className='sidebar-input-label'>
+              Background Color:
+            </Label>
+            <MiniColorPicker
+              name='pageStyles.productPage.backgroundColor'
+              value={pageStyles.productPage?.backgroundColor}
+              onChange={onChange}
+            />
+          </InputRow>
+        )}
+      />
+      <InlinePopup
+        title={`Container Border Radius ${productPage.borderRadius || 16}px`}
+        button={SettingToggleIcons}
+        popUpContent={(
           <Slider
-            max={200}
+            max={100}
             min={0}
-            defaultValue={5}
-            onChange={(marginTop) => onSliderChange(marginTop, 'productPage.marginTop')}
-            value={productPage.marginTop || 0}
+            defaultValue={16}
+            onChange={(radius) => onSliderChange(radius, 'productPage.borderRadius')}
+            value={productPage.borderRadius || 16}
           />
+        )}
+      />
+      <InlinePopup
+        title={'Margin'}
+        button={SettingToggleIcons}
+        popUpContent={(
+          <FlexBox column>
+            <span>Margin Top {`(${productPage.marginTop || 0}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultValue={5}
+              onChange={(marginTop) => onSliderChange(marginTop, 'productPage.marginTop')}
+              value={productPage.marginTop || 0}
+            />
 
-          <span>Margin Right {`(${productPage.marginRight || 0}px)`}</span>
-          <Slider
-            max={200}
-            min={0}
-            defaultValue={5}
-            onChange={(marginRight) => onSliderChange(marginRight, 'productPage.marginRight')}
-            value={productPage.marginRight || 0}
-          />
+            <span>Margin Right {`(${productPage.marginRight || 0}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultValue={5}
+              onChange={(marginRight) => onSliderChange(marginRight, 'productPage.marginRight')}
+              value={productPage.marginRight || 0}
+            />
 
-          <span>Margin Bottom {`(${productPage.marginBottom || 0}px)`}</span>
-          <Slider
-            max={200}
-            min={0}
-            defaultValue={5}
-            onChange={(marginBottom) => onSliderChange(marginBottom, 'productPage.marginBottom')}
-            value={productPage.marginBottom || 0}
-          />
+            <span>Margin Bottom {`(${productPage.marginBottom || 0}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultValue={5}
+              onChange={(marginBottom) => onSliderChange(marginBottom, 'productPage.marginBottom')}
+              value={productPage.marginBottom || 0}
+            />
 
-          <span>Margin Left {`(${productPage.marginLeft || 0}px)`}</span>
-          <Slider
-            max={200}
-            min={0}
-            defaultValue={5}
-            onChange={(marginLeft) => onSliderChange(marginLeft, 'productPage.marginLeft')}
-            value={productPage.marginLeft || 0}
-          />
+            <span>Margin Left {`(${productPage.marginLeft || 0}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultValue={5}
+              onChange={(marginLeft) => onSliderChange(marginLeft, 'productPage.marginLeft')}
+              value={productPage.marginLeft || 0}
+            />
+          </FlexBox>
+        )}
+      />
+      <InlinePopup
+        title={'Padding'}
+        button={SettingToggleIcons}
+        popUpContent={(
+          <FlexBox column>
+            <span>Padding Top {`(${productPage.paddingTop || defaultPadding.top}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultValue={5}
+              onChange={(paddingTop) => onSliderChange(paddingTop, 'productPage.paddingTop')}
+              value={productPage.paddingTop || defaultPadding.top}
+            />
 
-        </Collapse>
-        <Collapse defaultOpen={openCollapse === 'Padding'} title='Padding' toggle={setOpenCollapse}>
+            <span>Padding Right {`(${productPage.paddingRight || defaultPadding.right}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultValue={5}
+              onChange={(paddingRight) => onSliderChange(paddingRight, 'productPage.paddingRight')}
+              value={productPage.paddingRight || defaultPadding.right}
+            />
 
-          <span>Padding Top {`(${productPage.paddingTop || defaultPadding.top}px)`}</span>
-          <Slider
-            max={200}
-            min={0}
-            defaultValue={5}
-            onChange={(paddingTop) => onSliderChange(paddingTop, 'productPage.paddingTop')}
-            value={productPage.paddingTop || defaultPadding.top}
-          />
+            <span>Padding Bottom {`(${productPage.paddingBottom || defaultPadding.bottom}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultValue={5}
+              onChange={(paddingBottom) => onSliderChange(paddingBottom, 'productPage.paddingBottom')}
+              value={productPage.paddingBottom || defaultPadding.bottom}
+            />
 
-          <span>Padding Right {`(${productPage.paddingRight || defaultPadding.right}px)`}</span>
-          <Slider
-            max={200}
-            min={0}
-            defaultValue={5}
-            onChange={(paddingRight) => onSliderChange(paddingRight, 'productPage.paddingRight')}
-            value={productPage.paddingRight || defaultPadding.right}
-          />
-
-          <span>Padding Bottom {`(${productPage.paddingBottom || defaultPadding.bottom}px)`}</span>
-          <Slider
-            max={200}
-            min={0}
-            defaultValue={5}
-            onChange={(paddingBottom) => onSliderChange(paddingBottom, 'productPage.paddingBottom')}
-            value={productPage.paddingBottom || defaultPadding.bottom}
-          />
-
-          <span>Padding Left {`(${productPage.paddingLeft || defaultPadding.left}px)`}</span>
-          <Slider
-            max={200}
-            min={0}
-            defaultAddImageValue={5}
-            onChange={(paddingLeft) => onSliderChange(paddingLeft, 'productPage.paddingLeft')}
-            value={productPage.paddingLeft || defaultPadding.left}
-          />
-        </Collapse>
-      </SettingBox>
-    </FlexBox>
+            <span>Padding Left {`(${productPage.paddingLeft || defaultPadding.left}px)`}</span>
+            <Slider
+              max={200}
+              min={0}
+              defaultAddImageValue={5}
+              onChange={(paddingLeft) => onSliderChange(paddingLeft, 'productPage.paddingLeft')}
+              value={productPage.paddingLeft || defaultPadding.left}
+            />
+          </FlexBox>
+        )}
+      />
+    </FlexBox >
   );
 };
 LayoutsContainerSettings.propTypes = {};

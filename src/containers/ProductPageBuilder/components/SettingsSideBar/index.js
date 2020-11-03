@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import common from 'components/common';
 import { IoIosClose } from 'react-icons/io';
 import clx from 'classnames';
 import { useContext } from '../../actions';
 import SubSettings from './components';
 import { RiListSettingsLine } from 'react-icons/ri';
+import { updateIntercomVisibilityWidget } from 'libs/intercom';
+
 
 const {
   SideMenu,
@@ -16,7 +18,6 @@ const defaultTitle = 'Section Properties';
 
 const PageSettingToggleButton = ({ onToggle }) => {
 
-
   return (
     <FlexBox onClick={onToggle} center='v-center h-center' className='page-settings-modal-close-btn'>
       <Tooltip mouseEnterDelay={1} text='Page Layout Settings'>
@@ -25,6 +26,7 @@ const PageSettingToggleButton = ({ onToggle }) => {
     </FlexBox>
   );
 };
+
 const SettingSideBar = () => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
 
@@ -46,9 +48,16 @@ const SettingSideBar = () => {
     };
     actions.toggleSectionSettingModal(meta);
   };
+
+  const isOpen = sectionSetting && sectionSetting.type;
+
+  useEffect(() => {
+    updateIntercomVisibilityWidget(!isOpen);
+  }, [isOpen]);
+
   return (
     <SideMenu
-      open={sectionSetting && sectionSetting.type}
+      open={isOpen}
       position='right'
       withCloseBtn={false}
       className={classNames}
