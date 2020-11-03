@@ -54,16 +54,15 @@ const SettingSideBar = () => {
     actions.toggleSectionSettingModal(meta);
   };
 
+  const isOpen = sectionSetting && sectionSetting.type;
+
   useEffect(() => {
-    updateIntercomVisibilityWidget(false);
-    return () => {
-      updateIntercomVisibilityWidget(true);
-    };
-  }, []);
+    updateIntercomVisibilityWidget(!isOpen);
+  }, [isOpen]);
 
   return (
     <SideMenu
-      open={sectionSetting && sectionSetting.type}
+      open={isOpen}
       position='right'
       withCloseBtn={false}
       className={classNames}
