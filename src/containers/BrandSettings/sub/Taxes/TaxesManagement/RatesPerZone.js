@@ -3,22 +3,24 @@ import { MdDelete } from 'react-icons/md';
 import { RiAddCircleFill } from 'react-icons/ri';
 import Select from 'react-select';
 import ToolTip from 'react-tooltip';
+import { connect } from 'react-redux';
 
 import common from 'components/common';
-import { zones } from 'data/taxes';
+import { zones as defaultZones } from 'data/taxes';
 
 const { FlexBox, Title, InputRow, SmallButton } = common;
 const { SmallInput, Label, Toggle } = InputRow;
 
 
-const RatesPerZone = ({ ratesPerZone = [], onChange, enabled }) => {
+const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, enabled }) => {
   const selectedZones = ratesPerZone.map(({ zone }) => zone);
-  const zonesOptions = zones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
+  const allZones = defaultZones.concat(taxZones);
+  const zonesOptions = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
   const hasDefaultZone = ratesPerZone.find(({ zone }) => zone === '5f9832cf9b9fd77d030af88c');
 
 
   const getZoneOption = (zoneId) => {
-    const currentZone = zones.find(({ _id }) => _id === zoneId) || {};
+    const currentZone = allZones.find(({ _id }) => _id === zoneId) || {};
     return { label: currentZone?.name, value: zoneId };
   };
 
@@ -118,4 +120,6 @@ const RatesPerZone = ({ ratesPerZone = [], onChange, enabled }) => {
   );
 };
 
-export default RatesPerZone;
+const mapStateToProps = ({ taxZones }) => ({ taxZones });
+
+export default connect(mapStateToProps)(RatesPerZone);
