@@ -27,7 +27,6 @@ const PageSetupModal = ({ history = {}, ...props }) => {
   }, [params]);
 
   const onTemplateSelect = (templateId) => () => {
-    console.log(templateId);
     setSelectedTemplate(templateId);
     // const matchedTemplateDetails = getPageTemplate(templateId);
 

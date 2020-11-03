@@ -88,8 +88,6 @@ const FlatForm = ({ language, section }) => {
   };
 
 
-  console.log({ shippingDetailsEnabled });
-
   const multiStepFormRender = (
     <Tabs active={activeTab} className='custom-form-tabs flex' tabsContentClassName='pl-3 flex'>
       <Tab id='shipping' title='Billing & Shipping Info'>

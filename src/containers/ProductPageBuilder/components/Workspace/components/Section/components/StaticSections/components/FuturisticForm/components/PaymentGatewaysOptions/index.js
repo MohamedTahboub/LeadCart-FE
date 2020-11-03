@@ -31,7 +31,6 @@ const PaymentGatewaysOptions = ({ methods = ['COD'], labels: paymentMethodsLabel
   }));
 
   const onChange = (name) => {
-    console.log(name);
     setActive(name);
   };
 
