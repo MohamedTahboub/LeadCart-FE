@@ -23,8 +23,10 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
       {
         onSuccess: ({ _id, id = _id, category }) => {
           notification.success(`New ${category} Product Created`);
+          const stateSuffix = category === 'checkout' ? '?state=new' : '';
+
           setTimeout(() => {
-            props.history.push(`/products/${id}`);
+            props.history.push(`/products/${id}${stateSuffix}`);
           }, 300);
         },
         onFailed: notification.failed
