@@ -29,6 +29,11 @@ const LayoutsSettings = ({
 
   const { productPage = {} } = pageStyles;
 
+  const isColumnBackgroundHasImageType = productPage[activeColumn]?.backgroundType === 'image';
+  const isOneColumnLayout = pageStyles.layout !== 'two-column';
+
+  const defaultWidth = isOneColumnLayout ? 750 : 450;
+
   const _onChange = ({ name, value }) => {
     onChange({ target: { name, value } });
   };
@@ -58,8 +63,6 @@ const LayoutsSettings = ({
     if (activeColumn) setOpenCollapse();
   }, [activeColumn]);
 
-  const isColumnBackgroundHasImageType = productPage[activeColumn]?.backgroundType === 'image';
-  const isOneColumnLayout = pageStyles.layout !== 'two-column';
 
   return (
     <FlexBox column>
@@ -81,13 +84,13 @@ const LayoutsSettings = ({
           onToggle={onActiveColumnChange}
         />
         <Collapse defaultOpen={openCollapse === 'Column Width'} title='Column Width' toggle={setOpenCollapse}>
-          <span>Width {`${productPage[activeColumn]?.width || 0}px`}</span>
+          <span>Width {`${productPage[activeColumn]?.width || defaultWidth}px`}</span>
           <Slider
-            max={1000}
-            min={0}
-            defaultValue={600}
+            max={1200}
+            min={300}
+            defaultValue={defaultWidth}
             onChange={(width) => onSliderChange(width, `productPage.${activeColumn}.width`)}
-            value={productPage[activeColumn]?.width || 0}
+            value={productPage[activeColumn]?.width || defaultWidth}
           />
         </Collapse>
 

@@ -111,7 +111,9 @@ const NodeSettingModal = ({
           onSelect(nodeId, productId);
           setTimeout(() => {
             setLoading(false);
-            history.push(`${funnelUrl}/products/${productId}`);
+
+            const stateSuffix = productCategory === 'checkout' ? '?state=new' : '';
+            history.push(`${funnelUrl}/products/${productId}${stateSuffix}`);
             notification.success('Product Created ');
           }, 200);
         },

@@ -71,3 +71,50 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
+
+  .payment-method-radio-input {
+    padding: 15px 20px;
+    border-radius: 5px;
+    display: flex;
+    color: #4f5760;
+    font-size: 14px;
+    align-items: center;
+    padding-left: 35px;
+    position: relative;
+    cursor: pointer;
+}
+
+.standalone-radio-input::after{
+    position: absolute;
+    content: ' ';
+    left: 12px;
+    top: 16px;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    border: 2px solid #2d3d68;
+    transition: all .3s ease-in-out;
+}
+
+.standalone-radio-input::before{
+    opacity: 0;
+    border-radius: 50%;
+    background-color: #2d3d68;
+    position: absolute;
+    content: ' ';
+    transition: opacity .3s ease-in-out;
+}
+.standalone-radio-input:hover::before{
+    left: 18px;
+    top: 22px;
+    height: 4px;
+    width: 4px;
+    opacity: 1;
+}
+.standalone-radio-input.active::before{
+    left: 16px;
+    top: 20px;
+    height: 8px;
+    width: 8px;
+    opacity: 1;
+}

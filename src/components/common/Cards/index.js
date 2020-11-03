@@ -4,6 +4,7 @@ import './style.css';
 import { Modal } from 'components/Modals';
 import ids from 'shortid';
 import PropTypes from 'prop-types';
+import clx from 'classnames';
 
 import { Title } from '../Titles';
 import { generateColor } from './helpers';
@@ -12,6 +13,7 @@ import { WarningMessage } from '../Messages';
 import Dialog from '../Dialog';
 import EasyAnimate from '../Animation/EasyAnimate';
 import { AiFillInfoCircle } from 'react-icons/ai';
+import { FlexBox } from '../boxes';
 
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
@@ -406,6 +408,35 @@ export const CategoryCard = ({
   </div>
 );
 
+export const TemplateCard = ({
+  className = '',
+  image,
+  name,
+  label,
+  withNames,
+  active,
+  onClick
+}) => (
+  <FlexBox center='v-center' column onClick={onClick} className={clx('m-4', className, { active })}>
+    {withNames && (
+      <span className='title-text primary-text bold-text mb-3'>{name}</span>
+    )}
+    {image ? (
+      <img
+        src={image}
+        alt={name}
+        className='template-card-image'
+      />
+    ) : (
+      <div className='template-card-label'>
+        <span>
+          {label}
+        </span>
+      </div>
+    )}
+  </FlexBox>
+);
+
 
 export const FulfillmentRowCard = ({
   _id: id,
@@ -463,6 +494,7 @@ export const CouponRowCard = ({
 
 
 export { default as PackageCard } from './PackageCard';
+export { default as CheckCard } from './CheckCard';
 
 
 export const Card = ({

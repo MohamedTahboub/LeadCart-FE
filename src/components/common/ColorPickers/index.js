@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { SketchPicker } from 'react-color';
 import useEventListener from '@use-it/event-listener';
 import './style.css';
+import { nodeHasChildElement } from 'libs';
 
 export { SketchPicker };
 const COLOR_PICKER_ID = 'color-picker';
-const onKeyDown = (event, setShow, show) => {
-  console.log({ event });
-  console.log(event.key, event.target);
-
-  if (event.target?.id !== COLOR_PICKER_ID && show)
-    setShow(false);
-
-};
 
 export const MiniColorPicker = ({
   value,
@@ -21,7 +14,6 @@ export const MiniColorPicker = ({
 }) => {
   const [show, setShow] = useState(false);
 
-  useEventListener('keydown', console.log);
 
   const onColorChange = (color = {}) => {
     const { rgb = {} } = color;
@@ -34,18 +26,13 @@ export const MiniColorPicker = ({
     });
   };
 
-  // useEffect(() => {
-
-  //   return () => {
-  //     if (show)
-  //       setShow(false);
-  //   };
-  // }, []);
-
 
   const style = { background: value };
+  const onClose = () => {
+    if (show) setShow(false);
+  };
   return (
-    <div className='color-picker-modal' id={COLOR_PICKER_ID}>
+    <div className='color-picker-modal' >
       <div
         onClick={() => setShow(!show)}
         style={style}
@@ -53,16 +40,42 @@ export const MiniColorPicker = ({
         role='presentation'
       />
       {show && (
-        <div className='twitter-picker-holder'>
-          <SketchPicker
-            display={show}
-            width='210px'
-            triangle='top-right'
-            color={value}
-            onChange={onColorChange}
-          />
-        </div>
+        <PickerPopUp
+          color={value}
+          onChange={onColorChange}
+          onClose={onClose}
+        />
       )}
+    </div>
+  );
+};
+
+const PickerPopUp = ({
+  color,
+  onChange,
+  onClose
+}) => {
+
+  const onKeyDown = (e) => {
+    const parentElement = document.getElementById(COLOR_PICKER_ID);
+    if (!parentElement) return;
+    const isIgnored = nodeHasChildElement(parentElement, e.target);
+
+    if (!isIgnored)
+      onClose();
+  };
+
+  useEventListener('click', onKeyDown);
+
+  return (
+    <div className='twitter-picker-holder' id={COLOR_PICKER_ID}>
+      <SketchPicker
+        display
+        width='210px'
+        triangle='top-right'
+        color={color}
+        onChange={onChange}
+      />
     </div>
   );
 };
