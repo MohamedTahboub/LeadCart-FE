@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clx from 'classnames';
+import { isFunction } from 'libs/checks';
 
 const Button = ({
   className = '',
@@ -32,11 +33,16 @@ const Button = ({
     active
   });
 
+  const _onClick = (args) => {
+    if (isFunction(onClick))
+      onClick(args);
+
+  };
   return (
     <button
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
-      onClick={onClick}
+      onClick={_onClick}
       {...props}
       {...customProps}
       className={classNames}

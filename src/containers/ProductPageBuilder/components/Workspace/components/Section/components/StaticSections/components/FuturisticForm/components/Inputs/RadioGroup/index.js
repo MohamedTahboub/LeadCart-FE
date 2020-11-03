@@ -10,15 +10,19 @@ const { Radio } = InputRow;
 const { Group } = Radio;
 
 
-const RadioGroup = ({ options, onChange, name, optionClassName, value, className, ...props }) => {
+const RadioGroup = ({ options, onChange, name, optionClassName, value, className, active, ...props }) => {
   const classes = clx('input-radio', className);
 
+  const _onChange = ({ target: { value } }) => {
+    onChange && onChange(value);
+  };
+
   return (
-    <Group onChange={onChange} value={value} name={name} className={classes}>
-      {options.map(({ label, value, ...props }) => (
+    <Group onChange={_onChange} value={value} className={classes}>
+      {options.map(({ label, value, name, ...props }) => (
         <Radio
           key={value}
-          value={value}
+          value={name}
           {...props}
           className={clx(props.className, optionClassName)}
         >{label}</Radio>

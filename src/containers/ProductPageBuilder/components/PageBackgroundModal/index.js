@@ -29,6 +29,8 @@ const ProductsScripts = ({ onChange: onProductChange }) => {
       name: 'pageStyles.pageBackgroundSettings',
       value: fields
     });
+
+    onClose();
   };
 
 
@@ -108,7 +110,7 @@ const ProductsScripts = ({ onChange: onProductChange }) => {
               ]}
             />
           </InputRow>
-          <InputRow className='sidebar-row'>
+          <InputRow className='sidebar-row hide-element'>
             <Label className='sidebar-input-label'>
               Backgrounds Direction:
             </Label>
