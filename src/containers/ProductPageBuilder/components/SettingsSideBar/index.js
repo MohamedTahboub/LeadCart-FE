@@ -5,13 +5,8 @@ import clx from 'classnames';
 import { useContext } from '../../actions';
 import SubSettings from './components';
 import { RiListSettingsLine } from 'react-icons/ri';
+import { updateIntercomVisibilityWidget } from 'libs/intercom';
 
-const updateIntercomVisibilityWidget = (show) => {
-  const Intercom = window.Intercom;
-  if (typeof Intercom !== 'function') return;
-
-  Intercom('update', { hide_default_launcher: !show });
-};
 
 const {
   SideMenu,
@@ -23,7 +18,6 @@ const defaultTitle = 'Section Properties';
 
 const PageSettingToggleButton = ({ onToggle }) => {
 
-
   return (
     <FlexBox onClick={onToggle} center='v-center h-center' className='page-settings-modal-close-btn'>
       <Tooltip mouseEnterDelay={1} text='Page Layout Settings'>
@@ -32,6 +26,7 @@ const PageSettingToggleButton = ({ onToggle }) => {
     </FlexBox>
   );
 };
+
 const SettingSideBar = () => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
 
