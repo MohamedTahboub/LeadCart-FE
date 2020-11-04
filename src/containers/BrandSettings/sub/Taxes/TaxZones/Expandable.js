@@ -32,13 +32,13 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         className='mt-4'
       />
 
-      <SelectBoxes
+      {/* <SelectBoxes
         onChange={onChange}
         fields={fields}
         data={countriesData}
         className='mt-4'
         type='states'
-      />
+      /> */}
 
       <FlexBox className='expandable-buttons py-2' spaceBetween>
         <Button

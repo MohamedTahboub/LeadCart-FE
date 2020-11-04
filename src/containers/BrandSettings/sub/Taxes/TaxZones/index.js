@@ -44,15 +44,25 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
   };
 
   const onAddNewZone = () => {
+    setLoading(true);
+
+    const defaultNumbersName = taxZones
+      .filter(({ name }) => name.toLowerCase().includes('zone'))
+      .map((ele) => Number(ele?.name.split('zone')[1]))
+      .sort((a, b) => a - b);
+
+    const newDefaultNumber = defaultNumbersName.map((number, index) => {
+      if (number !== index + 1)
+        return index + 1;
+    }).sort()[0] || defaultNumbersName.length + 1;
+
+
     const defaultZone = {
-      name: 'Palestine',
-      countries: [
-        'PS'
-      ]
+      name: `zone${newDefaultNumber}`,
+      countries: []
     };
 
 
-    setLoading(true);
     addNewTaxZone(
       defaultZone,
       {
@@ -72,9 +82,7 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
 
   const onSave = () => {
     const inTheSameExpandable = commentedEditableZone._id === editableZoneId;
-
     setSaveLoading(true);
-
 
     editTaxZone(
       { taxZone: editableZoneId, details: fields },
@@ -93,7 +101,7 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
         },
         onFailed: (message) => {
           setSaveLoading(false);
-          notification.failed(message);
+          notification.failed(message.replace('TaxZone', 'Zone Name'));
         }
       }
     );
@@ -130,7 +138,6 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
       setEditableZoneId('');
     else
       setEditableZoneId(commentedEditableZone._id);
-
   };
 
 
