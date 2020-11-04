@@ -9,12 +9,44 @@ import { useContext } from '../../../../actions';
 
 import './style.css';
 
+const getSectionStyles = (styles = {}) => {
+
+  const currentProperties = {
+    marginTop: styles.marginTop,
+    marginRight: styles.marginRight,
+    marginBottom: styles.marginBottom,
+    marginLeft: styles.marginLeft,
+    paddingTop: styles.paddingTop,
+    paddingRight: styles.paddingRight,
+    paddingBottom: styles.paddingBottom,
+    paddingLeft: styles.paddingLeft,
+    borderRadius: styles.borderRadius
+  };
+
+  const style = Object
+    .keys(currentProperties)
+    .filter((key) => currentProperties[key])
+    .reduce((style, propKey) => {
+      style[propKey] = currentProperties[propKey];
+      return style;
+    }, {});
+
+  if (styles.backgroundType === 'image') {
+    style.backgroundImage = `url(${styles.backgroundImage})`;
+    style.backgroundSize = 'cover';
+    style.backgroundRepeat = 'no-repeat';
+  } else {style.backgroundImage = styles.backgroundColor;}
+
+  return style;
+};
+
+
 const Section = ({
   id,
   className,
   type,
   content = {},
-  style = {},
+  styles = {},
   order,
   maxOrder,
   moveCard,
@@ -73,6 +105,7 @@ const Section = ({
     onSectionDuplicate(fromId, parentZone);
   };
 
+  const style = getSectionStyles(styles);
   return (
     <div
       ref={(node) => drop(drag(node))}

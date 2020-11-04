@@ -6,3 +6,4 @@ export { default as NewPricingOptionModal } from './PricingOptionModal';
 export { default as PageBackgroundModal } from './PageBackgroundModal';
 export { default as ScreenBackgroundSetup } from './ScreenBackgroundSetup';
 export { default as PageSetupModal } from './PageSetupModal';
+export { default as TemplateResetWidget } from './TemplateResetWidget';

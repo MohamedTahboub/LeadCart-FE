@@ -43,8 +43,8 @@ const FlatForm = ({ language, section }) => {
         // addOns = {},
         // pageStyles = {},
         custom: {
-          shippingDetails: shippingDetailsEnabled
-          // orderButtonText = 'Complete Order',
+          shippingDetails: shippingDetailsEnabled,
+          billingAddress: withBillingAddress
           // declineButtonText = 'No Thanks',
           // couponSection,
           // orderSummary
@@ -74,7 +74,10 @@ const FlatForm = ({ language, section }) => {
     paymentMethods: paymentMethodsTitle = 'Payment Method',
     creditCards: creditCardsTitle = 'Credit Cards',
     payPal: payPalTitle = 'PayPal',
-    cashOnDelivery: cashOnDeliveryTitle = 'Cash On Delivery'
+    cashOnDelivery: cashOnDeliveryTitle = 'Cash On Delivery',
+    addressLine1Label = 'Address',
+    addressLine1Placeholder = 'E.g Street, PO Box, or company name',
+    postalCodeLabel = 'Zip Code/Postcode'
   } = language.checkout || {};
 
   const paymentMethodsLabels = {
@@ -118,6 +121,21 @@ const FlatForm = ({ language, section }) => {
             placeholder='🇺🇸 +1 218-266-6543'
           />
         </FlexBox>
+        {withBillingAddress && (
+          <FlexBox flex wrappable>
+            <InputField
+              flex
+              label={addressLine1Label}
+              className='mr-3'
+              placeholder={addressLine1Placeholder}
+            />
+            <InputField
+              flex
+              label={postalCodeLabel}
+              placeholder='🇺🇸 +1 218-266-6543'
+            />
+          </FlexBox>
+        )}
         {shippingDetailsEnabled && (
           <Fragment>
 

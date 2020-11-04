@@ -48,6 +48,7 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 const Header = ({
   history,
   onSave,
+  savingStatus = {},
   saving
 }) => {
 
@@ -78,14 +79,6 @@ const Header = ({
 
   const onChange = ({ target }) => {
     actions.onProductFieldChange(target);
-  };
-
-  const onPageLayoutSettings = () => {
-    const meta = {
-      type: 'pageSetting',
-      menuTitle: 'Page & Layouts Settings'
-    };
-    actions.toggleSectionSettingModal(meta);
   };
 
   return (
@@ -154,15 +147,17 @@ const Header = ({
               </span>
             </FlexBox>
           </Button>
-          <Button
-            onClick={onSave}
-            className='light-btn px-3'
-            disabled={saving}
-            onprogress={saving}
-          >
-            <i className='fas fa-save font-size-11' />
+          <Tooltip placement='bottom' text={savingStatus.text} visible={savingStatus.show}>
+            <Button
+              onClick={onSave}
+              className='light-btn px-3'
+              disabled={saving}
+              onprogress={saving}
+            >
+              <i className='fas fa-save font-size-11' />
             Save
-          </Button>
+            </Button>
+          </Tooltip>
         </FlexBox>
       </FlexBox>
       <ScriptsModal

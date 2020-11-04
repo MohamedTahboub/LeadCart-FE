@@ -5,6 +5,7 @@ import * as types from '../actionsTypes';
 const initialState = {
   modals: { sectionSetting: false },
   product: sampleProductData,
+  savingStatus: {},
   standAlone: true,
   productPricing: {
     openModal: false,
@@ -145,6 +146,11 @@ export default (state = initialState, { type, payload }) => {
     return {
       ...state,
       productBackground: !state.productBackground
+    };
+  case types.UPDATE_PRODUCT_SAVING_STATUS:
+    return {
+      ...state,
+      savingStatus: { ...state.savingStatus, ...payload }
     };
 
   default: return state;

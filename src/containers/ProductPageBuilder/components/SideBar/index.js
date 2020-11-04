@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaHome } from 'react-icons/fa';
 import { BsLayoutWtf } from 'react-icons/bs';
-
+import { isFunction } from 'libs/checks';
 import common from 'components/common';
 import { BaseCard } from './components';
 import sectionsIcons from './sectionsIcons';
@@ -20,9 +20,9 @@ const SideBarTitle = ({ title, icon }) => {
   );
 };
 
-const SideBar = ({ canOffer }) => {
+const SideBar = ({ canOffer, internalName, onUpdateTemplate }) => {
   const [isToggled, setIsToggled] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState();
+  const [selectedTemplate, setSelectedTemplate] = useState(internalName);
 
   const sideBarData = canOffer ? sectionsIcons : sectionsIcons.filter((ele) => ele.type !== 'bumpOffer');
 
@@ -31,9 +31,18 @@ const SideBar = ({ canOffer }) => {
     setIsToggled((open) => !open);
   };
 
-  const onTemplateSelect = (templateId) => () => {
+  const onTemplateSelect = (templateId, templateBody) => () => {
+    if (templateId === selectedTemplate) return;
     setSelectedTemplate(templateId);
+
+
+    if (isFunction(onUpdateTemplate))
+      onUpdateTemplate(templateBody);
   };
+  useEffect(() => {
+    if (internalName)
+      setSelectedTemplate(internalName);
+  }, [internalName]);
 
   return (
     <SideMenu open={isToggled} onToggle={onToggle} toggleOnHover>

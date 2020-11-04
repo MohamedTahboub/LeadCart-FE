@@ -13,7 +13,7 @@ const { FlexBox, LayoutSwitch } = common;
 const getQueryParams = (location) => {
   return queryString.parse(location?.search?.replace('?', ''));
 };
-const PageSetupModal = ({ history = {}, ...props }) => {
+const PageSetupModal = ({ history = {}, onUpdateTemplate, ...props }) => {
   const { state: { productPricing: { openModal } = {} }, actions } = useContext();
 
   const params = getQueryParams(history.location);
@@ -26,16 +26,12 @@ const PageSetupModal = ({ history = {}, ...props }) => {
       setShow(true);
   }, [params]);
 
-  const onTemplateSelect = (templateId) => () => {
+  const onTemplateSelect = (templateId, templateBody) => () => {
     setSelectedTemplate(templateId);
-    // const matchedTemplateDetails = getPageTemplate(templateId);
-
-    // actions.updateState({
-    //   product: matchedTemplateDetails
-    // });
-
+    onUpdateTemplate(templateBody);
     onClose();
   };
+
   const onClose = () => {
     clearHistoryStateQuery();
     setTimeout(() => {

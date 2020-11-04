@@ -212,7 +212,7 @@ const Workspace = ({
     >
       <FlexBox id='product-builder-window' column className={workspaceClasses} >
         <ProductHead show={pageStyles.showHead} />
-        <FlexBox className='relative-element product-page-content' column style={productStyles}>
+        <FlexBox className='relative-element product-page-content' column style={productStyles} id='layouts-container'>
           <PageLayouts layout={pageStyles.layout} {...layoutProps} />
         </FlexBox>
       </FlexBox>

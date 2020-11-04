@@ -269,6 +269,18 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
+                With Billing Address
+              </Label>
+              <Toggle
+                value={custom.billingAddress}
+                name='billingAddress'
+                onToggle={onToggleCustom}
+                beforeLabel='Enable'
+                afterLabel='Disable'
+              />
+            </InputRow>
             {/*
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
