@@ -1,23 +1,19 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Select from 'react-select';
+
 import common from 'components/common';
 import PaymentsGateways from 'components/PaymentGateways';
 import currencies from 'data/currencies.json';
 
 import './style.css';
+
 const defaultLanguage = { label: 'English', value: 'en-Us"' };
 const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 
-const {
-  InputRow,
-  FlexBox
-} = common;
-
-const {
-  TextField,
-  SearchInput
-} = InputRow;
+const { InputRow, FlexBox } = common;
+const { TextField, SearchInput } = InputRow;
 
 const Label = ({ children, ...props }) => (
   <InputRow.Label className='sidebar-input-label bold-text' {...props}>
@@ -32,14 +28,24 @@ const Settings = ({
     url,
     paymentMethods,
     language,
-    currency = defaultCurrency
+    currency = defaultCurrency,
+    taxes: selectedTaxes = []
   } = {},
   onChange,
-  isOptInFunnel
+  isOptInFunnel,
+  taxes: allTaxes = []
 }) => {
-
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
   const currentLanguageValue = currentLanguage ? currentLanguage.value : 'English';
+
+  const getTaxesOptions = (taxes) => taxes.map(({ name: label, _id: value }) => ({ label, value }));
+  const taxesOptions = getTaxesOptions(allTaxes.filter(({ enabled }) => enabled));
+  const selectedTaxesOptions = getTaxesOptions(allTaxes.filter(({ _id }) => selectedTaxes.includes(_id)));
+
+  const onTaxSelectChange = (options) => {
+    const taxIds = options?.length ? options.map(({ value }) => value) : [];
+    onChange({ name: 'taxes', value: taxIds });
+  };
 
   const onFiledChange = ({ target: { name, value } }) => {
     onChange({ name, value: value === 'English' ? null : value });
@@ -104,6 +110,19 @@ const Settings = ({
           value={url}
         />
       </FlexBox>
+
+      <FlexBox column className='mt-3'>
+        <Label>
+          Tax Schemas:
+        </Label>
+
+        <Select
+          onChange={onTaxSelectChange}
+          options={taxesOptions}
+          value={selectedTaxesOptions}
+          isMulti
+        />
+      </FlexBox>
     </FlexBox>
   );
 };
@@ -118,10 +137,11 @@ Settings.defaultProps = { product: {} };
 
 const mapStateToProps = ({
   translations: languages = [defaultLanguage],
-  settings: { generalModel: { currency: defaultCurrency = 'USD' } = {} } = {}
+  settings: { generalModel: { currency: defaultCurrency = 'USD' } = {} } = {},
+  taxes
 }) => {
   const languagesOptions = languages
     .map(({ name: label, _id: value = label }) => ({ label, value }));
-  return { languagesOptions, defaultCurrency };
+  return { languagesOptions, defaultCurrency, taxes };
 };
 export default connect(mapStateToProps)(Settings);

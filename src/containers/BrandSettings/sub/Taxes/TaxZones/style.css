@@ -96,7 +96,7 @@
 /* ================== Select Boxes Style ================== */
 .displayed-zone-options,
 .available-zone-options{
-  height: 170px;
+  height: 158px;
   overflow: auto;
   border:1px solid #ccc;  
 }
@@ -104,19 +104,24 @@
 .zone-option-item{
   border:1px solid #eee;  
   transition:padding .3s ease-in-out, background .3s ease-in-out, color .3s ease-in-out;
+  user-select: none;
 }
 
 .zone-option-item:hover{
   background: rgb(117, 173, 238);
   color:white;
-  padding-right: 20px !important;
+  padding-right: 17px !important;
   position: relative;
+  font-size: 10px;
+  padding-top: .33rem !important;
+  padding-bottom: .33rem !important;
+  padding-left: 5px !important;
 }
 
 .zone-option-item:hover::after{
   position: absolute;
   right: 5px;
-  top: 4px;
+  top: 6px;
   font-size: 10px;
   font-family: "Font Awesome 5 Free";
   font-weight: 400;

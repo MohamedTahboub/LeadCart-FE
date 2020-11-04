@@ -15,7 +15,6 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
 
   return (
     <FlexBox className={clx('expandable px-5', { open, 'py-3': open })} column spaceBetween>
-
       <InputRow className='my-2 flex-box v-center'>
         <Label>Zone Name:</Label>
         <NormalInput
