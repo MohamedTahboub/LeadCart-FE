@@ -6,6 +6,7 @@ import { ImageOption } from './common';
 import Slider from 'rc-slider';
 import Collapse from 'components/Collapsible';
 import { buttonTemplates } from 'data/templates';
+import InlinePopup from 'components/common/InlinePopup';
 
 const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab } = common;
 const { TextField, SelectOption, Toggle, AddImage } = InputRow;
@@ -38,11 +39,11 @@ const borderCornerNames = [
 
 const getCornerTitle = (corner) => {
   switch (corner) {
-    case 'borderTopLeftRadius': return 'Top Left';
-    case 'borderTopRightRadius': return 'Top Right';
-    case 'borderBottomLeftRadius': return 'Bottom Left';
-    case 'borderBottomRightRadius': return 'Bottom Right';
-    default: return '';
+  case 'borderTopLeftRadius': return 'Top Left';
+  case 'borderTopRightRadius': return 'Top Right';
+  case 'borderBottomLeftRadius': return 'Bottom Left';
+  case 'borderBottomRightRadius': return 'Bottom Right';
+  default: return '';
   }
 };
 
@@ -197,89 +198,103 @@ const ButtonSection = () => {
             onChange={onChange}
           />
         </FlexBox>
-        <FlexBox column center='margin-v-5 fluid' spaceBetween>
-          <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
-            <div>Border Radius</div>
-            <span className='gray-text'>Symmetric</span>
-            <Toggle value={styles.borderSymmetry} onToggle={(target) => onChange({ target })} name='styles.borderSymmetry' />
-            {
-              borderCornerNames.map((corner) => (
-                <>
-                  <div className='mb-2'>{getCornerTitle(corner)}</div>
-                  <Slider
-                    max={50}
-                    min={0}
-                    defaultValue={5}
-                    onChange={(radius) => onSliderChange(radius, corner)}
-                    value={styles[corner] || 0}
-                  />
-                </>
-              ))
-            }
-            <FlexBox center='v-center' spaceBetween className='mb-2'>
-              <div className='gray-text mb-2'>Border style</div>
-              <SelectOption
-                name='styles.borderStyle'
-                value={styles.borderStyle || 'hidden'}
-                onChange={onChange}
-                options={[
-                  { label: 'Solid', value: 'solid' },
-                  { label: 'Dashed', value: 'dashed' },
-                  { label: 'Dotted', value: 'dotted' },
-                  { label: 'None', value: 'hidden' }
-                ]}
-              />
+        <InlinePopup
+          title='Borders'
+          popUpContent={(
+            <FlexBox column>
+              <FlexBox center='v-center' spaceBetween>
+                <span className='gray-text'>Symmetric</span>
+                <Toggle value={styles.borderSymmetry} onToggle={(target) => onChange({ target })} name='styles.borderSymmetry' />
+              </FlexBox>
+              {
+                borderCornerNames.map((corner) => (
+                  <>
+                    <div className='mb-2'>{getCornerTitle(corner)}</div>
+                    <Slider
+                      max={50}
+                      min={0}
+                      defaultValue={5}
+                      onChange={(radius) => onSliderChange(radius, corner)}
+                      value={styles[corner] || 0}
+                    />
+                  </>
+                ))
+              }
+              <FlexBox center='v-center' spaceBetween className='mb-2'>
+                <div className='gray-text mb-2'>Border style</div>
+                <SelectOption
+                  name='styles.borderStyle'
+                  value={styles.borderStyle || 'hidden'}
+                  onChange={onChange}
+                  options={[
+                    { label: 'Solid', value: 'solid' },
+                    { label: 'Dashed', value: 'dashed' },
+                    { label: 'Dotted', value: 'dotted' },
+                    { label: 'None', value: 'hidden' }
+                  ]}
+                />
+              </FlexBox>
+              <FlexBox center='v-center' spaceBetween>
+                <span className='gray-text'>Border Color</span>
+                <MiniColorPicker
+                  name='styles.borderColor'
+                  value={styles.borderColor || '#FFF'}
+                  onChange={onChange}
+                />
+              </FlexBox>
             </FlexBox>
-            <FlexBox center='v-center' className='pb-140px' spaceBetween>
-              <span className='gray-text'>Border Color</span>
-              <MiniColorPicker
-                name='styles.borderColor'
-                value={styles.borderColor || '#FFF'}
-                onChange={onChange}
-              />
-            </FlexBox>
-          </Collapse>
-          <Collapse defaultOpen={openCollapse === 'Shadows'} title='Shadows' toggle={setOpenCollapse}>
-            <span>Shadow</span>
-            <Toggle value={styles.hasShadow} onToggle={(target) => onChange({ target })} name='styles.hasShadow' />
-            <span className='gray-text'>Offset-X</span>
-            <Slider
-              max={20}
-              min={0}
-              defaultValue={5}
-              onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
-              value={styles.boxShadowOffsetX || 0}
-              disabled={!styles.hasShadow}
-            />
-            <span className='gray-text'>Offset-Y</span>
-            <Slider
-              max={20}
-              min={0}
-              defaultValue={5}
-              onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
-              value={styles.boxShadowOffsetY || 0}
-              disabled={!styles.hasShadow}
-            />
-            <span className='gray-text'>Blur</span>
-            <Slider
-              max={20}
-              min={0}
-              defaultValue={5}
-              onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
-              value={styles.boxShadowBlur || 0}
-              disabled={!styles.hasShadow}
-            />
-            <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
-              <span className='gray-text'>Shadow Color</span>
-              <MiniColorPicker
-                name='styles.shadowColor'
-                value={styles.shadowColor || '#FFF'}
-                onChange={onChange}
+          )}
+        />
+
+        <InlinePopup
+          title='Button Shadows'
+          popUpContent={(
+            <FlexBox column>
+              <span>Shadow</span>
+              <Toggle value={styles.hasShadow} onToggle={(target) => onChange({ target })} name='styles.hasShadow' />
+              <span className='gray-text'>Offset-X</span>
+              <Slider
+                max={20}
+                min={0}
+                defaultValue={5}
+                onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
+                value={styles.boxShadowOffsetX || 0}
                 disabled={!styles.hasShadow}
               />
+              <span className='gray-text'>Offset-Y</span>
+              <Slider
+                max={20}
+                min={0}
+                defaultValue={5}
+                onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
+                value={styles.boxShadowOffsetY || 0}
+                disabled={!styles.hasShadow}
+              />
+              <span className='gray-text'>Blur</span>
+              <Slider
+                max={20}
+                min={0}
+                defaultValue={5}
+                onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
+                value={styles.boxShadowBlur || 0}
+                disabled={!styles.hasShadow}
+              />
+              <FlexBox center='v-center' spaceBetween className='mt-2'>
+                <span className='gray-text'>Shadow Color</span>
+                <MiniColorPicker
+                  name='styles.shadowColor'
+                  value={styles.shadowColor || '#FFF'}
+                  onChange={onChange}
+                  disabled={!styles.hasShadow}
+                />
+              </FlexBox>
             </FlexBox>
-          </Collapse>
-          <Collapse defaultOpen={openCollapse === 'Icon'} title='Icon' toggle={setOpenCollapse}>
+          )}
+        />
+
+        <InlinePopup
+          title='Button Icon'
+          popUpContent={(
             <FlexBox column>
               <span>Button Icon</span>
               <span className='gray-text'>Placement</span>
@@ -310,7 +325,7 @@ const ButtonSection = () => {
                 value={styles.iconBorderRadius || 0}
                 disabled={['snapped-left', 'snapped-right'].includes(styles.iconPlacement) || !styles.icon}
               />
-              <FlexBox center='v-center' spaceBetween className='pb-140px'>
+              <FlexBox center='v-center' spaceBetween >
                 <span className='gray-text'>Icon Background</span>
                 <MiniColorPicker
                   name='styles.iconBackgroundColor'
@@ -319,8 +334,8 @@ const ButtonSection = () => {
                 />
               </FlexBox>
             </FlexBox>
-          </Collapse>
-        </FlexBox>
+          )}
+        />
       </Tab>
 
       <Tab id='actions' title='actions'>
@@ -357,7 +372,7 @@ const ButtonSection = () => {
           </span>
         ))}
       </Tab>
-    </Tabs>
+    </Tabs >
   );
 };
 

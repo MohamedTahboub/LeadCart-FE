@@ -35,12 +35,13 @@ export const templates = [
   }
 ];
 
-const PagesTemplates = ({ onSelect, selected }) => (
+const PagesTemplates = ({ onSelect, selected, cardClassName }) => (
   <Fragment>
     {templates.map((template) => (
       <TemplateCard
         key={template.id}
         {...template}
+        className={cardClassName}
         onClick={onSelect(template.id)}
         active={selected === template.id}
       />

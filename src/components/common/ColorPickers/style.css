@@ -14,6 +14,7 @@
 .twitter-picker-holder{
     position: absolute;
     top: 25px;
-    left: -300%;
+    /* left: -300%; */
+    right: 0;
     z-index: 10;
 }

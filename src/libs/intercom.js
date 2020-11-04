@@ -9,3 +9,10 @@ export const showIntercomIcon = (show = false) => {
 
   Intercom && Intercom('update', { hide_default_launcher: !isVisible });
 };
+
+export const updateIntercomVisibilityWidget = (show) => {
+  const Intercom = window.Intercom;
+  if (typeof Intercom !== 'function') return;
+
+  Intercom('update', { hide_default_launcher: !show });
+};
