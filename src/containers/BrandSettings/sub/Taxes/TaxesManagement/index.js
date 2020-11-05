@@ -1,6 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { FaRegEdit } from 'react-icons/fa';
-import { MdCancel, MdDelete } from 'react-icons/md';
 import clx from 'classnames';
 import { connect } from 'react-redux';
 
@@ -10,6 +8,7 @@ import * as taxesActions from 'actions/taxes';
 import { isNewObjHasChange } from 'helpers/common';
 import { DeleteModal } from '../components';
 import Expandable from './Expandable';
+import ControlButtons from './ControlButtons';
 
 import './style.css';
 
@@ -160,7 +159,6 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
     IPAddress: 'IP Address'
   };
 
-
   const ExpandableProps = {
     onSave,
     onConfirmCancelEdits,
@@ -171,8 +169,10 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
     savedTaxData,
     onCloseCancelModal,
     cancelModalOpened,
-    onCancelEdits
+    onCancelEdits,
+    editableTaxId
   };
+
 
   return (
     <FlexBox className='taxes-container' column>
@@ -201,6 +201,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
           {taxes.map((tax) => {
             const { name, appliesTo, zoneDefinition, ratesPerZone, enabled, _id } = tax;
             const isEditableTax = editableTaxId === _id;
+            const controlButtonsProps = { isEditableTax, onDeleteTax, editableTaxId, taxHasChanges, onEditTax, tax, onConfirmCancelEdits, _id, saveLoading, onSave };
 
             return (
               <Fragment key={_id}>
@@ -212,14 +213,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
                   <Cell>ratesPerZone</Cell>
                   <Cell>{getTaxState(enabled)}</Cell>
                   <Cell>
-                    <FlexBox>
-                      <MdDelete size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
-                      {!isEditableTax ?
-                        (editableTaxId && taxHasChanges) ? <a href={`#${editableTaxId}`}><FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} /></a> : <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} />
-                        :
-                        <MdCancel size={20} className='tax-cancel-icon ml-3' onClick={onConfirmCancelEdits} />
-                      }
-                    </FlexBox>
+                    <ControlButtons {...controlButtonsProps} />
                   </Cell>
                 </Row>
                 <Expandable

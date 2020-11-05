@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clx from 'classnames';
 import Select from 'react-select';
 
@@ -6,11 +6,20 @@ import common from 'components/common';
 import RatesPerZone from './RatesPerZone';
 import { CancelModal } from '../components';
 
-const { FlexBox, Button, InputRow } = common;
-const { Label, NormalInput } = InputRow;
+const { FlexBox, InputRow, Title } = common;
+const { TextField, Toggle } = InputRow;
 
-const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits }) => {
+const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits, taxId }) => {
+  const [currentHeight, setCurrentHeight] = useState(0);
+
   const { zoneDefinition, enabled, name, appliesTo, ratesPerZone } = fields;
+
+  useEffect(() => {
+    const selectedElement = document?.getElementById(`rates-per-zone-${taxId}`);
+    if (open && selectedElement)
+      setCurrentHeight(selectedElement?.getBoundingClientRect()?.height);
+  });
+
 
   const appliesOptions = [
     { label: 'Subtotal And Shipping', value: 'SubtotalAndShipping' },
@@ -29,38 +38,50 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
   const ratesPerZoneProps = {
     ratesPerZone,
     onChange,
-    enabled
+    enabled,
+    taxId
   };
 
   return (
-    <FlexBox className={clx('expandable px-5 h-center', { open, 'py-3': open })} column spaceBetween>
-      <FlexBox className='v-center' spaceBetween>
-        <FlexBox className='mr-4' column spaceBetween style={{ height: '236px', alignSelf: 'flex-end' }}>
-          <InputRow className='my-2 flex-box v-center'>
-            <Label>Tax Name:</Label>
-            <NormalInput
+    <FlexBox className={clx('expandable px-5 ', { open, 'py-4': open })} style={{ height: open ? `${currentHeight + 50}px` : 0, overflow: open ? 'unset' : 'hidden' }} column id={`expandable-${taxId}`} >
+      <FlexBox className='pr-2 mb-2' flexEnd>
+        <Toggle
+          onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
+          value={enabled}
+          beforeLabel='Enabled'
+          afterLabel='Disabled'
+          className='mx-5 my-0'
+        />
+      </FlexBox>
+
+      <FlexBox spaceBetween>
+        <FlexBox className='mr-4' column spaceBetween style={{ height: '170px', alignSelf: 'flex-start', marginTop: '40px' }}>
+          <InputRow className='m-0 flex-box v-center'>
+            <Title className='min-width-150'>Tax Name:</Title>
+            <TextField
               onChange={onChange}
               value={name}
               name='name'
+              inputClassName='min-width-250'
             />
           </InputRow>
 
-          <InputRow className='mt-2 mb-0 flex-box v-center'>
-            <Label>Zone defines by:</Label>
+          <InputRow className='my-2 flex-box v-center'>
+            <Title className='min-width-150'>Zone defines by:</Title>
             <Select
               onChange={({ value }) => onChange({ target: { value, name: 'zoneDefinition' } })}
               value={defaultZoneDefinitionOption}
-              className='expandable-form-select'
+              className='flex-item min-width-250'
               options={zoneDefinitionOptions}
             />
           </InputRow>
 
-          <InputRow className='my-2 flex-box v-center'>
-            <Label>Tax applies to:</Label>
+          <InputRow className='my-0 flex-box v-center'>
+            <Title className='min-width-150'>Tax applies to:</Title>
             <Select
               target='appliesTo'
               onChange={({ value }) => onChange({ target: { value, name: 'appliesTo' } })}
-              className='expandable-form-select'
+              className='flex-item min-width-250'
               value={defaultAppliesOption}
               options={appliesOptions}
             />
@@ -68,26 +89,6 @@ const Expandable = ({ open, onSave, onConfirmCancelEdits, saveLoading, fields, o
         </FlexBox>
 
         <RatesPerZone {...ratesPerZoneProps} />
-      </FlexBox>
-
-
-      <FlexBox className='mt-5' spaceBetween>
-        <Button
-          className='px-5 py-2 mr-3 light-btn'
-          onClick={onConfirmCancelEdits}
-          disabled={saveLoading}
-        >
-          Cancel
-        </Button>
-
-        <Button
-          className='px-5 py-2 primary-color'
-          onClick={onSave}
-          disabled={saveLoading}
-          onprogress={saveLoading}
-        >
-          Save
-        </Button>
       </FlexBox>
 
       <CancelModal

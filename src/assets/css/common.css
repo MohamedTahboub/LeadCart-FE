@@ -486,6 +486,10 @@
   min-width: 100px;
 }
 
+.min-width-150 {
+  min-width: 150px;
+}
+
 .min-width-200 {
   min-width: 200px;
 }

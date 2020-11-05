@@ -45,18 +45,18 @@
 
 /* ================== Expandable Style ================== */
 .taxes-container .expandable{
-  height: 0;
   overflow: hidden;
-  transition: .4s height ease-in-out, .4s padding ease-in-out;
+  transition: .4s height ease-in-out, .4s padding ease-in-out, opacity .25s ease-in-out .4s ;
   transform: translateY(-15px);
+  opacity: 0;
 }
 
 
 
 .taxes-container .expandable.open{
-  height: 450px;
   border: 1px solid rgb(218, 217, 217);
   border-top: none;
+  opacity: 1;
 }
 
 .taxes-container .taxes-table-row.open{
@@ -64,24 +64,6 @@
   border-bottom-right-radius: 0;
 }
 
-
-.taxes-container .expandable-form-select .css-1pahdxg-control,
-.taxes-container .expandable-form-select .css-yk16xz-control{
-  background:transparent;
-  width: 402px;
-  height: 32px;
-  color: #2B3748;
-  font-size: 15px;
-  line-height: 16px;
-  letter-spacing: -.012rem;
-  padding: 0px 5px;
-  background: rgba(188, 201, 214, 0.1);
-  outline-color: lightgray;
-}
-
-.taxes-container .expandable-form-select .css-yk16xz-control .css-tlfecz-indicatorContainer{
-  padding: 0;
-}
 
 .taxes-container .expandable .toggle-bar:before{
   left: -45px
@@ -92,15 +74,13 @@
 }
 
 /* ================== Rates Per Zone Style ================== */
-.rates-per-zone-container{
-  background-color: #fff;
+.rates-per-zone{
+  width: 450px;
 }
 
 .expandable .rates-per-zone-body-row,
 .expandable .rates-per-zone-header{
-  height: 32px;
-  background-color: #fff;
-  width: 450px;
+  height: 20px;
 }
 
 .expandable .rates-per-zone-body-row > *:nth-child(1),
@@ -115,12 +95,9 @@
 
 
 .expandable .rates-per-zone-header{
-  background-color: #4e5e79;
+  background-color: #4DA1FF;
   border-radius: 8px 8px 0 0;
-  padding: 22px 10px;
-  position: fixed;
-  z-index: 50;
-  width: 460px;
+  padding: 17px 10px;
 }
 
 .rates-per-zone-header-title{
@@ -132,17 +109,13 @@
 
 
 .rates-per-zone-body{
-  overflow-y: scroll;
-  height: 228px;
-  padding-top: 44px;
-  border: 1px solid #4e5e79;
-  border-top: none;
   border-radius: 8px;
 }
 
 .expandable .rates-per-zone-body-row{
   border-bottom: 1px solid #cdd4db;
-  padding: 30px 10px;
+  padding: 25px 10px;
+  background-color: #f9fafb;
 }
 
 
@@ -164,6 +137,7 @@
 
 .rates-per-zone-body-input {
   text-align: center;
+  background-color: #fff;
 }
 
 

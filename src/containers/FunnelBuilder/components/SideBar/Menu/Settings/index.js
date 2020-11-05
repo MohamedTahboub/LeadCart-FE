@@ -120,6 +120,7 @@ const Settings = ({
           onChange={onTaxSelectChange}
           options={taxesOptions}
           value={selectedTaxesOptions}
+          closeMenuOnSelect={false}
           isMulti
         />
       </FlexBox>

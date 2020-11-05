@@ -8,16 +8,15 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { zones as defaultZones } from 'data/taxes';
 
-const { FlexBox, Title, InputRow, SmallButton } = common;
-const { SmallInput, Label, Toggle } = InputRow;
+const { FlexBox, Title, InputRow, Button } = common;
+const { SmallInput } = InputRow;
 
 
-const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, enabled }) => {
+const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => {
   const selectedZones = ratesPerZone.map(({ zone }) => zone);
   const allZones = defaultZones.concat(taxZones);
   const zonesOptions = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
   const hasDefaultZone = ratesPerZone.find(({ zone }) => zone === '5f9832cf9b9fd77d030af88c');
-
 
   const getZoneOption = (zoneId) => {
     const currentZone = allZones.find(({ _id }) => _id === zoneId) || {};
@@ -50,39 +49,20 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, enabled }) =
 
 
   return (
-    <FlexBox column className='rates-per-zone h-center'>
-      <FlexBox className='pr-2 mb-2' flexEnd>
-        <Toggle
-          onToggle={() => onChange({ target: { name: 'enabled', value: !enabled } })}
-          value={enabled}
-          beforeLabel='Enabled'
-          afterLabel='Disabled'
-          className='mx-5 my-3 '
-        />
+    <FlexBox column className='rates-per-zone' id={`rates-per-zone-${taxId}`}>
+      <FlexBox className='mb-2 v-center h-center' spaceBetween>
+        <Title>Rates Per Zone:</Title>
       </FlexBox>
 
-
-      <FlexBox className='full-width  mb-3 pl-2 v-center' spaceBetween>
-        <Label>Rates Per Zone:</Label>
-        <FlexBox data-tip="You have a default zone and you can't duplicate it" data-tip-disable={!hasDefaultZone} data-place='left'>
-          <SmallButton className='primary-color ml-2 min-width-150  py-1 px-3' onClick={onAddZone} disabled={hasDefaultZone}>
-            <FlexBox className='v-center' spaceBetween>
-              <RiAddCircleFill size={16} className='mr-2'/>
-              <Title className='white-text' >Add Zone</Title>
-            </FlexBox>
-          </SmallButton>
-        </FlexBox>
-      </FlexBox>
-
-      <FlexBox className='rates-per-zone-container' column>
+      <FlexBox column>
         <FlexBox className='rates-per-zone-header px-1 v-center' spaceBetween >
-          <Title className='rates-per-zone-header-title'>Zone</Title>
-          <Title className='rates-per-zone-header-title'>Rate %</Title>
+          <Title className='white-text text-center'>Zone</Title>
+          <Title className='white-text text-center'>Rate %</Title>
           <Title />
         </FlexBox>
 
         <FlexBox className='rates-per-zone-body' column>
-          {ratesPerZone.reverse().map(({ zone, rate }) => (
+          {ratesPerZone.map(({ zone, rate }) => (
             <FlexBox className='rates-per-zone-body-row v-center' key={zone} spaceBetween>
               <Select
                 onChange={({ value }) => onChangeZone(zone, 'zone', value)}
@@ -107,13 +87,26 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, enabled }) =
               name='rate'
               type='number'
               className='rates-per-zone-body-input'
-              style={{ marginRight: '30px ' }}
+              style={{ marginRight: '25px ' }}
             />
           </FlexBox>
         </FlexBox>
-
       </FlexBox>
 
+
+      <FlexBox
+        data-tip="You have a default zone and you can't duplicate it"
+        data-tip-disable={!hasDefaultZone}
+        data-place='left'
+        className='h-center mt-3 py-1'
+      >
+        <Button className='primary-color' onClick={onAddZone} disabled={hasDefaultZone}>
+          <FlexBox className='v-center px-3 ' spaceBetween>
+            <RiAddCircleFill size={16} className='mr-2'/>
+            Add Zone
+          </FlexBox>
+        </Button>
+      </FlexBox>
 
       <ToolTip />
     </FlexBox>
@@ -121,5 +114,4 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, enabled }) =
 };
 
 const mapStateToProps = ({ taxZones }) => ({ taxZones });
-
 export default connect(mapStateToProps)(RatesPerZone);
