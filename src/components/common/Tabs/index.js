@@ -25,6 +25,7 @@ export const Tabs = ({
   tabsContentClassName,
   tabTitleClassName,
   vertical,
+  titleColor,
   active,
   onChange
 }) => {
@@ -53,6 +54,7 @@ export const Tabs = ({
             key={tab.id}
             className={clx(tab.className, tabTitleClassName)}
             onClick={onTabChange(tab.id)}
+            titleColor={titleColor}
           />
         ))}
       </FlexBox>
@@ -71,17 +73,29 @@ Tabs.defaultProps = {
   vertical: false
 };
 
+
 export const Tab = ({
   id,
   title,
   active,
+  titleColor = '#808292',
+  borderColor,
   onClick
-}) => (
-  <div
-    id-data={id}
-    className={`tab-item ${active ? 'active' : ''}`}
-    onClick={onClick}
-  >
-    {title}
-  </div>
-);
+}) => {
+
+  const style = {
+    '--title-color': titleColor,
+    '--active-border-color': (!borderColor && titleColor) ? titleColor : 'rgba(33, 123, 232, 0.767)'
+  };
+
+  return (
+    <div
+      id-data={id}
+      style={style}
+      className={`tab-item ${active ? 'active' : ''}`}
+      onClick={onClick}
+    >
+      {title}
+    </div>
+  );
+};
