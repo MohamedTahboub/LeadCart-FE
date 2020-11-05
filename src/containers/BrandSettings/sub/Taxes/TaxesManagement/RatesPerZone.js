@@ -11,12 +11,12 @@ import { zones as defaultZones } from 'data/taxes';
 const { FlexBox, Title, InputRow, Button } = common;
 const { SmallInput } = InputRow;
 
-
 const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => {
-  const selectedZones = ratesPerZone.map(({ zone }) => zone);
   const allZones = defaultZones.concat(taxZones);
-  const zonesOptions = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
-  const hasDefaultZone = ratesPerZone.find(({ zone }) => zone === '5f9832cf9b9fd77d030af88c');
+  const selectedZones = ratesPerZone.map(({ zone }) => zone);
+  const notSelectedZones = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ _id }) => _id);
+  const zoneOptions = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
+  const hasZoneOptions = Boolean(notSelectedZones.length);
 
   const getZoneOption = (zoneId) => {
     const currentZone = allZones.find(({ _id }) => _id === zoneId) || {};
@@ -25,7 +25,7 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => 
 
 
   const onAddZone = () => {
-    const defaultZone = { zone: '5f9832cf9b9fd77d030af88c', rate: 0 };
+    const defaultZone = { zone: notSelectedZones[0], rate: 0 };
     onChange({ target: { value: [...ratesPerZone, defaultZone], name: 'ratesPerZone' } });
   };
 
@@ -68,7 +68,7 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => 
                 onChange={({ value }) => onChangeZone(zone, 'zone', value)}
                 value={getZoneOption(zone)}
                 className='mx-2'
-                options={zonesOptions}
+                options={zoneOptions}
               />
               <SmallInput
                 onChange={({ target: { value } }) => onChangeZone(zone, 'rate', value)}
@@ -95,12 +95,12 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => 
 
 
       <FlexBox
-        data-tip="You have a default zone and you can't duplicate it"
-        data-tip-disable={!hasDefaultZone}
+        data-tip="you selected all of your zones, You don't have more options"
+        data-tip-disable={hasZoneOptions}
         data-place='left'
         className='h-center mt-3 py-1'
       >
-        <Button className='primary-color' onClick={onAddZone} disabled={hasDefaultZone}>
+        <Button className='primary-color' onClick={onAddZone} disabled={!hasZoneOptions}>
           <FlexBox className='v-center px-3 ' spaceBetween>
             <RiAddCircleFill size={16} className='mr-2'/>
             Add Zone
