@@ -9,7 +9,7 @@ import { useContext } from '../../../../actions';
 
 import './style.css';
 
-const getSectionStyles = (styles = {}) => {
+const getSectionStyles = (styles = {}, ignore) => {
 
   const currentProperties = {
     marginTop: styles.marginTop,
@@ -49,7 +49,7 @@ const getSectionStyles = (styles = {}) => {
     style.boxShadow = styles.hasShadow ? `${styles.boxShadowOffsetX || 0}px ${styles.boxShadowOffsetY || 0}px ${styles.boxShadowBlur || 0}px ${styles.shadowColor || '#FFF'}` : '';
 
   console.log({ shadow: style.boxShadow, shdow2: styles.hasShadow });
-  return style;
+  return ignore ? {} : style;
 };
 
 
@@ -116,8 +116,8 @@ const Section = ({
   const onDuplicate = (fromId) => () => {
     onSectionDuplicate(fromId, parentZone);
   };
-
-  const style = getSectionStyles(styles);
+  const isCheckoutForm = section.type === 'checkoutSection';
+  const style = getSectionStyles(styles, !isCheckoutForm);
   return (
     <div
       ref={(node) => drop(drag(node))}
