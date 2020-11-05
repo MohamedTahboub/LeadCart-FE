@@ -24,9 +24,11 @@ const InputField = ({
 
   return (
     <FlexBox column className={clx('input-field-container', className)} {...props}>
-      <FlexBox className={clx('label-content', labelClassName)}>
-        {label}
-      </FlexBox>
+      {label && (
+        <FlexBox className={clx('label-content', labelClassName)}>
+          {label}
+        </FlexBox>
+      )}
       <input
         className={clx('input-field-element', inputClassName)}
         placeholder={placeholder}

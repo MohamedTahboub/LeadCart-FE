@@ -1,35 +1,47 @@
 import React, { Fragment, useState } from 'react';
 import common from 'components/common';
 import './style.css';
-import { CustomOrderSummary, Inputs, PaymentGatewaysOptions, Title } from './components';
+import { CouponCodeForm, CustomOrderSummary, Inputs, OrderButton, PaymentGatewaysOptions, Title } from './components';
 import clx from 'classnames';
 import { MdLock } from 'react-icons/md';
 import { useContext } from '../../../../../../../../actions';
 // import { PricingOptions } from '..';
+import { BiHide, BiShow } from 'react-icons/bi';
 
 
-const { FlexBox, Tabs, Tab } = common;
+const { FlexBox, Tabs, Tab, ResizableInput } = common;
 
 const {
   InputField,
-  Select,
-  RadioGroup
+  Select
+  // RadioGroup
 } = Inputs;
 
 const countriesOptions = [{ label: 'United State', value: 'USA' }];
-const citiesOptions = [];
-const OrderButton = ({ className, text = 'Continue to Payment', prefix = '', suffix = '', ...props }) => {
+// const citiesOptions = [];
 
-  return (
-    <div className={clx(className, 'form-order-button')} {...props}>{prefix}{text}{suffix}</div>
-  );
-};
+
 const FlatForm = ({ language, section }) => {
-  const [showSecondAddress, setSHowSecondAddress] = useState(false);
+  const [showSecondAddress, setShowSecondAddress] = useState(false);
   const [activeTab, setActiveTab] = useState('shipping');
 
 
-  const { content: { twoStepCheckout: isMultiStepFormEnabled }, hidden: isSetHidden } = section;
+  const {
+    content: { twoStepCheckout: isMultiStepFormEnabled },
+    texts: {
+      billingAndShippingBtn = 'Continue to Payment',
+      hideCouponCodeLabel = 'Hide Coupon Code',
+      orderBtn = 'Pay Now',
+      haveCouponCodeLabel = 'Have a Coupon Code?',
+      couponCodeBtnText = 'Apply',
+      transactionGuaranteeMessage = 'Your transaction is secured with SSL encryption',
+      backToBillingLinkText = '← Back to billing & shipping info',
+      addLine2Label = 'Add Line 2',
+      removeLine2Label = 'Hide the second Address'
+    } = {},
+    hidden: isSetHidden,
+    styles: { themeColor = '#2d3d68' } = {}
+  } = section;
   const {
     state: {
       funnel: { paymentMethods = ['COD'], type } = {},
@@ -43,10 +55,10 @@ const FlatForm = ({ language, section }) => {
         // addOns = {},
         // pageStyles = {},
         custom: {
-          shippingDetails: shippingDetailsEnabled
-          // orderButtonText = 'Complete Order',
+          shippingDetails: shippingDetailsEnabled,
+          billingAddress: withBillingAddress,
           // declineButtonText = 'No Thanks',
-          // couponSection,
+          couponSection: withCouponForm
           // orderSummary
         } = {}
       } = {}
@@ -54,11 +66,12 @@ const FlatForm = ({ language, section }) => {
     actions
   } = useContext();
 
+  console.log('Theme COlor', { themeColor });
 
   const isOptInFunnel = type === 'OPT-IN';
   const isThankyouProduct = productCategory === 'thankyoupage';
 
-  const onToggleSecondAddress = () => setSHowSecondAddress((show) => !show);
+  const onToggleSecondAddress = () => setShowSecondAddress((show) => !show);
 
   if (isThankyouProduct && (isOptInFunnel || isSetHidden)) return null;
 
@@ -74,7 +87,10 @@ const FlatForm = ({ language, section }) => {
     paymentMethods: paymentMethodsTitle = 'Payment Method',
     creditCards: creditCardsTitle = 'Credit Cards',
     payPal: payPalTitle = 'PayPal',
-    cashOnDelivery: cashOnDeliveryTitle = 'Cash On Delivery'
+    cashOnDelivery: cashOnDeliveryTitle = 'Cash On Delivery',
+    addressLine1Label = 'Address',
+    addressLine1Placeholder = 'E.g Street, PO Box, or company name',
+    postalCodeLabel = 'Zip Code/Postcode'
   } = language.checkout || {};
 
   const paymentMethodsLabels = {
@@ -87,10 +103,19 @@ const FlatForm = ({ language, section }) => {
     setActiveTab(tabName);
   };
 
+  const onSectionFieldChange = ({ target: { name, value } } = {}) => {
+    actions.onSectionSettingChange({
+      section: section,
+      field: {
+        name: name,
+        value: value
+      }
+    });
+  };
 
   const multiStepFormRender = (
     <Tabs active={activeTab} className='custom-form-tabs flex' tabsContentClassName='pl-3 flex'>
-      <Tab id='shipping' title='Billing & Shipping Info'>
+      <Tab id='shipping' title={shippingDetailsEnabled ? 'Billing & Shipping Info' : 'Billing Info'}>
         <FlexBox flex wrappable>
           <InputField
             flex
@@ -118,6 +143,21 @@ const FlatForm = ({ language, section }) => {
             placeholder='🇺🇸 +1 218-266-6543'
           />
         </FlexBox>
+        {withBillingAddress && (
+          <FlexBox flex wrappable>
+            <InputField
+              flex
+              label={addressLine1Label}
+              className='mr-3'
+              placeholder={addressLine1Placeholder}
+            />
+            <InputField
+              flex
+              label={postalCodeLabel}
+              placeholder='00000'
+            />
+          </FlexBox>
+        )}
         {shippingDetailsEnabled && (
           <Fragment>
 
@@ -127,8 +167,19 @@ const FlatForm = ({ language, section }) => {
                 label={(
                   <FlexBox flex spaceBetween>
                     <span className='label-content'>{streetAddressLabel}</span>
-                    <span className='label-content primary-text item-clickable' onClick={onToggleSecondAddress}>
-                      {!showSecondAddress ? '+ Add Line 2' : 'Remove Second Address!'}
+                    <span className='label-content primary-text parent-hover' >
+                      <ResizableInput
+                        onChange={onSectionFieldChange}
+                        name={`texts.${!showSecondAddress ? 'addLine2Label' : 'removeLine2Label'}`}
+                        value={!showSecondAddress ? addLine2Label : removeLine2Label}
+                        style={{ background: 'transparent' }}
+                        defaultValue={'Edit'}
+                      />
+                      {!showSecondAddress ? (
+                        <BiShow onClick={onToggleSecondAddress} className='ml-3 item-clickable show-on-parent-hover' />
+                      ) : (
+                        <BiHide onClick={onToggleSecondAddress} className='ml-3 item-clickable show-on-parent-hover' />
+                      )}
                     </span>
                   </FlexBox>
                 )}
@@ -176,8 +227,12 @@ const FlatForm = ({ language, section }) => {
         <FlexBox column flex center='v-center'>
           <OrderButton
             className='mt-5 mb-3'
+            themeColor={themeColor}
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
-            onClick={changeToTab('payment')}
+            // onClick={changeToTab('payment')}
+            name='texts.orderBtn'
+            text={billingAndShippingBtn}
+            onChange={onSectionFieldChange}
           />
         </FlexBox>
       </Tab>
@@ -210,14 +265,23 @@ const FlatForm = ({ language, section }) => {
         <FlexBox center='h-center' className='small-text gray-text mt-3'>
           <MdLock color='currentColor' size={16} className='mr-2' />
           <span >
-            Your transaction is secured with SSL encryption
+            <ResizableInput
+              onChange={onSectionFieldChange}
+              name={'texts.transactionGuaranteeMessage'}
+              value={transactionGuaranteeMessage}
+              style={{ background: 'transparent' }}
+              defaultValue={'Edit'}
+            />
           </span>
         </FlexBox>
-        <FlexBox flex flexEnd>
-          <span className='label-content primary-text item-clickable underlined-text without-hover'>
-            Have a Coupon Code?
-          </span>
-        </FlexBox>
+        <CouponCodeForm
+          haveCouponCodeLabel={haveCouponCodeLabel}
+          hideCouponCodeLabel={hideCouponCodeLabel}
+          withCouponForm={withCouponForm}
+          couponCodeBtnText={couponCodeBtnText}
+          onChange={onSectionFieldChange}
+          themeColor={themeColor}
+        />
         <FlexBox flex>
           <CustomOrderSummary
             price={price}
@@ -229,11 +293,20 @@ const FlatForm = ({ language, section }) => {
         <FlexBox column flex center='v-center'>
           <OrderButton
             className='mt-5 mb-3'
-            text='Pay Now $315.00'
+            name='texts.orderBtn'
+            text={orderBtn}
+            onChange={onSectionFieldChange}
+            themeColor={themeColor}
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
           />
           <span onClick={changeToTab('shipping')} className='label-content primary-text item-clickable underlined-text without-hover'>
-            &larr; Back to billing & shipping info
+            <ResizableInput
+              onChange={onSectionFieldChange}
+              name={'texts.backToBillingLinkText'}
+              value={backToBillingLinkText}
+              defaultValue={'Edit'}
+              style={{ background: 'transparent' }}
+            />
           </span>
         </FlexBox>
 
@@ -272,6 +345,21 @@ const FlatForm = ({ language, section }) => {
           placeholder='🇺🇸 +1 218-266-6543'
         />
       </FlexBox>
+      {withBillingAddress && (
+        <FlexBox flex wrappable>
+          <InputField
+            flex
+            label={addressLine1Label}
+            className='mr-3'
+            placeholder={addressLine1Placeholder}
+          />
+          <InputField
+            flex
+            label={postalCodeLabel}
+            placeholder='00000'
+          />
+        </FlexBox>
+      )}
       {shippingDetailsEnabled && (
         <Fragment>
           <Title className='step-title mt-3'>{shippingDetailsTitle}</Title>
@@ -332,10 +420,18 @@ const FlatForm = ({ language, section }) => {
         <FlexBox column flex center='v-center'>
           <OrderButton
             className='mt-5 mb-3'
+            themeColor={themeColor}
+            text={billingAndShippingBtn}
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
             onClick={changeToTab('payment')}
           />
-          <span className='label-content primary-text item-clickable underlined-text without-hover'>Have a Coupon Code?</span>
+          <CouponCodeForm
+            haveCouponCodeLabel={haveCouponCodeLabel}
+            hideCouponCodeLabel={hideCouponCodeLabel}
+            withCouponForm={withCouponForm}
+            couponCodeBtnText={couponCodeBtnText}
+            onChange={onSectionFieldChange}
+          />
         </FlexBox>
       )}
 
@@ -368,9 +464,23 @@ const FlatForm = ({ language, section }) => {
       <FlexBox center='h-center' className='small-text gray-text mt-3'>
         <MdLock color='currentColor' size={16} className='mr-2' />
         <span >
-          Your transaction is secured with SSL encryption
+          <ResizableInput
+            onChange={onSectionFieldChange}
+            name={'texts.transactionGuaranteeMessage'}
+            value={transactionGuaranteeMessage}
+            style={{ background: 'transparent' }}
+            defaultValue={'Edit'}
+          />
         </span>
       </FlexBox>
+      <CouponCodeForm
+        haveCouponCodeLabel={haveCouponCodeLabel}
+        hideCouponCodeLabel={hideCouponCodeLabel}
+        withCouponForm={withCouponForm}
+        couponCodeBtnText={couponCodeBtnText}
+        onChange={onSectionFieldChange}
+        themeColor={themeColor}
+      />
       <FlexBox flex>
         <CustomOrderSummary
           price={price}
@@ -382,15 +492,20 @@ const FlatForm = ({ language, section }) => {
       <FlexBox column flex center='v-center'>
         <OrderButton
           className='mt-5 mb-3'
-          text='Pay Now $315.00'
+          text={billingAndShippingBtn}
+          themeColor={themeColor}
           prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
         />
-        {isMultiStepFormEnabled ? (
+        {isMultiStepFormEnabled && (
           <span onClick={changeToTab('shipping')} className='label-content primary-text item-clickable underlined-text without-hover'>
-            &larr; Back to billing & shipping info
+            <ResizableInput
+              onChange={onSectionFieldChange}
+              name={'texts.backToBillingLinkText'}
+              value={backToBillingLinkText}
+              defaultValue={'Edit'}
+              style={{ background: 'transparent' }}
+            />
           </span>
-        ) : (
-          <span className='label-content primary-text item-clickable underlined-text without-hover'>Have a Coupon Code?</span>
         )}
       </FlexBox>
     </Fragment>
@@ -398,7 +513,7 @@ const FlatForm = ({ language, section }) => {
   );
 
   return (
-    <FlexBox column className='futuristic-form-container white-bg soft-edges p-4'>
+    <FlexBox column className='futuristic-form-container p-4'>
       {isMultiStepFormEnabled ? multiStepFormRender : singleStepFormRender}
     </FlexBox>
   );

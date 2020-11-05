@@ -9,12 +9,56 @@ import { useContext } from '../../../../actions';
 
 import './style.css';
 
+const getSectionStyles = (styles = {}) => {
+
+  const currentProperties = {
+    marginTop: styles.marginTop,
+    marginRight: styles.marginRight,
+    marginBottom: styles.marginBottom,
+    marginLeft: styles.marginLeft,
+    paddingTop: styles.paddingTop,
+    paddingRight: styles.paddingRight,
+    paddingBottom: styles.paddingBottom,
+    paddingLeft: styles.paddingLeft,
+    borderRadius: styles.borderRadius,
+    borderTopLeftRadius: styles.borderTopLeftRadius,
+    borderTopRightRadius: styles.borderTopRightRadius,
+    borderBottomLeftRadius: styles.borderBottomLeftRadius,
+    borderBottomRightRadius: styles.borderBottomRightRadius,
+    boxShadowOffsetX: styles.boxShadowOffsetX,
+    boxShadowOffsetY: styles.boxShadowOffsetY,
+    boxShadowBlur: styles.boxShadowBlur,
+    shadowColor: styles.shadowColor
+  };
+
+  const style = Object
+    .keys(currentProperties)
+    .filter((key) => currentProperties[key])
+    .reduce((style, propKey) => {
+      style[propKey] = currentProperties[propKey];
+      return style;
+    }, {});
+
+  if (styles.backgroundType === 'image') {
+    style.backgroundImage = `url(${styles.backgroundImage})`;
+    style.backgroundSize = 'cover';
+    style.backgroundRepeat = 'no-repeat';
+  } else {style.backgroundColor = styles.backgroundColor;}
+
+  if (styles.hasShadow)
+    style.boxShadow = styles.hasShadow ? `${styles.boxShadowOffsetX || 0}px ${styles.boxShadowOffsetY || 0}px ${styles.boxShadowBlur || 0}px ${styles.shadowColor || '#FFF'}` : '';
+
+  console.log({ shadow: style.boxShadow, shdow2: styles.hasShadow });
+  return style;
+};
+
+
 const Section = ({
   id,
   className,
   type,
   content = {},
-  style = {},
+  styles = {},
   order,
   maxOrder,
   moveCard,
@@ -73,6 +117,7 @@ const Section = ({
     onSectionDuplicate(fromId, parentZone);
   };
 
+  const style = getSectionStyles(styles);
   return (
     <div
       ref={(node) => drop(drag(node))}
@@ -81,28 +126,29 @@ const Section = ({
       <DropBeforeLine show={isOver} />
       <div
         className={classes}
-        style={style}
       >
-        <SettingsHandles
-          onSettings={onSetting}
-          onDuplicate={onDuplicate}
-          section={section}
-          order={order}
-          id={id}
-          maxOrder={maxOrder}
-          moveCrossColumns={moveCrossColumns}
-          index={index}
-          isThankYouProductPage={isThankYouProductPage}
-          isisOptInProduct={isisOptInProduct}
-          parentZone={parentZone}
-        />
-        <SectionContent
-          {...content}
-          type={type}
-          section={section}
-          language={props.language}
-          hasMentions={isThankYouProductPage}
-        />
+        <div style={style}>
+          <SettingsHandles
+            onSettings={onSetting}
+            onDuplicate={onDuplicate}
+            section={section}
+            order={order}
+            id={id}
+            maxOrder={maxOrder}
+            moveCrossColumns={moveCrossColumns}
+            index={index}
+            isThankYouProductPage={isThankYouProductPage}
+            isisOptInProduct={isisOptInProduct}
+            parentZone={parentZone}
+          />
+          <SectionContent
+            {...content}
+            type={type}
+            section={section}
+            language={props.language}
+            hasMentions={isThankYouProductPage}
+          />
+        </div>
       </div>
     </div>
   );

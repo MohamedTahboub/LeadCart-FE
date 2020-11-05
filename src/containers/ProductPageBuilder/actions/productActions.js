@@ -181,3 +181,8 @@ export const deleteProductPriceOption = ({ dispatch }) => (id) => {
 export const onToggleProductBackgroundModal = ({ dispatch }) => () => {
   dispatch({ type: types.TOGGLE_PRODUCT_BACKGROUND_MODAL });
 };
+
+
+export const updateSavingStatusText = ({ dispatch }) => (show, text) => {
+  dispatch({ type: types.UPDATE_PRODUCT_SAVING_STATUS, payload: { show, text } });
+};

@@ -14,6 +14,7 @@ const supportedFontFamilyList = [
   'BebasNeue',
   'Ubuntu',
   'Anton',
+  'Rubik',
   'Halant',
   'Montserrat',
   'PTSerif'
@@ -55,8 +56,11 @@ const modules = {
         color: [
           '#000000',
           '#e60000',
+          '#211F20',
           '#ff9900',
           '#ffff00',
+          '#28C397',
+          '#28C397',
           '#008a00',
           '#0066cc',
           '#9933ff',
@@ -88,6 +92,7 @@ const modules = {
           '#003700',
           '#002966',
           '#3d1466',
+          '#2D3D68',
           'custom-color'
         ]
       },
@@ -196,6 +201,7 @@ const headingModules = {
           '#003700',
           '#002966',
           '#3d1466',
+          '#2D3D68',
           'custom-color'
         ]
       },

@@ -10,6 +10,7 @@ import { htmlToImage as generateImageFromHtmlElement, mapListToObject, notificat
 import { ProductSchema } from 'libs/validation';
 import * as productGeneralActions from 'actions/product';
 import * as filesActions from 'actions/files';
+import ids from 'shortid';
 
 import {
   ProductContext,
@@ -27,6 +28,7 @@ import {
   ScreenBackgroundSetup,
   SettingSideBar,
   SideBar,
+  TemplateResetWidget,
   Workspace
 } from './components';
 
@@ -69,6 +71,11 @@ const ProductBuilder = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [showTemplateWidget, setShowTemplateWidget] = useState(false);
+
+  const onToggleTemplateWidget = () => {
+    setShowTemplateWidget((show) => !show);
+  };
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
@@ -108,6 +115,32 @@ const ProductBuilder = ({
     //eslint-disable-next-line
   }, [funnelsMap, productsMap]);
 
+
+  const generateNewThumbnailFrom = (fileName = '') => {
+    const [, , attempts, id] = fileName.split('_');
+    const currentId = id ? id : ids.generate();
+    const currentAttempts = isNaN(attempts) ? 0 : (+attempts >= 2 ? +attempts : +attempts + 1);
+    return `${(new Date().getDay())}_${(new Date().getHours())}_${currentAttempts}_${currentId.replace(/_/ig, '')}`;
+  };
+
+
+  const evaluateCurrentThumbnail = (filePathName = '') => {
+    const [fileName = ''] = filePathName.split('/').reverse();
+    const [, nameWithoutTheExtension] = fileName.split('.').reverse();
+    const newNameIfDifferent = generateNewThumbnailFrom(nameWithoutTheExtension);
+    return {
+      shouldTakeThumbnail: nameWithoutTheExtension !== newNameIfDifferent,
+      newThumbnailName: newNameIfDifferent
+    };
+  };
+
+  const uploadProductThumbnail = (file) => new Promise((res) => {
+    props.uploadFile({
+      file: file,
+      type: 'products'
+    }, { onSuccess: res });
+  });
+
   const onSaveProduct = async () => {
 
     const { product: productData } = state;
@@ -117,13 +150,31 @@ const ProductBuilder = ({
       value: product
     } = await ProductSchema(productData);
 
+    const { shouldTakeThumbnail, newThumbnailName } = evaluateCurrentThumbnail(product.thumbnail);
+    let productThumbnailUrl = product.thumbnail;
+
+    if (shouldTakeThumbnail) {
+      actions.updateSavingStatusText(true, 'Generating New Screenshot for the product page');
+      const productThumbnailFile = await generateImageFromHtmlElement('layouts-container', { fileName: newThumbnailName });
+      productThumbnailUrl = await uploadProductThumbnail(productThumbnailFile);
+
+      actions.onProductFieldChange({
+        name: 'thumbnail',
+        value: productThumbnailUrl
+      });
+      actions.updateSavingStatusText(false);
+    }
+
     if (!isValid)
       return notification.failed('Can\'t save, validation Error');
 
     props.updateProduct(
       {
         productId: productData._id,
-        details: product
+        details: {
+          ...product,
+          thumbnail: productThumbnailUrl
+        }
       },
       {
         onSuccess: () => {
@@ -136,8 +187,36 @@ const ProductBuilder = ({
         }
       }
     );
+    if (showTemplateWidget)
+      onToggleTemplateWidget();
   };
 
+  const onUpdateTemplate = (templateBody) => {
+    // const oldProductDetails = state.product;
+    const isValid = typeof templateBody === 'object' && Object.keys(templateBody).length;
+    console.log({ isValid, templateBody });
+    if (isValid) {
+      const newProductData = {
+        ...state.product,
+        ...templateBody
+      };
+      actions.updateState({
+        originalProductDetails: state.product,
+        product: matchProductSectionsIds(newProductData)
+      });
+      onToggleTemplateWidget();
+    }
+
+    // showResetTemplateWidget(oldProductDetails)
+  };
+  const onResetToOriginalProduct = () => {
+    const { originalProductDetails } = state;
+    actions.updateState({ product: matchProductSectionsIds(originalProductDetails) });
+    onToggleTemplateWidget();
+  };
+  // const showResetTemplateWidget = (product)=>{
+  //   s
+  // }
   if (loading) return <LoadingPage message='Setting up ...' />;
 
   const { funnel: { currency = defaultBrandCurrency } = {}, product: { pageStyles = {} } = {} } = state;
@@ -146,11 +225,11 @@ const ProductBuilder = ({
   return (
     <ProductContext.Provider value={{ state, actions }}>
       <Page fullSize className='flex-container flex-column'>
-        <Header history={history} onSave={onSaveProduct} saving={saving} />
+        <Header history={history} onSave={onSaveProduct} saving={saving} savingStatus={state.savingStatus} />
         <FlexBox id='blocks' flex className='relative-element'>
           <ScreenBackgroundSetup backgrounds={pageStyles} />
           <DndProvider backend={Backend}>
-            <SideBar canOffer={state.product?.category === 'checkout'} />
+            <SideBar canOffer={state.product?.category === 'checkout'} onUpdateTemplate={onUpdateTemplate} />
             <Workspace />
             <SettingSideBar />
           </DndProvider>
@@ -161,7 +240,15 @@ const ProductBuilder = ({
           currency={currency}
         />
         <PageBackgroundModal />
-        <PageSetupModal history={history} />
+        <PageSetupModal history={history} onUpdateTemplate={onUpdateTemplate} />
+        <TemplateResetWidget
+          internalName={state.product?.internalName}
+          show={showTemplateWidget}
+          onClose={onToggleTemplateWidget}
+          onReset={onResetToOriginalProduct}
+          onSave={onSaveProduct}
+          saving={saving}
+        />
       </Page>
       <ReactToolTip delayShow={400} />
     </ProductContext.Provider>

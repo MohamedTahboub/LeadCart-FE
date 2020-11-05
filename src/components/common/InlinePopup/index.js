@@ -49,11 +49,9 @@ const Popup = ({ id, children, onClose }) => {
 
   const onKeyDown = (e) => {
     const parentElement = document.getElementById(id);
-    console.log('ELEMENT', e.target, id, parentElement);
     if (!parentElement) return;
     const isIgnored = nodeHasChildElement(parentElement, e.target);
 
-    console.log({ isIgnored });
     if (!isIgnored)
       onClose();
   };
