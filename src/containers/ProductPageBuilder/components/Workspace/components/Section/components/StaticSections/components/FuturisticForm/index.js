@@ -114,7 +114,7 @@ const FlatForm = ({ language, section }) => {
   };
 
   const multiStepFormRender = (
-    <Tabs active={activeTab} className='custom-form-tabs flex' tabsContentClassName='pl-3 flex'>
+    <Tabs active={activeTab} className='custom-form-tabs flex' tabsContentClassName='pl-3 flex' titleColor={themeColor}>
       <Tab id='shipping' title={shippingDetailsEnabled ? 'Billing & Shipping Info' : 'Billing Info'}>
         <FlexBox flex wrappable>
           <InputField

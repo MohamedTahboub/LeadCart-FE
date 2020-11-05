@@ -1,5 +1,5 @@
 .futuristic-form-container .step-title{
-    color: #2d3d68b9;
+    color: var(--title-color);
 }
 
 .custom-form-tabs .tab-item {
@@ -11,13 +11,13 @@
 }
 
 .custom-form-tabs .tab-item.active {
-    color: #2d3d68;
-    border-color: #2d3d68;
+    color: var(--title-color);
+    border-color: var(--active-border-color);;
     border-width: 2px;
 }
 
 .custom-form-tabs .tab-item:hover {
-    color: #2d3d68b9;
+    color: var(--title-color);
 }
 
 .form-order-button {
