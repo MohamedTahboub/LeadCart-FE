@@ -22,8 +22,8 @@
 
 .form-order-button {
     font-size: 15px;
-    color: white;
-    background-color: #28c397;
+    color: var(--custom-form-btn-text);
+    background-color: var(--custom-form-btn-background);
     padding: 10px 0;
     min-width: 300px;
     display: flex;
@@ -39,19 +39,19 @@
 }
 
 .form-order-button:hover {
-    color: #28c397;
-    background-color: white;
+    color: var(--custom-form-btn-background);
+    background-color: var(--custom-form-btn-text);
     border-color: currentColor;
 }
-
 .payment-methods-radio-group{
     display: flex;
     flex-direction: column;
     background-color: #f6f9fb;
+    border-radius: 5px;;
 }
 .payment-method-radio-input{
     padding: 15px 20px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     display: flex;
     color: #4f5760;
     font-size: 14px;

@@ -157,7 +157,7 @@ export default [
         layout: 'two-column',
         productPage: {
           backgroundColor: 'rgba(242,246,249,1)',
-          firstColumn: { width: 430 },
+          firstColumn: { width: 530 },
           marginTop: 0,
           paddingBottom: 60,
           paddingTop: 56,

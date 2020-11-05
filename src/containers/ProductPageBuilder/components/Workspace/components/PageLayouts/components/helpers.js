@@ -5,7 +5,7 @@ export const stylesCasting = (styles = {}) => {
     style.backgroundImage = `url(${styles.backgroundImage})`;
     style.backgroundSize = 'cover';
     style.backgroundRepeat = 'no-repeat';
-  } else {style.backgroundImage = styles.backgroundColor;}
+  } else {style.backgroundColor = styles.backgroundColor;}
 
   return {
     ...styles,

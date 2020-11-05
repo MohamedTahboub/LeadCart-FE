@@ -1,23 +1,24 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
 
 import config from 'config';
 import common from 'components/common';
 import PaymentType from 'components/PaymentType';
-import Collapse from 'components/Collapsible';
 import { useContext } from '../../../../actions';
 import FlatRadio from 'components/FlatRadio';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import priceFormatOptions from 'data/priceFormatOptions';
 import { PricingOption } from './components';
+import InlinePopup from 'components/common/InlinePopup';
+
+import SectionStylesControllers from '../common/SectionStyles';
 
 const { admins = [], PRICING_OPTIONS_LIMITS } = config;
 const { Button, Tabs, Tab, InputRow, FlexBox, MiniColorPicker } = common;
 const { Label, SearchInput, Toggle, SelectOption } = InputRow;
 
 const StaticSection = ({ defaultBrandCurrency }) => {
-  const [openCollapse, setOpenCollapse] = useState();
 
   const {
     state: {
@@ -30,7 +31,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
 
   const { content = {}, styles = {} } = sectionSetting;
-  const { twoStepCheckout } = content;
+  const { twoStepCheckout = false } = content;
   const { completeOrderButton = {}, theme: formTheme = 'classic' } = styles;
 
   const {
@@ -83,11 +84,27 @@ const StaticSection = ({ defaultBrandCurrency }) => {
     }
   };
 
-  const onButtonSettingsChange = ({ target: { name, value } } = {}) => {
+  const onSectionFieldChange = ({ target: { name, value } } = {}) => {
     onSectionSettingChange({
       section: sectionSetting,
       field: {
+        name: name,
+        value: value
+      }
+    });
+  };
+  const onButtonSettingsChange = ({ target: { name, value } } = {}) => {
+    onSectionFieldChange({
+      target: {
         name: `styles.completeOrderButton.${name}`,
+        value: value
+      }
+    });
+  };
+  const onSectionStylesChange = ({ target: { name, value } } = {}) => {
+    onSectionFieldChange({
+      target: {
+        name: `styles.${name}`,
         value: value
       }
     });
@@ -153,6 +170,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
   const isCheckoutProductPage = category === 'checkout';
 
+  const isFuturistic = formTheme === 'futuristic';
 
   return (
     <Fragment>
@@ -230,16 +248,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               name='twoStepCheckout'
               onToggle={onTwoStepCheckoutChange}
             />
-            {/*
-            <img
-              src={twoStepCheckout ? 'https://imgur.com/nqjepZ3.png' : 'https://imgur.com/wnThVnO.png'}
-              alt='thumb'
-              style={{
-                height: '320px',
-                objectFit: 'contain'
-              }}
-            />
-           */}
           </Tab>
         }
 
@@ -277,24 +285,10 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 value={custom.billingAddress}
                 name='billingAddress'
                 onToggle={onToggleCustom}
-                beforeLabel='Enable'
-                afterLabel='Disable'
-              />
-            </InputRow>
-            {/*
-            <InputRow className='sidebar-row'>
-              <Label className='sidebar-input-label'>
-              Terms & Conditions Check
-              </Label>
-              <Toggle
-                value={custom.termsEnabled}
-                name='termsEnabled'
-                onToggle={onToggleCustom}
                 beforeLabel='Show'
                 afterLabel='Hide'
               />
             </InputRow>
-           */}
             {twoStepCheckout &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
@@ -313,147 +307,178 @@ const StaticSection = ({ defaultBrandCurrency }) => {
         }
 
 
-        <Tab id='button' title='Button'>
-          <FlexBox center='v-center' spaceBetween>
-            <span className='gray-text'>Position</span>
-            <SelectOption
-              name='position'
-              value={position}
-              onChange={onButtonSettingsChange}
-              options={[
-                { label: 'Left', value: 'left' },
-                { label: 'Right', value: 'right' },
-                { label: 'Center', value: 'center' },
-                { label: 'Justified', value: 'justified' }
-              ]}
-            />
-          </FlexBox>
+        {!isFuturistic && (
 
-          <FlexBox center='v-center margin-v-5' spaceBetween>
-            <span className='gray-text'>Button Background</span>
-            <MiniColorPicker
-              name='background'
-              value={background}
-              onChange={onButtonSettingsChange}
-            />
-          </FlexBox>
+          <Tab id='button' title='Button'>
+            <FlexBox center='v-center' spaceBetween>
+              <span className='gray-text'>Position</span>
+              <SelectOption
+                name='position'
+                value={position}
+                onChange={onButtonSettingsChange}
+                options={[
+                  { label: 'Left', value: 'left' },
+                  { label: 'Right', value: 'right' },
+                  { label: 'Center', value: 'center' },
+                  { label: 'Justified', value: 'justified' }
+                ]}
+              />
+            </FlexBox>
 
-          <FlexBox center='v-center margin-v-5' spaceBetween>
-            <span className='gray-text'>Button Text</span>
-            <MiniColorPicker
-              name='textColor'
-              value={textColor}
-              onChange={onButtonSettingsChange}
-            />
-          </FlexBox>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Button Background</span>
+              <MiniColorPicker
+                name='background'
+                value={background}
+                onChange={onButtonSettingsChange}
+              />
+            </FlexBox>
 
-          <FlexBox column center='margin-v-5 fluid' spaceBetween>
-            <Collapse defaultOpen={openCollapse === 'Borders'} title='Borders' toggle={setOpenCollapse}>
-              <div>Border Radius</div>
-              <span className='gray-text'>Symmetric</span>
-              <Toggle value={borderSymmetry} onToggle={(target) => onButtonSettingsChange({ target })} name='borderSymmetry' />
-              {
-                borderCornerNames.map((corner) => (
-                  <>
-                    <div className='mb-2'>{getCornerTitle(corner)}</div>
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Button Text</span>
+              <MiniColorPicker
+                name='textColor'
+                value={textColor}
+                onChange={onButtonSettingsChange}
+              />
+            </FlexBox>
+
+            <FlexBox column center='margin-v-5 fluid' spaceBetween>
+              <InlinePopup
+                title='Borders'
+                popUpContent={(
+                  <FlexBox column>
+
+                    <div>Border Radius</div>
+                    <span className='gray-text'>Symmetric</span>
+                    <Toggle value={borderSymmetry} onToggle={(target) => onButtonSettingsChange({ target })} name='borderSymmetry' />
+                    {
+                      borderCornerNames.map((corner) => (
+                        <>
+                          <div className='mb-2'>{getCornerTitle(corner)}</div>
+                          <Slider
+                            max={50}
+                            min={0}
+                            defaultValue={5}
+                            onChange={(radius) => onSliderChange(radius, corner)}
+                            value={completeOrderButton[corner] || 0}
+                          />
+                        </>
+                      ))
+                    }
+                    <FlexBox center='v-center' spaceBetween className='mb-2'>
+                      <div className='gray-text mb-2'>Border style</div>
+                      <SelectOption
+                        name='borderStyle'
+                        value={borderStyle}
+                        onChange={onButtonSettingsChange}
+                        options={[
+                          { label: 'Solid', value: 'solid' },
+                          { label: 'Dashed', value: 'dashed' },
+                          { label: 'Dotted', value: 'dotted' },
+                          { label: 'None', value: 'hidden' }
+                        ]}
+                      />
+                    </FlexBox>
+                    <FlexBox center='v-center' spaceBetween className='mb-2'>
+                      <div className='gray-text mb-2'>Border Width</div>
+                      <SelectOption
+                        value={borderWidth}
+                        name='borderWidth'
+                        onChange={onButtonSettingsChange}
+                        options={[
+                          { label: '0px', value: '0px' },
+                          { label: '1px', value: '1px' },
+                          { label: '2px', value: '2px' },
+                          { label: '3px', value: '3px' },
+                          { label: '4px', value: '4px' },
+                          { label: '5px', value: '5px' },
+                          { label: '6px', value: '6px' },
+                          { label: '7px', value: '7px' },
+                          { label: '8px', value: '8px' },
+                          { label: '9px', value: '9px' },
+                          { label: '10px', value: '10px' }
+                        ]}
+                      />
+                    </FlexBox>
+                    <FlexBox center='v-center' className='pb-140px' spaceBetween>
+                      <span className='gray-text'>Border Color</span>
+                      <MiniColorPicker
+                        name='borderColor'
+                        value={borderColor}
+                        onChange={onButtonSettingsChange}
+                      />
+                    </FlexBox>
+                  </FlexBox>
+                )}
+              />
+
+              <InlinePopup
+                title='Borders'
+                popUpContent={(
+                  <FlexBox column>
+                    <span>Shadow</span>
+                    <Toggle value={hasShadow} onToggle={(target) => onButtonSettingsChange({ target })} name='hasShadow' />
+                    <span className='gray-text'>Offset-X</span>
                     <Slider
-                      max={50}
+                      max={20}
                       min={0}
                       defaultValue={5}
-                      onChange={(radius) => onSliderChange(radius, corner)}
-                      value={completeOrderButton[corner] || 0}
+                      onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
+                      value={boxShadowOffsetX}
+                      disabled={!hasShadow}
                     />
-                  </>
-                ))
-              }
-              <FlexBox center='v-center' spaceBetween className='mb-2'>
-                <div className='gray-text mb-2'>Border style</div>
-                <SelectOption
-                  name='borderStyle'
-                  value={borderStyle}
-                  onChange={onButtonSettingsChange}
-                  options={[
-                    { label: 'Solid', value: 'solid' },
-                    { label: 'Dashed', value: 'dashed' },
-                    { label: 'Dotted', value: 'dotted' },
-                    { label: 'None', value: 'hidden' }
-                  ]}
-                />
-              </FlexBox>
-              <FlexBox center='v-center' spaceBetween className='mb-2'>
-                <div className='gray-text mb-2'>Border Width</div>
-                <SelectOption
-                  value={borderWidth}
-                  name='borderWidth'
-                  onChange={onButtonSettingsChange}
-                  options={[
-                    { label: '0px', value: '0px' },
-                    { label: '1px', value: '1px' },
-                    { label: '2px', value: '2px' },
-                    { label: '3px', value: '3px' },
-                    { label: '4px', value: '4px' },
-                    { label: '5px', value: '5px' },
-                    { label: '6px', value: '6px' },
-                    { label: '7px', value: '7px' },
-                    { label: '8px', value: '8px' },
-                    { label: '9px', value: '9px' },
-                    { label: '10px', value: '10px' }
-                  ]}
-                />
-              </FlexBox>
-              <FlexBox center='v-center' className='pb-140px' spaceBetween>
-                <span className='gray-text'>Border Color</span>
-                <MiniColorPicker
-                  name='borderColor'
-                  value={borderColor}
-                  onChange={onButtonSettingsChange}
-                />
-              </FlexBox>
-            </Collapse>
-
-            <Collapse defaultOpen={openCollapse === 'Shadows'} title='Shadows' toggle={setOpenCollapse}>
-              <span>Shadow</span>
-              <Toggle value={hasShadow} onToggle={(target) => onButtonSettingsChange({ target })} name='hasShadow' />
-              <span className='gray-text'>Offset-X</span>
-              <Slider
-                max={20}
-                min={0}
-                defaultValue={5}
-                onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
-                value={boxShadowOffsetX}
-                disabled={!hasShadow}
+                    <span className='gray-text'>Offset-Y</span>
+                    <Slider
+                      max={20}
+                      min={0}
+                      defaultValue={5}
+                      onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
+                      value={boxShadowOffsetY}
+                      disabled={!hasShadow}
+                    />
+                    <span className='gray-text'>Blur</span>
+                    <Slider
+                      max={20}
+                      min={0}
+                      defaultValue={5}
+                      onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
+                      value={boxShadowBlur}
+                      disabled={!hasShadow}
+                    />
+                    <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
+                      <span className='gray-text'>Shadow Color</span>
+                      <MiniColorPicker
+                        name='shadowColor'
+                        value={shadowColor}
+                        onChange={onButtonSettingsChange}
+                        disabled={!hasShadow}
+                      />
+                    </FlexBox>
+                  </FlexBox>
+                )}
               />
-              <span className='gray-text'>Offset-Y</span>
-              <Slider
-                max={20}
-                min={0}
-                defaultValue={5}
-                onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
-                value={boxShadowOffsetY}
-                disabled={!hasShadow}
+            </FlexBox>
+          </Tab>
+        )}
+        {isFuturistic && (
+          <Tab id='styles' title='Styles'>
+            <FlexBox spaceBetween className='my-2'>
+              <Label className='sidebar-input-label'>
+                Form Theme Color
+              </Label>
+              <MiniColorPicker
+                name='themeColor'
+                value={styles.themeColor}
+                onChange={onSectionStylesChange}
               />
-              <span className='gray-text'>Blur</span>
-              <Slider
-                max={20}
-                min={0}
-                defaultValue={5}
-                onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
-                value={boxShadowBlur}
-                disabled={!hasShadow}
-              />
-              <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
-                <span className='gray-text'>Shadow Color</span>
-                <MiniColorPicker
-                  name='shadowColor'
-                  value={shadowColor}
-                  onChange={onButtonSettingsChange}
-                  disabled={!hasShadow}
-                />
-              </FlexBox>
-            </Collapse>
-
-          </FlexBox>
-        </Tab>
+            </FlexBox>
+            <SectionStylesControllers
+              values={styles}
+              onChange={onSectionStylesChange}
+            />
+          </Tab>
+        )}
 
       </Tabs>
     </Fragment>

@@ -12,6 +12,9 @@
             "type": "checkoutSection",
             "content": {
                 "value": "StaticSections"
+            },
+            "styles":{
+                "theme": "futuristic"
             }
         }
     ],
