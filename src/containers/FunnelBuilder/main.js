@@ -86,7 +86,7 @@ const FunnelBuilder = ({
 
   const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl) || {};
 
-  const checkTheCheckoutPage = ({ products = [] }) => Boolean(products?.find(({ category, productId }) => (category === 'checkout' && productId)));
+  const checkTheCheckoutPage = ({ type, products = [] }) => type === 'CHECKOUT' ? Boolean(products?.find(({ category, productId }) => (category === 'checkout' && productId))) : true;
 
   const onChange = ({ name, value }) => {
     const newFields = immutable.set(fields, name, value);
