@@ -1,4 +1,4 @@
-.image-badge-option{
+.image-badge-option {
     width: 120px;
     height: 120px;
     object-fit: contain;
@@ -7,13 +7,15 @@
     cursor: pointer;
     padding: 5px;
 }
-.image-badge-option:hover{
+
+.image-badge-option:hover {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
 .image-badge-option.active {
     position: relative;
 }
+
 .image-badge-option.active:after {
     position: absolute;
     top: 8px;
@@ -22,16 +24,17 @@
     font-weight: 400;
     font-size: 20px;
     content: "\F058";
-    color: rgba(48,224,48,.71);
+    color: rgba(48, 224, 48, .71);
 }
 
-.feature-theme-demo{
+.feature-theme-demo {
     height: 150px;
     width: auto;
     object-fit: contain;
 }
+
 .figure-theme-demo,
-.guarantee-theme-demo{
+.guarantee-theme-demo {
     height: auto;
     width: 100%;
     object-fit: contain;
@@ -42,7 +45,7 @@
 }
 
 
-.faq-settings-icons{
+.faq-settings-icons {
     border: 1px solid lightgray;
     padding: 5px;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.05);
@@ -52,14 +55,31 @@
     margin: auto;
 }
 
-.faqs .css-1uccc91-singleValue{
-    width: 90%; 
+.faqs .css-1uccc91-singleValue {
+    width: 90%;
 }
+
 
 .side-bar-menu span.Collapsible__trigger {
     font-size: 16px !important;
     padding: 5px !important;
     border-color: #E8E8E8;
+    border: none;
+    border-radius: 3px;
+    background-color: #eee;
+}
+.side-bar-menu span.Collapsible__trigger.is-open{
+    background-color: #E8E8E8;
+    border: none;
+    border-radius: 3px;
+}
+
+.side-bar-menu .Collapsible__trigger.is-open:after {
+    content: '>';
+    transform: rotate(90deg);
+}
+.side-bar-menu .Collapsible__trigger.is-closed:after {
+    content: '>';
 }
 
 .button-layout-image {
@@ -72,4 +92,28 @@
 .quill.fluid .ql-tooltip {
     min-width: 375px;
     /* left: 0 !important; */
+}
+
+.page-settings-modal-close-btn {
+    height: 35px;
+    width: 35px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: white;
+    position: absolute;
+    left: -34px;
+    top: 10px;
+    cursor: pointer;
+
+}
+
+.page-settings-modal-close-btn .icon-btn{
+    transition:
+    transform .3s ease-in-out,
+    color .3s ease-in-out;
+    font-size: 18px;
+}
+.page-settings-modal-close-btn .icon-btn:hover {
+    color: gray;
+    transform: scale(1.1);
 }

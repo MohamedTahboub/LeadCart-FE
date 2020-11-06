@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import common from 'components/common';
 import { IoIosArrowRoundBack } from 'react-icons/io';
-import { AiOutlineHistory, AiOutlineMobile } from 'react-icons/ai';
+import { AiOutlineHistory, AiOutlineMobile, AiOutlineShareAlt } from 'react-icons/ai';
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
 import { FaCode } from 'react-icons/fa';
 import { useContext } from '../../actions';
 import { ScriptsModal } from './components';
+import './style.css';
 
 const {
   Button,
   FlexBox,
   Title,
-  EditableField
+  EditableField,
+  Tooltip
 } = common;
 
 const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
@@ -21,21 +23,24 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 
   return (
     <FlexBox>
-      <MdDesktopWindows
-        className={`${commonClasses} ${isActive('desktop')}`}
-        onClick={onChange('desktop')}
-        data-tip='Preview on Desktop Mode'
-      />
-      <MdTabletMac
-        onClick={onChange('tablet')}
-        className={`${commonClasses} ${isActive('tablet')}`}
-        data-tip='Preview on Tablet Size Mode'
-      />
-      <AiOutlineMobile
-        onClick={onChange('mobile')}
-        className={`${commonClasses} ${isActive('mobile')}`}
-        data-tip='Preview on Mobile Mode'
-      />
+      <Tooltip placement='bottom' text='Preview on Desktop Mode'>
+        <MdDesktopWindows
+          className={`${commonClasses} ${isActive('desktop')}`}
+          onClick={onChange('desktop')}
+        />
+      </Tooltip>
+      <Tooltip placement='bottomRight' text='Preview on Tablet Size Mode'>
+        <MdTabletMac
+          onClick={onChange('tablet')}
+          className={`${commonClasses} ${isActive('tablet')}`}
+        />
+      </Tooltip>
+      <Tooltip placement='bottomRight' text='Preview on Mobile Mode'>
+        <AiOutlineMobile
+          onClick={onChange('mobile')}
+          className={`${commonClasses} ${isActive('mobile')}`}
+        />
+      </Tooltip>
     </FlexBox>
   );
 };
@@ -44,8 +49,8 @@ const ResponsiveSizesOptions = ({ onChange, activeDisplay = 'desktop' }) => {
 const Header = ({
   history,
   onSave,
-  saving,
-  ...props
+  savingStatus = {},
+  saving
 }) => {
 
   const {
@@ -105,7 +110,21 @@ const Header = ({
       </FlexBox>
 
       <FlexBox className='white-bg padding-v-5 lightgray-border-top lightgray-border-bottom' center='v-center' spaceBetween wrappable>
-        <FlexBox center='v-center' className='min-width-250 ' />
+        <FlexBox center='v-center' className='min-width-250 ' >
+          <Tooltip placement='bottomRight' text={'Coming Soon'}>
+            <Button
+              className='light-btn ml-3 share-template-btn'
+              disabled
+            >
+              <FlexBox center='v-center'>
+                <AiOutlineShareAlt className='gray-text mr-1' />
+                <span>
+                  Share As Template
+                </span>
+              </FlexBox>
+            </Button>
+          </Tooltip>
+        </FlexBox>
         <FlexBox>
           <EditableField
             className='large-text dashed-text aligned-center-text lightgray-border-color outline-style-none'
@@ -143,15 +162,17 @@ const Header = ({
               </span>
             </FlexBox>
           </Button>
-          <Button
-            onClick={onSave}
-            className='light-btn px-3'
-            disabled={saving}
-            onprogress={saving}
-          >
-            <i className='fas fa-save font-size-11' />
+          <Tooltip placement='bottomLeft' text={savingStatus.text} visible={savingStatus.show}>
+            <Button
+              onClick={onSave}
+              className='light-btn px-3'
+              disabled={saving}
+              onprogress={saving}
+            >
+              <i className='fas fa-save font-size-11' />
             Save
-          </Button>
+            </Button>
+          </Tooltip>
         </FlexBox>
       </FlexBox>
       <ScriptsModal

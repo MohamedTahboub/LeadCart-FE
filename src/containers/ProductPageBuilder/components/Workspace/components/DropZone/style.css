@@ -1,6 +1,7 @@
 .product-drop-zone{
     transform: translateY(0);
     z-index: 1100;
+    width: 100%;
 }
 .product-drop-zone.drag-over{
     border: 1px solid #00000030;

@@ -485,7 +485,7 @@ span.medium-card-headline {
 }
 
 
-
+.template-card-holder,
 .category-card-holder {
     display: flex;
     flex-direction: column;
@@ -500,21 +500,64 @@ span.medium-card-headline {
     margin: 15px;
     cursor: pointer;
 }
-
+.template-card-holder{
+    height: 200px;
+    width: 250px;
+    background-color: transparent;
+}
+.template-card-holder.disabled,
 .category-card-holder.disabled {
     filter: grayscale(.7);
     opacity: .9;
     cursor: not-allowed;
 }
 
+.template-card-holder:active:not(.disabled) ,
 .category-card-holder:active:not(.disabled) {
     opacity: .8;
 }
 
+.template-card-holder:hover:not(.disabled) ,
 .category-card-holder:hover:not(.disabled) {
     box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.3);
 }
 
+
+.template-card-image{
+    width: 250px;
+    height: 200px;
+    border-radius: 7px;
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+.active .template-card-image{
+    border: 4px solid #4DA1FF !important;
+}
+.template-card-image:hover{
+    border: 4px solid #4da0ff65;
+}
+.active .template-card-label{
+    border: 4px solid #4DA1FF !important;
+}
+
+.template-card-label{
+    width: 250px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4DA1FF;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 7px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    background-color: lightgray;
+    color: white;
+}
+.template-card-label:hover{
+    border: 4px solid #4da0ff65;
+}
 .category-card-image {
     width: 35px;
     height: auto;
@@ -882,4 +925,44 @@ span.product-salles-holder i.fas {
 
 .card-container:hover {
     box-shadow: 1px 1px 10px -2px rgba(0, 0, 0, .2);
+}
+
+.check-card{
+    position: relative;
+    width: 130px;
+    height: 55px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: border-color .3  ease-in-out;
+}
+.check-card.active,
+.check-card:hover{
+    border-color:#4da0fe;
+}
+.check-card::after{
+    opacity: 0;
+    position: absolute;
+    content: "\2713";
+    top: -1px;
+    left: -1px;
+    height: 15px;
+    width: 15px;
+    background-color: #4da0fe;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .3s ease-in-out;
+    border-bottom-right-radius: 3px;
+}
+.check-card.active::after{
+    opacity: 1;
+}
+.check-card-image{
+    margin: 0 auto;
+    height: auto;
+    width: 80%;
+    max-width: 90%;
+    object-fit: contain;
 }

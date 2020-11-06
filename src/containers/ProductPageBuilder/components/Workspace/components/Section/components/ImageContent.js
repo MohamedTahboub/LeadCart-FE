@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import clx from 'classnames';
 import defaultDropImage from 'assets/images/upload-image.png';
 import common from 'components/common';
@@ -32,16 +32,17 @@ const ImageContent = ({
 
 
   const onSizeChange = (size) => {
-    actions.onSectionSettingChange({
-      section,
-      field: {
-        name: 'styles.height',
-        value: size.height
+    actions.onSectionFieldChange({
+      ...section,
+      styles: {
+        ...(section?.styles || {}),
+        height: size.height
       }
     });
+
   };
 
-  return (
+  return useMemo(() => (
     <FlexibleBox
       size={{ height: styles.height }}
       className={classNames}
@@ -66,7 +67,7 @@ const ImageContent = ({
         onUploaded={onImageChange}
       />
     </FlexibleBox>
-  );
+  ), [content.value, inputRef, styles.height]);
 };
 
 ImageContent.propTypes = {};

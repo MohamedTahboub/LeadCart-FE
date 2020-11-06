@@ -6,7 +6,7 @@ import './style.css';
 
 const getActiveContent = (children, active) => {
   const contentElement = (Array.isArray(children)
-    ? children.find(({ props = {} }) => props.id === active)
+    ? children.filter(Boolean).find(({ props = {} }) => props.id === active)
     : children);
   return contentElement
     ? (contentElement.props && contentElement.props.children)
@@ -15,7 +15,7 @@ const getActiveContent = (children, active) => {
 
 const getTabsTitles = (children, activeTab) => (
   Array.isArray(children)
-    ? children.map(({ props = {} }) => ({ ...props, active: props.id === activeTab }))
+    ? children.filter(Boolean).map(({ props = {} }) => ({ ...props, active: props.id === activeTab }))
     : [(children ? children.props : null)]
 );
 
@@ -23,7 +23,9 @@ export const Tabs = ({
   children,
   className,
   tabsContentClassName,
+  tabTitleClassName,
   vertical,
+  titleColor,
   active,
   onChange
 }) => {
@@ -50,7 +52,9 @@ export const Tabs = ({
           <Tab
             {...tab}
             key={tab.id}
+            className={clx(tab.className, tabTitleClassName)}
             onClick={onTabChange(tab.id)}
+            titleColor={titleColor}
           />
         ))}
       </FlexBox>
@@ -69,17 +73,29 @@ Tabs.defaultProps = {
   vertical: false
 };
 
+
 export const Tab = ({
   id,
   title,
   active,
+  titleColor = '#808292',
+  borderColor,
   onClick
-}) => (
-  <div
-    id-data={id}
-    className={`tab-item ${active ? 'active' : ''}`}
-    onClick={onClick}
-  >
-    {title}
-  </div>
-);
+}) => {
+
+  const style = {
+    '--title-color': titleColor,
+    '--active-border-color': (!borderColor && titleColor) ? titleColor : 'rgba(33, 123, 232, 0.767)'
+  };
+
+  return (
+    <div
+      id-data={id}
+      style={style}
+      className={`tab-item ${active ? 'active' : ''}`}
+      onClick={onClick}
+    >
+      {title}
+    </div>
+  );
+};

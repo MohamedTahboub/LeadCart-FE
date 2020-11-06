@@ -1,7 +1,7 @@
 {
     "price": {
         "currency": "USD",
-        "amount": 9.9
+        "amount": 19.9
     },
     "payment": {
         "type": "Onetime"
@@ -17,6 +17,6 @@
     ],
     "category": "checkout",
     "available": true,
-    "name": "My Product",
+    "name": "Untitled Product",
     "internalName": "my-product"
 }

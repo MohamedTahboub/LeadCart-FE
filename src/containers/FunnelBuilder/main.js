@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
@@ -9,20 +10,11 @@ import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
 import queryString from 'querystring';
 import * as immutable from 'object-path-immutable';
-import {
-  isObjectsEquivalent,
-  mapListToObject,
-  notification
-} from 'libs';
-
+import { isObjectsEquivalent, mapListToObject, notification } from 'libs';
+import { Header, Rules, SideBar, Workspace } from './components';
+import { hasChanges } from './helpers';
 import './style.css';
 
-import {
-  Header,
-  Rules,
-  SideBar,
-  Workspace
-} from './components';
 import { withHistoryListener } from '../../history';
 
 const hasPaypalPayment = ({ paymentMethods = [] } = {}) => {
@@ -67,6 +59,9 @@ const FunnelBuilder = ({
   const [unblock, SetUnblock] = useState();
 
   const [openRuleModal, setOpenRuleModal] = useState(false);
+  const [isFunnelBuilderHasChanges, setIsFunnelBuilderHasChanges] = useState(false);
+  const [hasValidCheckout, setHasValidCheckout] = useState(false);
+
 
   const onToggleRuleModal = (activeRule, setActiveRule) => {
     setOpenRuleModal((open) => {
@@ -88,10 +83,15 @@ const FunnelBuilder = ({
       unblock();
   };
 
+
+  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl) || {};
+
+  const checkTheCheckoutPage = ({ type, products = [] }) => type === 'CHECKOUT' ? Boolean(products?.find(({ category, productId }) => (category === 'checkout' && productId))) : true;
+
   const onChange = ({ name, value }) => {
     const newFields = immutable.set(fields, name, value);
-    setFields(newFields);
 
+    setFields(newFields);
     setErrors({ ...errors, [name]: '' });
     changesDetected();
   };
@@ -101,7 +101,6 @@ const FunnelBuilder = ({
     setEnableDarkTheme(!enableDarkTheme);
   };
 
-  const getFunnelByUrl = (funnelUrl) => funnels.find(({ url }) => url === funnelUrl);
 
   useEffect(() => {
     const funnel = getFunnelByUrl(funnelUrl);
@@ -119,6 +118,10 @@ const FunnelBuilder = ({
 
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);
+
+
+    const hasValidCheckout = checkTheCheckoutPage(funnel);
+    setHasValidCheckout(hasValidCheckout);
 
     //eslint-disable-next-line
   }, [funnels, productsMap]);
@@ -165,6 +168,7 @@ const FunnelBuilder = ({
           notification.success('Funnel Saved Successfully');
           changesSaved();
           updateUrlOnChange(fields.url);
+          setIsFunnelBuilderHasChanges(false);
         },
         onFailed: (message) => {
           notification.failed(message);
@@ -182,6 +186,20 @@ const FunnelBuilder = ({
     setActivePage(page);
   };
 
+
+  useEffect(() => {
+    const funnel = getFunnelByUrl(funnelUrl);
+    const hasUnsavedChanges = hasChanges(funnel, fields);
+    const hasValidSteps = checkTheCheckoutPage(fields);
+
+    if (hasUnsavedChanges !== isFunnelBuilderHasChanges)
+      setIsFunnelBuilderHasChanges(hasUnsavedChanges);
+
+    if (hasValidSteps !== hasValidCheckout)
+      setHasValidCheckout(hasValidSteps);
+  }, [fields]);
+
+
   const headerProps = {
     onChange,
     onPageChange,
@@ -191,6 +209,8 @@ const FunnelBuilder = ({
     onToggleRuleModal,
     funnel: fields,
     onSave,
+    isFunnelBuilderHasChanges,
+    hasValidCheckout,
     history: props.history
   };
   const isOptInFunnel = fields.type && fields.type === 'OPT-IN';

@@ -9,6 +9,19 @@ import './style.css';
 import { Product } from './components';
 
 
+const updateWithFuturisticForm = (sections = []) => {
+  if (!Array.isArray(sections)) return [];
+  return sections.map((section) => {
+    if (section.type === 'checkoutSection') {
+      return {
+        ...section,
+        styles: { theme: 'futuristic' }
+      };
+    }
+    return section;
+  });
+};
+
 const getMatchedProducts = (products = [], nodes, activeNodeId, filterKey) => {
   const activeNode = nodes.find((node) => node.elementId === activeNodeId);
 
@@ -102,6 +115,9 @@ const NodeSettingModal = ({
       });
     }
 
+    if (productCategory === 'checkout')
+      productSample.sections = updateWithFuturisticForm(productSample.sections);
+
     setLoading(true);
     props.createNewProduct(
       productSample,
@@ -111,7 +127,9 @@ const NodeSettingModal = ({
           onSelect(nodeId, productId);
           setTimeout(() => {
             setLoading(false);
-            history.push(`${funnelUrl}/products/${productId}`);
+
+            const stateSuffix = productCategory === 'checkout' ? '?state=new' : '';
+            history.push(`${funnelUrl}/products/${productId}${stateSuffix}`);
             notification.success('Product Created ');
           }, 200);
         },

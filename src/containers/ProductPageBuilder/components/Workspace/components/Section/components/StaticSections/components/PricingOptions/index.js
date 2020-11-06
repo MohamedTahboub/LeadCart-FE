@@ -6,7 +6,7 @@ import { PricingOptionCard } from './components';
 const { FlexBox } = common;
 
 
-const PricingOptions = ({ format, defaultBrandCurrency }) => {
+const PricingOptions = ({ format, defaultBrandCurrency, theme }) => {
 
   const {
     state: {
@@ -34,6 +34,7 @@ const PricingOptions = ({ format, defaultBrandCurrency }) => {
               format={format}
               onSelect={onSelectPriceOption}
               currency={currency}
+              theme={theme}
             />
           ))
         }

@@ -1,0 +1,6 @@
+.share-template-btn{
+
+}
+.share-template-btn.btn-disabled{
+    pointer-events:unset;
+}

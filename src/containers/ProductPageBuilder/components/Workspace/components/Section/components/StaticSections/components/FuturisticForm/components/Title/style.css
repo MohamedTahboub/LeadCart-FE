@@ -1,0 +1,26 @@
+.title-element{
+    font-size: 16px;
+    color:rgba(0,0,0,0.7);
+    font-weight: bold;
+    margin:10px 0;
+    display: flex;
+    align-items: center;
+  }
+  .title-element.title-medium{
+    font-size: 20px;
+  }
+  .title-element.title-large{
+    font-size: 25px;
+}
+.title-element .step{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:0 10px;
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 100%;
+
+}

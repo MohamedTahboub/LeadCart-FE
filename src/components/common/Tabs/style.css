@@ -6,6 +6,7 @@
 
 .tab-item {
     color: #808292;
+    /* color: var(--title-color); */
     font-size: 13px;
     font-weight: 500;
     margin: 0 10px;
@@ -20,6 +21,7 @@
 }
 .tab-item.active{
     border-bottom: 3px solid rgba(33, 123, 232, 0.767);
+    /* border-bottom: 3px solid var(--active-border-color); */
 }
 
 .side-bar-menu.right-position .tabs-content {

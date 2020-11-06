@@ -4,10 +4,11 @@ import common from 'components/common';
 import { nestedKeyValue } from 'libs';
 import { useContext } from '../../../actions';
 import { ImageOption, SettingBox } from './common';
-
+import InlinePopup from 'components/common/InlinePopup';
+import FlatRadio from 'components/FlatRadio';
 
 const {
-  MiniTwitterPicker,
+  MiniColorPicker,
   Currency,
   Tabs,
   Tab,
@@ -159,150 +160,149 @@ const BumpOffer = () => {
       </Tab>
 
       <Tab id='advance' title='Advance'>
-        <SettingBox
-          title='Options'
-        >
-          <FlexBox flex spaceBetween center='v-center'>
-            <Label>
-              Toggle Input Theme:
-            </Label>
-            <SelectOption
-              value={styles.toggleInput}
-              name='styles.toggleInput'
-              onChange={onChange}
-              options={[
-                { label: 'Classic', value: 'classic' },
-                { label: 'Modern', value: 'modern' }
-              ]}
-            />
-          </FlexBox>
-        </SettingBox>
-        <SettingBox
-          title='Colors'
-        >
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Background:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.containerBackground'
-              value={styles.containerBackground}
-              onChange={onChange}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Container text:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.containerTextColor'
-              value={styles.containerTextColor}
-              onChange={onChange}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Header Background:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.headerBackground'
-              value={styles.headerBackground}
-              onChange={onChange}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Header text:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.headerTextColor'
-              value={styles.headerTextColor}
-              onChange={onChange}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Content Headline Color:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.contentHeadlineTextColor'
-              value={styles.contentHeadlineTextColor}
-              onChange={onChange}
-            />
-          </InputRow>
-        </SettingBox>
+        <FlatRadio
+          className='my-2 mt-3'
+          options={[
+            { label: 'With Toggle', value: 'classic' },
+            { label: 'With Checkmark', value: 'modern' }
+          ]}
+          value={styles.toggleInput || 'classic'}
+          name='styles.toggleInput'
+          onToggle={(target) => onChange({ target })}
+        />
+        <InlinePopup
+          title='Offer Colors'
+          popUpContent={(
+            <FlexBox column>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Background:
+                </Label>
+                <MiniColorPicker
+                  name='styles.containerBackground'
+                  value={styles.containerBackground}
+                  onChange={onChange}
+                />
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Container text:
+                </Label>
+                <MiniColorPicker
+                  name='styles.containerTextColor'
+                  value={styles.containerTextColor}
+                  onChange={onChange}
+                />
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Header Background:
+                </Label>
+                <MiniColorPicker
+                  name='styles.headerBackground'
+                  value={styles.headerBackground}
+                  onChange={onChange}
+                />
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Header text:
+                </Label>
+                <MiniColorPicker
+                  name='styles.headerTextColor'
+                  value={styles.headerTextColor}
+                  onChange={onChange}
+                />
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Content Headline Color:
+                </Label>
+                <MiniColorPicker
+                  name='styles.contentHeadlineTextColor'
+                  value={styles.contentHeadlineTextColor}
+                  onChange={onChange}
+                />
+              </InputRow>
+            </FlexBox>
+          )}
+        />
 
-        <SettingBox title='Border Style'>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Color:
-            </Label>
-            <MiniTwitterPicker
-              name='styles.borderColor'
-              value={styles.borderColor}
-              onChange={onChange}
-            />
+        <InlinePopup
+          title='Border Style'
+          popUpContent={(
+            <FlexBox column>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Color:
+                </Label>
+                <MiniColorPicker
+                  name='styles.borderColor'
+                  value={styles.borderColor}
+                  onChange={onChange}
+                />
 
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Style:
-            </Label>
-            <SelectOption
-              value={styles.borderStyle}
-              name='styles.borderStyle'
-              onChange={onChange}
-              className='bump-offer-style-dropdown'
-              options={[
-                { label: 'Solid', value: 'solid' },
-                { label: 'Dashed', value: 'dashed' }
-              ]}
-            />
-          </InputRow>
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Width:
-            </Label>
-            <SelectOption
-              value={styles.borderWidth}
-              name='styles.borderWidth'
-              onChange={onChange}
-              className='bump-offer-style-dropdown'
-              options={[
-                { label: '0 px', value: '0' },
-                { label: '1 px', value: '1' },
-                { label: '2 px', value: '2' },
-                { label: '3 px', value: '3' },
-                { label: '4 px', value: '4' }
-              ]}
-            />
-          </InputRow>
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Style:
+                </Label>
+                <SelectOption
+                  value={styles.borderStyle}
+                  name='styles.borderStyle'
+                  onChange={onChange}
+                  className='bump-offer-style-dropdown'
+                  options={[
+                    { label: 'Solid', value: 'solid' },
+                    { label: 'Dashed', value: 'dashed' }
+                  ]}
+                />
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Width:
+                </Label>
+                <SelectOption
+                  value={styles.borderWidth}
+                  name='styles.borderWidth'
+                  onChange={onChange}
+                  className='bump-offer-style-dropdown'
+                  options={[
+                    { label: '0 px', value: '0' },
+                    { label: '1 px', value: '1' },
+                    { label: '2 px', value: '2' },
+                    { label: '3 px', value: '3' },
+                    { label: '4 px', value: '4' }
+                  ]}
+                />
+              </InputRow>
 
-          <InputRow className='sidebar-row'>
-            <Label className='sidebar-input-label'>
-              Border Radius:
-            </Label>
-            <SelectOption
-              value={styles.borderRadius}
-              name='styles.borderRadius'
-              onChange={onChange}
-              className='bump-offer-style-dropdown'
-              options={[
-                { label: '0 px', value: '0' },
-                { label: '1 px', value: '1' },
-                { label: '2 px', value: '2' },
-                { label: '3 px', value: '3' },
-                { label: '4 px', value: '4' },
-                { label: '5 px', value: '5' },
-                { label: '6 px', value: '6' },
-                { label: '7 px', value: '7' }
-              ]}
-            />
-          </InputRow>
-        </SettingBox>
-
-      </Tab>
-    </Tabs>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Radius:
+                </Label>
+                <SelectOption
+                  value={styles.borderRadius}
+                  name='styles.borderRadius'
+                  onChange={onChange}
+                  className='bump-offer-style-dropdown'
+                  options={[
+                    { label: '0 px', value: '0' },
+                    { label: '1 px', value: '1' },
+                    { label: '2 px', value: '2' },
+                    { label: '3 px', value: '3' },
+                    { label: '4 px', value: '4' },
+                    { label: '5 px', value: '5' },
+                    { label: '6 px', value: '6' },
+                    { label: '7 px', value: '7' }
+                  ]}
+                />
+              </InputRow>
+            </FlexBox>
+          )}
+        />
+      </Tab >
+    </Tabs >
   );
 };
 BumpOffer.propTypes = {};

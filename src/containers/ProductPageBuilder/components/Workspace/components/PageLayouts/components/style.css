@@ -1,0 +1,21 @@
+.product-column{
+    /* flex: 1; */
+}
+
+.product-workspace.tablet .product-column {
+    width: 466px !important;
+    margin-left: unset !important;
+    margin-right: unset !important;
+    padding-left: unset !important;
+    padding-right: unset !important;
+}
+
+.product-workspace.mobile .product-column{
+    width: 340px !important;
+    min-height: 667px;
+    padding-bottom: 100px;
+    margin-left: unset !important;
+    margin-right: unset !important;
+    padding-left: unset !important;
+    padding-right: unset !important;
+}

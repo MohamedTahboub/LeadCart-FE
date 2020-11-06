@@ -5,14 +5,19 @@ import { useDrop } from 'react-dnd';
 import * as dropTypes from '../dropTypes';
 
 
-export default ({ children, onDrop }) => {
+export default ({ children, parentZone, onDrop, moveCard, style }) => {
+
   const [, drop] = useDrop({
     accept: dropTypes.SECTION,
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
       if (didDrop) return;
+      const itemDetails = { ...item };
+      if (!isNaN(itemDetails.originalIndex) && itemDetails.section)
+        return moveCard(itemDetails.section.id, itemDetails.originalIndex, parentZone);
 
-      onDrop(item);
+
+      onDrop({ ...itemDetails, parentZone });
     }
   });
 
@@ -22,6 +27,7 @@ export default ({ children, onDrop }) => {
     <div
       className={className}
       ref={drop}
+      style={style}
     >
       {children}
     </div>

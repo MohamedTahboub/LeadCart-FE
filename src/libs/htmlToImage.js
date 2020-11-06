@@ -1,12 +1,12 @@
 import ids from 'shortid';
 import html2canvas from 'html2canvas';
 
-export default async (elementId, { quality = 0.10, fileName } = {}) => {
+export default async (elementId, { quality = 0.20, fileName } = {}) => {
   const target = document.getElementById(elementId);
   if (!target) return;
   const canvas = await html2canvas(target, {
-    useCORS: true,
-    allowTaint: true
+    // useCORS: false,
+    // allowTaint: true
   });
 
   const dataURL = canvas.toDataURL('image/jpeg', quality);

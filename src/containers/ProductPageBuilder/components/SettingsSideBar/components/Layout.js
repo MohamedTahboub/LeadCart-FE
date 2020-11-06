@@ -13,7 +13,7 @@ const {
   Tabs,
   EditableField,
   InputRow,
-  MiniTwitterPicker,
+  MiniColorPicker,
   FlexBox,
   Tab,
   Button

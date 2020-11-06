@@ -29,21 +29,12 @@ export const updateState = ({ dispatch }) => (subState) => {
 };
 
 export const onProductFieldChange = ({ state = {}, dispatch }) => (filed) => {
-  let { name, value } = filed || {};
-
-  if (name.includes('.')) {
-    const [key, nestedKey] = name.split('.');
-    const nestedValue = { [nestedKey]: value };
-    name = key;
-    value = { ...state.product[key], ...nestedValue };
-  }
+  const { name, value } = filed || {};
+  const updatedProduct = immutable.set(state.product, name, value);
 
   dispatch({
     type: types.PRODUCT_FIELD_CHANGE,
-    payload: {
-      ...state.product,
-      [name]: value
-    }
+    payload: updatedProduct
   });
 };
 
@@ -95,19 +86,21 @@ export const toggleSectionSettingModal = ({ state, dispatch }) => (section = {})
 };
 
 
-export const addNewSection = ({ state, dispatch }) => (sectionType, postEffect) => {
+export const addNewSection = ({ state, dispatch }) => ({ type: sectionType, parentZone = 'second-column' }, postEffect) => {
   const section = sectionsTemplates[sectionType];
 
   if (!section) return;
-
-  section.id = ids.generate();
-  if (!state.product.sections) section.order = 0;
-  else section.order = state.product.sections.length;
+  // if (!state.product.sections) section.order = 0;
+  // else section.order = state.product.sections.length;
 
 
   dispatch({
     type: types.ADD_NEW_SECTION,
-    payload: section
+    payload: {
+      ...section,
+      id: ids.generate(),
+      parentZone
+    }
   });
   setTimeout(() => {
     if (isFunction(postEffect)) postEffect(section);
@@ -123,21 +116,28 @@ export const updateDisplayMode = ({ dispatch }) => (mode) => {
 };
 
 
-export const onSectionSettingChange = ({ dispatch }) => ({ section, field = {}, fields }) => {
-  let sectionUpdated;
-  if (fields) {
+export const onSectionSettingChange = ({ state: { modals: { sectionSetting = {} } = {} }, dispatch }) => ({ section, field = {}, fields }) => {
+  let sectionUpdated = section;
+  if (Array.isArray(fields)) {
     fields.forEach((field) => {
       const { name, value } = field;
-      sectionUpdated = immutable.set(sectionUpdated || section, name, value);
+      sectionUpdated = immutable.set(sectionUpdated, name, value);
     });
   } else {
     const { name, value } = field;
     sectionUpdated = immutable.set(section, name, value);
   }
-  dispatch({
-    type: types.UPDATE_SECTION_SETTINGS,
-    payload: sectionUpdated
-  });
+  if (sectionSetting.id === section.id) {
+    dispatch({
+      type: types.UPDATE_SECTION_SETTINGS,
+      payload: sectionUpdated
+    });
+  } else {
+    dispatch({
+      type: types.UPDATE_PRODUCT_SECTION,
+      payload: sectionUpdated
+    });
+  }
 };
 
 
@@ -177,4 +177,12 @@ export const editProductPriceOption = ({ dispatch }) => (pricingOption) => {
 };
 export const deleteProductPriceOption = ({ dispatch }) => (id) => {
   dispatch({ type: types.DELETE_PRODUCT_PRICING_OPTION, payload: id });
+};
+export const onToggleProductBackgroundModal = ({ dispatch }) => () => {
+  dispatch({ type: types.TOGGLE_PRODUCT_BACKGROUND_MODAL });
+};
+
+
+export const updateSavingStatusText = ({ dispatch }) => (show, text) => {
+  dispatch({ type: types.UPDATE_PRODUCT_SAVING_STATUS, payload: { show, text } });
 };
