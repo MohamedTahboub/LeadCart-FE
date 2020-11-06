@@ -7,6 +7,9 @@
     overflow-y: auto;
     overflow-x: visible;
 }
+.product-workspace::-webkit-scrollbar  {
+    display: none;
+}
 .product-page-content{
     background: #fff;
     padding: 20px;
@@ -18,7 +21,7 @@
 .product-workspace.wide{
     /* width: 950px; */
     /* min-width: 70%; */
-}
+} 
 .drop-area-image {
     width: 81%;
     height: 100px;
