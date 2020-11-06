@@ -48,7 +48,6 @@ const getSectionStyles = (styles = {}, ignore) => {
   if (styles.hasShadow)
     style.boxShadow = styles.hasShadow ? `${styles.boxShadowOffsetX || 0}px ${styles.boxShadowOffsetY || 0}px ${styles.boxShadowBlur || 0}px ${styles.shadowColor || '#FFF'}` : '';
 
-  console.log({ shadow: style.boxShadow, shdow2: styles.hasShadow });
   return ignore ? {} : style;
 };
 

@@ -66,7 +66,6 @@ const FlatForm = ({ language, section }) => {
     actions
   } = useContext();
 
-  console.log('Theme COlor', { themeColor });
 
   const isOptInFunnel = type === 'OPT-IN';
   const isThankyouProduct = productCategory === 'thankyoupage';

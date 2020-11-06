@@ -194,7 +194,6 @@ const ProductBuilder = ({
   const onUpdateTemplate = (templateBody) => {
     // const oldProductDetails = state.product;
     const isValid = typeof templateBody === 'object' && Object.keys(templateBody).length;
-    console.log({ isValid, templateBody });
     if (isValid) {
       const newProductData = {
         ...state.product,
