@@ -426,25 +426,6 @@ const FlatForm = ({ language, section }) => {
         </Fragment>
       )}
 
-      {isMultiStepFormEnabled && (
-        <FlexBox column flex center='v-center'>
-          <OrderButton
-            className='mt-5 mb-3'
-            themeColor={themeColor}
-            text={billingAndShippingBtn}
-            prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
-            onClick={changeToTab('payment')}
-          />
-          <CouponCodeForm
-            haveCouponCodeLabel={haveCouponCodeLabel}
-            hideCouponCodeLabel={hideCouponCodeLabel}
-            withCouponForm={withCouponForm}
-            couponCodeBtnText={couponCodeBtnText}
-            onChange={onSectionFieldChange}
-          />
-        </FlexBox>
-      )}
-
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>
       <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='cards' />
 
@@ -506,17 +487,6 @@ const FlatForm = ({ language, section }) => {
           themeColor={themeColor}
           prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
         />
-        {isMultiStepFormEnabled && (
-          <span onClick={changeToTab('shipping')} className='label-content primary-text item-clickable underlined-text without-hover'>
-            <ResizableInput
-              onChange={onSectionFieldChange}
-              name={'texts.backToBillingLinkText'}
-              value={backToBillingLinkText}
-              defaultValue={'Edit'}
-              style={{ background: 'transparent' }}
-            />
-          </span>
-        )}
       </FlexBox>
     </Fragment>
 
