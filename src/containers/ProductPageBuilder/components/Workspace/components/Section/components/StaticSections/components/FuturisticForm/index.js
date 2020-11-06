@@ -229,7 +229,7 @@ const FlatForm = ({ language, section }) => {
             themeColor={themeColor}
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
             // onClick={changeToTab('payment')}
-            name='texts.orderBtn'
+            name='texts.billingAndShippingBtn'
             text={billingAndShippingBtn}
             onChange={onSectionFieldChange}
           />
