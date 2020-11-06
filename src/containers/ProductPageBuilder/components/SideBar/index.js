@@ -20,11 +20,11 @@ const SideBarTitle = ({ title, icon }) => {
   );
 };
 
-const SideBar = ({ canOffer, internalName, onUpdateTemplate }) => {
+const SideBar = ({ isCheckoutProduct, internalName, onUpdateTemplate }) => {
   const [isToggled, setIsToggled] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(internalName);
 
-  const sideBarData = canOffer ? sectionsIcons : sectionsIcons.filter((ele) => ele.type !== 'bumpOffer');
+  const sideBarData = isCheckoutProduct ? sectionsIcons : sectionsIcons.filter((ele) => ele.type !== 'bumpOffer');
 
 
   const onToggle = () => {
@@ -59,15 +59,17 @@ const SideBar = ({ canOffer, internalName, onUpdateTemplate }) => {
             }
           </section>
         </Tab>
-        <Tab id='templates' title={<SideBarTitle title='Templates' icon={<BsLayoutWtf />} />}>
-          <FlexBox column className='side-bar-templates-list'>
-            <TemplatesList
-              onSelect={onTemplateSelect}
-              cardClassName='template-card-for-side-bar'
-              selected={selectedTemplate}
-            />
-          </FlexBox>
-        </Tab>
+        {isCheckoutProduct && (
+          <Tab id='templates' title={<SideBarTitle title='Templates' icon={<BsLayoutWtf />} />}>
+            <FlexBox column className='side-bar-templates-list'>
+              <TemplatesList
+                onSelect={onTemplateSelect}
+                cardClassName='template-card-for-side-bar'
+                selected={selectedTemplate}
+              />
+            </FlexBox>
+          </Tab>
+        )}
       </Tabs>
     </SideMenu>
   );

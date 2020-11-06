@@ -1,7 +1,7 @@
 {
     "price": {
         "currency": "USD",
-        "amount": 9.9
+        "amount": 19.9
     },
     "payment": {
         "type": "Onetime"
@@ -12,14 +12,11 @@
             "type": "checkoutSection",
             "content": {
                 "value": "StaticSections"
-            },
-            "styles":{
-                "theme": "futuristic"
             }
         }
     ],
     "category": "checkout",
     "available": true,
-    "name": "My Product",
+    "name": "Untitled Product",
     "internalName": "my-product"
 }
