@@ -369,8 +369,19 @@ const FlatForm = ({ language, section }) => {
               label={(
                 <FlexBox flex spaceBetween>
                   <span className='label-content'>{streetAddressLabel}</span>
-                  <span className='label-content primary-text item-clickable' onClick={onToggleSecondAddress}>
-                    {!showSecondAddress ? '+ Add Line 2' : 'Remove Second Address!'}
+                  <span className='label-content primary-text parent-hover' >
+                    <ResizableInput
+                      onChange={onSectionFieldChange}
+                      name={`texts.${!showSecondAddress ? 'addLine2Label' : 'removeLine2Label'}`}
+                      value={!showSecondAddress ? addLine2Label : removeLine2Label}
+                      style={{ background: 'transparent' }}
+                      defaultValue={'Edit'}
+                    />
+                    {!showSecondAddress ? (
+                      <BiShow onClick={onToggleSecondAddress} className='ml-3 item-clickable show-on-parent-hover' />
+                    ) : (
+                      <BiHide onClick={onToggleSecondAddress} className='ml-3 item-clickable show-on-parent-hover' />
+                    )}
                   </span>
                 </FlexBox>
               )}

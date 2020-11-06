@@ -56,7 +56,7 @@ const PageSetupModal = ({ history = {}, onUpdateTemplate, ...props }) => {
   };
 
   return (
-    <Modal isVisible={show} className='page-setup-modal'>
+    <Modal isVisible={show} className='page-setup-modal' onClose={onClose}>
       <FlexBox flex center='h-center v-center'>
         <div className='large-text bold-text'>
           {step === 'templates' ? 'Select one of the following Templates to start with or start with the blank page' : 'Select your page layout'}
