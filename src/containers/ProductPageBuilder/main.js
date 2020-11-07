@@ -37,7 +37,7 @@ const {
   Page,
   FlexBox
 } = common;
-const WARNING_INTERVAL = 5;
+const WARNING_INTERVAL = 30;
 
 const checkoutSectionDetails = {
   id: 'checkoutSection',
