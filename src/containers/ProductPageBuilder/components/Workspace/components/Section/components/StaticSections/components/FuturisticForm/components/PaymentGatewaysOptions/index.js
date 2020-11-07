@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import common from 'components/common';
 import creditsImage from 'assets/images/payment-cards.png';
@@ -6,7 +6,7 @@ import paypalImage from 'assets/images/paypal-thumbnail.png';
 import cashOnDeliveryImage from 'assets/images/cod_icon.png';
 import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
 import PaymentGatewayImage from '../PaymentGatewayImage';
-import { RadioGroup } from '../Inputs';
+import { InputField, RadioGroup } from '../Inputs';
 
 const { FlexBox, CheckCard, LayoutSwitch } = common;
 
@@ -35,20 +35,50 @@ const PaymentGatewaysOptions = ({ methods = ['COD'], labels: paymentMethodsLabel
   };
 
   return (
-    <LayoutSwitch active={theme}>
-      <FlexBox id='cards'>
-        {paymentMethods.map((payment) => (
-          <CheckCard
-            {...payment}
-            key={payment.name}
-            active={active === payment.name}
-            className='ml-3'
-            onClick={() => onChange(payment.name)}
-          />
-        ))}
-      </FlexBox>
-      <PaymentGatewaysRadio id='radio' methods={paymentMethods} onSelect={onChange} active={active} />
-    </LayoutSwitch>
+    <Fragment>
+
+      <LayoutSwitch active={theme}>
+        <FlexBox id='cards'>
+          {paymentMethods.map((payment) => (
+            <CheckCard
+              {...payment}
+              key={payment.name}
+              active={active === payment.name}
+              className='ml-3'
+              onClick={() => onChange(payment.name)}
+            />
+          ))}
+        </FlexBox>
+        <PaymentGatewaysRadio id='radio' methods={paymentMethods} onSelect={onChange} active={active} />
+      </LayoutSwitch>
+      {active === 'Stripe' && (
+        <Fragment>
+          <FlexBox flex wrappable>
+            <InputField
+              flex
+              label='Card Number'
+              placeholder='0000 0000 0000 0000'
+            />
+          </FlexBox>
+          <FlexBox flex wrappable>
+            <InputField
+              flex
+              label='Expiry date'
+              className='mr-3'
+              // type='date'
+              placeholder='MM/YY'
+            />
+            <InputField
+              flex
+              label='CVV'
+              type='password'
+              placeholder='🔒 ****'
+              inputProps={{ disabled: true }}
+            />
+          </FlexBox>
+        </Fragment>
+      )}
+    </Fragment>
 
   );
 };

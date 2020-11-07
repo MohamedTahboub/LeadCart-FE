@@ -193,7 +193,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             price={price}
             currency={currency}
           />
-          {isCheckoutProductPage && (
+          {(isCheckoutProductPage && !isFuturistic) && (
             <Fragment>
               <FlexBox center='h-center' className='mt-3 mb-2'>
                 <Button className='light-btn px-3' onClick={onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>

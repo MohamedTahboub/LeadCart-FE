@@ -11,6 +11,7 @@ import { ProductSchema } from 'libs/validation';
 import * as productGeneralActions from 'actions/product';
 import * as filesActions from 'actions/files';
 import ids from 'shortid';
+import * as immutable from 'object-path-immutable';
 
 import {
   ProductContext,
@@ -36,6 +37,7 @@ const {
   Page,
   FlexBox
 } = common;
+const WARNING_INTERVAL = 5;
 
 const checkoutSectionDetails = {
   id: 'checkoutSection',
@@ -51,6 +53,38 @@ const matchProductSectionsIds = (product) => {
   return {
     ...product,
     sections
+  };
+};
+
+const updateProductWithTemplateBody = (originalProduct = {}, newTemplate) => {
+  const { pageStyles: oldPageStyles, sections: oldSections, ...oldProductRemains } = originalProduct;
+
+  const {
+    sections = [],
+    internalName = '',
+    shippingDetails = {},
+    pageStyles = {},
+    custom = {},
+    thumbnail = ''
+  } = newTemplate;
+  let newPageStyles;
+
+  const oldHasBackgroundImage = immutable.get(oldPageStyles, 'pageBackgroundSettings.firstSectionBackground.backgroundType') === 'image';
+  const newHasBackgroundImage = immutable.get(pageStyles, 'pageBackgroundSettings.firstSectionBackground.backgroundType') === 'image';
+
+  if (oldHasBackgroundImage && !newHasBackgroundImage)
+    newPageStyles = immutable.set(pageStyles, 'pageBackgroundSettings.firstSectionBackground.backgroundType', 'color');
+  else newPageStyles = { ...pageStyles };
+
+
+  return {
+    ...oldProductRemains,
+    thumbnail,
+    shippingDetails: { ...shippingDetails },
+    custom,
+    sections: [...sections],
+    internalName,
+    pageStyles: newPageStyles
   };
 };
 const hasCheckoutSection = ({ sections = [] } = {}) =>
@@ -72,13 +106,31 @@ const ProductBuilder = ({
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [showTemplateWidget, setShowTemplateWidget] = useState(false);
+  const [secondsToSaveTemplate, setSecondsToSaveTemplate] = useState(WARNING_INTERVAL);
 
-  const onToggleTemplateWidget = () => {
-    setShowTemplateWidget((show) => !show);
+  const onToggleTemplateWidget = (status) => {
+    const show = status ? status : !showTemplateWidget;
+    setShowTemplateWidget(show);
   };
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
+
+  useEffect(() => {
+    let intervalFunc;
+    if (showTemplateWidget) {
+      intervalFunc = setInterval(() => {
+        setSecondsToSaveTemplate((seconds) => {
+          if (seconds > 0)
+            return seconds - 1;
+
+          setShowTemplateWidget(false);
+          return 0;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(intervalFunc);
+  }, [showTemplateWidget]);
 
 
   useEffect(() => {
@@ -187,35 +239,49 @@ const ProductBuilder = ({
         }
       }
     );
-    if (showTemplateWidget)
-      onToggleTemplateWidget();
+    setShowTemplateWidget(false);
+    setSecondsToSaveTemplate(WARNING_INTERVAL);
   };
 
   const onUpdateTemplate = (templateBody) => {
     // const oldProductDetails = state.product;
     const isValid = typeof templateBody === 'object' && Object.keys(templateBody).length;
     if (isValid) {
-      const newProductData = {
-        ...state.product,
-        ...templateBody
-      };
-      actions.updateState({
-        originalProductDetails: state.product,
-        product: matchProductSectionsIds(newProductData)
-      });
-      onToggleTemplateWidget();
+      const { product } = state;
+
+      const newProductData = updateProductWithTemplateBody({ ...product }, { ...templateBody });
+      if (showTemplateWidget) {
+        actions.updateState({ product: matchProductSectionsIds(newProductData) });
+      } else {
+        actions.updateState({
+          originalProductDetails: matchProductSectionsIds(state.product),
+          product: matchProductSectionsIds(newProductData)
+        });
+      }
+      setShowTemplateWidget(true);
+      setSecondsToSaveTemplate(WARNING_INTERVAL);
     }
 
     // showResetTemplateWidget(oldProductDetails)
   };
+
+
+  useEffect(() => {
+    if (secondsToSaveTemplate === 0) {
+      setShowTemplateWidget(false);
+      onSaveProduct();
+      setSecondsToSaveTemplate(WARNING_INTERVAL);
+    }
+  }, [secondsToSaveTemplate]);
+
+
   const onResetToOriginalProduct = () => {
     const { originalProductDetails } = state;
     actions.updateState({ product: matchProductSectionsIds(originalProductDetails) });
-    onToggleTemplateWidget();
+    setShowTemplateWidget(false);
   };
-  // const showResetTemplateWidget = (product)=>{
-  //   s
-  // }
+
+
   if (loading) return <LoadingPage message='Setting up ...' />;
 
   const { funnel: { currency = defaultBrandCurrency } = {}, product: { pageStyles = {} } = {} } = state;
@@ -228,7 +294,11 @@ const ProductBuilder = ({
         <FlexBox id='blocks' flex className='relative-element'>
           <ScreenBackgroundSetup backgrounds={pageStyles} />
           <DndProvider backend={Backend}>
-            <SideBar canOffer={state.product?.category === 'checkout'} onUpdateTemplate={onUpdateTemplate} />
+            <SideBar
+              isCheckoutProduct={state.product?.category === 'checkout'}
+              onUpdateTemplate={onUpdateTemplate}
+              internalName={state.product?.internalName}
+            />
             <Workspace />
             <SettingSideBar />
           </DndProvider>
@@ -241,12 +311,13 @@ const ProductBuilder = ({
         <PageBackgroundModal />
         <PageSetupModal history={history} onUpdateTemplate={onUpdateTemplate} />
         <TemplateResetWidget
-          internalName={state.product?.internalName}
           show={showTemplateWidget}
-          onClose={onToggleTemplateWidget}
           onReset={onResetToOriginalProduct}
-          onSave={onSaveProduct}
+          onSave={() => onSaveProduct()}
           saving={saving}
+          // internalName={state.product?.internalName}
+          // previousInternalName={state.originalProductDetails?.internalName}
+          secondsToSaveTemplate={secondsToSaveTemplate}
         />
       </Page>
       <ReactToolTip delayShow={400} />

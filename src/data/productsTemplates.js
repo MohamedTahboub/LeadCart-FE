@@ -14,11 +14,8 @@ export default [
     name: 'Book Template',
     image: bookTemplateImage,
     body: {
+      internalName: 'bookTemplate',
       shippingDetails: { enabled: false },
-      coupons: {
-        enabled: false,
-        list: []
-      },
       custom: {
         billingAddress: false,
         couponSection: false,
@@ -189,15 +186,6 @@ export default [
           _id: '5fa44664f76a910023de04a1'
         }
       ],
-      _id: '5fa44664f76a910023de04a0',
-      name: 'Design Thinking Product',
-      category: 'checkout',
-      brand: '5e734bfe183e50569712755e',
-      pricingOptions: [],
-      internalName: 'bookTemplate',
-      createdAt: '2020-11-05T18:37:24.434Z',
-      updatedAt: '2020-11-05T19:08:41.083Z',
-      __v: 0,
       pageStyles: {
         layout: 'two-column',
         pageBackgroundSettings: {
@@ -376,10 +364,6 @@ export default [
     body: {
       internalName: 'firstTemplate',
       shippingDetails: { enabled: false },
-      coupons: {
-        enabled: false,
-        list: []
-      },
       custom: {
         couponSection: false,
         orderSummary: false,
