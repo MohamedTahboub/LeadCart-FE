@@ -228,7 +228,6 @@ const FlatForm = ({ language, section }) => {
             className='mt-5 mb-3'
             themeColor={themeColor}
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
-            // onClick={changeToTab('payment')}
             name='texts.billingAndShippingBtn'
             text={billingAndShippingBtn}
             onChange={onSectionFieldChange}
@@ -238,29 +237,6 @@ const FlatForm = ({ language, section }) => {
 
       <Tab title='Payment' id='payment'>
         <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='radio' />
-        <FlexBox flex wrappable>
-          <InputField
-            flex
-            label='Card Number'
-            placeholder='0000 0000 0000 0000'
-          />
-        </FlexBox>
-        <FlexBox flex wrappable>
-          <InputField
-            flex
-            label='Expiry date'
-            className='mr-3'
-            // type='date'
-            placeholder='MM/YY'
-          />
-          <InputField
-            flex
-            label='CVV'
-            type='password'
-            placeholder='🔒 ****'
-            inputProps={{ disabled: true }}
-          />
-        </FlexBox>
         <FlexBox center='h-center' className='small-text gray-text mt-3'>
           <MdLock color='currentColor' size={16} className='mr-2' />
           <span >
@@ -428,30 +404,6 @@ const FlatForm = ({ language, section }) => {
 
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>
       <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='cards' />
-
-      <FlexBox flex wrappable className='mt-3'>
-        <InputField
-          flex
-          label='Card Number'
-          placeholder='0000 0000 0000 0000'
-        />
-      </FlexBox>
-      <FlexBox flex wrappable>
-        <InputField
-          flex
-          label='Expiry date'
-          className='mr-3'
-          // type='date'
-          placeholder='MM/YY'
-        />
-        <InputField
-          flex
-          label='CVV'
-          type='password'
-          placeholder='🔒 ****'
-          inputProps={{ disabled: true }}
-        />
-      </FlexBox>
       <FlexBox center='h-center' className='small-text gray-text mt-3'>
         <MdLock color='currentColor' size={16} className='mr-2' />
         <span >
@@ -483,7 +435,9 @@ const FlatForm = ({ language, section }) => {
       <FlexBox column flex center='v-center'>
         <OrderButton
           className='mt-5 mb-3'
-          text={billingAndShippingBtn}
+          name='texts.orderBtn'
+          text={orderBtn}
+          onChange={onSectionFieldChange}
           themeColor={themeColor}
           prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
         />
