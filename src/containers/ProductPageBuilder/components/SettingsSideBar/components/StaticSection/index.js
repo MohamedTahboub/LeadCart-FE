@@ -414,7 +414,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               />
 
               <InlinePopup
-                title='Borders'
+                title='Shadow'
                 popUpContent={(
                   <FlexBox column>
                     <span>Shadow</span>
