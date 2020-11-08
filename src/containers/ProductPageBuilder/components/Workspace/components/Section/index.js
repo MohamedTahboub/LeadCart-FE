@@ -146,6 +146,7 @@ const Section = ({
             section={section}
             language={props.language}
             hasMentions={isThankYouProductPage}
+            productCategory={category}
           />
         </div>
       </div>
