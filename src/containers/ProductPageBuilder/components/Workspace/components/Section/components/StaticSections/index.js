@@ -9,6 +9,9 @@ const { LayoutSwitch } = common;
 const CheckoutForm = (props) => {
   const { styles: { theme = 'classic' } = {} } = props.section || {};
 
+  // fallback in case data is missed up
+  if (props.productCategory !== 'checkout')
+    return <ClassicForm {...props} />;
 
   return (
     <LayoutSwitch active={theme}>
