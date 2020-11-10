@@ -3,10 +3,12 @@ import common from 'components/common';
 import { connect } from 'react-redux';
 import { useContext } from '../../../../../../../../actions';
 import { PricingOptionCard } from './components';
+import Title from '../FuturisticForm/components/Title';
+
 const { FlexBox } = common;
 
 
-const PricingOptions = ({ format, defaultBrandCurrency, theme }) => {
+const PricingOptions = ({ title = 'Choose a pricing option', format, defaultBrandCurrency, theme }) => {
 
   const {
     state: {
@@ -24,7 +26,7 @@ const PricingOptions = ({ format, defaultBrandCurrency, theme }) => {
   if (!(Array.isArray(pricingOptions) && pricingOptions.length)) return null;
   return (
     <FlexBox column>
-      <span className='title-text'>Choose a pricing option</span>
+      <Title className='my-2'>{title}</Title>
       <FlexBox wrappable>
         {
           pricingOptions.map((pricingOption) => (

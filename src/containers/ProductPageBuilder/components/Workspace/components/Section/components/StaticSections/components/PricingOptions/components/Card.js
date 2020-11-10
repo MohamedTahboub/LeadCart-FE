@@ -4,7 +4,9 @@ import clx from 'classnames';
 import common from 'components/common';
 import { formatPricingValue } from 'libs';
 
-const { FlexBox: Flex, LayoutSwitch } = common;
+const { FlexBox: Flex, LayoutSwitch, InputRow } = common;
+const { Radio } = InputRow;
+const { Group } = Radio;
 
 const DefaultTheme = ({
   onClick,
@@ -34,13 +36,13 @@ const DefaultTheme = ({
   );
 };
 
-const Radio = ({ children, active = true, ...props }) => {
-  return (
-    <div {...props} className={clx('standalone-radio-input', { active })} >
-      {children}
-    </div>
-  );
-};
+// const Radio = ({ children, active = true, ...props }) => {
+//   return (
+//     <div {...props} className={clx('standalone-radio-input', { active })} >
+//       {children}
+//     </div>
+//   );
+// };
 
 
 const RadioTheme = ({
@@ -52,16 +54,18 @@ const RadioTheme = ({
 }) => {
 
   return (
-    <Flex flex className={className} onClick={onClick}>
-      <Radio active={active} >
-        <Flex className='title-text bold-text'>
-          {label}
-        </Flex>
+    <Group disabled>
+      <Radio className='custom-pricing-radio'>
+        <Flex column flex className={clx(className)} onClick={onClick}>
+          <Flex className='title-text bold-text truncate'>
+            {label}
+          </Flex>
+          <Flex className='max-width-100 v-center small-text bold-text primary-text-color ml-2'>
+            {formatPricingValue(value)}
+          </Flex>
+        </Flex >
       </Radio>
-      <Flex className='max-width-100 v-center small-text bold-text primary-text-color ml-2'>
-        {formatPricingValue(value)}
-      </Flex>
-    </Flex >
+    </Group >
   );
 };
 
@@ -72,10 +76,10 @@ const Card = ({
   theme,
   ...priceDetails
 }) => {
-  const classes = clx('min-width-250 m-2 p-3 product-pricing-card v-center', { active });
+  const classes = clx('min-width-250 product-pricing-card', { active, [`theme-${theme}`]: theme });
 
   const commonProps = {
-    className: classes,
+    className: theme === 'default' ? clx(classes, 'm-2 p-3 v-center') : classes,
     active,
     value: priceDetails,
     label,
@@ -83,7 +87,7 @@ const Card = ({
   };
 
   return (
-    <LayoutSwitch active={theme} >
+    <LayoutSwitch active={theme} fallback={<DefaultTheme id='default' {...commonProps} />}>
       <DefaultTheme id='default' {...commonProps} />
       <RadioTheme id='radio' {...commonProps} />
     </LayoutSwitch>

@@ -8,27 +8,30 @@ import { BiHide } from 'react-icons/bi';
 
 import './style.css';
 
-const SettingToggleIcons = ({ show }) => {
+const SettingToggleIcons = ({ show, Icon }) => {
+  const OpenIcon = Icon ? Icon : GoSettings;
+
   return !show ? (
-    <GoSettings color='#25345d' />
+    <OpenIcon color='#25345d' />
   ) : (
     <BiHide color='#25345d' />
   );
 };
 
 
-export default ({ title, button, popUpContent, defaultCloseBtn = true, className, ...props }) => {
+export default ({ title, button, popUpContent, position = 'center', icon, defaultCloseBtn = true, className, ...props }) => {
   const [show, setShow] = useState(false);
   const [currentId, setCurrentId] = useState('id!');
 
-  const onToggleShow = () => {
-    setShow((show) => !show);
+  const onToggleShow = (e) => {
+    setTimeout(() => {
+      setShow(!show);
+    }, 100);
   };
   useEffect(() => {
     const id = ids.generate();
     if (!currentId || currentId !== id)
       setCurrentId(id);
-
   }, []);
 
   // let buttonContent = typeof button === 'function' ? button({  }) : button;
@@ -36,27 +39,29 @@ export default ({ title, button, popUpContent, defaultCloseBtn = true, className
 
   return (
     <div className={clx('inline-popup-container', className)}>
-      <span className='title'>{title}</span>
+      {title && <span className='title'>{title}</span>}
       <span onClick={onToggleShow} className='inline-popup-toggle-btn'>
-        {SettingToggleIcons({ show })}
+        {SettingToggleIcons({ show, Icon: icon })}
       </span>
-      {show && <Popup id={currentId} onClose={onToggleShow}>{popUpContent}</Popup>}
+      {show && <Popup id={currentId} onClose={onToggleShow} position={position}>{popUpContent}</Popup>}
     </div>
   );
 };
 
-const Popup = ({ id, children, onClose }) => {
+const Popup = ({ id, children, onClose, position }) => {
 
   const onKeyDown = (e) => {
+    console.log({ e });
     const parentElement = document.getElementById(id);
     if (!parentElement) return;
     const isIgnored = nodeHasChildElement(parentElement, e.target);
 
+    console.log({ isIgnored, parentElement });
     if (!isIgnored)
       onClose();
   };
 
   useEventListener('click', onKeyDown);
 
-  return <div id={id} className='inline-popup'>{children}</div>;
+  return <div id={id} className={clx('inline-popup', { [`position-${position}`]: position })}>{children}</div>;
 };

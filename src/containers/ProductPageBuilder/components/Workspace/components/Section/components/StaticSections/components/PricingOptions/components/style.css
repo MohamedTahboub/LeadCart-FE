@@ -9,7 +9,12 @@
 .product-pricing-card.active{
     border-color: #4DA1FF;
 }
-
+.custom-pricing-radio .ant-radio{
+  margin-top: 5px;
+}
+.product-pricing-card.theme-radio{
+  border:unset;
+}
 
 .product-pricing-card .checkbox-container {
     display: block;
@@ -117,4 +122,9 @@
     height: 8px;
     width: 8px;
     opacity: 1;
+}
+
+.custom-pricing-radio{
+  display: flex;
+  align-items: flex-start;
 }
