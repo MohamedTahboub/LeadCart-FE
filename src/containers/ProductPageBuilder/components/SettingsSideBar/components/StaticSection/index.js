@@ -193,7 +193,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             price={price}
             currency={currency}
           />
-          {(isCheckoutProductPage && !isFuturistic) && (
+          {(isCheckoutProductPage) && (
             <Fragment>
               <FlexBox center='h-center' className='mt-3 mb-2'>
                 <Button className='light-btn px-3' onClick={onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
@@ -247,6 +247,65 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               value={twoStepCheckout}
               name='twoStepCheckout'
               onToggle={onTwoStepCheckoutChange}
+            />
+            <InlinePopup
+              title='GDRP compliance options'
+              popUpContent={(
+                <FlexBox column>
+                  <InputRow className='sidebar-row'>
+                    <Label className='sidebar-input-label'>
+                      Marketing Consent
+                    </Label>
+                    <Toggle
+                      value={custom.marketingConsent}
+                      name='marketingConsent'
+                      onToggle={onToggleCustom}
+                      beforeLabel='Show'
+                      afterLabel='Hide'
+                    />
+                  </InputRow>
+                  {custom.marketingConsent && (
+                    <InputRow className='sidebar-row'>
+                      <Label className='sidebar-input-label'>
+                      With CheckBox
+                      </Label>
+                      <Toggle
+                        value={custom.marketingConsentIsRequired}
+                        name='marketingConsentIsRequired'
+                        onToggle={onToggleCustom}
+                        beforeLabel='Show'
+                        afterLabel='Hide'
+                      />
+                    </InputRow>
+                  )}
+                  <InputRow className='sidebar-row'>
+                    <Label className='sidebar-input-label'>
+                      Terms & Conditions
+                    </Label>
+                    <Toggle
+                      value={custom.termsAndConditions}
+                      name='termsAndConditions'
+                      onToggle={onToggleCustom}
+                      beforeLabel='Show'
+                      afterLabel='Hide'
+                    />
+                  </InputRow>
+                  {custom.termsAndConditions && (
+                    <InputRow className='sidebar-row'>
+                      <Label className='sidebar-input-label'>
+                      T & C with Checkbox
+                      </Label>
+                      <Toggle
+                        value={custom.termsAndConditionsIsRequired}
+                        name='termsAndConditionsIsRequired'
+                        onToggle={onToggleCustom}
+                        beforeLabel='Show'
+                        afterLabel='Hide'
+                      />
+                    </InputRow>
+                  )}
+                </FlexBox>
+              )}
             />
           </Tab>
         }
