@@ -133,6 +133,7 @@ const Products = ({
             onDelete={() => onShowDeleteDialogue(product._id)}
             onDuplicate={() => onProductDuplicate(product)}
             onEdit={() => onProductEdit(product)}
+            productId={product._id}
           />
         ))
           : (loadingProducts) ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
