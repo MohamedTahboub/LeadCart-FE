@@ -40,7 +40,11 @@ const ProductSchema = yup.object({
     shippingDetails: yup.boolean().default(false),
     couponSection: yup.boolean().default(false),
     orderSummary: yup.boolean().default(false),
-    billingAddress: yup.boolean().default(false)
+    billingAddress: yup.boolean().default(false),
+    marketingConsent: yup.boolean().default(false),
+    marketingConsentIsRequired: yup.boolean().default(false),
+    termsAndConditions: yup.boolean().default(false),
+    termsAndConditionsIsRequired: yup.boolean().default(false)
   }),
   internalName: yup.string(),
   thumbnail: yup.string(),
