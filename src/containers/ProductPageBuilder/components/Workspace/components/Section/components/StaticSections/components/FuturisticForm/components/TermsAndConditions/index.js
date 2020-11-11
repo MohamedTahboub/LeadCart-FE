@@ -16,9 +16,9 @@ const TermsAndConditions = ({
 }) => {
 
   const {
-    termsAndConditionsText = 'By placing the order you agree on the',
-    termsAndConditionsLinkText = 'terms and conditions',
-    termsAndConditionsUrl = 'https://leadcart.io/terms'
+    termsAndConditionsText = 'I have read and agree to the',
+    termsAndConditionsLinkText = 'terms and conditions.',
+    termsAndConditionsUrl = 'https://leadcart.io/terms-and-conditions'
   } = texts;
 
   if (!enabled) return null;
