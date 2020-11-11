@@ -51,12 +51,10 @@ export default ({ title, button, popUpContent, position = 'center', icon, defaul
 const Popup = ({ id, children, onClose, position }) => {
 
   const onKeyDown = (e) => {
-    console.log({ e });
     const parentElement = document.getElementById(id);
     if (!parentElement) return;
     const isIgnored = nodeHasChildElement(parentElement, e.target);
 
-    console.log({ isIgnored, parentElement });
     if (!isIgnored)
       onClose();
   };
