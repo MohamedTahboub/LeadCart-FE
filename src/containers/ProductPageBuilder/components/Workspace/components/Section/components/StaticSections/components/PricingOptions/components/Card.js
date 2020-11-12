@@ -54,18 +54,20 @@ const RadioTheme = ({
 }) => {
 
   return (
-    <Group disabled>
-      <Radio className='custom-pricing-radio'>
-        <Flex column flex className={clx(className)} onClick={onClick}>
-          <Flex className='title-text bold-text truncate'>
-            {label}
-          </Flex>
-          <Flex className='max-width-100 v-center small-text bold-text primary-text-color ml-2'>
-            {formatPricingValue(value)}
-          </Flex>
-        </Flex >
-      </Radio>
-    </Group >
+    <Flex column flex className={clx(className)} onClick={onClick}>
+      <Group disabled>
+        <Radio className='custom-pricing-radio'>
+          <Flex column flex>
+            <Flex className='title-text bold-text truncate'>
+              {label}
+            </Flex>
+            <Flex className='max-width-100 v-center small-text bold-text primary-text-color ml-2'>
+              {formatPricingValue(value)}
+            </Flex>
+          </Flex >
+        </Radio>
+      </Group >
+    </Flex >
   );
 };
 
