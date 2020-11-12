@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 import { HiOutlineDuplicate } from 'react-icons/hi';
+import ReactTooltip from 'rc-tooltip';
 
 import common from 'components/common';
 import defaultProductImage from 'assets/images/big-logo-1.png';
@@ -48,18 +48,17 @@ const ProductCard = ({
 
   return (
     <Card className='product-card m-2'>
-      <HiOutlineDuplicate
-        className='fas fa-copy  product-card-duplicate-icon clickable-product-icon'
-        data-tip='Duplicate'
-        data-type='info'
-        role='presentation'
-        onClick={onDuplicate}
-        size={22}
-      />
+      <ReactTooltip overlay='Duplicate' placement='left' >
+        <HiOutlineDuplicate
+          className='fas fa-copy  product-card-duplicate-icon clickable-product-icon'
+          role='presentation'
+          onClick={onDuplicate}
+          size={22}
+        />
+      </ReactTooltip>
 
       <CardContent {...contentProps} />
       <CardFooter {...footerProps} />
-      <ReactTooltip delayShow={300}/>
     </Card>
   );
 };

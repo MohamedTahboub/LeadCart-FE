@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BiNetworkChart } from 'react-icons/bi';
+import ReactTooltip from 'rc-tooltip';
 
 import common from 'components/common';
 import { getPriceFormat, trimExtraText } from 'libs';
@@ -60,16 +61,15 @@ const ProductCard = ({
       <div style={coverImageStyle} className='product-image-container mt-2'/>
 
       <FlexBox className='product-card-name v-center h-center full-width my-2' flex>
-        <Title className='product-card-name-text mr-1' data-tip={trimExtraText(name, 70)} data-type='info' data-multiline>
-          {name}
-        </Title>
+        <ReactTooltip overlay={trimExtraText(name, 70)} placement='top'>
+          <Title className='product-card-name-text mr-1'>
+            {name}
+          </Title>
+        </ReactTooltip>
         {isConnectedWithFunnels &&
-          <BiNetworkChart
-            className='product-card-name-icon'
-            data-tip={connectedFunnelDataTip}
-            data-type='info'
-            data-multiline
-          />
+        <ReactTooltip overlay={connectedFunnelDataTip} placement='left'>
+          <BiNetworkChart className='product-card-name-icon'/>
+        </ReactTooltip>
         }
       </FlexBox>
 
