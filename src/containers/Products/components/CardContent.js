@@ -61,13 +61,13 @@ const ProductCard = ({
       <div style={coverImageStyle} className='product-image-container mt-2'/>
 
       <FlexBox className='product-card-name v-center h-center full-width my-2' flex>
-        <ReactTooltip overlay={trimExtraText(name, 70)} placement='top'>
+        <ReactTooltip overlay={trimExtraText(name, 70)} placement='top' mouseEnterDelay={0.3}>
           <Title className='product-card-name-text mr-1'>
             {name}
           </Title>
         </ReactTooltip>
         {isConnectedWithFunnels &&
-        <ReactTooltip overlay={connectedFunnelDataTip} placement='left'>
+        <ReactTooltip overlay={connectedFunnelDataTip} placement='left' mouseEnterDelay={0.3}>
           <BiNetworkChart className='product-card-name-icon'/>
         </ReactTooltip>
         }

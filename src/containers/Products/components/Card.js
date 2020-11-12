@@ -48,7 +48,7 @@ const ProductCard = ({
 
   return (
     <Card className='product-card m-2'>
-      <ReactTooltip overlay='Duplicate' placement='left' >
+      <ReactTooltip overlay='Duplicate' placement='left' mouseEnterDelay={0.3}>
         <HiOutlineDuplicate
           className='fas fa-copy  product-card-duplicate-icon clickable-product-icon'
           role='presentation'

@@ -37,11 +37,13 @@
 
 .product-card-type-icon path {
   stroke: rgb(151, 158, 165);
-  transition: all .4s ease-in-out;
+  color: rgb(151, 158, 165);
+  transition: stroke .4s ease-in-out, color .4s ease-in-out;
 }
 
 .product-card-type-icon:hover path{
   stroke: #C9D3DC !important;
+  color: #C9D3DC;
   transform: unset;
 }
 

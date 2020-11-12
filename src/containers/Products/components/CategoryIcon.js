@@ -1,7 +1,19 @@
 import React from 'react';
+import ReactTooltip from 'rc-tooltip';
 
 import { SiMinutemailer } from 'react-icons/si';
 import { GrAnnounce, GrCart, GrLineChart } from 'react-icons/gr';
+
+const Icon = ({ Icon, tooltipTitle }) => (
+  <ReactTooltip overlay={tooltipTitle} placement='top' mouseEnterDelay={0.3}>
+    <Icon
+      data-tip='Checkout Product'
+      data-type='info'
+      role='presentation'
+      className='product-card-type-icon'
+    />
+  </ReactTooltip>
+);
 
 
 const CategoryIcon = ({ category }) => {
@@ -10,44 +22,12 @@ const CategoryIcon = ({ category }) => {
   const isUpsellProduct = category === 'upsell';
   const isOptInProduct = category === 'opt-in';
 
-
   return (
     <span>
-      {isCheckoutProduct &&
-        <GrCart
-          data-tip='Checkout Product'
-          data-type='info'
-          role='presentation'
-          className='product-card-type-icon'
-        />
-      }
-
-      {isUpsellProduct &&
-        <GrLineChart
-          data-tip='Upsell Product'
-          data-type='info'
-          className='product-card-type-icon'
-          role='presentation'
-        />
-      }
-
-      {isThankyouPage &&
-        <GrAnnounce
-          data-tip='Thank you Page'
-          data-type='info'
-          role='presentation'
-          className='product-card-type-icon'
-        />
-      }
-
-      {isOptInProduct &&
-        <SiMinutemailer
-          data-tip='Opt-in Page'
-          data-type='info'
-          role='presentation'
-          className='product-card-type-icon'
-        />
-      }
+      {isCheckoutProduct && <Icon Icon={GrCart} tooltipTitle='Checkout Product'/>}
+      {isUpsellProduct && <Icon Icon={GrLineChart} tooltipTitle='Upsell Product'/>}
+      {isThankyouPage && <Icon Icon={GrAnnounce} tooltipTitle='Thank you Page'/>}
+      {isOptInProduct && <Icon Icon={SiMinutemailer} tooltipTitle='Opt-in Page'/>}
     </span>
   );
 };
