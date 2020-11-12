@@ -27,6 +27,8 @@ import integrations from './integrations';
 import workspace from './workspace';
 import redemption from './redemption';
 import leads from './leads';
+import taxes from './taxes';
+import taxZones from './taxZones';
 
 
 const rootReducer = combineReducers({
@@ -57,7 +59,9 @@ const rootReducer = combineReducers({
   brands,
   integrations,
   workspace,
-  redemption
+  redemption,
+  taxes,
+  taxZones
 });
 
 export default rootReducer;

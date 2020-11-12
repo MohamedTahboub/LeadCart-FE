@@ -9,6 +9,7 @@ import {
   Email,
   GeneralSetting,
   Marketplace,
+  Taxes,
   TeamMembers,
   Translations
 } from './sub';
@@ -35,6 +36,11 @@ const Setting = ({ history, brands, user }) => {
       tab: 'Marketplace',
       link: '/settings/marketplace',
       component: <Marketplace getSave={setSaveFunction} />
+    }, {
+      key: 'taxes',
+      tab: 'Taxes',
+      link: '/settings/taxes',
+      component: <Taxes history={history} />
     }, {
       key: 'emailing',
       tab: 'Emailing',
