@@ -16,7 +16,8 @@ const importantProps = {
   name: '',
   paymentMethods: [],
   productId: '',
-  cardImages: ''
+  cardImages: '',
+  taxes: []
 };
 
 

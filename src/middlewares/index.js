@@ -29,6 +29,8 @@ import funnels from './funnels';
 import translations from './translations';
 import integrations from './integrations';
 import brands from './brands';
+import taxes from './taxes';
+import taxZones from './taxZones';
 
 
 export default [
@@ -62,5 +64,7 @@ export default [
   flashMessage,
   apiRequest,
   uploadingFiles,
-  storage
+  storage,
+  ...taxes,
+  ...taxZones
 ];
