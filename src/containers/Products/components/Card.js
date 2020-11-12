@@ -20,7 +20,8 @@ const ProductCard = ({
   onEdit,
   thumbnail = defaultProductImage,
   funnels,
-  productId
+  productId,
+  sections
 }) => {
   const isThankyouPage = category === 'thankyoupage';
   const isCheckoutProduct = category === 'checkout';
@@ -45,9 +46,24 @@ const ProductCard = ({
     hasPrice
   };
 
+  const getMainColor = () => {
+    const checkoutSection = sections.find(({ type }) => type === 'checkoutSection');
+    const hasThemeColor = Boolean(checkoutSection?.styles?.themeColor);
+    const hasCompleteOrderButtonStyles = Boolean(checkoutSection?.styles?.completeOrderButton);
+
+    if (hasThemeColor)
+      return checkoutSection?.styles?.themeColor;
+    else if (hasCompleteOrderButtonStyles)
+      return checkoutSection?.styles?.completeOrderButton?.background;
+    else
+      return '#4DA1FF';
+  };
+
+
+  const borderTopColor = getMainColor();
 
   return (
-    <Card className='product-card m-2'>
+    <Card className='product-card m-2' style={{ borderTopColor }}>
       <ReactTooltip overlay='Duplicate' placement='left' mouseEnterDelay={0.3}>
         <HiOutlineDuplicate
           className='fas fa-copy  product-card-duplicate-icon clickable-product-icon'
