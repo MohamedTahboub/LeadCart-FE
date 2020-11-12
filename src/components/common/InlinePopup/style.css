@@ -8,6 +8,10 @@
     margin: 5px 0;
     padding: 5px;
 }
+.inline-popup-container.standalone{
+    min-width: unset;
+    background-color: transparent;
+}
 .inline-popup-container .title{
     font-size: 17px;
     color: #25345d;
@@ -15,14 +19,24 @@
 }
 .inline-popup {
     position: absolute;
-    right: 0;
     top: 100%;
-    left: 0;
     background-color: white;
     padding: 15px;
     border-radius: 5px;
     z-index: 10;
     border: 2px solid #eee;
+}
+.inline-popup.position-right{
+    right: 0;
+    left: unset;
+}
+.inline-popup.position-left{
+    left: 0;
+    right: unset;
+}
+.inline-popup.position-center{
+    left: 0;
+    right: 0;
 }
 
 .inline-popup-toggle-btn {

@@ -1,13 +1,22 @@
 import React, { Fragment, useState } from 'react';
 import common from 'components/common';
 import './style.css';
-import { CouponCodeForm, CustomOrderSummary, Inputs, OrderButton, PaymentGatewaysOptions, Title } from './components';
 import clx from 'classnames';
 import { MdLock } from 'react-icons/md';
 import { useContext } from '../../../../../../../../actions';
-// import { PricingOptions } from '..';
+import { PricingOptions } from '..';
 import { BiHide, BiShow } from 'react-icons/bi';
 
+import {
+  CouponCodeForm,
+  CustomOrderSummary,
+  Inputs,
+  MarketingConsent,
+  OrderButton,
+  PaymentGatewaysOptions,
+  TermsAndConditions,
+  Title
+} from './components';
 
 const { FlexBox, Tabs, Tab, ResizableInput } = common;
 
@@ -28,17 +37,7 @@ const FlatForm = ({ language, section }) => {
 
   const {
     content: { twoStepCheckout: isMultiStepFormEnabled },
-    texts: {
-      billingAndShippingBtn = 'Continue to Payment',
-      hideCouponCodeLabel = 'Hide Coupon Code',
-      orderBtn = 'Pay Now',
-      haveCouponCodeLabel = 'Have a Coupon Code?',
-      couponCodeBtnText = 'Apply',
-      transactionGuaranteeMessage = 'Your transaction is secured with SSL encryption',
-      backToBillingLinkText = '← Back to billing & shipping info',
-      addLine2Label = 'Add Line 2',
-      removeLine2Label = 'Hide the second Address'
-    } = {},
+    texts = {},
     hidden: isSetHidden,
     styles: { themeColor = '#2d3d68' } = {}
   } = section;
@@ -58,7 +57,11 @@ const FlatForm = ({ language, section }) => {
           shippingDetails: shippingDetailsEnabled,
           billingAddress: withBillingAddress,
           // declineButtonText = 'No Thanks',
-          couponSection: withCouponForm
+          couponSection: withCouponForm,
+          marketingConsent,
+          termsAndConditions,
+          marketingConsentIsRequired,
+          termsAndConditionsIsRequired
           // orderSummary
         } = {}
       } = {}
@@ -66,6 +69,17 @@ const FlatForm = ({ language, section }) => {
     actions
   } = useContext();
 
+  const {
+    billingAndShippingBtn = 'Continue to Payment',
+    hideCouponCodeLabel = 'Hide Coupon Code',
+    orderBtn = 'Pay Now',
+    haveCouponCodeLabel = 'Have a Coupon Code?',
+    couponCodeBtnText = 'Apply',
+    transactionGuaranteeMessage = 'Your transaction is secured with SSL encryption',
+    backToBillingLinkText = '← Back to billing & shipping info',
+    addLine2Label = 'Add Line 2',
+    removeLine2Label = 'Hide the second Address'
+  } = texts;
 
   const isOptInFunnel = type === 'OPT-IN';
   const isThankyouProduct = productCategory === 'thankyoupage';
@@ -89,7 +103,8 @@ const FlatForm = ({ language, section }) => {
     cashOnDelivery: cashOnDeliveryTitle = 'Cash On Delivery',
     addressLine1Label = 'Address',
     addressLine1Placeholder = 'E.g Street, PO Box, or company name',
-    postalCodeLabel = 'Zip Code/Postcode'
+    postalCodeLabel = 'Zip Code/Postcode',
+    pricingOptionsLabel
   } = language.checkout || {};
 
   const paymentMethodsLabels = {
@@ -178,7 +193,8 @@ const FlatForm = ({ language, section }) => {
                         <BiShow onClick={onToggleSecondAddress} className='ml-3 item-clickable show-on-parent-hover' />
                       ) : (
                         <BiHide onClick={onToggleSecondAddress} className='ml-3 item-clickable show-on-parent-hover' />
-                      )}
+                      )
+                      }
                     </span>
                   </FlexBox>
                 )}
@@ -257,6 +273,10 @@ const FlatForm = ({ language, section }) => {
           onChange={onSectionFieldChange}
           themeColor={themeColor}
         />
+
+        <FlexBox flex>
+          <PricingOptions title={pricingOptionsLabel} theme='radio' />
+        </FlexBox>
         <FlexBox flex>
           <CustomOrderSummary
             price={price}
@@ -274,6 +294,20 @@ const FlatForm = ({ language, section }) => {
             themeColor={themeColor}
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
           />
+          <FlexBox column center='v-center' className='my-3'>
+            <MarketingConsent
+              onChange={onSectionFieldChange}
+              texts={texts}
+              enabled={marketingConsent}
+              isRequired={marketingConsentIsRequired}
+            />
+            <TermsAndConditions
+              onChange={onSectionFieldChange}
+              texts={texts}
+              enabled={termsAndConditions}
+              isRequired={termsAndConditionsIsRequired}
+            />
+          </FlexBox>
           <span onClick={changeToTab('shipping')} className='label-content primary-text item-clickable underlined-text without-hover'>
             <ResizableInput
               onChange={onSectionFieldChange}
@@ -425,6 +459,9 @@ const FlatForm = ({ language, section }) => {
         themeColor={themeColor}
       />
       <FlexBox flex>
+        <PricingOptions title={pricingOptionsLabel} theme='radio' />
+      </FlexBox>
+      <FlexBox flex>
         <CustomOrderSummary
           price={price}
           productName={name}
@@ -440,6 +477,20 @@ const FlatForm = ({ language, section }) => {
           onChange={onSectionFieldChange}
           themeColor={themeColor}
           prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
+        />
+      </FlexBox>
+      <FlexBox column center='v-center h-center' className='mt-3'>
+        <MarketingConsent
+          onChange={onSectionFieldChange}
+          texts={texts}
+          enabled={marketingConsent}
+          isRequired={marketingConsentIsRequired}
+        />
+        <TermsAndConditions
+          onChange={onSectionFieldChange}
+          texts={texts}
+          enabled={termsAndConditions}
+          isRequired={termsAndConditionsIsRequired}
         />
       </FlexBox>
     </Fragment>

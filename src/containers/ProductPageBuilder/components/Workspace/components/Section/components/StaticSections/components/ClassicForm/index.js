@@ -14,12 +14,16 @@ import {
   ShippingDetails
 } from '..';
 import MultipleStepForm from 'components/MultipleStepForm';
+import {
+  MarketingConsent,
+  TermsAndConditions
+} from '../FuturisticForm/components';
 
 const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
 
 const ClassicForm = ({ language, section }) => {
-  const { content: { twoStepCheckout }, hidden: isSetHidden } = section;
+  const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
   const {
     state: {
       funnel: { paymentMethods, type } = {},
@@ -35,7 +39,11 @@ const ClassicForm = ({ language, section }) => {
           declineButtonText = 'No Thanks',
           shippingDetails,
           couponSection,
-          orderSummary
+          orderSummary,
+          marketingConsent,
+          marketingConsentIsRequired,
+          termsAndConditions,
+          termsAndConditionsIsRequired
         } = {}
       } = {}
     },
@@ -55,8 +63,36 @@ const ClassicForm = ({ language, section }) => {
   };
 
 
+  const onSectionFieldChange = ({ target: { name, value } } = {}) => {
+    actions.onSectionSettingChange({
+      section: section,
+      field: {
+        name: name,
+        value: value
+      }
+    });
+  };
+
+
   if (isThankyouProduct && (isOptInFunnel || isSetHidden)) return null;
 
+
+  const termsAndMarketingConsentRender = (
+    <FlexBox column center='v-center h-center' className='mt-3'>
+      <MarketingConsent
+        onChange={onSectionFieldChange}
+        texts={texts}
+        enabled={marketingConsent}
+        isRequired={marketingConsentIsRequired}
+      />
+      <TermsAndConditions
+        onChange={onSectionFieldChange}
+        texts={texts}
+        enabled={termsAndConditions}
+        isRequired={termsAndConditionsIsRequired}
+      />
+    </FlexBox>
+  );
   return (
     <FlexBox column className='relative-element'>
       <LayoutSwitch active={productCategory}>
@@ -123,6 +159,7 @@ const ClassicForm = ({ language, section }) => {
                     color={pageStyles.themeColor}
                     onChange={onChange}
                   />
+                  {termsAndMarketingConsentRender}
                 </Fragment>
               </MultipleStepForm>
 
@@ -164,6 +201,7 @@ const ClassicForm = ({ language, section }) => {
                   color={pageStyles.themeColor}
                   onChange={onChange}
                 />
+                {termsAndMarketingConsentRender}
               </Fragment>
           }
         </FlexBox>
