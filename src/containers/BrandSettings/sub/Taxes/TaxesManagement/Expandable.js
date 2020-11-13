@@ -27,7 +27,7 @@ const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancel
   ];
 
   const zoneDefinitionOptions = [
-    { label: 'Billing Details', value: 'BillingDetails' },
+  // { label: 'Billing Details', value: 'BillingDetails' },
     { label: 'Shipping Details', value: 'ShippingDetails' },
     { label: 'IP Address', value: 'IPAddress' }
   ];

@@ -21,6 +21,8 @@ const Label = ({ children, ...props }) => (
   </InputRow.Label>
 );
 
+const getTaxesOptions = (taxes) => taxes.map(({ name: label, _id: value }) => ({ label, value }));
+
 const Settings = ({
   defaultCurrency,
   languagesOptions,
@@ -29,7 +31,7 @@ const Settings = ({
     paymentMethods,
     language,
     currency = defaultCurrency,
-    taxes: selectedTaxes = []
+    tax
   } = {},
   onChange,
   isOptInFunnel,
@@ -38,13 +40,11 @@ const Settings = ({
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
   const currentLanguageValue = currentLanguage ? currentLanguage.value : 'English';
 
-  const getTaxesOptions = (taxes) => taxes.map(({ name: label, _id: value }) => ({ label, value }));
   const taxesOptions = getTaxesOptions(allTaxes.filter(({ enabled }) => enabled));
-  const selectedTaxesOptions = getTaxesOptions(allTaxes.filter(({ _id }) => selectedTaxes.includes(_id)));
+  const selectedTaxOption = getTaxesOptions(allTaxes).find(({ value }) => tax === value)
 
-  const onTaxSelectChange = (options) => {
-    const taxIds = options?.length ? options.map(({ value }) => value) : [];
-    onChange({ name: 'taxes', value: taxIds });
+  const onTaxSelectChange = ({ value }) => {
+    onChange({ name: 'tax', value });
   };
 
   const onFiledChange = ({ target: { name, value } }) => {
@@ -119,9 +119,7 @@ const Settings = ({
         <Select
           onChange={onTaxSelectChange}
           options={taxesOptions}
-          value={selectedTaxesOptions}
-          closeMenuOnSelect={false}
-          isMulti
+          value={selectedTaxOption}
         />
       </FlexBox>
     </FlexBox>
