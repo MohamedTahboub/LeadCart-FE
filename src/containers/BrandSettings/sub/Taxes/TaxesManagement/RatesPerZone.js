@@ -11,7 +11,8 @@ import { zones as defaultZones } from 'data/taxes';
 const { FlexBox, Title, InputRow, Button } = common;
 const { SmallInput } = InputRow;
 
-const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => {
+const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], onChange, taxId }) => {
+  console.log({otherZonesRate_otherZonesRate:otherZonesRate})
   const allZones = defaultZones.concat(taxZones);
   const selectedZones = ratesPerZone.map(({ zone }) => zone);
   const notSelectedZones = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ _id }) => _id);
@@ -75,6 +76,8 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => 
                 value={rate}
                 type='number'
                 className='mr-0 rates-per-zone-body-input'
+                min={0}
+                max={100}
               />
               <MdDelete size={20} className='rates-per-zone-body-row-delete-icon' onClick={onDeleteZone(zone)} />
             </FlexBox>
@@ -83,11 +86,14 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => 
           <FlexBox className='rates-per-zone-body-row px-3 v-center' spaceBetween>
             <Title className='aligned-center-text' >Other zones</Title>
             <SmallInput
-              value={0}
-              name='rate'
+              value={otherZonesRate}
+              name='otherZonesRate'
               type='number'
               className='rates-per-zone-body-input'
               style={{ marginRight: '25px ' }}
+              onChange={onChange}
+              min={0}
+              max={100}
             />
           </FlexBox>
         </FlexBox>
@@ -102,7 +108,7 @@ const RatesPerZone = ({ ratesPerZone = [], taxZones = [], onChange, taxId }) => 
       >
         <Button className='primary-color' onClick={onAddZone} disabled={!hasZoneOptions}>
           <FlexBox className='v-center px-3 ' spaceBetween>
-            <RiAddCircleFill size={16} className='mr-2'/>
+            <RiAddCircleFill size={16} className='mr-2' />
             Add Zone
           </FlexBox>
         </Button>

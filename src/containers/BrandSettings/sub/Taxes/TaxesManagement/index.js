@@ -15,6 +15,18 @@ import './style.css';
 const { Table, FlexBox, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
+const defaultTax = {
+  name: 'New Tax',
+  appliesTo: 'Subtotal',
+  zoneDefinition: 'IPAddress',
+  ratesPerZone: [
+    {
+      zone: '5f9832cf9b9fd77d030af88c',
+      rate: 0
+    }
+  ]
+};
+
 const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
   const [savedTaxData, setSavedTaxData] = useState({});
   const [fields, setFields] = useState({});
@@ -42,17 +54,6 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
   };
 
   const onAddNewtax = () => {
-    const defaultTax = {
-      name: 'New Tax',
-      appliesTo: 'Subtotal',
-      zoneDefinition: 'IPAddress',
-      ratesPerZone: [
-        {
-          zone: '5f9832cf9b9fd77d030af88c',
-          rate: 0
-        }
-      ]
-    };
 
     setLoading(true);
     addNewTax(
@@ -101,10 +102,9 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
   };
 
 
-  const onEditTax = ({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone, _id }) => () => {
-    const editableData = { name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone };
-    setCommentedEditableTax({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, zone, _id });
-
+  const onEditTax = ({ name, appliesTo, zoneDefinition, ratesPerZone, otherZonesRate = 0, enabled, zone, _id }) => () => {
+    const editableData = { name, appliesTo, zoneDefinition, ratesPerZone, otherZonesRate, enabled, zone };
+    setCommentedEditableTax({ name, appliesTo, zoneDefinition, ratesPerZone, enabled, otherZonesRate, zone, _id });
     if (taxHasChanges) {
       setCancelModalOpened(true);
     } else {
@@ -177,9 +177,10 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
   return (
     <FlexBox className='taxes-container' column>
       <FlexBox spaceBetween className='my-2'>
-        <FlexBox column >
-          <p className='gray-text bold-text m-0'>Manual tax rates are configured by you depending on destination and products sold, You fully control the calculation of your taxes.</p>
-          <p className='gray-text bold-text m-0'>set up taxes per customer location (country, state, zip/postal code), add tax per group of products, set up tax-free products.</p>
+        <FlexBox column className='gray-text pl-3 m-0 small-text'>
+          Manual tax rates are configured by you depending on destination and products sold, You fully control the calculation of your taxes.
+          <br />
+          set up taxes per customer location (country, state, zip/postal code), add tax per group of products, set up tax-free products.
         </FlexBox>
 
         <FlexBox className='v-center'>
@@ -192,7 +193,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
           <HeadCell>Tax Name</HeadCell>
           <HeadCell>Tax Applies to</HeadCell>
           <HeadCell>Zone Defines By</HeadCell>
-          <HeadCell>Rates per zone</HeadCell>
+          {/*<HeadCell>Rates per zone</HeadCell>*/}
           <HeadCell>state</HeadCell>
           <HeadCell>Control</HeadCell>
         </Head>
@@ -210,7 +211,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
                   <Cell>{valueToLabel[appliesTo]}</Cell>
                   <Cell>{valueToLabel[zoneDefinition]}</Cell>
                   {/* <Cell>{ratesPerZone}</Cell> */}
-                  <Cell>ratesPerZone</Cell>
+                  {/*<Cell>ratesPerZone</Cell>*/}
                   <Cell>{getTaxState(enabled)}</Cell>
                   <Cell>
                     <ControlButtons {...controlButtonsProps} />
