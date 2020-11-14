@@ -12,13 +12,13 @@ const { TextField, Toggle } = InputRow;
 const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits, taxId }) => {
   const [currentHeight, setCurrentHeight] = useState(0);
 
-  const { zoneDefinition, enabled, name, appliesTo, ratesPerZone } = fields;
-
+  const { zoneDefinition, enabled, name, appliesTo, ratesPerZone, otherZonesRate  } = fields;
+  console.log({otherZonesRate})
   useEffect(() => {
     const selectedElement = document?.getElementById(`rates-per-zone-${taxId}`);
     if (open && selectedElement)
       setCurrentHeight(selectedElement?.getBoundingClientRect()?.height);
-  });
+  }, [open]);
 
 
   const appliesOptions = [
@@ -27,7 +27,7 @@ const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancel
   ];
 
   const zoneDefinitionOptions = [
-    { label: 'Billing Details', value: 'BillingDetails' },
+    // { label: 'Billing Details', value: 'BillingDetails' },
     { label: 'Shipping Details', value: 'ShippingDetails' },
     { label: 'IP Address', value: 'IPAddress' }
   ];
@@ -37,6 +37,7 @@ const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancel
 
   const ratesPerZoneProps = {
     ratesPerZone,
+    otherZonesRate,
     onChange,
     enabled,
     taxId
