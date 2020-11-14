@@ -18,30 +18,15 @@ const CREATE_NEW_BRAND = uuid();
 
 const { SubMenu, Item: MenuItem, Divider } = Menu;
 
-const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, createBrand, credits }) => {
+const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, toggleCreateModalOpen }) => {
   const [brandsFilter, filterBrands] = useState('');
-  const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
   const [isBrandsOpen, setBrandsOpen] = useState(false);
 
-  const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
   const _filterBrands = (event) => filterBrands(event.target.value);
   const _onChange = ({ key }) => (key === CREATE_NEW_BRAND) ? toggleCreateModalOpen() : onChange(key);
   const onOpenChange = (openKeys) => {
     setBrandsOpen(openKeys.find((key) => key === 'brands'));
     onMenuOpen(isBrandsOpen);
-  };
-  const onCreateBrand = (brand, cb) => {
-    const actions = {
-      onSuccess: () => {
-        notification.success(`${brand.name} Brand Created`);
-        cb();
-      },
-      onFailed: (message) => {
-        notification.failed(message);
-        cb();
-      }
-    };
-    createBrand(brand, actions);
   };
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
@@ -72,15 +57,6 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
         </SubMenu>
       </Menu>
       <div style={{ border: '1px solid #E8E8E8' }} />
-      {
-        isCreateBrandModalOpen && (
-          <NewBrandModal
-            onClose={toggleCreateModalOpen}
-            onCreate={onCreateBrand}
-            credits={credits}
-          />
-        )
-      }
     </div>
   );
 };
