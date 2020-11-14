@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+
 import * as modalsActions from 'actions/modals';
 import * as productsActions from 'actions/products';
 import * as productActions from 'actions/product';
@@ -8,9 +9,9 @@ import common from 'components/common';
 import PreCreateProductModals from 'components/PrecreateProductModals';
 import { ProductSchema } from 'libs/validation';
 import { notification } from 'libs';
+import { ProductCard, ProductShadowLoading } from './components';
 
 import './style.css';
-import { ProductCard } from './components';
 
 const {
   Page,
@@ -19,10 +20,10 @@ const {
   MainTitle,
   InputRow,
   Currency,
-  Button
+  Button,
+  FlexBox
 } = common;
 
-const ProductShadowLoading = () => <div className='empty-product-shadowbox animated-background' />;
 
 const { SearchInput, TextField } = InputRow;
 const Products = ({

@@ -71,3 +71,8 @@
 .product-card:hover .clickable-product-icon{
   opacity: 1;
 }
+
+.product-shadow-loading{
+  background-color: #fff;
+  border-radius: 5px;
+}
