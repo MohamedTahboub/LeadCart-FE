@@ -7,6 +7,7 @@ import moment from 'moment';
 import { HeaderLogo } from 'components/common/logos';
 import BrandsMenu from 'components/BrandsMenu';
 import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
+import { NewBrandModal } from '../../containers/Account/components/Brands/components';
 import { FillerButton } from 'components/Buttons';
 import common from 'components/common';
 import { notification } from 'libs';
@@ -56,10 +57,15 @@ const SideBar = ({
   appInit,
   logout,
   updateActiveBrand,
+  createBrand,
   brands
 }) => {
   const [isBrandsOpen, setBrandsOpen] = useState(false);
   const [isAccountSettingsOpen, setAccountSettingsOpen] = useState(false);
+  const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
+
+
+  const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
 
   const menus = sidebarMenus({ brands, user, history });
 
@@ -131,6 +137,21 @@ const SideBar = ({
     });
   };
 
+  const onCreateBrand = (brand, cb) => {
+    const actions = {
+      onSuccess: () => {
+        notification.success(`${brand.name} Brand Created`);
+        cb();
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+        cb();
+      }
+    };
+    createBrand(brand, actions);
+  };
+
+
   const onNavigate = (menuItem) => {
     history.push(menuItem.item.props.link);
   };
@@ -138,30 +159,48 @@ const SideBar = ({
     setAccountSettingsOpen(openKeys.includes('accountSettings'));
   };
   return (
-    <div className={classNames('side-bar justify-space-between d-col', { 'settings-open': isAccountSettingsOpen && !isBrandsOpen })}>
-      <HeaderLogo onClick={() => history.push('/')} fullWidth />
-      <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
-      <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} onMenuOpen={onMenuOpen} />
-      <Menu
-        className='side-bar-navigation'
-        mode='inline'
-        selectedKeys={[user.activeBrand]}
-        defaultOpenKeys={menus.map(({ key }) => key)}
-        onClick={onNavigate}
-      >
-        {mapMenuItems(menus)}
-      </Menu>
-      <div className='tail-actions'>
-        <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate} onOpenChange={onAccountSettingsOpen}>
-          {mapMenuItems(accountSettingsMenus({ credits }))}
+    <Fragment>
+
+      <div className={classNames('side-bar justify-space-between d-col', { 'settings-open': isAccountSettingsOpen && !isBrandsOpen })}>
+        <HeaderLogo onClick={() => history.push('/')} fullWidth />
+        <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
+        <BrandsMenu
+          brands={brands}
+          activeBrand={user.activeBrand}
+          onChange={onActiveBrandChange}
+          onMenuOpen={onMenuOpen}
+          toggleCreateModalOpen={toggleCreateModalOpen}
+        />
+        <Menu
+          className='side-bar-navigation'
+          mode='inline'
+          selectedKeys={[user.activeBrand]}
+          defaultOpenKeys={menus.map(({ key }) => key)}
+          onClick={onNavigate}
+        >
+          {mapMenuItems(menus)}
         </Menu>
-        <div className='upgrade'>
-          <FillerButton onClick={logout} className='upgrade-btn' type='primary'>
-            Logout
-          </FillerButton>
+        <div className='tail-actions'>
+          <Menu mode='inline' className={classNames({ 'h-0': isBrandsOpen })} onClick={onNavigate} onOpenChange={onAccountSettingsOpen}>
+            {mapMenuItems(accountSettingsMenus({ credits }))}
+          </Menu>
+          <div className='upgrade'>
+            <FillerButton onClick={logout} className='upgrade-btn' type='primary'>
+              Logout
+            </FillerButton>
+          </div>
         </div>
       </div>
-    </div>
+      {isCreateBrandModalOpen && (
+        <NewBrandModal
+          onClose={toggleCreateModalOpen}
+          onCreate={onCreateBrand}
+          credits={credits}
+        />
+      )}
+    </Fragment>
+
+
   );
 };
 const mapStateToProps = ({
