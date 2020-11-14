@@ -31,6 +31,13 @@ const pricingOptionSchema = yup.object({
   ...paymentPriceSubSchema
 });
 
+const shippingMethodsSchema = yup.object({
+  id: yup.string().required(),
+  name: yup.string().default('Untitled shipping method'),
+  cost: yup.number().default(0),
+  logo: yup.string()
+});
+
 const ProductSchema = yup.object({
   name: yup.string().default('Product-Name'),
   category: yup.string().default('checkout'),
@@ -44,9 +51,11 @@ const ProductSchema = yup.object({
     marketingConsent: yup.boolean().default(false),
     marketingConsentIsRequired: yup.boolean().default(false),
     termsAndConditions: yup.boolean().default(false),
-    termsAndConditionsIsRequired: yup.boolean().default(false)
+    termsAndConditionsIsRequired: yup.boolean().default(false),
+    shippingMethodsEnabled: yup.boolean().default(false)
   }),
   internalName: yup.string(),
+  shippingMethods: yup.array().of(shippingMethodsSchema),
   thumbnail: yup.string(),
   available: yup.boolean().default(false),
   price: yup.object({

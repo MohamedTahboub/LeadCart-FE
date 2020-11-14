@@ -186,3 +186,11 @@ export const onToggleProductBackgroundModal = ({ dispatch }) => () => {
 export const updateSavingStatusText = ({ dispatch }) => (show, text) => {
   dispatch({ type: types.UPDATE_PRODUCT_SAVING_STATUS, payload: { show, text } });
 };
+
+export const onUpdateShippingMethodDetails = ({ dispatch }) => (shippingMethod) => {
+  dispatch({ type: types.UPDATE_SHIPPING_METHOD_DETAILS, payload: shippingMethod });
+};
+
+export const addNewShippingMethod = ({ dispatch }) => (shippingMethod) => {
+  dispatch({ type: types.ADD_NEW_SHIPPING_METHOD, payload: shippingMethod });
+};
