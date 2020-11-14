@@ -326,6 +326,18 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             </InputRow>
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
+                Show Shipping Methods
+              </Label>
+              <Toggle
+                value={custom.shippingMethodsEnabled}
+                name='shippingMethodsEnabled'
+                onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
+              />
+            </InputRow>
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
                 Show Coupon Section
               </Label>
               <Toggle
