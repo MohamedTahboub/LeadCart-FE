@@ -10,6 +10,23 @@ import CardContent from './CardContent';
 
 const { Card } = common;
 
+const getMainColor = (sections, pageStyles) => {
+  const checkoutSection = sections.find(({ type }) => type === 'checkoutSection');
+  const hasThemeColor = Boolean(checkoutSection?.styles?.themeColor);
+  const hasPageStylesThemeColor = Boolean(pageStyles.themeColor);
+  const hasCompleteOrderButtonStyles = Boolean(checkoutSection?.styles?.completeOrderButton);
+
+  if (hasThemeColor)
+    return checkoutSection?.styles?.themeColor;
+  else if (hasCompleteOrderButtonStyles)
+    return checkoutSection?.styles?.completeOrderButton?.background;
+  else if (hasPageStylesThemeColor)
+    return pageStyles.themeColor;
+  else
+    return '#4DA1FF';
+};
+
+
 const ProductCard = ({
   onDelete,
   onDuplicate,
@@ -21,7 +38,8 @@ const ProductCard = ({
   thumbnail = defaultProductImage,
   funnels,
   productId,
-  sections
+  sections,
+  pageStyles = {}
 }) => {
   const isThankyouPage = category === 'thankyoupage';
   const isCheckoutProduct = category === 'checkout';
@@ -46,21 +64,8 @@ const ProductCard = ({
     hasPrice
   };
 
-  const getMainColor = () => {
-    const checkoutSection = sections.find(({ type }) => type === 'checkoutSection');
-    const hasThemeColor = Boolean(checkoutSection?.styles?.themeColor);
-    const hasCompleteOrderButtonStyles = Boolean(checkoutSection?.styles?.completeOrderButton);
 
-    if (hasThemeColor)
-      return checkoutSection?.styles?.themeColor;
-    else if (hasCompleteOrderButtonStyles)
-      return checkoutSection?.styles?.completeOrderButton?.background;
-    else
-      return '#4DA1FF';
-  };
-
-
-  const borderTopColor = getMainColor();
+  const borderTopColor = getMainColor(sections, pageStyles);
 
   return (
     <Card className='product-card m-2' style={{ borderTopColor }}>
