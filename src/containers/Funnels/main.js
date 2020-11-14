@@ -6,8 +6,9 @@ import * as productsActions from 'actions/products';
 import { notification } from 'libs';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-import { FunnelCard, PreCreateModal } from './components';
+import { FunnelCard, FunnelsShadowLoading, PreCreateModal } from './components';
 import { getMarketPlaceUrl } from 'helpers/common';
+
 
 import './style.css';
 
@@ -69,6 +70,8 @@ const Funnels = ({
     window.open(`${url}${funnelUrl}`, '_blank');
   };
 
+  const hasFunnels = funnels.length > 0;
+
   return (
     <Page>
       <PageHeader>
@@ -93,6 +96,9 @@ const Funnels = ({
           />
         ))
         }
+
+        {!hasFunnels && <FunnelsShadowLoading/>}
+
       </PageContent>
 
       <PreCreateModal

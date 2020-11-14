@@ -116,51 +116,8 @@
     border-radius: 10px;
 }
 
-
-/* 
-   ============ The Second Template Image Style ============
-
-.modal-template-image {
-    cursor: pointer;
-    margin: 10px 20px;
+.funnels-shadow-loading{
+    background-color: #fff;
+    margin: 5px;
     border-radius: 5px;
-    border: 1px solid #eee;
-    height: min-content;
-    text-align: center;
-    overflow: hidden;
-    width: 55%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
-
-.modal-template-image p{
-    margin: 0 0 0 20px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-template-image img {
-    height: 100px;
-    border-radius: 5px;
-    width: 155px;
-}
-
-.modal-template-image.active {
-    position: relative;
-}
-
-.modal-template-image.active:before {
-    position: absolute;
-    font-family: "Font Awesome 5 Free";
-    font-weight: 400;
-    content: "\f058";
-    font-size: 16px;
-    top: 5px;
-    right: 10px;
-    color: lightgreen;
-}
-
-*/
