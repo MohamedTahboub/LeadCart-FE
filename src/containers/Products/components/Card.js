@@ -1,13 +1,33 @@
 import React from 'react';
-import common from 'components/common';
-import ReactTooltip from 'react-tooltip';
-import { SiMinutemailer } from 'react-icons/si';
-import { GrAnnounce } from 'react-icons/gr';
+import { connect } from 'react-redux';
+import { HiOutlineDuplicate } from 'react-icons/hi';
+import ReactTooltip from 'rc-tooltip';
 
-import { getPriceFormat, trimExtraText } from 'libs';
+import common from 'components/common';
 import defaultProductImage from 'assets/images/big-logo-1.png';
+import CardFooter from './CardFooter';
+import CardContent from './CardContent';
 
 const { Card } = common;
+
+const getMainColor = (sections, pageStyles) => {
+  const checkoutSection = sections.find(({ type }) => type === 'checkoutSection');
+  const hasThemeColor = Boolean(checkoutSection?.styles?.themeColor);
+  const hasPageStylesThemeColor = Boolean(pageStyles.themeColor);
+  const hasCompleteOrderButtonStyles = Boolean(checkoutSection?.styles?.completeOrderButton);
+  const isOptInHasBackgroundColor = pageStyles?.pageBackgroundSettings?.firstSectionBackground?.backgroundColor;
+
+  if (hasThemeColor)
+    return checkoutSection?.styles?.themeColor;
+  else if (hasCompleteOrderButtonStyles)
+    return checkoutSection?.styles?.completeOrderButton?.background;
+  else if (hasPageStylesThemeColor)
+    return pageStyles.themeColor;
+  else if (isOptInHasBackgroundColor)
+    return pageStyles?.pageBackgroundSettings?.firstSectionBackground?.backgroundColor;
+  else
+    return '#4DA1FF';
+};
 
 
 const ProductCard = ({
@@ -18,119 +38,57 @@ const ProductCard = ({
   currency,
   price: { amount, format } = {},
   onEdit,
-  thumbnail = defaultProductImage
+  thumbnail = defaultProductImage,
+  funnels,
+  productId,
+  sections,
+  pageStyles = {}
 }) => {
-
-  const coverImageStyle = {
-    backgroundImage: ` linear-gradient(
-              to bottom,
-              rgba(0, 0, 0, 0.14),
-              rgba(0,0,0, .1)
-            ),url(${thumbnail})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-  };
-
-
-  const price = getPriceFormat(amount, currency, format);
-
   const isThankyouPage = category === 'thankyoupage';
   const isCheckoutProduct = category === 'checkout';
   const isUpsellProduct = category === 'upsell';
   const isOptInProduct = category === 'opt-in';
   const hasPrice = isCheckoutProduct || isUpsellProduct;
 
+  const footerProps = { onDelete, onEdit };
+  const contentProps = {
+    name,
+    category,
+    currency,
+    amount,
+    format,
+    thumbnail,
+    funnels,
+    productId,
+    isThankyouPage,
+    isCheckoutProduct,
+    isUpsellProduct,
+    isOptInProduct,
+    hasPrice
+  };
+
+
+  const borderTopColor = getMainColor(sections, pageStyles);
 
   return (
-    <Card className='product-card'>
-      <div
-        style={coverImageStyle}
-        className='product-image-container'
-      >
-        <div className='head'>
-          <span
-            data-tip='Duplicate'
-            data-type='info'
-            className='duplicate-btn'
-            onClick={onDuplicate}
-            role='presentation'
-          >
-            <i className='fas fa-copy scale-12 duplicate-icon product-category-icon' />
-          </span>
-        </div>
-        <div className='product-category'>
-          {isCheckoutProduct &&
-           <i
-             data-tip='Checkout Product'
-             data-type='info'
-             role='presentation'
-             className='fas fa-shopping-cart product-category-icon'
-           />}
-
-          {isUpsellProduct &&
-            <i
-              data-tip='Upsell Product'
-              data-type='info'
-              className='fas fa-chart-line product-category-icon'
-              role='presentation'
-            />
-          }
-
-          {isThankyouPage &&
-          <GrAnnounce
-            data-tip='Thank you Page'
-            data-type='info'
-            role='presentation'
-            className='fas thankyou-icon'
-          />
-          }
-
-          {isOptInProduct &&
-          <SiMinutemailer
-            data-tip='Opt-in Page'
-            data-type='info'
-            role='presentation'
-            className='fas product-category-icon'
-          />
-          }
-        </div>
-      </div>
-      <div className='product-content'>
-        <div className='title-text'>
-          <span data-tip={trimExtraText(name, 70)} data-type='info' data-multiline>
-            {name}
-          </span>
-        </div>
-
-        {hasPrice &&
-        <div className='price-text text-center'>
-          {price}
-        </div>
-        }
-
-      </div>
-      <div className='footer'>
-        <i
-          data-tip='Edit'
-          data-type='info'
-          onClick={onEdit}
-          className='fas fa-edit'
+    <Card className='product-card m-2' style={{ borderTopColor }}>
+      <ReactTooltip overlay='Duplicate' placement='left' mouseEnterDelay={0.3}>
+        <HiOutlineDuplicate
+          className='fas fa-copy  product-card-duplicate-icon clickable-product-icon'
           role='presentation'
+          onClick={onDuplicate}
+          size={22}
         />
-        <i
-          data-tip='Delete'
-          data-type='error'
-          onClick={onDelete}
-          className='fas fa-trash-alt'
-          role='presentation'
-        />
-      </div>
-      <ReactTooltip delayShow={300}/>
+      </ReactTooltip>
+
+      <CardContent {...contentProps} />
+      <CardFooter {...footerProps} />
     </Card>
   );
 };
 
 ProductCard.propTypes = {};
 
-export default ProductCard;
+const mapStateToProps = ({ funnels }) => ({ funnels });
+
+export default connect(mapStateToProps)(ProductCard);
