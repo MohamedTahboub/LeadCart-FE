@@ -4,7 +4,7 @@ import './style.css';
 import clx from 'classnames';
 import { MdLock } from 'react-icons/md';
 import { useContext } from '../../../../../../../../actions';
-import { PricingOptions } from '..';
+import { PricingOptions, ShippingMethods } from '..';
 import { BiHide, BiShow } from 'react-icons/bi';
 
 import {
@@ -61,7 +61,8 @@ const FlatForm = ({ language, section }) => {
           marketingConsent,
           termsAndConditions,
           marketingConsentIsRequired,
-          termsAndConditionsIsRequired
+          termsAndConditionsIsRequired,
+          shippingMethodsEnabled
           // orderSummary
         } = {}
       } = {}
@@ -251,6 +252,11 @@ const FlatForm = ({ language, section }) => {
         </FlexBox>
       </Tab>
 
+      {shippingMethodsEnabled && (
+        <Tab title='Method' id='shippingMethods'>
+          <ShippingMethods />
+        </Tab>
+      )}
       <Tab title='Payment' id='payment'>
         <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='radio' />
         <FlexBox center='h-center' className='small-text gray-text mt-3'>
@@ -435,7 +441,12 @@ const FlatForm = ({ language, section }) => {
           />
         </Fragment>
       )}
-
+      {shippingMethodsEnabled && (
+        <FlexBox column>
+          <Title className='step-title mt-3'>Shipping Method</Title>
+          <ShippingMethods />
+        </FlexBox>
+      )}
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>
       <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='cards' />
       <FlexBox center='h-center' className='small-text gray-text mt-3'>

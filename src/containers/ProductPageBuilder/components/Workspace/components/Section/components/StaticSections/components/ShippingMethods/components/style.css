@@ -1,0 +1,20 @@
+.shipping-method-option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-bottom: unset;
+}
+.shipping-method-option:first-child{
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.shipping-method-option:last-child{
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom: 1px solid #eee;
+}
+
+.shipping-method-option .ant-radio+span {
+    flex: 1;
+}

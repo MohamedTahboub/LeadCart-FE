@@ -153,6 +153,33 @@ export default (state = initialState, { type, payload }) => {
       savingStatus: { ...state.savingStatus, ...payload }
     };
 
+  case types.UPDATE_SHIPPING_METHOD_DETAILS: {
+    const shippingMethods = state.product.shippingMethods.map((method) => {
+      if (method.id === payload.id)
+        return { ...method, ...payload };
+      return method;
+    });
+
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        shippingMethods
+      }
+    };
+  }
+  case types.ADD_NEW_SHIPPING_METHOD:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        shippingMethods: Array.isArray(state.product.shippingMethods) ?
+          [...state.product.shippingMethods, payload]
+          :
+          [payload]
+      }
+    };
+
   default: return state;
   }
 };

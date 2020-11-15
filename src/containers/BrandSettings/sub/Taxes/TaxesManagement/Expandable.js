@@ -12,8 +12,7 @@ const { TextField, Toggle } = InputRow;
 const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits, taxId }) => {
   const [currentHeight, setCurrentHeight] = useState(0);
 
-  const { zoneDefinition, enabled, name, appliesTo, ratesPerZone, otherZonesRate  } = fields;
-  console.log({otherZonesRate})
+  const { zoneDefinition, enabled, name, appliesTo, ratesPerZone, otherZonesRate } = fields;
   useEffect(() => {
     const selectedElement = document?.getElementById(`rates-per-zone-${taxId}`);
     if (open && selectedElement)

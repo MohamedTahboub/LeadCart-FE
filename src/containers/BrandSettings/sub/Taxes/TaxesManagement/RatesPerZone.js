@@ -12,7 +12,6 @@ const { FlexBox, Title, InputRow, Button } = common;
 const { SmallInput } = InputRow;
 
 const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], onChange, taxId }) => {
-  console.log({otherZonesRate_otherZonesRate:otherZonesRate})
   const allZones = defaultZones.concat(taxZones);
   const selectedZones = ratesPerZone.map(({ zone }) => zone);
   const notSelectedZones = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ _id }) => _id);

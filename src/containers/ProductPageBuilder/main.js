@@ -199,8 +199,12 @@ const ProductBuilder = ({
     setSaving(true);
     const {
       isValid,
-      value: product
+      value: product,
+      errors
     } = await ProductSchema(productData);
+    console.log({ errors });
+    if (!isValid)
+      return notification.failed('Can\'t save, validation Error');
 
     const { shouldTakeThumbnail, newThumbnailName } = evaluateCurrentThumbnail(product.thumbnail);
     let productThumbnailUrl = product.thumbnail;
@@ -217,8 +221,6 @@ const ProductBuilder = ({
       actions.updateSavingStatusText(false);
     }
 
-    if (!isValid)
-      return notification.failed('Can\'t save, validation Error');
 
     props.updateProduct(
       {
