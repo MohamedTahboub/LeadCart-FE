@@ -17,7 +17,7 @@ const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancel
     const selectedElement = document?.getElementById(`rates-per-zone-${taxId}`);
     if (open && selectedElement)
       setCurrentHeight(selectedElement?.getBoundingClientRect()?.height);
-  }, [open]);
+  }, [open, ratesPerZone]);
 
 
   const appliesOptions = [

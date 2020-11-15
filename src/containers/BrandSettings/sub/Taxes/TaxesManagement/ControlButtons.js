@@ -39,13 +39,13 @@ export default ({ isEditableTax, onDeleteTax, editableTaxId, taxHasChanges, onEd
 
         (editableTaxId && taxHasChanges) ?
           <Fragment>
-            <a href={`#${editableTaxId}`}><FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} /></a>
+            <a href={`#${editableTaxId}`}><FaRegEdit size={20} className='tax-edit-icon mr-3' onClick={onEditTax(tax)} /></a>
             <MdDelete size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
           </Fragment>
           :
           <Fragment>
+            <FaRegEdit size={20} className='tax-edit-icon mr-3' onClick={onEditTax(tax)} />
             <MdDelete size={20} className='tax-delete-icon' onClick={onDeleteTax(_id)} />
-            <FaRegEdit size={20} className='tax-edit-icon ml-3' onClick={onEditTax(tax)} />
           </Fragment>
         :
         <ActionsButtons onConfirmCancelEdits={onConfirmCancelEdits} saveLoading={saveLoading} onSave={onSave} />

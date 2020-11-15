@@ -71,7 +71,7 @@ const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], on
                 options={zoneOptions}
               />
               <SmallInput
-                onChange={({ target: { value } }) => onChangeZone(zone, 'rate', value)}
+                onChange={({ target: { value } }) => onChangeZone(zone, 'rate', Number(value))}
                 value={rate}
                 type='number'
                 className='mr-0 rates-per-zone-body-input'
@@ -90,7 +90,7 @@ const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], on
               type='number'
               className='rates-per-zone-body-input'
               style={{ marginRight: '25px ' }}
-              onChange={onChange}
+              onChange={({ target: { value, name } }) => onChange({ target: { name, value: Number(value) } })}
               min={0}
               max={100}
             />
