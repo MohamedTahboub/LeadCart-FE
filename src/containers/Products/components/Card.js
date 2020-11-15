@@ -15,6 +15,7 @@ const getMainColor = (sections, pageStyles) => {
   const hasThemeColor = Boolean(checkoutSection?.styles?.themeColor);
   const hasPageStylesThemeColor = Boolean(pageStyles.themeColor);
   const hasCompleteOrderButtonStyles = Boolean(checkoutSection?.styles?.completeOrderButton);
+  const isOptInHasBackgroundColor = pageStyles?.pageBackgroundSettings?.firstSectionBackground?.backgroundColor;
 
   if (hasThemeColor)
     return checkoutSection?.styles?.themeColor;
@@ -22,6 +23,8 @@ const getMainColor = (sections, pageStyles) => {
     return checkoutSection?.styles?.completeOrderButton?.background;
   else if (hasPageStylesThemeColor)
     return pageStyles.themeColor;
+  else if (isOptInHasBackgroundColor)
+    return pageStyles?.pageBackgroundSettings?.firstSectionBackground?.backgroundColor;
   else
     return '#4DA1FF';
 };
