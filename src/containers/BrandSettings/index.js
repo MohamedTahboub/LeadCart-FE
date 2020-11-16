@@ -9,6 +9,7 @@ import {
   Email,
   GeneralSetting,
   Marketplace,
+  ShippingRoles,
   Taxes,
   TeamMembers,
   Translations
@@ -41,6 +42,11 @@ const Setting = ({ history, brands, user }) => {
       tab: 'Taxes',
       link: '/settings/taxes',
       component: <Taxes history={history} />
+    }, {
+      key: 'shippingRoles',
+      tab: 'Shipping Roles',
+      link: '/settings/shippingRoles',
+      component: <ShippingRoles history={history} />
     }, {
       key: 'emailing',
       tab: 'Emailing',
