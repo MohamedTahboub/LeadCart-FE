@@ -29,6 +29,7 @@ import redemption from './redemption';
 import leads from './leads';
 import taxes from './taxes';
 import taxZones from './taxZones';
+import shippingRoles from './shippingRoles';
 
 
 const rootReducer = combineReducers({
@@ -61,7 +62,8 @@ const rootReducer = combineReducers({
   workspace,
   redemption,
   taxes,
-  taxZones
+  taxZones,
+  shippingRoles
 });
 
 export default rootReducer;

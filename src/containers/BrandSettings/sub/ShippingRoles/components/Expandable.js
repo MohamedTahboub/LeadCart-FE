@@ -42,7 +42,7 @@ const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancel
       <FlexBox spaceBetween>
         <FlexBox className='mr-4' column spaceBetween style={{ height: '170px', alignSelf: 'flex-start', marginTop: '40px' }}>
           <InputRow className='m-0 flex-box v-center'>
-            <Title className='min-width-150'>Tax Name:</Title>
+            <Title className='min-width-150'>Shipping Role Name:</Title>
             <TextField
               onChange={onChange}
               value={name}

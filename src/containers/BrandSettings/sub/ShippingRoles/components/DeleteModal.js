@@ -3,31 +3,35 @@ import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-import * as taxeZonesActions from 'actions/taxZones';
-import * as taxesActions from 'actions/taxes';
+import * as shippingRolesActions from 'actions/shippingRoles';
 import { notification } from 'libs';
-import { fakeData } from '../fakeData';
 
 
 const { FlexBox, Title, Button, ErrorMessage } = common;
 
 
-const DeleteModal = ({ isVisible, onClose, shippingRoleId }) => {
+const DeleteModal = ({ isVisible, onClose, shippingRoleId, deleteShippingRole }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const onDelete = async () => {
     setLoading(true);
-    setTimeout(() => {
-      fakeData.forEach(({ _id, name }, index) => {
-        if (_id === shippingRoleId) {
-          fakeData.splice(index, 1);
-          notification.success(`${name} shipping role added successfuly`);
+    deleteShippingRole(
+      { shippingRoleId },
+      {
+        onSuccess: () => {
+          setLoading(false);
           onClose();
+          notification.success('your Shipping Role  deleted successfuly');
+        },
+        onFailed: (message) => {
+          setLoading(false);
+          setErrorMessage(message);
+          notification.failed(message);
         }
-      });
-      setLoading(false);
-    }, 1500);
+      }
+    );
+
   };
 
   return (
@@ -49,4 +53,4 @@ const DeleteModal = ({ isVisible, onClose, shippingRoleId }) => {
 };
 
 
-export default connect(null, { ...taxeZonesActions, ...taxesActions })(DeleteModal);
+export default connect(null, shippingRolesActions)(DeleteModal);

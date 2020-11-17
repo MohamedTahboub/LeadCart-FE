@@ -31,6 +31,7 @@ import integrations from './integrations';
 import brands from './brands';
 import taxes from './taxes';
 import taxZones from './taxZones';
+import shippingRoles from './shippingRoles';
 
 
 export default [
@@ -66,5 +67,6 @@ export default [
   uploadingFiles,
   storage,
   ...taxes,
-  ...taxZones
+  ...taxZones,
+  ...shippingRoles
 ];

@@ -2,9 +2,11 @@ import React, { Fragment, useState } from 'react';
 import clx from 'classnames';
 import { connect } from 'react-redux';
 
-import common from 'components/common';
 import { notification } from 'libs';
-import { isNewObjHasChange } from 'helpers/common';
+import shippingRolesSchema from 'libs/validation/shippingRoles';
+import * as shippingRolesActions from 'actions/shippingRoles';
+import { getNewNameWithNumber, isNewObjHasChange } from 'helpers/common';
+import common from 'components/common';
 import { ControlButtons, DeleteModal, Expandable } from './components';
 import { fakeData } from './fakeData';
 
@@ -14,22 +16,7 @@ const { Table, FlexBox, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
 
-const getNewNameWithNumber = (data = [], baseName = 'Name') => {
-  const defaultNumbersName = data
-    .filter(({ name }) => name.toLowerCase().includes(baseName.toLowerCase()))
-    .map((ele) => Number(ele?.name.split(baseName)[1]))
-    .sort((a, b) => a - b);
-
-  const newDefaultNumber = defaultNumbersName.map((number, index) => {
-    if (number !== index + 1)
-      return index + 1;
-  }).sort()[0] || defaultNumbersName.length + 1;
-
-  return `${baseName} ${newDefaultNumber}`;
-};
-
-
-const ShippingRoles = ({ history }) => {
+const ShippingRoles = ({ history, editShippingRole, addNewShippingRole }) => {
   const [savedShippingRoleData, setSavedShippingRoleData] = useState({});
   const [fields, setFields] = useState({});
   const [editableShipingRoleId, setEditableShippingRoleId] = useState('');
@@ -42,56 +29,91 @@ const ShippingRoles = ({ history }) => {
   const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
   const shippingRoleHasChanges = isNewObjHasChange(savedShippingRoleData, fields);
 
+  const autoOpenEditMode = async (data) => {
+    const { value } = await shippingRolesSchema(data);
+    setEditableShippingRoleId(data._id);
+    setFields(value);
+    setSavedShippingRoleData(value);
+  };
+
 
   const defaultShippingRole = (() => {
-    const name = getNewNameWithNumber(fakeData, 'Shipping Role');
+    const name = getNewNameWithNumber({ data: fakeData, baseName: 'shipping role', isCapitalized: true });
     return {
       name,
       costsPerZone: [
         {
           zone: '5f9832cf9b9fd77d030af88c',
-          rate: 0
+          cost: 0
         }
       ]
     };
   })();
 
-  const autoOpenEditMode = (data) => {
-    setEditableShippingRoleId(data._id);
-    const newObj = { ...data };
-    delete newObj._id;
-    delete newObj?.brand;
-    delete newObj?.createdAt;
-    delete newObj?.updatedAt;
-    delete newObj?.__v;
-    setFields(newObj);
-    setSavedShippingRoleData(newObj);
-  };
 
   const onAddNewShippingRole = () => {
     setLoading(true);
-    setTimeout(() => {
-      fakeData.push(defaultShippingRole);
-      setLoading(false);
-      notification.success('New shipping role added successfuly');
-    }, 1500);
+    addNewShippingRole(
+      defaultShippingRole,
+      {
+        onSuccess: (data) => {
+          setLoading(false);
+          autoOpenEditMode(data);
+          notification.success('New Shipping Role added successfuly');
+        },
+        onFailed: (message) => {
+          setLoading(false);
+          notification.failed(message);
+        }
+      }
+    );
   };
 
 
-  const onSave = () => {
-    console.log('saved');
+  const onSave = async () => {
+    setSaveLoading(true);
+    const inTheSameExpandable = commentedEditableShippingRole._id === editableShipingRoleId;
+    const { isValid, value, message } = await shippingRolesSchema(fields);
+
+    if (isValid) {
+      editShippingRole(
+        { shippingRole: editableShipingRoleId, details: value },
+        {
+          onSuccess: () => {
+            setSaveLoading(false);
+            setSavedShippingRoleData(fields);
+            if (cancelModalOpened) setCancelModalOpened(false);
+
+            if (inTheSameExpandable)
+              setEditableShippingRoleId('');
+            else
+              autoOpenEditMode(commentedEditableShippingRole);
+
+            notification.success('You Change edited successfuly');
+          },
+          onFailed: (message) => {
+            setSaveLoading(false);
+            notification.failed(message);
+          }
+        }
+      );
+    } else {
+      notification.failed(message);
+      setSaveLoading(false);
+    }
+
   };
 
 
-  const onEditShippingRole = ({ name, costsPerZone, otherZonesCost = 0, enabled, _id }) => () => {
-    const editableData = { name, enabled, costsPerZone, otherZonesCost };
-    setCommentedEditableShippingRole({ name, enabled, costsPerZone, otherZonesCost, _id });
+  const onEditShippingRole = (shippingRoleData = {}) => async () => {
+    const { value } = await shippingRolesSchema(shippingRoleData);
+    setCommentedEditableShippingRole({ ...value, _id: shippingRoleData._id });
     if (shippingRoleHasChanges) {
       setCancelModalOpened(true);
     } else {
-      setEditableShippingRoleId(_id);
-      setSavedShippingRoleData(editableData);
-      setFields(editableData);
+      setEditableShippingRoleId(shippingRoleData._id);
+      setSavedShippingRoleData(value);
+      setFields(value);
     }
   };
 
@@ -119,7 +141,7 @@ const ShippingRoles = ({ history }) => {
   };
 
 
-  const onDeleteShippingRole = (taxId) => () => setDeleteShippingRoleId(taxId);
+  const onDeleteShippingRole = (shippingRoleId) => () => setDeleteShippingRoleId(shippingRoleId);
   const onCancelDeleteShippingRole = () => setDeleteShippingRoleId('');
   const onCloseCancelModal = () => setCancelModalOpened(false);
 
@@ -131,7 +153,6 @@ const ShippingRoles = ({ history }) => {
   );
 
   const deleteModalOpend = Boolean(deleteShippingRoleId);
-
 
   const ExpandableProps = {
     onSave,
@@ -196,4 +217,4 @@ const ShippingRoles = ({ history }) => {
 
 const mapStateToProps = ({ shippingRoles = {} }) => ({ shippingRoles });
 
-export default connect(mapStateToProps)(ShippingRoles);
+export default connect(mapStateToProps, shippingRolesActions)(ShippingRoles);

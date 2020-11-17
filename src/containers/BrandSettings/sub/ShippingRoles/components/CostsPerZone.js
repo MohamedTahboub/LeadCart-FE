@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
 import { RiAddCircleFill } from 'react-icons/ri';
 import Select from 'react-select';
 import ToolTip from 'react-tooltip';
-import { connect } from 'react-redux';
 
 import common from 'components/common';
 import { zones as defaultZones } from 'data/taxes';
@@ -11,7 +11,7 @@ import { zones as defaultZones } from 'data/taxes';
 const { FlexBox, Title, InputRow, Button } = common;
 const { SmallInput } = InputRow;
 
-const RatesPerZone = ({ costsPerZone = [], otherZonesCost = 0, taxZones = [], onChange, shippingRoleId }) => {
+const CostsPerZone = ({ costsPerZone = [], otherZonesCost = 0, taxZones = [], onChange, shippingRoleId }) => {
   const allZones = defaultZones.concat(taxZones);
   const selectedZones = costsPerZone.map(({ zone }) => zone);
   const notSelectedZones = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ _id }) => _id);
@@ -23,12 +23,10 @@ const RatesPerZone = ({ costsPerZone = [], otherZonesCost = 0, taxZones = [], on
     return { label: currentZone?.name, value: zoneId };
   };
 
-
   const onAddZone = () => {
-    const defaultZone = { zone: notSelectedZones[0], rate: 0 };
+    const defaultZone = { zone: notSelectedZones[0], cost: 0 };
     onChange({ target: { value: [...costsPerZone, defaultZone], name: 'costsPerZone' } });
   };
-
 
   const onDeleteZone = (zoneId) => () => {
     const updatedList = costsPerZone.filter(({ zone }) => zone !== zoneId);
@@ -57,12 +55,12 @@ const RatesPerZone = ({ costsPerZone = [], otherZonesCost = 0, taxZones = [], on
       <FlexBox column>
         <FlexBox className='costs-per-zone-header px-1 v-center' spaceBetween >
           <Title className='white-text text-center'>Zone</Title>
-          <Title className='white-text text-center'>Cost</Title>
+          <Title className='white-text text-center mr-4'>Cost</Title>
           <Title />
         </FlexBox>
 
         <FlexBox className='costs-per-zone-body' column>
-          {costsPerZone.map(({ zone, rate }) => (
+          {costsPerZone.map(({ zone, cost }) => (
             <FlexBox className='costs-per-zone-body-row v-center' key={zone} spaceBetween>
               <Select
                 onChange={({ value }) => onChangeZone(zone, 'zone', value)}
@@ -72,11 +70,10 @@ const RatesPerZone = ({ costsPerZone = [], otherZonesCost = 0, taxZones = [], on
               />
               <SmallInput
                 onChange={({ target: { value } }) => onChangeZone(zone, 'cost', Number(value))}
-                value={rate}
+                value={cost}
                 type='number'
                 className='mr-0 costs-per-zone-body-input'
                 min={0}
-                max={100}
               />
               <MdDelete size={20} className='costs-per-zone-body-row-delete-icon' onClick={onDeleteZone(zone)} />
             </FlexBox>
@@ -92,7 +89,6 @@ const RatesPerZone = ({ costsPerZone = [], otherZonesCost = 0, taxZones = [], on
               style={{ marginRight: '25px ' }}
               onChange={({ target: { value, name } }) => onChange({ target: { name, value: Number(value) } })}
               min={0}
-              max={100}
             />
           </FlexBox>
         </FlexBox>
@@ -119,4 +115,4 @@ const RatesPerZone = ({ costsPerZone = [], otherZonesCost = 0, taxZones = [], on
 };
 
 const mapStateToProps = ({ taxZones }) => ({ taxZones });
-export default connect(mapStateToProps)(RatesPerZone);
+export default connect(mapStateToProps)(CostsPerZone);
