@@ -324,6 +324,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
+            {/*
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
                 Show Shipping Methods
@@ -336,6 +337,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
+            */}
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
                 Show Coupon Section

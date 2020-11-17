@@ -606,6 +606,11 @@
   overflow-y: auto;
 }
 
+.scrolling-65vh {
+  max-height: 65vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 .scrolling-60vh {
   max-height: 60vh;
   overflow-x: hidden;
