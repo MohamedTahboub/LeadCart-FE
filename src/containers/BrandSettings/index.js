@@ -11,7 +11,8 @@ import {
   Marketplace,
   Taxes,
   TeamMembers,
-  Translations
+  Translations,
+  Zones
 } from './sub';
 import './style.css';
 
@@ -36,6 +37,11 @@ const Setting = ({ history, brands, user }) => {
       tab: 'Marketplace',
       link: '/settings/marketplace',
       component: <Marketplace getSave={setSaveFunction} />
+    }, {
+      key: 'zones',
+      tab: 'Zones',
+      link: '/settings/zones',
+      component: <Zones history={history} />
     }, {
       key: 'taxes',
       tab: 'Taxes',

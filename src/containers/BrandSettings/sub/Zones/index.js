@@ -8,7 +8,7 @@ import common from 'components/common';
 import { notification } from 'libs';
 import * as zonesActions from 'actions/taxZones';
 import { isNewObjHasChange } from 'helpers/common';
-import { DeleteModal } from '../components';
+import { DeleteModal } from '../components/common';
 import Expandable from './Expandable';
 
 import './style.css';
@@ -165,7 +165,7 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
   return (
     <FlexBox className='tax-zones-container' column>
       <FlexBox className='v-center' flexEnd>
-        <Button className='primary-color' onClick={onAddNewZone} disabled={loading} onprogress={loading} >Add new Tax Zone</Button>
+        <Button className='primary-color' onClick={onAddNewZone} disabled={loading} onprogress={loading} >Add new Zone</Button>
       </FlexBox>
 
       <Table className='tax-zones-table mt-4'>
