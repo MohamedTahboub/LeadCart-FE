@@ -4,12 +4,12 @@ import Select from 'react-select';
 
 import common from 'components/common';
 import RatesPerZone from './RatesPerZone';
-import { CancelModal } from '../components';
+import { CancelModal } from '../components/common';
 
 const { FlexBox, InputRow, Title } = common;
 const { TextField, Toggle } = InputRow;
 
-const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits, taxId }) => {
+const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancelModal, cancelModalOpened, onCancelEdits, taxId, onOpenZones }) => {
   const [currentHeight, setCurrentHeight] = useState(0);
 
   const { zoneDefinition, enabled, name, appliesTo, ratesPerZone, otherZonesRate } = fields;
@@ -39,7 +39,8 @@ const Expandable = ({ open, onSave, saveLoading, fields, onChange, onCloseCancel
     otherZonesRate,
     onChange,
     enabled,
-    taxId
+    taxId,
+    onOpenZones
   };
 
   return (

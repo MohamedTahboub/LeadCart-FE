@@ -57,10 +57,10 @@ const ProductCard = ({
   };
 
   return (
-    <FlexBox className='v-center p-2' column flex >
-      <div style={coverImageStyle} className='product-image-container mt-2'/>
+    <FlexBox className='v-center product-card-content' column >
+      <div style={coverImageStyle} className='product-image-container'/>
 
-      <FlexBox className='product-card-name v-center h-center full-width my-2' flex>
+      <FlexBox className='product-card-name v-center h-center full-width my-2'>
         <ReactTooltip overlay={trimExtraText(name, 70)} placement='top' mouseEnterDelay={0.3}>
           <Title className='product-card-name-text mr-1'>
             {name}
@@ -75,7 +75,7 @@ const ProductCard = ({
 
       <FlexBox className='v-center text-center'>
         {hasPrice &&
-        <Title className='m-0 mr-2 p-0'>
+        <Title className='m-0 mr-2 p-0  primary-text-color'>
           {price}
         </Title>
         }

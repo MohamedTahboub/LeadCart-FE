@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { HiOutlineDuplicate } from 'react-icons/hi';
+import { MdDelete, MdModeEdit } from 'react-icons/md';
 import ReactTooltip from 'rc-tooltip';
 
 import common from 'components/common';
 import defaultProductImage from 'assets/images/big-logo-1.png';
-import CardFooter from './CardFooter';
 import CardContent from './CardContent';
 
 const { Card } = common;
@@ -49,8 +49,8 @@ const ProductCard = ({
   const isUpsellProduct = category === 'upsell';
   const isOptInProduct = category === 'opt-in';
   const hasPrice = isCheckoutProduct || isUpsellProduct;
+  const borderBottomColor = getMainColor(sections, pageStyles);
 
-  const footerProps = { onDelete, onEdit };
   const contentProps = {
     name,
     category,
@@ -68,21 +68,38 @@ const ProductCard = ({
   };
 
 
-  const borderTopColor = getMainColor(sections, pageStyles);
-
   return (
-    <Card className='product-card m-2' style={{ borderTopColor }}>
+    <Card className='product-card m-2'>
+      <CardContent {...contentProps} />
+
       <ReactTooltip overlay='Duplicate' placement='left' mouseEnterDelay={0.3}>
         <HiOutlineDuplicate
-          className='fas fa-copy  product-card-duplicate-icon clickable-product-icon'
+          className='product-card-duplicate-icon clickable-product-icon'
           role='presentation'
           onClick={onDuplicate}
           size={22}
         />
       </ReactTooltip>
 
-      <CardContent {...contentProps} />
-      <CardFooter {...footerProps} />
+      <ReactTooltip overlay='Delete' placement='top' mouseEnterDelay={0.3}>
+        <MdDelete
+          onClick={onDelete}
+          className='product-card-delete-icon clickable-product-icon '
+          role='presentation'
+          size={22}
+        />
+      </ReactTooltip>
+
+      <ReactTooltip overlay='Edit' placement='top' mouseEnterDelay={0.3}>
+        <MdModeEdit
+          onClick={onEdit}
+          className='product-card-edit-icon clickable-product-icon'
+          role='presentation'
+          size={22}
+        />
+      </ReactTooltip>
+
+      <div className='footer-border-bottom' style={{ backgroundColor: borderBottomColor }} />
     </Card>
   );
 };

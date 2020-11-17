@@ -11,7 +11,7 @@ import { zones as defaultZones } from 'data/taxes';
 const { FlexBox, Title, InputRow, Button } = common;
 const { SmallInput } = InputRow;
 
-const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], onChange, taxId }) => {
+const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], onChange, taxId, onOpenZones }) => {
   const allZones = defaultZones.concat(taxZones);
   const selectedZones = ratesPerZone.map(({ zone }) => zone);
   const notSelectedZones = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ _id }) => _id);
@@ -103,14 +103,16 @@ const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], on
         data-tip="you selected all of your zones, You don't have more options"
         data-tip-disable={hasZoneOptions}
         data-place='left'
-        className='h-center mt-3 py-1'
+        className='h-center mt-3 py-1 v-center'
       >
-        <Button className='primary-color' onClick={onAddZone} disabled={!hasZoneOptions}>
+        <Button className='primary-color' onClick={onAddZone} disabled={!hasZoneOptions} style={{ marginLeft: '90px' }}>
           <FlexBox className='v-center px-3 ' spaceBetween>
             <RiAddCircleFill size={16} className='mr-2' />
             Add Zone
           </FlexBox>
         </Button>
+
+        <span className='ml-3 small-text gray-text underlined-text item-clickable' onClick={onOpenZones}>Manage Zones</span>
       </FlexBox>
 
       <ToolTip />
