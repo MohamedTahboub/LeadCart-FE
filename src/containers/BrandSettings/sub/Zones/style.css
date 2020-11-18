@@ -1,11 +1,11 @@
-.tax-zones-table-row{
+.destination-zones-table-row{
   border: 1px solid rgb(218, 217, 217);
 }
 
 
-.tax-zones-delete-icon,
-.tax-zones-edit-icon,
-.tax-zones-cancel-icon{
+.destination-zones-delete-icon,
+.destination-zones-edit-icon,
+.destination-zones-cancel-icon{
   cursor: pointer;
   opacity: .7;
   transition: .4s opacity ease-in-out, .4s transform ease-in-out;
@@ -13,38 +13,38 @@
 
 
 
-.tax-zones-delete-icon:hover,
+.destination-zones-delete-icon:hover,
 .rates-per-zone-body-row-delete-icon:hover,
-.tax-zones-cancel-icon:hover,
-.tax-zones-edit-icon:hover{
+.destination-zones-cancel-icon:hover,
+.destination-zones-edit-icon:hover{
   opacity: 1;
   transform: scale(1.25);
 }
 
 
-.tax-zones-cancel-icon,
-.tax-zones-edit-icon{
+.destination-zones-cancel-icon,
+.destination-zones-edit-icon{
   color: var(--primary-color);
 }
 
 
 .rates-per-zone-body-row-delete-icon,
-.tax-zones-delete-icon{
+.destination-zones-delete-icon{
   color: #c23616;
 }
 
-.tax-zones-delete-icon{
+.destination-zones-delete-icon{
   opacity: 0;
 }
 
 
-.tax-zones-table-row:hover .tax-zones-delete-icon{
+.destination-zones-table-row:hover .destination-zones-delete-icon{
   opacity: .7;
 }
 
 
 /* ================== Expandable Style ================== */
-.tax-zones-container .expandable{
+.destination-zones-container .expandable{
   height: 0;
   overflow: hidden;
   transition: .4s height ease-in-out, .4s padding ease-in-out;
@@ -53,21 +53,21 @@
 }
 
 
-.tax-zones-container .expandable.open{
+.destination-zones-container .expandable.open{
   height: 395px;
   border: 1px solid rgb(218, 217, 217);
   border-top: none;
   overflow: auto;
 }
 
-.tax-zones-container .tax-zones-table-row.open{
+.destination-zones-container .destination-zones-table-row.open{
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 
-.tax-zones-container .expandable-form-select .css-1pahdxg-control,
-.tax-zones-container .expandable-form-select .css-yk16xz-control{
+.destination-zones-container .expandable-form-select .css-1pahdxg-control,
+.destination-zones-container .expandable-form-select .css-yk16xz-control{
   background:transparent;
   width: 402px;
   color: #2B3748;
@@ -79,15 +79,15 @@
   outline-color: lightgray;
 }
 
-.tax-zones-container .expandable-form-select .css-yk16xz-control .css-tlfecz-indicatorContainer{
+.destination-zones-container .expandable-form-select .css-yk16xz-control .css-tlfecz-indicatorContainer{
   padding: 0;
 }
 
-.tax-zones-container .expandable .toggle-bar:before{
+.destination-zones-container .expandable .toggle-bar:before{
   left: -45px
 }
 
-.tax-zones-container .expandable .toggle-bar:after{
+.destination-zones-container .expandable .toggle-bar:after{
   left: 42px
 }
 

@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-import * as taxeZonesActions from 'actions/taxZones';
+import * as destinationZones from 'actions/destinationZones';
 import * as taxesActions from 'actions/taxes';
 import { notification } from 'libs';
 
 const { FlexBox, Title, Button, ErrorMessage } = common;
 
 
-const DeleteModal = ({ isVisible, onClose, taxZoneId, deleteTaxZone, taxId, deleteTax, type = '' }) => {
+const DeleteModal = ({ isVisible, onClose, zoneId, deleteDestinationZone, taxId, deleteTax, type = '' }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const isTaxModal = type === 'tax';
-  const deleteSelectedElement = isTaxModal ? deleteTax : deleteTaxZone;
-  const selectedId = isTaxModal ? { taxId } : { taxZoneId };
+  const deleteSelectedElement = isTaxModal ? deleteTax : deleteDestinationZone;
+  const selectedId = isTaxModal ? { taxId } : { zone: zoneId };
 
   const onDelete = async () => {
     setLoading(true);
@@ -26,7 +26,7 @@ const DeleteModal = ({ isVisible, onClose, taxZoneId, deleteTaxZone, taxId, dele
         onSuccess: () => {
           setLoading(false);
           onClose();
-          notification.success(`your ${type} deleted successfuly`);
+          notification.success(`your ${type} deleted successfully`);
         },
         onFailed: (message) => {
           setLoading(false);
@@ -56,4 +56,4 @@ const DeleteModal = ({ isVisible, onClose, taxZoneId, deleteTaxZone, taxId, dele
 };
 
 
-export default connect(null, { ...taxeZonesActions, ...taxesActions })(DeleteModal);
+export default connect(null, { ...destinationZones, ...taxesActions })(DeleteModal);

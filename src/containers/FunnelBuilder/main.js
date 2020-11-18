@@ -137,7 +137,7 @@ const FunnelBuilder = ({
       errors,
       value: funnel
     } = await funnelSchema(fields);
-
+    console.log({ errors });
     if (!isValid) {
       notification.failed('There is few invalid fields,check & try to save');
       return setErrors(errors);

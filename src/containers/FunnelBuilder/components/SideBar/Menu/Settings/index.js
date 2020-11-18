@@ -49,6 +49,7 @@ const Settings = ({
   const selectedTaxOption = getTaxesOptions(allTaxes).find(({ value }) => tax === value);
 
   const onTaxSelectChange = ({ value }) => {
+    console.log('tax-value', value);
     onChange({ name: 'tax', value });
   };
 

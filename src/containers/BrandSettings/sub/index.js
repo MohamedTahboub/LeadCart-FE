@@ -8,3 +8,4 @@ export { default as Translations } from './Translations';
 export { default as Marketplace } from './MarketplaceSettings';
 export { default as Taxes } from './Taxes';
 export { default as Zones } from './Zones';
+export { default as Invoicing } from './Invoicing';

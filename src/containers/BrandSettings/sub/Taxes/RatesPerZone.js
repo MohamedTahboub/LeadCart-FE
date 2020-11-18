@@ -11,8 +11,8 @@ import { zones as defaultZones } from 'data/taxes';
 const { FlexBox, Title, InputRow, Button } = common;
 const { SmallInput } = InputRow;
 
-const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], onChange, taxId, onOpenZones }) => {
-  const allZones = defaultZones.concat(taxZones);
+const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, destinationZones = [], onChange, taxId, onOpenZones }) => {
+  const allZones = defaultZones.concat(destinationZones);
   const selectedZones = ratesPerZone.map(({ zone }) => zone);
   const notSelectedZones = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ _id }) => _id);
   const zoneOptions = allZones.filter(({ _id }) => !selectedZones.includes(_id)).map(({ name, _id }) => ({ label: name, value: _id }));
@@ -120,5 +120,5 @@ const RatesPerZone = ({ ratesPerZone = [], otherZonesRate = 0, taxZones = [], on
   );
 };
 
-const mapStateToProps = ({ taxZones }) => ({ taxZones });
+const mapStateToProps = ({ destinationZones }) => ({ destinationZones });
 export default connect(mapStateToProps)(RatesPerZone);

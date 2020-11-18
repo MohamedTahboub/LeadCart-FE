@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import common from 'components/common';
 import { notification } from 'libs';
-import * as zonesActions from 'actions/taxZones';
+import * as zonesActions from 'actions/destinationZones';
 import { isNewObjHasChange } from 'helpers/common';
 import { DeleteModal } from '../components/common';
 import Expandable from './Expandable';
@@ -16,7 +16,7 @@ import './style.css';
 const { Table, FlexBox, Button } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
-const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
+const DestinationZone = ({ destinationZones, addNewDestinationZone, editDestinationZone }) => {
   const [savedZoneData, setSavedZoneData] = useState({});
   const [fields, setFields] = useState({});
   const [editableZoneId, setEditableZoneId] = useState('');
@@ -46,7 +46,7 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
   const onAddNewZone = () => {
     setLoading(true);
 
-    const defaultNumbersName = taxZones
+    const defaultNumbersName = destinationZones
       .filter(({ name }) => name.toLowerCase().includes('zone'))
       .map((ele) => Number(ele?.name.split('zone')[1]))
       .sort((a, b) => a - b);
@@ -58,18 +58,18 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
 
 
     const defaultZone = {
-      name: `zone${newDefaultNumber}`,
+      name: `zone #${newDefaultNumber}`,
       countries: []
     };
 
 
-    addNewTaxZone(
+    addNewDestinationZone(
       defaultZone,
       {
         onSuccess: (data) => {
           setLoading(false);
           autoOpenEditMode(data);
-          notification.success('New Zone added successfuly');
+          notification.success('New Zone added successfully');
         },
         onFailed: (message) => {
           setLoading(false);
@@ -84,8 +84,8 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
     const inTheSameExpandable = commentedEditableZone._id === editableZoneId;
     setSaveLoading(true);
 
-    editTaxZone(
-      { taxZone: editableZoneId, details: fields },
+    editDestinationZone(
+      { zone: editableZoneId, details: fields },
       {
         onSuccess: () => {
           setSaveLoading(false);
@@ -97,11 +97,11 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
           else
             autoOpenEditMode(commentedEditableZone);
 
-          notification.success('You Change edited successfuly');
+          notification.success('You Change edited successfully');
         },
         onFailed: (message) => {
           setSaveLoading(false);
-          notification.failed(message.replace('TaxZone', 'Zone Name'));
+          notification.failed(message.replace('DestinationZone', 'Zone Name'));
         }
       }
     );
@@ -146,7 +146,7 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
   const onCloseCancelModal = () => setCancelModalOpened(false);
 
 
-  const deleteModalOpend = Boolean(deleteZoneId);
+  const deleteModalOpened = Boolean(deleteZoneId);
 
 
   const ExpandableProps = {
@@ -163,40 +163,40 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
   };
 
   return (
-    <FlexBox className='tax-zones-container' column>
+    <FlexBox className='destination-zones-container' column>
       <FlexBox className='v-center' flexEnd>
         <Button className='primary-color' onClick={onAddNewZone} disabled={loading} onprogress={loading} >Add new Zone</Button>
       </FlexBox>
 
-      <Table className='tax-zones-table mt-4'>
+      <Table className='destination-zones-table mt-4'>
         <Head>
-          <HeadCell>Tax Zone Name</HeadCell>
+          <HeadCell>Zone Name</HeadCell>
           <HeadCell>Countries Number</HeadCell>
           <HeadCell>States Number</HeadCell>
           <HeadCell>Control</HeadCell>
         </Head>
 
         <Body>
-          {taxZones.map((taxZone) => {
-            const { name, countries = [], states = [], _id } = taxZone;
+          {destinationZones.map((zone) => {
+            const { name, countries = [], states = [], _id } = zone;
             const isEditableZone = editableZoneId === _id;
 
             return (
               <Fragment key={_id}>
-                <Row className={clx('tax-zones-table-row', { open: isEditableZone })} id={_id}>
+                <Row className={clx('destination-zones-table-row', { open: isEditableZone })} id={_id}>
                   <Cell>{name}</Cell>
                   <Cell>{countries.length}</Cell>
                   <Cell>{states.length}</Cell>
                   <Cell>
                     <FlexBox>
-                      <MdDelete size={20} className='tax-zones-delete-icon' onClick={onDeleteZone(_id)} />
+                      <MdDelete size={20} className='destination-zones-delete-icon' onClick={onDeleteZone(_id)} />
                       {!isEditableZone ?
                         (editableZoneId && zoneHasChanges) ?
-                          <a href={`#${editableZoneId}`}><FaRegEdit size={20} className='tax-zones-edit-icon ml-3' onClick={onEditZone(taxZone)} /></a>
+                          <a href={`#${editableZoneId}`}><FaRegEdit size={20} className='destination-zones-edit-icon ml-3' onClick={onEditZone(zone)} /></a>
                           :
-                          <FaRegEdit size={20} className='tax-zones-edit-icon ml-3' onClick={onEditZone(taxZone)} />
+                          <FaRegEdit size={20} className='destination-zones-edit-icon ml-3' onClick={onEditZone(zone)} />
                         :
-                        <MdCancel size={20} className='tax-zones-cancel-icon ml-3' onClick={onConfirmCancelEdits} />
+                        <MdCancel size={20} className='destination-zones-cancel-icon ml-3' onClick={onConfirmCancelEdits} />
                       }
                     </FlexBox>
                   </Cell>
@@ -211,11 +211,11 @@ const TaxZones = ({ taxZones, addNewTaxZone, editTaxZone }) => {
         </Body>
       </Table>
 
-      <DeleteModal taxZoneId={deleteZoneId} onClose={onCancelDeleteZone} isVisible={deleteModalOpend} type='zone' />
+      <DeleteModal zoneId={deleteZoneId} onClose={onCancelDeleteZone} isVisible={deleteModalOpened} type='zone' />
     </FlexBox>
   );
 };
 
-const mapStateToProps = ({ taxZones }) => ({ taxZones });
+const mapStateToProps = ({ destinationZones = [] }) => ({ destinationZones });
 
-export default connect(mapStateToProps, zonesActions)(TaxZones);
+export default connect(mapStateToProps, zonesActions)(DestinationZone);

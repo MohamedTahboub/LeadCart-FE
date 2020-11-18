@@ -54,7 +54,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
     setSavedTaxData(newObj);
   };
 
-  const onAddNewtax = () => {
+  const onAddNewTax = () => {
 
     setLoading(true);
     addNewTax(
@@ -63,7 +63,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
         onSuccess: (data) => {
           setLoading(false);
           autoOpenEditMode(data);
-          notification.success('New tax added successfuly');
+          notification.success('New tax added successfully');
         },
         onFailed: (message) => {
           setLoading(false);
@@ -96,7 +96,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
           else
             autoOpenEditMode(commentedEditableTax);
 
-          notification.success('You Change edited successfuly');
+          notification.success('You Change edited successfully');
         },
         onFailed: (message) => {
           setSaveLoading(false);
@@ -205,7 +205,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
         </FlexBox>
 
         <FlexBox className='v-center'>
-          <Button className='primary-color' onClick={onAddNewtax} disabled={loading} onprogress={loading} >Add new Tax Schema</Button>
+          <Button className='primary-color' onClick={onAddNewTax} disabled={loading} onprogress={loading} >Add new Tax Schema</Button>
         </FlexBox>
       </FlexBox>
 
