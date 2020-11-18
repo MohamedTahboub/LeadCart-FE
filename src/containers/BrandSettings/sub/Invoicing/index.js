@@ -23,7 +23,6 @@ const Invoicing = ({ invoicing, ...props }) => {
 
     const { isValid, value: invoiceDetails, errors } = await invoicingSettingsSchema(values);
 
-    console.log('errors', errors);
     if (!isValid)
       return notification.failed('Please check the fields below, and try again');
 
@@ -35,7 +34,6 @@ const Invoicing = ({ invoicing, ...props }) => {
         notification.failed(message);
       }
     });
-    console.log('Saving', values);
   };
 
 
@@ -50,10 +48,8 @@ const Invoicing = ({ invoicing, ...props }) => {
 
   const onDownloadSampleInvoice = async (e) => {
     e.preventDefault();
-    console.log('onDownloadSampleInvoice');
     const { isValid, value: { enabled, ...invoiceDetails }, errors } = await invoicingSettingsSchema(values);
 
-    console.log('errors', errors);
     if (!isValid)
       return notification.failed('Please make sure that the fields below are valid');
 
