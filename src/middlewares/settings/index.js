@@ -1,6 +1,7 @@
 import general from './general';
 import domains from './domains';
-import integrations from './integrations'
+import integrations from './integrations';
+import invoicing from './invoicing';
 
-export default [general, integrations,...domains];
+export default [general, integrations, ...domains, ...invoicing];
 

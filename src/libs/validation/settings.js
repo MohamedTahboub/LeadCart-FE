@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
-import { toLowerCase } from './yupMethods'
-
+import { toLowerCase } from './yupMethods';
 
 
 export default async (fields) => {//
@@ -54,3 +53,27 @@ export const contactLinksSchema = async (fields) => {
   }
 };
 
+
+export const invoicingSettingsSchema = async (fields) => {
+  const schema = yup.object({
+    companyName: yup.string().required(),
+    address: yup.object({
+      streetAddress: yup.string().required(),
+      streetAddressLine2: yup.string(),
+      state: yup.string(),
+      city: yup.string().required(),
+      country: yup.string().required()
+    }),
+    logo: yup.string().url().required(),
+    taxId: yup.string(),
+    enabled: yup.boolean().required()
+  }).required();
+
+  try {
+    const casted = await schema.validateSync(fields, { abortEarly: false, stripUnknown: true });
+
+    return { isValid: true, value: casted };
+  } catch (err) {
+    return { isValid: false, errors: castYupErrors(err) };
+  }
+};

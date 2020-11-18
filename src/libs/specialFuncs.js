@@ -237,3 +237,12 @@ export function nodeHasChildElement (parentNode, childNode) {
   else
     return parentNode.compareDocumentPosition(childNode) % 16;
 }
+
+
+export const downloadFile = (url, fileName) => {
+  const download = document.createElement('a');
+  download.setAttribute('href', url);
+  download.setAttribute('target', '_blank');
+  download.setAttribute('download', fileName);
+  download.click();
+};

@@ -8,10 +8,12 @@ import {
   Billing,
   Email,
   GeneralSetting,
+  Invoicing,
   Marketplace,
   Taxes,
   TeamMembers,
-  Translations
+  Translations,
+  Zones
 } from './sub';
 import './style.css';
 
@@ -41,6 +43,16 @@ const Setting = ({ history, brands, user }) => {
       tab: 'Taxes',
       link: '/settings/taxes',
       component: <Taxes history={history} />
+    }, {
+      key: 'zones',
+      tab: 'Zones',
+      link: '/settings/zones',
+      component: <Zones history={history} />
+    }, {
+      key: 'invoicing',
+      tab: 'Invoicing',
+      link: '/settings/invoicing',
+      component: <Invoicing history={history} />
     }, {
       key: 'emailing',
       tab: 'Emailing',

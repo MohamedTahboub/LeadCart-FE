@@ -30,7 +30,7 @@ import translations from './translations';
 import integrations from './integrations';
 import brands from './brands';
 import taxes from './taxes';
-import taxZones from './taxZones';
+import destinationZones from './destinationZones';
 import shippingRules from './shippingRules';
 
 
@@ -67,6 +67,6 @@ export default [
   uploadingFiles,
   storage,
   ...taxes,
-  ...taxZones,
+  ...destinationZones,
   ...shippingRules
 ];

@@ -202,7 +202,6 @@ const ProductBuilder = ({
       value: product,
       errors
     } = await ProductSchema(productData);
-    console.log({ errors });
     if (!isValid)
       return notification.failed('Can\'t save, validation Error');
 
