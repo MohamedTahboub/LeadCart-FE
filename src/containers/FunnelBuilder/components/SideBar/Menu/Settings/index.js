@@ -23,6 +23,11 @@ const Label = ({ children, ...props }) => (
 
 const getTaxesOptions = (taxes) => taxes.map(({ name: label, _id: value }) => ({ label, value }));
 
+const clearOption = {
+  label: 'No Tax',
+  value: null
+};
+
 const Settings = ({
   defaultCurrency,
   languagesOptions,
@@ -40,8 +45,8 @@ const Settings = ({
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
   const currentLanguageValue = currentLanguage ? currentLanguage.value : 'English';
 
-  const taxesOptions = getTaxesOptions(allTaxes.filter(({ enabled }) => enabled));
-  const selectedTaxOption = getTaxesOptions(allTaxes).find(({ value }) => tax === value)
+  const taxesOptions = [clearOption, ...getTaxesOptions(allTaxes.filter(({ enabled }) => enabled))];
+  const selectedTaxOption = getTaxesOptions(allTaxes).find(({ value }) => tax === value);
 
   const onTaxSelectChange = ({ value }) => {
     onChange({ name: 'tax', value });
@@ -53,7 +58,7 @@ const Settings = ({
 
   return (
     <FlexBox column className='margin-top-10'>
-      <FlexBox flex column>
+      <FlexBox flex column className='scrolling-65vh'>
         {!isOptInFunnel && (
           <Fragment>
             <FlexBox flex center='v-center'>

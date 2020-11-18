@@ -1,25 +1,25 @@
-import { DELETE_TAX_ZONE } from 'constantsTypes';
-import { deleteTaxZoneFailed, deleteTaxZoneSuccess } from 'actions/taxZones';
+import { EDIT_DESTINATION_ZONE } from 'constantsTypes';
+import { editDestinationZoneFailed, editDestinationZoneSuccess } from 'actions/destinationZones';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== DELETE_TAX_ZONE) return next(action);
+  if (action.type !== EDIT_DESTINATION_ZONE) return next(action);
   const { payload, meta = {} } = action;
 
   dispatch(apiRequest({
     options: {
-      method: 'DELETE',
-      uri: '/api/brands/tax-zones',
+      method: 'PUT',
+      uri: '/api/brands/destination-zones',
       body: payload,
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return deleteTaxZoneSuccess(payload);
+      return editDestinationZoneSuccess(payload);
     },
     onFailed:  (message) => {
       if (meta.onFailed) meta.onFailed(message);
-      return deleteTaxZoneFailed(message);
+      return editDestinationZoneFailed(message);
     }
   }));
 };

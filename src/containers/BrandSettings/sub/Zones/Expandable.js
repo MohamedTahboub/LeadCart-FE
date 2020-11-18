@@ -2,7 +2,7 @@ import React from 'react';
 import clx from 'classnames';
 
 import common from 'components/common';
-import { CancelModal } from '../components';
+import { CancelModal } from '../components/common';
 import countriesData from 'data/taxes/countries';
 import SelectBoxes from './SelectBoxes';
 

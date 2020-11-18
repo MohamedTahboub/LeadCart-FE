@@ -33,6 +33,7 @@ export {
   tokenizedContent,
   formatPricingValue,
   getCountryByCode,
-  nodeHasChildElement
+  nodeHasChildElement,
+  downloadFile
 } from './specialFuncs';
 export { notification };

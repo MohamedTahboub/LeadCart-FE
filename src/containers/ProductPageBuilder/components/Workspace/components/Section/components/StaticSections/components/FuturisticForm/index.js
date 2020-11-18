@@ -62,7 +62,7 @@ const FlatForm = ({ language, section }) => {
           termsAndConditions,
           marketingConsentIsRequired,
           termsAndConditionsIsRequired,
-          shippingMethodsEnabled
+          te: shippingMethodsEnabled
           // orderSummary
         } = {}
       } = {}
