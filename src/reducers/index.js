@@ -29,7 +29,7 @@ import redemption from './redemption';
 import leads from './leads';
 import taxes from './taxes';
 import taxZones from './taxZones';
-import shippingRoles from './shippingRoles';
+import shippingRules from './shippingRules';
 
 
 const rootReducer = combineReducers({
@@ -63,7 +63,7 @@ const rootReducer = combineReducers({
   redemption,
   taxes,
   taxZones,
-  shippingRoles
+  shippingRules
 });
 
 export default rootReducer;

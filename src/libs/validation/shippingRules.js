@@ -1,21 +1,23 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
-const COSTS_SCHEMA = yup.object().shape({
-  zone: yup.string().required(),
-  cost: yup.number().required()
+const SHIPPING_RATES_SCHEMA = yup.object().shape({
+  from: yup.number().required(),
+  to: yup.string().required(),
+  cost: yup.number().required(),
+  _id: yup.string().required(),
+  rowNumber: yup.number().required()
 });
 
-export default async (shippingRole) => {
+export default async (shippingRule) => {
   const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
     enabled: yup.bool().default(true),
-    otherZonesCost: yup.number().required(),
-    costsPerZone: yup.array().of(COSTS_SCHEMA)
+    shippingRates: yup.array().of(SHIPPING_RATES_SCHEMA)
   }).required();
 
   try {
-    const casted = await schema.validateSync(shippingRole, { abortEarly: false, stripUnknown: true });
+    const casted = await schema.validateSync(shippingRule, { abortEarly: false, stripUnknown: true });
     return { isValid: true, value: casted };
   } catch (err) {
     const { errors: [firstErrorMessage] = [] } = err || {};

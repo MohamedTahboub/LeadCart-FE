@@ -1,0 +1,88 @@
+/* ================== Expandable Style ================== */
+.shipping-rules-container .expandable{
+  overflow: hidden;
+  transition: .4s height ease-in-out, .4s padding ease-in-out, opacity .25s ease-in-out .4s ;
+  transform: translateY(-15px);
+  opacity: 0;
+}
+
+
+
+.shipping-rules-container .expandable.open{
+  border: 1px solid rgb(218, 217, 217);
+  border-top: none;
+  opacity: 1;
+}
+
+.shipping-rules-container .shipping-rules-table-row.open{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+.shipping-rules-container .expandable .toggle-bar:before{
+  left: -45px
+}
+
+.shipping-rules-container .expandable .toggle-bar:after{
+  left: 42px
+}
+
+.shipping-expandable-textarea{
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.expandable ::-webkit-scrollbar-track {
+  display: none;
+}
+
+
+
+/* ================== Shipping Rates Style ================== */
+.shipping-rates-container{
+  /* border: 1px solid red; */
+  width: 55%;
+}
+
+.shipping-rates-title{
+  border-bottom: 1px solid #808292;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+
+.shipping-rates-row{
+  /* border: 1px solid blue; */
+}
+
+
+
+.shipping-rates-row-cell{
+  width: 23%;
+  margin: 5px 0%;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+
+
+.shipping-rates-row-cell.error{
+  border: 1px solid tomato;
+  color: tomato;
+}
+
+.shipping-rates-row-cell:nth-child(4){
+  margin-left: 30px;
+}
+
+.shipping-rates-row-arrow-cell{
+  margin: 0 10px ;
+}
+
+
+.shipping-rates-add-row {
+  align-self: flex-start;
+}

@@ -1,25 +1,25 @@
-import { DELETE_SHIPPING_ROLE } from 'constantsTypes';
-import { deleteShippingRoleFailed, deleteShippingRoleSuccess } from 'actions/shippingRoles';
+import { EDIT_SHIPPING_RULE } from 'constantsTypes';
+import { editShippingRuleFailed, editShippingRuleSuccess } from 'actions/shippingRules';
 import { apiRequest } from 'actions/apiRequest';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== DELETE_SHIPPING_ROLE) return next(action);
+  if (action.type !== EDIT_SHIPPING_RULE) return next(action);
   const { payload, meta = {} } = action;
 
   dispatch(apiRequest({
     options: {
-      method: 'DELETE',
-      uri: '/api/brands/shippingRoles',
+      method: 'PUT',
+      uri: '/api/brands/shippingRules',
       body: payload,
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return deleteShippingRoleSuccess(payload);
+      return editShippingRuleSuccess(payload);
     },
     onFailed:  (message) => {
       if (meta.onFailed) meta.onFailed(message);
-      return deleteShippingRoleFailed(message);
+      return editShippingRuleFailed(message);
     }
   }));
 };

@@ -19,7 +19,7 @@ import { getUserBrands } from 'actions/brands';
 import { getPromoCodes } from 'actions/redemption';
 import { getTaxes } from 'actions/taxes';
 import { getTaxZones } from 'actions/taxZones';
-import { getShippingRoles } from 'actions/shippingRoles';
+import { getShippingRules } from 'actions/shippingRules';
 
 
 window.user = '';
@@ -59,7 +59,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getCustomers(data.customers));
     dispatch(getTaxes(data.taxes || []));
     dispatch(getTaxZones(data.taxZones || []));
-    dispatch(getShippingRoles(data.getShippingRoles || []));
+    dispatch(getShippingRules(data.getShippingRules || []));
 
 
     return appLaunchSuccess(data);

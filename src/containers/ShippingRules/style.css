@@ -1,0 +1,58 @@
+.shipping-rules-table-row{
+  border: 1px solid rgb(218, 217, 217);
+  transition: .4s background ease-in-out, .4s opacity ease-in-out;
+}
+
+
+.shipping-rule-delete-icon,
+.shipping-rule-edit-icon,
+.shipping-rule-cancel-icon{
+  cursor: pointer;
+  opacity: .7;
+  transition: .4s opacity ease-in-out, .4s transform ease-in-out;
+}
+
+
+
+.shipping-rule-delete-icon:hover,
+.costs-per-zone-body-row-delete-icon:hover,
+.shipping-rule-cancel-icon:hover,
+.shipping-rule-edit-icon:hover{
+  opacity: 1;
+  transform: scale(1.25);
+}
+
+
+.shipping-rule-cancel-icon,
+.shipping-rule-edit-icon{
+  color: var(--primary-color);
+}
+
+
+.costs-per-zone-body-row-delete-icon,
+.shipping-rule-delete-icon{
+  color: #c23616;
+}
+
+.shipping-rule-delete-icon{
+  opacity: 0;
+}
+
+
+.shipping-rules-table-row:hover .shipping-rule-delete-icon{
+  opacity: .7;
+}
+
+
+
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+.test-width{
+  width: 1200px !important;
+  margin-right: 300px !important;
+  margin-left: 50px;
+  background-color: #fff;
+}

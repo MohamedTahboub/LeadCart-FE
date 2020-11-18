@@ -1,10 +1,44 @@
+export const shippingRatesFakeData = [
+  {
+    _id: '5fa27a41c4d41f00234290d8',
+    from: 0,
+    to: 10,
+    cost: 10,
+    rowNumber: 0
+  },
+  {
+    _id: '5fa27a41c4d41f00234290d9',
+    from: 10.01,
+    to: 20,
+    cost: 20,
+    rowNumber: 1
+
+  },
+  {
+    _id: '5fa27a41c4d41f0023429010',
+    from: 30.01,
+    to: 'and up',
+    cost: '0',
+    rowNumber: 3
+
+  },
+  {
+    _id: '5fa27a41c4d41f00234298d8',
+    from: 20.01,
+    to: 30,
+    cost: 30,
+    rowNumber: 2
+  }
+];
+
+
 export const fakeData = [
   {
     enabled: true,
     otherZonesCost: 2,
     _id: '5fa27a41c4d41f00234290d8',
     name: 'First Shipping Name',
-    costsPerZone: [{ zone: '5f9832cf9b9fd77d030af88c', cost: 0 }],
+    shippingRates: shippingRatesFakeData,
     brand: '5f6881ce3b28d60023d99371',
     createdAt: '2020-11-04T09:54:09.797Z',
     updatedAt: '2020-11-15T15:25:02.234Z',
@@ -15,7 +49,7 @@ export const fakeData = [
     otherZonesCost: 3,
     _id: '5fa27a41c4d41f00234290d9',
     name: 'Second Shipping Name',
-    costsPerZone: [{ zone: '5f9832cf9b9fd77d030af88c', cost: 0 }],
+    shippingRates: shippingRatesFakeData,
     brand: '5f6881ce3b28d60023d99371',
     createdAt: '2020-11-05T09:54:09.797Z',
     updatedAt: '2020-11-16T15:25:02.234Z',
@@ -26,7 +60,7 @@ export const fakeData = [
     otherZonesCost: 4,
     _id: '5fa27a41c4d41f0023429010',
     name: 'Third Shipping Name',
-    costsPerZone: [{ zone: '5f9832cf9b9fd77d030af88c', cost: 5 }],
+    shippingRates: shippingRatesFakeData,
     brand: '5f6881ce3b28d60023d99371',
     createdAt: '2020-11-06T09:54:09.797Z',
     updatedAt: '2020-11-18T15:25:02.234Z',
@@ -37,7 +71,7 @@ export const fakeData = [
     otherZonesCost: 5,
     _id: '5fa27a41c4d41f00234298d8',
     name: 'Fourth Shipping Name',
-    costsPerZone: [{ zone: '5f9832cf9b9fd77d030af88c', cost: 0 }],
+    shippingRates: shippingRatesFakeData,
     brand: '5f6881ce3b28d60023d99371',
     createdAt: '2020-11-08T09:54:09.797Z',
     updatedAt: '2020-11-19T15:25:02.234Z',
@@ -48,7 +82,7 @@ export const fakeData = [
     otherZonesCost: 7,
     _id: '5fa28a41c4d41f00234290d8',
     name: 'FifthShipping Name',
-    costsPerZone: [{ zone: '5f9832cf9b9fd77d030af88c', cost: 0 }],
+    shippingRates: shippingRatesFakeData,
     brand: '5f6881ce3b28d60023d99371',
     createdAt: '2020-11-04T09:54:09.797Z',
     updatedAt: '2020-11-15T15:25:02.234Z',
@@ -56,3 +90,4 @@ export const fakeData = [
   }
 
 ];
+

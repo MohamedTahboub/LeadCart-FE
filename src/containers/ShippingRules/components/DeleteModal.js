@@ -3,26 +3,26 @@ import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
-import * as shippingRolesActions from 'actions/shippingRoles';
+import * as shippingRulesActions from 'actions/shippingRules';
 import { notification } from 'libs';
 
 
 const { FlexBox, Title, Button, ErrorMessage } = common;
 
 
-const DeleteModal = ({ isVisible, onClose, shippingRoleId, deleteShippingRole }) => {
+const DeleteModal = ({ isVisible, onClose, shippingRuleId, deleteShippingRule }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const onDelete = async () => {
     setLoading(true);
-    deleteShippingRole(
-      { shippingRoleId },
+    deleteShippingRule(
+      { shippingRuleId },
       {
         onSuccess: () => {
           setLoading(false);
           onClose();
-          notification.success('your Shipping Role  deleted successfuly');
+          notification.success('your Shipping Rule  deleted successfuly');
         },
         onFailed: (message) => {
           setLoading(false);
@@ -37,7 +37,7 @@ const DeleteModal = ({ isVisible, onClose, shippingRoleId, deleteShippingRole })
   return (
     <Modal onClose={onClose} isVisible={isVisible}>
       <FlexBox column>
-        <Title className='large-text mb-3' >{'Permanently delete the selected Shipping Role?'}</Title>
+        <Title className='large-text mb-3' >{'Permanently delete the selected Shipping Rule?'}</Title>
 
         <FlexBox className='v-center h-center'>
           <Button className='px-4 py-1 mr-5 light-btn' onClick={onClose} disabled={loading} >Cancel</Button>
@@ -53,4 +53,4 @@ const DeleteModal = ({ isVisible, onClose, shippingRoleId, deleteShippingRole })
 };
 
 
-export default connect(null, shippingRolesActions)(DeleteModal);
+export default connect(null, shippingRulesActions)(DeleteModal);
