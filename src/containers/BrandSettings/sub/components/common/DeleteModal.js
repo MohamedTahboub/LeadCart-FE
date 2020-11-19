@@ -1,27 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import * as destinationZones from 'actions/destinationZones';
 import * as taxesActions from 'actions/taxes';
+import * as shippingRulesActions from 'actions/shippingRules';
 import { notification } from 'libs';
 
 const { FlexBox, Title, Button, ErrorMessage } = common;
 
 
-const DeleteModal = ({ isVisible, onClose, zoneId, deleteDestinationZone, taxId, deleteTax, type = '' }) => {
+const DeleteModal = ({ isVisible, onClose, zoneId, deleteDestinationZone, taxId, deleteTax, type = '', deleteShippingRule, shippingRuleId }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const isTaxModal = type === 'tax';
-  const deleteSelectedElement = isTaxModal ? deleteTax : deleteDestinationZone;
-  const selectedId = isTaxModal ? { taxId } : { zone: zoneId };
+  const isZonesModal = type === 'zone';
+  const isShippingsModal = type === 'shipping';
+
+
+  let deleteItem;
+  let itemId;
+
+  if (isTaxModal) {
+    deleteItem = deleteTax;
+    itemId = { taxId };
+  } else if (isZonesModal) {
+    deleteItem = deleteDestinationZone;
+    itemId = { zone: zoneId };
+  } else if (isShippingsModal) {
+    deleteItem = deleteShippingRule;
+    itemId = { shippingRuleId };
+  }
+
 
   const onDelete = async () => {
     setLoading(true);
 
-    deleteSelectedElement(
-      selectedId,
+    deleteItem(
+      itemId,
       {
         onSuccess: () => {
           setLoading(false);
@@ -56,4 +73,4 @@ const DeleteModal = ({ isVisible, onClose, zoneId, deleteDestinationZone, taxId,
 };
 
 
-export default connect(null, { ...destinationZones, ...taxesActions })(DeleteModal);
+export default connect(null, { ...destinationZones, ...taxesActions, ...shippingRulesActions })(DeleteModal);

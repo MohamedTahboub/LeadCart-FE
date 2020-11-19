@@ -13,7 +13,9 @@ export default async (shippingRule) => {
   const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
     enabled: yup.bool().default(true),
-    shippingRates: yup.array().of(SHIPPING_RATES_SCHEMA)
+    shippingRates: yup.array().of(SHIPPING_RATES_SCHEMA),
+    shippingZone:  yup.string().required(),
+    description:  yup.string().required()
   }).required();
 
   try {

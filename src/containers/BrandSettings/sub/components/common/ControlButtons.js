@@ -6,7 +6,7 @@ import common from 'components/common';
 
 const { FlexBox, Button } = common;
 
-export const ActionsButtons = ({ onConfirmCancelEdits, saveLoading, onSave, hasInvalidRate }) =>
+export const ActionsButtons = ({ onConfirmCancelEdits, saveLoading, onSave, hasInvalidRate = false }) =>
   (
     <FlexBox spaceBetween>
       <Button

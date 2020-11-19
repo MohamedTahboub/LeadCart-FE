@@ -32,7 +32,6 @@ import PrivateSignUp from 'containers/PrivateSignUp';
 import ForgetPassword from 'containers/ForgetPassword';
 import PasswordRest from 'containers/PasswordRest';
 import Funnels from 'containers/Funnels';
-import ShippingRules from 'containers/ShippingRules';
 // import Fulfillments from 'containers/Fulfillments';
 // import ProductBuilder from 'containers/ProductBuilder';
 import ProductBuilder from 'containers/ProductPageBuilder';
@@ -108,7 +107,6 @@ ReactDOM.render(
                   <Route path='/transactions' component={Transactions} />
                   <Route path='/leads' component={Leads} />
                   <Route path='/customers' component={CustomersLab} />
-                  <Route path='/shippingRules' component={ShippingRules} />
                   <Route exact path='/coupons' component={Coupons} />
                   <Route exact path='/integrations' component={Integrations} />
                   <Route exact path='/funnels' component={Funnels} />
