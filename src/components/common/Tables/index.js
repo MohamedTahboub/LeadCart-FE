@@ -59,6 +59,7 @@ export default class Table extends Component {
     children,
     mainContent,
     className = '',
+    mainCellClassName,
     flex = true,
     flexStart,
     subContent,
@@ -77,16 +78,16 @@ export default class Table extends Component {
         {mainContent && (
           !sideContent
             ? (
-              <span className='cell-main-content'>
+              <span className={clx('cell-main-content', mainCellClassName)}>
                 {mainContent}
               </span>
             )
             : (
               <div>
-                <span className='cell-main-content'>
+                <span className={clx('cell-main-content', mainCellClassName)}>
                   {mainContent}
                 </span>
-                <span className='cell-main-content'>
+                <span className={clx('cell-main-content', mainCellClassName)}>
                   {sideContent}
                 </span>
               </div>

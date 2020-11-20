@@ -57,8 +57,8 @@ const Settings = ({
   };
 
   return (
-    <FlexBox column className='margin-top-10'>
-      <FlexBox flex column className='scrolling-65vh'>
+    <FlexBox column className='margin-top-10 scrolling-65vh pr-2'>
+      <FlexBox flex column>
         {!isOptInFunnel && (
           <Fragment>
             <FlexBox flex center='v-center'>
