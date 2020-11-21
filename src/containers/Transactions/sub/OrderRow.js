@@ -7,6 +7,7 @@ import * as invoicingActions from 'actions/invoicing';
 import { connect } from 'react-redux';
 import { FlexBox } from 'components/common/boxes';
 import { Button } from 'components/common/Buttons';
+import clx from 'classnames';
 
 const PaymentTypeIcon = ({ type }) => {
   const icon = {
@@ -18,19 +19,25 @@ const PaymentTypeIcon = ({ type }) => {
   return icon || null;
 };
 
-const ProductRow = ({ name, price, offers = [], currency }) => {
+const ProductRow = ({ name, price, offers = [], currency, className }) => {
 
   const hasOffers = Boolean(Array.isArray(offers) && offers.length);
   return (
     <Fragment>
-      <Table.Row>
-        <Table.Cell mainContent={name} />
+      <Table.Row className={clx(className, { 'with-relative-rows': hasOffers })}>
+        <Table.Cell mainContent={name} mainCellClassName='truncate'/>
         <Table.Cell mainContent={getPriceWithCurrency(price, currency)} />
       </Table.Row>
       {hasOffers &&
-        (<FlexBox column className='ml-3'>
+        (<FlexBox column >
           {offers.map(({ id, name, price }) => (
-            <ProductRow key={id} name={name} price={price} />
+            <ProductRow
+              key={id}
+              name={`→ ${name} ${name} ${name} ${name}${name}${name}${name}`}
+              price={price}
+              className={clx('ml-3', { 'with-relative-rows': hasOffers })}
+              currency={currency}
+            />
           ))}
         </FlexBox>
         )}
@@ -87,10 +94,10 @@ const OrderRow = ({
           <Table.Body>
             <FlexBox column>
               {products.map((product) => (
-                <ProductRow key={product._id} {...product} />
+                <ProductRow key={product._id} {...product} currency={currency} />
               ))}
-              <FlexBox flex center='h-center'>
-                <Button className='primary-btn' onClick={onDownloadOrderInvoice}>Download Order Invoice</Button>
+              <FlexBox flex center='h-center' className='mt-3'>
+                <Button className='primary-btn px-3' onClick={onDownloadOrderInvoice}>Download Order Invoice</Button>
               </FlexBox>
             </FlexBox>
           </Table.Body>

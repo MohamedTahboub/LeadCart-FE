@@ -249,7 +249,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               onToggle={onTwoStepCheckoutChange}
             />
             <InlinePopup
-              title='GDRP compliance options'
+              title='GDPR compliance options'
+              className='mt-3'
               popUpContent={(
                 <FlexBox column>
                   <InputRow className='sidebar-row'>

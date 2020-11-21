@@ -4,10 +4,10 @@ import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';
 import { FiLink } from 'react-icons/fi';
 
+import './style.css';
 const { FlexBox, ResizableInput, Tooltip, InputRow } = common;
 
 const { Checkbox } = InputRow;
-
 const TermsAndConditions = ({
   texts = {},
   onChange,
@@ -25,7 +25,7 @@ const TermsAndConditions = ({
   return (
     <FlexBox center='v-center'>
       {isRequired ? (
-        <Checkbox >
+        <Checkbox className='terms-checkbox'>
           <ResizableInput
             onChange={onChange}
             name={'texts.termsAndConditionsText'}
