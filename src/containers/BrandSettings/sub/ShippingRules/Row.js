@@ -81,7 +81,7 @@ const ShippingRatesRow = ({ from, to, cost, _id = '', onShippingRateChange, onSh
            <MdDelete className='mx-2 item-clickable' size={20} onClick={onDeleteRow} color='tomato' />
          </ReactTooltip>
         }
-        {isFreeShipping && <Title className='small-text'>( Free )</Title>}
+        {isFreeShipping && <Title className='small-text'>(Free)</Title>}
       </FlexBox>
 
       {errorMessage && <p style={{ color: 'tomato' }} className='error-text'>{errorMessage}</p>}

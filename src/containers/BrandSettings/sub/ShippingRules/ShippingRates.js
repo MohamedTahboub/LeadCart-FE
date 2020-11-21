@@ -83,15 +83,15 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
   };
 
   return (
-    <FlexBox className='shipping-rates-container' id={`shipping-rates-${shippingRuleId}`} column>
+    <FlexBox className='shipping-rates-container' id={`shipping-rates-${shippingRuleId}`} column flexStart>
       <Title className='my-3'>Shipping Rates</Title>
 
       <FlexBox className='mb-2'>
-        <Title className='small-text pl-2' style={{ width: '72%' }}>SubTotal Range (From - To) </Title>
+        <Title className='small-text pl-2' style={{ minWidth: '540px' }}> SubTotal Range (From - To) </Title>
         <Title className='small-text'>Cost</Title>
       </FlexBox>
 
-      <FlexBox className='shipping-rates-body' column>
+      <FlexBox className='shipping-rates-body' id='shipping-rates-body' column>
         {sortedShippingRates.map((shippingRate, index) => (
           <ShippingRatesRow
             key={shippingRate._id}

@@ -213,8 +213,8 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
       <Table className='shipping-rules-table mt-4'>
         <Head>
           <HeadCell>Shipping Name</HeadCell>
-          <HeadCell>state</HeadCell>
           <HeadCell>Zone</HeadCell>
+          <HeadCell>state</HeadCell>
           <HeadCell>Control</HeadCell>
         </Head>
 

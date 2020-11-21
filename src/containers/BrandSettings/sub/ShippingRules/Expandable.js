@@ -6,7 +6,7 @@ import common from 'components/common';
 import { CancelModal } from '../components/common';
 import ShippingRates from './ShippingRates';
 
-const { FlexBox, InputRow } = common;
+const { FlexBox, InputRow, Note } = common;
 const { TextField, Toggle, TextAreaInput } = InputRow;
 
 const Title = ({ className, children, color = '#83898e' }) => <p style={{ color }} className={clx(`gray-text bold-text m-0 ${className}`)} >{children}</p>;
@@ -28,6 +28,7 @@ const Expandable = ({
   onOpenZones
 }) => {
   const [currentHeight, setCurrentHeight] = useState(0);
+  const [hasDisplayedNote, setHasDisplayedNote] = useState(true);
   const { enabled, name, shippingRates, description, shippingZone = 'allZones' } = fields;
 
 
@@ -37,9 +38,13 @@ const Expandable = ({
 
   useEffect(() => {
     const selectedElement = document?.getElementById(`shipping-rates-${shippingRuleId}`);
-    if (open && selectedElement)
+
+    if (open && selectedElement && hasDisplayedNote)
+      setCurrentHeight(selectedElement?.getBoundingClientRect()?.height + 170);
+    else
       setCurrentHeight(selectedElement?.getBoundingClientRect()?.height);
-  }, [open, shippingRates]);
+
+  }, [open, shippingRates, hasDisplayedNote]);
 
   const shippingRatesProps = {
     shippingRates,
@@ -52,7 +57,7 @@ const Expandable = ({
   return (
     <FlexBox
       className={clx('expandable px-5 ', { open, 'py-4': open })}
-      style={{ height: open ? `${currentHeight + 430}px` : 0, overflow: open ? 'unset' : 'hidden' }}
+      style={{ height: open ? `${currentHeight + 330}px` : 0, overflow: open ? 'unset' : 'hidden' }}
       id={`expandable-${shippingRuleId}`}
       column
     >
@@ -79,13 +84,24 @@ const Expandable = ({
 
       <FlexBox className='mb-2' column>
         <Title className='mb-1'>Add Description For Customers:</Title>
-        <Title className='note-text small-text pl-2 mb-3'>
-            What should customers know when choosing this shipping method for their order?
-          <br/> Specify the time it usually takes for orders to arrive,
-          <br/> the way in which the shipment will be handed over to the buyer,
-          <br/> or anything else you feel is important for customers to know about this shipping option.
-          <br/> This information will be displayed at checkout.
-        </Title>
+        <Note className='max-width-600 my-3' onCloseNote={() => setHasDisplayedNote(false)} showOnce>
+          <Title>
+              What should customers know when choosing this shipping method for their order?
+          </Title>
+          <li>
+            Specify the time it usually takes for orders to arrive.
+          </li>
+          <li>
+            The way in which the shipment will be handed over to the buyer.
+          </li>
+          <li>
+            Anything else you feel is important for customers to know about this shipping option.
+          </li>
+
+          <FlexBox className='mt-1'>
+            <Title className='mr-1'>Note:</Title>This information will be displayed at checkout.
+          </FlexBox>
+        </Note>
 
         <TextAreaInput
           onChange={onChange}
