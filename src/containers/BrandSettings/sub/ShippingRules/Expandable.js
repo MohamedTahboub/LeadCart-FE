@@ -5,6 +5,7 @@ import Select from 'react-select';
 import common from 'components/common';
 import { CancelModal } from '../components/common';
 import ShippingRates from './ShippingRates';
+import TextArea from './TextArea';
 
 const { FlexBox, InputRow, Note } = common;
 const { TextField, Toggle, TextAreaInput } = InputRow;
@@ -83,7 +84,7 @@ const Expandable = ({
 
 
       <FlexBox className='mb-2' column>
-        <Title className='mb-1'>Add Description For Customers:</Title>
+        <Title className='mb-1'>Add Description For Customers</Title>
         <Note className='max-width-600 my-3' onCloseNote={() => setHasDisplayedNote(false)} showOnce>
           <Title>
               What should customers know when choosing this shipping method for their order?
@@ -103,11 +104,12 @@ const Expandable = ({
           </FlexBox>
         </Note>
 
-        <TextAreaInput
+        <TextArea
           onChange={onChange}
           value={description}
           name='description'
           placeholder='Description'
+          className='max-width-600'
         />
       </FlexBox>
 
