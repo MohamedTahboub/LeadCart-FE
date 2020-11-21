@@ -3,6 +3,7 @@ import {
   CONNECT_WITH_PAYPAL_FAILED,
   CONNECT_WITH_PAYPAL_SUCCESS,
   DELETE_MARKETPLACE_DOMAIN_SUCCESS,
+  GET_INVOICING_DETAILS,
   SAVE_USER_GENERAL_SETTINGS_FAILED,
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
   SETTINGS_GENERAL_FIELD_UPDATE,
@@ -18,6 +19,7 @@ const initialState = {
     layout: {},
     domains: []
   },
+  invoicing: {},
   integrations: { errors: {} }
 };
 
@@ -96,6 +98,11 @@ export default (state = initialState, { type, payload }) => {
         ...state.generalModel,
         domains: state.generalModel.domains.filter(({ domain }) => domain !== payload.domain)
       }
+    };
+  case GET_INVOICING_DETAILS:
+    return {
+      ...state,
+      invoicing: { ...state.invoicing, ...payload }
     };
   default: return state;
   }

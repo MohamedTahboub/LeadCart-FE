@@ -36,7 +36,8 @@ export default class Table extends Component {
     subRow,
     className = '',
     onClick,
-    noMinWidth
+    noMinWidth,
+    ...props
   }) => {
     const classNames = clx('table-row-container', className, { 'row-aligned-center': subRow }, { 'no-min-width': noMinWidth });
 
@@ -44,6 +45,7 @@ export default class Table extends Component {
       <EasyAnimate
         className={classNames}
         delay={orderInList * 50}
+        {...props}
       >
         <div className='table-row' onClick={onClick}>
           {children}
@@ -57,6 +59,7 @@ export default class Table extends Component {
     children,
     mainContent,
     className = '',
+    mainCellClassName,
     flex = true,
     flexStart,
     subContent,
@@ -75,16 +78,16 @@ export default class Table extends Component {
         {mainContent && (
           !sideContent
             ? (
-              <span className='cell-main-content'>
+              <span className={clx('cell-main-content', mainCellClassName)}>
                 {mainContent}
               </span>
             )
             : (
               <div>
-                <span className='cell-main-content'>
+                <span className={clx('cell-main-content', mainCellClassName)}>
                   {mainContent}
                 </span>
-                <span className='cell-main-content'>
+                <span className={clx('cell-main-content', mainCellClassName)}>
                   {sideContent}
                 </span>
               </div>

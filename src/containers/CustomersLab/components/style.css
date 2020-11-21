@@ -339,7 +339,13 @@ span.order-receipt-name span {
     right:20px;
     top:20px;
     font-size: 15px;
-    /* color:lightgray; */
+}
+.order-invoice-icon{
+    position: absolute;
+    left:20px;
+    top:20px;
+    font-size: 15px;
+    cursor: pointer;
 }
 .razorpay-order-flag{
     filter: grayscale(10);

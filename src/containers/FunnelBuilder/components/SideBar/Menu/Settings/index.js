@@ -1,29 +1,32 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Select from 'react-select';
+
 import common from 'components/common';
 import PaymentsGateways from 'components/PaymentGateways';
 import currencies from 'data/currencies.json';
 
 import './style.css';
+
 const defaultLanguage = { label: 'English', value: 'en-Us"' };
 const currenciesList = currencies.map((c) => ({ value: c.code, label: c.name }));
 
-const {
-  InputRow,
-  FlexBox
-} = common;
-
-const {
-  TextField,
-  SearchInput
-} = InputRow;
+const { InputRow, FlexBox } = common;
+const { TextField, SearchInput } = InputRow;
 
 const Label = ({ children, ...props }) => (
   <InputRow.Label className='sidebar-input-label bold-text' {...props}>
     {children}
   </InputRow.Label>
 );
+
+const getTaxesOptions = (taxes) => taxes.map(({ name: label, _id: value }) => ({ label, value }));
+
+const clearOption = {
+  label: 'No Tax',
+  value: null
+};
 
 const Settings = ({
   defaultCurrency,
@@ -32,21 +35,29 @@ const Settings = ({
     url,
     paymentMethods,
     language,
-    currency = defaultCurrency
+    currency = defaultCurrency,
+    tax
   } = {},
   onChange,
-  isOptInFunnel
+  isOptInFunnel,
+  taxes: allTaxes = []
 }) => {
-
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
   const currentLanguageValue = currentLanguage ? currentLanguage.value : 'English';
+
+  const taxesOptions = [clearOption, ...getTaxesOptions(allTaxes.filter(({ enabled }) => enabled))];
+  const selectedTaxOption = getTaxesOptions(allTaxes).find(({ value }) => tax === value);
+
+  const onTaxSelectChange = ({ value }) => {
+    onChange({ name: 'tax', value });
+  };
 
   const onFiledChange = ({ target: { name, value } }) => {
     onChange({ name, value: value === 'English' ? null : value });
   };
 
   return (
-    <FlexBox column className='margin-top-10'>
+    <FlexBox column className='margin-top-10 scrolling-65vh pr-2'>
       <FlexBox flex column>
         {!isOptInFunnel && (
           <Fragment>
@@ -104,6 +115,18 @@ const Settings = ({
           value={url}
         />
       </FlexBox>
+
+      <FlexBox column className='mt-3'>
+        <Label>
+          Tax Schemas:
+        </Label>
+
+        <Select
+          onChange={onTaxSelectChange}
+          options={taxesOptions}
+          value={selectedTaxOption}
+        />
+      </FlexBox>
     </FlexBox>
   );
 };
@@ -118,10 +141,11 @@ Settings.defaultProps = { product: {} };
 
 const mapStateToProps = ({
   translations: languages = [defaultLanguage],
-  settings: { generalModel: { currency: defaultCurrency = 'USD' } = {} } = {}
+  settings: { generalModel: { currency: defaultCurrency = 'USD' } = {} } = {},
+  taxes
 }) => {
   const languagesOptions = languages
     .map(({ name: label, _id: value = label }) => ({ label, value }));
-  return { languagesOptions, defaultCurrency };
+  return { languagesOptions, defaultCurrency, taxes };
 };
 export default connect(mapStateToProps)(Settings);

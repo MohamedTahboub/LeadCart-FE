@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { getPriceWithCurrency } from 'libs';
+import React, { Fragment, useState } from 'react';
+import { downloadFile, getPriceWithCurrency, notification } from 'libs';
 import Table from 'components/common/Tables';
 import './style.css';
 import moment from 'moment';
+import * as invoicingActions from 'actions/invoicing';
+import { connect } from 'react-redux';
+import { FlexBox } from 'components/common/boxes';
+import { Button } from 'components/common/Buttons';
+import clx from 'classnames';
 
 const PaymentTypeIcon = ({ type }) => {
   const icon = {
@@ -14,9 +19,36 @@ const PaymentTypeIcon = ({ type }) => {
   return icon || null;
 };
 
+const ProductRow = ({ name, price, offers = [], currency, className }) => {
+
+  const hasOffers = Boolean(Array.isArray(offers) && offers.length);
+  return (
+    <Fragment>
+      <Table.Row className={clx(className, { 'with-relative-rows': hasOffers })}>
+        <Table.Cell mainContent={name} mainCellClassName='truncate'/>
+        <Table.Cell mainContent={getPriceWithCurrency(price, currency)} />
+      </Table.Row>
+      {hasOffers &&
+        (<FlexBox column >
+          {offers.map(({ id, name, price }) => (
+            <ProductRow
+              key={id}
+              name={`→ ${name} ${name} ${name} ${name}${name}${name}${name}`}
+              price={price}
+              className={clx('ml-3', { 'with-relative-rows': hasOffers })}
+              currency={currency}
+            />
+          ))}
+        </FlexBox>
+        )}
+    </Fragment>
+  );
+};
+
 const OrderRow = ({
   orderInList,
   orderNumber,
+  _id: orderId,
   customer: {
     firstName,
     lastName,
@@ -26,9 +58,10 @@ const OrderRow = ({
   paymentMethod,
   createdAt,
   currency,
-  totalCharge = 0
+  generateOrderInvoice,
+  totalCharge = 0,
+  ...reset
 }) => {
-
   const productsCount = products.length;
   const [expand, setExpand] = useState(false);
   // eslint-disable-next-line
@@ -36,6 +69,18 @@ const OrderRow = ({
     setExpand((expand) => !expand);
   };
   // const currency = getCurrency(products);
+
+  const onDownloadOrderInvoice = () => {
+    generateOrderInvoice({ orderId }, {
+      onSuccess: ({ invoice }) => {
+        downloadFile(invoice);
+        notification.success(`An invoice downloaded for order #${orderNumber}`);
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+      }
+    });
+  };
 
   return (
     <Table.Row
@@ -47,12 +92,14 @@ const OrderRow = ({
             <Table.HeadCell>Price</Table.HeadCell>
           </Table.Head>
           <Table.Body>
-            {products.map((product) => (
-              <Table.Row>
-                <Table.Cell mainContent={product.name} />
-                <Table.Cell mainContent={getPriceWithCurrency(product.price, currency)} />
-              </Table.Row>
-            ))}
+            <FlexBox column>
+              {products.map((product) => (
+                <ProductRow key={product._id} {...product} currency={currency} />
+              ))}
+              <FlexBox flex center='h-center' className='mt-3'>
+                <Button className='primary-btn px-3' onClick={onDownloadOrderInvoice}>Download Order Invoice</Button>
+              </FlexBox>
+            </FlexBox>
           </Table.Body>
         </Table>
       )}
@@ -80,4 +127,4 @@ const OrderRow = ({
   );
 };
 OrderRow.propTypes = {};
-export default OrderRow;
+export default connect(null, invoicingActions)(OrderRow);

@@ -4,7 +4,7 @@ import './style.css';
 import clx from 'classnames';
 import { MdLock } from 'react-icons/md';
 import { useContext } from '../../../../../../../../actions';
-import { PricingOptions } from '..';
+import { PricingOptions, ShippingMethods } from '..';
 import { BiHide, BiShow } from 'react-icons/bi';
 
 import {
@@ -61,7 +61,8 @@ const FlatForm = ({ language, section }) => {
           marketingConsent,
           termsAndConditions,
           marketingConsentIsRequired,
-          termsAndConditionsIsRequired
+          termsAndConditionsIsRequired,
+          te: shippingMethodsEnabled
           // orderSummary
         } = {}
       } = {}
@@ -72,11 +73,13 @@ const FlatForm = ({ language, section }) => {
   const {
     billingAndShippingBtn = 'Continue to Payment',
     hideCouponCodeLabel = 'Hide Coupon Code',
+    shippingMethodBtnText = 'Continue to Payment',
     orderBtn = 'Pay Now',
     haveCouponCodeLabel = 'Have a Coupon Code?',
     couponCodeBtnText = 'Apply',
     transactionGuaranteeMessage = 'Your transaction is secured with SSL encryption',
     backToBillingLinkText = '← Back to billing & shipping info',
+    backToShippingMethodText = '← Back to shipping Method',
     addLine2Label = 'Add Line 2',
     removeLine2Label = 'Hide the second Address'
   } = texts;
@@ -93,10 +96,6 @@ const FlatForm = ({ language, section }) => {
     shippingDetails: shippingDetailsTitle = 'Shipping Details',
     streetAddress: streetAddressLabel,
     streetAddress2: streetAddress2Label = 'Second Address',
-    // city: cityLabel,
-    // state: stateLabel,
-    // postal: postalLabel,
-    // country: countryLabel,
     paymentMethods: paymentMethodsTitle = 'Payment Method',
     creditCards: creditCardsTitle = 'Credit Cards',
     payPal: payPalTitle = 'PayPal',
@@ -113,9 +112,9 @@ const FlatForm = ({ language, section }) => {
     COD: cashOnDeliveryTitle
   };
 
-  const changeToTab = (tabName) => () => {
-    setActiveTab(tabName);
-  };
+  // const changeToTab = (tabName) => () => {
+  //   setActiveTab(tabName);
+  // };
 
   const onSectionFieldChange = ({ target: { name, value } } = {}) => {
     actions.onSectionSettingChange({
@@ -244,13 +243,37 @@ const FlatForm = ({ language, section }) => {
             className='mt-5 mb-3'
             themeColor={themeColor}
             prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
-            name='texts.billingAndShippingBtn'
+            name={'texts.billingAndShippingBtn'}
             text={billingAndShippingBtn}
             onChange={onSectionFieldChange}
           />
         </FlexBox>
       </Tab>
 
+      {shippingMethodsEnabled && (
+        <Tab title='Method' id='shippingMethods'>
+          <ShippingMethods />
+          <FlexBox column flex center='v-center'>
+            <OrderButton
+              className='mt-5 mb-3'
+              themeColor={themeColor}
+              prefix={<MdLock color='currentColor' size={16} className='mr-2' />}
+              name='texts.shippingMethodBtnText'
+              text={shippingMethodBtnText}
+              onChange={onSectionFieldChange}
+            />
+            <span className='label-content primary-text item-clickable underlined-text without-hover'>
+              <ResizableInput
+                onChange={onSectionFieldChange}
+                name={'texts.backToBillingLinkText'}
+                value={backToBillingLinkText}
+                defaultValue={'Edit'}
+                style={{ background: 'transparent' }}
+              />
+            </span>
+          </FlexBox>
+        </Tab>
+      )}
       <Tab title='Payment' id='payment'>
         <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='radio' />
         <FlexBox center='h-center' className='small-text gray-text mt-3'>
@@ -308,11 +331,11 @@ const FlatForm = ({ language, section }) => {
               isRequired={termsAndConditionsIsRequired}
             />
           </FlexBox>
-          <span onClick={changeToTab('shipping')} className='label-content primary-text item-clickable underlined-text without-hover'>
+          <span className='label-content primary-text item-clickable underlined-text without-hover'>
             <ResizableInput
               onChange={onSectionFieldChange}
-              name={'texts.backToBillingLinkText'}
-              value={backToBillingLinkText}
+              name={`texts.${shippingMethodsEnabled ? 'backToShippingMethodText' : 'backToBillingLinkText'}`}
+              value={shippingMethodsEnabled ? backToShippingMethodText : backToBillingLinkText}
               defaultValue={'Edit'}
               style={{ background: 'transparent' }}
             />
@@ -435,7 +458,12 @@ const FlatForm = ({ language, section }) => {
           />
         </Fragment>
       )}
-
+      {shippingMethodsEnabled && (
+        <FlexBox column>
+          <Title className='step-title mt-3'>Shipping Method</Title>
+          <ShippingMethods />
+        </FlexBox>
+      )}
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>
       <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='cards' />
       <FlexBox center='h-center' className='small-text gray-text mt-3'>

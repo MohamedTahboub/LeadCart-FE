@@ -15,6 +15,7 @@ const TextField = ({
   id,
   defaultValue,
   uncontrolled = false,
+  inputClassName,
   ...props
 }) => {
   const _value = uncontrolled ? value : (value || '');
@@ -27,7 +28,7 @@ const TextField = ({
         disabled={disabled}
         value={_value}
         defaultValue={defaultValue}
-        className={`text-input-filed ${error ? 'error' : ''}`}
+        className={`text-input-filed ${error ? 'error' : ''} ${inputClassName}`}
         onChange={onChange}
         onBlur={onBlur}
         id={id}

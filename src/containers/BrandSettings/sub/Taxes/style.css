@@ -1,0 +1,160 @@
+.taxes-table-row{
+  border: 1px solid rgb(218, 217, 217);
+  transition: .4s background ease-in-out, .4s opacity ease-in-out;
+}
+
+
+.tax-delete-icon,
+.tax-edit-icon,
+.tax-cancel-icon{
+  cursor: pointer;
+  opacity: .7;
+  transition: .4s opacity ease-in-out, .4s transform ease-in-out;
+}
+
+
+
+.tax-delete-icon:hover,
+.rates-per-zone-body-row-delete-icon:hover,
+.tax-cancel-icon:hover,
+.tax-edit-icon:hover{
+  opacity: 1;
+  transform: scale(1.25);
+}
+
+
+.tax-cancel-icon,
+.tax-edit-icon{
+  color: var(--primary-color);
+}
+
+
+.rates-per-zone-body-row-delete-icon,
+.tax-delete-icon{
+  color: #c23616;
+}
+
+.tax-delete-icon{
+  opacity: 0;
+}
+
+
+.taxes-table-row:hover .tax-delete-icon{
+  opacity: .7;
+}
+
+/* ================== Expandable Style ================== */
+.taxes-container .expandable{
+  overflow: hidden;
+  transition: .4s height ease-in-out, .4s padding ease-in-out, opacity .25s ease-in-out .4s ;
+  transform: translateY(-15px);
+  opacity: 0;
+}
+
+
+
+.taxes-container .expandable.open{
+  border: 1px solid rgb(218, 217, 217);
+  border-top: none;
+  opacity: 1;
+}
+
+.taxes-container .taxes-table-row.open{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+.taxes-container .expandable .toggle-bar:before{
+  left: -45px
+}
+
+.taxes-container .expandable .toggle-bar:after{
+  left: 42px
+}
+
+/* ================== Rates Per Zone Style ================== */
+.rates-per-zone{
+  width: 450px;
+}
+
+.expandable .rates-per-zone-body-row,
+.expandable .rates-per-zone-header{
+  height: 20px;
+}
+
+.expandable .rates-per-zone-body-row > *:nth-child(1),
+.expandable .rates-per-zone-header > *:nth-child(1){
+  width: 60%;
+}
+
+.expandable .rates-per-zone-body-row > *:nth-child(2),
+.expandable .rates-per-zone-header > *:nth-child(2){
+  width: 25%;
+}
+
+
+.expandable .rates-per-zone-header{
+  background-color: #4DA1FF;
+  border-radius: 8px 8px 0 0;
+  padding: 17px 10px;
+}
+
+.rates-per-zone-header-title{
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+}
+
+
+.rates-per-zone-body{
+  border-radius: 8px;
+}
+
+.expandable .rates-per-zone-body-row{
+  border-bottom: 1px solid #cdd4db;
+  padding: 25px 10px;
+  background-color: #f9fafb;
+}
+
+
+.expandable .rates-per-zone-body-row .rates-per-zone-body-row-delete-icon{
+  cursor: pointer;
+  opacity: 0;
+  transition: .4s opacity ease-in-out, .4s transform ease-in-out;
+}
+
+.expandable .rates-per-zone-body-row:hover .rates-per-zone-body-row-delete-icon{
+  opacity: .7;
+} 
+
+.expandable .rates-per-zone-body-row:last-of-type{
+  border-bottom-color: transparent;
+  border-radius: 0 0 8px 8px !important;
+}
+
+
+.rates-per-zone-body-input {
+  text-align: center;
+  background-color: #fff;
+}
+
+
+.expandable .rates-per-zone-body .css-tlfecz-indicatorContainer{
+  padding: 0 8px;
+}
+
+.expandable .rates-per-zone-body .css-yk16xz-control{
+  min-height: 30px;
+}
+
+.expandable .rates-per-zone-body .css-b8ldur-Input{
+  padding: 0;
+  margin: 0;
+}
+
+
+.expandable ::-webkit-scrollbar-track {
+  display: none;
+}

@@ -26,6 +26,11 @@
   width: 100%;
 }
 
+.full-height {
+  height: 100%;
+}
+
+
 .margin-10 {
   margin: 10px;
 }
@@ -481,6 +486,10 @@
   min-width: 100px;
 }
 
+.min-width-150 {
+  min-width: 150px;
+}
+
 .min-width-200 {
   min-width: 200px;
 }
@@ -573,6 +582,13 @@
 .max-height-75vh {
   max-height: 75vh;
 }
+.min-height-35{
+  min-height: 35px;
+}
+
+.height-220 {
+  height: 220px;
+}
 
 .max-height-percent-100 {
   max-height: 100%;
@@ -590,6 +606,11 @@
   overflow-y: auto;
 }
 
+.scrolling-65vh {
+  max-height: 65vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 .scrolling-60vh {
   max-height: 60vh;
   overflow-x: hidden;

@@ -33,6 +33,7 @@
     "react-chartjs-2": "^2.7.4",
     "react-collapsible": "^2.3.2",
     "react-color": "^2.14.1",
+    "react-content-loader": "^5.1.4",
     "react-copy-to-clipboard": "^5.0.1",
     "react-credit-card-input": "^1.1.5",
     "react-dnd": "^10.0.2",

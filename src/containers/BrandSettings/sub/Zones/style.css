@@ -1,0 +1,140 @@
+.destination-zones-table-row{
+  border: 1px solid rgb(218, 217, 217);
+}
+
+
+.destination-zones-delete-icon,
+.destination-zones-edit-icon,
+.destination-zones-cancel-icon{
+  cursor: pointer;
+  opacity: .7;
+  transition: .4s opacity ease-in-out, .4s transform ease-in-out;
+}
+
+
+
+.destination-zones-delete-icon:hover,
+.rates-per-zone-body-row-delete-icon:hover,
+.destination-zones-cancel-icon:hover,
+.destination-zones-edit-icon:hover{
+  opacity: 1;
+  transform: scale(1.25);
+}
+
+
+.destination-zones-cancel-icon,
+.destination-zones-edit-icon{
+  color: var(--primary-color);
+}
+
+
+.rates-per-zone-body-row-delete-icon,
+.destination-zones-delete-icon{
+  color: #c23616;
+}
+
+.destination-zones-delete-icon{
+  opacity: 0;
+}
+
+
+.destination-zones-table-row:hover .destination-zones-delete-icon{
+  opacity: .7;
+}
+
+
+/* ================== Expandable Style ================== */
+.destination-zones-container .expandable{
+  height: 0;
+  overflow: hidden;
+  transition: .4s height ease-in-out, .4s padding ease-in-out;
+  transform: translateY(-15px);
+  position: relative;
+}
+
+
+.destination-zones-container .expandable.open{
+  height: 395px;
+  border: 1px solid rgb(218, 217, 217);
+  border-top: none;
+  overflow: auto;
+}
+
+.destination-zones-container .destination-zones-table-row.open{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+.destination-zones-container .expandable-form-select .css-1pahdxg-control,
+.destination-zones-container .expandable-form-select .css-yk16xz-control{
+  background:transparent;
+  width: 402px;
+  color: #2B3748;
+  font-size: 15px;
+  line-height: 16px;
+  letter-spacing: -.012rem;
+  padding: 0px 5px;
+  background: rgba(188, 201, 214, 0.1);
+  outline-color: lightgray;
+}
+
+.destination-zones-container .expandable-form-select .css-yk16xz-control .css-tlfecz-indicatorContainer{
+  padding: 0;
+}
+
+.destination-zones-container .expandable .toggle-bar:before{
+  left: -45px
+}
+
+.destination-zones-container .expandable .toggle-bar:after{
+  left: 42px
+}
+
+
+
+/* ================== Select Boxes Style ================== */
+.displayed-zone-options,
+.available-zone-options{
+  height: 158px;
+  overflow: auto;
+  border:1px solid #ccc;  
+}
+
+.zone-option-item{
+  border:1px solid #eee;  
+  transition:padding .3s ease-in-out, background .3s ease-in-out, color .3s ease-in-out;
+  user-select: none;
+}
+
+.zone-option-item:hover{
+  background: rgb(117, 173, 238);
+  color:white;
+  padding-right: 17px !important;
+  position: relative;
+  font-size: 10px;
+  padding-top: .33rem !important;
+  padding-bottom: .33rem !important;
+  padding-left: 5px !important;
+}
+
+.zone-option-item:hover::after{
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  font-size: 10px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  color:white;
+  transition: opacity .4s ease-in-out;
+}
+
+.displayed-zone-options .zone-option-item:hover::after{
+  content: "\f00d";
+}
+
+.available-zone-options .zone-option-item:hover::after{
+  content: "\f067";
+}
+
+

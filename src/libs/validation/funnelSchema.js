@@ -40,6 +40,7 @@ const funnelSchema = yup.object({
   thankyouPage: yup.string().nullable(),
   productsUpdates: yup.object({}),
   url: yup.string(),
+  tax: yup.string().nullable().default(null),
   marketPlace: yup.object({
     publish: yup.boolean().default(true),
     cardImage: yup.string(),

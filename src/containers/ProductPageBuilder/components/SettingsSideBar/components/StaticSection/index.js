@@ -249,7 +249,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               onToggle={onTwoStepCheckoutChange}
             />
             <InlinePopup
-              title='GDRP compliance options'
+              title='GDPR compliance options'
+              className='mt-3'
               popUpContent={(
                 <FlexBox column>
                   <InputRow className='sidebar-row'>
@@ -324,6 +325,20 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
+            {/*
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
+                Show Shipping Methods
+              </Label>
+              <Toggle
+                value={custom.shippingMethodsEnabled}
+                name='shippingMethodsEnabled'
+                onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
+              />
+            </InputRow>
+            */}
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
                 Show Coupon Section

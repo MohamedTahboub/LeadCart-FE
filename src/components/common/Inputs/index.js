@@ -51,16 +51,16 @@ export class InputRow extends Component {
     error,
     ...props
   }) => (
-    <input
-      onChange={onChange}
-      onBlur={onBlur}
-      name={name}
-      defaultValue={value}
-      disabled={disabled}
-      className={`input-field ${className} ${error ? 'invalid-field' : ''}`}
-      placeholder={props.children}
-    />
-  )
+      <input
+        onChange={onChange}
+        onBlur={onBlur}
+        name={name}
+        defaultValue={value}
+        disabled={disabled}
+        className={`input-field ${className} ${error ? 'invalid-field' : ''}`}
+        placeholder={props.children}
+      />
+    )
 
   static SmallInput = ({
     type = 'text',
@@ -70,24 +70,23 @@ export class InputRow extends Component {
     autoComplete = 'on',
     onChange,
     value,
-    // Value,
     className = '',
     error,
     ...props
   }) => (
-    <input
-      defaultValue={value}
-      // value={Value}
-      onChange={onChange}
-      onBlur={onBlur}
-      autoComplete={autoComplete}
-      name={name}
-      disabled={disabled}
-      type={type}
-      className={`input-field small-input ${className} ${error ? 'invalid-field' : ''}`}
-      placeholder={props.children}
-    />
-  )
+      <input
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        autoComplete={autoComplete}
+        name={name}
+        disabled={disabled}
+        type={type}
+        className={`input-field small-input ${className} ${error ? 'invalid-field' : ''}`}
+        placeholder={props.children}
+        {...props}
+      />
+    )
 
   static CustomInput = ({
     width,
@@ -103,18 +102,18 @@ export class InputRow extends Component {
     className = '',
     ...props
   }) => (
-    <input
-      onChange={onChange}
-      onBlur={onBlur}
-      type={type}
-      disabled={disabled}
-      autoComplete={autoComplete ? '' : 'off'}
-      name={name}
-      defaultValue={value}
-      className={`input-field custom-input-field ${className} ${error ? 'invalid-field' : ''}`}
-      placeholder={props.children || placeholder}
-    />
-  )
+      <input
+        onChange={onChange}
+        onBlur={onBlur}
+        type={type}
+        disabled={disabled}
+        autoComplete={autoComplete ? '' : 'off'}
+        name={name}
+        defaultValue={value}
+        className={`input-field custom-input-field ${className} ${error ? 'invalid-field' : ''}`}
+        placeholder={props.children || placeholder}
+      />
+    )
 
   static UrlSuffixInput = ({ onChange, name, subdomain, value, error, ...props }) => (
     <div className='url-suffix-input'>
@@ -144,19 +143,19 @@ export class InputRow extends Component {
     disabled,
     ...props
   }) => (
-    <React.Fragment>
-      {leftLabel && <span className='input-left-label'>{leftLabel}</span>}
-      <select
-        onChange={onChange}
-        defaultValue={value}
-        name={name}
-        className={`select-input-field ${className || ''}`}
-        disabled={disabled}
-      >
-        {options.map(({ label, value: v }) => <option key={v} className='select-option' value={v}>{label}</option>)}
-      </select>
-    </React.Fragment>
-  )
+      <React.Fragment>
+        {leftLabel && <span className='input-left-label'>{leftLabel}</span>}
+        <select
+          onChange={onChange}
+          defaultValue={value}
+          name={name}
+          className={`select-input-field ${className || ''}`}
+          disabled={disabled}
+        >
+          {options.map(({ label, value: v }) => <option key={v} className='select-option' value={v}>{label}</option>)}
+        </select>
+      </React.Fragment>
+    )
 
   static PriceField = ({
     children,
@@ -171,20 +170,20 @@ export class InputRow extends Component {
     value,
     ...props
   }) => (
-    <div className={`price-input-holder ${className || ''}`}>
-      <span className='currancy-type'>{currency}</span>
-      <input
-        onChange={onChange}
-        onBlur={onBlur}
-        defaultValue={value}
-        type={type || 'number'}
-        name={name}
-        className={`price-input-field ${error ? 'invalid-field' : ''}`}
-        disabled={disabled}
-        placeholder={children}
-      />
-    </div>
-  )
+      <div className={`price-input-holder ${className || ''}`}>
+        <span className='currancy-type'>{currency}</span>
+        <input
+          onChange={onChange}
+          onBlur={onBlur}
+          defaultValue={value}
+          type={type || 'number'}
+          name={name}
+          className={`price-input-field ${error ? 'invalid-field' : ''}`}
+          disabled={disabled}
+          placeholder={children}
+        />
+      </div>
+    )
 
   static UrlInput = ({
     onChange,
@@ -196,16 +195,16 @@ export class InputRow extends Component {
     value,
     ...props
   }) => (
-    <input
-      onChange={onChange}
-      onBlur={onBlur}
-      defaultValue={value}
-      name={name}
-      className={`input-field ${error ? 'invalid-field' : ''}`}
-      disabled={disabled}
-      placeholder={prefix}
-    />
-  )
+      <input
+        onChange={onChange}
+        onBlur={onBlur}
+        defaultValue={value}
+        name={name}
+        className={`input-field ${error ? 'invalid-field' : ''}`}
+        disabled={disabled}
+        placeholder={prefix}
+      />
+    )
 
   static CheckBox = ({
     children,
@@ -217,23 +216,23 @@ export class InputRow extends Component {
     className = '',
     ...props
   }) => (
-    <label
-      onChange={onChange}
-      className={`check-box-container ${className}`}
-    >
-      {description
+      <label
+        onChange={onChange}
+        className={`check-box-container ${className}`}
+      >
+        {description
           && <span className='check-box-description'>{description}</span>}
-      <input
+        <input
 
-        name={name || 'checkbox'}
-        className='check-box'
-        type='radio'
-        defaultChecked={checked}
-        disabled={disabled}
-      />
-      <div className='check-box-indicator'>{children}</div>
-    </label>
-  )
+          name={name || 'checkbox'}
+          className='check-box'
+          type='radio'
+          defaultChecked={checked}
+          disabled={disabled}
+        />
+        <div className='check-box-indicator'>{children}</div>
+      </label>
+    )
 
   static SwitchInput = ({
     onChange,
@@ -245,21 +244,21 @@ export class InputRow extends Component {
     onToggle,
     ...props
   }) => (
-    <Fragment>
-      <div className='custom-switch-input-container'>
-        <label className={`custom-switch-input ${className}`} />
-        <input
-          onChange={onToggle}
-          name={name}
-          type='checkbox'
-          defaultChecked={defaultChecked}
-          checked={value}
-          {...props}
-        />
-        <span className='slider-input slider-round' />
-      </div>
-    </Fragment>
-  )
+      <Fragment>
+        <div className='custom-switch-input-container'>
+          <label className={`custom-switch-input ${className}`} />
+          <input
+            onChange={onToggle}
+            name={name}
+            type='checkbox'
+            defaultChecked={defaultChecked}
+            checked={value}
+            {...props}
+          />
+          <span className='slider-input slider-round' />
+        </div>
+      </Fragment>
+    )
 
   static CodeInputArea = ({
     value,
@@ -271,18 +270,18 @@ export class InputRow extends Component {
     disabled,
     ...props
   }) => (
-    <div className={`code-area-container ${className}`}>
-      <textarea
-        onChange={onChange}
-        onBlur={onBlur}
-        name={name}
-        disabled={disabled}
-        defaultValue={value}
-        className={`codearea-input-field ${error ? 'invalid-field' : ''}`}
-        placeholder={props.children}
-      />
-    </div>
-  )
+      <div className={`code-area-container ${className}`}>
+        <textarea
+          onChange={onChange}
+          onBlur={onBlur}
+          name={name}
+          disabled={disabled}
+          defaultValue={value}
+          className={`codearea-input-field ${error ? 'invalid-field' : ''}`}
+          placeholder={props.children}
+        />
+      </div>
+    )
 
   static FlatSelect = ({ note, onSelect, value = 'Percent', currencySymbol = '$', ...props }) => (
     <div className='charging-method-picker'>
@@ -328,7 +327,7 @@ export class InputRow extends Component {
     </div>
   )
 
-  render () {
+  render() {
     const { margin, className = '' } = this.props;
     const style = margin ? { margin: `${margin}px 0px` } : {};
     return (

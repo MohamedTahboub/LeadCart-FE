@@ -270,16 +270,18 @@ div#root {
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
+  border-radius: 15px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(136, 136, 136, 0.52);
+  background: rgba(136, 136, 136, 0.42);
+  border-radius: 15px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(85, 85, 85, 0.602);
+  background: rgba(85, 85, 85, 0.52);
 }
 
 /* TYPOGRAPHY */
@@ -516,4 +518,8 @@ h5 {
   align-items: center;
   font-size: 20px;
   color: #000;
+}
+
+.text-center {
+  text-align: center;
 }
