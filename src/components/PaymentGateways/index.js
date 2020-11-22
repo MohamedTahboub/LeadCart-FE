@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import './style.css';
 
-const { MediumCard, InputRow } = common;
+const { MediumCard, FlexBox } = common;
 
 function Message ({ children }) {
   return (
@@ -67,7 +67,7 @@ const PaymentMethods = ({
       </div>
       {error && <div className='adding-payment-error'>{error}</div>}
       <br />
-      <InputRow>
+      <FlexBox center='h-center'>
         {paymentsIntegrations.length
           ? (
             <Message>
@@ -85,7 +85,7 @@ const PaymentMethods = ({
               </span>
             </Message>
           )}
-      </InputRow>
+      </FlexBox>
     </Fragment>
   );
 };

@@ -77,7 +77,7 @@ const SideBar = ({
           max={50}
         />
       </FlexBox>
-      <Tabs active={isOptInFunnel ? 'funnelSettings' : 'funnelBlocks'} className='padding-v-10 padding-h-10 tabs-funnel'>
+      <Tabs active={isOptInFunnel ? 'funnelSettings' : 'funnelBlocks'} className='padding-v-10 padding-h-10 tabs-funnel flex' tabsContentClassName='flex flex-start'>
         {!isOptInFunnel &&
           <Tab id='funnelBlocks' title='Funnel Blocks'>
             <GrabbableBlock
