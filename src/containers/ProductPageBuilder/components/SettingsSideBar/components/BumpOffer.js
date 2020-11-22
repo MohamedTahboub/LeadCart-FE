@@ -163,8 +163,8 @@ const BumpOffer = () => {
         <FlatRadio
           className='my-2 mt-3'
           options={[
-            { label: 'With Toggle', value: 'classic' },
-            { label: 'With Checkmark', value: 'modern' }
+            { label: 'With Toggle', value: 'modern' },
+            { label: 'With Checkmark', value: 'classic' }
           ]}
           value={styles.toggleInput || 'classic'}
           name='styles.toggleInput'
