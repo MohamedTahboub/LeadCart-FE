@@ -25,11 +25,24 @@
     color: rgb(73, 72, 72);
 }
 .with-relative-rows{
-    background-color: #eee !important;
+    /* background-color: #eee !important; */
     padding: 12px 0 !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
 .with-relative-rows{
     border-radius: 0 !important;
+}
+.sub-total-row{
+    border-top: 2px dashed gray;
+}
+.total-row{
+    border-top: 2px solid gray;
+}
+
+.sub-total-row,
+.total-row{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-top: 15px !important;
 }

@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 import { toLowerCase } from './yupMethods';
-
+const leadcartDefaultLogo = 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5e70880c81f85530d0ecd553/products/h7xj6g0o8%20%283%29%20%282%29.jpeg';
 
 export default async (fields) => {//
   const schema = yup.object({
@@ -40,7 +40,7 @@ export default async (fields) => {//
 
 export const contactLinksSchema = async (fields) => {
   const schema = yup.object({
-    label: yup.string().required('Please add a descriptive Lable'),
+    label: yup.string().required('Please add a descriptive Label'),
     value: yup.string().url().required('Add a valid url for the link')
   }).required();
 
@@ -53,7 +53,11 @@ export const contactLinksSchema = async (fields) => {
   }
 };
 
+const concatError = (errors = []) => {
+  if (!Array.isArray(errors)) return '';
 
+  return errors.join('\n- ');
+};
 export const invoicingSettingsSchema = async (fields) => {
   const schema = yup.object({
     companyName: yup.string().required(),
@@ -64,7 +68,7 @@ export const invoicingSettingsSchema = async (fields) => {
       city: yup.string().required(),
       country: yup.string().required()
     }),
-    logo: yup.string().url().required(),
+    logo: yup.string().url().default(leadcartDefaultLogo),
     taxId: yup.string(),
     enabled: yup.boolean().required()
   }).required();
@@ -74,6 +78,7 @@ export const invoicingSettingsSchema = async (fields) => {
 
     return { isValid: true, value: casted };
   } catch (err) {
-    return { isValid: false, errors: castYupErrors(err) };
+
+    return { isValid: false, errors: castYupErrors(err), errorMessage: err.message, errorList: concatError(err.errors) };
   }
 };

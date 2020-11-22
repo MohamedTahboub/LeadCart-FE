@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { RoundTow, downloadFile, getCurrencySymbol, notification } from 'libs';
 import { ReceiptRow } from './common';
 import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
@@ -30,6 +30,7 @@ const Order = ({
   paymentMethod,
   currency = defaultCurrency,
   product = {},
+  tax = {},
   products = [],
   generateOrderInvoice
 }) => {
@@ -48,6 +49,10 @@ const Order = ({
   };
 
   const currencySymbol = getCurrencySymbol(currency);
+  const hasTaxes = tax.taxAmount > 0;
+  const taxRate = tax.rate;
+  const subTotal = hasTaxes ? totalCharge - tax.taxAmount : totalCharge;
+
   return (
     <div className='customer-order-card'>
       <Tooltip text='download an invoice for this order' placement='right'>
@@ -64,6 +69,19 @@ const Order = ({
             orderId={orderId}
           />))
       }
+      {hasTaxes && (
+        <Fragment>
+          <ReceiptRow
+            className='receipt-total sub-total'
+            label='Sub Total'
+            value={`${currencySymbol} ${RoundTow(subTotal)}`}
+          />
+          <ReceiptRow
+            label={`${tax.name} (${taxRate}%)`}
+            value={`${currencySymbol} ${RoundTow(tax.taxAmount)}`}
+          />
+        </Fragment>
+      )}
       <ReceiptRow
         className='receipt-total'
         label='Total'
