@@ -33,3 +33,16 @@
 .with-relative-rows{
     border-radius: 0 !important;
 }
+.sub-total-row{
+    border-top: 2px dashed gray;
+}
+.total-row{
+    border-top: 2px solid gray;
+}
+
+.sub-total-row,
+.total-row{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-top: 15px !important;
+}

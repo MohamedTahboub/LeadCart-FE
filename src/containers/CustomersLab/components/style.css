@@ -51,6 +51,7 @@
     border-radius: 5px;
     padding: 15px;
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    padding-top: 35px;
 }
 .upsell-modal-head{
     margin-left: 20px;
@@ -160,6 +161,9 @@
     padding-top: 10px;
 }
 
+.order-receipt-row.receipt-total.sub-total{
+    border-top: 2px dashed rgba(0, 0, 0, 0.25);   
+}
 span.order-receipt-name {
     font-size: 12px;
 }
