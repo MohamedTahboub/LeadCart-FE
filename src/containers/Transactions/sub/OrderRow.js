@@ -35,7 +35,7 @@ const ProductRow = ({ name, price, offers = [], coupon = {}, currency, className
           {offers.map(({ id, name, price }) => (
             <ProductRow
               key={id}
-              name={`→ ${name}`}
+              name={`(Offer) → ${name}`}
               price={price}
               className={clx('ml-3', { 'with-relative-rows': hasOffers })}
               currency={currency}
@@ -45,7 +45,7 @@ const ProductRow = ({ name, price, offers = [], coupon = {}, currency, className
         )}
       {hasDiscount && (
         <ProductRow
-          name={`→ Coupon(${coupon.code})`}
+          name={`(Coupon) → ${coupon.code}`}
           price={coupon.discount}
           className={clx('ml-3', { 'with-relative-rows': hasOffers })}
           currency={currency}

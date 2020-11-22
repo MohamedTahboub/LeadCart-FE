@@ -25,7 +25,7 @@
     color: rgb(73, 72, 72);
 }
 .with-relative-rows{
-    background-color: #eee !important;
+    /* background-color: #eee !important; */
     padding: 12px 0 !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
