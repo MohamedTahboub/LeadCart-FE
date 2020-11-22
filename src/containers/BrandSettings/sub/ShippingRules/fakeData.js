@@ -3,31 +3,25 @@ export const shippingRatesFakeData = [
     _id: '5fa27a41c4d41f00234290d8',
     from: 0,
     to: 10,
-    cost: 10,
-    rowNumber: 0
+    cost: 10
   },
   {
     _id: '5fa27a41c4d41f00234290d9',
     from: 10.01,
     to: 20,
-    cost: 20,
-    rowNumber: 1
-
-  },
-  {
-    _id: '5fa27a41c4d41f0023429010',
-    from: 30.01,
-    to: 'and up',
-    cost: '0',
-    rowNumber: 3
-
+    cost: 20
   },
   {
     _id: '5fa27a41c4d41f00234298d8',
     from: 20.01,
     to: 30,
-    cost: 30,
-    rowNumber: 2
+    cost: 30
+  },
+  {
+    _id: '5fa27a41c4d41f0023429010',
+    from: 30.01,
+    to: 'and up',
+    cost: '0'
   }
 ];
 

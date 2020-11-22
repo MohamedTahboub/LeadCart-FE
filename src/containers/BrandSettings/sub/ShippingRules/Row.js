@@ -34,7 +34,7 @@ const RateInput = ({ value, className, disabled, min = 0, onChange, currency = '
 
 
 const ShippingRatesRow = ({ from, to, cost, _id = '', onShippingRateChange, onShippingCostChange, shippingRates = [], currentIndex, invalidRate, onDeleteRow, defaultBrandCurrency }) => {
-  const isThelastElement = currentIndex === shippingRates.length - 1 && shippingRates.length > 1;
+  const isTheLastElement = currentIndex === shippingRates.length - 1 && shippingRates.length > 1;
   const isFreeShipping = Number(cost) === 0;
 
   const hassError = invalidRate?._id === _id;
@@ -51,9 +51,9 @@ const ShippingRatesRow = ({ from, to, cost, _id = '', onShippingRateChange, onSh
 
   return (
     <Fragment>
-      <FlexBox className='shipping-rates-row v-center'>
+      <FlexBox className='shipping-rates-row v-center' id='shipping-role' >
         <RateInput value={getFixedFormat(from)} currency={currency} disabled />
-        <BsArrowRight className='shipping-rates-row-arrow-cell' size={20} />
+        <BsArrowRight className='shipping-rates-arrow' size={20} />
 
         {!isNaN(Number(to)) ?
           <RateInput
@@ -64,7 +64,7 @@ const ShippingRatesRow = ({ from, to, cost, _id = '', onShippingRateChange, onSh
             currency={currency}
           />
           :
-          <Title className='shipping-rates-row-cell'>{to}</Title>
+          <Title className='shipping-rates-and-up min-width-200'>{to}</Title>
         }
 
 
@@ -73,15 +73,14 @@ const ShippingRatesRow = ({ from, to, cost, _id = '', onShippingRateChange, onSh
           onChange={({ target: { value } }) => {onShippingCostChange({ value, _id });}}
           className='ml-4'
           currency={currency}
-
         />
 
-        {isThelastElement &&
+        {isTheLastElement &&
          <ReactTooltip overlay='Delete Row'>
-           <MdDelete className='mx-2 item-clickable' size={20} onClick={onDeleteRow} color='tomato' />
+           <MdDelete className='ml-2 item-clickable delete-shipping-role' size={20} onClick={onDeleteRow} color='tomato' />
          </ReactTooltip>
         }
-        {isFreeShipping && <Title className='small-text'>(Free)</Title>}
+        {isFreeShipping && <Title className='ml-2 small-text free-shipping-role'>(Free)</Title>}
       </FlexBox>
 
       {errorMessage && <p style={{ color: 'tomato' }} className='error-text'>{errorMessage}</p>}

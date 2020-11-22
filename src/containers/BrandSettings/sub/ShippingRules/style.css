@@ -84,42 +84,21 @@
 
 
 /* ================== Shipping Rates Style ================== */
-.shipping-rates-row:first-child{
-  border-top: 1px solid #cdd4db;
-}
-
 .shipping-rates-row{
   border-bottom: 1px solid #cdd4db;
   padding:10px;
+  position: relative;
 }
 
-
-.shipping-rates-row-cell{
-  width: 26%;
-  margin: 5px 0%;
-  text-align: center;
-  padding: 5px 10px;
-  border-radius: 5px;
+.shipping-rates-row:first-child{
+  border-top: 1px solid #cdd4db;
 }
-
-
-.shipping-rates-row-arrow-cell{
-  margin: 0 10px ;
-  color: rgb(131, 137, 142);
-}
-
-.shipping-rates-add-row {
-  align-self: flex-start;
-}
-
-
 
 .shipping-rate-input{
   color: rgb(131, 137, 142);
   background-color: rgba(188, 201, 214, 0.1);
   border: 1px solid #C9D3DC;
   align-items: center;
-  width: 26%;
   padding: 5px 4px;
   border-radius: 5px;
 }
@@ -127,8 +106,6 @@
 .shipping-rate-input.disabled{
   background-color: #e8e8e8;
 }
-
-
 
 .shipping-rate-input-prefix{
   padding: 0 8px;
@@ -140,14 +117,10 @@
   padding: 0 5px;
   margin: 0;
   border: none;
-  flex: 1;
-  min-width: 50%;
   text-align: center;
   background-color: initial;
   font-weight: inherit;
 }
-
-
 
 .shipping-rate-input-field:focus{
   outline: none;
@@ -170,3 +143,31 @@
   outline-color: tomato;
 }
 
+.shipping-rates-arrow {
+  margin: 0 10px ;
+  color: rgb(131, 137, 142);
+}
+
+.shipping-rates-and-up{
+  margin: 5px 0%;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  flex: 1;
+}
+
+
+.delete-shipping-role{
+  position: absolute;
+  right: -20px;
+}
+
+.free-shipping-role{
+  position: absolute;
+  right: -55px;
+}
+
+
+.shipping-rates-add-row {
+  align-self: flex-start;
+}

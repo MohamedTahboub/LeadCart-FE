@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ids from 'shortid';
 import clx from 'classnames';
 
@@ -13,7 +13,7 @@ const Title = ({ className, children, color = '#83898e', style }) => <p style={{
 
 const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippingRuleId }) => {
   const [invalidRate, setInvalidRate] = useState({});
-  const sortedShippingRates = shippingRates.sort(((first, second) => Number(first.rowNumber) - Number(second.rowNumber)));
+  const [shippingTitlesWidth, setShippingTitlesWidth] = useState(200);
 
   const onShippingRateChange = ({ value, _id, currentIndex }) => {
     const hasInvalidNextRate = shippingRates.find((ele, index) => index > currentIndex && Number(ele.to) <= Number(value));
@@ -30,7 +30,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
       setInvalidRate({});
     }
 
-    const updatedList = [...sortedShippingRates];
+    const updatedList = [...shippingRates];
     updatedList.forEach((ele, index) => {
       if (ele._id === _id) {
         updatedList[index] = { ...ele, to: value };
@@ -42,7 +42,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
 
 
   const onShippingCostChange = ({ value, _id }) => {
-    const updatedList = [...sortedShippingRates];
+    const updatedList = [...shippingRates];
     updatedList.forEach((ele, index) => {
       if (ele._id === _id)
         updatedList[index] = { ...ele, cost: value };
@@ -53,7 +53,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
 
 
   const onAddRow = () => {
-    const updatedList = [...sortedShippingRates];
+    const updatedList = [...shippingRates];
     const lastIndex = updatedList.length - 1;
     const lastRate = updatedList[lastIndex];
 
@@ -64,7 +64,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
   };
 
   const onDeleteRow = () => {
-    const updatedList = [...sortedShippingRates];
+    const updatedList = [...shippingRates];
     updatedList.pop();
     const lastIndex = updatedList.length - 1;
     const lastRate = updatedList[lastIndex];
@@ -82,17 +82,25 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
     invalidRate
   };
 
+
+  useEffect(() => {
+    const firstShippingRole = document.querySelector('#shipping-role');
+    if (firstShippingRole?.getBoundingClientRect()?.width)
+      setShippingTitlesWidth(firstShippingRole?.getBoundingClientRect()?.width);
+  });
+
   return (
     <FlexBox className='shipping-rates-container' id={`shipping-rates-${shippingRuleId}`} column flexStart>
       <Title className='my-3'>Shipping Rates</Title>
 
-      <FlexBox className='mb-2'>
-        <Title className='small-text pl-2' style={{ minWidth: '540px' }}> SubTotal Range (From - To) </Title>
-        <Title className='small-text'>Cost</Title>
+      <FlexBox className='mb-2' style={{ width: `${shippingTitlesWidth}px` }} spaceBetween >
+        <Title className='text-center small-text flex'> SubTotal Range (From - To)</Title>
+        <Title className='text-center small-text flex'/>
+        <Title className='text-center small-text flex'>Cost</Title>
       </FlexBox>
 
       <FlexBox className='shipping-rates-body' id='shipping-rates-body' column>
-        {sortedShippingRates.map((shippingRate, index) => (
+        {shippingRates.map((shippingRate, index) => (
           <ShippingRatesRow
             key={shippingRate._id}
             currentIndex={index}

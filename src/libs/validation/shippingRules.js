@@ -5,8 +5,7 @@ const SHIPPING_RATES_SCHEMA = yup.object().shape({
   from: yup.number().required(),
   to: yup.string().required(),
   cost: yup.number().required(),
-  _id: yup.string().required(),
-  rowNumber: yup.number().required()
+  _id: yup.string().required()
 });
 
 export default async (shippingRule) => {
