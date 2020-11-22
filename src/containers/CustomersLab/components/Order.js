@@ -73,7 +73,7 @@ const Order = ({
         <Fragment>
           <ReceiptRow
             className='receipt-total sub-total'
-            label='Sub Total'
+            label='Subtotal'
             value={`${currencySymbol} ${RoundTow(subTotal)}`}
           />
           <ReceiptRow
