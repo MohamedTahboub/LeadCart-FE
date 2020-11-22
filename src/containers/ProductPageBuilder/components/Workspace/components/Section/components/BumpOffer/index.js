@@ -1,9 +1,10 @@
 import React from 'react';
+import 'react-toggle/style.css';
+import Toggle from 'react-toggle';
+
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import './style.css';
-import Toggle from 'react-toggle';
-import 'react-toggle/style.css';
 const {
   LayoutSwitch,
   ResizableTextarea,
