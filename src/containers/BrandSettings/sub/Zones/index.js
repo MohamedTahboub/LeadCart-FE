@@ -16,7 +16,7 @@ import './style.css';
 const { Table, FlexBox, Button } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
-const DestinationZone = ({ destinationZones, addNewDestinationZone, editDestinationZone }) => {
+const DestinationZone = ({ destinationZones = [], addNewDestinationZone, editDestinationZone }) => {
   const [savedZoneData, setSavedZoneData] = useState({});
   const [fields, setFields] = useState({});
   const [editableZoneId, setEditableZoneId] = useState('');
@@ -46,19 +46,19 @@ const DestinationZone = ({ destinationZones, addNewDestinationZone, editDestinat
   const onAddNewZone = () => {
     setLoading(true);
 
-    const defaultNumbersName = destinationZones
-      .filter(({ name }) => name.toLowerCase().includes('zone'))
-      .map((ele) => Number(ele?.name.split('zone')[1]))
-      .sort((a, b) => a - b);
+    // const defaultNumbersName = destinationZones
+    //   .filter(({ name }) => name.toLowerCase().includes('zone'))
+    //   .map((ele) => Number(ele?.name.split('zone')[1]))
+    //   .sort((a, b) => a - b);
 
-    const newDefaultNumber = defaultNumbersName.map((number, index) => {
-      if (number !== index + 1)
-        return index + 1;
-    }).sort()[0] || defaultNumbersName.length + 1;
+    // const newDefaultNumber = defaultNumbersName.map((number, index) => {
+    //   if (number !== index + 1)
+    //     return index + 1;
+    // }).sort()[0] || defaultNumbersName.length + 1;
 
 
     const defaultZone = {
-      name: `zone #${newDefaultNumber}`,
+      name: `zone #${destinationZones.length}`,
       countries: []
     };
 
