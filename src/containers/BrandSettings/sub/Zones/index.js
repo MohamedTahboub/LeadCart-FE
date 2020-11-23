@@ -16,7 +16,7 @@ import './style.css';
 const { Table, FlexBox, Button } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
-const DestinationZone = ({ destinationZones, addNewDestinationZone, editDestinationZone }) => {
+const DestinationZone = ({ destinationZones = [], addNewDestinationZone, editDestinationZone }) => {
   const [savedZoneData, setSavedZoneData] = useState({});
   const [fields, setFields] = useState({});
   const [editableZoneId, setEditableZoneId] = useState('');
