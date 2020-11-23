@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
@@ -44,6 +44,8 @@ const Settings = ({
 }) => {
   const currentLanguage = languagesOptions.find(({ value }) => value === language);
   const currentLanguageValue = currentLanguage ? currentLanguage.value : 'English';
+  const tabContentRef = useRef(null);
+  const [tabHeight, setTabHeight] = useState();
 
   const taxesOptions = [clearOption, ...getTaxesOptions(allTaxes.filter(({ enabled }) => enabled))];
   const selectedTaxOption = getTaxesOptions(allTaxes).find(({ value }) => tax === value);
@@ -56,9 +58,25 @@ const Settings = ({
     onChange({ name, value: value === 'English' ? null : value });
   };
 
+  useEffect(() => {
+    updateTabHeight();
+  }, []);
+
+  const updateTabHeight = () => {
+    if (tabContentRef && tabContentRef.current) {
+      const { height } = tabContentRef.current.getBoundingClientRect() || {};
+      if (!isNaN(height)) setTabHeight(height + 50);
+    }
+  };
   return (
-    <FlexBox column className='margin-top-10 scrolling-65vh pr-2'>
-      <FlexBox flex column>
+    <FlexBox
+      flex
+      column
+      className='margin-top-10 overflow-auto pr-2'
+      elementRef={tabContentRef}
+      style={{ maxheight: tabHeight }}
+    >
+      <FlexBox column>
         {!isOptInFunnel && (
           <Fragment>
             <FlexBox flex center='v-center'>
@@ -76,7 +94,7 @@ const Settings = ({
                 onChange={onFiledChange}
               />
             </FlexBox>
-            <FlexBox flex column className='mt-3'>
+            <FlexBox flex column className='mt-2'>
               <Label>
                 Payment Method:
               </Label>
@@ -104,7 +122,7 @@ const Settings = ({
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox column className='mt-3'>
+      <FlexBox column className='mt-2'>
         <Label>
           Funnel Publishable Link (URL):
         </Label>
@@ -116,7 +134,7 @@ const Settings = ({
         />
       </FlexBox>
 
-      <FlexBox column className='mt-3'>
+      <FlexBox column className='mt-2'>
         <Label>
           Tax Schemas:
         </Label>

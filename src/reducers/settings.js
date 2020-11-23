@@ -102,7 +102,7 @@ export default (state = initialState, { type, payload }) => {
   case GET_INVOICING_DETAILS:
     return {
       ...state,
-      invoicing: { ...state.invoicing, ...payload }
+      invoicing: payload || {}
     };
   default: return state;
   }

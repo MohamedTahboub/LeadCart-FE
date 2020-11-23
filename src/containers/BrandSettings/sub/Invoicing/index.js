@@ -21,10 +21,10 @@ const Invoicing = ({ invoicing, ...props }) => {
 
   const onSave = async () => {
 
-    const { isValid, value: invoiceDetails, errors } = await invoicingSettingsSchema(values);
+    const { isValid, value: invoiceDetails, errorList = '' } = await invoicingSettingsSchema(values);
 
     if (!isValid)
-      return notification.failed('Please check the fields below, and try again');
+      return notification.failed('Please check the fields, all fields are required');
 
     props.updateInvoicingDetails(invoiceDetails, {
       onSuccess: () => {
@@ -48,15 +48,15 @@ const Invoicing = ({ invoicing, ...props }) => {
 
   const onDownloadSampleInvoice = async (e) => {
     e.preventDefault();
-    const { isValid, value: { enabled, ...invoiceDetails }, errors } = await invoicingSettingsSchema(values);
+    const { isValid, value: { enabled, ...invoiceDetails } = {}, errorList } = await invoicingSettingsSchema(values);
 
     if (!isValid)
-      return notification.failed('Please make sure that the fields below are valid');
+      return notification.failed('Please check the fields, all fields are required');
 
     props.generateSampleInvoice(invoiceDetails, {
       onSuccess: ({ invoice }) => {
         downloadFile(invoice, 'sample invoice.pdf');
-        notification.success('an invoice generated successfully');
+        notification.success('A sample invoice has been generated successfully');
       },
       onFailed: (message) => {
         notification.failed(message);
@@ -138,7 +138,7 @@ const Invoicing = ({ invoicing, ...props }) => {
         </FlexBox>
       </FlexBox>
       <span className='title-text bold-text mt-3'>
-            Company Address:
+        Company Address:
       </span>
       <FlexBox column className='pl-3'>
         <FlexBox className='mt-3' center='v-center'>

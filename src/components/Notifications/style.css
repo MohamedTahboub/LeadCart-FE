@@ -16,7 +16,7 @@
   }
   .actual-content-holder .message {
     font-size: 13px;
-    /* line-height: 20px; */
+    /* white-space: pre; */
     margin: 5px 0;
   }
   .actual-content-holder {

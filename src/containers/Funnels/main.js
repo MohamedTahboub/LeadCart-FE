@@ -23,7 +23,7 @@ const {
 
 const Funnels = ({
   funnels,
-  filtersLabels,
+  isFetching,
   deleteFunnel,
   subDomain,
   defaultCurrency,
@@ -97,7 +97,7 @@ const Funnels = ({
         ))
         }
 
-        {!hasFunnels && <FunnelsShadowLoading/>}
+        {(!hasFunnels && isFetching) && <FunnelsShadowLoading/>}
 
       </PageContent>
 
