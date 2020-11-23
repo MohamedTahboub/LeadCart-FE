@@ -24,7 +24,7 @@ const Invoicing = ({ invoicing, ...props }) => {
     const { isValid, value: invoiceDetails, errorList = '' } = await invoicingSettingsSchema(values);
 
     if (!isValid)
-      return notification.failed(`Please check the fields below, and try again\n${errorList}`);
+      return notification.failed('Please check the fields, all fields are required');
 
     props.updateInvoicingDetails(invoiceDetails, {
       onSuccess: () => {
@@ -51,7 +51,7 @@ const Invoicing = ({ invoicing, ...props }) => {
     const { isValid, value: { enabled, ...invoiceDetails } = {}, errorList } = await invoicingSettingsSchema(values);
 
     if (!isValid)
-      return notification.failed(`Please check the fields below, and try again\n${errorList}`);
+      return notification.failed('Please check the fields, all fields are required');
 
     props.generateSampleInvoice(invoiceDetails, {
       onSuccess: ({ invoice }) => {
@@ -138,7 +138,7 @@ const Invoicing = ({ invoicing, ...props }) => {
         </FlexBox>
       </FlexBox>
       <span className='title-text bold-text mt-3'>
-            Company Address:
+        Company Address:
       </span>
       <FlexBox column className='pl-3'>
         <FlexBox className='mt-3' center='v-center'>

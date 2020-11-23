@@ -60,17 +60,17 @@ const concatError = (errors = []) => {
 };
 export const invoicingSettingsSchema = async (fields) => {
   const schema = yup.object({
-    companyName: yup.string().required(),
+    companyName: yup.string().required('Company Name is required'),
     address: yup.object({
-      streetAddress: yup.string().required(),
-      streetAddressLine2: yup.string(),
-      state: yup.string(),
-      city: yup.string().required(),
-      country: yup.string().required()
+      streetAddress: yup.string().required('Address is required'),
+      streetAddressLine2: yup.string('Address is required'),
+      state: yup.string('State is required'),
+      city: yup.string().required('City is required'),
+      country: yup.string().required('Country is required')
     }),
     logo: yup.string().url().default(leadcartDefaultLogo),
     taxId: yup.string(),
-    enabled: yup.boolean().required()
+    enabled: yup.boolean().default(true)
   }).required();
 
   try {
