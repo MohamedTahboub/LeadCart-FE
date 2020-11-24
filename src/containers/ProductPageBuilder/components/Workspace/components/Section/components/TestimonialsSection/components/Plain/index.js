@@ -17,9 +17,10 @@ const PlainTestimonial = ({
   image = avatarLink,
   rank = 2,
   orderId: id,
-  onChange
+  onChange,
+  styles = {}
 }) => {
-
+  const { backgroundColor = 'transparent', nameColor = '#000', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value }) => {
     onChange({
@@ -31,7 +32,7 @@ const PlainTestimonial = ({
   };
 
   return (
-    <FlexBox className='plain-testimonial-section'>
+    <FlexBox className='plain-testimonial-section' style={{ backgroundColor }}>
       <Image
         className='plain-testimonial-image'
         image={image}
@@ -45,6 +46,7 @@ const PlainTestimonial = ({
           defaultValue='testimonial content'
           value={content}
           className='medium-text blush-gray max-w-500 margin-v-20 text-align-center'
+          style={{ overflow: 'hidden', color: descriptionColor }}
         />
         <FlexBox spaceBetween className='col-on-mobile'>
           <ResizableInput
@@ -53,7 +55,8 @@ const PlainTestimonial = ({
             name='content.author'
             defaultValue='Author Name'
             value={author}
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', color: nameColor }}
+            maxLength='20'
           />
           <StarsRanking
             name='content.rank'

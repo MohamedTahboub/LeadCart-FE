@@ -1,3 +1,11 @@
+.compact-testimonial-section {
+    margin: 32px auto;
+    border-radius: 8px;
+    padding: 32px 16px 16px;
+    position: relative;
+    max-width: 464px;
+}
+
 .compact-testimonial-image {
     position: absolute;
     border-radius: 50%;
@@ -14,19 +22,14 @@
 .mobile .compact-testimonial-section .author-description input {
     max-width: 250px;
 }
+
 .tablet .compact-testimonial-section .author-description input {
     max-width: 300px;
 }
 
-.compact-testimonial-section {
-    margin: 32px auto;
-    border-radius: 8px;
-    padding: 32px 16px 16px;
-    position: relative;
-    max-width: 464px;
-}
 
-.verifying-party-input {
+
+.compact-testimonial-section .verifying-party-input {
     font-size: 10px;
 }
 

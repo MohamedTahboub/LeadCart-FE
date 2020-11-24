@@ -20,9 +20,10 @@ const DescriptionOrientedTestimonial = ({
   className,
   orderId: id,
   onChange,
+  styles = {},
   ...props
 }) => {
-
+  const { backgroundColor = 'transparent', nameColor = '#000', jobTitleColor = '#a2a2a2', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value, ...res }) => {
     onChange({
@@ -34,7 +35,7 @@ const DescriptionOrientedTestimonial = ({
   };
 
   return (
-    <FlexBox center='v-center margin-v-10 description-oriented-testimonial'>
+    <FlexBox center='v-center margin-v-10 description-oriented-testimonial' style={{ backgroundColor }}>
       <FlexBox column className='margin-left-20 full-width'>
         <StarsRanking
           name='content.rank'
@@ -48,6 +49,7 @@ const DescriptionOrientedTestimonial = ({
           defaultValue='testimonial content'
           value={content}
           className='medium-text blush-gray max-w-500 margin-v-20'
+          style={{ overflow: 'hidden', color: descriptionColor }}
         />
         <FlexBox>
           <Image
@@ -63,7 +65,8 @@ const DescriptionOrientedTestimonial = ({
               name='content.author'
               defaultValue='Author Name'
               value={author}
-              style={{ fontWeight: 'bold' }}
+              style={{ fontWeight: 'bold', color: nameColor }}
+              maxLength='20'
             />
             <ResizableInput
               className='ml-2 testimonial-content-input text-align-start author-description'
@@ -71,7 +74,8 @@ const DescriptionOrientedTestimonial = ({
               name='content.authorDescription'
               defaultValue='Job title'
               value={authorDescription}
-              style={{ fontWeight: 'bold' }}
+              style={{ fontWeight: 'bold', color: jobTitleColor }}
+              maxLength='55'
             />
           </FlexBox>
         </FlexBox>
