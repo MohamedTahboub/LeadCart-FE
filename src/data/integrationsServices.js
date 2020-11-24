@@ -34,6 +34,17 @@ const services = [
     supported: true
   },
   {
+    key: 'lc_offlinePayment',
+    name: 'Off Line Payment',
+    brandLogo: brandsLogos.razorpayLogo,
+    category: 'Payment Gateways',
+    description: 'An Indian payment gateway that accepts payments from customers. Automate payouts to vendors and employees.',
+    connectMode: 'modal',
+    active: false,
+    connected: false,
+    supported: true
+  },
+  {
     key: 'lc_authorizenetlogo',
     name: 'Authorize.Net',
     brandLogo: brandsLogos.authorizeNetLogo,

@@ -10,6 +10,7 @@ import servicesList from 'data/integrationsServices';
 import {
   ConnectModal,
   ConnectingModal,
+  IntegrationEditModal,
   IntegrationsLayouts,
   LayoutOptions
 } from './components';
@@ -51,6 +52,7 @@ const checkConnecting = (searchUrl = '') => {
 const Integrations = ({ integrations, history, ...props }) => {
   const [activeLayout, setActiveLayout] = useState('list');
   const [openModal, setOpenModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
   const [disconnectedDialog, setDisconnectDialog] = useState(false);
@@ -69,12 +71,18 @@ const Integrations = ({ integrations, history, ...props }) => {
 
   const onConnect = (service) => {
     setActiveService(service);
-    setOpenModal(true);
+    console.log({ service });
+    if (service && service.connectMode)
+      setOpenEditModal(service.key);
+    else
+      setOpenModal(true);
+
   };
 
   const onConnectClosed = () => {
     setActiveService();
     setOpenModal(false);
+    setOpenEditModal(false);
   };
 
   const onShowDisconnectDialog = (service) => {
@@ -166,8 +174,17 @@ const Integrations = ({ integrations, history, ...props }) => {
             onClose={onConnectingStop}
             history={history}
           />
-        )
-        }
+        )}
+        {openEditModal && (
+          <IntegrationEditModal
+            open={openEditModal}
+            onToggle={() => setOpenEditModal(false)}
+            onConnectClosed={onConnectClosed}
+            onConnect={onConnect}
+            // onDisconnect={onShowDisconnectDialog}
+            service={activeService}
+          />
+        )}
         {disconnectedDialog && (
           <Dialog
             onClose={onCloseDisconnectDialog}
