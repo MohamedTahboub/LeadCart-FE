@@ -153,6 +153,7 @@ const FlatForm = ({ language, section }) => {
           />
           <PhoneNumberInput
             flex
+            disabled
             label='Mobile No'
             placeholder='+1 218-266-6543'
             theme='modern'

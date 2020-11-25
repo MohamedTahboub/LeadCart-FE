@@ -17,7 +17,7 @@ const PhoneNumber = (props) => {
     <PhoneInput
       placeholder='Phone Number'
       {...props}
-      disabled
+      disabled={props.disabled}
       onChange={onChange}
     />
   );

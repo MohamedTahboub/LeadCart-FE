@@ -44,7 +44,7 @@ const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
           label={email}
         />
         <PhoneNumberInput
-          // disabled
+          disabled
           label={phoneNumber}
         />
       </div>
