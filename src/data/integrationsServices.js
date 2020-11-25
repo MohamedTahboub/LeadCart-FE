@@ -345,13 +345,17 @@ const services = [
     supported: false
   },
   {
-    key: 'lc_twillio',
-    name: 'Twillio',
-    brandLogo: brandsLogos.twillio,
+    key: 'lc_twilio',
+    name: 'Twilio',
+    brandLogo: brandsLogos.twilio,
     category: 'Misc Integrations',
+    fields: [
+      { name: 'apiKey', label: 'Account SID' },
+      { name: 'apiSecret', label: 'Auth Token' }
+    ],
     active: false,
     connected: false,
-    supported: false
+    supported: true
   },
   {
     key: 'lc_wordpress',

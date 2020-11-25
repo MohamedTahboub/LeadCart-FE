@@ -12,6 +12,9 @@ import {
   GET_INTEGRATION_ACTION_REQUIREMENT_FAILED,
   GET_INTEGRATION_ACTION_REQUIREMENT_SUCCESS,
   GET_USER_INTEGRATION,
+  SEND_TWILIO_TEST_SMS,
+  SEND_TWILIO_TEST_SMS_FAILED,
+  SEND_TWILIO_TEST_SMS_SUCCESS,
   SEND_WEBHOOK_TEST_PAYLOAD,
   SEND_WEBHOOK_TEST_PAYLOAD_FAILED,
   SEND_WEBHOOK_TEST_PAYLOAD_SUCCESS
@@ -89,6 +92,20 @@ export const sendWebhookTestPayloadSuccess = (service) => ({
 });
 export const sendWebhookTestPayloadFailed = (message) => ({
   type: SEND_WEBHOOK_TEST_PAYLOAD_FAILED,
+  payload: message
+});
+
+export const sendTwilioTestSMS = (details, meta) => ({
+  type: SEND_TWILIO_TEST_SMS,
+  payload: details,
+  meta
+});
+export const sendTwilioTestSMSSuccess = (details) => ({
+  type: SEND_TWILIO_TEST_SMS_SUCCESS,
+  payload: details
+});
+export const sendTwilioTestSMSFailed = (message) => ({
+  type: SEND_TWILIO_TEST_SMS_FAILED,
   payload: message
 });
 
