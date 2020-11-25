@@ -52,7 +52,8 @@ const PaymentMethods = ({
     payPal: payPalTitle = 'PayPal'
   } = language.checkout || {};
 
-  const methods = paymentMethods ? paymentMethods : defaultPaymentsMethods;
+  const methods = Array.isArray(paymentMethods) ? paymentMethods : defaultPaymentsMethods;
+
 
   return (
     <Fragment>
