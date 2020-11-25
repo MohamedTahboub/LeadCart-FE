@@ -5,7 +5,7 @@ import paypalImage from 'assets/images/paypal-thumbnail.png';
 import creditCardImage from 'assets/images/credit-card-demo.gif';
 import payOnDeliveryImage from 'assets/images/cod_icon.png';
 import cashOnDeliveryImage from 'assets/images/cod_icon.png';
-import razorpayLogo  from 'assets/images/brands/razorpay-logo.svg';
+import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
 
 import { useContext } from '../../../../../../../../actions';
 import './style.css';
@@ -41,19 +41,19 @@ const defaultPaymentsMethods = ['Paypal', 'Stripe'];
 
 const PaymentMethods = ({
   language = {},
-  methods: paymentMethods = defaultPaymentsMethods,
   step = 2,
   twoStepCheckout
 }) => {
-  const methods = paymentMethods.length ? paymentMethods : defaultPaymentsMethods;
-
-  const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
+  const { state: { product: { custom: { shippingDetails } = {} }, funnel: { paymentMethods } = {} } } = useContext();
   const [method, setMethod] = useState(0);
   const {
     paymentMethods: paymentMethodsTitle = 'Payment Method',
     creditCards: creditCardsTitle = 'Credit Cards',
     payPal: payPalTitle = 'PayPal'
   } = language.checkout || {};
+
+  const methods = Array.isArray(paymentMethods) ? paymentMethods : defaultPaymentsMethods;
+
 
   return (
     <Fragment>
