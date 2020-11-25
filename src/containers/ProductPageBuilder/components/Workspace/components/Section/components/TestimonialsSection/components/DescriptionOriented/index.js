@@ -36,21 +36,24 @@ const DescriptionOrientedTestimonial = ({
 
   return (
     <FlexBox center='v-center margin-v-10 description-oriented-testimonial' style={{ backgroundColor }}>
-      <FlexBox column className='margin-left-20 full-width'>
-        <StarsRanking
-          name='content.rank'
-          rank={rank}
-          max={5}
-          onChange={onChange}
-        />
-        <ResizableTextarea
-          onChange={onChange}
-          name='content.value'
-          defaultValue='testimonial content'
-          value={content}
-          className='medium-text blush-gray max-w-500 margin-v-20'
-          style={{ overflow: 'hidden', color: descriptionColor }}
-        />
+      <FlexBox column className='full-width'>
+        <FlexBox className='margin-left-20' column>
+          <StarsRanking
+            name='content.rank'
+            rank={rank}
+            max={5}
+            onChange={onChange}
+          />
+          <ResizableTextarea
+            onChange={onChange}
+            name='content.value'
+            defaultValue='testimonial content'
+            value={content}
+            className='medium-text blush-gray max-w-500 margin-v-20'
+            style={{ overflow: 'hidden', color: descriptionColor }}
+          />
+        </FlexBox>
+
         <FlexBox>
           <Image
             className='description-oriented-testimonial-image'
@@ -58,7 +61,7 @@ const DescriptionOrientedTestimonial = ({
             name={`testimonial-image-${id}`}
             onChange={onImageChange}
           />
-          <FlexBox column>
+          <FlexBox style={{ overflow: 'hidden' }} column>
             <ResizableInput
               className='ml-2'
               onChange={onChange}
