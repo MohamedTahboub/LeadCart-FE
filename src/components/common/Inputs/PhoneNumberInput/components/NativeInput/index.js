@@ -6,7 +6,7 @@ import 'react-phone-number-input/style.css';
 const PhoneNumber = (props) => {
 
   const onChange = (value) => {
-    props.onChange({
+    props.onChange && props.onChange({
       target: {
         name: props.name,
         value
@@ -17,6 +17,7 @@ const PhoneNumber = (props) => {
     <PhoneInput
       placeholder='Phone Number'
       {...props}
+      disabled
       onChange={onChange}
     />
   );

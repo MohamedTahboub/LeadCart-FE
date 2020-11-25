@@ -5,7 +5,7 @@ import './style.css';
 const CustomPhoneNumber = (props) => {
   return (
     <NativeInput
-      className='custom-phone-number-input input-filed-group '
+      className='custom-phone-number-input checkout-input-field-container disabled'
       {...props}
     />
   );

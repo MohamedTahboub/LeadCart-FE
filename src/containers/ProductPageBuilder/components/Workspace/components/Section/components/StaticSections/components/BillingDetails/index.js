@@ -3,6 +3,7 @@ import common from 'components/common';
 import { useContext } from '../../../../../../../../actions';
 
 import './style.css';
+import { PhoneNumberInput } from 'components/common/Inputs';
 const { CycleStepTitle, CheckoutInput } = common;
 
 
@@ -42,8 +43,8 @@ const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
           disabled
           label={email}
         />
-        <CheckoutInput
-          disabled
+        <PhoneNumberInput
+          // disabled
           label={phoneNumber}
         />
       </div>
