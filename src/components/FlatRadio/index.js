@@ -3,7 +3,7 @@ import clx from 'classnames';
 
 import './style.css';
 
-const FlatRadio = ({ value, name, onToggle, options, className }) => {
+const FlatRadio = ({ value, name, onToggle, options = [], className }) => {
   const onRadioClick = (value) => {
     onToggle({ name, value });
   };

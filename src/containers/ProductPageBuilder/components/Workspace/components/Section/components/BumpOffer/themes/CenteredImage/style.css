@@ -1,0 +1,30 @@
+.bump-offer-third-theme{
+  padding: 15px;
+  width: 500px;
+  margin: auto;
+}
+
+
+.bump-offer-third-theme .bump-offer-img-container{
+  height: 150px;
+  margin:10px 0;
+}
+
+
+
+.bump-offer-third-theme .bump-offer-img-container .wrapped-image-container{
+  height: 100%;
+  border-radius: 5px;
+  width: 50%;
+}
+
+
+.bump-offer-third-theme .bump-offer-headline{
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+
+.bump-offer-third-theme .bump-offer-desc{
+  margin: 0;
+}

@@ -117,3 +117,18 @@
     color: gray;
     transform: scale(1.1);
 }
+
+.bump-offer-option .flat-radio-key {
+    width: 100%;
+}
+
+
+.bump-offer-option .checkbox-container {
+    padding-left: 17px;
+}
+
+
+.bump-offer-option .ant-radio-wrapper {
+    margin: 0;
+}
+

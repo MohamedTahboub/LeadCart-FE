@@ -1,0 +1,42 @@
+.bump-offer-fourth-theme{
+  padding: 15px;
+  width: 500px;
+  margin: auto;
+}
+
+
+.bump-offer-fourth-theme .bump-offer-img-container{
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.bump-offer-fourth-theme .bump-offer-img-bg-container{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(8px);
+  height: 100%;
+  width: 100%;
+}
+
+.bump-offer-fourth-theme .bump-offer-img-container .wrapped-image-container{
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+
+.bump-offer-fourth-theme .bump-offer-headline{
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+
+.bump-offer-fourth-theme .bump-offer-desc{
+  margin: 0;
+}

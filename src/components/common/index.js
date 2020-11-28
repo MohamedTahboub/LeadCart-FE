@@ -28,6 +28,7 @@ import * as Menus from './Menus';
 import * as Spinners from './Spinners';
 import DisplayContent from './DisplayContent';
 import Tooltip from './Tooltip';
+import Checkbox from './Checkbox';
 
 export default {
   Table,
@@ -59,5 +60,6 @@ export default {
   Spinners,
   Dialog,
   Tooltip,
-  DisplayContent
+  DisplayContent,
+  Checkbox
 };
