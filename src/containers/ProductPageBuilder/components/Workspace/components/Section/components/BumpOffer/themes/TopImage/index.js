@@ -1,5 +1,6 @@
 import React from 'react';
 
+import defaultTopImage from 'assets/images/bumpOffers_templates/defaultTopImage.png';
 import common from 'components/common';
 import Image from 'components/common/Image';
 import { MainTitle } from '../../components';
@@ -11,7 +12,7 @@ const { FlexBox, ResizableTextarea } = common;
 const SecondTheme = ({
   introText,
   bodyText,
-  img,
+  img = defaultTopImage,
   contentHeadlineTextColor,
   containerTextColor,
   containerStyle,
@@ -22,7 +23,7 @@ const SecondTheme = ({
 
 
   return (
-    <FlexBox className='bump-offer-second-theme' style={containerStyle} column>
+    <FlexBox className='bump-offer-top-image' style={containerStyle} column>
       <MainTitle {...mainTitleProps} />
 
       <FlexBox className='bump-offer-img-container' >
@@ -37,14 +38,14 @@ const SecondTheme = ({
       <FlexBox className='bump-offer-texts' column>
         <ResizableTextarea
           className='bump-offer-headline'
-          style={{ color: contentHeadlineTextColor }}
+          style={{ color: contentHeadlineTextColor, fontWeight: 'bold' }}
           onChange={onChange}
           value={introText}
           name='content.introText'
         />
 
         <ResizableTextarea
-          className='bump-offer-desc'
+          className='bump-offer-desc small-text'
           style={{ color: containerTextColor }}
           value={bodyText}
           name='content.bodyText'

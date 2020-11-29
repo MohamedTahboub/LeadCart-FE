@@ -1,6 +1,5 @@
 import React from 'react';
 import 'react-toggle/style.css';
-import defaultDropImage from 'assets/images/upload-image.png';
 
 
 import common from 'components/common';
@@ -30,7 +29,7 @@ const BumpOffer = ({ section = {}, ...props }) => {
   };
 
 
-  const { price, introText, name, bodyText, title, checked: isChecked, img = defaultDropImage } = content;
+  const { price, introText, name, bodyText, title, checked: isChecked, img } = content;
 
   const {
     containerBackground,
@@ -43,7 +42,10 @@ const BumpOffer = ({ section = {}, ...props }) => {
     borderStyle,
     containerTextColor,
     toggleInput = 'checkbox',
-    theme = 'withoutImage'
+    theme = 'LeftImage',
+    borderBottomColor,
+    borderBottomStyle,
+    borderBottomWidth
   } = styles;
 
 
@@ -62,7 +64,10 @@ const BumpOffer = ({ section = {}, ...props }) => {
     toggleInput,
     borderRadius,
     title,
-    isChecked
+    isChecked,
+    borderBottomColor,
+    borderBottomStyle,
+    borderBottomWidth
   };
 
 
@@ -92,7 +97,7 @@ const BumpOffer = ({ section = {}, ...props }) => {
 
 
   return (
-    <LayoutSwitch active={theme} >
+    <LayoutSwitch active={theme} className='bump-offer' >
       <SideImage id='LeftImage' {...allProps} />
       <SideImage id='RightImage' {...allProps} />
       <TopImage id='TopImage' {...allProps} />

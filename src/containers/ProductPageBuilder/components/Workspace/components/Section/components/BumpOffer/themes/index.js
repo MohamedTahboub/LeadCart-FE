@@ -1,3 +1,4 @@
+import './themes.css';
 export { default as SideImage } from './SideImage';
 export { default as TopImage } from './TopImage';
 export { default as CenteredImage } from './CenteredImage';

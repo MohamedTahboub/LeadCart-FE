@@ -9,12 +9,14 @@ const CheckBox = ({
   className,
   active,
   onClick,
+  backgroundColor,
+  borderColor,
   ...props
 }) => {
   return (
     <FlexBox onClick={onClick} className={clx('checkbox-container', className, { active })} {...props}>
       <input type='checkbox' checked={active} />
-      <span className='checkmark' />
+      <span className='checkmark' style={{ backgroundColor, borderColor }} />
     </FlexBox>
   );
 };

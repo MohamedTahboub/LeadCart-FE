@@ -29,7 +29,7 @@ const BumpOffer = ({
       <FlexBox className='bump-offer-texts' column>
         <ResizableTextarea
           className='bump-offer-headline'
-          style={{ color: contentHeadlineTextColor }}
+          style={{ color: contentHeadlineTextColor, fontWeight: 'bold' }}
           name='content.introText'
           value={introText}
           onChange={onChange}

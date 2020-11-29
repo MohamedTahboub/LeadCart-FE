@@ -33,63 +33,22 @@ const {
 
 const themesOptions = [
   {
-    src: 'https://i.imgur.com/g7ZKw0i.png',
-    styles: {
-      theme: 'withoutImage',
-      containerBackground: '#fff',
-      containerTextColor: '#000',
-      headerBackground: 'rgb(142, 209, 252)',
-      borderColor: 'rgb(142, 209, 252)',
-      borderStyle: 'dashed',
-      borderWidth: 2,
-      borderRadius: 5
-    }
-  },
-  // {
-  //   src: 'https://i.imgur.com/kPvXDwq.png',
-  //   styles: {
-  //     theme: 'withoutImage',
-  //     containerBackground: '#fff',
-  //     containerTextColor: '#FCB900',
-  //     headerTextColor: '#000',
-  //     headerBackground: '#fff',
-  //     borderColor: '#00D084',
-  //     borderStyle: 'dashed',
-  //     borderWidth: 2,
-  //     borderRadius: 5
-  //   }
-  // },
-  // {
-  //   src: 'https://i.imgur.com/LmsFKCt.png',
-  //   styles: {
-  //     theme: 'defaults',
-  //     containerBackground: '#fff',
-  //     containerTextColor: '#000',
-  //     contentHeadlineTextColor: '#EB144C',
-  //     headerBackground: '#FCB900',
-  //     borderColor: '#EB144C',
-  //     borderStyle: 'dashed',
-  //     borderWidth: 3,
-  //     borderRadius: 1
-  //   }
-  // }
-
-  {
-    src: 'https://i.imgur.com/CWxHsY4.png',
+    src: 'https://imgur.com/WUE6ziN.png',
     styles: {
       theme: 'LeftImage',
       containerBackground: '#F6F9FB',
-      containerTextColor: '#828282',
-      containerTitletColor: '#2d3d68',
-      contentHeadlineTextColor: '#4da0fe',
-      borderBottomColor: '#828282',
+      containerTextColor: '#707070',
+      containerTitletColor: '#2D3D68',
+      contentHeadlineTextColor: '#007AFF',
+      borderBottomColor: '#d0d1d4',
       borderBottomStyle: 'dashed',
-      borderBottomWidth: 2,
-      borderRadius: 3
+      borderBottomWidth: 1,
+      borderRadius: 3,
+      toggleInput: 'checkbox'
     }
   },
   // {
-  //   src: 'https://i.imgur.com/CWxHsY4.png',
+  //   src: 'https://imgur.com/WUE6ziN.png',
   //   styles: {
   //     theme: 'RightImage',
   //     containerBackground: '#F6F9FB',
@@ -107,10 +66,11 @@ const themesOptions = [
     styles: {
       theme: 'TopImage',
       containerBackground: '#F6F9FB',
-      containerTextColor: '#828282',
-      containerTitletColor: '#000',
-      contentHeadlineTextColor: 'green',
-      borderRadius: 3
+      containerTextColor: '#707070',
+      containerTitletColor: '#2D3D68',
+      contentHeadlineTextColor: '#57B894',
+      borderRadius: 3,
+      toggleInput: 'radio'
     }
   },
   {
@@ -118,14 +78,15 @@ const themesOptions = [
     styles: {
       theme: 'CenteredImage',
       containerBackground: '#fff',
-      containerTextColor: '#828282',
-      containerTitletColor: '#000',
-      contentHeadlineTextColor: 'darkblue',
-      headerBackground: '#eee',
-      borderColor: '#999',
+      containerTextColor: '#707070',
+      containerTitletColor: '#2D3D68',
+      contentHeadlineTextColor: '#2D3D68',
+      headerBackground: '#F6F9FB',
+      borderColor: '#DDDDDD',
       borderStyle: 'dashed',
-      borderWidth: 3,
-      borderRadius: 1
+      borderWidth: 2,
+      borderRadius: 3,
+      toggleInput: 'checkbox-circle'
     }
   },
   {
@@ -133,30 +94,64 @@ const themesOptions = [
     styles: {
       theme: 'BottomImage',
       containerBackground: '#fff',
-      containerTextColor: '#828282',
-      containerTitletColor: '#000',
-      contentHeadlineTextColor: 'red',
-      borderColor: '#999',
+      containerTextColor: '#707070',
+      containerTitletColor: '#2D3D68',
+      contentHeadlineTextColor: '#E13585',
+      borderColor: '#DDDDDD',
+      borderStyle: 'dashed',
+      borderWidth: 2,
+      borderRadius: 3,
+      toggleInput: 'checkbox'
+    }
+  },
+  {
+    src: 'https://i.imgur.com/g7ZKw0i.png',
+    styles: {
+      theme: 'withoutImage',
+      containerBackground: '#fff',
+      containerTextColor: '#000',
+      headerBackground: 'rgb(142, 209, 252)',
+      borderColor: 'rgb(142, 209, 252)',
+      borderStyle: 'dashed',
+      borderWidth: 2,
+      borderRadius: 5
+    }
+  },
+  {
+    src: 'https://i.imgur.com/kPvXDwq.png',
+    styles: {
+      theme: 'withoutImage',
+      containerBackground: '#fff',
+      containerTextColor: '#FCB900',
+      headerTextColor: '#000',
+      headerBackground: '#fff',
+      borderColor: '#00D084',
+      borderStyle: 'dashed',
+      borderWidth: 2,
+      borderRadius: 5
+    }
+  },
+  {
+    src: 'https://i.imgur.com/LmsFKCt.png',
+    styles: {
+      theme: 'withoutImage',
+      containerBackground: '#fff',
+      containerTextColor: '#000',
+      contentHeadlineTextColor: '#EB144C',
+      headerBackground: '#FCB900',
+      borderColor: '#EB144C',
       borderStyle: 'dashed',
       borderWidth: 3,
       borderRadius: 1
     }
   }
-
-
 ];
 
-const ToggleInputOption = ({ styles, onChange, label: labelName, value, Input, className }) => (
+const ToggleInputOption = ({ styles, onChange, value, Input, className }) => (
   <FlatRadio
-    className='mb-2 full-width bump-offer-option'
-    options={[{
-      label:
-        <FlexBox className='v-center' spaceBetween>
-          {labelName}
-          <Input className={className} />
-        </FlexBox>
-      , value
-    }]}
+    className='bump-offer-option'
+    style={{ width: '50%' }}
+    options={[{ label: <Input className={className} />, value }]}
     value={styles.toggleInput || 'checkbox'}
     name='styles.toggleInput'
     onToggle={(target) => onChange({ target })}
@@ -166,23 +161,19 @@ const ToggleInputOption = ({ styles, onChange, label: labelName, value, Input, c
 
 const toggleInputsOptions = [
   {
-    label: 'Checkmark',
     value: 'checkbox',
     Input: CheckBox
   },
   {
-    label: 'Circle Checkmark',
-    value: 'checbox-circle',
+    value: 'checkbox-circle',
     Input: CheckBox,
-    className: 'checbox-circle'
+    className: 'checkbox-circle'
   },
   {
-    label: 'Radio',
     value: 'radio',
     Input: Radio
   },
   {
-    label: 'Toggle',
     value: 'toggle',
     Input: Toggle
   }
@@ -227,6 +218,7 @@ const BumpOffer = () => {
 
   const hasHeaderBacground = styles?.headerBackground;
   const hasBorder = styles?.borderWidth;
+  const hasBorderBottom = styles?.borderBottomWidth;
 
 
   return (
@@ -289,11 +281,6 @@ const BumpOffer = () => {
 
 
       <Tab id='advance' title='Advance'>
-        <FlexBox className='mb-3' column>
-          <Title className='mb-1'>Toggle Input: </Title>
-          {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles}onChange={onChange}/>)}
-        </FlexBox>
-
         <InlinePopup
           title='Offer Colors'
           popUpContent={(
@@ -431,6 +418,68 @@ const BumpOffer = () => {
           )}
         />
         }
+
+
+        {hasBorderBottom &&
+        <InlinePopup
+          title='Border Bottom Style'
+          popUpContent={(
+            <FlexBox column>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Bottom Color:
+                </Label>
+                <MiniColorPicker
+                  name='styles.borderBottomColor'
+                  value={styles.borderBottomColor}
+                  onChange={onChange}
+                />
+
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Bottom Style:
+                </Label>
+                <SelectOption
+                  value={styles.borderBottomStyle}
+                  name='styles.borderBottomStyle'
+                  onChange={onChange}
+                  className='bump-offer-style-dropdown'
+                  options={[
+                    { label: 'Solid', value: 'solid' },
+                    { label: 'Dashed', value: 'dashed' }
+                  ]}
+                />
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Bottom Width:
+                </Label>
+                <SelectOption
+                  value={styles.borderBottomWidth}
+                  name='styles.borderBottomWidth'
+                  onChange={onChange}
+                  className='bump-offer-style-dropdown'
+                  options={[
+                    { label: '0 px', value: '0' },
+                    { label: '1 px', value: '1' },
+                    { label: '2 px', value: '2' },
+                    { label: '3 px', value: '3' },
+                    { label: '4 px', value: '4' }
+                  ]}
+                />
+              </InputRow>
+            </FlexBox>
+          )}
+        />
+        }
+
+        <FlexBox className='mt-3' column>
+          <Title className='mb-1'>Toggle Input: </Title>
+          <FlexBox wrappable>
+            {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles} onChange={onChange}/>)}
+          </FlexBox>
+        </FlexBox>
       </Tab >
     </Tabs >
   );

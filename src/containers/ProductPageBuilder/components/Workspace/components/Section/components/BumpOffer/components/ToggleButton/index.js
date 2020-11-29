@@ -10,7 +10,9 @@ const { LayoutSwitch, InputRow } = common;
 const { Toggle, Radio } = InputRow;
 
 
-const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, ...props }) => {
+const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, headerTextColor, headerBackground, ...props }) => {
+
+
   return (
     <LayoutSwitch active={toggleInput} >
       <Toggle
@@ -25,13 +27,17 @@ const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, ...p
         id='checkbox'
         active={isChecked}
         className={toggleClassName}
+        borderColor={headerTextColor}
+        backgroundColor='transparent'
       />
 
       <CheckBox
         {...props}
-        id='checbox-circle'
-        className={clx('checbox-circle', toggleClassName)}
+        id='checkbox-circle'
+        className={clx('checkbox-circle', toggleClassName)}
         active={isChecked}
+        borderColor={headerTextColor}
+        backgroundColor='transparent'
       />
 
       <Radio

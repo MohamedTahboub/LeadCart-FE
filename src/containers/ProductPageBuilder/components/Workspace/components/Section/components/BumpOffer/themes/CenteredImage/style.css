@@ -1,30 +1,30 @@
-.bump-offer-third-theme{
+.bump-offer-centered-image{
   padding: 15px;
-  width: 500px;
+  width: 50%;
   margin: auto;
 }
 
 
-.bump-offer-third-theme .bump-offer-img-container{
+.bump-offer-centered-image .bump-offer-img-container{
   height: 150px;
   margin:10px 0;
 }
 
 
 
-.bump-offer-third-theme .bump-offer-img-container .wrapped-image-container{
+.bump-offer-centered-image .bump-offer-img-container .wrapped-image-container{
   height: 100%;
   border-radius: 5px;
   width: 50%;
 }
 
 
-.bump-offer-third-theme .bump-offer-headline{
+.bump-offer-centered-image .bump-offer-headline{
   margin: 0 0 10px 0;
   font-weight: bold;
 }
 
 
-.bump-offer-third-theme .bump-offer-desc{
+.bump-offer-centered-image .bump-offer-desc{
   margin: 0;
 }

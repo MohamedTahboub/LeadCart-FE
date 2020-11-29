@@ -1,31 +1,30 @@
-.bump-offer-side-img{
+.bump-offer-side-image{
   padding: 15px;
-  width: 68%;
+  width: 50%;
   margin: auto;
 }
 
-.bump-offer-side-img .bump-offer-main-content{
+.bump-offer-side-image .bump-offer-main-content{
   margin-top: 15px;
   flex: 1;
 }
 
 
-.bump-offer-side-img .bump-offer-side-img-container{
-  min-height: 150px;
-  min-width: 150px;
+.bump-offer-side-image .bump-offer-side-image-container{
+  min-height: 130px;
+  min-width: 130px;
   object-fit: contain;  
+  justify-content: center;
+  align-items: center;
 }
 
 
-.bump-offer-side-img .bump-offer-side-img-container .wrapped-image-container {
-  min-height: 120px;
-  min-width: 120px;
-  width: 100%;
-  margin: auto;
+.bump-offer-side-image .bump-offer-side-image-container .wrapped-image-container {
+  transform: scale(2.5);
   border-radius: 5px;
 }
 
-.bump-offer-side-img .bump-offer-side-img-container img{
+.bump-offer-side-image .bump-offer-side-image-container img{
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -37,12 +36,14 @@
 }
 
 
-.bump-offer-side-img .bump-offer-headline{
+.bump-offer-side-image .bump-offer-headline{
   margin: 0 0 10px 0;
   font-weight: bold;
 }
 
 
-.bump-offer-side-img .bump-offer-desc{
+.bump-offer-side-image .bump-offer-desc{
   margin: 0;
 }
+
+

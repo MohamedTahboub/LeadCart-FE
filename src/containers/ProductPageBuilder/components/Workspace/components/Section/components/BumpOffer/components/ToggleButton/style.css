@@ -1,5 +1,22 @@
-.checbox-circle.checkbox-container .checkmark {
+.checkbox-circle.checkbox-container .checkmark {
   border-radius: 50% !important;
   padding: 5px !important;
+}
 
+
+.bump-offer .ant-radio-wrapper{
+  margin-right: 10px;
+}
+
+.bump-offer .toggle-bar{
+  margin-right: 40px;
+}
+
+.bump-offer .checkbox-container{
+  padding-left: 30px
+}
+
+
+.bump-offer .checkbox-container.active .checkmark:after{
+  top: 1px;
 }

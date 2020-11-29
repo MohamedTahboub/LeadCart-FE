@@ -1,11 +1,11 @@
-.bump-offer-second-theme{
+.bump-offer-top-image{
   padding: 15px;
-  width: 500px;
+  width: 50%;
   margin: auto;
 }
 
 
-.bump-offer-second-theme .bump-offer-img-container{
+.bump-offer-top-image .bump-offer-img-container{
   height: 150px;
   position: relative;
   margin:10px 0;
@@ -13,7 +13,7 @@
 }
 
 
-.bump-offer-second-theme .bump-offer-img-bg-container{
+.bump-offer-top-image .bump-offer-img-bg-container{
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -22,22 +22,22 @@
   width: 100%;
 }
 
-.bump-offer-second-theme .bump-offer-img-container .wrapped-image-container{
+.bump-offer-top-image .bump-offer-img-container .wrapped-image-container{
   height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
+  width: 70%;
 }
 
 
-.bump-offer-second-theme .bump-offer-headline{
+.bump-offer-top-image .bump-offer-headline{
   margin: 0 0 10px 0;
   font-weight: bold;
 }
 
 
-.bump-offer-second-theme .bump-offer-desc{
+.bump-offer-top-image .bump-offer-desc{
   margin: 0;
 }
