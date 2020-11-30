@@ -501,6 +501,8 @@ const BumpOffer = () => {
           </FlexBox>
         </FlexBox>
 
+        {
+          styles.hasBlurBackgroundImage &&
         <FlexBox spaceBetween center='v-center mt-3'>
           <FlexBox className='mr-2' flex>
             Filing With The Shadow Image:
@@ -513,6 +515,7 @@ const BumpOffer = () => {
             />
           </FlexBox>
         </FlexBox>
+        }
 
       </Tab >
     </Tabs >

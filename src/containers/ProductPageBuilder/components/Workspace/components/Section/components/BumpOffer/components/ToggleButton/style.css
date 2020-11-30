@@ -12,7 +12,7 @@
 }
 
 .bump-offer-toggle-button .toggle-bar.active .circle{
-  background-color: var(--container-bg-color);
+  background-color: var(--active-mark-color);
 }
 
 .bump-offer-toggle-button .toggle-bar.active{

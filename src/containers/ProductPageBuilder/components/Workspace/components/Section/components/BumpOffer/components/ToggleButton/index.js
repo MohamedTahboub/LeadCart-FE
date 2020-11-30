@@ -11,8 +11,8 @@ const { Toggle, Radio } = InputRow;
 
 
 const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, headerTextColor, headerBackground, containerBackground, ...props }) => {
-
-  const styleVars = { '--header-text-color': headerTextColor, '--container-bg-color': containerBackground };
+  const activeMarkColor = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
+  const styleVars = { '--header-text-color': headerTextColor, '--active-mark-color': activeMarkColor };
 
 
   return (
@@ -33,7 +33,7 @@ const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, head
         className={toggleClassName}
         borderColor={headerTextColor}
         backgroundColor={isChecked ? headerTextColor : 'transparent'}
-        checkmarkColor={headerBackground !== 'transparent' ? headerBackground : containerBackground}
+        checkmarkColor={activeMarkColor}
       />
 
       <CheckBox
@@ -43,7 +43,7 @@ const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, head
         active={isChecked}
         borderColor={headerTextColor}
         backgroundColor={isChecked ? headerTextColor : 'transparent'}
-        checkmarkColor={headerBackground !== 'transparent' ? headerBackground : containerBackground}
+        checkmarkColor={activeMarkColor}
       />
 
       <Radio
