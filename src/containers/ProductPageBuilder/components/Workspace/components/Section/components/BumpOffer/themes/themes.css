@@ -1,24 +1,7 @@
-.tablet .bump-offer .bump-offer-bottom-image,
-.tablet .bump-offer .bump-offer-top-image,
-.tablet .bump-offer .bump-offer-side-image,
-.tablet .bump-offer .bump-offer-centered-image{
-  width: 100%;
-}
-
-.mobile .bump-offer .bump-offer-bottom-image,
-.mobile .bump-offer .bump-offer-top-image,
-.mobile .bump-offer .bump-offer-side-image,
-.mobile .bump-offer .bump-offer-centered-image{
-  width: 100%;
-}
-
-
 .mobile .bump-offer .bump-offer-side-image .bump-offer-main-content{
   flex-direction: column;
   align-items: inherit;
 }
-
-
 
 
 .bump-offer .bump-offer-headline.auto-resize-textarea-input{
