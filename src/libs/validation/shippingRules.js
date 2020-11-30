@@ -1,20 +1,19 @@
 import * as yup from 'yup';
 import castYupErrors from './castErrors';
 
-const SHIPPING_RATES_SCHEMA = yup.object().shape({
+const shippingRatesSchema = yup.object().shape({
   from: yup.number().required(),
-  to: yup.string().required(),
-  cost: yup.number().required(),
-  _id: yup.string().required()
+  to: yup.number().required(),
+  cost: yup.number().default(0)
 });
 
 export default async (shippingRule) => {
   const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
     enabled: yup.bool().default(true),
-    shippingRates: yup.array().of(SHIPPING_RATES_SCHEMA),
-    shippingZone:  yup.string().required(),
-    description:  yup.string().required()
+    rates: yup.array().of(shippingRatesSchema),
+    zone:  yup.string(),
+    description: yup.string()
   }).required();
 
   try {

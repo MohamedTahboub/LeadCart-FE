@@ -62,7 +62,7 @@ const FlatForm = ({ language, section }) => {
           termsAndConditions,
           marketingConsentIsRequired,
           termsAndConditionsIsRequired,
-          te: shippingMethodsEnabled
+          shippingMethodsEnabled
           // orderSummary
         } = {}
       } = {}
@@ -251,7 +251,7 @@ const FlatForm = ({ language, section }) => {
       </Tab>
 
       {shippingMethodsEnabled && (
-        <Tab title='Method' id='shippingMethods'>
+        <Tab title='Shipping Methods' id='shippingMethods'>
           <ShippingMethods />
           <FlexBox column flex center='v-center'>
             <OrderButton
@@ -460,7 +460,7 @@ const FlatForm = ({ language, section }) => {
       )}
       {shippingMethodsEnabled && (
         <FlexBox column>
-          <Title className='step-title mt-3'>Shipping Method</Title>
+          <Title className='step-title mt-3'>Shipping Methods</Title>
           <ShippingMethods />
         </FlexBox>
       )}

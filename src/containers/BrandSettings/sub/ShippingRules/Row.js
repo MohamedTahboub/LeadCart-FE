@@ -32,21 +32,19 @@ const RateInput = ({ value, className, disabled, min = 0, onChange, currency = '
   );
 };
 
-
-const ShippingRatesRow = ({ from, to, cost, _id = '', onShippingRateChange, onShippingCostChange, shippingRates = [], currentIndex, invalidRate, onDeleteRow, defaultBrandCurrency }) => {
-  const isTheLastElement = currentIndex === shippingRates.length - 1 && shippingRates.length > 1;
-  const isFreeShipping = Number(cost) === 0;
-
-  const hassError = invalidRate?._id === _id;
-  const errorMessage = invalidRate?._id === _id ?
-  `You have an invalid rate, please make sure that all of 
-  ${invalidRate?.invalidPlace === 'top' ? 'previous' : 'next'}
+const constructErrorMessage = (id, invalidRate = {}) => {
+  return invalidRate._id === id ?
+    `You have an invalid rate, please make sure that all of 
+  ${invalidRate.invalidPlace === 'top' ? 'previous' : 'next'}
    rates values are 
-   ${invalidRate?.invalidPlace === 'top' ? 'smaller' : 'bigger'}
+   ${invalidRate.invalidPlace === 'top' ? 'smaller' : 'bigger'}
     than this value`
     : '';
+}
+const ShippingRatesRow = ({ from, to, cost, _id, lastRateElement, onShippingRateChange, onShippingCostChange, currentIndex, invalidRate, onDeleteRow, defaultBrandCurrency }) => {
 
-
+  const isFreeShipping = Number(cost) === 0;
+  const errorMessage = constructErrorMessage(_id, invalidRate)
   const currency = getCurrencySymbol(defaultBrandCurrency);
 
   return (
@@ -55,30 +53,32 @@ const ShippingRatesRow = ({ from, to, cost, _id = '', onShippingRateChange, onSh
         <RateInput value={getFixedFormat(from)} currency={currency} disabled />
         <BsArrowRight className='shipping-rates-arrow' size={20} />
 
-        {!isNaN(Number(to)) ?
+        {!lastRateElement ? (
           <RateInput
-            value={Number(to)}
+            value={to}
             min={from}
-            className={clx({ error: hassError })}
+            className={clx({ error: errorMessage })}
             onChange={({ target: { value } }) => onShippingRateChange({ value, _id, currentIndex })}
             currency={currency}
           />
-          :
-          <Title className='shipping-rates-and-up min-width-200'>{to}</Title>
+        ) : (
+            <Title className='shipping-rates-and-up min-width-200'>
+              and up
+            </Title>
+          )
         }
-
 
         <RateInput
           value={cost}
-          onChange={({ target: { value } }) => {onShippingCostChange({ value, _id });}}
+          onChange={({ target: { value } }) => { onShippingCostChange({ value, _id }); }}
           className='ml-4'
           currency={currency}
         />
 
-        {isTheLastElement &&
-         <ReactTooltip overlay='Delete Row'>
-           <MdDelete className='ml-2 item-clickable delete-shipping-role' size={20} onClick={onDeleteRow} color='tomato' />
-         </ReactTooltip>
+        {lastRateElement &&
+          <ReactTooltip overlay='Delete Row'>
+            <MdDelete className='ml-2 item-clickable delete-shipping-role' size={20} onClick={onDeleteRow} color='tomato' />
+          </ReactTooltip>
         }
         {isFreeShipping && <Title className='ml-2 small-text free-shipping-role'>(Free)</Title>}
       </FlexBox>

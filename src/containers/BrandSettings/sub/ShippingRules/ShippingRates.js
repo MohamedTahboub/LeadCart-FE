@@ -10,14 +10,31 @@ const getFixedFormat = (number) => Number(number).toFixed(2);
 
 const Title = ({ className, children, color = '#83898e', style }) => <p style={{ color, ...style }} className={clx(`gray-text bold-text m-0 ${className}`)} >{children}</p>;
 
+const getValidity = (shippingRates = [], currentIndex, currentToValue) => {
+  let hasInvalidNextRate, hasInvalidPreviousRate;
 
+  shippingRates.forEach((rate, index) => {
+    const isLastRate = shippingRates.length === (index + 1)
+
+    if (currentIndex < index && (!isLastRate && (Number(rate.to) <= Number(currentToValue)))) {
+      hasInvalidNextRate = rate;
+    }
+
+    if (currentIndex > index && (!isLastRate &&  (Number(rate.to) >= Number(currentToValue))))
+      hasInvalidPreviousRate = rate;
+  })
+
+  return {
+    hasInvalidNextRate,
+    hasInvalidPreviousRate
+  }
+}
 const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippingRuleId }) => {
   const [invalidRate, setInvalidRate] = useState({});
   const [shippingTitlesWidth, setShippingTitlesWidth] = useState(200);
 
   const onShippingRateChange = ({ value, _id, currentIndex }) => {
-    const hasInvalidNextRate = shippingRates.find((ele, index) => index > currentIndex && Number(ele.to) <= Number(value));
-    const hasInvalidPreviousRate = shippingRates.find((ele, index) => index < currentIndex && Number(ele.to) >= Number(value));
+    const { hasInvalidNextRate, hasInvalidPreviousRate } = getValidity(shippingRates, currentIndex, value)
 
     if (hasInvalidNextRate) {
       setInvalidRate({ _id, invalidPlace: 'bottom' });
@@ -37,7 +54,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
         updatedList[index + 1] = { ...updatedList[index + 1], from: getFixedFormat(Number(value) + 0.01) };
       }
     });
-    onChange({ target: { value: updatedList, name: 'shippingRates' } });
+    onChange({ target: { value: updatedList, name: 'rates' } });
   };
 
 
@@ -48,7 +65,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
         updatedList[index] = { ...ele, cost: value };
     });
 
-    onChange({ target: { value: updatedList, name: 'shippingRates' } });
+    onChange({ target: { value: updatedList, name: 'rates' } });
   };
 
 
@@ -58,9 +75,9 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
     const lastRate = updatedList[lastIndex];
 
     updatedList[lastIndex] = { ...lastRate, to: getFixedFormat(Number(lastRate.from) + 0.01) };
-    const newRate = { _id: ids.generate(), from: getFixedFormat(Number(lastRate.from) + 0.02), to: 'and up', cost: 0, rowNumber: lastIndex + 1 };
+    const newRate = { _id: ids.generate(), from: getFixedFormat(Number(lastRate.from) + 0.02), to: 0, cost: 0, rowNumber: lastIndex + 1 };
 
-    onChange({ target: { value: [...updatedList, newRate], name: 'shippingRates' } });
+    onChange({ target: { value: [...updatedList, newRate], name: 'rates' } });
   };
 
   const onDeleteRow = () => {
@@ -68,9 +85,9 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
     updatedList.pop();
     const lastIndex = updatedList.length - 1;
     const lastRate = updatedList[lastIndex];
-    updatedList[lastIndex] = { ...lastRate, to: 'and up' };
+    updatedList[lastIndex] = { ...lastRate, to: 0 };
 
-    onChange({ target: { value: updatedList, name: 'shippingRates' } });
+    onChange({ target: { value: updatedList, name: 'rates' } });
   };
 
 
@@ -95,7 +112,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
 
       <FlexBox className='mb-2' style={{ width: `${shippingTitlesWidth}px` }} spaceBetween >
         <Title className='text-center small-text flex'> SubTotal Range (From - To)</Title>
-        <Title className='text-center small-text flex'/>
+        <Title className='text-center small-text flex' />
         <Title className='text-center small-text flex'>Cost</Title>
       </FlexBox>
 
@@ -104,6 +121,7 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
           <ShippingRatesRow
             key={shippingRate._id}
             currentIndex={index}
+            lastRateElement={shippingRates.length === (index + 1)}
             {...shippingRate}
             {...shippingRatesProps}
           />

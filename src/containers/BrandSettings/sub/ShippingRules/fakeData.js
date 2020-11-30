@@ -20,8 +20,8 @@ export const shippingRatesFakeData = [
   {
     _id: '5fa27a41c4d41f0023429010',
     from: 30.01,
-    to: 'and up',
-    cost: '0'
+    to: 0 ,
+    cost: 0
   }
 ];
 

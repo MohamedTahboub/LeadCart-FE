@@ -11,17 +11,32 @@ import {
   OrderSummary,
   PaymentMethods,
   PricingOptions,
-  ShippingDetails
+  ShippingDetails,
+  ShippingMethods
 } from '..';
 import MultipleStepForm from 'components/MultipleStepForm';
 import {
   MarketingConsent,
-  TermsAndConditions
+  TermsAndConditions,
+  Title
 } from '../FuturisticForm/components';
 
 const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
+const getStepsNames = (shippingDetails, shippingMethodsEnabled) => {
+  const defaultSteps = ['Billing Details']
 
+  if (shippingDetails)
+    defaultSteps.push('Shipping Details')
+
+  if (shippingMethodsEnabled)
+    defaultSteps.push('Shipping Methods')
+
+
+  defaultSteps.push('Payment Details')
+  return defaultSteps;
+
+}
 const ClassicForm = ({ language, section }) => {
   const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
   const {
@@ -43,7 +58,8 @@ const ClassicForm = ({ language, section }) => {
           marketingConsent,
           marketingConsentIsRequired,
           termsAndConditions,
-          termsAndConditionsIsRequired
+          termsAndConditionsIsRequired,
+          shippingMethodsEnabled
         } = {}
       } = {}
     },
@@ -93,13 +109,25 @@ const ClassicForm = ({ language, section }) => {
       />
     </FlexBox>
   );
+
+  const renderShippingMethod = (
+    shippingMethodsEnabled && (
+      <FlexBox column>
+        <Title className='step-title mt-3'>Shipping Methods</Title>
+        <ShippingMethods />
+      </FlexBox>
+    )
+  )
+
+  const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled);
+
   return (
     <FlexBox column className='relative-element'>
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
           {
             twoStepCheckout ? (
-              <MultipleStepForm steps={shippingDetails ? ['Billing Details', 'Shipping Details', 'Payment Details'] : ['Billing Details', 'Payment Details']}>
+              <MultipleStepForm steps={stepsNames}>
                 <Fragment>
                   <BillingDetails
                     twoStepCheckout={twoStepCheckout}
@@ -133,7 +161,7 @@ const ClassicForm = ({ language, section }) => {
                       />}
                   </Fragment>
                 )}
-
+                {renderShippingMethod}
                 <Fragment>
                   <PaymentMethods
                     twoStepCheckout={twoStepCheckout}
@@ -177,6 +205,7 @@ const ClassicForm = ({ language, section }) => {
                   />
                 )}
                 <PricingOptions format={price.format} />
+                {renderShippingMethod}
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}
                   step={addOns.shippingDetails ? 3 : 2}

@@ -35,7 +35,7 @@ export default ({
   editableShippingRuleId,
   shippingRuleHasChanges,
   onEditShippingRule,
-  shippingRule,
+  shippingMethod,
   onConfirmCancelEdits,
   _id,
   saveLoading,
@@ -48,12 +48,12 @@ export default ({
       {!isEditableShippingRule ?
         (editableShippingRuleId && shippingRuleHasChanges) ?
           <Fragment>
-            <a href={`#${editableShippingRuleId}`}><FaRegEdit size={20} className='shipping-rule-edit-icon mr-3' onClick={onEditShippingRule(shippingRule)} /></a>
+            <a href={`#${editableShippingRuleId}`}><FaRegEdit size={20} className='shipping-rule-edit-icon mr-3' onClick={onEditShippingRule(shippingMethod)} /></a>
             <MdDelete size={20} className='shipping-rule-delete-icon' onClick={onDeleteShippingRule(_id)} />
           </Fragment>
           :
           <Fragment>
-            <FaRegEdit size={20} className='shipping-rule-edit-icon mr-3' onClick={onEditShippingRule(shippingRule)} />
+            <FaRegEdit size={20} className='shipping-rule-edit-icon mr-3' onClick={onEditShippingRule(shippingMethod)} />
             <MdDelete size={20} className='shipping-rule-delete-icon' onClick={onDeleteShippingRule(_id)} />
           </Fragment>
         :

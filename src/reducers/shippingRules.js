@@ -14,15 +14,15 @@ export default (state = initialState, { type, payload }) => {
   case ADD_NEW_SHIPPING_RULE_SUCCESS: return [...state, payload];
 
   case EDIT_SHIPPING_RULE_SUCCESS: return state.map((shippingRule) => {
-    if (payload.shippingRule === shippingRule._id)
-      return { _id: payload.shippingRule, ...payload?.details };
+    if (payload._id === shippingRule._id)
+      return payload
     else
       return shippingRule;
 
   });
 
   case DELETE_SHIPPING_RULE_SUCCESS:
-    return state.filter(({ _id }) => _id !== payload?.shippingRuleId);
+    return state.filter(({ _id }) => _id !== payload?.shippingMethod);
 
   default: return state;
   }

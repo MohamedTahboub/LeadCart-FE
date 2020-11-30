@@ -13,12 +13,14 @@ import { ControlButtons, DeleteModal } from '../components/common';
 import { fakeData } from './fakeData';
 
 import './style.css';
+import { RiNumbersFill } from 'react-icons/ri';
 
 const { Table, FlexBox, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
 
 
-const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinationZones }) => {
+const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinationZones, shippingRules }) => {
+
   const [savedShippingRuleData, setSavedShippingRuleData] = useState({});
   const [fields, setFields] = useState({});
   const [editableShipingRuleId, setEditableShippingRuleId] = useState('');
@@ -32,31 +34,26 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
 
   const onChange = ({ target: { value, name } }) => setFields({ ...fields, [name]: value });
   const shippingRuleHasChanges = isNewObjHasChange(savedShippingRuleData, fields);
-
   const autoOpenEditMode = async (data) => {
-    const { value } = await shippingRulesSchema(data);
+    const { value = {} } = await shippingRulesSchema(data);
     setEditableShippingRuleId(data._id);
     setFields(value);
     setSavedShippingRuleData(value);
   };
 
-
   const defaultShippingRule = (() => {
-    const name = getNewNameWithNumber({ data: fakeData, baseName: 'shipping role', isCapitalized: true });
-
     return {
-      name,
+      name: `Shipping Method #${shippingRules.length + 1}`,
       enabled: true,
-      shippingZone: 'allZones',
-      shippingRates: [
+      rates: [
         {
-          _id: ids.generate(),
+          // _id: ids.generate(),
           from: 0,
-          to: 'and up',
-          cost: '0'
+          to: 0,
+          cost: 0
         }
       ],
-      description: ''
+      // description: ''
     };
   })();
 
@@ -68,7 +65,7 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
       {
         onSuccess: (data) => {
           setLoading(false);
-          autoOpenEditMode(data);
+          // autoOpenEditMode(data);
           notification.success('New Shipping Rule added successfuly');
         },
         onFailed: (message) => {
@@ -87,7 +84,7 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
 
     if (isValid) {
       editShippingRule(
-        { shippingRule: editableShipingRuleId, details: value },
+        { shippingMethod: editableShipingRuleId, details: value },
         {
           onSuccess: () => {
             setSaveLoading(false);
@@ -120,14 +117,13 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
 
 
   const onEditShippingRule = (shippingRuleData = {}) => async () => {
-    const { value } = await shippingRulesSchema(shippingRuleData);
-    setCommentedEditableShippingRule({ ...value, _id: shippingRuleData._id });
+    setCommentedEditableShippingRule(shippingRuleData);
     if (shippingRuleHasChanges) {
       setCancelModalOpened(true);
     } else {
       setEditableShippingRuleId(shippingRuleData._id);
-      setSavedShippingRuleData(value);
-      setFields(value);
+      setSavedShippingRuleData(shippingRuleData);
+      setFields(shippingRuleData);
     }
   };
 
@@ -180,7 +176,7 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
 
   const deleteModalOpend = Boolean(deleteShippingRuleId);
 
-  const zoneOptions = [{ label: 'All Zones', value: 'allZones' }].concat(destinationZones.map(({ name, _id }) => ({ value: _id, label: name })));
+  const zoneOptions = [{ label: 'All Zones', value: undefined }].concat(destinationZones.map(({ name, _id }) => ({ value: _id, label: name })));
 
 
   const ExpandableProps = {
@@ -219,17 +215,17 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
         </Head>
 
         <Body>
-          {fakeData.map((shippingRule) => {
-            const { name, enabled, _id, shippingRates, shippingZone } = shippingRule;
-            const shippingZoneName = zoneOptions.find(({ value }) => value === shippingZone)?.label;
+          {shippingRules.map((shippingMethod = {}) => {
+            const { name, enabled, _id, rates, zone } = shippingMethod;
+            const zoneName = zoneOptions.find(({ value }) => value === zone)?.label;
             const isEditableShippingRule = editableShipingRuleId === _id;
-            const controlButtonsProps = { isEditableShippingRule, onDeleteShippingRule, editableShipingRuleId, shippingRuleHasChanges, onEditShippingRule, shippingRule, onConfirmCancelEdits, _id, saveLoading, onSave, hasInvalidRate };
+            const controlButtonsProps = { isEditableShippingRule, onDeleteShippingRule, editableShipingRuleId, shippingRuleHasChanges, onEditShippingRule, shippingMethod, onConfirmCancelEdits, _id, saveLoading, onSave, hasInvalidRate };
 
             return (
               <Fragment key={_id}>
                 <Row className={clx('shipping-rules-table-row', { open: isEditableShippingRule })} id={_id}>
                   <Cell>{name}</Cell>
-                  <Cell>{shippingZoneName}</Cell>
+                  <Cell>{zoneName}</Cell>
                   <Cell>{getShippingRuleState(enabled)}</Cell>
                   <Cell>
                     <ControlButtons {...controlButtonsProps} />
@@ -238,7 +234,7 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
                 <Expandable
                   open={isEditableShippingRule}
                   shippingRuleId={_id}
-                  shippingRates={shippingRates}
+                  shippingRates={rates}
                   {...ExpandableProps}
                 />
               </Fragment>
@@ -252,6 +248,6 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
   );
 };
 
-const mapStateToProps = ({ shippingRules = {}, destinationZones }) => ({ shippingRules, destinationZones });
+const mapStateToProps = ({ shippingRules = [], destinationZones }) => ({ shippingRules, destinationZones });
 
 export default connect(mapStateToProps, shippingRulesActions)(ShippingRules);

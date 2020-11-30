@@ -61,7 +61,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getTaxes(data.taxes || []));
     dispatch(getDestinationZones(data.destinationZones || []));
     dispatch(getInvoicingDetails(data.invoicing));
-    dispatch(getShippingRules(data.getShippingRules || []));
+    dispatch(getShippingRules(data.shippingMethods || []));
 
 
     return appLaunchSuccess(data);

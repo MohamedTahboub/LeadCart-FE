@@ -9,13 +9,13 @@ export default ({ dispatch }) => (next) => (action) => {
   dispatch(apiRequest({
     options: {
       method: 'PUT',
-      uri: '/api/brands/shippingRules',
+      uri: '/api/brands/shipping',
       body: payload,
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return editShippingRuleSuccess(payload);
+      return editShippingRuleSuccess(args);
     },
     onFailed:  (message) => {
       if (meta.onFailed) meta.onFailed(message);

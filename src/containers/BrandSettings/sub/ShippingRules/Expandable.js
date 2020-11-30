@@ -12,12 +12,13 @@ const { TextField, Toggle, TextAreaInput } = InputRow;
 
 const Title = ({ className, children, color = '#83898e' }) => <p style={{ color }} className={clx(`gray-text bold-text m-0 ${className}`)} >{children}</p>;
 
+const getOptionValue = (list=[], matchedValue) => list.find(({value})=>matchedValue === value);
 
 const Expandable = ({
   open,
   onSave,
   saveLoading,
-  fields,
+  fields = {},
   onChange,
   onCloseCancelModal,
   cancelModalOpened,
@@ -30,11 +31,10 @@ const Expandable = ({
 }) => {
   const [currentHeight, setCurrentHeight] = useState(0);
   const [hasDisplayedNote, setHasDisplayedNote] = useState(true);
-  const { enabled, name, shippingRates, description, shippingZone = 'allZones' } = fields;
+  const { enabled, name, rates: shippingRates, description, zone: shippingZone = 'allZones' } = fields;
 
-
-  const onZoneChange = ({ value }) => onChange({ target: { value, name: 'shippingZone' } });
-  const selectedShippingZone = zoneOptions.find(({ value }) => value === shippingZone);
+  const onZoneChange = ({ value }) => onChange({ target: { value, name: 'zone' } });
+  const selectedShippingZone = getOptionValue(zoneOptions, shippingZone);
 
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const Expandable = ({
         <Title className='mb-1'>Add Description For Customers</Title>
         <Note className='max-width-600 my-3' onCloseNote={() => setHasDisplayedNote(false)} showOnce>
           <Title>
-              What should customers know when choosing this shipping method for their order?
+            What should customers know when choosing this shipping method for their order?
           </Title>
           <li>
             Specify the time it usually takes for orders to arrive.

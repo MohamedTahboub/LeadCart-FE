@@ -30,7 +30,7 @@ const DeleteModal = ({ isVisible, onClose, zoneId, deleteDestinationZone, taxId,
     itemId = { zone: zoneId };
   } else if (isShippingsModal) {
     deleteItem = deleteShippingRule;
-    itemId = { shippingRuleId };
+    itemId = { shippingMethod : shippingRuleId };
   }
 
 

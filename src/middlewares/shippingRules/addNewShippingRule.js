@@ -9,7 +9,7 @@ export default ({ dispatch }) => (next) => (action) => {
   dispatch(apiRequest({
     options: {
       method: 'POST',
-      uri: '/api/brands/shippingRules',
+      uri: '/api/brands/shipping',
       body: payload,
       contentType: 'json'
     },
