@@ -181,7 +181,7 @@ export default {
       theme: 'LeftImage',
       containerBackground: '#F6F9FB',
       containerTextColor: '#707070',
-      containerTitletColor: '#2D3D68',
+      headerTextColor: '#2D3D68',
       contentHeadlineTextColor: '#007AFF',
       borderBottomColor: '#d0d1d4',
       borderBottomStyle: 'dashed',

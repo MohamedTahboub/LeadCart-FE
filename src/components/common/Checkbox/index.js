@@ -11,17 +11,20 @@ const CheckBox = ({
   onClick,
   backgroundColor,
   borderColor,
+  checkmarkColor,
   ...props
 }) => {
+  const style = { backgroundColor, borderColor, '--checkmark-color': checkmarkColor };
+
   return (
     <FlexBox onClick={onClick} className={clx('checkbox-container', className, { active })} {...props}>
       <input type='checkbox' checked={active} />
-      <span className='checkmark' style={{ backgroundColor, borderColor }} />
+      <span className='checkmark' style={style} />
     </FlexBox>
   );
 };
 
 CheckBox.propTypes = {};
-CheckBox.defaultProps = {};
+CheckBox.defaultProps = { checkmarkColor: '#fff' };
 
 export default CheckBox;

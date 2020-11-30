@@ -2,8 +2,7 @@ import React from 'react';
 
 import defaultTopImage from 'assets/images/bumpOffers_templates/defaultTopImage.png';
 import common from 'components/common';
-import Image from 'components/common/Image';
-import { MainTitle } from '../../components';
+import { Image, MainTitle } from '../../components';
 
 import './style.css';
 
@@ -18,22 +17,15 @@ const SecondTheme = ({
   containerStyle,
   mainTitleProps,
   onChange,
-  onImageChange
+  onImageChange,
+  hasBlurBackgroundImage
 }) => {
-
+  const imageProps = { img, onImageChange, hasBlurBackgroundImage };
 
   return (
     <FlexBox className='bump-offer-top-image' style={containerStyle} column>
       <MainTitle {...mainTitleProps} />
-
-      <FlexBox className='bump-offer-img-container' >
-        <div className='bump-offer-img-bg-container' style={{ backgroundImage: `url(${img})` }} />
-        <Image
-          image={img}
-          name='content.img'
-          onChange={onImageChange}
-        />
-      </FlexBox>
+      <Image className='my-2' {...imageProps} />
 
       <FlexBox className='bump-offer-texts' column>
         <ResizableTextarea

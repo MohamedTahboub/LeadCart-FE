@@ -16,12 +16,14 @@ const MainTitle = ({
   borderBottomColor,
   borderBottomStyle,
   borderBottomWidth,
+  containerBackground,
   title,
   isChecked,
   className
 }) => {
-  const toggleProps = { toggleInput, isChecked, headerTextColor, headerBackground };
+  const toggleProps = { toggleInput, isChecked, headerTextColor, headerBackground, containerBackground };
   const headerStyle = { backgroundColor: headerBackground, borderRadius: borderBottomWidth ? 0 : `${borderRadius}px`, borderBottomWidth: `${borderBottomWidth}px`, borderBottomColor, borderBottomStyle };
+
 
   return (
     <FlexBox className={clx(`v-center bump-offer-title-container ${className}`)} style={headerStyle} >

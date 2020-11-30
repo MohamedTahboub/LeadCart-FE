@@ -1,22 +1,44 @@
-.checkbox-circle.checkbox-container .checkmark {
-  border-radius: 50% !important;
-  padding: 5px !important;
-}
-
-
-.bump-offer .ant-radio-wrapper{
+.bump-offer-toggle-button .toggle-bar{
   margin-right: 10px;
+  margin-left: 10px;
+  background-color: transparent;
+  border: 1px solid var(--header-text-color);
 }
 
-.bump-offer .toggle-bar{
-  margin-right: 40px;
+.bump-offer-toggle-button .toggle-bar .circle{
+  background-color: var(--header-text-color);
+  margin: 0;
+  border: none;
 }
 
-.bump-offer .checkbox-container{
+.bump-offer-toggle-button .toggle-bar.active .circle{
+  background-color: var(--container-bg-color);
+}
+
+.bump-offer-toggle-button .toggle-bar.active{
+  background-color: var(--header-text-color);
+}
+
+
+
+
+
+.bump-offer-toggle-button .ant-radio-inner{
+  border-color: var(--header-text-color);
+  background-color: transparent;
+}
+
+
+.bump-offer-toggle-button .ant-radio-checked .ant-radio-inner::after{
+  background-color: var(--header-text-color);
+}
+
+
+.bump-offer-toggle-button .checkbox-container{
   padding-left: 30px
 }
 
 
-.bump-offer .checkbox-container.active .checkmark:after{
+.bump-offer-toggle-button .checkbox-container.active .checkmark:after{
   top: 1px;
 }

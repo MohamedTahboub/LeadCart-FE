@@ -3,8 +3,7 @@ import clx from 'classnames';
 
 import defaultSideImage from 'assets/images/bumpOffers_templates/defaultSideImage.png';
 import common from 'components/common';
-import Image from 'components/common/Image';
-import { MainTitle } from '../../components';
+import { Image, MainTitle } from '../../components';
 
 import './style.css';
 
@@ -20,21 +19,17 @@ const WithSideImage = ({
   containerStyle,
   mainTitleProps,
   onChange,
-  onImageChange
+  onImageChange,
+  hasBlurBackgroundImage
 }) => {
   const isWithRightImgTheme = theme === 'RightImage';
+  const imageProps = { img, onImageChange, hasBlurBackgroundImage };
 
   return (
     <FlexBox className='bump-offer-side-image' style={containerStyle} column>
       <MainTitle {...mainTitleProps} />
       <FlexBox className='bump-offer-main-content v-center' reverse={isWithRightImgTheme}>
-        <FlexBox className='bump-offer-side-image-container v-center'>
-          <Image
-            image={img}
-            name='content.img'
-            onChange={onImageChange}
-          />
-        </FlexBox>
+        <Image {...imageProps}/>
 
         <FlexBox className={clx('bump-offer-texts', { 'mr-3': isWithRightImgTheme }, { 'ml-3': !isWithRightImgTheme })} column>
           <ResizableTextarea

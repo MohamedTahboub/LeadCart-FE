@@ -1,35 +1,7 @@
 .bump-offer-bottom-image{
   padding: 15px;
   min-width: 312px;
-  max-width: 550px;
   margin: auto;
-}
-
-
-.bump-offer-bottom-image .bump-offer-img-container{
-  height: 150px;
-  position: relative;
-  overflow: hidden;
-}
-
-
-.bump-offer-bottom-image .bump-offer-img-bg-container{
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: blur(8px);
-  height: 100%;
-  width: 100%;
-}
-
-.bump-offer-bottom-image .bump-offer-img-container .wrapped-image-container{
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  border-radius: 5px;
 }
 
 

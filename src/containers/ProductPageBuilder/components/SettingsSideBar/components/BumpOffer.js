@@ -3,7 +3,7 @@ import React from 'react';
 import common from 'components/common';
 import { nestedKeyValue } from 'libs';
 import { useContext } from '../../../actions';
-import { ImageOption, SettingBox } from './common';
+import { ImageOption } from './common';
 import InlinePopup from 'components/common/InlinePopup';
 import FlatRadio from 'components/FlatRadio';
 import CheckBox from 'components/common/Checkbox';
@@ -33,75 +33,82 @@ const {
 
 const themesOptions = [
   {
-    src: 'https://imgur.com/WUE6ziN.png',
+    src: 'https://imgur.com/sRDq2LJ.png',
     styles: {
       theme: 'LeftImage',
       containerBackground: '#F6F9FB',
       containerTextColor: '#707070',
-      containerTitletColor: '#2D3D68',
+      headerTextColor: '#2D3D68',
       contentHeadlineTextColor: '#007AFF',
       borderBottomColor: '#d0d1d4',
       borderBottomStyle: 'dashed',
       borderBottomWidth: 1,
       borderRadius: 3,
-      toggleInput: 'checkbox'
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
     }
   },
-  // {
-  //   src: 'https://imgur.com/WUE6ziN.png',
-  //   styles: {
-  //     theme: 'RightImage',
-  //     containerBackground: '#F6F9FB',
-  //     containerTextColor: '#828282',
-  //     containerTitletColor: '#2d3d68',
-  //     contentHeadlineTextColor: '#4da0fe',
-  //     borderBottomColor: '#828282',
-  //     borderBottomStyle: 'dashed',
-  //     borderBottomWidth: 2,
-  //     borderRadius: 3
-  //   }
-  // },
   {
-    src: 'https://i.imgur.com/EWOVWAC.png',
+    src: 'https://imgur.com/3BAKK78.png',
+    styles: {
+      theme: 'RightImage',
+      containerBackground: '#F6F9FB',
+      containerTextColor: '#707070',
+      headerTextColor: '#2D3D68',
+      contentHeadlineTextColor: '#007AFF',
+      borderBottomColor: '#d0d1d4',
+      borderBottomStyle: 'dashed',
+      borderBottomWidth: 1,
+      borderRadius: 3,
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
+    }
+  },
+  {
+    src: 'https://imgur.com/YZACxXh.png',
     styles: {
       theme: 'TopImage',
       containerBackground: '#F6F9FB',
       containerTextColor: '#707070',
-      containerTitletColor: '#2D3D68',
+      headerTextColor: '#2D3D68',
       contentHeadlineTextColor: '#57B894',
       borderRadius: 3,
-      toggleInput: 'radio'
+      toggleInput: 'radio',
+      hasBlurBackgroundImage: false
+
     }
   },
   {
-    src: 'https://i.imgur.com/RYqO0JA.png',
+    src: 'https://imgur.com/Zh6lmTL.png',
     styles: {
       theme: 'CenteredImage',
       containerBackground: '#fff',
       containerTextColor: '#707070',
-      containerTitletColor: '#2D3D68',
+      headerTextColor: '#2D3D68',
       contentHeadlineTextColor: '#2D3D68',
       headerBackground: '#F6F9FB',
       borderColor: '#DDDDDD',
       borderStyle: 'dashed',
       borderWidth: 2,
       borderRadius: 3,
-      toggleInput: 'checkbox-circle'
+      toggleInput: 'checkbox-circle',
+      hasBlurBackgroundImage: false
     }
   },
   {
-    src: 'https://i.imgur.com/dGDYB9u.png',
+    src: 'https://imgur.com/aoDth6D.png',
     styles: {
       theme: 'BottomImage',
       containerBackground: '#fff',
       containerTextColor: '#707070',
-      containerTitletColor: '#2D3D68',
+      headerTextColor: '#2D3D68',
       contentHeadlineTextColor: '#E13585',
       borderColor: '#DDDDDD',
       borderStyle: 'dashed',
       borderWidth: 2,
       borderRadius: 3,
-      toggleInput: 'checkbox'
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
     }
   },
   {
@@ -110,11 +117,13 @@ const themesOptions = [
       theme: 'withoutImage',
       containerBackground: '#fff',
       containerTextColor: '#000',
+      headerTextColor: '#fff',
       headerBackground: 'rgb(142, 209, 252)',
       borderColor: 'rgb(142, 209, 252)',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5
+      borderRadius: 5,
+      hasBlurBackgroundImage: false
     }
   },
   {
@@ -128,7 +137,8 @@ const themesOptions = [
       borderColor: '#00D084',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5
+      borderRadius: 5,
+      hasBlurBackgroundImage: false
     }
   },
   {
@@ -137,6 +147,7 @@ const themesOptions = [
       theme: 'withoutImage',
       containerBackground: '#fff',
       containerTextColor: '#000',
+      headerTextColor: '#000',
       contentHeadlineTextColor: '#EB144C',
       headerBackground: '#FCB900',
       borderColor: '#EB144C',
@@ -151,7 +162,7 @@ const ToggleInputOption = ({ styles, onChange, value, Input, className }) => (
   <FlatRadio
     className='bump-offer-option'
     style={{ width: '50%' }}
-    options={[{ label: <Input className={className} />, value }]}
+    options={[{ label: <Input className={className} checked={false} />, value }]}
     value={styles.toggleInput || 'checkbox'}
     name='styles.toggleInput'
     onToggle={(target) => onChange({ target })}
@@ -208,6 +219,15 @@ const BumpOffer = () => {
     });
   };
   const onToggleChange = ({ name }) => {
+    onChange({
+      target: {
+        name,
+        value: !nestedKeyValue(sectionSetting, name)
+      }
+    });
+  };
+
+  const onToggImageBackground = ({ name }) => {
     onChange({
       target: {
         name,
@@ -480,6 +500,20 @@ const BumpOffer = () => {
             {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles} onChange={onChange}/>)}
           </FlexBox>
         </FlexBox>
+
+        <FlexBox spaceBetween center='v-center mt-3'>
+          <FlexBox className='mr-2' flex>
+            Filing With The Shadow Image:
+          </FlexBox>
+          <FlexBox>
+            <Toggle
+              value={content.hasBlurBackgroundImage}
+              name='content.hasBlurBackgroundImage'
+              onToggle={onToggImageBackground}
+            />
+          </FlexBox>
+        </FlexBox>
+
       </Tab >
     </Tabs >
   );

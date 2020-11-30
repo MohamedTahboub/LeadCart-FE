@@ -2,8 +2,7 @@ import React from 'react';
 
 import defaultCenteredImage from 'assets/images/bumpOffers_templates/defaultCenteredImage.png';
 import common from 'components/common';
-import Image from 'components/common/Image';
-import { MainTitle } from '../../components';
+import { Image, MainTitle } from '../../components';
 
 import './style.css';
 
@@ -18,17 +17,16 @@ const SecondTheme = ({
   containerStyle,
   mainTitleProps,
   onChange,
-  onImageChange
+  onImageChange,
+  hasBlurBackgroundImage
 }) => {
+  const imageProps = { img, onImageChange, hasBlurBackgroundImage };
 
 
   return (
     <FlexBox className='bump-offer-centered-image' style={containerStyle} column>
       <MainTitle {...mainTitleProps} />
-
-      <FlexBox className='bump-offer-img-container v-center h-center' >
-        <Image image={img} onChange={onImageChange} name='content.img' alt='' />
-      </FlexBox>
+      <Image className='my-2' {...imageProps}/>
 
       <FlexBox className='bump-offer-texts' column>
         <ResizableTextarea

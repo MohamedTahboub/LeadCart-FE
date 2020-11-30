@@ -51,9 +51,14 @@
   top: 0px;
   width: 5px;
   height: 13px;
-  border: solid white;
+  border-style: solid;
+  border-color: var(--checkmark-color);
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.checkbox-container.checkbox-circle .checkmark{
+  border-radius: 50%;
 }

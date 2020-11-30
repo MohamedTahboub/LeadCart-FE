@@ -1,7 +1,6 @@
 import React from 'react';
 import 'react-toggle/style.css';
 
-
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import { BottomImage, CenteredImage, Defaults, SideImage, TopImage } from './themes';
@@ -45,7 +44,8 @@ const BumpOffer = ({ section = {}, ...props }) => {
     theme = 'LeftImage',
     borderBottomColor,
     borderBottomStyle,
-    borderBottomWidth
+    borderBottomWidth,
+    hasBlurBackgroundImage
   } = styles;
 
 
@@ -67,7 +67,8 @@ const BumpOffer = ({ section = {}, ...props }) => {
     isChecked,
     borderBottomColor,
     borderBottomStyle,
-    borderBottomWidth
+    borderBottomWidth,
+    containerBackground
   };
 
 
@@ -92,6 +93,7 @@ const BumpOffer = ({ section = {}, ...props }) => {
     mainTitleProps,
     onChange,
     onImageChange,
+    hasBlurBackgroundImage,
     ...props
   };
 

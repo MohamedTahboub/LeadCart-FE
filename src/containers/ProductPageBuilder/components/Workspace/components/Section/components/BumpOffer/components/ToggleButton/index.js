@@ -10,16 +10,20 @@ const { LayoutSwitch, InputRow } = common;
 const { Toggle, Radio } = InputRow;
 
 
-const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, headerTextColor, headerBackground, ...props }) => {
+const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, headerTextColor, headerBackground, containerBackground, ...props }) => {
+
+  const styleVars = { '--header-text-color': headerTextColor, '--container-bg-color': containerBackground };
 
 
   return (
-    <LayoutSwitch active={toggleInput} >
+    <LayoutSwitch className='bump-offer-toggle-button' active={toggleInput} >
       <Toggle
-        {...props}
         id='toggle'
         value={isChecked}
         className={toggleClassName}
+        style={styleVars}
+        beforeLabel=''
+        afterLabel=''
       />
 
       <CheckBox
@@ -28,7 +32,8 @@ const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, head
         active={isChecked}
         className={toggleClassName}
         borderColor={headerTextColor}
-        backgroundColor='transparent'
+        backgroundColor={isChecked ? headerTextColor : 'transparent'}
+        checkmarkColor={headerBackground !== 'transparent' ? headerBackground : containerBackground}
       />
 
       <CheckBox
@@ -37,7 +42,8 @@ const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, head
         className={clx('checkbox-circle', toggleClassName)}
         active={isChecked}
         borderColor={headerTextColor}
-        backgroundColor='transparent'
+        backgroundColor={isChecked ? headerTextColor : 'transparent'}
+        checkmarkColor={headerBackground !== 'transparent' ? headerBackground : containerBackground}
       />
 
       <Radio
@@ -45,6 +51,8 @@ const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, head
         id='radio'
         checked={isChecked}
         className={toggleClassName}
+        style={styleVars}
+
       />
     </LayoutSwitch>
   );
