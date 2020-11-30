@@ -1,6 +1,7 @@
 .bump-offer-side-image{
   padding: 15px;
-  width: 50%;
+  min-width: 312px;
+  max-width: 550px;
   margin: auto;
 }
 
@@ -20,7 +21,8 @@
 
 
 .bump-offer-side-image .bump-offer-side-image-container .wrapped-image-container {
-  transform: scale(2.5);
+  min-width: 130px;
+  min-height: 130px;
   border-radius: 5px;
 }
 

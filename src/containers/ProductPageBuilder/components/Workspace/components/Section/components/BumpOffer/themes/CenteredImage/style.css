@@ -1,6 +1,7 @@
 .bump-offer-centered-image{
   padding: 15px;
-  width: 50%;
+  min-width: 312px;
+  max-width: 550px;
   margin: auto;
 }
 
