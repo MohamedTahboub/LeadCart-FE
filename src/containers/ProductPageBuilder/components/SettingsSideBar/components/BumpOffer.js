@@ -507,8 +507,8 @@ const BumpOffer = () => {
           </FlexBox>
           <FlexBox>
             <Toggle
-              value={content.hasBlurBackgroundImage}
-              name='content.hasBlurBackgroundImage'
+              value={styles.hasBlurBackgroundImage}
+              name='styles.hasBlurBackgroundImage'
               onToggle={onToggImageBackground}
             />
           </FlexBox>
