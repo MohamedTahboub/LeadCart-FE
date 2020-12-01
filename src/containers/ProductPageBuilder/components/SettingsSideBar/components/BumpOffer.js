@@ -180,7 +180,7 @@ const ToggleInputOption = ({ styles, onChange, value, Input, className }) => {
           checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
           checked
           active
-        />,
+               />,
         value
       }]}
       value={styles.toggleInput || 'checkbox'}
@@ -259,10 +259,14 @@ const BumpOffer = () => {
     });
   };
 
-  const hasHeaderBacground = styles?.headerBackground;
-  const hasBorder = styles?.borderWidth;
-  const hasBorderBottom = styles?.borderBottomWidth;
+  const { headerBackground, borderWidth, borderBottomWidth, containerBackground } = styles;
+
+
+  const hasHeaderBacground = headerBackground;
+  const hasBorder = borderWidth;
+  const hasBorderBottom = borderBottomWidth;
   const hasShadowEffect = styles.hasOwnProperty('hasBlurBackgroundImage');
+  const toggleOptionBackground = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
 
 
   return (
@@ -520,7 +524,7 @@ const BumpOffer = () => {
 
         <FlexBox className='mt-3' column>
           <Title className='mb-1'>Toggle Input: </Title>
-          <FlexBox style={{ backgroundColor: styles.containerBackground, borderRadius: '5px' }} wrappable>
+          <FlexBox style={{ backgroundColor: toggleOptionBackground, borderRadius: '5px' }} wrappable>
             {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles} onChange={onChange}/>)}
           </FlexBox>
         </FlexBox>

@@ -4,7 +4,7 @@ import clx from 'classnames';
 
 import './style.css';
 
-const Radio = ({ borderColor = '#4da1ff', backgroundColor = '#fff', checkmarkColor = '#4da1ff', name, checked, className, style, ...props }) => {
+const Radio = ({ borderColor = '#4da1ff', backgroundColor = 'transparent', checkmarkColor = '#4da1ff', name, checked, className, style, ...props }) => {
   const styleWithVars = { borderColor, backgroundColor, '--radio-checkmark-color': checkmarkColor };
 
 
