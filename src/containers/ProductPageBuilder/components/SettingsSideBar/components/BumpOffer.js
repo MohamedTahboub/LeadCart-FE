@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomToggle from 'react-toggle';
 
 import common from 'components/common';
 import { nestedKeyValue } from 'libs';
@@ -7,10 +8,16 @@ import { ImageOption } from './common';
 import InlinePopup from 'components/common/InlinePopup';
 import FlatRadio from 'components/FlatRadio';
 import CheckBox from 'components/common/Checkbox';
+import CustomRadio from 'components/common/CustomRadio';
+import { Title } from 'components/common/Titles';
 
+import topImageTheme from 'assets/images/bumpOffers_templates/top.png';
+import leftImageTheme from 'assets/images/bumpOffers_templates/left.png';
+import rightImageTheme from 'assets/images/bumpOffers_templates/right.png';
+import bottomImageTheme from 'assets/images/bumpOffers_templates/bottom.png';
+import centeredImageTheme from 'assets/images/bumpOffers_templates/center.png';
 
 import './style.css';
-import { Title } from 'components/common/Titles';
 
 
 const {
@@ -27,13 +34,12 @@ const {
   Label,
   Toggle,
   TextField,
-  SelectOption,
-  Radio
+  SelectOption
 } = InputRow;
 
 const themesOptions = [
   {
-    src: 'https://imgur.com/sRDq2LJ.png',
+    src: leftImageTheme,
     styles: {
       theme: 'LeftImage',
       containerBackground: '#F6F9FB',
@@ -49,7 +55,7 @@ const themesOptions = [
     }
   },
   {
-    src: 'https://imgur.com/3BAKK78.png',
+    src: rightImageTheme,
     styles: {
       theme: 'RightImage',
       containerBackground: '#F6F9FB',
@@ -65,7 +71,7 @@ const themesOptions = [
     }
   },
   {
-    src: 'https://imgur.com/YZACxXh.png',
+    src: topImageTheme,
     styles: {
       theme: 'TopImage',
       containerBackground: '#F6F9FB',
@@ -79,7 +85,7 @@ const themesOptions = [
     }
   },
   {
-    src: 'https://imgur.com/Zh6lmTL.png',
+    src: centeredImageTheme,
     styles: {
       theme: 'CenteredImage',
       containerBackground: '#fff',
@@ -96,7 +102,7 @@ const themesOptions = [
     }
   },
   {
-    src: 'https://imgur.com/aoDth6D.png',
+    src: bottomImageTheme,
     styles: {
       theme: 'BottomImage',
       containerBackground: '#fff',
@@ -122,8 +128,7 @@ const themesOptions = [
       borderColor: 'rgb(142, 209, 252)',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5,
-      hasBlurBackgroundImage: false
+      borderRadius: 5
     }
   },
   {
@@ -137,8 +142,7 @@ const themesOptions = [
       borderColor: '#00D084',
       borderStyle: 'dashed',
       borderWidth: 2,
-      borderRadius: 5,
-      hasBlurBackgroundImage: false
+      borderRadius: 5
     }
   },
   {
@@ -158,17 +162,34 @@ const themesOptions = [
   }
 ];
 
-const ToggleInputOption = ({ styles, onChange, value, Input, className }) => (
-  <FlatRadio
-    className='bump-offer-option'
-    style={{ width: '50%' }}
-    options={[{ label: <Input className={className} checked={false} />, value }]}
-    value={styles.toggleInput || 'checkbox'}
-    name='styles.toggleInput'
-    onToggle={(target) => onChange({ target })}
-  />
-);
+const ToggleInputOption = ({ styles, onChange, value, Input, className }) => {
+  const { containerBackground, headerTextColor, headerBackground } = styles;
+  const activeMarkColor = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
+  const style = { '--header-text-color': headerTextColor, '--container-bg-color': containerBackground };
 
+
+  return (
+    <FlatRadio
+      className='bump-offer-option'
+      style={{ ...style, width: '50%' }}
+      options={[{
+        label: <Input
+          className={className}
+          borderColor={headerTextColor}
+          backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
+          checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
+          checked
+          active
+        />,
+        value
+      }]}
+      value={styles.toggleInput || 'checkbox'}
+      name='styles.toggleInput'
+      onToggle={(target) => onChange({ target })}
+
+    />
+  );
+};
 
 const toggleInputsOptions = [
   {
@@ -182,19 +203,21 @@ const toggleInputsOptions = [
   },
   {
     value: 'radio',
-    Input: Radio
+    Input: CustomRadio
   },
   {
     value: 'toggle',
-    Input: Toggle
+    Input: CustomToggle
   }
 ];
+
 
 const BumpOffer = () => {
   const {
     state: { modals: { sectionSetting = {} } = {}, funnel: { currency = 'USD' } = {} },
     actions
   } = useContext();
+
 
   const {
     styles = {},
@@ -239,6 +262,7 @@ const BumpOffer = () => {
   const hasHeaderBacground = styles?.headerBackground;
   const hasBorder = styles?.borderWidth;
   const hasBorderBottom = styles?.borderBottomWidth;
+  const hasShadowEffect = styles.hasOwnProperty('hasBlurBackgroundImage');
 
 
   return (
@@ -496,13 +520,12 @@ const BumpOffer = () => {
 
         <FlexBox className='mt-3' column>
           <Title className='mb-1'>Toggle Input: </Title>
-          <FlexBox wrappable>
+          <FlexBox style={{ backgroundColor: styles.containerBackground, borderRadius: '5px' }} wrappable>
             {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles} onChange={onChange}/>)}
           </FlexBox>
         </FlexBox>
 
-        {
-          styles.hasBlurBackgroundImage &&
+        {hasShadowEffect &&
         <FlexBox spaceBetween center='v-center mt-3'>
           <FlexBox className='mr-2' flex>
             Filing With The Shadow Image:

@@ -1,29 +1,38 @@
 import React from 'react';
 import clx from 'classnames';
+import Toggle from 'react-toggle';
+
 
 import common from 'components/common';
 import CheckBox from 'components/common/Checkbox';
+import CustomRadio from '../CustomRadio';
 
 import './style.css';
 
-const { LayoutSwitch, InputRow } = common;
-const { Toggle, Radio } = InputRow;
+const { LayoutSwitch } = common;
 
 
-const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, headerTextColor, headerBackground, containerBackground, ...props }) => {
+const ToggleButton = ({ toggleInput = 'checkbox', toggleClassName, isChecked, headerTextColor, headerBackground, containerBackground, ...props }) => {
   const activeMarkColor = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
   const styleVars = { '--header-text-color': headerTextColor, '--active-mark-color': activeMarkColor };
 
 
+  React.useEffect(() => {
+    const toggleElements = document.querySelectorAll('.bump-offer-toggle-button  .react-toggle--checked .react-toggle-track');
+
+    [...toggleElements].forEach(({ style = {} }) => {
+      style.backgroundColor = headerTextColor;
+    });
+  }, [headerTextColor]);
+
+
   return (
-    <LayoutSwitch className='bump-offer-toggle-button' active={toggleInput} >
+    <LayoutSwitch className='bump-offer-toggle-button flex-box v-center h-center' active={toggleInput} >
       <Toggle
         id='toggle'
-        value={isChecked}
-        className={toggleClassName}
+        checked={isChecked}
+        className={`${toggleClassName} ${headerTextColor} mr-2`}
         style={styleVars}
-        beforeLabel=''
-        afterLabel=''
       />
 
       <CheckBox
@@ -46,13 +55,12 @@ const ToggleButton = ({ toggleInput = 'toggle', toggleClassName, isChecked, head
         checkmarkColor={activeMarkColor}
       />
 
-      <Radio
-        type='radio'
+      <CustomRadio
         id='radio'
         checked={isChecked}
-        className={toggleClassName}
-        style={styleVars}
-
+        className={`${toggleClassName} mr-2`}
+        borderColor={headerTextColor}
+        checkmarkColor={headerTextColor}
       />
     </LayoutSwitch>
   );

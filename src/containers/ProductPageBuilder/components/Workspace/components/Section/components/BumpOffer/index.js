@@ -68,7 +68,8 @@ const BumpOffer = ({ section = {}, ...props }) => {
     borderBottomColor,
     borderBottomStyle,
     borderBottomWidth,
-    containerBackground
+    containerBackground,
+    onChange
   };
 
 
@@ -77,7 +78,6 @@ const BumpOffer = ({ section = {}, ...props }) => {
     introText,
     name,
     bodyText,
-    title,
     img,
     containerBackground,
     contentHeadlineTextColor,

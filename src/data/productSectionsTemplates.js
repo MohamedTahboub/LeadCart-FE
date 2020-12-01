@@ -187,7 +187,8 @@ export default {
       borderBottomStyle: 'dashed',
       borderBottomWidth: 1,
       borderRadius: 3,
-      toggleInput: 'checkbox'
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
     }
   },
 

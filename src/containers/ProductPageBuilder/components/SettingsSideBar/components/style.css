@@ -125,9 +125,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid lightgray;
+    border: 1px solid var(--header-text-color);
+    background-color: transparent;
 }
 
+
+.bump-offer-option .flat-radio-key.active{
+    background-color: transparent;
+    border-width: 4px;
+}
 
 .bump-offer-option .checkbox-container {
     padding-left: 17px;
@@ -137,4 +143,3 @@
 .bump-offer-option .ant-radio-wrapper {
     margin: 0;
 }
-
