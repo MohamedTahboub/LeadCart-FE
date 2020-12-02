@@ -30,6 +30,7 @@
     margin: 30px auto 5px auto;
     text-align: center;
     cursor: text;
+    margin-left: calc(50% - 100px);
 }
 
 .light-input {

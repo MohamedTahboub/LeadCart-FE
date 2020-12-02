@@ -34,7 +34,7 @@ const ModernTestimonial = ({
   };
 
   return (
-    <FlexBox center='modern-testimonial margin-v-10 h-center' style={{ backgroundColor }} wrappable>
+    <FlexBox center='modern-testimonial margin-v-10 h-center v-center' style={{ backgroundColor }} wrappable>
       <Image
         className='modern-testimonial-image'
         image={image}

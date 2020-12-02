@@ -26,7 +26,8 @@ const {
   FlexBox,
   CustomReactToggle,
   CustomRadio,
-  CustomCheckbox
+  CustomCheckbox,
+  Tooltip
 } = common;
 
 
@@ -533,9 +534,12 @@ const BumpOffer = () => {
 
         {hasShadowEffect &&
         <FlexBox spaceBetween center='v-center mt-3'>
-          <FlexBox className='mr-2' flex>
-            Filing With The Shadow Image:
-          </FlexBox>
+          <Tooltip placement='left' overlay='filling the bump offer image left space with its shadow'>
+            <FlexBox className='mr-2' flex>
+                Fill image background:
+            </FlexBox>
+          </Tooltip>
+
           <FlexBox>
             <Toggle
               value={styles.hasBlurBackgroundImage}
