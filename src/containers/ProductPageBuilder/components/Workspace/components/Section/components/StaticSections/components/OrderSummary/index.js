@@ -18,6 +18,7 @@ const SummarySlice = ({ name, amount = 0, className = '' }) => (
   </div>
 );
 
+const nextChargeDateFormat = 'DD/MM/YYYY';
 
 const getPaymentDetails = (
   name,
@@ -41,13 +42,13 @@ const getPaymentDetails = (
   case 'Split':
     return {
       label: `${label}(${splitPayment + splits})`,
-      nextCharge: moment().add(1, 'M').format('MM/DD/YYYY')
+      nextCharge: moment().add(1, 'M').format(nextChargeDateFormat)
     };
   case 'Subscription': {
     const recTime = recurringPeriod[0].toLowerCase();
     return {
       label: `${label}( ${subscriptionLabel} )`,
-      nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format('MM/DD/YYYY')
+      nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format(nextChargeDateFormat)
     };
   }
   default: return { label, nextCharge };

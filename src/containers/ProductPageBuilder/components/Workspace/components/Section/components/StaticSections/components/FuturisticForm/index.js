@@ -70,7 +70,7 @@ const FlatForm = ({ language, section }) => {
     },
     actions
   } = useContext();
-
+  const hasShippingMethodsEnabled = shippingDetailsEnabled && shippingMethodsEnabled;
   const {
     billingAndShippingBtn = 'Continue to Payment',
     hideCouponCodeLabel = 'Hide Coupon Code',
@@ -253,7 +253,7 @@ const FlatForm = ({ language, section }) => {
         </FlexBox>
       </Tab>
 
-      {shippingMethodsEnabled && (
+      {hasShippingMethodsEnabled && (
         <Tab title='Shipping Methods' id='shippingMethods'>
           <ShippingMethods />
           <FlexBox column flex center='v-center'>
@@ -337,8 +337,8 @@ const FlatForm = ({ language, section }) => {
           <span className='label-content primary-text item-clickable underlined-text without-hover'>
             <ResizableInput
               onChange={onSectionFieldChange}
-              name={`texts.${shippingMethodsEnabled ? 'backToShippingMethodText' : 'backToBillingLinkText'}`}
-              value={shippingMethodsEnabled ? backToShippingMethodText : backToBillingLinkText}
+              name={`texts.${hasShippingMethodsEnabled ? 'backToShippingMethodText' : 'backToBillingLinkText'}`}
+              value={hasShippingMethodsEnabled ? backToShippingMethodText : backToBillingLinkText}
               defaultValue={'Edit'}
               style={{ background: 'transparent' }}
             />
@@ -462,7 +462,7 @@ const FlatForm = ({ language, section }) => {
           />
         </Fragment>
       )}
-      {shippingMethodsEnabled && (
+      {hasShippingMethodsEnabled && (
         <FlexBox column>
           <Title className='step-title mt-3'>Shipping Methods</Title>
           <ShippingMethods />
