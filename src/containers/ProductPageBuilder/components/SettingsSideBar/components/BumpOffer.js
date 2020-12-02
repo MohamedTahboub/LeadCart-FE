@@ -3,9 +3,19 @@ import React from 'react';
 import common from 'components/common';
 import { nestedKeyValue } from 'libs';
 import { useContext } from '../../../actions';
-import { ImageOption, SettingBox } from './common';
+import { ImageOption } from './common';
 import InlinePopup from 'components/common/InlinePopup';
 import FlatRadio from 'components/FlatRadio';
+import { Title } from 'components/common/Titles';
+
+import topImageTheme from 'assets/images/bumpOffers_templates/top.png';
+import leftImageTheme from 'assets/images/bumpOffers_templates/left.png';
+import rightImageTheme from 'assets/images/bumpOffers_templates/right.png';
+import bottomImageTheme from 'assets/images/bumpOffers_templates/bottom.png';
+import centeredImageTheme from 'assets/images/bumpOffers_templates/center.png';
+
+import './style.css';
+
 
 const {
   MiniColorPicker,
@@ -13,16 +23,107 @@ const {
   Tabs,
   Tab,
   InputRow,
-  FlexBox
+  FlexBox,
+  CustomReactToggle,
+  CustomRadio,
+  CustomCheckbox
 } = common;
 
 
+const {
+  Label,
+  Toggle,
+  TextField,
+  SelectOption
+} = InputRow;
+
 const themesOptions = [
+  {
+    src: leftImageTheme,
+    styles: {
+      theme: 'LeftImage',
+      containerBackground: '#F6F9FB',
+      containerTextColor: '#707070',
+      headerTextColor: '#2D3D68',
+      contentHeadlineTextColor: '#007AFF',
+      borderBottomColor: '#d0d1d4',
+      borderBottomStyle: 'dashed',
+      borderBottomWidth: 1,
+      borderRadius: 3,
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
+    }
+  },
+  {
+    src: rightImageTheme,
+    styles: {
+      theme: 'RightImage',
+      containerBackground: '#F6F9FB',
+      containerTextColor: '#707070',
+      headerTextColor: '#2D3D68',
+      contentHeadlineTextColor: '#007AFF',
+      borderBottomColor: '#d0d1d4',
+      borderBottomStyle: 'dashed',
+      borderBottomWidth: 1,
+      borderRadius: 3,
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
+    }
+  },
+  {
+    src: topImageTheme,
+    styles: {
+      theme: 'TopImage',
+      containerBackground: '#F6F9FB',
+      containerTextColor: '#707070',
+      headerTextColor: '#2D3D68',
+      contentHeadlineTextColor: '#57B894',
+      borderRadius: 3,
+      toggleInput: 'radio',
+      hasBlurBackgroundImage: false
+
+    }
+  },
+  {
+    src: centeredImageTheme,
+    styles: {
+      theme: 'CenteredImage',
+      containerBackground: '#fff',
+      containerTextColor: '#707070',
+      headerTextColor: '#2D3D68',
+      contentHeadlineTextColor: '#2D3D68',
+      headerBackground: '#F6F9FB',
+      borderColor: '#DDDDDD',
+      borderStyle: 'dashed',
+      borderWidth: 2,
+      borderRadius: 3,
+      toggleInput: 'checkbox-circle',
+      hasBlurBackgroundImage: false
+    }
+  },
+  {
+    src: bottomImageTheme,
+    styles: {
+      theme: 'BottomImage',
+      containerBackground: '#fff',
+      containerTextColor: '#707070',
+      headerTextColor: '#2D3D68',
+      contentHeadlineTextColor: '#E13585',
+      borderColor: '#DDDDDD',
+      borderStyle: 'dashed',
+      borderWidth: 2,
+      borderRadius: 3,
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
+    }
+  },
   {
     src: 'https://i.imgur.com/g7ZKw0i.png',
     styles: {
+      theme: 'withoutImage',
       containerBackground: '#fff',
       containerTextColor: '#000',
+      headerTextColor: '#fff',
       headerBackground: 'rgb(142, 209, 252)',
       borderColor: 'rgb(142, 209, 252)',
       borderStyle: 'dashed',
@@ -33,6 +134,7 @@ const themesOptions = [
   {
     src: 'https://i.imgur.com/kPvXDwq.png',
     styles: {
+      theme: 'withoutImage',
       containerBackground: '#fff',
       containerTextColor: '#FCB900',
       headerTextColor: '#000',
@@ -46,8 +148,10 @@ const themesOptions = [
   {
     src: 'https://i.imgur.com/LmsFKCt.png',
     styles: {
+      theme: 'withoutImage',
       containerBackground: '#fff',
       containerTextColor: '#000',
+      headerTextColor: '#000',
       contentHeadlineTextColor: '#EB144C',
       headerBackground: '#FCB900',
       borderColor: '#EB144C',
@@ -56,21 +160,66 @@ const themesOptions = [
       borderRadius: 1
     }
   }
-
 ];
 
-const {
-  Label,
-  Toggle,
-  TextField,
-  SelectOption
-} = InputRow;
+const ToggleInputOption = ({ styles, onChange, value, Input, className }) => {
+  const { containerBackground, headerTextColor, headerBackground } = styles;
+  const activeMarkColor = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
+  const style = { '--header-text-color': headerTextColor, '--container-bg-color': containerBackground };
+
+
+  return (
+    <FlatRadio
+      className='bump-offer-option'
+      style={{ ...style, width: '50%' }}
+      options={[{
+        label:
+         <Input
+           className={className}
+           borderColor={headerTextColor}
+           backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
+           checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
+           checked
+           active
+         />
+        ,
+        value
+      }]}
+      value={styles.toggleInput || 'checkbox'}
+      name='styles.toggleInput'
+      onToggle={(target) => onChange({ target })}
+
+    />
+  );
+};
+
+const toggleInputsOptions = [
+  {
+    value: 'checkbox',
+    Input: CustomCheckbox
+  },
+  {
+    value: 'checkbox-circle',
+    Input: CustomCheckbox,
+    className: 'checkbox-circle'
+  },
+  {
+    value: 'radio',
+    Input: CustomRadio
+  },
+  {
+    value: 'toggle',
+    Input: CustomReactToggle
+  }
+];
+
 
 const BumpOffer = () => {
   const {
     state: { modals: { sectionSetting = {} } = {}, funnel: { currency = 'USD' } = {} },
     actions
   } = useContext();
+
 
   const {
     styles = {},
@@ -102,6 +251,26 @@ const BumpOffer = () => {
       }
     });
   };
+
+  const onToggImageBackground = ({ name }) => {
+    onChange({
+      target: {
+        name,
+        value: !nestedKeyValue(sectionSetting, name)
+      }
+    });
+  };
+
+  const { headerBackground, borderWidth, borderBottomWidth, containerBackground } = styles;
+
+
+  const hasHeaderBacground = headerBackground;
+  const hasBorder = borderWidth;
+  const hasBorderBottom = borderBottomWidth;
+  const hasShadowEffect = styles.hasOwnProperty('hasBlurBackgroundImage');
+  const toggleOptionBackground = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
+
+
   return (
     <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
       <Tab id='themes' title='Themes'>
@@ -115,6 +284,7 @@ const BumpOffer = () => {
           />
         ))}
       </Tab>
+
       <Tab id='settings' title='settings'>
         <InputRow className='sidebar-row'>
           <Label
@@ -159,17 +329,8 @@ const BumpOffer = () => {
         </FlexBox>
       </Tab>
 
-      <Tab id='advance' title='Advance'>
-        <FlatRadio
-          className='my-2 mt-3'
-          options={[
-            { label: 'With Toggle', value: 'modern' },
-            { label: 'With Checkmark', value: 'classic' }
-          ]}
-          value={styles.toggleInput || 'classic'}
-          name='styles.toggleInput'
-          onToggle={(target) => onChange({ target })}
-        />
+
+      <Tab id='styles' title='Styles'>
         <InlinePopup
           title='Offer Colors'
           popUpContent={(
@@ -184,6 +345,8 @@ const BumpOffer = () => {
                   onChange={onChange}
                 />
               </InputRow>
+
+
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Container text:
@@ -194,6 +357,7 @@ const BumpOffer = () => {
                   onChange={onChange}
                 />
               </InputRow>
+              {hasHeaderBacground &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Header Background:
@@ -204,6 +368,7 @@ const BumpOffer = () => {
                   onChange={onChange}
                 />
               </InputRow>
+              }
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Header text:
@@ -228,6 +393,7 @@ const BumpOffer = () => {
           )}
         />
 
+        {hasBorder &&
         <InlinePopup
           title='Border Style'
           popUpContent={(
@@ -301,6 +467,85 @@ const BumpOffer = () => {
             </FlexBox>
           )}
         />
+        }
+
+
+        {hasBorderBottom &&
+        <InlinePopup
+          title='Border Bottom Style'
+          popUpContent={(
+            <FlexBox column>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Bottom Color:
+                </Label>
+                <MiniColorPicker
+                  name='styles.borderBottomColor'
+                  value={styles.borderBottomColor}
+                  onChange={onChange}
+                />
+
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Bottom Style:
+                </Label>
+                <SelectOption
+                  value={styles.borderBottomStyle}
+                  name='styles.borderBottomStyle'
+                  onChange={onChange}
+                  className='bump-offer-style-dropdown'
+                  options={[
+                    { label: 'Solid', value: 'solid' },
+                    { label: 'Dashed', value: 'dashed' }
+                  ]}
+                />
+              </InputRow>
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Border Bottom Width:
+                </Label>
+                <SelectOption
+                  value={styles.borderBottomWidth}
+                  name='styles.borderBottomWidth'
+                  onChange={onChange}
+                  className='bump-offer-style-dropdown'
+                  options={[
+                    { label: '0 px', value: '0' },
+                    { label: '1 px', value: '1' },
+                    { label: '2 px', value: '2' },
+                    { label: '3 px', value: '3' },
+                    { label: '4 px', value: '4' }
+                  ]}
+                />
+              </InputRow>
+            </FlexBox>
+          )}
+        />
+        }
+
+        <FlexBox className='mt-3' column>
+          <Title className='mb-1'>Toggle Input: </Title>
+          <FlexBox style={{ backgroundColor: toggleOptionBackground, borderRadius: '5px' }} wrappable>
+            {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles} onChange={onChange}/>)}
+          </FlexBox>
+        </FlexBox>
+
+        {hasShadowEffect &&
+        <FlexBox spaceBetween center='v-center mt-3'>
+          <FlexBox className='mr-2' flex>
+            Filing With The Shadow Image:
+          </FlexBox>
+          <FlexBox>
+            <Toggle
+              value={styles.hasBlurBackgroundImage}
+              name='styles.hasBlurBackgroundImage'
+              onToggle={onToggImageBackground}
+            />
+          </FlexBox>
+        </FlexBox>
+        }
+
       </Tab >
     </Tabs >
   );

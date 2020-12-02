@@ -1,0 +1,27 @@
+.bump-offer-side-image{
+  padding: 15px;
+  min-width: 312px;
+  margin: auto;
+}
+
+.bump-offer-side-image .bump-offer-main-content{
+  margin-top: 15px;
+  flex: 1;
+}
+
+.bump-offer-texts {
+  flex: 1;
+}
+
+
+.bump-offer-side-image .bump-offer-headline{
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+
+.bump-offer-side-image .bump-offer-desc{
+  margin: 0;
+}
+
+
