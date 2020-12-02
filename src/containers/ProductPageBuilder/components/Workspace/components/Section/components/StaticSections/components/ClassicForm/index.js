@@ -20,6 +20,7 @@ import {
   TermsAndConditions,
   Title
 } from '../FuturisticForm/components';
+import { CycleStepTitle } from 'components/common/Titles';
 
 const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
@@ -47,7 +48,6 @@ const ClassicForm = ({ language, section }) => {
         category: productCategory = 'checkout',
         price = {},
         payment,
-        addOns = {},
         pageStyles = {},
         custom: {
           orderButtonText = 'Complete Order',
@@ -111,9 +111,9 @@ const ClassicForm = ({ language, section }) => {
   );
 
   const renderShippingMethod = (
-    shippingMethodsEnabled && (
+    (shippingMethodsEnabled && shippingDetails) && (
       <FlexBox column>
-        <Title className='step-title mt-3'>Shipping Methods</Title>
+        <CycleStepTitle step='3'>Shipping Methods</CycleStepTitle>
         <ShippingMethods />
       </FlexBox>
     )
@@ -122,7 +122,7 @@ const ClassicForm = ({ language, section }) => {
   const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled);
 
   return (
-    <FlexBox column className='relative-element'>
+    <FlexBox column className='relative-element p-3'>
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
           {
@@ -165,7 +165,7 @@ const ClassicForm = ({ language, section }) => {
                 <Fragment>
                   <PaymentMethods
                     twoStepCheckout={twoStepCheckout}
-                    step={addOns.shippingDetails ? 3 : 2}
+                    step={shippingDetails ? (renderShippingMethod ? 4 : 3) : 2}
                     methods={paymentMethods}
                     language={language}
                   />
@@ -208,7 +208,7 @@ const ClassicForm = ({ language, section }) => {
                 {renderShippingMethod}
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}
-                  step={addOns.shippingDetails ? 3 : 2}
+                  step={shippingDetails ? (renderShippingMethod ? 4 : 3) : 2}
                   methods={paymentMethods}
                   language={language}
                 />
