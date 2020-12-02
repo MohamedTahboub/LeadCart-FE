@@ -5,6 +5,7 @@ import clx from 'classnames';
 import { MdLock } from 'react-icons/md';
 import { useContext } from '../../../../../../../../actions';
 import { PricingOptions, ShippingMethods } from '..';
+import { PhoneNumberInput } from 'components/common/Inputs';
 import { BiHide, BiShow } from 'react-icons/bi';
 
 import {
@@ -62,7 +63,7 @@ const FlatForm = ({ language, section }) => {
           termsAndConditions,
           marketingConsentIsRequired,
           termsAndConditionsIsRequired,
-          te: shippingMethodsEnabled
+          shippingMethodsEnabled
           // orderSummary
         } = {}
       } = {}
@@ -150,10 +151,12 @@ const FlatForm = ({ language, section }) => {
             className='mr-3'
             placeholder='Enter your email'
           />
-          <InputField
+          <PhoneNumberInput
             flex
+            disabled
             label='Mobile No'
-            placeholder='🇺🇸 +1 218-266-6543'
+            placeholder='+1 218-266-6543'
+            theme='modern'
           />
         </FlexBox>
         {withBillingAddress && (
@@ -251,7 +254,7 @@ const FlatForm = ({ language, section }) => {
       </Tab>
 
       {shippingMethodsEnabled && (
-        <Tab title='Method' id='shippingMethods'>
+        <Tab title='Shipping Methods' id='shippingMethods'>
           <ShippingMethods />
           <FlexBox column flex center='v-center'>
             <OrderButton
@@ -371,10 +374,11 @@ const FlatForm = ({ language, section }) => {
           className='mr-3'
           placeholder='Enter your email'
         />
-        <InputField
+        <PhoneNumberInput
           flex
           label='Mobile No'
-          placeholder='🇺🇸 +1 218-266-6543'
+          placeholder='+1 218-266-6543'
+          theme='modern'
         />
       </FlexBox>
       {withBillingAddress && (
@@ -460,7 +464,7 @@ const FlatForm = ({ language, section }) => {
       )}
       {shippingMethodsEnabled && (
         <FlexBox column>
-          <Title className='step-title mt-3'>Shipping Method</Title>
+          <Title className='step-title mt-3'>Shipping Methods</Title>
           <ShippingMethods />
         </FlexBox>
       )}

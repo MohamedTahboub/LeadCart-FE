@@ -1,0 +1,8 @@
+.custom-phone-input .PhoneInputInput{
+    border: none;
+    background-color: inherit;
+}
+.custom-phone-input .PhoneInputInput:focus{
+    outline-style: none;
+    border-color:transparent;
+ }

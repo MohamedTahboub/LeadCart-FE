@@ -15,7 +15,7 @@ const ServiceCard = ({
 }) => {
   const coverImageStyle = {
     backgroundImage: `url(${brandLogo})`,
-    backgroundSize: '80% 80%',
+    backgroundSize: '90% auto',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
   };

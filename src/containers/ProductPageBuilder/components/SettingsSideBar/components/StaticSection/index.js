@@ -76,11 +76,11 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
   const getCornerTitle = (corner) => {
     switch (corner) {
-    case 'borderTopLeftRadius': return 'Top Left';
-    case 'borderTopRightRadius': return 'Top Right';
-    case 'borderBottomLeftRadius': return 'Bottom Left';
-    case 'borderBottomRightRadius': return 'Bottom Right';
-    default: return '';
+      case 'borderTopLeftRadius': return 'Top Left';
+      case 'borderTopRightRadius': return 'Top Right';
+      case 'borderBottomLeftRadius': return 'Bottom Left';
+      case 'borderBottomRightRadius': return 'Bottom Right';
+      default: return '';
     }
   };
 
@@ -268,7 +268,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                   {custom.marketingConsent && (
                     <InputRow className='sidebar-row'>
                       <Label className='sidebar-input-label'>
-                      With CheckBox
+                        With CheckBox
                       </Label>
                       <Toggle
                         value={custom.marketingConsentIsRequired}
@@ -294,7 +294,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                   {custom.termsAndConditions && (
                     <InputRow className='sidebar-row'>
                       <Label className='sidebar-input-label'>
-                      T & C with Checkbox
+                        T & C with Checkbox
                       </Label>
                       <Toggle
                         value={custom.termsAndConditionsIsRequired}
@@ -325,20 +325,20 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
-            {/*
-            <InputRow className='sidebar-row'>
-              <Label className='sidebar-input-label'>
-                Show Shipping Methods
+            {custom.shippingDetails && (
+              <InputRow className='sidebar-row'>
+                <Label className='sidebar-input-label'>
+                  Show Shipping Methods
               </Label>
-              <Toggle
-                value={custom.shippingMethodsEnabled}
-                name='shippingMethodsEnabled'
-                onToggle={onToggleCustom}
-                beforeLabel='Show'
-                afterLabel='Hide'
-              />
-            </InputRow>
-            */}
+                <Toggle
+                  value={custom.shippingMethodsEnabled}
+                  name='shippingMethodsEnabled'
+                  onToggle={onToggleCustom}
+                  beforeLabel='Show'
+                  afterLabel='Hide'
+                />
+              </InputRow>
+            )}
             <InputRow className='sidebar-row'>
               <Label className='sidebar-input-label'>
                 Show Coupon Section

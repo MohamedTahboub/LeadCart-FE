@@ -10,6 +10,7 @@ import {
   GeneralSetting,
   Invoicing,
   Marketplace,
+  ShippingRules,
   Taxes,
   TeamMembers,
   Translations,
@@ -43,6 +44,11 @@ const Setting = ({ history, brands, user }) => {
       tab: 'Taxes',
       link: '/settings/taxes',
       component: <Taxes history={history} />
+    }, {
+      key: 'shippings',
+      tab: 'Shippings',
+      link: '/settings/shippingRules',
+      component: <ShippingRules history={history} />
     }, {
       key: 'zones',
       tab: 'Zones',
