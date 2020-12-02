@@ -25,19 +25,19 @@ import { CycleStepTitle } from 'components/common/Titles';
 const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
 const getStepsNames = (shippingDetails, shippingMethodsEnabled) => {
-  const defaultSteps = ['Billing Details']
+  const defaultSteps = ['Billing Details'];
 
   if (shippingDetails)
-    defaultSteps.push('Shipping Details')
+    defaultSteps.push('Shipping Details');
 
-  if (shippingMethodsEnabled)
-    defaultSteps.push('Shipping Methods')
+  if (shippingMethodsEnabled && shippingDetails)
+    defaultSteps.push('Shipping Methods');
 
 
-  defaultSteps.push('Payment Details')
+  defaultSteps.push('Payment Details');
   return defaultSteps;
 
-}
+};
 const ClassicForm = ({ language, section }) => {
   const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
   const {
@@ -117,7 +117,7 @@ const ClassicForm = ({ language, section }) => {
         <ShippingMethods />
       </FlexBox>
     )
-  )
+  );
 
   const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled);
 
