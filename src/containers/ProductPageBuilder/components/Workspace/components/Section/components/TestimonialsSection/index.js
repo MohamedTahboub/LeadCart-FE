@@ -45,6 +45,7 @@ const Testimonials = ({ section = {} }) => {
       {...content}
       onChange={onChange}
       theme={styles.theme}
+      styles={styles}
     />
   );
 };

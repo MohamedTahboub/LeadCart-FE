@@ -1,0 +1,21 @@
+  .mobile .business-testimonial-section,
+  .mobile .testimonial-item,
+  .mobile .compact-testimonial-section,
+  .mobile .description-oriented-testimonial,
+  .mobile .edgy-testimonial-section,
+  .mobile .modern-testimonial,
+  .mobile .plain-testimonial-section,
+  .mobile .modern-testimonial-content {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+  }
+
+
+.mobile .modern-testimonial-content {
+  min-width: 300px !important;
+  margin-top: 10px;
+}
+
+  .mobile .testimonial-item{
+    max-width: initial !important;
+  }

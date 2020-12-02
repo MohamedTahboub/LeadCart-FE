@@ -18,9 +18,10 @@ const CompactTestimonial = ({
   image = avatarLink,
   rank = 2,
   orderId: id,
-  onChange
+  onChange,
+  styles = {}
 }) => {
-
+  const { backgroundColor = 'transparent', nameColor = '#000', jobTitleColor = '#a2a2a2', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value }) => {
     onChange({
@@ -32,7 +33,7 @@ const CompactTestimonial = ({
   };
 
   return (
-    <FlexBox className='compact-testimonial-section'>
+    <FlexBox className='compact-testimonial-section' style={{ backgroundColor }}>
       <Image
         className='compact-testimonial-image'
         image={image}
@@ -46,6 +47,7 @@ const CompactTestimonial = ({
           defaultValue='testimonial content'
           value={content}
           className='medium-text blush-gray max-w-500 margin-v-20 text-align-center'
+          style={{ overflow: 'hidden', color: descriptionColor }}
         />
         <FlexBox spaceBetween className='col-on-mobile'>
           <ResizableInput
@@ -54,7 +56,8 @@ const CompactTestimonial = ({
             name='content.author'
             defaultValue='Author Name'
             value={author}
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', color: nameColor }}
+            maxLength='20'
           />
           <StarsRanking
             name='content.rank'
@@ -69,7 +72,8 @@ const CompactTestimonial = ({
           name='content.authorDescription'
           defaultValue='Works at Xalion'
           value={authorDescription}
-          style={{ fontWeight: 'bold' }}
+          style={{ fontWeight: 'bold', color: jobTitleColor }}
+          maxLength='55'
         />
       </FlexBox>
     </FlexBox>

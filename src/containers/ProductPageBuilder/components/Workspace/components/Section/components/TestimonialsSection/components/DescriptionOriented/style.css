@@ -1,6 +1,6 @@
 .description-oriented-testimonial {
     margin: 8px;
-    box-shadow: 1px 3px 8px #D1D1D1;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, .15);
     padding: 16px;
     border-radius: 8px;
 }

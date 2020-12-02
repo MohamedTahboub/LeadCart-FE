@@ -19,9 +19,10 @@ const ModernTestimonial = ({
   className,
   orderId: id,
   onChange,
+  styles = {},
   ...props
 }) => {
-
+  const { backgroundColor = 'transparent', nameColor = '#000', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value, ...res }) => {
     onChange({
@@ -33,38 +34,45 @@ const ModernTestimonial = ({
   };
 
   return (
-    <FlexBox center='v-center margin-v-10'>
+    <FlexBox center='modern-testimonial margin-v-10 h-center' style={{ backgroundColor }} wrappable>
       <Image
-        // className='testimonial-author-image'
         className='modern-testimonial-image'
         image={image}
         name={`testimonial-image-${id}`}
         onChange={onImageChange}
       />
-      <FlexBox column reverse className='margin-left-20 full-width'>
-        <StarsRanking
-          name='content.rank'
-          rank={rank}
-          max={5}
-          onChange={onChange}
-        />
-        <ResizableTextarea
-          onChange={onChange}
-          name='content.value'
-          defaultValue='testimonial content'
-          value={content}
-          className='medium-text blush-gray max-w-500 margin-v-20'
-        />
+
+      <FlexBox flex column className='margin-left-20 full-width modern-testimonial-content'>
         <FlexBox center='v-center'>
           <ResizableInput
             onChange={onChange}
             name='content.author'
             defaultValue='Author Name'
             value={author}
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', color: nameColor }}
+            maxLength='20'
           />
         </FlexBox>
+
+        <ResizableTextarea
+          onChange={onChange}
+          name='content.value'
+          defaultValue='testimonial content'
+          value={content}
+          className='medium-text blush-gray max-w-500 margin-v-20'
+          style={{ overflow: 'hidden', color: descriptionColor }}
+        />
+
+
+        <StarsRanking
+          name='content.rank'
+          rank={rank}
+          max={5}
+          onChange={onChange}
+        />
       </FlexBox>
+
+
     </FlexBox>
   );
 };
