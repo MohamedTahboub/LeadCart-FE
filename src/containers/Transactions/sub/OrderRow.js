@@ -55,15 +55,24 @@ const ProductRow = ({ name, price, offers = [], coupon = {}, currency, className
   );
 };
 
-const TotalRows = ({ total, tax = {}, currency }) => {
+const TotalRows = ({ total, tax = {}, currency, shipping = {} }) => {
   const hasTaxes = tax.taxAmount > 0;
-  const subTotal = hasTaxes ? total - tax.taxAmount : total;
+  const hasShipping = shipping.cost > 0;
+
+  const trimedTaxesAndShipping = (hasTaxes ? tax.taxAmount : 0) + (hasShipping ? shipping.cost: 0);
+  const subTotal = total - trimedTaxesAndShipping
+
   return (
     <Fragment>
-      {hasTaxes && (
+      {(hasTaxes || hasShipping) && (
         <Fragment>
           <ProductRow name='Subtotal' price={subTotal} currency={currency} className='sub-total-row' />
-          <ProductRow name={`${tax.name} (${tax.rate}%)`} price={tax.taxAmount} currency={currency} />
+          {hasShipping && (
+            <ProductRow name={shipping.name} price={shipping.cost} currency={currency} />
+          )}
+          {hasTaxes && (
+            <ProductRow name={`${tax.name} (${tax.rate}%)`} price={tax.taxAmount} currency={currency} />
+          )}
         </Fragment>
       )}
       <ProductRow name='Total' price={total} currency={currency} className='total-row' />
@@ -86,6 +95,7 @@ const OrderRow = ({
   tax = {},
   generateOrderInvoice,
   totalCharge = 0,
+  shippingMethod = {},
   ...reset
 }) => {
   const productsCount = products.length;
@@ -126,7 +136,7 @@ const OrderRow = ({
               {products.map((product) => (
                 <ProductRow key={product._id} {...product} currency={currency} />
               ))}
-              <TotalRows total={totalCharge} currency={currency} tax={tax} />
+              <TotalRows total={totalCharge} currency={currency} tax={tax} shipping={shippingMethod} />
               <FlexBox flex center='h-center' className='mt-3'>
                 <Button onprogress={loading} className='light-btn px-3' onClick={onDownloadOrderInvoice}>
                   <FlexBox center='v-center'>
