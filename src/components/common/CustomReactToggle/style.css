@@ -1,0 +1,27 @@
+.react-custom-toggle .react-toggle .react-toggle-track {
+  background-color: var(--bg-color);
+}
+
+.react-custom-toggle .react-toggle .react-toggle-thumb {
+  border-color: var(--bg-color);
+  background-color: var(--check-mark-color);
+}
+
+.react-custom-toggle .react-toggle:hover .react-toggle-track {
+  background-color: var(--bg-color) !important;
+} 
+
+.react-custom-toggle .react-toggle .react-toggle-track-x path,
+.react-custom-toggle .react-toggle .react-toggle-track-check path{
+  fill: var(--check-mark-color);
+}
+
+.react-custom-toggle .react-toggle--focus .react-toggle-thumb {
+  box-shadow: none
+}
+
+.react-custom-toggle .react-toggle:active .react-toggle-thumb {
+  box-shadow: none
+}
+
+

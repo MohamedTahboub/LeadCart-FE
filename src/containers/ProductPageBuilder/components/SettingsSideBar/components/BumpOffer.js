@@ -1,5 +1,4 @@
 import React from 'react';
-import CustomToggle from 'react-toggle';
 
 import common from 'components/common';
 import { nestedKeyValue } from 'libs';
@@ -7,8 +6,6 @@ import { useContext } from '../../../actions';
 import { ImageOption } from './common';
 import InlinePopup from 'components/common/InlinePopup';
 import FlatRadio from 'components/FlatRadio';
-import CheckBox from 'components/common/Checkbox';
-import CustomRadio from 'components/common/CustomRadio';
 import { Title } from 'components/common/Titles';
 
 import topImageTheme from 'assets/images/bumpOffers_templates/top.png';
@@ -26,7 +23,10 @@ const {
   Tabs,
   Tab,
   InputRow,
-  FlexBox
+  FlexBox,
+  CustomReactToggle,
+  CustomRadio,
+  CustomCheckbox
 } = common;
 
 
@@ -173,14 +173,16 @@ const ToggleInputOption = ({ styles, onChange, value, Input, className }) => {
       className='bump-offer-option'
       style={{ ...style, width: '50%' }}
       options={[{
-        label: <Input
-          className={className}
-          borderColor={headerTextColor}
-          backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
-          checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
-          checked
-          active
-               />,
+        label:
+         <Input
+           className={className}
+           borderColor={headerTextColor}
+           backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
+           checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
+           checked
+           active
+         />
+        ,
         value
       }]}
       value={styles.toggleInput || 'checkbox'}
@@ -194,11 +196,11 @@ const ToggleInputOption = ({ styles, onChange, value, Input, className }) => {
 const toggleInputsOptions = [
   {
     value: 'checkbox',
-    Input: CheckBox
+    Input: CustomCheckbox
   },
   {
     value: 'checkbox-circle',
-    Input: CheckBox,
+    Input: CustomCheckbox,
     className: 'checkbox-circle'
   },
   {
@@ -207,7 +209,7 @@ const toggleInputsOptions = [
   },
   {
     value: 'toggle',
-    Input: CustomToggle
+    Input: CustomReactToggle
   }
 ];
 
@@ -328,7 +330,7 @@ const BumpOffer = () => {
       </Tab>
 
 
-      <Tab id='advance' title='Advance'>
+      <Tab id='styles' title='Styles'>
         <InlinePopup
           title='Offer Colors'
           popUpContent={(

@@ -28,7 +28,9 @@ import * as Menus from './Menus';
 import * as Spinners from './Spinners';
 import DisplayContent from './DisplayContent';
 import Tooltip from './Tooltip';
-import Checkbox from './Checkbox';
+import CustomCheckbox from './Checkbox';
+import CustomReactToggle from './CustomReactToggle';
+import CustomRadio from './CustomRadio';
 
 export default {
   Table,
@@ -61,5 +63,7 @@ export default {
   Dialog,
   Tooltip,
   DisplayContent,
-  Checkbox
+  CustomCheckbox,
+  CustomReactToggle,
+  CustomRadio
 };

@@ -1,41 +1,28 @@
 import React from 'react';
 import clx from 'classnames';
-import Toggle from 'react-toggle';
 
 
 import common from 'components/common';
-import CheckBox from 'components/common/Checkbox';
-import CustomRadio from '../CustomRadio';
 
 import './style.css';
 
-const { LayoutSwitch } = common;
+const { LayoutSwitch, CustomReactToggle, CustomRadio, CustomCheckbox } = common;
 
 
 const ToggleButton = ({ toggleInput = 'checkbox', toggleClassName, isChecked, headerTextColor, headerBackground, containerBackground, ...props }) => {
   const activeMarkColor = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
-  const styleVars = { '--header-text-color': headerTextColor, '--active-mark-color': activeMarkColor };
-
-
-  React.useEffect(() => {
-    const toggleElements = document.querySelectorAll('.bump-offer-toggle-button  .react-toggle--checked .react-toggle-track');
-
-    [...toggleElements].forEach(({ style = {} }) => {
-      style.backgroundColor = headerTextColor;
-    });
-  }, [headerTextColor]);
-
 
   return (
     <LayoutSwitch className='bump-offer-toggle-button flex-box v-center h-center' active={toggleInput} >
-      <Toggle
+      <CustomReactToggle
         id='toggle'
         checked={isChecked}
         className={`${toggleClassName} ${headerTextColor} mr-2`}
-        style={styleVars}
+        checkmarkColor={activeMarkColor}
+        backgroundColor={headerTextColor}
       />
 
-      <CheckBox
+      <CustomCheckbox
         {...props}
         id='checkbox'
         active={isChecked}
@@ -45,7 +32,7 @@ const ToggleButton = ({ toggleInput = 'checkbox', toggleClassName, isChecked, he
         checkmarkColor={activeMarkColor}
       />
 
-      <CheckBox
+      <CustomCheckbox
         {...props}
         id='checkbox-circle'
         className={clx('checkbox-circle', toggleClassName)}
