@@ -534,7 +534,7 @@ const BumpOffer = () => {
 
         {hasShadowEffect &&
         <FlexBox spaceBetween center='v-center mt-3'>
-          <Tooltip placement='left' overlay='filling the bump offer image left sapce with its shadow'>
+          <Tooltip placement='left' overlay='filling the bump offer image left space with its shadow'>
             <FlexBox className='mr-2' flex>
                 Fill image background:
             </FlexBox>
