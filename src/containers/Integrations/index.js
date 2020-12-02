@@ -6,6 +6,7 @@ import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { includesIgnoreCase, notification } from 'libs';
 import servicesList from 'data/integrationsServices';
+import { offlinePaymentLogo } from 'data/importBrands';
 
 import {
   ConnectModal,
@@ -27,6 +28,11 @@ const {
   Dialog,
   WarningMessage
 } = common;
+const defaultOfflinePayment = {
+  name: 'Offline Payment Method',
+  notes: 'Notes for your customers',
+  logo: offlinePaymentLogo
+};
 
 const { TextField } = InputRow;
 
@@ -69,11 +75,25 @@ const Integrations = ({ integrations, history, ...props }) => {
 
   const filteredList = filtersIntegrations(integrations, searchKey);
 
+  const onCreateOfflinePayment = (service) => {
+    console.log('Created', service);
+    props.addOfflinePaymentMethod(defaultOfflinePayment, {
+      onSuccess: () => {
+        notification.success('Created SuccessFully');
+      },
+      onFailed: (msg) => {
+        notification.failed(msg);
+      }
+    });
+  };
+
   const onConnect = (service) => {
     setActiveService(service);
-    console.log({ service });
+
     if (service && service.connectMode)
       setOpenEditModal(service.key);
+    else if (service.action === 'create_offline_payment')
+      onCreateOfflinePayment(service);
     else
       setOpenModal(true);
 
@@ -209,11 +229,15 @@ const Integrations = ({ integrations, history, ...props }) => {
 Integrations.propTypes = {};
 Integrations.defaultProps = { integrations: [] };
 const mapStateToProps = ({ integrations = [] }) => {
+  const offlinePaymentsCount = integrations.filter((integration) => integration.key === 'lc_offlinepayment').length;
+
   const integrationsServices = servicesList.map((service) => {
-    const integrationExist = integrations.find((integration) => integration && (
-      integration.key === service.key
-      || integration.integrationKey === service.key
-    ));
+    const integrationExist = integrations.find((integration) => {
+      return integration && (
+        integration.key === service.key
+        || integration.integrationKey === service.key
+      );
+    });
     if (integrationExist) {
       return {
         ...service,
@@ -224,6 +248,6 @@ const mapStateToProps = ({ integrations = [] }) => {
     return service;
   });
 
-  return { integrations: integrationsServices };
+  return { integrations: integrationsServices, offlinePaymentsCount };
 };
 export default connect(mapStateToProps, integrationsActions)(Integrations);

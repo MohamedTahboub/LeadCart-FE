@@ -34,14 +34,19 @@ const services = [
     supported: true
   },
   {
-    key: 'lc_offlinePayment',
-    name: 'Off Line Payment',
-    brandLogo: brandsLogos.razorpayLogo,
+    key: 'lc_offlinepayment',
+    name: 'Offline Payment Method',
+    brandLogo: brandsLogos.offlinePaymentLogo,
     category: 'Payment Gateways',
-    description: 'An Indian payment gateway that accepts payments from customers. Automate payouts to vendors and employees.',
-    connectMode: 'modal',
+    description: 'Add a custom offline payment for your customers, with notes of what they should do to complete the purchases using this method.',
+    action: 'create_offline_payment',
     active: false,
     connected: false,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'Create'
+    },
     supported: true
   },
   {

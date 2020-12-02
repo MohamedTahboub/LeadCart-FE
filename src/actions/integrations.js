@@ -1,4 +1,7 @@
 import {
+  ADD_OFFLINE_PAYMENT_METHOD,
+  ADD_OFFLINE_PAYMENT_METHOD_FAILED,
+  ADD_OFFLINE_PAYMENT_METHOD_SUCCESS,
   CHECK_INTEGRATION_SUPPORT,
   CHECK_INTEGRATION_SUPPORT_FAILED,
   CHECK_INTEGRATION_SUPPORT_SUCCESS,
@@ -92,3 +95,17 @@ export const sendWebhookTestPayloadFailed = (message) => ({
   payload: message
 });
 
+
+export const addOfflinePaymentMethod = (service, meta) => ({
+  type: ADD_OFFLINE_PAYMENT_METHOD,
+  payload: service,
+  meta
+});
+export const addOfflinePaymentMethodSuccess = (service) => ({
+  type: ADD_OFFLINE_PAYMENT_METHOD_SUCCESS,
+  payload: service
+});
+export const addOfflinePaymentMethodFailed = (message) => ({
+  type: ADD_OFFLINE_PAYMENT_METHOD_FAILED,
+  payload: message
+});

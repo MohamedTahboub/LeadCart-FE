@@ -24,7 +24,7 @@ const ConnectModal = ({
       </MainTitle>
     </div>
     <LayoutSwitch active={service.key} fallback={<OfflinePayment id='lc_offlinePayment' />}>
-      <OfflinePayment id='lc_offlinePayment' />
+      <OfflinePayment id='lc_offlinePayment' service={service} />
     </LayoutSwitch>
   </Modal>
 );
