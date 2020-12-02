@@ -60,7 +60,7 @@ const EdgyTestimonial = ({
             name='content.authorDescription'
             defaultValue='Job title'
             value={authorDescription}
-            style={{ fontWeight: 'bold', colro: jobTitleColor }}
+            style={{ fontWeight: 'bold', color: jobTitleColor }}
             maxLength='55'
 
           />
