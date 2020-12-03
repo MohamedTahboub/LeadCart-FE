@@ -1,0 +1,20 @@
+.position-option{
+  transition: .4s background ease-in-out, .4s opacity ease-in-out;
+  color: #4DA1FF;
+  border-radius: 5px;
+}
+
+.position-option:hover:not(.activePositionOption){
+  background-color: #4DA1FF;
+  color: #fff;
+  opacity: .5;
+
+}
+
+.activePositionOption{
+    background-color: #4DA1FF;
+    color: #fff;
+    font-weight: bold;
+
+  
+}

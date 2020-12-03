@@ -19,7 +19,7 @@ const SettingToggleIcons = ({ show, Icon }) => {
 };
 
 
-export default ({ title, button, popUpContent, position = 'center', icon, defaultCloseBtn = true, className, ...props }) => {
+export default ({ title, button, popUpContent, position = 'center', icon, defaultCloseBtn = true, className, popupClass, ...props }) => {
   const [show, setShow] = useState(false);
   const [currentId, setCurrentId] = useState('id!');
 
@@ -43,12 +43,12 @@ export default ({ title, button, popUpContent, position = 'center', icon, defaul
       <span onClick={onToggleShow} className='inline-popup-toggle-btn'>
         {SettingToggleIcons({ show, Icon: icon })}
       </span>
-      {show && <Popup id={currentId} onClose={onToggleShow} position={position}>{popUpContent}</Popup>}
+      {show && <Popup id={currentId} onClose={onToggleShow} position={position} popupClass={popupClass}>{popUpContent}</Popup>}
     </div>
   );
 };
 
-const Popup = ({ id, children, onClose, position }) => {
+const Popup = ({ id, children, onClose, position, popupClass }) => {
 
   const onKeyDown = (e) => {
     const parentElement = document.getElementById(id);
@@ -61,5 +61,5 @@ const Popup = ({ id, children, onClose, position }) => {
 
   useEventListener('click', onKeyDown);
 
-  return <div id={id} className={clx('inline-popup', { [`position-${position}`]: position })}>{children}</div>;
+  return <div id={id} className={clx(`inline-popup ${popupClass}`, { [`position-${position}`]: position })}>{children}</div>;
 };

@@ -13,6 +13,7 @@ import { PricingOption } from './components';
 import InlinePopup from 'components/common/InlinePopup';
 
 import SectionStylesControllers from '../common/SectionStyles';
+import ClassicFormStyles from '../common/ClassicFormStyles';
 
 const { admins = [], PRICING_OPTIONS_LIMITS } = config;
 const { Button, Tabs, Tab, InputRow, FlexBox, MiniColorPicker } = common;
@@ -34,20 +35,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
   const { twoStepCheckout = false } = content;
   const { completeOrderButton = {}, theme: formTheme = 'classic' } = styles;
 
-  const {
-    position = 'justified',
-    background = '#4da1ff',
-    textColor = '#fff',
-    borderSymmetry,
-    borderStyle = 'hidden',
-    borderColor = '#4da1ff',
-    shadowColor = '#fff',
-    hasShadow,
-    boxShadowOffsetX,
-    boxShadowOffsetY,
-    boxShadowBlur,
-    borderWidth = '2px'
-  } = completeOrderButton;
+  const { borderSymmetry } = completeOrderButton;
 
 
   const {
@@ -74,15 +62,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
     'borderBottomRightRadius'
   ];
 
-  const getCornerTitle = (corner) => {
-    switch (corner) {
-    case 'borderTopLeftRadius': return 'Top Left';
-    case 'borderTopRightRadius': return 'Top Right';
-    case 'borderBottomLeftRadius': return 'Bottom Left';
-    case 'borderBottomRightRadius': return 'Bottom Right';
-    default: return '';
-    }
-  };
 
   const onSectionFieldChange = ({ target: { name, value } } = {}) => {
     onSectionSettingChange({
@@ -108,20 +87,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
         value: value
       }
     });
-  };
-
-  const onSliderChange = (radius, name) => {
-    if (borderCornerNames.includes(name) && borderSymmetry) {
-      onSectionSettingChange({
-        section: sectionSetting,
-        fields: borderCornerNames.map((corner) => ({
-          name: `styles.completeOrderButton.${corner}`,
-          value: radius
-        }))
-      });
-    } else {
-      onButtonSettingsChange({ target: { name, value: radius } });
-    }
   };
 
 
@@ -399,178 +364,34 @@ const StaticSection = ({ defaultBrandCurrency }) => {
           </Tab>
         }
 
-
-        {!isFuturistic && (
-          <Tab id='button' title='Button'>
-            <FlexBox center='v-center' spaceBetween>
-              <span className='gray-text'>Position</span>
-              <SelectOption
-                name='position'
-                value={position}
-                onChange={onButtonSettingsChange}
-                options={[
-                  { label: 'Left', value: 'left' },
-                  { label: 'Right', value: 'right' },
-                  { label: 'Center', value: 'center' },
-                  { label: 'Justified', value: 'justified' }
-                ]}
-              />
-            </FlexBox>
-
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Button Background</span>
-              <MiniColorPicker
-                name='background'
-                value={background}
-                onChange={onButtonSettingsChange}
-              />
-            </FlexBox>
-
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Button Text</span>
-              <MiniColorPicker
-                name='textColor'
-                value={textColor}
-                onChange={onButtonSettingsChange}
-              />
-            </FlexBox>
-
-            <FlexBox column center='margin-v-5 fluid' spaceBetween>
-              <InlinePopup
-                title='Borders'
-                popUpContent={(
-                  <FlexBox column>
-
-                    <div>Border Radius</div>
-                    <span className='gray-text'>Symmetric</span>
-                    <Toggle value={borderSymmetry} onToggle={(target) => onButtonSettingsChange({ target })} name='borderSymmetry' />
-                    {
-                      borderCornerNames.map((corner) => (
-                        <>
-                          <div className='mb-2'>{getCornerTitle(corner)}</div>
-                          <Slider
-                            max={50}
-                            min={0}
-                            defaultValue={5}
-                            onChange={(radius) => onSliderChange(radius, corner)}
-                            value={completeOrderButton[corner] || 0}
-                          />
-                        </>
-                      ))
-                    }
-                    <FlexBox center='v-center' spaceBetween className='mb-2'>
-                      <div className='gray-text mb-2'>Border style</div>
-                      <SelectOption
-                        name='borderStyle'
-                        value={borderStyle}
-                        onChange={onButtonSettingsChange}
-                        options={[
-                          { label: 'Solid', value: 'solid' },
-                          { label: 'Dashed', value: 'dashed' },
-                          { label: 'Dotted', value: 'dotted' },
-                          { label: 'None', value: 'hidden' }
-                        ]}
-                      />
-                    </FlexBox>
-                    <FlexBox center='v-center' spaceBetween className='mb-2'>
-                      <div className='gray-text mb-2'>Border Width</div>
-                      <SelectOption
-                        value={borderWidth}
-                        name='borderWidth'
-                        onChange={onButtonSettingsChange}
-                        options={[
-                          { label: '0px', value: '0px' },
-                          { label: '1px', value: '1px' },
-                          { label: '2px', value: '2px' },
-                          { label: '3px', value: '3px' },
-                          { label: '4px', value: '4px' },
-                          { label: '5px', value: '5px' },
-                          { label: '6px', value: '6px' },
-                          { label: '7px', value: '7px' },
-                          { label: '8px', value: '8px' },
-                          { label: '9px', value: '9px' },
-                          { label: '10px', value: '10px' }
-                        ]}
-                      />
-                    </FlexBox>
-                    <FlexBox center='v-center' className='pb-140px' spaceBetween>
-                      <span className='gray-text'>Border Color</span>
-                      <MiniColorPicker
-                        name='borderColor'
-                        value={borderColor}
-                        onChange={onButtonSettingsChange}
-                      />
-                    </FlexBox>
-                  </FlexBox>
-                )}
-              />
-
-              <InlinePopup
-                title='Shadow'
-                popUpContent={(
-                  <FlexBox column>
-                    <span>Shadow</span>
-                    <Toggle value={hasShadow} onToggle={(target) => onButtonSettingsChange({ target })} name='hasShadow' />
-                    <span className='gray-text'>Offset-X</span>
-                    <Slider
-                      max={20}
-                      min={0}
-                      defaultValue={5}
-                      onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
-                      value={boxShadowOffsetX}
-                      disabled={!hasShadow}
-                    />
-                    <span className='gray-text'>Offset-Y</span>
-                    <Slider
-                      max={20}
-                      min={0}
-                      defaultValue={5}
-                      onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
-                      value={boxShadowOffsetY}
-                      disabled={!hasShadow}
-                    />
-                    <span className='gray-text'>Blur</span>
-                    <Slider
-                      max={20}
-                      min={0}
-                      defaultValue={5}
-                      onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
-                      value={boxShadowBlur}
-                      disabled={!hasShadow}
-                    />
-                    <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
-                      <span className='gray-text'>Shadow Color</span>
-                      <MiniColorPicker
-                        name='shadowColor'
-                        value={shadowColor}
-                        onChange={onButtonSettingsChange}
-                        disabled={!hasShadow}
-                      />
-                    </FlexBox>
-                  </FlexBox>
-                )}
-              />
-            </FlexBox>
-          </Tab>
-        )}
-        {isFuturistic && (
-          <Tab id='styles' title='Styles'>
-            <FlexBox spaceBetween className='my-2'>
-              <Label className='sidebar-input-label'>
+        <Tab id='styles' title='Styles'>
+          {isFuturistic ?
+            <Fragment>
+              <FlexBox spaceBetween className='my-2'>
+                <Label className='sidebar-input-label'>
                 Form Theme Color
-              </Label>
-              <MiniColorPicker
-                name='themeColor'
-                value={styles.themeColor}
+                </Label>
+                <MiniColorPicker
+                  name='themeColor'
+                  value={styles.themeColor}
+                  onChange={onSectionStylesChange}
+                />
+              </FlexBox>
+              <SectionStylesControllers
+                values={styles}
                 onChange={onSectionStylesChange}
               />
-            </FlexBox>
-            <SectionStylesControllers
+            </Fragment>
+            :
+            <ClassicFormStyles
               values={styles}
               onChange={onSectionStylesChange}
+              completeOrderButton={completeOrderButton}
+              sectionSetting={sectionSetting}
+              onSectionSettingChange={onSectionSettingChange}
             />
-          </Tab>
-        )}
+          }
+        </Tab>
 
       </Tabs>
     </Fragment>
