@@ -76,11 +76,11 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
   const getCornerTitle = (corner) => {
     switch (corner) {
-      case 'borderTopLeftRadius': return 'Top Left';
-      case 'borderTopRightRadius': return 'Top Right';
-      case 'borderBottomLeftRadius': return 'Bottom Left';
-      case 'borderBottomRightRadius': return 'Bottom Right';
-      default: return '';
+    case 'borderTopLeftRadius': return 'Top Left';
+    case 'borderTopRightRadius': return 'Top Right';
+    case 'borderBottomLeftRadius': return 'Bottom Left';
+    case 'borderBottomRightRadius': return 'Bottom Right';
+    default: return '';
     }
   };
 
@@ -167,62 +167,75 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
 
   const isExceededThePricingOptionsLimits = (Array.isArray(pricingOptions) && pricingOptions.length > PRICING_OPTIONS_LIMITS);
-
   const isCheckoutProductPage = category === 'checkout';
-
+  const isOptInProductPage = category === 'opt-in';
   const isFuturistic = formTheme === 'futuristic';
+  const hasPricingSettings = category !== 'opt-in';
+  const hasOptionsSettings = category === 'checkout' || category === 'opt-in';
+
+  const getActiveTab = () => {
+    if (hasPricingSettings)
+      return 'pricing';
+    if (hasOptionsSettings)
+      return 'options';
+  };
+
+  const activeTab = getActiveTab();
 
   return (
     <Fragment>
-      <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
-        <Tab id='pricing' title='Pricing'>
-          <InputRow>
-            <Label>Price Format:</Label>
-            <SearchInput
-              size='small'
-              width={350}
-              options={priceFormatOptions}
-              defaultValue={price.format || 'amount'}
-              name='price.format'
-              onChange={onChange}
-            />
-          </InputRow>
-          <PaymentType
-            payment={payment}
-            onChange={onChange}
-            price={price}
-            currency={currency}
-          />
-          {(isCheckoutProductPage) && (
-            <Fragment>
-              <FlexBox center='h-center' className='mt-3 mb-2'>
-                <Button className='light-btn px-3' onClick={onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
-                  <FlexBox center='v-center'>
-                    <IoIosAddCircleOutline color='gray' className='mr-2' />
-                    <span>Add More Pricing Options</span>
-                  </FlexBox>
-                </Button>
-              </FlexBox>
-              <FlexBox column>
-                {pricingOptions.map((pricingOption) => {
-                  const { id } = pricingOption;
-                  return (
-                    <PricingOption
-                      key={id}
-                      {...pricingOption}
-                      format={price.format}
-                      onEdit={onEditProductPriceOption(pricingOption)}
-                      onDelete={onDeleteProductPriceOption(id)}
-                      currency={currency}
-                    />
-                  );
-                })}
-              </FlexBox>
-            </Fragment>
-          )}
-        </Tab>
+      <Tabs active={activeTab} className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
 
-        {isCheckoutProductPage &&
+        {hasPricingSettings &&
+          <Tab id='pricing' title='Pricing'>
+            <InputRow>
+              <Label>Price Format:</Label>
+              <SearchInput
+                size='small'
+                width={350}
+                options={priceFormatOptions}
+                defaultValue={price.format || 'amount'}
+                name='price.format'
+                onChange={onChange}
+              />
+            </InputRow>
+            <PaymentType
+              payment={payment}
+              onChange={onChange}
+              price={price}
+              currency={currency}
+            />
+            {(isCheckoutProductPage) && (
+              <Fragment>
+                <FlexBox center='h-center' className='mt-3 mb-2'>
+                  <Button className='light-btn px-3' onClick={onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
+                    <FlexBox center='v-center'>
+                      <IoIosAddCircleOutline color='gray' className='mr-2' />
+                      <span>Add More Pricing Options</span>
+                    </FlexBox>
+                  </Button>
+                </FlexBox>
+                <FlexBox column>
+                  {pricingOptions.map((pricingOption) => {
+                    const { id } = pricingOption;
+                    return (
+                      <PricingOption
+                        key={id}
+                        {...pricingOption}
+                        format={price.format}
+                        onEdit={onEditProductPriceOption(pricingOption)}
+                        onDelete={onDeleteProductPriceOption(id)}
+                        currency={currency}
+                      />
+                    );
+                  })}
+                </FlexBox>
+              </Fragment>
+            )}
+          </Tab>
+        }
+
+        {hasOptionsSettings &&
           <Tab id='options' title='Options'>
             <Label className='mb-2'>
               Form Theme:
@@ -236,78 +249,84 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               name='theme'
               onToggle={onCheckoutFormThemeChange}
             />
-            <Label className='mb-2'>
+
+            {!isOptInProductPage &&
+            <Fragment>
+              <Label className='mb-2'>
               Checkout type:
-            </Label>
-            <FlatRadio
-              options={[
-                { label: 'Two steps', value: true },
-                { label: 'One step', value: false }
-              ]}
-              value={twoStepCheckout}
-              name='twoStepCheckout'
-              onToggle={onTwoStepCheckoutChange}
-            />
-            <InlinePopup
-              title='GDPR compliance options'
-              className='mt-3'
-              popUpContent={(
-                <FlexBox column>
-                  <InputRow className='sidebar-row'>
-                    <Label className='sidebar-input-label'>
+              </Label>
+              <FlatRadio
+                options={[
+                  { label: 'Two steps', value: true },
+                  { label: 'One step', value: false }
+                ]}
+                value={twoStepCheckout}
+                name='twoStepCheckout'
+                onToggle={onTwoStepCheckoutChange}
+              />
+
+              <InlinePopup
+                title='GDPR compliance options'
+                className='mt-3'
+                popUpContent={(
+                  <FlexBox column>
+                    <InputRow className='sidebar-row'>
+                      <Label className='sidebar-input-label'>
                       Marketing Consent
-                    </Label>
-                    <Toggle
-                      value={custom.marketingConsent}
-                      name='marketingConsent'
-                      onToggle={onToggleCustom}
-                      beforeLabel='Show'
-                      afterLabel='Hide'
-                    />
-                  </InputRow>
-                  {custom.marketingConsent && (
-                    <InputRow className='sidebar-row'>
-                      <Label className='sidebar-input-label'>
+                      </Label>
+                      <Toggle
+                        value={custom.marketingConsent}
+                        name='marketingConsent'
+                        onToggle={onToggleCustom}
+                        beforeLabel='Show'
+                        afterLabel='Hide'
+                      />
+                    </InputRow>
+                    {custom.marketingConsent && (
+                      <InputRow className='sidebar-row'>
+                        <Label className='sidebar-input-label'>
                         With CheckBox
-                      </Label>
-                      <Toggle
-                        value={custom.marketingConsentIsRequired}
-                        name='marketingConsentIsRequired'
-                        onToggle={onToggleCustom}
-                        beforeLabel='Show'
-                        afterLabel='Hide'
-                      />
-                    </InputRow>
-                  )}
-                  <InputRow className='sidebar-row'>
-                    <Label className='sidebar-input-label'>
-                      Terms & Conditions
-                    </Label>
-                    <Toggle
-                      value={custom.termsAndConditions}
-                      name='termsAndConditions'
-                      onToggle={onToggleCustom}
-                      beforeLabel='Show'
-                      afterLabel='Hide'
-                    />
-                  </InputRow>
-                  {custom.termsAndConditions && (
+                        </Label>
+                        <Toggle
+                          value={custom.marketingConsentIsRequired}
+                          name='marketingConsentIsRequired'
+                          onToggle={onToggleCustom}
+                          beforeLabel='Show'
+                          afterLabel='Hide'
+                        />
+                      </InputRow>
+                    )}
                     <InputRow className='sidebar-row'>
                       <Label className='sidebar-input-label'>
-                        T & C with Checkbox
+                      Terms & Conditions
                       </Label>
                       <Toggle
-                        value={custom.termsAndConditionsIsRequired}
-                        name='termsAndConditionsIsRequired'
+                        value={custom.termsAndConditions}
+                        name='termsAndConditions'
                         onToggle={onToggleCustom}
                         beforeLabel='Show'
                         afterLabel='Hide'
                       />
                     </InputRow>
-                  )}
-                </FlexBox>
-              )}
-            />
+                    {custom.termsAndConditions && (
+                      <InputRow className='sidebar-row'>
+                        <Label className='sidebar-input-label'>
+                        T & C with Checkbox
+                        </Label>
+                        <Toggle
+                          value={custom.termsAndConditionsIsRequired}
+                          name='termsAndConditionsIsRequired'
+                          onToggle={onToggleCustom}
+                          beforeLabel='Show'
+                          afterLabel='Hide'
+                        />
+                      </InputRow>
+                    )}
+                  </FlexBox>
+                )}
+              />
+            </Fragment>
+            }
           </Tab>
         }
 
@@ -329,7 +348,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Show Shipping Methods
-              </Label>
+                </Label>
                 <Toggle
                   value={custom.shippingMethodsEnabled}
                   name='shippingMethodsEnabled'
@@ -382,7 +401,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
 
         {!isFuturistic && (
-
           <Tab id='button' title='Button'>
             <FlexBox center='v-center' spaceBetween>
               <span className='gray-text'>Position</span>

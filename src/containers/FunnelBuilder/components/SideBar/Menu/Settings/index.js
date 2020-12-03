@@ -134,9 +134,10 @@ const Settings = ({
         />
       </FlexBox>
 
+      {!isOptInFunnel &&
       <FlexBox column className='mt-2'>
         <Label>
-          Tax Schemas:
+          Tax Schema:
         </Label>
 
         <Select
@@ -145,6 +146,7 @@ const Settings = ({
           value={selectedTaxOption}
         />
       </FlexBox>
+      }
     </FlexBox>
   );
 };
