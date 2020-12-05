@@ -12,7 +12,8 @@
 
 .custom-phone-number-input .PhoneInputInput{
     position: relative;
-    height: 32px;
+    /* height: 32px; */
+    height: 100%;
     border: 1px solid transparent;
     padding: 12px 15px;
     padding-left: 13px;

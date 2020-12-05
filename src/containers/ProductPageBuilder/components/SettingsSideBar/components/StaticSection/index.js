@@ -372,20 +372,14 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             <ClassicFormStyles
               values={styles}
               onChange={onSectionStylesChange}
+              completeOrderButton={completeOrderButton}
+              sectionSetting={sectionSetting}
+              onSectionSettingChange={onSectionSettingChange}
             />
           }
         </Tab>
 
 
-        {!isFuturistic &&
-        <Tab id='button' title='Button'>
-          <CheckoutButtonStyle
-            completeOrderButton={completeOrderButton}
-            sectionSetting={sectionSetting}
-            onSectionSettingChange={onSectionSettingChange}
-          />
-        </Tab>
-        }
       </Tabs>
     </Fragment>
   );

@@ -31,7 +31,7 @@ const ToggleButton = ({ toggleInput = 'checkbox', toggleClassName, isChecked, he
 
 
   const activeMarkColor = getActiveMarkColor();
-  const toggleInputActive = toggleInput === 'classic' ? 'checkbox' : toggleInput;
+  const toggleInputActive = toggleInput === 'classic' ? 'checkbox' : toggleInput === 'modern' ? 'toggle' : toggleInput;
 
   return (
     <LayoutSwitch className='bump-offer-toggle-button flex-box v-center h-center' active={toggleInputActive} >

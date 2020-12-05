@@ -4,13 +4,14 @@ import Slider from 'rc-slider';
 
 import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';
+import CheckoutButtonStyle from './CheckoutButtonStyle';
 
 import './style.css';
 
 const { FlexBox, InputRow, MiniColorPicker, Title } = common;
 const { Label, Toggle } = InputRow;
 
-const SectionStyles = ({ values = {}, onChange }) => {
+const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSetting, onSectionSettingChange }) => {
   const onSliderChange = (value, name) => {
     onChange({ target: { name, value } });
   };
@@ -217,6 +218,11 @@ const SectionStyles = ({ values = {}, onChange }) => {
         )}
       />
 
+      <CheckoutButtonStyle
+        completeOrderButton={completeOrderButton}
+        sectionSetting={sectionSetting}
+        onSectionSettingChange={onSectionSettingChange}
+      />
     </FlexBox>
   );
 };
