@@ -14,6 +14,7 @@ import InlinePopup from 'components/common/InlinePopup';
 
 import SectionStylesControllers from '../common/SectionStyles';
 import ClassicFormStyles from '../common/ClassicFormStyles';
+import CheckoutButtonStyle from '../common/CheckoutButtonStyle';
 
 const { admins = [], PRICING_OPTIONS_LIMITS } = config;
 const { Button, Tabs, Tab, InputRow, FlexBox, MiniColorPicker } = common;
@@ -35,8 +36,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
   const { twoStepCheckout = false } = content;
   const { completeOrderButton = {}, theme: formTheme = 'classic' } = styles;
 
-  const { borderSymmetry } = completeOrderButton;
-
 
   const {
     onProductFieldChange,
@@ -55,13 +54,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
     category
   } = product;
 
-  const borderCornerNames = [
-    'borderTopLeftRadius',
-    'borderTopRightRadius',
-    'borderBottomLeftRadius',
-    'borderBottomRightRadius'
-  ];
-
 
   const onSectionFieldChange = ({ target: { name, value } } = {}) => {
     onSectionSettingChange({
@@ -72,14 +64,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
       }
     });
   };
-  const onButtonSettingsChange = ({ target: { name, value } } = {}) => {
-    onSectionFieldChange({
-      target: {
-        name: `styles.completeOrderButton.${name}`,
-        value: value
-      }
-    });
-  };
+
+
   const onSectionStylesChange = ({ target: { name, value } } = {}) => {
     onSectionFieldChange({
       target: {
@@ -386,13 +372,20 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             <ClassicFormStyles
               values={styles}
               onChange={onSectionStylesChange}
-              completeOrderButton={completeOrderButton}
-              sectionSetting={sectionSetting}
-              onSectionSettingChange={onSectionSettingChange}
             />
           }
         </Tab>
 
+
+        {!isFuturistic &&
+        <Tab id='button' title='Button'>
+          <CheckoutButtonStyle
+            completeOrderButton={completeOrderButton}
+            sectionSetting={sectionSetting}
+            onSectionSettingChange={onSectionSettingChange}
+          />
+        </Tab>
+        }
       </Tabs>
     </Fragment>
   );
