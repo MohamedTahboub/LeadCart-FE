@@ -11,7 +11,21 @@ const { LayoutSwitch } = common;
 
 const BumpOffer = ({ section = {}, ...props }) => {
   const { styles = {}, content = {} } = section;
-  const { actions } = useContext();
+
+  const {
+    state: {
+      product: {
+        pageStyles: {
+          productPage: {
+            firstColumn: { backgroundColor: columnBg } = {},
+            backgroundColor: productBg
+          } = {},
+          pageBackgroundSettings: { firstSectionBackground:  { backgroundColor: sectionBg } = {} } = {}
+        } = {}
+      } = {}
+    }, actions
+  } = useContext();
+
 
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
@@ -69,7 +83,10 @@ const BumpOffer = ({ section = {}, ...props }) => {
     borderBottomStyle,
     borderBottomWidth,
     containerBackground,
-    onChange
+    onChange,
+    columnBg,
+    productBg,
+    sectionBg
   };
 
 

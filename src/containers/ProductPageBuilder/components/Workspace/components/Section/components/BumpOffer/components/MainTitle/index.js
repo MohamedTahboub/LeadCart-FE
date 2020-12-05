@@ -20,9 +20,12 @@ const MainTitle = ({
   title,
   isChecked,
   className,
-  onChange
+  onChange,
+  columnBg,
+  productBg,
+  sectionBg
 }) => {
-  const toggleProps = { toggleInput, isChecked, headerTextColor, headerBackground, containerBackground };
+  const toggleProps = { toggleInput, isChecked, headerTextColor, headerBackground, containerBackground, columnBg, productBg, sectionBg };
   const headerStyle = { backgroundColor: headerBackground, borderRadius: borderBottomWidth ? 0 : `${borderRadius}px`, borderBottomWidth: `${borderBottomWidth}px`, borderBottomColor, borderBottomStyle };
 
   return (
