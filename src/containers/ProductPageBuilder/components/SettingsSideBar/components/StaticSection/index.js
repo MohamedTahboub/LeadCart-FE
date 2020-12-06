@@ -13,6 +13,8 @@ import { PricingOption } from './components';
 import InlinePopup from 'components/common/InlinePopup';
 
 import SectionStylesControllers from '../common/SectionStyles';
+import ClassicFormStyles from '../common/ClassicFormStyles';
+import CheckoutButtonStyle from '../common/CheckoutButtonStyle';
 
 const { admins = [], PRICING_OPTIONS_LIMITS } = config;
 const { Button, Tabs, Tab, InputRow, FlexBox, MiniColorPicker } = common;
@@ -34,21 +36,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
   const { twoStepCheckout = false } = content;
   const { completeOrderButton = {}, theme: formTheme = 'classic' } = styles;
 
-  const {
-    position = 'justified',
-    background = '#4da1ff',
-    textColor = '#fff',
-    borderSymmetry,
-    borderStyle = 'hidden',
-    borderColor = '#4da1ff',
-    shadowColor = '#fff',
-    hasShadow,
-    boxShadowOffsetX,
-    boxShadowOffsetY,
-    boxShadowBlur,
-    borderWidth = '2px'
-  } = completeOrderButton;
-
 
   const {
     onProductFieldChange,
@@ -67,22 +54,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
     category
   } = product;
 
-  const borderCornerNames = [
-    'borderTopLeftRadius',
-    'borderTopRightRadius',
-    'borderBottomLeftRadius',
-    'borderBottomRightRadius'
-  ];
-
-  const getCornerTitle = (corner) => {
-    switch (corner) {
-      case 'borderTopLeftRadius': return 'Top Left';
-      case 'borderTopRightRadius': return 'Top Right';
-      case 'borderBottomLeftRadius': return 'Bottom Left';
-      case 'borderBottomRightRadius': return 'Bottom Right';
-      default: return '';
-    }
-  };
 
   const onSectionFieldChange = ({ target: { name, value } } = {}) => {
     onSectionSettingChange({
@@ -93,14 +64,8 @@ const StaticSection = ({ defaultBrandCurrency }) => {
       }
     });
   };
-  const onButtonSettingsChange = ({ target: { name, value } } = {}) => {
-    onSectionFieldChange({
-      target: {
-        name: `styles.completeOrderButton.${name}`,
-        value: value
-      }
-    });
-  };
+
+
   const onSectionStylesChange = ({ target: { name, value } } = {}) => {
     onSectionFieldChange({
       target: {
@@ -108,20 +73,6 @@ const StaticSection = ({ defaultBrandCurrency }) => {
         value: value
       }
     });
-  };
-
-  const onSliderChange = (radius, name) => {
-    if (borderCornerNames.includes(name) && borderSymmetry) {
-      onSectionSettingChange({
-        section: sectionSetting,
-        fields: borderCornerNames.map((corner) => ({
-          name: `styles.completeOrderButton.${corner}`,
-          value: radius
-        }))
-      });
-    } else {
-      onButtonSettingsChange({ target: { name, value: radius } });
-    }
   };
 
 
@@ -167,62 +118,75 @@ const StaticSection = ({ defaultBrandCurrency }) => {
 
 
   const isExceededThePricingOptionsLimits = (Array.isArray(pricingOptions) && pricingOptions.length > PRICING_OPTIONS_LIMITS);
-
   const isCheckoutProductPage = category === 'checkout';
-
+  const isOptInProductPage = category === 'opt-in';
   const isFuturistic = formTheme === 'futuristic';
+  const hasPricingSettings = category !== 'opt-in';
+  const hasOptionsSettings = category === 'checkout' || category === 'opt-in';
+
+  const getActiveTab = () => {
+    if (hasPricingSettings)
+      return 'pricing';
+    if (hasOptionsSettings)
+      return 'options';
+  };
+
+  const activeTab = getActiveTab();
 
   return (
     <Fragment>
-      <Tabs active='pricing' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
-        <Tab id='pricing' title='Pricing'>
-          <InputRow>
-            <Label>Price Format:</Label>
-            <SearchInput
-              size='small'
-              width={350}
-              options={priceFormatOptions}
-              defaultValue={price.format || 'amount'}
-              name='price.format'
-              onChange={onChange}
-            />
-          </InputRow>
-          <PaymentType
-            payment={payment}
-            onChange={onChange}
-            price={price}
-            currency={currency}
-          />
-          {(isCheckoutProductPage) && (
-            <Fragment>
-              <FlexBox center='h-center' className='mt-3 mb-2'>
-                <Button className='light-btn px-3' onClick={onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
-                  <FlexBox center='v-center'>
-                    <IoIosAddCircleOutline color='gray' className='mr-2' />
-                    <span>Add More Pricing Options</span>
-                  </FlexBox>
-                </Button>
-              </FlexBox>
-              <FlexBox column>
-                {pricingOptions.map((pricingOption) => {
-                  const { id } = pricingOption;
-                  return (
-                    <PricingOption
-                      key={id}
-                      {...pricingOption}
-                      format={price.format}
-                      onEdit={onEditProductPriceOption(pricingOption)}
-                      onDelete={onDeleteProductPriceOption(id)}
-                      currency={currency}
-                    />
-                  );
-                })}
-              </FlexBox>
-            </Fragment>
-          )}
-        </Tab>
+      <Tabs active={activeTab} className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
 
-        {isCheckoutProductPage &&
+        {hasPricingSettings &&
+          <Tab id='pricing' title='Pricing'>
+            <InputRow>
+              <Label>Price Format:</Label>
+              <SearchInput
+                size='small'
+                width={350}
+                options={priceFormatOptions}
+                defaultValue={price.format || 'amount'}
+                name='price.format'
+                onChange={onChange}
+              />
+            </InputRow>
+            <PaymentType
+              payment={payment}
+              onChange={onChange}
+              price={price}
+              currency={currency}
+            />
+            {(isCheckoutProductPage) && (
+              <Fragment>
+                <FlexBox center='h-center' className='mt-3 mb-2'>
+                  <Button className='light-btn px-3' onClick={onTogglePricingOptionModal} disabled={isExceededThePricingOptionsLimits}>
+                    <FlexBox center='v-center'>
+                      <IoIosAddCircleOutline color='gray' className='mr-2' />
+                      <span>Add More Pricing Options</span>
+                    </FlexBox>
+                  </Button>
+                </FlexBox>
+                <FlexBox column>
+                  {pricingOptions.map((pricingOption) => {
+                    const { id } = pricingOption;
+                    return (
+                      <PricingOption
+                        key={id}
+                        {...pricingOption}
+                        format={price.format}
+                        onEdit={onEditProductPriceOption(pricingOption)}
+                        onDelete={onDeleteProductPriceOption(id)}
+                        currency={currency}
+                      />
+                    );
+                  })}
+                </FlexBox>
+              </Fragment>
+            )}
+          </Tab>
+        }
+
+        {hasOptionsSettings &&
           <Tab id='options' title='Options'>
             <Label className='mb-2'>
               Form Theme:
@@ -236,78 +200,84 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               name='theme'
               onToggle={onCheckoutFormThemeChange}
             />
-            <Label className='mb-2'>
+
+            {!isOptInProductPage &&
+            <Fragment>
+              <Label className='mb-2'>
               Checkout type:
-            </Label>
-            <FlatRadio
-              options={[
-                { label: 'Two steps', value: true },
-                { label: 'One step', value: false }
-              ]}
-              value={twoStepCheckout}
-              name='twoStepCheckout'
-              onToggle={onTwoStepCheckoutChange}
-            />
-            <InlinePopup
-              title='GDPR compliance options'
-              className='mt-3'
-              popUpContent={(
-                <FlexBox column>
-                  <InputRow className='sidebar-row'>
-                    <Label className='sidebar-input-label'>
+              </Label>
+              <FlatRadio
+                options={[
+                  { label: 'Two steps', value: true },
+                  { label: 'One step', value: false }
+                ]}
+                value={twoStepCheckout}
+                name='twoStepCheckout'
+                onToggle={onTwoStepCheckoutChange}
+              />
+
+              <InlinePopup
+                title='GDPR compliance options'
+                className='mt-3'
+                popUpContent={(
+                  <FlexBox column>
+                    <InputRow className='sidebar-row'>
+                      <Label className='sidebar-input-label'>
                       Marketing Consent
-                    </Label>
-                    <Toggle
-                      value={custom.marketingConsent}
-                      name='marketingConsent'
-                      onToggle={onToggleCustom}
-                      beforeLabel='Show'
-                      afterLabel='Hide'
-                    />
-                  </InputRow>
-                  {custom.marketingConsent && (
-                    <InputRow className='sidebar-row'>
-                      <Label className='sidebar-input-label'>
+                      </Label>
+                      <Toggle
+                        value={custom.marketingConsent}
+                        name='marketingConsent'
+                        onToggle={onToggleCustom}
+                        beforeLabel='Show'
+                        afterLabel='Hide'
+                      />
+                    </InputRow>
+                    {custom.marketingConsent && (
+                      <InputRow className='sidebar-row'>
+                        <Label className='sidebar-input-label'>
                         With CheckBox
-                      </Label>
-                      <Toggle
-                        value={custom.marketingConsentIsRequired}
-                        name='marketingConsentIsRequired'
-                        onToggle={onToggleCustom}
-                        beforeLabel='Show'
-                        afterLabel='Hide'
-                      />
-                    </InputRow>
-                  )}
-                  <InputRow className='sidebar-row'>
-                    <Label className='sidebar-input-label'>
-                      Terms & Conditions
-                    </Label>
-                    <Toggle
-                      value={custom.termsAndConditions}
-                      name='termsAndConditions'
-                      onToggle={onToggleCustom}
-                      beforeLabel='Show'
-                      afterLabel='Hide'
-                    />
-                  </InputRow>
-                  {custom.termsAndConditions && (
+                        </Label>
+                        <Toggle
+                          value={custom.marketingConsentIsRequired}
+                          name='marketingConsentIsRequired'
+                          onToggle={onToggleCustom}
+                          beforeLabel='Show'
+                          afterLabel='Hide'
+                        />
+                      </InputRow>
+                    )}
                     <InputRow className='sidebar-row'>
                       <Label className='sidebar-input-label'>
-                        T & C with Checkbox
+                      Terms & Conditions
                       </Label>
                       <Toggle
-                        value={custom.termsAndConditionsIsRequired}
-                        name='termsAndConditionsIsRequired'
+                        value={custom.termsAndConditions}
+                        name='termsAndConditions'
                         onToggle={onToggleCustom}
                         beforeLabel='Show'
                         afterLabel='Hide'
                       />
                     </InputRow>
-                  )}
-                </FlexBox>
-              )}
-            />
+                    {custom.termsAndConditions && (
+                      <InputRow className='sidebar-row'>
+                        <Label className='sidebar-input-label'>
+                        T & C with Checkbox
+                        </Label>
+                        <Toggle
+                          value={custom.termsAndConditionsIsRequired}
+                          name='termsAndConditionsIsRequired'
+                          onToggle={onToggleCustom}
+                          beforeLabel='Show'
+                          afterLabel='Hide'
+                        />
+                      </InputRow>
+                    )}
+                  </FlexBox>
+                )}
+              />
+            </Fragment>
+            }
           </Tab>
         }
 
@@ -329,7 +299,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Show Shipping Methods
-              </Label>
+                </Label>
                 <Toggle
                   value={custom.shippingMethodsEnabled}
                   name='shippingMethodsEnabled'
@@ -380,179 +350,35 @@ const StaticSection = ({ defaultBrandCurrency }) => {
           </Tab>
         }
 
-
-        {!isFuturistic && (
-
-          <Tab id='button' title='Button'>
-            <FlexBox center='v-center' spaceBetween>
-              <span className='gray-text'>Position</span>
-              <SelectOption
-                name='position'
-                value={position}
-                onChange={onButtonSettingsChange}
-                options={[
-                  { label: 'Left', value: 'left' },
-                  { label: 'Right', value: 'right' },
-                  { label: 'Center', value: 'center' },
-                  { label: 'Justified', value: 'justified' }
-                ]}
-              />
-            </FlexBox>
-
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Button Background</span>
-              <MiniColorPicker
-                name='background'
-                value={background}
-                onChange={onButtonSettingsChange}
-              />
-            </FlexBox>
-
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Button Text</span>
-              <MiniColorPicker
-                name='textColor'
-                value={textColor}
-                onChange={onButtonSettingsChange}
-              />
-            </FlexBox>
-
-            <FlexBox column center='margin-v-5 fluid' spaceBetween>
-              <InlinePopup
-                title='Borders'
-                popUpContent={(
-                  <FlexBox column>
-
-                    <div>Border Radius</div>
-                    <span className='gray-text'>Symmetric</span>
-                    <Toggle value={borderSymmetry} onToggle={(target) => onButtonSettingsChange({ target })} name='borderSymmetry' />
-                    {
-                      borderCornerNames.map((corner) => (
-                        <>
-                          <div className='mb-2'>{getCornerTitle(corner)}</div>
-                          <Slider
-                            max={50}
-                            min={0}
-                            defaultValue={5}
-                            onChange={(radius) => onSliderChange(radius, corner)}
-                            value={completeOrderButton[corner] || 0}
-                          />
-                        </>
-                      ))
-                    }
-                    <FlexBox center='v-center' spaceBetween className='mb-2'>
-                      <div className='gray-text mb-2'>Border style</div>
-                      <SelectOption
-                        name='borderStyle'
-                        value={borderStyle}
-                        onChange={onButtonSettingsChange}
-                        options={[
-                          { label: 'Solid', value: 'solid' },
-                          { label: 'Dashed', value: 'dashed' },
-                          { label: 'Dotted', value: 'dotted' },
-                          { label: 'None', value: 'hidden' }
-                        ]}
-                      />
-                    </FlexBox>
-                    <FlexBox center='v-center' spaceBetween className='mb-2'>
-                      <div className='gray-text mb-2'>Border Width</div>
-                      <SelectOption
-                        value={borderWidth}
-                        name='borderWidth'
-                        onChange={onButtonSettingsChange}
-                        options={[
-                          { label: '0px', value: '0px' },
-                          { label: '1px', value: '1px' },
-                          { label: '2px', value: '2px' },
-                          { label: '3px', value: '3px' },
-                          { label: '4px', value: '4px' },
-                          { label: '5px', value: '5px' },
-                          { label: '6px', value: '6px' },
-                          { label: '7px', value: '7px' },
-                          { label: '8px', value: '8px' },
-                          { label: '9px', value: '9px' },
-                          { label: '10px', value: '10px' }
-                        ]}
-                      />
-                    </FlexBox>
-                    <FlexBox center='v-center' className='pb-140px' spaceBetween>
-                      <span className='gray-text'>Border Color</span>
-                      <MiniColorPicker
-                        name='borderColor'
-                        value={borderColor}
-                        onChange={onButtonSettingsChange}
-                      />
-                    </FlexBox>
-                  </FlexBox>
-                )}
-              />
-
-              <InlinePopup
-                title='Shadow'
-                popUpContent={(
-                  <FlexBox column>
-                    <span>Shadow</span>
-                    <Toggle value={hasShadow} onToggle={(target) => onButtonSettingsChange({ target })} name='hasShadow' />
-                    <span className='gray-text'>Offset-X</span>
-                    <Slider
-                      max={20}
-                      min={0}
-                      defaultValue={5}
-                      onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
-                      value={boxShadowOffsetX}
-                      disabled={!hasShadow}
-                    />
-                    <span className='gray-text'>Offset-Y</span>
-                    <Slider
-                      max={20}
-                      min={0}
-                      defaultValue={5}
-                      onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
-                      value={boxShadowOffsetY}
-                      disabled={!hasShadow}
-                    />
-                    <span className='gray-text'>Blur</span>
-                    <Slider
-                      max={20}
-                      min={0}
-                      defaultValue={5}
-                      onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
-                      value={boxShadowBlur}
-                      disabled={!hasShadow}
-                    />
-                    <FlexBox center='v-center' spaceBetween className='pb-140px mt-2'>
-                      <span className='gray-text'>Shadow Color</span>
-                      <MiniColorPicker
-                        name='shadowColor'
-                        value={shadowColor}
-                        onChange={onButtonSettingsChange}
-                        disabled={!hasShadow}
-                      />
-                    </FlexBox>
-                  </FlexBox>
-                )}
-              />
-            </FlexBox>
-          </Tab>
-        )}
-        {isFuturistic && (
-          <Tab id='styles' title='Styles'>
-            <FlexBox spaceBetween className='my-2'>
-              <Label className='sidebar-input-label'>
+        <Tab id='styles' title='Styles'>
+          {isFuturistic ?
+            <Fragment>
+              <FlexBox spaceBetween className='my-2'>
+                <Label className='sidebar-input-label'>
                 Form Theme Color
-              </Label>
-              <MiniColorPicker
-                name='themeColor'
-                value={styles.themeColor}
+                </Label>
+                <MiniColorPicker
+                  name='themeColor'
+                  value={styles.themeColor}
+                  onChange={onSectionStylesChange}
+                />
+              </FlexBox>
+              <SectionStylesControllers
+                values={styles}
                 onChange={onSectionStylesChange}
               />
-            </FlexBox>
-            <SectionStylesControllers
+            </Fragment>
+            :
+            <ClassicFormStyles
               values={styles}
               onChange={onSectionStylesChange}
+              completeOrderButton={completeOrderButton}
+              sectionSetting={sectionSetting}
+              onSectionSettingChange={onSectionSettingChange}
             />
-          </Tab>
-        )}
+          }
+        </Tab>
+
 
       </Tabs>
     </Fragment>

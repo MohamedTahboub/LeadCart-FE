@@ -74,7 +74,6 @@ const Section = ({
 }) => {
   const { state: { product: { category } = {} } } = useContext();
   const isThankYouProductPage = category === 'thankyoupage';
-  const isisOptInProduct = category === 'opt-in';
   const originalIndex = findCard(id).index;
 
   const [{ isDragging }, drag] = useDrag({
@@ -137,7 +136,6 @@ const Section = ({
             moveCrossColumns={moveCrossColumns}
             index={index}
             isThankYouProductPage={isThankYouProductPage}
-            isisOptInProduct={isisOptInProduct}
             parentZone={parentZone}
           />
           <SectionContent
