@@ -4,10 +4,11 @@ import clx from 'classnames';
 
 import './style.css';
 const CustomPhoneNumber = (props) => {
+  const { className, disabled } = props;
   return (
     <NativeInput
-      className={clx('custom-phone-number-input checkout-input-field-container', { disabled: props.disabled })}
       {...props}
+      className={clx('custom-phone-number-input checkout-input-field-container', className, { disabled })}
     />
   );
 };

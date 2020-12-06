@@ -56,12 +56,13 @@ const TwilioIntegration = ({ metaData = {}, integrationKey, onChange, ...props }
   const toggleTestNumber = () => setToggleTest((open) => !open);
   return (
     <FlexBox column flex>
-      <FlexBox flex flexStart className='my-3' center='v-center'>
+      <FlexBox flex className='my-3' center='v-center'>
         <Label className='gray-text'>From Phone Number</Label>
         <PhoneNumberInput
           name='fromNumber'
           onChange={_onChange}
           value={fields.fromNumber}
+          className='funnel-rule-phone-input'
         />
       </FlexBox>
       <FlexBox flex flexStart className='mb-3'>
@@ -88,6 +89,7 @@ const TwilioIntegration = ({ metaData = {}, integrationKey, onChange, ...props }
             placeholder='to number phone'
             name='toNumber'
             onChange={_onChange}
+            className='funnel-rule-phone-input'
           />
           <Button onprogress={loading} onClick={sendTestSMS} className='light-btn mx-2'>Send test SMS</Button>
 
