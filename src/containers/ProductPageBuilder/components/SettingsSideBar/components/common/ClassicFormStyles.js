@@ -113,20 +113,16 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               disabled={!values.hasShadow}
             />
 
-            <InlinePopup
-              title='Shadow Color'
-              popUpContent={(
-                <FlexBox center='v-center' spaceBetween className='mt-2'>
-                  <span className='gray-text'>Shadow Color</span>
-                  <MiniColorPicker
-                    name='shadowColor'
-                    value={values.shadowColor || '#FFF'}
-                    onChange={onChange}
-                    disabled={!values.hasShadow}
-                  />
-                </FlexBox>
-              )}
-            />
+
+            <FlexBox center='v-center' spaceBetween className='mt-2'>
+              <span className='gray-text'>Shadow Color</span>
+              <MiniColorPicker
+                name='shadowColor'
+                value={values.shadowColor || '#FFF'}
+                onChange={onChange}
+                disabled={!values.hasShadow}
+              />
+            </FlexBox>
           </FlexBox>
         )}
       />
