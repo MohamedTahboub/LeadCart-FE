@@ -8,8 +8,6 @@ import common from 'components/common';
 import './style.css';
 
 const { LayoutSwitch, CustomReactToggle, CustomRadio, CustomCheckbox } = common;
-
-
 const isTransparent = (color) => colorProps(color)?.ansi256()?.object()?.alpha === 0;
 
 
@@ -34,7 +32,21 @@ const ToggleButton = ({ toggleInput = 'checkbox', toggleClassName, isChecked, he
   const toggleInputActive = toggleInput === 'classic' ? 'checkbox' : toggleInput === 'modern' ? 'toggle' : toggleInput;
 
   return (
-    <LayoutSwitch className='bump-offer-toggle-button flex-box v-center h-center' active={toggleInputActive} >
+    <LayoutSwitch
+      className='bump-offer-toggle-button flex-box v-center h-center'
+      active={toggleInputActive}
+      fallback={
+        <CustomCheckbox
+          {...props}
+          id='checkbox'
+          active={isChecked}
+          className={toggleClassName}
+          borderColor={headerTextColor}
+          backgroundColor={isChecked ? headerTextColor : 'transparent'}
+          checkmarkColor={activeMarkColor}
+        />
+      }
+    >
       <CustomReactToggle
         id='toggle'
         checked={isChecked}

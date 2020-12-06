@@ -1,4 +1,5 @@
 import React from 'react';
+import colorProps from 'color';
 
 import common from 'components/common';
 import { nestedKeyValue } from 'libs';
@@ -163,69 +164,97 @@ const themesOptions = [
   }
 ];
 
-const ToggleInputOption = ({ styles, onChange, value, Input, className }) => {
-  const { containerBackground, headerTextColor, headerBackground } = styles;
-  const activeMarkColor = (headerBackground && headerBackground !== 'transparent') ? headerBackground : containerBackground;
-  const style = { '--header-text-color': headerTextColor, '--container-bg-color': containerBackground };
 
-
-  return (
-    <FlatRadio
-      className='bump-offer-option'
-      style={{ ...style, width: '50%' }}
-      options={[{
-        label:
-         <Input
-           className={className}
-           borderColor={headerTextColor}
-           backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
-           checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
-           checked
-           active
-         />
-        ,
-        value
-      }]}
-      value={styles.toggleInput || 'checkbox'}
-      name='styles.toggleInput'
-      onToggle={(target) => onChange({ target })}
-
-    />
-  );
-};
-
-const toggleInputsOptions = [
-  {
-    value: 'checkbox',
-    Input: CustomCheckbox
-  },
-  {
-    value: 'checkbox-circle',
-    Input: CustomCheckbox,
-    className: 'checkbox-circle'
-  },
-  {
-    value: 'radio',
-    Input: CustomRadio
-  },
-  {
-    value: 'toggle',
-    Input: CustomReactToggle
-  }
-];
+const isTransparent = (color) => colorProps(color)?.ansi256()?.object()?.alpha === 0;
 
 
 const BumpOffer = () => {
   const {
-    state: { modals: { sectionSetting = {} } = {}, funnel: { currency = 'USD' } = {} },
-    actions
+    state: {
+      modals: { sectionSetting = {} } = {}, funnel: { currency = 'USD' } = {},
+      product: {
+        pageStyles: {
+          productPage: {
+            firstColumn: { backgroundColor: columnBg } = {},
+            backgroundColor: productBg
+          } = {},
+          pageBackgroundSettings: { firstSectionBackground:  { backgroundColor: sectionBg } = {} } = {}
+        } = {}
+      } = {}
+    }, actions
   } = useContext();
+
+
+  const getActiveMarkColor = () => {
+    if (Boolean(headerBackground) && !isTransparent(headerBackground))
+      return headerBackground;
+    if (Boolean(containerBackground) && !isTransparent(containerBackground))
+      return containerBackground;
+    else if (Boolean(columnBg) && !isTransparent(columnBg))
+      return columnBg;
+    else if (Boolean(sectionBg) && !isTransparent(sectionBg))
+      return sectionBg;
+    else if (Boolean(productBg) && !isTransparent(productBg))
+      return productBg;
+    else
+      return '#fff';
+  };
+
+
+  const ToggleInputOption = ({ styles, onChange, value, Input, className }) => {
+    const { containerBackground, headerTextColor = '#000' } = styles;
+    const activeMarkColor = getActiveMarkColor();
+    const style = { '--header-text-color': headerTextColor, '--container-bg-color': containerBackground };
+
+    return (
+      <FlatRadio
+        className='bump-offer-option'
+        style={{ ...style, width: '50%' }}
+        options={[{
+          label:
+          <Input
+            className={className}
+            borderColor={headerTextColor}
+            backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
+            checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
+            checked
+            active
+          />
+          ,
+          value
+        }]}
+        value={styles.toggleInput || 'checkbox'}
+        name='styles.toggleInput'
+        onToggle={(target) => onChange({ target })}
+
+      />
+    );
+  };
+
+  const toggleInputsOptions = [
+    {
+      value: 'checkbox',
+      Input: CustomCheckbox
+    },
+    {
+      value: 'checkbox-circle',
+      Input: CustomCheckbox,
+      className: 'checkbox-circle'
+    },
+    {
+      value: 'radio',
+      Input: CustomRadio
+    },
+    {
+      value: 'toggle',
+      Input: CustomReactToggle
+    }
+  ];
 
 
   const {
     styles = {},
     content = {}
-    // actions: sectionActions = {}
   } = sectionSetting;
 
   const onChange = ({ target }) => {

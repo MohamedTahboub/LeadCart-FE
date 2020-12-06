@@ -48,7 +48,7 @@ const BumpOffer = ({ section = {}, ...props }) => {
     containerBackground,
     contentHeadlineTextColor,
     headerBackground = 'transparent',
-    headerTextColor,
+    headerTextColor = '#000',
     borderColor,
     borderWidth,
     borderRadius,
