@@ -18,9 +18,10 @@ const EdgyTestimonial = ({
   image = avatarLink,
   rank = 2,
   orderId: id,
-  onChange
+  onChange,
+  styles = {}
 }) => {
-
+  const { backgroundColor = 'transparent', nameColor = '#000', jobTitleColor = '#a2a2a2', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value }) => {
     onChange({
@@ -32,7 +33,7 @@ const EdgyTestimonial = ({
   };
 
   return (
-    <FlexBox className='edgy-testimonial-section'>
+    <FlexBox className='edgy-testimonial-section' style={{ backgroundColor }}>
       <Image
         className='edgy-testimonial-image'
         image={image}
@@ -46,6 +47,7 @@ const EdgyTestimonial = ({
           defaultValue='testimonial content'
           value={content}
           className='medium-text blush-gray max-w-500 margin-v-20 text-align-center'
+          style={{ overflow: 'hidden', color: descriptionColor }}
         />
         <FlexBox spaceBetween className='col-on-mobile'>
           <ResizableInput
@@ -54,7 +56,8 @@ const EdgyTestimonial = ({
             name='content.author'
             defaultValue='Author Name'
             value={author}
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', color: nameColor }}
+            maxLength='20'
           />
           <StarsRanking
             name='content.rank'
@@ -69,7 +72,8 @@ const EdgyTestimonial = ({
           name='content.authorDescription'
           defaultValue='Job title'
           value={authorDescription}
-          style={{ fontWeight: 'bold' }}
+          style={{ fontWeight: 'bold', color: jobTitleColor }}
+          maxLength='55'
         />
       </FlexBox>
     </FlexBox>

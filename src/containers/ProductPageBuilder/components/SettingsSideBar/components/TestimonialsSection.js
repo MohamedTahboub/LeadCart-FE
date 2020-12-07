@@ -1,4 +1,6 @@
 import React from 'react';
+
+import InlinePopup from 'components/common/InlinePopup';
 import common from 'components/common';
 import { useContext } from '../../../actions';
 import { ImageOption } from './common';
@@ -28,7 +30,8 @@ const themesOptions = [
   }
 ];
 
-const { Tabs, Tab } = common;
+const { Tabs, Tab, MiniColorPicker, FlexBox, InputRow } = common;
+const { Label } = InputRow;
 
 const TestimonialsSection = (props) => {
   const {
@@ -36,7 +39,11 @@ const TestimonialsSection = (props) => {
     actions
   } = useContext();
 
-  const { styles = {} } = sectionSetting;
+  const { styles = {}, content = {} } = sectionSetting;
+
+
+  const hasJobTitle = content?.authorDescription;
+  const hasCountry = content?.authorCountry;
 
   const onThemeChange = (theme) => (src) => () => {
     actions.onSectionSettingChange({
@@ -47,6 +54,19 @@ const TestimonialsSection = (props) => {
       }
     });
   };
+
+
+  const onChange = ({ target: { value, name } = {} } = {}) => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name,
+        value
+      }
+    });
+  };
+
+
   return (
     <div className='overflow-y-scroll'>
       <Tabs active='themes' className='padding-v-10 padding-h-10'>
@@ -61,6 +81,94 @@ const TestimonialsSection = (props) => {
             />
           ))}
         </Tab>
+
+
+        <Tab id='styles' title='Styles'>
+          <FlexBox column>
+            <InlinePopup
+              title='Background Color'
+              popUpContent={(
+                <InputRow>
+                  <Label>
+                    Background Color:
+                  </Label>
+                  <MiniColorPicker
+                    name='styles.backgroundColor'
+                    value={styles.backgroundColor}
+                    onChange={onChange}
+                  />
+                </InputRow>
+              )}
+            />
+
+            <InlinePopup
+              title='Name Color'
+              popUpContent={(
+                <InputRow>
+                  <Label>
+                    Name Color:
+                  </Label>
+                  <MiniColorPicker
+                    name='styles.nameColor'
+                    value={styles.nameColor}
+                    onChange={onChange}
+                  />
+                </InputRow>
+              )}
+            />
+
+            {hasJobTitle &&
+            <InlinePopup
+              title='Job Title Color'
+              popUpContent={(
+                <InputRow>
+                  <Label>
+                    Name Color:
+                  </Label>
+                  <MiniColorPicker
+                    name='styles.jobTitleColor'
+                    value={styles.jobTitleColor}
+                    onChange={onChange}
+                  />
+                </InputRow>
+              )}
+            />}
+
+            {hasCountry &&
+            <InlinePopup
+              title='Country Name Color'
+              popUpContent={(
+                <InputRow>
+                  <Label>
+                    Name Color:
+                  </Label>
+                  <MiniColorPicker
+                    name='styles.countryNameColor'
+                    value={styles.countryNameColor}
+                    onChange={onChange}
+                  />
+                </InputRow>
+              )}
+            />}
+
+            <InlinePopup
+              title='Description Color'
+              popUpContent={(
+                <InputRow>
+                  <Label>
+                    Name Color:
+                  </Label>
+                  <MiniColorPicker
+                    name='styles.descriptionColor'
+                    value={styles.descriptionColor}
+                    onChange={onChange}
+                  />
+                </InputRow>
+              )}
+            />
+          </FlexBox>
+        </Tab>
+
       </Tabs>
     </div>
   );

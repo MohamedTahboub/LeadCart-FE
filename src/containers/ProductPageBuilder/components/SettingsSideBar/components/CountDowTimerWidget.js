@@ -159,6 +159,7 @@ const CountDowTimerWidget = (props) => {
                   defaultValue={moment(content.date)}
                   className='margin-left-30'
                   onChange={onFixedTimeChange}
+                  showTime
                 />
               </FlexBox>
             </SettingBox>

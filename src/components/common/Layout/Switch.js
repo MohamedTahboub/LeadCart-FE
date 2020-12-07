@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 export default ({
   children = [],
   active,
+  fallback = null,
   className,
   ...props
 }) => {
@@ -19,7 +20,7 @@ export default ({
     </div>
   ) : (
     <Fragment>
-      {Children}
+      {Children || fallback}
     </Fragment>
   );
 };

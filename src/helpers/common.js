@@ -181,3 +181,19 @@ export const isNewObjHasChange = (oldObj, newObj) => {
 
   return false;
 };
+
+
+export const getNewNameWithNumber = ({ data = [], baseName = 'Name', isCapitalized }) => {
+  const defaultNumbersName = data
+    .filter(({ name }) => name.toLowerCase().includes(baseName.toLowerCase()))
+    .map((ele) => Number(ele?.name.toLowerCase().split(baseName.toLowerCase())[1]))
+    .sort((a, b) => a - b);
+
+  const newDefaultNumber = defaultNumbersName.map((number, index) => {
+    if (number !== index + 1)
+      return index + 1;
+  }).sort()[0] || defaultNumbersName.length + 1;
+
+  const capitalizedName = baseName.split(' ').map((str) => str.charAt(0).toUpperCase() + str.slice(1)).join(' ');
+  return `${isCapitalized ? capitalizedName : baseName} ${newDefaultNumber}`;
+};

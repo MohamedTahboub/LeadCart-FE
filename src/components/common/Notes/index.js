@@ -8,12 +8,16 @@ export const Note = ({
   children,
   referenceLink,
   image,
-  className
+  className,
+  onCloseNote
 }) => {
 
   const [open, setOpen] = useState(showOnce);
 
   const onClose = () => {
+    if (onCloseNote && typeof (onCloseNote) === 'function')
+      onCloseNote();
+
     setOpen(false);
   };
   if (!open) return null;

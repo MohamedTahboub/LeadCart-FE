@@ -886,6 +886,8 @@ abbr.abbr-note {
     position: relative;
     margin: 5px;
     flex: 1;
+    min-width: 160px;
+
 }
 
 .checkout-input-field {
@@ -904,10 +906,15 @@ abbr.abbr-note {
 
 .checkout-input-field:disabled {
     outline: unset;
-    background: transparent;
+    background: #fff;
     cursor: not-allowed;
-    border: 1px solid;
-    border-color: inherit;
+    line-height: initial;   
+    border: 1px solid #e5e5e5;
+    padding: 12px 15px;
+    padding-left: 13px;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
 label.checkout-input-label {

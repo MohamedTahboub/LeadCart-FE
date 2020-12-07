@@ -1,35 +1,44 @@
-.funnel-rules-modal{
+.funnel-rules-modal {
     width: 800px;
 }
 
-.modal-trigger-groups-list{
+.modal-trigger-groups-list {
     height: 350px;
     overflow-x: hidden;
     overflow-y: auto;
 }
-.rule-control{
+
+.rule-control {
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     padding: 10px;
 }
+
 .trigger-group-delete-btn,
-.trigger-group-edit-btn{
+.trigger-group-edit-btn {
     position: absolute;
     right: 10px;
     top: 35%;
     cursor: pointer;
-    transition: transform .3s ease-in-out , opacity .3s ease-in-out !important;
+    transition: transform .3s ease-in-out, opacity .3s ease-in-out !important;
 }
-.trigger-group-delete-btn{
+
+.trigger-group-delete-btn {
     right: 50px;
 }
+
 .trigger-group-delete-btn:hover,
-.trigger-group-edit-btn:hover{
+.trigger-group-edit-btn:hover {
     transform: scale(1.2);
 }
 
-.webhook-url-field input{
+.webhook-url-field input {
     min-width: 300px;
+}
+
+.funnel-rule-phone-input {
+    display: flex;
+    flex: unset;
 }

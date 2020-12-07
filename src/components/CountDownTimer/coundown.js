@@ -33,7 +33,7 @@ export default (target, state, finishedCb) => {
     () => {
       const now = new Date().getTime();
 
-      const distance = targetDate - now + 10000;
+      const distance = targetDate - now;
 
       if (distance < 0) {
         if (isFunction(finishedCb)) isFunction();

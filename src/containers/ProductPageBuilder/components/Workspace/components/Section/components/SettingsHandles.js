@@ -18,7 +18,6 @@ const SettingsHandles = ({
   moveCrossColumns,
   index,
   isThankYouProductPage,
-  isisOptInProduct,
   parentZone
 }) => {
   const {
@@ -47,8 +46,7 @@ const SettingsHandles = ({
   const isOnBottom = index !== sections.length - 1;
   const isOnTop = index !== 0;
   const isCheckoutInThankYouPage = isThankYouProductPage && section.type === 'checkoutSection';
-  const isCheckoutInOptIn = isisOptInProduct && section.type === 'checkoutSection';
-  const withSettingSide = !settingLessTypes.includes(section.type) && !isCheckoutInThankYouPage && !isCheckoutInOptIn;
+  const withSettingSide = !settingLessTypes.includes(section.type) && !isCheckoutInThankYouPage;
 
   return (
     <div className='product-section-settings-handle'>

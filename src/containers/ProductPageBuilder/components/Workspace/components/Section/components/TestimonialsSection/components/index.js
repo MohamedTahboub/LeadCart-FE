@@ -1,4 +1,4 @@
-
+import './testimonials.css';
 export { default as ModernTestimonial } from './Modern';
 export { default as ClassicTestimonial } from './Classic';
 export { default as DescriptionOrientedTestimonial } from './DescriptionOriented';

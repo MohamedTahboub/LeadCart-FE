@@ -1,0 +1,16 @@
+.bump-offer-centered-image{
+  padding: 15px;
+  min-width: 312px;
+  margin: auto;
+}
+
+
+.bump-offer-centered-image .bump-offer-headline{
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+
+.bump-offer-centered-image .bump-offer-desc{
+  margin: 0;
+}

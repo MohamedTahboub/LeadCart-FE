@@ -1,0 +1,13 @@
+.text-area-field {
+  min-height: 80px;
+  border: 1px solid #C9D3DC;
+  background-color: rgba(188, 201, 214, 0.1);
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+
+.text-area-field:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem rgba(29, 150, 243, .25);
+}

@@ -160,20 +160,39 @@ export default {
       name: 'Offer Name',
       children: []
     },
+    // styles: {
+    //   marginTop: 20,
+    //   marginBottom: 20,
+    //   paddingTop: 20,
+    //   paddingBottom: 20,
+    //   containerBackground: '#fff',
+    //   containerTextColor: '#000',
+    //   headerBackground: 'rgb(142, 209, 252)',
+    //   borderColor: 'rgb(142, 209, 252)',
+    //   borderStyle: 'dashed',
+    //   borderWidth: 2,
+    //   borderRadius: 5
+    // }
     styles: {
       marginTop: 20,
       marginBottom: 20,
       paddingTop: 20,
       paddingBottom: 20,
-      containerBackground: '#fff',
-      containerTextColor: '#000',
-      headerBackground: 'rgb(142, 209, 252)',
-      borderColor: 'rgb(142, 209, 252)',
-      borderStyle: 'dashed',
-      borderWidth: 2,
-      borderRadius: 5
+      theme: 'LeftImage',
+      containerBackground: '#F6F9FB',
+      containerTextColor: '#707070',
+      headerTextColor: '#2D3D68',
+      contentHeadlineTextColor: '#007AFF',
+      borderBottomColor: '#d0d1d4',
+      borderBottomStyle: 'dashed',
+      borderBottomWidth: 1,
+      borderRadius: 3,
+      toggleInput: 'checkbox',
+      hasBlurBackgroundImage: false
     }
   },
+
+
   testimonialsSection: {
     hidden: false,
     type: 'testimonialsSection',

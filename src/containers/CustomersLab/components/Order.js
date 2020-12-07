@@ -32,6 +32,7 @@ const Order = ({
   product = {},
   tax = {},
   products = [],
+  shippingMethod: shipping = {},
   generateOrderInvoice
 }) => {
   if (product.name && !products.length) products.push(product);
@@ -51,7 +52,11 @@ const Order = ({
   const currencySymbol = getCurrencySymbol(currency);
   const hasTaxes = tax.taxAmount > 0;
   const taxRate = tax.rate;
-  const subTotal = hasTaxes ? totalCharge - tax.taxAmount : totalCharge;
+  const hasShipping = shipping.cost > 0;
+
+  const hasSubTotal = hasTaxes || hasShipping;
+  const trimedTaxesAndShipping = (hasTaxes ? tax.taxAmount : 0) + (hasShipping ? shipping.cost : 0);
+  const subTotal = totalCharge - trimedTaxesAndShipping
 
   return (
     <div className='customer-order-card'>
@@ -69,17 +74,25 @@ const Order = ({
             orderId={orderId}
           />))
       }
-      {hasTaxes && (
+      {hasSubTotal && (
         <Fragment>
           <ReceiptRow
             className='receipt-total sub-total'
             label='Subtotal'
             value={`${currencySymbol} ${RoundTow(subTotal)}`}
           />
-          <ReceiptRow
-            label={`${tax.name} (${taxRate}%)`}
-            value={`${currencySymbol} ${RoundTow(tax.taxAmount)}`}
-          />
+          {hasShipping && (
+            <ReceiptRow
+              label={shipping.name}
+              value={`${currencySymbol} ${RoundTow(shipping.cost)}`}
+            />
+          )}
+          {hasTaxes && (
+            <ReceiptRow
+              label={`${tax.name} (${taxRate}%)`}
+              value={`${currencySymbol} ${RoundTow(tax.taxAmount)}`}
+            />
+          )}
         </Fragment>
       )}
       <ReceiptRow

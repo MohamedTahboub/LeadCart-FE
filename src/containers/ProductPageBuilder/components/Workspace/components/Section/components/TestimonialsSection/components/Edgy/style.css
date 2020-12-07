@@ -1,4 +1,13 @@
-.edgy-testimonial-image {
+.edgy-testimonial-section {
+    margin: 32px;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, .15);
+    border-radius: 8px;
+    padding: 32px 16px 16px;
+    position: relative;
+}
+
+
+.edgy-testimonial-section .edgy-testimonial-image {
     position: absolute;
     border-radius: 50%;
     height: 64px;
@@ -11,17 +20,7 @@
     box-shadow: 0 0 5px #D1D1D1;
 }
 
-.edgy-testimonial-section {
-    margin: 32px;
-    box-shadow: 1px 3px 8px #0000003b;
-    border-radius: 8px;
-    padding: 32px 16px 16px;
-    position: relative;
-}
 
-.verifying-party-input {
-    font-size: 10px;
-}
 
 .mobile .col-on-mobile {
     flex-direction: column;

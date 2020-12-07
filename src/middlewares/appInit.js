@@ -20,6 +20,7 @@ import { getPromoCodes } from 'actions/redemption';
 import { getTaxes } from 'actions/taxes';
 import { getDestinationZones } from 'actions/destinationZones';
 import { getInvoicingDetails } from 'actions/invoicing';
+import { getShippingRules } from 'actions/shippingRules';
 
 
 window.user = '';
@@ -60,6 +61,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getTaxes(data.taxes || []));
     dispatch(getDestinationZones(data.destinationZones || []));
     dispatch(getInvoicingDetails(data.invoicing));
+    dispatch(getShippingRules(data.shippingMethods || []));
 
 
     return appLaunchSuccess(data);
