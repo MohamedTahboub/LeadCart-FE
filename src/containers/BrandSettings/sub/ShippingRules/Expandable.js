@@ -8,11 +8,11 @@ import ShippingRates from './ShippingRates';
 import TextArea from './TextArea';
 
 const { FlexBox, InputRow, Note } = common;
-const { TextField, Toggle, TextAreaInput } = InputRow;
+const { TextField, Toggle } = InputRow;
 
 const Title = ({ className, children, color = '#83898e' }) => <p style={{ color }} className={clx(`gray-text bold-text m-0 ${className}`)} >{children}</p>;
 
-const getOptionValue = (list=[], matchedValue) => list.find(({value})=>matchedValue === value);
+const getOptionValue = (list = [], matchedValue) => list.find(({ value }) => matchedValue === value);
 
 const Expandable = ({
   open,
