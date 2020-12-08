@@ -14,7 +14,6 @@ const { Loader } = Spinners;
 
 const allowedFields = ['fromNumber', 'text'];
 const TwilioIntegration = ({ metaData = {}, integrationKey, onChange, ...props }) => {
-  console.log({ metaData });
   const [fields, setValues] = useState(metaData);
   const [loading, setLoading] = useState(false);
   const [toggleTest, setToggleTest] = useState(false);
@@ -42,7 +41,7 @@ const TwilioIntegration = ({ metaData = {}, integrationKey, onChange, ...props }
 
   const _onChange = ({ target: { value, name } }) => {
     setValues({ ...fields, [name]: value });
-    console.log({ name, value });
+
     if (isFunction(onChange) && allowedFields.includes(name)) {
       onChange({
         target: {
