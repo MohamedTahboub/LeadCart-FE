@@ -22,7 +22,6 @@ const ShippingMethodRow = ({
     onSelect(value);
   };
 
-  console.log({list})
   return (
     <Group onChange={_onSelect} value={selected} className={classes}>
       {list.map(({ id, cost, name, ...props }) => {
@@ -38,7 +37,7 @@ const ShippingMethodRow = ({
           >
             <FlexBox flex spaceBetween>
               <span className='method-name'>
-              {name}
+                {name}
               </span>
               <FlexBox className='method-cost' center='v-center h-center'>
                 {getCurrencySymbol(currency)}

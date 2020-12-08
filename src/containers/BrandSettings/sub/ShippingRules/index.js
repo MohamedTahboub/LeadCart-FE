@@ -52,7 +52,7 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
           to: 0,
           cost: 0
         }
-      ],
+      ]
       // description: ''
     };
   })();
@@ -176,7 +176,7 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
 
   const deleteModalOpend = Boolean(deleteShippingRuleId);
 
-  const zoneOptions = [{ label: 'All Zones', value: undefined }].concat(destinationZones.map(({ name, _id }) => ({ value: _id, label: name })));
+  const zoneOptions = [{ label: 'All Zones', value: null }].concat(destinationZones.map(({ name, _id }) => ({ value: _id, label: name })));
 
 
   const ExpandableProps = {

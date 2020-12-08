@@ -1,6 +1,6 @@
 
 import { UPDATE_PRODUCT } from 'constantsTypes';
-import { productUpdatedsuccessfully, productUpdatedFailed } from 'actions/product';
+import { productUpdatedFailed, productUpdatedSuccessfully } from 'actions/product';
 import { apiRequest } from 'actions/apiRequest';
 
 // import * as modles from '../helpers/models';
@@ -20,7 +20,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     },
     onSuccess: (data) => {
       onSuccess(data);
-      return productUpdatedsuccessfully(action.payload);
+      return productUpdatedSuccessfully(data);
     },
     onFailed: (data) => {
       onFailed(data);
