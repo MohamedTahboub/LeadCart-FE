@@ -48,7 +48,6 @@ const Rules = ({
     });
   };
 
-  console.log('productsMap', productsMap);
   return (
     <FlexBox column center='v-center' className='full-width padding-v-20 rules-container'>
       {rules.map((rule) => (
