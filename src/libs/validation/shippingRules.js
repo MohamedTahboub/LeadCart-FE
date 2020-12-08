@@ -12,7 +12,7 @@ export default async (shippingRule) => {
     name: yup.string().required('Name is required'),
     enabled: yup.bool().default(true),
     rates: yup.array().of(shippingRatesSchema),
-    zone:  yup.string(),
+    zone:  yup.string().nullable().default(null),
     description: yup.string()
   }).required();
 
