@@ -25,7 +25,7 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       products: state.products
         .map((product) => {
-          if (product._id === payload.productId) return { ...product, ...payload.details };
+          if (product._id === payload.id) return { ...product, ...payload };
           return product;
         })
     };
