@@ -230,8 +230,10 @@ const ProductBuilder = ({
         }
       },
       {
-        onSuccess: () => {
+        onSuccess: (product) => {
           setSaving(false);
+          console.log({ product });
+          // actions.updateState({ product: matchProductSectionsIds(product) });
           notification.success('Changes Saved');
         },
         onFailed: (message) => {
