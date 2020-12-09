@@ -29,7 +29,7 @@ const envsVars = {
     STRIP_AUTH_LINK: 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_C82X3QxgSvqB2WGT6tMgfEV7PCSehFW4&scope=read_write',
     USER_SUB_DOMAIN_URL: 'https://subDomain.leadcart.io/',
     mixPanelId: '9f4e14f1602b54645779337eb660525a',
-    intercomAppId: 'oiankyy0',
+    intercomAppId: 'tkvaxlsr',
     logRocketId: '7mxnqn/leadcart',
     LEADCART_AFFILIATE_CENTER_URL: 'https://affiliates.leadcart.io',
     AFFILIATE_ENCODING_KEY: 'the-strongest-key-ever!!'
