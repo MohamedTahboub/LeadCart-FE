@@ -2,8 +2,16 @@ import React from 'react';
 import avatarLink from 'assets/images/avatar.jpg';
 import Image from 'components/common/Image';
 import { EditableField } from 'components/common/Inputs';
+import common from 'components/common';
 
 import './style.css';
+
+import './style.css';
+
+const {
+  ResizableInput,
+  ResizableTextarea
+} = common;
 
 const ClassicTestimonial = ({
   author = 'John Doe',
@@ -12,8 +20,11 @@ const ClassicTestimonial = ({
   className,
   orderId: id,
   onChange,
+  styles = {},
   ...props
 }) => {
+  const { backgroundColor = 'transparent', nameColor = '#000', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
+
   const onImageChange = ({ value, ...res }) => {
     onChange({
       target: {
@@ -23,27 +34,30 @@ const ClassicTestimonial = ({
     });
   };
   return (
-    <div className={`testimonial-item margin-h-auto ${className}`}>
+    <div className={`testimonial-item margin-h-auto ${className}`} style={{ backgroundColor }}>
       <Image
         className='testimonial-author-image'
         image={image}
         name={`testimonial-image-${id}`}
         onChange={onImageChange}
       />
-      <EditableField
+      <ResizableInput
         onChange={onChange}
         name='content.author'
         defaultValue='Author Name'
         value={author}
         className='testimonial-author light-input'
+        maxLength='20'
+        style={{ fontWeight: 'bold', textAlign: 'center', color: nameColor }}
       />
-      <EditableField
+      <ResizableTextarea
         textarea
         onChange={onChange}
         name='content.value'
         defaultValue='testimonial content'
         value={content}
         className='testimonial-content-input'
+        style={{ overflow: 'hidden', color: descriptionColor }}
       />
     </div>
   );

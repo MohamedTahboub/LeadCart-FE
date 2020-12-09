@@ -19,8 +19,10 @@ const EdgyTestimonial = ({
   image = avatarLink,
   rank = 2,
   orderId: id,
-  onChange
+  onChange,
+  styles = {}
 }) => {
+  const { backgroundColor = 'transparent', nameColor = '#000', jobTitleColor = '#a2a2a2', countryNameColor = '#a2a2a2', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
 
   const onImageChange = ({ value }) => {
@@ -32,8 +34,9 @@ const EdgyTestimonial = ({
     });
   };
 
+
   return (
-    <FlexBox column className='business-testimonial-section'>
+    <FlexBox column className='business-testimonial-section' style={{ backgroundColor }}>
       <FlexBox>
         <Image
           className='business-testimonial-image mr-4'
@@ -41,14 +44,15 @@ const EdgyTestimonial = ({
           name={`testimonial-image-${id}`}
           onChange={onImageChange}
         />
-        <FlexBox column>
+        <FlexBox style={{ overflow: 'hidden' }} column>
           <ResizableInput
             className='mb-2'
             onChange={onChange}
             name='content.author'
             defaultValue='Author Name'
             value={author}
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', color: nameColor }}
+            maxLength='20'
           />
           <ResizableInput
             className='testimonial-content-input text-align-start author-description'
@@ -56,7 +60,9 @@ const EdgyTestimonial = ({
             name='content.authorDescription'
             defaultValue='Job title'
             value={authorDescription}
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', color: jobTitleColor }}
+            maxLength='55'
+
           />
           <ResizableInput
             className='testimonial-content-input text-align-start'
@@ -64,7 +70,8 @@ const EdgyTestimonial = ({
             name='content.authorCountry'
             defaultValue='Estonia'
             value={authorCountry}
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', color: countryNameColor }}
+            maxLength='20'
           />
           <StarsRanking
             name='content.rank'
@@ -81,6 +88,7 @@ const EdgyTestimonial = ({
           defaultValue='testimonial content'
           value={content}
           className='medium-text blush-gray max-w-500 margin-v-20'
+          style={{ overflow: 'hidden', color: descriptionColor }}
         />
       </FlexBox>
     </FlexBox>

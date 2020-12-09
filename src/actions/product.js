@@ -107,7 +107,7 @@ export const updateProduct = (product, meta) => ({
   meta
 });
 
-export const productUpdatedsuccessfully = (product) => ({
+export const productUpdatedSuccessfully = (product) => ({
   type: UPDATE_PRODUCT_SUCCESS,
   payload: product
 });

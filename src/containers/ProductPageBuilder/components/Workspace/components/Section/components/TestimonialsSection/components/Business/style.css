@@ -1,4 +1,11 @@
-.business-testimonial-image {
+.business-testimonial-section {
+    padding: 16px;
+    width: 432px;
+    margin: 15px auto;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, .15);
+}
+
+.business-testimonial-section .business-testimonial-image {
     border-radius: 50%;
     height: 96px;
     width: auto;
@@ -9,17 +16,8 @@
     margin-right: 10px;
 }
 
-.business-testimonial-section {
-    padding: 16px;
-    width: 432px;
-    margin: 15px auto;
-    box-shadow: 1px 3px 8px #D1D1D1;
-}
 
 .mobile .business-testimonial-section {
     width: auto;
 }
 
-.verifying-party-input {
-    font-size: 10px;
-}

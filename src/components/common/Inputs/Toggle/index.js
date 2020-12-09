@@ -25,6 +25,7 @@ const Toggle = ({
       data-before-bar={beforeLabel}
       data-after-bar={afterLabel}
       className={classNames}
+      {...props}
     >
       <div className='circle' />
     </div>

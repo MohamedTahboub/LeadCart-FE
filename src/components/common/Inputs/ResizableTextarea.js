@@ -22,7 +22,7 @@ const ResizableTextarea = ({
     <TextArea
       className={classNames}
       // autoFocus
-      style={styles}
+      style={{ ...styles, overflow: 'hidden' }}
       {...props}
     />
   );

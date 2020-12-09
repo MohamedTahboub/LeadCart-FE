@@ -1,0 +1,38 @@
+.bump-offer-toggle-button .checkbox-container{
+  padding-left: 30px
+}
+
+
+.bump-offer-toggle-button .checkbox-container.active .checkmark:after{
+  top: 1px;
+}
+
+
+
+.custom-toggle .react-toggle .react-toggle-track {
+  background-color: var(--header-text-color);
+}
+
+.custom-toggle .react-toggle .react-toggle-thumb {
+  border-color: var(--header-text-color);
+  background-color: var(--active-mark-color);
+}
+
+.custom-toggle .react-toggle:hover .react-toggle-track {
+  background-color: var(--header-text-color);
+}
+
+.custom-toggle .react-toggle .react-toggle-track-x path,
+.custom-toggle .react-toggle .react-toggle-track-check path{
+  fill: var(--active-mark-color);
+}
+
+.custom-toggle .react-toggle--focus .react-toggle-thumb {
+  box-shadow: none
+}
+
+.custom-toggle .react-toggle:active .react-toggle-thumb {
+  box-shadow: none
+}
+
+

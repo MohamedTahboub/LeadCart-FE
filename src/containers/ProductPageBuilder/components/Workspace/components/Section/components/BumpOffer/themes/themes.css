@@ -1,0 +1,14 @@
+.mobile .bump-offer .bump-offer-side-image .bump-offer-main-content{
+  flex-direction: column;
+  align-items: inherit;
+}
+
+
+.bump-offer .bump-offer-headline.auto-resize-textarea-input{
+  margin: 0 0 4px;
+}
+
+.bump-offer .wrapped-image-container{
+  background-size: contain !important;
+}
+

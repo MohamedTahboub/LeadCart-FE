@@ -1,23 +1,32 @@
 import React from 'react';
 import 'react-toggle/style.css';
-import Toggle from 'react-toggle';
 
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
+import { BottomImage, CenteredImage, Defaults, SideImage, TopImage } from './themes';
 import './style.css';
-const {
-  LayoutSwitch,
-  ResizableTextarea,
-  ResizableInput
-} = common;
-const BumpOffer = ({ section = {} }) => {
-  const {
-    styles = {},
-    content = {}
-  } = section;
-  const { actions } = useContext();
 
-  const { toggleInput = 'classic' } = styles;
+const { LayoutSwitch } = common;
+
+
+const BumpOffer = ({ section = {}, ...props }) => {
+  const { styles = {}, content = {} } = section;
+
+  const {
+    state: {
+      product: {
+        pageStyles: {
+          productPage: {
+            firstColumn: { backgroundColor: columnBg } = {},
+            backgroundColor: productBg
+          } = {},
+          pageBackgroundSettings: { firstSectionBackground:  { backgroundColor: sectionBg } = {} } = {}
+        } = {}
+      } = {}
+    }, actions
+  } = useContext();
+
+
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
       section,
@@ -25,69 +34,96 @@ const BumpOffer = ({ section = {} }) => {
     });
   };
 
+  const onImageChange = (target) => {
+    actions.onSectionSettingChange({
+      section,
+      field: target
+    });
+  };
+
+
+  const { price, introText, name, bodyText, title, checked: isChecked, img } = content;
+
+  const {
+    containerBackground,
+    contentHeadlineTextColor,
+    headerBackground = 'transparent',
+    headerTextColor = '#000',
+    borderColor,
+    borderWidth,
+    borderRadius,
+    borderStyle,
+    containerTextColor,
+    toggleInput = 'checkbox',
+    theme = 'LeftImage',
+    borderBottomColor,
+    borderBottomStyle,
+    borderBottomWidth,
+    hasBlurBackgroundImage
+  } = styles;
+
 
   const containerStyle = {
-    background: styles.containerBackground,
-    color: styles.containerTextColor,
-    headlineColor: styles.contentHeadlineTextColor,
-    border: `${styles.borderWidth || 0}px ${styles.borderStyle || 'solid'} ${styles.borderColor}`,
-    borderRadius: `${styles.borderRadius}px`
+    backgroundColor: containerBackground,
+    borderColor,
+    borderWidth: `${borderWidth}px`,
+    borderRadius: `${borderRadius}px`,
+    borderStyle
   };
-  const headerStyle = {
-    background: styles.headerBackground,
-    color: styles.headerTextColor,
-    border: `${styles.borderWidth || 0}px ${styles.borderStyle || 'solid'} ${styles.borderColor}`,
-    borderRadius: `${styles.borderRadius}px`
-  };
-  return (
 
-    <section style={containerStyle} className='product-template-bump-offer'>
-      <div style={headerStyle} className='template-bump-offer-title'>
-        <LayoutSwitch active={toggleInput}>
-          <Toggle
-            id='modern'
-            className='margin-right-10'
-            checked={content.checked}
-          />
-          <span id='classic'>
-            <input
-              type='checkbox'
-              id='bump-offer-checkbox'
-              checked={content.checked}
-              disabled
-            />
-          </span>
-        </LayoutSwitch>
-        <label id='bump-offer-checkbox-label' htmlFor='bump-offer-checkbox'>
-          <ResizableInput
-            name='content.title'
-            value={content.title}
-            onChange={onChange}
-            className='template-bump-offer-title-input'
-          />
-        </label>
-      </div>
-      <div style={{ color: containerStyle.color }} className='template-bump-offer-description'>
-        <ResizableInput
-          name='content.introText'
-          value={content.introText}
-          onChange={onChange}
-          className='template-bump-offer-description-title truncate'
-          style={{
-            color: containerStyle.headlineColor,
-            textDecoration: 'underline',
-            fontWeight: 'bold',
-            width: '100%'
-          }}
-        />
-        <ResizableTextarea
-          name='content.bodyText'
-          value={content.bodyText}
-          onChange={onChange}
-          className='template-bump-offer-description-content'
-        />
-      </div>
-    </section>
+
+  const mainTitleProps = {
+    headerBackground,
+    headerTextColor,
+    toggleInput,
+    borderRadius,
+    title,
+    isChecked,
+    borderBottomColor,
+    borderBottomStyle,
+    borderBottomWidth,
+    containerBackground,
+    onChange,
+    columnBg,
+    productBg,
+    sectionBg
+  };
+
+
+  const allProps = {
+    price,
+    introText,
+    name,
+    bodyText,
+    img,
+    containerBackground,
+    contentHeadlineTextColor,
+    headerBackground,
+    headerTextColor,
+    borderColor,
+    borderWidth,
+    borderRadius,
+    containerTextColor,
+    toggleInput,
+    theme,
+    containerStyle,
+    mainTitleProps,
+    onChange,
+    onImageChange,
+    hasBlurBackgroundImage,
+    ...props
+  };
+
+
+  return (
+    <LayoutSwitch active={theme} className='bump-offer' >
+      <SideImage id='LeftImage' {...allProps} />
+      <SideImage id='RightImage' {...allProps} />
+      <TopImage id='TopImage' {...allProps} />
+      <CenteredImage id='CenteredImage' {...allProps} />
+      <BottomImage id='BottomImage' {...allProps} />
+      <Defaults id='withoutImage' {...allProps} />
+    </LayoutSwitch>
   );
 };
 

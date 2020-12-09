@@ -230,7 +230,7 @@ const ProductBuilder = ({
         }
       },
       {
-        onSuccess: () => {
+        onSuccess: (product) => {
           setSaving(false);
           notification.success('Changes Saved');
         },
