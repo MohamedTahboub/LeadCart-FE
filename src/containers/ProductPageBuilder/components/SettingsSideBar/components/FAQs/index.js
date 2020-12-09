@@ -6,6 +6,8 @@ import { useContext } from '../../../../actions';
 import Settings from './settings';
 import Styles from './styles';
 
+import './style.css';
+
 const { Tabs, Tab } = common;
 const newItem = { content: 'FAQ Text', title: 'FAQ Title' };
 

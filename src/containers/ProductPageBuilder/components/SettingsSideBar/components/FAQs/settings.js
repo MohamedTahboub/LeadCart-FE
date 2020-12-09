@@ -4,14 +4,11 @@ import { MdAddCircleOutline } from 'react-icons/md';
 import common from 'components/common';
 import SelectInput from './select';
 
-const { InputRow, FlexBox, MiniColorPicker } = common;
+const { InputRow, FlexBox } = common;
 const { Label } = InputRow;
 
 
-const FaqSettings = ({ onChange, onColorChange, onAddNewItem, styles, list }) => {
-
-  const { iconsColor } = styles;
-
+const FaqSettings = ({ onChange, onAddNewItem, list }) => {
   return (
     <FlexBox column center='h-center'>
       <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
@@ -23,16 +20,6 @@ const FaqSettings = ({ onChange, onColorChange, onAddNewItem, styles, list }) =>
           </span>
         </FlexBox>
       </FlexBox>
-
-      <FlexBox center='v-center margin-v-5 padding-right-20' spaceBetween>
-        <Label>Points Color</Label>
-        <MiniColorPicker
-          value={iconsColor}
-          name='styles.iconsColor'
-          onChange={onColorChange}
-        />
-      </FlexBox>
-
       <SelectInput onChange={onChange} />
     </FlexBox>
   );
