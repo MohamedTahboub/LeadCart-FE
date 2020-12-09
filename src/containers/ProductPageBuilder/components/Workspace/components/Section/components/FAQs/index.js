@@ -12,6 +12,88 @@ const FAQs = ({ title, list, section }) => {
   const { actions } = useContext();
   const [open, setOpen] = useState(false);
 
+
+  const {
+    backgroundColor = '#fff',
+    titleColor = '#000',
+    borderColor,
+    borderStyle = 'solid',
+    borderWidth = 0,
+    borderTopLeftRadius = 0,
+    borderTopRightRadius = 0,
+    borderBottomLeftRadius = 0,
+    borderBottomRightRadius = 0,
+    paddingTop = 0,
+    paddingRight = 0,
+    paddingBottom = 0,
+    paddingLeft = 0,
+
+    itemBackgroundColor,
+    itemTitleColor,
+    itemContentTextColor,
+    itemContentBackgroundColor,
+    itemBorderColor,
+    itemBorderWidth = 0,
+    itemBorderStyle = 'solid',
+    itemBorderTopLeftRadius = 0,
+    itemBorderTopRightRadius = 0,
+    itemBorderBottomLeftRadius = 0,
+    itemBorderBottomRightRadius = 0,
+    hasShadow,
+    boxShadowBlur,
+    boxShadowOffsetX,
+    boxShadowOffsetY,
+    shadowColor,
+
+
+    customOpenIcon = '',
+    customCloseIcon = '',
+    isCustom,
+    iconsColor
+  } = styles;
+
+
+  const containerStyle = {
+    backgroundColor,
+    borderWidth,
+    borderColor,
+    color: titleColor,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    borderStyle,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft
+  };
+
+
+  const itemStyle = {
+    itemBackgroundColor,
+    itemTitleColor,
+    itemContentTextColor,
+    itemContentBackgroundColor,
+    itemBorderColor,
+    itemBorderWidth,
+    customOpenIcon,
+    customCloseIcon,
+    isCustom,
+    iconsColor,
+    itemBorderStyle,
+    itemBorderTopLeftRadius,
+    itemBorderTopRightRadius,
+    itemBorderBottomLeftRadius,
+    itemBorderBottomRightRadius,
+    hasShadow,
+    boxShadowBlur,
+    boxShadowOffsetX,
+    boxShadowOffsetY,
+    shadowColor
+  };
+
+
   const toggle = (id) => {
     if (open === id)
       setOpen(false);
@@ -53,7 +135,8 @@ const FAQs = ({ title, list, section }) => {
       actions.onSectionDelete(section.id);
   };
 
-  const onFaqTitltChange = ({ target: { value } }) => {
+
+  const onFaqTitleChange = ({ target: { value } }) => {
     actions.onSectionFieldChange({
       ...section,
       content: {
@@ -63,9 +146,10 @@ const FAQs = ({ title, list, section }) => {
     });
   };
 
+
   return (
-    <section className='faq'>
-      <ResizableInput value={title} className='faq-title' onChange={onFaqTitltChange} />
+    <section className='faq' style={{ ...containerStyle }}>
+      <ResizableInput value={title} className='faq-title' onChange={onFaqTitleChange} style={{ color: titleColor }} />
 
       <div>
         {list.map((ele, id) => (
@@ -76,6 +160,7 @@ const FAQs = ({ title, list, section }) => {
             onDelete={onDelete}
             key={id}
             styles={styles}
+            itemStyle={itemStyle}
             {...ele}
           />
         ))}
