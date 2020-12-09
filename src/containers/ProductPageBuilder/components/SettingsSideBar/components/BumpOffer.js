@@ -326,8 +326,9 @@ const BumpOffer = () => {
           <TextField
             className='default-pricing-field-length'
             name='content.name'
-            onBlur={onChange}
+            onChange={onChange}
             defaultValue={content.name}
+            value={content.name}
             uncontrolled
           />
         </InputRow>
@@ -338,10 +339,11 @@ const BumpOffer = () => {
           <TextField
             className='default-pricing-field-length'
             name='content.price'
-            onBlur={onChange}
+            onChange={onChange}
             type='number'
             prefix={<Currency value={currency} />}
             defaultValue={content.price}
+            value={content.price}
             uncontrolled
           />
         </InputRow>
