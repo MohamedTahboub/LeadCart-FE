@@ -12,7 +12,6 @@ const FAQs = ({ title, list, section }) => {
   const { actions } = useContext();
   const [open, setOpen] = useState(false);
 
-
   const {
     backgroundColor,
     titleColor = '#000',
@@ -27,29 +26,11 @@ const FAQs = ({ title, list, section }) => {
     paddingRight = 0,
     paddingBottom = 0,
     paddingLeft = 0,
-
-    itemBackgroundColor,
-    itemTitleColor,
-    itemContentTextColor,
-    itemContentBackgroundColor,
-    itemBorderColor,
-    itemBorderWidth = 0,
-    itemBorderStyle = 'solid',
-    itemBorderTopLeftRadius = 0,
-    itemBorderTopRightRadius = 0,
-    itemBorderBottomLeftRadius = 0,
-    itemBorderBottomRightRadius = 0,
-    hasShadow,
-    boxShadowBlur,
-    boxShadowOffsetX,
-    boxShadowOffsetY,
-    shadowColor,
-
+    itemStyles = {},
 
     customOpenIcon = '',
     customCloseIcon = '',
-    isCustom,
-    iconsColor
+    isCustom
   } = styles;
 
 
@@ -57,7 +38,6 @@ const FAQs = ({ title, list, section }) => {
     backgroundColor,
     borderWidth,
     borderColor,
-    color: titleColor,
     borderTopLeftRadius,
     borderTopRightRadius,
     borderBottomLeftRadius,
@@ -67,30 +47,6 @@ const FAQs = ({ title, list, section }) => {
     paddingRight,
     paddingBottom,
     paddingLeft
-  };
-
-
-  const itemStyle = {
-    itemBackgroundColor,
-    itemTitleColor,
-    itemContentTextColor,
-    itemContentBackgroundColor,
-    itemBorderColor,
-    itemBorderWidth,
-    customOpenIcon,
-    customCloseIcon,
-    isCustom,
-    iconsColor,
-    itemBorderStyle,
-    itemBorderTopLeftRadius,
-    itemBorderTopRightRadius,
-    itemBorderBottomLeftRadius,
-    itemBorderBottomRightRadius,
-    hasShadow,
-    boxShadowBlur,
-    boxShadowOffsetX,
-    boxShadowOffsetY,
-    shadowColor
   };
 
 
@@ -160,7 +116,7 @@ const FAQs = ({ title, list, section }) => {
             onDelete={onDelete}
             key={id}
             styles={styles}
-            itemStyle={itemStyle}
+            itemStyles={{ ...itemStyles, customOpenIcon, customCloseIcon, isCustom }}
             {...ele}
           />
         ))}

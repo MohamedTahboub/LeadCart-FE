@@ -8,45 +8,44 @@ import ContentIcons from './faqIcon';
 
 const { ResizableInput, ResizableTextarea, FlexBox } = common;
 
-const FAQ = ({ title, content, id, toggle, onChange, open, onDelete, itemStyle }) => {
+const FAQ = ({ title, content, id, toggle, onChange, open, onDelete, itemStyles }) => {
   const {
-    itemBackgroundColor,
-    itemTitleColor,
-    itemContentTextColor,
-    itemContentBackgroundColor,
-    itemBorderColor,
-    itemBorderWidth,
-    itemBorderStyle,
-    itemBorderTopLeftRadius,
-    itemBorderTopRightRadius,
-    itemBorderBottomLeftRadius,
-    itemBorderBottomRightRadius,
+    backgroundColor,
+    titleColor,
+    contentTextColor,
+    contentBackgroundColor = 'transparent',
+    borderColor,
+    borderWidth,
+    borderStyle,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
     hasShadow,
     boxShadowBlur,
     boxShadowOffsetX,
     boxShadowOffsetY,
     shadowColor
-
-  } = itemStyle;
+  } = itemStyles;
 
 
   const containerStyle = {
-    backgroundColor: itemBackgroundColor,
-    borderColor: itemBorderColor,
-    borderWidth: itemBorderWidth,
-    borderStyle: itemBorderStyle,
-    borderTopLeftRadius: itemBorderTopLeftRadius,
-    borderTopRightRadius: itemBorderTopRightRadius,
-    borderBottomLeftRadius: itemBorderBottomLeftRadius,
-    borderBottomRightRadius: itemBorderBottomRightRadius,
+    backgroundColor,
+    borderColor,
+    borderWidth,
+    borderStyle,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
     boxShadow: hasShadow ? `${boxShadowOffsetX || 0}px ${boxShadowOffsetY || 0}px ${boxShadowBlur || 0}px ${shadowColor || '#FFF'}` : ''
   };
 
-  const titleStyle = { color: itemTitleColor };
+  const titleStyle = { color: titleColor };
 
   const contentStyle = {
-    color: itemContentTextColor,
-    backgroundColor: (itemContentBackgroundColor || 'transparent')
+    color: contentTextColor,
+    backgroundColor: contentBackgroundColor
   };
 
 
@@ -64,7 +63,7 @@ const FAQ = ({ title, content, id, toggle, onChange, open, onDelete, itemStyle }
             toggle={toggle}
             open={open}
             size={16}
-            {...itemStyle}
+            {...itemStyles}
           />
 
           <ResizableInput

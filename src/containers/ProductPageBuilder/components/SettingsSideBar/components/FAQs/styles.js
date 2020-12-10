@@ -9,7 +9,7 @@ const { InputRow, FlexBox, MiniColorPicker, Title } = common;
 const { Label, Toggle } = InputRow;
 
 
-const FaqStyles = ({ onChange, onColorChange, styles }) => {
+const FaqStyles = ({ onChange, onColorChange, styles = {} }) => {
   const {
     backgroundColor = '#00FFFFFF',
     titleColor = '#000',
@@ -24,25 +24,28 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
     paddingRight = 0,
     paddingBottom = 0,
     paddingLeft = 0,
-    iconsColor,
+    itemStyles = {}
+  } = styles;
 
-    itemBackgroundColor,
-    itemTitleColor,
-    itemContentTextColor,
-    itemContentBackgroundColor,
-    itemBorderColor,
-    itemBorderWidth = 0,
-    itemBorderStyle = 'solid',
-    itemBorderTopLeftRadius = 0,
-    itemBorderTopRightRadius = 0,
-    itemBorderBottomLeftRadius = 0,
-    itemBorderBottomRightRadius = 0,
+  const {
+    backgroundColor: itemBackgroundColor,
+    titleColor: itemTitleColor,
+    contentTextColor: itemContentTextColor,
+    contentBackgroundColor: itemContentBackgroundColor,
+    borderColor: itemBorderColor,
+    borderWidth: itemBorderWidth = 0,
+    borderStyle: itemBorderStyle = 'solid',
+    borderTopLeftRadius: itemBorderTopLeftRadius = 0,
+    borderTopRightRadius: itemBorderTopRightRadius = 0,
+    borderBottomLeftRadius: itemBorderBottomLeftRadius = 0,
+    borderBottomRightRadius: itemBorderBottomRightRadius = 0,
     hasShadow,
     boxShadowBlur,
     boxShadowOffsetX,
     boxShadowOffsetY,
-    shadowColor
-  } = styles;
+    shadowColor,
+    iconsColor
+  } = itemStyles;
 
 
   const borderStyleOptions = [
@@ -213,7 +216,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
               <Label>Background Color</Label>
               <MiniColorPicker
                 value={itemBackgroundColor}
-                name='styles.itemBackgroundColor'
+                name='styles.itemStyles.backgroundColor'
                 onChange={onColorChange}
               />
             </FlexBox>
@@ -222,7 +225,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
               <Label>Points Color</Label>
               <MiniColorPicker
                 value={iconsColor}
-                name='styles.iconsColor'
+                name='styles.itemStyles.iconsColor'
                 onChange={onColorChange}
               />
             </FlexBox>
@@ -231,7 +234,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
               <Label>Title Color</Label>
               <MiniColorPicker
                 value={itemTitleColor}
-                name='styles.itemTitleColor'
+                name='styles.itemStyles.titleColor'
                 onChange={onColorChange}
               />
             </FlexBox>
@@ -240,7 +243,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
               <Label>Content Text Color</Label>
               <MiniColorPicker
                 value={itemContentTextColor}
-                name='styles.itemContentTextColor'
+                name='styles.itemStyles.contentTextColor'
                 onChange={onColorChange}
               />
             </FlexBox>
@@ -249,7 +252,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
               <Label>Content Background Color</Label>
               <MiniColorPicker
                 value={itemContentBackgroundColor}
-                name='styles.itemContentBackgroundColor'
+                name='styles.itemStyles.contentBackgroundColor'
                 onChange={onColorChange}
               />
             </FlexBox>
@@ -263,7 +266,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                     <Label>Border Color</Label>
                     <MiniColorPicker
                       value={itemBorderColor}
-                      name='styles.itemBorderColor'
+                      name='styles.itemStyles.borderColor'
                       onChange={onColorChange}
                     />
                   </FlexBox>
@@ -274,7 +277,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                       max={10}
                       min={0}
                       defaultValue={0}
-                      onChange={(value) => onChange({ value, name: 'styles.itemBorderWidth' })}
+                      onChange={(value) => onChange({ value, name: 'styles.itemStyles.borderWidth' })}
                       value={itemBorderWidth}
                     />
                   </FlexBox>
@@ -286,7 +289,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                         return (
                           <FlexBox
                             className={clx('v-center h-center p-1 item-clickable mr-1 faqs-inline-popup-option small-text', { activeOption: value === itemBorderStyle })}
-                            onClick={() => {onChange({ value, name: 'styles.itemBorderStyle' });}}
+                            onClick={() => {onChange({ value, name: 'styles.itemStyles.borderStyle' });}}
                             flex
                           >
                             {label}
@@ -307,7 +310,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                           min={0}
                           defaultValue={0}
                           value={itemBorderTopLeftRadius}
-                          onChange={(value) => onChange({ value, name: 'styles.itemBorderTopLeftRadius' })}
+                          onChange={(value) => onChange({ value, name: 'styles.itemStyles.borderTopLeftRadius' })}
                         />
 
                         <span className='small-text' >Top Right Border {`${itemBorderTopRightRadius}px`}</span>
@@ -316,7 +319,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                           min={0}
                           defaultValue={0}
                           value={itemBorderTopRightRadius}
-                          onChange={(value) => onChange({ value, name: 'styles.itemBorderTopRightRadius' })}
+                          onChange={(value) => onChange({ value, name: 'styles.itemStyles.borderTopRightRadius' })}
                         />
 
                         <span className='small-text' >Bottom Left Border {`${itemBorderBottomLeftRadius}px`}</span>
@@ -325,7 +328,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                           min={0}
                           defaultValue={0}
                           value={itemBorderBottomLeftRadius}
-                          onChange={(value) => onChange({ value, name: 'styles.itemBorderBottomLeftRadius' })}
+                          onChange={(value) => onChange({ value, name: 'styles.itemStyles.borderBottomLeftRadius' })}
                         />
 
                         <span className='small-text' >Bottom Right Border {`${itemBorderBottomRightRadius}px`}</span>
@@ -334,7 +337,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                           min={0}
                           defaultValue={0}
                           value={itemBorderBottomRightRadius}
-                          onChange={(value) => onChange({ value, name: 'styles.itemBorderBottomRightRadius' })}
+                          onChange={(value) => onChange({ value, name: 'styles.itemStyles.borderBottomRightRadius' })}
                         />
                       </FlexBox>
                     )}
@@ -348,7 +351,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
               popUpContent={(
                 <FlexBox column>
                   <span>Shadow</span>
-                  <Toggle value={hasShadow} onToggle={() => onChange({ name: 'styles.hasShadow', value: !hasShadow })} />
+                  <Toggle value={hasShadow} onToggle={() => onChange({ name: 'styles.itemStyles.hasShadow', value: !hasShadow })} />
                   <span className='gray-text'>Offset-X</span>
 
                   <Slider
@@ -357,7 +360,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                     defaultValue={0}
                     value={boxShadowOffsetX}
                     disabled={!hasShadow}
-                    onChange={(value) => onChange({ value, name: 'styles.boxShadowOffsetX' })}
+                    onChange={(value) => onChange({ value, name: 'styles.itemStyles.boxShadowOffsetX' })}
                   />
 
                   <span className='gray-text'>Offset-Y</span>
@@ -367,7 +370,7 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                     defaultValue={5}
                     value={boxShadowOffsetY}
                     disabled={!hasShadow}
-                    onChange={(value) => onChange({ value, name: 'styles.boxShadowOffsetY' })}
+                    onChange={(value) => onChange({ value, name: 'styles.itemStyles.boxShadowOffsetY' })}
                   />
 
                   <span className='gray-text'>Blur</span>
@@ -377,13 +380,13 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
                     defaultValue={5}
                     value={boxShadowBlur}
                     disabled={!hasShadow}
-                    onChange={(value) => onChange({ value, name: 'styles.boxShadowBlur' })}
+                    onChange={(value) => onChange({ value, name: 'styles.itemStyles.boxShadowBlur' })}
                   />
 
                   <FlexBox center='v-center' spaceBetween className='mt-2'>
                     <span className='gray-text'>Shadow Color</span>
                     <MiniColorPicker
-                      name='styles.shadowColor'
+                      name='styles.itemStyles.shadowColor'
                       value={shadowColor || '#FFF'}
                       onChange={onColorChange}
                       disabled={!hasShadow}
