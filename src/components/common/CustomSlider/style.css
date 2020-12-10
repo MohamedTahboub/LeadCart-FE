@@ -1,0 +1,10 @@
+.custom-slider-input {
+  border: 1px solid #bbbbbb;
+  border-radius: 5px;
+  outline: none;
+}
+
+.custom-slider-label {
+  color: #33333354;
+  margin: 0;
+}

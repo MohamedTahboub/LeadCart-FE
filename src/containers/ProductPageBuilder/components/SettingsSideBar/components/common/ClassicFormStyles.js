@@ -8,7 +8,7 @@ import CheckoutButtonStyle from './CheckoutButtonStyle';
 
 import './style.css';
 
-const { FlexBox, InputRow, MiniColorPicker, Title } = common;
+const { FlexBox, InputRow, MiniColorPicker, CustomSlider } = common;
 const { Label, Toggle } = InputRow;
 
 const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSetting, onSectionSettingChange }) => {
@@ -85,32 +85,37 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
           <FlexBox column>
             <span>Shadow</span>
             <Toggle value={values.hasShadow} onToggle={(target) => onChange({ target })} name='hasShadow' />
-            <span className='gray-text'>Offset-X</span>
-            <Slider
+            <CustomSlider
               max={20}
               min={0}
               defaultValue={5}
               onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
               value={values.boxShadowOffsetX || 0}
               disabled={!values.hasShadow}
+              label='Offset-X'
+              className='mb-2'
             />
-            <span className='gray-text'>Offset-Y</span>
-            <Slider
+
+            <CustomSlider
               max={20}
               min={0}
               defaultValue={5}
               onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
               value={values.boxShadowOffsetY || 0}
               disabled={!values.hasShadow}
+              label='Offset-Y'
+              className='mb-2'
             />
-            <span className='gray-text'>Blur</span>
-            <Slider
+
+            <CustomSlider
               max={20}
               min={0}
               defaultValue={5}
               onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
               value={values.boxShadowBlur || 0}
               disabled={!values.hasShadow}
+              label='Blur'
+              className='mb-2'
             />
 
 
