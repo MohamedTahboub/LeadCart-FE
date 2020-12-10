@@ -11,7 +11,7 @@ const { Label, Toggle } = InputRow;
 
 const FaqStyles = ({ onChange, onColorChange, styles }) => {
   const {
-    backgroundColor = '#fff',
+    backgroundColor = '#00FFFFFF',
     titleColor = '#000',
     borderColor,
     borderStyle = 'solid',
@@ -55,30 +55,23 @@ const FaqStyles = ({ onChange, onColorChange, styles }) => {
 
   return (
     <FlexBox column>
-      <InlinePopup
-        title='FAQs Color'
-        popUpContent={(
-          <FlexBox column>
-            <FlexBox className='v-center my-2' spaceBetween>
-              <Label>Background Color</Label>
-              <MiniColorPicker
-                value={backgroundColor}
-                name='styles.backgroundColor'
-                onChange={onColorChange}
-              />
-            </FlexBox>
+      <FlexBox className='v-center my-2' spaceBetween>
+        <Label>Background Color</Label>
+        <MiniColorPicker
+          value={backgroundColor}
+          name='styles.backgroundColor'
+          onChange={onColorChange}
+        />
+      </FlexBox>
 
-            <FlexBox className='v-center my-2' spaceBetween>
-              <Label>Title Color</Label>
-              <MiniColorPicker
-                value={titleColor}
-                name='styles.titleColor'
-                onChange={onColorChange}
-              />
-            </FlexBox>
-          </FlexBox>
-        )}
-      />
+      <FlexBox className='v-center my-2' spaceBetween>
+        <Label>Title Color</Label>
+        <MiniColorPicker
+          value={titleColor}
+          name='styles.titleColor'
+          onChange={onColorChange}
+        />
+      </FlexBox>
 
       <InlinePopup
         title='Border'

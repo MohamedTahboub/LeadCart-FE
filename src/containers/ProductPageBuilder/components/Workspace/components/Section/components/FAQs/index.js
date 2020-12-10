@@ -14,7 +14,7 @@ const FAQs = ({ title, list, section }) => {
 
 
   const {
-    backgroundColor = '#fff',
+    backgroundColor,
     titleColor = '#000',
     borderColor,
     borderStyle = 'solid',
