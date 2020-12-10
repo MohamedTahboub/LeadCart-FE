@@ -32,12 +32,12 @@
 
 .faq-listItem-title{
   font-size: 18px;
-  color: #0b2475
+  color: #0b2475;
+  padding-right: 10px;
 }
 
 .faq-listItem-title input{
   font-weight: bold;
-
 }
 
 .faq .transparent-background {
