@@ -58,24 +58,24 @@ const FAQ = ({ title, content, id, toggle, onChange, open, onDelete, itemStyle }
           onClick={() => {onDelete(id);}}
         />
 
-        <span onClick={() => {toggle(id);}}>
+        <FlexBox onClick={() => {toggle(id);}} className='v-center' flex>
           <ContentIcons
             id={id}
             toggle={toggle}
             open={open}
+            size={16}
             {...itemStyle}
           />
 
-          <span className='faq-listItem-title' >
-            <ResizableInput
-              value={title}
-              onChange={onChange}
-              name={'title'}
-              id={id}
-              style={titleStyle}
-            />
-          </span>
-        </span>
+          <ResizableInput
+            value={title}
+            onChange={onChange}
+            name={'title'}
+            id={id}
+            style={titleStyle}
+            className='faq-listItem-title flex-1'
+          />
+        </FlexBox>
       </FlexBox>
 
 
