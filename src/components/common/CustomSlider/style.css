@@ -2,7 +2,15 @@
   border: 1px solid #bbbbbb;
   border-radius: 5px;
   outline: none;
+  max-width: 40px;
 }
+
+
+input.custom-slider-input::-webkit-outer-spin-button,
+input.custom-slider-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 
 .custom-slider-label {
   color: #33333354;
