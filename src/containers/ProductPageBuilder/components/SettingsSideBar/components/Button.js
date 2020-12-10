@@ -8,7 +8,7 @@ import Collapse from 'components/Collapsible';
 import { buttonTemplates } from 'data/templates';
 import InlinePopup from 'components/common/InlinePopup';
 
-const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab } = common;
+const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab, CustomSlider } = common;
 const { TextField, SelectOption, Toggle, AddImage } = InputRow;
 
 const layouts = [
@@ -209,13 +209,13 @@ const ButtonSection = () => {
               {
                 borderCornerNames.map((corner) => (
                   <>
-                    <div className='mb-2'>{getCornerTitle(corner)}</div>
-                    <Slider
+                    <CustomSlider
                       max={50}
                       min={0}
                       defaultValue={5}
                       onChange={(radius) => onSliderChange(radius, corner)}
                       value={styles[corner] || 0}
+                      label={getCornerTitle(corner)}
                     />
                   </>
                 ))
@@ -252,32 +252,32 @@ const ButtonSection = () => {
             <FlexBox column>
               <span>Shadow</span>
               <Toggle value={styles.hasShadow} onToggle={(target) => onChange({ target })} name='styles.hasShadow' />
-              <span className='gray-text'>Offset-X</span>
-              <Slider
+              <CustomSlider
                 max={20}
                 min={0}
                 defaultValue={5}
                 onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
                 value={styles.boxShadowOffsetX || 0}
                 disabled={!styles.hasShadow}
+                label='Offset-X'
               />
-              <span className='gray-text'>Offset-Y</span>
-              <Slider
+              <CustomSlider
                 max={20}
                 min={0}
                 defaultValue={5}
                 onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
                 value={styles.boxShadowOffsetY || 0}
                 disabled={!styles.hasShadow}
+                label='Offset-Y'
               />
-              <span className='gray-text'>Blur</span>
-              <Slider
+              <CustomSlider
                 max={20}
                 min={0}
                 defaultValue={5}
                 onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
                 value={styles.boxShadowBlur || 0}
                 disabled={!styles.hasShadow}
+                label='Blur'
               />
               <FlexBox center='v-center' spaceBetween className='mt-2'>
                 <span className='gray-text'>Shadow Color</span>
@@ -316,14 +316,14 @@ const ButtonSection = () => {
                 value={styles.icon}
                 onUploaded={onImageChange}
               />
-              <span className='gray-text'>Icon Border Radius</span>
-              <Slider
+              <CustomSlider
                 max={20}
                 min={0}
                 defaultValue={5}
                 onChange={(blur) => onSliderChange(blur, 'iconBorderRadius')}
                 value={styles.iconBorderRadius || 0}
                 disabled={['snapped-left', 'snapped-right'].includes(styles.iconPlacement) || !styles.icon}
+                label='Icon Border Radius'
               />
               <FlexBox center='v-center' spaceBetween >
                 <span className='gray-text'>Icon Background</span>

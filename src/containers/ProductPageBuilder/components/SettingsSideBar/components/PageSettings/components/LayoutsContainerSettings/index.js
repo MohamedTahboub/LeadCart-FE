@@ -8,6 +8,7 @@ import { VscBrowser } from 'react-icons/vsc';
 import FlatRadio from 'components/FlatRadio';
 import * as immutable from 'object-path-immutable';
 import InlinePopup from 'components/common/InlinePopup';
+import CustomSlider from 'components/common/CustomSlider';
 import { GoSettings } from 'react-icons/go';
 import { BiHide } from 'react-icons/bi';
 
@@ -157,7 +158,7 @@ const LayoutsContainerSettings = ({
         title={`Container Border Radius ${productPage.borderRadius || 16}px`}
         button={SettingToggleIcons}
         popUpContent={(
-          <Slider
+          <CustomSlider
             max={100}
             min={0}
             defaultValue={16}
@@ -171,40 +172,40 @@ const LayoutsContainerSettings = ({
         button={SettingToggleIcons}
         popUpContent={(
           <FlexBox column>
-            <span>Margin Top {`(${productPage.marginTop || 0}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginTop) => onSliderChange(marginTop, 'productPage.marginTop')}
               value={productPage.marginTop || 0}
+              label='Margin Top'
             />
 
-            <span>Margin Right {`(${productPage.marginRight || 0}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginRight) => onSliderChange(marginRight, 'productPage.marginRight')}
               value={productPage.marginRight || 0}
+              label='Margin Right'
             />
 
-            <span>Margin Bottom {`(${productPage.marginBottom || 0}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginBottom) => onSliderChange(marginBottom, 'productPage.marginBottom')}
               value={productPage.marginBottom || 0}
+              label='Margin Bottom'
             />
 
-            <span>Margin Left {`(${productPage.marginLeft || 0}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginLeft) => onSliderChange(marginLeft, 'productPage.marginLeft')}
               value={productPage.marginLeft || 0}
+              label='Margin Left'
             />
           </FlexBox>
         )}
@@ -214,40 +215,40 @@ const LayoutsContainerSettings = ({
         button={SettingToggleIcons}
         popUpContent={(
           <FlexBox column>
-            <span>Padding Top {`(${productPage.paddingTop || defaultPadding.top}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(paddingTop) => onSliderChange(paddingTop, 'productPage.paddingTop')}
               value={productPage.paddingTop || defaultPadding.top}
+              label='Padding Top'
             />
 
-            <span>Padding Right {`(${productPage.paddingRight || defaultPadding.right}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(paddingRight) => onSliderChange(paddingRight, 'productPage.paddingRight')}
               value={productPage.paddingRight || defaultPadding.right}
+              label='Padding Right'
             />
 
-            <span>Padding Bottom {`(${productPage.paddingBottom || defaultPadding.bottom}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(paddingBottom) => onSliderChange(paddingBottom, 'productPage.paddingBottom')}
               value={productPage.paddingBottom || defaultPadding.bottom}
+              label='Padding Bottom'
             />
 
-            <span>Padding Left {`(${productPage.paddingLeft || defaultPadding.left}px)`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultAddImageValue={5}
               onChange={(paddingLeft) => onSliderChange(paddingLeft, 'productPage.paddingLeft')}
               value={productPage.paddingLeft || defaultPadding.left}
+              label='Padding Left'
             />
           </FlexBox>
         )}
