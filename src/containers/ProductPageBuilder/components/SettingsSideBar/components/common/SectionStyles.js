@@ -2,7 +2,7 @@ import React from 'react';
 import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';
 import Slider from 'rc-slider';
-const { FlexBox, InputRow, MiniColorPicker } = common;
+const { FlexBox, InputRow, MiniColorPicker, CustomSlider } = common;
 
 const { SelectOption, Label, AddImage, Toggle } = InputRow;
 
@@ -64,42 +64,47 @@ const SectionStyles = ({ values = {}, onChange }) => {
         title='Border Radius'
         popUpContent={(
           <FlexBox column>
-            <span>Top Left Border {`${values.borderTopLeftRadius || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(topLeft) => onSliderChange(topLeft, 'borderTopLeftRadius')}
               value={values.borderTopLeftRadius || 0}
+              label='Top Left Border'
+              unit='px'
             />
 
-            <span>Top Right Border {`${values.borderTopRightRadius || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(topRight) => onSliderChange(topRight, 'borderTopRightRadius')}
               value={values.borderTopRightRadius || 0}
+              label='Top Right Border'
+              unit='px'
             />
 
 
-            <span>Bottom Left Border {`${values.borderBottomLeftRadius || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(bottomLeft) => onSliderChange(bottomLeft, 'borderBottomLeftRadius')}
               value={values.borderBottomLeftRadius || 0}
+              label='Bottom Left Border'
+              unit='px'
             />
 
 
             <span>Bottom Right Border {`${values.borderBottomRightRadius || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(bottomRight) => onSliderChange(bottomRight, 'borderBottomRightRadius')}
               value={values.borderBottomRightRadius || 0}
+              label='Bottom Right Border'
+              unit='px'
             />
           </FlexBox>
 
@@ -112,32 +117,35 @@ const SectionStyles = ({ values = {}, onChange }) => {
           <FlexBox column>
             <span>Shadow</span>
             <Toggle value={values.hasShadow} onToggle={(target) => onChange({ target })} name='hasShadow' />
-            <span className='gray-text'>Offset-X</span>
-            <Slider
+            <CustomSlider
               max={20}
               min={0}
               defaultValue={5}
               onChange={(offsetX) => onSliderChange(offsetX, 'boxShadowOffsetX')}
               value={values.boxShadowOffsetX || 0}
               disabled={!values.hasShadow}
+              label='Offset-X'
+              unit='px'
             />
-            <span className='gray-text'>Offset-Y</span>
-            <Slider
+            <CustomSlider
               max={20}
               min={0}
               defaultValue={5}
               onChange={(offsetY) => onSliderChange(offsetY, 'boxShadowOffsetY')}
               value={values.boxShadowOffsetY || 0}
               disabled={!values.hasShadow}
+              label='Offset-Y'
+              unit='px'
             />
-            <span className='gray-text'>Blur</span>
-            <Slider
+            <CustomSlider
               max={20}
               min={0}
               defaultValue={5}
               onChange={(blur) => onSliderChange(blur, 'boxShadowBlur')}
               value={values.boxShadowBlur || 0}
               disabled={!values.hasShadow}
+              label='Blur'
+              unit='px'
             />
             <FlexBox center='v-center' spaceBetween className='mt-2'>
               <span className='gray-text'>Shadow Color</span>
@@ -155,40 +163,44 @@ const SectionStyles = ({ values = {}, onChange }) => {
         title='Margin'
         popUpContent={(
           <FlexBox column>
-            <span>Margin Top {`${values.marginTop || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginTop) => onSliderChange(marginTop, 'marginTop')}
               value={values.marginTop || 0}
+              label='Margin Top'
+              unit='px'
             />
 
-            <span>Margin Right {`${values.marginRight || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginRight) => onSliderChange(marginRight, 'marginRight')}
               value={values.marginRight || 0}
+              label='Margin Right'
+              unit='px'
             />
 
-            <span>Margin Bottom {`${values.marginBottom || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginBottom) => onSliderChange(marginBottom, 'marginBottom')}
               value={values.marginBottom || 0}
+              label='Margin Bottom'
+              unit='px'
             />
 
-            <span>Margin Left {`${values.marginLeft || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(marginLeft) => onSliderChange(marginLeft, 'marginLeft')}
               value={values.marginLeft || 0}
+              label='Margin Left'
+              unit='px'
             />
           </FlexBox>
         )}
@@ -198,40 +210,44 @@ const SectionStyles = ({ values = {}, onChange }) => {
         title='Padding'
         popUpContent={(
           <FlexBox column>
-            <span>Padding Top {`${values.paddingTop || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(paddingTop) => onSliderChange(paddingTop, 'paddingTop')}
               value={values.paddingTop || 0}
+              label='Padding Top'
+              unit='px'
             />
 
-            <span>Padding Right {`${values.paddingRight || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(paddingRight) => onSliderChange(paddingRight, 'paddingRight')}
               value={values.paddingRight || 0}
+              label='Padding Right'
+              unit='px'
             />
 
-            <span>Padding Bottom {`${values.paddingBottom || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(paddingBottom) => onSliderChange(paddingBottom, 'paddingBottom')}
               value={values.paddingBottom || 0}
+              label='Padding Bottom'
+              unit='px'
             />
 
-            <span>Padding Left {`${values.paddingLeft || 0}px`}</span>
-            <Slider
+            <CustomSlider
               max={200}
               min={0}
               defaultValue={5}
               onChange={(paddingLeft) => onSliderChange(paddingLeft, 'paddingLeft')}
               value={values.paddingLeft || 0}
+              label='Padding Left'
+              unit='px'
             />
           </FlexBox>
         )}

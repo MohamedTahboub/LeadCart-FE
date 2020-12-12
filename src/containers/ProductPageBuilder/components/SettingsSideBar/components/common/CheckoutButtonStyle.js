@@ -8,7 +8,7 @@ import InlinePopup from 'components/common/InlinePopup';
 import './style.css';
 import { Title } from 'components/common/Titles';
 
-const { FlexBox, InputRow, MiniColorPicker } = common;
+const { FlexBox, InputRow, MiniColorPicker, CustomSlider } = common;
 const { Toggle } = InputRow;
 
 const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSetting }) => {
@@ -167,13 +167,14 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                 </FlexBox>
 
                 <FlexBox className='mb-3' column>
-                  <span>Border Width {`${borderWidth || 0}px`}</span>
-                  <Slider
+                  <CustomSlider
                     max={10}
                     min={0}
                     defaultValue={borderWidth}
                     onChange={(value) => onButtonSettingsChange({ target: { value, name: 'borderWidth' } })}
                     value={borderWidth || 0}
+                    label='Border Width'
+                    unit='px'
                   />
                 </FlexBox>
 
@@ -186,13 +187,14 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                       {
                         borderCornerNames.map((corner) => (
                           <>
-                            <div className='mb-2'>{getCornerTitle(corner)}</div>
-                            <Slider
+                            <CustomSlider
                               max={50}
                               min={0}
                               defaultValue={5}
                               onChange={(radius) => onSliderButtonChange(radius, corner)}
                               value={completeOrderButton[corner] || 0}
+                              label={getCornerTitle(corner)}
+                              unit='px'
                             />
                           </>
                         ))
@@ -225,32 +227,35 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                       <span>Shadow</span>
                       <Toggle value={hasShadow} onToggle={(target) => onButtonSettingsChange({ target })} name='hasShadow' />
 
-                      <span className='gray-text'>Offset-X</span>
-                      <Slider
+                      <CustomSlider
                         max={20}
                         min={0}
                         defaultValue={5}
                         onChange={(offsetX) => onSliderButtonChange(offsetX, 'boxShadowOffsetX')}
                         value={boxShadowOffsetX}
                         disabled={!hasShadow}
+                        label='Offset-X'
+                        unit='px'
                       />
-                      <span className='gray-text'>Offset-Y</span>
-                      <Slider
+                      <CustomSlider
                         max={20}
                         min={0}
                         defaultValue={5}
                         onChange={(offsetY) => onSliderButtonChange(offsetY, 'boxShadowOffsetY')}
                         value={boxShadowOffsetY}
                         disabled={!hasShadow}
+                        label='Offset-Y'
+                        unit='px'
                       />
-                      <span className='gray-text'>Blur</span>
-                      <Slider
+                      <CustomSlider
                         max={20}
                         min={0}
                         defaultValue={5}
                         onChange={(blur) => onSliderButtonChange(blur, 'boxShadowBlur')}
                         value={boxShadowBlur}
                         disabled={!hasShadow}
+                        label='Blur'
+                        unit='px'
                       />
                     </FlexBox>
                   )}
