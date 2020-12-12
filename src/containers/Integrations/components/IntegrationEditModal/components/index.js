@@ -1,1 +1,1 @@
-export { default as OfflinePayment } from './OfflinePayment';
+export { default as OfflinePayments } from './OfflinePayments';

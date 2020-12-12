@@ -4,28 +4,40 @@ import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
 import { notification } from 'libs';
+import { isFunction } from 'libs/checks';
 const { FlexBox, InputRow, Button } = common;
 const { Label, TextField, AddImage, TextAreaInput } = InputRow;
 
 const descriptionNotes = 'These Details will be shown when your customer selects this payment methods as a choice of payment';
-const OfflinePayment = ({ service, ...props }) => {
+const OfflinePaymentForm = ({ service, onCloseFormMode, ...props }) => {
   const [fields, setFields] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const onChange = ({ target: { name, value } }) => {
     setFields({ ...fields, [name]: value });
   };
 
   const onSubmit = () => {
-    if (service._id)
-      alert('UPDATE OFFLINE PAYMENT');
+    setLoading(true);
+    const { name, logo, notes } = fields;
+    const payload = {
+      details: {
+        name,
+        logo,
+        notes,
+        connected: true
+      },
+      integrationId: service._id
+    };
 
-
-    props.addOfflinePaymentMethod(fields, {
+    props.updateOfflinePaymentMethod(payload, {
       onSuccess: () => {
         notification.success('Updated SuccessFully');
+        setLoading(false);
       },
       onFailed: (msg) => {
         notification.failed(msg);
+        setLoading(false);
       }
     });
   };
@@ -46,6 +58,12 @@ const OfflinePayment = ({ service, ...props }) => {
       setFields({ name, logo, notes });
     }
   }, [service]);
+
+  const onCancel = () => {
+    if (isFunction(onCloseFormMode))
+      onCloseFormMode();
+  };
+
 
   return (
     <FlexBox column>
@@ -72,15 +90,18 @@ const OfflinePayment = ({ service, ...props }) => {
           value={fields.notes}
         />
       </FlexBox>
-      <FlexBox flex flexEnd>
-        <Button onClick={onSubmit} className='primary-btn px-4'>
-          Save
+      <FlexBox flex spaceBetween center='v-center'>
+        <Button onClick={onCancel} className='px-4'>
+          Cancel
+        </Button>
+        <Button onprogress={loading} onClick={onSubmit} className='primary-btn px-4'>
+          Update
         </Button>
       </FlexBox>
     </FlexBox>
   );
 };
 
-OfflinePayment.propTypes = {};
+OfflinePaymentForm.propTypes = {};
 
-export default connect(null, integrationsActions)(OfflinePayment);
+export default connect(null, integrationsActions)(OfflinePaymentForm);

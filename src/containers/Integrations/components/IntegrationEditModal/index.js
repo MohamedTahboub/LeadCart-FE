@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import { LayoutSwitch } from 'components/common/Layout';
-import { OfflinePayment } from './components';
+import { OfflinePayments } from './components';
 import './style.css';
 
 const { MainTitle } = common;
@@ -23,8 +23,8 @@ const ConnectModal = ({
         {`Update the ${service.name} Details`}
       </MainTitle>
     </div>
-    <LayoutSwitch active={service.key} fallback={<OfflinePayment id='lc_offlinePayment' />}>
-      <OfflinePayment id='lc_offlinePayment' service={service} />
+    <LayoutSwitch active={service.key} fallback={<OfflinePayments id='lc_offlinePayment' />}>
+      <OfflinePayments id='lc_offlinePayment' service={service} />
     </LayoutSwitch>
   </Modal>
 );

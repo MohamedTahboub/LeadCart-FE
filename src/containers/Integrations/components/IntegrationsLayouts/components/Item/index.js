@@ -3,16 +3,25 @@ import React from 'react';
 import common from 'components/common';
 import { openNewWindow } from 'libs';
 import clx from 'classnames';
-
+import { notification } from 'libs';
+import * as integrationsActions from 'actions/integrations';
+import { connect } from 'react-redux';
 import { Card, Row } from './components';
+import { offlinePaymentLogo } from 'data/importBrands';
 
+const defaultOfflinePayment = {
+  name: 'Offline Payment Method',
+  notes: 'Notes for your customers',
+  logo: offlinePaymentLogo
+};
 const { LayoutSwitch } = common;
 const navigateAction = ({ customCard = {} }) => openNewWindow(customCard.linkPath);
 
 
-const getCustomActions = (action) => {
+const getCustomActions = (action, onConnect) => {
+
   if (action === 'link') return navigateAction;
-  return () => null;
+  return onConnect;
 };
 
 const IntegrationItem = ({
@@ -33,7 +42,7 @@ const IntegrationItem = ({
   let hasHover = true;
   if (customCard.enabled) {
     connectLabel = customCard.actionLabel;
-    connectAction = getCustomActions(customCard.action);
+    connectAction = getCustomActions(customCard.action, onConnect);
     hasHover = customCard.hasHover;
   }
   const connectBtnClasses = clx({
@@ -76,4 +85,4 @@ const IntegrationItem = ({
 
 IntegrationItem.propTypes = {};
 
-export default IntegrationItem;
+export default connect(null, integrationsActions)(IntegrationItem);

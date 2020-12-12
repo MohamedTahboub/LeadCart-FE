@@ -28,6 +28,7 @@ const {
   Dialog,
   WarningMessage
 } = common;
+
 const defaultOfflinePayment = {
   name: 'Offline Payment Method',
   notes: 'Notes for your customers',
@@ -55,7 +56,9 @@ const checkConnecting = (searchUrl = '') => {
 };
 
 
-const Integrations = ({ integrations, history, ...props }) => {
+const Integrations = ({ integrations, history, offlinePaymentsCount, ...props }) => {
+
+
   const [activeLayout, setActiveLayout] = useState('list');
   const [openModal, setOpenModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -75,17 +78,6 @@ const Integrations = ({ integrations, history, ...props }) => {
 
   const filteredList = filtersIntegrations(integrations, searchKey);
 
-  const onCreateOfflinePayment = (service) => {
-    console.log('Created', service);
-    props.addOfflinePaymentMethod(defaultOfflinePayment, {
-      onSuccess: () => {
-        notification.success('Created SuccessFully');
-      },
-      onFailed: (msg) => {
-        notification.failed(msg);
-      }
-    });
-  };
 
   const onConnect = (service) => {
     setActiveService(service);
@@ -93,7 +85,7 @@ const Integrations = ({ integrations, history, ...props }) => {
     if (service && service.connectMode)
       setOpenEditModal(service.key);
     else if (service.action === 'create_offline_payment')
-      onCreateOfflinePayment(service);
+      setOpenEditModal(service.key);
     else
       setOpenModal(true);
 
@@ -174,6 +166,7 @@ const Integrations = ({ integrations, history, ...props }) => {
               list={filteredList}
               onConnect={onConnect}
               onDisconnect={onShowDisconnectDialog}
+              offlinePaymentsCount={offlinePaymentsCount}
             />
           </FlexBox>
         </FlexBox>
@@ -233,11 +226,14 @@ const mapStateToProps = ({ integrations = [] }) => {
 
   const integrationsServices = servicesList.map((service) => {
     const integrationExist = integrations.find((integration) => {
+      const integrationKey = integration.key || integration.integrationKey;
+
       return integration && (
-        integration.key === service.key
-        || integration.integrationKey === service.key
+        integrationKey === service.key &&
+        integrationKey !== 'lc_offlinepayment'
       );
     });
+
     if (integrationExist) {
       return {
         ...service,

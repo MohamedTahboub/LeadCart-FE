@@ -45,7 +45,8 @@ const services = [
     customCard: {
       enabled: true,
       hasHover: false,
-      actionLabel: 'Create'
+      actionLabel: 'Manage',
+      action: 'create_offline_payment'
     },
     supported: true
   },

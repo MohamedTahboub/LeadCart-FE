@@ -20,7 +20,10 @@ import {
   SEND_TWILIO_TEST_SMS_SUCCESS,
   SEND_WEBHOOK_TEST_PAYLOAD,
   SEND_WEBHOOK_TEST_PAYLOAD_FAILED,
-  SEND_WEBHOOK_TEST_PAYLOAD_SUCCESS
+  SEND_WEBHOOK_TEST_PAYLOAD_SUCCESS,
+  UPDATE_OFFLINE_PAYMENT_METHOD,
+  UPDATE_OFFLINE_PAYMENT_METHOD_FAILED,
+  UPDATE_OFFLINE_PAYMENT_METHOD_SUCCESS
 } from '../constantsTypes';
 
 export const getUserIntegration = (integrations) => ({
@@ -125,6 +128,20 @@ export const addOfflinePaymentMethodSuccess = (service) => ({
 });
 export const addOfflinePaymentMethodFailed = (message) => ({
   type: ADD_OFFLINE_PAYMENT_METHOD_FAILED,
+  payload: message
+});
+
+export const updateOfflinePaymentMethod = (service, meta) => ({
+  type: UPDATE_OFFLINE_PAYMENT_METHOD,
+  payload: service,
+  meta
+});
+export const updateOfflinePaymentMethodSuccess = (service) => ({
+  type: UPDATE_OFFLINE_PAYMENT_METHOD_SUCCESS,
+  payload: service
+});
+export const updateOfflinePaymentMethodFailed = (message) => ({
+  type: UPDATE_OFFLINE_PAYMENT_METHOD_FAILED,
   payload: message
 });
 

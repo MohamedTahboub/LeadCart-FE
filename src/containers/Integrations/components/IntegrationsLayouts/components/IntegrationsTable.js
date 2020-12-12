@@ -14,7 +14,7 @@ const IntegrationsTable = ({
       {
         list.map((service) => (
           <Item
-            key={service.integrationKey}
+            key={`${service.integrationKey}_#${service._id}`}
             {...props}
             {...service}
             service={service}
