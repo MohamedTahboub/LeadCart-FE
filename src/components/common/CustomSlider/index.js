@@ -7,7 +7,7 @@ import { FlexBox } from '../boxes';
 import './style.css';
 
 
-const CustomSlider = ({ onChange, label, className, ...props }) => {
+const CustomSlider = ({ onChange, label, className, unit = '', ...props }) => {
 
   const onSliderChange = (arg) => {
     if (isFunction(onChange))
@@ -20,12 +20,15 @@ const CustomSlider = ({ onChange, label, className, ...props }) => {
       <FlexBox className='v-center'>
         <p className='flex-1 custom-slider-label' >{label}</p>
 
-        <input
-          type='number'
-          className='text-center custom-slider-input'
-          {...props}
-          onChange={({ target: { value } }) => onSliderChange(Number(value))}
-        />
+        <FlexBox className='v-center custom-slider-main-content'>
+          <input
+            type='number'
+            className='text-center custom-slider-input'
+            {...props}
+            onChange={({ target: { value } }) => onSliderChange(Number(value))}
+          />
+          <p className='custom-slider-unit'>{unit}</p>
+        </FlexBox>
       </FlexBox>
 
       <Slider

@@ -216,6 +216,7 @@ const ButtonSection = () => {
                       onChange={(radius) => onSliderChange(radius, corner)}
                       value={styles[corner] || 0}
                       label={getCornerTitle(corner)}
+                      unit='px'
                     />
                   </>
                 ))
@@ -260,6 +261,7 @@ const ButtonSection = () => {
                 value={styles.boxShadowOffsetX || 0}
                 disabled={!styles.hasShadow}
                 label='Offset-X'
+                unit='px'
               />
               <CustomSlider
                 max={20}
@@ -269,6 +271,7 @@ const ButtonSection = () => {
                 value={styles.boxShadowOffsetY || 0}
                 disabled={!styles.hasShadow}
                 label='Offset-Y'
+                unit='px'
               />
               <CustomSlider
                 max={20}
@@ -278,6 +281,7 @@ const ButtonSection = () => {
                 value={styles.boxShadowBlur || 0}
                 disabled={!styles.hasShadow}
                 label='Blur'
+                unit='px'
               />
               <FlexBox center='v-center' spaceBetween className='mt-2'>
                 <span className='gray-text'>Shadow Color</span>
@@ -324,6 +328,7 @@ const ButtonSection = () => {
                 value={styles.iconBorderRadius || 0}
                 disabled={['snapped-left', 'snapped-right'].includes(styles.iconPlacement) || !styles.icon}
                 label='Icon Border Radius'
+                unit='px'
               />
               <FlexBox center='v-center' spaceBetween >
                 <span className='gray-text'>Icon Background</span>

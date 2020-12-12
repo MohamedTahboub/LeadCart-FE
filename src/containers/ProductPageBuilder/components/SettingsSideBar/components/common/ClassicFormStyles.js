@@ -44,6 +44,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(topLeft) => onSliderChange(topLeft, 'borderTopLeftRadius')}
               value={values.borderTopLeftRadius || 0}
               label='Top Left Border'
+              unit='px'
             />
 
             <CustomSlider
@@ -53,6 +54,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(topRight) => onSliderChange(topRight, 'borderTopRightRadius')}
               value={values.borderTopRightRadius || 0}
               label='Top Right Border'
+              unit='px'
             />
 
             <CustomSlider
@@ -62,6 +64,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(bottomLeft) => onSliderChange(bottomLeft, 'borderBottomLeftRadius')}
               value={values.borderBottomLeftRadius || 0}
               label='Bottom Left Border'
+              unit='px'
             />
 
             <CustomSlider
@@ -71,6 +74,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(bottomRight) => onSliderChange(bottomRight, 'borderBottomRightRadius')}
               value={values.borderBottomRightRadius || 0}
               label='Bottom Right Border'
+              unit='px'
             />
           </FlexBox>
 
@@ -92,6 +96,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               disabled={!values.hasShadow}
               label='Offset-X'
               className='mb-2'
+              unit='px'
             />
 
             <CustomSlider
@@ -103,6 +108,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               disabled={!values.hasShadow}
               label='Offset-Y'
               className='mb-2'
+              unit='px'
             />
 
             <CustomSlider
@@ -114,6 +120,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               disabled={!values.hasShadow}
               label='Blur'
               className='mb-2'
+              unit='px'
             />
 
 
@@ -142,6 +149,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(marginTop) => onSliderChange(marginTop, 'marginTop')}
               value={values.marginTop || 0}
               label='Margin Top'
+              unit='px'
             />
 
             <CustomSlider
@@ -151,6 +159,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(marginRight) => onSliderChange(marginRight, 'marginRight')}
               value={values.marginRight || 0}
               label='Margin Right'
+              unit='px'
             />
 
             <CustomSlider
@@ -160,6 +169,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(marginBottom) => onSliderChange(marginBottom, 'marginBottom')}
               value={values.marginBottom || 0}
               label='Margin Bottom'
+              unit='px'
             />
 
             <CustomSlider
@@ -169,6 +179,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(marginLeft) => onSliderChange(marginLeft, 'marginLeft')}
               value={values.marginLeft || 0}
               label='Margin Left'
+              unit='px'
             />
           </FlexBox>
         )}
@@ -185,6 +196,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(paddingTop) => onSliderChange(paddingTop, 'paddingTop')}
               value={values.paddingTop || 0}
               label='Padding Top'
+              unit='px'
             />
 
             <CustomSlider
@@ -194,6 +206,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(paddingRight) => onSliderChange(paddingRight, 'paddingRight')}
               value={values.paddingRight || 0}
               label='Padding Right'
+              unit='px'
             />
 
             <CustomSlider
@@ -203,6 +216,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(paddingBottom) => onSliderChange(paddingBottom, 'paddingBottom')}
               value={values.paddingBottom || 0}
               label='Padding Bottom'
+              unit='px'
             />
 
             <CustomSlider
@@ -212,6 +226,7 @@ const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSett
               onChange={(paddingLeft) => onSliderChange(paddingLeft, 'paddingLeft')}
               value={values.paddingLeft || 0}
               label='Padding Left'
+              unit='px'
             />
           </FlexBox>
         )}

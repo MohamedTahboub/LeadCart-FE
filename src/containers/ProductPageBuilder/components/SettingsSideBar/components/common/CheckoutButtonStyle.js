@@ -174,6 +174,7 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                     onChange={(value) => onButtonSettingsChange({ target: { value, name: 'borderWidth' } })}
                     value={borderWidth || 0}
                     label='Border Width'
+                    unit='px'
                   />
                 </FlexBox>
 
@@ -193,6 +194,7 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                               onChange={(radius) => onSliderButtonChange(radius, corner)}
                               value={completeOrderButton[corner] || 0}
                               label={getCornerTitle(corner)}
+                              unit='px'
                             />
                           </>
                         ))
@@ -233,6 +235,7 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                         value={boxShadowOffsetX}
                         disabled={!hasShadow}
                         label='Offset-X'
+                        unit='px'
                       />
                       <CustomSlider
                         max={20}
@@ -242,6 +245,7 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                         value={boxShadowOffsetY}
                         disabled={!hasShadow}
                         label='Offset-Y'
+                        unit='px'
                       />
                       <CustomSlider
                         max={20}
@@ -251,6 +255,7 @@ const SectionStyles = ({ completeOrderButton, onSectionSettingChange, sectionSet
                         value={boxShadowBlur}
                         disabled={!hasShadow}
                         label='Blur'
+                        unit='px'
                       />
                     </FlexBox>
                   )}

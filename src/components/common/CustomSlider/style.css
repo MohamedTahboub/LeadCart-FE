@@ -1,8 +1,26 @@
 .custom-slider-input {
-  border: 1px solid #bbbbbb;
-  border-radius: 5px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
   outline: none;
-  max-width: 40px;
+  max-width: 30px;
+  font-size: .8rem;
+}
+
+
+.custom-slider-main-content{
+  color: gray;
+}
+
+
+.custom-slider-label{
+  color: #33333354;
+  margin: 0;
+}
+
+
+.custom-slider-unit {
+  margin: 0;
+  margin-left: 3px;
 }
 
 
@@ -11,8 +29,3 @@ input.custom-slider-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-
-.custom-slider-label {
-  color: #33333354;
-  margin: 0;
-}

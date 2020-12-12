@@ -90,6 +90,7 @@ const LayoutsSettings = ({
               onChange={(width) => onSliderChange(width, `productPage.${activeColumn}.width`)}
               value={productPage[activeColumn]?.width || defaultWidth}
               label='Column Width'
+              unit='px'
             />
           )}
         />
@@ -149,6 +150,7 @@ const LayoutsSettings = ({
                 onChange={(topLeft) => onSliderChange(topLeft, `productPage.${activeColumn}.borderTopLeftRadius`)}
                 value={productPage[activeColumn]?.borderTopLeftRadius || 0}
                 label='Top Left Border'
+                unit='px'
               />
 
               <CustomSlider
@@ -158,6 +160,7 @@ const LayoutsSettings = ({
                 onChange={(topRight) => onSliderChange(topRight, `productPage.${activeColumn}.borderTopRightRadius`)}
                 value={productPage[activeColumn]?.borderTopRightRadius || 0}
                 label='Top Right Border'
+                unit='px'
               />
 
 
@@ -168,6 +171,7 @@ const LayoutsSettings = ({
                 onChange={(bottomLeft) => onSliderChange(bottomLeft, `productPage.${activeColumn}.borderBottomLeftRadius`)}
                 value={productPage[activeColumn]?.borderBottomLeftRadius || 0}
                 label='Bottom Left Border'
+                unit='px'
               />
 
 
@@ -178,6 +182,7 @@ const LayoutsSettings = ({
                 onChange={(bottomRight) => onSliderChange(bottomRight, `productPage.${activeColumn}.borderBottomRightRadius`)}
                 value={productPage[activeColumn]?.borderBottomRightRadius || 0}
                 label='Bottom Right Border'
+                unit='px'
               />
             </FlexBox>
 
@@ -194,6 +199,7 @@ const LayoutsSettings = ({
                 onChange={(marginTop) => onSliderChange(marginTop, `productPage.${activeColumn}.marginTop`)}
                 value={productPage[activeColumn]?.marginTop || 0}
                 label='Margin Top'
+                unit='px'
               />
 
               <CustomSlider
@@ -203,6 +209,7 @@ const LayoutsSettings = ({
                 onChange={(marginRight) => onSliderChange(marginRight, `productPage.${activeColumn}.marginRight`)}
                 value={productPage[activeColumn]?.marginRight || 0}
                 label='Margin Right'
+                unit='px'
               />
 
               <CustomSlider
@@ -212,6 +219,7 @@ const LayoutsSettings = ({
                 onChange={(marginBottom) => onSliderChange(marginBottom, `productPage.${activeColumn}.marginBottom`)}
                 value={productPage[activeColumn]?.marginBottom || 0}
                 label='Margin Bottom'
+                unit='px'
               />
 
               <CustomSlider
@@ -221,6 +229,7 @@ const LayoutsSettings = ({
                 onChange={(marginLeft) => onSliderChange(marginLeft, `productPage.${activeColumn}.marginLeft`)}
                 value={productPage[activeColumn]?.marginLeft || 0}
                 label='Margin Left'
+                unit='px'
               />
             </FlexBox>
           )}
@@ -236,6 +245,7 @@ const LayoutsSettings = ({
                 onChange={(paddingTop) => onSliderChange(paddingTop, `productPage.${activeColumn}.paddingTop`)}
                 value={productPage[activeColumn]?.paddingTop || 0}
                 label='Padding Top'
+                unit='px'
               />
 
               <CustomSlider
@@ -245,6 +255,7 @@ const LayoutsSettings = ({
                 onChange={(paddingRight) => onSliderChange(paddingRight, `productPage.${activeColumn}.paddingRight`)}
                 value={productPage[activeColumn]?.paddingRight || 0}
                 label='Padding Right'
+                unit='px'
               />
 
               <CustomSlider
@@ -254,6 +265,7 @@ const LayoutsSettings = ({
                 onChange={(paddingBottom) => onSliderChange(paddingBottom, `productPage.${activeColumn}.paddingBottom`)}
                 value={productPage[activeColumn]?.paddingBottom || 0}
                 label='Padding Bottom'
+                unit='px'
               />
 
               <CustomSlider
@@ -263,7 +275,7 @@ const LayoutsSettings = ({
                 onChange={(paddingLeft) => onSliderChange(paddingLeft, `productPage.${activeColumn}.paddingLeft`)}
                 value={productPage[activeColumn]?.paddingLeft || 0}
                 label='Padding Left'
-
+                unit='px'
               />
             </FlexBox>
           )}

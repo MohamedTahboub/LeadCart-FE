@@ -164,6 +164,7 @@ const LayoutsContainerSettings = ({
             defaultValue={16}
             onChange={(radius) => onSliderChange(radius, 'productPage.borderRadius')}
             value={productPage.borderRadius || 16}
+            unit='px'
           />
         )}
       />
@@ -179,6 +180,7 @@ const LayoutsContainerSettings = ({
               onChange={(marginTop) => onSliderChange(marginTop, 'productPage.marginTop')}
               value={productPage.marginTop || 0}
               label='Margin Top'
+              unit='px'
             />
 
             <CustomSlider
@@ -188,6 +190,7 @@ const LayoutsContainerSettings = ({
               onChange={(marginRight) => onSliderChange(marginRight, 'productPage.marginRight')}
               value={productPage.marginRight || 0}
               label='Margin Right'
+              unit='px'
             />
 
             <CustomSlider
@@ -197,6 +200,7 @@ const LayoutsContainerSettings = ({
               onChange={(marginBottom) => onSliderChange(marginBottom, 'productPage.marginBottom')}
               value={productPage.marginBottom || 0}
               label='Margin Bottom'
+              unit='px'
             />
 
             <CustomSlider
@@ -206,6 +210,7 @@ const LayoutsContainerSettings = ({
               onChange={(marginLeft) => onSliderChange(marginLeft, 'productPage.marginLeft')}
               value={productPage.marginLeft || 0}
               label='Margin Left'
+              unit='px'
             />
           </FlexBox>
         )}
@@ -222,6 +227,7 @@ const LayoutsContainerSettings = ({
               onChange={(paddingTop) => onSliderChange(paddingTop, 'productPage.paddingTop')}
               value={productPage.paddingTop || defaultPadding.top}
               label='Padding Top'
+              unit='px'
             />
 
             <CustomSlider
@@ -231,6 +237,7 @@ const LayoutsContainerSettings = ({
               onChange={(paddingRight) => onSliderChange(paddingRight, 'productPage.paddingRight')}
               value={productPage.paddingRight || defaultPadding.right}
               label='Padding Right'
+              unit='px'
             />
 
             <CustomSlider
@@ -240,6 +247,7 @@ const LayoutsContainerSettings = ({
               onChange={(paddingBottom) => onSliderChange(paddingBottom, 'productPage.paddingBottom')}
               value={productPage.paddingBottom || defaultPadding.bottom}
               label='Padding Bottom'
+              unit='px'
             />
 
             <CustomSlider
@@ -249,6 +257,7 @@ const LayoutsContainerSettings = ({
               onChange={(paddingLeft) => onSliderChange(paddingLeft, 'productPage.paddingLeft')}
               value={productPage.paddingLeft || defaultPadding.left}
               label='Padding Left'
+              unit='px'
             />
           </FlexBox>
         )}
