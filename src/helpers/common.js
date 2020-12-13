@@ -147,7 +147,7 @@ export const getMarketPlaceUrl = ({ domains = [], subDomain }) => {
 
 
 export const isNewObjHasChange = (oldObj, newObj) => {
-  const chekPropsWithRef = (oldObj, newObj) => {
+  const checkPropsWithRef = (oldObj, newObj) => {
     if (Array.isArray(oldObj) && oldObj?.length === newObj?.length) {
       const hasObjects = Boolean(oldObj.filter((ele) => typeof ele === 'object').length);
       if (hasObjects) {
@@ -170,8 +170,8 @@ export const isNewObjHasChange = (oldObj, newObj) => {
 
   for (const prop in oldObj) {
     if (typeof oldObj[prop] === 'object' && oldObj[prop] !== null) {
-      if (chekPropsWithRef(oldObj[prop], newObj[prop]))
-        return chekPropsWithRef(oldObj[prop], newObj[prop]);
+      if (checkPropsWithRef(oldObj[prop], newObj[prop]))
+        return checkPropsWithRef(oldObj[prop], newObj[prop]);
 
     } else if (!Object.is(oldObj[prop], newObj[prop])) {
       return true;

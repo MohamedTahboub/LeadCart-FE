@@ -12,6 +12,9 @@ import * as productGeneralActions from 'actions/product';
 import * as filesActions from 'actions/files';
 import ids from 'shortid';
 import * as immutable from 'object-path-immutable';
+import { hasChanges } from './test';
+import { Prompt, Router } from 'react-router-dom';
+
 
 import {
   ProductContext,
@@ -115,7 +118,6 @@ const ProductBuilder = ({
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
-
   useEffect(() => {
     let intervalFunc;
     if (showTemplateWidget) {
@@ -276,6 +278,33 @@ const ProductBuilder = ({
   }, [secondsToSaveTemplate]);
 
 
+  //
+  //
+  //
+
+  const { params: { productId } = {} } = match;
+  const savedProduct = productsMap[productId];
+  const { product: unSavedProduct } = state;
+  const testChanges = hasChanges(savedProduct, unSavedProduct);
+
+  const blockNavigation = () => {
+    const handleTabEvent = (event) => {
+      event.preventDefault();
+      event.returnValue = 'Changes you made may not be saved';
+    };
+
+
+    if (testChanges) window.addEventListener('beforeunload', handleTabEvent);
+    else window.removeEventListener('beforeunload', handleTabEvent);
+  };
+
+  // blockNavigation();
+
+  //
+  //
+  //
+
+
   const onResetToOriginalProduct = () => {
     const { originalProductDetails } = state;
     actions.updateState({ product: matchProductSectionsIds(originalProductDetails) });
@@ -321,6 +350,12 @@ const ProductBuilder = ({
           secondsToSaveTemplate={secondsToSaveTemplate}
         />
       </Page>
+
+      <Prompt
+        when={testChanges}
+        message='Are you sure you want to leave before saving?'
+      />
+
       <ReactToolTip delayShow={400} />
     </ProductContext.Provider>
   );
