@@ -15,6 +15,9 @@ import {
   GET_INTEGRATION_ACTION_REQUIREMENT_FAILED,
   GET_INTEGRATION_ACTION_REQUIREMENT_SUCCESS,
   GET_USER_INTEGRATION,
+  REMOVE_OFFLINE_PAYMENT_METHOD,
+  REMOVE_OFFLINE_PAYMENT_METHOD_FAILED,
+  REMOVE_OFFLINE_PAYMENT_METHOD_SUCCESS,
   SEND_TWILIO_TEST_SMS,
   SEND_TWILIO_TEST_SMS_FAILED,
   SEND_TWILIO_TEST_SMS_SUCCESS,
@@ -142,6 +145,20 @@ export const updateOfflinePaymentMethodSuccess = (service) => ({
 });
 export const updateOfflinePaymentMethodFailed = (message) => ({
   type: UPDATE_OFFLINE_PAYMENT_METHOD_FAILED,
+  payload: message
+});
+
+export const removeOfflinePaymentMethod = (service, meta) => ({
+  type: REMOVE_OFFLINE_PAYMENT_METHOD,
+  payload: service,
+  meta
+});
+export const removeOfflinePaymentMethodSuccess = (service) => ({
+  type: REMOVE_OFFLINE_PAYMENT_METHOD_SUCCESS,
+  payload: service
+});
+export const removeOfflinePaymentMethodFailed = (message) => ({
+  type: REMOVE_OFFLINE_PAYMENT_METHOD_FAILED,
   payload: message
 });
 

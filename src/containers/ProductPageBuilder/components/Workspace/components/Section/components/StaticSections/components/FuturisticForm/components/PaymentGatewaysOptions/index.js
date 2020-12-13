@@ -6,26 +6,31 @@ import paypalImage from 'assets/images/paypal-thumbnail.png';
 import cashOnDeliveryImage from 'assets/images/cod_icon.png';
 import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
 import PaymentGatewayImage from '../PaymentGatewayImage';
+import { connect } from 'react-redux';
+
 import { InputField, RadioGroup } from '../Inputs';
 
 const { FlexBox, CheckCard, LayoutSwitch } = common;
 
-const getPaymentImageByName = (name) => {
+const getPaymentImageByName = (name, offlinePayments = []) => {
   const images = {
     Paypal: paypalImage,
     Stripe: creditsImage,
     COD: cashOnDeliveryImage,
     Razorpay: razorpayLogo
   };
-  return images[name];
+  const image = images[name];
+  const offlineLogo = offlinePayments.find((payment) => payment.name === name);
+
+  return image ? image : (offlineLogo && offlineLogo.logo);
 };
 
-const PaymentGatewaysOptions = ({ methods = ['COD'], labels: paymentMethodsLabels = {}, theme = 'cards' }) => {
+const PaymentGatewaysOptions = ({ methods = ['COD'], labels: paymentMethodsLabels = {}, offlinePayments, theme = 'cards' }) => {
   const [active, setActive] = useState(methods[0]);
 
 
   const paymentMethods = methods.map((method) => ({
-    image: getPaymentImageByName(method),
+    image: getPaymentImageByName(method, offlinePayments),
     name: method,
     label: paymentMethodsLabels[method] || method
   }));
@@ -110,5 +115,9 @@ const PaymentGatewaysRadio = ({ methods, onSelect, active }) => {
   );
 };
 PaymentGatewaysOptions.propTypes = {};
+const mapStateToProps = ({ integrations = [] }) => {
+  const offlinePayments = integrations.filter(({ key }) => key === 'lc_offlinepayment');
 
-export default PaymentGatewaysOptions;
+  return { offlinePayments };
+};
+export default connect(mapStateToProps)(PaymentGatewaysOptions);

@@ -100,7 +100,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "faker": "^4.1.0"
   },
-  "proxy": "https://affiliates-center.herokuapp.com/",
+  "proxy": "http://0.0.0.0:5001/",
   "browserslist": {
     "production": [
       ">0.2%",

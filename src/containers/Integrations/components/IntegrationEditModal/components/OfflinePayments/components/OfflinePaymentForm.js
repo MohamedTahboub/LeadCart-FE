@@ -34,6 +34,7 @@ const OfflinePaymentForm = ({ service, onCloseFormMode, ...props }) => {
       onSuccess: () => {
         notification.success('Updated SuccessFully');
         setLoading(false);
+        onCancel();
       },
       onFailed: (msg) => {
         notification.failed(msg);

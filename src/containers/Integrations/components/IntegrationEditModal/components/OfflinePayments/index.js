@@ -15,22 +15,21 @@ const defaultOfflinePayment = {
   logo: offlinePaymentLogo
 };
 
-const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, ...props }) => {
+const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, removeOfflinePaymentMethod, ...props }) => {
   const [activePayment, setActivePayment] = useState();
   const [loading, setLoading] = useState(false);
 
   const offlinePaymentsList = integrations.filter(({ key }) => key === 'lc_offlinepayment');
-  const hasPaymentAlready = false; //Boolean(offlinePaymentsList.length);
 
   const canCreateNewOfflinePayment = offlinePaymentsList.length < 3;
 
   const onCreateNewPayment = () => {
     if (!canCreateNewOfflinePayment)
       return notification.failed('You can create more than 3 offline payments');
-    console.log({ addOfflinePaymentMethod });
+
     addOfflinePaymentMethod && addOfflinePaymentMethod(defaultOfflinePayment, {
       onSuccess: () => {
-        notification.success('Created SuccessFully');
+        notification.success('Created Successfully');
         setLoading(false);
       },
       onFailed: (msg) => {
@@ -40,13 +39,18 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, ...pr
     });
   };
 
-  // useEffect(() => {
-  //   if (!activePayment) {
-  //     const [firstOfflinePayment = {}] = offlinePaymentsList;
-  //     setActivePayment(firstOfflinePayment._id);
-  //   }
-  // }, [offlinePaymentsList, hasPaymentAlready]);
-
+  const onRemoveOfflinePayment = (integrationId) => {
+    removeOfflinePaymentMethod({ integrationId }, {
+      onSuccess: () => {
+        notification.success('Removed Successfully');
+        setLoading(false);
+      },
+      onFailed: (msg) => {
+        notification.failed(msg);
+        setLoading(false);
+      }
+    });
+  };
 
   const onPaymentSelect = (id) => {
     setActivePayment(id);
@@ -55,6 +59,7 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, ...pr
   const onCloseFormMode = (id) => {
     setActivePayment();
   };
+
 
   const hasActivePayment = Boolean(activePayment);
 
@@ -67,6 +72,7 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, ...pr
               {...payment}
               active={activePayment === payment._id}
               isFormMode={hasActivePayment}
+              onRemoveOfflinePayment={onRemoveOfflinePayment}
               onSelect={onPaymentSelect}
             // onDelete={}
             />

@@ -6,53 +6,78 @@ import creditCardImage from 'assets/images/credit-card-demo.gif';
 import payOnDeliveryImage from 'assets/images/cod_icon.png';
 import cashOnDeliveryImage from 'assets/images/cod_icon.png';
 import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
+import { connect } from 'react-redux';
 
 import { useContext } from '../../../../../../../../actions';
 import './style.css';
+import translations from 'reducers/translations';
 
 
 const { FlexBox, CycleStepTitle, RadioImageCard } = common;
 
 const PaymentSelectionDemo = ({ method }) => {
-  let src;
-  let classes = '';
-  if (method === 1) {
-    src = creditCardImage;
-    classes = 'credit-card';
-  } else if (method === 2) {
+  if (method !== 'Stripe')
     return null;
-  } else if (method === 3) {
-    return null;
-  } else {
-    return null;
-  }
+
 
   return (
     <FlexBox center='h-center'>
       <img
-        src={src}
+        src={creditCardImage}
         alt='paypal brand'
-        className={`template-payment-gateway-demo ${classes}`}
+        className={'template-payment-gateway-demo credit-card'}
       />
     </FlexBox>
   );
 };
 const defaultPaymentsMethods = ['Paypal', 'Stripe'];
 
+const getMethodDetails = (name, offlinePayments = [], translations = {}) => {
+  const {
+    creditCards: creditCardsTitle = 'Credit Cards',
+    payPal: payPalTitle = 'PayPal'
+  } = translations;
+  const knownMethods = [
+    {
+      name: 'Stripe',
+      title: creditCardsTitle,
+      logo: creditsImage
+    },
+    {
+      name: 'Paypal',
+      title: payPalTitle,
+      logo: paypalImage
+    }, {
+      name: 'COD',
+      logo: payOnDeliveryImage
+    }, {
+      name: 'Razorpay',
+      title: payPalTitle,
+      logo: razorpayLogo
+    },
+    ...offlinePayments.map((offlinePayment) => ({ title: offlinePayment.name, ...offlinePayment }))
+  ];
+
+  const details = knownMethods.find((method) => method.name === name);
+
+  return details ? details : { name, title: name };
+};
+
 const PaymentMethods = ({
   language = {},
   step = 2,
-  twoStepCheckout
+  twoStepCheckout,
+  offlinePayments
 }) => {
   const { state: { product: { custom: { shippingDetails } = {} }, funnel: { paymentMethods } = {} } } = useContext();
   const [method, setMethod] = useState(0);
-  const {
-    paymentMethods: paymentMethodsTitle = 'Payment Method',
-    creditCards: creditCardsTitle = 'Credit Cards',
-    payPal: payPalTitle = 'PayPal'
-  } = language.checkout || {};
+  const { paymentMethods: paymentMethodsTitle = 'Payment Method' } = language.checkout || {};
 
-  const methods = Array.isArray(paymentMethods) ? paymentMethods : defaultPaymentsMethods;
+  const methodsList = Array.isArray(paymentMethods) ? paymentMethods.map((name) => {
+    const methodDetails = getMethodDetails(name, offlinePayments, language.checkout);
+    console.log({ methodDetails });
+    return methodDetails;
+  }) : defaultPaymentsMethods;
 
 
   return (
@@ -71,42 +96,24 @@ const PaymentMethods = ({
               <div className='black-title'>{paymentMethodsTitle}</div>
             )
         }
-        {methods.includes('Stripe') && (
-          <RadioImageCard
-            title={creditCardsTitle}
-            name='payment-type'
-            image={creditsImage}
-            onClick={() => setMethod(1)}
-          />
-        )}
-        {methods.includes('Paypal') && (
-          <RadioImageCard
-            title={payPalTitle}
-            name='payment-type'
-            image={paypalImage}
-            onClick={() => setMethod(2)}
-          />
-        )}
-        {methods.includes('COD') && (
-          <RadioImageCard
-            title='Cash On Delivery'
-            name='payment-type'
-            image={cashOnDeliveryImage}
-            onClick={() => setMethod(3)}
-          />
-        )}
-        {methods.includes('Razorpay') && (
-          <RadioImageCard
-            title='Razorpay'
-            name='payment-type'
-            image={razorpayLogo}
-            onClick={() => setMethod(4)}
-          />
-        )}
+        {methodsList.map((method) => {
+          return (
+            <RadioImageCard
+              title={method.title}
+              name='payment-type'
+              image={method.logo}
+              onClick={() => setMethod(method.name)}
+            />
+          );
+        })}
       </div>
       <PaymentSelectionDemo method={method} />
     </Fragment>
   );
 };
+const mapStateToProps = ({ integrations = [] }) => {
+  const offlinePayments = integrations.filter(({ key }) => key === 'lc_offlinepayment');
 
-export default PaymentMethods;
+  return { offlinePayments };
+};
+export default connect(mapStateToProps)(PaymentMethods);

@@ -10,7 +10,7 @@ import { isFunction } from 'libs/checks';
 
 const { FlexBox } = common;
 
-const PaymentRow = ({ _id, logo, name, active, isFormMode, onSelect }) => {
+const PaymentRow = ({ _id, logo, name, active, onRemoveOfflinePayment, isFormMode, onSelect }) => {
 
   const _onEdit = (id) => {
     if (isFunction(onSelect))
@@ -30,11 +30,11 @@ const PaymentRow = ({ _id, logo, name, active, isFormMode, onSelect }) => {
       </FlexBox>
       {!isFormMode && (
         <FlexBox>
-          <Tooltip text='delete this payment method'>
-            <AiOutlineDelete className='item-clickable gray-text mr-3' size={20} placement='top'/>
+          <Tooltip text='delete this payment method' placement='top'>
+            <AiOutlineDelete onClick={() => onRemoveOfflinePayment(_id)} className='item-clickable gray-text mr-3' size={20} />
           </Tooltip>
-          <Tooltip text='Edit this payment method'>
-            <FiEdit2 onClick={() => _onEdit(_id)} className='item-clickable gray-text' size={20} placement='top' />
+          <Tooltip text='Edit this payment method' placement='top'>
+            <FiEdit2 onClick={() => _onEdit(_id)} className='item-clickable gray-text' size={20} />
           </Tooltip>
         </FlexBox>
       )}
