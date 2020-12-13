@@ -75,7 +75,6 @@ const PaymentMethods = ({
 
   const methodsList = Array.isArray(paymentMethods) ? paymentMethods.map((name) => {
     const methodDetails = getMethodDetails(name, offlinePayments, language.checkout);
-    console.log({ methodDetails });
     return methodDetails;
   }) : defaultPaymentsMethods;
 

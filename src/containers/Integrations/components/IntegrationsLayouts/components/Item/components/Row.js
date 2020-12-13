@@ -12,20 +12,10 @@ const Card = ({
   connectLabel,
   connectMode,
   description,
-  offlinePaymentsCount,
   brandLogo
 }) => {
 
   const label = connectMode === 'modal' ? 'Edit' : connectLabel;
-
-  // const isOfflineCreateServiceAndCanCreateNewOne =
-  //   (service.key === 'lc_offlinepayment' && service.action === 'create_offline_payment') ?
-  //     offlinePaymentsCount <= 3
-  //     : true;
-
-  // console.log({ service, offlinePaymentsCount, isOfflineCreateServiceAndCanCreateNewOne });
-
-  // if (!isOfflineCreateServiceAndCanCreateNewOne) return null;
 
   return (
     <Row className='integration-table-row'>

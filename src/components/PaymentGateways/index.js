@@ -35,7 +35,7 @@ const PaymentMethods = ({
 
   const onSelect = (paymentMethod) => () => {
 
-    if (!selected.includes(paymentMethod) && selected.length >= 2)
+    if (!selected.includes(paymentMethod) && selected.length >= 3)
       return setError('each product accepts two payment methods as max');
 
     if (isMethodExist(paymentMethod)) {

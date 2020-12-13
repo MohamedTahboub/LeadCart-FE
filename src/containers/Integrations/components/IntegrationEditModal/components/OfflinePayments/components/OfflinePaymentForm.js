@@ -44,7 +44,6 @@ const OfflinePaymentForm = ({ service, onCloseFormMode, ...props }) => {
   };
 
   const onLogoUploaded = (image) => {
-    console.log({ image });
     onChange({
       target: {
         name: 'logo',
