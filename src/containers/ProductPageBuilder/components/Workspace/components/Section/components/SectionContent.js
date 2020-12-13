@@ -13,6 +13,7 @@ import {
   GuaranteeSection,
   HeadingText,
   ImageContent,
+  ImageSlider,
   LayoutContent,
   ProgressBar,
   ShippingDetails,
@@ -44,6 +45,7 @@ const SectionContent = ({ type, ...props }) => {
     case 'progressbarWidget': return <ProgressBar {...props} />;
     case 'faqs': return <FAQs {...props} />;
     case 'checkoutSection': return <StaticSections {...props} />;
+    case 'imageSlider': return <ImageSlider {...props} />;
     default: return null;
   }
 };

@@ -304,5 +304,30 @@ export default {
       iconsColor: '#4DA1FF',
       isCustom: 'FaPlusCircle'
     }
+  },
+
+  imageSlider: {
+    hidden: false,
+    type: 'imageSlider',
+    content: {
+      images: [
+        { src: '', id: ids.generate() },
+        { src: '', id: ids.generate() }
+      ],
+      isCustom: 'AiOutlineArrowLeft',
+      hasArrows: true,
+      autoplay: true,
+      infinite: true
+
+    },
+    styles: {
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      marginRight: 0,
+      paddingTop: 0,
+      paddingBottom: 0
+    }
+
   }
 };

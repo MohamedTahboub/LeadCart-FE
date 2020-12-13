@@ -143,3 +143,11 @@
 .bump-offer-option .ant-radio-wrapper {
     margin: 0;
 }
+
+.image-slider-arrows-options {
+    border: 1px solid lightgray;
+    padding: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+  
+  }
