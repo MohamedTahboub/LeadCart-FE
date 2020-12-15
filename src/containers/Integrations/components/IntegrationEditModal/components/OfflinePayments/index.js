@@ -90,8 +90,8 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, remov
         )}
       </FlexBox>
       {showCanCreateBtn && (
-        <FlexBox flex center='h-center'>
-          <Button onprogress={loading} onClick={onCreateNewPayment}>
+        <FlexBox flex center='h-center' flexEnd={!offlinePaymentsList.length}>
+          <Button onprogress={loading} onClick={onCreateNewPayment} className='light-btn'>
             + Create New
           </Button>
         </FlexBox>
