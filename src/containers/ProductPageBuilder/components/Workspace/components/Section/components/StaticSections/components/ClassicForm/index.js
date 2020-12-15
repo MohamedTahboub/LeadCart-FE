@@ -251,7 +251,6 @@ const ClassicForm = ({ language, section }) => {
             name='custom.declineButtonText'
             value={declineButtonText}
             style={{
-              minWidth: '400px',
               outlineStyle: 'none',
               textDecoration: 'underline'
             }}

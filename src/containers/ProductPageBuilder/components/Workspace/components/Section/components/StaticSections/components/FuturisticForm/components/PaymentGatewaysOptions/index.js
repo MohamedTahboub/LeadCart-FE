@@ -95,7 +95,7 @@ const PaymentGatewaysRadio = ({ methods, onSelect, active }) => {
       label: (
         <FlexBox flex spaceBetween>
           <span>{payment.label}</span>
-          <PaymentGatewayImage name={payment.name} />
+          <PaymentGatewayImage {...payment} />
         </FlexBox>
       ),
       value: payment.image,
