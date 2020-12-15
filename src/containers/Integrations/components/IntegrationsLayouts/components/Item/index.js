@@ -1,18 +1,19 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
 import common from 'components/common';
 import { openNewWindow } from 'libs';
 import clx from 'classnames';
-
+import * as integrationsActions from 'actions/integrations';
+import { connect } from 'react-redux';
 import { Card, Row } from './components';
 
 const { LayoutSwitch } = common;
 const navigateAction = ({ customCard = {} }) => openNewWindow(customCard.linkPath);
 
 
-const getCustomActions = (action) => {
+const getCustomActions = (action, onConnect) => {
+
   if (action === 'link') return navigateAction;
-  return () => null;
+  return onConnect;
 };
 
 const IntegrationItem = ({
@@ -33,7 +34,7 @@ const IntegrationItem = ({
   let hasHover = true;
   if (customCard.enabled) {
     connectLabel = customCard.actionLabel;
-    connectAction = getCustomActions(customCard.action);
+    connectAction = getCustomActions(customCard.action, onConnect);
     hasHover = customCard.hasHover;
   }
   const connectBtnClasses = clx({
@@ -76,4 +77,4 @@ const IntegrationItem = ({
 
 IntegrationItem.propTypes = {};
 
-export default IntegrationItem;
+export default connect(null, integrationsActions)(IntegrationItem);

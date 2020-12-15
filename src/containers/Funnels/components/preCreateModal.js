@@ -95,7 +95,7 @@ const PreCreateModal = ({
     funnel.name = name;
     funnel.currency = defaultCurrency;
     if (Array.isArray(enabledPaymentMethods) && enabledPaymentMethods.length)
-      funnel.paymentMethods = enabledPaymentMethods;
+      funnel.paymentMethods = enabledPaymentMethods.splice(0, 4);
 
     props.createFunnel({ funnel }, { onSuccess, onFailed });
   };

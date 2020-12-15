@@ -4,6 +4,7 @@ import {
   DELETE_FUNNEL_RULE_SUCCESS,
   DELETE_FUNNEL_SUCCESS,
   GET_FUNNELS,
+  REMOVE_OFFLINE_PAYMENT_METHOD_SUCCESS,
   UPDATE_FUNNEL_RULE_SUCCESS,
   UPDATE_FUNNEL_SUCCESS
 } from '../constantsTypes';
@@ -68,8 +69,6 @@ export default (state = initialState, { type, payload }) => {
     });
   case DELETE_FUNNEL_RULE_SUCCESS:
     return state.map((funnel) => {
-      // const rules = funnel.rules ? [...funnel.rules, payload.rule] : [payload.rule];
-      // if (funnel._id === payload.funnelId) return { ...funnel, rules };
       if (funnel._id === payload.funnel) {
         return {
           ...funnel,
@@ -77,6 +76,21 @@ export default (state = initialState, { type, payload }) => {
         };
       } else {return funnel;}
     });
+
+  case REMOVE_OFFLINE_PAYMENT_METHOD_SUCCESS: {
+    const { methodName } = payload || {};
+    return state.map((funnel) => {
+      if (Array.isArray(funnel.paymentMethods)) {
+        const methods = funnel.paymentMethods.filter((method) => method !== methodName);
+        return {
+          ...funnel,
+          paymentMethods: [...methods]
+        };
+      } else {
+        return funnel;
+      }
+    });
+  }
   default: return state;
   }
 };

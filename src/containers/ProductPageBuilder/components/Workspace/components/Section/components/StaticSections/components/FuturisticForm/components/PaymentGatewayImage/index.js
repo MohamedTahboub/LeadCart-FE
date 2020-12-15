@@ -18,9 +18,9 @@ const getPaymentImageByName = (name) => {
   return images[name];
 };
 
-const PaymentGatewayImage = ({ className, name, ...props }) => {
+const PaymentGatewayImage = ({ className, name, image, ...props }) => {
 
-  const imageSrc = getPaymentImageByName(name);
+  const imageSrc = getPaymentImageByName(name) || image;
   const classes = clx('payment-gateway-image', className);
 
   if (!imageSrc) return null;

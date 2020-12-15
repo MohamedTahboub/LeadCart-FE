@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 
 import { getIcon } from 'data/faqIcons';
 
-const ContentIcon = ({ id, open, styles }) => {
-  const { customOpenIcon = '', customCloseIcon = '', isCustom, iconsColor } = styles;
+const ContentIcon = ({ id, open, customOpenIcon, customCloseIcon, isCustom, iconsColor }) => {
   const { OpenIcon, CloseIcon } = getIcon(isCustom);
 
   return (

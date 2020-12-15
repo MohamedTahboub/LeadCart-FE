@@ -31,6 +31,7 @@ import Tooltip from './Tooltip';
 import CustomCheckbox from './Checkbox';
 import CustomReactToggle from './CustomReactToggle';
 import CustomRadio from './CustomRadio';
+import CustomSlider from './CustomSlider';
 
 export default {
   Table,
@@ -65,5 +66,6 @@ export default {
   DisplayContent,
   CustomCheckbox,
   CustomReactToggle,
-  CustomRadio
+  CustomRadio,
+  CustomSlider
 };

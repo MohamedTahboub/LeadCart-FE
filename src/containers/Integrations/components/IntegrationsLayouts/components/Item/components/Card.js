@@ -8,9 +8,14 @@ const Card = ({
   connectAction,
   service,
   hoverProps,
+  connectMode,
   connectLabel,
   brandLogo
 }) => {
+
+
+  const label = connectMode === 'modal' ? 'Edit' : connectLabel;
+
   return (
     <MediumCard
       isActive={active}
@@ -22,7 +27,7 @@ const Card = ({
           onClick={() => connectAction(service)}
           onHoverProps={hoverProps}
         >
-          {connectLabel}
+          {label}
         </Button>
       )}
     />

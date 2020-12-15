@@ -35,8 +35,8 @@ const PaymentMethods = ({
 
   const onSelect = (paymentMethod) => () => {
 
-    if (!selected.includes(paymentMethod) && selected.length >= 2)
-      return setError('each product accepts two payment methods as max');
+    if (!selected.includes(paymentMethod) && selected.length >= 4)
+      return setError('Each funnel accepts just four payment methods');
 
     if (isMethodExist(paymentMethod)) {
       props.onChange({

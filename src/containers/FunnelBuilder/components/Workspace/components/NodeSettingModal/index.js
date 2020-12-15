@@ -124,7 +124,7 @@ const NodeSettingModal = ({
       {
         onSuccess: (product) => {
           const productId = product.id || product._id;
-          onSelect(nodeId, productId);
+          onNodeSettingChange(nodeId, productId);
           setTimeout(() => {
             setLoading(false);
 
