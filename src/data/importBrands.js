@@ -8,6 +8,7 @@ export { default as authorizeNetLogo } from 'assets/images/brands/authorize-logo
 export { default as checkoutLogo } from 'assets/images/brands/checkout-logo.png';
 export { default as braintreeLogo } from 'assets/images/brands/braintree-logo.png';
 export { default as towCheckoutLogo } from 'assets/images/brands/2checkout-logo.png';
+export { default as offlinePaymentLogo } from 'assets/images/icons/offline-payment.png';
 
 
 // autoResponders gateways

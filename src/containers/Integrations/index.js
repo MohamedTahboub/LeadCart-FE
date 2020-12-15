@@ -6,10 +6,12 @@ import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { includesIgnoreCase, notification } from 'libs';
 import servicesList from 'data/integrationsServices';
+import { offlinePaymentLogo } from 'data/importBrands';
 
 import {
   ConnectModal,
   ConnectingModal,
+  IntegrationEditModal,
   IntegrationsLayouts,
   LayoutOptions
 } from './components';
@@ -26,6 +28,7 @@ const {
   Dialog,
   WarningMessage
 } = common;
+
 
 const { TextField } = InputRow;
 
@@ -48,9 +51,12 @@ const checkConnecting = (searchUrl = '') => {
 };
 
 
-const Integrations = ({ integrations, history, ...props }) => {
+const Integrations = ({ integrations, history, offlinePaymentsCount, ...props }) => {
+
+
   const [activeLayout, setActiveLayout] = useState('list');
   const [openModal, setOpenModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
   const [disconnectedDialog, setDisconnectDialog] = useState(false);
@@ -67,14 +73,23 @@ const Integrations = ({ integrations, history, ...props }) => {
 
   const filteredList = filtersIntegrations(integrations, searchKey);
 
+
   const onConnect = (service) => {
     setActiveService(service);
-    setOpenModal(true);
+
+    if (service && service.connectMode)
+      setOpenEditModal(service.key);
+    else if (service.action === 'create_offline_payment')
+      setOpenEditModal(service.key);
+    else
+      setOpenModal(true);
+
   };
 
   const onConnectClosed = () => {
     setActiveService();
     setOpenModal(false);
+    setOpenEditModal(false);
   };
 
   const onShowDisconnectDialog = (service) => {
@@ -146,6 +161,7 @@ const Integrations = ({ integrations, history, ...props }) => {
               list={filteredList}
               onConnect={onConnect}
               onDisconnect={onShowDisconnectDialog}
+              offlinePaymentsCount={offlinePaymentsCount}
             />
           </FlexBox>
         </FlexBox>
@@ -166,8 +182,17 @@ const Integrations = ({ integrations, history, ...props }) => {
             onClose={onConnectingStop}
             history={history}
           />
-        )
-        }
+        )}
+        {openEditModal && (
+          <IntegrationEditModal
+            open={openEditModal}
+            onToggle={() => setOpenEditModal(false)}
+            onConnectClosed={onConnectClosed}
+            onConnect={onConnect}
+            // onDisconnect={onShowDisconnectDialog}
+            service={activeService}
+          />
+        )}
         {disconnectedDialog && (
           <Dialog
             onClose={onCloseDisconnectDialog}
@@ -192,11 +217,18 @@ const Integrations = ({ integrations, history, ...props }) => {
 Integrations.propTypes = {};
 Integrations.defaultProps = { integrations: [] };
 const mapStateToProps = ({ integrations = [] }) => {
+  const offlinePaymentsCount = integrations.filter((integration) => integration.key === 'lc_offlinepayment').length;
+
   const integrationsServices = servicesList.map((service) => {
-    const integrationExist = integrations.find((integration) => integration && (
-      integration.key === service.key
-      || integration.integrationKey === service.key
-    ));
+    const integrationExist = integrations.find((integration) => {
+      const integrationKey = integration.key || integration.integrationKey;
+
+      return integration && (
+        integrationKey === service.key &&
+        integrationKey !== 'lc_offlinepayment'
+      );
+    });
+
     if (integrationExist) {
       return {
         ...service,
@@ -207,6 +239,6 @@ const mapStateToProps = ({ integrations = [] }) => {
     return service;
   });
 
-  return { integrations: integrationsServices };
+  return { integrations: integrationsServices, offlinePaymentsCount };
 };
 export default connect(mapStateToProps, integrationsActions)(Integrations);

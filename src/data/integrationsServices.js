@@ -34,6 +34,23 @@ const services = [
     supported: true
   },
   {
+    key: 'lc_offlinepayment',
+    name: 'Offline Payment Method',
+    brandLogo: brandsLogos.offlinePaymentLogo,
+    category: 'Payment Gateways',
+    description: 'Add a custom offline payments for your customers, with notes of what they should do to complete the purchases using this method.',
+    action: 'create_offline_payment',
+    active: false,
+    connected: false,
+    customCard: {
+      enabled: true,
+      hasHover: false,
+      actionLabel: 'Manage',
+      action: 'create_offline_payment'
+    },
+    supported: true
+  },
+  {
     key: 'lc_authorizenetlogo',
     name: 'Authorize.Net',
     brandLogo: brandsLogos.authorizeNetLogo,

@@ -10,9 +10,13 @@ const Card = ({
   name,
   hoverProps,
   connectLabel,
+  connectMode,
   description,
   brandLogo
 }) => {
+
+  const label = connectMode === 'modal' ? 'Edit' : connectLabel;
+
   return (
     <Row className='integration-table-row'>
       <Cell
@@ -47,7 +51,7 @@ const Card = ({
             onClick={() => connectAction(service)}
             onHoverProps={hoverProps}
           >
-            {connectLabel}
+            {label}
           </Button>
         )}
       />

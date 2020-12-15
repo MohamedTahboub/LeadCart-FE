@@ -4,6 +4,8 @@ import DatePicker from 'antd/lib/date-picker';
 import Checkbox from 'antd/lib/checkbox';
 import Radio from 'antd/lib/radio';
 import ids from 'shortid';
+import clx from 'classnames';
+
 import AddImage from './AddImage';
 import AddFieldComponent from './AddFieldComponent';
 import SearchInput from './SearchInput';
@@ -12,7 +14,6 @@ import TextAreaInput from './TextAreaInput';
 import EditableTagGroup from './EditableTagGroup';
 import Slider from './Slider';
 import Toggle from './Toggle';
-
 export class InputRow extends Component {
 
   static TextAreaInput = TextAreaInput
@@ -28,8 +29,8 @@ export class InputRow extends Component {
   static Toggle = Toggle
 
 
-  static Label = ({ notes, error, className = '', ...props }) => (
-    <div className={`input-label-container ${className}`}>
+  static Label = ({ notes, error, className = '', noteClassName, ...props }) => (
+    <div className={clx('input-label-container', className)} >
       <span className='input-label '>{props.children}</span>
       {error && (
         <span className='label-validation-error'>
@@ -37,7 +38,7 @@ export class InputRow extends Component {
           {error}
         </span>
       )}
-      <span className='input-label-note'>{notes}</span>
+      <span className={clx('input-label-note', noteClassName)}>{notes}</span>
     </div>
   )
 

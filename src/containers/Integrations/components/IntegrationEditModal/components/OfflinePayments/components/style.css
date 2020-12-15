@@ -1,0 +1,26 @@
+.payment-form-content{
+    border-left: 2px solid #eee;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+.offline-payment-logo{
+    height: 35px;
+    width: 35px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+.offline-payment-row{
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    margin: 5px 0px;
+    padding-bottom: 5px;
+}
+.offline-payment-row:last-child{
+    border-bottom: 1px solid transparent;
+}
+.offline-payment-row.active{
+    background-color: #2196f352;
+    color: white !important;
+}
