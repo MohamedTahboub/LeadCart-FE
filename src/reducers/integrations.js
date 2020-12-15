@@ -23,11 +23,8 @@ export default (state = initialState, { type, payload }) => {
       return integration;
     });
   case ADD_OFFLINE_PAYMENT_METHOD_SUCCESS:
-    return state.map((integration) => {
-      if (integration.key === payload.key)
-        return { ...integration, ...payload };
-      return integration;
-    });
+    return [...state, payload];
+
   case UPDATE_OFFLINE_PAYMENT_METHOD_SUCCESS:
     return state.map((integration) => {
       if (integration._id === payload.integrationId)

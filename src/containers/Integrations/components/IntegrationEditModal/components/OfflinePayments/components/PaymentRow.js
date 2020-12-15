@@ -7,10 +7,11 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { FiEdit2 } from 'react-icons/fi';
 import clx from 'classnames';
 import { isFunction } from 'libs/checks';
+import { trimExtraText } from 'libs';
 
 const { FlexBox } = common;
 
-const PaymentRow = ({ _id, logo, name, active, onRemoveOfflinePayment, isFormMode, onSelect }) => {
+const PaymentRow = ({ _id, logo, name, notes, active, onRemoveOfflinePayment, isFormMode, onSelect }) => {
 
   const _onEdit = (id) => {
     if (isFunction(onSelect))
@@ -25,13 +26,18 @@ const PaymentRow = ({ _id, logo, name, active, onRemoveOfflinePayment, isFormMod
   return (
     <FlexBox flex={!active} className={clx('offline-payment-row', { active, 'item-clickable': isFormMode })} center='v-center' onClick={_onSelect}>
       <img src={logo} alt={name} className='offline-payment-logo' />
-      <FlexBox flex className={clx('title-text mx-3', { 'gray-text': !active })}>
+      <FlexBox flex={isFormMode} className={clx('title-text mx-3', { 'gray-text min-width-200': !active })}>
         {name}
       </FlexBox>
       {!isFormMode && (
+        <FlexBox flex className={clx('small-text mx-3 ')}>
+          {trimExtraText(notes, 70)}
+        </FlexBox>
+      )}
+      {!isFormMode && (
         <FlexBox>
           <Tooltip text='delete this payment method' placement='top'>
-            <AiOutlineDelete onClick={() => onRemoveOfflinePayment(_id)} className='item-clickable gray-text mr-3' size={20} />
+            <AiOutlineDelete onClick={() => onRemoveOfflinePayment(_id, name)} className='item-clickable gray-text mr-3' size={20} />
           </Tooltip>
           <Tooltip text='Edit this payment method' placement='top'>
             <FiEdit2 onClick={() => _onEdit(_id)} className='item-clickable gray-text' size={20} />

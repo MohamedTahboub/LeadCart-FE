@@ -14,7 +14,7 @@ export default ({ dispatch }) => (next) => (action) => {
   dispatch(apiRequest({
     options: {
       method: 'DELETE',
-      body: payload,
+      body: { integrationId: payload.integrationId },
       uri: '/api/brands/integrations/offline-payments/disconnect',
       contentType: 'json'
     },

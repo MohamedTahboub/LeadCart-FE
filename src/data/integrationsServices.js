@@ -38,7 +38,7 @@ const services = [
     name: 'Offline Payment Method',
     brandLogo: brandsLogos.offlinePaymentLogo,
     category: 'Payment Gateways',
-    description: 'Add a custom offline payment for your customers, with notes of what they should do to complete the purchases using this method.',
+    description: 'Add a custom offline payments for your customers, with notes of what they should do to complete the purchases using this method.',
     action: 'create_offline_payment',
     active: false,
     connected: false,

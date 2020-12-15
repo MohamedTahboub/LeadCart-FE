@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import common from 'components/common';
 import { connect } from 'react-redux';
 import * as integrationsActions from 'actions/integrations';
@@ -7,13 +6,13 @@ import { notification } from 'libs';
 import { offlinePaymentLogo } from 'data/importBrands';
 import { OfflinePaymentForm, PaymentRow } from './components';
 
-const { FlexBox, InputRow, Button, LayoutSwitch } = common;
+const { FlexBox, Button, LayoutSwitch } = common;
 
-const defaultOfflinePayment = {
-  name: 'Offline Payment Method',
+const getDefaultOfflinePayment = (length) => ({
+  name: `Offline Payment Method #${length}`,
   notes: 'Notes for your customers',
   logo: offlinePaymentLogo
-};
+});
 
 const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, removeOfflinePaymentMethod, ...props }) => {
   const [activePayment, setActivePayment] = useState();
@@ -27,7 +26,7 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, remov
     if (!canCreateNewOfflinePayment)
       return notification.failed('You can create more than 3 offline payments');
 
-    addOfflinePaymentMethod && addOfflinePaymentMethod(defaultOfflinePayment, {
+    addOfflinePaymentMethod && addOfflinePaymentMethod(getDefaultOfflinePayment(offlinePaymentsList.length), {
       onSuccess: () => {
         notification.success('Created Successfully');
         setLoading(false);
@@ -39,8 +38,8 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, remov
     });
   };
 
-  const onRemoveOfflinePayment = (integrationId) => {
-    removeOfflinePaymentMethod({ integrationId }, {
+  const onRemoveOfflinePayment = (integrationId, name) => {
+    removeOfflinePaymentMethod({ integrationId, methodName: name }, {
       onSuccess: () => {
         notification.success('Removed Successfully');
         setLoading(false);
@@ -62,6 +61,7 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, remov
 
 
   const hasActivePayment = Boolean(activePayment);
+  const showCanCreateBtn = !hasActivePayment && canCreateNewOfflinePayment;
 
   return (
     <FlexBox column flex>
@@ -74,7 +74,6 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, remov
               isFormMode={hasActivePayment}
               onRemoveOfflinePayment={onRemoveOfflinePayment}
               onSelect={onPaymentSelect}
-            // onDelete={}
             />
           ))}
         </FlexBox>
@@ -90,7 +89,7 @@ const OfflinePaymentModal = ({ integrations = [], addOfflinePaymentMethod, remov
           </FlexBox>
         )}
       </FlexBox>
-      {!hasActivePayment && (
+      {showCanCreateBtn && (
         <FlexBox flex center='h-center'>
           <Button onprogress={loading} onClick={onCreateNewPayment}>
             + Create New

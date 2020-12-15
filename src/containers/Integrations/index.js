@@ -29,11 +29,6 @@ const {
   WarningMessage
 } = common;
 
-const defaultOfflinePayment = {
-  name: 'Offline Payment Method',
-  notes: 'Notes for your customers',
-  logo: offlinePaymentLogo
-};
 
 const { TextField } = InputRow;
 
