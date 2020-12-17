@@ -8,15 +8,9 @@
   color: #000000D9
 }
 
-.leadcart-card .card-body {
 
-}
-
-.leadcart-card .card-footer {
-
-}
-
-.leadcart-card .card-header, .leadcart-card .card-body, .leadcart-card .card-footer {
+.leadcart-card .card-header,
+ .leadcart-card .card-body, 
+ .leadcart-card .card-footer {
   padding: 12px;
-
 }

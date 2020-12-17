@@ -2,6 +2,7 @@
   position: relative;
   margin-left: 140px;
 }
+
 .social-media-platform-name{
   min-width: 120px;
 }
@@ -9,6 +10,7 @@
 .save-btn{
   background:#4CAF50;
 }
+
 span.social-btn{
   padding: 5px 7px;
   color:white;

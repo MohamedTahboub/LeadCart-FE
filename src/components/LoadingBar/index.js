@@ -9,7 +9,7 @@ const LoadingBar = ({ loading }) => {
 
   return (
     <div className='application-loading-bar'>
-      <div className='lodaing-progress' />
+      <div className='loading-progress' />
     </div>
   );
 };

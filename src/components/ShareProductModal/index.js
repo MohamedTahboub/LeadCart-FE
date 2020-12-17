@@ -8,11 +8,9 @@ import './style.css';
 const defaultWhiteLogo = 'https://s3.us-west-2.amazonaws.com/assets.leadcart.io/5e70880c81f85530d0ecd553/products/leadcart_light_logo.png';
 
 const {
-  // ShareButton,
   MainTitle,
   Button,
   EmbeddedScripContainer,
-  // ShareBtnContainer,
   SubTabs
 } = common;
 

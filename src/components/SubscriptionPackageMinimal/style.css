@@ -9,11 +9,13 @@
 .subscription-toggle-input{
     margin: 20px 80px;
 }
+
 .subscription-toggle-input::before,
 .subscription-toggle-input::after {
         font-size:16px;
         cursor: pointer;
 }
+
 .subscription-toggle-input::before {
     content:'Yearly';
     right: -55px;
@@ -24,6 +26,7 @@
     color: var(--text-color);
     text-transform: uppercase;
 }
+
 .subscription-toggle-input::after {
     content:'Monthly';
     left: -81px;
@@ -34,6 +37,7 @@
     color: var(--text-color);
     text-transform: uppercase;
 }
+
 .subscription-toggle-input.Monthly::after,
 .subscription-toggle-input.Yearly::before{
     color:#4da0fc;
@@ -48,6 +52,7 @@
     margin: 10px 5px;
     margin-bottom: 25px;
 }
+
 .subscription-promocode-section{
     margin: 10px 5px;
     display: flex;
@@ -59,8 +64,6 @@
 .update-subscription-plan-btn{
     float: right;
 }
-
-
 
 .transaction-table-row{
     background: #eee;
@@ -88,6 +91,7 @@
     filter: blur(5px);
     opacity: .6;
 }
+
 .promo-code-input input{
     margin-right: 20px;
     min-width: 250px;

@@ -1,6 +1,5 @@
 import React from 'react';
 import checkoutIcon from 'assets/images/icons/checkout.svg';
-// import pageFunnelIcon from 'assets/images/icons/pageFunnel.svg';
 import popUpCheckoutIcon from 'assets/images/icons/popUpCheckout.svg';
 import thankyouPageImage from 'assets/images/funnels/thankyouPage.png';
 import { CategoryCard } from 'components/common/Cards';
@@ -31,7 +30,5 @@ const ProductCategories = ({ onSelect }) => (
     />
   </div>
 );
-
-ProductCategories.propTypes = {};
 
 export default ProductCategories;

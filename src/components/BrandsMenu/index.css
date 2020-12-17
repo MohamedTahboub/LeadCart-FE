@@ -2,9 +2,6 @@
   position: relative;
 }
 
-.brand-avatar-image {
-}
-
 .brand-avatar-type,
 .brand-avatar-subscription {
   position: absolute;
@@ -15,6 +12,7 @@
   height: 16px !important;
   line-height: 14px !important;
 }
+
 .brand-avatar-subscription span{
   font-size: .7rem !important;
 }
@@ -25,6 +23,7 @@
   bottom: unset;
   color: orange;
 }
+
 .uppercase{
   text-transform: uppercase;
 }

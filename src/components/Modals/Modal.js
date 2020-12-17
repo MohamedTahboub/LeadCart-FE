@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+
 import { showIntercomIcon } from 'libs';
 import { EasyAnimate, SlidingAnimation } from '../common/Animation';
-import './style.css';
 import { FlexBox } from '../common/boxes';
+
+import './style.css';
 
 export default ({
   children,
@@ -12,7 +14,6 @@ export default ({
   isVisible,
   footer,
   hideCloseBtn,
-  affectIntercom = true,
   ...props
 }) => {
   useEffect(() => {
@@ -24,7 +25,7 @@ export default ({
 
   return (
     isVisible ? (
-      <EasyAnimate className='modal-container'>
+      <EasyAnimate className='modal-container' {...props}>
         <FlexBox column>
           <SlidingAnimation className={`modal-content ${className}`}>
             {

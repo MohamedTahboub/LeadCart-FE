@@ -1,5 +1,3 @@
-
-/* Slide modal styles start*/ 
 .slide-modal-container{
   position: fixed;;
   top:0px;
@@ -12,6 +10,7 @@
   align-items: center;
   z-index: 1002;
 }
+
 .slide-modal-background{
   position: absolute;;
   top:0px;
@@ -19,10 +18,12 @@
   left:0px;
   right:0px;
 }
+
 .slide-modal-header{
   box-shadow: -7px 13px 20px -17px rgba(0,0,0,0.5);
   margin:0px 0px 20px 0px;
 }
+
 .slide-modal-close-btn{
   color:gray;
   font-size: 20px;
@@ -34,6 +35,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .slide-modal-content{
   position: absolute;
   top: 0px;
@@ -53,4 +55,4 @@
   flex-direction: column;
   flex: 1;
 }
-/* Slide modal styles ends*/ 
+

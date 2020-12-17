@@ -4,9 +4,8 @@
     border-radius: 20px;
     color: white;
 }
+
 .progress-value{
-    /* background: lightgray; */
-    /* background: #7BDCB5; */
     background: #9900EF;
     border-radius: 20px;
     width: 70%;
@@ -15,6 +14,3 @@
     overflow: hidden;
 }
 
-.progress-value.value{
-    
-}
