@@ -32,9 +32,11 @@ const Subscription = ({
     promoCode: {},
     credit: {}
   });
+
   const updateActivePackage = ({ packageType }) => {
     setFields({ ...fields, packageType });
   };
+
   useEffect(() => {
     updateActivePackage({ packageType: activePackage.type });
     //eslint-disable-next-line
@@ -71,6 +73,7 @@ const Subscription = ({
       credit: {}
     });
   };
+
   const onSubmit = async () => {
     const promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined;
     const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode });

@@ -8,7 +8,6 @@
 
 .ql-tooltip {
     z-index: 10000 !important;
-    /* position:fixed; */
 }
 
 .ql-picker.ql-font .ql-picker-item {

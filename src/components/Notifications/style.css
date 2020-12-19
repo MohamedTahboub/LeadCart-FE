@@ -4,21 +4,22 @@
     border-radius: 7px;
     color: gray;
     padding: 20px;
-    /* z-index: 1000001; */
 }
 
-  .cutome-content {
+  .custom-content {
     display: flex;
     align-items: center;
   }
+
   .actual-content-holder .title {
     font-size: 16px;
   }
+  
   .actual-content-holder .message {
     font-size: 13px;
-    /* white-space: pre; */
     margin: 5px 0;
   }
+
   .actual-content-holder {
     display: flex;
     flex-direction: column;

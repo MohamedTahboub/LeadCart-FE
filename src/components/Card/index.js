@@ -5,17 +5,9 @@ import './style.css';
 
 const Card = ({ title, children, footer, className, style }) => (
   <div className={classNames(className, 'leadcart-card')} style={style}>
-    {
-      title && (
-        <div className='card-header'>{title}</div>
-      )
-    }
+    { title && <div className='card-header'>{title}</div> }
     <div className='card-body'>{children}</div>
-    {
-      footer && (
-        <div className='card-footer'>{footer}</div>
-      )
-    }
+    { footer && <div className='card-footer'>{footer}</div> }
   </div>
 );
 

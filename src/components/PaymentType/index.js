@@ -3,9 +3,10 @@ import common from 'components/common';
 
 
 import './style.css';
-const { InputRow, Currency } = common;
 
+const { InputRow, Currency } = common;
 const { Label, SelectOption, TextField } = InputRow;
+
 const PaymentTypeSelector = ({ value = 'Onetime', onChange }) => (
   <InputRow>
     <Label>Payment Type</Label>
@@ -41,6 +42,7 @@ export default ({
 
     onChange({ target: { name, value } });
   };
+
   const paymentType = payment.type;
   const priceLabel = paymentType === 'Subscription' ? 'Subscription amount' : paymentType === 'Split' ? 'Split Amount (Each)' : 'Price';
   return (

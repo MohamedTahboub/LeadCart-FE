@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './style.css';
 
 const StarsRanking = ({
@@ -17,13 +18,14 @@ const StarsRanking = ({
       }
     });
   };
+
   const onIncrement = () => {
     if (rank < max) onUpdate(rank + 1);
     else onUpdate(0);
   };
 
   return (
-    <span className='stars-icons'>
+    <span className='stars-icons' {...props} >
       {
         new Array(max).fill().map((i, index) => (
           <i

@@ -36,7 +36,6 @@ const ProgressBar = ({
           width: `${value}%`,
           backgroundColor: colors.barColor
         }}
-
       >
         <FlexBox center='v-center' style={{ color: colors.textColor }}>
           {children}

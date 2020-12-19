@@ -8,6 +8,7 @@ import './style.css';
 
 const MultipleStepForm = ({ steps, children }) => {
   const [currentStep, setCurrentStep] = useState(0);
+
   return (
     <div className='multi-step-form'>
       <ProgressBarWithSteps steps={steps} currentStep={currentStep} />
@@ -42,7 +43,6 @@ const MultipleStepForm = ({ steps, children }) => {
           >
             <FaArrowAltCircleLeft />
             Back
-
           </Button>
         </div>
       </div>

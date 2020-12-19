@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CreditCardInput from 'react-credit-card-input';
+
 import CreditCardDisplay from './CreditCardDisplay';
 
 import './style.css';
@@ -11,7 +12,6 @@ export default ({
   onChange
 }) => {
   const [credit, setCredit] = useState({});
-
 
   const onCreditFieldChange = (name, value) => {
     let fields;
@@ -39,10 +39,7 @@ export default ({
 
 
   return (
-    <div
-      id='credit-card-box'
-      className={className}
-    >
+    <div id='credit-card-box' className={className}>
       <CreditCardInput
         cardNumberInputRenderer={({ handleCardNumberChange, props }) => (
           <input
@@ -51,6 +48,7 @@ export default ({
             onChange={handleCardNumberChange((e) => onCreditFieldChange('cardNumber', e.target.value))}
           />
         )}
+
         cardExpiryInputRenderer={({ handleCardExpiryChange, props }) => (
           <input
             {...props}
@@ -58,6 +56,7 @@ export default ({
             onChange={handleCardExpiryChange((e) => onCreditFieldChange('expireDate', e.target.value))}
           />
         )}
+
         cardCVCInputRenderer={({ handleCardCVCChange, props }) => (
           <input
             {...props}

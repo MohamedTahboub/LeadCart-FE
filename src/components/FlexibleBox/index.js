@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineSmallDash } from 'react-icons/ai';
-import './style.css';
-import { isFunction } from 'libs/checks';
 import clx from 'classnames';
+
+import { isFunction } from 'libs/checks';
 import { throttle } from 'libs';
+import './style.css';
+
 export default ({
   onResize,
   onResizeStart,
@@ -79,6 +81,7 @@ export default ({
         userSelect: resizing ? 'none' : ''
       }}
       className={classNames}
+      {...props}
     >
       {children}
       <span

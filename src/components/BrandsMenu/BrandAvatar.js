@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Avatar, Tag } from 'antd';
 import classNames from 'classnames';
+
 import './index.css';
 
 const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {

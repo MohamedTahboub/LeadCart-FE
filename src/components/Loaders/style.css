@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .loading-message{
     position: relative;
     color:white;
@@ -30,16 +31,15 @@
     margin-left: 10px;
     border: none;
     border-radius: 50%;
-    /* border: 0px solid transparent; */
     border-left:0px solid #dbdbdb;
     border-right:0px solid transparent;
     border-bottom:0px solid #dbdbdb;
     border-top:4px solid #dbdbdb;
-    /* border-top-color: #dbdbdb; */
-    /* border-bottom-color: #dbdbdb; */
     -webkit-animation: spinner .6s linear infinite;
             animation: spinner .6s linear infinite;
 }
+
+
 .loading-message::before{
     -webkit-animation: spinner .6s linear infinite;
     animation: spinner .6s linear infinite;

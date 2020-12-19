@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
-import config from '../../config';
 
+import config from '../../config';
 
 const { intercomAppId } = config;
 

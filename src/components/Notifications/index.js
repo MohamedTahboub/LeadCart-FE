@@ -1,18 +1,18 @@
 import React from 'react';
 
-import './style.css';
-
 import successIcon from '../../assets/images/icons/success.png';
 import errorIcon from '../../assets/images/icons/error.png';
 import warningIcon from '../../assets/images/icons/warning.png';
 import infoIcon from '../../assets/images/icons/info.png';
+
+import './style.css';
 
 
 const icons = {
   success: successIcon,
   danger: errorIcon,
   warning: warningIcon,
-  info: infoIcon,
+  info: infoIcon
 };
 
 export const BaseSkin = ({
@@ -26,20 +26,19 @@ export const BaseSkin = ({
   </div>
 );
 
-export const Light = (props) => <BaseSkin {...props} />;
 
 export const Custom = ({
   title,
   message,
   icon,
   type,
-  props
+  ...props
 }) => {
   const iconSrc = icon && icons[type];
 
   return (
     <BaseSkin>
-      <div className='cutome-content'>
+      <div className='custom-content' {...props}>
         {(icon && iconSrc) && (
           <img src={iconSrc} className='notification-icon' alt={`notification icon ${type}`} />
         )}

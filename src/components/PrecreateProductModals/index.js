@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import productSample from 'data/product.json';
 import * as productActions from 'actions/product';
-import { connect } from 'react-redux';
 import { notification } from 'libs';
 import common from '../common';
 import ProductCategories from './ProductCategories';
@@ -24,8 +25,8 @@ const updateWithFuturisticForm = (sections = []) => {
     return section;
   });
 };
-const ProductCategoryModal = ({ show, onClose, ...props }) => {
 
+const ProductCategoryModal = ({ show, onClose, ...props }) => {
   const onSubmit = (category) => () => {
     const product = productSample;
     product.category = category;
@@ -49,6 +50,7 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
     );
   };
 
+
   return (
     <Modal
       containerClassName=''
@@ -64,9 +66,7 @@ const ProductCategoryModal = ({ show, onClose, ...props }) => {
         </Button>
       )}
     >
-      <ProductCategories
-        onSelect={onSubmit}
-      />
+      <ProductCategories onSelect={onSubmit} />
     </Modal>
   );
 };

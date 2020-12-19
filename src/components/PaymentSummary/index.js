@@ -2,9 +2,7 @@ import React from 'react';
 
 import './style.css';
 
-const _data = [
-  { name: 'Leadcart premium', value: '$299.00' }
-];
+const _data = [{ name: 'Leadcart premium', value: '$299.00' }];
 
 const PaymentSummary = ({ data = _data }) => (
   <div className='payment-summary'>
