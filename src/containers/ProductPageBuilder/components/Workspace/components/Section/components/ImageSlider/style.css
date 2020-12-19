@@ -1,0 +1,92 @@
+.image-slider-container{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 12px;
+  overflow: hidden;
+}
+
+.image-slider-content{
+  position: relative;
+}
+
+.image-slider-one-slide{
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+}
+
+
+/* =========================== Thumbnails Style =========================== */
+.image-slider-thumbnails-container{
+  height: 80px;
+}
+
+.image-slider-thumbnail-image{
+  width: 60px;
+  height: 60px;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 10px;
+  filter: grayscale(100%);
+  transition: filter .3s ease-in-out, border .3s ease-in-out;
+  cursor: pointer;
+}
+
+.image-slider-thumbnail-image:last-child{
+  margin-right: 0;
+}
+
+
+.active-image-slider-thumbnail-image{
+  border-color: red;
+  filter: grayscale(0%);
+}
+
+
+/* =========================== Arrows Style =========================== */
+.image-slider-prev-arrow,
+.image-slider-next-arrow{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22px;
+  height: 100%;
+
+  background-color: #fff;
+  opacity: .5;
+  transition: opacity .3s ease-in-out;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.image-slider-prev-arrow:hover,
+.image-slider-next-arrow:hover{
+  opacity: .85;
+}
+
+.image-slider-prev-arrow:focus,
+.image-slider-next-arrow:focus{
+  outline: none;
+}
+
+.image-slider-next-arrow{
+  box-shadow: -5px 0 10px #fff;
+  right: 0;
+}
+
+.image-slider-prev-arrow{
+  left: 0;
+  box-shadow: 5px 0 10px #fff;
+
+}
+
+
+/* ===========================  =========================== */
+.blur-bg-img-container .wrapped-image-container {
+  background-size: contain !important;
+}
