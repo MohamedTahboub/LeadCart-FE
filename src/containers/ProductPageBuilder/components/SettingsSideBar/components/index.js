@@ -13,22 +13,24 @@ import PageSettings from './PageSettings';
 import StaticSection from './StaticSection';
 import FigureSection from './FigureSection';
 import FAQs from './FAQs';
+import ImageSlider from './ImageSlider';
 
 export default ({ type, ...props }) => {
   switch (type) {
-    case 'text': return <Text {...props} />;
-    case 'heading': return <Text {...props} />;
-    case 'button': return <Button {...props} />;
-    case 'bumpOffer': return <BumpOffer {...props} />;
-    case 'testimonialsSection': return <TestimonialsSection {...props} />;
-    case 'featuresSection': return <FeaturesSection {...props} />;
-    case 'guaranteeWidget': return <GuaranteeWidget {...props} />;
-    case 'countDownWidget': return <CountDowTimerWidget {...props} />;
-    case 'progressbarWidget': return <ProgressBar {...props} />;
-    case 'checkoutSection': return <StaticSection {...props} />;
-    case 'figure': return <FigureSection {...props} />;
-    case 'pageSetting': return <PageSettings {...props} />;
-    case 'faqs': return <FAQs {...props} />;
-    default: return null;
+  case 'text': return <Text {...props} />;
+  case 'heading': return <Text {...props} />;
+  case 'button': return <Button {...props} />;
+  case 'bumpOffer': return <BumpOffer {...props} />;
+  case 'testimonialsSection': return <TestimonialsSection {...props} />;
+  case 'featuresSection': return <FeaturesSection {...props} />;
+  case 'guaranteeWidget': return <GuaranteeWidget {...props} />;
+  case 'countDownWidget': return <CountDowTimerWidget {...props} />;
+  case 'progressbarWidget': return <ProgressBar {...props} />;
+  case 'checkoutSection': return <StaticSection {...props} />;
+  case 'figure': return <FigureSection {...props} />;
+  case 'pageSetting': return <PageSettings {...props} />;
+  case 'faqs': return <FAQs {...props} />;
+  case 'imageSlider': return <ImageSlider {...props} />;
+  default: return null;
   }
 };
