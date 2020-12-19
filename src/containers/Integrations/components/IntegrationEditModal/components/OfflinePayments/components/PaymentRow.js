@@ -24,9 +24,9 @@ const PaymentRow = ({ _id, logo, name, notes, active, onRemoveOfflinePayment, is
   };
 
   return (
-    <FlexBox flex={!active} className={clx('offline-payment-row', { active, 'item-clickable': isFormMode })} center='v-center' onClick={_onSelect}>
+    <FlexBox className={clx('offline-payment-row', { active, 'item-clickable': isFormMode })} center='v-center' onClick={_onSelect}>
       <img src={logo} alt={name} className='offline-payment-logo' />
-      <FlexBox flex={isFormMode} className={clx('title-text mx-3', { 'gray-text min-width-200': !active })}>
+      <FlexBox className={clx('title-text mx-3', { 'gray-text min-width-200': !active })}>
         {name}
       </FlexBox>
       {!isFormMode && (
