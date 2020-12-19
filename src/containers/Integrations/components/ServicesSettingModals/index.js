@@ -49,14 +49,14 @@ const ServicesSettingsModal = ({
   };
 
   useEffect(() => {
-    if (service.settings)
+    if (service?.settings)
       setFields(service.settings);
   }, [service?.settings]);
 
   const commonProps = { onUpdate, onChange };
 
   const serviceName = service?.name;
-  console.log({ service });
+
   return (
     <Modal
       className='integration-setting-modal'
