@@ -1,20 +1,24 @@
 import React from 'react';
 import common from 'components/common';
-const { Table, Button } = common;
+import { BiCog } from 'react-icons/bi';
+
+const { Table, Button, FlexBox } = common;
 const { Row, Cell } = Table;
 
 const Card = ({
   connectBtnClasses,
   connectAction,
-  service,
+  service = {},
   name,
   hoverProps,
   connectLabel,
   connectMode,
   description,
+  onOpenServiceSettingModal,
+  hasSettings,
   brandLogo
 }) => {
-
+  const isConnected = service.connected;
   const label = connectMode === 'modal' ? 'Edit' : connectLabel;
 
   return (
@@ -30,14 +34,24 @@ const Card = ({
       />
 
       <Cell
-        flex
         flexStart
         className='padding-h-20'
+        mainCellClassName='flex'
         mainContent={
           (
-            <span className='integration-service-description truncate'>
-              {description}
-            </span>
+            <FlexBox flex center='v-center'>
+              <FlexBox flex className='integration-service-description truncate'>
+                {description}
+              </FlexBox>
+              {(hasSettings && isConnected) && (
+                <Button className='light-btn' onClick={() => onOpenServiceSettingModal(service)}>
+                  <FlexBox center='v-center'>
+                    <BiCog color='gray' size={16} />
+                    <span className='ml-2'>Settings</span>
+                  </FlexBox>
+                </Button>
+              )}
+            </FlexBox>
           )
         }
       />

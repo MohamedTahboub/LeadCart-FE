@@ -1,12 +1,12 @@
 import {
-  updateOfflinePaymentMethodFailed,
-  updateOfflinePaymentMethodSuccess
+  updateIntegratedServiceSettingsFailed,
+  updateIntegratedServiceSettingsSuccess
 } from '../../actions/integrations';
 import { apiRequest } from '../../actions/apiRequest';
-import { UPDATE_OFFLINE_PAYMENT_METHOD } from '../../constantsTypes';
+import { UPDATE_INTEGRATED_SERVICE_SETTINGS } from '../../constantsTypes';
 
 export default ({ dispatch }) => (next) => (action) => {
-  if (action.type !== UPDATE_OFFLINE_PAYMENT_METHOD) return next(action);
+  if (action.type !== UPDATE_INTEGRATED_SERVICE_SETTINGS) return next(action);
 
   const { payload, meta = {} } = action;
 
@@ -14,17 +14,17 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'PUT',
       body: payload,
-      uri: '/api/brands/integrations/offline-payments',
+      uri: '/api/brands/integrations/settings',
       contentType: 'json'
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return updateOfflinePaymentMethodSuccess(payload);
+      return updateIntegratedServiceSettingsSuccess(payload);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);
-
-      return updateOfflinePaymentMethodFailed(message);
+      return updateIntegratedServiceSettingsFailed(message);
     }
   }));
 };
+

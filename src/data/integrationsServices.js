@@ -11,6 +11,7 @@ const services = [
     category: 'Payment Gateways',
     description: 'Online payment processing for internet businesses',
     active: false,
+    hasSettings: true,
     connected: false,
     supported: true
   },
@@ -253,6 +254,7 @@ const services = [
     key: 'lc_wishlistmember',
     name: 'WishListMember',
     brandLogo: brandsLogos.wishListMember,
+    description: 'a WordPress plugin for membership solution, that enables wp sites to manage memberships.',
     category: 'Membership Platforms',
     fields: [
       { name: 'apiUrl', label: 'API Url' },

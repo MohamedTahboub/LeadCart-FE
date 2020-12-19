@@ -13,7 +13,8 @@ import {
   ConnectingModal,
   IntegrationEditModal,
   IntegrationsLayouts,
-  LayoutOptions
+  LayoutOptions,
+  ServicesSettingModals
 } from './components';
 
 
@@ -57,6 +58,7 @@ const Integrations = ({ integrations, history, offlinePaymentsCount, ...props })
   const [activeLayout, setActiveLayout] = useState('list');
   const [openModal, setOpenModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openServiceSettingModal, setOpenServiceSettingModal] = useState(false);
   const [activeService, setActiveService] = useState({});
   const [searchKey, setSearchKey] = useState('');
   const [disconnectedDialog, setDisconnectDialog] = useState(false);
@@ -90,6 +92,7 @@ const Integrations = ({ integrations, history, offlinePaymentsCount, ...props })
     setActiveService();
     setOpenModal(false);
     setOpenEditModal(false);
+    setOpenServiceSettingModal(false);
   };
 
   const onShowDisconnectDialog = (service) => {
@@ -123,15 +126,21 @@ const Integrations = ({ integrations, history, offlinePaymentsCount, ...props })
   const onConnectOnProgress = (details) => {
     setConnectStatus(details);
   };
+
   const onConnectingStop = () => {
     setConnectStatus();
   };
+
   useEffect(() => {
     const isConnecting = checkConnecting(history.location.search);
 
     if (isConnecting) onConnectOnProgress(isConnecting);
   }, [history.location.search]);
 
+  const onOpenServiceSettingModal = (service) => {
+    setOpenServiceSettingModal(true);
+    setActiveService(service);
+  };
   return (
     <Page>
       <PageHeader className='space-between-elements'>
@@ -161,6 +170,7 @@ const Integrations = ({ integrations, history, offlinePaymentsCount, ...props })
               list={filteredList}
               onConnect={onConnect}
               onDisconnect={onShowDisconnectDialog}
+              onOpenServiceSettingModal={onOpenServiceSettingModal}
               offlinePaymentsCount={offlinePaymentsCount}
             />
           </FlexBox>
@@ -186,6 +196,16 @@ const Integrations = ({ integrations, history, offlinePaymentsCount, ...props })
         {openEditModal && (
           <IntegrationEditModal
             open={openEditModal}
+            onToggle={() => setOpenEditModal(false)}
+            onConnectClosed={onConnectClosed}
+            onConnect={onConnect}
+            // onDisconnect={onShowDisconnectDialog}
+            service={activeService}
+          />
+        )}
+        {openServiceSettingModal && (
+          <ServicesSettingModals
+            open={openServiceSettingModal}
             onToggle={() => setOpenEditModal(false)}
             onConnectClosed={onConnectClosed}
             onConnect={onConnect}
