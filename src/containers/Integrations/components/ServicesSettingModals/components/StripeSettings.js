@@ -9,7 +9,7 @@ only available to Stripe accounts in Malaysia. If your business is in this count
  you can switch your country by going to your stripe account settings before using it`;
 
 
-const { FlexBox, InputRow } = common;
+const { FlexBox, InputRow, Tooltip } = common;
 const { Label } = InputRow;
 
 const StripeSettings = ({ onChange, service = {}, ...props }) => {
@@ -32,11 +32,13 @@ const StripeSettings = ({ onChange, service = {}, ...props }) => {
         <Label notes={FPXNotes} >
           FPX payments
         </Label>
-        <Toggle
-          name='fpxEnabled'
-          value={fpxEnabled}
-          onToggle={(target) => onChange({ target })}
-        />
+        <Tooltip text='coming soon' placement='right'>
+          <Toggle
+            name='fpxEnabled'
+          // value={fpxEnabled}
+          // onToggle={(target) => onChange({ target })}
+          />
+        </Tooltip>
       </FlexBox>
     </FlexBox>
   );
