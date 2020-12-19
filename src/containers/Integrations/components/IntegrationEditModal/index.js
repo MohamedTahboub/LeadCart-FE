@@ -14,7 +14,7 @@ const ConnectModal = ({
   // onToggle
 }) => (
   <Modal
-    className='integrations-modal'
+    className='offline-integration-modal'
     isVisible={open}
     onClose={onConnectClosed}
   >

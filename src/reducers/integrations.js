@@ -4,6 +4,7 @@ import {
   DISCONNECT_INTEGRATION_SERVICE_SUCCESS,
   GET_USER_INTEGRATION,
   REMOVE_OFFLINE_PAYMENT_METHOD_SUCCESS,
+  UPDATE_INTEGRATED_SERVICE_SETTINGS_SUCCESS,
   UPDATE_OFFLINE_PAYMENT_METHOD_SUCCESS
 } from '../constantsTypes';
 
@@ -29,6 +30,20 @@ export default (state = initialState, { type, payload }) => {
     return state.map((integration) => {
       if (integration._id === payload.integrationId)
         return { ...integration, ...payload.details };
+      return integration;
+    });
+  case UPDATE_INTEGRATED_SERVICE_SETTINGS_SUCCESS:
+    return state.map((integration) => {
+      if (integration._id === payload.integrationId) {
+        console.log('payload.settings', payload.settings);
+        return {
+          ...integration,
+          settings: {
+            ...(integration.settings || {}),
+            ...payload.settings
+          }
+        };
+      }
       return integration;
     });
   case REMOVE_OFFLINE_PAYMENT_METHOD_SUCCESS:

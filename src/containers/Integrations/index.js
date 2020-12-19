@@ -92,6 +92,7 @@ const Integrations = ({ integrations, history, offlinePaymentsCount, ...props })
     setActiveService();
     setOpenModal(false);
     setOpenEditModal(false);
+    setOpenServiceSettingModal(false);
   };
 
   const onShowDisconnectDialog = (service) => {
