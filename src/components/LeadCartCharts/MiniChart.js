@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'react-mini-chart';
 
-const MiniChart = ({
-  data = []
-}) => {
+const MiniChart = ({ data = [] }) => {
   const dataSet = [0, 0, ...data.map((d) => d[1])];
   return (
     <Chart
@@ -19,12 +17,9 @@ const MiniChart = ({
     />
   );
 };
-MiniChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.array).isRequired
-};
 
-MiniChart.defaultValue = {
-  data: []
-};
+MiniChart.propTypes = { data: PropTypes.arrayOf(PropTypes.array).isRequired };
+
+MiniChart.defaultValue = { data: [] };
 
 export default MiniChart;

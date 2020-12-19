@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { emailFooterSchema } from 'libs/validation';
+import { connect } from 'react-redux';
+import clx from 'classnames';
+
 import { Modal } from '../Modals';
 import common from '../common';
-import { connect } from 'react-redux';
 import * as emailsActions from 'actions/emails';
 import SocialMedia from './socialMedia';
-import { emailFooterSchema } from 'libs/validation';
-import clx from 'classnames';
 import { notification } from 'libs';
 
 const { InputRow, Button, MainTitle } = common;
@@ -17,25 +18,18 @@ const EmailFooterModal = ({
   socialMedia = [],
   companyAddress,
   companyPhone,
+  onClose,
   ...props
 }) => {
-
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
-
-  const [footerDetails, setFooterDetails] = useState({
-    socialMedia,
-    companyAddress,
-    companyPhone
-  });
+  const [footerDetails, setFooterDetails] = useState({ socialMedia, companyAddress, companyPhone });
 
   const onChange = ({ target: { name, value } }) => {
     setFooterDetails({ ...footerDetails, [name]: value });
   };
 
   const onSubmitEmailFooter = async () => {
-
-
     const { isValid, value: footerValue, errors } = await emailFooterSchema(footerDetails);
     if (!isValid) return setErrors(errors);
 
@@ -55,7 +49,7 @@ const EmailFooterModal = ({
   };
 
   return (
-    <Modal isVisible={isVisible} onClose={props.onClose} >
+    <Modal isVisible={isVisible} onClose={onClose} >
       <MainTitle>Enable Email Footer Details</MainTitle>
       <InputRow>
         <Label >Support Email</Label>
@@ -93,8 +87,7 @@ const EmailFooterModal = ({
         className={clx('primary-color margin-with-float-right', { spinner: submitting })}
       >
         <i className='fas fa-plus' />
-        {' '}
-                Save
+        Save
       </Button>
     </Modal>
   );

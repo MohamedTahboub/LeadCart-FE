@@ -18,6 +18,7 @@
     background: white;
     border-radius: 5px;
 }
+
 .modal-close-btn{
     color:gray;
     font-size: 12px;
@@ -38,13 +39,16 @@
 .modal-content .textarea-input-field{
     width: 400px;
 }
+
 .modal-content .input-field{
     margin-right: 0px;
 }
+
 .margin-with-float-left{
     margin-top: 15px;
     float: left;
 }
+
 .margin-with-float-right{
     margin-top: 15px;
     float: right;
@@ -60,6 +64,7 @@
   border: 1.5px solid #4da1ff;
   background-color: #FFF;
 }
+
 .minimal-subscription-modal .minimal-package-plan {
   max-height: 670px;
   overflow-y: scroll;

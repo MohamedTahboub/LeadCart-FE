@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
-const ProtectedRoute = ({
-  component: Component, isLoggedIn, user, ...props
-}) => (
+const ProtectedRoute = ({ component: Component, isLoggedIn, user, ...props }) => (
   <Route
     {...props}
     render={(props) => (

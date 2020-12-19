@@ -10,6 +10,7 @@
   transition: all .3s;
   cursor: pointer;
 }
+
 .flat-radio-key.active {
   background-color: #4da0fe;
   color: #fff;

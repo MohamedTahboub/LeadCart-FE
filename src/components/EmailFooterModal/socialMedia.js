@@ -40,6 +40,7 @@ const NewLink = ({ remainsPlatforms = [{}], onAdd }) => {
     setSocialLink(value);
     setError('');
   };
+
   const onSelect = ({ target: { value } }) => {
     setSocialPlatform(value);
     setError('');
@@ -55,6 +56,7 @@ const NewLink = ({ remainsPlatforms = [{}], onAdd }) => {
       link: socialLink
     });
   };
+
   useEffect(() => {
     if (socialPlatform !== remainsPlatforms[0].value) setSocialPlatform(remainsPlatforms[0].value);
     //eslint-disable-next-line
@@ -91,6 +93,7 @@ export default ({ links = [], ...props }) => {
       }
     });
   };
+
   const onDelete = (linkId) => {
     const newLinks = links.filter((l, id) => id !== linkId);
     onChange(newLinks);
@@ -101,6 +104,7 @@ export default ({ links = [], ...props }) => {
 
     onChange(newLinks);
   };
+
   const availableSocialPlatforms = supportedPlatforms.filter((p) => !links.find(({ name }) => name === p)).map((p) => ({ label: p, value: p }));
   return (
     <div className='email-social-media'>

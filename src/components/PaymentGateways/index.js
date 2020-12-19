@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import clx from 'classnames';
+import { connect } from 'react-redux';
+
 import { getServiceBrand } from 'data/integrationsServices';
 import { includesIgnoreCase, openNewWindow } from 'libs';
 import { codDeliveryPayment } from 'data/defaults';
 import common from 'components/common';
-import { connect } from 'react-redux';
 
 import './style.css';
 
@@ -27,14 +28,12 @@ const PaymentMethods = ({
   currency,
   ...props
 }) => {
-
   const [error, setError] = useState('');
   const isSupportedByPaypal = (payment) => payment === 'Paypal' ? notSupportedCurrenciesByPaypal.includes(currency) : false;
 
   const isMethodExist = (paymentMethod) => paymentsIntegrations.find(({ name }) => includesIgnoreCase(name, paymentMethod));
 
   const onSelect = (paymentMethod) => () => {
-
     if (!selected.includes(paymentMethod) && selected.length >= 4)
       return setError('Each funnel accepts just four payment methods');
 
@@ -50,6 +49,7 @@ const PaymentMethods = ({
       setError('');
     }
   };
+
 
   return (
     <Fragment>

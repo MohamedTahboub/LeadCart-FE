@@ -69,7 +69,6 @@ const SideBar = ({
 
   const menus = sidebarMenus({ brands, user, history });
 
-
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
@@ -97,7 +96,6 @@ const SideBar = ({
   };
 
   const onMenuOpen = () => setBrandsOpen(!isBrandsOpen);
-
 
   const mapMenuItems = (menuItems) => {
     return menuItems.map((menu) => {

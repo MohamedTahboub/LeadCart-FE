@@ -1,5 +1,4 @@
 import ReactQuill from 'react-quill';
-// import { includesIgnoreCase } from 'libs';
 const Font = ReactQuill.Quill.import('formats/font');
 
 const supportedFontFamilyList = [
@@ -20,30 +19,9 @@ const supportedFontFamilyList = [
   'PTSerif'
 ];
 
-// const fieldsNames = [
-//   { id: 'firstName', value: 'First Name' },
-//   { id: 'lastName', value: 'Last Name' },
-//   { id: 'email', value: 'Email Address' },
-//   { id: 'phoneNumber', value: 'Phone Number' }
-// ];
-
-// const mentionModule = {
-//   allowedChars: /^[A-Za-z\s]*$/,
-//   mentionDenotationChars: ['@', '#'],
-//   source: function (searchTerm = '', renderList, mentionChar) {
-
-//     const filtered = fieldsNames.filter((field) => {
-//       if (!(searchTerm && searchTerm.trim())) return true;
-//       return includesIgnoreCase(field.value, searchTerm);
-//     });
-
-//     renderList(filtered, searchTerm);
-//   }
-// };
 
 Font.whitelist = supportedFontFamilyList;
 ReactQuill.Quill.register(Font, true);
-// ReactQuill.Quill.register('modules/mentions', QuillMention);
 
 const modules = {
   toolbar: [

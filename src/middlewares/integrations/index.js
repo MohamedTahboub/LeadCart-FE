@@ -6,6 +6,7 @@ import webhookTest from './webhookTest';
 import addOfflinePaymentIntegration from './addOfflinePaymentIntegration';
 import updateOfflinePaymentIntegration from './updateOfflinePaymentIntegration';
 import removeOfflinePaymentIntegration from './removeOfflinePaymentIntegration';
+import updateIntegratedServiceSettings from './updateIntegratedServiceSettings';
 import twilioTestSms from './twilioTestSms';
 
 export default [
@@ -17,6 +18,7 @@ export default [
   twilioTestSms,
   addOfflinePaymentIntegration,
   updateOfflinePaymentIntegration,
-  removeOfflinePaymentIntegration
+  removeOfflinePaymentIntegration,
+  updateIntegratedServiceSettings
 ];
 

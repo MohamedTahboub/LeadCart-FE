@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Search } from 'components/Inputs';
 import { Menu } from 'antd';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+
+import { Search } from 'components/Inputs';
 import { insensitiveSearch } from 'helpers/common';
 import { Button } from 'components/Buttons';
 import { NewBrandModal } from '../../containers/Account/components/Brands/components';
 import { notification } from 'libs';
-import { connect } from 'react-redux';
 import * as brandsActions from '../../actions/brands';
-import { v4 as uuid } from 'uuid';
 import BrandAvatar from './BrandAvatar';
-
 import { brandsTypes } from '../../propTypes';
+
 
 const CREATE_NEW_BRAND = uuid();
 

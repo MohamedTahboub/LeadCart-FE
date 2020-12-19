@@ -7,7 +7,8 @@
     background: lightblue;
     z-index: 1000000;
 }
-.application-loading-bar .lodaing-progress{
+
+.application-loading-bar .loading-progress{
     position: absolute;
     height: 100%;
     width: 20%;

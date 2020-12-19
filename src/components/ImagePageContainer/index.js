@@ -1,22 +1,18 @@
 import React from 'react';
+
 import common from 'components/common';
 import './style.css';
-const {
-  Page,
-  MainTitle
-} = common;
-const ImageFullPageContainer = ({
-  image,
-  // className,
-  title,
-  hideBox
-}) => (
+
+const { Page, MainTitle } = common;
+
+const ImageFullPageContainer = ({ image, title, hideBox }) => (
   <Page>
     {title && (
       <MainTitle className='mx-3'>
         {title}
       </MainTitle>
     )}
+
     <div className='full-page-image-container'>
       {!hideBox && (
         <div className='underdevelopment-box'>

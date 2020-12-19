@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
-import common from 'components/common';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import clx from 'classnames';
+
+import common from 'components/common';
 
 const {
   InputRow,
@@ -22,7 +23,6 @@ const ActivePackage = ({
     trialEndDate
   } = {},
   userSource,
-  // className = '',
   lastTransaction = {},
   isLoading,
   isLtd
@@ -79,6 +79,7 @@ ActivePackage.propTypes = {
   trial: PropTypes.objectOf(PropTypes.object).isRequired,
   lastTransaction: PropTypes.objectOf({})
 };
+
 ActivePackage.defaultProps = {
   lastTransaction: {},
   period: 'Monthly',

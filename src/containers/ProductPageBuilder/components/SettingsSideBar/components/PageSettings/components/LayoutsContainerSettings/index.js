@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import common from 'components/common';
 import { SettingBox } from '../../../common';
 import Slider from 'rc-slider';
-import Collapse from 'components/Collapsible';
+// import Collapse from 'components/Collapsible';
 import { FiColumns } from 'react-icons/fi';
 import { VscBrowser } from 'react-icons/vsc';
 import FlatRadio from 'components/FlatRadio';

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import { showIntercomIcon } from 'libs';
 import { EasyAnimate, SlidingAnimation } from '../common/Animation';
 

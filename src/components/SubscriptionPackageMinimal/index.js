@@ -15,7 +15,6 @@ import './style.css';
 const { packagesPlans = {} } = config;
 const { InputRow, HeadLine, Box, SmallButton } = common;
 
-
 const SubscriptionMinimal = ({
   nextPackage,
   history,
@@ -33,6 +32,7 @@ const SubscriptionMinimal = ({
     promoCode: {},
     credit: {}
   });
+
   const activeBrand = brands.find(({ id }) => user.activeBrand === id) || {};
 
   const onChange = ({ target: { name, value } }) => {
@@ -46,9 +46,9 @@ const SubscriptionMinimal = ({
       credit: {}
     });
   };
+
   const onSubmit = async () => {
     const promoCode = fields.promoCode.applied ? fields.promoCode.code : undefined;
-
     const { isValid, value, errors } = await upgradeUserSchema({ ...fields, promoCode });
 
     if (!isValid) {
@@ -72,6 +72,7 @@ const SubscriptionMinimal = ({
       }
     );
   };
+
   const onLearnMore = (e) => {
     e.preventDefault();
     history.push('/settings/billing');

@@ -4,7 +4,7 @@ import common from 'components/common';
 import { useContext } from '../../../actions';
 import { ImageOption } from './common';
 import Slider from 'rc-slider';
-import Collapse from 'components/Collapsible';
+// import Collapse from 'components/Collapsible';
 import { buttonTemplates } from 'data/templates';
 import InlinePopup from 'components/common/InlinePopup';
 

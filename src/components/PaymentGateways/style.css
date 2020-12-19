@@ -4,6 +4,7 @@
   background-size: 80% auto !important;
   box-shadow: 1px 1px 2px 1px #00000016;
 }
+
 .template-payment-card.success-badge:after {
   font-size: 22px;
   top: 0;
@@ -15,12 +16,14 @@
   display: flex;
   flex-wrap: wrap;
 }
+
 .adding-payment-error{
   font-size: 13px;
   text-align: center;
   margin: 14px;
   color: tomato;
 }
+
 .cod-image{
   background-size: 70px auto !important;
 }
