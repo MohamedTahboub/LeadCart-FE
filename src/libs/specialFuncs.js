@@ -49,8 +49,8 @@ export const RoundTow = (number) => Math.round(number * 100) / 100;
 
 export const injectDefaultLabels = (languages) => {
   const injectLabelForLanguage = (language) => {
-    const contextsWithLabels = language.contexts.map((context) => {
-      const matchContext = defaultLanguage.contexts.find(({ key }) => key === context.key);
+    const contextsWithLabels = defaultLanguage.contexts.map((context) => {
+      const matchContext = language.contexts.find(({ key }) => key === context.key);
       if (!matchContext) return context;
 
       const words = context.words.map((word) => {
@@ -58,7 +58,7 @@ export const injectDefaultLabels = (languages) => {
 
         if (!matchedWord) return word;
 
-        return { ...word, label: matchedWord.value };
+        return { ...word, ...matchedWord };
       });
 
       return {
