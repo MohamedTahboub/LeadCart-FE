@@ -6,6 +6,8 @@ import FlexibleBox from 'components/FlexibleBox';
 import { useContext } from '../../../../../../actions';
 import Image from './Image';
 import { getIcon } from 'data/imageSliderIcons';
+import PrevButton from './PrevButton';
+import NextButton from './NextButton';
 
 import './style.css';
 
@@ -28,7 +30,9 @@ const ImageSlider = ({ section, ...props }) => {
     hasArrows,
     customArrows,
     hasThumbnail,
-    effect
+    effect,
+    customNextArrow,
+    customPrevArrow
   } = content;
 
 
@@ -145,10 +149,22 @@ const ImageSlider = ({ section, ...props }) => {
   };
 
 
+  const arrowsProps = {
+    hasArrows,
+    onMoveToNext,
+    onMoveToPrevious,
+    customArrows,
+    PrevArrow,
+    NextArrow,
+    customNextArrow,
+    customPrevArrow
+  };
+
+
   return (
     <FlexibleBox className='image-slider-container' size={{ height: styles.height }} onResizeStop={onSizeChange} column>
       <FlexBox className='image-slider-content' column flex>
-        {hasArrows && <PrevArrow size={16} className='image-slider-prev-arrow' onClick={onMoveToPrevious} />}
+        <PrevButton {...arrowsProps} />
         <Image
           img={currentContent?.img}
           onImageChange={onImageChange}
@@ -156,7 +172,7 @@ const ImageSlider = ({ section, ...props }) => {
           className='image-slider-one-slide'
           style={currentStyle}
         />
-        {hasArrows && <NextArrow size={16} className='image-slider-next-arrow' onClick={onMoveToNext}/>}
+        <NextButton {...arrowsProps} />
       </FlexBox>
 
 

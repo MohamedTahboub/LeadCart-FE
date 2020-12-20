@@ -56,12 +56,14 @@
   bottom: 0;
   width: 22px;
   height: 100%;
-
   background-color: #fff;
   opacity: .5;
   transition: opacity .3s ease-in-out;
   cursor: pointer;
   z-index: 2;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .image-slider-prev-arrow:hover,
