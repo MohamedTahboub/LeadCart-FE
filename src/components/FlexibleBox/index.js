@@ -12,6 +12,7 @@ export default ({
   children,
   size: initialSize = {},
   className,
+  style = {},
   ...props
 }) => {
   const [size, setSize] = useState(initialSize);
@@ -75,6 +76,7 @@ export default ({
       id='resizable-box-element'
       ref={expanderRef}
       style={{
+        ...style,
         height: size.height,
         userSelect: resizing ? 'none' : ''
       }}

@@ -36,6 +36,39 @@ const ImageSlider = ({ section, ...props }) => {
   } = content;
 
 
+  const {
+    backgroundColor = '#FFFFFF00',
+    borderColor,
+    borderStyle = 'solid',
+    borderWidth = 0,
+    borderTopLeftRadius = 0,
+    borderTopRightRadius = 0,
+    borderBottomLeftRadius = 0,
+    borderBottomRightRadius = 0,
+    paddingTop = 0,
+    paddingRight = 0,
+    paddingBottom = 0,
+    paddingLeft = 0,
+    hasBlurBackgroundImage = false
+  } = styles;
+
+
+  const contentStyle = {
+    backgroundColor,
+    borderColor,
+    borderStyle,
+    borderWidth,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft
+  };
+
+
   const { PrevArrow, NextArrow } = getIcon(customArrows);
   const hasContent = currentContent?.id;
 
@@ -162,7 +195,13 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   return (
-    <FlexibleBox className='image-slider-container' size={{ height: styles.height }} onResizeStop={onSizeChange} column>
+    <FlexibleBox
+      className='image-slider-container'
+      size={{ height: styles.height }}
+      onResizeStop={onSizeChange}
+      style={contentStyle}
+      column
+    >
       <FlexBox className='image-slider-content' column flex>
         <PrevButton {...arrowsProps} />
         <Image
@@ -171,6 +210,7 @@ const ImageSlider = ({ section, ...props }) => {
           name='content.list'
           className='image-slider-one-slide'
           style={currentStyle}
+          hasBlurBackgroundImage={hasBlurBackgroundImage}
         />
         <NextButton {...arrowsProps} />
       </FlexBox>

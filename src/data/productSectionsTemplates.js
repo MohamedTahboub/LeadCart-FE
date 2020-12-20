@@ -325,6 +325,9 @@ export default {
       effect: 'opacity'
     },
 
-    styles: { height: 350 }
+    styles: {
+      height: 350,
+      hasBlurBackgroundImage: false
+    }
   }
 };
