@@ -1,6 +1,13 @@
 
 
-.integrations-modal{
+.integration-setting-modal{
+    border-radius: 6px;
+    min-height: 320px;
+    min-width: 908px;
+    display: flex;
+    flex-direction: column;
+}
+.offline-integration-modal{
     border-radius: 6px;
     min-height: 320px;
     min-width: 908px;

@@ -24,6 +24,9 @@ import {
   SEND_WEBHOOK_TEST_PAYLOAD,
   SEND_WEBHOOK_TEST_PAYLOAD_FAILED,
   SEND_WEBHOOK_TEST_PAYLOAD_SUCCESS,
+  UPDATE_INTEGRATED_SERVICE_SETTINGS,
+  UPDATE_INTEGRATED_SERVICE_SETTINGS_FAILED,
+  UPDATE_INTEGRATED_SERVICE_SETTINGS_SUCCESS,
   UPDATE_OFFLINE_PAYMENT_METHOD,
   UPDATE_OFFLINE_PAYMENT_METHOD_FAILED,
   UPDATE_OFFLINE_PAYMENT_METHOD_SUCCESS
@@ -162,3 +165,17 @@ export const removeOfflinePaymentMethodFailed = (message) => ({
   payload: message
 });
 
+
+export const updateIntegratedServiceSettings = (service, meta) => ({
+  type: UPDATE_INTEGRATED_SERVICE_SETTINGS,
+  payload: service,
+  meta
+});
+export const updateIntegratedServiceSettingsSuccess = (service) => ({
+  type: UPDATE_INTEGRATED_SERVICE_SETTINGS_SUCCESS,
+  payload: service
+});
+export const updateIntegratedServiceSettingsFailed = (message) => ({
+  type: UPDATE_INTEGRATED_SERVICE_SETTINGS_FAILED,
+  payload: message
+});
