@@ -327,7 +327,8 @@ export default {
 
     styles: {
       height: 350,
-      hasBlurBackgroundImage: false
+      hasBlurBackgroundImage: false,
+      infinity: true
     }
   }
 };

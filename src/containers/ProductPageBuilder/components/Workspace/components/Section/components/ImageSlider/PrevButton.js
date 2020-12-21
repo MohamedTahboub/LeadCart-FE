@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
+import clx from 'classnames';
 
 
-const PrevButton = ({ hasArrows, onMoveToPrevious, customArrows, PrevArrow, customPrevArrow }) => {
+const PrevButton = ({ hasArrows, onMoveToPrevious, customArrows, PrevArrow, customPrevArrow, disabledPrevButton }) => {
   const isCustom = customArrows === true;
 
   return (
@@ -9,9 +10,11 @@ const PrevButton = ({ hasArrows, onMoveToPrevious, customArrows, PrevArrow, cust
       {
         hasArrows ?
           (isCustom && customPrevArrow) ?
-            <span className='image-slider-prev-arrow' onClick={onMoveToPrevious} style={{ backgroundImage: `url(${customPrevArrow})` }} />
+            <button disabled={disabledPrevButton} className={clx('image-slider-prev-arrow', { 'image-slider-disabled-arrow': disabledPrevButton })} onClick={onMoveToPrevious} style={{ backgroundImage: `url(${customPrevArrow})` }} />
             :
-            <PrevArrow size={16} className='image-slider-prev-arrow' onClick={onMoveToPrevious} /> :
+            <button disabled={disabledPrevButton} className={clx('image-slider-prev-arrow', { 'image-slider-disabled-arrow': disabledPrevButton })} onClick={onMoveToPrevious} >
+              <PrevArrow size={16} />
+            </button> :
           null
       }
     </Fragment>

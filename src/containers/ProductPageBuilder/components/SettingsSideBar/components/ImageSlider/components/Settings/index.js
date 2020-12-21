@@ -62,6 +62,25 @@ const ImageSliderSettings = () => {
          Add New Item
       </Button>
 
+      <FlexBox className='mb-2 v-center'>
+        <Title className='flex-1'>Has Thumbnails</Title>
+        <Toggle
+          value={hasThumbnail}
+          onToggle={(target) => onChange({ target })}
+          name='content.hasThumbnail'
+        />
+      </FlexBox>
+
+      <FlexBox className='mb-2 v-center'>
+        <Title className='flex-1'>Infinity Loop</Title>
+        <Toggle
+          value={infinity}
+          onToggle={(target) => onChange({ target })}
+          name='content.infinity'
+        />
+      </FlexBox>
+
+
       <InlinePopup
         title='Arrows'
         popUpContent={(
@@ -138,20 +157,6 @@ const ImageSliderSettings = () => {
                 min={0}
               />
             </FlexBox>
-          </FlexBox>
-        )}
-      />
-
-      <InlinePopup
-        title='Thumbnails'
-        popUpContent={(
-          <FlexBox className='mb-2 v-center'>
-            <Title className='flex-1'>Has Thumbnails</Title>
-            <Toggle
-              value={hasThumbnail}
-              onToggle={(target) => onChange({ target })}
-              name='content.hasThumbnail'
-            />
           </FlexBox>
         )}
       />

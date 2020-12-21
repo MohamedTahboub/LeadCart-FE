@@ -17,6 +17,8 @@ const { FlexBox } = common;
 const ImageSlider = ({ section, ...props }) => {
   const [currentContent, setCurrentContent] = useState({});
   const [currentStyle, setCurrentStyle] = useState({});
+  const [disabledNextButton, setDisabledNextButton] = useState(false);
+  const [disabledPrevButton, setDisabledPrevButton] = useState(false);
 
   const { actions } = useContext();
   const { content = {}, styles = {} } = section;
@@ -26,7 +28,7 @@ const ImageSlider = ({ section, ...props }) => {
     autoPlay,
     duration,
     transitionDuration,
-    infinity,
+    infinity = true,
     hasArrows,
     customArrows,
     hasThumbnail,
@@ -90,16 +92,6 @@ const ImageSlider = ({ section, ...props }) => {
       return {};
     }
   })();
-
-
-  useEffect(() => {
-    !hasContent && setCurrentContent(list[0]);
-  }, []);
-
-
-  useEffect(() => {
-    (hasContent && autoPlay) && setTimeout(onMoveToNext, duration);
-  }, [autoPlay, hasContent, duration]);
 
 
   const onImageChange = ({ value: newImage, name }) => {
@@ -182,6 +174,35 @@ const ImageSlider = ({ section, ...props }) => {
   };
 
 
+  useEffect(() => {
+    !hasContent && setCurrentContent(list[0]);
+  }, []);
+
+
+  useEffect(() => {
+    (hasContent && autoPlay) && setTimeout(onMoveToNext, duration);
+  }, [autoPlay, hasContent, duration]);
+
+
+  useEffect(() => {
+    const currentIndex = list.findIndex((ele) => ele.id === currentContent?.id);
+    const isTheFirstIndex = currentIndex === 0;
+    const isTheLastIndex = currentIndex === list.length - 1;
+
+    if (!infinity && isTheLastIndex)
+      setDisabledNextButton(true);
+    else
+      setDisabledNextButton(false);
+
+
+    if (!infinity && isTheFirstIndex)
+      setDisabledPrevButton(true);
+    else
+      setDisabledPrevButton(false);
+
+  }, [infinity, currentContent?.id]);
+
+
   const arrowsProps = {
     hasArrows,
     onMoveToNext,
@@ -190,7 +211,9 @@ const ImageSlider = ({ section, ...props }) => {
     PrevArrow,
     NextArrow,
     customNextArrow,
-    customPrevArrow
+    customPrevArrow,
+    disabledPrevButton,
+    disabledNextButton
   };
 
 
