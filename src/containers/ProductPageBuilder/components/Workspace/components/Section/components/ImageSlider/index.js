@@ -72,7 +72,7 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   const { PrevArrow, NextArrow } = getIcon(customArrows);
-  const hasContent = currentContent?.id;
+  const hasContent = currentContent?.img;
 
 
   const effectStyle = (() => {
@@ -94,13 +94,19 @@ const ImageSlider = ({ section, ...props }) => {
   })();
 
 
+  const getItemIndex = (item) => list.findIndex((ele) => item?.img === ele.img);
+  const currentIndexItem = getItemIndex(currentContent);
+
+
   const onImageChange = ({ value: newImage, name }) => {
-    const newList = list.map((ele) => {
-      if (ele.id === currentContent?.id)
+
+    const newList = list.map((ele, index) => {
+      if (currentIndexItem === index)
         return { ...ele, img: newImage };
       else
         return ele;
     });
+
 
     actions.onSectionSettingChange({
       section,
@@ -122,10 +128,9 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   const onMoveToPrevious = () => {
-    const currentIndex = list.findIndex((ele) => ele.id === currentContent?.id);
-    const isTheFirstIndex = currentIndex === 0;
+    const isTheFirstIndex = currentIndexItem === 0;
     const lastIndex = list.length - 1;
-    const prevIndex = currentIndex - 1;
+    const prevIndex = currentIndexItem - 1;
     const targetedIndex = isTheFirstIndex ? lastIndex : prevIndex;
 
     if (effectStyle) {
@@ -141,10 +146,9 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   const onMoveToNext = () => {
-    const currentIndex = list.findIndex((ele) => ele.id === currentContent?.id);
-    const isTheLastIndex = currentIndex === list.length - 1;
+    const isTheLastIndex = currentIndexItem === list.length - 1;
     const firstIndex = 0;
-    const nextIndex = currentIndex + 1;
+    const nextIndex = currentIndexItem + 1;
     const targetedIndex = isTheLastIndex ? firstIndex : nextIndex;
 
     if (effectStyle) {
@@ -159,8 +163,9 @@ const ImageSlider = ({ section, ...props }) => {
   };
 
 
-  const onMoveToThumb = (id) => () => {
-    const currentElement = list.find((ele) => ele?.id === id);
+  const onMoveToThumb = (ele) => () => {
+    const currentIndex = getItemIndex(ele);
+    const currentElement = list.find((ele, index) => currentIndex === index);
 
     if (effectStyle) {
       setCurrentStyle(effectStyle.hide);
@@ -185,22 +190,19 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   useEffect(() => {
-    const currentIndex = list.findIndex((ele) => ele.id === currentContent?.id);
-    const isTheFirstIndex = currentIndex === 0;
-    const isTheLastIndex = currentIndex === list.length - 1;
+    const isTheFirstIndex = currentIndexItem === 0;
+    const isTheLastIndex = currentIndexItem === list.length - 1;
 
     if (!infinity && isTheLastIndex)
       setDisabledNextButton(true);
     else
       setDisabledNextButton(false);
 
-
     if (!infinity && isTheFirstIndex)
       setDisabledPrevButton(true);
     else
       setDisabledPrevButton(false);
-
-  }, [infinity, currentContent?.id]);
+  }, [infinity, currentIndexItem]);
 
 
   const arrowsProps = {
@@ -241,12 +243,12 @@ const ImageSlider = ({ section, ...props }) => {
 
       {hasThumbnail &&
       <FlexBox className='image-slider-thumbnails-container h-center v-center'>
-        {list.map((ele) => {
+        {list.map((ele, index) => {
           return (
             <div
               style={{ backgroundImage: `url(${ele.img})` }}
-              className={clx('image-slider-thumbnail-image', { 'active-image-slider-thumbnail-image': ele.id === currentContent?.id })}
-              onClick={onMoveToThumb(ele.id)}
+              className={clx('image-slider-thumbnail-image', { 'active-image-slider-thumbnail-image': currentIndexItem === index })}
+              onClick={onMoveToThumb(ele)}
             />
           );
         })}

@@ -311,9 +311,9 @@ export default {
     type: 'imageSlider',
     content: {
       list: [
-        { img: defaultDropImage, id: ids.generate() },
-        { img: defaultDropImage, id: ids.generate() },
-        { img: defaultDropImage, id: ids.generate() }
+        { img: defaultDropImage },
+        { img: defaultDropImage },
+        { img: defaultDropImage }
       ],
       autoPlay: false,
       duration: 5000,
