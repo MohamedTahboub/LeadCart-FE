@@ -6,7 +6,6 @@ import common from 'components/common';
 import defaultDropImage from 'assets/images/upload-image.png';
 import { useContext } from '../../../../../../actions';
 import InlinePopup from 'components/common/InlinePopup';
-import ArrowsSelector from './Select';
 
 import './style.css';
 
@@ -27,7 +26,6 @@ const ImageSliderSettings = () => {
     duration,
     transitionDuration,
     infinity,
-    hasArrows,
     hasThumbnail,
     effect
   } = content;
@@ -80,24 +78,6 @@ const ImageSliderSettings = () => {
         />
       </FlexBox>
 
-
-      <InlinePopup
-        title='Arrows'
-        popUpContent={(
-          <FlexBox column>
-            <FlexBox className='mb-2 v-center'>
-              <Title className='flex-1'>Has Arrows</Title>
-              <Toggle
-                value={hasArrows}
-                onToggle={(target) => onChange({ target })}
-                name='content.hasArrows'
-              />
-            </FlexBox>
-
-            <ArrowsSelector disabled={!hasArrows} className='mb-2' onChange={onChange} sectionSetting={sectionSetting} />
-          </FlexBox>
-        )}
-      />
 
       <InlinePopup
         title='Auto Play'

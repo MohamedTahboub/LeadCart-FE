@@ -32,7 +32,6 @@ const ImageSlider = ({ section, ...props }) => {
     duration,
     transitionDuration,
     infinity = true,
-    hasArrows,
     customArrows,
     hasThumbnail,
     effect,
@@ -42,6 +41,7 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   const {
+    hasArrows = true,
     backgroundColor = '#FFFFFF00',
     borderColor,
     borderStyle = 'solid',

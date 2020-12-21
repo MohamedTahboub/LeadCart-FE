@@ -319,13 +319,13 @@ export default {
       duration: 5000,
       transitionDuration: 300,
       infinity: true,
-      hasArrows: true,
-      customArrows: 'AiOutlineArrowLeft',
       hasThumbnail: true,
       effect: 'opacity'
     },
 
     styles: {
+      hasArrows: true,
+      customArrows: 'AiOutlineArrowLeft',
       height: 350,
       hasBlurBackgroundImage: false,
       infinity: true

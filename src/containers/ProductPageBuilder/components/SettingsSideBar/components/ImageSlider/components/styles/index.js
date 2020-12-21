@@ -4,6 +4,7 @@ import clx from 'classnames';
 import { useContext } from '../../../../../../actions';
 import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';
+import ArrowsSelector from './Select';
 
 import './style.css';
 
@@ -30,6 +31,7 @@ const ImageSliderStyles = () => {
 
 
   const {
+    hasArrows = true,
     backgroundColor,
     borderColor,
     borderStyle = 'solid',
@@ -82,6 +84,25 @@ const ImageSliderStyles = () => {
           onChange={(target) => onChange(target)}
         />
       </FlexBox>
+
+
+      <InlinePopup
+        title='Arrows'
+        popUpContent={(
+          <FlexBox column>
+            <FlexBox className='mb-2 v-center'>
+              <Title className='flex-1'>Has Arrows</Title>
+              <Toggle
+                value={hasArrows}
+                onToggle={(target) => onChange({ target })}
+                name='styles.hasArrows'
+              />
+            </FlexBox>
+
+            <ArrowsSelector disabled={!hasArrows} className='mb-2' onChange={onChange} sectionSetting={sectionSetting} />
+          </FlexBox>
+        )}
+      />
 
 
       <InlinePopup
