@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import clx from 'classnames';
 
 import common from 'components/common';
@@ -19,6 +19,9 @@ const ImageSlider = ({ section, ...props }) => {
   const [currentStyle, setCurrentStyle] = useState({});
   const [disabledNextButton, setDisabledNextButton] = useState(false);
   const [disabledPrevButton, setDisabledPrevButton] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const ref = useRef({});
 
   const { actions } = useContext();
   const { content = {}, styles = {} } = section;
@@ -72,7 +75,6 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   const { PrevArrow, NextArrow } = getIcon(customArrows);
-  const hasContent = currentContent?.img;
 
 
   const effectStyle = (() => {
@@ -94,19 +96,16 @@ const ImageSlider = ({ section, ...props }) => {
   })();
 
 
-  const getItemIndex = (item) => list.findIndex((ele) => item?.img === ele.img);
-  const currentIndexItem = getItemIndex(currentContent);
+  const getItemIndex = (item) => list.findIndex((ele) => item?.id === ele.id);
 
 
   const onImageChange = ({ value: newImage, name }) => {
-
     const newList = list.map((ele, index) => {
-      if (currentIndexItem === index)
+      if (activeIndex === index)
         return { ...ele, img: newImage };
       else
         return ele;
     });
-
 
     actions.onSectionSettingChange({
       section,
@@ -128,70 +127,86 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   const onMoveToPrevious = () => {
-    const isTheFirstIndex = currentIndexItem === 0;
+    const isTheFirstIndex = activeIndex === 0;
     const lastIndex = list.length - 1;
-    const prevIndex = currentIndexItem - 1;
+    const prevIndex = activeIndex - 1;
     const targetedIndex = isTheFirstIndex ? lastIndex : prevIndex;
 
     if (effectStyle) {
       setCurrentStyle(effectStyle.hide);
       setTimeout(() => {
-        setCurrentContent(list[targetedIndex]);
+        setActiveIndex(targetedIndex);
         setCurrentStyle(effectStyle.show);
       }, transitionDuration);
     } else {
-      setCurrentContent(list[targetedIndex]);
+      setActiveIndex(targetedIndex);
     }
   };
 
 
   const onMoveToNext = () => {
-    const isTheLastIndex = currentIndexItem === list.length - 1;
+    const isTheLastIndex = activeIndex === list.length - 1;
     const firstIndex = 0;
-    const nextIndex = currentIndexItem + 1;
+    const nextIndex = activeIndex + 1;
     const targetedIndex = isTheLastIndex ? firstIndex : nextIndex;
 
     if (effectStyle) {
       setCurrentStyle(effectStyle.hide);
       setTimeout(() => {
-        setCurrentContent(list[targetedIndex]);
+        setActiveIndex(targetedIndex);
         setCurrentStyle(effectStyle.show);
       }, transitionDuration);
     } else {
-      setCurrentContent(list[targetedIndex]);
+      setActiveIndex(targetedIndex);
     }
   };
 
 
   const onMoveToThumb = (ele) => () => {
     const currentIndex = getItemIndex(ele);
-    const currentElement = list.find((ele, index) => currentIndex === index);
 
     if (effectStyle) {
       setCurrentStyle(effectStyle.hide);
       setTimeout(() => {
-        setCurrentContent(currentElement);
+        setActiveIndex(currentIndex);
         setCurrentStyle(effectStyle.show);
       }, transitionDuration);
     } else {
-      setCurrentContent(currentElement);
+      setActiveIndex(currentIndex);
     }
   };
 
 
   useEffect(() => {
-    !hasContent && setCurrentContent(list[0]);
-  }, []);
+    setCurrentContent(list[activeIndex]);
+  }, [activeIndex]);
 
 
   useEffect(() => {
-    (hasContent && autoPlay) && setTimeout(onMoveToNext, duration);
-  }, [autoPlay, hasContent, duration]);
+    const isTheLastIndex = activeIndex === list.length - 1;
+
+    if (!infinity && isTheLastIndex) {
+      return () => {
+        clearInterval(ref?.current?.autoPlayInterval);
+      };
+    } else if (autoPlay) {
+      const interval = setInterval(onMoveToNext, duration);
+      ref.current.autoPlayInterval = interval;
+
+      return () => {
+        clearInterval(ref.current.autoPlayInterval);
+      };
+    }
+
+    return () => {
+      clearInterval(ref.current.autoPlayInterval);
+    };
+  }, [autoPlay, activeIndex, duration, infinity, list.length]);
 
 
   useEffect(() => {
-    const isTheFirstIndex = currentIndexItem === 0;
-    const isTheLastIndex = currentIndexItem === list.length - 1;
+    const isTheFirstIndex = activeIndex === 0;
+    const isTheLastIndex = activeIndex === list.length - 1;
 
     if (!infinity && isTheLastIndex)
       setDisabledNextButton(true);
@@ -202,7 +217,7 @@ const ImageSlider = ({ section, ...props }) => {
       setDisabledPrevButton(true);
     else
       setDisabledPrevButton(false);
-  }, [infinity, currentIndexItem]);
+  }, [infinity, activeIndex]);
 
 
   const arrowsProps = {
@@ -247,7 +262,7 @@ const ImageSlider = ({ section, ...props }) => {
           return (
             <div
               style={{ backgroundImage: `url(${ele.img})` }}
-              className={clx('image-slider-thumbnail-image', { 'active-image-slider-thumbnail-image': currentIndexItem === index })}
+              className={clx('image-slider-thumbnail-image', { 'active-image-slider-thumbnail-image': activeIndex === index })}
               onClick={onMoveToThumb(ele)}
             />
           );
