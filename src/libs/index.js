@@ -34,6 +34,7 @@ export {
   formatPricingValue,
   getCountryByCode,
   nodeHasChildElement,
-  downloadFile
+  downloadFile,
+  getPaymentStatusDetails
 } from './specialFuncs';
 export { notification };
