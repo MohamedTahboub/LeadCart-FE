@@ -4,10 +4,8 @@ import clx from 'classnames';
 import common from 'components/common';
 import FlexibleBox from 'components/FlexibleBox';
 import { useContext } from '../../../../../../actions';
-import Image from './Image';
 import { getIcon } from 'data/imageSliderIcons';
-import PrevButton from './PrevButton';
-import NextButton from './NextButton';
+import { Image, NextButton, PrevButton } from './components';
 
 import './style.css';
 
