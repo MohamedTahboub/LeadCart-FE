@@ -1,15 +1,16 @@
-import React from 'react';
-import ids from 'shortid';
+import React, { useCallback } from 'react';
 import clx from 'classnames';
+import update from 'immutability-helper';
+
 
 import common from 'components/common';
-import defaultDropImage from 'assets/images/upload-image.png';
 import { useContext } from '../../../../../../actions';
 import InlinePopup from 'components/common/InlinePopup';
+import AddItem from './AddItem';
 
 import './style.css';
 
-const { InputRow, FlexBox, Title, Button } = common;
+const { InputRow, FlexBox, Title } = common;
 const { TextField, Toggle } = InputRow;
 
 const ImageSliderSettings = () => {
@@ -27,7 +28,8 @@ const ImageSliderSettings = () => {
     transitionDuration,
     infinity,
     hasThumbnail,
-    effect
+    effect,
+    list
   } = content;
 
 
@@ -48,18 +50,21 @@ const ImageSliderSettings = () => {
   };
 
 
-  const onAddNewItem = () => {
-    const target = { name: 'content.list', value: [...content.list, { img: defaultDropImage, id: ids.generate() }] };
-    onChange({ target });
-  };
+  const moveCard = useCallback((dragIndex, hoverIndex) => {
+    const element = list[dragIndex];
+    const newList = update(list, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, element]
+      ]
+    });
+
+    onChange({ target: { name: 'list', value: newList } });
+  }, [list]);
 
 
   return (
     <FlexBox className='image-slider-settings' column>
-      <Button className='mb-2 light-btn' onClick={onAddNewItem}>
-         Add New Item
-      </Button>
-
       <FlexBox className='mb-2 v-center'>
         <Title className='flex-1'>Has Thumbnails</Title>
         <Toggle
@@ -140,6 +145,8 @@ const ImageSliderSettings = () => {
           </FlexBox>
         )}
       />
+
+      <AddItem moveCard={moveCard} />
     </FlexBox>
   );
 };

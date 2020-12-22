@@ -179,7 +179,7 @@ const ImageSlider = ({ section, ...props }) => {
 
   useEffect(() => {
     setCurrentContent(list[activeIndex]);
-  }, [activeIndex]);
+  }, [activeIndex, list[activeIndex]?.img]);
 
 
   useEffect(() => {
