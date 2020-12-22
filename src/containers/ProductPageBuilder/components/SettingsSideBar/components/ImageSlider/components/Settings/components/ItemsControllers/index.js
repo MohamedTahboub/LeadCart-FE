@@ -6,15 +6,14 @@ import Backend from 'react-dnd-html5-backend';
 
 import common from 'components/common';
 import defaultDropImage from 'assets/images/upload-image.png';
-import { useContext } from '../../../../../../actions';
+import { useContext } from '../../../../../../../../actions';
 import Item from './Item';
 
 import './style.css';
 
 const { FlexBox, Button } = common;
 
-const ImageSliderSettings = ({ moveCard }) => {
-
+const ItemsControllers = ({ moveCard }) => {
   const {
     state:
      { modals: { sectionSetting = {} } = {} }
@@ -23,7 +22,9 @@ const ImageSliderSettings = ({ moveCard }) => {
   } = useContext();
 
   const { content = {} } = sectionSetting;
-  const { list } = content;
+  const { list = [], autoPlay } = content;
+
+  const hasOneElement = list.length === 1;
 
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
@@ -75,13 +76,13 @@ const ImageSliderSettings = ({ moveCard }) => {
             list.map((ele, index) => {
               return (
                 <Item
-                  img={ele?.img}
                   onImageChange={onImageChange(index)}
                   onDelete={onDeleteItem(index)}
                   index={index}
                   moveCard={moveCard}
-                  id={ele.id}
                   ele={ele}
+                  hasOneElement={hasOneElement}
+                  autoPlay={autoPlay}
                 />
               );
             })
@@ -92,4 +93,4 @@ const ImageSliderSettings = ({ moveCard }) => {
   );
 };
 
-export default ImageSliderSettings;
+export default ItemsControllers;

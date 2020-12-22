@@ -1,13 +1,13 @@
 import React from 'react';
 
 import common from 'components/common';
-import ImageUploader from 'components/common/Image';
+import ImageUploader from './ImageUploader';
 
 import './style.css';
 
 const { FlexBox } = common;
 
-const Image = ({ img, onImageChange, className, hasBlurBackgroundImage, name, style, ...props }) => {
+const Image = ({ img, onImageChange, className, hasBlurBackgroundImage, name, style, onOpenImageFile, ...props }) => {
   const imageStyle = hasBlurBackgroundImage ? { backgroundImage: `url(${img})` } : {};
 
   return (
@@ -17,6 +17,7 @@ const Image = ({ img, onImageChange, className, hasBlurBackgroundImage, name, st
         image={img}
         name={name}
         onChange={onImageChange}
+        onOpenImageFile={onOpenImageFile}
       />
     </FlexBox>
   );

@@ -6,7 +6,7 @@ import update from 'immutability-helper';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import InlinePopup from 'components/common/InlinePopup';
-import AddItem from './AddItem';
+import { ItemsControllers } from './components';
 
 import './style.css';
 
@@ -146,7 +146,7 @@ const ImageSliderSettings = () => {
         )}
       />
 
-      <AddItem moveCard={moveCard} />
+      <ItemsControllers moveCard={moveCard} />
     </FlexBox>
   );
 };

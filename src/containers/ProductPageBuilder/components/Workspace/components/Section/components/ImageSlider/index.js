@@ -20,6 +20,7 @@ const ImageSlider = ({ section, ...props }) => {
   const [disabledNextButton, setDisabledNextButton] = useState(false);
   const [disabledPrevButton, setDisabledPrevButton] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [pausedAutoPlay, setPausedAutoPlay] = useState(false);
 
   const ref = useRef({});
 
@@ -111,7 +112,17 @@ const ImageSlider = ({ section, ...props }) => {
       section,
       field: { name, value: newList }
     });
+
     setCurrentContent({ ...currentContent, img: newImage });
+
+    if (autoPlay)
+      setPausedAutoPlay(false);
+  };
+
+
+  const onOpenImageFile = () => {
+    if (autoPlay)
+      setPausedAutoPlay(true);
   };
 
 
@@ -178,7 +189,11 @@ const ImageSlider = ({ section, ...props }) => {
 
 
   useEffect(() => {
-    setCurrentContent(list[activeIndex]);
+    const deletedItem = activeIndex === list.length;
+    if (deletedItem)
+      setActiveIndex(list.length - 1);
+    else
+      setCurrentContent(list[activeIndex]);
   }, [activeIndex, list[activeIndex]?.img]);
 
 
@@ -189,7 +204,7 @@ const ImageSlider = ({ section, ...props }) => {
       return () => {
         clearInterval(ref?.current?.autoPlayInterval);
       };
-    } else if (autoPlay) {
+    } else if ((!pausedAutoPlay && autoPlay)) {
       const interval = setInterval(onMoveToNext, duration);
       ref.current.autoPlayInterval = interval;
 
@@ -201,7 +216,7 @@ const ImageSlider = ({ section, ...props }) => {
     return () => {
       clearInterval(ref.current.autoPlayInterval);
     };
-  }, [autoPlay, activeIndex, duration, infinity, list.length]);
+  }, [autoPlay, activeIndex, duration, infinity, list.length, pausedAutoPlay]);
 
 
   useEffect(() => {
@@ -251,6 +266,7 @@ const ImageSlider = ({ section, ...props }) => {
           className='image-slider-one-slide'
           style={currentStyle}
           hasBlurBackgroundImage={hasBlurBackgroundImage}
+          onOpenImageFile={onOpenImageFile}
         />
         <NextButton {...arrowsProps} />
       </FlexBox>
