@@ -171,7 +171,7 @@ const TranslationEditModal = ({
       if (context.key === contextKey) {
         context.words = context.words.map((word) => {
 
-          if (wordKey.includes(word.key)) {
+          if (wordKey === word.key) {
             if (word.subs) {
               return (
                 immutable.set(
