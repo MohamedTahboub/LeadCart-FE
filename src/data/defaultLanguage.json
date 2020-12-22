@@ -14,6 +14,11 @@
                     "label": "Billing Details"
                 },
                 {
+                    "key": "billingAndShippingDetails",
+                    "value": "Billing & Shipping Info",
+                    "label": "Billing & Shipping Info"
+                },
+                {
                     "key": "firstName",
                     "value": "First Name",
                     "label": "First Name"
@@ -34,6 +39,16 @@
                     "label": "Phone Number"
                 },
                 {
+                    "key": "billingAddressLine1",
+                    "value": "Billing Address",
+                    "label": "Billing Address"
+                },
+                {
+                    "key": "billingAddressLine1Placeholder",
+                    "value": "E.g Street, PO Box, or company name",
+                    "label": "E.g Street, PO Box, or company name"
+                },
+                {
                     "key": "cardNumberInputField",
                     "value": "Card Number",
                     "label": "Card Number"
@@ -45,8 +60,8 @@
                 },
                 {
                     "key": "cardExpirationDateInputField",
-                    "value": "MM/YY",
-                    "label": "MM/YY"
+                    "value": "Expiry date",
+                    "label": "Expiry date"
                 },
                 {
                     "key": "ibanInputFields",
@@ -54,9 +69,54 @@
                     "label": "IBAN"
                 },
                 {
+                    "key": "emptyCardNumber",
+                    "value": "Card number not allowed to be empty",
+                    "label": "Card number not allowed to be empty"
+                },
+                {
+                    "key": "invalidCardNumber",
+                    "value": "Card number is invalid",
+                    "label": "Card number is invalid"
+                },
+                {
+                    "key": "emptyExpiryDate",
+                    "value": "Select an expiry date",
+                    "label": "Select an expiry date"
+                },
+                {
+                    "key": "monthOutOfRange",
+                    "value": "Month out of range",
+                    "label": "Month out of range"
+                },
+                {
+                    "key": "yearOutOfRange",
+                    "value": "Year out of range",
+                    "label": "Year out of range"
+                },
+                {
+                    "key": "dateOutOfRange",
+                    "value": "Date out of range",
+                    "label": "Date out of range"
+                },
+                {
+                    "key": "invalidExpiryDate",
+                    "value": "Expiry date is invalid",
+                    "label": "Expiry date is invalid"
+                },
+                {
+                    "key": "emptyCVC",
+                    "value": "CVC not allowed to be empty",
+                    "label": "CVC not allowed to be empty"
+                },
+                {
+                    "key": "invalidCVC",
+                    "value": "CVC is invalid",
+                    "label": "CVC is invalid"
+                },
+                {
                     "key": "pricingOptionsLabel",
-                    "value": "Choose a pricing option:",
-                    "label": "Choose a pricing option:"
+                    "value": "Choose a pricing option",
+                    "label": "Choose a pricing option"
                 },
                 {
                     "key": "shippingDetails",
@@ -104,9 +164,19 @@
                     "label": "Credit Cards"
                 },
                 {
+                    "key": "SepaDirectDebit",
+                    "value": "SEPA Direct Debit",
+                    "label": "SEPA Direct Debit"
+                },
+                {
                     "key": "payPal",
                     "value": "PayPal",
                     "label": "PayPal"
+                },
+                {
+                    "key": "razorPay",
+                    "value": "Razorpay",
+                    "label": "Razorpay"
                 },
                 {
                     "key": "coupon",
@@ -117,6 +187,11 @@
                     "key": "applyCoupon",
                     "value": "Apply",
                     "label": "Apply"
+                },
+                {
+                    "key": "couponCodeIsRequired",
+                    "value": "Coupon code is required",
+                    "label": "Coupon code is required"
                 },
                 {
                     "key": "orderSummary",
@@ -167,6 +242,11 @@
                     "key": "shippingMethod",
                     "value": "Shipping Method",
                     "label": "Shipping Method"
+                },
+                {
+                    "key": "shippingWith",
+                    "value": "Shipping with",
+                    "label": "Shipping with"
                 },
                 {
                     "key": "CreditCardValidationError",
@@ -225,12 +305,12 @@
                     "label": "Sorry, Licenses are out of Stack, Please contact the owner, to fix this manually for you."
                 },
                 {
-                    "key": "SuccessUrlsTitle",
+                    "key": "successUrlsTitle",
                     "value": "Access Links",
                     "label": "Access Links"
                 },
                 {
-                    "key": "SuccessUrlName",
+                    "key": "successUrlName",
                     "value": "Access Link",
                     "label": "Access Link"
                 },
