@@ -274,7 +274,7 @@ export const getPaymentStatusDetails = (status) => {
       type: 'normal'
     },
     requires_action: {
-      tip: 'Customer did not complete the checkout',
+      tip: 'Customer didn\'t Authenticate the payment or transaction',
       type: 'normal'
     },
     disputed: {
