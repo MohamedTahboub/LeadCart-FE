@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as immutable from 'object-path-immutable';
-
-import { Modal } from 'components/Modals';
-import defaultLanguage from 'data/defaultLanguage.json';
-import common from 'components/common';
 import * as translationsActions from 'actions/translations';
+import { friendlyMessage, notification } from 'libs';
 import { languagesSchema } from 'libs/validation';
+import { Modal } from 'components/Modals';
+import common from 'components/common';
+import clx from 'classnames';
+import defaultLanguage from 'data/defaultLanguage.json';
 import './style.css';
 
-import { friendlyMessage } from 'libs';
 const {
   Button,
   InputRow,
@@ -18,6 +18,7 @@ const {
   Currency
 } = common;
 
+const { Label, TextAreaInput, Checkbox, TextField } = InputRow;
 
 const Word = ({
   keyValue,
@@ -28,21 +29,24 @@ const Word = ({
 }) => {
   const hasSubs = !!subs.length;
 
+  const hasLongContent = value.length > 40;
+  const Input = hasLongContent ? TextAreaInput : TextField;
 
   return (
     <div className='language-word-item'>
       <div className='word-value'>
         <label
           htmlFor={keyValue}
-          className='word-label'
+          className='word-label truncate'
         >
           {`${label}:`}
         </label>
-        <InputRow.TextField
-          className='word-input'
+        <Input
+          className={clx('word-input', { 'word-text-area': hasLongContent })}
           value={value}
           onChange={onChange}
           name={keyValue}
+          countable={false}
           id={keyValue}
         />
 
@@ -71,6 +75,7 @@ const LanguageContext = ({
   keyValue,
   title,
   words,
+  isSearching,
   ...props
 }) => {
   const onChange = ({ target: { name: wordKey, value } }) => {
@@ -81,6 +86,10 @@ const LanguageContext = ({
     });
 
   };
+
+  if (isSearching && !words.length)
+    return null;
+
 
   return (
     <div className='language-context-container'>
@@ -149,11 +158,13 @@ const TranslationEditModal = ({
       onSuccess: () => {
         setLoading(false);
         onClose();
+        notification.success(`${isNew ? 'Created' : 'Updated'} Successfully`);
       },
       onFailed: (error) => {
         setLoading(false);
         const message = friendlyMessage(error);
         setError(message);
+        notification.failed(message);
       }
     });
   };
@@ -227,6 +238,7 @@ const TranslationEditModal = ({
   const onFieldChange = ({ target: { name, value } }) => {
     setLanguage({ ...language, [name]: value });
   };
+
   const filteredLanguageContexts = filterLanguageContexts(searchKey, contexts);
 
   const onToggleLanguageType = (type) => () => {
@@ -243,8 +255,8 @@ const TranslationEditModal = ({
         Language Syntax
       </MainTitle>
       <InputRow>
-        <InputRow.Label>Language Name:</InputRow.Label>
-        <InputRow.TextField
+        <Label>Language Name:</Label>
+        <TextField
           className='language-name-input title'
           name='name'
           onChange={onFieldChange}
@@ -254,25 +266,25 @@ const TranslationEditModal = ({
         />
       </InputRow>
       <InputRow>
-        <InputRow.Label>Type (language direction):</InputRow.Label>
+        <Label>Type (language direction):</Label>
         <div>
-          <InputRow.Checkbox
+          <Checkbox
             className='margin-left-10'
             onClick={onToggleLanguageType('ltr')}
             checked={language.type === 'ltr'}
           >
             Left To Right
-          </InputRow.Checkbox>
-          <InputRow.Checkbox
+          </Checkbox>
+          <Checkbox
             className='margin-left-10'
             onClick={onToggleLanguageType('rtl')}
             checked={language.type === 'rtl'}
           >
             Right To left
-          </InputRow.Checkbox>
+          </Checkbox>
         </div>
       </InputRow>
-      <InputRow.TextField
+      <TextField
         className='words-search-field'
         prefix={<Currency value={<i className='fas fa-search' />} />}
         value={searchKey}
@@ -285,6 +297,7 @@ const TranslationEditModal = ({
             {...context}
             key={context.key}
             keyValue={context.key}
+            isSearching={Boolean(searchKey)}
             onChange={onChange}
           />
         ))}
