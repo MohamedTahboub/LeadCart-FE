@@ -39,8 +39,8 @@ const getClearText = (text) => {
 
   return text.replace(/\_|\-| /ig, ' ');
 };
+
 export const OrderStatusBadge = ({ status }) => {
-  console.log('status', status);
   const {
     type,
     tip: tipText
@@ -48,7 +48,6 @@ export const OrderStatusBadge = ({ status }) => {
 
   if (!type) return null;
 
-  console.log({ type, tipText });
   const friendlyStatus = getClearText(status);
   return (
     <Tooltip text={tipText} placement='top'>
