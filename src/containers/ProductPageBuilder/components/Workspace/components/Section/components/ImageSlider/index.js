@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import clx from 'classnames';
 
 import common from 'components/common';
 import FlexibleBox from 'components/FlexibleBox';
 import { useContext } from '../../../../../../actions';
 import { getIcon } from 'data/imageSliderIcons';
-import { Image, NextButton, PrevButton } from './components';
+import { Image, NextButton, PrevButton, Thumbnails } from './components';
 
 import './style.css';
 
@@ -246,7 +245,14 @@ const ImageSlider = ({ section, ...props }) => {
     disabledNextButton
   };
 
-
+  const thumbnailsProps = {
+    hasThumbnail,
+    onMoveToThumb,
+    list,
+    activeIndex,
+    transitionDuration,
+    currentContent
+  };
   return (
     <FlexibleBox
       className='image-slider-container'
@@ -269,20 +275,7 @@ const ImageSlider = ({ section, ...props }) => {
         <NextButton {...arrowsProps} />
       </FlexBox>
 
-
-      {hasThumbnail &&
-      <FlexBox className='image-slider-thumbnails-container h-center v-center'>
-        {list.map((ele, index) => {
-          return (
-            <div
-              style={{ backgroundImage: `url(${ele.img})` }}
-              className={clx('image-slider-thumbnail-image', { 'active-image-slider-thumbnail-image': activeIndex === index })}
-              onClick={onMoveToThumb(ele)}
-            />
-          );
-        })}
-      </FlexBox>
-      }
+      <Thumbnails {...thumbnailsProps} />
     </FlexibleBox>
   );
 };

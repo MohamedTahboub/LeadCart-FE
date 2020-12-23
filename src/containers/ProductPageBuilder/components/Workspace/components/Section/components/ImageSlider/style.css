@@ -1,7 +1,7 @@
 .image-slider-container{
   display: flex;
   flex-direction: column;
-  padding-bottom: 12px;
+  padding-bottom: 12px !important;
   overflow: hidden;
 }
 
@@ -15,37 +15,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   height: 100%;
-}
-
-
-/* =========================== Thumbnails Style =========================== */
-.image-slider-thumbnails-container{
-  height: 80px;
-}
-
-.image-slider-thumbnail-image{
-  width: 60px;
-  height: 60px;
-  box-sizing: border-box;
-  border: 2px solid #000;
-  border-radius: 5px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-right: 10px;
-  filter: grayscale(100%);
-  transition: filter .3s ease-in-out, border .3s ease-in-out;
-  cursor: pointer;
-}
-
-.image-slider-thumbnail-image:last-child{
-  margin-right: 0;
-}
-
-
-.active-image-slider-thumbnail-image{
-  border-color: #1e85fb;
-  filter: grayscale(0%);
 }
 
 
