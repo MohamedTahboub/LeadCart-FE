@@ -24,17 +24,23 @@ import { CycleStepTitle } from 'components/common/Titles';
 
 const { FlexBox, LayoutSwitch, ResizableTextarea, CheckoutInput } = common;
 
-const getStepsNames = (shippingDetails, shippingMethodsEnabled) => {
-  const defaultSteps = ['Billing Details'];
+const getStepsNames = (shippingDetails, shippingMethodsEnabled, translations = {}) => {
+  const {
+    billingDetails: billingDetailsLabel = 'Billing Details',
+    shippingDetails: shippingDetailsLabel = 'Shipping Details',
+    shippingMethod: shippingMethodLabel = 'Shipping Methods',
+    paymentMethods: paymentMethodsLabel = 'Payment Methods'
+  } = translations;
+  const defaultSteps = [billingDetailsLabel];
 
   if (shippingDetails)
-    defaultSteps.push('Shipping Details');
+    defaultSteps.push(shippingDetailsLabel);
 
   if (shippingMethodsEnabled && shippingDetails)
-    defaultSteps.push('Shipping Methods');
+    defaultSteps.push(shippingMethodLabel);
 
 
-  defaultSteps.push('Payment Details');
+  defaultSteps.push(paymentMethodsLabel);
   return defaultSteps;
 
 };
@@ -68,7 +74,9 @@ const ClassicForm = ({ language, section }) => {
 
   const {
     fullName = 'Full Name',
-    email
+    email,
+    shippingMethod: shippingMethodLabel = 'Shipping Methods',
+    pricingOptionsLabel
   } = language.checkout || {};
 
   const isOptInFunnel = type === 'OPT-IN';
@@ -113,13 +121,13 @@ const ClassicForm = ({ language, section }) => {
   const renderShippingMethod = (
     (shippingMethodsEnabled && shippingDetails) && (
       <FlexBox column>
-        <CycleStepTitle step='3'>Shipping Methods</CycleStepTitle>
+        <CycleStepTitle step='3'>{shippingMethodLabel}</CycleStepTitle>
         <ShippingMethods />
       </FlexBox>
     )
   );
 
-  const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled);
+  const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled, language.checkout);
 
   return (
     <FlexBox column className='relative-element p-3'>
@@ -134,7 +142,7 @@ const ClassicForm = ({ language, section }) => {
                     color={pageStyles.themeColor}
                     language={language}
                   />
-                  <PricingOptions format={price.format} />
+                  <PricingOptions format={price.format} title={pricingOptionsLabel} />
                   {orderSummary &&
                     <OrderSummary
                       price={price}
@@ -151,7 +159,7 @@ const ClassicForm = ({ language, section }) => {
                       color={pageStyles.themeColor}
                       language={language}
                     />
-                    <PricingOptions format={price.format} />
+                    <PricingOptions format={price.format} title={pricingOptionsLabel} />
                     {orderSummary &&
                       <OrderSummary
                         price={price}
@@ -204,7 +212,7 @@ const ClassicForm = ({ language, section }) => {
                     language={language}
                   />
                 )}
-                <PricingOptions format={price.format} />
+                <PricingOptions format={price.format} title={pricingOptionsLabel}/>
                 {renderShippingMethod}
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}

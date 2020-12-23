@@ -6,15 +6,16 @@ const Badge = ({
   children,
   type,
   className,
+  size,
   ...props
 }) => {
-  const classNames = classes('badge-container', type, className);
+  const badgeProps = {
+    'className': classes('badge-container', type, size, className),
+    'data-testid': 'badge-test',
+    ...props
+  };
   return (
-    <div
-      data-testid='badge-test'
-      className={classNames}
-      {...props}
-    >
+    <div {...badgeProps} >
       {children}
     </div>
   );

@@ -25,9 +25,22 @@ const getPaymentImageByName = (name, offlinePayments = []) => {
   return image ? image : (offlineLogo && offlineLogo.logo);
 };
 
-const PaymentGatewaysOptions = ({ methods = ['COD'], labels: paymentMethodsLabels = {}, offlinePayments, theme = 'cards' }) => {
+const PaymentGatewaysOptions = ({
+  methods = ['COD'],
+  labels: paymentMethodsLabels = {},
+  offlinePayments,
+  theme = 'cards',
+  translations = {}
+}) => {
+
   const [active, setActive] = useState(methods[0]);
 
+  const {
+    cardNumberInputField: cardNumberInputFieldLabel = 'Card Number',
+    cardCVCInputField: cardCVCInputFieldLabel = 'Expiry date',
+    cardExpirationDateInputField: cardExpirationDateInputFieldLabel = 'CVV',
+    ibanInputFields: ibanInputFieldsLabel
+  } = translations;
 
   const paymentMethods = methods.map((method) => ({
     image: getPaymentImageByName(method, offlinePayments),
@@ -61,21 +74,21 @@ const PaymentGatewaysOptions = ({ methods = ['COD'], labels: paymentMethodsLabel
           <FlexBox flex wrappable>
             <InputField
               flex
-              label='Card Number'
+              label={cardNumberInputFieldLabel}
               placeholder='0000 0000 0000 0000'
             />
           </FlexBox>
           <FlexBox flex wrappable>
             <InputField
               flex
-              label='Expiry date'
+              label={cardExpirationDateInputFieldLabel}
               className='mr-3'
               // type='date'
               placeholder='MM/YY'
             />
             <InputField
               flex
-              label='CVV'
+              label={cardCVCInputFieldLabel}
               type='password'
               placeholder='🔒 ****'
               inputProps={{ disabled: true }}

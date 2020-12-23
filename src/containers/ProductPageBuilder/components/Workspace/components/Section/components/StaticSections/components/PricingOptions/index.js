@@ -24,9 +24,10 @@ const PricingOptions = ({ title = 'Choose a pricing option', format, defaultBran
   };
 
   if (!(Array.isArray(pricingOptions) && pricingOptions.length)) return null;
+
   return (
     <FlexBox column>
-      <Title className='my-2'>{title}</Title>
+      <Title className='my-2'>{title}:</Title>
       <FlexBox wrappable>
         {
           pricingOptions.map((pricingOption) => (

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getCurrencySymbol } from 'libs';
-import { ReceiptRow } from './common';
+import { OrderStatusBadge, ReceiptRow } from './common';
 
 import ProductActions from './ProductActions';
-
 
 const getSubRows = ({ offers, coupon }) => {
   const rows = [];
@@ -61,7 +60,7 @@ const ProductRow = ({
       productId={productId}
     />
   );
-
+  const paymentStatus = payment?.status;
   let orderStatus = '';
   if (payment.paymentRefunded) orderStatus = ' (REFUNDED)';
   else if (payment.subscriptionCanceled) orderStatus = ' (SUBSCRIPTION CANCELED)';
@@ -80,6 +79,9 @@ const ProductRow = ({
           Product:
         </span>
       )}
+      status={paymentStatus ? (
+        <OrderStatusBadge status={paymentStatus} className='order-status-icon' />
+      ) : null}
       value={`${currencySymbol} ${amount}`}
       subRow={(haveSubRows ? (
         <div className='receipt-sub-row left-sub-branch'>

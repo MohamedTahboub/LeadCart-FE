@@ -14,6 +14,11 @@
                     "label": "Billing Details"
                 },
                 {
+                    "key": "billingAndShippingDetails",
+                    "value": "Billing & Shipping Info",
+                    "label": "Billing & Shipping Info"
+                },
+                {
                     "key": "firstName",
                     "value": "First Name",
                     "label": "First Name"
@@ -34,9 +39,84 @@
                     "label": "Phone Number"
                 },
                 {
+                    "key": "billingAddressLine1",
+                    "value": "Billing Address",
+                    "label": "Billing Address"
+                },
+                {
+                    "key": "billingAddressLine1Placeholder",
+                    "value": "E.g Street, PO Box, or company name",
+                    "label": "E.g Street, PO Box, or company name"
+                },
+                {
+                    "key": "cardNumberInputField",
+                    "value": "Card Number",
+                    "label": "Card Number"
+                },
+                {
+                    "key": "cardCVCInputField",
+                    "value": "CVC",
+                    "label": "CVC"
+                },
+                {
+                    "key": "cardExpirationDateInputField",
+                    "value": "Expiry date",
+                    "label": "Expiry date"
+                },
+                {
+                    "key": "ibanInputFields",
+                    "value": "IBAN",
+                    "label": "IBAN"
+                },
+                {
+                    "key": "emptyCardNumber",
+                    "value": "Card number not allowed to be empty",
+                    "label": "Card number not allowed to be empty"
+                },
+                {
+                    "key": "invalidCardNumber",
+                    "value": "Card number is invalid",
+                    "label": "Card number is invalid"
+                },
+                {
+                    "key": "emptyExpiryDate",
+                    "value": "Select an expiry date",
+                    "label": "Select an expiry date"
+                },
+                {
+                    "key": "monthOutOfRange",
+                    "value": "Month out of range",
+                    "label": "Month out of range"
+                },
+                {
+                    "key": "yearOutOfRange",
+                    "value": "Year out of range",
+                    "label": "Year out of range"
+                },
+                {
+                    "key": "dateOutOfRange",
+                    "value": "Date out of range",
+                    "label": "Date out of range"
+                },
+                {
+                    "key": "invalidExpiryDate",
+                    "value": "Expiry date is invalid",
+                    "label": "Expiry date is invalid"
+                },
+                {
+                    "key": "emptyCVC",
+                    "value": "CVC not allowed to be empty",
+                    "label": "CVC not allowed to be empty"
+                },
+                {
+                    "key": "invalidCVC",
+                    "value": "CVC is invalid",
+                    "label": "CVC is invalid"
+                },
+                {
                     "key": "pricingOptionsLabel",
-                    "value": "Choose a pricing option:",
-                    "label": "Choose a pricing option:"
+                    "value": "Choose a pricing option",
+                    "label": "Choose a pricing option"
                 },
                 {
                     "key": "shippingDetails",
@@ -84,9 +164,19 @@
                     "label": "Credit Cards"
                 },
                 {
+                    "key": "SepaDirectDebit",
+                    "value": "SEPA Direct Debit",
+                    "label": "SEPA Direct Debit"
+                },
+                {
                     "key": "payPal",
                     "value": "PayPal",
                     "label": "PayPal"
+                },
+                {
+                    "key": "razorPay",
+                    "value": "Razorpay",
+                    "label": "Razorpay"
                 },
                 {
                     "key": "coupon",
@@ -97,6 +187,11 @@
                     "key": "applyCoupon",
                     "value": "Apply",
                     "label": "Apply"
+                },
+                {
+                    "key": "couponCodeIsRequired",
+                    "value": "Coupon code is required",
+                    "label": "Coupon code is required"
                 },
                 {
                     "key": "orderSummary",
@@ -132,6 +227,36 @@
                     "key": "nextCharge",
                     "value": "Your next charge is going to be on",
                     "label": "Your next charge is going to be on"
+                },
+                {
+                    "key": "billingDetailsValidationError",
+                    "value": "Please check your billing details above",
+                    "label": "Please check your billing details above"
+                },
+                {
+                    "key": "shippingDetailsValidationError",
+                    "value": "Please check your shipping details above",
+                    "label": "Please check your shipping details above"
+                },
+                {
+                    "key": "shippingMethod",
+                    "value": "Shipping Method",
+                    "label": "Shipping Method"
+                },
+                {
+                    "key": "shippingWith",
+                    "value": "Shipping with",
+                    "label": "Shipping with"
+                },
+                {
+                    "key": "CreditCardValidationError",
+                    "value": "invalid credit card details",
+                    "label": "invalid credit card details"
+                },
+                {
+                    "key": "SEPAMandateNote",
+                    "value": "By providing your IBAN and confirming this payment, you authorize this merchant. and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.",
+                    "label": "By providing your IBAN and confirming this payment, you authorize this merchant. and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited."
                 }
             ]
         },
@@ -173,6 +298,26 @@
                     "key": "thankyouPageNote",
                     "value": "Note: If you are facing any issue accessing your purchase please contact us",
                     "label": "Note: If you are facing any issue accessing your purchase please contact us"
+                },
+                {
+                    "key": "codesOutOfStackMessage",
+                    "value": "Sorry, Licenses are out of Stack, Please contact the owner, to fix this manually for you.",
+                    "label": "Sorry, Licenses are out of Stack, Please contact the owner, to fix this manually for you."
+                },
+                {
+                    "key": "successUrlsTitle",
+                    "value": "Access Links",
+                    "label": "Access Links"
+                },
+                {
+                    "key": "successUrlName",
+                    "value": "Access Link",
+                    "label": "Access Link"
+                },
+                {
+                    "key": "fulfillmentsTitle",
+                    "value": "You can access your order details for your purchases below",
+                    "label": "You can access your order details for your purchases below"
                 }
             ]
         },
