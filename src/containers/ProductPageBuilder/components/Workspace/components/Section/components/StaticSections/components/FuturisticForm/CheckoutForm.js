@@ -260,7 +260,7 @@ const FlatForm = ({ language, section }) => {
 
       {hasShippingMethodsEnabled && (
         <Tab title={shippingMethodTitle} id='shippingMethods'>
-          <ShippingMethods />
+          <ShippingMethods translations={language.checkout} />
           <FlexBox column flex center='v-center'>
             <OrderButton
               className='mt-5 mb-3'
@@ -474,7 +474,7 @@ const FlatForm = ({ language, section }) => {
       {hasShippingMethodsEnabled && (
         <FlexBox column>
           <Title className='step-title mt-3'>{shippingMethodTitle}</Title>
-          <ShippingMethods />
+          <ShippingMethods translations={language.checkout}/>
         </FlexBox>
       )}
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>

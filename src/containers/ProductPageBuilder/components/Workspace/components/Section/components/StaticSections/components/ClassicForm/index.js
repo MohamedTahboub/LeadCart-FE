@@ -122,7 +122,7 @@ const ClassicForm = ({ language, section }) => {
     (shippingMethodsEnabled && shippingDetails) && (
       <FlexBox column>
         <CycleStepTitle step='3'>{shippingMethodLabel}</CycleStepTitle>
-        <ShippingMethods />
+        <ShippingMethods translations={language.checkout}/>
       </FlexBox>
     )
   );
