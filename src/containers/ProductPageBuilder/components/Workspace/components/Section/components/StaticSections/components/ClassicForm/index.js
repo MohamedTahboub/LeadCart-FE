@@ -135,7 +135,7 @@ const ClassicForm = ({ language, section }) => {
         <FlexBox column id='checkout'>
           {
             twoStepCheckout ? (
-              <MultipleStepForm steps={stepsNames}>
+              <MultipleStepForm steps={stepsNames} translations={language.checkout}>
                 <Fragment>
                   <BillingDetails
                     twoStepCheckout={twoStepCheckout}
