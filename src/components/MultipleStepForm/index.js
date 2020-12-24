@@ -6,7 +6,12 @@ import { Button } from 'components/common/Buttons';
 import ProgressBarWithSteps from 'components/common/ProgressBarWithSteps';
 import './style.css';
 
-const MultipleStepForm = ({ steps, children }) => {
+const MultipleStepForm = ({ steps, children, translations = {} }) => {
+  const {
+    formNextBtnLabel = 'Next',
+    formBackBtnLabel = 'Back'
+  } = translations;
+
   const [currentStep, setCurrentStep] = useState(0);
 
   return (
@@ -32,7 +37,7 @@ const MultipleStepForm = ({ steps, children }) => {
                   className={clx('next-step-key primary-btn')}
                   onClick={() => setCurrentStep(currentStep + 1)}
                 >
-                  Next
+                  {formNextBtnLabel}
                   <FaArrowAltCircleRight />
                 </Button>
               )
@@ -42,7 +47,7 @@ const MultipleStepForm = ({ steps, children }) => {
             onClick={() => setCurrentStep(currentStep - 1)}
           >
             <FaArrowAltCircleLeft />
-            Back
+            {formBackBtnLabel}
           </Button>
         </div>
       </div>

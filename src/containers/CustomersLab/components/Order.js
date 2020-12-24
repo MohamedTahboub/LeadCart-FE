@@ -8,13 +8,14 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import ProductRow from './ProductRow';
 
+
 const { Tooltip } = common;
 const PaymentTypeIcon = ({ type, className = '' }) => {
   const icon = {
     Stripe: <i className={`fas fa-credit-card ${className}`} />,
     COD: <i className={`fas fa-money-bill-alt ${className}`} />,
     Paypal: <i className={`fab fa-cc-paypal ${className}`} />,
-    Razorpay: <img src={razorpayLogo} className={`razorpay-order-flag ${className}`} />
+    Razorpay: <img src={razorpayLogo} className={`razorpay-order-flag ${className}`} alt={type} />
   }[type];
 
   return icon || null;
@@ -55,8 +56,8 @@ const Order = ({
   const hasShipping = shipping.cost > 0;
 
   const hasSubTotal = hasTaxes || hasShipping;
-  const trimedTaxesAndShipping = (hasTaxes ? tax.taxAmount : 0) + (hasShipping ? shipping.cost : 0);
-  const subTotal = totalCharge - trimedTaxesAndShipping
+  const trimmedTaxesAndShipping = (hasTaxes ? tax.taxAmount : 0) + (hasShipping ? shipping.cost : 0);
+  const subTotal = totalCharge - trimmedTaxesAndShipping;
 
   return (
     <div className='customer-order-card'>

@@ -14,10 +14,11 @@ const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
     lastName,
     email,
     phoneNumber,
-    addressLine1Label = 'Address',
-    addressLine1Placeholder = 'E.g Street, PO Box, or company name',
-    postalCodeLabel = 'Zip Code/Postcode'
+    billingAddressLine1 = 'Billing Address',
+    billingAddressLine1Placeholder = 'E.g Street, PO Box, or company name',
+    postal: postalCodeLabel = 'Zip Code/Postcode'
   } = language.checkout || {};
+
   const { state: { product: { custom: { shippingDetails, billingAddress: withBillingAddress } = {} } } } = useContext();
 
 
@@ -45,15 +46,15 @@ const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
         />
         <PhoneNumberInput
           disabled
-          label={phoneNumber}
+          placeholder={phoneNumber}
         />
       </div>
       {withBillingAddress && (
         <div style={{ color }} className='flex-row'>
           <CheckoutInput
             disabled
-            label={addressLine1Label}
-            placeholder={addressLine1Placeholder}
+            label={billingAddressLine1}
+            placeholder={billingAddressLine1Placeholder}
           />
           <CheckoutInput
             disabled

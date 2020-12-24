@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 
 import { useContext } from '../../../../../../../../actions';
 import './style.css';
-import translations from 'reducers/translations';
 
 
 const { FlexBox, CycleStepTitle, RadioImageCard } = common;
@@ -30,8 +29,16 @@ const PaymentSelectionDemo = ({ method }) => {
     </FlexBox>
   );
 };
-const defaultPaymentsMethods = ['Paypal', 'Stripe'];
-
+const defaultPaymentsMethods = [{
+  name: 'Stripe',
+  title: 'Stripe',
+  logo: creditsImage
+},
+{
+  name: 'Paypal',
+  title: 'Paypal',
+  logo: paypalImage
+}];
 const getMethodDetails = (name, offlinePayments = [], translations = {}) => {
   const {
     creditCards: creditCardsTitle = 'Credit Cards',

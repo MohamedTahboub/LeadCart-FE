@@ -93,17 +93,26 @@ const FlatForm = ({ language, section }) => {
   if (isThankyouProduct && (isOptInFunnel || isSetHidden)) return null;
 
   const {
-    billingDetails: billingDetailsLabel,
+    billingDetails: billingDetailsLabel = 'Billing Info',
+    billingAndShippingDetails: billingAndShippingDetailsLabel = 'Billing & Shipping Info',
+    firstName: firstNameLabel,
+    lastName: lastNameLabel,
+    email: emailLabel,
+    phoneNumber: phoneNumberLabel,
     shippingDetails: shippingDetailsTitle = 'Shipping Details',
+    shippingMethod: shippingMethodTitle = 'Shipping Methods',
     streetAddress: streetAddressLabel,
     streetAddress2: streetAddress2Label = 'Second Address',
     paymentMethods: paymentMethodsTitle = 'Payment Method',
     creditCards: creditCardsTitle = 'Credit Cards',
     payPal: payPalTitle = 'PayPal',
     cashOnDelivery: cashOnDeliveryTitle = 'Cash On Delivery',
-    addressLine1Label = 'Address',
-    addressLine1Placeholder = 'E.g Street, PO Box, or company name',
-    postalCodeLabel = 'Zip Code/Postcode',
+    billingAddressLine1 = 'Billing Address',
+    billingAddressLine1Placeholder = 'E.g Street, PO Box, or company name',
+    postal: postalCodeLabel = 'Zip Code/Postcode',
+    country: countryLabel,
+    state: stateLabel,
+    city: cityLabel,
     pricingOptionsLabel
   } = language.checkout || {};
 
@@ -112,10 +121,6 @@ const FlatForm = ({ language, section }) => {
     Paypal: payPalTitle,
     COD: cashOnDeliveryTitle
   };
-
-  // const changeToTab = (tabName) => () => {
-  //   setActiveTab(tabName);
-  // };
 
   const onSectionFieldChange = ({ target: { name, value } } = {}) => {
     actions.onSectionSettingChange({
@@ -129,33 +134,33 @@ const FlatForm = ({ language, section }) => {
 
   const multiStepFormRender = (
     <Tabs active={activeTab} className='custom-form-tabs flex' tabsContentClassName='pl-3 flex' titleColor={themeColor}>
-      <Tab id='shipping' title={shippingDetailsEnabled ? 'Billing & Shipping Info' : 'Billing Info'}>
+      <Tab id='shipping' title={shippingDetailsEnabled ? billingAndShippingDetailsLabel : billingDetailsLabel}>
         <FlexBox flex wrappable>
           <InputField
             flex
-            label='First Name'
+            label={firstNameLabel}
             className='mr-3'
-            placeholder='your name'
+            placeholder={firstNameLabel}
           />
           <InputField
             flex
-            label='Last Name'
-            placeholder='last name'
+            label={lastNameLabel}
+            placeholder={lastNameLabel}
           />
         </FlexBox>
 
         <FlexBox flex wrappable>
           <InputField
             flex
-            label='Email'
+            label={emailLabel}
             className='mr-3'
-            placeholder='Enter your email'
+            placeholder={emailLabel}
           />
           <PhoneNumberInput
             flex
             disabled
-            label='Mobile No'
-            placeholder='+1 218-266-6543'
+            label={phoneNumberLabel}
+            // placeholder='+1 218-266-6543'
             theme='modern'
           />
         </FlexBox>
@@ -163,9 +168,9 @@ const FlatForm = ({ language, section }) => {
           <FlexBox flex wrappable>
             <InputField
               flex
-              label={addressLine1Label}
+              label={billingAddressLine1}
               className='mr-3'
-              placeholder={addressLine1Placeholder}
+              placeholder={billingAddressLine1Placeholder}
             />
             <InputField
               flex
@@ -215,7 +220,7 @@ const FlatForm = ({ language, section }) => {
             <FlexBox flex center='v-center' wrappable>
               <Select
                 flex
-                label='Country'
+                label={countryLabel}
                 placeholder='Select'
                 className='mr-3'
                 options={countriesOptions}
@@ -225,18 +230,18 @@ const FlatForm = ({ language, section }) => {
             <FlexBox flex center='v-center' wrappable>
               <InputField
                 flex
-                label='Postal/ Zip Code'
+                label={postalCodeLabel}
                 placeholder='0000'
               />
               <InputField
                 flex
-                label='City'
-                placeholder='City'
+                label={cityLabel}
+                placeholder={cityLabel}
               />
               <InputField
                 flex
-                label='State/ Province'
-                placeholder='State'
+                label={stateLabel}
+                placeholder={stateLabel}
               />
             </FlexBox>
           </Fragment>
@@ -254,8 +259,8 @@ const FlatForm = ({ language, section }) => {
       </Tab>
 
       {hasShippingMethodsEnabled && (
-        <Tab title='Shipping Methods' id='shippingMethods'>
-          <ShippingMethods />
+        <Tab title={shippingMethodTitle} id='shippingMethods'>
+          <ShippingMethods translations={language.checkout} />
           <FlexBox column flex center='v-center'>
             <OrderButton
               className='mt-5 mb-3'
@@ -277,8 +282,13 @@ const FlatForm = ({ language, section }) => {
           </FlexBox>
         </Tab>
       )}
-      <Tab title='Payment' id='payment'>
-        <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='radio' />
+      <Tab title={paymentMethodsTitle} id='payment'>
+        <PaymentGatewaysOptions
+          methods={paymentMethods}
+          labels={paymentMethodsLabels}
+          theme='radio'
+          translations={language.checkout}
+        />
         <FlexBox center='h-center' className='small-text gray-text mt-3'>
           <MdLock color='currentColor' size={16} className='mr-2' />
           <span >
@@ -356,28 +366,27 @@ const FlatForm = ({ language, section }) => {
       <FlexBox flex wrappable>
         <InputField
           flex
-          label='First Name'
+          label={firstNameLabel}
           className='mr-3'
-          placeholder='your name'
+          placeholder={firstNameLabel}
         />
         <InputField
           flex
-          label='Last Name'
-          placeholder='last name'
+          label={lastNameLabel}
+          placeholder={lastNameLabel}
         />
       </FlexBox>
 
       <FlexBox flex wrappable>
         <InputField
           flex
-          label='Email'
+          label={emailLabel}
           className='mr-3'
-          placeholder='Enter your email'
+          placeholder={emailLabel}
         />
         <PhoneNumberInput
           flex
-          label='Mobile No'
-          placeholder='+1 218-266-6543'
+          label={phoneNumberLabel}
           theme='modern'
         />
       </FlexBox>
@@ -385,9 +394,9 @@ const FlatForm = ({ language, section }) => {
         <FlexBox flex wrappable>
           <InputField
             flex
-            label={addressLine1Label}
+            label={billingAddressLine1}
             className='mr-3'
-            placeholder={addressLine1Placeholder}
+            placeholder={billingAddressLine1Placeholder}
           />
           <InputField
             flex
@@ -436,7 +445,7 @@ const FlatForm = ({ language, section }) => {
           <FlexBox flex center='v-center' wrappable>
             <Select
               flex
-              label='Country'
+              label={countryLabel}
               placeholder='Select'
               className='mr-3'
               options={countriesOptions}
@@ -445,31 +454,36 @@ const FlatForm = ({ language, section }) => {
           <FlexBox flex center='v-center' wrappable>
             <InputField
               flex
-              label='Postal/ Zip Code'
+              label={postalCodeLabel}
               placeholder='0000'
             />
             <InputField
               flex
-              label='City'
+              label={cityLabel}
               className='ml-2'
-              placeholder='City'
+              placeholder={cityLabel}
             />
           </FlexBox>
           <InputField
             flex
-            label='State/ Province'
-            placeholder='State'
+            label={stateLabel}
+            placeholder={stateLabel}
           />
         </Fragment>
       )}
       {hasShippingMethodsEnabled && (
         <FlexBox column>
-          <Title className='step-title mt-3'>Shipping Methods</Title>
-          <ShippingMethods />
+          <Title className='step-title mt-3'>{shippingMethodTitle}</Title>
+          <ShippingMethods translations={language.checkout}/>
         </FlexBox>
       )}
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>
-      <PaymentGatewaysOptions methods={paymentMethods} labels={paymentMethodsLabels} theme='cards' />
+      <PaymentGatewaysOptions
+        methods={paymentMethods}
+        labels={paymentMethodsLabels}
+        theme='cards'
+        translations={language.checkout}
+      />
       <FlexBox center='h-center' className='small-text gray-text mt-3'>
         <MdLock color='currentColor' size={16} className='mr-2' />
         <span >

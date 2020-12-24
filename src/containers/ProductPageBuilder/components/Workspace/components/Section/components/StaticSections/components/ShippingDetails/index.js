@@ -4,6 +4,11 @@ import common from 'components/common';
 import './style.css';
 const { CycleStepTitle, CheckoutInput } = common;
 
+const FlexRow = ({ color, children }) => (
+  <div style={{ color }} className='flex-row'>
+    {children}
+  </div>
+);
 
 export default ({
   color,
@@ -13,7 +18,7 @@ export default ({
   const {
     shippingDetails,
     streetAddress,
-    streetAddress2,
+    secondStreetAddress,
     city,
     state,
     postal,
@@ -24,39 +29,20 @@ export default ({
     <div className='product-template-billing'>
 
       <CycleStepTitle step='2'>{shippingDetails}</CycleStepTitle>
-      <div style={{ color }} className='flex-row'>
-        <CheckoutInput
-          disabled
-          label={streetAddress}
-        />
-      </div>
-      <div style={{ color }} className='flex-row'>
-        <CheckoutInput
-          disabled
-          label={streetAddress2}
-        />
-      </div>
-      <div style={{ color }} className='flex-row'>
-        <CheckoutInput
-          disabled
-          label={city}
-        />
-        <CheckoutInput
-          disabled
-          label={state}
-        />
-      </div>
-      <div style={{ color }} className='flex-row'>
-        <CheckoutInput
-          disabled
-          // name='postal'
-          label={postal}
-        />
-        <CheckoutInput
-          disabled
-          label={country}
-        />
-      </div>
+      <FlexRow color={color}>
+        <CheckoutInput disabled label={streetAddress} />
+      </FlexRow>
+      <FlexRow color={color}>
+        <CheckoutInput disabled label={secondStreetAddress} />
+      </FlexRow>
+      <FlexRow color={color}>
+        <CheckoutInput disabled label={city} />
+        <CheckoutInput disabled label={state} />
+      </FlexRow>
+      <FlexRow color={color}>
+        <CheckoutInput disabled label={postal} />
+        <CheckoutInput disabled label={country} />
+      </FlexRow>
     </div>
   );
 };

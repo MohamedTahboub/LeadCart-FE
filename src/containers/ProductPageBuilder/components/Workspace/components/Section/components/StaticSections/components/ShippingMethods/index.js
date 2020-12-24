@@ -41,8 +41,9 @@ const getReshapedShippingMethods = (shipping = [], price, limit = 5) => {
   return list;
 };
 
-const ShippingMethods = ({ shippingMethods, ...props }) => {
+const ShippingMethods = ({ shippingMethods, translations = {}, ...props }) => {
   const { state: { product: { price: { amount: price = 0 } = {} } = {} } = {}, actions } = useContext();
+  const { shippingWith: shippingWithLabel = 'Shipping with' } = translations;
   const shippingMethodsList = getReshapedShippingMethods(shippingMethods, price);
   const [selected, setSelectedMethod] = useState();
 
@@ -59,7 +60,7 @@ const ShippingMethods = ({ shippingMethods, ...props }) => {
     <FlexBox flex column className='my-3'>
       {selectedMethodName && (
         <FlexBox flex center='h-center' className='my-2 bold-text'>
-          Shipping to {selectedMethodName}
+          {shippingWithLabel} {selectedMethodName}
         </FlexBox>
       )}
       <ShippingMethodsList

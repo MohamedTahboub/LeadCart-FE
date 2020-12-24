@@ -35,7 +35,6 @@ export default (state = initialState, { type, payload }) => {
   case UPDATE_INTEGRATED_SERVICE_SETTINGS_SUCCESS:
     return state.map((integration) => {
       if (integration._id === payload.integrationId) {
-        console.log('payload.settings', payload.settings);
         return {
           ...integration,
           settings: {

@@ -59,7 +59,7 @@ const StaticSections = ({ onSetting, language, section }) => {
         <FlexBox column id='checkout'>
           {
             twoStepCheckout ? (
-              <MultipleStepForm steps={[shippingDetails ? 'Billing & Shipping Details' : 'Billing Details', 'Payment Details']}>
+              <MultipleStepForm steps={[shippingDetails ? 'Billing & Shipping Details' : 'Billing Details', 'Payment Details']} translations={language?.checkout}>
                 <>
                   <BillingDetails
                     twoStepCheckout={twoStepCheckout}

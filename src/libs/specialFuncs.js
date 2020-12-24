@@ -49,8 +49,8 @@ export const RoundTow = (number) => Math.round(number * 100) / 100;
 
 export const injectDefaultLabels = (languages) => {
   const injectLabelForLanguage = (language) => {
-    const contextsWithLabels = language.contexts.map((context) => {
-      const matchContext = defaultLanguage.contexts.find(({ key }) => key === context.key);
+    const contextsWithLabels = defaultLanguage.contexts.map((context) => {
+      const matchContext = language.contexts.find(({ key }) => key === context.key);
       if (!matchContext) return context;
 
       const words = context.words.map((word) => {
@@ -58,7 +58,7 @@ export const injectDefaultLabels = (languages) => {
 
         if (!matchedWord) return word;
 
-        return { ...word, label: matchedWord.value };
+        return { ...word, ...matchedWord };
       });
 
       return {
@@ -245,4 +245,45 @@ export const downloadFile = (url, fileName) => {
   download.setAttribute('target', '_blank');
   download.setAttribute('download', fileName);
   download.click();
+};
+
+export const getPaymentStatusDetails = (status) => {
+  const paymentStatusTypes = {
+    succeeded: {
+      tip: 'This payment is complete.',
+      type: 'success'
+    },
+    processing: {
+      tip: 'The customer\'s bank is processing this payment',
+      type: 'normal'
+    },
+    pending: {
+      tip: 'The customer\'s bank is processing this payment',
+      type: 'normal'
+    },
+    failed: {
+      tip: 'Payment Failed',
+      type: 'warning'
+    },
+    incomplete: {
+      tip: 'The customer has not completed the payment.',
+      type: 'normal'
+    },
+    requires_payment_method: {
+      tip: 'Customer’s payment failed on your checkout page',
+      type: 'normal'
+    },
+    requires_action: {
+      tip: 'Customer didn\'t Authenticate the payment or transaction',
+      type: 'normal'
+    },
+    disputed: {
+      tip: 'Your customer has filed a dispute',
+      type: 'normal'
+    }
+  };
+
+  const statusEnum = typeof status === 'string' ? status.toLocaleLowerCase() : status;
+
+  return paymentStatusTypes[statusEnum] || {};
 };

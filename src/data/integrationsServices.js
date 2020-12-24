@@ -99,7 +99,7 @@ const services = [
   },
   {
     key: 'lc_moosend',
-    name: 'MooSend',
+    name: 'Moosend',
     brandLogo: brandsLogos.mooSend,
     category: 'Auto Responders',
     description: 'Email marketing & marketing automation platform, with newsletter templates, list segmentation.',

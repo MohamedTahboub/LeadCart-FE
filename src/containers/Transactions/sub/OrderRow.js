@@ -9,6 +9,7 @@ import { FlexBox } from 'components/common/boxes';
 import { Button } from 'components/common/Buttons';
 import clx from 'classnames';
 import { FaFileInvoiceDollar } from 'react-icons/fa';
+import { OrderStatusBadge } from 'containers/CustomersLab/components/common';
 
 const PaymentTypeIcon = ({ type }) => {
   const icon = {
@@ -20,7 +21,7 @@ const PaymentTypeIcon = ({ type }) => {
   return icon || null;
 };
 
-const ProductRow = ({ name, price, offers = [], coupon = {}, currency, className }) => {
+const ProductRow = ({ name, price, offers = [], coupon = {}, currency, className, payment = {} }) => {
   const hasDiscount = coupon.discount > 0;
 
   const hasOffers = Boolean(Array.isArray(offers) && offers.length);
@@ -28,7 +29,9 @@ const ProductRow = ({ name, price, offers = [], coupon = {}, currency, className
     <Fragment>
       <Table.Row className={clx(className, { 'with-relative-rows': hasOffers })}>
         <Table.Cell mainContent={name} mainCellClassName='truncate' />
-        <Table.Cell mainContent={getPriceWithCurrency(price, currency)} />
+        <Table.Cell
+          mainContent={getPriceWithCurrency(price, currency)}
+        />
       </Table.Row>
       {hasOffers &&
         (<FlexBox column >
@@ -59,8 +62,8 @@ const TotalRows = ({ total, tax = {}, currency, shipping = {} }) => {
   const hasTaxes = tax.taxAmount > 0;
   const hasShipping = shipping.cost > 0;
 
-  const trimedTaxesAndShipping = (hasTaxes ? tax.taxAmount : 0) + (hasShipping ? shipping.cost: 0);
-  const subTotal = total - trimedTaxesAndShipping
+  const trimedTaxesAndShipping = (hasTaxes ? tax.taxAmount : 0) + (hasShipping ? shipping.cost : 0);
+  const subTotal = total - trimedTaxesAndShipping;
 
   return (
     <Fragment>
