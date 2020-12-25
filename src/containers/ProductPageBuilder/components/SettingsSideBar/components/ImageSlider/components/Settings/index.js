@@ -16,8 +16,8 @@ const { TextField, Toggle } = InputRow;
 const ImageSliderSettings = () => {
   const {
     state:
-     { modals: { sectionSetting = {} } = {} }
-     = {},
+    { modals: { sectionSetting = {} } = {} }
+    = {},
     actions = {}
   } = useContext();
 
@@ -50,17 +50,16 @@ const ImageSliderSettings = () => {
   };
 
 
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
+  const moveCard = (dragIndex, hoverIndex) => {
     const element = list[dragIndex];
     const newList = update(list, {
       $splice: [
         [dragIndex, 1],
-        [hoverIndex, 0, element]
+        [hoverIndex, 0, { ...element }]
       ]
     });
-
-    onChange({ target: { name: 'list', value: newList } });
-  }, [list]);
+    onChange({ target: { name: 'content.list', value: [...newList] } });
+  };
 
 
   return (
