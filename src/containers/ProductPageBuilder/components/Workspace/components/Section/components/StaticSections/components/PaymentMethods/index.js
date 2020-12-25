@@ -4,7 +4,8 @@ import creditsImage from 'assets/images/payment-cards.png';
 import paypalImage from 'assets/images/paypal-thumbnail.png';
 import creditCardImage from 'assets/images/credit-card-demo.gif';
 import payOnDeliveryImage from 'assets/images/cod_icon.png';
-import cashOnDeliveryImage from 'assets/images/cod_icon.png';
+import sepaDirectDebtLogo from 'assets/images/sepa-direct-debt.png';
+import stripeFPXLogo from 'assets/images/fpx_logo.png';
 import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
 import { connect } from 'react-redux';
 
@@ -39,10 +40,13 @@ const defaultPaymentsMethods = [{
   title: 'Paypal',
   logo: paypalImage
 }];
+
 const getMethodDetails = (name, offlinePayments = [], translations = {}) => {
   const {
     creditCards: creditCardsTitle = 'Credit Cards',
-    payPal: payPalTitle = 'PayPal'
+    payPal: payPalTitle = 'PayPal',
+    sepaDirectDebt: sepaDirectDebtTitle = 'SEPA Direct Debt',
+    StripeFPXTitle = 'FPX'
   } = translations;
   const knownMethods = [
     {
@@ -51,13 +55,26 @@ const getMethodDetails = (name, offlinePayments = [], translations = {}) => {
       logo: creditsImage
     },
     {
+      name: 'SepaDirectDebt',
+      title: sepaDirectDebtTitle,
+      logo: sepaDirectDebtLogo
+    },
+    {
+      name: 'StripeFPX',
+      title: StripeFPXTitle,
+      logo: stripeFPXLogo
+    },
+    {
       name: 'Paypal',
       title: payPalTitle,
       logo: paypalImage
-    }, {
+    },
+    {
       name: 'COD',
-      logo: payOnDeliveryImage
-    }, {
+      logo: payOnDeliveryImage,
+      title: 'Cash on Delivery'
+    },
+    {
       name: 'Razorpay',
       title: payPalTitle,
       logo: razorpayLogo
@@ -74,9 +91,11 @@ const PaymentMethods = ({
   language = {},
   step = 2,
   twoStepCheckout,
+  methods: paymentMethods,
   offlinePayments
 }) => {
-  const { state: { product: { custom: { shippingDetails } = {} }, funnel: { paymentMethods } = {} } } = useContext();
+  console.log('paymentMethods', paymentMethods);
+  const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
   const [method, setMethod] = useState(0);
   const { paymentMethods: paymentMethodsTitle = 'Payment Method' } = language.checkout || {};
 

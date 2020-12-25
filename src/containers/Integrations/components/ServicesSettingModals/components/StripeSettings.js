@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import Toggle from 'components/common/Inputs/Toggle';
 
@@ -9,10 +8,10 @@ only available to Stripe accounts in Malaysia. If your business is in this count
  you can switch your country by going to your stripe account settings before using it`;
 
 
-const { FlexBox, InputRow, Tooltip } = common;
+const { FlexBox, InputRow } = common;
 const { Label } = InputRow;
 
-const StripeSettings = ({ onChange, service = {}, ...props }) => {
+const StripeSettings = ({ onChange, service = {} }) => {
   const { sepaEnabled, fpxEnabled } = service;
 
 
@@ -32,13 +31,11 @@ const StripeSettings = ({ onChange, service = {}, ...props }) => {
         <Label notes={FPXNotes} >
           FPX payments
         </Label>
-        <Tooltip text='coming soon' placement='right'>
-          <Toggle
-            name='fpxEnabled'
-          // value={fpxEnabled}
-          // onToggle={(target) => onChange({ target })}
-          />
-        </Tooltip>
+        <Toggle
+          name='fpxEnabled'
+          value={fpxEnabled}
+          onToggle={(target) => onChange({ target })}
+        />
       </FlexBox>
     </FlexBox>
   );
