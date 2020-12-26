@@ -13,7 +13,8 @@ export const Image = ({
   uploadFile,
   name = 'imageHolder',
   onChange,
-  onOpenImageFile
+  onOpenImageFile,
+  onCancel
 }) => {
   let fileInput = '';
 
@@ -26,10 +27,13 @@ export const Image = ({
 
   const uploadImage = ({ target: { files, name: source } }) => {
     const file = files[0];
+    const canceled = !file;
 
     if (file && !(file.size > 1024 ** 2))
       uploadFile({ file, type: 'products', source }, { onSuccess: (fileLink) => onChange({ name, value: fileLink }) });
 
+    if (isFunction(onCancel) && canceled)
+      onCancel();
   };
 
   const imageStyle = {

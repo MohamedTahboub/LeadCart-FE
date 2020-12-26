@@ -122,6 +122,11 @@ const ImageSlider = ({ section, ...props }) => {
       setPausedAutoPlay(true);
   };
 
+  const onCancelUploadImage = () => {
+    if (autoPlay)
+      setPausedAutoPlay(false);
+  };
+
 
   const onSizeChange = (size) => {
     actions.onSectionFieldChange({
@@ -271,6 +276,7 @@ const ImageSlider = ({ section, ...props }) => {
           style={currentStyle}
           hasBlurBackgroundImage={hasBlurBackgroundImage}
           onOpenImageFile={onOpenImageFile}
+          onCancel={onCancelUploadImage}
         />
         <NextButton {...arrowsProps} />
       </FlexBox>

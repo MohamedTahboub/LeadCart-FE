@@ -76,6 +76,8 @@ const ItemsControllers = ({ moveCard }) => {
             list.map((ele, index) => {
               return (
                 <Item
+                  key={ele.id}
+                  img={ele?.img}
                   onImageChange={onImageChange(index)}
                   onDelete={onDeleteItem(index)}
                   index={index}

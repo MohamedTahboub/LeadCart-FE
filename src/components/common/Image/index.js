@@ -5,12 +5,14 @@ import * as filesActions from 'actions/files';
 
 
 import './style.css';
+import { isFunction } from 'libs/checks';
 
 export const Image = ({
   image: initImage = avatarLink,
   className = '',
   // files,
   uploadFile,
+  onSelectImageCanceled,
   name = 'imageHolder',
   onChange
 }) => {
@@ -23,9 +25,10 @@ export const Image = ({
     const file = files[0];
 
     if (file && !(file.size > 1024 ** 2)) {
-      uploadFile({ file, type: 'products', source }, {
-        onSuccess: (fileLink) => onChange({ name, value: fileLink })
-      });
+      uploadFile({ file, type: 'products', source }, { onSuccess: (fileLink) => onChange({ name, value: fileLink }) });
+    } else {
+      if (isFunction(onSelectImageCanceled))
+        onSelectImageCanceled();
     }
   };
 

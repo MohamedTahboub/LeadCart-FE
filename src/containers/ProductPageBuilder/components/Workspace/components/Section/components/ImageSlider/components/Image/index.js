@@ -7,7 +7,7 @@ import './style.css';
 
 const { FlexBox } = common;
 
-const Image = ({ img, onImageChange, className, hasBlurBackgroundImage, name, style, onOpenImageFile, ...props }) => {
+const Image = ({ img, onImageChange, className, hasBlurBackgroundImage, name, style, onOpenImageFile, onCancel, ...props }) => {
   const imageStyle = hasBlurBackgroundImage ? { backgroundImage: `url(${img})` } : {};
 
   return (
@@ -18,6 +18,7 @@ const Image = ({ img, onImageChange, className, hasBlurBackgroundImage, name, st
         name={name}
         onChange={onImageChange}
         onOpenImageFile={onOpenImageFile}
+        onCancel={onCancel}
       />
     </FlexBox>
   );

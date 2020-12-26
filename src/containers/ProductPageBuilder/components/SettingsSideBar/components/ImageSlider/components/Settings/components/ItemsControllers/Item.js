@@ -10,33 +10,34 @@ import './style.css';
 
 const { FlexBox } = common;
 
-const Item = ({ onDelete, onImageChange, index, moveCard, ele = {}, hasOneElement }) => {
-  const { img, id } = ele;
+const dropTypes = { sliderContentController: Symbol('SLIDER_CONTENT_CONTROLLER') };
 
-  const dropTypes = { sliderContentController: Symbol('SLIDER_CONTENT_CONTROLLER') };
-  const ref = useRef(null);
+const Item = ({ onDelete, onImageChange, img, index, moveCard, id, ele, hasOneElement }) => {
 
-  const [, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: dropTypes.sliderContentController,
-    hover (item) {
-      if (!ref.current)
+    drop: (item) => {
+      // ignore if its dragged over itself
+      if (index === item.index)
         return;
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      moveCard(dragIndex, hoverIndex);
-      item.index = hoverIndex;
-    }
+      moveCard(item.index, index);
+    },
+
+    collect: (monitor) => ({ isOver: monitor.isOver() })
   });
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type: dropTypes.sliderContentController, ele, id },
+    item: { type: dropTypes.sliderContentController, ele, id, index },
     collect: (monitor) => ({ isDragging: monitor.isDragging() })
   });
 
+  const style = { opacity: isOver ? 0.6 : isDragging ? 0 : 1 };
 
   return (
-    <FlexBox className='image-slider-add-one-item v-center mb-3' elementRef={drop(ref)} >
-      {!hasOneElement && <MdDragHandle className='image-slider-add-item-move' ref={drag(ref)} />}
+    <FlexBox className='image-slider-add-one-item v-center mb-2' style={style} elementRef={(ref) => ref && drop(ref)}>
+      <div ref={drag}>
+        {!hasOneElement && <MdDragHandle className='image-slider-add-item-move' size={24} />}
+      </div>
       <Image
         img={img}
         onImageChange={onImageChange}
