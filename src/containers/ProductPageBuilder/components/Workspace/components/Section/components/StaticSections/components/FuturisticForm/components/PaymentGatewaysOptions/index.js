@@ -6,6 +6,9 @@ import paypalImage from 'assets/images/paypal-thumbnail.png';
 import cashOnDeliveryImage from 'assets/images/cod_icon.png';
 import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
 import PaymentGatewayImage from '../PaymentGatewayImage';
+import sepaDirectDebtLogo from 'assets/images/sepa-direct-debt.png';
+// import cashOnDeliveryImage from 'assets/images/cod_icon.png';
+import stripeFPXLogo from 'assets/images/fpx_logo.png';
 import { connect } from 'react-redux';
 
 import { InputField, RadioGroup } from '../Inputs';
@@ -17,7 +20,9 @@ const getPaymentImageByName = (name, offlinePayments = []) => {
     Paypal: paypalImage,
     Stripe: creditsImage,
     COD: cashOnDeliveryImage,
-    Razorpay: razorpayLogo
+    Razorpay: razorpayLogo,
+    SepaDirectDebt: sepaDirectDebtLogo,
+    StripeFPX: stripeFPXLogo
   };
   const image = images[name];
   const offlineLogo = offlinePayments.find((payment) => payment.name === name);
@@ -34,7 +39,6 @@ const PaymentGatewaysOptions = ({
 }) => {
 
   const [active, setActive] = useState(methods[0]);
-
   const {
     cardNumberInputField: cardNumberInputFieldLabel = 'Card Number',
     cardCVCInputField: cardCVCInputFieldLabel = 'Expiry date',
