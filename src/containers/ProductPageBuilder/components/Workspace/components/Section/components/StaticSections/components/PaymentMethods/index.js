@@ -94,7 +94,6 @@ const PaymentMethods = ({
   methods: paymentMethods,
   offlinePayments
 }) => {
-  console.log('paymentMethods', paymentMethods);
   const { state: { product: { custom: { shippingDetails } = {} } } } = useContext();
   const [method, setMethod] = useState(0);
   const { paymentMethods: paymentMethodsTitle = 'Payment Method' } = language.checkout || {};

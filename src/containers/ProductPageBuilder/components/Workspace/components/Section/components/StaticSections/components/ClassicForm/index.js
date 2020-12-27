@@ -45,7 +45,6 @@ const getStepsNames = (shippingDetails, shippingMethodsEnabled, translations = {
 
 };
 const ClassicForm = ({ language, section, paymentMethods }) => {
-  console.log('paymentMethods', paymentMethods);
   const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
   const {
     state: {
