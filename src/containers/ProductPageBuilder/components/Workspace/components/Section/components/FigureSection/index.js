@@ -4,10 +4,9 @@ import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import QuillEditor from 'components/QuillEditor';
-import Image from 'components/common/Image';
 
 import './style.css';
-const { FlexBox } = common;
+const { FlexBox, ResizableImage } = common;
 
 const Figure = ({
   className,
@@ -24,7 +23,7 @@ const Figure = ({
     } = {}
   } = section;
 
-  const { theme = 'right-theme' } = styles;
+  const { theme = 'right-theme', imageSize: { width, height } = {} } = styles;
 
 
   const sectionClasses = clx({
@@ -56,19 +55,31 @@ const Figure = ({
     });
   };
 
+
+  const onSizeChange = ({ key, height, width }) => {
+    const value = key === 'height' ? height : width;
+    onChange({ name: `styles.imageSize.${key}`, value });
+  };
+
   return (
     <FlexBox
       center='h-center'
       className={clx('figure-section', className)}
       reverse={theme === 'right-theme'}
     >
-      <Image
+
+      <ResizableImage
         className='figure-section-image'
-        image={imageSrc}
+        src={imageSrc}
         alt='figure illustration photo'
         name={`figure-image-${id}`}
         onChange={onImageChange}
+        onResizeStop={onSizeChange}
+        size={{ width, height }}
+        verticalResizable={theme === 'right-theme' ? 'left' : 'right'}
+        horizontalResizable
       />
+
       <FlexBox flex column className={sectionClasses}>
         <QuillEditor
           value={textContent}

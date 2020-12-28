@@ -32,6 +32,7 @@ import CustomCheckbox from './Checkbox';
 import CustomReactToggle from './CustomReactToggle';
 import CustomRadio from './CustomRadio';
 import CustomSlider from './CustomSlider';
+import ResizableImage from './ResizableImage';
 
 export default {
   Table,
@@ -67,5 +68,6 @@ export default {
   CustomCheckbox,
   CustomReactToggle,
   CustomRadio,
-  CustomSlider
+  CustomSlider,
+  ResizableImage
 };
