@@ -5,6 +5,7 @@ import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { notification, openNewWindow } from 'libs';
 import ServiceCard from './ServiceCard';
+import clx from 'classnames';
 
 const { FlexBox, Button, InputRow, LayoutSwitch } = common;
 const { TextField } = InputRow;
@@ -78,11 +79,11 @@ const ConnectApiKey = ({
   onSubmit
 }) => (
   <FlexBox column>
-    {fields.map(({ name, label }) => (
+    {fields.map(({ name, label, note: instructions = note }) => (
       <Statement
         key={name}
         label={label}
-        note={note}
+        note={instructions}
         value={(
           <TextField
             name={name}
@@ -144,11 +145,13 @@ const ConnectIntegration = ({ authType, onConnect, onModalToggle, ...props }) =>
 
 
 const Statement = ({ label, note, value, ...props }) => (
-  <FlexBox center='v-center margin-top-10' {...props}>
-    <div className='label-text margin-right-10 bold-text'>
-      {label}
-      {note && <span className='note-text mx-2'>({note})</span>}
-    </div>
+  <FlexBox flexStart={note} center={clx({ 'v-center': !note })} className='margin-top-10' {...props}>
+    <FlexBox column flexStart className='label-text margin-right-10 bold-text'>
+      <span>
+        {label}
+      </span>
+      {note && <span className='note-text mx-2 max-width-200'>({note})</span>}
+    </FlexBox>
     {value && <div className='label-text'>{value}</div>}
   </FlexBox>
 );

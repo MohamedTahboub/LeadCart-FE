@@ -265,6 +265,24 @@ const services = [
     supported: true
   },
   {
+    key: 'lc_acadle',
+    name: 'Acadle',
+    brandLogo: brandsLogos.acadleLogo,
+    description: 'Acadle is a SaaS white-labelled academy builder, for enterprises to automate customer and employee onboarding.',
+    category: 'Membership Platforms',
+    fields: [
+      { name: 'apiKey', label: 'API Key' },
+      {
+        name: 'domainName',
+        label: 'Your Acadel domain',
+        note: 'Make sure to enter your acadel domain if you have a custom domain (e.g yourdomain.com) connected, or your subdomain (e.g youracademy.acadle.com)'
+      }
+    ],
+    active: false,
+    connected: false,
+    supported: true
+  },
+  {
     key: 'lc_membermouse',
     name: 'MemberMouse',
     brandLogo: brandsLogos.memberMouse,

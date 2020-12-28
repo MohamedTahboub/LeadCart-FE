@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { LayoutSwitch } from 'components/common/Layout';
 
 import {
+  AcadleDependencies,
   Common,
   Twilio
 } from './components';
@@ -14,6 +15,7 @@ const ExternalIntegrationDependencies = (props) => {
     <LayoutSwitch active={integrationKey} fallback={<Common {...props} />}>
       <Common {...props} id='classic' />
       <Twilio {...props} id='lc_twilio' />
+      <AcadleDependencies {...props} id='lc_acadle' />
     </LayoutSwitch>
   );
 };
