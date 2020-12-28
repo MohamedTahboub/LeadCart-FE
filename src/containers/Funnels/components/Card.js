@@ -3,7 +3,7 @@ import defaultFunnelThumbnail from 'assets/images/funnelCardThumbnail.png';
 import EasyAnimate from 'components/common/Animation/EasyAnimate';
 import { MdLaunch } from 'react-icons/md';
 import { FaCircle } from 'react-icons/fa';
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { FiCopy, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import statusBg from 'assets/images/shapes/curves.svg';
 import common from 'components/common';
 const { FlexBox } = common;
@@ -34,6 +34,7 @@ export default ({
   onEdit,
   onPreview,
   onDelete,
+  onDuplicate,
   marketPlace: { publish } = {}
 }) => {
 
@@ -60,6 +61,9 @@ export default ({
             <FlexBox spaceBetween style={{ width: '100%', paddingBottom: '12px' }}>
               <span onClick={onDelete} className='card-icon-wrapper show-on-parent-hover'>
                 <FiTrash2 className='card-icon' />
+              </span>
+              <span onClick={onDuplicate} className='card-icon-wrapper show-on-parent-hover'>
+                <FiCopy className='card-icon' />
               </span>
               <span onClick={onEdit} className='card-icon-wrapper show-on-parent-hover'>
                 <FiEdit2 className='card-icon' />

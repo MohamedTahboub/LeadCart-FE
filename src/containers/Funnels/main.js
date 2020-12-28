@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as funnelsActions from 'actions/funnels';
 import * as productsActions from 'actions/products';
 import { notification } from 'libs';
+import { funnelDuplicateSchema } from 'libs/validation';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import { FunnelCard, FunnelsShadowLoading, PreCreateModal } from './components';
@@ -28,6 +29,7 @@ const Funnels = ({
   subDomain,
   defaultCurrency,
   domains,
+  createFunnel,
   ...props
 }) => {
   const [showDelete, setShowDelete] = useState('');
@@ -70,6 +72,33 @@ const Funnels = ({
     window.open(`${url}${funnelUrl}`, '_blank');
   };
 
+
+  const onDuplicate = (selectedFunnel) => async (e) => {
+    const {
+      isValid,
+      value: funnel
+    } = await funnelDuplicateSchema(selectedFunnel);
+
+    if (!isValid) {
+      notification.failed('There is few invalid fields,check & try to save');
+      return;
+    }
+
+    const duplicatedFunnel = { ...funnel, url: `${funnel.url}-copy`, name: `${funnel.name}-copy` };
+
+    createFunnel(
+      { funnel: duplicatedFunnel },
+      {
+        onSuccess: () => {
+          notification.success('Funnel Duplicated Successfully');
+        },
+        onFailed: (message) => {
+          notification.failed(message);
+        }
+      }
+    );
+  };
+
   const hasFunnels = funnels.length > 0;
 
   return (
@@ -93,6 +122,7 @@ const Funnels = ({
             onDelete={onShowDeleteDialogue(funnel._id)}
             onEdit={onFunnelEdit(funnel.url)}
             onPreview={onPreview(funnel.url)}
+            onDuplicate={onDuplicate(funnel)}
           />
         ))
         }
