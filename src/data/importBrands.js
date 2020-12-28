@@ -34,6 +34,7 @@ export { default as wishListMember } from 'assets/images/brands/wishListMember.p
 export { default as memberMouse } from 'assets/images/brands/memberMouse.png';
 export { default as everlesson } from 'assets/images/brands/everlesson.png';
 export { default as Memberful } from 'assets/images/brands/Memberful.png';
+export { default as acadleLogo } from 'assets/images/brands/acadle-logo.svg';
 
 // Webinar Platforms
 export { default as Demio } from 'assets/images/brands/Demio.png';
