@@ -288,7 +288,7 @@ export const getPaymentStatusDetails = (status) => {
   return paymentStatusTypes[statusEnum] || {};
 };
 
-export const getAvailablePaymentMethods = (methods, paymentsSettings) => {
+export const getAvailablePaymentMethods = (methods = [], paymentsSettings) => {
   const enabledPaymentMethods = [...methods];
 
   const { sepaEnabled, fpxEnabled } = paymentsSettings || {};
