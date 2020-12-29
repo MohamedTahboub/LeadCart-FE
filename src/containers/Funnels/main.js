@@ -80,7 +80,7 @@ const Funnels = ({
     } = await funnelDuplicateSchema(selectedFunnel);
 
     if (!isValid) {
-      notification.failed('There is few invalid fields,check & try to save');
+      notification.failed('Missing or invalid fields, please check your fields and try again');
       return;
     }
 
