@@ -1,8 +1,7 @@
 import React from 'react';
-import common from 'components/common';
 import clx from 'classnames';
 
-const { ResizableTextarea } = common;
+import QuillEditor from 'components/QuillEditor';
 
 const featureThemes = {
   orderedCircles: 'point-ordered-circles',
@@ -12,6 +11,8 @@ const featureThemes = {
   unorderedRectangles: 'point-unordered-bullets',
   unorderedCheckMarkRectangles: 'point-unordered-bullets check-marks'
 };
+
+
 const Feature = ({
   className,
   color = '#00D084',
@@ -47,14 +48,14 @@ const Feature = ({
           ) : null
         }
       </span>
-      <ResizableTextarea
+
+      <QuillEditor
+        value={text || 'Feature description'}
         className='feature-item-input'
-        name={id}
-        defaultValue='Feature description'
-        onChange={onChange}
-        value={text}
-        textarea
+        onEdit={(value) => onChange({ target: { name: id, value } })}
+        bounds='#product-builder-window'
       />
+
       <span className='feature-item-delete-btn'>
         <i
           role='presentation'

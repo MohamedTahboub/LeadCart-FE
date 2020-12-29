@@ -14,6 +14,16 @@
   color: #A2A2A2;
 }
 
+.feature-item-input .ql-editor{
+  padding: 2px;
+  border: 1px solid transparent;  
+  border-radius: 3px;
+}
+
+.feature-item-input .ql-editor:focus{
+  border: 1px solid gray;
+}
+
 .feature-item-delete-btn {
   position: absolute;
   opacity: 0;
