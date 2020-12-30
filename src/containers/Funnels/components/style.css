@@ -82,6 +82,17 @@
     overflow: hidden;
 }
 
+
+.funnel-card-duplicate{
+    border: none;
+    cursor: pointer;
+}
+
+.funnel-card-duplicate:focus{
+    border: none;
+    outline: none;
+}
+
 .funnel-bg {
     padding: 5px 10px;
     background-size: 100% auto;
