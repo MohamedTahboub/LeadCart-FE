@@ -274,8 +274,8 @@ const services = [
       { name: 'apiKey', label: 'API Key' },
       {
         name: 'domainName',
-        label: 'Your Acadel domain',
-        note: 'Make sure to enter your acadel domain if you have a custom domain (e.g yourdomain.com) connected, or your subdomain (e.g youracademy.acadle.com)'
+        label: 'Your Acadle domain',
+        note: 'Make sure to enter your Acadle domain (eg. youracademy.acadle.com)'
       }
     ],
     active: false,
