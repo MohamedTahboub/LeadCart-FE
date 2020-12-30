@@ -35,6 +35,7 @@ export default ({
   onPreview,
   onDelete,
   onDuplicate,
+  disabledDuplicate,
   marketPlace: { publish } = {}
 }) => {
 
@@ -62,9 +63,9 @@ export default ({
               <span onClick={onDelete} className='card-icon-wrapper show-on-parent-hover'>
                 <FiTrash2 className='card-icon' />
               </span>
-              <span onClick={onDuplicate} className='card-icon-wrapper show-on-parent-hover'>
+              <button onClick={onDuplicate} disabled={disabledDuplicate} className='card-icon-wrapper show-on-parent-hover item-clickable funnel-card-duplicate' >
                 <FiCopy className='card-icon' />
-              </span>
+              </button>
               <span onClick={onEdit} className='card-icon-wrapper show-on-parent-hover'>
                 <FiEdit2 className='card-icon' />
               </span>

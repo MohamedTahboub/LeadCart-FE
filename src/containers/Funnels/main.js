@@ -34,6 +34,7 @@ const Funnels = ({
 }) => {
   const [showDelete, setShowDelete] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [disabledDuplicate, setDisabledDuplicate] = useState(false);
 
   const onFunnelEdit = (url) => () => {
     props.history.push(`/funnels/${url}`);
@@ -73,7 +74,33 @@ const Funnels = ({
   };
 
 
+  const getFunnelDuplicatedName = (mainName, key) => {
+    const funnelsNames = funnels.map(({ name }) => name);
+    const funnelsUrls = funnels.map(({ url }) => url);
+    const targetedData = key === 'url' ? funnelsUrls : funnelsNames;
+    const hasOneCopy = targetedData.includes(`${mainName}-copy`);
+
+    if (!hasOneCopy) {
+      return `${mainName}-copy`;
+    } else {
+      const theCopiedNames = targetedData.filter((name) => name.slice(0, -1) === `${mainName}-copy-`);
+      const theReservedNumbers = theCopiedNames.map((ele) => Number(ele[ele.length - 1])).sort((a, b) => a - b);
+      let theCurrentCopyNumber = theReservedNumbers.length + 1;
+
+      theReservedNumbers.forEach((ele, index) => {
+        if (ele !== index + 1) {
+          theCurrentCopyNumber = index + 1;
+          return;
+        }
+      });
+
+      return `${mainName}-copy-${theCurrentCopyNumber}`;
+    }
+  };
+
+
   const onDuplicate = (selectedFunnel) => async (e) => {
+    setDisabledDuplicate(true);
     const {
       isValid,
       value: funnel
@@ -84,15 +111,17 @@ const Funnels = ({
       return;
     }
 
-    const duplicatedFunnel = { ...funnel, url: `${funnel.url}-copy`, name: `${funnel.name}-copy` };
+    const duplicatedFunnel = { ...funnel, url: getFunnelDuplicatedName(funnel.url, 'url'), name: getFunnelDuplicatedName(funnel.name) };
 
     createFunnel(
       { funnel: duplicatedFunnel },
       {
         onSuccess: () => {
+          setDisabledDuplicate(false);
           notification.success('Funnel Duplicated Successfully');
         },
         onFailed: (message) => {
+          setDisabledDuplicate(false);
           notification.failed(message);
         }
       }
@@ -123,6 +152,7 @@ const Funnels = ({
             onEdit={onFunnelEdit(funnel.url)}
             onPreview={onPreview(funnel.url)}
             onDuplicate={onDuplicate(funnel)}
+            disabledDuplicate={disabledDuplicate}
           />
         ))
         }
