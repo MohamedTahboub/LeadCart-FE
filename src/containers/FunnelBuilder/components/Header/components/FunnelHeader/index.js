@@ -1,11 +1,12 @@
-import React, { Fragment, useState } from 'react';
-import config from 'config';
-import ShareProductModal from 'components/ShareProductModal';
-import { IoIosAdd, IoIosArrowRoundBack } from 'react-icons/io';
-import ToolTip from 'react-tooltip';
+import React, { Fragment, useEffect, useState } from 'react';
 import clx from 'classnames';
+import ToolTip from 'react-tooltip';
+import { IoIosAdd, IoIosArrowRoundBack } from 'react-icons/io';
+import config from 'config';
 
+import ShareProductModal from 'components/ShareProductModal';
 import common from 'components/common';
+import useBlock from 'libs/hooks/useBlock';
 
 
 const { USER_SUB_DOMAIN_URL } = config;
@@ -43,7 +44,7 @@ const CheckoutHeader = ({
   hasValidCheckout
 }) => {
   const [showModal, setShowModal] = useState({});
-
+  const [blocked, setBlocked] = useBlock(true);
 
   const { funnelUrl, rootPath } = getFunnelUrl({ funnelUrl: funnel.url, domains, subdomain });
 
@@ -61,9 +62,15 @@ const CheckoutHeader = ({
   const goToFunnels = () => {
     history.push('/funnels');
   };
+
+
+  useEffect(() => {
+    setBlocked(isFunnelBuilderHasChanges);
+  }, [isFunnelBuilderHasChanges]);
+
+
   return (
     <FlexBox className='white-bg padding-v-5 gray-border-top' center='v-center' spaceBetween wrappable>
-
       <FlexBox center='v-center' className='min-width-250 '>
         <Button onClick={goToFunnels} className='light-btn icon-btn margin-left-20'>
           <IoIosArrowRoundBack />
