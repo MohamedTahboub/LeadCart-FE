@@ -44,7 +44,6 @@ const CheckoutHeader = ({
   hasValidCheckout
 }) => {
   const [showModal, setShowModal] = useState({});
-  const [blocked, setBlocked] = useBlock(true);
 
   const { funnelUrl, rootPath } = getFunnelUrl({ funnelUrl: funnel.url, domains, subdomain });
 
@@ -62,11 +61,6 @@ const CheckoutHeader = ({
   const goToFunnels = () => {
     history.push('/funnels');
   };
-
-
-  useEffect(() => {
-    setBlocked(isFunnelBuilderHasChanges);
-  }, [isFunnelBuilderHasChanges]);
 
 
   return (

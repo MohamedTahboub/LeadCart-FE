@@ -1,21 +1,25 @@
 /* eslint-disable max-depth */
 import React, { useEffect, useState } from 'react';
+import { Prompt } from 'react-router-dom';
+import * as immutable from 'object-path-immutable';
 import PropTypes from 'prop-types';
-import common from 'components/common';
 import { connect } from 'react-redux';
+import queryString from 'querystring';
+
+import common from 'components/common';
 import { funnelSchema } from 'libs/validation';
 import { isFunction } from 'libs/checks';
 import * as funnelActions from 'actions/funnels';
 import * as flashMessages from 'actions/flashMessage';
 import { extractProductsRelations, getStartPointProduct } from 'libs/funnels';
-import queryString from 'querystring';
-import * as immutable from 'object-path-immutable';
 import { isObjectsEquivalent, mapListToObject, notification } from 'libs';
 import { Header, Rules, SideBar, Workspace } from './components';
 import { hasChanges } from './helpers';
+import useBlock from 'libs/hooks/useBlock';
+import { withHistoryListener } from '../../history';
+
 import './style.css';
 
-import { withHistoryListener } from '../../history';
 
 const hasPaypalPayment = ({ paymentMethods = [] } = {}) => {
   return paymentMethods.includes('Paypal');
@@ -57,6 +61,7 @@ const FunnelBuilder = ({
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
   const [productsNodeDetails, setProductsNodeDetails] = useState(productsMap);
   const [unblock, SetUnblock] = useState();
+  const [blocked, setBlocked] = useBlock(false);
 
   const [openRuleModal, setOpenRuleModal] = useState(false);
   const [isFunnelBuilderHasChanges, setIsFunnelBuilderHasChanges] = useState(false);
@@ -240,6 +245,11 @@ const FunnelBuilder = ({
     isSubscriptionCheckout: hasSubscriptionProduct(fields, productsMap),
     funnelProducts: fields.products
   };
+
+  useEffect(() => {
+    setBlocked(isFunnelBuilderHasChanges);
+  }, [isFunnelBuilderHasChanges]);
+
   return (
     <Page fullSize className='flex-container flex-column'>
       <Header {...headerProps} />
@@ -250,6 +260,11 @@ const FunnelBuilder = ({
         </FlexBox>
         <Rules id='rules' {...rulesProps} />
       </LayoutSwitch>
+
+      <Prompt
+        when={isFunnelBuilderHasChanges}
+        message='Are you sure you want to leave without saving your changes?'
+      />
     </Page>
   );
 };
