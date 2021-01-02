@@ -6,6 +6,11 @@ import { FaCircle } from 'react-icons/fa';
 import { FiCopy, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import statusBg from 'assets/images/shapes/curves.svg';
 import common from 'components/common';
+import { PuffLoader } from 'components/common/Spinners';
+import Tooltip from 'components/common/Tooltip';
+import { isFunction } from 'libs/checks';
+import clx from 'classnames';
+
 const { FlexBox } = common;
 
 
@@ -27,15 +32,30 @@ const StatusFeed = ({ active }) => {
 
 StatusFeed.defaultProps = { active: true };
 
+const ControlIcon = ({ onClick, loading, tipText, name, icon, className }) => {
+  const isLoading = (loading && loading === name);
+  const _onClick = (e) => {
+    if (isFunction(onClick) && !isLoading)
+      onClick(e);
+  };
+
+  return (
+    <Tooltip text={tipText} placement='top'>
+      <span onClick={_onClick} className={clx('card-icon-wrapper show-on-parent-hover', { 'transparent-bg': isLoading }, className)}>
+        {!(loading && loading === name) ? icon : <PuffLoader size={18} color='#4da1ff' />}
+      </span>
+    </Tooltip>
+  );
+};
+
 export default ({
   name,
   orderInList,
-  // thumbnail = defaultFunnelThumbnail,
   onEdit,
   onPreview,
   onDelete,
   onDuplicate,
-  disabledDuplicate,
+  loading,
   marketPlace: { publish } = {}
 }) => {
 
@@ -60,15 +80,28 @@ export default ({
           <StatusFeed active={publish} />
           <FlexBox column flex flexEnd >
             <FlexBox spaceBetween style={{ width: '100%', paddingBottom: '12px' }}>
-              <span onClick={onDelete} className='card-icon-wrapper show-on-parent-hover'>
-                <FiTrash2 className='card-icon' />
-              </span>
-              <button onClick={onDuplicate} disabled={disabledDuplicate} className='card-icon-wrapper show-on-parent-hover item-clickable funnel-card-duplicate' >
-                <FiCopy className='card-icon' />
-              </button>
-              <span onClick={onEdit} className='card-icon-wrapper show-on-parent-hover'>
-                <FiEdit2 className='card-icon' />
-              </span>
+              <ControlIcon
+                name='delete'
+                tipText='Delete'
+                icon={<FiTrash2 className='card-icon' />}
+                onClick={onDelete}
+                loading={loading}
+              />
+              <ControlIcon
+                name='duplicate'
+                tipText='Duplicate'
+                icon={<FiCopy className='card-icon' />}
+                onClick={onDuplicate}
+                loading={loading}
+                className='funnel-card-duplicate'
+              />
+              <ControlIcon
+                name='edit'
+                tipText='Edit'
+                icon={<FiEdit2 className='card-icon' />}
+                onClick={onEdit}
+                loading={loading}
+              />
             </FlexBox>
           </FlexBox>
         </FlexBox>
