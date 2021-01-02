@@ -34,7 +34,7 @@ const Funnels = ({
 }) => {
   const [showDelete, setShowDelete] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [disabledDuplicate, setDisabledDuplicate] = useState(false);
+  const [loading, setLoading] = useState();
 
   const onFunnelEdit = (url) => () => {
     props.history.push(`/funnels/${url}`);
@@ -44,15 +44,18 @@ const Funnels = ({
   const onHideDeleteDialogue = () => setShowDelete('');
 
   const onFunnelDelete = () => {
+    setLoading('delete');
     deleteFunnel(
       { funnelId: showDelete },
       {
         onSuccess: () => {
           notification.success('Funnel Deleted Successfully');
           onHideDeleteDialogue();
+          setLoading();
         },
         onFailed: (message) => {
           notification.failed(message);
+          setLoading();
         }
       }
 
@@ -100,7 +103,6 @@ const Funnels = ({
 
 
   const onDuplicate = (selectedFunnel) => async (e) => {
-    setDisabledDuplicate(true);
     const {
       isValid,
       value: funnel
@@ -113,16 +115,18 @@ const Funnels = ({
 
     const duplicatedFunnel = { ...funnel, url: getFunnelDuplicatedName(funnel.url, 'url'), name: getFunnelDuplicatedName(funnel.name) };
 
+
+    setLoading('duplicate');
     createFunnel(
       { funnel: duplicatedFunnel },
       {
         onSuccess: () => {
-          setDisabledDuplicate(false);
           notification.success('Funnel Duplicated Successfully');
+          setLoading();
         },
         onFailed: (message) => {
-          setDisabledDuplicate(false);
           notification.failed(message);
+          setLoading();
         }
       }
     );
@@ -152,12 +156,12 @@ const Funnels = ({
             onEdit={onFunnelEdit(funnel.url)}
             onPreview={onPreview(funnel.url)}
             onDuplicate={onDuplicate(funnel)}
-            disabledDuplicate={disabledDuplicate}
+            loading={loading}
           />
         ))
         }
 
-        {(!hasFunnels && isFetching) && <FunnelsShadowLoading/>}
+        {(!hasFunnels && isFetching) && <FunnelsShadowLoading />}
 
       </PageContent>
 
@@ -174,7 +178,7 @@ const Funnels = ({
           <Button onClick={onHideDeleteDialogue} className='primary-color margin-with-float-left'>
             Cancel
           </Button>
-          <Button onClick={onFunnelDelete} className='danger-bg margin-with-float-right'>
+          <Button onClick={onFunnelDelete} className='danger-bg margin-with-float-right' onprogress={loading === 'delete'}>
             <i className='fas fa-trash-alt' />
               Delete
           </Button>
