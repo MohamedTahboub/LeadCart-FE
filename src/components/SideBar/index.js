@@ -5,19 +5,16 @@ import { Menu } from 'antd';
 import moment from 'moment';
 
 import { HeaderLogo } from 'components/common/logos';
-import BrandsMenu from 'components/BrandsMenu';
-import AvatarPreviewBox from 'components/common/AvatarPreviewBox';
 import { FillerButton } from 'components/Buttons';
 import common from 'components/common';
 import { notification } from 'libs';
-import { accountSettingsMenus, main as sidebarMenus } from './menus';
-import Icons from './icons';
 
 import * as brandsAction from 'actions/brands';
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
 
 import { appInit } from 'actions/appInit';
+import { AvatarPreviewBox, BrandsMenu, Icons, accountSettingsMenus, newMenu, main as sidebarMenus } from './components';
 import './style.css';
 
 

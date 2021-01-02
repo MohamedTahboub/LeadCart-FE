@@ -8,11 +8,11 @@ import { v4 as uuid } from 'uuid';
 import { Search } from 'components/Inputs';
 import { insensitiveSearch } from 'helpers/common';
 import { Button } from 'components/Buttons';
-import { NewBrandModal } from '../../containers/Account/components/Brands/components';
+import { NewBrandModal } from '../../../../containers/Account/components/Brands/components';
 import { notification } from 'libs';
-import * as brandsActions from '../../actions/brands';
+import * as brandsActions from '../../../../actions/brands';
 import BrandAvatar from './BrandAvatar';
-import { brandsTypes } from '../../propTypes';
+import { brandsTypes } from '../../../../propTypes';
 
 
 const CREATE_NEW_BRAND = uuid();
