@@ -15,7 +15,7 @@ const getOptions = (values = [], options) => {
     return [];
   return options.filter(({ value }) => values.includes(value));
 };
-const AcadelIntegration = ({ metaData = {}, integrationId, onChange, ...props }) => {
+const AcadleIntegration = ({ metaData = {}, integrationId, onChange, ...props }) => {
 
   const [fields, setValues] = useState({});
   const [loading, setLoading] = useState(false);
@@ -111,6 +111,6 @@ const AcadelIntegration = ({ metaData = {}, integrationId, onChange, ...props })
   );
 };
 
-AcadelIntegration.propTypes = {};
+AcadleIntegration.propTypes = {};
 
-export default connect(null, IntegrationsActions)(AcadelIntegration);
+export default connect(null, IntegrationsActions)(AcadleIntegration);
