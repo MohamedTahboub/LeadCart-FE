@@ -1,0 +1,77 @@
+.brand-avatar-wrapper {
+  position: relative;
+}
+
+.brand-avatar-type,
+.brand-avatar-subscription {
+  position: absolute;
+  left: 14px;
+  bottom: -12px;
+  font-size: .6rem !important;
+  padding: 0 !important;
+  height: 16px !important;
+  line-height: 14px !important;
+}
+
+.brand-avatar-subscription span{
+  font-size: .7rem !important;
+}
+
+.brand-avatar-type{
+  left: 14px;
+  top: 10px;
+  bottom: unset;
+  color: orange;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+
+.sidebar-brands-select-container{
+  width: 85%;
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+.sidebar-brands-select__option:not(:last-child){
+  border-bottom: 1px solid lightgray;
+  background-color: #fff;
+  cursor: pointer;
+  transition: .3s background ease-in-out;
+}
+
+.sidebar-brands-select__option--is-selected{
+  background-color: rgba(80, 150, 249, 0.69) !important;
+  font-weight: bold;
+}
+
+.sidebar-brands-select__option:not(.sidebar-brands-select__option--is-selected):hover{
+  background-color: rgba(80, 150, 249, 0.3) !important;
+}
+
+.active-brand-option .sidebar-brand-option-name {
+  color: #fff;
+}
+
+
+.sidebar-brand-option-img{
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  min-width: 35px;
+  min-height: 35px;
+  margin-right: 5px;
+}
+
+
+.create-new-brand-button{
+  width: 80%;
+  margin: auto;
+  align-items: center;
+  text-align: center;
+}
+
+

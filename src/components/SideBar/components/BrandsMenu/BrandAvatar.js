@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Tag } from 'antd';
 import classNames from 'classnames';
 
-import './index.css';
+import './style.css';
 
 const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
   if (level) {

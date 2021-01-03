@@ -1,36 +1,28 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Menu } from 'antd';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
+import Select from 'react-select';
 
-import { Search } from 'components/Inputs';
-import { insensitiveSearch } from 'helpers/common';
 import { Button } from 'components/Buttons';
 import { NewBrandModal } from '../../../../containers/Account/components/Brands/components';
 import { notification } from 'libs';
 import * as brandsActions from '../../../../actions/brands';
-import BrandAvatar from './BrandAvatar';
 import { brandsTypes } from '../../../../propTypes';
+import common from 'components/common';
 
+
+import './style.css';
 
 const CREATE_NEW_BRAND = uuid();
 
-const { SubMenu, Item: MenuItem, Divider } = Menu;
+const { FlexBox, Title } = common;
 
-const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, createBrand, credits }) => {
-  const [brandsFilter, filterBrands] = useState('');
+const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand, credits }) => {
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
-  const [isBrandsOpen, setBrandsOpen] = useState(false);
-
   const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
-  const _filterBrands = (event) => filterBrands(event.target.value);
-  const _onChange = ({ key }) => (key === CREATE_NEW_BRAND) ? toggleCreateModalOpen() : onChange(key);
-  const onOpenChange = (openKeys) => {
-    setBrandsOpen(openKeys.find((key) => key === 'brands'));
-    onMenuOpen(isBrandsOpen);
-  };
+
   const onCreateBrand = (brand, cb) => {
     const actions = {
       onSuccess: () => {
@@ -45,34 +37,37 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
     createBrand(brand, actions);
   };
 
+
+  const LabelBrandOption = ({ brand }) => {
+    const { id: brandId, logo: brandImg, name: brandName } = brand;
+
+    return (
+      <FlexBox className={classNames('sidebar-brand-option v-center', { 'active-brand-option': brandId === activeBrandId })} onClick={() => onChange(brandId)} >
+        <div className='sidebar-brand-option-img' style={{ backgroundImage: `url(${brandImg})` }} />
+        <Title className='sidebar-brand-option-name' >
+          {brandName}
+        </Title>
+      </FlexBox>
+    );
+  };
+
+
+  const CreateNewBrandButton = () => (
+    <FlexBox className='v-center h-center' >
+      <Button className='create-new-brand-button' onClick={toggleCreateModalOpen} >+ Create new</Button>
+    </FlexBox>
+  );
+
+  const brandsOptions = brands.map((brand) => ({ label: <LabelBrandOption brand={brand} />, value: brand.id })).concat([{ label: <CreateNewBrandButton />, value: CREATE_NEW_BRAND }]);
+
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
+  const ActiveLabelBrandOption = () => <Title className='sidebar-brand-option-name'> {activeBrand.name}</Title>;
+  const activeLabelBrandOption = { label: <ActiveLabelBrandOption name={activeBrand.name} />, value: activeBrand.id };
+
+
   return (
-    <div className={classNames('brands-menu', { 'brands-menu-open': isBrandsOpen })} data-testid='brands-menu'>
-      <Menu
-        className={classNames('brands-navigation', { 'is-open': isBrandsOpen })}
-        mode='inline'
-        selectedKeys={[activeBrand.id]}
-        defaultOpenKeys={[isBrandsOpen && 'brands']}
-        inlineIndent={6}
-        onOpenChange={onOpenChange}
-        onClick={_onChange}
-      >
-        <SubMenu className='always-active fixed-brands-title' title={<span>{activeBrand.name}</span>} key='brands'>
-          <Search placeholder='Search brands...' onChange={_filterBrands} className='minimal-input brands-search' />
-          {
-            brands.filter(({ name }) => insensitiveSearch(brandsFilter, name))
-              .map((brand) => (
-                <MenuItem key={brand.id} className={classNames({ active: brand.id === activeBrandId })}>
-                  <BrandAvatar brand={brand} className='mr-3' />
-                  {brand.name}
-                </MenuItem>
-              ))
-          }
-          <Divider />
-          <MenuItem key={CREATE_NEW_BRAND} className='center-content'><Button>+ Create new</Button></MenuItem>
-        </SubMenu>
-      </Menu>
-      <div style={{ border: '1px solid #E8E8E8' }} />
+    <Fragment>
+      <Select className='sidebar-brands-select-container' options={brandsOptions} value={activeLabelBrandOption} classNamePrefix='sidebar-brands-select' />
       {
         isCreateBrandModalOpen && (
           <NewBrandModal
@@ -82,7 +77,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, onMenuOpen, 
           />
         )
       }
-    </div>
+    </Fragment>
   );
 };
 
@@ -92,5 +87,6 @@ BrandsMenu.propTypes = {
   onChange: PropTypes.func.isRequired,
   createBrand: PropTypes.func.isRequired
 };
+
 const mapStateToProps = ({ redemption: { credits } = {} }) => ({ credits });
 export default connect(mapStateToProps, brandsActions)(BrandsMenu);
