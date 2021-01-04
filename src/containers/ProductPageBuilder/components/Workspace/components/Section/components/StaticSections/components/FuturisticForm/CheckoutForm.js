@@ -31,7 +31,7 @@ const countriesOptions = [{ label: 'United State', value: 'USA' }];
 // const citiesOptions = [];
 
 
-const FlatForm = ({ language, section }) => {
+const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
   const [showSecondAddress, setShowSecondAddress] = useState(false);
   const [activeTab, setActiveTab] = useState('shipping');
 
@@ -44,7 +44,7 @@ const FlatForm = ({ language, section }) => {
   } = section;
   const {
     state: {
-      funnel: { paymentMethods = ['COD'], type } = {},
+      funnel: { type } = {},
       product: {
         name,
         price = {},
@@ -474,7 +474,7 @@ const FlatForm = ({ language, section }) => {
       {hasShippingMethodsEnabled && (
         <FlexBox column>
           <Title className='step-title mt-3'>{shippingMethodTitle}</Title>
-          <ShippingMethods translations={language.checkout}/>
+          <ShippingMethods translations={language.checkout} />
         </FlexBox>
       )}
       <Title className='step-title mt-3'>{paymentMethodsTitle}</Title>

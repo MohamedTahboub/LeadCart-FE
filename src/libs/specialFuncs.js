@@ -287,3 +287,19 @@ export const getPaymentStatusDetails = (status) => {
 
   return paymentStatusTypes[statusEnum] || {};
 };
+
+export const getAvailablePaymentMethods = (methods = [], paymentsSettings) => {
+  const enabledPaymentMethods = [...methods];
+
+  const { sepaEnabled, fpxEnabled } = paymentsSettings || {};
+  if (!Array.isArray(methods)) return [];
+
+  const isStripeEnabled = methods.includes('Stripe');
+
+  if (sepaEnabled && isStripeEnabled)
+    enabledPaymentMethods.push('SepaDirectDebt');
+  if (fpxEnabled && isStripeEnabled)
+    enabledPaymentMethods.push('StripeFPX');
+
+  return enabledPaymentMethods;
+};

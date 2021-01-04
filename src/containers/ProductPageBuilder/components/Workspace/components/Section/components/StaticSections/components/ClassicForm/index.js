@@ -44,11 +44,11 @@ const getStepsNames = (shippingDetails, shippingMethodsEnabled, translations = {
   return defaultSteps;
 
 };
-const ClassicForm = ({ language, section }) => {
+const ClassicForm = ({ language, section, paymentMethods }) => {
   const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
   const {
     state: {
-      funnel: { paymentMethods, type } = {},
+      funnel: { type } = {},
       product: {
         name,
         category: productCategory = 'checkout',
@@ -122,7 +122,7 @@ const ClassicForm = ({ language, section }) => {
     (shippingMethodsEnabled && shippingDetails) && (
       <FlexBox column>
         <CycleStepTitle step='3'>{shippingMethodLabel}</CycleStepTitle>
-        <ShippingMethods translations={language.checkout}/>
+        <ShippingMethods translations={language.checkout} />
       </FlexBox>
     )
   );
@@ -212,7 +212,7 @@ const ClassicForm = ({ language, section }) => {
                     language={language}
                   />
                 )}
-                <PricingOptions format={price.format} title={pricingOptionsLabel}/>
+                <PricingOptions format={price.format} title={pricingOptionsLabel} />
                 {renderShippingMethod}
                 <PaymentMethods
                   twoStepCheckout={twoStepCheckout}

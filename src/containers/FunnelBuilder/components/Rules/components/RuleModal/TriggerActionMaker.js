@@ -247,6 +247,7 @@ const TriggerActionMaker = ({
         onChange={onDependenciesChange}
         integrationId={actionIntegrationId}
         setDisableAdd={setDisableAdd}
+        isEdit={isEdit}
         // isPaypalConnected={isPaypalConnected}
         triggerEvent={triggerEvent}
       />

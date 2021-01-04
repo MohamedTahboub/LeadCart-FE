@@ -654,6 +654,9 @@
   align-items: center;
   background-color: rgba(0, 0, 0, 0.15);
 }
+.card-icon-wrapper.transparent-bg{
+  background: transparent;
+}
 
 .card-icon-wrapper:hover {
   background-color: rgba(0, 0, 0, 0.3);

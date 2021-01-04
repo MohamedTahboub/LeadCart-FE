@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { useContext } from '../../../../../../actions';
-import './style.css';
 import { Feature } from './components';
 
+import './style.css';
 
 const Features = ({ section }) => {
   const { actions } = useContext();

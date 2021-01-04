@@ -89,7 +89,7 @@ const triggerGroupsSchema = yup.object({
 });
 
 
-const funnelRuleSchema = yup.object({
+export const funnelRuleSchema = yup.object({
   trigger: yup.string().required(),
   triggerGroups: yup.array(triggerGroupsSchema).default([])
 });
