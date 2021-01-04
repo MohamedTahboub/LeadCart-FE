@@ -1,35 +1,39 @@
 import React from 'react';
-import avatarLink from 'assets/images/avatar.jpg';
 import { connect } from 'react-redux';
-import * as filesActions from 'actions/files';
 
+import avatarLink from 'assets/images/avatar.jpg';
+import * as filesActions from 'actions/files';
+import { isFunction } from 'libs/checks';
 
 import './style.css';
-import { isFunction } from 'libs/checks';
 
 export const Image = ({
   image: initImage = avatarLink,
   className = '',
-  // files,
   uploadFile,
-  onSelectImageCanceled,
   name = 'imageHolder',
-  onChange
+  onChange,
+  onOpenImageFile,
+  onCancel
 }) => {
   let fileInput = '';
+
   const onImageUpload = () => {
+    if (isFunction(onOpenImageFile))
+      onOpenImageFile();
+
     fileInput.click();
   };
 
   const uploadImage = ({ target: { files, name: source } }) => {
     const file = files[0];
+    const canceled = !file;
 
-    if (file && !(file.size > 1024 ** 2)) {
+    if (file && !(file.size > 1024 ** 2))
       uploadFile({ file, type: 'products', source }, { onSuccess: (fileLink) => onChange({ name, value: fileLink }) });
-    } else {
-      if (isFunction(onSelectImageCanceled))
-        onSelectImageCanceled();
-    }
+
+    if (isFunction(onCancel) && canceled)
+      onCancel();
   };
 
   const imageStyle = {

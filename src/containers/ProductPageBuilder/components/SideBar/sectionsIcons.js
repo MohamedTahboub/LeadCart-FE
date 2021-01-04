@@ -30,7 +30,8 @@ const sectionsIcons = [
   { type: 'featuresSection', title: 'Features', src: features },
   { type: 'bumpOffer', title: 'Bump Offer', src: bumpOffer },
   { type: 'code', title: 'Embed Code', src: embedCode },
-  { type: 'faqs', title: 'FAQs', src: faq }
+  { type: 'faqs', title: 'FAQs', src: faq },
+  { type: 'imageSlider', title: 'Image Slider', src: image }
 ];
 
 export default sectionsIcons;

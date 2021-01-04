@@ -1,6 +1,7 @@
 import ids from 'shortid';
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
 import figureImage from 'assets/images/nested-section-blank.png';
+import defaultDropImage from 'assets/images/upload-image.png';
 
 
 export default {
@@ -303,6 +304,31 @@ export default {
     styles: {
       iconsColor: '#4DA1FF',
       isCustom: 'FaPlusCircle'
+    }
+  },
+  imageSlider: {
+    hidden: false,
+    type: 'imageSlider',
+    content: {
+      list: [
+        { img: defaultDropImage, id: ids.generate() },
+        { img: defaultDropImage, id: ids.generate() },
+        { img: defaultDropImage, id: ids.generate() }
+      ],
+      autoPlay: false,
+      duration: 5000,
+      transitionDuration: 300,
+      infinity: true,
+      hasThumbnail: true,
+      effect: 'opacity'
+    },
+
+    styles: {
+      hasArrows: true,
+      customArrows: 'AiOutlineArrowLeft',
+      height: 350,
+      hasBlurBackgroundImage: false,
+      infinity: true
     }
   }
 };

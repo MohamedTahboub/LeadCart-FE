@@ -1,0 +1,80 @@
+.image-slider-container{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 12px !important;
+  overflow: hidden;
+}
+
+.image-slider-content{
+  position: relative;
+  overflow: hidden;
+}
+
+.image-slider-one-slide{
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+}
+
+
+/* =========================== Arrows Style =========================== */
+.image-slider-prev-arrow,
+.image-slider-next-arrow{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22px;
+  height: 100%;
+  background-color: rgba(256, 256, 256, .4);
+  transition: background .3s ease-in-out, box-shadow .3s ease-in-out;
+  cursor: pointer;
+  z-index: 2;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.image-slider-prev-arrow:hover,
+.image-slider-next-arrow:hover{
+  background-color: rgba(256, 256, 256, .5);
+
+}
+
+.image-slider-prev-arrow:focus,
+.image-slider-next-arrow:focus{
+  outline: none;
+}
+
+.image-slider-next-arrow{
+  box-shadow: -2px 2px 7px rgba(256, 256, 256, .85);
+  right: 0;
+}
+
+.image-slider-prev-arrow{
+  box-shadow: 2px 2px 7px rgba(256, 256, 256, .85);
+  left: 0;
+}
+
+
+.image-slider-disabled-arrow{
+  background-color: rgba(169, 169, 169, .8);
+  filter: grayscale(100%);
+  cursor: not-allowed;
+  box-shadow: -2px 2px 7px lightgray;
+}
+
+.image-slider-disabled-arrow:hover{
+  background-color: rgba(169, 169, 169, .8);
+}
+
+/* ===========================  =========================== */
+.blur-bg-img-container .wrapped-image-container {
+  background-size: contain !important;
+}
