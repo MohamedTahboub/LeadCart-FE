@@ -22,9 +22,6 @@ const UserAvatarPreview = ({
 }) => {
   const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
-  const [isSettingsMenuOpened, setIsSettingsMenuOpened] = useState(false);
-
-
   const {
     profileImage,
     firstName = '',
@@ -40,47 +37,25 @@ const UserAvatarPreview = ({
   };
 
 
-  const toggleUpgradeModalOpen = () => {
-    setUpgradeModalOpen(!isUpgradeModalOpen);
-  };
-
-
-  const toggleSettingsMenuOpened = () => {
-    setIsSettingsMenuOpened(!isSettingsMenuOpened);
-  };
-
-
-  const onNavigateBySettingsMenu = (link) => {
-    history.push(link);
-    toggleSettingsMenuOpened();
-  };
-
-
   return (
     <FlexBox className='sidebar-avatar-container v-center'>
-      <div className='sidebar-avatar-image-container' onClick={toggleSettingsMenuOpened} >
-        <div className='sidebar-avatar-image' style={{ backgroundImage: `url(${profileImage})` }} />
-        <div className='sidebar-avatar-settings-icon' style={{ backgroundImage: `url(${settingsIcon})` }} />
+      <div className='sidebar-avatar-image-container' >
+        <Avatar
+          size={45}
+          image={profileImage}
+          name='user_profile_image'
+          onChange={onAvatarImageChange}
+          className='sidebar-avatar-image'
+        />
+
+        <FlexBox className='sidebar-avatar-settings-icon v-center h-center' onClick={() => history.push('/account')} >
+          <img src={settingsIcon} alt='' />
+        </FlexBox>
       </div>
 
       <Title className='sidebar-avatar-name flex-1 text-center truncate' >
         {userName}
       </Title>
-
-      {isSettingsMenuOpened &&
-        <FlexBox className='sidebar-avatar-settings-menu v-center h-center' column>
-          <Avatar
-            size={40}
-            image={profileImage}
-            name='user_profile_image'
-            onChange={onAvatarImageChange}
-            className='sidebar-avatar-changeable-img mb-2'
-          />
-          <p className='sidebar-avatar-settings-menu-item' onClick={() => onNavigateBySettingsMenu('/account')} >Personal Settings</p>
-          <p className='sidebar-avatar-settings-menu-item' onClick={() => onNavigateBySettingsMenu('/sub-accounts')} >Sub-Accounts Settings</p>
-        </FlexBox>
-      }
-
 
       {/*
       <FlexBox>

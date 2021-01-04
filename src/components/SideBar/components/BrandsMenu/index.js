@@ -2,10 +2,9 @@ import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 import Select from 'react-select';
+import { IoMdAddCircle } from 'react-icons/io';
 
-import { Button } from 'components/Buttons';
 import { NewBrandModal } from '../../../../containers/Account/components/Brands/components';
 import { notification } from 'libs';
 import * as brandsActions from '../../../../actions/brands';
@@ -15,7 +14,6 @@ import common from 'components/common';
 
 import './style.css';
 
-const CREATE_NEW_BRAND = uuid();
 
 const { FlexBox, Title } = common;
 
@@ -52,13 +50,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
   };
 
 
-  const CreateNewBrandButton = () => (
-    <FlexBox className='v-center h-center' >
-      <Button className='create-new-brand-button' onClick={toggleCreateModalOpen} >+ Create new</Button>
-    </FlexBox>
-  );
-
-  const brandsOptions = brands.map((brand) => ({ label: <LabelBrandOption brand={brand} />, value: brand.id })).concat([{ label: <CreateNewBrandButton />, value: CREATE_NEW_BRAND }]);
+  const brandsOptions = brands.map((brand) => ({ label: <LabelBrandOption brand={brand} />, value: brand.id }));
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
   const ActiveLabelBrandOption = () => <Title className='sidebar-brand-option-name'> {activeBrand.name}</Title>;
@@ -67,7 +59,11 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
 
   return (
     <Fragment>
-      <Select className='sidebar-brands-select-container' options={brandsOptions} value={activeLabelBrandOption} classNamePrefix='sidebar-brands-select' />
+      <FlexBox className='sidebar-brands-menu v-center px-2' >
+        <Select className='sidebar-brands-select-container' options={brandsOptions} value={activeLabelBrandOption} classNamePrefix='sidebar-brands-select' />
+        <IoMdAddCircle className='create-new-brand-button item-clickable' onClick={toggleCreateModalOpen} size={18} />
+      </FlexBox>
+
       {
         isCreateBrandModalOpen && (
           <NewBrandModal

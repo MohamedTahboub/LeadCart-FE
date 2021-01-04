@@ -212,28 +212,3 @@ svg.sideBar-icon path {
 .sidebar-topper {
   max-height: calc(100% - 42px);
 }
-
-.sidebar-main-menu-item{  
-    text-align: center;
-    padding: 4px 0;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 15px;
-    transition: .3s background ease-in-out;
-    margin-bottom: 15px;
-}
-
-.sidebar-main-menu-item:hover:not(.active-sidebar-main-menu-item){  
-  background-color: rgba(80, 150, 249, 0.3);
-  color: #fff;
-}
-
-.active-sidebar-main-menu-item{  
-    color: #fff;
-    background-color: rgba(80, 150, 249, 0.69);
-    font-weight: bold;
-    width: 85%;
-    margin-right: auto;
-    margin-left: auto;
-}

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -14,32 +14,8 @@ import { AvatarPreviewBox, BrandsMenu, Menu, MenuFooter } from './components';
 import './style.css';
 
 
-const { InputRow, FlexBox, Title } = common;
-const { SelectOption } = InputRow;
+const { FlexBox } = common;
 
-const BrandSelect = ({
-  brands,
-  value: activeBrand,
-  onChange
-}) => {
-  const options = brands.map(({ name: label, id: value }) => ({ label, value }));
-  return (
-    <Fragment>
-      <span className='tiny-text'>
-        Active Brand:
-      </span>
-      <SelectOption
-        value={activeBrand}
-        name='activeBrand'
-        onChange={onChange}
-        options={options}
-        disabled={!options.length}
-        className='min-width-100 max-width-150'
-      />
-    </Fragment>
-  );
-};
-BrandSelect.defaultProps = { brands: [] };
 
 const SideBar = ({
   history,
@@ -49,8 +25,6 @@ const SideBar = ({
   updateActiveBrand,
   brands
 }) => {
-  const [isBrandsOpen, setBrandsOpen] = useState(false);
-
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
@@ -78,13 +52,11 @@ const SideBar = ({
   };
 
 
-  const onMenuOpen = () => setBrandsOpen(!isBrandsOpen);
-
   return (
     <FlexBox className='side-bar' column >
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
-      <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} onMenuOpen={onMenuOpen} />
+      <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} />
       <Menu user={user} history={history} />
       <MenuFooter history={history} onLogout={logout} />
     </FlexBox>

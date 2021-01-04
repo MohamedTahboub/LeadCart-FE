@@ -5,6 +5,8 @@ import common from 'components/common';
 import config from 'config';
 import { openNewWindow, tokenizedContent } from 'libs';
 
+import './style.css';
+import { useState } from 'react';
 
 const { LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 const { FlexBox, Title } = common;
@@ -98,19 +100,26 @@ export const getSidebarMenuItems = ({ user = {}, history }) => {
 
 
 export default ({ user, history }) => {
-  const sidebarMenuItems = getSidebarMenuItems({ user, history });
   const pathname = history.location.pathname;
+  const sidebarMenuItems = getSidebarMenuItems({ user, history });
 
+  const [activePathname, setActivePathname] = useState(pathname);
+
+
+  const onNavigate = (link) => () => {
+    history.push(link);
+    setActivePathname(link);
+  };
 
   return (
     <FlexBox className='sidebar-main-menu' column flex>
       {
-        sidebarMenuItems.map(({ title, key, link, hide }) => (
+        sidebarMenuItems.map(({ title, key, link, hide, onClick }) => (
           <Fragment>
             {!hide &&
             <Title
-              className={classNames('sidebar-main-menu-item', { 'active-sidebar-main-menu-item': link === pathname })}
-              onClick={() => history.push(link)}
+              className={classNames('sidebar-main-menu-item', { 'active-sidebar-main-menu-item': link === activePathname })}
+              onClick={onClick || onNavigate(link)}
               key={key}
             >
               {title}

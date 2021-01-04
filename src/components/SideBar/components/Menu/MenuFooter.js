@@ -2,9 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 
 import common from 'components/common';
-import { Button } from 'components/Buttons';
 
-const { FlexBox, Title } = common;
+const { FlexBox, Title, Button } = common;
 
 
 const MenuFooter = ({ onLogout, history }) => {
@@ -18,7 +17,7 @@ const MenuFooter = ({ onLogout, history }) => {
       >
       Help
       </Title>
-      <Button className='py-1 px-2 my-2 min-width-150' onClick={onLogout}>Logout</Button>
+      <Button className='my-2 min-width-150 light-btn' onClick={onLogout}>Logout</Button>
     </FlexBox>
   );
 };

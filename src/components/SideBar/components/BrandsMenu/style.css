@@ -68,10 +68,12 @@
 
 
 .create-new-brand-button{
-  width: 80%;
-  margin: auto;
-  align-items: center;
-  text-align: center;
+  color: #4DA1FF;
+  transition: .3s opacity ease-in-out;
+}
+
+.create-new-brand-button:hover{
+  opacity: .8;
 }
 
 
