@@ -11,7 +11,7 @@ import settingsIcon from '../../../../assets/images/user-settings.svg';
 
 import './style.css';
 
-const { FlexBox, Title } = common;
+const { FlexBox, Title, Tooltip } = common;
 
 const UserAvatarPreview = ({
   user,
@@ -48,9 +48,12 @@ const UserAvatarPreview = ({
           className='sidebar-avatar-image'
         />
 
-        <FlexBox className='sidebar-avatar-settings-icon v-center h-center' onClick={() => history.push('/account')} >
-          <img src={settingsIcon} alt='' />
-        </FlexBox>
+
+        <Tooltip mouseEnterDelay={0.3} text='Personal Settings'>
+          <FlexBox className='sidebar-avatar-settings-icon v-center h-center' onClick={() => history.push('/account')} >
+            <img src={settingsIcon} alt='' />
+          </FlexBox>
+        </Tooltip>
       </div>
 
       <Title className='sidebar-avatar-name flex-1 text-center truncate' >

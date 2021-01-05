@@ -6,7 +6,6 @@ import config from 'config';
 import { openNewWindow, tokenizedContent } from 'libs';
 
 import './style.css';
-import { useState } from 'react';
 
 const { LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 const { FlexBox, Title } = common;
@@ -99,17 +98,8 @@ export const getSidebarMenuItems = ({ user = {}, history }) => {
 };
 
 
-export default ({ user, history }) => {
-  const pathname = history.location.pathname;
+export default ({ user, history, onNavigate, activeLink }) => {
   const sidebarMenuItems = getSidebarMenuItems({ user, history });
-
-  const [activePathname, setActivePathname] = useState(pathname);
-
-
-  const onNavigate = (link) => () => {
-    history.push(link);
-    setActivePathname(link);
-  };
 
   return (
     <FlexBox className='sidebar-main-menu' column flex>
@@ -118,7 +108,7 @@ export default ({ user, history }) => {
           <Fragment>
             {!hide &&
             <Title
-              className={classNames('sidebar-main-menu-item', { 'active-sidebar-main-menu-item': link === activePathname })}
+              className={classNames('sidebar-main-menu-item', { 'active-sidebar-main-menu-item': link === activeLink })}
               onClick={onClick || onNavigate(link)}
               key={key}
             >

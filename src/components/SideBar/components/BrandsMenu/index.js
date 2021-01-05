@@ -15,7 +15,7 @@ import common from 'components/common';
 import './style.css';
 
 
-const { FlexBox, Title } = common;
+const { FlexBox, Title, Tooltip } = common;
 
 const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand, credits }) => {
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
@@ -60,8 +60,11 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
   return (
     <Fragment>
       <FlexBox className='sidebar-brands-menu v-center px-2' >
+        <Tooltip mouseEnterDelay={0.3} text='Create New Brand'>
+          <IoMdAddCircle className='create-new-brand-button item-clickable' onClick={toggleCreateModalOpen} size={18} />
+        </Tooltip>
+
         <Select className='sidebar-brands-select-container' options={brandsOptions} value={activeLabelBrandOption} classNamePrefix='sidebar-brands-select' />
-        <IoMdAddCircle className='create-new-brand-button item-clickable' onClick={toggleCreateModalOpen} size={18} />
       </FlexBox>
 
       {

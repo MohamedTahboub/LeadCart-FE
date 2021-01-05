@@ -28,7 +28,6 @@ display: flex; */
   display: flex;
   background: #FFF;
   padding: 25px 15px;
-  border-radius: 5px;
   box-shadow: 0 1px 3px #999999b3;
 }
 
@@ -139,3 +138,18 @@ display: flex; */
 .redemption .text-input-filed-container{
   width: 100%;
 }
+
+
+
+.personal-settings-page .page-content-container{
+  padding: 0;
+  top: 52px;
+}
+
+
+
+.personal-settings-page .active-header-tab {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+}
+

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -13,9 +13,7 @@ import { AvatarPreviewBox, BrandsMenu, Menu, MenuFooter } from './components';
 
 import './style.css';
 
-
 const { FlexBox } = common;
-
 
 const SideBar = ({
   history,
@@ -25,6 +23,9 @@ const SideBar = ({
   updateActiveBrand,
   brands
 }) => {
+  const pathname = history.location.pathname;
+  const [activeLink, setActiveLink] = useState(pathname);
+
   const onActiveBrandChange = (activeBrand) => {
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
@@ -52,13 +53,18 @@ const SideBar = ({
   };
 
 
+  const onNavigate = (link) => () => {
+    setActiveLink(link);
+    history.push(link);
+  };
+
   return (
     <FlexBox className='side-bar' column >
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} />
-      <Menu user={user} history={history} />
-      <MenuFooter history={history} onLogout={logout} />
+      <Menu user={user} history={history} onNavigate={onNavigate} activeLink={activeLink} />
+      <MenuFooter onLogout={logout} onNavigate={onNavigate} activeLink={activeLink} />
     </FlexBox>
   );
 };

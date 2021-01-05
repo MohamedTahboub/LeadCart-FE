@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Table, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -121,8 +121,7 @@ const SubAccountsSection = ({
     }
   ];
   return (
-    <Page>
-      <PageHeader>Sub Accounts</PageHeader>
+    <Fragment>
       <PageContent>
         <FlexBox column className='white-bg p-3 soft-edges'>
           <FlexBox center='v-center' spaceBetween className='mb-2'>
@@ -216,7 +215,7 @@ const SubAccountsSection = ({
           </Modal>
         )
       }
-    </Page>
+    </Fragment>
   );
 
 };
