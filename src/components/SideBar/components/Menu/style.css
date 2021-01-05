@@ -5,7 +5,6 @@
 
 .sidebar-main-menu-item{  
   text-align: center;
-  padding: 4px 0;
   border-radius: 3px;
   cursor: pointer;
   font-weight: 500;
@@ -13,12 +12,13 @@
   transition: .3s background ease-in-out, .3s color ease-in-out;
   letter-spacing: 0px;
   width: 85%;
-  margin: 5px auto;
+  padding: 2px 0;
+  margin: 2px auto;
 }
 
 .sidebar-main-menu-item:hover,
 .active-sidebar-main-menu-item{  
-  color: #fff;
-  background-color: rgba(80, 150, 249, 0.69);
+  color: #47678c;
+  background-color: #5096f929;
   font-weight: bold;
 }
