@@ -21,7 +21,8 @@ const SideBar = ({
   appInit,
   logout,
   updateActiveBrand,
-  brands
+  brands,
+  credits
 }) => {
   const pathname = history.location.pathname;
   const [activeLink, setActiveLink] = useState(pathname);
@@ -57,14 +58,22 @@ const SideBar = ({
     setActiveLink(link);
     history.push(link);
   };
+  const menuProps = {
+    user,
+    history,
+    onNavigate,
+    activeLink,
+    onLogout: logout,
+    credits
+  };
+
 
   return (
     <FlexBox className='side-bar' column >
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
       <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} />
-      <Menu user={user} history={history} onNavigate={onNavigate} activeLink={activeLink} />
-      <MenuFooter onLogout={logout} onNavigate={onNavigate} activeLink={activeLink} />
+      <Menu {...menuProps} />
     </FlexBox>
   );
 };

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import common from 'components/common';
 import config from 'config';
 import { openNewWindow, tokenizedContent } from 'libs';
+import MenuFooter from './MenuFooter';
 
 import './style.css';
 
@@ -11,9 +12,10 @@ const { LEADCART_AFFILIATE_CENTER_URL, AFFILIATE_ENCODING_KEY } = config;
 const { FlexBox, Title } = common;
 
 
-export const getSidebarMenuItems = ({ user = {}, history }) => {
+export const getSidebarMenuItems = ({ user = {}, history, credits }) => {
   const { firstName, lastName, activeBrand, email, profileImage, token, activePackage = {} } = user;
   const isPremium = Boolean(activePackage && activePackage.type === 'Premium');
+  const hasCredits = credits > 0;
 
   return (
     [
@@ -87,6 +89,12 @@ export const getSidebarMenuItems = ({ user = {}, history }) => {
         }
       },
       {
+        title: 'Sub-Accounts',
+        key: 'subAccounts',
+        link: '/sub-accounts',
+        hide: !hasCredits
+      },
+      {
         title: 'Brand Settings',
         key: 'brandSettings',
         link: '/settings/general',
@@ -98,15 +106,17 @@ export const getSidebarMenuItems = ({ user = {}, history }) => {
 };
 
 
-export default ({ user, history, onNavigate, activeLink }) => {
-  const sidebarMenuItems = getSidebarMenuItems({ user, history });
+export default ({ user, history, onNavigate, activeLink, onLogout, credits }) => {
+  const sidebarMenuItems = getSidebarMenuItems({ user, history, credits });
+
 
   return (
-    <FlexBox className='sidebar-main-menu' column flex>
-      {
-        sidebarMenuItems.map(({ title, key, link, hide, onClick }) => (
-          <Fragment>
-            {!hide &&
+    <FlexBox className='sidebar-main-menu-container' column flex>
+      <FlexBox className='sidebar-main-menu' column flex>
+        {
+          sidebarMenuItems.map(({ title, key, link, hide, onClick }) => (
+            <Fragment>
+              {!hide &&
             <Title
               className={classNames('sidebar-main-menu-item', { 'active-sidebar-main-menu-item': link === activeLink })}
               onClick={onClick || onNavigate(link)}
@@ -114,10 +124,13 @@ export default ({ user, history, onNavigate, activeLink }) => {
             >
               {title}
             </Title>
-            }
-          </Fragment>
-        ))
-      }
+              }
+            </Fragment>
+          ))
+        }
+      </FlexBox>
+
+      <MenuFooter onLogout={onLogout} onNavigate={onNavigate} activeLink={activeLink} />
     </FlexBox>
   );
 };

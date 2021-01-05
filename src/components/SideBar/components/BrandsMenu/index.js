@@ -60,7 +60,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
   return (
     <Fragment>
       <FlexBox className='sidebar-brands-menu v-center px-2' >
-        <Tooltip mouseEnterDelay={0.3} text='Create New Brand'>
+        <Tooltip mouseEnterDelay={0.3} text='Create New Brand' placement='topRight'>
           <IoMdAddCircle className='create-new-brand-button item-clickable' onClick={toggleCreateModalOpen} size={18} />
         </Tooltip>
 

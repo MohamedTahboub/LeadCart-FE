@@ -1,8 +1,12 @@
+.sidebar-main-menu-container{
+  overflow: auto;
+}
+
 
 .sidebar-main-menu-item{  
   text-align: center;
   padding: 4px 0;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
   font-weight: 500;
   font-size: 15px;
