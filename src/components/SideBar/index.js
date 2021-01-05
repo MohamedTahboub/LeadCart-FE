@@ -9,7 +9,7 @@ import * as brandsAction from 'actions/brands';
 import * as logout from 'actions/logout';
 import * as modalsActions from 'actions/modals';
 import { appInit } from 'actions/appInit';
-import { AvatarPreviewBox, BrandsMenu, Menu, MenuFooter } from './components';
+import { AvatarPreviewBox, BrandsMenu, Menu } from './components';
 
 import './style.css';
 
@@ -26,8 +26,12 @@ const SideBar = ({
 }) => {
   const pathname = history.location.pathname;
   const [activeLink, setActiveLink] = useState(pathname);
+  const [brandSelectLoading, setBrandSelectLoading] = useState(false);
+
 
   const onActiveBrandChange = (activeBrand) => {
+    setBrandSelectLoading(true);
+
     updateActiveBrand({ activeBrand }, {
       onSuccess: () => {
         appInit({
@@ -41,14 +45,17 @@ const SideBar = ({
           onSuccess: () => {
             const brand = brands.find(({ id }) => id === activeBrand) || {};
             notification.success(`You Now On the ${brand.name}`);
+            setBrandSelectLoading(false);
           },
           onFailed: (message) => {
             notification.failed(message);
+            setBrandSelectLoading(false);
           }
         });
       },
       onFailed: (message) => {
         notification.failed(message);
+        setBrandSelectLoading(false);
       }
     });
   };
@@ -72,7 +79,7 @@ const SideBar = ({
     <FlexBox className='side-bar' column >
       <HeaderLogo onClick={() => history.push('/')} fullWidth />
       <AvatarPreviewBox history={history} brands={brands} user={user} onSettingClick={() => history.push('/settings/brand')} />
-      <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} />
+      <BrandsMenu brands={brands} activeBrand={user.activeBrand} onChange={onActiveBrandChange} brandSelectLoading={brandSelectLoading} />
       <Menu {...menuProps} />
     </FlexBox>
   );

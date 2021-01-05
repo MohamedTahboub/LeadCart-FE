@@ -56,7 +56,7 @@ const UserAvatarPreview = ({
         </Tooltip>
       </div>
 
-      <Title className='sidebar-avatar-name flex-1 text-center truncate' >
+      <Title className='sidebar-avatar-name flex-1 text-center truncate letter-spacing-0' >
         {userName}
       </Title>
 

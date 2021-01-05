@@ -15,10 +15,13 @@ import common from 'components/common';
 import './style.css';
 
 
-const { FlexBox, Title, Tooltip } = common;
+const { FlexBox, Title, Tooltip, Spinners } = common;
+const { Loader } = Spinners;
 
-const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand, credits }) => {
+
+const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand, credits, brandSelectLoading }) => {
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
+
   const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
 
   const onCreateBrand = (brand, cb) => {
@@ -40,7 +43,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
     const { id: brandId, logo: brandImg, name: brandName } = brand;
 
     return (
-      <FlexBox className={classNames('sidebar-brand-option v-center', { 'active-brand-option': brandId === activeBrandId })} onClick={() => onChange(brandId)} >
+      <FlexBox className={classNames('sidebar-brand-option v-center', { 'active-brand-option': brandId === activeBrandId })} >
         <div className='sidebar-brand-option-img' style={{ backgroundImage: `url(${brandImg})` }} />
         <Title className='sidebar-brand-option-name' >
           {brandName}
@@ -53,7 +56,12 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
   const brandsOptions = brands.map((brand) => ({ label: <LabelBrandOption brand={brand} />, value: brand.id }));
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
-  const ActiveLabelBrandOption = () => <Title className='sidebar-brand-option-name'> {activeBrand.name}</Title>;
+
+  const ActiveLabelBrandOption = () => brandSelectLoading ?
+    <Loader size={20} color='gray' className='m-auto'/>
+    :
+    <Title className='sidebar-brand-option-name letter-spacing-0'> {activeBrand.name}</Title>;
+
   const activeLabelBrandOption = { label: <ActiveLabelBrandOption name={activeBrand.name} />, value: activeBrand.id };
 
 
@@ -64,7 +72,13 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
           <IoMdAddCircle className='create-new-brand-button item-clickable' onClick={toggleCreateModalOpen} size={18} />
         </Tooltip>
 
-        <Select className='sidebar-brands-select-container' options={brandsOptions} value={activeLabelBrandOption} classNamePrefix='sidebar-brands-select' />
+        <Select
+          className='sidebar-brands-select-container'
+          options={brandsOptions}
+          value={activeLabelBrandOption}
+          classNamePrefix='sidebar-brands-select'
+          onChange={({ value }) => onChange(value)}
+        />
       </FlexBox>
 
       {

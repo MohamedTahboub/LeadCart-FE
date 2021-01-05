@@ -527,3 +527,8 @@ h5 {
 .text-center {
   text-align: center;
 }
+
+
+.letter-spacing-0{
+  letter-spacing: 0 !important;
+}
