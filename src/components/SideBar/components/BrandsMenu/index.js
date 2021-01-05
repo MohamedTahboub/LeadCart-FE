@@ -57,10 +57,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
 
   const activeBrand = brands.find(({ id }) => id === activeBrandId) || {};
 
-  const ActiveLabelBrandOption = () => brandSelectLoading ?
-    <Loader size={20} color='gray' className='m-auto'/>
-    :
-    <Title className='sidebar-brand-option-name letter-spacing-0'> {activeBrand.name}</Title>;
+  const ActiveLabelBrandOption = () => <Title className='sidebar-brand-option-name letter-spacing-0'> {activeBrand.name}</Title>;
 
   const activeLabelBrandOption = { label: <ActiveLabelBrandOption name={activeBrand.name} />, value: activeBrand.id };
 
@@ -78,6 +75,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
           value={activeLabelBrandOption}
           classNamePrefix='sidebar-brands-select'
           onChange={({ value }) => onChange(value)}
+          isLoading={brandSelectLoading}
         />
       </FlexBox>
 
