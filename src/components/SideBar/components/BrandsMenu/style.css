@@ -49,6 +49,13 @@
   font-size: 12px;
 }
 
+.sidebar-brands-select__option * {
+  letter-spacing: 0 !important;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 
 .sidebar-brands-select__option:last-child{
