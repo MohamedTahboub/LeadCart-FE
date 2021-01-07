@@ -64,6 +64,11 @@
                     "label": "Expiry date"
                 },
                 {
+                    "key": "cardExpirationDateInputValue",
+                    "value": "MM/YY",
+                    "label": "MM/YY"
+                },
+                {
                     "key": "ibanInputFields",
                     "value": "IBAN",
                     "label": "IBAN"
@@ -268,7 +273,6 @@
                     "value": "Back",
                     "label": "Back"
                 }
-
             ]
         },
         {
