@@ -1,0 +1,20 @@
+/* @import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap'); */
+
+
+@font-face{
+  src: var(--font-src);
+  font-family: var(--font-family);
+}
+
+
+
+
+.fonts-testing {
+  font-family: var(--font-family);
+    border: 2px solid red;
+}
+
+
+.fonts-loaded {
+  border: 10px solid red;
+}

@@ -1,0 +1,65 @@
+.products-fonts-modal-container{
+  width: 60vw;
+}
+
+
+
+.products-google-fonts {
+  height: 70vh;
+  align-items: center;
+  padding: 10px;
+}
+
+
+
+.products-google-fonts-header{
+  width: 90%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.products-google-fonts-header-search{
+  flex: 1;
+  /* margin-right: 20px; */
+}
+
+.products-google-fonts-header-search .text-input-filed{
+  flex: 1;
+}
+
+
+
+.products-google-fonts-header-btn{
+
+}
+
+
+.products-google-fonts-content{
+  /* border: 2px solid blue; */
+  overflow: auto;
+  width: 90%;
+  /* align-items: center; */
+
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+}
+
+
+
+.products-google-fonts-row {
+  border-radius: 05px;
+  width: 47%;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #dadce0;
+  position: relative;
+}
+
+
+.products-google-fonts-checkbox-row{
+  position: absolute;
+
+  top: 17px;
+  right: -3px;
+}
