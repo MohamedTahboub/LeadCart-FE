@@ -43,7 +43,7 @@ const PaymentGatewaysOptions = ({
     cardNumberInputField: cardNumberInputFieldLabel = 'Card Number',
     cardCVCInputField: cardCVCInputFieldLabel = 'Expiry date',
     cardExpirationDateInputField: cardExpirationDateInputFieldLabel = 'CVV',
-    cardExpirationDateInputValue: cardExpirationDateInputPlaceholder = 'MM/YY',
+    cardExpirationDateInputPlaceholder = 'MM/YY',
     ibanInputFields: ibanInputFieldsLabel
   } = translations;
 

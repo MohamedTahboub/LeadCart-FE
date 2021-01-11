@@ -64,7 +64,7 @@
                     "label": "Expiry date"
                 },
                 {
-                    "key": "cardExpirationDateInputValue",
+                    "key": "cardExpirationDateInputPlaceholder",
                     "value": "MM/YY",
                     "label": "MM/YY"
                 },
