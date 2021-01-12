@@ -11,6 +11,7 @@ const { FlexBox, Title, CustomCheckbox } = common;
 
 const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {} }) => {
   const [activeVariantValue, setActiveVariantValue] = useState('regular');
+  const [variantLoading, setVariantLoading] = useState('regular');
 
   const onSelect = ({ value }) => setActiveVariantValue(value);
 
@@ -19,9 +20,11 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
   useEffect(() => {
     const onLoadCustomFontFile = async () => {
       try {
+        setVariantLoading(true);
         const fn = new FontFace(family, `url(${files[activeVariantValue]})`);
         await fn.load().catch(console.error);
         window.document.fonts.add(fn);
+        setVariantLoading(false);
       } catch (error) {
         console.log(error.message, error);
       }
@@ -54,6 +57,7 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
         onChange={onSelect}
         className='mb-2 ml-2 max-width-200'
         defaultValue={[{ label: activeVariantValue, value: activeVariantValue }]}
+        isLoading={variantLoading}
       />
     </FlexBox>
   );
