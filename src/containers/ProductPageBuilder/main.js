@@ -22,6 +22,7 @@ import {
 
 
 import {
+  AddNewFontModal,
   Header,
   NewPricingOptionModal,
   PageBackgroundModal,
@@ -310,6 +311,7 @@ const ProductBuilder = ({
           currency={currency}
         />
         <PageBackgroundModal />
+        <AddNewFontModal />
         <PageSetupModal history={history} onUpdateTemplate={onUpdateTemplate} />
         <TemplateResetWidget
           show={showTemplateWidget}

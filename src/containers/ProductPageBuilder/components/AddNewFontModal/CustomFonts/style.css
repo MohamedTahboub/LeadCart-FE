@@ -1,0 +1,35 @@
+.products-custom-fonts {
+  height: 70vh;
+  align-items: center;
+  padding: 10px;
+}
+
+.products-custom-fonts-header{
+  width: 90%;
+  margin-bottom: 15px;
+
+}
+
+.products-custom-fonts-content{
+  overflow: auto;
+  width: 90%;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 1px;
+
+}
+
+
+.products-custom-fonts-row {
+  border-radius: 05px;
+  width: 47%;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #dadce0;
+  position: relative;
+  max-height: 150px;
+  min-height: 120px;
+
+
+  border: 0px solid red;
+}

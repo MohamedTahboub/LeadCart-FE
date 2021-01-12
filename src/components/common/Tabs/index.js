@@ -27,7 +27,8 @@ export const Tabs = ({
   vertical,
   titleColor,
   active,
-  onChange
+  onChange,
+  blockTabsNavigation
 }) => {
   const [activeTab, setActiveTab] = useState(active);
 
@@ -41,7 +42,7 @@ export const Tabs = ({
   }, [active]);
 
   const onTabChange = (tabId) => () => {
-    setActiveTab(tabId);
+    !blockTabsNavigation && setActiveTab(tabId);
     if (onChange) onChange(tabId);
   };
 

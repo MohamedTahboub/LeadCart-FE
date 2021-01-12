@@ -13,7 +13,7 @@ const { FlexBox, Button } = common;
 
 const Fonts = ({ fonts = [], onChange }) => {
   const [isFontReady, setFontReady] = useState(false);
-  const { actions: { onToggleAddNewFontModal } = {} } = useContext();
+  const { actions: { onToggleProductFontsModal } = {} } = useContext();
   const fontsOptions = fonts.map(({ url, family }) => ({ value: url, label: family }));
 
 
@@ -45,7 +45,7 @@ const Fonts = ({ fonts = [], onChange }) => {
         className='min-width-200 mb-2'
       />
 
-      <Button className='light-btn' onClick={onToggleAddNewFontModal} style={{ fontFamily }} >Q W E R T Y U I O P A S D F G H J K L Z X C V B N M</Button>
+      <Button className='light-btn' onClick={onToggleProductFontsModal} style={{ fontFamily }} >Q W E R T Y U I O P A S D F G H J K L Z X C V B N M</Button>
     </FlexBox>
   );
 };

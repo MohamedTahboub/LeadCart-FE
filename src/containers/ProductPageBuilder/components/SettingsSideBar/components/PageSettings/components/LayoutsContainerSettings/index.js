@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import common from 'components/common';
-import { SettingBox } from '../../../common';
-import Slider from 'rc-slider';
-// import Collapse from 'components/Collapsible';
-import { FiColumns } from 'react-icons/fi';
-import { VscBrowser } from 'react-icons/vsc';
-import FlatRadio from 'components/FlatRadio';
-import * as immutable from 'object-path-immutable';
-import InlinePopup from 'components/common/InlinePopup';
-import CustomSlider from 'components/common/CustomSlider';
 import { GoSettings } from 'react-icons/go';
 import { BiHide } from 'react-icons/bi';
+import Slider from 'rc-slider';
+import { FiColumns } from 'react-icons/fi';
+import { VscBrowser } from 'react-icons/vsc';
+import * as immutable from 'object-path-immutable';
+
+import { SettingBox } from '../../../common';
+import common from 'components/common';
+import FlatRadio from 'components/FlatRadio';
+import InlinePopup from 'components/common/InlinePopup';
+import CustomSlider from 'components/common/CustomSlider';
+import { Fonts } from './components';
 
 
 const SettingToggleIcons = ({ show }) => {
@@ -262,6 +263,9 @@ const LayoutsContainerSettings = ({
           </FlexBox>
         )}
       />
+
+      <Fonts onChange={_onChange} />
+
     </FlexBox >
   );
 };
