@@ -29,7 +29,15 @@
   position: relative;
   max-height: 150px;
   min-height: 120px;
+}
 
 
-  border: 0px solid red;
+.products-custom-fonts-remove-icon{
+  cursor: pointer;
+  transition: .3s color ease-in-out;
+}
+
+
+.products-custom-fonts-remove-icon:hover{
+  color: tomato;
 }

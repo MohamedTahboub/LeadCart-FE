@@ -33,7 +33,7 @@ const FontRow = ({ fileName, fileLink: url, onDeleteFile, id }) => {
           {name}
         </Title>
 
-        <AiOutlineMinusCircle className='' onClick={onDeleteFile(id)} size={18} />
+        <AiOutlineMinusCircle className='products-custom-fonts-remove-icon' onClick={onDeleteFile(id)} size={20} />
       </FlexBox>
 
       <p className='m-0 large-text' style={{ 'font-family': name }}>
