@@ -1,59 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
+import React from 'react';
 import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
+import Select from 'react-select';
 
 import common from 'components/common';
 import { useContext } from '../../../../../../../../actions';
 
-
 import './style.css';
-import { connect } from 'react-redux';
-import { passProps } from 'helpers/common';
 
-const { FlexBox, Button } = common;
+const { FlexBox, Button, InlinePopup } = common;
 
 
-const Fonts = ({ productsFonts = [], onChange }) => {
-  const [isFontReady, setFontReady] = useState(false);
+const Fonts = ({ productsFonts, onChange, productPage, SettingToggleIcons }) => {
   const { actions: { onToggleProductFontsModal } = {} } = useContext();
-  const fontsOptions = productsFonts.map(({ url, name }) => ({ value: url, label: name }));
+  const { font: { url, family: fontFamily } = {} } = productPage;
 
-
-  console.log('productsFonts >>>>>>>>', productsFonts);
-
-  const CURRENT_FONT_STYLESHEET = 'https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap';
-  const fontFamily = 'East Sea Dokdo';
-  // const CURRENT_FONT_STYLESHEET = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,100;1,300;1,900&display=swap';
-  // const fontFamily = 'Poppins';
-
-
-  const onSelectFont = (data) => {
-    onChange({ name: 'productPage.fontFamily', value: data });
-  };
+  const fontsOptions = productsFonts.map(({ url, family }) => ({ value: url, label: family }));
+  const onSelectFont = ({ label: family, value: url }) => onChange({ name: 'pageStyles.productPage.font', value: { family, url } });
 
 
   return (
-    <FlexBox id='custom-font' column spaceBetween >
-      <Helmet>
-        <meta charSet='utf-8' />
-        <link
-          rel='stylesheet'
-          href={CURRENT_FONT_STYLESHEET}
-          onLoad={console.log}
-        />
-      </Helmet>
+    <InlinePopup
+      title={'Product Font'}
+      button={SettingToggleIcons}
+      popUpContent={(
+        <FlexBox id='custom-font' spaceBetween >
+          <Helmet>
+            <meta charSet='utf-8' />
+            <link rel='stylesheet' href={url} />
+          </Helmet>
 
-      <Select
-        options={fontsOptions}
-        onChange={onSelectFont}
-        className='min-width-200 mb-2'
-      />
-
-      <Button className='light-btn' onClick={onToggleProductFontsModal} style={{ fontFamily }} >Q W E R T Y U I O P A S D F G H J K L Z X C V B N M</Button>
-    </FlexBox>
+          <Select
+            options={fontsOptions}
+            onChange={onSelectFont}
+            className='flex-1 mr-2'
+            closeMenuOnSelect={false}
+          />
+          <Button className='light-btn' onClick={onToggleProductFontsModal} style={{ fontFamily }} >Add New Font</Button>
+        </FlexBox>
+      )}
+    />
   );
 };
 
 
 const mapStateToProps = ({ productsFonts }) => ({ productsFonts });
 export default connect(mapStateToProps)(Fonts);
+

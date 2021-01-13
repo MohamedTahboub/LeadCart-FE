@@ -1,20 +1,22 @@
-/* @import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap'); */
-
-
-@font-face{
-  src: var(--font-src);
-  font-family: var(--font-family);
+.product-font-content{
+  flex-direction: column;
+  max-height: 200px;
+  overflow: auto;
+  padding: 0 10px;
 }
 
-
-
-
-.fonts-testing {
-  font-family: var(--font-family);
-    border: 2px solid red;
+.product-font-content-item {
+  padding: 0 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  transition: .3s background ease-in-out;
 }
 
+.active-product-font-content-item{
+  background-color: #4da0fe;
+  color: #fff;
+}
 
-.fonts-loaded {
-  border: 10px solid red;
+.active-product-font-content-item * {
+  color: #fff;
 }

@@ -264,7 +264,7 @@ const LayoutsContainerSettings = ({
         )}
       />
 
-      <Fonts onChange={_onChange} />
+      <Fonts onChange={_onChange} productPage={productPage} SettingToggleIcons={SettingToggleIcons} />
 
     </FlexBox >
   );

@@ -36,7 +36,7 @@ const AddNewFontModal = ({ addNewProductsFonts }) => {
       },
       onFailed: () => {
         console.log('failed');
-        // onToggleProductFontsModal();
+        onToggleProductFontsModal();
         setSelectedGoogleFonts([]);
       }
     });
