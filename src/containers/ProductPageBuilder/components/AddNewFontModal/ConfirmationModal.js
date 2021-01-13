@@ -7,7 +7,7 @@ import common from 'components/common';
 
 const { FlexBox, Title, Button } = common;
 
-const ConfirmationModal = ({ onClose, isVisible, onSave }) => (
+const ConfirmationModal = ({ onClose, isVisible, onSave, onDelete, hasInstalledSelected: isInstalledTab }) => (
   <Modal isVisible={isVisible} onClose={onClose}>
     <FlexBox column>
       <FlexBox className='v-center m-0' style={{ borderBottom: '1px solid gray' }} >
@@ -20,11 +20,13 @@ const ConfirmationModal = ({ onClose, isVisible, onSave }) => (
       </Title>
 
       <FlexBox className='v-center' spaceBetween>
-        <Button className='danger-bg' onClick={onClose} >Cancel</Button>
-        <Button className='primary-color' onClick={onSave} >Save</Button>
+        <Button className={isInstalledTab ? 'light-btn' : 'danger-bg'} onClick={onClose} >Cancel</Button>
+        {isInstalledTab ?
+          <Button className='danger-btn' onClick={onDelete} >Delete</Button> :
+          <Button className='primary-color' onClick={onSave} >Save</Button>
+        }
       </FlexBox>
     </FlexBox>
   </Modal>
 );
-
 export default ConfirmationModal;

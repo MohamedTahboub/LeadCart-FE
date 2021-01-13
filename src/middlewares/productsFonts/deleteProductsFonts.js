@@ -16,12 +16,12 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: () => {
       if (meta.onSuccess) meta.onSuccess();
-      return deleteProductsFontsSuccess(payload);
+      return deleteProductsFontsSuccess(payload.fontsIds);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed();
       // return deleteProductsFontsFailed(message);
-      return deleteProductsFontsSuccess(payload);
+      return deleteProductsFontsSuccess(payload.fontsIds);
 
     }
   }));

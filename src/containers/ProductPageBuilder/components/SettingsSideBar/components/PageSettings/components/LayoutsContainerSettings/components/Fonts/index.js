@@ -36,7 +36,7 @@ const Fonts = ({ productsFonts, onChange, productPage, SettingToggleIcons }) => 
             className='flex-1 mr-2'
             closeMenuOnSelect={false}
           />
-          <Button className='light-btn' onClick={onToggleProductFontsModal} style={{ fontFamily }} >Add New Font</Button>
+          <Button className='light-btn' onClick={onToggleProductFontsModal} style={{ fontFamily }} >Fonts Management</Button>
         </FlexBox>
       )}
     />

@@ -24,7 +24,7 @@ const FilterOption = ({ label, value, isSelectedFilterKey, onFilterFonts }) => {
 };
 
 
-const GoogleFonts = ({ setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSelectedGoogleFonts }) => {
+const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts }) => {
   const [googleFonts, setGoogleFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const GoogleFonts = ({ setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSel
 
   const onSearchFonts = (e) => setSearchValue(e.target.value);
   const onFilterFonts = (value) => () => setFilterValue(value);
-  const hasSelectedFonts = Boolean(selectedGoogleFonts.length);
+  const hasSelectedFonts = Boolean(selectedNewFonts.length);
 
   const filterKeys = [
     { label: 'All', value: 'all' },
@@ -42,7 +42,7 @@ const GoogleFonts = ({ setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSel
     { label: 'Not Selected', value: 'notSelected' }
   ];
 
-  const isSelectedFont = (family) => selectedGoogleFonts.find((ele) => ele.family === family);
+  const isSelectedFont = (family) => selectedNewFonts.find((ele) => ele.family === family);
   const isSelectedFilterKey = (filterKey) => filterValue === filterKey;
 
   const onSelectFont = ({ family, variant }) => () => {
@@ -53,10 +53,10 @@ const GoogleFonts = ({ setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSel
     const url = `${urlBase}${familyName}${variantName}${subset}`;
 
     const newList = isSelectedFont(family) ?
-      selectedGoogleFonts.filter((ele) => ele.family !== family) :
-      [...selectedGoogleFonts, { family, variant, url, type: 'googleFont', id: ids.generate() }];
+      selectedNewFonts.filter((ele) => ele.family !== family) :
+      [...selectedNewFonts, { family, variant, url, type: 'googleFont', id: ids.generate() }];
 
-    setSelectedGoogleFonts(newList);
+    setSelectedNewFonts(newList);
   };
 
 
@@ -91,7 +91,7 @@ const GoogleFonts = ({ setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSel
   }, [searchValue, filterValue]);
 
 
-  useEffect(() => setHasNewGoogleFonts(hasSelectedFonts), [hasSelectedFonts]);
+  useEffect(() => setHasNewFonts(hasSelectedFonts), [hasSelectedFonts]);
 
 
   return (

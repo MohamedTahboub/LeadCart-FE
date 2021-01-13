@@ -12,29 +12,29 @@ import './style.css';
 
 const { FlexBox, Title, Button } = common;
 
-const CustomFonts = ({ uploadFile, setHasNewCustomFonts }) => {
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-
+const CustomFonts = ({ uploadFile, setHasNewFonts, selectedNewFonts, setSelectedNewFonts, onSave }) => {
   const ref = useRef(null);
 
   const onUploadFont = ({ target: { files, name: source } }) => {
     const file = files[0];
+    const family = file.name.split('.').slice(0, -1).join('');
+
 
     uploadFile(
       { file, type: 'products', source },
-      { onSuccess: (fileLink) => setUploadedFiles([...uploadedFiles, { fileLink, fileName: file.name, id: ids.generate() }]) }
+      { onSuccess: (url) => setSelectedNewFonts([...selectedNewFonts, { url, family, id: ids.generate() }]) }
     );
   };
 
   const onDeleteFile = (elementId) => () => {
-    const newList = uploadedFiles.filter(({ id }) => elementId !== id);
-    setUploadedFiles(newList);
+    const newList = selectedNewFonts.filter(({ id }) => elementId !== id);
+    setSelectedNewFonts(newList);
   };
 
   const onUploaderClicked = () => ref?.current?.click();
-  const hasUploadedFiles = Boolean(uploadedFiles.length);
+  const hasUploadedFiles = Boolean(selectedNewFonts.length);
 
-  useEffect(() => setHasNewCustomFonts(hasUploadedFiles), [hasUploadedFiles]);
+  useEffect(() => setHasNewFonts(hasUploadedFiles), [hasUploadedFiles]);
 
 
   return (
@@ -60,7 +60,7 @@ const CustomFonts = ({ uploadFile, setHasNewCustomFonts }) => {
       </FlexBox>
 
       <FlexBox className='products-custom-fonts-content' flex >
-        {uploadedFiles.map((ele) => {
+        {selectedNewFonts.map((ele) => {
           return (<FontRow onDeleteFile={onDeleteFile} {...ele} />);
         })}
       </FlexBox>
@@ -72,7 +72,7 @@ const CustomFonts = ({ uploadFile, setHasNewCustomFonts }) => {
         className='full-width'
         flexEnd
       >
-        <Button className='primary-color' disabled={!hasUploadedFiles}>
+        <Button className='primary-color' disabled={!hasUploadedFiles} onClick={onSave}>
           Add and Save
         </Button>
       </FlexBox>

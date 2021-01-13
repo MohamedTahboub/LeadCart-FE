@@ -16,12 +16,11 @@ import './style.css';
 const { Tabs, Tab } = common;
 
 
-const AddNewFontModal = ({ addNewProductsFonts }) => {
-  const [hasNewGoogleFonts, setHasNewGoogleFonts] = useState(false);
-  const [hasNewCustomFonts, setHasNewCustomFonts] = useState(false);
+const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
+  const [hasNewFonts, setHasNewFonts] = useState(false);
+  const [selectedNewFonts, setSelectedNewFonts] = useState([]);
+  const [selectedInstalledFonts, setSelectedInstalledFonts] = useState([]);
   const [openedGoogleConfirmationModal, setOpenedGoogleConfirmationModal] = useState(false);
-  const [selectedGoogleFonts, setSelectedGoogleFonts] = useState([]);
-  const [hasSelectedInstalledCustomFonts, setHasSelectedInstalledCustomFonts] = useState([]);
 
 
   const {
@@ -29,53 +28,74 @@ const AddNewFontModal = ({ addNewProductsFonts }) => {
     actions: { onToggleProductFontsModal } = {}
   } = useContext();
 
+
   const onSave = () => {
-    addNewProductsFonts({ productsFonts: selectedGoogleFonts }, {
+    addNewProductsFonts({ productsFonts: selectedNewFonts }, {
       onSuccess: () => {
         console.log('Success');
       },
       onFailed: () => {
         console.log('failed');
         onToggleProductFontsModal();
-        setSelectedGoogleFonts([]);
+        setSelectedNewFonts([]);
+        openedGoogleConfirmationModal && setOpenedGoogleConfirmationModal(false);
+        hasNewFonts && setHasNewFonts(false);
+      }
+    });
+  };
+
+
+  const onDelete = () => {
+    deleteProductsFonts({ fontsIds: selectedInstalledFonts }, {
+      onSuccess: () => {
+        console.log('deleted successfully');
+      },
+      onFailed: () => {
+        console.log('deleted failed');
+        onToggleProductFontsModal();
+        setSelectedInstalledFonts([]);
+        openedGoogleConfirmationModal && setOpenedGoogleConfirmationModal(false);
+        hasNewFonts && setHasNewFonts(false);
+
       }
     });
   };
 
 
   const onCloseModal = () => {
-    if (hasNewGoogleFonts || hasNewCustomFonts)
+    if (hasNewFonts)
       onTabsNavigation();
     else
       onToggleProductFontsModal();
   };
 
   const onCloseConfirmationModal = () => setOpenedGoogleConfirmationModal(false);
-  const onTabsNavigation = () => setOpenedGoogleConfirmationModal(hasNewGoogleFonts || hasNewCustomFonts);
+  const onTabsNavigation = () => setOpenedGoogleConfirmationModal(hasNewFonts);
 
-  const googleFontsProps = { setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSelectedGoogleFonts };
-  const customFontsProps = { setHasNewCustomFonts, onSave };
-  const installedFontsProps = { hasSelectedInstalledCustomFonts, setHasSelectedInstalledCustomFonts };
 
+  const hasInstalledSelected = Boolean(selectedInstalledFonts.length);
+
+  const addingFontsProps = { setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts };
+  const installedFontsProps = { setHasNewFonts, onDelete, selectedInstalledFonts, setSelectedInstalledFonts };
+  const confirmationModalProps = { isVisible: openedGoogleConfirmationModal, onClose: onCloseConfirmationModal, onSave, onDelete, hasInstalledSelected };
 
   return (
     <Modal className='pt-3 products-fonts-modal-container' isVisible={isProductFontsModalOpened} onClose={onCloseModal}>
-      <Tabs active='googleFonts' onChange={onTabsNavigation} blockTabsNavigation={hasNewGoogleFonts || hasNewCustomFonts}>
+      <Tabs active='googleFonts' onChange={onTabsNavigation} blockTabsNavigation={hasNewFonts}>
         <Tab id='googleFonts' title='Google Fonts'>
-          <GoogleFonts {...googleFontsProps} />
+          <GoogleFonts {...addingFontsProps} />
         </Tab>
 
         <Tab id='customFont' title='Custom Font' >
-          <CustomFonts {...customFontsProps} />
+          <CustomFonts {...addingFontsProps} />
         </Tab>
-
 
         <Tab id='installedFonts' title='Installed Font' >
           <InstalledFonts {...installedFontsProps} />
         </Tab>
       </Tabs>
 
-      <ConfirmationModal isVisible={openedGoogleConfirmationModal} onClose={onCloseConfirmationModal} onSave={onSave} />
+      <ConfirmationModal {...confirmationModalProps} />
     </Modal>
   );
 };
