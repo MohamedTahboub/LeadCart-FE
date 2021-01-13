@@ -15,11 +15,11 @@ import common from 'components/common';
 import './style.css';
 
 
-const { FlexBox, Title, Tooltip, Spinners } = common;
+const { FlexBox, Title, Tooltip, Spinners, Badge } = common;
 const { Loader } = Spinners;
 
 
-const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand, credits, brandSelectLoading }) => {
+const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand, credits, brandSelectLoading, ...props }) => {
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
 
   const toggleCreateModalOpen = () => setCreateModalOpen(!isCreateBrandModalOpen);
@@ -40,14 +40,17 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
 
 
   const LabelBrandOption = ({ brand }) => {
-    const { id: brandId, logo: brandImg, name: brandName } = brand;
+    const { id: brandId, logo: brandImg, name: brandName, activePackage: { type } = {} } = brand;
+    const isActiveBran = brandId === activeBrandId;
 
     return (
-      <FlexBox className={classNames('sidebar-brand-option v-center', { 'active-brand-option': brandId === activeBrandId })} >
+      <FlexBox className={classNames('sidebar-brand-option v-center', { 'active-brand-option': isActiveBran })} >
         <div className='sidebar-brand-option-img' style={{ backgroundImage: `url(${brandImg})` }} />
         <Title className='sidebar-brand-option-name' >
           {brandName}
         </Title>
+
+        <Badge type={isActiveBran ? 'normal' : 'primary'} size='small' className='sidebar-brand-option-package' >{type}</Badge>
       </FlexBox>
     );
   };

@@ -72,10 +72,14 @@
   background-color: rgba(80, 150, 249, 0.69) !important;
 }
 
+
+.sidebar-brand-option-name {
+  flex: 1;
+}
+
 .active-brand-option .sidebar-brand-option-name {
   color: #fff;
 }
-
 
 .sidebar-brand-option-img{
   background-size: contain;
@@ -87,6 +91,10 @@
   margin-right: 5px;
 }
 
+
+.sidebar-brand-option-package {
+  padding: 3px !important;
+}
 
 .create-new-brand-button{
   color: #4DA1FF;
