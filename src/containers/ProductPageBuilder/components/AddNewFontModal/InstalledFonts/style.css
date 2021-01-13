@@ -1,0 +1,44 @@
+.products-installed-fonts {
+  height: 70vh;
+  align-items: center;
+  padding: 10px;
+}
+
+.products-installed-fonts-header{
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+/* .products-installed-fonts-header-search{
+  flex: 1;
+}
+
+.products-installed-fonts-header-search .text-input-filed{
+  flex: 1;
+} */
+
+.products-installed-fonts-content{
+  overflow: auto;
+  width: 90%;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+
+.products-installed-fonts-row {
+  border-radius: 05px;
+  width: 47%;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #dadce0;
+  position: relative;
+  max-height: 150px;
+  min-height: 120px;
+}
+
+
+.products-installed-fonts-checkbox-row.checkbox-container{
+  padding-left: 20px !important;
+  
+}
+

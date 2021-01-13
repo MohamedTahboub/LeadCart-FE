@@ -9,12 +9,12 @@ import './style.css';
 const { FlexBox, Title, CustomCheckbox } = common;
 
 
-const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {} }) => {
+const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {}, id }) => {
   const [activeVariantValue, setActiveVariantValue] = useState('regular');
   const [variantLoading, setVariantLoading] = useState('regular');
 
-  const onSelect = ({ value }) => setActiveVariantValue(value);
 
+  const onSelect = ({ value }) => setActiveVariantValue(value);
   const variantsOptions = variants.map((ele) => ({ label: ele, value: ele }));
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
         <CustomCheckbox
           active={isSelectedFont(family)}
           className='products-google-fonts-checkbox-row'
-          onClick={onSelectFont({ family, variant: activeVariantValue })}
+          onClick={onSelectFont({ family, variant: activeVariantValue, id })}
         />
       </FlexBox>
 

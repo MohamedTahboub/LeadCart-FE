@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import { useContext } from '../../actions';
 import GoogleFonts from './GoogleFonts';
 import CustomFonts from './CustomFonts';
+import InstalledFonts from './InstalledFonts';
 import ConfirmationModal from './ConfirmationModal';
+import * as productsFontsActions from '../../../../actions/productsFonts';
 
 
 import './style.css';
@@ -13,18 +16,30 @@ import './style.css';
 const { Tabs, Tab } = common;
 
 
-const AddNewFontModal = () => {
+const AddNewFontModal = ({ addNewProductsFonts }) => {
   const [hasNewGoogleFonts, setHasNewGoogleFonts] = useState(false);
-  const [openedGoogleConfirmationModal, setOpenedGoogleConfirmationModal] = useState(false);
   const [hasNewCustomFonts, setHasNewCustomFonts] = useState(false);
+  const [openedGoogleConfirmationModal, setOpenedGoogleConfirmationModal] = useState(false);
+  const [selectedGoogleFonts, setSelectedGoogleFonts] = useState([]);
+  const [hasSelectedInstalledCustomFonts, setHasSelectedInstalledCustomFonts] = useState([]);
+
 
   const {
     state: { productFontsModal: isProductFontsModalOpened } = {},
     actions: { onToggleProductFontsModal } = {}
   } = useContext();
 
-  const onSave = (data) => {
-    console.log('Data from Saving Function <><><><><><><><><>', data);
+  const onSave = () => {
+    addNewProductsFonts({ productsFonts: selectedGoogleFonts }, {
+      onSuccess: () => {
+        console.log('Success');
+      },
+      onFailed: () => {
+        console.log('failed');
+        // onToggleProductFontsModal();
+        setSelectedGoogleFonts([]);
+      }
+    });
   };
 
 
@@ -38,8 +53,9 @@ const AddNewFontModal = () => {
   const onCloseConfirmationModal = () => setOpenedGoogleConfirmationModal(false);
   const onTabsNavigation = () => setOpenedGoogleConfirmationModal(hasNewGoogleFonts || hasNewCustomFonts);
 
-  const googleFontsProps = { setHasNewGoogleFonts, onSave };
+  const googleFontsProps = { setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSelectedGoogleFonts };
   const customFontsProps = { setHasNewCustomFonts, onSave };
+  const installedFontsProps = { hasSelectedInstalledCustomFonts, setHasSelectedInstalledCustomFonts };
 
 
   return (
@@ -52,6 +68,11 @@ const AddNewFontModal = () => {
         <Tab id='customFont' title='Custom Font' >
           <CustomFonts {...customFontsProps} />
         </Tab>
+
+
+        <Tab id='installedFonts' title='Installed Font' >
+          <InstalledFonts {...installedFontsProps} />
+        </Tab>
       </Tabs>
 
       <ConfirmationModal isVisible={openedGoogleConfirmationModal} onClose={onCloseConfirmationModal} onSave={onSave} />
@@ -59,4 +80,4 @@ const AddNewFontModal = () => {
   );
 };
 
-export default AddNewFontModal;
+export default connect(null, productsFontsActions)(AddNewFontModal);

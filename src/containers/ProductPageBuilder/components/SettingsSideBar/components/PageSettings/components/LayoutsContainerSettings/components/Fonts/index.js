@@ -7,15 +7,19 @@ import { useContext } from '../../../../../../../../actions';
 
 
 import './style.css';
+import { connect } from 'react-redux';
+import { passProps } from 'helpers/common';
 
 const { FlexBox, Button } = common;
 
 
-const Fonts = ({ fonts = [], onChange }) => {
+const Fonts = ({ productsFonts = [], onChange }) => {
   const [isFontReady, setFontReady] = useState(false);
   const { actions: { onToggleProductFontsModal } = {} } = useContext();
-  const fontsOptions = fonts.map(({ url, family }) => ({ value: url, label: family }));
+  const fontsOptions = productsFonts.map(({ url, name }) => ({ value: url, label: name }));
 
+
+  console.log('productsFonts >>>>>>>>', productsFonts);
 
   const CURRENT_FONT_STYLESHEET = 'https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap';
   const fontFamily = 'East Sea Dokdo';
@@ -50,4 +54,6 @@ const Fonts = ({ fonts = [], onChange }) => {
   );
 };
 
-export default Fonts;
+
+const mapStateToProps = ({ productsFonts }) => ({ productsFonts });
+export default connect(mapStateToProps)(Fonts);

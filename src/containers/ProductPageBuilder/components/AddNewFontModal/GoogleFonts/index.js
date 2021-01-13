@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import clx from 'classnames';
 import ToolTip from 'react-tooltip';
+import ids from 'shortid';
 
 import common from 'components/common';
 import FontRow from './FontRow';
@@ -23,10 +24,9 @@ const FilterOption = ({ label, value, isSelectedFilterKey, onFilterFonts }) => {
 };
 
 
-const GoogleFonts = ({ setHasNewGoogleFonts, onSave }) => {
+const GoogleFonts = ({ setHasNewGoogleFonts, onSave, selectedGoogleFonts, setSelectedGoogleFonts }) => {
   const [googleFonts, setGoogleFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
-  const [selectedFonts, setSelectedFonts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [filterValue, setFilterValue] = useState('all');
@@ -34,21 +34,29 @@ const GoogleFonts = ({ setHasNewGoogleFonts, onSave }) => {
 
   const onSearchFonts = (e) => setSearchValue(e.target.value);
   const onFilterFonts = (value) => () => setFilterValue(value);
-  const hasSelectedFonts = Boolean(selectedFonts.length);
+  const hasSelectedFonts = Boolean(selectedGoogleFonts.length);
 
   const filterKeys = [
     { label: 'All', value: 'all' },
     { label: 'Selected', value: 'selected' },
-    { label: 'Not Selected', value: 'notSelected' },
-    { label: 'Added', value: 'added' }
+    { label: 'Not Selected', value: 'notSelected' }
   ];
 
-  const isSelectedFont = (family) => selectedFonts.find((ele) => ele.family === family);
+  const isSelectedFont = (family) => selectedGoogleFonts.find((ele) => ele.family === family);
   const isSelectedFilterKey = (filterKey) => filterValue === filterKey;
 
   const onSelectFont = ({ family, variant }) => () => {
-    const newList = isSelectedFont(family) ? selectedFonts.filter((ele) => ele.family !== family) : [...selectedFonts, { family, variant }];
-    setSelectedFonts(newList);
+    const urlBase = 'https://fonts.googleapis.com/css?family=';
+    const familyName = family.replace(/ /g, '+');
+    const variantName = `:${variant}`;
+    const subset = '&subset=latin';
+    const url = `${urlBase}${familyName}${variantName}${subset}`;
+
+    const newList = isSelectedFont(family) ?
+      selectedGoogleFonts.filter((ele) => ele.family !== family) :
+      [...selectedGoogleFonts, { family, variant, url, type: 'googleFont', id: ids.generate() }];
+
+    setSelectedGoogleFonts(newList);
   };
 
 
