@@ -10,13 +10,12 @@ import { notification } from 'libs';
 import * as brandsActions from '../../../../actions/brands';
 import { brandsTypes } from '../../../../propTypes';
 import common from 'components/common';
-
+import TypeBadge from './TypeBadge';
 
 import './style.css';
 
 
-const { FlexBox, Title, Tooltip, Spinners, Badge } = common;
-const { Loader } = Spinners;
+const { FlexBox, Title, Tooltip } = common;
 
 
 const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand, credits, brandSelectLoading, ...props }) => {
@@ -50,7 +49,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
           {brandName}
         </Title>
 
-        <Badge type={isActiveBran ? 'normal' : 'primary'} size='small' className='sidebar-brand-option-package' >{type}</Badge>
+        <TypeBadge brand={brand} className='sidebar-brand-option-package' isActiveBran={isActiveBran} />
       </FlexBox>
     );
   };
