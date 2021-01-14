@@ -75,6 +75,7 @@
 
 .sidebar-brand-option-name {
   flex: 1;
+  transition: .3s color ease-in-out;
 }
 
 .active-brand-option .sidebar-brand-option-name {
@@ -113,6 +114,39 @@
 }
 
 
-.sidebar-brand-option-package {
-  font-size: 9px !important;
+
+
+.sidebar-brand-option {
+  position: relative; 
+  overflow: initial;
+}
+
+
+.sidebar-brand-option-package-type {
+  font-size: 8px;
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  padding: 0 2px;
+  border-radius: 3px;
+  background-color: #4DA1FF;
+  color: #fff;
+  transition: .3s color ease-in-out, .3s background ease-in-out;
+}
+
+
+.active-sidebar-brand-option-package-type {
+  background-color: #fff;
+  color: #4DA1FF;
+}
+
+
+
+.sidebar-brands-select__option:hover .sidebar-brand-option-package-type{
+  background-color: #fff;
+  color: #4DA1FF;
+}
+
+.sidebar-brands-select__option:hover  .sidebar-brand-option-name {
+  color: #fff;
 }

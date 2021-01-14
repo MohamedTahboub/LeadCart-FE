@@ -1,10 +1,8 @@
 import React from 'react';
-
-import common from 'components/common';
+import clx from 'classnames';
 
 import './style.css';
 
-const { Badge } = common;
 
 const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
   if (level) {
@@ -30,17 +28,17 @@ const getBrandType = ({ type }) => {
 };
 
 
-const TypeBadge = ({ brand, className, isActiveBran }) => {
+const TypeBadge = ({ brand, isActiveBran }) => {
   const brandType = getBrandType(brand);
   const brandPackage = getBrandActivePackage(brand);
   return (
-    <Badge type={isActiveBran ? 'normal' : 'primary'} className={className} size='small' >
+    <span className={clx('sidebar-brand-option-package-type', { 'active-sidebar-brand-option-package-type': isActiveBran })} >
       {brandType ?
         <span className='uppercase'>{`${brandType}-Account`}</span>
         :
         brandPackage
       }
-    </Badge>
+    </span>
   );
 };
 

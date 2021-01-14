@@ -30,11 +30,15 @@ export default (state = initialState, { type, payload }) => {
 
   case UPDATE_MARKETPLACE_SETTINGS_SUCCESS:
     return state.map((brand) => {
-      if (brand.id === payload.activeBrand)
-        return { ...brand, ...payload };
-      else
+      if (brand.id === payload.activeBrand) {
+        return {
+          ...brand,
+          name: payload.name,
+          logo: payload.logo
+        };
+      } else {
         return brand;
-
+      }
     });
 
   case UPDATE_ACTIVE_BRAND_SUCCESS:

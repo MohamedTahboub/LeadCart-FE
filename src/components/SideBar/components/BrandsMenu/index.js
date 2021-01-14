@@ -49,7 +49,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
           {brandName}
         </Title>
 
-        <TypeBadge brand={brand} className='sidebar-brand-option-package' isActiveBran={isActiveBran} />
+        <TypeBadge brand={brand} isActiveBran={isActiveBran} />
       </FlexBox>
     );
   };
