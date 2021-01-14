@@ -12,6 +12,8 @@ import * as brandsActions from 'actions/brands';
 import { PlusOutlined } from '@ant-design/icons';
 import { CreditsStatus } from '../common';
 import moment from 'moment';
+import { Modal } from 'components/Modals';
+import { FlexBox } from 'components/common/boxes';
 
 const getPackagePrice = (pkg = {}) => {
   const packageType = pkg.type && pkg.type.toLowerCase();
@@ -19,10 +21,37 @@ const getPackagePrice = (pkg = {}) => {
   return packageDetails.price ? (packageDetails.price[pkg.period] || 0) : 0;
 };
 
-const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
+const BrandsSection = ({ brands, credits, dataLoading, createBrand, deleteBrand, user }) => {
   const [dataSource, setDataSource] = useState(brands);
   const [filter, setFilter] = useState('');
   const [isCreateBrandModalOpen, setCreateModalOpen] = useState(false);
+  const [showDeleteBrandModal, setShowDeleteBrandModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+
+  const onDelete = (brandId) => () => {
+    setShowDeleteBrandModal(brandId);
+  };
+
+  const onHideBrandDeleteDialogue = () => {
+    setShowDeleteBrandModal(false);
+  };
+
+  const onDeleteConfirm = () => {
+    setDeleting(true);
+    deleteBrand({ brand: showDeleteBrandModal }, {
+      onSuccess: () => {
+        notification.success('Brand has been deleted');
+        setDeleting(false);
+        onHideBrandDeleteDialogue();
+      },
+      onFailed: (message) => {
+        setDeleting(false);
+        notification.failed(message);
+      }
+    });
+  };
+
   const columns = [
     {
       title: '',
@@ -59,11 +88,11 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
       )
     }, {
       key: 'date',
-      render: (text, { createdAt } = {}) => (
+      render: (text, { createdAt, id: brandId } = {}) => (
         <FaTrash
+          onClick={onDelete(brandId)}
           color='tomato'
-          className='item-clickable delete-link disabled-icon'
-          data-tip='Brands Deletion is disabled temporarily'
+          className='item-clickable delete-link '
         />
       )
     }
@@ -116,6 +145,36 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, user }) => {
           />
         )
       }
+      {!!showDeleteBrandModal && (
+        <Modal onClose={onHideBrandDeleteDialogue} isVisible={showDeleteBrandModal}>
+          <FlexBox column >
+            <span className='gray-text larger-text bold-text'>Are you sure?</span>
+            <FlexBox flex className='gray-text large-text my-3'>
+              This Brand and its data will be permanently deleted
+            </FlexBox>
+            <FlexBox spaceBetween>
+              <Button type='primary' onClick={onHideBrandDeleteDialogue} className='primary-color margin-with-float-left' disabled={deleting}>
+                Cancel
+              </Button>
+              <Button
+                onClick={onDeleteConfirm}
+                className='danger-bg margin-with-float-right'
+                danger
+                type='dashed'
+                icon={(
+                  <FaTrash
+                    color='tomato'
+                    className='item-clickable delete-link mr-2'
+                  />
+                )}
+                loading={deleting}
+              >
+                    Proceed with deletion
+              </Button>
+            </FlexBox>
+          </FlexBox>
+        </Modal>
+      )}
     </Section>
   );
 };

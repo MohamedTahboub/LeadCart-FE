@@ -1,7 +1,7 @@
 
 import {
-  deleteBrandSuccess,
   deleteBrandFailed,
+  deleteBrandSuccess
 } from '../../actions/brands';
 import { apiRequest } from '../../actions/apiRequest';
 import { DELETE_BRAND } from '../../constantsTypes';
@@ -20,7 +20,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onSuccess: (args) => {
       if (meta.onSuccess) meta.onSuccess(args);
-      return deleteBrandSuccess(args);
+      return deleteBrandSuccess(payload);
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed(message);

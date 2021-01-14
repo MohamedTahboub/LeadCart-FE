@@ -1,14 +1,14 @@
 import {
   CREATE_BRAND,
-  CREATE_BRAND_SUCCESS,
   CREATE_BRAND_FAILED,
+  CREATE_BRAND_SUCCESS,
   DELETE_BRAND,
-  DELETE_BRAND_SUCCESS,
   DELETE_BRAND_FAILED,
-  UPDATE_ACTIVE_BRAND,
-  UPDATE_ACTIVE_BRAND_SUCCESS,
-  UPDATE_ACTIVE_BRAND_FAILED,
+  DELETE_BRAND_SUCCESS,
   GET_USER_BRANDS,
+  UPDATE_ACTIVE_BRAND,
+  UPDATE_ACTIVE_BRAND_FAILED,
+  UPDATE_ACTIVE_BRAND_SUCCESS
 } from '../constantsTypes';
 
 
@@ -24,7 +24,7 @@ export const createBrand = (brand, meta) => ({
 
 export const createBrandSuccess = (brand) => ({
   type: CREATE_BRAND_SUCCESS,
-  payload: brand,
+  payload: brand
 });
 
 export const createBrandFailed = (message) => ({
@@ -40,7 +40,7 @@ export const deleteBrand = (brand, meta) => ({
 
 export const deleteBrandSuccess = (brand) => ({
   type: DELETE_BRAND_SUCCESS,
-  payload: brand,
+  payload: brand
 });
 
 export const deleteBrandFailed = (message) => ({
@@ -56,7 +56,7 @@ export const updateActiveBrand = (brand, meta) => ({
 
 export const updateActiveBrandSuccess = (brand) => ({
   type: UPDATE_ACTIVE_BRAND_SUCCESS,
-  payload: brand,
+  payload: brand
 });
 
 export const updateActiveBrandFailed = (message) => ({
