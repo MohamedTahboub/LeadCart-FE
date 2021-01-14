@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { AiOutlineMinusCircle } from 'react-icons/ai';
 
 import common from 'components/common';
+import useFont from 'libs/hooks/useFont';
 
 import './style.css';
 
@@ -9,6 +10,9 @@ const { FlexBox, Title } = common;
 
 
 const FontRow = ({ family, fileLink: url, onDeleteFile, id }) => {
+  const fontName = useFont({ family, url });
+
+
   useEffect(() => {
     const onLoadCustomFontFile = async () => {
       try {

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Select from 'react-select';
 
 import common from 'components/common';
+import useFont from 'libs/hooks/useFont';
 
 
 import './style.css';
@@ -12,6 +13,7 @@ const { FlexBox, Title, CustomCheckbox } = common;
 const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {}, id }) => {
   const [activeVariantValue, setActiveVariantValue] = useState('regular');
   const [variantLoading, setVariantLoading] = useState('regular');
+  const fontName = useCallback(useFont({ url: files[activeVariantValue], family }), [activeVariantValue]);
 
 
   const onSelect = ({ value }) => setActiveVariantValue(value);

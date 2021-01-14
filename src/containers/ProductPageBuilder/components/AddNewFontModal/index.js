@@ -9,6 +9,8 @@ import CustomFonts from './CustomFonts';
 import InstalledFonts from './InstalledFonts';
 import ConfirmationModal from './ConfirmationModal';
 import * as productsFontsActions from '../../../../actions/productsFonts';
+import * as notifications from 'libs/notifications';
+import { productsFontsSchema } from 'libs/validation';
 
 
 import './style.css';
@@ -29,17 +31,22 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
   } = useContext();
 
 
-  const onSave = () => {
-    addNewProductsFonts({ productsFonts: selectedNewFonts }, {
+  const onSave = async () => {
+    const { isValid, value: fonts, errors } = await productsFontsSchema(selectedNewFonts);
+
+    if (!isValid)
+      return;
+
+    addNewProductsFonts({ fonts }, {
       onSuccess: () => {
-        console.log('Success');
-      },
-      onFailed: () => {
-        console.log('failed');
         onToggleProductFontsModal();
         setSelectedNewFonts([]);
         openedGoogleConfirmationModal && setOpenedGoogleConfirmationModal(false);
         hasNewFonts && setHasNewFonts(false);
+        notifications.success('Your selected fonts added successfully');
+      },
+      onFailed: () => {
+        notifications.failed(errors);
       }
     });
   };
@@ -48,15 +55,14 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
   const onDelete = () => {
     deleteProductsFonts({ fontsIds: selectedInstalledFonts }, {
       onSuccess: () => {
-        console.log('deleted successfully');
-      },
-      onFailed: () => {
-        console.log('deleted failed');
+        notifications.success('Your selected fonts deleted successfully');
         onToggleProductFontsModal();
         setSelectedInstalledFonts([]);
         openedGoogleConfirmationModal && setOpenedGoogleConfirmationModal(false);
         hasNewFonts && setHasNewFonts(false);
-
+      },
+      onFailed: (error) => {
+        notifications.failed(error);
       }
     });
   };

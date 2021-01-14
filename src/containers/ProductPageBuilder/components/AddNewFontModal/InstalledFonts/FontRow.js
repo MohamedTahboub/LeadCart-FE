@@ -7,7 +7,7 @@ import './style.css';
 const { FlexBox, Title, CustomCheckbox } = common;
 
 
-const FontRow = ({ family, id, isSelectedFont, onSelectFont, url }) => {
+const FontRow = ({ family, _id, isSelectedFont, onSelectFont, url }) => {
   useEffect(() => {
     const onLoadCustomFontFile = async () => {
       try {
@@ -31,9 +31,9 @@ const FontRow = ({ family, id, isSelectedFont, onSelectFont, url }) => {
         </Title>
 
         <CustomCheckbox
-          active={isSelectedFont(id)}
+          active={isSelectedFont(_id)}
           className='products-installed-fonts-checkbox-row'
-          onClick={onSelectFont({ id })}
+          onClick={onSelectFont({ _id })}
         />
 
       </FlexBox>

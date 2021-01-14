@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import clx from 'classnames';
 import ToolTip from 'react-tooltip';
-import ids from 'shortid';
 import { connect } from 'react-redux';
-
 
 import common from 'components/common';
 import FontRow from './FontRow';
 import * as productsFontsActions from '../../../../../actions/productsFonts';
-
+import { passProps } from 'helpers/common';
 
 import './style.css';
-import { passProps } from 'helpers/common';
 
 const { Button, FlexBox, InputRow, CustomRadio } = common;
 const { TextField } = InputRow;
@@ -46,8 +43,8 @@ const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelecte
   const isSelectedFont = (id) => selectedInstalledFonts.includes(id);
   const isSelectedFilterKey = (filterKey) => filterValue === filterKey;
 
-  const onSelectFont = ({ id }) => () => {
-    const newList = isSelectedFont(id) ? selectedInstalledFonts.filter((elementId) => elementId !== id) : [...selectedInstalledFonts, id];
+  const onSelectFont = ({ _id }) => () => {
+    const newList = isSelectedFont(_id) ? selectedInstalledFonts.filter((elementId) => elementId !== _id) : [...selectedInstalledFonts, _id];
     setSelectedInstalledFonts(newList);
   };
 
@@ -59,9 +56,9 @@ const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelecte
     if (filterValue === 'all')
       theFilterEndResult = searchedFonts;
     else if (filterValue === 'selected')
-      theFilterEndResult = searchedFonts.filter(({ id }) => isSelectedFont(id));
+      theFilterEndResult = searchedFonts.filter(({ _id }) => isSelectedFont(_id));
     else if (filterValue === 'notSelected')
-      theFilterEndResult = searchedFonts.filter(({ id }) => !isSelectedFont(id));
+      theFilterEndResult = searchedFonts.filter(({ _id }) => !isSelectedFont(_id));
     else
       theFilterEndResult = searchedFonts;
 

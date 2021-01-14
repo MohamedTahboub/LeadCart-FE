@@ -9,19 +9,18 @@ export default ({ dispatch }) => (next) => (action) => {
 
   dispatch(apiRequest({
     options: {
-      method: 'PUSH',
+      method: 'POST',
       body: payload,
-      uri: '/api/brands/productsFonts',
+      uri: '/api/brands/products-fonts',
       contentType: 'json'
     },
-    onSuccess: () => {
+    onSuccess: (arg) => {
       if (meta.onSuccess) meta.onSuccess();
-      return addNewProductsFontsSuccess(payload?.productsFonts);
+      return addNewProductsFontsSuccess(arg.filter((ele) => ele));
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed();
-      // return addNewProductsFontsFailed(message);
-      return addNewProductsFontsSuccess(payload?.productsFonts);
+      return addNewProductsFontsFailed(message);
 
     }
   }));

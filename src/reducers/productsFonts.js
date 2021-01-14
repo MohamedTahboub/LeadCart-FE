@@ -10,7 +10,7 @@ export default (state = initialState, { type, payload }) => {
     return [...state, ...payload];
 
   case DELETE_PRODUCTS_FONTS_SUCCESS:
-    return state.filter(({ id }) => !payload.includes(id));
+    return state.filter(({ _id }) => Array.isArray(payload) && !payload.includes(_id));
   default: return state;
   }
 };

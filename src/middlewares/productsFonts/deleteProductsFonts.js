@@ -11,7 +11,7 @@ export default ({ dispatch }) => (next) => (action) => {
     options: {
       method: 'DELETE',
       body: payload,
-      uri: '/api/brands/productsFonts',
+      uri: '/api/brands/products-fonts',
       contentType: 'json'
     },
     onSuccess: () => {
@@ -20,8 +20,7 @@ export default ({ dispatch }) => (next) => (action) => {
     },
     onFailed: (message) => {
       if (meta.onFailed) meta.onFailed();
-      // return deleteProductsFontsFailed(message);
-      return deleteProductsFontsSuccess(payload.fontsIds);
+      return deleteProductsFontsFailed(message);
 
     }
   }));
