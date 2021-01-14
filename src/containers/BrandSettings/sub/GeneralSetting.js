@@ -58,6 +58,7 @@ const GeneralSettings = ({
         return setErrors({ ...fieldsErrors });
       }
 
+
       props.updateMarketPlaceSettings(
         payload,
         {
