@@ -1,20 +1,25 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Select from 'react-select';
+import ToolTip from 'react-tooltip';
+
 
 import common from 'components/common';
 import useFont from 'libs/hooks/useFont';
 
 
 import './style.css';
+import { connect } from 'react-redux';
+import { passProps } from 'helpers/common';
 
 const { FlexBox, Title, CustomCheckbox } = common;
 
 
-const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {}, id }) => {
+const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {}, id, productsFonts }) => {
   const [activeVariantValue, setActiveVariantValue] = useState('regular');
   const [variantLoading, setVariantLoading] = useState('regular');
-  const fontName = useCallback(useFont({ url: files[activeVariantValue], family }), [activeVariantValue]);
-
+  const url = files[activeVariantValue];
+  const fontName = useCallback(useFont({ url: url, family }), [activeVariantValue]);
+  const isInstalled = productsFonts.find((ele) => ele.family === family && ele.variant === activeVariantValue);
 
   const onSelect = ({ value }) => setActiveVariantValue(value);
   const variantsOptions = variants.map((ele) => ({ label: ele, value: ele }));
@@ -23,7 +28,7 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
     const onLoadCustomFontFile = async () => {
       try {
         setVariantLoading(true);
-        const fn = new FontFace(family, `url(${files[activeVariantValue]})`);
+        const fn = new FontFace(family, `url(${url})`);
         await fn.load().catch(console.error);
         window.document.fonts.add(fn);
         setVariantLoading(false);
@@ -43,10 +48,16 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
           {family}
         </Title>
 
+
         <CustomCheckbox
-          active={isSelectedFont(family)}
+          active={isInstalled || isSelectedFont(family)}
           className='products-google-fonts-checkbox-row'
           onClick={onSelectFont({ family, variant: activeVariantValue, id })}
+          disabled={isInstalled}
+          data-tip='This Font is installed'
+          data-tip-disable={!isInstalled}
+          data-place='left'
+
         />
       </FlexBox>
 
@@ -61,8 +72,10 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
         defaultValue={[{ label: activeVariantValue, value: activeVariantValue }]}
         isLoading={variantLoading}
       />
+
+      <ToolTip />
     </FlexBox>
   );
 };
 
-export default FontRow;
+export default connect(passProps('productsFonts'))(FontRow);
