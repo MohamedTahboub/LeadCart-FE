@@ -12,10 +12,10 @@ const ConfirmationModal = ({ onClose, isVisible, onSave, onDelete, hasInstalledS
     <FlexBox column>
       <FlexBox className='v-center m-0' style={{ borderBottom: '1px solid gray' }} >
         <BsExclamationTriangle size={22} color='#FF9800' />
-        <Title className='ml-2 large-text' >Are You Sure?</Title>
+        <Title className='ml-2 large-text letter-spacing-0' >Are You Sure?</Title>
       </FlexBox>
 
-      <Title className='my-3' >
+      <Title className='my-3 letter-spacing-0' >
         You have unsaved changes, are you wanna save or cancel?
       </Title>
 
