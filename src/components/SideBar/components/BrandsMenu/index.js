@@ -39,7 +39,7 @@ const BrandsMenu = ({ brands, activeBrand: activeBrandId, onChange, createBrand,
 
 
   const LabelBrandOption = ({ brand }) => {
-    const { id: brandId, logo: brandImg, name: brandName, activePackage: { type } = {} } = brand;
+    const { id: brandId, logo: brandImg, name: brandName } = brand;
     const isActiveBran = brandId === activeBrandId;
 
     return (
