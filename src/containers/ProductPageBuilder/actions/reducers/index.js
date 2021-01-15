@@ -99,6 +99,7 @@ export default (state = initialState, { type, payload }) => {
       productPricing: {
         ...state.productPricing,
         openModal: !state.productPricing?.openModal,
+        isEditMode: false,
         toEdit: {}
       }
     };
@@ -108,6 +109,7 @@ export default (state = initialState, { type, payload }) => {
       productPricing: {
         ...state.productPricing,
         openModal: true,
+        isEditMode: true,
         toEdit: payload
       }
     };
@@ -117,6 +119,19 @@ export default (state = initialState, { type, payload }) => {
       product: {
         ...state.product,
         pricingOptions: [...(state.product.pricingOptions || []), payload]
+      }
+    };
+  case types.UPDATE_PRODUCT_PRICING_OPTION:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        pricingOptions: state.product.pricingOptions.map((option) => {
+          if (option.id === payload.id)
+            return { ...option, ...payload };
+          else
+            return option;
+        })
       }
     };
   case types.SELECT_PRODUCT_PRICING_OPTION:
