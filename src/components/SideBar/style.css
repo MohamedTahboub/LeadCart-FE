@@ -6,21 +6,9 @@
   min-width: 200px;
   max-width: 200px;
   background: white;
-  z-index: 1000;
-  display: grid;
-  grid-template-columns: 200px;
-  grid-template-rows: 41px 80px fit-content(0) auto fit-content(0);
-  grid-template-areas:
-    "logo"
-    "avatar-box"
-    "brands"
-    "menu-navigation"
-    "tail-actions";
+  z-index: 10000;
 }
 
-.side-bar.settings-open {
-  grid-template-rows: 41px 80px fit-content(0) auto 170px;
-}
 
 .header-logo {
   grid-area: logo;
@@ -40,12 +28,6 @@
   min-height: calc(100vh - 130px);
   transition: all .2s ease-in-out;  
   height: 50vh;
-}
-
-.side-bar-navigation {
-  grid-area: menu-navigation;
-  height: 100%;
-  border-bottom: 1px solid #E8E8E8;
 }
 
 .tail-actions {

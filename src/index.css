@@ -528,6 +528,7 @@ h5 {
   text-align: center;
 }
 
-.letter-spacing-0 {
-  letter-spacing: 0;
+
+.letter-spacing-0{
+  letter-spacing: 0 !important;
 }

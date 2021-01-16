@@ -43,6 +43,7 @@ const PaymentGatewaysOptions = ({
     cardNumberInputField: cardNumberInputFieldLabel = 'Card Number',
     cardCVCInputField: cardCVCInputFieldLabel = 'Expiry date',
     cardExpirationDateInputField: cardExpirationDateInputFieldLabel = 'CVV',
+    cardExpirationDateInputPlaceholder = 'MM/YY',
     ibanInputFields: ibanInputFieldsLabel
   } = translations;
 
@@ -88,7 +89,7 @@ const PaymentGatewaysOptions = ({
               label={cardExpirationDateInputFieldLabel}
               className='mr-3'
               // type='date'
-              placeholder='MM/YY'
+              placeholder={cardExpirationDateInputPlaceholder}
             />
             <InputField
               flex

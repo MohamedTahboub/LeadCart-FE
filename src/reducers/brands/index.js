@@ -33,7 +33,8 @@ export default (state = initialState, { type, payload }) => {
       if (brand.id === payload.activeBrand) {
         return {
           ...brand,
-          name: payload.name
+          name: payload.name,
+          logo: payload.logo
         };
       } else {
         return brand;
