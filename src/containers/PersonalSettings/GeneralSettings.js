@@ -8,9 +8,10 @@ import * as accountActions from 'actions/account';
 
 import './style.css';
 import { connect } from 'react-redux';
+import { FlexBox } from 'components/common/boxes';
 
-const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails, onChangeAccountPassword }) => {
-  const [detailsForm, setDetailsForm] = useState({ firstName: user.firstName, lastName: user.lastName });
+const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails, onChangeAccountPassword, updateAccountEmail }) => {
+  const [detailsForm, setDetailsForm] = useState({ firstName: user.firstName, lastName: user.lastName, email: user.email });
   const [passwordForm, setPasswordForm] = useState({});
 
   const handleFormChange = (event) => (form, formSetter) => {
@@ -47,9 +48,19 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
     );
   };
 
-  const onRequestEmailChange = () => {
-    if (window.Intercom)
-      window.Intercom('showNewMessage', 'I would like to change my email address');
+  const onEmailChange = () => {
+    const newEmail = detailsForm.email;
+    if (user.email === newEmail) return;
+
+    updateAccountEmail({ email: newEmail }, {
+      onSuccess: () => {
+        notification.success('your account email updated successfully');
+      },
+      onFailed: (message) => {
+        notification.failed(message);
+      }
+    });
+
   };
   const onAvatarImageChange = ({ image }) => {
     updateUserProfileImage(image);
@@ -66,6 +77,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
               name='firstName'
               value={detailsForm.firstName}
               onChange={handleDetailsFormChange}
+              autocomplete='off'
             />
             <InputField
               label='Last name:'
@@ -73,15 +85,30 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
               name='lastName'
               value={detailsForm.lastName}
               onChange={handleDetailsFormChange}
+              autocomplete='off'
             />
             <div className='d-flex justify-end'>
-              <Button type='primary' onClick={handleDetailsFormSubmit}>Update</Button>
+              <Button type='primary' size='small' onClick={handleDetailsFormSubmit}>Update</Button>
             </div>
           </div>
         </Section>
-        <Section title='Emails'>
-          <span>{user.email}</span>
-          <Button onClick={onRequestEmailChange} type='primary' size='small' className='ml-2'>Request email change</Button>
+        <Section title='Account Email'>
+          <FlexBox column>
+            <InputField
+              label='Email:'
+              name='email'
+              value={detailsForm.email}
+              onChange={handleDetailsFormChange}
+              autocomplete='off'
+            />
+            <FlexBox flex flexEnd>
+              <Button onClick={onEmailChange} type='primary' size='small' className='ml-2'
+                disabled={user.email === detailsForm.email || !detailsForm.email}
+              >
+                Change
+              </Button>
+            </FlexBox>
+          </FlexBox>
         </Section>
         <Section title='Password'>
           <InputField
@@ -90,6 +117,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
             placeholder='Old password'
             name='currentPassword'
             onChange={handlePasswordFormChange}
+            autocomplete='off'
           />
           <InputField
             label='New Password:'
@@ -97,6 +125,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
             placeholder='6+ alphanumeric'
             name='newPassword'
             onChange={handlePasswordFormChange}
+            autocomplete='off'
           />
           <InputField
             label='Confirm Password:'
@@ -104,6 +133,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
             placeholder='Confirm New Password'
             name='newPasswordConfirmation'
             onChange={handlePasswordFormChange}
+            autocomplete='off'
           />
           <div className='d-flex justify-end'>
             <Button type='primary' onClick={handlePasswordFormSubmit}>Update</Button>

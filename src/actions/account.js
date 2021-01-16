@@ -11,6 +11,9 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_FAILED,
   RESET_PASSWORD_SUCCESS,
+  UPDATE_ACCOUNT_EMAIL,
+  UPDATE_ACCOUNT_EMAIL_FAILED,
+  UPDATE_ACCOUNT_EMAIL_SUCCESS,
   UPDATE_USER_PROFILE_IMAGE,
   UPDATE_USER_PROFILE_IMAGE_FAILED,
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
@@ -136,5 +139,21 @@ export const resetPasswordSuccess = (status) => ({
 
 export const resetPasswordFailed = (message) => ({
   type: RESET_PASSWORD_FAILED,
+  payload: message
+});
+
+export const updateAccountEmail = (email, meta) => ({
+  type: UPDATE_ACCOUNT_EMAIL,
+  payload: email,
+  meta
+});
+
+export const updateAccountEmailSuccess = (email) => ({
+  type: UPDATE_ACCOUNT_EMAIL_SUCCESS,
+  payload: email
+});
+
+export const updateAccountEmailFailed = (message) => ({
+  type: UPDATE_ACCOUNT_EMAIL_FAILED,
   payload: message
 });
