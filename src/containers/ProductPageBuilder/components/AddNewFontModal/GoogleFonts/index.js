@@ -7,9 +7,8 @@ import common from 'components/common';
 import FontRow from './FontRow';
 
 import './style.css';
-import { Title } from 'components/common/Titles';
 
-const { Button, FlexBox, InputRow, CustomRadio } = common;
+const { Button, FlexBox, InputRow, CustomRadio, Title } = common;
 const { TextField } = InputRow;
 
 
@@ -24,7 +23,7 @@ const FilterOption = ({ label, value, isSelectedFilterKey, onFilterFonts }) => {
 };
 
 
-const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts }) => {
+const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts, onCloseModal, saveLoading }) => {
   const [googleFonts, setGoogleFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -93,7 +92,6 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
 
   useEffect(() => setHasNewFonts(hasSelectedFonts), [hasSelectedFonts]);
 
-
   return (
     <FlexBox className='products-google-fonts' column>
       <FlexBox className='products-google-fonts-header v-center' spaceBetween >
@@ -120,17 +118,19 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
         }
       </FlexBox>
 
-      <FlexBox
-        data-tip="You don't have any font to add"
-        data-tip-disable={hasSelectedFonts}
-        data-place='left'
-        className='full-width mt-4'
-        flexEnd
-      >
-        <Button disabled={!hasSelectedFonts} className='primary-color' onClick={onSave} >
-          Save And Apply
+
+      <FlexBox className='full-width mt-4' spaceBetween >
+        <Button className='light-btn' onClick={onCloseModal} >
+          Close
         </Button>
+
+        <FlexBox data-tip="You don't have any font to add" data-tip-disable={hasSelectedFonts} data-place='left' >
+          <Button disabled={!hasSelectedFonts || saveLoading} onprogress={saveLoading} className='primary-color' onClick={onSave} >
+            Add
+          </Button>
+        </FlexBox>
       </FlexBox>
+
       <ToolTip />
     </FlexBox>
   );

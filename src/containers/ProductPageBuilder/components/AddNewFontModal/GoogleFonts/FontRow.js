@@ -1,15 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Select from 'react-select';
 import ToolTip from 'react-tooltip';
-
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
 
 import common from 'components/common';
 import useFont from 'libs/hooks/useFont';
-
+import { passProps } from 'helpers/common';
 
 import './style.css';
-import { connect } from 'react-redux';
-import { passProps } from 'helpers/common';
 
 const { FlexBox, Title, CustomCheckbox } = common;
 
@@ -43,11 +42,15 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
 
   return (
     <FlexBox className='my-2 h-center px-3 products-google-fonts-row' column >
+      <Helmet>
+        <meta charSet='utf-8' />
+        <link rel='stylesheet' href={url} />
+      </Helmet>
+
       <FlexBox className='v-center py-2' >
         <Title className='m-0 truncate flex-1' >
           {family}
         </Title>
-
 
         <CustomCheckbox
           active={isInstalled || isSelectedFont(family)}

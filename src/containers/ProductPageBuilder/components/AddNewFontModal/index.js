@@ -23,9 +23,10 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
   const [selectedNewFonts, setSelectedNewFonts] = useState([]);
   const [selectedInstalledFonts, setSelectedInstalledFonts] = useState([]);
   const [openedGoogleConfirmationModal, setOpenedGoogleConfirmationModal] = useState(false);
-
   const [activeTab, setActiveTab] = useState('googleFonts');
   const [commentedTab, setCommentedTab] = useState('googleFonts');
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
 
   const clearModal = () => {
@@ -51,6 +52,7 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
 
 
   const onSave = async () => {
+    setSaveLoading(true);
     const { isValid, value: fonts, errors } = await productsFontsSchema(selectedNewFonts);
 
     if (!isValid)
@@ -61,23 +63,29 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
         onToggleProductFontsModal();
         clearModal();
         notifications.success('Your selected fonts added successfully');
+        setSaveLoading(false);
       },
       onFailed: () => {
         notifications.failed(errors);
+        setSaveLoading(false);
       }
     });
   };
 
 
   const onDelete = () => {
+    setDeleteLoading(true);
+
     deleteProductsFonts({ fontsIds: selectedInstalledFonts }, {
       onSuccess: () => {
         onToggleProductFontsModal();
         clearModal();
         notifications.success('Your selected fonts deleted successfully');
+        setDeleteLoading(false);
       },
       onFailed: (error) => {
         notifications.failed(error);
+        setDeleteLoading(false);
       }
     });
   };
@@ -104,8 +112,8 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
   };
 
 
-  const addingFontsProps = { setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts };
-  const installedFontsProps = { setHasNewFonts, onDelete, selectedInstalledFonts, setSelectedInstalledFonts };
+  const addingFontsProps = { setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts, onCloseModal, saveLoading };
+  const installedFontsProps = { setHasNewFonts, onDelete, selectedInstalledFonts, setSelectedInstalledFonts, onCloseModal, deleteLoading };
   const confirmationModalProps = { isVisible: openedGoogleConfirmationModal, onClose: onCloseConfirmationModal, onIgnore };
 
   return (
@@ -115,9 +123,9 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
           <GoogleFonts {...addingFontsProps} />
         </Tab>
 
-        <Tab id='customFont' title='Custom Font' >
+        {/* <Tab id='customFont' title='Custom Font' >
           <CustomFonts {...addingFontsProps} />
-        </Tab>
+        </Tab> */}
 
         <Tab id='installedFonts' title='Installed Font' >
           <InstalledFonts {...installedFontsProps} />
