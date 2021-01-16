@@ -1,10 +1,10 @@
 import {
-  CREATE_SUB_ACCOUNT_SUCCESS,
-  CREATE_SUB_ACCOUNT_FAILED,
-  GET_SUB_ACCOUNTS,
-  DELETE_SUB_ACCOUNT_SUCCESS,
   CHANGE_SUB_ACCOUNT_STATUS_SUCCESS,
-
+  CREATE_SUB_ACCOUNT_FAILED,
+  CREATE_SUB_ACCOUNT_SUCCESS,
+  DELETE_SUB_ACCOUNT_SUCCESS,
+  GET_SUB_ACCOUNTS,
+  REQUEST_SUB_ACCOUNT_DELETION_SUCCESS
 } from 'constantsTypes';
 
 const initialState = {
@@ -31,6 +31,20 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       subAccounts: state.subAccounts.map((agent) => {
         if (agent._id === payload.agentId) return { ...agent, active: payload.active };
+        return agent;
+      })
+    };
+  case REQUEST_SUB_ACCOUNT_DELETION_SUCCESS:
+    return {
+      ...state,
+      subAccounts: state.subAccounts.map((agent) => {
+        if (agent._id === payload.id) {
+          return {
+            ...agent,
+            active: payload.active,
+            accountStatus: { date: new Date() }
+          };
+        }
         return agent;
       })
     };
