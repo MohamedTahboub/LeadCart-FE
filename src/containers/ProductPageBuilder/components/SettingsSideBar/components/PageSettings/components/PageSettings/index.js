@@ -5,16 +5,12 @@ import common from 'components/common';
 import { SettingBox } from '../../../common';
 import { Fonts } from './components/';
 import { useContext } from '../../../../../../actions';
-import { Title } from 'components/common/Titles';
-
 
 const { InputRow, FlexBox, Button } = common;
 const { Label } = InputRow;
 
-
 const PageFontTitle = () => {
   const { actions: { onToggleProductFontsModal } = {} } = useContext();
-
   return (
     <FlexBox spaceBetween>
       <p className='large-text m-0' >Page Font Family</p>
@@ -23,11 +19,9 @@ const PageFontTitle = () => {
   );
 };
 
-
 const PageSettings = ({ pageStyles, onToggleProductBackgroundModal, onChange }) => {
   const openPageBackgroundModal = () => onToggleProductBackgroundModal();
   const { productPage } = pageStyles;
-
 
   return (
     <FlexBox column>
@@ -42,14 +36,13 @@ const PageSettings = ({ pageStyles, onToggleProductBackgroundModal, onChange }) 
         </InputRow>
       </SettingBox>
 
-
       <SettingBox title={<PageFontTitle />} className='mt-2' >
         <Fonts onChange={onChange} productPage={productPage} />
       </SettingBox>
     </FlexBox>
   );
 };
+
+
 PageSettings.propTypes = {};
-
-
 export default PageSettings;

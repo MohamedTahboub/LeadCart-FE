@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
@@ -24,6 +24,25 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
   const [selectedInstalledFonts, setSelectedInstalledFonts] = useState([]);
   const [openedGoogleConfirmationModal, setOpenedGoogleConfirmationModal] = useState(false);
 
+  const [activeTab, setActiveTab] = useState('googleFonts');
+  const [commentedTab, setCommentedTab] = useState('googleFonts');
+
+
+  const clearModal = () => {
+    const hasSelectedInstalledFonts = Boolean(selectedInstalledFonts.length);
+
+    if (hasNewFonts) {
+      setHasNewFonts(false);
+      setSelectedNewFonts([]);
+    }
+
+    if (hasSelectedInstalledFonts)
+      setSelectedInstalledFonts([]);
+
+    if (openedGoogleConfirmationModal)
+      setOpenedGoogleConfirmationModal(false);
+  };
+
 
   const {
     state: { productFontsModal: isProductFontsModalOpened } = {},
@@ -40,9 +59,7 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
     addNewProductsFonts({ fonts }, {
       onSuccess: () => {
         onToggleProductFontsModal();
-        setSelectedNewFonts([]);
-        openedGoogleConfirmationModal && setOpenedGoogleConfirmationModal(false);
-        hasNewFonts && setHasNewFonts(false);
+        clearModal();
         notifications.success('Your selected fonts added successfully');
       },
       onFailed: () => {
@@ -55,11 +72,9 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
   const onDelete = () => {
     deleteProductsFonts({ fontsIds: selectedInstalledFonts }, {
       onSuccess: () => {
-        notifications.success('Your selected fonts deleted successfully');
         onToggleProductFontsModal();
-        setSelectedInstalledFonts([]);
-        openedGoogleConfirmationModal && setOpenedGoogleConfirmationModal(false);
-        hasNewFonts && setHasNewFonts(false);
+        clearModal();
+        notifications.success('Your selected fonts deleted successfully');
       },
       onFailed: (error) => {
         notifications.failed(error);
@@ -69,25 +84,33 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
 
 
   const onCloseModal = () => {
-    if (hasNewFonts)
-      onTabsNavigation();
-    else
-      onToggleProductFontsModal();
+    onToggleProductFontsModal();
+    clearModal();
   };
 
   const onCloseConfirmationModal = () => setOpenedGoogleConfirmationModal(false);
-  const onTabsNavigation = () => setOpenedGoogleConfirmationModal(hasNewFonts);
 
 
-  const hasInstalledSelected = Boolean(selectedInstalledFonts.length);
+  const onTabsNavigation = (clickedTabName) => {
+    setOpenedGoogleConfirmationModal(hasNewFonts);
+    setCommentedTab(clickedTabName);
+    !hasNewFonts && setActiveTab(clickedTabName);
+  };
+
+
+  const onIgnore = () => {
+    clearModal();
+    setActiveTab(commentedTab);
+  };
+
 
   const addingFontsProps = { setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts };
   const installedFontsProps = { setHasNewFonts, onDelete, selectedInstalledFonts, setSelectedInstalledFonts };
-  const confirmationModalProps = { isVisible: openedGoogleConfirmationModal, onClose: onCloseConfirmationModal, onSave, onDelete, hasInstalledSelected };
+  const confirmationModalProps = { isVisible: openedGoogleConfirmationModal, onClose: onCloseConfirmationModal, onIgnore };
 
   return (
     <Modal className='pt-3 products-fonts-modal-container' isVisible={isProductFontsModalOpened} onClose={onCloseModal}>
-      <Tabs active='googleFonts' onChange={onTabsNavigation} blockTabsNavigation={hasNewFonts}>
+      <Tabs active={activeTab} onChange={onTabsNavigation} blockTabsNavigation={hasNewFonts}>
         <Tab id='googleFonts' title='Google Fonts'>
           <GoogleFonts {...addingFontsProps} />
         </Tab>
