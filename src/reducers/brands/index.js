@@ -49,7 +49,7 @@ export default (state = initialState, { type, payload }) => {
     });
 
   case DELETE_BRAND_SUCCESS:
-    return state.filter((brand) => brand.id !== payload.activeBrand);
+    return state.filter((brand) => brand.id !== payload.brand);
 
   default: return state;
   }
