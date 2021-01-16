@@ -158,7 +158,7 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, deleteBrand,
               </Button>
               <Button
                 onClick={onDeleteConfirm}
-                className='danger-bg margin-with-float-right'
+                className='margin-with-float-right'
                 danger
                 type='dashed'
                 icon={(
