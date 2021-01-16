@@ -11,7 +11,6 @@ import common from 'components/common';
 import FlatRadio from 'components/FlatRadio';
 import InlinePopup from 'components/common/InlinePopup';
 import CustomSlider from 'components/common/CustomSlider';
-import { Fonts } from './components';
 
 
 const SettingToggleIcons = ({ show }) => {
@@ -263,8 +262,6 @@ const LayoutsContainerSettings = ({
           </FlexBox>
         )}
       />
-
-      <Fonts onChange={_onChange} productPage={productPage} SettingToggleIcons={SettingToggleIcons} />
 
     </FlexBox >
   );
