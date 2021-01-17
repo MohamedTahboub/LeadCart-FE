@@ -154,7 +154,7 @@ const CountDowTimerWidget = (props) => {
             </FlexBox>
           </SettingBox>
           {content.valueType === 'fixedTime' ? (
-            <SettingBox title='Fixed Date Timer Values'>
+            <SettingBox title='Exact Date Timer Value'>
               <FlexBox column className='margin-v-5' flexStart>
                 <span className='gray-text'>Date:</span>
                 <DatePicker
