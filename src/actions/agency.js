@@ -1,14 +1,17 @@
 import {
-  CREATE_SUB_ACCOUNT,
-  CREATE_SUB_ACCOUNT_SUCCESS,
-  CREATE_SUB_ACCOUNT_FAILED,
-  GET_SUB_ACCOUNTS,
-  DELETE_SUB_ACCOUNT,
-  DELETE_SUB_ACCOUNT_SUCCESS,
-  DELETE_SUB_ACCOUNT_FAILED,
   CHANGE_SUB_ACCOUNT_STATUS,
+  CHANGE_SUB_ACCOUNT_STATUS_FAILED,
   CHANGE_SUB_ACCOUNT_STATUS_SUCCESS,
-  CHANGE_SUB_ACCOUNT_STATUS_FAILED
+  CREATE_SUB_ACCOUNT,
+  CREATE_SUB_ACCOUNT_FAILED,
+  CREATE_SUB_ACCOUNT_SUCCESS,
+  DELETE_SUB_ACCOUNT,
+  DELETE_SUB_ACCOUNT_FAILED,
+  DELETE_SUB_ACCOUNT_SUCCESS,
+  GET_SUB_ACCOUNTS,
+  REQUEST_SUB_ACCOUNT_DELETION,
+  REQUEST_SUB_ACCOUNT_DELETION_FAILED,
+  REQUEST_SUB_ACCOUNT_DELETION_SUCCESS
 } from 'constantsTypes';
 
 export const getSubAccountsSuccess = (subAccounts) => ({
@@ -32,6 +35,21 @@ export const onCreateSubAccountFailed = (message) => ({
 });
 
 
+export const requestSubAccountDeletion = (account, meta) => ({
+  type: REQUEST_SUB_ACCOUNT_DELETION,
+  payload: account,
+  meta
+});
+
+export const requestSubAccountDeletionSuccess = (account) => ({
+  type: REQUEST_SUB_ACCOUNT_DELETION_SUCCESS,
+  payload: account
+});
+export const requestSubAccountDeletionFailed = (message) => ({
+  type: REQUEST_SUB_ACCOUNT_DELETION_FAILED,
+  payload: message
+});
+
 export const deleteSubAccount = (account, meta) => ({
   type: DELETE_SUB_ACCOUNT,
   payload: account,
@@ -46,7 +64,6 @@ export const deleteSubAccountFailed = (message) => ({
   type: DELETE_SUB_ACCOUNT_FAILED,
   payload: message
 });
-
 
 export const changeSubAccountStatus = (state, meta) => ({
   type: CHANGE_SUB_ACCOUNT_STATUS,

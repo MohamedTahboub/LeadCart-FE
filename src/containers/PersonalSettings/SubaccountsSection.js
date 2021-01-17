@@ -4,10 +4,12 @@ import { Table, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Search } from 'components/Inputs';
 import common from 'components/common';
+import moment from 'moment';
 import { Modal } from 'components/Modals';
 import * as agencyActions from 'actions/agency';
 import { notification } from 'libs';
 import { includesIgnoreCase } from 'libs';
+import clx from 'classnames';
 import './style.css';
 
 import { CreditsStatus } from './common';
@@ -80,6 +82,33 @@ const SubAccountsSection = ({
     props.changeSubAccountStatus({ agentId, active });
   };
 
+  const onSubAccountRemoveAttempt = (agentId, { hasPassedTheAllowedDeletionPeriod, isRemovalPending }) => () => {
+
+    if (isRemovalPending)
+      return notification.failed('Your request to delete this Sub-Account is still pending');
+
+    const payload = { id: agentId };
+    if (hasPassedTheAllowedDeletionPeriod) {
+      props.deleteSubAccount(payload, {
+        onSuccess: () => {
+          notification.success('Sub-Account deleted permanently');
+        },
+        onFailed: (message) => {
+          notification.failed(message);
+        }
+      });
+    } else {
+      props.requestSubAccountDeletion(payload, {
+        onSuccess: () => {
+          notification.success('Sub Account removal has been requested, it will take 48 hours to be able to remove the Sub-Account permanently.');
+        },
+        onFailed: (message) => {
+          notification.failed(message);
+        }
+      });
+    }
+  };
+
   const columns = [
     {
       title: 'Account Owner',
@@ -97,6 +126,7 @@ const SubAccountsSection = ({
       title: 'Status',
       dataIndex: 'active',
       key: 'active',
+      align: 'center',
       render: (active) => (
         <Tag
           color={active ? '#4DA1FF' : 'lightgray'}
@@ -108,16 +138,41 @@ const SubAccountsSection = ({
       title: 'Controls',
       dataIndex: null,
       key: 'controls',
-      render: (_, { _id: id, active }) => (
-        <FlexBox flexStart>
-          <SmallButton
-            onClick={onUpdateSubAccountStatus(id, !active)}
-            className={active ? 'green-color' : 'gray-bg'}
-          >
-            {active ? 'Deactivate' : 'Activate'}
-          </SmallButton>
-        </FlexBox>
-      )
+      align: 'center',
+      render: (_, { _id: id, active, accountStatus = {} }) => {
+        const isRemovalRequested = Boolean(accountStatus.date);
+        const hasPassedTheInterval = moment().add(2, 'days').isBefore(accountStatus.date);
+        const hasPassedTheAllowedDeletionPeriod = isRemovalRequested && hasPassedTheInterval;
+        const isRemovalPending = isRemovalRequested && !hasPassedTheInterval;
+
+        const subAccountDeleteBtnClassNames = clx('ml-2', {
+          'primary-btn': !hasPassedTheAllowedDeletionPeriod,
+          'danger-btn': hasPassedTheAllowedDeletionPeriod,
+          'awaiting-btn': !hasPassedTheAllowedDeletionPeriod && isRemovalRequested,
+          'disabled': isRemovalPending
+        });
+
+        return (
+          (
+            <FlexBox flexStart center='h-center small-text'>
+              <Button
+                size='small'
+                onClick={onUpdateSubAccountStatus(id, !active)}
+                className={active ? 'green-color' : 'gray-bg'}
+              >
+                {active ? 'Deactivate' : 'Activate'}
+              </Button>
+
+              <Button
+                className={subAccountDeleteBtnClassNames}
+                onClick={onSubAccountRemoveAttempt(id, { isRemovalRequested, hasPassedTheAllowedDeletionPeriod, isRemovalPending })}
+              >
+                {isRemovalRequested ? (hasPassedTheAllowedDeletionPeriod ? 'Remove Permanently' : 'Removal is Pending') : 'Request a removal'}
+              </Button>
+            </FlexBox>
+          )
+        );
+      }
     }
   ];
   return (
@@ -127,7 +182,7 @@ const SubAccountsSection = ({
         <FlexBox column className='white-bg p-3 soft-edges'>
           <FlexBox center='v-center' spaceBetween className='mb-2'>
             <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
-            <CreditsStatus credits={credits}/>
+            <CreditsStatus credits={credits} />
             <FlexBox flexEnd>
               <Button className='primary-color' onClick={toggleSubAccountModal}><PlusOutlined /> New Sub Account</Button>
             </FlexBox>
