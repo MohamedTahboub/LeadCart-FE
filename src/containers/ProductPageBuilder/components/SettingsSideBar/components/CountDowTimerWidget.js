@@ -154,7 +154,7 @@ const CountDowTimerWidget = (props) => {
             </FlexBox>
           </SettingBox>
           {content.valueType === 'fixedTime' ? (
-            <SettingBox title='Fixed Session Timer Values'>
+            <SettingBox title='Fixed Date Timer Values'>
               <FlexBox column className='margin-v-5' flexStart>
                 <span className='gray-text'>Date:</span>
                 <DatePicker
@@ -169,7 +169,7 @@ const CountDowTimerWidget = (props) => {
               </FlexBox>
             </SettingBox>
           ) :
-            <SettingBox title='Fixed Date Timer Values'>
+            <SettingBox title='Fixed Session Timer Values'>
               <FlexBox center='v-center margin-v-5' spaceBetween>
                 <span className='gray-text'>Days:</span>
                 <TextField
