@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import Select from 'react-select';
 
 import common from 'components/common';
 import { ImageOption, SettingBox } from './common';
@@ -38,7 +39,7 @@ const CountDowTimerWidget = (props) => {
     content = {}
   } = sectionSetting;
 
-  const { value: timerValue } = content;
+  const { value: timerValue, valueType = 'sessionTime' } = content;
 
   const onChange = (field) => {
     actions.onSectionSettingChange({
@@ -76,6 +77,11 @@ const CountDowTimerWidget = (props) => {
       value: theme
     });
   };
+
+
+  const onSelectChange = (name) => ({ value }) => onChange({ name, value });
+  const typeSelectValue = valueType === 'fixedTime' ? { label: 'Exact Date/Time', value: 'fixedTime' } : { label: 'Time For Each Session', value: 'sessionTime' };
+
 
   return (
     <div>
@@ -136,11 +142,10 @@ const CountDowTimerWidget = (props) => {
           <SettingBox title='Setup'>
             <FlexBox column className='margin-v-5' flexStart>
               <span className='gray-text'>Timer Clock Type:</span>
-              <SelectOption
-                value={content.valueType}
-                name='content.valueType'
-                onChange={onFiledChange}
-                className='bump-offer-style-dropdown'
+              <Select
+                value={typeSelectValue}
+                onChange={onSelectChange('content.valueType')}
+                className='bump-offer-style-dropdown  min-width-200'
                 options={[
                   { label: 'Exact Date/Time', value: 'fixedTime' },
                   { label: 'Time For Each Session', value: 'sessionTime' }
