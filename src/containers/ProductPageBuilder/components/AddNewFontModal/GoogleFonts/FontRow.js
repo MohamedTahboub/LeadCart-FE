@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
 import common from 'components/common';
-import useFont from 'libs/hooks/useFont';
 import { passProps } from 'helpers/common';
 
 import './style.css';
@@ -17,7 +16,6 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
   const [activeVariantValue, setActiveVariantValue] = useState('regular');
   const [variantLoading, setVariantLoading] = useState('regular');
   const url = files[activeVariantValue];
-  const fontName = useCallback(useFont({ url: url, family }), [activeVariantValue]);
   const isInstalled = productsFonts.find((ele) => ele.family === family && ele.variant === activeVariantValue);
 
   const onSelect = ({ value }) => setActiveVariantValue(value);

@@ -7,7 +7,7 @@ import common from 'components/common';
 
 const { FlexBox, Title, Button } = common;
 
-const ConfirmationModal = ({ onClose, isVisible, onIgnore }) => (
+const ConfirmationModal = ({ onClose, isVisible, onSave, onIgnoreAndNavigate, hasInstalledSelected: isInstalledTab }) => (
   <Modal isVisible={isVisible} onClose={onClose}>
     <FlexBox column>
       <FlexBox className='v-center m-0' style={{ borderBottom: '1px solid gray' }} >
@@ -16,12 +16,15 @@ const ConfirmationModal = ({ onClose, isVisible, onIgnore }) => (
       </FlexBox>
 
       <Title className='my-3 letter-spacing-0' >
-        You have unsaved changes, Do you want to continue and ignore the changes?
+        You have unsaved changes, Do you want to ignore them or cancel?
       </Title>
 
       <FlexBox className='v-center' spaceBetween>
-        <Button className='light-btn' onClick={onClose} >Cancel</Button>
-        <Button className='danger-btn' onClick={onIgnore} >Ignore</Button>
+        <Button className={isInstalledTab ? 'light-btn' : 'danger-bg'} onClick={onClose} >Cancel</Button>
+        {isInstalledTab ?
+          <Button className='danger-btn' onClick={onIgnoreAndNavigate} >Ignore</Button> :
+          <Button className='primary-color' onClick={onSave} >Save</Button>
+        }
       </FlexBox>
     </FlexBox>
   </Modal>

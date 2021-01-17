@@ -90,16 +90,16 @@ const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelecte
         {filteredFonts.map((ele) => <FontRow isSelectedFont={isSelectedFont} onSelectFont={onSelectFont} {...ele} />)}
       </FlexBox>
 
-      <FlexBox className='full-width mt-4' spaceBetween >
-        <Button className='light-btn' onClick={onCloseModal} >
-          Close
+      <FlexBox
+        data-tip="You don't have any font to delete"
+        data-tip-disable={hasSelectedFonts}
+        data-place='left'
+        className='full-width mt-4'
+        flexEnd
+      >
+        <Button disabled={!hasSelectedFonts} className='danger-btn' onClick={onDelete} >
+          Remove Selected
         </Button>
-
-        <FlexBox data-tip="You don't have any font to add" data-tip-disable={hasSelectedFonts} data-place='left'>
-          <Button disabled={!hasSelectedFonts || deleteLoading} onprogress={deleteLoading} className='danger-btn' onClick={onDelete} >
-            Delete
-          </Button>
-        </FlexBox>
       </FlexBox>
 
       <ToolTip />

@@ -4,6 +4,7 @@ import ToolTip from 'react-tooltip';
 import ids from 'shortid';
 
 import common from 'components/common';
+import { useGoogleFonts } from 'libs/hooks';
 import FontRow from './FontRow';
 
 import './style.css';
@@ -22,19 +23,19 @@ const FilterOption = ({ label, value, isSelectedFilterKey, onFilterFonts }) => {
   );
 };
 
-
+const initialSearchKey = 'any';
 const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts, onCloseModal, saveLoading }) => {
-  const [googleFonts, setGoogleFonts] = useState([]);
+  const [googleFonts, onSearch, { isLoading, searchKey }] = useGoogleFonts({ });
+
   const [filteredFonts, setFilteredFonts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
   const [filterValue, setFilterValue] = useState('all');
 
 
-  const onSearchFonts = (e) => setSearchValue(e.target.value);
+  const onSearchFonts = (e) => onSearch(e.target.value);
   const onFilterFonts = (value) => () => setFilterValue(value);
-  const hasSelectedFonts = Boolean(selectedNewFonts.length);
+  const hasSelectedFonts = Boolean(googleFonts.length);
 
+  console.log({ googleFonts });
   const filterKeys = [
     { label: 'All', value: 'all' },
     { label: 'Selected', value: 'selected' },
@@ -60,34 +61,18 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
 
 
   useEffect(() => {
-    setLoading(true);
-
-    fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBId9mS0JB2nZlstxeoHiPWNEp7TBPeqRo')
-      .then((res) => res.text())
-      .then((data) => {
-        const shortList = JSON.parse(data).items.slice(10, 25);
-        setGoogleFonts(shortList);
-        setFilteredFonts(shortList);
-      })
-      .then(() => setLoading(false));
-  }, []);
-
-
-  useEffect(() => {
-    const searchedFonts = googleFonts.filter(({ family }) => family.toLowerCase().includes(searchValue.toLowerCase()));
     let theFilterEndResult = [];
-
     if (filterValue === 'all')
-      theFilterEndResult = searchedFonts;
+      theFilterEndResult = googleFonts;
     else if (filterValue === 'selected')
-      theFilterEndResult = searchedFonts.filter(({ family }) => isSelectedFont(family));
+      theFilterEndResult = googleFonts.filter(({ family }) => isSelectedFont(family));
     else if (filterValue === 'notSelected')
-      theFilterEndResult = searchedFonts.filter(({ family }) => !isSelectedFont(family));
+      theFilterEndResult = googleFonts.filter(({ family }) => !isSelectedFont(family));
     else
-      theFilterEndResult = searchedFonts;
+      theFilterEndResult = googleFonts;
 
     setFilteredFonts(theFilterEndResult);
-  }, [searchValue, filterValue]);
+  }, [googleFonts, filterValue]);
 
 
   useEffect(() => setHasNewFonts(hasSelectedFonts), [hasSelectedFonts]);
@@ -101,7 +86,7 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
           onChange={onSearchFonts}
           placeholder='Search For Google Font'
           autoComplete='off'
-          value={searchValue}
+          value={searchKey}
         />
 
         <FlexBox className='ml-4'>
@@ -111,7 +96,7 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
 
       <FlexBox className='products-google-fonts-content' flex column>
         {
-          loading ?
+          isLoading ?
             <FlexBox className='full-width h-center' ><Title>Loading ...</Title></FlexBox>
             :
             filteredFonts.map((ele) => <FontRow isSelectedFont={isSelectedFont} onSelectFont={onSelectFont} {...ele} />)

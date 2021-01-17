@@ -3,24 +3,13 @@ import React, { useEffect } from 'react';
 import common from 'components/common';
 
 import './style.css';
+import { loadFontLocally } from 'libs';
 
 const { FlexBox, Title, CustomCheckbox } = common;
 
 
 const FontRow = ({ family, _id, isSelectedFont, onSelectFont, url }) => {
-  useEffect(() => {
-    const onLoadCustomFontFile = async () => {
-      try {
-        const fn = new FontFace(family, `url(${url})`);
-        await fn.load().catch(console.error);
-        window.document.fonts.add(fn);
-      } catch (error) {
-        console.log(error.message, error);
-      }
-    };
-
-    onLoadCustomFontFile();
-  });
+  useEffect(() => loadFontLocally({ family, url }), [family, url]);
 
 
   return (

@@ -303,3 +303,26 @@ export const getAvailablePaymentMethods = (methods = [], paymentsSettings) => {
 
   return enabledPaymentMethods;
 };
+export const loadFontLocally = async (font = {}) => {
+  const { family, url } = font;
+  console.log({ family, url });
+  if (!(family && url)) return;
+  try {
+    const fontToLoad = new FontFace(family, `url(${url})`);
+    await fontToLoad.load();
+    window.document.fonts.add(fontToLoad);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const loadFontsToDocument = async (fonts = []) => {
+  console.log({ fonts });
+  const fontListToLoad = fonts.map(loadFontLocally);
+  await Promise.all(fontListToLoad);
+};
+
+export const delayFor = (delayInterval, arg) =>
+  new Promise((res) =>
+    setTimeout(() =>
+      res(arg), delayInterval));

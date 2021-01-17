@@ -4,9 +4,15 @@ import {
   ADD_NEW_PRODUCTS_FONTS_SUCCESS,
   DELETE_PRODUCTS_FONTS,
   DELETE_PRODUCTS_FONTS_FAILED,
-  DELETE_PRODUCTS_FONTS_SUCCESS
+  DELETE_PRODUCTS_FONTS_SUCCESS,
+  GET_BRAND_FONTS
 } from '../constantsTypes';
 
+
+export const getBrandFonts = (payload) => ({
+  type: GET_BRAND_FONTS,
+  payload
+});
 
 export const addNewProductsFonts = (payload, meta) => ({
   type: ADD_NEW_PRODUCTS_FONTS,

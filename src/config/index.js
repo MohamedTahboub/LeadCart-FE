@@ -12,7 +12,8 @@ const envsVars = {
     intercomAppId: 'hegmjd4b',
     logRocketId: 'olwrix/leadcart',
     LEADCART_AFFILIATE_CENTER_URL: 'https://lc-affiliates.netlify.app',
-    AFFILIATE_ENCODING_KEY: 'strong-key!'
+    AFFILIATE_ENCODING_KEY: 'strong-key!',
+    GOOGLE_FONTS_API_KEY: 'AIzaSyBId9mS0JB2nZlstxeoHiPWNEp7TBPeqRo'
   },
   staging: {
     ZAPIER_INVITATION_LINK: 'https://zapier.com/developer/public-invite/110760/c6fb681572753e1aad9488f28a22a64c/',
@@ -22,7 +23,8 @@ const envsVars = {
     intercomAppId: 'hegmjd4b',
     logRocketId: 'olwrix/leadcart',
     LEADCART_AFFILIATE_CENTER_URL: 'https://lc-affiliates.netlify.app',
-    AFFILIATE_ENCODING_KEY: 'strong-key!'
+    AFFILIATE_ENCODING_KEY: 'strong-key!',
+    GOOGLE_FONTS_API_KEY: 'AIzaSyBId9mS0JB2nZlstxeoHiPWNEp7TBPeqRo'
   },
   production: {
     ZAPIER_INVITATION_LINK: 'https://zapier.com/developer/public-invite/110760/c6fb681572753e1aad9488f28a22a64c/',
@@ -32,7 +34,8 @@ const envsVars = {
     intercomAppId: 'tkvaxlsr',
     logRocketId: '7mxnqn/leadcart',
     LEADCART_AFFILIATE_CENTER_URL: 'https://affiliates.leadcart.io',
-    AFFILIATE_ENCODING_KEY: 'the-strongest-key-ever!!'
+    AFFILIATE_ENCODING_KEY: 'the-strongest-key-ever!!',
+    GOOGLE_FONTS_API_KEY: 'AIzaSyBId9mS0JB2nZlstxeoHiPWNEp7TBPeqRo'
   }
 };
 

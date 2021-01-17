@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { LoadingPage } from 'components/Loaders';
 import sampleProductData from 'data/product';
-import { htmlToImage as generateImageFromHtmlElement, mapListToObject, notification } from 'libs';
+import { htmlToImage as generateImageFromHtmlElement, loadFontsToDocument, mapListToObject, notification } from 'libs';
 import { ProductSchema } from 'libs/validation';
 import * as productGeneralActions from 'actions/product';
 import * as filesActions from 'actions/files';
@@ -26,6 +26,7 @@ import {
   Header,
   NewPricingOptionModal,
   PageBackgroundModal,
+  PageDependencies,
   PageSetupModal,
   ScreenBackgroundSetup,
   SettingSideBar,
@@ -101,6 +102,7 @@ const ProductBuilder = ({
   // uploadFile,
   defaultBrandCurrency,
   match,
+  productsFonts,
   history,
   ...props
 }) => {
@@ -108,11 +110,6 @@ const ProductBuilder = ({
   const [saving, setSaving] = useState(false);
   const [showTemplateWidget, setShowTemplateWidget] = useState(false);
   const [secondsToSaveTemplate, setSecondsToSaveTemplate] = useState(WARNING_INTERVAL);
-
-  const onToggleTemplateWidget = (status) => {
-    const show = status ? status : !showTemplateWidget;
-    setShowTemplateWidget(show);
-  };
 
   const [state, dispatch] = useReducer(reducers, { product: sampleProductData });
   const actions = connectActions(productActions, { state, dispatch });
@@ -133,6 +130,11 @@ const ProductBuilder = ({
     return () => clearInterval(intervalFunc);
   }, [showTemplateWidget]);
 
+  // this should load the custom font files
+  // useEffect(() => {
+  //   if (Array.isArray(productsFonts) && productsFonts.length)
+  //     loadFontsToDocument(productsFonts);
+  // }, [productsFonts]);
 
   useEffect(() => {
     const { params: { productId, funnelUrl } = {} } = match;
@@ -263,8 +265,6 @@ const ProductBuilder = ({
       setShowTemplateWidget(true);
       setSecondsToSaveTemplate(WARNING_INTERVAL);
     }
-
-    // showResetTemplateWidget(oldProductDetails)
   };
 
 
@@ -288,9 +288,9 @@ const ProductBuilder = ({
 
   const { funnel: { currency = defaultBrandCurrency } = {}, product: { pageStyles = {} } = {} } = state;
 
-
   return (
     <ProductContext.Provider value={{ state, actions }}>
+      <PageDependencies productName={state.product?.name} brandFonts={productsFonts} />
       <Page fullSize className='flex-container flex-column'>
         <Header history={history} onSave={onSaveProduct} saving={saving} savingStatus={state.savingStatus} />
         <FlexBox id='blocks' flex className='relative-element'>
@@ -318,8 +318,6 @@ const ProductBuilder = ({
           onReset={onResetToOriginalProduct}
           onSave={() => onSaveProduct()}
           saving={saving}
-          // internalName={state.product?.internalName}
-          // previousInternalName={state.originalProductDetails?.internalName}
           secondsToSaveTemplate={secondsToSaveTemplate}
         />
       </Page>
@@ -333,10 +331,12 @@ ProductBuilder.propTypes = {};
 const propifyState = ({
   funnels = [],
   products: { products = [] } = {},
+  productsFonts = [],
   settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {}
 }) => ({
   funnelsMap: mapListToObject(funnels, 'url'),
   productsMap: mapListToObject(products, '_id'),
-  defaultBrandCurrency
+  defaultBrandCurrency,
+  productsFonts
 });
 export default connect(propifyState, { ...productGeneralActions, ...filesActions })(ProductBuilder);
