@@ -18,7 +18,7 @@ const getGoogleFonts = async () => {
   }
 };
 
-export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 500 }) => {
+export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 500 } = {}) => {
   const [fonts, setFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [searchKey, setSearchKey] = useState(initialSearchKey);
@@ -35,7 +35,9 @@ export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 500 })
     setLoading(false);
   };
 
-  useEffect(loadGoogleFonts, []);
+  useEffect(() => {
+    loadGoogleFonts();
+  }, []);
 
   useEffect(() => {
     let filteredFonts = fonts;
@@ -50,6 +52,10 @@ export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 500 })
     }
 
     setFilteredFonts(filteredFonts);
+    return () => {
+      setFilteredFonts([]);
+      setSearchKey(initialSearchKey);
+    };
   }, [searchKey, fonts]);
 
   return [
