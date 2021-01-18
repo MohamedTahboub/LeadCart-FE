@@ -98,46 +98,65 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
 
   const onCloseConfirmationModal = () => setOpenedGoogleConfirmationModal(false);
 
-  const onTabsNavigation = (tab) => {
-    if (hasNewFonts)
-      setOpenedGoogleConfirmationModal({ hasNewFonts, tab });
-    else
-      setActiveTab(tab);
+  const hasValidArray = (arr, length = 0) => Array.isArray(arr) && arr.length > length;
+
+  const onTabsNavigation = (nextTab, currentActive) => {
+    const shouldBlock = (hasValidArray(selectedNewFonts) && currentActive === 'googleFonts') ||
+      (hasValidArray(selectedInstalledFonts) && currentActive === 'installedFonts');
+
+    if (shouldBlock)
+      setOpenedGoogleConfirmationModal({ hasNewFonts, tab: nextTab, fromTab: currentActive });
+    else setActiveTab(nextTab);
 
   };
 
 
   const onIgnoreAndNavigate = () => {
-    console.log({ openedGoogleConfirmationModal });
-    const { tab } = openedGoogleConfirmationModal || {};
+    const { tab, fromTab } = openedGoogleConfirmationModal || {};
     if (tab) {
       setActiveTab(tab);
       onCloseConfirmationModal();
+      if (fromTab === 'googleFonts')
+        setSelectedNewFonts([]);
+
+      if (fromTab === 'installedFonts')
+        setSelectedInstalledFonts([]);
+
     } else {
       onCloseConfirmationModal();
       onToggleProductFontsModal();
     }
   };
-  const onResetState = () => {
-    setHasNewFonts(false);
-    setActiveTab('googleFonts');
-    setSelectedNewFonts([]);
-    setSelectedInstalledFonts([]);
-  };
-
-  // useEffect(() => {
-  //   if (!isProductFontsModalOpened)
-  //     onResetState();
-  // }, [isProductFontsModalOpened]);
 
   const hasInstalledSelected = Boolean(selectedInstalledFonts.length);
-  const addingFontsProps = { setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts };
-  const installedFontsProps = { setHasNewFonts, onDelete, onIgnoreAndNavigate, selectedInstalledFonts, setSelectedInstalledFonts };
-  const confirmationModalProps = { isVisible: openedGoogleConfirmationModal, onClose: onCloseConfirmationModal, onSave, onIgnoreAndNavigate, hasInstalledSelected };
+  const addingFontsProps = {
+    setHasNewFonts,
+    onSave,
+    selectedNewFonts,
+    setSelectedNewFonts,
+    onCloseModal
+  };
+
+  const installedFontsProps = {
+    setHasNewFonts,
+    onDelete,
+    onIgnoreAndNavigate,
+    selectedInstalledFonts,
+    setSelectedInstalledFonts
+  };
+
+  const confirmationModalProps = {
+    isVisible: openedGoogleConfirmationModal,
+    onClose: onCloseConfirmationModal,
+    onSave,
+    onIgnoreAndNavigate,
+    fromTab: openedGoogleConfirmationModal?.fromTab,
+    hasInstalledSelected
+  };
 
   return (
     <Modal className='pt-3 products-fonts-modal-container' isVisible={isProductFontsModalOpened} onClose={onCloseModal}>
-      <Tabs active={activeTab} onChange={onTabsNavigation} blockTabsNavigation={hasNewFonts}>
+      <Tabs active={activeTab} onChange={onTabsNavigation}>
         <Tab id='googleFonts' title='Google Fonts'>
           <GoogleFonts {...addingFontsProps} />
         </Tab>
@@ -145,7 +164,6 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
           <InstalledFonts {...installedFontsProps} />
         </Tab>
       </Tabs>
-
       <ConfirmationModal {...confirmationModalProps} />
     </Modal>
   );

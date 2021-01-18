@@ -7,26 +7,29 @@ import common from 'components/common';
 
 const { FlexBox, Title, Button } = common;
 
-const ConfirmationModal = ({ onClose, isVisible, onSave, onIgnoreAndNavigate, hasInstalledSelected: isInstalledTab }) => (
-  <Modal isVisible={isVisible} onClose={onClose}>
-    <FlexBox column>
-      <FlexBox className='v-center m-0' style={{ borderBottom: '1px solid gray' }} >
-        <BsExclamationTriangle size={22} color='#FF9800' />
-        <Title className='ml-2 large-text letter-spacing-0' >Are You Sure?</Title>
-      </FlexBox>
+const ConfirmationModal = ({
+  onClose,
+  isVisible,
+  onIgnoreAndNavigate
+}) => {
 
-      <Title className='my-3 letter-spacing-0' >
-        You have unsaved changes, Do you want to ignore them or cancel?
-      </Title>
+  return (
+    <Modal isVisible={isVisible} onClose={onClose}>
+      <FlexBox column>
+        <FlexBox className='v-center m-0' style={{ borderBottom: '1px solid gray' }} >
+          <BsExclamationTriangle size={22} color='#FF9800' />
+          <Title className='ml-2 large-text letter-spacing-0' >Are You Sure?</Title>
+        </FlexBox>
 
-      <FlexBox className='v-center' spaceBetween>
-        <Button className={isInstalledTab ? 'light-btn' : 'danger-bg'} onClick={onClose} >Cancel</Button>
-        {isInstalledTab ?
-          <Button className='danger-btn' onClick={onIgnoreAndNavigate} >Ignore</Button> :
-          <Button className='primary-color' onClick={onSave} >Save</Button>
-        }
+        <Title className='my-3 letter-spacing-0' >
+          You have unsaved changes, Do you want to ignore them or cancel?
+        </Title>
+        <FlexBox className='v-center' spaceBetween>
+          <Button className={'light-btn'} onClick={onClose} >Cancel</Button>
+          <Button className='danger-btn' onClick={onIgnoreAndNavigate} >Ignore</Button>
+        </FlexBox>
       </FlexBox>
-    </FlexBox>
-  </Modal>
-);
+    </Modal>
+  );
+};
 export default ConfirmationModal;
