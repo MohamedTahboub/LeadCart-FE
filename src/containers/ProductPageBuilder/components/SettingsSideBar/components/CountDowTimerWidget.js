@@ -71,6 +71,8 @@ const CountDowTimerWidget = (props) => {
       }
     });
   };
+
+
   const onThemeChange = ({ theme }) => (src) => () => {
     onChange({
       name: 'styles.theme',
@@ -161,7 +163,8 @@ const CountDowTimerWidget = (props) => {
                   type='date'
                   disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
                   placeholder='Timer End Date'
-                  defaultValue={moment(content.date)}
+                  defaultValue={moment(content.value.date)}
+                  value={moment(content.value.date)}
                   className='margin-left-30'
                   onChange={onFixedTimeChange}
                   showTime
