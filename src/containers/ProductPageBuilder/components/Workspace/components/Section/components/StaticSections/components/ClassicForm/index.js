@@ -81,7 +81,7 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
 
   const {
     fullNamePlaceholder = 'Full Name',
-    emailPlaceholder = 'Enter your email'
+    emailLabel = 'Enter your email'
   } = language.optInForm || {};
 
 
@@ -288,7 +288,7 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
           />
           <CheckoutInput
             disabled
-            label={emailPlaceholder}
+            label={emailLabel}
           />
           <CompleteOrderBtn
             name='custom.orderButtonText'
