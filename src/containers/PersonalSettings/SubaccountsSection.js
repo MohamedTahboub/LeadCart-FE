@@ -141,7 +141,8 @@ const SubAccountsSection = ({
       align: 'center',
       render: (_, { _id: id, active, accountStatus = {} }) => {
         const isRemovalRequested = Boolean(accountStatus.date);
-        const hasPassedTheInterval = moment().add(2, 'days').isBefore(accountStatus.date);
+        console.log({ Date: moment(accountStatus.date).format() });
+        const hasPassedTheInterval = moment(accountStatus.date).add(2, 'days').isBefore();
         const hasPassedTheAllowedDeletionPeriod = isRemovalRequested && hasPassedTheInterval;
         const isRemovalPending = isRemovalRequested && !hasPassedTheInterval;
 
