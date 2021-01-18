@@ -1,12 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
+
 import { useContext } from '../../../../../../../../actions';
-import {
-  // getCurrencySymbol,
-  capitalize,
-  getPriceFormat
-} from 'libs';
+import { capitalize, getPriceFormat } from 'libs';
 
 import './style.css';
 
@@ -18,7 +15,6 @@ const SummarySlice = ({ name, amount = 0, className = '' }) => (
   </div>
 );
 
-const nextChargeDateFormat = 'DD/MM/YYYY';
 
 const getPaymentDetails = (
   name,
@@ -27,13 +23,11 @@ const getPaymentDetails = (
     subscriptionMonthly = 'Subscription - Monthly',
     subscriptionYearly = 'Subscription - Yearly',
     splitPayment = 'First Installment Out of '
-  } = {}
+  } = {},
+  dateFormat
 ) => {
-
-
   const isYearlyRecurring = capitalize(recurringPeriod) === 'Year';
   const subscriptionLabel = isYearlyRecurring ? subscriptionYearly : subscriptionMonthly;
-
   const label = name;
   const nextCharge = '';
 
@@ -42,18 +36,20 @@ const getPaymentDetails = (
   case 'Split':
     return {
       label: `${label}(${splitPayment + splits})`,
-      nextCharge: moment().add(1, 'M').format(nextChargeDateFormat)
+      nextCharge: moment().add(1, 'M').format(dateFormat)
     };
   case 'Subscription': {
     const recTime = recurringPeriod[0].toLowerCase();
     return {
       label: `${label}( ${subscriptionLabel} )`,
-      nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format(nextChargeDateFormat)
+      nextCharge: moment().add(1, recTime === 'm' ? 'M' : recTime).format(dateFormat)
     };
   }
   default: return { label, nextCharge };
   }
 };
+
+
 const OrderSummary = ({
   payment,
   productName = 'Not Set',
@@ -63,7 +59,8 @@ const OrderSummary = ({
     format
   } = {},
   vat = 0.1,
-  language = {}
+  language = {},
+  dateFormat
 
 }) => {
   const { state: { funnel: { currency = defaultBrandCurrency } = {} } = {} } = useContext();
@@ -73,7 +70,7 @@ const OrderSummary = ({
     nextCharge: nextChargeLabel = 'Your next charge is going to be on '
   } = language.checkout || {};
 
-  const { label, nextCharge } = getPaymentDetails(productName, payment, language.checkout);
+  const { label, nextCharge } = getPaymentDetails(productName, payment, language.checkout, dateFormat);
 
   const total = getPriceFormat(amount, currency, format);
   return (
@@ -96,5 +93,5 @@ const OrderSummary = ({
     </section>
   );
 };
-const mapStateToProps = ({ settings: { generalModel: { currency: defaultBrandCurrency = 'USD' } = {} } = {} }) => ({ defaultBrandCurrency });
+const mapStateToProps = ({ settings: { generalModel: { currency: defaultBrandCurrency = 'USD', dateFormat = 'DD/MM/YYYY' } = {} } = {} }) => ({ defaultBrandCurrency, dateFormat });
 export default connect(mapStateToProps)(OrderSummary);
