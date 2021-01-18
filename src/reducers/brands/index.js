@@ -33,7 +33,8 @@ export default (state = initialState, { type, payload }) => {
       if (brand.id === payload.activeBrand) {
         return {
           ...brand,
-          name: payload.name
+          name: payload.name,
+          logo: payload.logo
         };
       } else {
         return brand;
@@ -48,7 +49,7 @@ export default (state = initialState, { type, payload }) => {
     });
 
   case DELETE_BRAND_SUCCESS:
-    return state.filter((brand) => brand.id !== payload.activeBrand);
+    return state.filter((brand) => brand.id !== payload.brand);
 
   default: return state;
   }

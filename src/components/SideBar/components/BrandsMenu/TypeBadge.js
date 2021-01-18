@@ -1,8 +1,8 @@
 import React from 'react';
-import { Avatar, Tag } from 'antd';
-import classNames from 'classnames';
+import clx from 'classnames';
 
-import './index.css';
+import './style.css';
+
 
 const getBrandActivePackage = ({ activePackage = {}, level } = {}) => {
   if (level) {
@@ -28,21 +28,18 @@ const getBrandType = ({ type }) => {
 };
 
 
-const BrandAvatar = ({ brand, className }) => {
+const TypeBadge = ({ brand, isActiveBran }) => {
   const brandType = getBrandType(brand);
   const brandPackage = getBrandActivePackage(brand);
   return (
-    <span className={classNames('brand-avatar-wrapper', className)}>
-      <Avatar size={32} className='mr-2 brand-avatar-image' src={brand.logo}>{brand.name[0]}</Avatar>
-      <Tag className='brand-avatar-subscription'>
-        {brandType ? (
-          <span className='uppercase'>{`${brandType}-Account`}</span>
-        ) : (
-          brandPackage
-        )}
-      </Tag>
+    <span className={clx('sidebar-brand-option-package-type', { 'active-sidebar-brand-option-package-type': isActiveBran })} >
+      {brandType ?
+        <span className='uppercase'>{`${brandType}-Account`}</span>
+        :
+        brandPackage
+      }
     </span>
   );
 };
 
-export default BrandAvatar;
+export default TypeBadge;

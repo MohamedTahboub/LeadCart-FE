@@ -1,0 +1,28 @@
+.sidebar-main-menu-container{
+  overflow: auto;
+}
+
+
+.sidebar-main-menu-item{  
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+  transition: 
+  .3s background ease-in-out,
+   .3s font-weight ease-in-out,
+   .3s color ease-in-out;
+  letter-spacing: 0px;
+  width: 85%;
+  padding: 4px 10px;
+  margin: 0 auto;
+}
+
+.sidebar-main-menu-item:hover,
+.active-sidebar-main-menu-item{  
+  font-weight: bold;
+}
+.active-sidebar-main-menu-item{  
+  color: #47678c;
+  background-color: #5096f929;
+}

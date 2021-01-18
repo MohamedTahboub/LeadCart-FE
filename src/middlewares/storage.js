@@ -5,6 +5,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   SIGN_UP_SUCCESS,
+  UPDATE_ACCOUNT_EMAIL_SUCCESS,
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
   UPGRADE_USER_PACKAGE_SUCCESS
 } from 'constantsTypes';
@@ -19,7 +20,8 @@ export default ({ dispatch }) => (next) => (action) => {
     || type === ACTIVATE_AGENCY_CODE_SUCCESS
     || type === UPGRADE_USER_PACKAGE_SUCCESS
     || type === CHANGE_ACCOUNT_DETAILS_SUCCESS
-    || type === APP_LAUNCH_SUCCESS;
+    || type === APP_LAUNCH_SUCCESS
+    || type === UPDATE_ACCOUNT_EMAIL_SUCCESS;
 
   // elemenating any action thats does not belongs to the loging family!
   if (!loggingEvent) return next(action);
@@ -69,6 +71,12 @@ export default ({ dispatch }) => (next) => (action) => {
         ...JSON.parse(localStorage.leadcart),
         activePackage: payload.activePackage,
         trial: false
+      });
+    }
+    if (type === UPDATE_ACCOUNT_EMAIL_SUCCESS) {
+      localStorage.leadcart = JSON.stringify({
+        ...JSON.parse(localStorage.leadcart),
+        email: payload.email
       });
     }
 

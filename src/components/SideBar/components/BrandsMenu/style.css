@@ -1,0 +1,152 @@
+.brand-avatar-wrapper {
+  position: relative;
+}
+
+.brand-avatar-type,
+.brand-avatar-subscription {
+  position: absolute;
+  left: 14px;
+  bottom: -12px;
+  font-size: .6rem !important;
+  padding: 0 !important;
+  height: 16px !important;
+  line-height: 14px !important;
+}
+
+.brand-avatar-subscription span{
+  font-size: .7rem !important;
+}
+
+.brand-avatar-type{
+  left: 14px;
+  top: 10px;
+  bottom: unset;
+  color: orange;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+
+.sidebar-brands-select-container{
+  width: 85%;
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+
+.sidebar-brands-select__menu-list {
+  padding: 0 !important;
+}
+
+.sidebar-brands-select__option{
+  border-bottom: 1px solid lightgray;
+  background-color: #fff;
+  cursor: pointer !important;
+  transition: .3s background ease-in-out, .3s color ease-in-out;
+  padding: 7px 5px !important;
+  font-size: 12px;
+}
+
+.sidebar-brands-select__option * {
+  letter-spacing: 0 !important;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.sidebar-brands-select__option:last-child{
+  border: none
+}
+
+
+.sidebar-brands-select__option--is-selected{
+  background-color: rgba(80, 150, 249, 0.69) !important;
+  font-weight: bold;
+}
+
+.sidebar-brands-select__option:hover{
+  background-color: rgba(80, 150, 249, 0.69) !important;
+}
+
+
+.sidebar-brand-option-name {
+  flex: 1;
+  transition: .3s color ease-in-out;
+}
+
+.active-brand-option .sidebar-brand-option-name {
+  color: #fff;
+}
+
+.sidebar-brand-option-img{
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  min-width: 25px;
+  min-height: 25px;
+  margin-right: 5px;
+}
+
+
+.sidebar-brand-option-package {
+  padding: 3px !important;
+}
+
+.create-new-brand-button{
+  color: #4DA1FF;
+  transition: .3s opacity ease-in-out;
+}
+
+.create-new-brand-button:hover{
+  opacity: .8;
+}
+
+
+.sidebar-brands-select__value-container.sidebar-brands-select__value-container--has-value.css-1hwfws3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+.sidebar-brand-option {
+  position: relative; 
+  overflow: initial;
+}
+
+
+.sidebar-brand-option-package-type {
+  font-size: 8px;
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  padding: 0 2px;
+  border-radius: 3px;
+  background-color: #4DA1FF;
+  color: #fff;
+  transition: .3s color ease-in-out, .3s background ease-in-out;
+}
+
+
+.active-sidebar-brand-option-package-type {
+  background-color: #fff;
+  color: #4DA1FF;
+}
+
+
+
+.sidebar-brands-select__option:hover .sidebar-brand-option-package-type{
+  background-color: #fff;
+  color: #4DA1FF;
+}
+
+.sidebar-brands-select__option:hover  .sidebar-brand-option-name {
+  color: #fff;
+}
