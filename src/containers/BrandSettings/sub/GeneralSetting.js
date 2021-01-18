@@ -95,7 +95,7 @@ const GeneralSettings = ({
   };
 
   const dateformatOptions = getDateFormatOptions();
-  const formatDateValue = { value: fields.dateFormat, label: moment(new Date()).format(fields.dateFormat) };
+  const formatDateValue = { value: fields.dateFormat, label: moment(new Date()).format(fields.dateFormat || 'DD/MM/YYYY') };
 
 
   return (
