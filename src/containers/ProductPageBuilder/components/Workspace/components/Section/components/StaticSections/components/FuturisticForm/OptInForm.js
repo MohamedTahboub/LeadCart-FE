@@ -29,8 +29,10 @@ const OptInForm = ({ language, section }) => {
 
   const {
     fullNameLabel = 'Full Name',
-    emailLabel = 'Email'
-  } = language.checkout || {};
+    fullNamePlaceholder = 'Full Name',
+    emailLabel = 'Email',
+    emailPlaceholder = 'Enter your email'
+  } = language.optInForm || {};
 
 
   return (
@@ -39,14 +41,14 @@ const OptInForm = ({ language, section }) => {
         flex
         label={fullNameLabel}
         className='mb-3'
-        placeholder='Full Name'
+        placeholder={fullNamePlaceholder}
       />
 
       <InputField
         flex
         label={emailLabel}
         className='mb-3'
-        placeholder='Enter your email'
+        placeholder={emailPlaceholder}
       />
 
       <FlexBox column flex center='v-center'>
