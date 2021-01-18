@@ -11,6 +11,7 @@ import {
   SAVE_USER_GENERAL_SETTINGS_SUCCESS,
   SIGN_UP_FAILED,
   SIGN_UP_SUCCESS,
+  UPDATE_ACCOUNT_EMAIL_SUCCESS,
   UPDATE_USER_PROFILE_IMAGE_SUCCESS,
   UPGRADE_USER_PACKAGE_SUCCESS
 } from 'constantsTypes';
@@ -112,6 +113,14 @@ export default (state = initialState, { type, payload }) => {
       user: {
         ...state.user,
         activeBrand: payload.activeBrand
+      }
+    };
+  case UPDATE_ACCOUNT_EMAIL_SUCCESS:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        email: payload.email
       }
     };
   default: return state;
