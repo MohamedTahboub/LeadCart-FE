@@ -66,7 +66,7 @@ const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelecte
   }, [searchValue, filterValue]);
 
 
-  useEffect(() => setHasNewFonts(hasSelectedFonts), [hasSelectedFonts]);
+  useEffect(() => {setHasNewFonts(hasSelectedFonts);}, [hasSelectedFonts]);
 
 
   return (
@@ -82,12 +82,23 @@ const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelecte
         />
 
         <FlexBox className='ml-4'>
-          {filterKeys.map((ele) => <FilterOption {...ele} isSelectedFilterKey={isSelectedFilterKey} onFilterFonts={onFilterFonts} />)}
+          {filterKeys.map((ele) => (
+            <FilterOption
+              {...ele}
+              isSelectedFilterKey={isSelectedFilterKey}
+              onFilterFonts={onFilterFonts}
+            />))}
         </FlexBox>
+
       </FlexBox>
 
       <FlexBox className='products-installed-fonts-content' flex column>
-        {filteredFonts.map((ele) => <FontRow isSelectedFont={isSelectedFont} onSelectFont={onSelectFont} {...ele} />)}
+        {filteredFonts.map((ele) => (
+          <FontRow
+            isSelectedFont={isSelectedFont}
+            onSelectFont={onSelectFont}
+            {...ele}
+          />))}
       </FlexBox>
 
       <FlexBox

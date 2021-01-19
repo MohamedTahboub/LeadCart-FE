@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import ToolTip from 'react-tooltip';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
 import common from 'components/common';
 import { passProps } from 'helpers/common';
 
+import { FontDemoCard } from '../components';
 import './style.css';
+import { isFunction } from 'libs/checks';
 
-const { FlexBox, Title, CustomCheckbox } = common;
-
+const { FlexBox } = common;
 
 const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {}, id, productsFonts }) => {
   const [activeVariantValue, setActiveVariantValue] = useState('regular');
@@ -18,64 +18,58 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
   const url = files[activeVariantValue];
   const isInstalled = productsFonts.find((ele) => ele.family === family && ele.variant === activeVariantValue);
 
-  const onSelect = ({ value }) => setActiveVariantValue(value);
+  const onSelect = ({ value }, e) => {
+    setActiveVariantValue(value);
+    preventDefaultEvent(e);
+  };
+
   const variantsOptions = variants.map((ele) => ({ label: ele, value: ele }));
 
-  useEffect(() => {
-    const onLoadCustomFontFile = async () => {
-      try {
-        setVariantLoading(true);
-        const fn = new FontFace(family, `url(${url})`);
-        await fn.load().catch(console.error);
-        window.document.fonts.add(fn);
-        setVariantLoading(false);
-      } catch (error) {
-        console.log(error.message, error);
-      }
-    };
+  const preventDefaultEvent = (e) => {
+    if (isFunction(e.preventDefault))
+      e.preventDefault();
+  };
+  const onLoadCustomFontFile = async () => {
+    try {
+      setVariantLoading(true);
+      const fn = new FontFace(family, `url(${url})`);
+      await fn.load().catch(console.error);
+      window.document.fonts.add(fn);
+      setVariantLoading(false);
+    } catch (error) {
+      console.log(error.message, error);
+    }
+  };
 
+  useEffect(() => {
     onLoadCustomFontFile();
   }, [activeVariantValue]);
 
+  const isSelectedFontFamily = isSelectedFont(family);
+  const shouldShowCheckBox = Boolean(isInstalled || isSelectedFontFamily);
+
 
   return (
-    <FlexBox className='my-2 h-center px-3 products-google-fonts-row' column >
-      <Helmet>
-        <meta charSet='utf-8' />
-        <link rel='stylesheet' href={url} />
-      </Helmet>
-
-      <FlexBox className='v-center py-2' >
-        <Title className='m-0 truncate flex-1' >
-          {family}
-        </Title>
-
-        <CustomCheckbox
-          active={isInstalled || isSelectedFont(family)}
-          className='products-google-fonts-checkbox-row'
-          onClick={onSelectFont({ family, variant: activeVariantValue, id })}
-          disabled={isInstalled}
-          data-tip='This Font is installed'
-          data-tip-disable={!isInstalled}
-          data-place='left'
-
+    <FontDemoCard
+      font={{ url, family }}
+      onClick={onSelectFont({ family, variant: activeVariantValue, id })}
+      active={shouldShowCheckBox}
+      disabled={isInstalled}
+    >
+      <FlexBox center='v-center' className='p-2'>
+        <span className='title-text gray-text mr-2'>Font variant:</span>
+        <Select
+          options={variantsOptions}
+          onClick={preventDefaultEvent}
+          onChange={onSelect}
+          className='ml-2 max-width-200 flex'
+          defaultValue={[{ label: activeVariantValue, value: activeVariantValue }]}
+          isLoading={variantLoading}
         />
       </FlexBox>
-
-      <p className='m-0 large-text' style={{ 'font-family': family }}>
-        This text for display the result for this font with the selected variant
-      </p>
-
-      <Select
-        options={variantsOptions}
-        onChange={onSelect}
-        className='mb-2 ml-2 max-width-200'
-        defaultValue={[{ label: activeVariantValue, value: activeVariantValue }]}
-        isLoading={variantLoading}
-      />
-
       <ToolTip />
-    </FlexBox>
+    </FontDemoCard>
+
   );
 };
 

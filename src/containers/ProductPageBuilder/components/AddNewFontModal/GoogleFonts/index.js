@@ -23,19 +23,17 @@ const FilterOption = ({ label, value, isSelectedFilterKey, onFilterFonts }) => {
   );
 };
 
-const initialSearchKey = 'any';
 const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts, onCloseModal, saveLoading }) => {
-  const [googleFonts, onSearch, { isLoading, searchKey }] = useGoogleFonts({ });
+  const [googleFonts, onSearch, { isLoading, searchKey }] = useGoogleFonts();
 
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [filterValue, setFilterValue] = useState('all');
 
 
-  const onSearchFonts = (e) => onSearch(e.target.value);
+  const onSearchFonts = (e) => onSearch && onSearch(e.target?.value);
   const onFilterFonts = (value) => () => setFilterValue(value);
   const hasSelectedFonts = Boolean(googleFonts.length);
 
-  console.log({ googleFonts });
   const filterKeys = [
     { label: 'All', value: 'all' },
     { label: 'Selected', value: 'selected' },
@@ -72,10 +70,14 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
       theFilterEndResult = googleFonts;
 
     setFilteredFonts(theFilterEndResult);
+    return () => setFilteredFonts([]);
   }, [googleFonts, filterValue]);
 
 
-  useEffect(() => setHasNewFonts(hasSelectedFonts), [hasSelectedFonts]);
+  useEffect(() => {
+    setHasNewFonts(hasSelectedFonts);
+    return () => setHasNewFonts([]);
+  }, [hasSelectedFonts]);
 
   return (
     <FlexBox className='products-google-fonts' column>
@@ -111,7 +113,7 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
 
         <FlexBox data-tip="You don't have any font to add" data-tip-disable={hasSelectedFonts} data-place='left' >
           <Button disabled={!hasSelectedFonts || saveLoading} onprogress={saveLoading} className='primary-color' onClick={onSave} >
-            Add
+            Install Selected
           </Button>
         </FlexBox>
       </FlexBox>
@@ -121,4 +123,12 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
   );
 };
 
-export default GoogleFonts;
+export default (props) => {
+
+  try {
+    return <GoogleFonts {...props} />;
+  } catch (error) {
+    console.log('error.message', error.message, JSON.stringify(error, null, 2));
+    return null;
+  }
+};

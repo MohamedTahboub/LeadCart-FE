@@ -4,20 +4,20 @@
   padding: 10px;
 }
 
-.products-installed-fonts-header{
+.products-installed-fonts-header {
   width: 90%;
   margin-bottom: 20px;
 }
 
- .products-installed-fonts-header-search{
+.products-installed-fonts-header-search {
   flex: 1;
 }
 
-.products-installed-fonts-header-search .text-input-filed{
+.products-installed-fonts-header-search .text-input-filed {
   flex: 1;
-} 
+}
 
-.products-installed-fonts-content{
+.products-installed-fonts-content {
   overflow: auto;
   width: 90%;
   flex-direction: row !important;
@@ -37,8 +37,7 @@
 }
 
 
-.products-installed-fonts-checkbox-row.checkbox-container{
+.products-installed-fonts-checkbox-row.checkbox-container {
   padding-left: 20px !important;
-  
-}
 
+}

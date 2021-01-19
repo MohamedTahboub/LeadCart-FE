@@ -4,20 +4,20 @@
   padding: 10px;
 }
 
-.products-google-fonts-header{
+.products-google-fonts-header {
   width: 90%;
   margin-bottom: 20px;
 }
 
-.products-google-fonts-header-search{
+.products-google-fonts-header-search {
   flex: 1;
 }
 
-.products-google-fonts-header-search .text-input-filed{
+.products-google-fonts-header-search .text-input-filed {
   flex: 1;
 }
 
-.products-google-fonts-content{
+.products-google-fonts-content {
   overflow: auto;
   width: 90%;
   flex-direction: row !important;
@@ -26,19 +26,8 @@
   padding-right: 10px;
 }
 
-.products-google-fonts-row {
-  border-radius: 05px;
-  width: 47%;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
-  border: 1px solid #dadce0;
-  position: relative;
-  max-height: 150px;
-  min-height: 120px;
-}
 
-
-.products-google-fonts-checkbox-row.checkbox-container{
+.products-google-fonts-checkbox-row.checkbox-container {
   padding-left: 20px !important;
-  
-}
 
+}
