@@ -1,8 +1,11 @@
 import React from 'react';
+
 import common from 'components/common';
 import avatarLink from 'assets/images/avatar.jpg';
 import StarsRanking from 'components/StarsRanking';
 import Image from 'components/common/Image';
+import { getSectionBackground } from 'helpers/common';
+
 
 import './style.css';
 const {
@@ -21,7 +24,7 @@ const EdgyTestimonial = ({
   onChange,
   styles = {}
 }) => {
-  const { backgroundColor = 'transparent', nameColor = '#000', jobTitleColor = '#a2a2a2', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
+  const { nameColor = '#000', jobTitleColor = '#a2a2a2', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value }) => {
     onChange({
@@ -32,8 +35,11 @@ const EdgyTestimonial = ({
     });
   };
 
+
+  const sectionBackground = getSectionBackground(styles);
+
   return (
-    <FlexBox className='edgy-testimonial-section' style={{ backgroundColor }}>
+    <FlexBox className='edgy-testimonial-section' style={sectionBackground}>
       <Image
         className='edgy-testimonial-image'
         image={image}

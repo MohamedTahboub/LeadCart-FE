@@ -30,7 +30,7 @@ const themesOptions = [
   }
 ];
 
-const { Tabs, Tab, MiniColorPicker, FlexBox, InputRow } = common;
+const { Tabs, Tab, MiniColorPicker, FlexBox, InputRow, BackgroundOptions } = common;
 const { Label } = InputRow;
 
 const TestimonialsSection = (props) => {
@@ -85,21 +85,7 @@ const TestimonialsSection = (props) => {
 
         <Tab id='styles' title='Styles'>
           <FlexBox column>
-            <InlinePopup
-              title='Background Color'
-              popUpContent={(
-                <InputRow>
-                  <Label>
-                    Background Color:
-                  </Label>
-                  <MiniColorPicker
-                    name='styles.backgroundColor'
-                    value={styles.backgroundColor}
-                    onChange={onChange}
-                  />
-                </InputRow>
-              )}
-            />
+            <BackgroundOptions styles={styles} onChange={onChange} />
 
             <InlinePopup
               title='Name Color'
