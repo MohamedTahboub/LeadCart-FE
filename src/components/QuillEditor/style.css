@@ -90,4 +90,8 @@
 .ql-container{
     font-family: inherit;
 }
+/* Reset the quill editor to default font-family when applying it to the product workspace */
+.ql-tooltip .ql-formats{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
 

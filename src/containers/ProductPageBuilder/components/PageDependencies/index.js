@@ -7,7 +7,6 @@ const PageDependencies = ({
   brandFonts,
   productName
 }) => {
-  console.log({ brandFonts });
   const fontLinks = brandFonts
     .filter((font) => font.type === 'googleFont')
     .map((font) => {

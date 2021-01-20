@@ -18,7 +18,7 @@ const getGoogleFonts = async () => {
   }
 };
 
-export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 500 } = {}) => {
+export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 300 } = {}) => {
   const [fonts, setFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [searchKey, setSearchKey] = useState(initialSearchKey);
@@ -26,17 +26,18 @@ export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 500 } 
 
   const onSearch = (key) => setSearchKey(key);
 
-  const loadGoogleFonts = async () => {
+  const loadGoogleFonts = async (updateFonts) => {
     setLoading(true);
     const loadedFonts = await getGoogleFonts();
-    const limited = loadedFonts.slice(0, resultsLimit);
     if (delayPeriod) await delayFor(delayPeriod);
-    setFonts(limited);
-    setLoading(false);
+    updateFonts(loadedFonts);
   };
 
   useEffect(() => {
-    loadGoogleFonts();
+    loadGoogleFonts((fonts) => {
+      setFonts(fonts);
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -47,15 +48,11 @@ export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 500 } 
         .filter((font) => {
           const isMatch = includesIgnoreCase(font.family, searchKey);
           return searchKey ? isMatch : true;
-        })
-        .slice(0, resultsLimit);
+        });
     }
 
-    setFilteredFonts(filteredFonts);
-    return () => {
-      setFilteredFonts([]);
-      setSearchKey(initialSearchKey);
-    };
+    const limited = resultsLimit ? filteredFonts.slice(0, resultsLimit) : filteredFonts;
+    setFilteredFonts(limited);
   }, [searchKey, fonts]);
 
   return [

@@ -11,7 +11,7 @@ const FontDemoCard = ({ font = {}, onClick, children, active, disabled, clickabl
   const { family } = font;
 
 
-  const boxContainerClasses = clx('m-2 h-center px-3 font-demo-card', {
+  const boxContainerClasses = clx('m-1 h-center px-3 font-demo-card', {
     active,
     disabled,
     'item-clickable': clickable

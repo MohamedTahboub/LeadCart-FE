@@ -305,7 +305,6 @@ export const getAvailablePaymentMethods = (methods = [], paymentsSettings) => {
 };
 export const loadFontLocally = async (font = {}) => {
   const { family, url } = font;
-  console.log({ family, url });
   if (!(family && url)) return;
   try {
     const fontToLoad = new FontFace(family, `url(${url})`);
@@ -317,7 +316,6 @@ export const loadFontLocally = async (font = {}) => {
 };
 
 export const loadFontsToDocument = async (fonts = []) => {
-  console.log({ fonts });
   const fontListToLoad = fonts.map(loadFontLocally);
   await Promise.all(fontListToLoad);
 };

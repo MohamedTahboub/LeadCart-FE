@@ -2,11 +2,11 @@
 
 .font-demo-card {
   border-radius: 5px;
-  width: 47%;
   position: relative;
-  width: 320px;
   border: 1px solid #dadce0;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  max-width: 280px;
   transition: box-shadow .3s ease-in;
 }
 

@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import clx from 'classnames';
 import ToolTip from 'react-tooltip';
 import ids from 'shortid';
 
 import common from 'components/common';
 import { useGoogleFonts } from 'libs/hooks';
 import FontRow from './FontRow';
-
+import { FilterOption } from '../components';
 import './style.css';
 
-const { Button, FlexBox, InputRow, CustomRadio, Title } = common;
+const { Button, FlexBox, InputRow, Title } = common;
 const { TextField } = InputRow;
 
-
-const FilterOption = ({ label, value, isSelectedFilterKey, onFilterFonts }) => {
-  const isSelected = isSelectedFilterKey(value);
-  return (
-    <FlexBox className='v-center item-clickable mr-2' onClick={onFilterFonts(value)} >
-      <CustomRadio checked={isSelected} borderColor={isSelected ? '#4da1ff' : 'rgba(0, 0, 0, 0.4)'} />
-      <p className={clx('m-0 ml-1', { 'primary-text': isSelected })}>{label}</p>
-    </FlexBox>
-  );
+const constructFontUrl = ({ variant, family = '' }) => {
+  const urlBase = 'https://fonts.googleapis.com/css?family=';
+  const familyName = family.replace(/ /g, '+');
+  const variantName = `:${variant}`;
+  const subset = '&subset=latin';
+  const url = `${urlBase}${familyName}${variantName}${subset}`;
+  return url;
 };
 
 const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewFonts, onCloseModal, saveLoading }) => {
@@ -44,15 +41,13 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
   const isSelectedFilterKey = (filterKey) => filterValue === filterKey;
 
   const onSelectFont = ({ family, variant }) => () => {
-    const urlBase = 'https://fonts.googleapis.com/css?family=';
-    const familyName = family.replace(/ /g, '+');
-    const variantName = `:${variant}`;
-    const subset = '&subset=latin';
-    const url = `${urlBase}${familyName}${variantName}${subset}`;
+    const fontUrl = constructFontUrl({ variant, family });
+    const newFont = { family, variant, url: fontUrl, type: 'googleFont', id: ids.generate() };
 
     const newList = isSelectedFont(family) ?
-      selectedNewFonts.filter((ele) => ele.family !== family) :
-      [...selectedNewFonts, { family, variant, url, type: 'googleFont', id: ids.generate() }];
+      selectedNewFonts.filter((ele) => ele.family !== family)
+      :
+      [...selectedNewFonts, newFont];
 
     setSelectedNewFonts(newList);
   };
@@ -96,15 +91,14 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
         </FlexBox>
       </FlexBox>
 
-      <FlexBox className='products-google-fonts-content' flex column>
+      <FlexBox className='products-google-fonts-content' flex>
         {
           isLoading ?
-            <FlexBox className='full-width h-center' ><Title>Loading ...</Title></FlexBox>
+            <FlexBox className='full-width' center='h-center'><Title>Loading ...</Title></FlexBox>
             :
             filteredFonts.map((ele) => <FontRow isSelectedFont={isSelectedFont} onSelectFont={onSelectFont} {...ele} />)
         }
       </FlexBox>
-
 
       <FlexBox className='full-width mt-4' spaceBetween >
         <Button className='light-btn' onClick={onCloseModal} >
@@ -123,12 +117,5 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
   );
 };
 
-export default (props) => {
-
-  try {
-    return <GoogleFonts {...props} />;
-  } catch (error) {
-    console.log('error.message', error.message, JSON.stringify(error, null, 2));
-    return null;
-  }
-};
+export default GoogleFonts
+;

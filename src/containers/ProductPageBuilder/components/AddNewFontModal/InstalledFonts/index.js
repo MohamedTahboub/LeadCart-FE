@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import clx from 'classnames';
 import ToolTip from 'react-tooltip';
 import { connect } from 'react-redux';
 
@@ -9,20 +8,10 @@ import * as productsFontsActions from '../../../../../actions/productsFonts';
 import { passProps } from 'helpers/common';
 
 import './style.css';
+import { FilterOption } from '../components';
 
-const { Button, FlexBox, InputRow, CustomRadio } = common;
+const { Button, FlexBox, InputRow } = common;
 const { TextField } = InputRow;
-
-
-const FilterOption = ({ label, value, isSelectedFilterKey, onFilterFonts }) => {
-  const isSelected = isSelectedFilterKey(value);
-  return (
-    <FlexBox className='v-center item-clickable mr-2' onClick={onFilterFonts(value)} >
-      <CustomRadio checked={isSelected} borderColor={isSelected ? '#4da1ff' : 'rgba(0, 0, 0, 0.4)'} />
-      <p className={clx('m-0 ml-1', { 'primary-text': isSelected })}>{label}</p>
-    </FlexBox>
-  );
-};
 
 
 const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelectedInstalledFonts, setHasNewFonts, onDelete, onCloseModal, deleteLoading }) => {
@@ -108,7 +97,7 @@ const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelecte
         className='full-width mt-4'
         flexEnd
       >
-        <Button disabled={!hasSelectedFonts} className='danger-btn' onClick={onDelete} >
+        <Button disabled={!hasSelectedFonts} className='danger-btn' onClick={onDelete} onprogress={deleteLoading} >
           Remove Selected
         </Button>
       </FlexBox>

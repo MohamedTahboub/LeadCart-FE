@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import { useContext } from '../../actions';
 import GoogleFonts from './GoogleFonts';
-import CustomFonts from './CustomFonts';
 import InstalledFonts from './InstalledFonts';
 import ConfirmationModal from './ConfirmationModal';
 import * as productsFontsActions from '../../../../actions/productsFonts';
@@ -134,7 +133,8 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
     onSave,
     selectedNewFonts,
     setSelectedNewFonts,
-    onCloseModal
+    onCloseModal,
+    saveLoading
   };
 
   const installedFontsProps = {
@@ -142,7 +142,8 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
     onDelete,
     onIgnoreAndNavigate,
     selectedInstalledFonts,
-    setSelectedInstalledFonts
+    setSelectedInstalledFonts,
+    deleteLoading
   };
 
   const confirmationModalProps = {

@@ -2,51 +2,48 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import ToolTip from 'react-tooltip';
 import { connect } from 'react-redux';
-
 import common from 'components/common';
 import { passProps } from 'helpers/common';
-
 import { FontDemoCard } from '../components';
 import './style.css';
 import { isFunction } from 'libs/checks';
+import { loadFontLocally } from 'libs';
 
 const { FlexBox } = common;
 
 const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = {}, id, productsFonts }) => {
+
   const [activeVariantValue, setActiveVariantValue] = useState('regular');
   const [variantLoading, setVariantLoading] = useState('regular');
   const url = files[activeVariantValue];
   const isInstalled = productsFonts.find((ele) => ele.family === family && ele.variant === activeVariantValue);
+  const variantsOptions = variants.map((ele) => ({ label: ele, value: ele }));
+  const isSelectedFontFamily = isSelectedFont(family);
+  const shouldShowCheckBox = Boolean(isInstalled || isSelectedFontFamily);
 
   const onSelect = ({ value }, e) => {
     setActiveVariantValue(value);
-    preventDefaultEvent(e);
+    stopEventPropagation(e);
   };
 
-  const variantsOptions = variants.map((ele) => ({ label: ele, value: ele }));
 
-  const preventDefaultEvent = (e) => {
+  const stopEventPropagation = (e) => {
+    if (isFunction(e.stopPropagation))
+      e.stopPropagation();
+
     if (isFunction(e.preventDefault))
       e.preventDefault();
   };
+
   const onLoadCustomFontFile = async () => {
-    try {
-      setVariantLoading(true);
-      const fn = new FontFace(family, `url(${url})`);
-      await fn.load().catch(console.error);
-      window.document.fonts.add(fn);
-      setVariantLoading(false);
-    } catch (error) {
-      console.log(error.message, error);
-    }
+    setVariantLoading(true);
+    await loadFontLocally({ family, url });
+    setVariantLoading(false);
   };
 
   useEffect(() => {
     onLoadCustomFontFile();
   }, [activeVariantValue]);
-
-  const isSelectedFontFamily = isSelectedFont(family);
-  const shouldShowCheckBox = Boolean(isInstalled || isSelectedFontFamily);
 
 
   return (
@@ -56,11 +53,10 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
       active={shouldShowCheckBox}
       disabled={isInstalled}
     >
-      <FlexBox center='v-center' className='p-2'>
+      <FlexBox center='v-center' className='p-2' onClick={stopEventPropagation}>
         <span className='title-text gray-text mr-2'>Font variant:</span>
         <Select
           options={variantsOptions}
-          onClick={preventDefaultEvent}
           onChange={onSelect}
           className='ml-2 max-width-200 flex'
           defaultValue={[{ label: activeVariantValue, value: activeVariantValue }]}
@@ -69,7 +65,6 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
       </FlexBox>
       <ToolTip />
     </FontDemoCard>
-
   );
 };
 
