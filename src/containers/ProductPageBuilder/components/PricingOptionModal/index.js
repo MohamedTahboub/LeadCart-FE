@@ -54,10 +54,10 @@ const NewPricingOptionModal = ({ currency }) => {
     setTimeout(onClose, 200);
   };
   const onUpdate = () => {
-    const { label, payment: { type, splits, recurringPeriod } = {}, price: { amount } = {} } = priceOption;
+    const { id, label, payment: { type, splits, recurringPeriod } = {}, price: { amount } = {} } = priceOption;
 
     const constructedOption = {
-      id: ids.generate(),
+      id,
       label,
       type,
       recurringPeriod,
@@ -69,11 +69,12 @@ const NewPricingOptionModal = ({ currency }) => {
   };
 
   const priceOptionPayment = {
-    type: priceOption.type,
-    splits: priceOption.splits,
-    recurringPeriod: priceOption.recurringPeriod,
-    ...(priceOption.payment || {})
+    type: priceOption?.type,
+    splits: priceOption?.splits,
+    recurringPeriod: priceOption?.recurringPeriod,
+    ...(priceOption?.payment || {})
   };
+  const paymentPrice = { amount: priceOption.amount || priceOption?.price?.amount };
 
   return (
     <Modal
@@ -95,10 +96,11 @@ const NewPricingOptionModal = ({ currency }) => {
           />
         </InputRow>
         <PaymentType
+          key={`payment-type-component-${priceOption.id}-${isEditMode}`}
           payment={priceOptionPayment}
           onChange={onChange}
           name='type'
-          price={{ amount: priceOption.amount, ...(priceOption.price || {}) }}
+          price={paymentPrice}
           currency={currency}
         />
       </FlexBox>

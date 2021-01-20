@@ -127,10 +127,10 @@ export default (state = initialState, { type, payload }) => {
       product: {
         ...state.product,
         pricingOptions: state.product.pricingOptions.map((option) => {
-          if (option.id === payload.id)
-            return { ...option, ...payload };
-          else
-            return option;
+          if (option.id === payload.id) {
+            const newPricingOption = { ...option, ...payload };
+            return newPricingOption;
+          } else {return option;}
         })
       }
     };
