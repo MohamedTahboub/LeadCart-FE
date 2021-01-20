@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import Content from './components';
+import { getSectionBackground } from 'helpers/common';
+
 import './style.css';
 
 const { ResizableInput } = common;
@@ -13,7 +15,6 @@ const FAQs = ({ title, list, section }) => {
   const [open, setOpen] = useState(false);
 
   const {
-    backgroundColor,
     titleColor = '#000',
     borderColor,
     borderStyle = 'solid',
@@ -34,8 +35,10 @@ const FAQs = ({ title, list, section }) => {
   } = styles;
 
 
+  const sectionBackground = getSectionBackground(styles);
+
   const containerStyle = {
-    backgroundColor,
+    ...sectionBackground,
     borderWidth,
     borderColor,
     borderTopLeftRadius,
