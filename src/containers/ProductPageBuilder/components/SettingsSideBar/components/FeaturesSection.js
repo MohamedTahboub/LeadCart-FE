@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import common from 'components/common';
 import ids from 'shortid';
-import { useContext } from '../../../actions';
 import { MdAddCircleOutline } from 'react-icons/md';
+
+import common from 'components/common';
+import { useContext } from '../../../actions';
 import Toggle from '../../../../../components/common/Inputs/Toggle';
 import { ImageOption } from './common';
 
@@ -41,7 +42,8 @@ const {
   InputRow,
   FlexBox,
   Tab,
-  MiniColorPicker
+  MiniColorPicker,
+  BackgroundOptions
 } = common;
 
 const { Label, AddImage } = InputRow;
@@ -119,6 +121,14 @@ const FeaturesSection = () => {
       }
     });
   };
+
+  const onBackgroundChange = ({ target: { name, value } }) => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: { name, value }
+    });
+  };
+
   return (
     <div>
       <Tabs active='settings' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -170,6 +180,10 @@ const FeaturesSection = () => {
               )
             }
           </FlexBox>
+        </Tab>
+
+        <Tab id='styles' title='Styles'>
+          <BackgroundOptions onChange={onBackgroundChange} styles={styles} />
         </Tab>
       </Tabs>
     </div>
