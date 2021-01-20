@@ -36,7 +36,7 @@ const EdgyTestimonial = ({
     });
   };
 
-  const sectionBackground = getSectionBackground(styles);
+  const sectionBackground = getSectionBackground({ styles });
 
   return (
     <FlexBox column className='business-testimonial-section' style={sectionBackground}>

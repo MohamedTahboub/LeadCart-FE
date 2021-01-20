@@ -59,7 +59,7 @@ const Figure = ({
     });
   };
 
-  const sectionBackground = getSectionBackground(styles);
+  const sectionBackground = getSectionBackground({ styles });
 
 
   return (

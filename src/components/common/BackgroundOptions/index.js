@@ -26,7 +26,8 @@ const OptionLabel = ({ label, value, onSelectOptionLabel, activeLabel }) => (
 const BackgroundOptions = ({
   styles = {},
   onChange,
-  title = 'Background'
+  title = 'Background',
+  backgroundColorName = 'styles.backgroundColor'
 }) => {
   const {
     backgroundColor,
@@ -88,7 +89,7 @@ const BackgroundOptions = ({
             <FlexBox>
               <Label>Background Color:</Label>
               <MiniColorPicker
-                name='styles.backgroundColor'
+                name={backgroundColorName}
                 value={backgroundColor}
                 onChange={onChange}
                 className='flex-1'

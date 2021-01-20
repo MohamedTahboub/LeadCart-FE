@@ -63,7 +63,7 @@ const BumpOffer = ({ section = {}, ...props }) => {
     hasBlurBackgroundImage
   } = styles;
 
-  const sectionBackground = getSectionBackground(styles, containerBackground);
+  const sectionBackground = getSectionBackground({ styles, defaultBackground: containerBackground });
 
   const containerStyle = {
     ...sectionBackground,

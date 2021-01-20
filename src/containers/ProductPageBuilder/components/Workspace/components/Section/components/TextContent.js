@@ -34,7 +34,7 @@ const TextContent = ({
     paddingBottom: `${section.styles.paddingBottom}px`,
     fontSize: `${section.styles.fontSize}px`
   };
-  const sectionBackground = getSectionBackground(section.styles);
+  const sectionBackground = getSectionBackground({ styles: section.styles });
 
   return (
     <div {...props} style={{ ...style, ...sectionBackground }}>

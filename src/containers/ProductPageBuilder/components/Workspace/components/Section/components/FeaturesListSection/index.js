@@ -48,7 +48,7 @@ const Features = ({ section }) => {
   };
 
 
-  const sectionBackground = getSectionBackground(styles);
+  const sectionBackground = getSectionBackground({ styles });
 
   return (
     <div className='features-list-container' style={sectionBackground} >

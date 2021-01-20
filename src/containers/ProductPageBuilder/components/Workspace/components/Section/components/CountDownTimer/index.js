@@ -3,6 +3,7 @@ import clx from 'classnames';
 
 import common from 'components/common';
 import CountDownTimer from 'components/CountDownTimer';
+import { getSectionBackground } from 'helpers/common';
 
 const { FlexBox } = common;
 
@@ -16,8 +17,10 @@ const Timer = ({
   } = section;
 
   const classNames = clx({ [className]: className });
+  const sectionBackground = getSectionBackground({ styles, hasParent: true });
 
   const sectionStyle = {
+    ...sectionBackground,
     marginTop: `${styles.marginTop}px`,
     marginBottom: `${styles.marginBottom}px`,
     paddingTop: `${styles.paddingTop}px`,

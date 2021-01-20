@@ -33,7 +33,7 @@ const PlainTestimonial = ({
     });
   };
 
-  const sectionBackground = getSectionBackground(styles);
+  const sectionBackground = getSectionBackground({ styles });
 
   return (
     <FlexBox className='plain-testimonial-section' style={sectionBackground}>

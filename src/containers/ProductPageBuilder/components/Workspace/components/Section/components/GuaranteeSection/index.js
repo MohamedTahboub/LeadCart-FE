@@ -53,7 +53,7 @@ const GuaranteeSection = ({
     });
   };
 
-  const sectionBackground = getSectionBackground(styles);
+  const sectionBackground = getSectionBackground({ styles });
 
   return (
     <FlexBox

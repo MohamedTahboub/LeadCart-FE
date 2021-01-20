@@ -36,7 +36,7 @@ const CompactTestimonial = ({
     });
   };
 
-  const sectionBackground = getSectionBackground(styles);
+  const sectionBackground = getSectionBackground({ styles });
 
 
   return (

@@ -35,7 +35,7 @@ const FAQs = ({ title, list, section }) => {
   } = styles;
 
 
-  const sectionBackground = getSectionBackground(styles);
+  const sectionBackground = getSectionBackground({ styles });
 
   const containerStyle = {
     ...sectionBackground,
