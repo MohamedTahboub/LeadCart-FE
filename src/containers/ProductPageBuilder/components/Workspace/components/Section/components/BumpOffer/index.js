@@ -28,8 +28,6 @@ const BumpOffer = ({ section = {}, ...props }) => {
   } = useContext();
 
 
-  const sectionBackground = getSectionBackground(styles);
-
   const onChange = ({ target }) => {
     actions.onSectionSettingChange({
       section,
@@ -65,6 +63,7 @@ const BumpOffer = ({ section = {}, ...props }) => {
     hasBlurBackgroundImage
   } = styles;
 
+  const sectionBackground = getSectionBackground(styles, containerBackground);
 
   const containerStyle = {
     ...sectionBackground,

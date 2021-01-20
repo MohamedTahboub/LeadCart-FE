@@ -199,7 +199,7 @@ export const getNewNameWithNumber = ({ data = [], baseName = 'Name', isCapitaliz
 };
 
 
-export const getSectionBackground = (styles) => {
+export const getSectionBackground = (styles, defaultBackground = 'transparent') => {
   const {
     backgroundFirstGradientColor = '#052d53',
     backgroundSecondGradientColor = '#1890ff',
@@ -207,7 +207,7 @@ export const getSectionBackground = (styles) => {
     gradientType = 'linear',
     gradientColorsDirection = 'to bottom',
     imageBackground,
-    backgroundColor = 'transparent'
+    backgroundColor = defaultBackground
   } = styles;
 
   const isOneColorBackground = backgroundType === 'color';
