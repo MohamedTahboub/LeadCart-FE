@@ -28,7 +28,8 @@ const {
   CustomReactToggle,
   CustomRadio,
   CustomCheckbox,
-  Tooltip
+  Tooltip,
+  BackgroundOptions
 } = common;
 
 
@@ -291,6 +292,7 @@ const BumpOffer = () => {
     });
   };
 
+
   const { headerBackground, borderWidth, borderBottomWidth, containerBackground } = styles;
 
 
@@ -363,22 +365,12 @@ const BumpOffer = () => {
 
 
       <Tab id='styles' title='Styles'>
+        <BackgroundOptions onChange={onChange} styles={styles} />
+
         <InlinePopup
           title='Offer Colors'
           popUpContent={(
             <FlexBox column>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Background:
-                </Label>
-                <MiniColorPicker
-                  name='styles.containerBackground'
-                  value={styles.containerBackground}
-                  onChange={onChange}
-                />
-              </InputRow>
-
-
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Container text:
