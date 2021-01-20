@@ -1,10 +1,9 @@
 import React from 'react';
+
 import avatarLink from 'assets/images/avatar.jpg';
 import Image from 'components/common/Image';
-import { EditableField } from 'components/common/Inputs';
 import common from 'components/common';
-
-import './style.css';
+import { getSectionBackground } from 'helpers/common';
 
 import './style.css';
 
@@ -23,7 +22,7 @@ const ClassicTestimonial = ({
   styles = {},
   ...props
 }) => {
-  const { backgroundColor = 'transparent', nameColor = '#000', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
+  const { nameColor = '#000', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value, ...res }) => {
     onChange({
@@ -33,8 +32,12 @@ const ClassicTestimonial = ({
       }
     });
   };
+
+  const sectionBackground = getSectionBackground(styles);
+
+
   return (
-    <div className={`testimonial-item margin-h-auto ${className}`} style={{ backgroundColor }}>
+    <div className={`testimonial-item margin-h-auto ${className}`} style={sectionBackground}>
       <Image
         className='testimonial-author-image'
         image={image}

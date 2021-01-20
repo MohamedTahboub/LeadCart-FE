@@ -24,11 +24,9 @@ const OptionLabel = ({ label, value, onSelectOptionLabel, activeLabel }) => (
 );
 
 const BackgroundOptions = ({
-  styles,
+  styles = {},
   onChange,
-  title = 'Background',
-  backgroundSecondGradientColorName = 'styles.backgroundSecondGradientColor',
-  backgroundFirstGradientColorName = 'styles.backgroundFirstGradientColor'
+  title = 'Background'
 }) => {
   const {
     backgroundColor,
@@ -67,29 +65,12 @@ const BackgroundOptions = ({
 
   const _onChange = (target) => {
     if (isFunction(onChange))
-      onChange(target);
+      onChange({ target });
   };
 
 
-  const onSelectOptionLabel = (value) => {
-    _onChange({ target: { name: 'styles.backgroundType', value } });
-  };
-
-
-  const onTypeChange = ({ name, value }) => {
-    onChange({ target: { name, value } });
-  };
-
-
-  const onDirectionChange = ({ name, value }) => {
-    onChange({ target: { name, value } });
-  };
-
-
-  const onUploadImage = (url) => {
-    onChange({ target: { name: 'styles.imageBackground', value: url } });
-  };
-
+  const onSelectOptionLabel = (value) => _onChange({ name: 'styles.backgroundType', value });
+  const onUploadImage = (url) => _onChange({ name: 'styles.imageBackground', value: url });
 
   return (
     <InlinePopup
@@ -122,7 +103,7 @@ const BackgroundOptions = ({
               <FlexBox >
                 <Label>First Color:</Label>
                 <MiniColorPicker
-                  name={backgroundFirstGradientColorName}
+                  name='styles.backgroundFirstGradientColor'
                   value={backgroundFirstGradientColor}
                   onChange={onChange}
                   className='flex-1'
@@ -132,7 +113,7 @@ const BackgroundOptions = ({
               <FlexBox className='my-2' >
                 <Label>Second Color:</Label>
                 <MiniColorPicker
-                  name={backgroundSecondGradientColorName}
+                  name='styles.backgroundSecondGradientColor'
                   value={backgroundSecondGradientColor}
                   onChange={onChange}
                   className='flex-1'
@@ -145,7 +126,7 @@ const BackgroundOptions = ({
                   options={gradientTypeOptions}
                   value={gradientType}
                   name='styles.gradientType'
-                  onToggle={onTypeChange}
+                  onToggle={_onChange}
                 />
               </FlexBox>
 
@@ -157,7 +138,7 @@ const BackgroundOptions = ({
                   options={gradientDirectionOptions}
                   value={gradientColorsDirection}
                   name='styles.gradientColorsDirection'
-                  onToggle={onDirectionChange}
+                  onToggle={_onChange}
                 />
               </FlexBox>
               }

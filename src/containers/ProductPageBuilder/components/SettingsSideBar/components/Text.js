@@ -6,7 +6,8 @@ const {
   Tabs,
   MiniColorPicker,
   FlexBox,
-  Tab
+  Tab,
+  BackgroundOptions
 } = common;
 
 
@@ -29,7 +30,8 @@ const Text = (props) => {
     <div>
       <Tabs active='styles' className='padding-v-10 padding-h-10'>
         <Tab id='styles' title='Styles'>
-          <div className='large-text border-left-text margin-top-20'>Background</div>
+          <BackgroundOptions onChange={onChange} styles={styles} />
+          {/* <div className='large-text border-left-text margin-top-20'>Background</div>
           <div className='padding-left-20'>
             <FlexBox center='v-center margin-v-5' spaceBetween>
               <span className='gray-text'>Background Color</span>
@@ -39,7 +41,7 @@ const Text = (props) => {
                 onChange={onChange}
               />
             </FlexBox>
-          </div>
+          </div> */}
         </Tab>
       </Tabs>
     </div>
