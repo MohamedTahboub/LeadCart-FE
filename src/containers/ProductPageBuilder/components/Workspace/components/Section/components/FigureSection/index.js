@@ -1,12 +1,15 @@
 import React from 'react';
 import clx from 'classnames';
+
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import QuillEditor from 'components/QuillEditor';
 import Image from 'components/common/Image';
+import { getSectionBackground } from 'helpers/common';
 
 import './style.css';
+
 const { FlexBox } = common;
 
 const Figure = ({
@@ -56,11 +59,15 @@ const Figure = ({
     });
   };
 
+  const sectionBackground = getSectionBackground(styles);
+
+
   return (
     <FlexBox
       center='h-center'
       className={clx('figure-section', className)}
       reverse={theme === 'right-theme'}
+      style={sectionBackground}
     >
       <Image
         className='figure-section-image'
