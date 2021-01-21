@@ -45,10 +45,7 @@ export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 300 } 
 
     if (searchKey) {
       filteredFonts = fonts
-        .filter((font) => {
-          const isMatch = includesIgnoreCase(font.family, searchKey);
-          return searchKey ? isMatch : true;
-        });
+        .filter((font) => includesIgnoreCase(font.family, searchKey));
     }
 
     const limited = resultsLimit ? filteredFonts.slice(0, resultsLimit) : filteredFonts;
