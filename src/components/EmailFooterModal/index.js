@@ -37,7 +37,7 @@ const EmailFooterModal = ({
     props.updateEmailFooter(footerValue, {
       onSuccess: () => {
         setSubmitting(false);
-        onClose();
+        onClose && onClose();
         notification.success('Email footer details updated');
       },
       onFailed: (error) => {

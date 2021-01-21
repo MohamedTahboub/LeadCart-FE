@@ -73,11 +73,17 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
   } = useContext();
 
   const {
-    fullName = 'Full Name',
     email,
     shippingMethod: shippingMethodLabel = 'Shipping Methods',
     pricingOptionsLabel
   } = language.checkout || {};
+
+
+  const {
+    fullNamePlaceholder = 'Full Name',
+    emailLabel = 'Enter your email'
+  } = language.optInForm || {};
+
 
   const isOptInFunnel = type === 'OPT-IN';
   const isThankyouProduct = productCategory === 'thankyoupage';
@@ -278,11 +284,11 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
         >
           <CheckoutInput
             disabled
-            label={fullName}
+            label={fullNamePlaceholder}
           />
           <CheckoutInput
             disabled
-            label={email}
+            label={emailLabel}
           />
           <CompleteOrderBtn
             name='custom.orderButtonText'
