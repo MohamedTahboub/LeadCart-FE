@@ -265,15 +265,17 @@ const BumpOffer = () => {
     });
   };
 
-  const onStylesChange = (styles) => (src) => () => {
+  const onStylesChange = (themeStyles) => (src) => () => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: {
         name: 'styles',
-        value: styles
+        value: { ...styles, ...themeStyles }
       }
     });
   };
+
+
   const onToggleChange = ({ name }) => {
     onChange({
       target: {
@@ -296,7 +298,7 @@ const BumpOffer = () => {
   const { headerBackground, borderWidth, borderBottomWidth, containerBackground } = styles;
 
 
-  const hasHeaderBacground = headerBackground;
+  const hasHeaderBackground = headerBackground;
   const hasBorder = borderWidth;
   const hasBorderBottom = borderBottomWidth;
   const hasShadowEffect = styles.hasOwnProperty('hasBlurBackgroundImage');
@@ -381,7 +383,7 @@ const BumpOffer = () => {
                   onChange={onChange}
                 />
               </InputRow>
-              {hasHeaderBacground &&
+              {hasHeaderBackground &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Header Background:
