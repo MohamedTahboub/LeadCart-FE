@@ -54,7 +54,20 @@ const NewPricingOptionModal = ({ currency }) => {
     setTimeout(onClose, 200);
   };
   const onUpdate = () => {
-    const { id, label, payment: { type, splits, recurringPeriod } = {}, price: { amount } = {} } = priceOption;
+    const {
+      id,
+      label,
+      type: originalType,
+      splits: originalSplits,
+      recurringPeriod: originalRecurringPeriod,
+      payment: {
+        type = originalType,
+        splits = originalSplits,
+        recurringPeriod = originalRecurringPeriod
+      } = {},
+      amount: originalAmount,
+      price: { amount = originalAmount } = {}
+    } = priceOption;
 
     const constructedOption = {
       id,
@@ -64,6 +77,8 @@ const NewPricingOptionModal = ({ currency }) => {
       splits,
       amount
     };
+
+    console.log({ priceOption, constructedOption });
     actions.updateProductPriceOption(constructedOption);
     setTimeout(onClose, 200);
   };
