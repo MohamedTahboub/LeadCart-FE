@@ -18,7 +18,7 @@ const FontDemoCard = ({ font = {}, onClick, children, active, disabled, clickabl
   });
 
   const _onClick = (e) => {
-    if (isFunction(onClick)) onClick(font, e);
+    if (isFunction(onClick) && !disabled) onClick(font, e);
   };
 
   return (

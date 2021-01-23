@@ -28,19 +28,10 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
   const [deleteLoading, setDeleteLoading] = useState(false);
 
 
-  const clearModal = () => {
-    const hasSelectedInstalledFonts = Boolean(selectedInstalledFonts.length);
-
-    if (hasNewFonts) {
-      setHasNewFonts(false);
-      setSelectedNewFonts([]);
-    }
-
-    if (hasSelectedInstalledFonts)
-      setSelectedInstalledFonts([]);
-
-    if (openedGoogleConfirmationModal)
-      setOpenedGoogleConfirmationModal(false);
+  const resetModalState = () => {
+    setSelectedNewFonts([]);
+    setSelectedInstalledFonts([]);
+    setOpenedGoogleConfirmationModal(false);
   };
 
 
@@ -59,9 +50,8 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
 
     addNewProductsFonts({ fonts }, {
       onSuccess: () => {
-        onToggleProductFontsModal();
-        clearModal();
         notifications.success('Your selected fonts added successfully');
+        onCloseModal();
         setSaveLoading(false);
       },
       onFailed: () => {
@@ -77,8 +67,7 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
 
     deleteProductsFonts({ fontsIds: selectedInstalledFonts }, {
       onSuccess: () => {
-        onToggleProductFontsModal();
-        clearModal();
+        onCloseModal();
         notifications.success('Your selected fonts deleted successfully');
         setDeleteLoading(false);
       },
@@ -92,7 +81,7 @@ const AddNewFontModal = ({ addNewProductsFonts, deleteProductsFonts }) => {
 
   const onCloseModal = () => {
     onToggleProductFontsModal();
-    clearModal();
+    resetModalState();
   };
 
   const onCloseConfirmationModal = () => setOpenedGoogleConfirmationModal(false);

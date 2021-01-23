@@ -14,7 +14,6 @@ const PageDependencies = ({
         <link rel='stylesheet' type='text/css' href={font.url} />
       );
     });
-
   return (
     <>
       <Helmet>
