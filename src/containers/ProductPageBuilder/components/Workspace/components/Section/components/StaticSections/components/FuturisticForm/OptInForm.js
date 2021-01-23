@@ -3,6 +3,7 @@ import React from 'react';
 import common from 'components/common';
 import { useContext } from '../../../../../../../../actions';
 import { Inputs, OrderButton } from './components';
+import { getSectionBackground } from 'helpers/common';
 
 const { FlexBox } = common;
 const { InputField } = Inputs;
@@ -32,9 +33,11 @@ const OptInForm = ({ language, section }) => {
     emailLabel = 'Email'
   } = language.checkout || {};
 
+  const sectionBackground = getSectionBackground({ styles: section.styles });
+
 
   return (
-    <FlexBox className='p-3' column>
+    <FlexBox className='p-3' column style={sectionBackground} >
       <InputField
         flex
         label={fullNameLabel}

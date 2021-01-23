@@ -7,6 +7,7 @@ import { useContext } from '../../../../../../../../actions';
 import { PricingOptions, ShippingMethods } from '..';
 import { PhoneNumberInput } from 'components/common/Inputs';
 import { BiHide, BiShow } from 'react-icons/bi';
+import { getSectionBackground } from 'helpers/common';
 
 import {
   CouponCodeForm,
@@ -70,6 +71,8 @@ const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
     },
     actions
   } = useContext();
+
+  const sectionBackground = getSectionBackground({ styles: section.styles });
   const hasShippingMethodsEnabled = shippingDetailsEnabled && shippingMethodsEnabled;
   const {
     billingAndShippingBtn = 'Continue to Payment',
@@ -544,7 +547,7 @@ const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
   );
 
   return (
-    <FlexBox column className='futuristic-form-container p-4'>
+    <FlexBox column className='futuristic-form-container p-4' style={sectionBackground} >
       {isMultiStepFormEnabled ? multiStepFormRender : singleStepFormRender}
     </FlexBox>
   );
