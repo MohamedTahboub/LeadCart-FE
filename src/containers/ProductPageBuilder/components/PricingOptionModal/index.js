@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import ids from 'shortid';
 import PaymentType from 'components/PaymentType';
-import priceFormatOptions from 'data/priceFormatOptions';
 import * as immutable from 'object-path-immutable';
 import { useContext } from '../../actions';
+import { hasKeys } from 'libs/checks';
 
 const {
   MainTitle,
@@ -14,18 +14,25 @@ const {
   InputRow
 } = common;
 
-const { Label, TextField, SearchInput } = InputRow;
+const { Label, TextField } = InputRow;
 
 const defaultPriceOption = { format: 'amount', payment: { type: 'Onetime' }, price: {} };
 
 const NewPricingOptionModal = ({ currency }) => {
-  const { state: { productPricing: { openModal } = {} }, actions } = useContext();
-  const [priceOption, setOptionPrice] = useState(defaultPriceOption);
+  const { state: { productPricing: { openModal, isEditMode, toEdit: toEditPriceOption = defaultPriceOption } = {} }, actions } = useContext();
+  const [priceOption, setOptionPrice] = useState(toEditPriceOption);
 
   const onChange = ({ target: { value, name } }) => {
     const newPriceOption = immutable.set(priceOption, name, value);
     setOptionPrice(newPriceOption);
   };
+
+  useEffect(() => {
+    if (isEditMode && hasKeys(toEditPriceOption))
+      return setOptionPrice(toEditPriceOption);
+    else
+      return setOptionPrice(defaultPriceOption);
+  }, [toEditPriceOption, isEditMode, openModal]);
 
   const onClose = () => {
     actions.onTogglePricingOptionModal();
@@ -46,6 +53,43 @@ const NewPricingOptionModal = ({ currency }) => {
     setOptionPrice(defaultPriceOption);
     setTimeout(onClose, 200);
   };
+  const onUpdate = () => {
+    const {
+      id,
+      label,
+      type: originalType,
+      splits: originalSplits,
+      recurringPeriod: originalRecurringPeriod,
+      payment: {
+        type = originalType,
+        splits = originalSplits,
+        recurringPeriod = originalRecurringPeriod
+      } = {},
+      amount: originalAmount,
+      price: { amount = originalAmount } = {}
+    } = priceOption;
+
+    const constructedOption = {
+      id,
+      label,
+      type,
+      recurringPeriod,
+      splits,
+      amount
+    };
+
+    console.log({ priceOption, constructedOption });
+    actions.updateProductPriceOption(constructedOption);
+    setTimeout(onClose, 200);
+  };
+
+  const priceOptionPayment = {
+    type: priceOption?.type,
+    splits: priceOption?.splits,
+    recurringPeriod: priceOption?.recurringPeriod,
+    ...(priceOption?.payment || {})
+  };
+  const paymentPrice = { amount: priceOption.amount || priceOption?.price?.amount };
 
   return (
     <Modal
@@ -53,7 +97,9 @@ const NewPricingOptionModal = ({ currency }) => {
       isVisible={openModal}
       closeBtnClassName='scripts-modal-close-btn'
     >
-      <MainTitle bottomLine>New Pricing Option</MainTitle>
+      <MainTitle bottomLine>
+        {`${isEditMode ? 'Edit' : 'New'}`} Pricing Option
+      </MainTitle>
       <FlexBox column>
         <InputRow>
           <Label>Label:</Label>
@@ -65,17 +111,18 @@ const NewPricingOptionModal = ({ currency }) => {
           />
         </InputRow>
         <PaymentType
-          payment={priceOption.payment}
+          key={`payment-type-component-${priceOption.id}-${isEditMode}`}
+          payment={priceOptionPayment}
           onChange={onChange}
           name='type'
-          price={priceOption.price}
+          price={paymentPrice}
           currency={currency}
         />
       </FlexBox>
 
       <FlexBox flex spaceBetween className='mt-3'>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={_onAdd} className='primary-color'>Add</Button>
+        <Button onClick={isEditMode ? onUpdate : _onAdd} className='primary-color'>{isEditMode ? 'Update' : 'Add'}</Button>
       </FlexBox>
     </Modal>
   );

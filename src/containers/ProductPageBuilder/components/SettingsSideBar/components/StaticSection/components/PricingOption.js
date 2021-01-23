@@ -2,12 +2,14 @@ import React from 'react';
 import common from 'components/common';
 import clx from 'classnames';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { FiEdit2 } from 'react-icons/fi';
 import { formatPricingValue } from 'libs';
 const { FlexBox: Flex } = common;
 
 
 const PricingOption = ({
   onDelete,
+  onEdit,
   label = 'Price Option Label',
   ...priceDetails
 }) => {
@@ -20,10 +22,18 @@ const PricingOption = ({
         <span className='title-text'>{label}</span>
         <span>{formatPricingValue(priceDetails)}</span>
       </Flex>
-      <AiOutlineDelete
-        className='item-clickable larger-text danger-color show-on-parent-hover'
-        onClick={onDelete}
-      />
+      <Flex column >
+        <FiEdit2
+          size={18}
+          className='item-clickable show-on-parent-hover mb-3'
+          onClick={onEdit}
+        />
+        <AiOutlineDelete
+          size={18}
+          className='item-clickable danger-color show-on-parent-hover'
+          onClick={onDelete}
+        />
+      </Flex>
     </Flex>
   );
 };
