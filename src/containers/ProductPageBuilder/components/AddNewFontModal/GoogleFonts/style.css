@@ -20,9 +20,8 @@
 .products-google-fonts-content {
   overflow: auto;
   width: 90%;
-  flex-direction: row !important;
-  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: baseline;
   padding-right: 10px;
 }
 

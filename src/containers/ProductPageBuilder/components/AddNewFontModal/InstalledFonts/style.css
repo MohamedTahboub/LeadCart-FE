@@ -23,6 +23,7 @@
   flex-direction: row !important;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: baseline;
   padding-right: 10px;
 }
 

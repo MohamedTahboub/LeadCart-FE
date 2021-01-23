@@ -8,6 +8,7 @@
   min-width: 250px;
   max-width: 280px;
   transition: box-shadow .3s ease-in;
+  max-height: fit-content;
 }
 
 .font-demo-card:hover {
@@ -22,6 +23,8 @@
   .font-demo-card.disabled {
     color: inherit;
     background: #9e9e9e24;
+    pointer-events: unset;
+    cursor: unset;
   }
   
   .font-demo-card.active::before {

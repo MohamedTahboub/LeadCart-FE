@@ -29,7 +29,7 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
 
   const onSearchFonts = (e) => onSearch && onSearch(e.target?.value);
   const onFilterFonts = (value) => () => setFilterValue(value);
-  const hasSelectedFonts = Boolean(googleFonts.length);
+  const hasSelectedFonts = Boolean(selectedNewFonts.length);
 
   const filterKeys = [
     { label: 'All', value: 'all' },
@@ -69,11 +69,6 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
   }, [googleFonts, filterValue]);
 
 
-  useEffect(() => {
-    setHasNewFonts(hasSelectedFonts);
-    return () => setHasNewFonts([]);
-  }, [hasSelectedFonts]);
-
   return (
     <FlexBox className='products-google-fonts' column>
       <FlexBox className='products-google-fonts-header v-center' spaceBetween >
@@ -91,7 +86,7 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
         </FlexBox>
       </FlexBox>
 
-      <FlexBox className='products-google-fonts-content' flex>
+      <FlexBox className='products-google-fonts-content' flex wrappable>
         {
           isLoading ?
             <FlexBox className='full-width' center='h-center'><Title>Loading ...</Title></FlexBox>
