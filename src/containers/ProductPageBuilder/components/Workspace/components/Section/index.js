@@ -2,6 +2,7 @@ import React from 'react';
 import clx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
+import { getSectionBackground } from 'helpers/common';
 
 import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
@@ -116,6 +117,9 @@ const Section = ({
   };
   const isCheckoutForm = section.type === 'checkoutSection';
   const style = getSectionStyles(styles, !isCheckoutForm);
+
+  const sectionBackground = getSectionBackground({ styles: section.styles });
+
   return (
     <div
       ref={(node) => drop(drag(node))}
@@ -125,7 +129,7 @@ const Section = ({
       <div
         className={classes}
       >
-        <div style={style}>
+        <div style={{ ...style, ...sectionBackground }}>
           <SettingsHandles
             onSettings={onSetting}
             onDuplicate={onDuplicate}

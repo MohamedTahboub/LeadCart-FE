@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import common from 'components/common';
 import { useContext } from '../../../../../../../../actions';
 import OrderReceipt from '../Receipt';
-import { getSectionBackground } from 'helpers/common';
 
 import {
   BillingDetails,
@@ -130,11 +129,10 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
   );
 
   const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled, language.checkout);
-  const sectionBackground = getSectionBackground({ styles });
 
 
   return (
-    <FlexBox column className='relative-element p-3' style={sectionBackground} >
+    <FlexBox column className='relative-element p-3' >
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
           {
