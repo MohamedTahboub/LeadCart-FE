@@ -23,6 +23,20 @@ const timeZones = timeZonesList.map(({ value }) => ({ label: value, value }));
 const defaultTimeZone = timeZones.find(({ value }) => value.includes('Central America')).value;
 const defaultCountry = countries.find(({ value }) => value === 'US').value;
 
+const getDateFormatOptions = () => {
+  const basedDatedFormat = [
+    'DD-MM-YYYY', 'DD/MM/YYYY',
+    'MM-DD-YYYY', 'MM/DD/YYYY',
+    'YYYY-MM-DD', 'YYYY/MM/DD',
+    'ddd, MMM DD, YY', 'ddd, MMM DD, YYYY',
+    'MMM DD, YYYY', 'MMMM DD, YYYY'
+  ];
+  const date = new Date();
+
+  return basedDatedFormat.map((ele) => ({ label: moment(date).format(ele), value: ele }));
+};
+
+
 const GeneralSettings = ({
   marketPlace,
   getSave,
@@ -80,19 +94,6 @@ const GeneralSettings = ({
   };
   getSave({ onSave });
 
-
-  const getDateFormatOptions = () => {
-    const basedDatedFormat = [
-      'DD-MM-YYYY', 'DD/MM/YYYY',
-      'MM-DD-YYYY', 'MM/DD/YYYY',
-      'YYYY-MM-DD', 'YYYY/MM/DD',
-      'ddd, MMM DD, YY', 'ddd, MMM DD, YYYY',
-      'MMM DD, YYYY', 'MMMM DD, YYYY'
-    ];
-    const date = new Date();
-
-    return basedDatedFormat.map((ele) => ({ label: moment(date).format(ele), value: ele }));
-  };
 
   const dateformatOptions = getDateFormatOptions();
   const formatDateValue = { value: fields.dateFormat, label: moment(new Date()).format(fields.dateFormat || 'DD/MM/YYYY') };
