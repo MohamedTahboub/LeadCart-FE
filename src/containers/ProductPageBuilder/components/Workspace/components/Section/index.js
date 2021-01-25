@@ -119,17 +119,14 @@ const Section = ({
   const style = getSectionStyles(styles, !isCheckoutForm);
 
   const sectionBackground = getSectionBackground({ styles: section.styles });
+  const isFormSection = type === 'checkoutSection';
+  const sectionStyle = isFormSection ? { ...style, ...sectionBackground } : style;
 
   return (
-    <div
-      ref={(node) => drop(drag(node))}
-      id={id}
-    >
+    <div ref={(node) => drop(drag(node))} id={id}>
       <DropBeforeLine show={isOver} />
-      <div
-        className={classes}
-      >
-        <div style={{ ...style, ...sectionBackground }}>
+      <div className={classes} >
+        <div style={sectionStyle}>
           <SettingsHandles
             onSettings={onSetting}
             onDuplicate={onDuplicate}
