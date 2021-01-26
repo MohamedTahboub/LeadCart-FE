@@ -115,12 +115,11 @@ const Section = ({
   const onDuplicate = (fromId) => () => {
     onSectionDuplicate(fromId, parentZone);
   };
+
   const isCheckoutForm = section.type === 'checkoutSection';
   const style = getSectionStyles(styles, !isCheckoutForm);
-
   const sectionBackground = getSectionBackground({ styles: section.styles });
-  const isFormSection = type === 'checkoutSection';
-  const sectionStyle = isFormSection ? { ...style, ...sectionBackground } : style;
+  const sectionStyle = isCheckoutForm ? { ...style, ...sectionBackground } : style;
 
   return (
     <div ref={(node) => drop(drag(node))} id={id}>
