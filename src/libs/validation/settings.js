@@ -25,7 +25,8 @@ export default async (fields) => {//
       newOrder: yup.boolean().default(true),
       newLead: yup.boolean().default(true)
     }),
-    favicon: yup.string().url()
+    favicon: yup.string().url(),
+    dateFormat: yup.string()
   }).required();
 
   try {
