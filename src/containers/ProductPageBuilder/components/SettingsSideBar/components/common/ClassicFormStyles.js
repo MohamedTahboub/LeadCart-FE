@@ -6,32 +6,18 @@ import CheckoutButtonStyle from './CheckoutButtonStyle';
 
 import './style.css';
 
-const { FlexBox, InputRow, MiniColorPicker, CustomSlider } = common;
+const { FlexBox, InputRow, MiniColorPicker, CustomSlider, BackgroundOptions } = common;
 const { Label, Toggle } = InputRow;
 
-const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSetting, onSectionSettingChange }) => {
+const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSetting, onSectionSettingChange, onBackgroundChange }) => {
   const onSliderChange = (value, name) => {
     onChange({ target: { name, value } });
   };
 
+
   return (
     <FlexBox column>
-      <InlinePopup
-        title='Background Color'
-        popUpContent={(
-          <FlexBox>
-            <Label className='sidebar-input-label mr-2'>
-                Background Color:
-            </Label>
-
-            <MiniColorPicker
-              name={'backgroundColor'}
-              value={values.backgroundColor}
-              onChange={onChange}
-            />
-          </FlexBox>
-        )}
-      />
+      <BackgroundOptions onChange={onBackgroundChange} styles={values} />
 
       <InlinePopup
         title='Border Radius'

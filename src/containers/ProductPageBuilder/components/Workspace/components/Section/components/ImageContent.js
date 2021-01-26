@@ -1,9 +1,12 @@
 import React, { useMemo, useRef } from 'react';
 import clx from 'classnames';
+
 import defaultDropImage from 'assets/images/upload-image.png';
 import common from 'components/common';
 import FlexibleBox from 'components/FlexibleBox';
 import { useContext } from '../../../../../actions';
+import { getSectionBackground } from 'helpers/common';
+
 const { InputRow: { AddImage } } = common;
 
 const ImageContent = ({
@@ -42,12 +45,16 @@ const ImageContent = ({
 
   };
 
+
+  const sectionBackground = getSectionBackground({ styles });
+
   return useMemo(() => (
     <FlexibleBox
       size={{ height: styles.height }}
       className={classNames}
       onResizeStop={onSizeChange}
       showOnParentHover
+      style={sectionBackground}
     >
       <img
         src={content.value || defaultDropImage}
@@ -67,7 +74,7 @@ const ImageContent = ({
         onUploaded={onImageChange}
       />
     </FlexibleBox>
-  ), [content.value, inputRef, styles.height]);
+  ), [content.value, inputRef, styles.height, sectionBackground.backgroundColor, sectionBackground.backgroundImage]);
 };
 
 ImageContent.propTypes = {};

@@ -8,7 +8,7 @@ import Slider from 'rc-slider';
 import { buttonTemplates } from 'data/templates';
 import InlinePopup from 'components/common/InlinePopup';
 
-const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab, CustomSlider } = common;
+const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab, CustomSlider, BackgroundOptions } = common;
 const { TextField, SelectOption, Toggle, AddImage } = InputRow;
 
 const layouts = [
@@ -198,6 +198,9 @@ const ButtonSection = () => {
             onChange={onChange}
           />
         </FlexBox>
+
+        <BackgroundOptions onChange={onChange} styles={styles} backgroundColorName='styles.containerBackgroundColor' />
+
         <InlinePopup
           title='Borders'
           popUpContent={(

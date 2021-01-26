@@ -32,6 +32,8 @@ import CustomCheckbox from './Checkbox';
 import CustomReactToggle from './CustomReactToggle';
 import CustomRadio from './CustomRadio';
 import CustomSlider from './CustomSlider';
+import InlinePopup from './InlinePopup';
+import BackgroundOptions from './BackgroundOptions';
 
 export default {
   Table,
@@ -67,5 +69,7 @@ export default {
   CustomCheckbox,
   CustomReactToggle,
   CustomRadio,
-  CustomSlider
+  CustomSlider,
+  InlinePopup,
+  BackgroundOptions
 };

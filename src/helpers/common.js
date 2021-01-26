@@ -197,3 +197,30 @@ export const getNewNameWithNumber = ({ data = [], baseName = 'Name', isCapitaliz
   const capitalizedName = baseName.split(' ').map((str) => str.charAt(0).toUpperCase() + str.slice(1)).join(' ');
   return `${isCapitalized ? capitalizedName : baseName} ${newDefaultNumber}`;
 };
+
+
+export const getSectionBackground = ({ styles = {}, defaultBackground = 'transparent', hasParent = false }) => {
+  const {
+    backgroundFirstGradientColor = '#052d53',
+    backgroundSecondGradientColor = '#1890ff',
+    backgroundType = 'color',
+    gradientType = 'linear',
+    gradientColorsDirection = 'to bottom',
+    imageBackground,
+    backgroundColor: sectionBackgroundColor = defaultBackground,
+    containerBackgroundColor = 'transparent'
+  } = styles;
+
+  const backgroundColor = hasParent ? containerBackgroundColor : sectionBackgroundColor;
+  const isOneColorBackground = backgroundType === 'color';
+  const isLinearGradient = gradientType === 'linear';
+  const colorsDirection = isLinearGradient ? gradientColorsDirection : 'circle';
+  const isGradientColor = backgroundType === 'gradientColor';
+  const isImageBackground = backgroundType === 'image';
+  const backgroundImage = isGradientColor ? `${gradientType}-gradient(${colorsDirection},${backgroundFirstGradientColor},${backgroundSecondGradientColor}` : `url(${imageBackground})`;
+  const backgroundImageStyle = isImageBackground ? { 'background-position': 'center center', 'background-repeat': 'no-repeat', 'background-size': 'cover' } : {};
+  const sectionBackground = isOneColorBackground ? { backgroundColor } : { backgroundImage, ...backgroundImageStyle };
+
+  return sectionBackground;
+
+};

@@ -38,6 +38,9 @@ const FaqSettings = () => {
     onChange(target);
   };
 
+
+  const onBackgroundChange = ({ target }) => onChange(target);
+
   const settingsProps = {
     onChange,
     onAddNewItem,
@@ -52,7 +55,8 @@ const FaqSettings = () => {
     onAddNewItem,
     onColorChange,
     list,
-    styles
+    styles,
+    onBackgroundChange
   };
 
 

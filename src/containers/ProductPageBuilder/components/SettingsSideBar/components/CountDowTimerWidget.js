@@ -6,7 +6,7 @@ import common from 'components/common';
 import { ImageOption, SettingBox } from './common';
 import { useContext } from '../../../actions';
 
-const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab } = common;
+const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab, BackgroundOptions } = common;
 const { TextField, SelectOption, DatePicker, Toggle } = InputRow;
 
 const themesOptions = [
@@ -81,6 +81,9 @@ const CountDowTimerWidget = (props) => {
   };
 
 
+  const onBackgroundChange = ({ target }) => onChange(target);
+
+
   const onSelectChange = (name) => ({ value }) => onChange({ name, value });
   const typeSelectValue = valueType === 'fixedTime' ? { label: 'Exact Date/Time', value: 'fixedTime' } : { label: 'Time For Each Session', value: 'sessionTime' };
 
@@ -98,26 +101,6 @@ const CountDowTimerWidget = (props) => {
               active={styles.theme === theme.theme}
             />
           ))}
-        </Tab>
-        <Tab id='colors' title='Colors'>
-          <FlexBox column flex className='min-height-400'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Clock Color:</span>
-              <MiniColorPicker
-                name='styles.clockColor'
-                value={styles.clockColor}
-                onChange={onFiledChange}
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Background Color:</span>
-              <MiniColorPicker
-                name='styles.backgroundColor'
-                value={styles.backgroundColor}
-                onChange={onFiledChange}
-              />
-            </FlexBox>
-          </FlexBox>
         </Tab>
 
         <Tab id='settings' title='Settings'>
@@ -253,6 +236,32 @@ const CountDowTimerWidget = (props) => {
             </FlexBox>
           </SettingBox>
         </Tab>
+
+        <Tab id='styles' title='Styles'>
+          <FlexBox column flex className='min-height-400'>
+            <BackgroundOptions onChange={onBackgroundChange} styles={styles} backgroundColorName='styles.containerBackgroundColor' />
+
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Clock Color:</span>
+              <MiniColorPicker
+                name='styles.clockColor'
+                value={styles.clockColor}
+                onChange={onFiledChange}
+              />
+            </FlexBox>
+
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Counter Box Background:</span>
+              <MiniColorPicker
+                name='styles.backgroundColor'
+                value={styles.backgroundColor}
+                onChange={onFiledChange}
+              />
+            </FlexBox>
+          </FlexBox>
+        </Tab>
+
+
       </Tabs>
     </div>
   );

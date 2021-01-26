@@ -1,33 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import common from 'components/common';
 import { useContext } from '../../../actions';
 
-const {
-  // SideMenu,
-  Tabs,
-  // EditableField,
-  InputRow,
-  // MiniColorPicker,
-  FlexBox,
-  Tab,
-} = common;
-
+const { Tabs, InputRow, FlexBox, Tab, BackgroundOptions } = common;
 const { TextField } = InputRow;
 
 const Video = (props) => {
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content = {},
+    content = {}
     // actions: sectionActions = {}
   } = sectionSetting;
 
@@ -43,6 +30,9 @@ const Video = (props) => {
     <div>
       <Tabs active='styles' className='padding-v-10 padding-h-10'>
         <Tab id='styles' title='styles'>
+          <BackgroundOptions onChange={onChange} styles={styles} />
+
+          {/*
           <div className='large-text border-left-text'>Video</div>
           <div className='padding-left-20'>
             <FlexBox column center='v-center' flexStart>
@@ -102,15 +92,13 @@ const Video = (props) => {
                 className='width-70'
               />
             </FlexBox>
-          </div>
+          </div> */}
         </Tab>
       </Tabs>
     </div>
   );
 };
 
-Text.propTypes = {
-
-};
+Text.propTypes = {};
 
 export default Video;

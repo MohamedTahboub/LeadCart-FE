@@ -45,7 +45,7 @@ const getStepsNames = (shippingDetails, shippingMethodsEnabled, translations = {
 
 };
 const ClassicForm = ({ language, section, paymentMethods }) => {
-  const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
+  const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden, styles } = section;
   const {
     state: {
       funnel: { type } = {},
@@ -71,6 +71,7 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
     },
     actions
   } = useContext();
+
 
   const {
     email,
@@ -135,8 +136,9 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
 
   const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled, language.checkout);
 
+
   return (
-    <FlexBox column className='relative-element p-3'>
+    <FlexBox column className='relative-element p-3' >
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
           {

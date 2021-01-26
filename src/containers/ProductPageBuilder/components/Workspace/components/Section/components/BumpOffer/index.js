@@ -4,6 +4,7 @@ import 'react-toggle/style.css';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
 import { BottomImage, CenteredImage, Defaults, SideImage, TopImage } from './themes';
+import { getSectionBackground } from 'helpers/common';
 import './style.css';
 
 const { LayoutSwitch } = common;
@@ -62,9 +63,10 @@ const BumpOffer = ({ section = {}, ...props }) => {
     hasBlurBackgroundImage
   } = styles;
 
+  const sectionBackground = getSectionBackground({ styles, defaultBackground: containerBackground });
 
   const containerStyle = {
-    backgroundColor: containerBackground,
+    ...sectionBackground,
     borderColor,
     borderWidth: `${borderWidth}px`,
     borderRadius: `${borderRadius}px`,

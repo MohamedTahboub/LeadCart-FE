@@ -8,7 +8,7 @@ import { IoMdSettings } from 'react-icons/io';
 import { useContext } from '../../../../../actions';
 
 const { Tooltip } = common;
-const settingLessTypes = ['image', 'video', 'code'];
+const settingLessTypes = ['code', 'spacer'];
 
 const SettingsHandles = ({
   id,

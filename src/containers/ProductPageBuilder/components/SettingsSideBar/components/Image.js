@@ -1,34 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import common from 'components/common';
 import { useContext } from '../../../actions';
 import { SettingBox } from './common';
-const {
-  SideMenu,
-  Tabs,
-  EditableField,
-  InputRow,
-  MiniColorPicker,
-  FlexBox,
-  Tab,
-} = common;
 
+
+const { Tabs, InputRow, FlexBox, Tab, BackgroundOptions } = common;
 const { TextField, SelectOption, AddImage } = InputRow;
 
 const Image = (props) => {
+
   const {
-    state: {
-      modals: {
-        sectionSetting = {}
-      } = {}
-    },
+    state: { modals: { sectionSetting = {} } = {} },
     actions
   } = useContext();
 
   const {
     styles = {},
-    content = {},
-    // actions: sectionActions = {}
+    content = {}
   } = sectionSetting;
 
   const onChange = ({ target }) => {
@@ -52,7 +41,11 @@ const Image = (props) => {
     <div>
       <Tabs active='styles' className='padding-v-10 padding-h-10'>
         <Tab id='styles' title='styles'>
-          <SettingBox title='Image'>
+
+          <BackgroundOptions onChange={onChange} styles={styles} />
+
+
+          {/* <SettingBox title='Image'>
             <FlexBox center='v-center' spaceBetween>
               <span className='gray-text'>Upload Image</span>
               <AddImage
@@ -110,15 +103,15 @@ const Image = (props) => {
                 className='width-70'
               />
             </FlexBox>
-          </SettingBox>
+          </SettingBox> */}
+
+
         </Tab>
       </Tabs>
     </div>
   );
 };
 
-Text.propTypes = {
-
-};
+Text.propTypes = {};
 
 export default Image;

@@ -36,7 +36,7 @@ const OptInForm = ({ language, section }) => {
 
 
   return (
-    <FlexBox className='p-3' column>
+    <FlexBox className='p-3' column >
       <InputField
         flex
         label={fullNameLabel}
