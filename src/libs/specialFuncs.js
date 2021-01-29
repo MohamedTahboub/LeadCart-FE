@@ -307,7 +307,8 @@ export const loadFontLocally = async (font = {}) => {
   const { family, url } = font;
   if (!(family && url)) return;
   try {
-    const fontToLoad = new FontFace(family, `url(${url})`);
+    const modifiedUrl = url.includes('http://') ? url.replace('http://', '//') : url;
+    const fontToLoad = new FontFace(family, `url(${modifiedUrl})`);
     await fontToLoad.load();
     window.document.fonts.add(fontToLoad);
   } catch (error) {
