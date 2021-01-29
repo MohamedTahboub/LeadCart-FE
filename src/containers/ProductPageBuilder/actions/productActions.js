@@ -18,7 +18,9 @@ const sectionThatHaveSettings = [
   'figure',
   'pageSetting',
   'faqs',
-  'checkoutSection'
+  'checkoutSection',
+  'image',
+  'video'
 ];
 
 export const updateState = ({ dispatch }) => (subState) => {
@@ -168,6 +170,9 @@ export const onTogglePricingOptionModal = ({ dispatch }) => () => {
 };
 export const addProductPriceOption = ({ dispatch }) => (pricingOption) => {
   dispatch({ type: types.ADD_PRODUCT_PRICING_OPTION, payload: pricingOption });
+};
+export const updateProductPriceOption = ({ dispatch }) => (pricingOption) => {
+  dispatch({ type: types.UPDATE_PRODUCT_PRICING_OPTION, payload: pricingOption });
 };
 export const selectProductPriceOption = ({ dispatch }) => (id) => {
   dispatch({ type: types.SELECT_PRODUCT_PRICING_OPTION, payload: id });

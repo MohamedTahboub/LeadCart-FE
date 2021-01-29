@@ -33,6 +33,7 @@ import CustomReactToggle from './CustomReactToggle';
 import CustomRadio from './CustomRadio';
 import CustomSlider from './CustomSlider';
 import InlinePopup from './InlinePopup';
+import BackgroundOptions from './BackgroundOptions';
 
 export default {
   Table,
@@ -69,5 +70,6 @@ export default {
   CustomReactToggle,
   CustomRadio,
   CustomSlider,
-  InlinePopup
+  InlinePopup,
+  BackgroundOptions
 };

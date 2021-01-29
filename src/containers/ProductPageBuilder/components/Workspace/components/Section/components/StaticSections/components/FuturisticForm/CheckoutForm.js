@@ -1,12 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import common from 'components/common';
-import './style.css';
-import clx from 'classnames';
+import { BiHide, BiShow } from 'react-icons/bi';
+
 import { MdLock } from 'react-icons/md';
 import { useContext } from '../../../../../../../../actions';
 import { PricingOptions, ShippingMethods } from '..';
 import { PhoneNumberInput } from 'components/common/Inputs';
-import { BiHide, BiShow } from 'react-icons/bi';
 
 import {
   CouponCodeForm,
@@ -19,16 +18,13 @@ import {
   Title
 } from './components';
 
-const { FlexBox, Tabs, Tab, ResizableInput } = common;
+import './style.css';
 
-const {
-  InputField,
-  Select
-  // RadioGroup
-} = Inputs;
+const { FlexBox, Tabs, Tab, ResizableInput } = common;
+const { InputField, Select } = Inputs;
+
 
 const countriesOptions = [{ label: 'United State', value: 'USA' }];
-// const citiesOptions = [];
 
 
 const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
@@ -70,6 +66,7 @@ const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
     },
     actions
   } = useContext();
+
   const hasShippingMethodsEnabled = shippingDetailsEnabled && shippingMethodsEnabled;
   const {
     billingAndShippingBtn = 'Continue to Payment',
@@ -544,7 +541,7 @@ const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
   );
 
   return (
-    <FlexBox column className='futuristic-form-container p-4'>
+    <FlexBox column className='futuristic-form-container p-4' >
       {isMultiStepFormEnabled ? multiStepFormRender : singleStepFormRender}
     </FlexBox>
   );

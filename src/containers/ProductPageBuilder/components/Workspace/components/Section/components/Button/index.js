@@ -6,6 +6,7 @@ import ButtonWithText from './components/ButtonWithText';
 import ButtonWithImage from './components/ButtonWithImage';
 
 import './style.css';
+import { getSectionBackground } from 'helpers/common';
 
 const {
   Button,
@@ -123,8 +124,10 @@ const ButtonSection = ({
     </Fragment>
   );
 
+  const sectionBackground = getSectionBackground({ styles, hasParent: true });
+
   return (
-    <FlexBox {...props} className={containerClasses}>
+    <FlexBox {...props} className={containerClasses} style={sectionBackground} >
       {
         ['withTextLeft', 'withTextRight'].includes(layout) ? (
           <ButtonWithText

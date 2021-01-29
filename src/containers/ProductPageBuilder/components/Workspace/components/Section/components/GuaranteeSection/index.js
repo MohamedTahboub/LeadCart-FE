@@ -1,15 +1,19 @@
 import React from 'react';
 import clx from 'classnames';
+
 import guaranteeBadge1 from 'assets/images/guaranteeBadges/gur-1.png';
-import './style.css';
 import common from 'components/common';
 import { useContext } from '../../../../../../actions';
+import { getSectionBackground } from 'helpers/common';
+
+import './style.css';
 
 const {
   FlexBox,
   ResizableTextarea,
   ResizableInput
 } = common;
+
 const GuaranteeSection = ({
   className,
   section = {}
@@ -35,10 +39,8 @@ const GuaranteeSection = ({
 
   const guaranteeTextClasses = clx({
     'px-2': true,
-    'text-center full-width': theme === 'center-theme',
+    'text-center full-width': theme === 'center-theme'
   });
-
-
 
 
   const onChange = ({ target: { name, value } }) => {
@@ -51,12 +53,15 @@ const GuaranteeSection = ({
     });
   };
 
+  const sectionBackground = getSectionBackground({ styles });
+
   return (
     <FlexBox
       center='h-center v-center'
       className={classNames}
       column={theme === 'center-theme'}
       reverse={theme === 'right-theme'}
+      style={sectionBackground}
     >
       <img
         src={imageSrc}

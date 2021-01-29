@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useContext } from '../../../../../../actions';
 import { Feature } from './components';
+import { getSectionBackground } from 'helpers/common';
 
 import './style.css';
 
@@ -46,8 +47,11 @@ const Features = ({ section }) => {
       actions.onSectionDelete(section.id);
   };
 
+
+  const sectionBackground = getSectionBackground({ styles });
+
   return (
-    <div className='features-list-container'>
+    <div className='features-list-container' style={sectionBackground} >
       {list.map(({ text }, id) => (
         <Feature
           key={id}

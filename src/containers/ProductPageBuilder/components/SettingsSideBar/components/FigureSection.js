@@ -17,12 +17,7 @@ const themesOptions = [
 ];
 
 
-const {
-  Tabs,
-  // InputRow,
-  FlexBox,
-  Tab
-} = common;
+const { Tabs, FlexBox, Tab, BackgroundOptions } = common;
 
 
 const FigureSection = (props) => {
@@ -44,6 +39,16 @@ const FigureSection = (props) => {
   };
 
 
+  const onBackgroundChange = ({ target: { name, value } }) => {
+    actions.onSectionSettingChange({
+      section: sectionSetting,
+      field: {
+        name,
+        value
+      }
+    });
+  };
+
   return (
     <div>
       <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -59,6 +64,10 @@ const FigureSection = (props) => {
               />
             ))}
           </FlexBox>
+        </Tab>
+
+        <Tab id='styles' title='Styles'>
+          <BackgroundOptions onChange={onBackgroundChange} styles={styles} />
         </Tab>
       </Tabs>
     </div>

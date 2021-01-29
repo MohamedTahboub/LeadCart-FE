@@ -5,13 +5,12 @@ import clx from 'classnames';
 import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';
 
-const { InputRow, FlexBox, MiniColorPicker, Title } = common;
+const { InputRow, FlexBox, MiniColorPicker, Title, BackgroundOptions } = common;
 const { Label, Toggle } = InputRow;
 
 
-const FaqStyles = ({ onChange, onColorChange, styles = {} }) => {
+const FaqStyles = ({ onChange, onColorChange, onBackgroundChange, styles = {} }) => {
   const {
-    backgroundColor = '#00FFFFFF',
     titleColor = '#000',
     borderColor,
     borderStyle = 'solid',
@@ -58,23 +57,21 @@ const FaqStyles = ({ onChange, onColorChange, styles = {} }) => {
 
   return (
     <FlexBox column>
-      <FlexBox className='v-center my-2' spaceBetween>
-        <Label>Background Color</Label>
-        <MiniColorPicker
-          value={backgroundColor}
-          name='styles.backgroundColor'
-          onChange={onColorChange}
-        />
-      </FlexBox>
+      <BackgroundOptions onChange={onBackgroundChange} styles={styles} />
 
-      <FlexBox className='v-center my-2' spaceBetween>
-        <Label>Title Color</Label>
-        <MiniColorPicker
-          value={titleColor}
-          name='styles.titleColor'
-          onChange={onColorChange}
-        />
-      </FlexBox>
+      <InlinePopup
+        title='Title Color'
+        popUpContent={(
+          <FlexBox className='v-center my-2' spaceBetween>
+            <Label>Title Color</Label>
+            <MiniColorPicker
+              value={titleColor}
+              name='styles.titleColor'
+              onChange={onColorChange}
+            />
+          </FlexBox>
+        )}
+      />
 
       <InlinePopup
         title='Border'

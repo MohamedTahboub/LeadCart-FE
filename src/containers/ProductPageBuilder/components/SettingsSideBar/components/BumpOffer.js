@@ -28,7 +28,8 @@ const {
   CustomReactToggle,
   CustomRadio,
   CustomCheckbox,
-  Tooltip
+  Tooltip,
+  BackgroundOptions
 } = common;
 
 
@@ -264,15 +265,17 @@ const BumpOffer = () => {
     });
   };
 
-  const onStylesChange = (styles) => (src) => () => {
+  const onStylesChange = (themeStyles) => (src) => () => {
     actions.onSectionSettingChange({
       section: sectionSetting,
       field: {
         name: 'styles',
-        value: styles
+        value: { ...styles, ...themeStyles }
       }
     });
   };
+
+
   const onToggleChange = ({ name }) => {
     onChange({
       target: {
@@ -291,10 +294,11 @@ const BumpOffer = () => {
     });
   };
 
+
   const { headerBackground, borderWidth, borderBottomWidth, containerBackground } = styles;
 
 
-  const hasHeaderBacground = headerBackground;
+  const hasHeaderBackground = headerBackground;
   const hasBorder = borderWidth;
   const hasBorderBottom = borderBottomWidth;
   const hasShadowEffect = styles.hasOwnProperty('hasBlurBackgroundImage');
@@ -363,22 +367,12 @@ const BumpOffer = () => {
 
 
       <Tab id='styles' title='Styles'>
+        <BackgroundOptions onChange={onChange} styles={styles} />
+
         <InlinePopup
           title='Offer Colors'
           popUpContent={(
             <FlexBox column>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Background:
-                </Label>
-                <MiniColorPicker
-                  name='styles.containerBackground'
-                  value={styles.containerBackground}
-                  onChange={onChange}
-                />
-              </InputRow>
-
-
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Container text:
@@ -389,7 +383,7 @@ const BumpOffer = () => {
                   onChange={onChange}
                 />
               </InputRow>
-              {hasHeaderBacground &&
+              {hasHeaderBackground &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
                   Header Background:

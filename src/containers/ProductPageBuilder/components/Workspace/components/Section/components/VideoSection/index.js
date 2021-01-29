@@ -1,8 +1,13 @@
 import React, { useMemo } from 'react';
 import clx from 'classnames';
+
 import VideoContent from './VideoContent';
 import { useContext } from '../../../../../../actions';
+import { getSectionBackground } from 'helpers/common';
+
 import './style.css';
+
+
 const VideoSection = ({
   className,
   section = { styles: {} },
@@ -17,12 +22,16 @@ const VideoSection = ({
   });
 
   if (!section.styles) section.styles = {};
+
+  const sectionBackground = getSectionBackground({ styles: section.styles });
+
   const sectionStyle = {
     ...section.styles,
     paddingTop: `${section.styles.paddingTop}px`,
     paddingBottom: `${section.styles.paddingBottom}px`,
     height: `${section.styles.height}px`,
-    width: `${section.styles.width}px`
+    width: `${section.styles.width}px`,
+    ...sectionBackground
   };
   const onChange = ({ target: { value } }) => {
     const updatedSection = {
@@ -37,6 +46,7 @@ const VideoSection = ({
     actions.updateProductSection(updatedSection);
   };
 
+
   return useMemo(() => (
     <div className={classNames} style={sectionStyle}>
       <VideoContent
@@ -44,7 +54,7 @@ const VideoSection = ({
         onChange={onChange}
       />
     </div>
-  ), [videoLink]);
+  ), [videoLink, sectionStyle.backgroundImage, sectionStyle.backgroundColor]);
 };
 VideoSection.propTypes = {};
 
