@@ -43,7 +43,7 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
 
   useEffect(() => {
     onLoadCustomFontFile();
-  }, [activeVariantValue]);
+  }, [family, url]);
 
 
   return (
@@ -51,6 +51,7 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
       font={{ url, family }}
       onClick={onSelectFont({ family, variant: activeVariantValue, id })}
       active={shouldShowCheckBox}
+      loading={variantLoading}
       disabled={isInstalled}
     >
       <FlexBox center='v-center' className='p-2' onClick={stopEventPropagation}>

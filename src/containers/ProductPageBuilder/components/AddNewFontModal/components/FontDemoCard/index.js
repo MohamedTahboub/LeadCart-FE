@@ -6,8 +6,9 @@ import common from 'components/common';
 import './style.css';
 import { isFunction } from 'libs/checks';
 
-const { FlexBox, Title } = common;
-const FontDemoCard = ({ font = {}, onClick, children, active, disabled, clickable }) => {
+const { FlexBox, Title, Spinners, Tooltip } = common;
+const { BeatLoader } = Spinners;
+const FontDemoCard = ({ font = {}, onClick, children, active, disabled, clickable, loading }) => {
   const { family } = font;
 
 
@@ -31,6 +32,13 @@ const FontDemoCard = ({ font = {}, onClick, children, active, disabled, clickabl
         <Title className='m-0 truncate flex-1' >
           {family}
         </Title>
+        {loading && (
+          <FlexBox flex flexEnd>
+            <Tooltip text='loading the font' placement='top'>
+              <BeatLoader size={8} color='gray' />
+            </Tooltip>
+          </FlexBox>
+        )}
       </FlexBox>
 
       <FlexBox flex className='m-2 large-text' style={{ 'font-family': family }}>
