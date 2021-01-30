@@ -21,6 +21,7 @@ import { getTaxes } from 'actions/taxes';
 import { getDestinationZones } from 'actions/destinationZones';
 import { getInvoicingDetails } from 'actions/invoicing';
 import { getShippingRules } from 'actions/shippingRules';
+import { getBrandFonts } from 'actions/productsFonts';
 
 
 window.user = '';
@@ -62,6 +63,7 @@ export default ({ dispatch, getState }) => (next) => (action) => {
     dispatch(getDestinationZones(data.destinationZones || []));
     dispatch(getInvoicingDetails(data.invoicing));
     dispatch(getShippingRules(data.shippingMethods || []));
+    dispatch(getBrandFonts(data.productsFonts || []));
 
 
     return appLaunchSuccess(data);

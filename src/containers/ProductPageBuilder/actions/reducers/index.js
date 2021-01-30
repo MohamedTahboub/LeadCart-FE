@@ -162,6 +162,11 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       productBackground: !state.productBackground
     };
+  case types.TOGGLE_PRODUCT_FONTS_MODAL:
+    return {
+      ...state,
+      productFontsModal: !state.productFontsModal
+    };
   case types.UPDATE_PRODUCT_SAVING_STATUS:
     return {
       ...state,

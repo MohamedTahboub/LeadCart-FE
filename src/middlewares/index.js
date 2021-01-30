@@ -32,6 +32,7 @@ import brands from './brands';
 import taxes from './taxes';
 import destinationZones from './destinationZones';
 import shippingRules from './shippingRules';
+import productsFonts from './productsFonts';
 
 
 export default [
@@ -68,5 +69,6 @@ export default [
   storage,
   ...taxes,
   ...destinationZones,
-  ...shippingRules
+  ...shippingRules,
+  ...productsFonts
 ];

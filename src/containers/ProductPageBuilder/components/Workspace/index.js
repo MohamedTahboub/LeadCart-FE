@@ -4,6 +4,7 @@ import clx from 'classnames';
 import { connect } from 'react-redux';
 import update from 'immutability-helper';
 import ids from 'shortid';
+import { Helmet } from 'react-helmet';
 
 import { formatLanguage } from 'libs';
 import defaultLanguage from 'data/defaultLanguage.json';
@@ -167,7 +168,8 @@ const Workspace = ({
       paddingTop,
       paddingRight,
       paddingBottom,
-      paddingLeft
+      paddingLeft,
+      font = {}
     } = {}
   } = pageStyles;
 
@@ -184,7 +186,8 @@ const Workspace = ({
     paddingTop,
     paddingRight,
     paddingBottom,
-    paddingLeft
+    paddingLeft,
+    fontFamily: font.family
   };
 
   const layoutProps = {
@@ -199,7 +202,8 @@ const Workspace = ({
     onSectionDuplicate,
     findCard,
     activeLanguage,
-    addNewAndMove
+    addNewAndMove,
+    font
   };
 
   return (
@@ -210,6 +214,13 @@ const Workspace = ({
       className='product-workspace-container'
       style={screenStyles}
     >
+
+      <Helmet>
+        <meta charSet='utf-8' />
+        <link rel='stylesheet' href={font.url} />
+      </Helmet>
+
+
       <FlexBox id='product-builder-window' column className={workspaceClasses} >
         <ProductHead show={pageStyles.showHead} />
         <FlexBox className='relative-element product-page-content' column style={productStyles} id='layouts-container'>

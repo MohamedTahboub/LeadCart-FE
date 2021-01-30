@@ -2,8 +2,7 @@ import React from 'react';
 import QuillEditor from 'components/QuillEditor';
 import { useContext } from '../../../../../actions';
 import { getSectionBackground } from 'helpers/common';
-// value={pagePreferences.description}
-// onEdit={onEdit}
+
 
 const HeadingText = ({
   value,
@@ -12,7 +11,6 @@ const HeadingText = ({
   ...props
 }) => {
   const { actions } = useContext();
-  // const
 
   const onChange = (value) => {
     const updatedSection = {
