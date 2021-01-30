@@ -1,0 +1,8 @@
+.products-fonts-modal-container{
+  width: 60vw;
+}
+
+
+.products-fonts-modal-container.modal-content{
+  padding: 15px;
+}

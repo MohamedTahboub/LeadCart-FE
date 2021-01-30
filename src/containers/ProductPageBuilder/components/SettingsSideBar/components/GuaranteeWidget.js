@@ -43,7 +43,8 @@ const themesOptions = [
 const {
   Tabs,
   FlexBox,
-  Tab
+  Tab,
+  BackgroundOptions
 } = common;
 
 
@@ -80,6 +81,8 @@ const GuaranteeWidget = (props) => {
   };
 
 
+  const onBackgroundChange = ({ target: { name, value } }) => onChange({ name, value });
+
   return (
     <div>
       <Tabs active='themes' className='padding-v-10 padding-h-10' tabsContentClassName='scrolling-70vh'>
@@ -96,6 +99,7 @@ const GuaranteeWidget = (props) => {
             ))}
           </FlexBox>
         </Tab>
+
         <Tab id='guaranteeBadges' title='Guarantee Badges'>
           <FlexBox column>
             {badgesImages.map((badge) => (
@@ -107,6 +111,10 @@ const GuaranteeWidget = (props) => {
               />
             ))}
           </FlexBox>
+        </Tab>
+
+        <Tab id='styles' title='Styles'>
+          <BackgroundOptions const styles={styles} onChange={onBackgroundChange} />
         </Tab>
       </Tabs>
     </div>

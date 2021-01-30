@@ -6,7 +6,7 @@ import common from 'components/common';
 import { ImageOption, SettingBox } from './common';
 import { useContext } from '../../../actions';
 
-const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab } = common;
+const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab, BackgroundOptions } = common;
 const { TextField, SelectOption, DatePicker, Toggle } = InputRow;
 
 const themesOptions = [
@@ -71,12 +71,17 @@ const CountDowTimerWidget = (props) => {
       }
     });
   };
+
+
   const onThemeChange = ({ theme }) => (src) => () => {
     onChange({
       name: 'styles.theme',
       value: theme
     });
   };
+
+
+  const onBackgroundChange = ({ target }) => onChange(target);
 
 
   const onSelectChange = (name) => ({ value }) => onChange({ name, value });
@@ -96,26 +101,6 @@ const CountDowTimerWidget = (props) => {
               active={styles.theme === theme.theme}
             />
           ))}
-        </Tab>
-        <Tab id='colors' title='Colors'>
-          <FlexBox column flex className='min-height-400'>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Clock Color:</span>
-              <MiniColorPicker
-                name='styles.clockColor'
-                value={styles.clockColor}
-                onChange={onFiledChange}
-              />
-            </FlexBox>
-            <FlexBox center='v-center margin-v-5' spaceBetween>
-              <span className='gray-text'>Background Color:</span>
-              <MiniColorPicker
-                name='styles.backgroundColor'
-                value={styles.backgroundColor}
-                onChange={onFiledChange}
-              />
-            </FlexBox>
-          </FlexBox>
         </Tab>
 
         <Tab id='settings' title='Settings'>
@@ -161,7 +146,8 @@ const CountDowTimerWidget = (props) => {
                   type='date'
                   disabledDate={(date) => date < (Date.now() - (24 * 60 * 60 * 1000))}
                   placeholder='Timer End Date'
-                  defaultValue={moment(content.date)}
+                  defaultValue={moment(content.value.date)}
+                  value={moment(content.value.date)}
                   className='margin-left-30'
                   onChange={onFixedTimeChange}
                   showTime
@@ -250,6 +236,32 @@ const CountDowTimerWidget = (props) => {
             </FlexBox>
           </SettingBox>
         </Tab>
+
+        <Tab id='styles' title='Styles'>
+          <FlexBox column flex className='min-height-400'>
+            <BackgroundOptions onChange={onBackgroundChange} styles={styles} backgroundColorName='styles.containerBackgroundColor' />
+
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Clock Color:</span>
+              <MiniColorPicker
+                name='styles.clockColor'
+                value={styles.clockColor}
+                onChange={onFiledChange}
+              />
+            </FlexBox>
+
+            <FlexBox center='v-center margin-v-5' spaceBetween>
+              <span className='gray-text'>Counter Box Background:</span>
+              <MiniColorPicker
+                name='styles.backgroundColor'
+                value={styles.backgroundColor}
+                onChange={onFiledChange}
+              />
+            </FlexBox>
+          </FlexBox>
+        </Tab>
+
+
       </Tabs>
     </div>
   );

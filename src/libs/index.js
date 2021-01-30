@@ -35,6 +35,8 @@ export {
   getCountryByCode,
   nodeHasChildElement,
   downloadFile,
-  getPaymentStatusDetails
+  getPaymentStatusDetails,
+  loadFontsToDocument,
+  loadFontLocally
 } from './specialFuncs';
 export { notification };

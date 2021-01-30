@@ -404,38 +404,28 @@
             ]
         },
         {
-            "title": "Subscription Refund Email",
-            "key": "subscriptionRefundEmail",
+            "title": "Opt-in Form",
+            "key": "optInForm",
             "words": [
                 {
-                    "key": "hiMessage",
-                    "value": "Hi",
-                    "label": "Hi"
+                    "key": "fullNameLabel",
+                    "value": "Full Name",
+                    "label": "Full Name"
                 },
                 {
-                    "key": "intro_1",
-                    "value": "Your Subscription to",
-                    "label": "Your Subscription to"
+                    "key": "fullNamePlaceholder",
+                    "value": "Full Name",
+                    "label": "Full Name"
                 },
                 {
-                    "key": "intro_2",
-                    "value": "has been refunded.",
-                    "label": "has been refunded."
+                    "key": "emailLabel",
+                    "value": "Email",
+                    "label": "Email"
                 },
                 {
-                    "key": "mainContent",
-                    "value": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account.",
-                    "label": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account."
-                },
-                {
-                    "key": "summaryLabel",
-                    "value": "Refund Summary",
-                    "label": "Refund Summary"
-                },
-                {
-                    "key": "amountRefundedLabel",
-                    "value": "Amount Refunded",
-                    "label": "Amount Refunded"
+                    "key": "emailPlaceholder",
+                    "value": "Enter your email",
+                    "label": "Enter your email"
                 }
             ]
         }

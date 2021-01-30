@@ -35,13 +35,22 @@
   background-color: #4DA1FF;
   border-color: #4DA1FF;
 }
+/* .checkbox-container.disabled{
+  background-color: gray;
+  border-color: gray;
+} */
+.checkbox-container.circle .checkmark{
+  border-radius: 50%;
+};
 
 .checkbox-container .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-
+.checkbox-container.circle .checkmark:after{
+  top: 1px;
+}
 .checkbox-container.active .checkmark:after {
   display: block;
 }
@@ -52,6 +61,7 @@
   width: 5px;
   height: 13px;
   border-style: solid;
+  border-color: #fff;
   border-color: var(--checkmark-color);
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);

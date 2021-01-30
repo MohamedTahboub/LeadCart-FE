@@ -1,0 +1,33 @@
+.products-google-fonts {
+  height: 70vh;
+  align-items: center;
+  padding: 10px;
+}
+
+.products-google-fonts-header {
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+.products-google-fonts-header-search {
+  flex: 1;
+}
+
+.products-google-fonts-header-search .text-input-filed {
+  flex: 1;
+}
+
+.products-google-fonts-content {
+  overflow: auto;
+  width: 90%;
+  justify-content: space-between;
+  align-items: baseline;
+  align-content: baseline;
+  padding-right: 10px;
+}
+
+
+.products-google-fonts-checkbox-row.checkbox-container {
+  padding-left: 20px !important;
+
+}

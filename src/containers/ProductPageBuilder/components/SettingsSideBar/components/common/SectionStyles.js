@@ -1,65 +1,21 @@
 import React from 'react';
 import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';
-import Slider from 'rc-slider';
-const { FlexBox, InputRow, MiniColorPicker, CustomSlider } = common;
-
-const { SelectOption, Label, AddImage, Toggle } = InputRow;
-
-const SectionStyles = ({ values = {}, onChange }) => {
 
 
+const { FlexBox, InputRow, MiniColorPicker, CustomSlider, BackgroundOptions } = common;
+const { Toggle } = InputRow;
+
+const SectionStyles = ({ values = {}, onChange, onBackgroundChange }) => {
   const onSliderChange = (value, name) => {
     onChange({ target: { name, value } });
   };
 
-  const isBackgroundImageType = values.backgroundType === 'image';
+
   return (
     <FlexBox column>
-      <InlinePopup
-        title='Background Settings'
-        popUpContent={(
-          <FlexBox column>
-            <InputRow className='sidebar-row'>
-              <Label className='sidebar-input-label'>
-                Background Type:
-              </Label>
-              <SelectOption
-                value={values.backgroundType}
-                name={'backgroundType'}
-                onChange={onChange}
-                options={[
-                  { label: 'Color', value: 'color' },
-                  { label: 'Image', value: 'image' }
-                ]}
-              />
-            </InputRow>
-            <InputRow className='sidebar-row'>
-              <Label className='sidebar-input-label'>
-                Background {`${isBackgroundImageType ? 'Image' : 'Color'}`}:
-              </Label>
-              {isBackgroundImageType ? (
-                <AddImage
-                  value={values.backgroundImage}
-                  name={'backgroundImage'}
-                  onUploaded={(image) => onChange({
-                    target: {
-                      name: 'backgroundImage',
-                      value: image
-                    }
-                  })}
-                />
-              ) : (
-                <MiniColorPicker
-                  name={'backgroundColor'}
-                  value={values.backgroundColor}
-                  onChange={onChange}
-                />
-              )}
-            </InputRow>
-          </FlexBox>
-        )}
-      />
+      <BackgroundOptions onChange={onBackgroundChange} styles={values} />
+
       <InlinePopup
         title='Border Radius'
         popUpContent={(
@@ -84,7 +40,6 @@ const SectionStyles = ({ values = {}, onChange }) => {
               unit='px'
             />
 
-
             <CustomSlider
               max={200}
               min={0}
@@ -94,7 +49,6 @@ const SectionStyles = ({ values = {}, onChange }) => {
               label='Bottom Left Border'
               unit='px'
             />
-
 
             <span>Bottom Right Border {`${values.borderBottomRightRadius || 0}px`}</span>
             <CustomSlider

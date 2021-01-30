@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import clx from 'classnames';
 import { FlexBox } from '../boxes';
 import './style.css';
+import { isFunction } from 'libs/checks';
 
 
 const getActiveContent = (children, active) => {
@@ -27,7 +28,8 @@ export const Tabs = ({
   vertical,
   titleColor,
   active,
-  onChange
+  onChange,
+  blockTabsNavigation
 }) => {
   const [activeTab, setActiveTab] = useState(active);
 
@@ -41,8 +43,9 @@ export const Tabs = ({
   }, [active]);
 
   const onTabChange = (tabId) => () => {
-    setActiveTab(tabId);
-    if (onChange) onChange(tabId);
+    const canNavigate = !blockTabsNavigation;
+    if (isFunction(onChange) && canNavigate) return onChange(tabId, active);
+    canNavigate && setActiveTab(tabId);
   };
 
   return (

@@ -45,7 +45,7 @@ const getStepsNames = (shippingDetails, shippingMethodsEnabled, translations = {
 
 };
 const ClassicForm = ({ language, section, paymentMethods }) => {
-  const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
+  const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden, styles } = section;
   const {
     state: {
       funnel: { type } = {},
@@ -72,12 +72,19 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
     actions
   } = useContext();
 
+
   const {
-    fullName = 'Full Name',
     email,
     shippingMethod: shippingMethodLabel = 'Shipping Methods',
     pricingOptionsLabel
   } = language.checkout || {};
+
+
+  const {
+    fullNamePlaceholder = 'Full Name',
+    emailLabel = 'Enter your email'
+  } = language.optInForm || {};
+
 
   const isOptInFunnel = type === 'OPT-IN';
   const isThankyouProduct = productCategory === 'thankyoupage';
@@ -129,8 +136,9 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
 
   const stepsNames = getStepsNames(shippingDetails, shippingMethodsEnabled, language.checkout);
 
+
   return (
-    <FlexBox column className='relative-element p-3'>
+    <FlexBox column className='relative-element p-3' >
       <LayoutSwitch active={productCategory}>
         <FlexBox column id='checkout'>
           {
@@ -278,11 +286,11 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
         >
           <CheckoutInput
             disabled
-            label={fullName}
+            label={fullNamePlaceholder}
           />
           <CheckoutInput
             disabled
-            label={email}
+            label={emailLabel}
           />
           <CompleteOrderBtn
             name='custom.orderButtonText'

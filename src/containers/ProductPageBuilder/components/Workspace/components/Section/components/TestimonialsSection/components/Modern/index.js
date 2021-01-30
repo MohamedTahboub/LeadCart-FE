@@ -1,8 +1,10 @@
 import React from 'react';
+
 import common from 'components/common';
 import avatarLink from 'assets/images/avatar.jpg';
 import StarsRanking from 'components/StarsRanking';
 import Image from 'components/common/Image';
+import { getSectionBackground } from 'helpers/common';
 
 import './style.css';
 const {
@@ -22,7 +24,7 @@ const ModernTestimonial = ({
   styles = {},
   ...props
 }) => {
-  const { backgroundColor = 'transparent', nameColor = '#000', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
+  const { nameColor = '#000', descriptionColor = 'rgba(0, 0, 0, 0.65)' } = styles;
 
   const onImageChange = ({ value, ...res }) => {
     onChange({
@@ -33,8 +35,11 @@ const ModernTestimonial = ({
     });
   };
 
+  const sectionBackground = getSectionBackground({ styles });
+
+
   return (
-    <FlexBox center='modern-testimonial margin-v-10 h-center v-center' style={{ backgroundColor }} wrappable>
+    <FlexBox center='modern-testimonial margin-v-10 h-center v-center' style={sectionBackground} wrappable>
       <Image
         className='modern-testimonial-image'
         image={image}

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import Select from 'react-select';
+
 import common from 'components/common';
 import * as settingsActions from 'actions/settings';
-import { connect } from 'react-redux';
 import countriesList from 'data/countries';
 import timeZonesList from 'data/timeZones';
 import currencies from 'data/currencies.json';
-import PropTypes from 'prop-types';
 import { marketPlaceSettingSchema } from 'libs/validation';
 import { notification } from 'libs';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
-const { InputRow, MainBlock } = common;
+const { InputRow, MainBlock, FlexBox } = common;
 const { Label, TextField, AddImage, Toggle, SearchInput } = InputRow;
 
 const currenciesList = currencies.map((c) => ({ value: c.code, label: `${c.symbol} - ${c.name}` }));
@@ -19,6 +22,20 @@ const timeZones = timeZonesList.map(({ value }) => ({ label: value, value }));
 
 const defaultTimeZone = timeZones.find(({ value }) => value.includes('Central America')).value;
 const defaultCountry = countries.find(({ value }) => value === 'US').value;
+
+const getDateFormatOptions = () => {
+  const basedDatedFormat = [
+    'DD-MM-YYYY', 'DD/MM/YYYY',
+    'MM-DD-YYYY', 'MM/DD/YYYY',
+    'YYYY-MM-DD', 'YYYY/MM/DD',
+    'ddd, MMM DD, YY', 'ddd, MMM DD, YYYY',
+    'MMM DD, YYYY', 'MMMM DD, YYYY'
+  ];
+  const date = new Date();
+
+  return basedDatedFormat.map((ele) => ({ label: moment(date).format(ele), value: ele }));
+};
+
 
 const GeneralSettings = ({
   marketPlace,
@@ -58,7 +75,6 @@ const GeneralSettings = ({
         return setErrors({ ...fieldsErrors });
       }
 
-
       props.updateMarketPlaceSettings(
         payload,
         {
@@ -77,6 +93,12 @@ const GeneralSettings = ({
     }
   };
   getSave({ onSave });
+
+
+  const dateformatOptions = getDateFormatOptions();
+  const formatDateValue = { value: fields.dateFormat, label: moment(new Date()).format(fields.dateFormat || 'DD/MM/YYYY') };
+
+
   return (
     <MainBlock title='General Brand Settings' containerClasses='marketplace-settings-bg'>
       <InputRow>
@@ -143,6 +165,7 @@ const GeneralSettings = ({
           error={errors.supportEmail}
           value={fields.supportEmail}
           placeholder='e.g. support@leadcart.io'
+          className='min-width-200'
         />
       </InputRow>
       <InputRow margin='20'>
@@ -166,6 +189,7 @@ const GeneralSettings = ({
           onChange={onChange}
           error={errors.subDomain}
           value={fields.subDomain}
+          className='min-width-200'
         />
       </InputRow>
       <InputRow className='mt-4'>
@@ -178,6 +202,17 @@ const GeneralSettings = ({
           afterLabel='Hide'
         />
       </InputRow>
+
+      <FlexBox className='mt-3 v-center' margin='20'>
+        <Label error={errors.dateFormat}>Date Format:</Label>
+        <Select
+          options={dateformatOptions}
+          // defaultValue={fields.dateFormat}
+          value={formatDateValue}
+          className='min-width-200'
+          onChange={({ value }) => onChange({ target: { value, name: 'dateFormat' } })}
+        />
+      </FlexBox>
     </MainBlock>
   );
 };

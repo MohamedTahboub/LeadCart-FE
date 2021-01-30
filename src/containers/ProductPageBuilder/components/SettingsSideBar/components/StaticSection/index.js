@@ -76,6 +76,11 @@ const StaticSection = ({ defaultBrandCurrency }) => {
   };
 
 
+  const onBackgroundChange = ({ target: { name, value } } = {}) => {
+    onSectionFieldChange({ target: { name, value } });
+  };
+
+
   const onChange = ({ target }) => {
     onProductFieldChange(target);
   };
@@ -366,6 +371,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               <SectionStylesControllers
                 values={styles}
                 onChange={onSectionStylesChange}
+                onBackgroundChange={onBackgroundChange}
               />
             </Fragment>
             :
@@ -375,6 +381,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
               completeOrderButton={completeOrderButton}
               sectionSetting={sectionSetting}
               onSectionSettingChange={onSectionSettingChange}
+              onBackgroundChange={onBackgroundChange}
             />
           }
         </Tab>

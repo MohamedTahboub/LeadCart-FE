@@ -14,6 +14,7 @@ export default ({
   children,
   size: initialSize = {},
   className,
+  style,
   ...props
 }) => {
   const [size, setSize] = useState(initialSize);
@@ -78,7 +79,8 @@ export default ({
       ref={expanderRef}
       style={{
         height: size.height,
-        userSelect: resizing ? 'none' : ''
+        userSelect: resizing ? 'none' : '',
+        ...style
       }}
       className={classNames}
       {...props}
