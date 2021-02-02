@@ -37,7 +37,7 @@ const CountDownTimer = ({
   options,
   styles = {},
   display = {},
-  language,
+  language = {},
   ...props
 }) => {
   const { valueType, ...value } = options;
@@ -45,10 +45,10 @@ const CountDownTimer = ({
 
   const {
     countdownTimer: {
-      days: daysLabel,
-      hours: hoursLabel,
-      minutes: minutesLabel,
-      seconds: secondsLabel
+      days: daysLabel = 'Days',
+      hours: hoursLabel = 'Hours',
+      minutes: minutesLabel = 'Minutes',
+      seconds: secondsLabel = 'Seconds'
     } = {}
   } = language;
 

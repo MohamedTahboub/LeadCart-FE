@@ -5,32 +5,6 @@
     "default": true,
     "contexts": [
         {
-            "title": "Countdown Timer",
-            "key": "countdownTimer",
-            "words": [
-                {
-                    "key": "days",
-                    "value": "Days",
-                    "label": "Days"
-                },
-                {
-                    "key": "hours",
-                    "value": "Hours",
-                    "label": "Hours"
-                },
-                {
-                    "key": "minutes",
-                    "value": "Minutes",
-                    "label": "Minutes"
-                },
-                {
-                    "key": "seconds",
-                    "value": "Seconds",
-                    "label": "Seconds"
-                }
-            ]
-        },
-        {
             "title": "Checkout Product Translations",
             "key": "checkout",
             "words": [
@@ -298,6 +272,32 @@
                     "key": "formBackBtnLabel",
                     "value": "Back",
                     "label": "Back"
+                }
+            ]
+        },
+        {
+            "title": "Countdown Timer",
+            "key": "countdownTimer",
+            "words": [
+                {
+                    "key": "days",
+                    "value": "Days",
+                    "label": "Days"
+                },
+                {
+                    "key": "hours",
+                    "value": "Hours",
+                    "label": "Hours"
+                },
+                {
+                    "key": "minutes",
+                    "value": "Minutes",
+                    "label": "Minutes"
+                },
+                {
+                    "key": "seconds",
+                    "value": "Seconds",
+                    "label": "Seconds"
                 }
             ]
         },
