@@ -302,7 +302,7 @@ const ProductBuilder = ({
               internalName={state.product?.internalName}
             />
             <Workspace />
-            <SettingSideBar />
+            <SettingSideBar currency={currency}/>
           </DndProvider>
         </FlexBox>
         <NewPricingOptionModal
