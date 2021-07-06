@@ -39,6 +39,7 @@ const RuleModal = ({
   productsMap,
   isOptInFunnel,
   funnelProducts,
+  funnel,
   isPaypalConnected,
   isSubscriptionCheckout = false,
   ...props
@@ -95,7 +96,8 @@ const RuleModal = ({
     if (isNew) {
       props.createFunnelRule({
         rule: ruleValue,
-        funnel: funnelId
+        funnel: funnelId,
+        originalFunnelDetails: funnel
       }, {
         onSuccess: () => {
           notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been created`);
@@ -112,7 +114,8 @@ const RuleModal = ({
       props.updateFunnelRule({
         ruleId,
         rule: ruleValue,
-        funnel: funnelId
+        funnel: funnelId,
+        originalFunnelDetails: funnel
       }, {
         onSuccess: () => {
           notification.success(`A rule for ${getTriggerLabel(fields.trigger)} event have been updated`);
