@@ -276,6 +276,32 @@
             ]
         },
         {
+            "title": "Countdown Timer",
+            "key": "countdownTimer",
+            "words": [
+                {
+                    "key": "days",
+                    "value": "Days",
+                    "label": "Days"
+                },
+                {
+                    "key": "hours",
+                    "value": "Hours",
+                    "label": "Hours"
+                },
+                {
+                    "key": "minutes",
+                    "value": "Minutes",
+                    "label": "Minutes"
+                },
+                {
+                    "key": "seconds",
+                    "value": "Seconds",
+                    "label": "Seconds"
+                }
+            ]
+        },
+        {
             "title": "Thank you page Order receipt Translations",
             "key": "thankyouPage",
             "words": [
