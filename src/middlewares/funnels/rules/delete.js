@@ -7,11 +7,11 @@ export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== DELETE_FUNNEL_RULE) return next(action);
 
   const { payload, meta = {} } = action;
-
+  const { originalFunnelDetails, ...resetOfThePayload } = payload;
   dispatch(apiRequest({
     options: {
       method: 'delete',
-      body: payload,
+      body: resetOfThePayload,
       uri: '/api/brands/funnels/rules',
       contentType: 'json'
     },
