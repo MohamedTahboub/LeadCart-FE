@@ -7,11 +7,11 @@ export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== CREATE_FUNNEL_RULE) return next(action);
 
   const { payload, meta = {} } = action;
-
+  const { originalFunnelDetails, ...resetOfThePayload } = payload;
   dispatch(apiRequest({
     options: {
       method: 'post',
-      body: payload,
+      body: resetOfThePayload,
       uri: '/api/brands/funnels/rules',
       contentType: 'json'
     },
@@ -19,6 +19,7 @@ export default ({ dispatch }) => (next) => (action) => {
       if (meta.onSuccess) meta.onSuccess(rule);
       return createFunnelRuleSuccess({
         funnelId: payload.funnel,
+        originalFunnelDetails,
         rule
       });
     },
