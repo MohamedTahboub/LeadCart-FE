@@ -9,8 +9,7 @@ const { FlexBox } = common;
 
 const Timer = ({
   className,
-  section = {},
-  language = {}
+  section = {}
 }) => {
   const {
     styles = { theme: 'formal-circles' },
@@ -54,7 +53,6 @@ const Timer = ({
         options={value}
         titlesStyle={{ color: styles.backgroundColor }}
         display={showElements}
-        language={language}
       />
     </FlexBox>
   );

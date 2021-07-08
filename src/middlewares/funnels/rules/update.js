@@ -6,12 +6,12 @@ import { UPDATE_FUNNEL_RULE } from '../../../constantsTypes';
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== UPDATE_FUNNEL_RULE) return next(action);
 
-  const { payload = {}, meta = {} } = action;
-  const { originalFunnelDetails, ...resetOfThePayload } = payload;
+  const { payload, meta = {} } = action;
+
   dispatch(apiRequest({
     options: {
       method: 'put',
-      body: resetOfThePayload,
+      body: payload,
       uri: '/api/brands/funnels/rules',
       contentType: 'json'
     },
