@@ -19,7 +19,6 @@ const Rules = ({
   funnelProducts,
   openRuleModal,
   isOptInFunnel,
-  funnel,
   isPaypalConnected,
   isSubscriptionCheckout,
   onToggleRuleModal,
@@ -38,7 +37,6 @@ const Rules = ({
   const onRuleDelete = (rule) => () => {
     props.deleteFunnelRule({
       funnel: funnelId,
-      originalFunnelDetails: funnel,
       ruleId: rule._id
     }, {
       onSuccess: () => {
@@ -75,7 +73,6 @@ const Rules = ({
           productsMap={productsMap}
           funnelProducts={funnelProducts}
           funnelId={funnelId}
-          funnel={funnel}
           ruleData={activeRule}
           isOptInFunnel={isOptInFunnel}
           isPaypalConnected={isPaypalConnected}

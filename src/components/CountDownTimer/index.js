@@ -18,7 +18,7 @@ const CountDownFrame = ({ titleStyle, label, value, style, show }) => {
 
   const strValue = String(value).padStart(2, '0');
   return (
-    <FlexBox column center='v-center h-center text-center' className={className}>
+    <FlexBox column center='v-center h-center' className={className}>
       <div style={style} className='counter-box'>{strValue}</div>
       <div style={titleStyle} className='counter-label'>{label}</div>
     </FlexBox>
@@ -37,21 +37,10 @@ const CountDownTimer = ({
   options,
   styles = {},
   display = {},
-  language = {},
   ...props
 }) => {
   const { valueType, ...value } = options;
   const [state, setState] = useState(counterInitialState);
-
-  const {
-    countdownTimer: {
-      days: daysLabel = 'Days',
-      hours: hoursLabel = 'Hours',
-      minutes: minutesLabel = 'Minutes',
-      seconds: secondsLabel = 'Seconds'
-    } = {}
-  } = language;
-
 
   useEffect(() => {
     const timerInstance = countDownTimerClock({ ...value, type: valueType });
@@ -67,28 +56,28 @@ const CountDownTimer = ({
       <FlexBox center='h-center'>
         <CountDownFrame
           value={state.days}
-          label={daysLabel}
+          label='Days'
           style={styles}
           titleStyle={titlesStyle}
           show={display.days}
         />
         <CountDownFrame
           value={state.hours}
-          label={hoursLabel}
+          label='Hours'
           style={styles}
           titleStyle={titlesStyle}
           show={display.hours}
         />
         <CountDownFrame
           value={state.minutes}
-          label={minutesLabel}
+          label='Minutes'
           style={styles}
           titleStyle={titlesStyle}
           show={display.minutes}
         />
         <CountDownFrame
           value={state.seconds}
-          label={secondsLabel}
+          label='Seconds'
           style={styles}
           titleStyle={titlesStyle}
           show={display.seconds}
