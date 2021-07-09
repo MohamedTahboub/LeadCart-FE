@@ -115,7 +115,6 @@ const FunnelBuilder = ({
     if (!isObjectsEquivalent(funnel, fields))
       setFields(funnel);
 
-
     if (!isObjectsEquivalent(productsNodeDetails, productsMap))
       setProductsNodeDetails(productsMap);
 
@@ -233,6 +232,7 @@ const FunnelBuilder = ({
   const rulesProps = {
     funnelId: fields._id,
     rules: fields.rules,
+    funnel: fields,
     openRuleModal,
     onToggleRuleModal,
     isOptInFunnel,

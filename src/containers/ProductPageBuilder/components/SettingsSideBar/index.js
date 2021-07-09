@@ -27,7 +27,7 @@ const PageSettingToggleButton = ({ onToggle }) => {
   );
 };
 
-const SettingSideBar = () => {
+const SettingSideBar = ({currency}) => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
 
   const toggleMenu = () => {
@@ -72,7 +72,7 @@ const SettingSideBar = () => {
           className='gray-text larger-text item-clickable animate '
         />
       </FlexBox>
-      <SubSettings type={sectionSetting && sectionSetting.type} />
+      <SubSettings type={sectionSetting && sectionSetting.type} currency={currency}/>
     </SideMenu>
   );
 };

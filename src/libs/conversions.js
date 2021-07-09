@@ -46,7 +46,7 @@ export const formatLanguage = (language) => language.contexts.reduce((lang, cont
 
 export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
   const titles = 'Name,Email Address,Phone Number,Product Name,Payment Processor,Offer Included,Coupon Used,Coupon Discount,Total Charge,Product Payment Type';
-  const shippingDetialsTitles = ',Adress, Second Address, City, State, Postal Code,  Country';
+  const shippingDetialsTitles = ',Address, Second Address, City, State, Postal Code,  Country';
   let hasShippingDetialsInProducts = false;
 
   const orderProducts = orders.reduce((products, { products: subProducts, ...order }) => {
@@ -66,6 +66,14 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
       },
       currency,
       totalCharge,
+      shippingDetails: {
+        streetAddress,
+        streetAddressLine2,
+        city,
+        state,
+        postalCode,
+        country,
+      } = {},
       product: {
         name: productName,
         offer: { name: offerName = 'No', price: offerPrice = 0 } = {},
@@ -74,14 +82,6 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
         payment: {
           paymentType,
           paymentMethod
-        } = {},
-        shippingDetails: {
-          streetAddress,
-          streetAddressLine2,
-          city,
-          state,
-          postalCode,
-          country,
         } = {}
       } = {}
     }) => {
