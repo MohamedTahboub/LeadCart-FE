@@ -169,17 +169,17 @@ const themesOptions = [
 const isTransparent = (color) => colorProps(color)?.ansi256()?.object()?.alpha === 0;
 
 
-const BumpOffer = () => {
+const BumpOffer = ({ currency: defaultMarketplaceCurrency }) => {
   const {
     state: {
-      modals: { sectionSetting = {} } = {}, funnel: { currency = 'USD' } = {},
+      modals: { sectionSetting = {} } = {}, funnel: { currency = defaultMarketplaceCurrency } = {},
       product: {
         pageStyles: {
           productPage: {
             firstColumn: { backgroundColor: columnBg } = {},
             backgroundColor: productBg
           } = {},
-          pageBackgroundSettings: { firstSectionBackground:  { backgroundColor: sectionBg } = {} } = {}
+          pageBackgroundSettings: { firstSectionBackground: { backgroundColor: sectionBg } = {} } = {}
         } = {}
       } = {}
     }, actions
@@ -213,14 +213,14 @@ const BumpOffer = () => {
         style={{ ...style, width: '50%' }}
         options={[{
           label:
-          <Input
-            className={className}
-            borderColor={headerTextColor}
-            backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
-            checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
-            checked
-            active
-          />
+            <Input
+              className={className}
+              borderColor={headerTextColor}
+              backgroundColor={value === 'radio' ? 'transparent' : headerTextColor}
+              checkmarkColor={value === 'radio' ? headerTextColor : activeMarkColor}
+              checked
+              active
+            />
           ,
           value
         }]}
@@ -384,16 +384,16 @@ const BumpOffer = () => {
                 />
               </InputRow>
               {hasHeaderBackground &&
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Header Background:
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Header Background:
                 </Label>
-                <MiniColorPicker
-                  name='styles.headerBackground'
-                  value={styles.headerBackground}
-                  onChange={onChange}
-                />
-              </InputRow>
+                  <MiniColorPicker
+                    name='styles.headerBackground'
+                    value={styles.headerBackground}
+                    onChange={onChange}
+                  />
+                </InputRow>
               }
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
@@ -420,159 +420,159 @@ const BumpOffer = () => {
         />
 
         {hasBorder &&
-        <InlinePopup
-          title='Border Style'
-          popUpContent={(
-            <FlexBox column>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Border Color:
+          <InlinePopup
+            title='Border Style'
+            popUpContent={(
+              <FlexBox column>
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Border Color:
                 </Label>
-                <MiniColorPicker
-                  name='styles.borderColor'
-                  value={styles.borderColor}
-                  onChange={onChange}
-                />
+                  <MiniColorPicker
+                    name='styles.borderColor'
+                    value={styles.borderColor}
+                    onChange={onChange}
+                  />
 
-              </InputRow>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Border Style:
+                </InputRow>
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Border Style:
                 </Label>
-                <SelectOption
-                  value={styles.borderStyle}
-                  name='styles.borderStyle'
-                  onChange={onChange}
-                  className='bump-offer-style-dropdown'
-                  options={[
-                    { label: 'Solid', value: 'solid' },
-                    { label: 'Dashed', value: 'dashed' }
-                  ]}
-                />
-              </InputRow>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Border Width:
+                  <SelectOption
+                    value={styles.borderStyle}
+                    name='styles.borderStyle'
+                    onChange={onChange}
+                    className='bump-offer-style-dropdown'
+                    options={[
+                      { label: 'Solid', value: 'solid' },
+                      { label: 'Dashed', value: 'dashed' }
+                    ]}
+                  />
+                </InputRow>
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Border Width:
                 </Label>
-                <SelectOption
-                  value={styles.borderWidth}
-                  name='styles.borderWidth'
-                  onChange={onChange}
-                  className='bump-offer-style-dropdown'
-                  options={[
-                    { label: '0 px', value: '0' },
-                    { label: '1 px', value: '1' },
-                    { label: '2 px', value: '2' },
-                    { label: '3 px', value: '3' },
-                    { label: '4 px', value: '4' }
-                  ]}
-                />
-              </InputRow>
+                  <SelectOption
+                    value={styles.borderWidth}
+                    name='styles.borderWidth'
+                    onChange={onChange}
+                    className='bump-offer-style-dropdown'
+                    options={[
+                      { label: '0 px', value: '0' },
+                      { label: '1 px', value: '1' },
+                      { label: '2 px', value: '2' },
+                      { label: '3 px', value: '3' },
+                      { label: '4 px', value: '4' }
+                    ]}
+                  />
+                </InputRow>
 
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Border Radius:
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Border Radius:
                 </Label>
-                <SelectOption
-                  value={styles.borderRadius}
-                  name='styles.borderRadius'
-                  onChange={onChange}
-                  className='bump-offer-style-dropdown'
-                  options={[
-                    { label: '0 px', value: '0' },
-                    { label: '1 px', value: '1' },
-                    { label: '2 px', value: '2' },
-                    { label: '3 px', value: '3' },
-                    { label: '4 px', value: '4' },
-                    { label: '5 px', value: '5' },
-                    { label: '6 px', value: '6' },
-                    { label: '7 px', value: '7' }
-                  ]}
-                />
-              </InputRow>
-            </FlexBox>
-          )}
-        />
+                  <SelectOption
+                    value={styles.borderRadius}
+                    name='styles.borderRadius'
+                    onChange={onChange}
+                    className='bump-offer-style-dropdown'
+                    options={[
+                      { label: '0 px', value: '0' },
+                      { label: '1 px', value: '1' },
+                      { label: '2 px', value: '2' },
+                      { label: '3 px', value: '3' },
+                      { label: '4 px', value: '4' },
+                      { label: '5 px', value: '5' },
+                      { label: '6 px', value: '6' },
+                      { label: '7 px', value: '7' }
+                    ]}
+                  />
+                </InputRow>
+              </FlexBox>
+            )}
+          />
         }
 
 
         {hasBorderBottom &&
-        <InlinePopup
-          title='Border Bottom Style'
-          popUpContent={(
-            <FlexBox column>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Border Bottom Color:
+          <InlinePopup
+            title='Border Bottom Style'
+            popUpContent={(
+              <FlexBox column>
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Border Bottom Color:
                 </Label>
-                <MiniColorPicker
-                  name='styles.borderBottomColor'
-                  value={styles.borderBottomColor}
-                  onChange={onChange}
-                />
+                  <MiniColorPicker
+                    name='styles.borderBottomColor'
+                    value={styles.borderBottomColor}
+                    onChange={onChange}
+                  />
 
-              </InputRow>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Border Bottom Style:
+                </InputRow>
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Border Bottom Style:
                 </Label>
-                <SelectOption
-                  value={styles.borderBottomStyle}
-                  name='styles.borderBottomStyle'
-                  onChange={onChange}
-                  className='bump-offer-style-dropdown'
-                  options={[
-                    { label: 'Solid', value: 'solid' },
-                    { label: 'Dashed', value: 'dashed' }
-                  ]}
-                />
-              </InputRow>
-              <InputRow className='sidebar-row'>
-                <Label className='sidebar-input-label'>
-                  Border Bottom Width:
+                  <SelectOption
+                    value={styles.borderBottomStyle}
+                    name='styles.borderBottomStyle'
+                    onChange={onChange}
+                    className='bump-offer-style-dropdown'
+                    options={[
+                      { label: 'Solid', value: 'solid' },
+                      { label: 'Dashed', value: 'dashed' }
+                    ]}
+                  />
+                </InputRow>
+                <InputRow className='sidebar-row'>
+                  <Label className='sidebar-input-label'>
+                    Border Bottom Width:
                 </Label>
-                <SelectOption
-                  value={styles.borderBottomWidth}
-                  name='styles.borderBottomWidth'
-                  onChange={onChange}
-                  className='bump-offer-style-dropdown'
-                  options={[
-                    { label: '0 px', value: '0' },
-                    { label: '1 px', value: '1' },
-                    { label: '2 px', value: '2' },
-                    { label: '3 px', value: '3' },
-                    { label: '4 px', value: '4' }
-                  ]}
-                />
-              </InputRow>
-            </FlexBox>
-          )}
-        />
+                  <SelectOption
+                    value={styles.borderBottomWidth}
+                    name='styles.borderBottomWidth'
+                    onChange={onChange}
+                    className='bump-offer-style-dropdown'
+                    options={[
+                      { label: '0 px', value: '0' },
+                      { label: '1 px', value: '1' },
+                      { label: '2 px', value: '2' },
+                      { label: '3 px', value: '3' },
+                      { label: '4 px', value: '4' }
+                    ]}
+                  />
+                </InputRow>
+              </FlexBox>
+            )}
+          />
         }
 
         <FlexBox className='mt-3' column>
           <Title className='mb-1'>Toggle Input: </Title>
           <FlexBox style={{ backgroundColor: toggleOptionBackground, borderRadius: '5px' }} wrappable>
-            {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles} onChange={onChange}/>)}
+            {toggleInputsOptions.map((props) => <ToggleInputOption {...props} styles={styles} onChange={onChange} />)}
           </FlexBox>
         </FlexBox>
 
         {hasShadowEffect &&
-        <FlexBox spaceBetween center='v-center mt-3'>
-          <Tooltip placement='left' overlay='filling the bump offer image left space with its shadow'>
-            <FlexBox className='mr-2' flex>
+          <FlexBox spaceBetween center='v-center mt-3'>
+            <Tooltip placement='left' overlay='filling the bump offer image left space with its shadow'>
+              <FlexBox className='mr-2' flex>
                 Fill image background:
             </FlexBox>
-          </Tooltip>
+            </Tooltip>
 
-          <FlexBox>
-            <Toggle
-              value={styles.hasBlurBackgroundImage}
-              name='styles.hasBlurBackgroundImage'
-              onToggle={onToggImageBackground}
-            />
+            <FlexBox>
+              <Toggle
+                value={styles.hasBlurBackgroundImage}
+                name='styles.hasBlurBackgroundImage'
+                onToggle={onToggImageBackground}
+              />
+            </FlexBox>
           </FlexBox>
-        </FlexBox>
         }
 
       </Tab >
@@ -580,6 +580,7 @@ const BumpOffer = () => {
   );
 };
 BumpOffer.propTypes = {};
+BumpOffer.defaultProps = { currency: 'USD' };
 
 
 export default BumpOffer;
