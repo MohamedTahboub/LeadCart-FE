@@ -113,7 +113,12 @@ const Funnels = ({
       return;
     }
 
-    const duplicatedFunnel = { ...funnel, url: getFunnelDuplicatedName(funnel.url, 'url'), name: getFunnelDuplicatedName(funnel.name) };
+    const duplicatedFunnel = {
+      ...funnel,
+      type: selectedFunnel.type,
+      url: getFunnelDuplicatedName(funnel.url, 'url'),
+      name: getFunnelDuplicatedName(funnel.name)
+    };
 
 
     setLoading('duplicate');
@@ -142,7 +147,7 @@ const Funnels = ({
         </div>
         <Button onClick={onCreate} className='primary-color'>
           <i className='fas fa-plus' />
-            new funnel
+          new funnel
         </Button>
       </PageHeader>
 
@@ -180,7 +185,7 @@ const Funnels = ({
           </Button>
           <Button onClick={onFunnelDelete} className='danger-bg margin-with-float-right' onprogress={loading === 'delete'}>
             <i className='fas fa-trash-alt' />
-              Delete
+            Delete
           </Button>
         </Modal>
       )}
