@@ -1,13 +1,13 @@
 import React from 'react';
 import common from 'components/common';
-import Table from 'components/common/Tables';
+import Table, { withPagination } from 'components/common/Tables';
 import './style.css';
-import { getCurrencySymbol, RoundTow } from 'libs';
+import { RoundTow, getCurrencySymbol } from 'libs';
 import PropTypes from 'prop-types';
 const { Avatar } = common;
 
 
-const SubscriptionsList = ({ subscriptions }) => (
+const SubscriptionsList = ({ data: subscriptions }) => (
   <Table>
     <Table.Head>
       <Table.SmallCell />
@@ -24,7 +24,7 @@ const SubscriptionsList = ({ subscriptions }) => (
           firstName,
           lastName,
           email,
-          phoneNumber,
+          phoneNumber
         },
         product: {
           name: productName,
@@ -48,10 +48,6 @@ const SubscriptionsList = ({ subscriptions }) => (
     </Table.Body>
   </Table>
 );
-SubscriptionsList.propTypes = {
-  subscriptions: PropTypes.arrayOf(PropTypes.object)
-};
-SubscriptionsList.defaultProps = {
-  subscriptions: []
-};
-export default SubscriptionsList;
+SubscriptionsList.propTypes = { subscriptions: PropTypes.arrayOf(PropTypes.object) };
+SubscriptionsList.defaultProps = { subscriptions: [] };
+export default withPagination(SubscriptionsList);

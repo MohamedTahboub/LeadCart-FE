@@ -1,13 +1,11 @@
 import React from 'react';
-import Table from 'components/common/Tables';
+import Table, { withPagination } from 'components/common/Tables';
 import './style.css';
 import PropTypes from 'prop-types';
-import OrderRow from './OrderRow'
+import OrderRow from './OrderRow';
 
 
-
-
-const OrderList = ({ orders, ...props }) => (
+const OrderList = ({ data: orders, ...props }) => (
   <Table>
     <Table.Head>
       <Table.HeadCell>Order #</Table.HeadCell>
@@ -22,16 +20,13 @@ const OrderList = ({ orders, ...props }) => (
         <OrderRow
           key={order._id}
           {...order}
-          orderInList={orderInList}
+          // orderInList={orderInList}
         />
       ))}
     </Table.Body>
   </Table>
 );
-OrderList.propTypes = {
-  orders: PropTypes.arrayOf(PropTypes.object)
-};
-OrderList.defaultProps = {
-  orders: []
-};
-export default OrderList;
+
+OrderList.propTypes = { orders: PropTypes.arrayOf(PropTypes.object) };
+OrderList.defaultProps = { orders: [] };
+export default withPagination(OrderList);

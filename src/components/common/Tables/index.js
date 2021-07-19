@@ -125,3 +125,5 @@ export default class Table extends Component {
     );
   }
 }
+
+export { default as Pagination, withPagination } from './Pagination';

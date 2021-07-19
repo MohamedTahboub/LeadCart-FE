@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import './style.css';
 import { appInit } from 'actions/appInit';
 import * as flashMessages from 'actions/flashMessage';
@@ -101,14 +101,14 @@ Header.defaultProps = {
 
 export const PageHeader = connect(null, { appInit, ...flashMessages })(Header);
 
-export const PageContent = ({
+export const PageContent = forwardRef(({
   children,
   className = '',
   dflex,
   flexColumn,
   ...props
-}) => (
-  <div className={`page-content-container ${className} ${classes(dflex, flexColumn)}`}>
+}, ref) => (
+  <div ref={ref} className={`page-content-container ${className} ${classes(dflex, flexColumn)}`}>
     {children}
   </div>
-);
+));

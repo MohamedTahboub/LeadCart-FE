@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Subscriptions from './sub/Subscriptions';
@@ -8,6 +8,7 @@ import { notification } from 'libs';
 import common from 'components/common';
 import moment from 'moment';
 import Orders from './sub/Orders';
+import { getDynamicPaginationOptions } from 'components/common/Tables/Pagination';
 
 
 const getSubscriptionsList = (orders) => orders.reduce((subs, { products = [], ...order }) => {
@@ -27,10 +28,11 @@ const {
   Button
 } = common;
 
-
+const initialPaginationProps = { eachPageLimit: 8 };
 const Transactions = ({ orders }) => {
   const [activeTab, setActiveTab] = useState('Orders');
   const [downloading, setDownloading] = useState(false);
+  const pageContentRef = useRef(null);
 
   const orderedList = orders.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
 
@@ -59,6 +61,8 @@ const Transactions = ({ orders }) => {
       notification.failed('There are not enough records to be downloaded');
     }, 1200);
   };
+
+  const paginationOptions = getDynamicPaginationOptions(pageContentRef, 116, initialPaginationProps);
   return (
     <Page className='products-details-page'>
       <PageHeader>
@@ -72,13 +76,13 @@ const Transactions = ({ orders }) => {
           Export csv
         </Button>
       </PageHeader>
-      <PageContent>
+      <PageContent ref={pageContentRef}>
         <SubTabs
           defaultTab='Orders'
           onTabChange={setActiveTab}
           tabs={{
-            Orders: <Orders orders={orderedList} />,
-            Subscriptions: <Subscriptions subscriptions={subscriptions} />
+            Orders: <Orders data={orderedList} paginationOptions={paginationOptions}/>,
+            Subscriptions: <Subscriptions data={subscriptions} paginationOptions={paginationOptions}/>
           }}
         />
       </PageContent>

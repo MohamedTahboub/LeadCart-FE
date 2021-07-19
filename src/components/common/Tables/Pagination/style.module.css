@@ -1,0 +1,40 @@
+.paginationItem {
+    color: #5C5E6E;
+    font-size: 14px;
+    font-family: inherit;
+    margin: 4px;
+    user-select: none;
+    cursor: pointer;
+    ;
+    border-radius: 4px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: color .3s ease-in-out, background .3s ease-in-out;
+}
+
+.paginationItem.icon:hover, .paginationItem:hover {
+    color: #0061FF;
+}
+
+.paginationItem.active {
+    color: #fff;
+    background: #0061FF;
+    cursor: default;
+}
+
+.paginationItem.icon {
+    font-size: 7px;
+    color: #B5B5C3;
+}
+
+.pagesList {
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.withBackground.icon.paginationItem {
+    background-color: var(--bg-color);
+}
