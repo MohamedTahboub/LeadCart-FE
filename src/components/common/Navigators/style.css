@@ -1,26 +1,29 @@
-
 /* Products nav bar*/
+
 .tabs-titles-container {
-  width:100%;
+  width: 100%;
   margin-top: 20px;
-  padding: 16px 0px;
   font-size: 15px;
-  height: 52px;
   border-bottom: 1.2px solid #C9D3DC;
+  display: flex;
 }
-.tabs-titles-container span.tab-link {
+
+.tabs-titles-container .tab-link {
   margin-right: 25px;
   color: rgb(157, 168, 179);
   cursor: pointer;
-  padding-bottom: inherit;
-  transition:all 100ms ease-in-out;
+  padding-bottom: 7px;
+  transition: border-bottom 100ms ease-in-out;
 }
-.tab-link:hover{
+
+.tab-link:hover {
   color: rgba(43, 55, 72, 0.698);
   border-bottom: 2px solid rgba(114, 174, 235, 0.623);
 }
-.active-tab-link{
+
+.active-tab-link {
   color: #2B3748 !important;
   border-bottom: 2px solid #4DA1FF;
 }
+
 /* Products nav bar ends*/

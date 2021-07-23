@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import clx from 'classnames';
 import './style.css';
 import { EasyAnimate } from '../Animation';
-
+// import clx from 'classnames'
 export default class Table extends Component {
 
-  static Head = ({ children }) => (
-    <span className='table-head'>
+  static Head = ({ children, className, ...props }) => (
+    <span className={clx('table-head', className)} {...props}>
       {children}
     </span>
   )
@@ -125,3 +125,5 @@ export default class Table extends Component {
     );
   }
 }
+
+export { default as Pagination, withPagination } from './Pagination';
