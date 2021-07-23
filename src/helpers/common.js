@@ -100,7 +100,7 @@ export function ObjectChecker (object) {
 export const checkObject = (object) => new ObjectChecker(object);
 
 
-const getNestedKey = (keyPath) => ({ from: (obj) => immutable.get(obj, keyPath) });
+export const getNestedKey = (keyPath) => ({ from: (obj) => immutable.get(obj, keyPath) });
 
 const getKeyName = (key = '') => {
   let name = key;

@@ -42,9 +42,9 @@ const Pagination = ({
   navigationIconProps
 }) => {
 
-  const toPage = (page) => () => {
-    goToPage(page);
-  };
+  // const toPage = (page) => () => {
+  //   goToPage(page);
+  // };
 
   const toFirstPage = () => {
     if (!Array.isArray(pagesNumbers)) return;
@@ -107,6 +107,7 @@ Pagination.defaultProps = { navigationIconProps: { size: 16 }, backgroundColor: 
 export const withPagination = (Table) => (props) => {
   const { paginationOptions = {}, paginationTheme, data, hasPagination = true, width = '100%', footer, ...restProps } = props;
 
+  const shouldShowPaginationBar = data?.length > paginationOptions.eachPageLimit && hasPagination;
   const {
     currentPageList,
     ...paginationProps
@@ -114,7 +115,7 @@ export const withPagination = (Table) => (props) => {
 
   const renderPagination = (<Pagination {...paginationProps} theme={paginationTheme} currentPageList={currentPageList} />);
   const renderFooter = isFunction(footer) ? footer({ renderPagination, paginationProps }) : (
-    <Flex center='h-center' flex>
+    <Flex center='h-center' style={{ margin: '20px 0' }}>
       {renderPagination}
     </Flex>
   );
@@ -122,20 +123,26 @@ export const withPagination = (Table) => (props) => {
   return (
     <Flex column style={{ width }} flex>
       <Flex flex>
-        <Table {...restProps} data={currentPageList} />
+        <Table {...restProps} data={shouldShowPaginationBar ? currentPageList : data} />
       </Flex>
-      {hasPagination ? renderFooter : null}
+      {shouldShowPaginationBar ? renderFooter : null}
     </Flex>
   );
 };
 
 export default Pagination;
 
-export const getDynamicPaginationOptions = (ref, unitHeightToFit, initialOptions) => {
+export const getDynamicPaginationOptions = (ref, units, initialOptions) => {
+  const { unitHeight = 0, ignoreSize = 0 } = units || {} ;
   if (!(ref?.current?.getBoundingClientRect && isFunction(ref.current.getBoundingClientRect))) return { eachPageLimit: 10, ...initialOptions };
   const { height: containerHeight } = ref?.current?.getBoundingClientRect();
-
-  const eachPageLimit = parseInt(containerHeight / unitHeightToFit);
+  const eachPageLimit = parseInt((containerHeight - ignoreSize) / unitHeight);
+  console.log({
+    containerHeight,
+    ignoreSize,
+    unitHeight,
+    eachPageLimit
+  });
   return {
     ...initialOptions,
     eachPageLimit: eachPageLimit > 0 ? eachPageLimit : 1

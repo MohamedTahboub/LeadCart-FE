@@ -35,9 +35,17 @@ export const usePagination = (list, options = {}) => {
 
   const pagesIndices = getPagesIndices(originalList, eachPageLimit);
 
+  const resetToDefaults = () => {
+    setActivePageNumber(0);
+    setHasNext(true);
+    setHasPrevious(true);
+  };
+
   useEffect(() => {
-    if (Array.isArray(list)) setOriginalList(list);
-    else setOriginalList([]);
+    if (Array.isArray(list)) {
+      setOriginalList(list);
+      resetToDefaults();
+    } else {setOriginalList([]);}
   }, [list]);
 
   const goToPage = (page) => {

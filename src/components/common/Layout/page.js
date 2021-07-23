@@ -70,7 +70,7 @@ const Header = ({
   };
 
   return (
-    <div className={`page-header ${className} ${classes(dflex, flexColumn)}`}>
+    <div className={`page-header ${className} ${classes(dflex, flexColumn)}`} {...props}>
       {children}
       {withRefreshBtn && (
         <RefreshButton

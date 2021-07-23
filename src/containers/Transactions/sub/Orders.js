@@ -3,7 +3,7 @@ import Table, { withPagination } from 'components/common/Tables';
 import './style.css';
 import PropTypes from 'prop-types';
 import OrderRow from './OrderRow';
-
+import ids from 'shortid';
 
 const OrderList = ({ data: orders, ...props }) => (
   <Table>
@@ -16,11 +16,10 @@ const OrderList = ({ data: orders, ...props }) => (
       <Table.HeadCell>Order Date</Table.HeadCell>
     </Table.Head>
     <Table.Body>
-      {orders.map((order, orderInList) => (
+      {orders.map((order) => (
         <OrderRow
-          key={order._id}
+          key={ids.generate()}
           {...order}
-          // orderInList={orderInList}
         />
       ))}
     </Table.Body>

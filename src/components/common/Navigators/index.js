@@ -3,6 +3,7 @@ import ids from 'shortid';
 import PropTypes from 'prop-types';
 
 import './style.css';
+import { FlexBox } from '../boxes';
 
 export const TabsNavigator = ({ tabs, history }) => {
   const goToTabe = (tabName) => {
@@ -37,6 +38,7 @@ TabsNavigator.propTypes = {
 export const SubTabs = ({
   tabs = {},
   activeTab,
+  headSuffix,
   className = '',
   container: Container,
   containerClassName = '',
@@ -58,18 +60,19 @@ export const SubTabs = ({
 
   return (
     <Fragment>
-      <div className={`tabs-titles-container ${className}`}>
+      <FlexBox className={`tabs-titles-container ${className}`}>
         {Object.keys(tabs).map((tabName) => (
-          <span
+          <FlexBox
             key={ids.generate()}
             onClick={() => goToTab(tabName)}
             role='presentation'
             className={`tab-link ${activeTabName === tabName ? 'active-tab-link' : ''}`}
           >
             {tabName}
-          </span>
+          </FlexBox>
         ))}
-      </div>
+        {headSuffix}
+      </FlexBox>
       {Container ? (
         <Container className={containerClassName}>
           {tabs[activeTabName]}
@@ -83,3 +86,4 @@ SubTabs.propTypes = {
   tabs: PropTypes.objectOf(PropTypes.object.isRequired).isRequired,
   defaultTab: PropTypes.string.isRequired
 };
+SubTabs.defaultProps = { headSuffix: null };

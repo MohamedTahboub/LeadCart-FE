@@ -9,14 +9,25 @@ import common from 'components/common';
 import moment from 'moment';
 import Orders from './sub/Orders';
 import { getDynamicPaginationOptions } from 'components/common/Tables/Pagination';
+import { FlexBox } from 'components/common/boxes';
+import TextField from 'components/common/Inputs/TextField';
+import useSearch from 'libs/hooks/useSearch';
 
 
-const getSubscriptionsList = (orders) => orders.reduce((subs, { products = [], ...order }) => {
-  const subscriptionProducts = products
-    .filter(({ payment = {} }) => payment.paymentType === 'Subscription')
-    .map((product) => ({ ...order, product }));
-  return [...subs, ...subscriptionProducts];
-}, []);
+const searchTargets = [
+  'customer.firstName',
+  'customer.lastName',
+  'customer.email',
+  'orderNumber',
+  'products.0.name'
+];
+const getSubscriptionsList = (orders) =>
+  orders.reduce((subs, { products = [], ...order }) => {
+    const subscriptionProducts = products
+      .filter(({ payment = {} }) => payment.paymentType === 'Subscription')
+      .map((product) => ({ ...order, product }));
+    return [...subs, ...subscriptionProducts];
+  }, []);
 
 
 const {
@@ -32,14 +43,16 @@ const initialPaginationProps = { eachPageLimit: 8 };
 const Transactions = ({ orders }) => {
   const [activeTab, setActiveTab] = useState('Orders');
   const [downloading, setDownloading] = useState(false);
+  const isOrdersActive = activeTab === 'Orders';
+
+  const [results, onSearch, searchKey] = useSearch(orders, { targets: searchTargets });
+  const orderedList = results.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+  const subscriptions = getSubscriptionsList(orderedList);
   const pageContentRef = useRef(null);
 
-  const orderedList = orders.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
-
-  const subscriptions = getSubscriptionsList(orderedList);
 
   const onExportToCSV = () => {
-    const dataRows = exportOrdersToCsv(orders, { paymentType: activeTab === 'Orders' ? 'Onetime' : 'Subscription' });
+    const dataRows = exportOrdersToCsv(orders, { paymentType: isOrdersActive ? 'Onetime' : 'Subscription' });
 
     const fileName = `${activeTab}-${moment().format('MMM DD YYYY')}.csv`;
 
@@ -61,8 +74,20 @@ const Transactions = ({ orders }) => {
       notification.failed('There are not enough records to be downloaded');
     }, 1200);
   };
+  const paginationOptions = getDynamicPaginationOptions(pageContentRef, { unitHeight: 80, ignoreSize: 250 }, initialPaginationProps);
+  const onSearchChange = (e) => onSearch(e.target?.value);
+  const renderSearchBar = (
+    <FlexBox flexEnd flex >
+      <TextField
+        className='ml-3'
+        onChange={(onSearchChange)}
+        value={searchKey}
+        placeholder={`Search in ${isOrdersActive ? 'Orders' : 'Subscriptions'}`}
+        style={{ width: '360px', borderRadius: 4, height: 28, fontSize: 14 }}
+      />
+    </FlexBox>
+  );
 
-  const paginationOptions = getDynamicPaginationOptions(pageContentRef, 116, initialPaginationProps);
   return (
     <Page className='products-details-page'>
       <PageHeader>
@@ -80,9 +105,10 @@ const Transactions = ({ orders }) => {
         <SubTabs
           defaultTab='Orders'
           onTabChange={setActiveTab}
+          headSuffix={renderSearchBar}
           tabs={{
-            Orders: <Orders data={orderedList} paginationOptions={paginationOptions}/>,
-            Subscriptions: <Subscriptions data={subscriptions} paginationOptions={paginationOptions}/>
+            Orders: <Orders data={orderedList} paginationOptions={paginationOptions} />,
+            Subscriptions: <Subscriptions data={subscriptions} paginationOptions={paginationOptions} />
           }}
         />
       </PageContent>
