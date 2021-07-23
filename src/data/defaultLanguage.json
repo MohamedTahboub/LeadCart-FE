@@ -39,6 +39,11 @@
                     "label": "Phone Number"
                 },
                 {
+                    "key": "phoneNumberPlaceholder",
+                    "value": "Your Phone Number",
+                    "label": "Your Phone Number"
+                },
+                {
                     "key": "billingAddressLine1",
                     "value": "Billing Address",
                     "label": "Billing Address"
@@ -199,9 +204,29 @@
                     "label": "Coupon code is required"
                 },
                 {
+                    "key": "each",
+                    "value": "each",
+                    "label": "each"
+                },       
+                {
+                    "key": "year",
+                    "value": "Year",
+                    "label": "Year"
+                },
+                {
+                    "key": "month",
+                    "value": "Month",
+                    "label": "Month"
+                },
+                {
                     "key": "orderSummary",
                     "value": "Order Summary",
                     "label": "Order Summary"
+                },
+                {
+                    "key": "subtotal",
+                    "value": "Subtotal",
+                    "label": "Subtotal"
                 },
                 {
                     "key": "total",
@@ -426,6 +451,42 @@
                     "key": "intro_2",
                     "value": "has been canceled.",
                     "label": "has been canceled."
+                }
+            ]
+        },
+        {
+            "title": "Subscription Refund Email",
+            "key": "subscriptionRefundEmail",
+            "words": [
+                {
+                    "key": "hiMessage",
+                    "value": "Hi",
+                    "label": "Hi"
+                },
+                {
+                    "key": "intro_1",
+                    "value": "Your Subscription to",
+                    "label": "Your Subscription to"
+                },
+                {
+                    "key": "intro_2",
+                    "value": "has been refunded.",
+                    "label": "has been refunded."
+                },
+                {
+                    "key": "mainContent",
+                    "value": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account.",
+                    "label": "You will be refunded in the same form of payment, please allow 3-5 business days for the funds to show up on your account."
+                },
+                {
+                    "key": "summaryLabel",
+                    "value": "Refund Summary",
+                    "label": "Refund Summary"
+                },
+                {
+                    "key": "amountRefundedLabel",
+                    "value": "Amount Refunded",
+                    "label": "Amount Refunded"
                 }
             ]
         },
