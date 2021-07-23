@@ -14,6 +14,7 @@ import Dialog from '../Dialog';
 import EasyAnimate from '../Animation/EasyAnimate';
 import { AiFillInfoCircle } from 'react-icons/ai';
 import { FlexBox } from '../boxes';
+import Tooltip from '../Tooltip';
 
 export const MiniCard = ({ imgSrc, ...props }) => (
   <img
@@ -48,7 +49,8 @@ export const MediumCard = ({
     backgroundSize: '80%',
     backgroundRepeat: 'no-repeat'
   };
-  return (
+
+  const renderCard = (
     <div
       style={style}
       onClick={onClick}
@@ -58,10 +60,15 @@ export const MediumCard = ({
       {error && <span className='payment-error-message'>{error}</span>}
       {children}
       {warningInfo && (
-        <AiFillInfoCircle data-tip={warningInfo} className='payment-warning-message' />
+        <AiFillInfoCircle className='payment-warning-message' />
       )}
     </div>
   );
+  return warningInfo ? (
+    <Tooltip placement='top' text={warningInfo} delay={1} >
+      {renderCard}
+    </Tooltip>
+  ) : renderCard;
 };
 
 export const Avatar = ({ className: classname, style = {}, imageSrc, name = '' }) => {

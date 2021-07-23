@@ -4,7 +4,7 @@ import clx from 'classnames';
 
 import './style.css';
 
-const Tooltip = ({ text, children, placement, className, ...props }) => {
+const Tooltip = ({ text, children, placement, className, delay, ...props }) => {
   const classes = clx('react-tooltip', { className });
 
   return (
@@ -12,6 +12,7 @@ const Tooltip = ({ text, children, placement, className, ...props }) => {
       className={classes}
       placement={placement}
       overlay={text}
+      mouseEnterDelay={delay}
       {...props}
     >
       {children}
@@ -19,5 +20,4 @@ const Tooltip = ({ text, children, placement, className, ...props }) => {
   );
 
 };
-
 export default Tooltip;
