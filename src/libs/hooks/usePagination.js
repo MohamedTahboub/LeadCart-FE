@@ -44,7 +44,8 @@ export const usePagination = (list, options = {}) => {
   useEffect(() => {
     if (Array.isArray(list)) {
       setOriginalList(list);
-      resetToDefaults();
+      if (list.length !== originalList.length)
+        resetToDefaults();
     } else {setOriginalList([]);}
   }, [list]);
 

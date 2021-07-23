@@ -74,6 +74,7 @@ const Transactions = ({ orders }) => {
       notification.failed('There are not enough records to be downloaded');
     }, 1200);
   };
+
   const paginationOptions = getDynamicPaginationOptions(pageContentRef, { unitHeight: 80, ignoreSize: 250 }, initialPaginationProps);
   const onSearchChange = (e) => onSearch(e.target?.value);
   const renderSearchBar = (
