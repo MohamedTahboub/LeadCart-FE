@@ -173,7 +173,7 @@ const NodeSettingModal = ({
             className='full-width'
           />
 
-          <FlexBox column flex center='h-center' className='margin-v-10 '>
+          <FlexBox column center='h-center' className='margin-v-10 '>
             <Button
               onClick={onNewProduct(isVisible)}
               className='light-btn'

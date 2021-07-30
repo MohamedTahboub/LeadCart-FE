@@ -404,6 +404,7 @@ export const EditableField = ({
   color,
   backgroundColor,
   children,
+  disabled,
   onChange,
   type = 'text',
   name,
@@ -447,6 +448,7 @@ export const EditableField = ({
               onBlur={onEditableDisabled}
               onKeyDown={onEnterKey}
               defaultValue={value}
+              disabled={disabled}
             />
           )
           : (

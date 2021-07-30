@@ -26,7 +26,6 @@
 .btn.circle {
   padding: 10px;
   border-radius: 50%;
-
 }
 
 .btn.danger-bg:hover {
@@ -114,7 +113,6 @@
   background: lightgray;
 }
 
-
 .refresh-btn {
   color: white;
   display: flex;
@@ -170,4 +168,8 @@
 
 .lc-toggle.react-toggle--checked .react-toggle-thumb {
   border-color: #4DA1FF;
+}
+
+.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track{
+  background-color: rgba(0, 0, 0, 0.35) !important;
 }

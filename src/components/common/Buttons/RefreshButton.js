@@ -6,15 +6,15 @@ const RefreshButton = ({
   onClick,
   loading
 }) => (
-    <SmallButton
-      onClick={onClick}
-      disabled={loading}
-      className='btn refresh-btn primary-color'
-    >
-      <i className={`fas fa-sync-alt ${loading ? 'rotate' : ''}`} />
+  <SmallButton
+    onClick={onClick}
+    disabled={loading}
+    className='btn refresh-btn primary-color'
+  >
+    <i className={`fas fa-sync-alt ${loading ? 'rotate' : ''}`} />
       Sync Now
-    </SmallButton>
-  );
+  </SmallButton>
+);
 
 
 RefreshButton.propTypes = {

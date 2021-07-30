@@ -33,8 +33,7 @@
     object-fit: contain;
 }
 
-.figure-theme-demo,
-.guarantee-theme-demo {
+.figure-theme-demo, .guarantee-theme-demo {
     height: auto;
     width: 100%;
     object-fit: contain;
@@ -43,7 +42,6 @@
 .side-bar-menu .add-element-circle {
     position: unset;
 }
-
 
 .faq-settings-icons {
     border: 1px solid lightgray;
@@ -59,7 +57,6 @@
     width: 90%;
 }
 
-
 .side-bar-menu span.Collapsible__trigger {
     font-size: 16px !important;
     padding: 5px !important;
@@ -68,7 +65,8 @@
     border-radius: 3px;
     background-color: #eee;
 }
-.side-bar-menu span.Collapsible__trigger.is-open{
+
+.side-bar-menu span.Collapsible__trigger.is-open {
     background-color: #E8E8E8;
     border: none;
     border-radius: 3px;
@@ -78,6 +76,7 @@
     content: '>';
     transform: rotate(90deg);
 }
+
 .side-bar-menu .Collapsible__trigger.is-closed:after {
     content: '>';
 }
@@ -104,20 +103,20 @@
     left: -34px;
     top: 10px;
     cursor: pointer;
-
 }
 
-.page-settings-modal-close-btn .icon-btn{
-    transition:
-    transform .3s ease-in-out,
-    color .3s ease-in-out;
+.page-settings-modal-close-btn.disabled{
+    cursor: not-allowed;
+}
+.page-settings-modal-close-btn .icon-btn {
+    transition: transform .3s ease-in-out, color .3s ease-in-out;
     font-size: 18px;
 }
+
 .page-settings-modal-close-btn .icon-btn:hover {
     color: gray;
     transform: scale(1.1);
 }
-
 
 .bump-offer-option .flat-radio-key {
     width: 100%;
@@ -129,8 +128,7 @@
     background-color: transparent;
 }
 
-
-.bump-offer-option .flat-radio-key.active{
+.bump-offer-option .flat-radio-key.active {
     background-color: transparent;
     border-width: 4px;
 }
@@ -138,7 +136,6 @@
 .bump-offer-option .checkbox-container {
     padding-left: 17px;
 }
-
 
 .bump-offer-option .ant-radio-wrapper {
     margin: 0;

@@ -6,6 +6,7 @@ import { useContext } from '../../actions';
 import SubSettings from './components';
 import { RiListSettingsLine } from 'react-icons/ri';
 import { updateIntercomVisibilityWidget } from 'libs/intercom';
+import { isFunction } from 'libs/checks';
 
 
 const {
@@ -16,10 +17,16 @@ const {
 
 const defaultTitle = 'Section Properties';
 
-const PageSettingToggleButton = ({ onToggle }) => {
+const PageSettingToggleButton = ({ onToggle, disabled }) => {
 
+  const _onToggle = (e) => {
+    if (isFunction(onToggle) && !disabled)
+      onToggle(e);
+  };
+
+  const classNames = clx('page-settings-modal-close-btn', { disabled });
   return (
-    <FlexBox onClick={onToggle} center='v-center h-center' className='page-settings-modal-close-btn'>
+    <FlexBox onClick={_onToggle} center='v-center h-center' className={classNames}>
       <Tooltip mouseEnterDelay={1} text='Page Layout Settings'>
         <RiListSettingsLine className='icon-btn gray-text mr-1' />
       </Tooltip>
@@ -27,7 +34,7 @@ const PageSettingToggleButton = ({ onToggle }) => {
   );
 };
 
-const SettingSideBar = ({currency}) => {
+const SettingSideBar = ({ currency, disabled }) => {
   const { state: { modals: { sectionSetting } = {} }, actions } = useContext();
 
   const toggleMenu = () => {
@@ -62,7 +69,7 @@ const SettingSideBar = ({currency}) => {
       withCloseBtn={false}
       className={classNames}
     >
-      <PageSettingToggleButton onToggle={onTogglePageSettings} />
+      <PageSettingToggleButton onToggle={onTogglePageSettings} disabled={disabled}/>
       <FlexBox spaceBetween center='v-center' className='padding-h-10 padding-v-10'>
         <div className='title-text capitalized-text'>
           {menuTitle}
