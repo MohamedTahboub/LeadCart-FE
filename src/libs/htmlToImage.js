@@ -5,14 +5,23 @@ export default async (elementId, { quality = 0.20, fileName } = {}) => {
   const target = document.getElementById(elementId);
   if (!target) return;
   const canvas = await html2canvas(target, {
-    // useCORS: false,
+    useCORS: false
     // allowTaint: true
   });
-
   const dataURL = canvas.toDataURL('image/jpeg', quality);
 
   return dataURItoBlob(dataURL, fileName);
 };
+
+// function cropCanvas(canvas, options = {}) {
+//   const { maxHeight, type, quality = {} } = options;
+//   const toCropCanvas = document.createElement('canvas');
+//   const toCropCanvasCtx = toCropCanvas.getContext('2d');
+//   toCropCanvas.width = canvas.width;
+//   toCropCanvas.height = canvas.height > maxHeight ? maxHeight : canvas.height;
+//   toCropCanvasCtx.drawImage(canvas, 0, 0);
+//   return toCropCanvas.toDataUR(type, quality);
+// }
 
 function dataURItoBlob (dataURI, fileName) {
   // convert base64 to raw binary data held in a string

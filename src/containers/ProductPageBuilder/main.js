@@ -34,12 +34,30 @@ import {
   TemplateResetWidget,
   Workspace
 } from './components';
+import { isFunction } from 'libs/checks';
 
 const {
   Page,
   FlexBox
 } = common;
 const WARNING_INTERVAL = 30;
+
+const generateNewThumbnailFrom = (fileName = '') => {
+  const [, , attempts, id] = fileName.split('_');
+  const currentId = id ? id : ids.generate();
+  const currentAttempts = isNaN(attempts) ? 0 : (+attempts >= 2 ? +attempts : +attempts + 1);
+  return `${(new Date().getDay())}_${(new Date().getHours())}_${currentAttempts}_${currentId.replace(/_/ig, '')}`;
+};
+
+const evaluateCurrentThumbnail = (filePathName = '') => {
+  const [fileName = ''] = filePathName.split('/').reverse();
+  const [, nameWithoutTheExtension] = fileName.split('.').reverse();
+  const newNameIfDifferent = generateNewThumbnailFrom(nameWithoutTheExtension);
+  return {
+    shouldTakeThumbnail: nameWithoutTheExtension !== newNameIfDifferent,
+    newThumbnailName: newNameIfDifferent
+  };
+};
 
 const checkoutSectionDetails = {
   id: 'checkoutSection',
@@ -130,12 +148,6 @@ const ProductBuilder = ({
     return () => clearInterval(intervalFunc);
   }, [showTemplateWidget]);
 
-  // this should load the custom font files
-  // useEffect(() => {
-  //   if (Array.isArray(productsFonts) && productsFonts.length)
-  //     loadFontsToDocument(productsFonts);
-  // }, [productsFonts]);
-
   useEffect(() => {
     const { params: { productId, funnelUrl } = {} } = match;
 
@@ -171,24 +183,6 @@ const ProductBuilder = ({
   }, [funnelsMap, productsMap]);
 
 
-  const generateNewThumbnailFrom = (fileName = '') => {
-    const [, , attempts, id] = fileName.split('_');
-    const currentId = id ? id : ids.generate();
-    const currentAttempts = isNaN(attempts) ? 0 : (+attempts >= 2 ? +attempts : +attempts + 1);
-    return `${(new Date().getDay())}_${(new Date().getHours())}_${currentAttempts}_${currentId.replace(/_/ig, '')}`;
-  };
-
-
-  const evaluateCurrentThumbnail = (filePathName = '') => {
-    const [fileName = ''] = filePathName.split('/').reverse();
-    const [, nameWithoutTheExtension] = fileName.split('.').reverse();
-    const newNameIfDifferent = generateNewThumbnailFrom(nameWithoutTheExtension);
-    return {
-      shouldTakeThumbnail: nameWithoutTheExtension !== newNameIfDifferent,
-      newThumbnailName: newNameIfDifferent
-    };
-  };
-
   const uploadProductThumbnail = (file) => new Promise((res) => {
     props.uploadFile({
       file: file,
@@ -196,17 +190,21 @@ const ProductBuilder = ({
     }, { onSuccess: res });
   });
 
-  const onSaveProduct = async () => {
+  const onSaveProduct = async (cb) => {
 
     const { product: productData } = state;
     setSaving(true);
     const {
       isValid,
       value: product,
+      errList,
       errors
     } = await ProductSchema(productData);
-    if (!isValid)
-      return notification.failed('Can\'t save, validation Error');
+    if (!isValid) {
+      const [firstErrorMessage = 'Can\'t save, validation Error'] = Array.isArray(errList) ? errList : [];
+      setSaving(false);
+      return notification.failed(firstErrorMessage);
+    }
 
     const { shouldTakeThumbnail, newThumbnailName } = evaluateCurrentThumbnail(product.thumbnail);
     let productThumbnailUrl = product.thumbnail;
@@ -236,6 +234,7 @@ const ProductBuilder = ({
         onSuccess: (product) => {
           setSaving(false);
           notification.success('Changes Saved');
+          if (isFunction(cb)) cb(product);
         },
         onFailed: (message) => {
           setSaving(false);
@@ -292,7 +291,13 @@ const ProductBuilder = ({
     <ProductContext.Provider value={{ state, actions }}>
       <PageDependencies productName={state.product?.name} brandFonts={productsFonts} />
       <Page fullSize className='flex-container flex-column'>
-        <Header history={history} onSave={onSaveProduct} saving={saving} savingStatus={state.savingStatus} />
+        <Header
+          history={history}
+          onSave={onSaveProduct}
+          saving={saving}
+          savingStatus={state.savingStatus}
+          isTogglingBetweenTemplates={showTemplateWidget}
+        />
         <FlexBox id='blocks' flex className='relative-element'>
           <ScreenBackgroundSetup backgrounds={pageStyles} />
           <DndProvider backend={Backend}>
@@ -302,7 +307,7 @@ const ProductBuilder = ({
               internalName={state.product?.internalName}
             />
             <Workspace />
-            <SettingSideBar currency={currency}/>
+            <SettingSideBar currency={currency} disabled={showTemplateWidget}/>
           </DndProvider>
         </FlexBox>
         <NewPricingOptionModal

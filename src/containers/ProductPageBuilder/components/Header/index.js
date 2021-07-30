@@ -50,6 +50,7 @@ const Header = ({
   history,
   onSave,
   savingStatus = {},
+  isTogglingBetweenTemplates,
   saving
 }) => {
 
@@ -132,6 +133,7 @@ const Header = ({
             defaultValue='Product Name'
             onChange={onChange}
             value={productName}
+            disabled={isTogglingBetweenTemplates}
             max={50}
           />
         </FlexBox>
@@ -180,6 +182,7 @@ const Header = ({
         scripts={scripts}
         onClose={onToggleScriptModal}
         onChange={onChange}
+        isSaving={saving}
         onSaveTheProduct={onSave}
       />
     </FlexBox>
