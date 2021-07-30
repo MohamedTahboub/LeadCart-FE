@@ -77,8 +77,8 @@ const ProductSchema = yup.object({
   scripts: yup.object({
     fbPixelId: yup
       .string()
-      .min(9)
-      .max(20),
+      .min(9, 'Facebook Pixels must be at least 9 characters')
+      .max(20, 'Facebook Pixels must be at most 20 characters'),
     googleTagManager: yup
       .string(),
     scriptTag: yup
@@ -102,8 +102,10 @@ export default async (product) => {
       value: castedProduct
     };
   } catch (err) {
+    console.log(err);
     return {
       isValid: false,
+      errList: err?.errors || [],
       errors: castYupErrors(err)
     };
   }

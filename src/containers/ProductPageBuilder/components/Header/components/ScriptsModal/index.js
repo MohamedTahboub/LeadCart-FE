@@ -18,34 +18,10 @@ const ProductsScripts = ({
   scripts,
   isVisible,
   onClose,
+  isSaving,
   onChange,
   onSaveTheProduct
 }) => {
-  const [fields, setFields] = useState(scripts);
-
-  useEffect(() => {
-    const newObj = {};
-    newObj['scripts.fbPixelId'] = scripts.fbPixelId;
-    newObj['scripts.googleTagManager'] = scripts.googleTagManager;
-
-    setFields(newObj);
-  }, [scripts]);
-
-  const onUpdateParent = () => {
-    onChange({
-      target: {
-        name: 'scripts',
-        value: {
-          fbPixelId: fields['scripts.fbPixelId'],
-          googleTagManager: fields['scripts.googleTagManager']
-        }
-      }
-    });
-    onClose();
-  };
-  const _onChange = ({ target: { name, value } }) => {
-    setFields({ ...fields, [name]: value });
-  };
   return (
     <Modal
       onClose={onClose}
@@ -74,8 +50,8 @@ const ProductsScripts = ({
           <TextField
             placeholder='25417913856****'
             name='scripts.fbPixelId'
-            value={fields['scripts.fbPixelId']}
-            onChange={_onChange}
+            value={scripts.fbPixelId}
+            onChange={onChange}
           />
         </FlexBox>
         <FlexBox center='v-center' className='my-2'>
@@ -85,8 +61,8 @@ const ProductsScripts = ({
           <TextField
             placeholder='GTM-XXXX'
             name='scripts.googleTagManager'
-            value={fields['scripts.googleTagManager']}
-            onChange={_onChange}
+            value={scripts.googleTagManager}
+            onChange={onChange}
           />
         </FlexBox>
       </FlexBox>
@@ -98,10 +74,8 @@ const ProductsScripts = ({
           Cancel
         </Button>
         <Button
-          onClick={() => {
-            onUpdateParent();
-            onSaveTheProduct({ saveFrom: 'analytics' });
-          }}
+          onprogress={isSaving}
+          onClick={() => onSaveTheProduct(onClose)}
           className='primary-color script-save-btn'
         >
           Save

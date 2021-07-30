@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ids from 'shortid';
 import Toggle from 'react-toggle';
-import './style.css';
+import 'react-toggle/style.css';
+
 
 const ActivationSwitchInput = ({
   active,

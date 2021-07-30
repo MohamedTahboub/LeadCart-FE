@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-toggle/style.css';
 
 import common from 'components/common';
 import { MainTitle } from '../../components';
