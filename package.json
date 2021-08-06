@@ -101,7 +101,7 @@
     "faker": "^4.1.0",
     "source-map-explorer": "^1.7.0"
   },
-  "proxy": "http://affiliates-center.herokuapp.com/",
+  "proxy": "https://affiliates-center.herokuapp.com/",
   "browserslist": {
     "production": [
       ">0.2%",
