@@ -65,6 +65,7 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
           marketingConsentIsRequired,
           termsAndConditions,
           termsAndConditionsIsRequired,
+          phoneNumberEnabled = true,
           shippingMethodsEnabled
         } = {}
       } = {}
@@ -148,6 +149,7 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
                   <BillingDetails
                     twoStepCheckout={twoStepCheckout}
                     color={pageStyles.themeColor}
+                    phoneNumberEnabled={phoneNumberEnabled}
                     language={language}
                   />
                   <PricingOptions format={price.format} title={pricingOptionsLabel} />
@@ -212,6 +214,7 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
                 <BillingDetails
                   twoStepCheckout={twoStepCheckout}
                   color={pageStyles.themeColor}
+                  phoneNumberEnabled={phoneNumberEnabled}
                   language={language}
                 />
                 {shippingDetails && (

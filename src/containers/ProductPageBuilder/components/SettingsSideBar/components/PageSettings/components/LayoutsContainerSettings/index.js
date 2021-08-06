@@ -47,8 +47,7 @@ const LayoutsContainerSettings = ({
   onChange
 }) => {
 
-  const { productPage = {} } = pageStyles;
-  const [openCollapse, setOpenCollapse] = useState();
+  const { productPage = {}, showHead = true } = pageStyles;
 
   const _onChange = ({ name, value }) => {
     onChange({ target: { name, value } });
@@ -90,7 +89,7 @@ const LayoutsContainerSettings = ({
             Show:
           </Label>
           <Toggle
-            value={pageStyles.showHead}
+            value={showHead}
             name='pageStyles.showHead'
             onToggle={onToggleChange}
             beforeLabel='Show'
