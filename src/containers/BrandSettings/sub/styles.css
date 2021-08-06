@@ -21,7 +21,6 @@
     width: auto;
 }
 
-
 .account-form-input {
     justify-content: space-between;
 }
@@ -33,7 +32,6 @@
 .small-form-container:nth-child(1) {
     margin: 20px 20px 20px 0px;
 }
-
 
 .small-form-controlls {
     padding: 0 55px 10px 0;
@@ -51,8 +49,8 @@
     padding: 15px;
 }
 
-
 /* Billing page styles */
+
 .plan-card-action {
     margin: auto;
     display: flex;
@@ -127,10 +125,6 @@
     pointer-events: none;
 }
 
-
-
-
-
 span.test-disabled {
     position: relative;
     opacity: .6;
@@ -148,7 +142,6 @@ span.test-disabled:hover::after {
     color: tomato;
 }
 
-
 div.mail-chimp-logo {
     background-size: 32% !important;
 }
@@ -156,10 +149,6 @@ div.mail-chimp-logo {
 div.ever-lesson-logo {
     background-size: 50% !important;
 }
-
-
-
-
 
 .member-table-row {
     position: relative;
@@ -195,13 +184,12 @@ div.ever-lesson-logo {
     margin: 10px 0;
 }
 
-
-.delete-link{   
+.delete-link {
     opacity: .6;
     transition: .3s opacity ease-in-out;
 }
 
-.delete-link:hover{
+.delete-link:hover {
     opacity: 1;
 }
 
@@ -210,28 +198,31 @@ div.ever-lesson-logo {
     border-radius: 4px;
     color: #2b3748;
     font-size: 13px;
-    padding: 0 4px;
+    padding: 4px 10px;
 }
 
-.checkout-previre-icon{
+.link-value {
+    font-size: 12px;
+    user-select: none;
+    text-decoration: underline;
+}
+
+.checkout-previre-icon {
     transition: color .3s ease-in-out;
 }
 
-.checkout-previre-icon:hover{
-    color:gray;
+.checkout-previre-icon:hover {
+    color: gray;
 }
 
-
-
 @media only screen and (min-width: 1150px) {
-    .emailing-setting-bg,
-    .marketplace-settings-bg{
+    .emailing-setting-bg, .marketplace-settings-bg {
         background-image: url(../../../assets/images/illustration/marketplace-settings.svg);
         background-size: 350px;
         background-position: right center;
         background-repeat: no-repeat;
     }
-    .emailing-setting-bg{
+    .emailing-setting-bg {
         background-image: url(../../../assets/images/illustration/emailing-settings.svg);
     }
-  }
+}

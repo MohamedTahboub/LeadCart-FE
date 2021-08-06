@@ -105,6 +105,11 @@ const MarketplaceSettings = ({
 
     const { isValid, value, errors } = await contactLinksSchema(contactLinks);
 
+    const isAlreadyExist = links.find(({ value }) => value === contactLinks.value);
+
+    if (isAlreadyExist)
+      return setContactLinksError({ label: 'The link URL already exist, make sure that your links are unique.' });
+
     if (isValid) {
       setFields({
         ...fields,
@@ -125,14 +130,14 @@ const MarketplaceSettings = ({
     }
   };
 
-  const onDeleteLink = (linkId) => () => {
+  const onDeleteLink = (linkUrl) => () => {
     const { layout: { links } = {} } = fields;
 
     setFields({
       ...fields,
       layout: {
         ...fields.layout,
-        links: links.filter(({ _id }) => _id !== linkId) || []
+        links: links.filter(({ value }) => value !== linkUrl) || []
       }
     });
 
@@ -197,11 +202,11 @@ const MarketplaceSettings = ({
 
           <FlexBox className='mt-2 pl-3' column>
             <FlexBox column>
-              {fields.layout.links && fields.layout.links.map(({ label, value, _id }) => (
-                <FlexBox className='mb-2 v-center' key={_id}>
+              {fields.layout.links && fields.layout.links.map(({ label, value, id, _id = id }) => (
+                <FlexBox className='mb-2 v-center' key={`${_id}-${value}`}>
                   <div className='width-100 truncate  bold-text label-link'>{label}</div>
-                  <div className='width-200 truncate bold-text mx-2'>{value}</div>
-                  <FaTrash onClick={onDeleteLink(_id)} color='tomato' className='item-clickable delete-link' />
+                  <div className='width-200 truncate bold-text mx-2 link-value'>{value}</div>
+                  <FaTrash size={14} onClick={onDeleteLink(value)} color='tomato' className='item-clickable delete-link' />
                 </FlexBox>
               ))}
             </FlexBox>
@@ -225,7 +230,7 @@ const MarketplaceSettings = ({
                   className='mx-2'
                 />
 
-                <Button onClick={onAddLink} className='p-2 primary-color'>
+                <Button onClick={onAddLink} className='p-2 primary-color px-3'>
                   <FlexBox className='v-center'>
                     Add Link
                   </FlexBox>
