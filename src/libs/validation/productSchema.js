@@ -52,7 +52,8 @@ const ProductSchema = yup.object({
     marketingConsentIsRequired: yup.boolean().default(false),
     termsAndConditions: yup.boolean().default(false),
     termsAndConditionsIsRequired: yup.boolean().default(false),
-    shippingMethodsEnabled: yup.boolean().default(false)
+    shippingMethodsEnabled: yup.boolean().default(false),
+    phoneNumberEnabled: yup.boolean().default(true)
   }),
   internalName: yup.string(),
   shippingMethods: yup.array().of(shippingMethodsSchema),
