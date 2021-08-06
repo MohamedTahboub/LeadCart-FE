@@ -54,6 +54,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
     category
   } = product;
 
+  const { phoneNumberEnabled = true } = custom;
 
   const onSectionFieldChange = ({ target: { name, value } } = {}) => {
     onSectionSettingChange({
@@ -207,81 +208,81 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             />
 
             {!isOptInProductPage &&
-            <Fragment>
-              <Label className='mb-2'>
-              Checkout type:
-              </Label>
-              <FlatRadio
-                options={[
-                  { label: 'Two steps', value: true },
-                  { label: 'One step', value: false }
-                ]}
-                value={twoStepCheckout}
-                name='twoStepCheckout'
-                onToggle={onTwoStepCheckoutChange}
-              />
+              <Fragment>
+                <Label className='mb-2'>
+                  Checkout type:
+                </Label>
+                <FlatRadio
+                  options={[
+                    { label: 'Two steps', value: true },
+                    { label: 'One step', value: false }
+                  ]}
+                  value={twoStepCheckout}
+                  name='twoStepCheckout'
+                  onToggle={onTwoStepCheckoutChange}
+                />
 
-              <InlinePopup
-                title='GDPR compliance options'
-                className='mt-3'
-                popUpContent={(
-                  <FlexBox column>
-                    <InputRow className='sidebar-row'>
-                      <Label className='sidebar-input-label'>
-                      Marketing Consent
-                      </Label>
-                      <Toggle
-                        value={custom.marketingConsent}
-                        name='marketingConsent'
-                        onToggle={onToggleCustom}
-                        beforeLabel='Show'
-                        afterLabel='Hide'
-                      />
-                    </InputRow>
-                    {custom.marketingConsent && (
+                <InlinePopup
+                  title='GDPR compliance options'
+                  className='mt-3'
+                  popUpContent={(
+                    <FlexBox column>
                       <InputRow className='sidebar-row'>
                         <Label className='sidebar-input-label'>
-                        With CheckBox
+                          Marketing Consent
                         </Label>
                         <Toggle
-                          value={custom.marketingConsentIsRequired}
-                          name='marketingConsentIsRequired'
+                          value={custom.marketingConsent}
+                          name='marketingConsent'
                           onToggle={onToggleCustom}
                           beforeLabel='Show'
                           afterLabel='Hide'
                         />
                       </InputRow>
-                    )}
-                    <InputRow className='sidebar-row'>
-                      <Label className='sidebar-input-label'>
-                      Terms & Conditions
-                      </Label>
-                      <Toggle
-                        value={custom.termsAndConditions}
-                        name='termsAndConditions'
-                        onToggle={onToggleCustom}
-                        beforeLabel='Show'
-                        afterLabel='Hide'
-                      />
-                    </InputRow>
-                    {custom.termsAndConditions && (
+                      {custom.marketingConsent && (
+                        <InputRow className='sidebar-row'>
+                          <Label className='sidebar-input-label'>
+                            With CheckBox
+                          </Label>
+                          <Toggle
+                            value={custom.marketingConsentIsRequired}
+                            name='marketingConsentIsRequired'
+                            onToggle={onToggleCustom}
+                            beforeLabel='Show'
+                            afterLabel='Hide'
+                          />
+                        </InputRow>
+                      )}
                       <InputRow className='sidebar-row'>
                         <Label className='sidebar-input-label'>
-                        T & C with Checkbox
+                          Terms & Conditions
                         </Label>
                         <Toggle
-                          value={custom.termsAndConditionsIsRequired}
-                          name='termsAndConditionsIsRequired'
+                          value={custom.termsAndConditions}
+                          name='termsAndConditions'
                           onToggle={onToggleCustom}
                           beforeLabel='Show'
                           afterLabel='Hide'
                         />
                       </InputRow>
-                    )}
-                  </FlexBox>
-                )}
-              />
-            </Fragment>
+                      {custom.termsAndConditions && (
+                        <InputRow className='sidebar-row'>
+                          <Label className='sidebar-input-label'>
+                            T & C with Checkbox
+                          </Label>
+                          <Toggle
+                            value={custom.termsAndConditionsIsRequired}
+                            name='termsAndConditionsIsRequired'
+                            onToggle={onToggleCustom}
+                            beforeLabel='Show'
+                            afterLabel='Hide'
+                          />
+                        </InputRow>
+                      )}
+                    </FlexBox>
+                  )}
+                />
+              </Fragment>
             }
           </Tab>
         }
@@ -338,6 +339,18 @@ const StaticSection = ({ defaultBrandCurrency }) => {
                 afterLabel='Hide'
               />
             </InputRow>
+            <InputRow className='sidebar-row'>
+              <Label className='sidebar-input-label'>
+              Show Phone Number
+              </Label>
+              <Toggle
+                value={phoneNumberEnabled}
+                name='phoneNumberEnabled'
+                onToggle={onToggleCustom}
+                beforeLabel='Show'
+                afterLabel='Hide'
+              />
+            </InputRow>
             {twoStepCheckout &&
               <InputRow className='sidebar-row'>
                 <Label className='sidebar-input-label'>
@@ -360,7 +373,7 @@ const StaticSection = ({ defaultBrandCurrency }) => {
             <Fragment>
               <FlexBox spaceBetween className='my-2'>
                 <Label className='sidebar-input-label'>
-                Form Theme Color
+                  Form Theme Color
                 </Label>
                 <MiniColorPicker
                   name='themeColor'

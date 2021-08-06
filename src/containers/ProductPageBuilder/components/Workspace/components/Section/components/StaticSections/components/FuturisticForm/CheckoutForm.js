@@ -59,6 +59,7 @@ const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
           termsAndConditions,
           marketingConsentIsRequired,
           termsAndConditionsIsRequired,
+          phoneNumberEnabled = true,
           shippingMethodsEnabled
           // orderSummary
         } = {}
@@ -150,16 +151,18 @@ const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
           <InputField
             flex
             label={emailLabel}
-            className='mr-3'
+            className={phoneNumberEnabled ? 'mr-3' : ''}
             placeholder={emailLabel}
           />
-          <PhoneNumberInput
-            flex
-            disabled
-            label={phoneNumberLabel}
-            // placeholder='+1 218-266-6543'
-            theme='modern'
-          />
+          {phoneNumberEnabled && (
+            <PhoneNumberInput
+              flex
+              disabled
+              label={phoneNumberLabel}
+              // placeholder='+1 218-266-6543'
+              theme='modern'
+            />
+          )}
         </FlexBox>
         {withBillingAddress && (
           <FlexBox flex wrappable>
@@ -378,14 +381,16 @@ const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
         <InputField
           flex
           label={emailLabel}
-          className='mr-3'
+          className={phoneNumberEnabled ? 'mr-3' : ''}
           placeholder={emailLabel}
         />
-        <PhoneNumberInput
-          flex
-          label={phoneNumberLabel}
-          theme='modern'
-        />
+        {phoneNumberEnabled && (
+          <PhoneNumberInput
+            flex
+            label={phoneNumberLabel}
+            theme='modern'
+          />
+        )}
       </FlexBox>
       {withBillingAddress && (
         <FlexBox flex wrappable>

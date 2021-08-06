@@ -7,7 +7,7 @@ import { PhoneNumberInput } from 'components/common/Inputs';
 const { CycleStepTitle, CheckoutInput } = common;
 
 
-const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
+const BillingDetails = ({ color, phoneNumberEnabled, language = {}, twoStepCheckout }) => {
   const {
     billingDetails: title,
     firstName,
@@ -44,10 +44,12 @@ const BillingDetails = ({ color, language = {}, twoStepCheckout }) => {
           disabled
           label={email}
         />
-        <PhoneNumberInput
-          disabled
-          placeholder={phoneNumber}
-        />
+        {phoneNumberEnabled && (
+          <PhoneNumberInput
+            disabled
+            placeholder={phoneNumber}
+          />)
+        }
       </div>
       {withBillingAddress && (
         <div style={{ color }} className='flex-row'>
