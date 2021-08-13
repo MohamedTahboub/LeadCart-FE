@@ -187,8 +187,49 @@ const ProductBuilder = ({
     props.uploadFile({
       file: file,
       type: 'products'
-    }, { onSuccess: res });
+    }, { onSuccess: res, options: { showNotification: false } });
   });
+
+
+  const getProductFreshThumbnail = async (currentThumbnail, cb) => {
+    try {
+      const { shouldTakeThumbnail, newThumbnailName } = evaluateCurrentThumbnail(currentThumbnail);
+
+      if (shouldTakeThumbnail) {
+        const productThumbnailFile = await generateImageFromHtmlElement('layouts-container', { fileName: newThumbnailName });
+        const freshProductThumbnailUrl = await uploadProductThumbnail(productThumbnailFile);
+
+        cb(freshProductThumbnailUrl);
+        return freshProductThumbnailUrl;
+      }
+      return currentThumbnail;
+    } catch (err) {
+      console.error(err);
+      return currentThumbnail;
+    }
+  };
+
+  const saveProductDetails = ({ id, ...productDetails }, cb) => {
+    props.updateProduct(
+      {
+        productId: id,
+        details: productDetails
+      },
+      {
+        onSuccess: (product) => {
+          setSaving(false);
+
+          if (isFunction(cb)) cb(product);
+        },
+        onFailed: (message) => {
+          setSaving(false);
+          notification.failed(message);
+        }
+      }
+    );
+    setShowTemplateWidget(false);
+    setSecondsToSaveTemplate(WARNING_INTERVAL);
+  };
 
   const onSaveProduct = async (cb) => {
 
@@ -206,44 +247,12 @@ const ProductBuilder = ({
       return notification.failed(firstErrorMessage);
     }
 
-    const { shouldTakeThumbnail, newThumbnailName } = evaluateCurrentThumbnail(product.thumbnail);
-    let productThumbnailUrl = product.thumbnail;
-
-    if (shouldTakeThumbnail) {
-      actions.updateSavingStatusText(true, 'Generating New Screenshot for the product page');
-      const productThumbnailFile = await generateImageFromHtmlElement('layouts-container', { fileName: newThumbnailName });
-      productThumbnailUrl = await uploadProductThumbnail(productThumbnailFile);
-
-      actions.onProductFieldChange({
-        name: 'thumbnail',
-        value: productThumbnailUrl
-      });
-      actions.updateSavingStatusText(false);
-    }
-
-
-    props.updateProduct(
-      {
-        productId: productData._id,
-        details: {
-          ...product,
-          thumbnail: productThumbnailUrl
-        }
-      },
-      {
-        onSuccess: (product) => {
-          setSaving(false);
-          notification.success('Changes Saved');
-          if (isFunction(cb)) cb(product);
-        },
-        onFailed: (message) => {
-          setSaving(false);
-          notification.failed(message);
-        }
-      }
-    );
-    setShowTemplateWidget(false);
-    setSecondsToSaveTemplate(WARNING_INTERVAL);
+    getProductFreshThumbnail(product.thumbnail, (generatedThumbnail) => {
+      saveProductDetails({ id: productData._id, ...product, thumbnail: generatedThumbnail });
+    });
+    saveProductDetails({ id: productData._id, ...product }, () => {
+      notification.success('Changes Saved');
+    });
   };
 
   const onUpdateTemplate = (templateBody) => {
@@ -307,7 +316,7 @@ const ProductBuilder = ({
               internalName={state.product?.internalName}
             />
             <Workspace />
-            <SettingSideBar currency={currency} disabled={showTemplateWidget}/>
+            <SettingSideBar currency={currency} disabled={showTemplateWidget} />
           </DndProvider>
         </FlexBox>
         <NewPricingOptionModal

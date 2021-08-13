@@ -137,12 +137,12 @@ export const getDynamicPaginationOptions = (ref, units, initialOptions) => {
   if (!(ref?.current?.getBoundingClientRect && isFunction(ref.current.getBoundingClientRect))) return { eachPageLimit: 10, ...initialOptions };
   const { height: containerHeight } = ref?.current?.getBoundingClientRect();
   const eachPageLimit = parseInt((containerHeight - ignoreSize) / unitHeight);
-  console.log({
-    containerHeight,
-    ignoreSize,
-    unitHeight,
-    eachPageLimit
-  });
+  // console.log({
+  //   containerHeight,
+  //   ignoreSize,
+  //   unitHeight,
+  //   eachPageLimit
+  // });
   return {
     ...initialOptions,
     eachPageLimit: eachPageLimit > 0 ? eachPageLimit : 1

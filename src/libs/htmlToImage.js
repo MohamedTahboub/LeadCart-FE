@@ -1,16 +1,29 @@
 import ids from 'shortid';
 import html2canvas from 'html2canvas';
 
-export default async (elementId, { quality = 0.20, fileName } = {}) => {
+export default async (elementId, { quality = 0.02, fileName } = {}) => {
   const target = document.getElementById(elementId);
   if (!target) return;
   const canvas = await html2canvas(target, {
     useCORS: false
     // allowTaint: true
   });
-  const dataURL = canvas.toDataURL('image/jpeg', quality);
+  const croppedCanvas = cropCanvas(canvas, 0, 0, canvas.width, 700);
+  const dataURL = croppedCanvas.toDataURL('image/jpeg', quality);
 
   return dataURItoBlob(dataURL, fileName);
+};
+
+const cropCanvas = (sourceCanvas, left, top, width, height) => {
+  const destCanvas = document.createElement('canvas');
+  destCanvas.width = width;
+  destCanvas.height = height;
+  destCanvas
+    .getContext('2d')
+    // source rect with content to crop
+    // newCanvas, same size as source rect
+    .drawImage(sourceCanvas, left, top, width, height, 0, 0, width, height);
+  return destCanvas;
 };
 
 // function cropCanvas(canvas, options = {}) {
