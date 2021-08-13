@@ -1,22 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FaTrash } from 'react-icons/fa';
+import { FaGripLines, FaTrash } from 'react-icons/fa';
 import ids from 'shortid';
 import { MdLaunch } from 'react-icons/md';
-
+import update from 'immutability-helper';
 import { contactLinksSchema, marketPlaceSettingSchema } from 'libs/validation';
 import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
-import { notification } from 'libs';
+import { isObjectsEquivalent, notification } from 'libs';
 import { getMarketPlaceUrl } from 'helpers/common';
+import { BackendProvider, DragDropItem } from 'components/Draggable';
+import { isFunction } from 'libs/checks';
+import { useRef } from 'react';
 
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, FlexBox, Button, ErrorMessage, DisplayContent } = common;
 const { Label, TextField, AddImage } = InputRow;
 
+const orderList = (list, current, target) => {
+  const currentItem = list[current];
+  if (!currentItem) return list;
+  return update(list, {
+    $splice: [
+      [current, 1],
+      [target, 0, currentItem]
+    ]
+  });
+};
+
+const useReorder = (initialList = [], onUpdateOccurs) => {
+  const [list, setList] = useState(initialList);
+
+  const onReorder = (currentIndex, targetIndex) => {
+    const orderedList = orderList(list, currentIndex, targetIndex);
+    setList(orderedList);
+    if (isFunction(onUpdateOccurs)) onUpdateOccurs(orderedList);
+  };
+  useEffect(() => setList(initialList), [initialList]);
+
+  return { list, onReorder };
+};
 
 const Header = ({ domains, subDomain }) => {
   const url = getMarketPlaceUrl({ domains, subDomain });
@@ -31,7 +57,50 @@ const Header = ({ domains, subDomain }) => {
   );
 };
 
+const ContactLink = ({ label, value, id, index, onDeleteLink, onOrderChange, ...props }) => {
 
+  return (
+    <DragDropItem
+      onOrderChange={onOrderChange}
+      droppableProps={{ background: '#DDD' }}
+      id={id}
+      index={index}
+      {...props}
+      cardType='contact'
+    >
+      <FlexBox className='mb-2 v-center' >
+        <FlexBox center='v-center' className='label-link'>
+          <FaGripLines className='mr-3' color='gray' />
+          <div className='width-100 truncate  bold-text'>{label}</div>
+          <div className='width-200 truncate bold-text mx-2 link-value'>{value}</div>
+        </FlexBox>
+        <FaTrash size={14} onClick={onDeleteLink(value)} color='tomato' className='ml-2 item-clickable delete-link' />
+      </FlexBox>
+    </DragDropItem>
+  );
+};
+
+const ContactLinksMenu = ({ links, onDeleteLink, onUpdateLinks }) => {
+  const { list, onReorder } = useReorder(links, onUpdateLinks);
+
+  return (
+    <BackendProvider>
+      <FlexBox>
+        <FlexBox column>
+          {Array.isArray(list) && list.map((link, index) => (
+            <ContactLink
+              {...link}
+              key={`${link._id}-${link.value}`}
+              index={index}
+              onDeleteLink={onDeleteLink}
+              onOrderChange={onReorder}
+            />
+          ))}
+        </FlexBox>
+      </FlexBox>
+    </BackendProvider>
+  );
+};
 const MarketplaceSettings = ({
   marketPlace,
   getSave,
@@ -145,6 +214,10 @@ const MarketplaceSettings = ({
   };
 
 
+  const onUpdateLinks = (links) => {
+    setFields({ ...fields, layout: { ...fields.layout, links } });
+  };
+
   return (
     <FlexBox column className='marketplace-settings-bg'>
       <MainBlock title={<Header domains={domains} subDomain={subDomain} />} containerClasses='transparent-white-bg'>
@@ -201,15 +274,11 @@ const MarketplaceSettings = ({
           <Label error={errors.support}>Contact Links:</Label>
 
           <FlexBox className='mt-2 pl-3' column>
-            <FlexBox column>
-              {fields.layout.links && fields.layout.links.map(({ label, value, id, _id = id }) => (
-                <FlexBox className='mb-2 v-center' key={`${_id}-${value}`}>
-                  <div className='width-100 truncate  bold-text label-link'>{label}</div>
-                  <div className='width-200 truncate bold-text mx-2 link-value'>{value}</div>
-                  <FaTrash size={14} onClick={onDeleteLink(value)} color='tomato' className='item-clickable delete-link' />
-                </FlexBox>
-              ))}
-            </FlexBox>
+            <ContactLinksMenu
+              links={fields.layout.links}
+              onDeleteLink={onDeleteLink}
+              onUpdateLinks={onUpdateLinks}
+            />
 
             <DisplayContent hide={!showContactsLinks}>
               <InputRow >

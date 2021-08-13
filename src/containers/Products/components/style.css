@@ -71,7 +71,7 @@
 .product-image-container {
   min-height: 140px;
   width: 100%;
-  background-size: 100%;
+  background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
   border-radius: 7px;
