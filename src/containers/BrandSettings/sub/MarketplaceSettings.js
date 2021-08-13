@@ -37,7 +37,6 @@ const useReorder = (initialList = [], onUpdateOccurs) => {
   const onReorder = (currentIndex, targetIndex) => {
     const orderedList = orderList(list, currentIndex, targetIndex);
     setList(orderedList);
-    console.log({ orderedList, onUpdateOccurs });
     if (isFunction(onUpdateOccurs)) onUpdateOccurs(orderedList);
   };
   useEffect(() => setList(initialList), [initialList]);
@@ -216,7 +215,6 @@ const MarketplaceSettings = ({
 
 
   const onUpdateLinks = (links) => {
-    console.log('Updated', { links });
     setFields({ ...fields, layout: { ...fields.layout, links } });
   };
 
