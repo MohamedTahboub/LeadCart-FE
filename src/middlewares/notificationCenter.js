@@ -37,7 +37,7 @@ export default () => (next) => (action) => {
     showSuccessMessage('The Product Deleted');
     break;
   case types.UPLOAD_FILE_SUCCESS: {
-    const { meta: { options: { showNotification = true } = {} } = {} } = action.payload;
+    const { options: { showNotification = true } = {} } = action.payload;
     if (showNotification)
       showSuccessMessage('Uploaded  ');
     break;
