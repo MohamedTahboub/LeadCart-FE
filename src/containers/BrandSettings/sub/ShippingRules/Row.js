@@ -40,11 +40,11 @@ const constructErrorMessage = (id, invalidRate = {}) => {
    ${invalidRate.invalidPlace === 'top' ? 'smaller' : 'bigger'}
     than this value`
     : '';
-}
+};
 const ShippingRatesRow = ({ from, to, cost, _id, lastRateElement, onShippingRateChange, onShippingCostChange, currentIndex, invalidRate, onDeleteRow, defaultBrandCurrency }) => {
 
   const isFreeShipping = Number(cost) === 0;
-  const errorMessage = constructErrorMessage(_id, invalidRate)
+  const errorMessage = constructErrorMessage(_id, invalidRate);
   const currency = getCurrencySymbol(defaultBrandCurrency);
 
   return (
@@ -62,15 +62,15 @@ const ShippingRatesRow = ({ from, to, cost, _id, lastRateElement, onShippingRate
             currency={currency}
           />
         ) : (
-            <Title className='shipping-rates-and-up min-width-200'>
+          <Title className='shipping-rates-and-up min-width-200'>
               and up
-            </Title>
-          )
+          </Title>
+        )
         }
 
         <RateInput
           value={cost}
-          onChange={({ target: { value } }) => { onShippingCostChange({ value, _id }); }}
+          onChange={({ target: { value } }) => {onShippingCostChange({ value, _id });}}
           className='ml-4'
           currency={currency}
         />

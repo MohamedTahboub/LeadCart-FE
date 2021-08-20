@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import common from 'components/common';
 import { LoadingPage } from 'components/Loaders';
 import sampleProductData from 'data/product';
-import { htmlToImage as generateImageFromHtmlElement, loadFontsToDocument, mapListToObject, notification } from 'libs';
+import { htmlToImage as generateImageFromHtmlElement, mapListToObject, notification } from 'libs';
 import { ProductSchema } from 'libs/validation';
 import * as productGeneralActions from 'actions/product';
 import * as filesActions from 'actions/files';

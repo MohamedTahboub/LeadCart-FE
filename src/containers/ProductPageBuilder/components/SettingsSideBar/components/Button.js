@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import common from 'components/common';
 import { useContext } from '../../../actions';
 import { ImageOption } from './common';
-import Slider from 'rc-slider';
-// import Collapse from 'components/Collapsible';
 import { buttonTemplates } from 'data/templates';
 import InlinePopup from 'components/common/InlinePopup';
 
@@ -56,7 +54,6 @@ const ButtonSection = () => {
 
   const isOptIn = category === 'opt-in';
 
-  const [openCollapse, setOpenCollapse] = useState(null);
 
   const { styles = {}, content = {} } = sectionSetting;
   const { borderSymmetry } = styles;

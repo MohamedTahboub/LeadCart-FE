@@ -1,19 +1,16 @@
 import React, { Fragment, useState } from 'react';
 import clx from 'classnames';
 import { connect } from 'react-redux';
-import ids from 'shortid';
 
 import { notification } from 'libs';
 import shippingRulesSchema from 'libs/validation/shippingRules';
 import * as shippingRulesActions from 'actions/shippingRules';
-import { getNewNameWithNumber, isNewObjHasChange } from 'helpers/common';
+import { isNewObjHasChange } from 'helpers/common';
 import common from 'components/common';
 import Expandable from './Expandable';
 import { ControlButtons, DeleteModal } from '../components/common';
-import { fakeData } from './fakeData';
 
 import './style.css';
-import { RiNumbersFill } from 'react-icons/ri';
 
 const { Table, FlexBox, Button, Badge } = common;
 const { Head, HeadCell, Body, Row, Cell } = Table;
@@ -63,10 +60,10 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
     addNewShippingRule(
       defaultShippingRule,
       {
-        onSuccess: (data) => {
+        onSuccess: () => {
           setLoading(false);
           // autoOpenEditMode(data);
-          notification.success('New Shipping Rule added successfuly');
+          notification.success('New Shipping Rule added successfully');
         },
         onFailed: (message) => {
           setLoading(false);
@@ -101,7 +98,7 @@ const ShippingRules = ({ history, editShippingRule, addNewShippingRule, destinat
             else
               autoOpenEditMode(commentedEditableShippingRule);
 
-            notification.success('You Change edited successfuly');
+            notification.success('You Change edited successfully');
           },
           onFailed: (message) => {
             setSaveLoading(false);

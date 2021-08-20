@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import { useContext } from '../../../../../../../../actions';
 import { connect } from 'react-redux';
 
-import ids from 'shortid';
-import { AddNewMethodBtn, ShippingMethodsList } from './components';
-const { FlexBox, Tooltip } = common;
-
-const defaultMethod = {
-  name: 'Method Name',
-  cost: 9
-};
+import { ShippingMethodsList } from './components';
+const { FlexBox } = common;
 
 const calculateCost = (rates, price = 0) => {
   if (!Array.isArray(rates))
@@ -41,8 +34,8 @@ const getReshapedShippingMethods = (shipping = [], price, limit = 5) => {
   return list;
 };
 
-const ShippingMethods = ({ shippingMethods, translations = {}, ...props }) => {
-  const { state: { product: { price: { amount: price = 0 } = {} } = {} } = {}, actions } = useContext();
+const ShippingMethods = ({ shippingMethods, translations = {} }) => {
+  const { state: { product: { price: { amount: price = 0 } = {} } = {} } = {} } = useContext();
   const { shippingWith: shippingWithLabel = 'Shipping with' } = translations;
   const shippingMethodsList = getReshapedShippingMethods(shippingMethods, price);
   const [selected, setSelectedMethod] = useState();

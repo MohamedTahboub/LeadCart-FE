@@ -19,15 +19,17 @@
     display: flex;
     justify-content: center
 }
-.table-head-cell.flex{
-    flex:1;
+
+.table-head-cell.flex {
+    flex: 1;
 }
+
 .table-head-cell span {
     position: relative;
 }
 
 .table-head-cell.nowrap span {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .table-head-cell span:after {
@@ -40,8 +42,9 @@
 }
 
 .table-row-container.blue {
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }
+
 .table-row-container {
     background: white;
     min-width: 860px;
@@ -55,8 +58,8 @@
 }
 
 .no-min-width {
-  min-width: unset;
-  border-radius: 5px;
+    min-width: unset;
+    border-radius: 5px;
 }
 
 .table-row {
@@ -71,15 +74,17 @@
     align-items: center;
     justify-content: center;
 }
+
 .table-cell.nowrap {
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.table-cell.flex{
-    flex:1;
+.table-cell.flex {
+    flex: 1;
 }
-.table-cell.flex.flexStart{
+
+.table-cell.flex.flexStart {
     flex-direction: row;
     justify-content: flex-start;
 }
@@ -102,9 +107,11 @@
     align-items: center;
     cursor: pointer;
 }
-.mini-btn.active{
+
+.mini-btn.active {
     color: rgb(89, 162, 226);
 }
+
 .small-btn {
     color: white;
     margin: 0px 5px;
@@ -130,7 +137,6 @@
 }
 
 .wide-tabel-cell {
-
     right: 50px;
     display: flex;
 }
@@ -156,11 +162,18 @@
     display: flex;
 }
 
+.coupon-table-row .table-row-delete-btn, .coupon-table-row .table-row-edit-btn {
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+}
 
+.coupon-table-row:hover .table-row-delete-btn, .coupon-table-row:hover .table-row-edit-btn {
+    opacity: 1;
+}
 
 .table-row-delete-btn {
     position: absolute;
-    right: 0px;
+    right: 30px;
     border: unset;
     color: rgba(255, 99, 71, 0.52);
     top: 20px;
@@ -173,7 +186,7 @@
 
 .table-row-edit-btn {
     position: absolute;
-    left: 0px;
+    right: 0px;
     border: unset;
     color: rgba(43, 165, 212, 0.52);
     top: 20px;
@@ -188,8 +201,6 @@
     justify-content: center;
 }
 
-
-
 .sub-table span.table-head {
     color: #607D8B;
     border-bottom: 1px solid #eee;
@@ -198,7 +209,6 @@
 .sub-table span.table-head .table-head-cell span:after {
     content: ""
 }
-
 
 .table-container.sub-table {
     /* background: #bad8f96e; */
@@ -210,7 +220,8 @@
     border-left: 2px solid #3c7fc76e;
     margin-left: 70px;
 }
-.sub-table .table-row-container{
+
+.sub-table .table-row-container {
     height: 20px;
     padding: 5px;
     margin: 5px 0;
