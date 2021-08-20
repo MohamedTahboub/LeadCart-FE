@@ -147,10 +147,12 @@ const CouponModal = ({
     <Modal
       className='coupon-edit-modal'
       onClose={onClose}
+      hideCloseBtn
+      header={'HEader'}
       isVisible
     >
-      <MainTitle>{isEdit ? 'Update Coupon' : 'Create Coupon'}</MainTitle>
-      <InputRow>
+      <MainTitle style={{ fontSize: 18, marginBottom: 40, textTransform: 'unset' }}>{isEdit ? 'Edit your Coupon' : 'Create Coupon'}</MainTitle>
+      <InputRow >
         <Label error={errors.code}>
           Coupon code
         </Label>
@@ -171,7 +173,7 @@ const CouponModal = ({
           onChange={onDateChange}
         />
       </InputRow>
-      <InputRow>
+      <InputRow margin='25'>
         <Label error={errors.discount && (errors.discount.amount || errors.discount.percent)}>
           Coupon Type
         </Label>
@@ -189,7 +191,7 @@ const CouponModal = ({
           className='margin-left-30'
         />
       </InputRow>
-      <InputRow margin='35'>
+      <InputRow margin='25'>
         <FlexBox center='v-center' flex>
           <Label>
             Apply to
@@ -207,10 +209,13 @@ const CouponModal = ({
         </FlexBox>
       </InputRow>
       {errors.message && <span className='error-message'>{errors.message}</span>}
-      <Button onClick={isEdit ? onUpdate : onCreate} className='primary-color margin-with-float-right'>
-        <i className='fas fa-plus' />
-        {`${isEdit ? 'Update' : 'Create'} Coupon`}
-      </Button>
+      <FlexBox spaceBetween flex center='v-center'>
+        <Button onClick={onClose} className='light-btn px-3'>Cancel</Button>
+        <Button onClick={isEdit ? onUpdate : onCreate} className='primary-color margin-with-float-right'>
+          <i className='fas fa-plus' />
+          {`${isEdit ? 'Update' : 'Create'} Coupon`}
+        </Button>
+      </FlexBox>
     </Modal>
   );
 };

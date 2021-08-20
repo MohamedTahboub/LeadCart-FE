@@ -14,27 +14,27 @@ const getValidity = (shippingRates = [], currentIndex, currentToValue) => {
   let hasInvalidNextRate, hasInvalidPreviousRate;
 
   shippingRates.forEach((rate, index) => {
-    const isLastRate = shippingRates.length === (index + 1)
+    const isLastRate = shippingRates.length === (index + 1);
 
-    if (currentIndex < index && (!isLastRate && (Number(rate.to) <= Number(currentToValue)))) {
+    if (currentIndex < index && (!isLastRate && (Number(rate.to) <= Number(currentToValue))))
       hasInvalidNextRate = rate;
-    }
 
-    if (currentIndex > index && (!isLastRate &&  (Number(rate.to) >= Number(currentToValue))))
+
+    if (currentIndex > index && (!isLastRate && (Number(rate.to) >= Number(currentToValue))))
       hasInvalidPreviousRate = rate;
-  })
+  });
 
   return {
     hasInvalidNextRate,
     hasInvalidPreviousRate
-  }
-}
+  };
+};
 const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippingRuleId }) => {
   const [invalidRate, setInvalidRate] = useState({});
   const [shippingTitlesWidth, setShippingTitlesWidth] = useState(200);
 
   const onShippingRateChange = ({ value, _id, currentIndex }) => {
-    const { hasInvalidNextRate, hasInvalidPreviousRate } = getValidity(shippingRates, currentIndex, value)
+    const { hasInvalidNextRate, hasInvalidPreviousRate } = getValidity(shippingRates, currentIndex, value);
 
     if (hasInvalidNextRate) {
       setInvalidRate({ _id, invalidPlace: 'bottom' });
@@ -102,15 +102,15 @@ const ShippingRates = ({ shippingRates = [], onChange, setHasInvalidRate, shippi
 
   useEffect(() => {
     const firstShippingRole = document.querySelector('#shipping-role');
-    if (firstShippingRole?.getBoundingClientRect()?.width)
+    if (firstShippingRole?.getBoundingClientRect()?.width !== shippingTitlesWidth)
       setShippingTitlesWidth(firstShippingRole?.getBoundingClientRect()?.width);
-  });
+  }, [shippingRates, shippingTitlesWidth]);
 
   return (
     <FlexBox className='shipping-rates-container' id={`shipping-rates-${shippingRuleId}`} column flexStart>
       <Title className='my-3'>Shipping Rates</Title>
 
-      <FlexBox className='mb-2' style={{ width: `${shippingTitlesWidth}px` }} spaceBetween >
+      <FlexBox className='mb-2' style={{ width: `${'shippingTitlesWidth'}px` }} spaceBetween >
         <Title className='text-center small-text flex'> SubTotal Range (From - To)</Title>
         <Title className='text-center small-text flex' />
         <Title className='text-center small-text flex'>Cost</Title>

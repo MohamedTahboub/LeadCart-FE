@@ -1,11 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Tag } from 'antd';
 
 import * as accountActions from 'actions/account';
-import { Modal } from 'components/Modals';
 import Avatar from 'components/common/Avatar';
-import { SubscriptionPackageMinimal } from 'components/SubscriptionPackageMinimal';
 import common from 'components/common';
 import settingsIcon from '../../../../assets/images/user-settings.svg';
 
@@ -16,17 +13,13 @@ const { FlexBox, Title, Tooltip } = common;
 const UserAvatarPreview = ({
   user,
   updateUserProfileImage,
-  history,
-  brands,
-  ...props
+  history
 }) => {
-  const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
   const {
     profileImage,
     firstName = '',
-    lastName = '',
-    packageType
+    lastName = ''
   } = user || {};
 
 
@@ -59,27 +52,6 @@ const UserAvatarPreview = ({
       <Title className='sidebar-avatar-name flex-1 text-center truncate letter-spacing-0' >
         {userName}
       </Title>
-
-      {/*
-      <FlexBox>
-        {
-          packageType !== 'Premium' && (
-            <Fragment>
-              <div className='hide-element'>
-                <Tag className='ant-anchor-link-title' onClick={toggleUpgradeModalOpen} color='#1890FF'>UPGRADE TO {packageType === 'Basic' ? 'PRO' : 'PREMIUM'}</Tag>
-              </div>
-
-              <Modal isVisible={isUpgradeModalOpen} className='compress-modal minimal-subscription-modal' onClose={toggleUpgradeModalOpen}>
-                <SubscriptionPackageMinimal brands={brands} user={user} history={history} nextPackage={packageType === 'Basic' ? 'Pro' : 'Premium'}
-                  closeModal={toggleUpgradeModalOpen}
-                />
-              </Modal>
-            </Fragment>
-          )
-        }
-      </FlexBox>
-       */}
-
     </FlexBox>
   );
 };

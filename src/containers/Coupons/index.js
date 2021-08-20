@@ -59,7 +59,9 @@ const Coupons = ({ defaultBrandCurrency, ...props }) => {
     <Page className='coupons-page'>
 
       <PageHeader>
-        <MainTitle>Coupons</MainTitle>
+        <MainTitle>
+          Coupons
+        </MainTitle>
         <Button onClick={toggleModal} className=' primary-color'>
           New Coupon
         </Button>
@@ -70,7 +72,6 @@ const Coupons = ({ defaultBrandCurrency, ...props }) => {
           <Head>
             {HeadContent.map((ele) => <HeadCell key={ele}>{ele}</HeadCell>)}
           </Head>
-
           <Body>
             <CouponList
               showEditModal={showEditModal}
@@ -80,7 +81,6 @@ const Coupons = ({ defaultBrandCurrency, ...props }) => {
           </Body>
         </Table>
       </PageContent>
-
 
       {showModal && (
         <EditModal
