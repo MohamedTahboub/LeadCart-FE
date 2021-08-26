@@ -5,7 +5,7 @@ import moment from 'moment';
 import Section from './Section';
 import Badge from 'components/common/Badge';
 import common from 'components/common';
-import { Button } from 'components/Buttons';
+import { Button } from 'components/common/Buttons';
 import { Table } from 'components/Tables';
 import { notification } from 'libs';
 import * as redemptionActions from 'actions/redemption';
@@ -50,13 +50,13 @@ const RedemptionSettings = ({ codes, credits, redeemPromoCode }) => {
 
   return (
     < Section title='Redemption' className='redemption' >
-      <section className='redemption-cards' >
-        <div className='card-style white-bg p-2'>
+      <section className='redemption-cards pb-4' >
+        <div className='card-style white-bg p-2 px-4'>
           <p>Credits/</p>
           <span>{credits}</span>
         </div>
 
-        <div className='card-style white-bg p-2'>
+        <div className='card-style white-bg p-2 px-4'>
           <p>Redeemed Codes/</p>
           <span>{codes.length}</span>
         </div>
@@ -66,7 +66,7 @@ const RedemptionSettings = ({ codes, credits, redeemPromoCode }) => {
         <div className='mb-2 redemption__form-title'>Redeem codes:</div>
         <div className='d-flex ml-2'>
           <TextField placeholder='E.g. XpI3_13-3' className='mr-2' name='redeemCode' uncontrolled />
-          <Button type='dashed' htmlType='submit' loading={redeeming} primary>Redeem</Button>
+          <Button className='dashed-btn' htmlType='submit' onprogress={redeeming} primary>Redeem</Button>
         </div>
       </form>
 

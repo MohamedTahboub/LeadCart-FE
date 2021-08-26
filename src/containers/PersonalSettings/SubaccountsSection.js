@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Table, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { Search } from 'components/Inputs';
+import { SearchInput } from 'components/common/Inputs';
 import common from 'components/common';
 import moment from 'moment';
 import { Modal } from 'components/Modals';
@@ -24,7 +24,6 @@ const {
   PageContent,
   MainTitle,
   InputRow,
-  SmallButton,
   Button
 } = common;
 
@@ -181,7 +180,7 @@ const SubAccountsSection = ({
       <PageContent>
         <FlexBox column className='white-bg p-3 soft-edges'>
           <FlexBox center='v-center' spaceBetween className='mb-2'>
-            <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
+            <SearchInput style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
             <CreditsStatus credits={credits} />
             <FlexBox flexEnd>
               <Button className='primary-color' onClick={toggleSubAccountModal}><PlusOutlined /> New Sub Account</Button>

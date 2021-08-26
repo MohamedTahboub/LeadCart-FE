@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Avatar, Table } from 'antd';
-import { Search } from 'components/Inputs';
-import { Button } from 'components/Buttons';
+import { SearchInput } from 'components/common/Inputs';
+import { Button } from 'components/common/Buttons';
 import { NewBrandModal } from './components';
 import { FaTrash } from 'react-icons/fa';
 import Section from '../Section';
@@ -124,9 +124,9 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, deleteBrand,
   return (
     <Section title='Brands'>
       <div className='d-flex justify-space-between mb-2'>
-        <Search style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
+        <SearchInput style={{ width: 250 }} placeholder='Search' onSearch={handleSearch} />
         <CreditsStatus credits={credits} />
-        <Button type='primary' onClick={() => setCreateModalOpen(true)}><PlusOutlined /> New brand</Button>
+        <Button className='primary-color' onClick={() => setCreateModalOpen(true)}><PlusOutlined /> New brand</Button>
       </div>
       <Table
         className='brands-table'
@@ -158,7 +158,7 @@ const BrandsSection = ({ brands, credits, dataLoading, createBrand, deleteBrand,
               </Button>
               <Button
                 onClick={onDeleteConfirm}
-                className='margin-with-float-right'
+                className='margin-with-float-right primary-color'
                 danger
                 type='dashed'
                 icon={(
