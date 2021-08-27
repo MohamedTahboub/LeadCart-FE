@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getSymbolsReferences } from 'libs';
 import numeral from 'numeral';
+import Tooltip from '../Tooltip';
+import FlexBox from './FlexBox';
 
 const InsightBadge = ({
   title,
@@ -27,19 +29,18 @@ const InsightBadge = ({
         {castedValue}
         {suffixSymbol}
       </span>
-      {chart && (
-        <span className='insight-chart'>
-          {chart}
+      <FlexBox flex className='insight-chart'>
+        {chart}
+      </FlexBox>
+      <FlexBox className='insight-box-info-tip'>
+        <span>
+          {description && (
+            <Tooltip text={description} placement='top'>
+              <i className='fas fa-info-circle' />
+            </Tooltip>
+          )}
         </span>
-      )}
-      {description && (
-        <div
-          data-label={description}
-          className='insight-box-info-tip'
-        >
-          <i className='fas fa-info-circle' />
-        </div>
-      )}
+      </FlexBox>
     </div>
   );
 };
