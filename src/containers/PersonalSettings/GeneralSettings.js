@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from 'components/Buttons';
+import React, { useState } from 'react';
+import { Button } from 'components/common/Buttons';
 import Section from './Section';
-import { InputField } from 'components/Inputs';
 import Avatar from 'components/common/Avatar';
 import { notification } from 'libs';
 import * as accountActions from 'actions/account';
@@ -9,6 +8,7 @@ import * as accountActions from 'actions/account';
 import './style.css';
 import { connect } from 'react-redux';
 import { FlexBox } from 'components/common/boxes';
+import { InputGroup } from 'components/common/Inputs';
 
 const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails, onChangeAccountPassword, updateAccountEmail }) => {
   const [detailsForm, setDetailsForm] = useState({ firstName: user.firstName, lastName: user.lastName, email: user.email });
@@ -70,8 +70,8 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
     <div className='d-flex'>
       <div>
         <Section title='Account Details'>
-          <div className=''>
-            <InputField
+          <div className='' style={{ minWidth: 300 }}>
+            <InputGroup
               label='First name:'
               placeholder='John'
               name='firstName'
@@ -79,7 +79,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
               onChange={handleDetailsFormChange}
               autocomplete='off'
             />
-            <InputField
+            <InputGroup
               label='Last name:'
               placeholder='Doe'
               name='lastName'
@@ -88,13 +88,13 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
               autocomplete='off'
             />
             <div className='d-flex justify-end'>
-              <Button type='primary' size='small' onClick={handleDetailsFormSubmit}>Update</Button>
+              <Button className='primary-color' size='small' onClick={handleDetailsFormSubmit}>Update</Button>
             </div>
           </div>
         </Section>
         <Section title='Account Email'>
           <FlexBox column>
-            <InputField
+            <InputGroup
               label='Email:'
               name='email'
               value={detailsForm.email}
@@ -102,7 +102,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
               autocomplete='off'
             />
             <FlexBox flex flexEnd>
-              <Button onClick={onEmailChange} type='primary' size='small' className='ml-2'
+              <Button onClick={onEmailChange} size='small' className='primary-color ml-2'
                 disabled={user.email === detailsForm.email || !detailsForm.email}
               >
                 Change
@@ -111,7 +111,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
           </FlexBox>
         </Section>
         <Section title='Password'>
-          <InputField
+          <InputGroup
             label='Old Password:'
             type='password'
             placeholder='Old password'
@@ -119,7 +119,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
             onChange={handlePasswordFormChange}
             autocomplete='off'
           />
-          <InputField
+          <InputGroup
             label='New Password:'
             type='password'
             placeholder='6+ alphanumeric'
@@ -127,7 +127,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
             onChange={handlePasswordFormChange}
             autocomplete='off'
           />
-          <InputField
+          <InputGroup
             label='Confirm Password:'
             type='password'
             placeholder='Confirm New Password'
@@ -136,7 +136,7 @@ const GeneralSettings = ({ user, updateUserProfileImage, onChangeAccountDetails,
             autocomplete='off'
           />
           <div className='d-flex justify-end'>
-            <Button type='primary' onClick={handlePasswordFormSubmit}>Update</Button>
+            <Button className='primary-color' onClick={handlePasswordFormSubmit}>Update</Button>
           </div>
         </Section>
       </div>

@@ -20,8 +20,7 @@ const {
   MainTitle,
   InputRow,
   Currency,
-  Button,
-  FlexBox
+  Button
 } = common;
 
 
@@ -94,6 +93,26 @@ const Products = ({
     onFilterProducts(filterKeys.searchKey, category);
   };
 
+  const hasProducts = Boolean(filteredProducts.length);
+
+  const renderProducts = hasProducts && (
+    filteredProducts.map((product, id) => (
+      <ProductCard
+        key={`${product._id}-${id}`}
+        orderInList={id}
+        {...product}
+        currency={defaultBrandCurrency}
+        onDelete={() => onShowDeleteDialogue(product._id)}
+        onDuplicate={() => onProductDuplicate(product)}
+        onEdit={() => onProductEdit(product)}
+        productId={product._id}
+      />
+    ))
+  );
+
+  const renderLoadingSkeltonWhenLoading = (loadingProducts) && <ProductShadowLoading />;
+
+
   return (
     <Page>
       <PageHeader>
@@ -125,20 +144,8 @@ const Products = ({
         </Button>
       </PageHeader>
       <PageContent dflex>
-        {filteredProducts.length ? filteredProducts.map((product, id) => (
-          <ProductCard
-            key={`${product._id}-${id}`}
-            orderInList={id}
-            {...product}
-            currency={defaultBrandCurrency}
-            onDelete={() => onShowDeleteDialogue(product._id)}
-            onDuplicate={() => onProductDuplicate(product)}
-            onEdit={() => onProductEdit(product)}
-            productId={product._id}
-          />
-        ))
-          : (loadingProducts) ? ([0]).map((i) => <ProductShadowLoading key={i} />) : null
-        }
+        {renderProducts}
+        {renderLoadingSkeltonWhenLoading}
         {!!showCreateModal && (
           <PreCreateProductModals
             show={showCreateModal}
@@ -157,7 +164,7 @@ const Products = ({
             </Button>
             <Button onClick={onProductDelete} className='warning-bg margin-with-float-right'>
               <i className='fas fa-trash-alt' />
-            Delete
+              Delete
             </Button>
           </Modal>
         )
