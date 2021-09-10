@@ -384,6 +384,7 @@ const services = [
   {
     key: 'lc_twilio',
     name: 'Twilio',
+    description: 'Twilio Messaging is an API to send and receive SMS, MMS, OTT messages globally.',
     brandLogo: brandsLogos.twilio,
     category: 'Misc Integrations',
     fields: [
@@ -434,6 +435,7 @@ const services = [
     key: 'lc_webhook',
     name: 'Webhooks',
     brandLogo: brandsLogos.webhookLogo,
+    description: 'A webhook is a lightweight API that powers one-way data sharing triggered by events, to connect applications.',
     category: 'Misc Integrations',
     active: true,
     connected: true,
@@ -449,6 +451,7 @@ const services = [
   {
     key: 'lc_pabbly',
     name: 'Pabbly',
+    description: 'Integrate multiple applications to tasks automation, and help with managing the subscriptions billing lifecycle.',
     brandLogo: brandsLogos.pabblyLogo,
     category: 'Misc Integrations',
     active: true,
@@ -465,6 +468,7 @@ const services = [
   {
     key: 'lc_integrately',
     name: 'Integrately',
+    description: 'Automation software helps connect and automate tasks across applications.',
     brandLogo: brandsLogos.integratelyLogo,
     category: 'Misc Integrations',
     active: true,
@@ -481,6 +485,7 @@ const services = [
   {
     key: 'lc_konnectzit',
     name: 'KonnectZit',
+    description: 'Workflow-based automation software, helps connecting applications for tasks automation purposes.',
     brandLogo: brandsLogos.konnectzitLogo,
     category: 'Misc Integrations',
     active: true,
