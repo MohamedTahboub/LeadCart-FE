@@ -23,7 +23,7 @@ const OrderRecept = ({
     discount: { couponData: coupon = {}, discount = 0 } = {}
   } = {}
 }) => {
-
+// eslint-disable-next-line
   let total = purchases.reduce((t, p) => t + p.amount, 0);
 
 

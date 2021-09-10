@@ -8,7 +8,6 @@ import { notification } from 'libs';
 import { Modal } from 'components/Modals';
 import { optIn as sampleOptInFunnel } from 'data/sampleFunnel'; import common from 'components/common';
 import { includesIgnoreCase } from 'libs';
-import { getServiceBrand } from 'data/integrationsServices';
 
 
 import checkoutFunnelImage from 'assets/images/checkout-thumbnail-template.png';

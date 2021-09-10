@@ -43,6 +43,7 @@ const FontRow = ({ variants = [], family, onSelectFont, isSelectedFont, files = 
 
   useEffect(() => {
     onLoadCustomFontFile();
+    // eslint-disable-next-line
   }, [family, url]);
 
 

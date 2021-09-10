@@ -51,6 +51,7 @@ const ServicesSettingsModal = ({
   useEffect(() => {
     if (service?.settings)
       setFields(service.settings);
+      // eslint-disable-next-line
   }, [service?.settings]);
 
   const commonProps = { onUpdate, onChange };

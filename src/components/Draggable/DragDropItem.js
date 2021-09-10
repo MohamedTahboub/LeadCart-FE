@@ -29,7 +29,7 @@ const DragDropItem = ({ children, id, onOrderChange, index, style, cardType, ...
     collect: (monitor) => ({ isDragging: monitor.isDragging() })
   });
 
-  const [{ handlerId, isHover }, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop({
     accept: cardType,
     collect (monitor) {
       return { handlerId: monitor.getHandlerId(), isHover: monitor.canDrop() };

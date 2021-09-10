@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import { offlinePaymentLogo } from 'data/importBrands';
 import Tooltip from 'components/common/Tooltip';

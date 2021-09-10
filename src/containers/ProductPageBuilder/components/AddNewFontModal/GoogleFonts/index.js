@@ -66,6 +66,7 @@ const GoogleFonts = ({ setHasNewFonts, onSave, selectedNewFonts, setSelectedNewF
 
     setFilteredFonts(theFilterEndResult);
     return () => setFilteredFonts([]);
+    // eslint-disable-next-line
   }, [googleFonts, filterValue]);
 
 

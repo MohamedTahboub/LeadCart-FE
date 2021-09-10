@@ -48,33 +48,36 @@ const ImageContent = ({
 
   const sectionBackground = getSectionBackground({ styles });
 
-  return useMemo(() => (
-    <FlexibleBox
-      size={{ height: styles.height }}
-      className={classNames}
-      onResizeStop={onSizeChange}
-      showOnParentHover
-      style={sectionBackground}
-    >
-      <img
-        src={content.value || defaultDropImage}
-        alt='product asset'
-        data-tip='Double Click to Upload'
-        data-delay-show={1000}
-        className='image-section'
-        onDoubleClick={onUpload}
-        role='presentation'
-      />
-      <AddImage
-        inputRef={inputRef}
-        subLabel='Logo'
-        source='product_image'
-        className='hiden-element'
-        name='logo'
-        onUploaded={onImageChange}
-      />
-    </FlexibleBox>
-  ), [content.value, inputRef, styles.height, sectionBackground.backgroundColor, sectionBackground.backgroundImage]);
+  return useMemo(
+    () => (
+      <FlexibleBox
+        size={{ height: styles.height }}
+        className={classNames}
+        onResizeStop={onSizeChange}
+        showOnParentHover
+        style={sectionBackground}
+      >
+        <img
+          src={content.value || defaultDropImage}
+          alt='product asset'
+          data-tip='Double Click to Upload'
+          data-delay-show={1000}
+          className='image-section'
+          onDoubleClick={onUpload}
+          role='presentation'
+        />
+        <AddImage
+          inputRef={inputRef}
+          subLabel='Logo'
+          source='product_image'
+          className='hiden-element'
+          name='logo'
+          onUploaded={onImageChange}
+        />
+      </FlexibleBox>
+    ),
+    // eslint-disable-next-line
+    [content.value, inputRef, styles.height, sectionBackground.backgroundColor, sectionBackground.backgroundImage]);
 };
 
 ImageContent.propTypes = {};

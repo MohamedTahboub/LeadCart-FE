@@ -1,6 +1,5 @@
 import React from 'react';
 import clx from 'classnames';
-import Slider from 'rc-slider';
 
 import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';

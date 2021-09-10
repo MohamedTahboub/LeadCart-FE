@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
 import { FaSave, FaUndoAlt } from 'react-icons/fa';
 

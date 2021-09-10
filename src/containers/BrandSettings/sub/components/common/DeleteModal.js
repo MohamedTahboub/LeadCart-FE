@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
@@ -30,7 +30,7 @@ const DeleteModal = ({ isVisible, onClose, zoneId, deleteDestinationZone, taxId,
     itemId = { zone: zoneId };
   } else if (isShippingsModal) {
     deleteItem = deleteShippingRule;
-    itemId = { shippingMethod : shippingRuleId };
+    itemId = { shippingMethod: shippingRuleId };
   }
 
 

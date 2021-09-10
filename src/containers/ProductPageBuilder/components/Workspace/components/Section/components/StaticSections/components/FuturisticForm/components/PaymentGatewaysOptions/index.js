@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import creditsImage from 'assets/images/payment-cards.png';
 import paypalImage from 'assets/images/paypal-thumbnail.png';
@@ -7,7 +6,6 @@ import cashOnDeliveryImage from 'assets/images/cod_icon.png';
 import razorpayLogo from 'assets/images/brands/razorpay-logo.svg';
 import PaymentGatewayImage from '../PaymentGatewayImage';
 import sepaDirectDebtLogo from 'assets/images/sepa-direct-debt.png';
-// import cashOnDeliveryImage from 'assets/images/cod_icon.png';
 import stripeFPXLogo from 'assets/images/fpx_logo.png';
 import { connect } from 'react-redux';
 
@@ -43,8 +41,8 @@ const PaymentGatewaysOptions = ({
     cardNumberInputField: cardNumberInputFieldLabel = 'Card Number',
     cardCVCInputField: cardCVCInputFieldLabel = 'Expiry date',
     cardExpirationDateInputField: cardExpirationDateInputFieldLabel = 'CVV',
-    cardExpirationDateInputPlaceholder = 'MM/YY',
-    ibanInputFields: ibanInputFieldsLabel
+    cardExpirationDateInputPlaceholder = 'MM/YY'
+    // ibanInputFields: ibanInputFieldsLabel
   } = translations;
 
   const paymentMethods = methods.map((method) => ({

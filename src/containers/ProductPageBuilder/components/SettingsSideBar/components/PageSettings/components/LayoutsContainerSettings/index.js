@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GoSettings } from 'react-icons/go';
 import { BiHide } from 'react-icons/bi';
-import Slider from 'rc-slider';
 import { FiColumns } from 'react-icons/fi';
 import { VscBrowser } from 'react-icons/vsc';
 import * as immutable from 'object-path-immutable';
@@ -32,7 +31,6 @@ const {
 
 const {
   Label,
-  SelectOption,
   Toggle
 } = InputRow;
 

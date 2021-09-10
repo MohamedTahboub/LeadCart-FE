@@ -23,8 +23,7 @@ const {
   PageContent,
   MiniButton,
   Avatar,
-  InputRow,
-  Currency
+  InputRow
 } = common;
 
 const { TextField } = InputRow;

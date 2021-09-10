@@ -6,7 +6,6 @@ import common from 'components/common';
 import * as integrationsActions from 'actions/integrations';
 import { includesIgnoreCase, notification } from 'libs';
 import servicesList from 'data/integrationsServices';
-import { offlinePaymentLogo } from 'data/importBrands';
 
 import {
   ConnectModal,

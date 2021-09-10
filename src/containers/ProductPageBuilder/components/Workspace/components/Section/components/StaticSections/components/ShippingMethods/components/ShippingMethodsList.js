@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import clx from 'classnames';
 import { getCurrencySymbol } from 'libs';
 
-const { FlexBox, InputRow, ResizableInput } = common;
+const { FlexBox, InputRow } = common;
 const { Radio } = InputRow;
 const { Group } = Radio;
 

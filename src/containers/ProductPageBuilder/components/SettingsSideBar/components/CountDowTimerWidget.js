@@ -7,7 +7,7 @@ import { ImageOption, SettingBox } from './common';
 import { useContext } from '../../../actions';
 
 const { Tabs, InputRow, MiniColorPicker, FlexBox, Tab, BackgroundOptions } = common;
-const { TextField, SelectOption, DatePicker, Toggle } = InputRow;
+const { TextField, DatePicker, Toggle } = InputRow;
 
 const themesOptions = [
   {

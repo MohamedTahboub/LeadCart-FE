@@ -32,6 +32,7 @@ export default (searchList = [], options = {}) => {
   useEffect(() => {
     return () =>
       setFiltered(searchList);
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
