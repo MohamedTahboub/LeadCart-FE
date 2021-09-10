@@ -8,7 +8,7 @@ import { notification } from 'libs';
 import common from 'components/common';
 import moment from 'moment';
 import Orders from './sub/Orders';
-import { getDynamicPaginationOptions } from 'components/common/Tables/Pagination';
+import { useDynamicPaginationOptions } from 'components/common/Tables/Pagination';
 import { FlexBox } from 'components/common/boxes';
 import TextField from 'components/common/Inputs/TextField';
 import useSearch from 'libs/hooks/useSearch';
@@ -49,6 +49,7 @@ const Transactions = ({ orders }) => {
   const orderedList = results.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
   const subscriptions = getSubscriptionsList(orderedList);
   const pageContentRef = useRef(null);
+  const paginationOptions = useDynamicPaginationOptions(pageContentRef, { unitHeight: 80, ignoreSize: 250 }, initialPaginationProps);
 
 
   const onExportToCSV = () => {
@@ -75,7 +76,6 @@ const Transactions = ({ orders }) => {
     }, 1200);
   };
 
-  const paginationOptions = getDynamicPaginationOptions(pageContentRef, { unitHeight: 80, ignoreSize: 250 }, initialPaginationProps);
   const onSearchChange = (e) => onSearch(e.target?.value);
   const renderSearchBar = (
     <FlexBox flexEnd flex >

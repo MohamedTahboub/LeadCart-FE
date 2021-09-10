@@ -14,7 +14,7 @@ import common from 'components/common';
 import { FlexBox } from '../../components/common/boxes';
 
 import './style.css';
-import { getDynamicPaginationOptions } from 'components/common/Tables/Pagination';
+import { useDynamicPaginationOptions } from 'components/common/Tables/Pagination';
 
 const {
   MainTitle,
@@ -27,7 +27,7 @@ const {
 } = common;
 
 const { TextField } = InputRow;
-const initialPaginationProps = { eachPageLimit: 10 };
+const initialPaginationProps = { eachPageLimit: 7 };
 const CustomerTable = withPagination(({ data: filteredCustomers, showPanel, activeCustomer, toggleCustomerPanel, defaultBrandCurrency }) => {
 
   return (
@@ -44,7 +44,7 @@ const CustomerTable = withPagination(({ data: filteredCustomers, showPanel, acti
       <Table.Body className='customers-table-body'>
         {
           filteredCustomers
-            .map((customer, orderInList) => {
+            .map((customer) => {
               const {
                 firstName,
                 lastName,
@@ -57,7 +57,6 @@ const CustomerTable = withPagination(({ data: filteredCustomers, showPanel, acti
                 <Table.Row
                   key={email}
                   noMinWidth
-                  // orderInList={orderInList}s
                   className={clx('order-table-row', { 'active-row': activeCustomer.email === email })}
                 >
                   <Table.SmallCell>
@@ -127,8 +126,8 @@ const CustomersLab = ({ customers, orderRefund, defaultBrandCurrency }) => {
       .containing(filterValue);
   });
 
-  const customerTableProps = { data: filteredCustomers, showPanel, activeCustomer, toggleCustomerPanel, defaultBrandCurrency };
-  const paginationOptions = getDynamicPaginationOptions(pageContentRef, { unitHeight: 80, ignoreSize: 156 }, initialPaginationProps);
+  const paginationOptions = useDynamicPaginationOptions(pageContentRef, { unitHeight: 80, ignoreSize: 200 }, initialPaginationProps);
+  const customerTableProps = { paginationOptions, data: filteredCustomers, showPanel, activeCustomer, toggleCustomerPanel, defaultBrandCurrency };
 
   return (
     <Page>
@@ -148,7 +147,7 @@ const CustomersLab = ({ customers, orderRefund, defaultBrandCurrency }) => {
       </PageHeader>
 
       <PageContent ref={pageContentRef} className='d-flex overflow-x-hidden overflow-y-scroll py-0 mt--8px' style={{ marginTop: -8 }}>
-        <CustomerTable {...customerTableProps} paginationOptions={paginationOptions}/>
+        <CustomerTable {...customerTableProps} />
         <CustomerPanelModal
           isVisible={showPanel}
           onClose={hideCustomerPanel}
