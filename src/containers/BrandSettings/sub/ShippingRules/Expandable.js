@@ -44,7 +44,7 @@ const Expandable = ({
       setCurrentHeight(selectedElement?.getBoundingClientRect()?.height + 170);
     else
       setCurrentHeight(selectedElement?.getBoundingClientRect()?.height);
-
+    // eslint-disable-next-line
   }, [open, shippingRates, hasDisplayedNote]);
 
   const shippingRatesProps = {

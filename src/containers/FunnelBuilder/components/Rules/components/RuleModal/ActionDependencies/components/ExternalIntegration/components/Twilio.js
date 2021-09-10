@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
 import { connect } from 'react-redux';
 import * as IntegrationsActions from 'actions/integrations';
 import common from 'components/common';
@@ -8,9 +7,8 @@ import { isFunction } from 'libs/checks';
 import { notification } from 'libs';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-const { FlexBox, Spinners, InputRow, Button } = common;
+const { FlexBox, InputRow, Button } = common;
 const { Label, TextAreaInput } = InputRow;
-const { Loader } = Spinners;
 
 const allowedFields = ['fromNumber', 'text'];
 const TwilioIntegration = ({ metaData = {}, integrationKey, onChange, ...props }) => {
@@ -37,6 +35,7 @@ const TwilioIntegration = ({ metaData = {}, integrationKey, onChange, ...props }
 
   useEffect(() => {
     setValues(metaData);
+    // eslint-disable-next-line
   }, []);
 
   const _onChange = ({ target: { value, name } }) => {

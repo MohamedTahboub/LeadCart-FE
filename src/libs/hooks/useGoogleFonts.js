@@ -38,6 +38,7 @@ export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 300 } 
       setFonts(fonts);
       setLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export default ({ initialSearchKey = '', resultsLimit = 50, delayPeriod = 300 } 
 
     const limited = resultsLimit ? filteredFonts.slice(0, resultsLimit) : filteredFonts;
     setFilteredFonts(limited);
+    // eslint-disable-next-line
   }, [searchKey, fonts]);
 
   return [

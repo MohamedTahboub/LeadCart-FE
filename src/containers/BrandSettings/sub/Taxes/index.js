@@ -221,7 +221,7 @@ const TaxesManagement = ({ taxes, addNewTax, editTax, history }) => {
 
         <Body>
           {taxes.map((tax) => {
-            const { name, appliesTo, zoneDefinition, ratesPerZone, enabled, _id } = tax;
+            const { name, appliesTo, zoneDefinition, enabled, _id } = tax;
             const isEditableTax = editableTaxId === _id;
             const controlButtonsProps = { isEditableTax, onDeleteTax, editableTaxId, taxHasChanges, onEditTax, tax, onConfirmCancelEdits, _id, saveLoading, onSave };
 

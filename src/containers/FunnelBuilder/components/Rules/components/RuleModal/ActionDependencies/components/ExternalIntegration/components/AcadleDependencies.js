@@ -45,6 +45,7 @@ const AcadleIntegration = ({ metaData = {}, integrationId, onChange, ...props })
 
   useEffect(() => {
     getTheDependencies();
+    // eslint-disable-next-line
   }, []);
 
   const _onChange = ({ target: { value, name } }) => {

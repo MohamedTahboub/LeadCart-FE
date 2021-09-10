@@ -7,7 +7,7 @@ import CheckoutButtonStyle from './CheckoutButtonStyle';
 import './style.css';
 
 const { FlexBox, InputRow, MiniColorPicker, CustomSlider, BackgroundOptions } = common;
-const { Label, Toggle } = InputRow;
+const { Toggle } = InputRow;
 
 const SectionStyles = ({ values = {}, onChange, completeOrderButton, sectionSetting, onSectionSettingChange, onBackgroundChange }) => {
   const onSliderChange = (value, name) => {

@@ -47,6 +47,7 @@ export const usePagination = (list, options = {}) => {
       if (list.length !== originalList.length)
         resetToDefaults();
     } else {setOriginalList([]);}
+    // eslint-disable-next-line
   }, [list]);
 
   const goToPage = (page) => {

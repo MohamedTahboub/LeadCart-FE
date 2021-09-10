@@ -52,10 +52,14 @@ const InstalledFonts = ({ productsFonts = [], selectedInstalledFonts, setSelecte
       theFilterEndResult = searchedFonts;
 
     setFilteredFonts(theFilterEndResult);
+    // eslint-disable-next-line
   }, [searchValue, filterValue]);
 
 
-  useEffect(() => {setHasNewFonts(hasSelectedFonts);}, [hasSelectedFonts]);
+  useEffect(() => {
+    setHasNewFonts(hasSelectedFonts);
+    // eslint-disable-next-line
+  }, [hasSelectedFonts]);
 
 
   return (

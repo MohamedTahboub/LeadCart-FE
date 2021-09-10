@@ -9,7 +9,6 @@ import { FlexBox } from 'components/common/boxes';
 import { Button } from 'components/common/Buttons';
 import clx from 'classnames';
 import { FaFileInvoiceDollar } from 'react-icons/fa';
-import { OrderStatusBadge } from 'containers/CustomersLab/components/common';
 
 const PaymentTypeIcon = ({ type }) => {
   const icon = {

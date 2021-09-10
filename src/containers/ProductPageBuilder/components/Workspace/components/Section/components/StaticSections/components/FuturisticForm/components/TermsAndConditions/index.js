@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import InlinePopup from 'components/common/InlinePopup';
 import { FiLink } from 'react-icons/fi';

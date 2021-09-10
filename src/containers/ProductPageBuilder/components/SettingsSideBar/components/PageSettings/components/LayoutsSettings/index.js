@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import common from 'components/common';
 import FlatRadio from 'components/FlatRadio';
 import { SettingBox } from '../../../common';
-import Slider from 'rc-slider';
 import * as immutable from 'object-path-immutable';
 import InlinePopup from 'components/common/InlinePopup';
 

@@ -17,8 +17,7 @@ import {
 import MultipleStepForm from 'components/MultipleStepForm';
 import {
   MarketingConsent,
-  TermsAndConditions,
-  Title
+  TermsAndConditions
 } from '../FuturisticForm/components';
 import { CycleStepTitle } from 'components/common/Titles';
 
@@ -45,7 +44,7 @@ const getStepsNames = (shippingDetails, shippingMethodsEnabled, translations = {
 
 };
 const ClassicForm = ({ language, section, paymentMethods }) => {
-  const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden, styles } = section;
+  const { content: { twoStepCheckout }, texts = {}, hidden: isSetHidden } = section;
   const {
     state: {
       funnel: { type } = {},
@@ -75,7 +74,6 @@ const ClassicForm = ({ language, section, paymentMethods }) => {
 
 
   const {
-    email,
     shippingMethod: shippingMethodLabel = 'Shipping Methods',
     pricingOptionsLabel
   } = language.checkout || {};

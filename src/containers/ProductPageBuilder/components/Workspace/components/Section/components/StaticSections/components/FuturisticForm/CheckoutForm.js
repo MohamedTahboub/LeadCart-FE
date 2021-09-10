@@ -29,7 +29,7 @@ const countriesOptions = [{ label: 'United State', value: 'USA' }];
 
 const FlatForm = ({ language, section, paymentMethods = ['COD'] }) => {
   const [showSecondAddress, setShowSecondAddress] = useState(false);
-  const [activeTab, setActiveTab] = useState('shipping');
+  const [activeTab] = useState('shipping');
 
 
   const {

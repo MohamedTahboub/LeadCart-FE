@@ -192,6 +192,7 @@ export const getNewNameWithNumber = ({ data = [], baseName = 'Name', isCapitaliz
   const newDefaultNumber = defaultNumbersName.map((number, index) => {
     if (number !== index + 1)
       return index + 1;
+    else return undefined;
   }).sort()[0] || defaultNumbersName.length + 1;
 
   const capitalizedName = baseName.split(' ').map((str) => str.charAt(0).toUpperCase() + str.slice(1)).join(' ');

@@ -32,6 +32,7 @@ export default ({ title, button, popUpContent, position = 'center', icon, defaul
     const id = ids.generate();
     if (!currentId || currentId !== id)
       setCurrentId(id);
+      // eslint-disable-next-line
   }, []);
 
   // let buttonContent = typeof button === 'function' ? button({  }) : button;
