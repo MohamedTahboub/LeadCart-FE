@@ -58,6 +58,7 @@ const SelectBoxes = ({ onChange, fields, type = 'countries', className }) => {
     const filteredData = getCodesData(allData.filter(({ name }) => name.toLowerCase().includes(filteringValue.toLowerCase())));
     const availableOptionsValues = getFoundsCodes(getNotFoundCodes(allData, savedData), filteredData);
     setAvailableSearchedOptions(availableOptionsValues);
+    // eslint-disable-next-line
   }, [filteringValue]);
 
 
@@ -67,6 +68,7 @@ const SelectBoxes = ({ onChange, fields, type = 'countries', className }) => {
 
     displayedOptionsValues && setDisplayedOptions(displayedOptionsValues);
     availableOptionsValues && setAvailableOptions(availableOptionsValues);
+    // eslint-disable-next-line
   }, [savedData]);
 
 

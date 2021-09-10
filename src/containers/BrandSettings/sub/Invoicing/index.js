@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import common from 'components/common';
 import countriesList from 'data/countries';
 import * as immutable from 'object-path-immutable';
@@ -17,11 +16,11 @@ const countries = countriesList.map(({ name: label, code: value }) => ({ label, 
 const Invoicing = ({ invoicing, ...props }) => {
 
   const [values, setValues] = useState({});
-  const [error, setError] = useState();
+  const [error] = useState();
 
   const onSave = async () => {
 
-    const { isValid, value: invoiceDetails, errorList = '' } = await invoicingSettingsSchema(values);
+    const { isValid, value: invoiceDetails } = await invoicingSettingsSchema(values);
 
     if (!isValid)
       return notification.failed('Please check the fields, all fields are required');
@@ -48,7 +47,7 @@ const Invoicing = ({ invoicing, ...props }) => {
 
   const onDownloadSampleInvoice = async (e) => {
     e.preventDefault();
-    const { isValid, value: { enabled, ...invoiceDetails } = {}, errorList } = await invoicingSettingsSchema(values);
+    const { isValid, value: invoiceDetails = {} } = await invoicingSettingsSchema(values);
 
     if (!isValid)
       return notification.failed('Please check the fields, all fields are required');

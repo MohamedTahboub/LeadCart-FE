@@ -178,6 +178,7 @@ const FunnelBuilder = ({
 
   useEffect(() => {
     props.history.push(`?sub=${activePage}`);
+    // eslint-disable-next-line
   }, [activePage]);
 
   const onPageChange = (page) => () => {
@@ -195,6 +196,7 @@ const FunnelBuilder = ({
 
     if (hasValidSteps !== hasValidCheckout)
       setHasValidCheckout(hasValidSteps);
+    // eslint-disable-next-line
   }, [fields]);
 
 

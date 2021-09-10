@@ -112,6 +112,7 @@ const NodeSettingModal = ({
       productSample.sections = productSample.sections.map(({ type, ...rest }) => {
         if (type === 'checkoutSection')
           return { ...rest, type, hidden: true };
+        return undefined;
       });
     }
 

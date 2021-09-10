@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import * as funnelsActions from 'actions/funnels';
@@ -12,6 +12,9 @@ import { getMarketPlaceUrl } from 'helpers/common';
 
 
 import './style.css';
+import { FlexBox } from 'components/common/boxes';
+import TextField from 'components/common/Inputs/TextField';
+import useSearch from 'libs/hooks/useSearch';
 
 const {
   Page,
@@ -21,6 +24,10 @@ const {
   Button
 } = common;
 
+const searchTargets = [
+  'name',
+  'url'
+];
 
 const Funnels = ({
   funnels,
@@ -35,7 +42,9 @@ const Funnels = ({
   const [showDelete, setShowDelete] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [loading, setLoading] = useState();
+  const [results, onSearch, searchKey] = useSearch(funnels, { targets: searchTargets });
 
+  const onSearchChange = ({ target: { value } }) => onSearch(value);
   const onFunnelEdit = (url) => () => {
     props.history.push(`/funnels/${url}`);
   };
@@ -138,12 +147,24 @@ const Funnels = ({
   };
 
   const hasFunnels = funnels.length > 0;
-
   return (
     <Page>
       <PageHeader>
         <div className='margin-h-20 flex-container fb-aligned-center'>
-          <MainTitle>Funnels</MainTitle>
+          <MainTitle>
+            <FlexBox center='c-center v-center'>
+              <span style={{ fontWeight: 500 }}>
+                  Funnels
+              </span>
+              <TextField
+                className='ml-3'
+                onChange={onSearchChange}
+                value={searchKey}
+                name='customer'
+                placeholder='Search ...'
+              />
+            </FlexBox>
+          </MainTitle>
         </div>
         <Button onClick={onCreate} className='primary-color'>
           <i className='fas fa-plus' />
@@ -152,11 +173,11 @@ const Funnels = ({
       </PageHeader>
 
       <PageContent dflex className='align-content-start'>
-        {funnels.map((funnel, id) => (
+        {results.map((funnel, id) => (
           <FunnelCard
             {...funnel}
-            key={`${funnel._id}`}
-            orderInList={id}
+            key={`${funnel._id}#${id}`}
+            orderInList={searchKey ? undefined : id}
             onDelete={onShowDeleteDialogue(funnel._id)}
             onEdit={onFunnelEdit(funnel.url)}
             onPreview={onPreview(funnel.url)}

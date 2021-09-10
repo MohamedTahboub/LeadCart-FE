@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import queryString from 'querystring';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
@@ -13,8 +12,8 @@ const { FlexBox, LayoutSwitch } = common;
 const getQueryParams = (location) => {
   return queryString.parse(location?.search?.replace('?', ''));
 };
-const PageSetupModal = ({ history = {}, onUpdateTemplate, ...props }) => {
-  const { state: { productPricing: { openModal } = {} }, actions } = useContext();
+const PageSetupModal = ({ history = {}, onUpdateTemplate }) => {
+  const { actions } = useContext();
 
   const params = getQueryParams(history.location);
   const [show, setShow] = useState(false);

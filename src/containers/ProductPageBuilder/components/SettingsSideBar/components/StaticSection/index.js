@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Slider from 'rc-slider';
 
 import config from 'config';
 import common from 'components/common';
@@ -14,11 +13,10 @@ import InlinePopup from 'components/common/InlinePopup';
 
 import SectionStylesControllers from '../common/SectionStyles';
 import ClassicFormStyles from '../common/ClassicFormStyles';
-import CheckoutButtonStyle from '../common/CheckoutButtonStyle';
 
 const { admins = [], PRICING_OPTIONS_LIMITS } = config;
 const { Button, Tabs, Tab, InputRow, FlexBox, MiniColorPicker } = common;
-const { Label, SearchInput, Toggle, SelectOption } = InputRow;
+const { Label, SearchInput, Toggle } = InputRow;
 
 const StaticSection = ({ defaultBrandCurrency }) => {
 

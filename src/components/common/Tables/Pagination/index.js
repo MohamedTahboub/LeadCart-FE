@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { usePagination } from 'libs/hooks';
 import clx from 'classnames';
@@ -7,6 +7,7 @@ import { isFunction } from 'libs/checks';
 import { RiArrowLeftSLine } from 'react-icons/ri';
 import { BiArrowToLeft, BiArrowToRight } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
+import useEventListener from '@use-it/event-listener';
 import { FlexBox as Flex } from 'components/common/boxes';
 
 const PaginationItem = ({ children, active, className, disabled, ...props }) => {
@@ -133,7 +134,7 @@ export const withPagination = (Table) => (props) => {
 export default Pagination;
 
 export const getDynamicPaginationOptions = (ref, units, initialOptions) => {
-  const { unitHeight = 0, ignoreSize = 0 } = units || {} ;
+  const { unitHeight = 0, ignoreSize = 0 } = units || {};
   if (!(ref?.current?.getBoundingClientRect && isFunction(ref.current.getBoundingClientRect))) return { eachPageLimit: 10, ...initialOptions };
   const { height: containerHeight } = ref?.current?.getBoundingClientRect();
   const eachPageLimit = parseInt((containerHeight - ignoreSize) / unitHeight);
@@ -148,3 +149,35 @@ export const getDynamicPaginationOptions = (ref, units, initialOptions) => {
     eachPageLimit: eachPageLimit > 0 ? eachPageLimit : 1
   };
 };
+
+export const useDynamicPaginationOptions = (ref, units, initialOptions = {}) => {
+  const [options, setOptions] = useState({ eachPageLimit: 10, ...initialOptions });
+
+  const calculatePagesNumber = (ref, units) => {
+    const { unitHeight = 0, ignoreSize = 0 } = units || {};
+    const { height: containerHeight } = ref?.current?.getBoundingClientRect();
+    const eachPageLimit = parseInt((containerHeight - ignoreSize) / unitHeight);
+    return eachPageLimit > 0 ? eachPageLimit : 1;
+  };
+
+  useEffect(() => {
+
+    if (!isFunction(ref?.current?.getBoundingClientRect)) return;
+
+    const eachPageLimit = calculatePagesNumber(ref, units);
+    if (options?.eachPageLimit !== eachPageLimit)
+      setOptions({ ...initialOptions, eachPageLimit });
+
+    // eslint-disable-next-line
+  }, [ref.current]);
+
+  const onWindowResize = (e) => {
+    const eachPageLimit = calculatePagesNumber(ref, units);
+    if (options?.eachPageLimit !== eachPageLimit && !isNaN(eachPageLimit))
+      setOptions({ ...initialOptions, eachPageLimit });
+  };
+
+  useEventListener('resize', onWindowResize);
+  return options;
+}
+  ;

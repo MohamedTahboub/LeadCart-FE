@@ -54,6 +54,7 @@ const VideoSection = ({
         onChange={onChange}
       />
     </div>
+    // eslint-disable-next-line
   ), [videoLink, sectionStyle.backgroundImage, sectionStyle.backgroundColor]);
 };
 VideoSection.propTypes = {};

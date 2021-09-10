@@ -55,7 +55,7 @@ class TextAreaInput extends Component {
 
   render () {
     const { name, disabled, countable = true, error: passedError, className, placeholder, wordName = 'words', onBlur } = this.props;
-    const { value, error = passedError, wordsNumber, max } = this.state;
+    const { value, error = passedError, wordsNumber } = this.state;
     return (
       <div className='text-area-container'>
         <textarea

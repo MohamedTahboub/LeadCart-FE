@@ -37,7 +37,7 @@ export const DetailRow = ({ className = '', label, value }) => (
 const getClearText = (text) => {
   if (typeof text !== 'string') return '';
 
-  return text.replace(/\_|\-| /ig, ' ');
+  return text.replace(/_|-| /ig, ' ');
 };
 
 export const OrderStatusBadge = ({ status }) => {

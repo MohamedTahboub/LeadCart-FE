@@ -238,8 +238,7 @@ const ProductBuilder = ({
     const {
       isValid,
       value: product,
-      errList,
-      errors
+      errList
     } = await ProductSchema(productData);
     if (!isValid) {
       const [firstErrorMessage = 'Can\'t save, validation Error'] = Array.isArray(errList) ? errList : [];
@@ -282,6 +281,7 @@ const ProductBuilder = ({
       onSaveProduct();
       setSecondsToSaveTemplate(WARNING_INTERVAL);
     }
+    // eslint-disable-next-line
   }, [secondsToSaveTemplate]);
 
 

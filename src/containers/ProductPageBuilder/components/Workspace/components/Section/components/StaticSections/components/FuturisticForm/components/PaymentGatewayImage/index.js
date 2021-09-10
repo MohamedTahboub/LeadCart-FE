@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import creditsImage from 'assets/images/payment-cards.png';
 import paypalImage from 'assets/images/paypal-thumbnail.png';
 import cashOnDeliveryImage from 'assets/images/cod_icon.png';

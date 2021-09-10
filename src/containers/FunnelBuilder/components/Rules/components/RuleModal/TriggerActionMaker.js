@@ -159,12 +159,11 @@ const TriggerActionMaker = ({
   const isWebhookAction = group?.action?.type === 'WEBHOOKS';
 
   const selectedIntegration = integrationsLabels.find(({ value }) => {
-    if (isWebhookAction) {
-      if (value === 'WEBHOOKS')
-        return true;
-    } else {
+    if (isWebhookAction)
+      return value === 'WEBHOOKS';
+    else
       return group?.action?.integrationKey === value;
-    }
+
   });
 
   const selectedActionOption = actionsOptions.find(({ value }) => group.action && group.action.type === value);

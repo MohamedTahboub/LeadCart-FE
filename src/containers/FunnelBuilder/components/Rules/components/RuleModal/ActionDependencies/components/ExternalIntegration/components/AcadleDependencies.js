@@ -45,6 +45,7 @@ const AcadleIntegration = ({ metaData = {}, integrationId, onChange, ...props })
 
   useEffect(() => {
     getTheDependencies();
+    // eslint-disable-next-line
   }, []);
 
   const _onChange = ({ target: { value, name } }) => {
@@ -85,10 +86,12 @@ const AcadleIntegration = ({ metaData = {}, integrationId, onChange, ...props })
   return (
     <FlexBox column flex>
       <FlexBox flex className='my-3' center='v-center'>
-        <Label className='gray-text'>Groups</Label>
+        <Label className='gray-text'>
+          Groups
+        </Label>
         <Select
           className='select-coupons'
-          options={fields?.options}
+          options={fields?.options || []}
           name='groups'
           onChange={onSelectGroups}
           value={selectedGroups}

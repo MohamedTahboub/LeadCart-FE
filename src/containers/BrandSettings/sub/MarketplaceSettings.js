@@ -9,11 +9,10 @@ import { contactLinksSchema, marketPlaceSettingSchema } from 'libs/validation';
 import common from 'components/common';
 import { DomainsSettings } from './components';
 import * as settingsActions from 'actions/settings';
-import { isObjectsEquivalent, notification } from 'libs';
+import { notification } from 'libs';
 import { getMarketPlaceUrl } from 'helpers/common';
 import { BackendProvider, DragDropItem } from 'components/Draggable';
 import { isFunction } from 'libs/checks';
-import { useRef } from 'react';
 
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
@@ -115,6 +114,7 @@ const MarketplaceSettings = ({
 
   useEffect(() => {
     setFields({ ...marketPlace, showPoweredBy, contactLinks });
+    // eslint-disable-next-line
   }, [marketPlace, showPoweredBy]);
 
 

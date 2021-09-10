@@ -5,12 +5,12 @@ import './style.css';
 import clx from 'classnames';
 
 
-const { FlexBox, InputRow } = common;
+const { InputRow } = common;
 const { Radio } = InputRow;
 const { Group } = Radio;
 
 
-const RadioGroup = ({ options, onChange, name, optionClassName, value, className, active, ...props }) => {
+const RadioGroup = ({ options, onChange, optionClassName, value, className }) => {
   const classes = clx('input-radio', className);
 
   const _onChange = ({ target: { value } }) => {
