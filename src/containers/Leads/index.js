@@ -7,6 +7,7 @@ import common from 'components/common';
 import moment from 'moment';
 import LeadsTable from './sub/Leads';
 import './style.css';
+import { BsArchive } from 'react-icons/bs';
 
 
 const {
@@ -22,8 +23,11 @@ const {
 const filterLeads = ({ value }) => ({ funnel }) => value ? funnel === value : true;
 const Leads = ({ leads = [], funnelsOptions = [] }) => {
   const [downloading, setDownloading] = useState(false);
+  const [showArchived, setShowArchived] = useState(false);
 
   const [searchOption, setSearch] = useState([]);
+
+  const onToggleArchive = () => setShowArchived((a) => !a);
 
   const onSearch = (option) => {
     setSearch(option);
@@ -74,14 +78,27 @@ const Leads = ({ leads = [], funnelsOptions = [] }) => {
             placeholder='Filter By Funnel'
           />
         </FlexBox>
-        <Button
-          onprogress={downloading}
-          disabled={downloading}
-          onClick={onDownloadReport}
-          className='primary-color'
-        >
-          Export csv
-        </Button>
+        <FlexBox>
+          <Button
+            onClick={onToggleArchive}
+            className='light-btn mr-2'
+          >
+            <FlexBox center='v-center'>
+              <BsArchive color='currentColor' className='mr-1' />
+              <span>
+                Archived Leads
+              </span>
+            </FlexBox>
+          </Button>
+          <Button
+            onprogress={downloading}
+            disabled={downloading}
+            onClick={onDownloadReport}
+            className='primary-color'
+          >
+            Export csv
+          </Button>
+        </FlexBox>
       </PageHeader>
       <PageContent>
         <SubTabs
