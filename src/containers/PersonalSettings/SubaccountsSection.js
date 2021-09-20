@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Table, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { SearchInput } from 'components/common/Inputs';
+import { InputGroup, SearchInput } from 'components/common/Inputs';
 import common from 'components/common';
 import moment from 'moment';
 import { Modal } from 'components/Modals';
@@ -23,7 +23,6 @@ const {
   PageHeader,
   PageContent,
   MainTitle,
-  InputRow,
   Button
 } = common;
 
@@ -204,66 +203,57 @@ const SubAccountsSection = ({
           >
             <form className='sub-account-form' onSubmit={onCreateSubAccount}>
               <MainTitle className='margin-b-40'>Create Sub-Accounts</MainTitle>
-              <InputRow>
-                <InputRow.Label>
-                  First Name:
-                </InputRow.Label>
-                <InputRow.TextField
-                  name='firstName'
-                  onChange={handleSubAccountFormChange}
-                  value={newSubAccountForm.firstName}
-                  className='margin-left-30 reset-font-size'
-                />
-              </InputRow>
-              <InputRow>
-                <InputRow.Label>
-                  Last Name:
-                </InputRow.Label>
-                <InputRow.TextField
-                  name='lastName'
-                  onChange={handleSubAccountFormChange}
-                  value={newSubAccountForm.lastName}
-                  className='margin-left-30 reset-font-size'
-                />
-              </InputRow>
-              <InputRow>
-                <InputRow.Label>
-                  Brand Name:
-                </InputRow.Label>
-                <InputRow.TextField
-                  name='brandName'
-                  onChange={handleSubAccountFormChange}
-                  value={newSubAccountForm.brandName}
-                  className='margin-left-30 reset-font-size'
-                />
-              </InputRow>
-              <InputRow>
-                <InputRow.Label>
-                  Brand SubDomain:
-                </InputRow.Label>
-                <InputRow.TextField
-                  name='subDomain'
-                  onChange={handleSubAccountFormChange}
-                  value={newSubAccountForm.subDomain}
-                  className='margin-left-30 reset-font-size'
-                />
-              </InputRow>
-              <InputRow>
-                <InputRow.Label>
-                  Email Address:
-                </InputRow.Label>
-                <InputRow.TextField
+              <FlexBox column>
+                <FlexBox>
+                  <InputGroup
+                    name='firstName'
+                    label='First Name:'
+                    autoComplete='off'
+                    onChange={handleSubAccountFormChange}
+                    value={newSubAccountForm.firstName}
+                    className='mr-2'
+                  />
+                  <InputGroup
+                    name='lastName'
+                    label='Last Name:'
+                    autoComplete='off'
+                    onChange={handleSubAccountFormChange}
+                    value={newSubAccountForm.lastName}
+                  />
+                </FlexBox>
+                <InputGroup
                   name='email'
+                  label='Email:'
+                  autoComplete='off'
                   onChange={handleSubAccountFormChange}
                   value={newSubAccountForm.email}
-                  className='margin-left-30 reset-font-size'
                 />
-              </InputRow>
-
-              <FlexBox flexEnd>
-                <Button type='submit' className='primary-color'>
+                <FlexBox>
+                  <InputGroup
+                    name='brandName'
+                    label='Brand Name:'
+                    autoComplete='off'
+                    onChange={handleSubAccountFormChange}
+                    value={newSubAccountForm.brandName}
+                    className='mr-2'
+                  />
+                  <InputGroup
+                    name='subDomain'
+                    label='Brand Subdomain:'
+                    autoComplete='off'
+                    placeholder='e.g. companyname'
+                    onChange={handleSubAccountFormChange}
+                    value={newSubAccountForm.subDomain}
+                    suffix={<dive className='main-domain-suffix' style={{ height: 'unset' }}>.leadcart.io</dive>}
+                  />
+                </FlexBox>
+              </FlexBox>
+              <FlexBox flexEnd className='mt-4'>
+                <Button type='submit' className='primary-color' style={{ padding: '6px 22px' }}>
                   <i className='fas fa-plus' />
-                  Invite
+                  <span style={{ fontSize: 14, fontWeight: 500 }}>
+                    Invite
+                  </span>
                 </Button>
               </FlexBox>
             </form>
