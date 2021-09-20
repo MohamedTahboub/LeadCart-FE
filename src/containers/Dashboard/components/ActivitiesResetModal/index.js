@@ -77,6 +77,8 @@ const ActivitiesResetModal = ({
     const fromDate = isFunction(from.format) && from.format();
     const toDate = isFunction(to.format) && to.format();
 
+    if (!(toDate && fromDate)) return;
+
     setValues({
       ...values,
       fromDate,
@@ -138,7 +140,7 @@ const ActivitiesResetModal = ({
                 name='fromDate'
                 type='picker'
                 disabledDate={(date) => date > (Date.now() - (24 * 60 * 60 * 1000))}
-                defaultValue={[values.fromDate, values.toDate]}
+                defaultValue={[moment().subtract(1, 'M'), moment()]}
                 onChange={onDateChange}
               />
             </FlexBox>
@@ -149,28 +151,28 @@ const ActivitiesResetModal = ({
                   onClick={onToggleActivityType('views')}
                   checked={isActivityTypePresent('views')}
                 >
-                Views
+                  Views
                 </Checkbox>
                 <Checkbox
                   className='ml-2'
                   onClick={onToggleActivityType('prospects')}
                   checked={isActivityTypePresent('prospects')}
                 >
-               Prospects
+                  Prospects
                 </Checkbox>
                 <Checkbox
                   className='ml-2'
                   onClick={onToggleActivityType('sales')}
                   checked={isActivityTypePresent('sales')}
                 >
-                Sales
+                  Sales
                 </Checkbox>
                 <Checkbox
                   className='ml-2'
                   onClick={onToggleActivityType('refunds')}
                   checked={isActivityTypePresent('refunds')}
                 >
-                Refunds
+                  Refunds
                 </Checkbox>
               </FlexBox>
             </FlexBox>
@@ -178,7 +180,7 @@ const ActivitiesResetModal = ({
         )}
       </FlexBox>
       <FlexBox spaceBetween className='mt-5'>
-        <Button className='light-btn'>Cancel</Button>
+        <Button className='light-btn' onClick={onClose}>Cancel</Button>
         <Button
           className='light-btn reset-confirm-btn'
           onClick={onReset}
