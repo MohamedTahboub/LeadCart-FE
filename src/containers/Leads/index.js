@@ -7,7 +7,11 @@ import common from 'components/common';
 import moment from 'moment';
 import LeadsTable from './sub/Leads';
 import './style.css';
-
+import clx from 'classnames';
+import { BiArchiveIn, BiArchiveOut } from 'react-icons/bi';
+import Dialog from 'components/common/Dialog';
+import { HiOutlineArchive } from 'react-icons/hi';
+import * as leadActions from 'actions/leads';
 
 const {
   MainTitle,
@@ -16,19 +20,29 @@ const {
   PageContent,
   SubTabs,
   Button,
-  FlexBox
+  FlexBox,
+  Tooltip
 } = common;
 
 const filterLeads = ({ value }) => ({ funnel }) => value ? funnel === value : true;
-const Leads = ({ leads = [], funnelsOptions = [] }) => {
+
+const Leads = ({ leads = [], funnelsOptions = [], archiveLeads, unarchiveLeads }) => {
+
   const [downloading, setDownloading] = useState(false);
+  const [showArchived, setShowArchived] = useState(false);
+  const [showArchiveModal, setShowArchiveModal] = useState(false);
 
   const [searchOption, setSearch] = useState([]);
+
+  const onToggleArchive = () => setShowArchived((a) => !a);
 
   const onSearch = (option) => {
     setSearch(option);
   };
-  const leadsList = leads.filter(filterLeads(searchOption)).sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+
+  const leadsList = leads
+    .filter((lead) => showArchived ? lead.archived : !lead.archived)
+    .filter(filterLeads(searchOption)).sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
 
   const onExportToCSV = () => {
     const title = 'Full Name,Email Address, Capture Times, Capture Date';
@@ -58,12 +72,51 @@ const Leads = ({ leads = [], funnelsOptions = [] }) => {
     }, 1200);
   };
 
+  const onArchiveLead = (leadId) => {
+    archiveLeads({ ids: [leadId], all: false }, {
+      onSuccess: () => {
+        setShowArchiveModal();
+        notification.success('Lead has been successfully archived');
+      },
+      onFailed: (error) => {
+        notification.failed(error);
+      }
+    });
+  };
+  const onUnArchivedLead = (lead = {}) => {
+    const { _id: leadId } = lead;
+    unarchiveLeads({ ids: [leadId], all: false }, {
+      onSuccess: () => {
+        notification.success('Lead has been restored successfully');
+      },
+      onFailed: (error) => {
+        notification.failed(error);
+      }
+    });
+  };
+
+  const onShowArchivingModal = (lead = {}) => {
+    const { _id: leadId } = lead;
+    setShowArchiveModal(leadId);
+  };
+
 
   return (
     <Page className='products-details-page'>
       <PageHeader className='custom-leads-page-header'>
         <FlexBox center='v-centers'>
-          <MainTitle className='m-0 mr-3'>Leads</MainTitle>
+          <MainTitle className='m-0 mr-3'>
+            <span>
+              Leads
+            </span>
+            {showArchived && (
+              <Tooltip text={'Archived leads list'} placement='bottom'>
+                <span>
+                (Archived)
+                </span>
+              </Tooltip>
+            )}
+          </MainTitle>
           <Select
             className='leads-search-select'
             options={funnelsOptions}
@@ -74,21 +127,59 @@ const Leads = ({ leads = [], funnelsOptions = [] }) => {
             placeholder='Filter By Funnel'
           />
         </FlexBox>
-        <Button
-          onprogress={downloading}
-          disabled={downloading}
-          onClick={onDownloadReport}
-          className='primary-color'
-        >
-          Export csv
-        </Button>
+        <FlexBox>
+          <Button
+            onClick={onToggleArchive}
+            className={clx('light-btn mr-2', { archived: showArchived })}
+          >
+            <FlexBox center='v-center'>
+              {showArchived ? (
+                <BiArchiveOut color='currentColor' className='mr-1' size={18} />
+              ) : (
+                <BiArchiveIn color='currentColor' className='mr-1' size={18} />
+              )}
+              <span>
+                Archived Leads
+              </span>
+            </FlexBox>
+          </Button>
+          <Button
+            onprogress={downloading}
+            disabled={downloading}
+            onClick={onDownloadReport}
+            className='primary-color'
+          >
+            Export csv
+          </Button>
+        </FlexBox>
       </PageHeader>
       <PageContent>
         <SubTabs
-          defaultTab='Leads'
-          tabs={{ Leads: <LeadsTable list={leadsList} /> }}
+          defaultTab={`${showArchived ? 'Archived Leads' : 'Leads'}`}
+          tabs={{
+            Leads: (
+              <LeadsTable
+                list={leadsList}
+                onShowArchivingModal={onShowArchivingModal}
+                onUnArchivedLead={onUnArchivedLead}
+                isArchived={showArchived}
+              />
+            )
+          }}
         />
       </PageContent>
+      {showArchiveModal && (
+        <Dialog
+          title='Lead Archiving'
+          description='Are you sure, you want archive this lead?'
+          show={showArchiveModal}
+          confirmBtnIcon={<HiOutlineArchive color='currentColor' size={16} className='mr-2'/>}
+          onClose={() => setShowArchiveModal('')}
+          confirmBtnText='Archive'
+          onConfirm={() => onArchiveLead(showArchiveModal)}
+          className='delete-modal-width'
+        />
+      )}
     </Page>
   );
 };
@@ -103,4 +194,4 @@ const mapStateToProps = ({ leads = [], funnels = [] }) => {
 };
 Leads.propTypes = { leads: PropTypes.array };
 Leads.defaultProps = { leads: [] };
-export default connect(mapStateToProps)(Leads);
+export default connect(mapStateToProps, leadActions)(Leads);

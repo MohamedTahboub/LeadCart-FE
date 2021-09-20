@@ -105,6 +105,16 @@ const SettingsModal = ({
       </div>
       <div className='charts-settings-content'>
         <div className='options-container'>
+          <InputRow className='main-charts-settings-container mb-2'>
+            <div className='section-title mr-3'>Main Chart</div>
+            <InputRow.Toggle
+              value={displayMainChart}
+              onToggle={onToggleDisplayMainCharts}
+              beforeLabel='Show'
+              afterLabel='Hide'
+
+            />
+          </InputRow>
           <div className='section-title'>Sales Stats</div>
           <div className='options-columns'>
             <div className='options-column displayed-options'>
@@ -127,7 +137,7 @@ const SettingsModal = ({
             </div>
           </div>
           <div className='section-title'>Refunds Stats</div>
-          <div className='options-columns'>
+          <div className='options-columns mb-5'>
             <div className='options-column displayed-options'>
               {options.refunds.filter(({ show }) => show).map((option, id) => (
                 <OptionItem
@@ -148,16 +158,6 @@ const SettingsModal = ({
             </div>
           </div>
         </div>
-        <InputRow className='main-charts-settings-container'>
-          <div className='section-title mr-3'>Main Chart</div>
-          <InputRow.Toggle
-            value={displayMainChart}
-            onToggle={onToggleDisplayMainCharts}
-            beforeLabel='Show'
-            afterLabel='Hide'
-
-          />
-        </InputRow>
       </div>
       <div className='charts-settings-footer'>
         <div>
