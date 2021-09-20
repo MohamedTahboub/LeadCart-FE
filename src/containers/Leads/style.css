@@ -2,7 +2,17 @@
     width: 200px;
     max-width: 250px;
 }
-.custom-leads-page-header{
+
+.custom-leads-page-header {
     height: 55px;
     z-index: 1010;
+}
+
+.btn.archived {
+    background-color: #808292 !important;
+    color: #fff !important;
+}
+
+.delete-modal-width{
+    min-width: 450px;
 }

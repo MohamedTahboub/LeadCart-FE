@@ -33,6 +33,7 @@ import taxes from './taxes';
 import destinationZones from './destinationZones';
 import shippingRules from './shippingRules';
 import productsFonts from './productsFonts';
+import leads from './leads';
 
 
 export default [
@@ -57,6 +58,7 @@ export default [
   updateUserImage,
   ...emails,
   ...customers,
+  ...leads,
   teamMembers,
   agencyCodeActivation,
   ...subAccounts,
