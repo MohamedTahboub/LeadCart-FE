@@ -29,9 +29,9 @@ export class InputRow extends Component {
   static Toggle = Toggle
 
 
-  static Label = ({ notes, error, className = '', noteClassName, ...props }) => (
-    <div className={clx('input-label-container', className)} >
-      <span className='input-label '>{props.children}</span>
+  static Label = ({ notes, error, className = '', noteClassName, capitalize = true, limitWidth = true, ...props }) => (
+    <div className={clx('input-label-container', className, { limitWidth })} >
+      <span className={clx('input-label', { capitalize })}>{props.children}</span>
       {error && (
         <span className='label-validation-error'>
           *
@@ -121,7 +121,7 @@ export class InputRow extends Component {
       <span className='suffix-value'>
         https://
         {subdomain}
-          .leadcart.io/
+        .leadcart.io/
       </span>
       <input
         onChange={onChange}
@@ -222,7 +222,7 @@ export class InputRow extends Component {
       className={`check-box-container ${className}`}
     >
       {description
-          && <span className='check-box-description'>{description}</span>}
+        && <span className='check-box-description'>{description}</span>}
       <input
 
         name={name || 'checkbox'}

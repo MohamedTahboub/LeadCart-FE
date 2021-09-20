@@ -16,6 +16,9 @@
 
 .input-label-container {
     position: relative;
+}
+
+.input-label-container.limitWidth {
     width: 180px;
 }
 
@@ -24,6 +27,9 @@
     font-size: 13px;
     user-select: none;
     font-weight: bold;
+}
+
+.input-label.capitalize {
     text-transform: capitalize;
 }
 

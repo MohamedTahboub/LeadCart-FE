@@ -1,9 +1,9 @@
-.dashboard-page{
+.dashboard-page {
     display: flex;
     flex-direction: column;
 }
 
-.dashboard-head{
+.dashboard-head {
     display: flex;
     flex-direction: column;
     /* margin-bottom: 20px; */
@@ -16,6 +16,7 @@
     font-size: 34px;
     color: #2B3748;
 }
+
 .sub-title {
     line-height: 20px;
     font-size: 15px;
@@ -38,21 +39,20 @@
 
 .dashboard-content {
     display: flex;
-    flex:1;
+    flex: 1;
     flex-direction: column;
 }
 
-
-.dashboar-content-holder{
-    display: flex;
-}
-.ashboard-content{
+.dashboar-content-holder {
     display: flex;
 }
 
-
+.ashboard-content {
+    display: flex;
+}
 
 /* Chart Section styles starts*/
+
 .section-box {
     background: #FFFFFF;
     /* margin: 0px 10px 15px 15px; */
@@ -60,8 +60,8 @@
     border-radius: 3px;
 }
 
-.chart-preview{
-    padding: 15px 15px 15px 25px; 
+.chart-preview {
+    padding: 15px 15px 15px 25px;
     /* height: 650px; */
     flex: 1;
     /* width: 100%; */
@@ -69,76 +69,88 @@
     display: flex;
     flex-direction: column;
 }
-.chart-head{
+
+.chart-head {
     position: relative;
     display: flex;
     /* justify-content: space-between; */
     flex-wrap: wrap;
 }
-.chart-select-filter{
-    margin-left: 20px; 
+
+.chart-select-filter {
+    margin-left: 20px;
 }
-.product-categories{
+
+.product-categories {
     width: 120px;
 }
-div.ant-select.chart-select-filter:first-child{
-    margin-left: 0px ;  
+
+div.ant-select.chart-select-filter:first-child {
+    margin-left: 0px;
 }
-.chart-head .chart-setting-btn{
-    position: absolute;
-    right:20px;
-    top:10px;
-    color: lightgray;
+
+.dash-icon-btn {
+    font-size: 18px;
+    color: rgba(128, 128, 128, 0.719);
     cursor: pointer;
     transition: color .3s ease-in-out;
 }
-.chart-head .chart-setting-btn:hover{
-    color: #0080fa;
+
+.dash-icon-btn+.dash-icon-btn {
+    margin-left: 15px;
+    margin-right: 0px;
+}
+.dash-icon-btn:hover {
+    color: #0080fa !important;
 }
 
-.chart-head-child{
-    flex:1;
+.chart-head-child {
+    flex: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.chart-title{
+
+.chart-title {
     color: #2b3748d6;
     font-size: 17px;
     font-weight: bold;
     text-transform: capitalize;
 }
 
-.chart-preview-options{
+.chart-preview-options {
     border: 1px solid #C9D3DC;
     border-radius: 3px;
-    display: flex;    
-
+    display: flex;
     /* padding: 10px;  */
 }
-.chart-option{
+
+.chart-option {
     text-transform: capitalize;
     font-size: small;
-    color:#2b3748d6;
+    color: #2b3748d6;
     padding: 10px 20px;
     display: inline-block;
-    transition:all 350ms ease-in-out;
+    transition: all 350ms ease-in-out;
     cursor: pointer;
 }
-.chart-option:hover{
+
+.chart-option:hover {
     box-shadow: 0px 0px 10px 0px #0000002b;
 }
-.chart-option:hover{
+
+.chart-option:hover {
     font-weight: bold;
     color: #4DA1FF;
-    
 }
-.chart-total-profite{
+
+.chart-total-profite {
     min-width: 120px;
     display: flex;
     align-items: center;
 }
-.chart-profit-value{
+
+.chart-profit-value {
     margin-left: 40px;
     min-width: 100px;
     font-size: large;
@@ -146,54 +158,53 @@ div.ant-select.chart-select-filter:first-child{
     color: #2b3748d6;
 }
 
-.stock-up,.stock-down{
+.stock-up, .stock-down {
     position: relative;
     font-size: x-small;
     margin-left: 20px;
 }
-.stock-up{
-    color:#30bb1eed !important;
+
+.stock-up {
+    color: #30bb1eed !important;
 }
-.stock-down{
-    color:tomato !important;
+
+.stock-down {
+    color: tomato !important;
 }
-.stock-up:before,.stock-down:before{
+
+.stock-up:before, .stock-down:before {
     position: absolute;
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
     left: -7px;
     top: -5px;
-    color:inherit;
+    color: inherit;
 }
-.stock-up:before{
+
+.stock-up:before {
     content: "\f0d8";
 }
-.stock-down:before{
+
+.stock-down:before {
     content: "\f0d7";
 }
+
 /* Chart Section styles ends*/
 
-
-
-
-
-.dashboard-temp-data-message{
-    color:gray;
+.dashboard-temp-data-message {
+    color: gray;
     font-size: 12px;
     padding: 10px 30px;
     margin: 10px auto;
     background: white;
     text-align: center;
     border-radius: 3px;
-    box-shadow: 2px 2px 4px -2px rgba(0,0,0,.2);
+    box-shadow: 2px 2px 4px -2px rgba(0, 0, 0, .2);
 }
 
-
-
-
-.chart-header-cards{
+.chart-header-cards {
     /* width: 100%; */
-    margin:20px 0;
+    margin: 20px 0;
     display: flex;
     align-content: space-around;
     justify-content: space-between;
