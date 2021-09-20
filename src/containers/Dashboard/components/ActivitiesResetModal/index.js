@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Modal } from 'components/Modals';
-import * as Schemas from 'libs/validation';
 import * as dashboardActions from '../../../../actions/dashboard';
 import common from '../../../../components/common';
 import { notification } from 'libs';
 import './style.css';
 import { FlexBox } from 'components/common/boxes';
-import Toggle from 'components/common/Inputs/Toggle';
 import { isFunction } from 'libs/checks';
 import moment from 'moment';
-import CheckBox from 'components/common/Checkbox';
-// import Select from 'react-select';
+import { appInit } from 'actions/appInit';
 const { Button, InputRow } = common;
 
 const { DatePicker, SelectOption, Checkbox } = InputRow;
@@ -23,6 +20,7 @@ const Label = (props) => <InputRow.Label {...props} limitWidth={false} capitaliz
 const ActivitiesResetModal = ({
   show,
   resetDashboardActivities,
+  appInit,
   onClose
 }) => {
 
@@ -32,10 +30,13 @@ const ActivitiesResetModal = ({
     fromDate: moment().subtract(1, 'M'),
     toDate: moment()
   });
+  const [loading, setLoading] = useState(false);
 
   const isResetAll = values.resetType === 'all';
 
-
+  const updateLaunchDetails = () => {
+    appInit({});
+  };
   const onReset = async () => {
     const { fromDate, toDate, activitiesToReset } = values || {};
 
@@ -49,15 +50,18 @@ const ActivitiesResetModal = ({
         toDate
       };
     }
-    console.log({ payload });
+    setLoading(true);
     resetDashboardActivities(
       payload,
       {
         onSuccess: (arg) => {
           notification.success('Activities has been reset');
+          setLoading(false);
+          updateLaunchDetails();
           onClose();
         },
         onFailed: (message) => {
+          setLoading(false);
           notification.failed(message);
         }
       }
@@ -175,7 +179,11 @@ const ActivitiesResetModal = ({
       </FlexBox>
       <FlexBox spaceBetween className='mt-5'>
         <Button className='light-btn'>Cancel</Button>
-        <Button className='light-btn reset-confirm-btn' onClick={onReset}>Confirm & Reset Activities</Button>
+        <Button
+          className='light-btn reset-confirm-btn'
+          onClick={onReset}
+          onprogress={loading}
+        >Confirm & Reset Activities</Button>
       </FlexBox>
     </Modal>
   );
@@ -187,4 +195,4 @@ ActivitiesResetModal.propTypes = {
 ActivitiesResetModal.defaultProps = { show: false };
 
 const mapStateToProps = ({ user: { user } }) => ({ user });
-export default connect(mapStateToProps, dashboardActions)(ActivitiesResetModal);
+export default connect(mapStateToProps, { appInit, ...dashboardActions })(ActivitiesResetModal);
