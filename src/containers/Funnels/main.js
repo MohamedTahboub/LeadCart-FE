@@ -9,14 +9,11 @@ import { Modal } from 'components/Modals';
 import common from 'components/common';
 import { FunnelCard, FunnelsShadowLoading, PreCreateModal } from './components';
 import { getMarketPlaceUrl } from 'helpers/common';
-import { GrCart } from 'react-icons/gr';
-import { SiMinutemailer } from 'react-icons/si';
 
 import './style.css';
 import { FlexBox } from 'components/common/boxes';
 import TextField from 'components/common/Inputs/TextField';
 import useSearch from 'libs/hooks/useSearch';
-import { Title } from 'components/common/Titles';
 import { FiShoppingCart } from 'react-icons/fi';
 import { BiMailSend } from 'react-icons/bi';
 
@@ -180,7 +177,7 @@ const Funnels = ({
     />
   );
   const hasFunnels = funnels.length > 0;
-  const { checkoutFunnels, optInFunnels } = splitFunnelsBasedOnTypes(funnels);
+  const { checkoutFunnels, optInFunnels } = splitFunnelsBasedOnTypes(results);
 
   return (
     <Page>

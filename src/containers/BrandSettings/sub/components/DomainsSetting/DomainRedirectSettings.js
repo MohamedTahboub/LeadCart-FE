@@ -1,29 +1,19 @@
-import React, { Fragment, useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
 import common from 'components/common';
 
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
 import { FlexBox } from 'components/common/boxes';
-import * as immutable from 'object-path-immutable';
 import { mapListToObject } from 'libs';
 import Select from 'react-select';
-const {
-  InputRow,
-  // MainBlock,
-  Button
-  // MiniButton
-} = common;
+const { InputRow } = common;
 const getOptionValue = (list = [], matchedValue) => list.find(({ value }) => matchedValue === value);
 
 
 const DomainRedirectSettings = ({ funnelsOptions, marketPlace, onChange }) => {
   const { enabled, destinationType, destinationLink, destinationFunnelId } = marketPlace?.redirects || {};
 
-  console.log({ marketPlace });
-  // const onChange = ({ target: { name, value } }) => {
-  //   onChange(name, value);
-  // };
+
   const isExternalDestination = destinationType === 'link';
 
   return (
