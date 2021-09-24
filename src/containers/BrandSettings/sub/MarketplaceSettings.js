@@ -13,7 +13,7 @@ import { notification } from 'libs';
 import { getMarketPlaceUrl } from 'helpers/common';
 import { BackendProvider, DragDropItem } from 'components/Draggable';
 import { isFunction } from 'libs/checks';
-
+import * as immutable from 'object-path-immutable';
 
 const defaultCoverImage = 'https://assets.leadcart.io/static/media/marketPlace-bg.7356ad99.png';
 const { InputRow, MainBlock, FlexBox, Button, ErrorMessage, DisplayContent } = common;
@@ -118,16 +118,12 @@ const MarketplaceSettings = ({
   }, [marketPlace, showPoweredBy]);
 
 
-  const updateFields = (_name, _value) => {
-    let name = _name, value = _value;
-    if (name.includes('.')) {
-      const [key, nestedKey] = name.split('.');
-      const nestedValue = { [nestedKey]: value };
-      name = key;
-      value = { ...fields[key], ...nestedValue };
-    }
-    setFields({ ...fields, [name]: value });
+  const updateFields = (name, value) => {
+    const newFields = immutable.set(fields, name, value);
+    console.log({ name, value, newFields });
+    setFields(newFields);
   };
+
 
   const onChange = ({ target: { name, value } }) => {
     updateFields(name, value);
@@ -312,7 +308,7 @@ const MarketplaceSettings = ({
           </FlexBox>
         </FlexBox>
       </MainBlock>
-      <DomainsSettings />
+      <DomainsSettings marketPlace={fields} onChange={onChange}/>
     </FlexBox>
   );
 };
