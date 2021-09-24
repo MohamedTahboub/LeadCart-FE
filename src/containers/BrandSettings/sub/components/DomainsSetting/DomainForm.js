@@ -4,6 +4,7 @@ import common from 'components/common';
 
 import { connect } from 'react-redux';
 import * as settingsActions from 'actions/settings';
+import { FlexBox } from 'components/common/boxes';
 
 const {
   InputRow,
@@ -45,39 +46,39 @@ const DomainForm = ({ domains, connectMarketPlaceDomain }) => {
 
   return (
     <Fragment>
-      <strong className='title '>
-                Connect Your Custom domain
-      </strong>
-      <InputRow margin='20'>
-        <InputRow.Label
-          notes='Enter the domain you want to connect, without the http or https.'
-        >
-                    Custom Domain Name:
-        </InputRow.Label>
-        <InputRow.TextField
-          name='customDomain'
-          onChange={onChange}
-          placeholder='e.g. example.com'
-          error={error}
-          value={value}
-          disabled={haveDomains}
-        />
-        <Button
-          disabled={loading || haveDomains}
-          onprogress={loading}
-          onClick={onConnect}
-          className='margin-left-30 primary-color'
-        >
-                    Connect
-        </Button>
-      </InputRow>
-      {error && (
-        <div className='flex-container flex-start'>
-          <div className='note error-note'>
-            {error}
+      <strong className='title '>Connect Your Custom domain</strong>
+      <FlexBox className='pl-3' column>
+        <InputRow margin='20'>
+          <InputRow.Label
+            notes='Enter the domain you want to connect, without the http or https.'
+          >
+            Custom Domain Name:
+          </InputRow.Label>
+          <InputRow.TextField
+            name='customDomain'
+            onChange={onChange}
+            placeholder='e.g. example.com'
+            error={error}
+            value={value}
+            disabled={haveDomains}
+          />
+          <Button
+            disabled={loading || haveDomains}
+            onprogress={loading}
+            onClick={onConnect}
+            className='margin-left-30 primary-color'
+          >
+            Connect
+          </Button>
+        </InputRow>
+        {error && (
+          <div className='flex-container flex-start'>
+            <div className='note error-note'>
+              {error}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </FlexBox>
     </Fragment>
   );
 };
