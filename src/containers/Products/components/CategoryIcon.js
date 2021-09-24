@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactTooltip from 'rc-tooltip';
 
-import { SiMinutemailer } from 'react-icons/si';
 import { GrAnnounce, GrCart, GrLineChart } from 'react-icons/gr';
+import { BiMailSend } from 'react-icons/bi';
 
 const Icon = ({ Icon, tooltipTitle }) => (
   <ReactTooltip overlay={tooltipTitle} placement='top' mouseEnterDelay={0.3}>
@@ -27,7 +27,7 @@ const CategoryIcon = ({ category }) => {
       {isCheckoutProduct && <Icon Icon={GrCart} tooltipTitle='Checkout Product'/>}
       {isUpsellProduct && <Icon Icon={GrLineChart} tooltipTitle='Upsell Product'/>}
       {isThankyouPage && <Icon Icon={GrAnnounce} tooltipTitle='Thank you Page'/>}
-      {isOptInProduct && <Icon Icon={SiMinutemailer} tooltipTitle='Opt-in Page'/>}
+      {isOptInProduct && <Icon Icon={BiMailSend} tooltipTitle='Opt-in Page'/>}
     </span>
   );
 };
