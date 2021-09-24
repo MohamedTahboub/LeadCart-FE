@@ -10,11 +10,12 @@ import common from 'components/common';
 import { FunnelCard, FunnelsShadowLoading, PreCreateModal } from './components';
 import { getMarketPlaceUrl } from 'helpers/common';
 
-
 import './style.css';
 import { FlexBox } from 'components/common/boxes';
 import TextField from 'components/common/Inputs/TextField';
 import useSearch from 'libs/hooks/useSearch';
+import { FiShoppingCart } from 'react-icons/fi';
+import { BiMailSend } from 'react-icons/bi';
 
 const {
   Page,
@@ -29,6 +30,23 @@ const searchTargets = [
   'url'
 ];
 
+const splitFunnelsBasedOnTypes = (funnels) => {
+
+  return funnels.reduce((groups, funnel) => {
+    const isCheckoutFunnel = funnel.type === 'CHECKOUT';
+    if (isCheckoutFunnel) {
+      return {
+        ...groups,
+        checkoutFunnels: [...(groups.checkoutFunnels || []), funnel]
+      };
+    }
+
+    return {
+      ...groups,
+      optInFunnels: [...(groups.optInFunnels || []), funnel]
+    };
+  }, {});
+};
 const Funnels = ({
   funnels,
   isFetching,
@@ -146,7 +164,21 @@ const Funnels = ({
     );
   };
 
+  const renderFunnelCard = (funnel, id) => (
+    <FunnelCard
+      {...funnel}
+      key={`${funnel._id}#${id}`}
+      orderInList={searchKey ? undefined : id}
+      onDelete={onShowDeleteDialogue(funnel._id)}
+      onEdit={onFunnelEdit(funnel.url)}
+      onPreview={onPreview(funnel.url)}
+      onDuplicate={onDuplicate(funnel)}
+      loading={loading}
+    />
+  );
   const hasFunnels = funnels.length > 0;
+  const { checkoutFunnels, optInFunnels } = splitFunnelsBasedOnTypes(results);
+
   return (
     <Page>
       <PageHeader>
@@ -154,7 +186,7 @@ const Funnels = ({
           <MainTitle>
             <FlexBox center='c-center v-center'>
               <span style={{ fontWeight: 500 }}>
-                  Funnels
+                Funnels
               </span>
               <TextField
                 className='ml-3'
@@ -172,23 +204,34 @@ const Funnels = ({
         </Button>
       </PageHeader>
 
-      <PageContent dflex className='align-content-start'>
-        {results.map((funnel, id) => (
-          <FunnelCard
-            {...funnel}
-            key={`${funnel._id}#${id}`}
-            orderInList={searchKey ? undefined : id}
-            onDelete={onShowDeleteDialogue(funnel._id)}
-            onEdit={onFunnelEdit(funnel.url)}
-            onPreview={onPreview(funnel.url)}
-            onDuplicate={onDuplicate(funnel)}
-            loading={loading}
-          />
-        ))
-        }
-
+      <PageContent className='align-content-start'>
+        {Boolean(checkoutFunnels) && (
+          <FlexBox column className='mt-2 mb-2' >
+            <FlexBox center='v-center' style={{ color: '#47678c', fontSize: 16, fontWeight: 600 }} className='mb-2'>
+              <FiShoppingCart color='#47678c' size={20} />
+              <span className='ml-2'>
+                Checkout Funnels:
+              </span>
+            </FlexBox>
+            <FlexBox wrappable>
+              {checkoutFunnels.map(renderFunnelCard)}
+            </FlexBox>
+          </FlexBox>
+        )}
+        {Boolean(optInFunnels) && (
+          <FlexBox column className='mt-3' >
+            <FlexBox center='v-center' style={{ color: '#47678c', fontSize: 16, fontWeight: 600 }} className='mb-2'>
+              <BiMailSend color='#47678c' size={20} />
+              <span className='ml-2'>
+                Opt-in Funnels:
+              </span>
+            </FlexBox>
+            <FlexBox wrappable>
+              {optInFunnels.map(renderFunnelCard)}
+            </FlexBox>
+          </FlexBox>
+        )}
         {(!hasFunnels && isFetching) && <FunnelsShadowLoading />}
-
       </PageContent>
 
       <PreCreateModal

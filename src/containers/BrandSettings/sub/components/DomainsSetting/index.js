@@ -7,7 +7,6 @@ import './style.css';
 import DomainForm from './DomainForm';
 import DomainsTable from './DomainsTable';
 import DomainRedirectSettings from './DomainRedirectSettings';
-import { FlexBox } from 'components/common/boxes';
 
 const { MainBlock, DisplayContent } = common;
 
