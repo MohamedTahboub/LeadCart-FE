@@ -26,7 +26,13 @@ export default async (fields) => {//
       newLead: yup.boolean().default(true)
     }),
     favicon: yup.string().url(),
-    dateFormat: yup.string()
+    dateFormat: yup.string(),
+    redirects: yup.object({
+      enabled: yup.boolean().default(false),
+      destinationType: yup.string().default('link'),
+      destinationLink: yup.string().url('Redirect URL must be a valid link.'),
+      destinationFunnelId: yup.string()
+    })
   }).required();
 
   try {

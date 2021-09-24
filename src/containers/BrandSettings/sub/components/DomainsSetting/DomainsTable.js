@@ -22,8 +22,8 @@ const CopyIcon = ({ text }) => (
 );
 
 const initialInstructions = (
-  <div className='flex-container flex-start'>
-    <p className='note general-note'>
+  <div className='flex-container flex-start pl-3'>
+    <p className='note general-note pl-2'>
       Now Setup Your Domain Records to Match The Following:
       <br />
       <ul>
