@@ -1,5 +1,5 @@
 import { getPriceFormat } from './currencies';
-import { getCountryByCode } from 'libs'
+import { getCountryByCode } from 'libs';
 
 export const bytesToSize = (bytes) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -41,7 +41,7 @@ export const formatLanguage = (language) => language.contexts.reduce((lang, cont
     return words;
   }, {});
   return lang;
-}, {});
+}, { type: language.type || 'ltr' });
 
 
 export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
@@ -72,7 +72,7 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
         city,
         state,
         postalCode,
-        country,
+        country
       } = {},
       product: {
         name: productName,
@@ -86,13 +86,13 @@ export const exportOrdersToCsv = (orders, { paymentType: filterPayment }) => {
       } = {}
     }) => {
 
-      let basicOrderRow = `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(totalCharge, currency)},${paymentType}`
+      let basicOrderRow = `${firstName} ${lastName},${email},${phoneNumber},${productName},${paymentMethod},${offerName} - ${offerPrice},${code},${CouponDiscount},${getPriceFormat(totalCharge, currency)},${paymentType}`;
 
-      const shippingDetialsRow = `,"${streetAddress}","${streetAddressLine2}","${city}","${state}",${postalCode},"${getCountryByCode(country)}"`
+      const shippingDetialsRow = `,"${streetAddress}","${streetAddressLine2}","${city}","${state}",${postalCode},"${getCountryByCode(country)}"`;
 
       if (streetAddress && streetAddressLine2 && city) {
         basicOrderRow += shippingDetialsRow;
-        hasShippingDetialsInProducts = true
+        hasShippingDetialsInProducts = true;
       }
 
       return basicOrderRow;

@@ -9,7 +9,8 @@ export const Note = ({
   referenceLink,
   image,
   className,
-  onCloseNote
+  onCloseNote,
+  style
 }) => {
 
   const [open, setOpen] = useState(showOnce);
@@ -24,7 +25,7 @@ export const Note = ({
 
   const classNames = clx('note-body', className);
   return (
-    <div className={classNames}>
+    <div className={classNames} style={style}>
       {referenceLink && (
         <a
           href={referenceLink}

@@ -55,7 +55,6 @@ const Workspace = ({
 
   const activeLanguage = getLanguageLabel(userLanguages, language);
 
-
   const onSectionSettings = (section) => {
     actions.toggleSectionSettingModal(section);
   };
@@ -221,7 +220,7 @@ const Workspace = ({
       </Helmet>
 
 
-      <FlexBox id='product-builder-window' column className={workspaceClasses} >
+      <FlexBox id='product-builder-window' column className={workspaceClasses} style={{ direction: activeLanguage?.type || 'ltr' }}>
         <ProductHead show={pageStyles.showHead} />
         <FlexBox className='relative-element product-page-content' column style={productStyles} id='layouts-container'>
           <PageLayouts layout={pageStyles.layout} {...layoutProps} />
