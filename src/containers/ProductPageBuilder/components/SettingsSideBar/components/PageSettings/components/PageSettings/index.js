@@ -56,18 +56,15 @@ const PageSettings = ({ pageStyles, onToggleProductBackgroundModal, onChange }) 
             overFlow: 'auto'
           }}
         />
-        <Note showOnce style={{ minWidth: '90%', maxWidth: '90%' }}>
-          { `
-          inspect this at the preview mode,
-          and choose the selectors you want
-          to modify.
+        <Note showOnce style={{ minWidth: '90%', maxWidth: '90%', whiteSpace: 'pre-line' }}>
+          { `inspect this page at the preview
+mode, and choose the selectors
+you want to modify.
 
-
-          Example:
-
-          .product-page-content{
-            background:green ;
-        }`}
+Example:
+.product-page-content{
+    background:green ;
+}`}
         </Note>
       </SettingBox>
     </FlexBox>
