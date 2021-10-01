@@ -4,6 +4,8 @@ import common from 'components/common';
 import { SettingBox } from '../../../common';
 import { Fonts } from './components/';
 import { useContext } from '../../../../../../actions';
+import { ResizableTextarea } from 'components/common/Inputs';
+import { Note } from 'components/common/Notes';
 
 
 const { InputRow, FlexBox, Button } = common;
@@ -21,7 +23,7 @@ const PageFontTitle = () => {
 
 const PageSettings = ({ pageStyles, onToggleProductBackgroundModal, onChange }) => {
   const openPageBackgroundModal = () => onToggleProductBackgroundModal();
-  const { productPage } = pageStyles;
+  const { customCss, productPage } = pageStyles;
 
   return (
     <FlexBox column>
@@ -38,6 +40,35 @@ const PageSettings = ({ pageStyles, onToggleProductBackgroundModal, onChange }) 
 
       <SettingBox title={<PageFontTitle />} className='mt-2' >
         <Fonts onChange={onChange} productPage={productPage} />
+      </SettingBox>
+      <SettingBox title='Custom Css' className='my-3' >
+        <ResizableTextarea
+          name='pageStyles.customCss'
+          value={customCss}
+          onChange={onChange}pageStyles
+          style={{
+            width: '90%',
+            borderRadius: 4,
+            border: '1px solid #ddd',
+            minHeight: 200,
+            maxHeight: 400,
+            outlineStyle: 'gray',
+            overFlow: 'auto'
+          }}
+        />
+        <Note showOnce style={{ minWidth: '90%', maxWidth: '90%' }}>
+          { `
+          inspect this at the preview mode,
+          and choose the selectors you want
+          to modify.
+
+
+          Example:
+
+          .product-page-content{
+            background:green ;
+        }`}
+        </Note>
       </SettingBox>
     </FlexBox>
   );
