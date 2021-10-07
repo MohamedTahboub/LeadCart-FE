@@ -6,6 +6,7 @@ import Select from 'react-select';
 import common from 'components/common';
 import moment from 'moment';
 import LeadsTable from './sub/Leads';
+import AbandonmentsTable from './sub/Abandonments';
 import './style.css';
 import clx from 'classnames';
 import { BiArchiveIn, BiArchiveOut } from 'react-icons/bi';
@@ -26,7 +27,7 @@ const {
 
 const filterLeads = ({ value }) => ({ funnel }) => value ? funnel === value : true;
 
-const Leads = ({ leads = [], funnelsOptions = [], archiveLeads, unarchiveLeads }) => {
+const Leads = ({ leads = [], prospects = [], funnelsOptions = [], archiveLeads, unarchiveLeads }) => {
 
   const [downloading, setDownloading] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
@@ -43,6 +44,10 @@ const Leads = ({ leads = [], funnelsOptions = [], archiveLeads, unarchiveLeads }
   const leadsList = leads
     .filter((lead) => showArchived ? lead.archived : !lead.archived)
     .filter(filterLeads(searchOption)).sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+
+  const prospectsList = prospects
+    .filter(filterLeads(searchOption)).sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+
 
   const onExportToCSV = () => {
     const title = 'Full Name,Email Address, Capture Times, Capture Date';
@@ -107,12 +112,12 @@ const Leads = ({ leads = [], funnelsOptions = [], archiveLeads, unarchiveLeads }
         <FlexBox center='v-centers'>
           <MainTitle className='m-0 mr-3'>
             <span>
-              Leads
+              Leads & Cart Abandonments
             </span>
             {showArchived && (
               <Tooltip text={'Archived leads list'} placement='bottom'>
                 <span>
-                (Archived)
+                  (Archived)
                 </span>
               </Tooltip>
             )}
@@ -157,12 +162,20 @@ const Leads = ({ leads = [], funnelsOptions = [], archiveLeads, unarchiveLeads }
         <SubTabs
           defaultTab={`${showArchived ? 'Archived Leads' : 'Leads'}`}
           tabs={{
-            Leads: (
+            'Leads': (
               <LeadsTable
                 list={leadsList}
                 onShowArchivingModal={onShowArchivingModal}
                 onUnArchivedLead={onUnArchivedLead}
                 isArchived={showArchived}
+              />
+            ),
+            'Cart Abandonments': (
+              <AbandonmentsTable
+                list={prospectsList}
+              // onShowArchivingModal={onShowArchivingModal}
+              // onUnArchivedLead={onUnArchivedLead}
+              // isArchived={showArchived}
               />
             )
           }}
@@ -173,7 +186,7 @@ const Leads = ({ leads = [], funnelsOptions = [], archiveLeads, unarchiveLeads }
           title='Lead Archiving'
           description='Are you sure, you want archive this lead?'
           show={showArchiveModal}
-          confirmBtnIcon={<HiOutlineArchive color='currentColor' size={16} className='mr-2'/>}
+          confirmBtnIcon={<HiOutlineArchive color='currentColor' size={16} className='mr-2' />}
           onClose={() => setShowArchiveModal('')}
           confirmBtnText='Archive'
           onConfirm={() => onArchiveLead(showArchiveModal)}
