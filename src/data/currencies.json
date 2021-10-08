@@ -259,5 +259,23 @@
     "rounding": 0,
     "code": "JOD",
     "namePlural": "Jordanian dinars"
+  },
+  {
+    "name": "Egyptian pound",
+    "symbol": "E£",
+    "symbolNative":"ج.م",
+    "decimalDigits": 0,
+    "rounding": 0,
+    "code": "EGP",
+    "namePlural": "Egyptian pounds"
+  },
+  {
+    "name": "Mongolian tugrik",
+    "symbol": "₮",
+    "symbolNative": "₮",
+    "decimalDigits": 0,
+    "rounding": 0,
+    "code": "MNT",
+    "namePlural": "Colombian tugriks"
   }
 ]
