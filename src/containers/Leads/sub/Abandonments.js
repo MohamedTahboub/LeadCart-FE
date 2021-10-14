@@ -3,49 +3,36 @@ import Table from 'components/common/Tables';
 import './style.css';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { MiniButton } from 'components/common/Buttons';
-import Tooltip from 'components/common/Tooltip';
-import { HiOutlineArchive } from 'react-icons/hi';
-import { MdUnarchive } from 'react-icons/md';
 
 
-const OrderList = ({ list, onShowArchivingModal, isArchived, onUnArchivedLead }) => (
+const AbandonmentList = ({ list }) => (
   <Table>
     <Table.Head>
-      <Table.HeadCell>Full Name</Table.HeadCell>
       <Table.HeadCell>Email</Table.HeadCell>
-      <Table.HeadCell>Captured #</Table.HeadCell>
-      <Table.HeadCell>Order Date</Table.HeadCell>
-      <Table.HeadCell/>
+      <Table.HeadCell>Name</Table.HeadCell>
+      <Table.HeadCell>Abandonment times</Table.HeadCell>
+      <Table.HeadCell>Captured At</Table.HeadCell>
+      <Table.HeadCell>Status</Table.HeadCell>
     </Table.Head>
     <Table.Body>
-      {list.map((lead, orderInList) => {
+      {list.map((prospect) => {
 
-        const { fullName, updatedAt, captureCount, email } = lead;
+        const { email, history = [], firstName = '', lastName = '', potential, date } = prospect;
+
+        const fullName = (firstName || lastName) ? `${firstName}${lastName ? (` ${lastName}`) : ''}` : 'Unavailable';
         return (
-          <Table.Row orderInList={orderInList} className='parent-hover'>
-            <Table.Cell mainContent={fullName} />
+          <Table.Row className='parent-hover'>
             <Table.Cell mainContent={email} />
-            <Table.Cell mainContent={captureCount} />
-            <Table.Cell mainContent={moment(updatedAt).format('MMM DD YYYY')} />
-            <Table.Cell mainContent={(
-              <MiniButton onClick={() => isArchived ? onUnArchivedLead(lead) : onShowArchivingModal(lead)} className='show-on-parent-hover'>
-                <Tooltip text={isArchived ? 'Restore' : 'Archive'} placement='top' delay={0.5}>
-                  {isArchived ? (
-                    <MdUnarchive color='currentColor' size={16} />
-                  ) : (
-                    <HiOutlineArchive color='currentColor' size={16} />
-                  )}
-                </Tooltip>
-              </MiniButton>
-            )}
-            />
+            <Table.Cell mainContent={fullName} />
+            <Table.Cell mainContent={history.length} />
+            <Table.Cell mainContent={moment(date).format('MMM DD YYYY')} />
+            <Table.Cell mainContent={`${!potential ? 'Pending' : 'Confirmed Prospect'}`} />
           </Table.Row>
         );
       })}
     </Table.Body>
   </Table>
 );
-OrderList.propTypes = { list: PropTypes.arrayOf(PropTypes.object) };
-OrderList.defaultProps = { list: [] };
-export default OrderList;
+AbandonmentList.propTypes = { list: PropTypes.arrayOf(PropTypes.object) };
+AbandonmentList.defaultProps = { list: [] };
+export default AbandonmentList;

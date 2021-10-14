@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { mapListToObject, notification } from 'libs';
@@ -13,6 +13,8 @@ import { BiArchiveIn, BiArchiveOut } from 'react-icons/bi';
 import Dialog from 'components/common/Dialog';
 import { HiOutlineArchive } from 'react-icons/hi';
 import * as leadActions from 'actions/leads';
+import * as prospectsActions from 'actions/prospects';
+import { prepareAndExportToCSV } from 'libs/csv';
 
 const {
   MainTitle,
@@ -25,13 +27,14 @@ const {
   Tooltip
 } = common;
 
-const filterLeads = ({ value }) => ({ funnel }) => value ? funnel === value : true;
+const filterList = ({ value }, key) => (data) => (value && data[key]) ? data[key] === value : true;
 
-const Leads = ({ leads = [], prospects = [], funnelsOptions = [], archiveLeads, unarchiveLeads }) => {
+const Leads = ({ leads = [], getBrandProspects, prospects = [], funnelsOptions = [], archiveLeads, unarchiveLeads }) => {
 
   const [downloading, setDownloading] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
+  const [activeTab, setActiveTab] = useState(`${showArchived ? 'Archived Leads' : 'Leads'}`);
 
   const [searchOption, setSearch] = useState([]);
 
@@ -43,37 +46,56 @@ const Leads = ({ leads = [], prospects = [], funnelsOptions = [], archiveLeads, 
 
   const leadsList = leads
     .filter((lead) => showArchived ? lead.archived : !lead.archived)
-    .filter(filterLeads(searchOption)).sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+    .filter(filterList(searchOption, 'email'))
+    .sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
 
   const prospectsList = prospects
-    .filter(filterLeads(searchOption)).sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+    .filter(filterList(searchOption, 'email'))
+    .sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
 
+  console.log({ prospects, prospectsList });
 
-  const onExportToCSV = () => {
-    const title = 'Full Name,Email Address, Capture Times, Capture Date';
-    const csvRows = leadsList.reduce((rows, { fullName, updatedAt, captureCount, email }) => {
-      const row = `${fullName},${email},${captureCount},${moment(updatedAt).format()}`;
-      return `${rows}\n${row}`;
-    }, title);
-
+  const onExportLeadsToCSV = () => {
     const fileName = `leads-${moment().format('MMM DD YYYY')}.csv`;
-
-    const download = document.createElement('a');
-    const fileHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvRows)}`;
-    download.setAttribute('href', fileHref);
-    download.setAttribute('download', fileName);
-    download.click();
+    const exportSchema = {
+      'Full Name': 'fullName',
+      'Email Address': 'email',
+      'Capture Times': 'captureCount',
+      'Capture Date': 'updatedAt'
+    };
+    prepareAndExportToCSV({
+      fileName: fileName,
+      rows: leadsList,
+      schema: exportSchema
+    });
   };
+  const onExportProspectsToCSV = () => {
+    const fileName = `prospects-${moment().format('MMM DD YYYY')}.csv`;
+
+    const exportSchema = {
+      'Email Address': 'email',
+      'Full Name': 'firstName',
+      'Capture Times': 'history.length',
+      'Capture Date': 'date'
+    };
+    prepareAndExportToCSV({
+      fileName: fileName,
+      rows: prospectsList,
+      schema: exportSchema
+    });
+  };
+
 
   const onDownloadReport = () => {
     setDownloading(true);
     setTimeout(() => {
       setDownloading(false);
-      if (leadsList.length) {
-        onExportToCSV();
-        return notification.success('CSV report for your leads records has been downloaded');
-      }
-      notification.failed('There are not enough records to be downloaded');
+      if (activeTab === 'Leads')
+        onExportLeadsToCSV();
+      else
+        onExportProspectsToCSV();
+
+      notification.success('CSV report for your leads records has been downloaded');
     }, 1200);
   };
 
@@ -105,6 +127,13 @@ const Leads = ({ leads = [], prospects = [], funnelsOptions = [], archiveLeads, 
     setShowArchiveModal(leadId);
   };
 
+  useEffect(() => {
+    getBrandProspects();
+  }, []);
+
+  const onTabChange = (tabName) => {
+    setActiveTab(tabName);
+  };
 
   return (
     <Page className='products-details-page'>
@@ -160,7 +189,8 @@ const Leads = ({ leads = [], prospects = [], funnelsOptions = [], archiveLeads, 
       </PageHeader>
       <PageContent>
         <SubTabs
-          defaultTab={`${showArchived ? 'Archived Leads' : 'Leads'}`}
+          onTabChange={onTabChange}
+          activeTab={activeTab}
           tabs={{
             'Leads': (
               <LeadsTable
@@ -197,14 +227,15 @@ const Leads = ({ leads = [], prospects = [], funnelsOptions = [], archiveLeads, 
   );
 };
 
-const mapStateToProps = ({ leads = [], funnels = [] }) => {
+const mapStateToProps = ({ leads = [], funnels = [], prospects = [] }) => {
   const optInFunnels = funnels.filter(({ type }) => type === 'OPT-IN');
   const funnelsOptions = [{ label: 'All' }, ...Object.values(mapListToObject(optInFunnels, '_id', { name: 'label', _id: 'value' }))];
   return ({
     leads,
+    prospects,
     funnelsOptions: funnelsOptions
   });
 };
 Leads.propTypes = { leads: PropTypes.array };
 Leads.defaultProps = { leads: [] };
-export default connect(mapStateToProps, leadActions)(Leads);
+export default connect(mapStateToProps, { ...leadActions, ...prospectsActions })(Leads);
