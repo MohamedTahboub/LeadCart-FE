@@ -120,7 +120,6 @@ const MarketplaceSettings = ({
 
   const updateFields = (name, value) => {
     const newFields = immutable.set(fields, name, value);
-    console.log({ name, value, newFields });
     setFields(newFields);
   };
 

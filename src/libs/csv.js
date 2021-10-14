@@ -10,7 +10,6 @@ const convertToCsv = (data, schema) => {
       rowKeys.push(key);
       return { titles, rowKeys };
     }, { titles: [], rowKeys: [] });
-  console.log({ titles, rowKeys });
   const rows = data.map((row) => {
     return rowKeys.map((key) => immutable.get(row, key, ''));
   });
