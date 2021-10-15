@@ -1,4 +1,6 @@
 import ReactQuill from 'react-quill';
+import QuillMention from 'quill-mention';
+import { includesIgnoreCase } from 'libs';
 const Font = ReactQuill.Quill.import('formats/font');
 
 const supportedFontFamilyList = [
@@ -19,9 +21,28 @@ const supportedFontFamilyList = [
   'PTSerif'
 ];
 
+const fieldsNames = [
+  { id: 'firstName', value: 'First Name' },
+  { id: 'lastName', value: 'Last Name' },
+  { id: 'email', value: 'Email Address' },
+  { id: 'phoneNumber', value: 'Phone Number' }
+];
+
+export const mentionModule = {
+  allowedChars: /^[A-Za-z\s]*$/,
+  mentionDenotationChars: ['@', '#'],
+  source: function (searchTerm = '', renderList, mentionChar) {
+    const filtered = fieldsNames.filter((field) => {
+      if (!(searchTerm && searchTerm.trim())) return true;
+      return includesIgnoreCase(field.value, searchTerm);
+    });
+    renderList(filtered, searchTerm);
+  }
+};
 
 Font.whitelist = supportedFontFamilyList;
 ReactQuill.Quill.register(Font, true);
+ReactQuill.Quill.register('modules/mentions', QuillMention);
 
 const modules = {
   toolbar: [
@@ -113,7 +134,6 @@ const modules = {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: true
   }
-  // mention: mentionModule
 };
 
 const formats = [
@@ -129,8 +149,8 @@ const formats = [
   'color',
   'background',
   'align',
-  'link'
-  // 'mention'
+  'link',
+  'mention'
 ];
 
 const headingModules = {
@@ -213,7 +233,6 @@ const headingModules = {
       { align: ['', 'right', 'center', 'justify'] }
     ]
   ]
-  // mention: mentionModule
 };
 const headingFormats = [
   'font',
@@ -225,8 +244,8 @@ const headingFormats = [
   'color',
   'background',
   'align',
-  'strike'
-  // 'mention'
+  'strike',
+  'mention'
 ];
 
 export {

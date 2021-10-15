@@ -7,6 +7,7 @@ import {
   formats,
   headingFormats,
   headingModules,
+  mentionModule,
   modules
 } from './config';
 
@@ -19,12 +20,16 @@ const Editor = ({
   onEdit,
   onBlur,
   bounds,
+  isMentionsSupported,
   className
 }) => {
   const editorProps = {
     modules: headingMode ? headingModules : modules,
     formats: headingMode ? headingFormats : formats
   };
+
+  if (isMentionsSupported)
+    editorProps.modules.mention = mentionModule;
 
 
   return (
