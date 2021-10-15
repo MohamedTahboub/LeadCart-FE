@@ -34,6 +34,7 @@ import destinationZones from './destinationZones';
 import shippingRules from './shippingRules';
 import productsFonts from './productsFonts';
 import leads from './leads';
+import prospects from './prospects';
 
 
 export default [
@@ -59,6 +60,7 @@ export default [
   ...emails,
   ...customers,
   ...leads,
+  ...prospects,
   teamMembers,
   agencyCodeActivation,
   ...subAccounts,

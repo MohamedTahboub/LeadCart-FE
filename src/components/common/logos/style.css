@@ -5,6 +5,7 @@
   margin: 20px 0;
   margin-bottom: 10px;
   position: relative;
+  padding-bottom: 6.5px;
 }
 
 .form-logo-image {
@@ -18,7 +19,7 @@
 }
 
 .logo-image {
-  height: 25px;
+  height: 34px;
 }
 
 .logo-shadow {
@@ -37,8 +38,8 @@
 .business-name {
   text-transform: uppercase;
   margin-left: 6px;
-  letter-spacing: 2px;
-  font-size: 12px;
+  letter-spacing: 3px;
+  font-size: 15px;
   font-weight: bold;
   color: white;
 }
@@ -53,6 +54,7 @@
   /* padding-right: 25px; */
   cursor: pointer;
   background: var(--primary-color);
+  height: 52px;
 }
 
 .feedy-widget {
@@ -65,9 +67,20 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  margin-left: 50px;
+  font-size: 15px;
 }
 .feedy-widget i.fas{
   color: white;
+  font-size: 14px;
+  transition: transform .3s ease-in-out, color .3s ease-in-out;
+}
+.feedy-widget i.fas:hover{
+  color: #ddd;
+  transform: scale(1.2);
+}
+.feedy-widget a{
+  cursor: inherit;
 }
 
 /* .announcekit-widget abbr{

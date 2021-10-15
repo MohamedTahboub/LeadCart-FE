@@ -1,35 +1,31 @@
-export default async ({
-  token: Authorization, contentType, method = 'GET', body = {}, uri
-}) => {
+export default async ({ token: Authorization, contentType, method = 'GET', body = {}, uri }) => {
   try {
     let options = {};
-    if (contentType === 'json' && method !== 'get') {
+    if (String(method).toLowerCase() !== 'get' && String(contentType).toLowerCase() === 'json') {
       options = {
         method,
         headers: {
           Authorization,
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         credentials: 'same-origin',
         body: JSON.stringify(body)
       };
-    } else if (contentType === 'json' && method === 'get') {
+    } else if (String(contentType).toLowerCase() === 'json' && String(method).toLowerCase() === 'get') {
       options = {
         method,
         headers: {
           Authorization,
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         credentials: 'same-origin'
       };
     } else {
       options = {
         method,
-        headers: {
-          Authorization,
-        },
+        headers: { Authorization },
         body
       };
     }
