@@ -53,7 +53,6 @@ const Leads = ({ leads = [], getBrandProspects, prospects = [], funnelsOptions =
     .filter(filterList(searchOption, 'email'))
     .sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
 
-  console.log({ prospects, prospectsList });
 
   const onExportLeadsToCSV = () => {
     const fileName = `leads-${moment().format('MMM DD YYYY')}.csv`;
@@ -129,6 +128,7 @@ const Leads = ({ leads = [], getBrandProspects, prospects = [], funnelsOptions =
 
   useEffect(() => {
     getBrandProspects();
+    // eslint-disable-next-line
   }, []);
 
   const onTabChange = (tabName) => {
