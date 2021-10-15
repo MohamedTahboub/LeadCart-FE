@@ -31,6 +31,7 @@ import taxes from './taxes';
 import destinationZones from './destinationZones';
 import shippingRules from './shippingRules';
 import productsFonts from './productsFonts';
+import prospects from './prospects';
 
 
 const rootReducer = combineReducers({
@@ -65,7 +66,8 @@ const rootReducer = combineReducers({
   taxes,
   destinationZones,
   shippingRules,
-  productsFonts
+  productsFonts,
+  prospects
 });
 
 export default rootReducer;

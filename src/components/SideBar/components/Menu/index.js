@@ -35,7 +35,7 @@ export const getSidebarMenuItems = ({ user = {}, history, credits }) => {
         link: '/customers',
         icon: 'customers'
       }, {
-        title: 'Leads',
+        title: 'Leads & Abandonments',
         key: 'leads',
         link: '/leads',
         icon: 'leads'

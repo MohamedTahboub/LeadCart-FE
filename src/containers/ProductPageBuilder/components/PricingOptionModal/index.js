@@ -78,7 +78,6 @@ const NewPricingOptionModal = ({ currency }) => {
       amount
     };
 
-    // console.log({ priceOption, constructedOption });
     actions.updateProductPriceOption(constructedOption);
     setTimeout(onClose, 200);
   };
