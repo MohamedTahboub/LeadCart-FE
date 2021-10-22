@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import clx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
 import { getSectionBackground } from 'helpers/common';
 
-import { SectionContent, SettingsHandles } from './components';
+import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
 import { useContext } from '../../../../actions';
 
@@ -52,22 +52,6 @@ const getSectionStyles = (styles = {}, ignore) => {
   return ignore ? {} : style;
 };
 
-const checkIsOverMidWay = ({ dragIndex, hoverIndex, ref, monitor }) => {
-  const hoverBoundingRect = ref.current?.getBoundingClientRect();
-  const hoverMiddleY =
-    (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-  const clientOffset = monitor.getClientOffset();
-  const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-  if (
-    // Dragging downwards
-    (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) ||
-    // Dragging upwards
-    (dragIndex > hoverIndex && hoverClientY > hoverMiddleY)
-  ) return false;
-
-  return true;
-};
 
 const Section = ({
   id,
@@ -92,7 +76,6 @@ const Section = ({
   const { state: { product: { category } = {} } } = useContext();
   const isThankYouProductPage = category === 'thankyoupage';
   const originalIndex = findCard(id).index;
-  const ref = useRef(null);
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: dropTypes.SECTION, section, originalIndex },
@@ -102,35 +85,20 @@ const Section = ({
   const [{ isOver }, drop] = useDrop({
     accept: dropTypes.SECTION,
     collect: (monitor) => ({ isOver: monitor.isOver() }),
-    hover: (sectionDetails = {}, monitor) => {
-      if (!ref.current) return;
-      const { new: newItem, section: { id: droppedItemId } } = sectionDetails;
-      const hoverIndex = index;
+    drop: ({ new: newItem, section: { id: droppedItemId, type } = {} }) => {
 
-      if (newItem) return;
-      if (sectionDetails.index === hoverIndex) return;
-      const isMidWay = checkIsOverMidWay({ dragIndex: sectionDetails.index, hoverIndex, ref, monitor });
-
-      if (!isMidWay) return;
-
+      if (newItem) {
+        const newId = ids.generate();
+        addNewAndMove({
+          atIndex: index,
+          type,
+          parentZone,
+          id: newId
+        });
+        return { isHandled: true };
+      }
       const { index: overIndex } = findCard(id);
       moveCard(droppedItemId, overIndex, parentZone);
-      sectionDetails.index = hoverIndex;
-      return { isHandled: true };
-    },
-    drop: (sectionDetails = {}) => {
-      if (!ref.current) return;
-      const { new: newItem, section: { type } } = sectionDetails;
-
-      if (!newItem) return;
-
-      const newId = ids.generate();
-      addNewAndMove({
-        atIndex: index,
-        type,
-        parentZone,
-        id: newId
-      });
       return { isHandled: true };
     }
   });
@@ -139,7 +107,7 @@ const Section = ({
     'product-section': true,
     'isDragging': isDragging,
     'active': activeSection.id === id,
-    // 'new-dorp-space-line': isOver,
+    'new-dorp-space-line': isOver,
     [className]: className,
     [content.position]: content.position
   });
@@ -153,16 +121,9 @@ const Section = ({
   const sectionBackground = getSectionBackground({ styles: section.styles });
   const sectionStyle = isCheckoutForm ? { ...style, ...sectionBackground } : style;
 
-  useEffect(() => {
-    drop(drag(ref));
-    // eslint-disable-next-line
-  }, [ref?.current]);
-
-  const isSameSectionHovered = isOver && isDragging;
-
   return (
-    <div ref={ref} id={id} style={{ opacity: isOver ? 0.3 : 1 }} className={clx({ hoveredSection: isSameSectionHovered })}>
-      {/* <DropBeforeLine show={isOver} /> */}
+    <div ref={(node) => drop(drag(node))} id={id}>
+      <DropBeforeLine show={isOver} />
       <div className={classes} >
         <div style={sectionStyle}>
           <SettingsHandles
