@@ -4,7 +4,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import ids from 'shortid';
 import { getSectionBackground } from 'helpers/common';
 
-import { DropBeforeLine, SectionContent, SettingsHandles } from './components';
+import { SectionContent, SettingsHandles } from './components';
 import * as dropTypes from '../dropTypes';
 import { useContext } from '../../../../actions';
 
@@ -104,7 +104,7 @@ const Section = ({
     collect: (monitor) => ({ isOver: monitor.isOver() }),
     hover: (sectionDetails = {}, monitor) => {
       if (!ref.current) return;
-      const { new: newItem, section: { id: droppedItemId, type } } = sectionDetails;
+      const { new: newItem, section: { id: droppedItemId } } = sectionDetails;
       const hoverIndex = index;
 
       if (newItem) return;
@@ -155,6 +155,7 @@ const Section = ({
 
   useEffect(() => {
     drop(drag(ref));
+    // eslint-disable-next-line
   }, [ref?.current]);
 
   const isSameSectionHovered = isOver && isDragging;
