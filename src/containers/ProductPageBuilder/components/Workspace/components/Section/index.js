@@ -118,9 +118,9 @@ const Section = ({
       sectionDetails.index = hoverIndex;
       return { isHandled: true };
     },
-    drop: (sectionDetails = {}, monitor) => {
+    drop: (sectionDetails = {}) => {
       if (!ref.current) return;
-      const { new: newItem, section: { id: droppedItemId, type } } = sectionDetails;
+      const { new: newItem, section: { type } } = sectionDetails;
 
       if (!newItem) return;
 
