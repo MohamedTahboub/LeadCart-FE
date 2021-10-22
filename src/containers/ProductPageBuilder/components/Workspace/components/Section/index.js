@@ -107,26 +107,30 @@ const Section = ({
       const { new: newItem, section: { id: droppedItemId, type } } = sectionDetails;
       const hoverIndex = index;
 
+      if (newItem) return;
       if (sectionDetails.index === hoverIndex) return;
       const isMidWay = checkIsOverMidWay({ dragIndex: sectionDetails.index, hoverIndex, ref, monitor });
 
       if (!isMidWay) return;
 
-      if (newItem) {
-        const newId = ids.generate();
-        addNewAndMove({
-          atIndex: index,
-          type,
-          parentZone,
-          id: newId
-        });
-        return { isHandled: true };
-      }
-
-
       const { index: overIndex } = findCard(id);
       moveCard(droppedItemId, overIndex, parentZone);
       sectionDetails.index = hoverIndex;
+      return { isHandled: true };
+    },
+    drop: (sectionDetails = {}, monitor) => {
+      if (!ref.current) return;
+      const { new: newItem, section: { id: droppedItemId, type } } = sectionDetails;
+
+      if (!newItem) return;
+
+      const newId = ids.generate();
+      addNewAndMove({
+        atIndex: index,
+        type,
+        parentZone,
+        id: newId
+      });
       return { isHandled: true };
     }
   });
