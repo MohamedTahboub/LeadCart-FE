@@ -69,24 +69,6 @@ const checkIsOverMidWay = ({ dragIndex, hoverIndex, ref, monitor }) => {
   return true;
 };
 
-const checkIsOver10Percent = ({ dragIndex, hoverIndex, ref, monitor }) => {
-  const hoverBoundingRect = ref.current?.getBoundingClientRect();
-  const hover10Percent =
-    (hoverBoundingRect.bottom - hoverBoundingRect.top) * 0.10;
-
-  const clientOffset = monitor.getClientOffset();
-  const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-  if (
-    // Dragging downwards
-    (dragIndex < hoverIndex && hoverClientY < hover10Percent) ||
-    // Dragging upwards
-    (dragIndex > hoverIndex && hoverClientY > hover10Percent)
-  ) return false;
-
-  return true;
-};
-
 const Section = ({
   id,
   className,
@@ -128,7 +110,6 @@ const Section = ({
     accept: dropTypes.SECTION,
     collect: (monitor) => ({ isOver: monitor.isOver() }),
     hover: (sectionDetails = {}, monitor) => {
-      console.log({ reference: ref.current });
       if (!ref.current) return;
       const { new: newItem, section: { id: droppedItemId } } = sectionDetails;
       const hoverIndex = index;
@@ -179,15 +160,15 @@ const Section = ({
   const sectionBackground = getSectionBackground({ styles: section.styles });
   const sectionStyle = isCheckoutForm ? { ...style, ...sectionBackground } : style;
 
-  drop(drag(ref));
-  // useEffect(() => {
-  //   // eslint-disable-next-line
-  // }, [ref?.current]);
+  useEffect(() => {
+    drop(drag(ref));
+    // eslint-disable-next-line
+  }, [ref?.current]);
 
   const isSameSectionHovered = isOver && isDragging;
 
   return (
-    <div ref={ref} id={id} style={{ opacity: (isOver || isDragging) ? 0.3 : 1 }} className={clx({ hoveredSection: isSameSectionHovered })}>
+    <div ref={ref} id={id} style={{ opacity: isOver ? 0.3 : 1 }} className={clx({ hoveredSection: isSameSectionHovered })}>
       {/* <DropBeforeLine show={isOver} /> */}
       <div className={classes} >
         <div style={sectionStyle}>
