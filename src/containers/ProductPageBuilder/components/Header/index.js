@@ -5,7 +5,7 @@ import { AiOutlineHistory, AiOutlineMobile, AiOutlineShareAlt } from 'react-icon
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
 import { FaCode } from 'react-icons/fa';
 import { useContext } from '../../actions';
-import { ScriptsModal } from './components';
+import { ScriptsModal, TemplatesModal } from './components';
 import './style.css';
 
 const {
@@ -67,8 +67,12 @@ const Header = ({
     actions
   } = useContext();
 
+
   const [openScriptModal, setOpenScriptModal] = useState(false);
+  const [openSharingModal, setOpenSharingModal] = useState(false);
+
   const onToggleScriptModal = () => setOpenScriptModal((open) => !open);
+  const onToggleSharingModal = () => setOpenSharingModal((open) => !open);
 
   const goToProducts = () => {
     if (standAlone) history.push('/products');
@@ -115,7 +119,7 @@ const Header = ({
           <Tooltip placement='bottomRight' text={'Coming Soon'}>
             <Button
               className='light-btn ml-3 share-template-btn'
-              disabled
+              onClick={onToggleSharingModal}
             >
               <FlexBox center='v-center'>
                 <AiOutlineShareAlt className='gray-text mr-1' />
@@ -181,6 +185,13 @@ const Header = ({
         isVisible={openScriptModal}
         scripts={scripts}
         onClose={onToggleScriptModal}
+        onChange={onChange}
+        isSaving={saving}
+        onSaveTheProduct={onSave}
+      />
+      <TemplatesModal
+        isVisible={openSharingModal}
+        onClose={onToggleSharingModal}
         onChange={onChange}
         isSaving={saving}
         onSaveTheProduct={onSave}

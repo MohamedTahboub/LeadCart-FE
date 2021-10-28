@@ -1,0 +1,56 @@
+
+.separating-statement{
+    position: relative;
+    font-size: 20px;
+    border-bottom: 2px solid lightgray;
+    display: flex;
+    justify-content: center;
+    margin:15px 0;
+}
+
+.separating-statement span{
+    position: absolute;
+    padding: 0 10px;
+    left:calc(50% - 20px);
+    top: -10px;
+   text-align: center;
+   background: white;
+}
+
+.scripts-labels{
+    width: 160px !important;
+}
+
+.scripts-head-message{
+    margin: 10px 0;
+    font-size: 14px;
+    max-width: 570px;
+}
+.trackers-modal{
+    padding-bottom: 20px;
+}
+.scripts-footer-message{
+    margin: -10px 0;
+    font-size: 14px;
+    max-width: 570px;
+}
+.free-script-input-field {
+    padding-top: 20px;
+}
+.free-script-input-field textarea{
+    width: 600px;
+    max-width: unset;
+}
+
+.scripts-modal-close-btn{
+    right:40px;
+}
+
+.scripts-modal-title{
+    margin: -30px 0 0 0;
+}
+
+.script-save-btn{
+    padding: 6px 30px;
+    float: right;
+}
