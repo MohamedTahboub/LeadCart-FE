@@ -1,16 +1,45 @@
 import sampleProductData from 'data/newProductSampleData';
 import * as types from '../actionsTypes';
+import * as immutable from 'object-path-immutable';
 
 
 const initialState = {
   modals: { sectionSetting: false },
   product: sampleProductData,
   savingStatus: {},
+  changeHistory: [],
   standAlone: true,
+  currentActiveHistoryIndex: 0,
   productPricing: {
     openModal: false,
     toEdit: {}
   }
+};
+const getHistoryTrackingProps = (state = {}) => {
+  const { currentActiveHistoryIndex = 0, changeHistory } = state;
+
+
+  // remove the future stored indices, and update the index +1
+  const newCurrentActiveHistoryIndex = currentActiveHistoryIndex + 1;
+  const newChangeHistory = [
+    ...(changeHistory || []),
+    { ...state.product }
+  ]
+    .filter((item, index) => index <= newCurrentActiveHistoryIndex);
+
+  console.log({
+    currentActiveHistoryIndex: newCurrentActiveHistoryIndex,
+    changeHistory: newChangeHistory,
+    canUndo: currentActiveHistoryIndex > 0,
+    canRedo: currentActiveHistoryIndex < (newChangeHistory.length - 1)
+  });
+
+  return {
+    currentActiveHistoryIndex: newCurrentActiveHistoryIndex,
+    changeHistory: newChangeHistory,
+    canUndo: currentActiveHistoryIndex > 0,
+    canRedo: currentActiveHistoryIndex < (newChangeHistory.length - 1)
+  };
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -20,11 +49,14 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       ...payload
     };
-  case types.PRODUCT_FIELD_CHANGE:
+  case types.PRODUCT_FIELD_CHANGE: {
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: payload
     };
+  }
   case types.SECTION_SETTING:
     return state;
   case types.TOGGLE_SECTION_SETTINGS_SIDEBAR:
@@ -36,9 +68,11 @@ export default (state = initialState, { type, payload }) => {
       }
     };
 
-  case types.ADD_NEW_SECTION:
+  case types.ADD_NEW_SECTION: {
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         sections: !state.product.sections ? [payload] : [
@@ -47,16 +81,18 @@ export default (state = initialState, { type, payload }) => {
         ]
       }
     };
-
+  }
   case types.UPDATE_DISPLAY_MODE:
     return {
       ...state,
       displayMode: payload
     };
 
-  case types.UPDATE_SECTION_SETTINGS:
+  case types.UPDATE_SECTION_SETTINGS: {
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       modals: {
         ...state.modals,
         sectionSetting: payload
@@ -69,10 +105,11 @@ export default (state = initialState, { type, payload }) => {
         })
       }
     };
-  case types.UPDATE_PRODUCT_SECTION:
-
+  } case types.UPDATE_PRODUCT_SECTION: {
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         sections: state.product.sections.map((sec) => {
@@ -84,14 +121,17 @@ export default (state = initialState, { type, payload }) => {
         })
       }
     };
-  case types.DELETE_PRODUCT_SECTION:
+  } case types.DELETE_PRODUCT_SECTION: {
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         sections: state.product.sections.filter((sec) => sec.id !== payload)
       }
     };
+  }
 
   case types.TOGGLE_PRODUCT_PRICING_MODAL:
     return {
@@ -121,9 +161,12 @@ export default (state = initialState, { type, payload }) => {
         pricingOptions: [...(state.product.pricingOptions || []), payload]
       }
     };
-  case types.UPDATE_PRODUCT_PRICING_OPTION:
+  case types.UPDATE_PRODUCT_PRICING_OPTION: {
+
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         pricingOptions: state.product.pricingOptions.map((option) => {
@@ -134,9 +177,12 @@ export default (state = initialState, { type, payload }) => {
         })
       }
     };
-  case types.SELECT_PRODUCT_PRICING_OPTION:
+  }
+  case types.SELECT_PRODUCT_PRICING_OPTION: {
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         pricingOptions: state.product.pricingOptions.map((pricingOption) => {
@@ -148,15 +194,20 @@ export default (state = initialState, { type, payload }) => {
         })
       }
     };
-  case types.DELETE_PRODUCT_PRICING_OPTION:
+  }
+  case types.DELETE_PRODUCT_PRICING_OPTION: {
+
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         pricingOptions: state.product.pricingOptions
           .filter((pricingOption) => pricingOption.id !== payload)
       }
     };
+  }
   case types.TOGGLE_PRODUCT_BACKGROUND_MODAL:
     return {
       ...state,
@@ -174,6 +225,7 @@ export default (state = initialState, { type, payload }) => {
     };
 
   case types.UPDATE_SHIPPING_METHOD_DETAILS: {
+    const historyProps = getHistoryTrackingProps(state);
     const shippingMethods = state.product.shippingMethods.map((method) => {
       if (method.id === payload.id)
         return { ...method, ...payload };
@@ -182,15 +234,18 @@ export default (state = initialState, { type, payload }) => {
 
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         shippingMethods
       }
     };
   }
-  case types.ADD_NEW_SHIPPING_METHOD:
+  case types.ADD_NEW_SHIPPING_METHOD: {
+    const historyProps = getHistoryTrackingProps(state);
     return {
       ...state,
+      ...historyProps,
       product: {
         ...state.product,
         shippingMethods: Array.isArray(state.product.shippingMethods) ?
@@ -199,7 +254,50 @@ export default (state = initialState, { type, payload }) => {
           [payload]
       }
     };
+  }
+  case types.REDO_PRODUCT_CHANGE: {
+    const targetIndex = (state.currentActiveHistoryIndex || 0) + 1;
+    console.log({
+      current: state.currentActiveHistoryIndex,
+      next: targetIndex
+    });
+    const previousVersion = state.changeHistory[targetIndex];
+    if (!previousVersion) {
+      return {
+        canUndo: targetIndex > 0,
+        canRedo: targetIndex < (state.changeHistory.length - 1),
+        currentActiveHistoryIndex: targetIndex,
+        ...state
+      };
+    }
 
+    return immutable.set({
+      ...state,
+      canUndo: true,
+      currentActiveHistoryIndex: targetIndex
+    }, 'product', previousVersion);
+  }
+  case types.UNDO_PRODUCT_CHANGE: {
+    const targetIndex = (state.currentActiveHistoryIndex || 0) - 1;
+    console.log({
+      current: state.currentActiveHistoryIndex,
+      next: targetIndex
+    });
+    const nextProductVersion = state.changeHistory[targetIndex];
+    if (!nextProductVersion) {
+      return {
+        canUndo: false,
+        ...state
+      };
+    }
+
+    return immutable.set({
+      ...state,
+      canUndo: targetIndex > 0,
+      canRedo: targetIndex < (state.changeHistory.length - 1),
+      currentActiveHistoryIndex: targetIndex
+    }, 'product', nextProductVersion);
+  }
   default: return state;
   }
 };

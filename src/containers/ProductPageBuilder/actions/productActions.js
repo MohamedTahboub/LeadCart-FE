@@ -202,3 +202,11 @@ export const onUpdateShippingMethodDetails = ({ dispatch }) => (shippingMethod) 
 export const addNewShippingMethod = ({ dispatch }) => (shippingMethod) => {
   dispatch({ type: types.ADD_NEW_SHIPPING_METHOD, payload: shippingMethod });
 };
+
+export const redoProductChange = ({ dispatch }) => () => {
+  dispatch({ type: types.REDO_PRODUCT_CHANGE });
+};
+
+export const undoProductChanges = ({ dispatch }) => () => {
+  dispatch({ type: types.UNDO_PRODUCT_CHANGE });
+};

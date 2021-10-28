@@ -58,6 +58,8 @@ const Header = ({
     state: {
       displayMode,
       standAlone,
+      canRedo,
+      canUndo,
       product: { name: productName, scripts = {} } = {},
       funnel: {
         url: funnelUrl,
@@ -83,6 +85,12 @@ const Header = ({
     actions.onProductFieldChange(target);
   };
 
+  const onUndoChanges = () => {
+    actions.undoProductChanges();
+  };
+  const onRedoChanges = () => {
+    actions.redoProductChange();
+  };
   return (
     <FlexBox column>
 
@@ -139,20 +147,24 @@ const Header = ({
         </FlexBox>
 
         <FlexBox center='v-center' className='min-width-250 padding-right-20' flexEnd>
-          <Button
-            // onClick={onSave}
-            data-tip='Undo'
-            className='light-btn hide-element'
-          >
-            <AiOutlineHistory className='mirror' />
-          </Button>
-          <Button
-            // onClick={onSave}
-            data-tip='ReDo'
-            className='light-btn margin-h-5 hide-element'
-          >
-            <AiOutlineHistory />
-          </Button>
+          <Tooltip text='Undo Changes' placement='bottom'>
+            <Button
+              onClick={onUndoChanges}
+              className='light-btn'
+              disabled={!canUndo}
+            >
+              <AiOutlineHistory className='mirror' />
+            </Button>
+          </Tooltip>
+          <Tooltip text='Redo Changes' placement='bottom'>
+            <Button
+              onClick={onRedoChanges}
+              className='light-btn ml-2 mr-4'
+              disabled={!canRedo}
+            >
+              <AiOutlineHistory />
+            </Button>
+          </Tooltip>
           <Button
             onClick={onToggleScriptModal}
             className='light-btn mr-2'
@@ -172,7 +184,7 @@ const Header = ({
               onprogress={saving}
             >
               <i className='fas fa-save font-size-11' />
-            Save
+              Save
             </Button>
           </Tooltip>
         </FlexBox>
