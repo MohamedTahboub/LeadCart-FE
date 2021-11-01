@@ -35,6 +35,7 @@ import {
   Workspace
 } from './components';
 import { isFunction } from 'libs/checks';
+import product from 'propTypes/product';
 
 const {
   Page,
@@ -306,6 +307,7 @@ const ProductBuilder = ({
           saving={saving}
           savingStatus={state.savingStatus}
           isTogglingBetweenTemplates={showTemplateWidget}
+          product={state?.product}
         />
         <FlexBox id='blocks' flex className='relative-element'>
           <ScreenBackgroundSetup backgrounds={pageStyles} />

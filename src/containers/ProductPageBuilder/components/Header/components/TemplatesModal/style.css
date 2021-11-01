@@ -1,56 +1,116 @@
-
-.separating-statement{
+.separating-statement {
     position: relative;
     font-size: 20px;
     border-bottom: 2px solid lightgray;
     display: flex;
     justify-content: center;
-    margin:15px 0;
+    margin: 15px 0;
 }
 
-.separating-statement span{
+.separating-statement span {
     position: absolute;
     padding: 0 10px;
-    left:calc(50% - 20px);
+    left: calc(50% - 20px);
     top: -10px;
-   text-align: center;
-   background: white;
+    text-align: center;
+    background: white;
 }
 
-.scripts-labels{
+.scripts-labels {
     width: 160px !important;
 }
 
-.scripts-head-message{
+.scripts-head-message {
     margin: 10px 0;
     font-size: 14px;
     max-width: 570px;
 }
-.trackers-modal{
+
+.trackers-modal {
     padding-bottom: 20px;
 }
-.scripts-footer-message{
+
+.scripts-footer-message {
     margin: -10px 0;
     font-size: 14px;
     max-width: 570px;
 }
+
 .free-script-input-field {
     padding-top: 20px;
 }
-.free-script-input-field textarea{
+
+.free-script-input-field textarea {
     width: 600px;
     max-width: unset;
 }
 
-.scripts-modal-close-btn{
-    right:40px;
+.scripts-modal-close-btn {
+    right: 40px;
 }
 
-.scripts-modal-title{
+.scripts-modal-title {
     margin: -30px 0 0 0;
 }
 
-.script-save-btn{
+.script-save-btn {
     padding: 6px 30px;
     float: right;
+}
+
+.option-card {
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    color: #808292;
+    transition: color .3s ease-in-out;
+}
+
+.option-card.checked {
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.option-card.checked:before {
+    position: absolute;
+    content: "\2713 a template created";
+    top: -1px;
+    left: -1px;
+    /* height: 15px; */
+    /* width: 15px; */
+    padding: 3px 5px;
+    background-color: #4da0fe;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .3s ease-in-out;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.option-card.checked:hover:after {
+    position: absolute;
+    content: "Click to the edit template";
+    bottom: -1px;
+    right: -1px;
+    padding: 3px 5px;
+    background-color: #4da0fe;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .3s ease-in-out;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.option-card:hover {
+    color: #4da0fe;
+}
+
+.sharing-modal{
+    min-width: 600px;
 }

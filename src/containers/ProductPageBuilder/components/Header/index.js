@@ -58,7 +58,7 @@ const Header = ({
     state: {
       displayMode,
       standAlone,
-      product: { name: productName, scripts = {} } = {},
+      product = {},
       funnel: {
         url: funnelUrl,
         name: funnelName
@@ -66,7 +66,7 @@ const Header = ({
     },
     actions
   } = useContext();
-
+  const { name: productName, scripts = {} } = product;
 
   const [openScriptModal, setOpenScriptModal] = useState(false);
   const [openSharingModal, setOpenSharingModal] = useState(false);
@@ -194,6 +194,7 @@ const Header = ({
         onClose={onToggleSharingModal}
         onChange={onChange}
         isSaving={saving}
+        product={product}
         onSaveTheProduct={onSave}
       />
     </FlexBox>

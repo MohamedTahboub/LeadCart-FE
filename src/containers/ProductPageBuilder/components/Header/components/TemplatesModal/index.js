@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import PropTypes from 'prop-types';
 
 import './style.css';
 import clx from 'classnames';
+import ShareTemplateModal from './ShareModal';
+import ImportTemplateModal from './ImportModal';
+import { HiShare } from 'react-icons/hi';
+import { FaFileImport } from 'react-icons/fa';
+import { connect } from 'react-redux';
+import { getProductTemplateDetails } from 'actions/product';
 
 const {
   MainTitle,
@@ -21,17 +27,11 @@ const OptionCard = ({ title, icon, description, checked, className, ...props }) 
     <FlexBox
       column
       className={clx('option-card', className, { checked })}
-      style={{
-        border: '1px solid #eee',
-        borderRadius: 5,
-        padding: 20,
-        cursor: 'pointer'
-      }}
       {...props}
     >
-      <FlexBox style={{ marginBottom: 20 }}>
+      <FlexBox style={{ marginBottom: 20 }} center='v-center'>
         {icon && <FlexBox style={{ marginRight: 20 }}>{icon}</FlexBox>}
-        <FlexBox style={{ fontSize: 15, fontWeight: 500 }}>{title}</FlexBox>
+        <FlexBox style={{ fontSize: 17, fontWeight: 500 }}>{title}</FlexBox>
       </FlexBox>
       <FlexBox className='truncate' style={{ fontSize: 15, fontWeight: 500 }}>{description}</FlexBox>
     </FlexBox>
@@ -61,15 +61,32 @@ const SharingStatus = (props) => {
 const Templates = ({
   isVisible,
   onClose,
-  isSaving,
-  onChange,
-  onSaveTheProduct
+  productId,
+  // isSaving,
+  // onChange,
+  product,
+  getProductTemplateDetails
 }) => {
   const [showShareModal, setShareModal] = useState(false);
   const [showImportModal, setImportModal] = useState(false);
+  const [templateDetails, setTemplateDetails] = useState({});
   const onToggleShareModal = () => setShareModal((e) => !e);
   const onToggleImportModal = () => setImportModal((e) => !e);
 
+  const checkIfTHeProductHasTemplate = async () => {
+    getProductTemplateDetails({ productId }, {
+      onSuccess: (details) => {
+        setTemplateDetails({
+          hasTemplate: true,
+          ...details
+        });
+      }
+    });
+  };
+
+  useEffect(() => {
+    checkIfTHeProductHasTemplate();
+  }, []);
 
   return (
     <>
@@ -81,42 +98,39 @@ const Templates = ({
       >
         <FlexBox center style={{ margin: 20 }}>
           <FlexBox column>
-            <FlexBox center='v-center' className='mb-3'>
+            <FlexBox className='mb-3'>
               <OptionCard
-                icon={null}
-                title='Share'
+                icon={<HiShare size={20} />}
+                title='Share as template'
                 description='Share current page as template'
                 marked
                 onClick={onToggleShareModal}
+                flex
+                checked
               />
               <OptionCard
-                icon={null}
-                title='Import'
+                icon={<FaFileImport size={20} />}
+                title='Import from template'
                 description='Import Template from a link'
                 className='ml-3'
                 onClick={onToggleImportModal}
+                flex
               />
             </FlexBox>
             <SharingStatus />
           </FlexBox>
         </FlexBox>
       </Modal>
-      <Modal
+      <ShareTemplateModal
         onClose={onToggleShareModal}
         isVisible={showShareModal}
-        // className='trackers-modal'
-        closeBtnClassName='scripts-modal-close-btn'
-      >
-        Share
-      </Modal>
-      <Modal
+        product={product}
+      />
+      <ImportTemplateModal
         onClose={onToggleImportModal}
         isVisible={showImportModal}
-        // className='trackers-modal'
-        closeBtnClassName='scripts-modal-close-btn'
-      >
-        Import
-      </Modal>
+        product={product}
+      />
     </>
   );
 };
@@ -129,4 +143,4 @@ Templates.propTypes = {
 
 Templates.defaultProps = { scripts: {} };
 
-export default Templates;
+export default connect(null, { getProductTemplateDetails })(Templates);
