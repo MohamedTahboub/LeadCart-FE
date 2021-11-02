@@ -6,13 +6,12 @@ import { apiRequest } from 'actions/apiRequest';
 export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== GET_PRODUCT_TEMPLATE_DETAILS) return next(action);
 
-  const { meta: { onSuccess, onFailed } = {} } = action;
-
+  const { payload: { productId = '' } = {}, meta: { onSuccess, onFailed } = {} } = action;
+  console.log({ productId });
   dispatch(apiRequest({
     options: {
       method: 'get',
-      body: action.payload,
-      uri: '/api/brands/products/template',
+      uri: `/api/brands/products/template/${productId}`,
       contentType: 'json'
     },
     onSuccess: (data) => {

@@ -65,15 +65,16 @@
     cursor: pointer;
     color: #808292;
     transition: color .3s ease-in-out;
+    user-select: none;
 }
 
-.option-card.checked {
+.option-card.checked:not(.disabled) {
     position: relative;
     padding-top: 25px;
     padding-bottom: 25px;
 }
 
-.option-card.checked:before {
+.option-card.checked:not(.disabled):before {
     position: absolute;
     content: "\2713 a template created";
     top: -1px;
@@ -91,7 +92,7 @@
     border-top-left-radius: 3px;
 }
 
-.option-card.checked:hover:after {
+.option-card.checked:not(.disabled):hover:after {
     position: absolute;
     content: "Click to the edit template";
     bottom: -1px;
@@ -113,4 +114,26 @@
 
 .sharing-modal{
     min-width: 600px;
+}
+
+.status-template-main-screenshot,
+.status-template-screenshot{
+    height: 100px;
+    border-radius: 5px;
+    width: auto;    
+}
+.status-template-main-screenshot{
+    height: 200px;
+    margin: 20px 0 20px 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+.option-card.disabled{
+    /* user-select: none; */
+}
+.template-status-card{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    border-left: 2px solid #4da0fe;
+    background-color: #eee;
 }

@@ -11,22 +11,26 @@ import { HiShare } from 'react-icons/hi';
 import { FaFileImport } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { getProductTemplateDetails } from 'actions/product';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import moment from 'moment';
+import Tooltip from 'components/common/Tooltip';
 
-const {
-  MainTitle,
-  Button,
-  FlexBox,
-  InputRow
-} = common;
+const { FlexBox } = common;
 
-const { Label, TextField } = InputRow;
 
-const OptionCard = ({ title, icon, description, checked, className, ...props }) => {
+const OptionCard = ({ title, icon, onClick, description, disabled, checked, className, ...props }) => {
+
+  const _onClick = (e) => {
+    e.preventDefault();
+    if (onClick && !disabled)
+      onClick(e);
+  };
 
   return (
     <FlexBox
       column
-      className={clx('option-card', className, { checked })}
+      className={clx('option-card', className, { checked, disabled })}
+      onClick={_onClick}
       {...props}
     >
       <FlexBox style={{ marginBottom: 20 }} center='v-center'>
@@ -39,21 +43,47 @@ const OptionCard = ({ title, icon, description, checked, className, ...props }) 
 };
 
 const SharingStatus = (props) => {
-  const { className } = props;
+  const { className, hasTemplate, screenshot, createdAt, handle, name } = props;
 
+  if (!hasTemplate) return null;
+
+
+  const titleStyle = { fontSize: 14, fontWeight: 500 };
   return (
     <FlexBox
-      column
-      className={clx(className)}
+      className={clx(className, 'template-status-card')}
       style={{
-        background: 'aqua',
         border: '1px solid #eee',
         borderRadius: 5,
-        padding: 20
+        padding: 15
       }}
       {...props}
+      spaceBetween
     >
-      Status
+      <FlexBox column spaceAround>
+        <span className='truncate' style={{ ...titleStyle, fontSize: 16, textTransform: 'capitalize' }} >
+          <span style={{ fontWeight: 600 }}>Name: </span>
+          {name}
+        </span>
+        <FlexBox>
+          <span style={titleStyle} className='truncate'>
+            <span style={{ fontWeight: 600 }}>Template Handle: </span>
+            {handle}
+          </span>
+          <CopyToClipboard text={handle}>
+            <Tooltip text='Copied!' placement='top' trigger={['click']}>
+              <span className='copy-icon'>
+                <i className='fas fa-copy' />
+              </span>
+            </Tooltip>
+          </CopyToClipboard>
+        </FlexBox>
+        <span style={titleStyle} >
+          <span style={{ fontWeight: 600 }}>Created Date: </span>
+          {moment(createdAt).format('MM - DD - YYYY')}
+        </span>
+      </FlexBox>
+      <img src={screenshot} alt='thumbnail' className='status-template-screenshot' />
     </FlexBox>
   );
 };
@@ -61,20 +91,18 @@ const SharingStatus = (props) => {
 const Templates = ({
   isVisible,
   onClose,
-  productId,
-  // isSaving,
-  // onChange,
-  product,
+  product = {},
   getProductTemplateDetails
 }) => {
   const [showShareModal, setShareModal] = useState(false);
   const [showImportModal, setImportModal] = useState(false);
   const [templateDetails, setTemplateDetails] = useState({});
+
   const onToggleShareModal = () => setShareModal((e) => !e);
   const onToggleImportModal = () => setImportModal((e) => !e);
 
   const checkIfTHeProductHasTemplate = async () => {
-    getProductTemplateDetails({ productId }, {
+    getProductTemplateDetails({ productId: product?._id }, {
       onSuccess: (details) => {
         setTemplateDetails({
           hasTemplate: true,
@@ -87,6 +115,13 @@ const Templates = ({
   useEffect(() => {
     checkIfTHeProductHasTemplate();
   }, []);
+
+  const updateTemplateStatus = (details) => {
+    setTemplateDetails({
+      hasTemplate: true,
+      ...details
+    });
+  };
 
   return (
     <>
@@ -105,6 +140,7 @@ const Templates = ({
                 description='Share current page as template'
                 marked
                 onClick={onToggleShareModal}
+                disabled={templateDetails?.hasTemplate}
                 flex
                 checked
               />
@@ -117,7 +153,7 @@ const Templates = ({
                 flex
               />
             </FlexBox>
-            <SharingStatus />
+            <SharingStatus {...templateDetails} />
           </FlexBox>
         </FlexBox>
       </Modal>
@@ -125,6 +161,7 @@ const Templates = ({
         onClose={onToggleShareModal}
         isVisible={showShareModal}
         product={product}
+        updateTemplateStatus={updateTemplateStatus}
       />
       <ImportTemplateModal
         onClose={onToggleImportModal}

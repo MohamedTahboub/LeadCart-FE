@@ -11,6 +11,8 @@ import AddImage from 'components/common/Inputs/AddImage';
 import { createProductsTemplateSchema } from 'libs/validation';
 import { connect } from 'react-redux';
 import { createProductTemplate } from 'actions/product';
+import { isFunction } from 'libs/checks';
+import { notification } from 'libs';
 
 const {
   MainTitle,
@@ -44,6 +46,7 @@ const ShareTemplateModal = ({
   isVisible,
   onClose,
   product = {},
+  updateTemplateStatus,
   createProductTemplate
 }) => {
 
@@ -82,10 +85,12 @@ const ShareTemplateModal = ({
         // via callback to the original modal to
         // be displayed
         onToggleLoading();
+        onClose();
+        isFunction(updateTemplateStatus) && updateTemplateStatus(value);
       },
-      onFailed: () => {
+      onFailed: (error) => {
         onToggleLoading();
-
+        notification.failed(error);
       }
     });
   };

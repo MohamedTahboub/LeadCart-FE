@@ -5,6 +5,16 @@ import deleteProduct from './deleteProduct';
 import getProduct from './getProduct';
 import getProductTemplate from './getProductTemplate';
 import createProductTemplate from './createProductTemplate';
+import importProductTemplate from './importProductTemplate';
 
 
-export default [createProduct, deleteProduct, updateProduct, toggleProductAvailability, getProduct, getProductTemplate, createProductTemplate];
+export default [
+  createProduct,
+  deleteProduct,
+  updateProduct,
+  toggleProductAvailability,
+  getProduct,
+  getProductTemplate,
+  importProductTemplate,
+  createProductTemplate
+];
