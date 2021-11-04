@@ -14,6 +14,7 @@ import { getProductTemplateDetails } from 'actions/product';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import moment from 'moment';
 import Tooltip from 'components/common/Tooltip';
+import { isFunction } from 'libs/checks';
 
 const { FlexBox } = common;
 
@@ -31,6 +32,7 @@ const OptionCard = ({ title, icon, onClick, description, disabled, checked, clas
       column
       className={clx('option-card', className, { checked, disabled })}
       onClick={_onClick}
+      flex
       {...props}
     >
       <FlexBox style={{ marginBottom: 20 }} center='v-center'>
@@ -61,7 +63,7 @@ const SharingStatus = (props) => {
       spaceBetween
     >
       <FlexBox column spaceAround>
-        <span className='truncate' style={{ ...titleStyle, fontSize: 16, textTransform: 'capitalize' }} >
+        <span className='truncate' style={{ ...titleStyle, fontSize: 16, textTransform: 'capitalize', maxWidth: 350 }} >
           <span style={{ fontWeight: 600 }}>Name: </span>
           {name}
         </span>
@@ -71,8 +73,8 @@ const SharingStatus = (props) => {
             {handle}
           </span>
           <CopyToClipboard text={handle}>
-            <Tooltip text='Copied!' placement='top' trigger={['click']}>
-              <span className='copy-icon'>
+            <Tooltip text='Copied!' placement='top' trigger={['click']} >
+              <span className='copy-icon template-handle-copy'>
                 <i className='fas fa-copy' />
               </span>
             </Tooltip>
@@ -92,7 +94,8 @@ const Templates = ({
   isVisible,
   onClose,
   product = {},
-  getProductTemplateDetails
+  getProductTemplateDetails,
+  onUpdateTemplate
 }) => {
   const [showShareModal, setShareModal] = useState(false);
   const [showImportModal, setImportModal] = useState(false);
@@ -123,6 +126,12 @@ const Templates = ({
     });
   };
 
+  const onApplyTemplate = (template) => {
+    if (isFunction(onUpdateTemplate))
+      onUpdateTemplate(template);
+    onClose();
+  };
+
   return (
     <>
       <Modal
@@ -131,9 +140,9 @@ const Templates = ({
         // className='trackers-modal'
         closeBtnClassName='scripts-modal-close-btn'
       >
-        <FlexBox center style={{ margin: 20 }}>
-          <FlexBox column>
-            <FlexBox className='mb-3'>
+        <FlexBox column center style={{ margin: 20, marginTop: 40 }} flex>
+          <FlexBox column >
+            <FlexBox className='mb-3 mt-2'>
               <OptionCard
                 icon={<HiShare size={20} />}
                 title='Share as template'
@@ -141,8 +150,7 @@ const Templates = ({
                 marked
                 onClick={onToggleShareModal}
                 disabled={templateDetails?.hasTemplate}
-                flex
-                checked
+                checked={templateDetails?.hasTemplate}
               />
               <OptionCard
                 icon={<FaFileImport size={20} />}
@@ -150,7 +158,6 @@ const Templates = ({
                 description='Import Template from a link'
                 className='ml-3'
                 onClick={onToggleImportModal}
-                flex
               />
             </FlexBox>
             <SharingStatus {...templateDetails} />
@@ -167,6 +174,7 @@ const Templates = ({
         onClose={onToggleImportModal}
         isVisible={showImportModal}
         product={product}
+        onApplyTemplate={onApplyTemplate}
       />
     </>
   );

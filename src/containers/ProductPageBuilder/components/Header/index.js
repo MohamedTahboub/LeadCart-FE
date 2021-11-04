@@ -50,6 +50,7 @@ const Header = ({
   history,
   onSave,
   savingStatus = {},
+  onUpdateTemplate,
   isTogglingBetweenTemplates,
   saving
 }) => {
@@ -196,6 +197,7 @@ const Header = ({
         isSaving={saving}
         product={product}
         onSaveTheProduct={onSave}
+        onUpdateTemplate={onUpdateTemplate}
       />
     </FlexBox>
   );
