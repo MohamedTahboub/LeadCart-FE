@@ -5,17 +5,15 @@ import PropTypes from 'prop-types';
 import * as immutable from 'object-path-immutable';
 
 import './style.css';
-import { Title } from 'components/common/Titles';
 import Toggle from 'components/common/Inputs/Toggle';
 import AddImage from 'components/common/Inputs/AddImage';
 import { createProductsTemplateSchema } from 'libs/validation';
 import { connect } from 'react-redux';
 import { createProductTemplate } from 'actions/product';
 import { isFunction } from 'libs/checks';
-import { isObjectsEquivalent, notification, slugify } from 'libs';
+import { notification, slugify } from 'libs';
 import { HiShare } from 'react-icons/hi';
 const {
-  MainTitle,
   Button,
   FlexBox,
   InputRow
@@ -52,7 +50,7 @@ const ShareTemplateModal = ({
 
   const [fields, setFields] = useState({});
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [, setErrors] = useState({});
 
   const onToggleLoading = () => setLoading((l) => !l);
 

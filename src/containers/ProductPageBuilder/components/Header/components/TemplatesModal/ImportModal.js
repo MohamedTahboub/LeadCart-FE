@@ -2,18 +2,14 @@ import React, { useState } from 'react';
 import { Modal } from 'components/Modals';
 import common from 'components/common';
 import PropTypes from 'prop-types';
-import { Title } from 'components/common/Titles';
 import { connect } from 'react-redux';
 import { importProductTemplate } from 'actions/product';
 import { notification } from 'libs';
 import './style.css';
-import { isFunction } from 'libs/checks';
-import product from 'middlewares/modelsShapers/product';
 import { Note } from 'components/common/Notes';
 import { FaFileImport } from 'react-icons/fa';
 
 const {
-  // MainTitle,
   Button,
   FlexBox,
   InputRow

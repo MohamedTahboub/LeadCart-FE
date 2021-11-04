@@ -35,7 +35,6 @@ import {
   Workspace
 } from './components';
 import { isFunction } from 'libs/checks';
-import product from 'propTypes/product';
 
 const {
   Page,

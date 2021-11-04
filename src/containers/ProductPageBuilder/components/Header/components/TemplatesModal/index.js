@@ -117,6 +117,7 @@ const Templates = ({
 
   useEffect(() => {
     checkIfTHeProductHasTemplate();
+    // eslint-disable-next-line
   }, []);
 
   const updateTemplateStatus = (details) => {
