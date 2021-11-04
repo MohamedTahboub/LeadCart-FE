@@ -76,8 +76,8 @@ export const invoicingSettingsSchema = async (fields) => {
       country: yup.string().required('Country is required')
     }),
     logo: yup.string().url().default(leadcartDefaultLogo),
-    taxId: yup.string(),
-    enabled: yup.boolean().default(true)
+    taxId: yup.string()
+    // enabled: yup.boolean().default(true)
   }).required();
 
   try {
