@@ -5,7 +5,7 @@ import { AiOutlineHistory, AiOutlineMobile, AiOutlineShareAlt } from 'react-icon
 import { MdDesktopWindows, MdTabletMac } from 'react-icons/md';
 import { FaCode } from 'react-icons/fa';
 import { useContext } from '../../actions';
-import { ScriptsModal } from './components';
+import { ScriptsModal, TemplatesModal } from './components';
 import './style.css';
 
 const {
@@ -50,6 +50,7 @@ const Header = ({
   history,
   onSave,
   savingStatus = {},
+  onUpdateTemplate,
   isTogglingBetweenTemplates,
   saving
 }) => {
@@ -58,7 +59,7 @@ const Header = ({
     state: {
       displayMode,
       standAlone,
-      product: { name: productName, scripts = {} } = {},
+      product = {},
       funnel: {
         url: funnelUrl,
         name: funnelName
@@ -66,9 +67,13 @@ const Header = ({
     },
     actions
   } = useContext();
+  const { name: productName, scripts = {} } = product;
 
   const [openScriptModal, setOpenScriptModal] = useState(false);
+  const [openSharingModal, setOpenSharingModal] = useState(false);
+
   const onToggleScriptModal = () => setOpenScriptModal((open) => !open);
+  const onToggleSharingModal = () => setOpenSharingModal((open) => !open);
 
   const goToProducts = () => {
     if (standAlone) history.push('/products');
@@ -115,7 +120,7 @@ const Header = ({
           <Tooltip placement='bottomRight' text={'Coming Soon'}>
             <Button
               className='light-btn ml-3 share-template-btn'
-              disabled
+              onClick={onToggleSharingModal}
             >
               <FlexBox center='v-center'>
                 <AiOutlineShareAlt className='gray-text mr-1' />
@@ -184,6 +189,15 @@ const Header = ({
         onChange={onChange}
         isSaving={saving}
         onSaveTheProduct={onSave}
+      />
+      <TemplatesModal
+        isVisible={openSharingModal}
+        onClose={onToggleSharingModal}
+        onChange={onChange}
+        isSaving={saving}
+        product={product}
+        onSaveTheProduct={onSave}
+        onUpdateTemplate={onUpdateTemplate}
       />
     </FlexBox>
   );

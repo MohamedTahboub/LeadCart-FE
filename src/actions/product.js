@@ -1,11 +1,20 @@
 import {
   CREATE_NEW_PRODUCT,
+  CREATE_PRODUCT_TEMPLATE,
+  CREATE_PRODUCT_TEMPLATE_FAILED,
+  CREATE_PRODUCT_TEMPLATE_SUCCESS,
   DELETE_USER_PRODUCT,
   DELETE_USER_PRODUCT_FAILED,
   DELETE_USER_PRODUCT_SUCCESS,
   GET_PRODUCT_DETAILS,
   GET_PRODUCT_FAILED,
   GET_PRODUCT_SUCCESS,
+  GET_PRODUCT_TEMPLATE_DETAILS,
+  GET_PRODUCT_TEMPLATE_DETAILS_FAILED,
+  GET_PRODUCT_TEMPLATE_DETAILS_SUCCESS,
+  IMPORT_PRODUCT_TEMPLATE,
+  IMPORT_PRODUCT_TEMPLATE_FAILED,
+  IMPORT_PRODUCT_TEMPLATE_SUCCESS,
   NEW_PRODUCT_FIELD_UPDATE,
   NEW_PRODUCT_INVALID_FORM,
   PRODUCT_BOOSTERS_FIELD_UPDATE,
@@ -171,4 +180,46 @@ export const toggleProductAvailabilityFailed = (message) => ({
 export const refundProduct = (payload) => ({
   type: REFUND_PRODUCT,
   payload
+});
+
+export const getProductTemplateDetails = (payload, meta) => ({
+  type: GET_PRODUCT_TEMPLATE_DETAILS,
+  payload,
+  meta
+});
+export const getProductTemplateDetailsSuccess = (details) => ({
+  type: GET_PRODUCT_TEMPLATE_DETAILS_SUCCESS,
+  payload: details
+});
+export const getProductTemplateDetailsFailed = (message) => ({
+  type: GET_PRODUCT_TEMPLATE_DETAILS_FAILED,
+  payload: message
+});
+
+export const createProductTemplate = (payload, meta) => ({
+  type: CREATE_PRODUCT_TEMPLATE,
+  payload,
+  meta
+});
+export const createProductTemplateSuccess = (details) => ({
+  type: CREATE_PRODUCT_TEMPLATE_SUCCESS,
+  payload: details
+});
+export const createProductTemplateFailed = (message) => ({
+  type: CREATE_PRODUCT_TEMPLATE_FAILED,
+  payload: message
+});
+
+export const importProductTemplate = (payload, meta) => ({
+  type: IMPORT_PRODUCT_TEMPLATE,
+  payload,
+  meta
+});
+export const importProductTemplateSuccess = (details) => ({
+  type: IMPORT_PRODUCT_TEMPLATE_SUCCESS,
+  payload: details
+});
+export const importProductTemplateFailed = (message) => ({
+  type: IMPORT_PRODUCT_TEMPLATE_FAILED,
+  payload: message
 });
