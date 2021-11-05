@@ -66,7 +66,7 @@ const ShareTemplateModal = ({
       layout: abstractTemplateFromProduct(product),
       ...fields
     });
-    console.log({ product, isValid, errors });
+
     if (!isValid) {
       return setErrors({
         ...errors,

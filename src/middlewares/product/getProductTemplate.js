@@ -7,7 +7,7 @@ export default ({ dispatch }) => (next) => (action) => {
   if (action.type !== GET_PRODUCT_TEMPLATE_DETAILS) return next(action);
 
   const { payload: { productId = '' } = {}, meta: { onSuccess, onFailed } = {} } = action;
-  console.log({ productId });
+
   dispatch(apiRequest({
     options: {
       method: 'get',
