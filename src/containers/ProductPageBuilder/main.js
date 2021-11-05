@@ -306,6 +306,8 @@ const ProductBuilder = ({
           saving={saving}
           savingStatus={state.savingStatus}
           isTogglingBetweenTemplates={showTemplateWidget}
+          product={state?.product}
+          onUpdateTemplate={onUpdateTemplate}
         />
         <FlexBox id='blocks' flex className='relative-element'>
           <ScreenBackgroundSetup backgrounds={pageStyles} />

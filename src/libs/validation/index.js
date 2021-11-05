@@ -15,3 +15,8 @@ export { default as funnelRuleSchema } from './funnelRule';
 export { default as languagesSchema } from './languagesSchema';
 export { default as funnelDuplicateSchema } from './funnelDuplicate';
 export { default as productsFontsSchema } from './productsFonts';
+export {
+  createProductsTemplate as createProductsTemplateSchema,
+  updateProductsTemplate as updateProductsTemplateSchema
+} from './createProductTemplate';
+
