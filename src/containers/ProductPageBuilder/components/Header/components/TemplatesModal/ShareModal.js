@@ -7,9 +7,9 @@ import * as immutable from 'object-path-immutable';
 import './style.css';
 import Toggle from 'components/common/Inputs/Toggle';
 import AddImage from 'components/common/Inputs/AddImage';
-import { createProductsTemplateSchema } from 'libs/validation';
+import { createProductsTemplateSchema, updateProductsTemplateSchema } from 'libs/validation';
 import { connect } from 'react-redux';
-import { createProductTemplate } from 'actions/product';
+import { createProductTemplate, updateProductTemplate } from 'actions/product';
 import { isFunction } from 'libs/checks';
 import { notification, slugify } from 'libs';
 import { HiShare } from 'react-icons/hi';
@@ -45,12 +45,15 @@ const ShareTemplateModal = ({
   onClose,
   product = {},
   updateTemplateStatus,
-  createProductTemplate
+  templateDetails = {},
+  createProductTemplate,
+  updateProductTemplate
 }) => {
 
-  const [fields, setFields] = useState({});
+  const [fields, setFields] = useState(templateDetails);
   const [loading, setLoading] = useState(false);
-  const [, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
+  const isEdit = Boolean(templateDetails.hasTemplate);
 
   const onToggleLoading = () => setLoading((l) => !l);
 
@@ -92,21 +95,55 @@ const ShareTemplateModal = ({
     });
   };
 
+  const onUpdateTemplate = async () => {
+    const { isValid, value, errors } = await updateProductsTemplateSchema({
+      productId: product._id,
+      details: {
+        type: product.category,
+        productId: product._id,
+        layout: abstractTemplateFromProduct(product),
+        ...fields
+      }
+    });
+    if (!isValid) {
+      console.log({ errors });
+      return setErrors({
+        ...errors,
+        message: ' please check your The Fields above'
+      });
+    }
+
+    onToggleLoading();
+    updateProductTemplate(value, {
+      onSuccess: () => {
+        onToggleLoading();
+        onClose();
+        isFunction(updateTemplateStatus) && updateTemplateStatus(value?.details);
+        notification.success('Template updated successfully!');
+      },
+      onFailed: (error) => {
+        onToggleLoading();
+        notification.failed(error);
+      }
+    });
+  };
+
   useEffect(() => {
-    const initialState = {
-      screenshot: product?.thumbnail,
-      name: product?.name,
-      handle: slugify(product.name)
-    };
+    if (!isEdit) {
+      setFields({
+        screenshot: product?.thumbnail,
+        name: product?.name,
+        handle: slugify(product.name)
+      });
+    } else {setFields(templateDetails);}
 
-    setFields(initialState);
-
-  }, [product]);
+  }, [product, isEdit]);
 
   const onHandleChange = ({ target: { name, value } }) => {
     const handle = slugify(value);
     setFields({ ...fields, [name]: handle });
   };
+
 
   return (
     <Modal
@@ -178,15 +215,17 @@ const ShareTemplateModal = ({
               className='screenshot-preview'
             />
           </FlexBox>
-
+          <FlexBox center='h-center' className='my-2'>
+            {errors.message && <span className='error-text'>{errors.message}</span>}
+          </FlexBox>
           <FlexBox flexEnd>
             <Button
               className='light-btn'
-              onClick={onSubmit}
+              onClick={isEdit ? onUpdateTemplate : onSubmit}
               onprogress={loading}
               style={{ padding: '5px 20px' }}
             >
-              Create a Template from this product
+              {isEdit ? 'Update Template' : 'Create a Template from this product'}
             </Button>
           </FlexBox>
         </FlexBox>
@@ -203,4 +242,4 @@ ShareTemplateModal.propTypes = {
 
 ShareTemplateModal.defaultProps = { scripts: {} };
 
-export default connect(null, { createProductTemplate })(ShareTemplateModal);
+export default connect(null, { createProductTemplate, updateProductTemplate })(ShareTemplateModal);

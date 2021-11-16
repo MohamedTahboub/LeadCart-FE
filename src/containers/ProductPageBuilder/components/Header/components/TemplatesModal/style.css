@@ -137,7 +137,8 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     border-left: 2px solid #4da0fe;
-    background-color: #eee;
+    /* background-color: #eee; */
+    padding: 15px;
 }
 
 .screenshot-preview img {
