@@ -136,7 +136,7 @@ const ShareTemplateModal = ({
         handle: slugify(product.name)
       });
     } else {setFields(templateDetails);}
-
+    // eslint-disable-next-line
   }, [product, isEdit]);
 
   const onHandleChange = ({ target: { name, value } }) => {
