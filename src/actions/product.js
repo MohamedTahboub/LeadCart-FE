@@ -33,7 +33,10 @@ import {
   TOGGLE_PRODUCT_AVAILABILITY_SUCCESS,
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_FAILED,
-  UPDATE_PRODUCT_SUCCESS
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_TEMPLATE,
+  UPDATE_PRODUCT_TEMPLATE_FAILED,
+  UPDATE_PRODUCT_TEMPLATE_SUCCESS
 } from '../constantsTypes';
 
 
@@ -209,6 +212,22 @@ export const createProductTemplateFailed = (message) => ({
   type: CREATE_PRODUCT_TEMPLATE_FAILED,
   payload: message
 });
+
+
+export const updateProductTemplate = (payload, meta) => ({
+  type: UPDATE_PRODUCT_TEMPLATE,
+  payload,
+  meta
+});
+export const updateProductTemplateSuccess = (details) => ({
+  type: UPDATE_PRODUCT_TEMPLATE_SUCCESS,
+  payload: details
+});
+export const updateProductTemplateFailed = (message) => ({
+  type: UPDATE_PRODUCT_TEMPLATE_FAILED,
+  payload: message
+});
+
 
 export const importProductTemplate = (payload, meta) => ({
   type: IMPORT_PRODUCT_TEMPLATE,
