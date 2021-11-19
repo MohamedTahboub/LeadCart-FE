@@ -15,6 +15,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import moment from 'moment';
 import Tooltip from 'components/common/Tooltip';
 import { isFunction } from 'libs/checks';
+import { Button } from 'components/common/Buttons';
+import { FiEdit } from 'react-icons/fi';
 
 const { FlexBox } = common;
 
@@ -44,49 +46,69 @@ const OptionCard = ({ title, icon, onClick, description, disabled, checked, clas
   );
 };
 
+const getTotalUsages = (usedBy) => {
+  let total = 0;
+  if (Array.isArray(usedBy)) {
+    usedBy.forEach((usage) => {
+      total += usage.times || 0;
+    });
+  }
+  return total;
+};
+
 const SharingStatus = (props) => {
-  const { className, hasTemplate, screenshot, createdAt, handle, name } = props;
+  const { className, hasTemplate, onEditTemplate, screenshot, createdAt, handle, name, usedBy } = props;
 
   if (!hasTemplate) return null;
 
-
+  const totalUsedTimes = getTotalUsages(usedBy);
   const titleStyle = { fontSize: 14, fontWeight: 500 };
+
   return (
-    <FlexBox
-      className={clx(className, 'template-status-card')}
-      style={{
-        border: '1px solid #eee',
-        borderRadius: 5,
-        padding: 15
-      }}
-      {...props}
-      spaceBetween
-    >
-      <FlexBox column spaceAround>
-        <span className='truncate' style={{ ...titleStyle, fontSize: 16, textTransform: 'capitalize', maxWidth: 350 }} >
-          <span style={{ fontWeight: 600 }}>Name: </span>
-          {name}
-        </span>
-        <FlexBox>
-          <span style={titleStyle} className='truncate'>
-            <span style={{ fontWeight: 600 }}>Template Handle: </span>
-            {handle}
-          </span>
-          <CopyToClipboard text={handle}>
-            <Tooltip text='Copied!' placement='top' trigger={['click']} >
-              <span className='copy-icon template-handle-copy'>
-                <i className='fas fa-copy' />
+    <>
+      <FlexBox column className={clx(className, 'template-status-card')}>
+        <FlexBox {...props} spaceBetween>
+          <FlexBox column spaceAround>
+            <span className='truncate' style={{ ...titleStyle, fontSize: 16, textTransform: 'capitalize', maxWidth: 350 }} >
+              <span style={{ fontWeight: 600 }}>Name: </span>
+              {name}
+            </span>
+            <FlexBox>
+              <span style={titleStyle} className='truncate'>
+                <span style={{ fontWeight: 600 }}>Template Handle: </span>
+                {handle}
               </span>
-            </Tooltip>
-          </CopyToClipboard>
+              <CopyToClipboard text={handle}>
+                <Tooltip text='Copied!' placement='top' trigger={['click']} >
+                  <span className='copy-icon template-handle-copy'>
+                    <i className='fas fa-copy' />
+                  </span>
+                </Tooltip>
+              </CopyToClipboard>
+            </FlexBox>
+            <span style={titleStyle} >
+              <span style={{ fontWeight: 600 }}>Created Date: </span>
+              {moment(createdAt).format('MM - DD - YYYY')}
+            </span>
+            {Boolean(totalUsedTimes) && (
+              <span style={titleStyle} className='truncate'>
+                <span style={{ fontWeight: 600 }}>Used Times: </span>
+                {totalUsedTimes}
+              </span>
+            )}
+          </FlexBox>
+          <img src={screenshot} alt='thumbnail' className='status-template-screenshot' />
         </FlexBox>
-        <span style={titleStyle} >
-          <span style={{ fontWeight: 600 }}>Created Date: </span>
-          {moment(createdAt).format('MM - DD - YYYY')}
-        </span>
       </FlexBox>
-      <img src={screenshot} alt='thumbnail' className='status-template-screenshot' />
-    </FlexBox>
+      <FlexBox flexEnd className='mt-3'>
+        <Button className='light-btn' onClick={onEditTemplate} style={{ padding: '5px 20px' }}>
+          <FlexBox center='v-center'>
+            <FiEdit color='currentColor' className='mr-2' />
+            <span>Edit</span>
+          </FlexBox>
+        </Button>
+      </FlexBox>
+    </>
   );
 };
 
@@ -133,6 +155,10 @@ const Templates = ({
     onClose();
   };
 
+  const onEditTemplate = () => {
+    setShareModal(true);
+  };
+
   return (
     <>
       <Modal
@@ -161,7 +187,7 @@ const Templates = ({
                 onClick={onToggleImportModal}
               />
             </FlexBox>
-            <SharingStatus {...templateDetails} />
+            <SharingStatus {...templateDetails} onEditTemplate={onEditTemplate} />
           </FlexBox>
         </FlexBox>
       </Modal>
@@ -170,6 +196,7 @@ const Templates = ({
         isVisible={showShareModal}
         product={product}
         updateTemplateStatus={updateTemplateStatus}
+        templateDetails={templateDetails}
       />
       <ImportTemplateModal
         onClose={onToggleImportModal}

@@ -6,6 +6,7 @@ const validate = async (schema, data) => {
     const fontsDetails = await schema.validateSync(data, { abortEarly: false, stripUnknown: true });
     return { isValid: true, value: fontsDetails };
   } catch (err) {
+    console.log('err', err);
     return { isValid: false, errors: castYupErrors(err) };
   }
 };
@@ -30,10 +31,10 @@ export const createProductsTemplate = async (data) => {
 };
 
 export const updateProductsTemplate = async (data) => {
-  const schema = {
+  const schema = yup.object({
     productId: yup.string().required(),
     details: productTemplateSchema
-  };
+  });
 
   return validate(schema, data);
 };
