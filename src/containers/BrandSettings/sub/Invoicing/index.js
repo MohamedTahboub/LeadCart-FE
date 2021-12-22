@@ -47,7 +47,8 @@ const Invoicing = ({ invoicing, ...props }) => {
 
   const onDownloadSampleInvoice = async (e) => {
     e.preventDefault();
-    const { isValid, value: invoiceDetails = {} } = await invoicingSettingsSchema(values);
+    // eslint-disable-next-line
+    const { isValid, value: { enabled, ...invoiceDetails } = {} } = await invoicingSettingsSchema(values);
 
     if (!isValid)
       return notification.failed('Please check the fields, all fields are required');
