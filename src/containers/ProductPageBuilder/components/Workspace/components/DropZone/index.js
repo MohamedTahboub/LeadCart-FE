@@ -4,7 +4,6 @@ import clx from 'classnames';
 import { useDrop } from 'react-dnd';
 import * as dropTypes from '../dropTypes';
 
-
 export default ({ children, parentZone, onDrop, moveCard, style }) => {
 
   const [, drop] = useDrop({
